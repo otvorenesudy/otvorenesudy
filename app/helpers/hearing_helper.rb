@@ -1,0 +1,2 @@
+module HearingHelper
+end

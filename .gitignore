@@ -1,4 +1,5 @@
 .project
+.project.backup
 .bundle
 .sass-cache/
 
