@@ -1,3 +1,4 @@
 class LegislationUsage < ActiveRecord::Base
-  # attr_accessible :title, :body
+  belongs_to :legislation
+  belongs_to :decree
 end

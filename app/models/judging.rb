@@ -1,3 +1,4 @@
 class Judging < ActiveRecord::Base
-  # attr_accessible :title, :body
+  belongs_to :judge
+  belongs_to :hearing
 end

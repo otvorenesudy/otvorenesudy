@@ -1,3 +1,4 @@
 class Proceeding < ActiveRecord::Base
-  # attr_accessible :title, :body
+  has_many :hearings
+  has_many :decrees
 end

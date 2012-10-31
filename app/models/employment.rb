@@ -1,3 +1,6 @@
 class Employment < ActiveRecord::Base
-  # attr_accessible :title, :body
+  belongs_to :court
+  belongs_to :judge
+  
+  belongs_to :position, class_name: :JudgePosition
 end

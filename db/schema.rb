@@ -23,14 +23,14 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
   add_index "accusations", ["defendant_id"], :name => "index_accusations_on_defendant_id"
 
   create_table "court_jurisdictions", :force => true do |t|
-    t.integer  "court_id",                 :null => false
     t.integer  "court_proceeding_type_id", :null => false
     t.integer  "municipality_id",          :null => false
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end
 
-  add_index "court_jurisdictions", ["court_id"], :name => "index_court_jurisdictions_on_court_id"
+  add_index "court_jurisdictions", ["court_proceeding_type_id"], :name => "index_court_jurisdictions_on_court_proceeding_type_id"
+  add_index "court_jurisdictions", ["municipality_id"], :name => "index_court_jurisdictions_on_municipality_id"
 
   create_table "court_offices", :force => true do |t|
     t.integer  "court_id",        :null => false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
 
   create_table "courts", :force => true do |t|
     t.integer  "court_type_id",               :null => false
+    t.integer  "court_jurisdiction_id"
     t.integer  "municipality_id",             :null => false
     t.string   "name",                        :null => false
     t.string   "street",                      :null => false
@@ -191,7 +192,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.string   "room"
     t.string   "special_type"
     t.datetime "commencement_date"
-    t.integer  "presiding_judge_id"
+    t.integer  "chair_judge_id"
     t.boolean  "selfjudge"
     t.string   "note"
     t.datetime "created_at",         :null => false

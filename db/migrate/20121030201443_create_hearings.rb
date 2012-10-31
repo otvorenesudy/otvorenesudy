@@ -17,7 +17,7 @@ class CreateHearings < ActiveRecord::Migration
       
       t.string     :special_type
       t.datetime   :commencement_date
-      t.references :presiding_judge
+      t.references :chair_judge
       t.boolean    :selfjudge
 
       t.string :note
