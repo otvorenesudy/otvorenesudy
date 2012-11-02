@@ -1,15 +1,16 @@
 class Court < ActiveRecord::Base
-  attr_accessible :name,
+  attr_accessible :uri,
+                  :name,
                   :street,
-                  :email,
                   :phone,
                   :fax,
-                  :media_person_name,
+                  :media_person,
                   :media_phone,
                   :latitude,
                   :longitude
   
-  belongs_to :type, class_name: :CourtType
+  belongs_to :type, class_name: :CourtType,
+                    foreign_key: :court_type_id
   
   has_many :employments, dependent: :destroy
   
@@ -19,6 +20,8 @@ class Court < ActiveRecord::Base
   has_many :decrees,  dependent: :destroy
   
   belongs_to :jurisdiction, class_name: :CourtJurisdiction
+  
+  belongs_to :municipality
   
   belongs_to :information_center, class_name: :CourtOffice,
                                   dependent: :destroy

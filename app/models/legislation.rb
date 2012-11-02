@@ -6,7 +6,8 @@ class Legislation < ActiveRecord::Base
                   :section,
                   :letter
   
-  has_many :usages, class_name: :LegislationUsage
+  has_many :usages, class_name: :LegislationUsage,
+                    foreign_key: :legislation_usage_id
   
   has_many :decrees, through: :usages
   

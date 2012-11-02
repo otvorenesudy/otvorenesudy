@@ -1,5 +1,6 @@
 class Decree < ActiveRecord::Base
-  attr_accessible :case_number,
+  attr_accessible :uri,
+                  :case_number,
                   :file_number,
                   :date,
                   :ecli
@@ -9,8 +10,11 @@ class Decree < ActiveRecord::Base
   belongs_to :court
   belongs_to :judge
   
-  belongs_to :nature, class_name: :DecreeNature
-  belongs_to :form,   class_name: :DecreeForm
+  belongs_to :nature, class_name: :DecreeNature,
+                      foreign_key: :decree_nature_id
+  
+  belongs_to :form, class_name: :DecreeForm,
+                    foreign_key: :decree_form_id
   
   belongs_to :legislation_area
   belongs_to :legislation_subarea

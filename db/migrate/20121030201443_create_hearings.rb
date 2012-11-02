@@ -1,6 +1,8 @@
 class CreateHearings < ActiveRecord::Migration
   def change
     create_table :hearings do |t|
+      t.string :uri, null: false
+      
       t.references :proceeding, null: true
       t.references :court,      null: false
       
@@ -24,6 +26,8 @@ class CreateHearings < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :hearings, :uri, unique: true
     
     add_index :hearings, :proceeding_id
     add_index :hearings, :court_id

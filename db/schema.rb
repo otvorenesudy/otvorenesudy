@@ -65,15 +65,15 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
   add_index "court_types", ["value"], :name => "index_court_types_on_value", :unique => true
 
   create_table "courts", :force => true do |t|
+    t.string   "uri",                         :null => false
     t.integer  "court_type_id",               :null => false
     t.integer  "court_jurisdiction_id"
     t.integer  "municipality_id",             :null => false
     t.string   "name",                        :null => false
     t.string   "street",                      :null => false
-    t.string   "email"
     t.string   "phone"
     t.string   "fax"
-    t.string   "media_person_name"
+    t.string   "media_person"
     t.string   "media_phone"
     t.integer  "information_center_id"
     t.integer  "registry_center_id"
@@ -84,9 +84,11 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at",                  :null => false
   end
 
+  add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
+  add_index "courts", ["uri"], :name => "index_courts_on_uri", :unique => true
 
   create_table "decree_forms", :force => true do |t|
     t.string   "value",      :null => false
@@ -105,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
   add_index "decree_natures", ["value"], :name => "index_decree_natures_on_value", :unique => true
 
   create_table "decrees", :force => true do |t|
+    t.string   "uri",                    :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id",               :null => false
     t.integer  "judge_id",               :null => false
@@ -123,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
   add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
+  add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
 
   create_table "defendants", :force => true do |t|
     t.integer  "hearing_id", :null => false
@@ -180,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
   add_index "hearing_types", ["value"], :name => "index_hearing_types_on_value", :unique => true
 
   create_table "hearings", :force => true do |t|
+    t.string   "uri",                :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id",           :null => false
     t.integer  "hearing_type_id",    :null => false
@@ -201,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
 
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
+  add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
   create_table "judge_positions", :force => true do |t|
     t.string   "value",      :null => false
@@ -271,11 +277,13 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
 
   create_table "municipalities", :force => true do |t|
     t.string   "name",       :null => false
+    t.integer  "zipcode",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   add_index "municipalities", ["name"], :name => "index_municipalities_on_name", :unique => true
+  add_index "municipalities", ["zipcode"], :name => "index_municipalities_on_zipcode", :unique => true
 
   create_table "opponents", :force => true do |t|
     t.integer  "hearing_id", :null => false
