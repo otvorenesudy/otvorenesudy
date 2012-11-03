@@ -3,15 +3,19 @@ require 'spec_helper'
 
 describe "Downloader" do 
   it "should download first page of hearings with 100 results" do
+    request = JusticeGovSk::Config::Hearings::CriminalList.new 
     downloader = Downloader.new
 
-    Justicegovsk::Config::Hearings::Criminal.page(1)
-    Justicegovsk::Config::Hearings::Criminal.count(100)
+    downloader.wait_time = 0.seconds
 
-    downloader.headers = Justicegovsk::Config::Hearings::Criminal.headers
-    downloader.data = Justicegovsk::Config::Hearings::Criminal.data
+    # it is possible to chain methods like .page(1).count(1)
+    request.page(1)
+    request.count(100)
+
+    downloader.headers = request.headers
+    downloader.data = request.data
     
-    data = downloader.download(Justicegovsk::Config::Hearings::Criminal.url)
+    data = downloader.download(request.url)
 
     data.should_not be_nil
   end
