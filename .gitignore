@@ -12,7 +12,10 @@ public/documents/*
 public/assets/*
 
 tmp/ 
+tmp/cache/*
 
 tags
 .tags
+
 Gemfile.lock
+
