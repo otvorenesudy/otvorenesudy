@@ -9,6 +9,7 @@ class Downloader
                 :cache_store,
                 :headers,
                 :params,
+                :data,
                 :repeat,
                 :timeout,
                 :wait_time
@@ -20,12 +21,17 @@ class Downloader
     @cache_store          = true
     
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
-    @params               = {}
+    #@params              = {}
+    @data                 = {}  
 
-    @repeat               = 8
+    @repeat               = 1 
     @timeout              = 30.seconds
     
     @wait_time            = 2.seconds
+  end
+
+  def format_params 
+    @params.map { |param, value| "#{param}=#{value}" }.join("&") unless params.nil?
   end
   
   def download(uri)
@@ -37,41 +43,56 @@ class Downloader
     
     return content unless content.nil?
     
-    exception = nil;
+    exception = nil
     
-    uri = URI.parse(uri)
-
+    uri = URI.encode(uri)
+      
     1.upto @repeat do |i|
       wait
+           
+      #Net::HTTP.start(uri.host, uri.port) do |http|
+        #request = Net::HTTP::Post.new(uri.request_uri)
+
+        #@headers.each { |k, v| request[k] = v }
+
+        #request.form_data = @params
+
+        #http.read_timeout = @timeout
+
+        #response = http.request(request)
+
+        #case response
+        #when Net::HTTPSuccess then
+          #content = response.body
+
+          #puts "done (#{content.length} bytes)"
+
+          #store(path, content) if @cache_store
+
+          #return content
+        #else
+          #puts "failed (#{response.code} #{response.message})"
+          #raise "#{response.code} #{response.message}"
+        #end
+      #end
+
+      # curl init
+      @request = Curl::Easy.http_post(uri, @data) do |curl|
+
+        # headers
+        @headers.each do |param, value|
+          curl.headers[param] = value           
+        end
       
+      end
+          
       begin
         print "Downloading #{uri} ... "
-            
-        Net::HTTP.start(uri.host, uri.port) do |http|
-          request = Net::HTTP::Post.new(uri.request_uri)
-
-          @headers.each { |k, v| request[k] = v }
         
-          request.form_data = @params
-          
-          http.read_timeout = @timeout
-
-          response = http.request(request)
-
-          case response
-            when Net::HTTPSuccess then
-              content = response.body
-              
-              puts "done (#{content.length} bytes)"
-
-              store(path, content) if @cache_store
-
-              return content
-            else
-              puts "failed (#{response.code} #{response.message})"
-              raise "#{response.code} #{response.message}"
-          end
-        end
+        @request.perform
+        return @request.body_str
+  
+      # TODO: Change Error to match Curl::Err
       rescue Errno::ECONNRESET, Errno::ECONNREFUSED => e
         puts "failed (#{e.message.downcase}, attempt #{i} of #{@repeat})"
         exception = e
