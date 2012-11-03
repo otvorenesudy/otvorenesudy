@@ -106,7 +106,7 @@ class Downloader
       end
     end
     
-    raise exception || "Unknown error"
+    raise exception || "Unknown error" unless exception.nil?
   end
   
   private
