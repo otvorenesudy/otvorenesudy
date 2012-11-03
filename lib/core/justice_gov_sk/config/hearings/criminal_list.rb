@@ -1,14 +1,14 @@
-module Justicegovsk
+module JusticeGovSk
   module Config
     module Hearings
-      class Criminal
-        extend Request
+      class CriminalList
+        include JusticeGovSk::Config::Request
 
-        def self.request_dump_path
+        def request_dump_path
           "criminal_hearing_request_dump"
         end
 
-        def self.url
+        def url
           "http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieTrestZoznam.aspx"
         end
       end

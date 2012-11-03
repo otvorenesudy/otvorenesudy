@@ -1,5 +1,5 @@
 # encoding: utf-8
-module Justicegovsk
+module JusticeGovSk
   module Config
     module Request
       def headers
@@ -25,10 +25,12 @@ module Justicegovsk
 
       def page(number)
         data.gsub!(/cmbAGVPager=\d+&/, "cmbAGVPager=#{number}&")
+        self
       end
 
       def count(number)
         data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{number}&")
+        self
       end
     end
   end
