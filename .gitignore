@@ -11,5 +11,8 @@ log/*.log
 public/documents/*
 public/assets/*
 
-tmp/
+tmp/ 
 
+tags
+.tags
+Gemfile.lock
