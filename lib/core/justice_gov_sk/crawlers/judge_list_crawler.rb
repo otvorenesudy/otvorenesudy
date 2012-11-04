@@ -8,7 +8,7 @@ module JusticeGovSk
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parsers::JudgeListParser.new, persistor)
       end
-      
+
     end
   end
 end

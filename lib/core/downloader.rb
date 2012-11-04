@@ -14,8 +14,8 @@ class Downloader
                 :timeout,
                 :wait_time
 
-  attr_reader   :request,
-                :response_code
+  attr_reader :request,
+              :response_code
    
 
   def initialize

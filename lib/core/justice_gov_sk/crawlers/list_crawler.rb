@@ -3,7 +3,8 @@ module JusticeGovSk
     class ListCrawler < Crawler
       include Pluralize
       
-      attr_accessor :page
+      attr_accessor :request,
+                    :page
       
       attr_reader :pages,
                   :per_page,
@@ -18,13 +19,19 @@ module JusticeGovSk
         @next_page = nil
       end
     
-      def crawl(uri)
+      def crawl(request)
         introduce
         puts "Working on page #{@page} of #{@pages || '?'}, max. #{pluralize @per_page, 'item'} per page."
     
         list = []
         
-        content  = @downloader.download(uri)
+        request.page     = @page
+        request.per_page = @per_page
+        
+        @downloader.headers = request.headers
+        @downloader.data    = request.data
+        
+        content  = @downloader.download(request.url)
         document = @parser.parse(content)
         
         @page      = @parser.page(document)

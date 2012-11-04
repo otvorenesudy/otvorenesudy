@@ -2,7 +2,12 @@
 
 module JusticeGovSk
   module Config
-    module ListRequest
+    class ListRequest
+      attr_accessor :page,
+                    :per_page
+      
+      attr_reader :data
+      
       def headers
         {
           'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -28,14 +33,12 @@ module JusticeGovSk
         File.join Rails.root, 'lib', 'assets', 'request_data', "#{name.underscore}.data"
       end
 
-      def page(number)
-        data.gsub!(/cmbAGVPager=\d+&/, "cmbAGVPager=#{number}&")
-        self
+      def page=(value)
+        data.gsub!(/cmbAGVPager=\d+&/, "cmbAGVPager=#{value}&")
       end
 
-      def per_page(number)
-        data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{number}&")
-        self
+      def per_page=(value)
+        data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{value}&")
       end
     end
   end

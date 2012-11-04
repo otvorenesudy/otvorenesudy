@@ -38,13 +38,7 @@ namespace :test do
     
     c = JusticeGovSk::Crawlers::ListCrawler.new d
     
-    u = 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx'
-    #u = 'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieTrestZoznam.aspx'
-    #u = 'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieZoznam.aspx'
-    #u = 'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieSpecZoznam.aspx'
-    #u = 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx'
-    
-    l=c.crawl u
+    l=c.crawl JusticeGovSk::Config::Courts::CourtList.new
     
     l.each { |i|
       puts i
