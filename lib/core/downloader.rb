@@ -39,42 +39,17 @@ class Downloader
 
     FileUtils.mkpath(File.dirname(path)) if @cache_store
 
-    content = load(path) if @cache_load
-
-    return content unless content.nil?
+    if @cache_load 
+      content = load(path) 
+      return content unless content.nil?
+    end
 
     exception = nil
-
+  
     uri = URI.encode(uri)
 
     1.upto @repeat do |i|
       wait
-
-      #Net::HTTP.start(uri.host, uri.port) do |http|
-      #request = Net::HTTP::Post.new(uri.request_uri)
-
-      #@headers.each { |k, v| request[k] = v }
-
-      #request.form_data = @params
-
-      #http.read_timeout = @timeout
-
-      #response = http.request(request)
-
-      #case response
-      #when Net::HTTPSuccess then
-      #content = response.body
-
-      #puts "done (#{content.length} bytes)"
-
-      #store(path, content) if @cache_store
-
-      #return content
-      #else
-      #puts "failed (#{response.code} #{response.message})"
-      #raise "#{response.code} #{response.message}"
-      #end
-      #end
 
       # curl init
       @request = Curl::Easy.http_post(uri, @data) do |curl|
@@ -83,7 +58,6 @@ class Downloader
         @headers.each do |param, value|
           curl.headers[param] = value           
         end
-
       end
 
       begin
@@ -101,7 +75,7 @@ class Downloader
 
         return content
 
-        # TODO: Change Error to match Curl::Err
+      # TODO: Change Error to match Curl::Err
       rescue Errno::ECONNRESET, Errno::ECONNREFUSED => e
         puts "failed (#{e.message.downcase}, attempt #{i} of #{@repeat})"
         exception = e
