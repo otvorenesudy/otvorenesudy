@@ -8,7 +8,6 @@ class Downloader
                 :cache_load,
                 :cache_store,
                 :headers,
-                :params,
                 :data,
                 :repeat,
                 :timeout,
@@ -25,7 +24,6 @@ class Downloader
     @cache_store          = true
 
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
-    #@params              = {}
     @data                 = {}  
 
     @repeat               = 1 
@@ -38,35 +36,29 @@ class Downloader
     path = uri_to_path(uri)
 
     FileUtils.mkpath(File.dirname(path)) if @cache_store
+     
+    content = load(path) if @cache_load 
 
-    if @cache_load 
-      content = load(path) 
-      return content unless content.nil?
-    end
-
-    exception = nil
+    return content unless content.nil?
   
     uri = URI.encode(uri)
 
     1.upto @repeat do |i|
       wait
 
-      # curl init
       @request = Curl::Easy.http_post(uri, @data) do |curl|
-
-        # headers
         @headers.each do |param, value|
-          curl.headers[param] = value           
+          curl.headers[param] = value         
         end
       end
 
       begin
         print "Downloading #{uri} ... "
 
-        # Fire!
         @request.perform
         
         @response_code = @request.response_code
+        
         content = @request.body_str
 
         puts "done (#{content.length} bytes)"
@@ -74,22 +66,16 @@ class Downloader
         store(path, content) if @cache_store
 
         return content
-
-      # TODO: Change Error to match Curl::Err
-      rescue Errno::ECONNRESET, Errno::ECONNREFUSED => e
-        puts "failed (#{e.message.downcase}, attempt #{i} of #{@repeat})"
-        exception = e
-      rescue Errno::ETIMEDOUT, Timeout::Error => e
+        
+      rescue Curl::Err::TimeoutError, Timeout::Error
         puts "failed (connection timed out, attempt #{i} of #{@repeat})"
-        exception = e
       rescue Exception => e
         puts "failed (unable to handle #{e.class.name})"
-        exception = e
         break
       end
     end
 
-    raise exception || "Unknown error" unless exception.nil?
+    nil
   end
 
   private
@@ -97,7 +83,7 @@ class Downloader
   include Cache
 
   alias :cache_root= :root=
-    alias :cache_root  :root
+  alias :cache_root  :root
 
   def wait
     unless @wait_time.nil? || @wait_time <= 0
