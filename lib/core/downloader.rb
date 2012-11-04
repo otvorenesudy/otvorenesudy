@@ -69,11 +69,16 @@ class Downloader
         
         content = @request.body_str
 
-        puts "done (#{content.length} bytes)"
-
-        store(path, content) if @cache_store
-
-        return content
+        if @request.response_code == 200
+          puts "done (#{content.length} bytes)"
+          
+          store(path, content) if @cache_store
+          
+          return content
+        end
+        
+        puts  "failed (#{content.length} bytes, response code #{@request.response_code})"
+        raise "Invalid response code #{@request.response_code}"
         
       rescue Curl::Err::TimeoutError, Timeout::Error => e
         puts "failed (connection timed out, attempt #{i} of #{@repeat})"
