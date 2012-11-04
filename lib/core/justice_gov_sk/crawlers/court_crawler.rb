@@ -89,18 +89,15 @@ module JusticeGovSk
       private
       
       def court_office(type, office, document)
-        phone = @parser.office_phone(type, document)
-        email = @parser.office_email(type, document)
-        hours = @parser.office_hours(type, document)
-        note  = @parser.office_note(type, document)
-
         office ||= court_office_factory.create
         
         office.court = @court
         
-        office.phone = phone
-        office.email = email
-        office.note  = note
+        office.phone = @parser.office_phone(type, document)
+        office.email = @parser.office_email(type, document)
+        office.note  = @parser.office_note(type, document)
+        
+        hours = @parser.office_hours(type, document)
         
         office.hours_monday    = hours[:monday]
         office.hours_tuesday   = hours[:tuesday]
