@@ -4,18 +4,43 @@ class FactorySupplier
   def initialize
     @prototypes = {}
     
+    set Factory.new(Accusation) { |defendant_id, value| Defendant.find_by_defendant_id_and_value(defendant_id, value) }
+
     set Factory.new(Court) { |uri| Court.find_by_uri(uri) }
     set Factory.new(CourtJurisdiction)
     set Factory.new(CourtOffice)
     set Factory.new(CourtProceedingType)
     set Factory.new(CourtType) { |value| CourtType.find_by_value(value) }
+
+    set Factory.new(Decree) { |uri| Decree.find_by_uri(uri) }
+    set Factory.new(DecreeForm) { |value| DecreeForm.find_by_value(value) }
+    set Factory.new(DecreeNature) { |value| DecreeNature.find_by_value(value) }
+
+    set Factory.new(Defendant) { |hearing_id, name| Defendant.find_by_hearing_id_and_name(hearing_id, name) }
     
     set Factory.new(Employment)
+
+    set Factory.new(Hearing) { |uri| Hearing.find_by_uri(uri) }
+    set Factory.new(HearingForm) { |value| HearingForm.find_by_value(value) }
+    set Factory.new(HearingNature) { |value| HearingNature.find_by_value(value) }
+    set Factory.new(HearingSection) { |value| HearingSection.find_by_value(value) }
+    set Factory.new(HearingSubject) { |value| HearingSubject.find_by_value(value) }
     
     set Factory.new(Judge) { |name| Judge.find_by_name(name) }
     set Factory.new(JudgePosition) { |value| JudgePosition.find_by_value(value) }
     
+    set Factory.new(Legislation)
+    set Factory.new(LegislationArea) { |value| LegislationArea.find_by_value(value) }
+    set Factory.new(LegislationSubarea) { |value| LegislationSubarea.find_by_value(value) }
+    set Factory.new(LegislationUsage)
+
     set Factory.new(Municipality) { |name| Municipality.find_by_name(name) }
+
+    set Factory.new(Opponent) { |hearing_id, name| Opponent.find_by_hearing_id_and_name(hearing_id, name) }
+    
+    set Factory.new(Proceeding)
+
+    set Factory.new(Proposer) { |hearing_id, name| Proposer.find_by_hearing_id_and_name(hearing_id, name) }
   end
 
   def get(type)

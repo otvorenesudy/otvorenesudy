@@ -65,8 +65,10 @@ namespace :test do
     d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
+    c = JusticeGovSk::Crawlers::DecreeCrawler.new d,p
 
     u = 'http://www.justice.gov.sk/Stranky/Sudy/Krajsky-sud-Kosice/SudDetail.aspx'
+    u = 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=FFEB47A9-5F69-4DF3-84E4-45E8860E830D&PojCislo=78401'
 
     c.crawl u
   end
