@@ -17,6 +17,7 @@ describe Downloader do
 
     html = @downloader.download(@request.url)
 
+    # TODO are we sure this works? .. we are using == in void context
     @downloader.response_code.should == 200
     html.should_not be_nil
   end
