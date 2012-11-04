@@ -21,25 +21,36 @@ describe Downloader do
     html.should_not be_nil
   end
 
-  it "should download first page of criminal hearings with 100 results" do
-    @request = JusticeGovSk::Config::Hearings::CriminalList.new 
-    
-    # it is possible to chain methods like .page(1).count(1)
-    @request.page(1)
-    @request.per_page(100)
+  describe "Hearings List downloads" do
+    it "should download first page of criminal hearings with 100 results" do
+      @request = JusticeGovSk::Config::Hearings::CriminalList.new 
+
+      # it is possible to chain methods like .page(1).count(1)
+      @request.page(1)
+      @request.per_page(100)
+    end
+
+    it 'should download first page of civil hearing with 20 results' do
+      @request = JusticeGovSk::Config::Hearings::CivilList.new 
+
+      @request.page(1)
+      @request.per_page(20)
+    end
+
+    it 'should download first page of special criminal hearings page with 50 results' do
+      @request = JusticeGovSk::Config::Hearings::SpecialCriminalList.new
+
+      @request.page(1)
+      @request.per_page(50)
+    end
   end
 
-  it 'should download first page of civil hearing with 20 results' do
-    @request = JusticeGovSk::Config::Hearings::CivilList.new 
-    
-    @request.page(1)
-    @request.per_page(20)
-  end
+  describe "Decrees List downloads" do
+    it 'should download first page of decrees with 100 results' do
+      @request = JusticeGovSk::Config::Decrees::List.new
 
-  it 'should download first page of special criminal hearings page with 50 results' do
-    @request = JusticeGovSk::Config::Hearings::SpecialCriminalList.new
-
-    @request.page(1)
-    @request.per_page(50)
+      @request.page(1)
+      @request.per_page(100)
+    end
   end
 end
