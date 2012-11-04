@@ -24,8 +24,9 @@ module JusticeGovSk
 
       def data_path
         name = self.class.name
-        
-        File.join File.dirname(__FILE__), 'data', "#{name[name.rindex('::')..-1].underscore}.data"
+        klass_name = name.split("::").last
+
+        File.join File.dirname(__FILE__), '_request_data', "#{klass_name.underscore}.data"
       end
 
       def page(number)
