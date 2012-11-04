@@ -23,7 +23,7 @@ class Downloader
     @cache_file_extension = nil
     @cache_load           = true
     @cache_store          = true
-    @cache_uri_to_path    = lambda { |downloader, uri| uri_to_path(downloader, uri) }
+    @cache_uri_to_path    = lambda { |downloader, uri| uri_to_path(uri) }
 
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
     @data                 = {}
@@ -140,6 +140,6 @@ class Downloader
   end
 
   def self.uri_to_path(downloader, uri)
-    super downloader.cache_file_extension.nil? ? uri : "#{uri}.#{downloader.cache_file_extension}"
+    uri_to_path downloader.cache_file_extension.nil? ? uri : "#{uri}.#{downloader.cache_file_extension}"
   end
 end
