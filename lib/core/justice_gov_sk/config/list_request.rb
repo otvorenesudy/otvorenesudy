@@ -19,7 +19,7 @@ module JusticeGovSk
       end 
       
       def data
-        @data || @data = File.read(File.join(File.dirname(__FILE__), '_dumps', request_dump_path))
+        @data || @data = File.read(File.join(File.dirname(__FILE__), 'data', data_filename))
       end
 
       def page(number)
