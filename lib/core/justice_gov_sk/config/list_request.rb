@@ -1,7 +1,7 @@
 # encoding: utf-8
 module JusticeGovSk
   module Config
-    module Request
+    module ListRequest
       def headers
         {
           'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
