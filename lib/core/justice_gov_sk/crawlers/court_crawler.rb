@@ -14,7 +14,7 @@ module JusticeGovSk
       def process(uri, content)
         document = @parser.parse(content)
         
-        unless uri.start_with? 'http://www.justice.gov.sk'
+        unless uri.start_with? JusticeGovSk::Config::URL.base
           puts "Invalid URI, court rejected."
           
           return nil

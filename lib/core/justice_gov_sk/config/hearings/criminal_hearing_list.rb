@@ -5,7 +5,7 @@ module JusticeGovSk
         include JusticeGovSk::Config::ListRequest
 
         def url
-          'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieTrestZoznam.aspx'
+          "#{JusticeGovSk::Config::URL.base}/Stranky/Pojednavania/PojednavanieTrestZoznam.aspx"
         end
       end
     end

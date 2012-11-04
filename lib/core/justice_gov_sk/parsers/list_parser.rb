@@ -5,7 +5,7 @@ module JusticeGovSk
     class ListParser < HtmlParser
       def list(document)
         values document, 'table.GridTable td[align=right] a', 'page' do |anchors|
-          anchors.map { |a| "http://www.justice.gov.sk#{a[:href]}" }
+          anchors.map { |a| "#{JusticeGovSk::Config::URL.base}#{a[:href]}" }
         end
       end
     
