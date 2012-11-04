@@ -1,0 +1,3 @@
+rvm use ruby-1.9.3@otvorenesudy --create
+rvm_trust_rvmrcs_flag=1
+rvm_trust_rvmrcs=1

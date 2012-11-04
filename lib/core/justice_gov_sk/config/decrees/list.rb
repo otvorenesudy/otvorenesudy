@@ -1,17 +1,18 @@
 module JusticeGovSk
   module Config
-    module Hearings
-      class CriminalList
+    module Decrees
+      class List
         include JusticeGovSk::Config::Request
 
         def request_dump_path
-          'criminal_list_hearings_request_dump'
+          'list_decrees_request_dump'
         end
 
         def url
-          'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieTrestZoznam.aspx'
+          'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx'
         end
       end
     end
   end
 end
+
