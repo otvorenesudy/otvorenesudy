@@ -1,0 +1,25 @@
+module JusticeGovSk
+  module Crawlers
+    class HearingCrawler < Crawler
+      include Factories
+      include Identify
+      include Pluralize 
+      
+      def initialize(downloader, persistor)
+        super(downloader, JusticeGovSk::Parsers::HearingParser.new, persistor)
+      end
+      
+      protected
+    
+      def process(uri, content)
+        document = @parser.parse(content)
+                
+        @hearing = hearing_factory.find_or_create(uri)
+        
+
+        
+        @persistor.persist(@hearing)
+      end
+    end
+  end
+end
