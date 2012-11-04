@@ -21,7 +21,7 @@ describe Downloader do
     html.should_not be_nil
   end
 
-  describe "Hearings List downloads" do
+  describe "for Hearings List downloads" do
     it "should download first page of criminal hearings with 100 results" do
       @request = JusticeGovSk::Config::Hearings::CriminalList.new 
 
@@ -45,11 +45,20 @@ describe Downloader do
     end
   end
 
-  describe "Decrees List downloads" do
+  describe "for Decrees List downloads" do
     it 'should download first page of decrees with 100 results' do
       @request = JusticeGovSk::Config::Decrees::List.new
 
       @request.page(1)
+      @request.per_page(100)
+    end
+  end
+
+  describe "for Judges List downloads" do
+    it 'should download second page of judges with 100 results' do
+      @request = JusticeGovSk::Config::Judges::List.new
+
+      @request.page(2)
       @request.per_page(100)
     end
   end
