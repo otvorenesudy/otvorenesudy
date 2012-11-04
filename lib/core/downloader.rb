@@ -1,6 +1,6 @@
 require 'net/http'
 
-# TODO refactor don't use net/http !!
+# TODO: Add verbose parameter to turn on/off verbosity
 
 class Downloader
   attr_accessor :cache_expire_time,
