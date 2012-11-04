@@ -25,52 +25,52 @@ describe Downloader do
 
   describe "for Hearings List downloads" do
     it "should download first page of criminal hearings with 100 results" do
-      @request = JusticeGovSk::Config::Hearings::CriminalHearingList.new 
+      @request = JusticeGovSk::Requests::CriminalHearingListRequest.new 
 
       # it is possible to chain methods like .page(1).count(1)
-      @request.page(1)
-      @request.per_page(100)
+      @request.page = 1
+      @request.per_page = 100
     end
 
     it 'should download first page of civil hearing with 20 results' do
-      @request = JusticeGovSk::Config::Hearings::CivilHearingList.new 
+      @request = JusticeGovSk::Requests::CivilHearingListRequest.new 
 
-      @request.page(1)
-      @request.per_page(20)
+      @request.page = 1
+      @request.per_page = 20
     end
 
     it 'should download first page of special criminal hearings page with 50 results' do
-      @request = JusticeGovSk::Config::Hearings::SpecialHearingList.new
+      @request = JusticeGovSk::Requests::SpecialHearingListRequest.new
 
-      @request.page(1)
-      @request.per_page(50)
+      @request.page = 1
+      @request.per_page = 50
     end
   end
 
   describe "for Decrees List downloads" do
     it 'should download first page of decrees with 100 results' do
-      @request = JusticeGovSk::Config::Decrees::DecreeList.new
+      @request = JusticeGovSk::Requests::DecreeListRequest.new
 
-      @request.page(1)
-      @request.per_page(100)
+      @request.page = 1
+      @request.per_page = 100
     end
   end
 
   describe "for Judges List downloads" do
     it 'should download second page of judges with 100 results' do
-      @request = JusticeGovSk::Config::Judges::JudgeList.new
+      @request = JusticeGovSk::Requests::JudgeListRequest.new
 
-      @request.page(2)
-      @request.per_page(100)
+      @request.page = 2
+      @request.per_page = 100
     end
   end
 
   describe "for Courts List downloads" do 
     it 'should download second page of courts with 20 results' do
-      @request = JusticeGovSk::Config::Courts::CourtList.new
+      @request = JusticeGovSk::Requests::CourtListRequest.new
 
-      @request.page(2)
-      @request.per_page(20)
+      @request.page = 2
+      @request.per_page = 20
     end
   end
 end

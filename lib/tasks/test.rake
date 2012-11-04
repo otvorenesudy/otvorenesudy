@@ -38,7 +38,7 @@ namespace :test do
     
     c = JusticeGovSk::Crawlers::ListCrawler.new d
     
-    l=c.crawl JusticeGovSk::Config::Courts::CourtList.new
+    l=c.crawl JusticeGovSk::Requests::CourtListRequest.new
     
     l.each { |i|
       puts i
@@ -52,7 +52,7 @@ namespace :test do
     
     d.wait_time = nil
     d.cache_load = false
-    d.cache_uri_to_path = JusticeGovSk::Config::URL.uri_to_path_lambda
+    d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
 

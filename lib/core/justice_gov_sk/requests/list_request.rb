@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Config
+  module Requests
     class ListRequest
       attr_accessor :page,
                     :per_page
@@ -30,7 +30,7 @@ module JusticeGovSk
       def data_path
         name = self.class.name.split('::').last
 
-        File.join Rails.root, 'lib', 'assets', 'request_data', "#{name.underscore}.data"
+        File.join Rails.root, 'lib', 'assets', 'requests_data', "#{name.underscore}.data"
       end
 
       def page=(value)

@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Config
+  module Requests
     module URL
       def self.base
         'http://www.justice.gov.sk'
@@ -21,7 +21,7 @@ module JusticeGovSk
       end
       
       def self.uri_to_path_lambda
-        @uri_to_path_lambda ||= lambda { |downloader, uri| JusticeGovSk::Config::URL.uri_to_path(downloader, uri) }
+        @uri_to_path_lambda ||= lambda { |downloader, uri| JusticeGovSk::Requests::URL.uri_to_path(downloader, uri) }
       end
     end
   end
