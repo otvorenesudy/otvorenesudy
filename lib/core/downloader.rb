@@ -7,6 +7,7 @@ class Downloader
                 :cache_file_extension,
                 :cache_load,
                 :cache_store,
+                :cache_uri_to_path,
                 :headers,
                 :data,
                 :repeat,
@@ -22,6 +23,7 @@ class Downloader
     @cache_file_extension = nil
     @cache_load           = true
     @cache_store          = true
+    @cache_uri_to_path    = lambda { |uri| uri_to_path(uri) }
 
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
     @data                 = {}  
@@ -33,7 +35,7 @@ class Downloader
   end
 
   def download(uri)
-    path = uri_to_path(uri)
+    path = @cache_uri_to_path.call(uri)
 
     FileUtils.mkpath(File.dirname(path)) if @cache_store
      
