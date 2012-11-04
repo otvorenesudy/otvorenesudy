@@ -63,4 +63,14 @@ describe Downloader do
       @request.per_page(100)
     end
   end
+
+  describe "for Courts List downloads" do 
+    it 'should download second page of courts with 20 results' do
+      @request = JusticeGovSk::Config::Courts::CourtList.new
+
+      @request.page(2)
+      @request.per_page(20)
+    end
+  end
 end
+
