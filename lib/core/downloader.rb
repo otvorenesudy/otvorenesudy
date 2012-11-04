@@ -26,9 +26,9 @@ class Downloader
     @cache_uri_to_path    = lambda { |downloader, uri| uri_to_path(downloader, uri) }
 
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
-    @data                 = {}  
+    @data                 = {}
 
-    @repeat               = 1 
+    @repeat               = 4
     @timeout              = 30.seconds
 
     @wait_time            = 2.seconds
