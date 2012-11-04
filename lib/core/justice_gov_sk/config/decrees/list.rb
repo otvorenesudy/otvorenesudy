@@ -2,7 +2,7 @@ module JusticeGovSk
   module Config
     module Decrees
       class List
-        include JusticeGovSk::Config::Request
+        include JusticeGovSk::Config::ListRequest
 
         def request_dump_path
           'list_decrees_request_dump'
