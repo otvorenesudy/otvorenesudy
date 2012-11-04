@@ -4,10 +4,10 @@ module JusticeGovSk
       include Pluralize
       
       attr_accessor :request,
-                    :page
+                    :page,
+                    :per_page
       
       attr_reader :pages,
-                  :per_page,
                   :next_page
       
       def initialize(downloader)
@@ -22,7 +22,7 @@ module JusticeGovSk
       def crawl(request)
         introduce
         puts "Working on page #{@page} of #{@pages || '?'}, max. #{pluralize @per_page, 'item'} per page."
-    
+        
         list = []
         
         request.page     = @page
@@ -41,7 +41,7 @@ module JusticeGovSk
         
         list = @parser.list(document)
     
-        puts "done (page #{@page} of #{@pages}, #{pluralize list.count, 'item'} (max. #{pluralize @per_page, 'item'}), next page #{@next_page || 'N/A'})"
+        puts "done (page #{@page} of #{@pages}, #{pluralize list.count, 'item'}, next page #{@next_page || 'N/A'})"
         
         list
       end

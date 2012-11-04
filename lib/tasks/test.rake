@@ -21,6 +21,7 @@ namespace :test do
     
     d.wait_time = nil
     d.cache_load = false
+    d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     d.params = data
     
@@ -35,14 +36,23 @@ namespace :test do
     
     d.wait_time = nil
     d.cache_load = false
+    d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     c = JusticeGovSk::Crawlers::ListCrawler.new d
+    r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
-    l=c.crawl JusticeGovSk::Requests::CourtListRequest.new
+    c.per_page = 10
     
-    l.each { |i|
-      puts i
-    }
+    # TODO fixme, selecting page does not work!!!
+    begin
+      l = c.crawl r
+      
+      l.each do |i|
+        puts i
+      end
+      
+      c.page = c.next_page
+    end until c.next_page.nil?    
   end
   
   

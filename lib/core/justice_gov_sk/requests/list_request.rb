@@ -35,6 +35,11 @@ module JusticeGovSk
 
       def page=(value)
         data.gsub!(/cmbAGVPager=\d+&/, "cmbAGVPager=#{value}&")
+        
+        # TODO rm
+        data.match /cmbAGVPager=\d+/ do |m|
+          puts "XXXXXXXXX #{m}"
+        end
       end
 
       def per_page=(value)
