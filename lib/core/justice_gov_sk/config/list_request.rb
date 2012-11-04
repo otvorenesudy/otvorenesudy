@@ -23,7 +23,7 @@ module JusticeGovSk
       end
 
       def data_path
-        name = self.class.name.split("::").last
+        name = self.class.name.split('::').last
 
         File.join Rails.root, 'lib', 'assets', 'request_data', "#{name.underscore}.data"
       end
