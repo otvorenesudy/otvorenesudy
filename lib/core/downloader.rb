@@ -51,8 +51,10 @@ class Downloader
       wait
 
       @request = Curl::Easy.http_post(uri, @data) do |curl|
+        curl.connect_timeout = @timeout
+        
         @headers.each do |param, value|
-          curl.headers[param] = value         
+          curl.headers[param] = value
         end
       end
 
