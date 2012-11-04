@@ -59,6 +59,7 @@ namespace :test do
     
     d.wait_time = nil
     d.cache_load = false
+    d.cache_uri_to_path = JusticeGovSk::Config::URL.uri_to_path_lambda
     
     c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
 
