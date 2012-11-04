@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 module JusticeGovSk
   module Config
     module ListRequest
@@ -10,7 +11,6 @@ module JusticeGovSk
           'Accept-Language' => 'en-US,en;q=0.8',
           'Cache-Control' => 'max-age=0',
           'Connection' => 'keep-alive',
-          #'Content-Length' => 54791,
           'Content-Type' => 'application/x-www-form-urlencoded',
           'Host' => 'www.justice.gov.sk',
           'Origin' => 'http://www.justice.gov.sk',
@@ -19,7 +19,13 @@ module JusticeGovSk
       end 
       
       def data
-        @data || @data = File.read(File.join(File.dirname(__FILE__), 'data', data_filename))
+        @data ||= File.read data_path
+      end
+
+      def data_path
+        name = self.class.name
+        
+        File.join File.dirname(__FILE__), 'data', "#{name[name.rindex('::')..-1].underscore}.data"
       end
 
       def page(number)
