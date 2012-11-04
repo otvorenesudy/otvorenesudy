@@ -15,7 +15,7 @@ module JusticeGovSk
         document = @parser.parse(content)
         
         unless uri.start_with? 'http://www.justice.gov.sk'
-      puts "Invalid URI, court rejected."
+          puts "Invalid URI, court rejected."
           
           return nil
         end
@@ -34,6 +34,10 @@ module JusticeGovSk
     
         type(document)
         municipality(document)
+        
+        information_center(document)
+        registry_center(document)
+        business_registry_center(document)
         
         @persistor.persist(@court)
       end
@@ -62,6 +66,49 @@ module JusticeGovSk
         @persistor.persist(municipality) if municipality.id.nil?
         
         @court.municipality = municipality
+      end
+      
+      def information_center(document)
+        office = court_office :information_center, @court.information_center, document
+        
+        @court.information_center = office
+      end
+      
+      def registry_center(document)
+        office = court_office :registry_center, @court.registry_center, document
+        
+        @court.registry_center = office
+      end
+      
+      def business_registry_center(document)
+        office = court_office :business_registry_center, @court.business_registry_center, document
+        
+        @court.business_registry_center = office
+      end
+
+      private
+      
+      def court_office(type, office, document)
+        phone = @parser.office_phone(type, document)
+        email = @parser.office_email(type, document)
+        hours = @parser.office_hours(type, document)
+        note  = @parser.office_note(type, document)
+
+        office ||= court_office_factory.create
+        
+        office.court = @court
+        
+        office.phone = phone
+        office.email = email
+        office.note  = note
+        
+        office.hours_monday    = hours[:monday]
+        office.hours_tuesday   = hours[:tuesday]
+        office.hours_wednesday = hours[:wednesday]
+        office.hours_thursday  = hours[:thursday]
+        office.hours_friday    = hours[:friday]
+        
+        @persistor.persist(office)
       end
     end
   end

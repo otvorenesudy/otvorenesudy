@@ -13,7 +13,7 @@ class HtmlParser < Parser
   def value(element, selector, name, &block)
     puts "Parsing #{name}."
     
-    value = element.css(selector)
+    value = selector.blank? ? element : element.css(selector)
     
     unless value.nil?
       unless value.respond_to?(:empty?) && value.empty?

@@ -18,13 +18,11 @@ module JusticeGovSk
         @next_page = nil
       end
     
-      def crawl(uri, params = {})
+      def crawl(uri)
         introduce
         puts "Working on page #{@page} of #{@pages || '?'}, max. #{pluralize @per_page, 'item'} per page."
     
         list = []
-        
-        @downloader.params = data.merge params
         
         content  = @downloader.download(uri)
         document = @parser.parse(content)
