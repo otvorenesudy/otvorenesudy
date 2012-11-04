@@ -8,7 +8,8 @@ class CreateDefendants < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :defendants, :hearing_id
+    add_index :defendants, [:hearing_id, :name], unique: true
+    
     add_index :defendants, :name
   end
 end

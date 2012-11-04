@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "accusations", ["defendant_id"], :name => "index_accusations_on_defendant_id"
+  add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
 
   create_table "court_jurisdictions", :force => true do |t|
     t.integer  "court_proceeding_type_id", :null => false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "defendants", ["hearing_id"], :name => "index_defendants_on_hearing_id"
+  add_index "defendants", ["hearing_id", "name"], :name => "index_defendants_on_hearing_id_and_name", :unique => true
   add_index "defendants", ["name"], :name => "index_defendants_on_name"
 
   create_table "employments", :force => true do |t|
@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "opponents", ["hearing_id"], :name => "index_opponents_on_hearing_id"
+  add_index "opponents", ["hearing_id", "name"], :name => "index_opponents_on_hearing_id_and_name", :unique => true
   add_index "opponents", ["name"], :name => "index_opponents_on_name"
 
   create_table "proceedings", :force => true do |t|
@@ -309,7 +309,7 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "proposers", ["hearing_id"], :name => "index_proposers_on_hearing_id"
+  add_index "proposers", ["hearing_id", "name"], :name => "index_proposers_on_hearing_id_and_name", :unique => true
   add_index "proposers", ["name"], :name => "index_proposers_on_name"
 
 end

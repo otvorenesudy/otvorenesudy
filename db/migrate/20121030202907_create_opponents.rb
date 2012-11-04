@@ -8,7 +8,8 @@ class CreateOpponents < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :opponents, :hearing_id
+    add_index :opponents, [:hearing_id, :name], unique: true
+    
     add_index :opponents, :name
   end
 end

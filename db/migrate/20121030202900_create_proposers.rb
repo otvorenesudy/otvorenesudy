@@ -8,7 +8,8 @@ class CreateProposers < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :proposers, :hearing_id
+    add_index :proposers, [:hearing_id, :name], unique: true
+
     add_index :proposers, :name
   end
 end

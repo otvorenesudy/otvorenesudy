@@ -8,6 +8,6 @@ class CreateAccusations < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :accusations, :defendant_id
+    add_index :accusations, [:defendant_id, :value], unique: true
   end
 end
