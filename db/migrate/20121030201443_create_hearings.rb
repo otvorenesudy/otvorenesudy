@@ -1,7 +1,8 @@
 class CreateHearings < ActiveRecord::Migration
   def change
     create_table :hearings do |t|
-      t.string :uri, null: false
+      t.string :uri,          null: false
+      t.string :document_uri, null: false
       
       t.references :proceeding, null: true
       t.references :court,      null: false

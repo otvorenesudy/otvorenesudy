@@ -1,5 +1,6 @@
 class Hearing < ActiveRecord::Base
   attr_accessible :uri,
+                  :document_uri,
                   :case_number,
                   :file_number,
                   :date,

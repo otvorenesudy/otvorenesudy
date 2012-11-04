@@ -37,9 +37,13 @@ class Downloader
 
     FileUtils.mkpath(File.dirname(path)) if @cache_store
      
-    content = load(path) if @cache_load 
+    if @cache_load
+      content = load(path)  
 
-    return content unless content.nil?
+      return content unless content.nil?
+    end
+    
+    e = nil
   
     uri = URI.encode(uri)
 
@@ -47,8 +51,10 @@ class Downloader
       wait
 
       @request = Curl::Easy.http_post(uri, @data) do |curl|
+        curl.connect_timeout = @timeout
+        
         @headers.each do |param, value|
-          curl.headers[param] = value         
+          curl.headers[param] = value
         end
       end
 
@@ -67,7 +73,7 @@ class Downloader
 
         return content
         
-      rescue Curl::Err::TimeoutError, Timeout::Error
+      rescue Curl::Err::TimeoutError, Timeout::Error => e
         puts "failed (connection timed out, attempt #{i} of #{@repeat})"
       rescue Exception => e
         puts "failed (unable to handle #{e.class.name})"
@@ -75,7 +81,7 @@ class Downloader
       end
     end
 
-    nil
+    raise e || 'Unable to download'
   end
 
   private
