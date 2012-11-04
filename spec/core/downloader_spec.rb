@@ -26,20 +26,20 @@ describe Downloader do
     
     # it is possible to chain methods like .page(1).count(1)
     @request.page(1)
-    @request.count(100)
+    @request.per_page(100)
   end
 
   it 'should download first page of civil hearing with 20 results' do
     @request = JusticeGovSk::Config::Hearings::CivilList.new 
     
     @request.page(1)
-    @request.count(20)
+    @request.per_page(20)
   end
 
   it 'should download first page of special criminal hearings page with 50 results' do
     @request = JusticeGovSk::Config::Hearings::SpecialCriminalList.new
 
     @request.page(1)
-    @request.count(50)
+    @request.per_page(50)
   end
 end

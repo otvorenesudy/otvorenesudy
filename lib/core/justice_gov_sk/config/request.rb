@@ -27,7 +27,7 @@ module JusticeGovSk
         self
       end
 
-      def count(number)
+      def per_page(number)
         data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{number}&")
         self
       end
