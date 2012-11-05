@@ -69,26 +69,20 @@ module JusticeGovSk
       end
       
       def information_center(document)
-        office = court_office :information_center, @court.information_center, document
-        
-        @court.information_center = office
+        @court.information_center = office :information_center, @court.information_center, document
       end
       
       def registry_center(document)
-        office = court_office :registry_center, @court.registry_center, document
-        
-        @court.registry_center = office
+        @court.registry_center = office :registry_center, @court.registry_center, document
       end
       
       def business_registry_center(document)
-        office = court_office :business_registry_center, @court.business_registry_center, document
-        
-        @court.business_registry_center = office
+        @court.business_registry_center = office :business_registry_center, @court.business_registry_center, document
       end
 
       private
       
-      def court_office(type, office, document)
+      def office(type, office, document)
         office ||= court_office_factory.create
         
         office.court = @court

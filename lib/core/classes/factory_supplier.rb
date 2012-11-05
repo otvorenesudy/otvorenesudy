@@ -22,9 +22,9 @@ class FactorySupplier
 
     set Factory.new(Hearing) { |uri| Hearing.find_by_uri(uri) }
     set Factory.new(HearingForm) { |value| HearingForm.find_by_value(value) }
-    set Factory.new(HearingNature) { |value| HearingNature.find_by_value(value) }
     set Factory.new(HearingSection) { |value| HearingSection.find_by_value(value) }
     set Factory.new(HearingSubject) { |value| HearingSubject.find_by_value(value) }
+    set Factory.new(HearingType) { |value| HearingType.find_by_value(value) }
     
     set Factory.new(Judge) { |name| Judge.find_by_name(name) }
     set Factory.new(JudgePosition) { |value| JudgePosition.find_by_value(value) }
