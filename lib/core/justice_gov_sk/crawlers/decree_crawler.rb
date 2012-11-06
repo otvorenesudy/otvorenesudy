@@ -18,7 +18,6 @@ module JusticeGovSk
         
         @decree.uri          = uri    
         @decree.document_uri = @parser.document_uri(document)
-        
         @decree.case_number  = @parser.case_number(document)
         @decree.file_number  = @parser.file_number(document)
         @decree.date         = @parser.date(document)
