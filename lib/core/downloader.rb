@@ -16,7 +16,6 @@ class Downloader
 
   attr_reader :request,
               :response_code
-   
 
   def initialize
     @cache_expire_time    = nil
