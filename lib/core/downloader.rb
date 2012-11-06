@@ -51,13 +51,15 @@ class Downloader
     1.upto @repeat do |i|
       wait
 
+      print "Building HTTP/POST request ... "
+
       @request = Curl::Easy.http_post(uri, @data) do |curl|
         curl.connect_timeout = @timeout
         
-        @headers.each do |param, value|
-          curl.headers[param] = value
-        end
+        @headers.each { |p, v| curl.headers[p] = v }
       end
+      
+      puts "done (data #{data.size} bytes)"
 
       begin
         print "Downloading #{uri} ... "

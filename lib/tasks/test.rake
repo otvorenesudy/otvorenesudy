@@ -74,4 +74,26 @@ namespace :test do
     c.crawl u
   end
   
+  task :t4 => :environment do
+    d = Downloader.new
+    d.wait_time = nil
+    d.cache_load = d.cache_store = false
+    
+    print 'req. 1 ... '
+    r=JusticeGovSk::Requests::DecreeListRequest.new
+    puts 'done'
+    
+    d.headers = r.headers
+    d.data = r.data
+    d.download r.url
+    
+    print 'req. 2 ... '
+    r=JusticeGovSk::Requests::DecreeListRequest.new
+    puts 'done' 
+
+    d.headers = r.headers
+    d.data = r.data
+    d.download r.url
+  end
+  
 end
