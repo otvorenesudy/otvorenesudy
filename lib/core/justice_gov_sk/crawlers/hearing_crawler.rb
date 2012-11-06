@@ -17,8 +17,6 @@ module JusticeGovSk
         @hearing = hearing_factory.find_or_create(uri)
         
 
-        
-        @persistor.persist(@hearing)
       end
     end
   end
