@@ -41,6 +41,7 @@ namespace :test do
     c = JusticeGovSk::Crawlers::ListCrawler.new d
     r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
+    c.page = 3
     c.per_page = 10
     
     # TODO fixme, selecting page does not work!!!

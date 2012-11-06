@@ -31,6 +31,11 @@ module JusticeGovSk
         @downloader.headers = request.headers
         @downloader.data    = request.data
         
+        # TODO rm
+        @downloader.data.match /cmbAGVPager=\d+/ do |m|
+          puts "RIGHT BEFORE DOWNLOAD #{m}"
+        end
+        
         content  = @downloader.download(request.url)
         document = @parser.parse(content)
         
