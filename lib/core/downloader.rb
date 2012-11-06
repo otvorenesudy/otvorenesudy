@@ -19,7 +19,7 @@ class Downloader
    
 
   def initialize
-    @cache_expire_time    = 1.year # TODO change
+    @cache_expire_time    = nil
     @cache_file_extension = nil
     @cache_load           = true
     @cache_store          = true
