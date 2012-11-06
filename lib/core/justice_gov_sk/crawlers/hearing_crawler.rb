@@ -16,8 +16,8 @@ module JusticeGovSk
                 
         @hearing = hearing_factory.find_or_create(uri)
         
-        @hearing.uri          = uri
-        @hearing.document_uri = @parser.document_uri(document)
+        @hearing.uri = uri
+
         @hearing.case_number  = @parser.case_number(document)
         @hearing.file_number  = @parser.file_number(document)
         @hearing.date         = @parser.date(document)
