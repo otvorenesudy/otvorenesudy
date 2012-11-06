@@ -1,4 +1,8 @@
+require 'active_support/multibyte'
+
 class String
+  alias :utf8 :mb_chars
+  
   def upcase_first
     self.sub(/^\D{0,1}/) { |c| c.upcase }
   end

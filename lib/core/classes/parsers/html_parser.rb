@@ -3,7 +3,7 @@ require 'nokogiri'
 
 class HtmlParser < Parser
   def parse(content)
-    content = content.encode 'utf-8', encoding(content)
+    content = content.encode Encoding::UTF_8, encoding(content)
   
     Nokogiri::HTML::parse(content)
   end
@@ -44,6 +44,6 @@ class HtmlParser < Parser
       part.scan(/charset="?[\w\d\-]+"\z/i) { |m| return m.gsub(/"/, '')[8..-1] }
     end
     
-    'utf-8'
+    Encoding::UTF_8
   end
 end
