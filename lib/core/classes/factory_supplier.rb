@@ -47,7 +47,6 @@ class FactorySupplier
     raise "Unsupported type #{type}." if @prototypes[type].nil?
     
     factory = @prototypes[type].clone
-    factory
   end
   
   private
