@@ -5,13 +5,17 @@ module JusticeGovSk
       include Identify
       include Pluralize 
       
-      def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parsers::HearingParser.new, persistor)
+      def initialize(downloader, parser, persistor)
+        super(downloader, parser, persistor)
       end
       
       protected
-    
+      
       def process(uri, content)
+        raise
+      end
+    
+      def preprocess(uri, content)
         document = @parser.parse(content)
                 
         @hearing = hearing_factory.find_or_create(uri)
@@ -26,13 +30,20 @@ module JusticeGovSk
       
         proceeding(document)
         
+        court(document)
+        
         type(document)
         section(document)
         subject(document)
         form(document)
+        
+        document
       end
       
       def proceeding(document)
+      end
+      
+      def court(document)
       end
       
       def type(document)
