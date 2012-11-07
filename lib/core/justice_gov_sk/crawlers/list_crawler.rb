@@ -3,10 +3,8 @@ module JusticeGovSk
     class ListCrawler < Crawler
       include Pluralize
       
-      attr_accessor :request,
-                    :page
-      
-      attr_reader :per_page,
+      attr_reader :page,
+                  :per_page,
                   :pages,
                   :next_page
       
@@ -15,28 +13,18 @@ module JusticeGovSk
     
         @page      = 1
         @pages     = nil
-        @per_page  = 100
+        @per_page  = nil
         @next_page = nil
       end
     
       def crawl(request)
         introduce
-        puts "Working on page #{@page} of #{@pages || '?'}, max. #{pluralize @per_page, 'item'} per page."
+        puts "Working on page #{request.page} of #{@pages || '?'}, max. #{pluralize request.per_page, 'item'} per page."
         
         list = []
         
-        request.page     = @page
-        
-        # TODO rm, we do not support per page, for now
-        #request.per_page = @per_page
-        
         @downloader.headers = request.headers
         @downloader.data    = request.data
-        
-        # TODO rm
-        @downloader.data.match /cmbAGVPager=\d+/ do |m|
-          puts "RIGHT BEFORE DOWNLOAD #{m}"
-        end
         
         content  = @downloader.download(request.url)
         document = @parser.parse(content)
@@ -45,6 +33,10 @@ module JusticeGovSk
         @pages     = @parser.pages(document)
         @per_page  = @parser.per_page(document)
         @next_page = @parser.next_page(document)
+        
+        # TODO rm
+        puts "YYYY page     = #{@page}"
+        puts "YYYY per_page = #{@per_page}"
         
         list = @parser.list(document)
     

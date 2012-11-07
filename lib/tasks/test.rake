@@ -39,21 +39,27 @@ namespace :test do
     d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     c = JusticeGovSk::Crawlers::ListCrawler.new d
-    r = JusticeGovSk::Requests::SpecialHearingListRequest.new
+    r = JusticeGovSk::Requests::CourtListRequest.new
+    #r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
-    c.page = 3
-    c.per_page = 10
+    c.verbose = true
+    
+    r.page = 2
     
     # TODO fixme, selecting page does not work!!!
-    begin
+    loop do
       l = c.crawl r
       
       l.each do |i|
         puts i
       end
       
-      c.page = c.next_page
-    end until c.next_page.nil?    
+      break if c.next_page.nil?
+      
+      r.page = c.next_page
+    end
+    
+       
   end
   
   
@@ -68,7 +74,7 @@ namespace :test do
     c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
     #c = JusticeGovSk::Crawlers::DecreeCrawler.new d,p
     
-    c.verbose = nil
+    #c.verbose = nil
 
     u = 'http://www.justice.gov.sk/Stranky/Sudy/Krajsky-sud-Kosice/SudDetail.aspx'
     #u = 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=FFEB47A9-5F69-4DF3-84E4-45E8860E830D&PojCislo=78401'
