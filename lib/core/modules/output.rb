@@ -13,10 +13,10 @@ module Output
   end
 
   def puts(*args)
-    default_puts(*args) if @verbose
+    default_puts(*args) if verbose
   end
 
   def print(*args)
-    default_print(*args) if @verbose
+    default_print(*args) if verbose
   end
 end

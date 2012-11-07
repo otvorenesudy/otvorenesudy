@@ -42,8 +42,6 @@ namespace :test do
     r = JusticeGovSk::Requests::CourtListRequest.new
     #r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
-    c.verbose = true
-    
     r.page = 2
     
     # TODO fixme, selecting page does not work!!!
