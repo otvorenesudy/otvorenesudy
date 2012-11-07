@@ -18,9 +18,6 @@ module JusticeGovSk
       def note(document) 
       end
       
-      def type(document)
-      end
-      
       def section(document)
       end
       

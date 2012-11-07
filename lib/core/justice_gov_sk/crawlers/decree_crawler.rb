@@ -46,12 +46,41 @@ module JusticeGovSk
       end  
         
       def judge(document)
+        name = @parser.judge(document)
+        
+        unless name.nil?
+          judge = judge_factory.find(name)
+          
+          @decree.judge = judge          
+        end
       end
         
       def form(document)
+        value = @parser.form(document)
+        
+        unless value.nil?
+          form = decree_form_factory.find_or_create(value)
+          
+          form.value = value
+          
+          @persistor.persist(form) if form.id.nil?
+          
+          @decree.form = form          
+        end
       end
       
       def nature(document)
+        value = @parser.nature(document)
+        
+        unless value.nil?
+          nature = decree_nature_factory.find_or_create(value)
+          
+          nature.value = value
+          
+          @persistor.persist(nature) if nature.id.nil?
+          
+          @decree.nature = nature          
+        end
       end
         
       def legislation_area(document)
