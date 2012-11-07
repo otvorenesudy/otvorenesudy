@@ -4,11 +4,11 @@ module JusticeGovSk
       include Pluralize
       
       attr_accessor :request,
-                    :page,
-                    :per_page
+                    :page
       
       attr_reader :pages,
-                  :next_page
+                  :next_page,
+                  :per_page
       
       def initialize(downloader)
         super(downloader, JusticeGovSk::Parsers::ListParser.new, nil)
@@ -26,7 +26,9 @@ module JusticeGovSk
         list = []
         
         request.page     = @page
-        request.per_page = @per_page
+        
+        # we do not support per page, for now
+        #request.per_page = @per_page
         
         @downloader.headers = request.headers
         @downloader.data    = request.data
