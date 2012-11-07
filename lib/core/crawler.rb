@@ -30,6 +30,13 @@ class Crawler
       puts "failed (no content)"
     end
   end
+  
+  def verbose=(value)
+    @verbose            = value
+    @downloader.verbose = value unless @downloader.nil?
+    @parser.verbose     = value unless @parser.nil?
+    @persistor.verbose  = value unless @persistor.nil? 
+  end
 
   protected
   

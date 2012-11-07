@@ -1,20 +1,22 @@
 module Output
   attr_accessor :verbose
-  alias :old_puts :puts
-  alias :old_print :print
- 
+  
+  alias :default_print :print
+  alias :default_puts  :puts
+  
   def verbose=(value)
-    @verbose = value
-    @downloader.verbose = value unless @downloader.nil?
-    @parser.verbose = value unless @parser.nil?
-    @persistor.verbose = value unless @persistor.nil? 
+    @verbose = value.nil? ? true : value
+  end
+  
+  def verbose
+    @verbose.nil? ? true : @verbose
   end
 
   def puts(*args)
-    old_puts(args) if @verbose
+    default_puts(args) if @verbose
   end
 
   def print(*args)
-    old_print(args) if @verbose
+    default_print(args) if @verbose
   end
 end

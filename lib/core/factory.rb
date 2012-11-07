@@ -1,6 +1,6 @@
 class Factory
-  include Output
   include Identify
+  include Output
   
   attr_reader :type,
               :create_block,

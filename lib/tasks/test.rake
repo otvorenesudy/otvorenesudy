@@ -67,6 +67,8 @@ namespace :test do
     
     c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
     #c = JusticeGovSk::Crawlers::DecreeCrawler.new d,p
+    
+    c.verbose = nil
 
     u = 'http://www.justice.gov.sk/Stranky/Sudy/Krajsky-sud-Kosice/SudDetail.aspx'
     #u = 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=FFEB47A9-5F69-4DF3-84E4-45E8860E830D&PojCislo=78401'

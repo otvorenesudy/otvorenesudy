@@ -1,6 +1,6 @@
 class Persistor
-  include Output
   include Identify
+  include Output
   
   def persist(instance)
     print "Persisting #{identify instance} ... "
