@@ -6,9 +6,9 @@ module JusticeGovSk
       attr_accessor :request,
                     :page
       
-      attr_reader :pages,
-                  :next_page,
-                  :per_page
+      attr_reader :per_page,
+                  :pages,
+                  :next_page
       
       def initialize(downloader)
         super(downloader, JusticeGovSk::Parsers::ListParser.new, nil)
@@ -27,7 +27,7 @@ module JusticeGovSk
         
         request.page     = @page
         
-        # we do not support per page, for now
+        # TODO rm, we do not support per page, for now
         #request.per_page = @per_page
         
         @downloader.headers = request.headers
