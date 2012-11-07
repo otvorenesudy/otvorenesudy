@@ -3,7 +3,7 @@ module JusticeGovSk
     class DecreeCrawler < Crawler
       include Factories
       include Identify
-      include Pluralize 
+      include Pluralize
       
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parsers::DecreeParser.new, persistor)
@@ -34,7 +34,6 @@ module JusticeGovSk
         legislation_subarea(document)
         
         legislations(document)
-        legislation_usages(document)
         
         @persistor.persist(@decree)
       end
@@ -84,17 +83,65 @@ module JusticeGovSk
       end
         
       def legislation_area(document)
+        value = @parser.legislation_area(document)
+        
+        unless value.nil?
+          legislation_area = legislation_area_factory.find_or_create(value)
+          
+          legislation_area.value = value
+          
+          @persistor.persist(legislation_area) if legislation_area.id.nil?
+          
+          @decree.legislation_area = legislation_area          
+        end
       end
       
       def legislation_subarea(document)
+        value = @parser.legislation_subarea(document)
+        
+        unless value.nil?
+          legislation_subarea = legislation_subarea_factory.find_or_create(value)
+
+          legislation_area(document) if @decree.legislation_area.nil?
+          
+          legislation_subarea.area  = @decree.legislation_area
+          legislation_subarea.value = value
+          
+          @persistor.persist(legislation_subarea) if legislation_subarea.id.nil?
+          
+          @decree.legislation_subarea = legislation_subarea          
+        end
       end
         
       def legislations(document)
+        list = @parser.legislations(data)
+    
+        unless list.empty?
+          pad_and_puts "Processing #{pluralize list.count, 'legislation'}."
+          
+          list.each do |item|
+            value = @parser.legislation(item)
+            
+            unless value.nil?
+              # TODO 
+              
+              @persistor.persist(legislation) if legislation.id.nil?
+              
+              legislation_usage(legislation)
+            end
+          end
+        end
       end
       
       private
       
-      def legislation_usages
+      def legislation_usage(legislation)
+        release_to_country_relation = legislation_usage_factory.find_or_create(legislation.id, @decree.id)
+        
+        legislation_usage.legislation = legislation
+        legislation_usage.decree      = @decree
+        
+        @persistor.persist(legislation_usage) if legislation_usage.id.nil?
       end
     end
   end

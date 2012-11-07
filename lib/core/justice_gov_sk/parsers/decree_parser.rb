@@ -32,6 +32,9 @@ module JusticeGovSk
         
       def legislations(document)
       end
+
+      def legislation(document)
+      end
     end
   end
 end
