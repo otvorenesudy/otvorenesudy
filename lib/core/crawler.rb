@@ -1,4 +1,6 @@
 class Crawler
+  include Output
+
   attr_reader :downloader,
               :parser,
               :persistor

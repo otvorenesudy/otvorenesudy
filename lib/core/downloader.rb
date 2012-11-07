@@ -3,6 +3,8 @@ require 'net/http'
 # TODO: Add verbose parameter to turn on/off verbosity
 
 class Downloader
+  include Output
+  
   attr_accessor :cache_expire_time,
                 :cache_file_extension,
                 :cache_load,
