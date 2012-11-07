@@ -42,7 +42,7 @@ module JusticeGovSk
       end
       
       def court(document)
-      end  
+      end
         
       def judge(document)
         name = @parser.judge(document)
@@ -119,11 +119,23 @@ module JusticeGovSk
         unless list.empty?
           pad_and_puts "Processing #{pluralize list.count, 'legislation'}."
           
-          list.each do |item|
-            value = @parser.legislation(item)
+          list.each do |original|
+            identifiers = @parser.legislation(value)
             
-            unless value.nil?
-              # TODO 
+            unless identifiers.empty?
+              value = identifiers[:value]
+              
+              legislation = legislation_factory.find_or_create(value)
+              
+              legislation.value    = value
+              legislation.original = original
+              
+              legislation.number    = identifiers[:number] 
+              legislation.year      = identifiers[:year]
+              legislation.name      = identifiers[:name]
+              legislation.paragraph = identifiers[:paragraph]
+              legislation.section   = identifiers[:section]
+              legislation.letter    = identifiers[:letter]
               
               @persistor.persist(legislation) if legislation.id.nil?
               
