@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
 
   create_table "decrees", :force => true do |t|
     t.string   "uri",                    :null => false
-    t.string   "document_uri",           :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id",               :null => false
     t.integer  "judge_id",               :null => false
@@ -186,7 +185,6 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
 
   create_table "hearings", :force => true do |t|
     t.string   "uri",                :null => false
-    t.string   "document_uri",       :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id",           :null => false
     t.integer  "hearing_type_id",    :null => false

@@ -2,7 +2,7 @@
 
 module JusticeGovSk
   module Parsers
-    class DecreeParser < HtmlParser
+    class DecreeParser < JusticeGovSk::Parsers::Parser
       def case_number(document)
         value document, 'div.DetailTable div.hodnota', 'case number' do |divs|
           divs[1].text.strip

@@ -2,7 +2,7 @@
 
 module JusticeGovSk
   module Parsers
-    class HearingParser < HtmlParser
+    class HearingParser < JusticeGovSk::Parsers::Parser
       def case_number(document) 
       end
 
@@ -13,6 +13,9 @@ module JusticeGovSk
       end
       
       def room(document) 
+      end
+
+      def note(document) 
       end
       
       def type(document)

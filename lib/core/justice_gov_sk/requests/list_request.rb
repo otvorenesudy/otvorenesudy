@@ -4,9 +4,9 @@ module JusticeGovSk
   module Requests
     class ListRequest
       attr_accessor :page
-      attr_reader   :per_page
 
-      attr_reader :data
+      attr_reader :per_page,
+                  :data
       
       def headers
         {
@@ -19,7 +19,7 @@ module JusticeGovSk
           'Content-Type' => 'application/x-www-form-urlencoded',
           'Host' => 'www.justice.gov.sk',
           'Origin' => 'http://www.justice.gov.sk',
-          "Cookie" => "__utma=161066278.1275351275.1351816765.1352194655.1352230438.9; __utmz=161066278.1351816765.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmb=161066278.26.10.1352230438; __utmc=161066278; ASP.NET_SessionId=rqpypa55ahrhpge5valxzv45",
+          'Cookie' => '__utma=161066278.1275351275.1351816765.1352194655.1352230438.9; __utmz=161066278.1351816765.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmb=161066278.26.10.1352230438; __utmc=161066278; ASP.NET_SessionId=rqpypa55ahrhpge5valxzv45',
           'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.94 Safari/537.4'
         }
       end 
@@ -43,9 +43,9 @@ module JusticeGovSk
         end
       end
 
-      #def per_page=(value)
-        #data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{value}&")
-      #end
+#      def per_page=(value)
+#        data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{value}&")
+#      end
 
       def save_data
         File.open(data_path, "w") do |f|
