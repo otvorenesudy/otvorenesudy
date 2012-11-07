@@ -53,8 +53,12 @@ module JusticeGovSk
         i = 0
         
         rows.each do |div|
-          if div[:class] == 'popiska' then label = div.text.utf8.downcase end
-          if div[:class] == 'hodnota' then index = i; i += 1 end
+          if div[:class] == 'popiska'
+            label = div.text.strip.gsub(/\:/, '').utf8.downcase
+          elsif div[:class] == 'hodnota'
+            index = i
+            i += 1
+          end
           
           unless label.nil? || index.nil? 
             map[label] = index

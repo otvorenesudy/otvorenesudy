@@ -8,11 +8,25 @@ module JusticeGovSk
       protected
     
       def process(uri, content)
-        super(uri, content)        
+        super(uri, content)
 
+        @hearing.special_type = @parser.special_type(document)
         
+        judges(document)
+        
+        proposers(document)
+        opponents(document)
         
         @persistor.persist(@hearing)
+      end
+      
+      def judges(document)
+      end
+        
+      def proposers(document)
+      end
+
+      def opponents(document)
       end
     end
   end

@@ -6,6 +6,21 @@ module JusticeGovSk
       def type(document)
         'Trestné'
       end
+      
+      def judges(document)
+      end
+      
+      def judge(name)
+      end
+      
+      def defendants(document)
+      end
+
+      def defendant(name)
+      end
+      
+      def accusation(value)
+      end
     end
   end
 end

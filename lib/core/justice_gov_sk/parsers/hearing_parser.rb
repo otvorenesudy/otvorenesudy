@@ -3,28 +3,52 @@
 module JusticeGovSk
   module Parsers
     class HearingParser < JusticeGovSk::Parsers::Parser
-      def case_number(document) 
+      def case_number(document)
+        find_value_by_label 'case number', document, 'Spisová značka' do |div|
+          div.text.strip
+        end
       end
 
       def file_number(document) 
+        find_value_by_label 'file number', document, 'IČS' do |div|
+          div.text.strip
+        end
       end
       
       def date(document) 
+        find_value_by_label 'date', document, 'Dátum pojednávania' do |div|
+          div.text.strip
+        end
       end
       
       def room(document) 
+        find_value_by_label 'room', document, 'Miestnosť' do |div|
+          div.text.strip
+        end
       end
 
       def note(document) 
+        find_value_by_label 'note', document, 'Poznámka' do |div|
+          div.text.strip
+        end
       end
       
       def section(document)
+        find_value_by_label 'section', document, 'Úsek' do |div|
+          div.text.strip
+        end
       end
       
       def subject(document)
+        find_value_by_label 'subject', document, 'Predmet' do |div|
+          div.text.strip
+        end
       end
       
       def form(document)
+        find_value_by_label 'form', document, 'Forma úkonu' do |div|
+          div.text.strip
+        end
       end
     end
   end
