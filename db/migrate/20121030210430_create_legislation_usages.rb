@@ -7,7 +7,7 @@ class CreateLegislationUsages < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :legislation_usages, :legislation_id
-    add_index :legislation_usages, :decree_id
+    add_index :legislation_usages, [:legislation_id, :decree_id], unique: true
+    add_index :legislation_usages, [:decree_id, :legislation_id], unique: true
   end
 end

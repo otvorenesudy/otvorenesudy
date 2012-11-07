@@ -29,7 +29,7 @@ class FactorySupplier
     set Factory.new(Judge) { |name| Judge.find_by_name(name) }
     set Factory.new(JudgePosition) { |value| JudgePosition.find_by_value(value) }
     
-    set Factory.new(Legislation)
+    set Factory.new(Legislation) { |value| Legislation.find_by_value(value) }
     set Factory.new(LegislationArea) { |value| LegislationArea.find_by_value(value) }
     set Factory.new(LegislationSubarea) { |value| LegislationSubarea.find_by_value(value) }
     set Factory.new(LegislationUsage) { |legislation_id, decree_id| LegislationUsage.find_by_legislation_id_and_decree_id(legislation_id, decree_id) }

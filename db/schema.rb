@@ -259,21 +259,24 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at",     :null => false
   end
 
-  add_index "legislation_usages", ["decree_id"], :name => "index_legislation_usages_on_decree_id"
-  add_index "legislation_usages", ["legislation_id"], :name => "index_legislation_usages_on_legislation_id"
+  add_index "legislation_usages", ["decree_id", "legislation_id"], :name => "index_legislation_usages_on_decree_id_and_legislation_id", :unique => true
+  add_index "legislation_usages", ["legislation_id", "decree_id"], :name => "index_legislation_usages_on_legislation_id_and_decree_id", :unique => true
 
   create_table "legislations", :force => true do |t|
+    t.string   "value",      :null => false
     t.integer  "number",     :null => false
     t.integer  "year",       :null => false
     t.string   "name",       :null => false
     t.string   "section",    :null => false
     t.string   "paragraph",  :null => false
     t.string   "letter"
+    t.string   "original",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "legislations", ["number"], :name => "index_legislations_on_number"
+  add_index "legislations", ["number", "year", "name", "section", "paragraph", "letter"], :name => "index_legislations_on_identifiers", :unique => true
+  add_index "legislations", ["value"], :name => "index_legislations_on_value", :unique => true
 
   create_table "municipalities", :force => true do |t|
     t.string   "name",       :null => false
