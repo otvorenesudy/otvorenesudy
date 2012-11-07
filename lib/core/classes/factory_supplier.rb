@@ -47,7 +47,7 @@ class FactorySupplier
     raise "Unsupported type #{type}." if @prototypes[type].nil?
     
     unless find.nil?
-      @prototypes[type].class.new type, lambda { |*args| type.method(find).call(*args) }
+      @prototypes[type].class.new(type) { |*args| type.send(find, *args) }
     else
       @prototypes[type].clone
     end
