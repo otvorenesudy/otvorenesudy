@@ -17,6 +17,6 @@ module Output
   end
 
   def print(*args)
-    default_print(args) if @verbose
+    default_print(args.join) if @verbose
   end
 end
