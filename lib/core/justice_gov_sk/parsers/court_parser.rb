@@ -2,7 +2,7 @@
 
 module JusticeGovSk
   module Parsers
-    class CourtParser < HtmlParser
+    class CourtParser < JusticeGovSk::Parsers::Parser
       def type(document)
         name(document).split(/\s/)[0]
       end
@@ -99,22 +99,6 @@ module JusticeGovSk
       end
       
       private
-      
-      def value_from_group(document, group, k, name, &block)
-        @rows   ||= values document, 'div.DetailTable div', 'information table, all rows'
-        @values ||= values document, 'div.DetailTable div.hodnota', 'information table, values only'
-        
-        group = group.utf8.downcase!
-        
-        i = 0
-        
-        @rows.each do |div|
-          i += 1 if div[:class] == 'hodnota'
-          break if div[:class] == 'skupina' && div.text.utf8.downcase == group
-        end
-        
-        value @values[i + k], '', name, &block
-      end
       
       def office_type_to_group(type)
         case type 

@@ -22,6 +22,7 @@ module JusticeGovSk
         @hearing.file_number  = @parser.file_number(document)
         @hearing.date         = @parser.date(document)
         @hearing.room         = @parser.room(document)
+        @hearing.note         = @parser.note(document)
       
         type(document)
         section(document)

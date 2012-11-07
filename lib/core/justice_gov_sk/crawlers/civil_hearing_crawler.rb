@@ -10,7 +10,7 @@ module JusticeGovSk
       def process(uri, content)
         super(uri, content)        
 
-
+        
         
         @persistor.persist(@hearing)
       end

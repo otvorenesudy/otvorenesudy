@@ -2,7 +2,7 @@
 
 module JusticeGovSk
   module Parsers
-    class JudgeLIstParser < JusticeGovSk::Parsers::ListParser
+    class JudgeListParser < JusticeGovSk::Parsers::ListParser
     end
   end
 end
