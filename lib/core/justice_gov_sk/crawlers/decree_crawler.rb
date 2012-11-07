@@ -24,6 +24,7 @@ module JusticeGovSk
         @decree.ecli         = @parser.ecli(document)
         
         proceeding(document)
+        
         court(document)
         judge(document)
         

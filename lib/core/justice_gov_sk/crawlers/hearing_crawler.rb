@@ -25,6 +25,7 @@ module JusticeGovSk
         @hearing.note         = @parser.note(document)
       
         proceeding(document)
+        
         type(document)
         section(document)
         subject(document)
@@ -32,6 +33,20 @@ module JusticeGovSk
       end
       
       def proceeding(document)
+      end
+      
+      def type(document)
+        value = @parser.type(document)
+        
+        unless value.nil?
+          type = hearing_type_factory.find_or_create(value)
+          
+          type.value = value
+          
+          @persistor.persist(type) if type.id.nil?
+          
+          @hearing.type = type          
+        end
       end
       
       def section(document)

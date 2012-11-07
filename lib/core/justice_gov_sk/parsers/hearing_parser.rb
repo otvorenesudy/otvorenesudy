@@ -25,7 +25,7 @@ module JusticeGovSk
       end
       
       def form(document)
-      end      
+      end
     end
   end
 end
