@@ -117,17 +117,22 @@ module JusticeGovSk
       
       def coordinates(document)
         return @coordinates unless @coordinates.nil? 
-        
+
         find_value 'coordinates', document, 'div.textInfo iframe' do |iframe|
           @coordinates = {}
                       
-          iframe[0][:src].scan(/sll=(\d+\.\d{6})\,(\d+\.\d{6})/) do |latitude, longitude|
-            @coordinates[:latitude]  = latitude.sub(/\./, '')
-            @coordinates[:longitude] = longitude.sub(/\./, '')
+          iframe[0][:src].scan(/sll=(\d+\.\d+)\,(\d+\.\d+)/) do |latitude, longitude|
+            @coordinates[:latitude]  = coordinate latitude
+            @coordinates[:longitude] = coordinate longitude
           end
           
           @coordinates
         end
+      end
+      
+      def coordinate(value)
+        parts = value.split(/\./)
+        parts.first + parts.last[0..6].ljust(6, '0')
       end
     end
   end
