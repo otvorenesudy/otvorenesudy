@@ -3,6 +3,8 @@ require 'nokogiri'
 
 class HtmlParser < Parser
   def parse(content)
+    clear_caches if self.respond_to? :clear_caches
+    
     content = content.encode Encoding::UTF_8, encoding(content)
   
     Nokogiri::HTML::parse(content)
@@ -10,10 +12,10 @@ class HtmlParser < Parser
   
   protected
   
-  def value(element, selector, name, &block)
+  def find_value(name, element, selector, &block)
     puts "Parsing #{name}."
     
-    value = selector.blank? ? element : element.css(selector)
+    value = selector.blank? ? element : element.search(selector)
     
     unless value.nil?
       unless value.respond_to?(:empty?) && value.empty?
@@ -30,8 +32,8 @@ class HtmlParser < Parser
     nil
   end
   
-  def values(element, selector, name, &block)
-    value(element, selector, name, &block) || []
+  def find_values(name, element, selector, &block)
+    find_value(name, element, selector, &block) || []
   end
   
   private

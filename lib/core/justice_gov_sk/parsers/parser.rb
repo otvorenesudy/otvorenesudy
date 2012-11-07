@@ -6,42 +6,46 @@ module JusticeGovSk
       
       protected
       
-      def value_from_group(document, group, k, name, &block)
+      def find_value_by_group_and_index(name, element, group, k, &block)
         group = group.utf8.downcase
         
-        rows   = table_rows(document)
-        values = table_values(document)
+        rows   = table_rows(element)
+        values = table_values(element)
         
         i = 0
         
         rows.each do |div|
           i += 1 if div[:class] == 'hodnota'
-          break if div[:class] == 'skupina' && div.text.utf8.downcase == group
+          break  if div[:class] == 'skupina' && div.text.utf8.downcase == group
         end
         
-        value values[i + k], '', name, &block
+        find_value name, values[i + k], '', &block
       end
       
-      def value_by_label(document, label, name, &block)
-        label_to_index_map = table_label_to_index_map(document)
+      def find_value_by_label(name, element, label, &block)
+        label_to_index_map = table_label_to_index_map(element)
         
-        value values[label_to_index_map[name.utf8.downcase]], '', name, &block
+        find_value name, values[label_to_index_map[name.utf8.downcase]], '', &block
+      end
+      
+      def clear_caches
+        @table_rows               = nil
+        @table_values             = nil
+        @table_label_to_index_map = nil
       end
       
       private
       
-      # TODO consider caching; problem: clear caches after document changed?
-      
       def table_rows(document)
-        @table_rows ||= values document, 'div.DetailTable div', 'information table, all rows'
+        @table_rows ||= find_values 'information table, all rows', document, 'div.DetailTable div'
       end
       
       def table_values(document)
-        @table_values ||= values document, 'div.DetailTable div.hodnota', 'information table, values only'
+        @table_values ||= find_values 'information table, values only', document, 'div.DetailTable div.hodnota'
       end
       
       def table_label_to_index_map(document)
-        return label_to_index_map unless @label_to_index_map.nil?
+        return @table_label_to_index_map unless @table_label_to_index_map.nil?
         
         rows = table_rows(document)
         map  = {}
@@ -58,7 +62,7 @@ module JusticeGovSk
           end
         end
         
-        @label_to_index_map ||= map
+        @table_label_to_index_map ||= map
       end
     end
   end

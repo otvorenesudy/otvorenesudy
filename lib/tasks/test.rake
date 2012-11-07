@@ -45,9 +45,9 @@ namespace :test do
     
     #r = JusticeGovSk::Requests::CourtListRequest.new
     #r = JusticeGovSk::Requests::DecreeListRequest.new
-    #r = JusticeGovSk::Requests::CivilHearingListRequest.new
+    r = JusticeGovSk::Requests::CivilHearingListRequest.new
     #r = JusticeGovSk::Requests::CriminalHearingListRequest.new
-    r = JusticeGovSk::Requests::SpecialHearingListRequest.new
+    #r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
     c.crawl_and_process r do |i|
       puts i

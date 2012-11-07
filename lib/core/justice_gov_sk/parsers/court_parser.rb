@@ -8,13 +8,13 @@ module JusticeGovSk
       end
       
       def municipality_name(document)
-        value_from_group document, 'Kontakt', 3, 'municipality name' do |div|
+        find_value_by_group_and_index 'municipality name', document, 'Kontakt', 3 do |div|
           div.text.strip
         end
       end
       
       def municipality_zipcode(document)
-        value_from_group document, 'Kontakt', 2, 'municipality zipcode' do |div|
+        find_value_by_group_and_index 'municipality zipcode', document, 'Kontakt', 2 do |div|
           div.text.strip
         end
       end
@@ -22,49 +22,49 @@ module JusticeGovSk
       def name(document)
         return @name unless @name.nil?
         
-        value_from_group document, 'Kontakt', 0, 'name' do |div|
+        find_value_by_group_and_index 'name', document, 'Kontakt', 0 do |div|
           @name ||= div.text.strip
         end
       end
       
       def street(document)
-        value_from_group document, 'Kontakt', 1, 'street' do |div|
+        find_value_by_group_and_index 'street', document, 'Kontakt', 1 do |div|
           div.text.strip
         end
       end
       
       def phone(document)
-        value_from_group document, 'Kontakt', 4, 'phone' do |div|
+        find_value_by_group_and_index 'phone', document, 'Kontakt', 4 do |div|
           div.text.strip
         end
       end
      
       def fax(document)
-        value_from_group document, 'Kontakt', 5, 'fax' do |div|
+        find_value_by_group_and_index 'fax', document, 'Kontakt', 5 do |div|
           div.text.strip
         end
       end
       
       def media_person(document)
-        value_from_group document, 'Kontakt pre médiá', 0, 'media person' do |div|
+        find_value_by_group_and_index 'media person', document, 'Kontakt pre médiá', 0 do |div|
           div.text.strip
         end 
       end
       
       def media_phone(document)
-        value_from_group document, 'Kontakt pre médiá', 1, 'media phone' do |div|
+        find_value_by_group_and_index 'media phone', document, 'Kontakt pre médiá', 1 do |div|
           div.text.strip
         end 
       end
       
       def office_phone(type, document)
-        value_from_group document, office_type_to_group(type), 0, office_type_to_name(type) + ' phone' do |div|
+        find_value_by_group_and_index office_type_to_name(type) + ' phone', document, office_type_to_group(type), 0 do |div|
           div.text.strip
         end         
       end
 
       def office_email(type, document)
-        value_from_group document, office_type_to_group(type), 1, office_type_to_name(type) + ' email' do |div|
+        find_value_by_group_and_index office_type_to_name(type) + ' email', document, office_type_to_group(type), 1 do |div|
           div.text.strip
         end                 
       end
@@ -75,17 +75,17 @@ module JusticeGovSk
         
         hours = {}
         
-        value_from_group(document, group, 3, name + ' monday hours')    { |div| hours[:monday]    = div.text.strip }
-        value_from_group(document, group, 4, name + ' tuesday hours')   { |div| hours[:tuesday]   = div.text.strip }
-        value_from_group(document, group, 5, name + ' wednesday hours') { |div| hours[:wednesday] = div.text.strip }
-        value_from_group(document, group, 6, name + ' thursday hours')  { |div| hours[:thursday]  = div.text.strip }
-        value_from_group(document, group, 7, name + ' friday hours')    { |div| hours[:friday]    = div.text.strip }
+        find_value_by_group_and_index(name + ' monday hours',    document, group, 3) { |div| hours[:monday]    = div.text.strip }
+        find_value_by_group_and_index(name + ' tuesday hours',   document, group, 4) { |div| hours[:tuesday]   = div.text.strip }
+        find_value_by_group_and_index(name + ' wednesday hours', document, group, 5) { |div| hours[:wednesday] = div.text.strip }
+        find_value_by_group_and_index(name + ' thursday hours',  document, group, 6) { |div| hours[:thursday]  = div.text.strip }
+        find_value_by_group_and_index(name + ' friday hours',    document, group, 7) { |div| hours[:friday]    = div.text.strip }
         
         hours       
       end
 
       def office_note(type, document)
-        value_from_group document, office_type_to_group(type), 2, office_type_to_name(type) + ' note' do |div|
+        find_value_by_group_and_index office_type_to_name(type) + ' note', document, office_type_to_group(type), 2 do |div|
           div.text.strip
         end         
       end
@@ -118,7 +118,7 @@ module JusticeGovSk
       def coordinates(document)
         return @coordinates unless @coordinates.nil? 
         
-        value document, 'div.textInfo iframe', 'coordinates' do |iframe|
+        find_value 'coordinates', document, 'div.textInfo iframe' do |iframe|
           @coordinates = {}
                       
           iframe[0][:src].scan(/sll=(\d+\.\d{6})\,(\d+\.\d{6})/) do |latitude, longitude|
