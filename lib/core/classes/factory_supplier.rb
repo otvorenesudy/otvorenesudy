@@ -43,10 +43,14 @@ class FactorySupplier
     set Factory.new(Proposer) { |hearing_id, name| Proposer.find_by_hearing_id_and_name(hearing_id, name) }
   end
 
-  def get(type)
+  def get(type, find = nil)
     raise "Unsupported type #{type}." if @prototypes[type].nil?
     
-    factory = @prototypes[type].clone
+    unless find.nil?
+      @prototypes[type].class.new type, lambda { |*args| type.method(find).call(*args) }
+    else
+      @prototypes[type].clone
+    end
   end
   
   private
