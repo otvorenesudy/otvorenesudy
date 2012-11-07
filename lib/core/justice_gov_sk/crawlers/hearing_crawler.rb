@@ -29,7 +29,6 @@ module JusticeGovSk
         @hearing.note         = @parser.note(document)
       
         proceeding(document)
-        
         court(document)
         
         type(document)
@@ -44,6 +43,11 @@ module JusticeGovSk
       end
       
       def court(document)
+        name = @parser.court(document)
+        
+        unless name.nil?
+          @hearing.court = court_by_name_factory.find(name)          
+        end
       end
       
       def type(document)

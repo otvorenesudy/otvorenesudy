@@ -6,7 +6,7 @@ module JusticeGovSk
       end
       
       protected
-    
+
       def process(uri, content)
         document = preprocess(uri, content)
 
