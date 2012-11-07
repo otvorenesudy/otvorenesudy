@@ -11,10 +11,10 @@ module Output
   end
 
   def puts(*args)
-    old_puts(args) if @verbose
+    old_puts(*args) if @verbose
   end
 
   def print(*args)
-    old_print(args) if @verbose
+    old_print(*args) if @verbose
   end
 end
