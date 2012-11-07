@@ -13,10 +13,18 @@ module Output
   end
 
   def puts(*args)
+<<<<<<< HEAD
     default_puts(args) if @verbose
   end
 
   def print(*args)
     default_print(args.join) if @verbose
+=======
+    old_puts(*args) if @verbose
+  end
+
+  def print(*args)
+    old_print(*args) if @verbose
+>>>>>>> a49694debd833885c06f40771c5b4095bc928670
   end
 end
