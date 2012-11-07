@@ -24,53 +24,46 @@ describe Downloader do
   end
 
   describe "for Hearings List downloads" do
-    it "should download first page of criminal hearings with 100 results" do
+    it "should download second page of criminal hearings" do
       @request = JusticeGovSk::Requests::CriminalHearingListRequest.new 
 
-      # it is possible to chain methods like .page(1).count(1)
-      @request.page = 1
-      @request.per_page = 100
+      @request.page = 2
     end
 
-    it 'should download first page of civil hearing with 20 results' do
+    it 'should download third page of civil hearing ' do
       @request = JusticeGovSk::Requests::CivilHearingListRequest.new 
 
-      @request.page = 1
-      @request.per_page = 20
+      @request.page = 3
     end
 
-    it 'should download first page of special criminal hearings page with 50 results' do
+    it 'should download second page of special criminal hearings' do
       @request = JusticeGovSk::Requests::SpecialHearingListRequest.new
 
-      @request.page = 1
-      @request.per_page = 50
+      @request.page = 1 
     end
   end
 
   describe "for Decrees List downloads" do
-    it 'should download first page of decrees with 100 results' do
+    it 'should download second page of Decrees' do
       @request = JusticeGovSk::Requests::DecreeListRequest.new
 
-      @request.page = 1
-      @request.per_page = 100
+      @request.page = 2
     end
   end
 
   describe "for Judges List downloads" do
-    it 'should download second page of judges with 100 results' do
+    it 'should download second page of judges' do
       @request = JusticeGovSk::Requests::JudgeListRequest.new
 
       @request.page = 2
-      @request.per_page = 100
     end
   end
 
   describe "for Courts List downloads" do 
-    it 'should download second page of courts with 20 results' do
+    it 'should download second page of courts' do
       @request = JusticeGovSk::Requests::CourtListRequest.new
 
       @request.page = 2
-      @request.per_page = 20
     end
   end
 end
