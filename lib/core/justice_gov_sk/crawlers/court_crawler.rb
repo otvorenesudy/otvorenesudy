@@ -45,27 +45,31 @@ module JusticeGovSk
       def type(document)
         value = @parser.type(document)
         
-        type = court_type_factory.find_or_create(value)
-        
-        type.value = value
-        
-        @persistor.persist(type) if type.id.nil?
-        
-        @court.type = type
+        unless value.nil?
+          type = court_type_factory.find_or_create(value)
+          
+          type.value = value
+          
+          @persistor.persist(type) if type.id.nil?
+          
+          @court.type = type          
+        end
       end
       
       def municipality(document)
         name    = @parser.municipality_name(document)
         zipcode = @parser.municipality_zipcode(document)
         
-        municipality = municipality_factory.find_or_create(name)
-        
-        municipality.name    = name
-        municipality.zipcode = zipcode
-        
-        @persistor.persist(municipality) if municipality.id.nil?
-        
-        @court.municipality = municipality
+        unless name.nil? || zipcode.nil?
+          municipality = municipality_factory.find_or_create(name)
+          
+          municipality.name    = name
+          municipality.zipcode = zipcode
+          
+          @persistor.persist(municipality) if municipality.id.nil?
+          
+          @court.municipality = municipality
+        end
       end
       
       def information_center(document)

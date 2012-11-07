@@ -64,37 +64,19 @@ namespace :test do
     d.cache_load = false
     d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
-    c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
+    #c = JusticeGovSk::Crawlers::CourtCrawler.new d,p
     #c = JusticeGovSk::Crawlers::DecreeCrawler.new d,p
+    #c = JusticeGovSk::Crawlers::CivilHearingCrawler.new d,p
+    #c = JusticeGovSk::Crawlers::CriminalHearingCrawler.new d,p
+    c = JusticeGovSk::Crawlers::SpecialHearingCrawler.new d,p
     
-    #c.verbose = nil
-
-    u = 'http://www.justice.gov.sk/Stranky/Sudy/Krajsky-sud-Kosice/SudDetail.aspx'
+    #u = 'http://www.justice.gov.sk/Stranky/Sudy/Krajsky-sud-Kosice/SudDetail.aspx'
     #u = 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=FFEB47A9-5F69-4DF3-84E4-45E8860E830D&PojCislo=78401'
+    #u = 'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieDetail.aspx?IdVp=102901109'
+    #u = 'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieTrestDetail.aspx?IdTp=EEBE32FF-A9DF-4F7F-8A4F-92A07E786D06'
+    u = 'http://www.justice.gov.sk/Stranky/Pojednavania/PojednavanieSpecDetail.aspx?IdSpecSudKonanie=3523'
 
     c.crawl u
-  end
-  
-  task :t4 => :environment do
-    d = Downloader.new
-    d.wait_time = nil
-    d.cache_load = d.cache_store = false
-    
-    print 'req. 1 ... '
-    r=JusticeGovSk::Requests::DecreeListRequest.new
-    puts 'done'
-    
-    d.headers = r.headers
-    d.data = r.data
-    d.download r.url
-    
-    print 'req. 2 ... '
-    r=JusticeGovSk::Requests::DecreeListRequest.new
-    puts 'done' 
-
-    d.headers = r.headers
-    d.data = r.data
-    d.download r.url
   end
   
 end
