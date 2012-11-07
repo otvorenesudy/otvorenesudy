@@ -40,23 +40,25 @@ namespace :test do
     
     c = JusticeGovSk::Crawlers::ListCrawler.new d
     r = JusticeGovSk::Requests::CourtListRequest.new
-    #r = JusticeGovSk::Requests::SpecialHearingListRequest.new
+    r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
-    r.page = 2
+    #r.page = 2
     
-    # TODO fixme, selecting page does not work!!!
-    loop do
-      l = c.crawl r
-      
-      l.each do |i|
-        puts i
-      end
-      
-      break if c.next_page.nil?
-      
-      r.page = c.next_page
+    #loop do
+    #  l = c.crawl r
+    #  
+    #  l.each do |i|
+    #    puts i
+    #  end
+    #  
+    #  break if c.next_page.nil?
+    #  
+    #  r.page = c.next_page
+    #end
+    
+    JusticeGovSk::Crawlers::ListCrawler.crawl_and_process c, r do |i|
+      puts i
     end
-    
        
   end
   

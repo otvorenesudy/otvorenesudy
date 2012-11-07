@@ -16,7 +16,7 @@ module JusticeGovSk
         @per_page  = nil
         @next_page = nil
       end
-    
+          
       def crawl(request)
         introduce
         puts "Working on page #{request.page} of #{@pages || '?'}, max. #{pluralize request.per_page, 'item'} per page."
@@ -43,6 +43,22 @@ module JusticeGovSk
         puts "done (page #{@page} of #{@pages}, #{pluralize list.count, 'item'}, next page #{@next_page || 'N/A'})"
         
         list
+      end
+      
+      def self.crawl_and_process(crawler, request, from = 1, to = nil, &block)
+        request.page = from
+        
+        loop do
+          list = crawler.crawl request
+          
+          list.each do |item|
+            block.call(item)
+          end
+          
+          break if crawler.next_page == to || crawler.next_page == nil
+          
+          request.page = crawler.next_page
+        end
       end
     end
   end
