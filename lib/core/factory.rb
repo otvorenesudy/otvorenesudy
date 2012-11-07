@@ -1,4 +1,5 @@
 class Factory
+  include Output
   include Identify
   
   attr_reader :type,

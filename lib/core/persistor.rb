@@ -1,4 +1,5 @@
 class Persistor
+  include Output
   include Identify
   
   def persist(instance)
