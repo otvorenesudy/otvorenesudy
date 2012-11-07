@@ -36,10 +36,10 @@ module JusticeGovSk
     # TODO rm or refactor caching
     
       def next_page(document)
-        k = page(document)
-        n = pages(document)
+        k = page(document).to_i
+        n = pages(document).to_i
         
-        k.to_i + 1 if k < n
+        k + 1 if k < n
       end
     end
   end

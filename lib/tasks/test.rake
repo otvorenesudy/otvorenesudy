@@ -38,25 +38,18 @@ namespace :test do
     d.cache_load = false
     d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
+    #c = JusticeGovSk::Crawlers::JudgeListCrawler.new d
+    #r = JusticeGovSk::Requests::JudgeListRequest.new
+    
     c = JusticeGovSk::Crawlers::ListCrawler.new d
-    r = JusticeGovSk::Requests::CourtListRequest.new
+    
+    #r = JusticeGovSk::Requests::CourtListRequest.new
+    #r = JusticeGovSk::Requests::DecreeListRequest.new
+    #r = JusticeGovSk::Requests::CivilHearingListRequest.new
+    #r = JusticeGovSk::Requests::CriminalHearingListRequest.new
     r = JusticeGovSk::Requests::SpecialHearingListRequest.new
     
-    #r.page = 2
-    
-    #loop do
-    #  l = c.crawl r
-    #  
-    #  l.each do |i|
-    #    puts i
-    #  end
-    #  
-    #  break if c.next_page.nil?
-    #  
-    #  r.page = c.next_page
-    #end
-    
-    JusticeGovSk::Crawlers::ListCrawler.crawl_and_process c, r do |i|
+    c.crawl_and_process r do |i|
       puts i
     end
        

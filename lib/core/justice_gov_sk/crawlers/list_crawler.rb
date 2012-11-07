@@ -11,7 +11,7 @@ module JusticeGovSk
       def initialize(downloader)
         super(downloader, JusticeGovSk::Parsers::ListParser.new, nil)
     
-        @page      = 1
+        @page      = nil
         @pages     = nil
         @per_page  = nil
         @next_page = nil
@@ -19,7 +19,7 @@ module JusticeGovSk
           
       def crawl(request)
         introduce
-        puts "Working on page #{request.page} of #{@pages || '?'}, max. #{pluralize request.per_page, 'item'} per page."
+        puts "Request #{request.class.name} on page #{request.page} of #{@pages || '?'}, max. #{pluralize request.per_page, 'item'} per page."
         
         list = []
         
@@ -35,8 +35,10 @@ module JusticeGovSk
         @next_page = @parser.next_page(document)
         
         # TODO rm
-        puts "YYYY page     = #{@page}"
-        puts "YYYY per_page = #{@per_page}"
+        puts "YYYY page      = #{@page}"
+        puts "YYYY pages     = #{@pages}"
+        puts "YYYY per_page  = #{@per_page}"
+        puts "YYYY next_page = #{@next_page}"
         
         list = @parser.list(document)
     
@@ -45,19 +47,25 @@ module JusticeGovSk
         list
       end
       
-      def self.crawl_and_process(crawler, request, from = 1, to = nil, &block)
-        request.page = from
+      def crawl_and_process(request, offset = 1, limit = nil, &block)
+        request.page = offset
         
         loop do
-          list = crawler.crawl request
+          unless limit.nil?
+            limit -= 1
+            
+            break if limit < 0
+          end
+          
+          list = crawl request
           
           list.each do |item|
             block.call(item)
           end
           
-          break if crawler.next_page == to || crawler.next_page == nil
+          break if next_page == nil
           
-          request.page = crawler.next_page
+          request.page = next_page
         end
       end
     end

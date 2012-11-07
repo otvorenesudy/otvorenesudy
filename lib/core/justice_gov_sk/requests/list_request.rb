@@ -43,7 +43,7 @@ module JusticeGovSk
       end
       
       def page
-        data.match(/cmbAGVPager=(?<value>\d+)&/)[:value]
+        data.match(/cmbAGVPager=(?<value>\d+)&/)[:value].to_i
       end
 
 #      def per_page=(value)
@@ -51,7 +51,7 @@ module JusticeGovSk
 #      end
 
       def per_page
-        data.match(/cmbAGVCountOnPage=(?<value>\d+)&/)[:value]
+        data.match(/cmbAGVCountOnPage=(?<value>\d+)&/)[:value].to_i
       end
 
       # TODO rm, still used?
