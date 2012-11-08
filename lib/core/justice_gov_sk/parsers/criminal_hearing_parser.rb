@@ -7,6 +7,12 @@ module JusticeGovSk
         'Trestné'
       end
       
+      def court(document)
+        find_value_by_label 'court', document, 'Súd' do |div|
+          div.text.strip
+        end
+      end
+      
       def judges(document)
       end
       

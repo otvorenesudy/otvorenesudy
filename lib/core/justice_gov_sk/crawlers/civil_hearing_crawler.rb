@@ -6,9 +6,9 @@ module JusticeGovSk
       end
       
       protected
-    
+
       def process(uri, content)
-        super(uri, content)
+        document = preprocess(uri, content)
 
         @hearing.special_type = @parser.special_type(document)
         

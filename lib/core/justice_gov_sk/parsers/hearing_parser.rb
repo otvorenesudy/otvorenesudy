@@ -32,7 +32,7 @@ module JusticeGovSk
           div.text.strip
         end
       end
-      
+            
       def section(document)
         find_value_by_label 'section', document, 'Úsek' do |div|
           div.text.strip
