@@ -21,6 +21,9 @@ gem 'settingslogic'
 # Curl Ruby interface
 gem 'curb'
 
+# Mechanize
+gem 'mechanize'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
