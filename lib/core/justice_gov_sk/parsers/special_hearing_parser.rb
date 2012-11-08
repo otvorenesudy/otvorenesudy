@@ -31,7 +31,6 @@ module JusticeGovSk
       
       def defendant(document)
         find_value_by_label 'defendant', document, 'Obžalovaný/á' do |div|
-          # TODO 
           div.text.strip
         end
       end

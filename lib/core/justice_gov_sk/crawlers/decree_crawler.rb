@@ -51,7 +51,7 @@ module JusticeGovSk
         unless name.nil?
           judge = judge_factory.find(name)
           
-          @decree.judge = judge          
+          @decree.judge = judge
         end
       end
         

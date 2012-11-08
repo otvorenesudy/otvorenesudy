@@ -26,7 +26,7 @@ describe JusticeGovSk::Agents::ListAgent do
       @request.include_old_records = true
    end
 
-    it "should download 408th page of Civil Hearings with 100 results inluding old records" do
+    it "should download 400th page of Civil Hearings with 100 results inluding old records" do
       @request = JusticeGovSk::AgentRequests::CivilHearingListRequest.new
 
       @request.page = 400 

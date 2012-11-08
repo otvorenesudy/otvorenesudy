@@ -1,7 +1,7 @@
 class Proposer < ActiveRecord::Base
   attr_accessible :name
   
-  has_many :hearings
+  belongs_to :hearing
              
   validates :name, presence: true
 end

@@ -1,7 +1,7 @@
 class Defendant < ActiveRecord::Base
   attr_accessible :name
   
-  has_many :hearings
+  belongs_to :hearing
 
   has_many :accusations, dependent: :destroy
              

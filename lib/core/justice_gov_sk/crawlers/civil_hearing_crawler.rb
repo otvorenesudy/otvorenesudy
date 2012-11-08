@@ -20,26 +20,38 @@ module JusticeGovSk
         @persistor.persist(@hearing)
       end
       
-      def judges(document)
-        names = @parser.judges(document)
+      def proposers(document)
+        names = @parser.proposers(document)
     
         unless names.empty?
-          puts "Processing #{pluralize names.count, 'judges'}."
+          puts "Processing #{pluralize names.count, 'proposer'}."
           
           names.each do |name|
-            judge = judge_factory.find(name)
+            proposer = proposer_factory.find_or_create(@hearing.id, name)
             
-            unless judge.nil?
-              judging(judge)
-            end
+            proposer.hearing = @hearing
+            proposer.name    = name
+            
+            @persistor.persist(proposer) if proposer.id.nil?
           end
         end
       end
-        
-      def proposers(document)
-      end
 
       def opponents(document)
+        names = @parser.opponents(document)
+    
+        unless names.empty?
+          puts "Processing #{pluralize names.count, 'opponent'}."
+          
+          names.each do |name|
+            opponent = opponent_factory.find_or_create(@hearing.id, name)
+            
+            opponent.hearing = @hearing
+            opponent.name    = name
+            
+            @persistor.persist(opponent) if opponent.id.nil?
+          end
+        end
       end
       
       private

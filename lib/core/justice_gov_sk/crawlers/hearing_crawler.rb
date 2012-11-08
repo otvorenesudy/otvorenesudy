@@ -46,7 +46,21 @@ module JusticeGovSk
         name = @parser.court(document)
         
         unless name.nil?
-          @hearing.court = court_by_name_factory.find(name)          
+          @hearing.court = court_by_name_factory.find(name)
+        end
+      end
+      
+      def judges(document)
+        names = @parser.judges(document)
+    
+        unless names.empty?
+          puts "Processing #{pluralize names.count, 'judge'}."
+          
+          names.each do |name|
+            judge = judge_factory.find(name)
+            
+            judging(judge)
+          end
         end
       end
       

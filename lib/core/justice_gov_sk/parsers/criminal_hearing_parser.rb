@@ -7,22 +7,26 @@ module JusticeGovSk
         'Trestné'
       end
       
-      def court(document)
-        find_value_by_label 'court', document, 'Súd' do |div|
-          div.text.strip
+      def defendants(document)
+        find_rows_by_group 'defendants', document, 'Obžalovaní' do |divs|
+          map  = {}
+          name = nil
+
+          divs.each do |div|
+            if div[:class] == 'popiska'
+              name = div.text.strip
+              map[name] = []
+            elsif div[:class] == 'hodnota'
+              map[name] << div.text.strip
+            end
+          end
+
+          map   
         end
       end
       
-      def judges(document)
-      end
-      
-      def judge(name)
-      end
-      
-      def defendants(document)
-      end
-      
       def accusation(value)
+        value
       end
     end
   end
