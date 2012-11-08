@@ -3,10 +3,10 @@
 module JusticeGovSk
   module Requests
     class ListRequest
-      attr_accessor :page,
-                    :per_page
+      attr_accessor :page
 
-      attr_reader   :data
+      attr_reader :per_page,
+                  :data
       
       def headers
         {
@@ -34,25 +34,25 @@ module JusticeGovSk
         File.join Rails.root, 'lib', 'assets', "#{name.underscore}.data"
       end
 
-#      def page=(value)
-        #data.gsub!(/cmbAGVPager=\d+&/, "cmbAGVPager=#{value.to_i}&")
+      def page=(value)
+        data.gsub!(/cmbAGVPager=\d+&/, "cmbAGVPager=#{value.to_i}&")
         
-        ## TODO rm
-          #puts "XXXX #{page}"
-          #puts "XXXX #{per_page}"
-      #end
+        # TODO rm
+          puts "XXXX #{page}"
+          puts "XXXX #{per_page}"
+      end
       
-      #def page
-        #data.match(/cmbAGVPager=(?<value>\d+)&/)[:value].to_i
-      #end
+      def page
+        data.match(/cmbAGVPager=(?<value>\d+)&/)[:value].to_i
+      end
 
-      #def per_page=(value)
-        #data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{value}&")
-      #end
+#      def per_page=(value)
+#        data.gsub!(/cmbAGVCountOnPage=\d+&/, "cmbAGVCountOnPage=#{value}&")
+#      end
 
-      #def per_page
-        #data.match(/cmbAGVCountOnPage=(?<value>\d+)&/)[:value].to_i
-      #end
+      def per_page
+        data.match(/cmbAGVCountOnPage=(?<value>\d+)&/)[:value].to_i
+      end
 
       # TODO rm, still used?
       def save_data
