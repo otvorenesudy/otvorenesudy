@@ -19,9 +19,14 @@ class HtmlParser < Parser
     
     unless value.nil?
       unless value.respond_to?(:empty?) && value.empty?
-        value = block.call(value) if block
+        unless value.respond_to?(:text) && value.text.blank?
         
-        return value
+          value = block.call(value) if block
+        
+          return value
+        else
+          puts "#{name.upcase_first} text blank."
+        end
       else
         puts "#{name.upcase_first} empty."
       end
