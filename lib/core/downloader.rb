@@ -80,8 +80,9 @@ class Downloader
           return content
         end
         
-        puts  "failed (#{content.length} bytes, response code #{@request.response_code})"
-        raise "Invalid response code #{@request.response_code}"
+        e = "Invalid response code #{@request.response_code}"
+        
+        puts "failed (response code #{@request.response_code}, attempt #{i} of #{@repeat})"
         
       rescue Curl::Err::TimeoutError, Timeout::Error => e
         puts "failed (connection timed out, attempt #{i} of #{@repeat})"
