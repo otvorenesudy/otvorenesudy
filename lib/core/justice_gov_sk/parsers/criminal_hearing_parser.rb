@@ -21,9 +21,6 @@ module JusticeGovSk
       
       def defendants(document)
       end
-
-      def defendant(name)
-      end
       
       def accusation(value)
       end

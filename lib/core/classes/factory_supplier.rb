@@ -28,6 +28,7 @@ class FactorySupplier
     
     set Factory.new(Judge) { |name| Judge.find_by_name(name) }
     set Factory.new(JudgePosition) { |value| JudgePosition.find_by_value(value) }
+    set Factory.new(Judging) { |judge_id, hearing_id| Judging.find_by_judge_id_and_hearing_id(judge_id, hearing_id) }
     
     set Factory.new(Legislation) { |value| Legislation.find_by_value(value) }
     set Factory.new(LegislationArea) { |value| LegislationArea.find_by_value(value) }

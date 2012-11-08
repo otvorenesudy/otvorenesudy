@@ -7,7 +7,7 @@ class CreateJudgings < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :judgings, :judge_id
-    add_index :judgings, :hearing_id
+    add_index :judgings, [:judge_id, :hearing_id], unique: true
+    add_index :judgings, [:hearing_id, :judge_id], unique: true
   end
 end

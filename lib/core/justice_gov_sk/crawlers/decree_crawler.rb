@@ -118,7 +118,7 @@ module JusticeGovSk
         list = @parser.legislations(data)
     
         unless list.empty?
-          pad_and_puts "Processing #{pluralize list.count, 'legislation'}."
+          puts "Processing #{pluralize list.count, 'legislation'}."
           
           list.each do |original|
             identifiers = @parser.legislation(value)
@@ -149,7 +149,7 @@ module JusticeGovSk
       private
       
       def legislation_usage(legislation)
-        release_to_country_relation = legislation_usage_factory.find_or_create(legislation.id, @decree.id)
+        legislation_usage = legislation_usage_factory.find_or_create(legislation.id, @decree.id)
         
         legislation_usage.legislation = legislation
         legislation_usage.decree      = @decree

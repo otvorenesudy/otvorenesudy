@@ -20,21 +20,23 @@ module JusticeGovSk
       end
       
       def judges(document)
-      end
-      
-      def judge(name)
+        find_rows_by_group 'judges', document, 'Sudcovia' do |divs|
+          names = []
+          
+          divs.each_with_index do |div, i|
+            if div[:class] == 'popiska' && div.text.blank? && divs[i + 1][:class] == 'hodnota'
+              names << divs[i + 1].text.strip
+            end
+          end
+          
+          names
+        end
       end
         
       def proposers(document)
       end
-      
-      def proposer(name)
-      end
 
       def opponents(document)
-      end
-      
-      def opponent(name)
       end
     end
   end

@@ -123,7 +123,9 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at",             :null => false
   end
 
+  add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
+  add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
@@ -204,7 +206,9 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at",         :null => false
   end
 
+  add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
+  add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
@@ -231,8 +235,8 @@ ActiveRecord::Schema.define(:version => 20121030210430) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "judgings", ["hearing_id"], :name => "index_judgings_on_hearing_id"
-  add_index "judgings", ["judge_id"], :name => "index_judgings_on_judge_id"
+  add_index "judgings", ["hearing_id", "judge_id"], :name => "index_judgings_on_hearing_id_and_judge_id", :unique => true
+  add_index "judgings", ["judge_id", "hearing_id"], :name => "index_judgings_on_judge_id_and_hearing_id", :unique => true
 
   create_table "legislation_areas", :force => true do |t|
     t.string   "value",      :null => false

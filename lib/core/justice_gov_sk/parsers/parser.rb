@@ -6,7 +6,32 @@ module JusticeGovSk
       
       protected
       
-      def find_value_by_group_and_index(name, element, group, k, &block)
+      def find_rows_by_group(name, element, group, &block)
+        group  = table_key(group)
+        rows   = table_rows(element)
+
+        from = nil
+        to   = rows.count - 1
+  
+        rows.each_with_index do |div, i|
+          if div[:class] == 'skupina' && table_key(div.text) == group
+            from = i + 1
+            
+            from.upto(to) do |k|
+              if rows[k][:class] == 'skupina'
+                to = k
+                break
+              end
+            end
+            
+            break
+          end
+        end
+        
+        find_values name, rows[from..to], '', &block
+      end
+      
+      def find_value_by_group_and_index(name, element, group, index, &block)
         group  = table_key(group)
         rows   = table_rows(element)
         values = table_values(element)
@@ -18,7 +43,7 @@ module JusticeGovSk
           break  if div[:class] == 'skupina' && table_key(div.text) == group
         end
         
-        find_value name, values[i + k], '', &block
+        find_value name, values[i + index], '', &block
       end
       
       def find_value_by_label(name, element, label, &block)
@@ -49,8 +74,6 @@ module JusticeGovSk
       end
       
       private
-      
-      # TODO refactor & fix bug: table_rows(document) ->  table_rows   
       
       def table_rows(document)
         @table_rows ||= find_values('information table, all rows', document, 'div.DetailTable div').select do |div|

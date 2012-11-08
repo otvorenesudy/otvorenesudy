@@ -31,5 +31,8 @@ class CreateHearings < ActiveRecord::Migration
     
     add_index :hearings, :proceeding_id
     add_index :hearings, :court_id
+    
+    add_index :hearings, :case_number
+    add_index :hearings, :file_number
   end
 end

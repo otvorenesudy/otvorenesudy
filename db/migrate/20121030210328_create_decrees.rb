@@ -27,5 +27,8 @@ class CreateDecrees < ActiveRecord::Migration
     add_index :decrees, :proceeding_id
     add_index :decrees, :court_id
     add_index :decrees, :judge_id
+    
+    add_index :decrees, :case_number
+    add_index :decrees, :file_number
   end
 end
