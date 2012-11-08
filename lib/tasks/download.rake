@@ -2,24 +2,29 @@
 
 namespace :download do
   task :hearings => :environment do
-    d = Downloader.new
+    handler = Downloader.new
     
-    d.wait_time         = nil
-    d.cache_load        = false
-    d.cache_root        = '/media/external-ext4/cache'
-    d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
+    handler.wait_time         = nil
+    handler.cache_load        = false
+    handler.cache_store       = false
+    handler.cache_root        = '/media/external-ext4/cache'
+    handler.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
-    c = JusticeGovSk::Crawlers::ListCrawler.new d
+    crawler = JusticeGovSk::Crawlers::ListCrawler.new handler
     
-    r = JusticeGovSk::Requests::CivilHearingListRequest.new
-    #r = JusticeGovSk::Requests::CriminalHearingListRequest.new
-    #r = JusticeGovSk::Requests::SpecialHearingListRequest.new
+    request = JusticeGovSk::Requests::CivilHearingListRequest.new
+    #request = JusticeGovSk::Requests::CriminalHearingListRequest.new
+    #request = JusticeGovSk::Requests::SpecialHearingListRequest.new
+
+    downloader = handler.clone
     
-    c.crawl_and_process(r) do |url|
-       d.headers = r.headers
-       d.data    = {}
-       
-       d.download url
+    downloader.headers     = request.headers
+    downloader.data        = {}
+    downloader.cache_load  = true
+    downloader.cache_store = true
+    
+    crawler.crawl_and_process(request) do |url|
+       downloader.download url
     end
   end  
 end
