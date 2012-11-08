@@ -1,7 +1,11 @@
 # encoding: utf-8
 
 namespace :download do
-  task :hearings => :environment do
+  task :cache, [:type, :offset, :limit] => :environment do |task, args|
+    request = "JusticeGovSk::Requests::#{args[:type]}ListRequest".constantize.new
+    offset  = args[:offset].blank? ? 1 : args[:offset].to_i
+    limit   = args[:limit].blank? ? nil : args[:limit].to_i
+    
     handler = Downloader.new
     
     handler.wait_time         = nil
@@ -11,10 +15,6 @@ namespace :download do
     handler.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     crawler = JusticeGovSk::Crawlers::ListCrawler.new handler
-    
-    request = JusticeGovSk::Requests::CivilHearingListRequest.new
-    #request = JusticeGovSk::Requests::CriminalHearingListRequest.new
-    #request = JusticeGovSk::Requests::SpecialHearingListRequest.new
 
     downloader = handler.clone
     
@@ -23,7 +23,7 @@ namespace :download do
     downloader.cache_load  = true
     downloader.cache_store = true
     
-    crawler.crawl_and_process(request) do |url|
+    crawler.crawl_and_process(request, offset, limit) do |url|
        downloader.download url
     end
   end  
