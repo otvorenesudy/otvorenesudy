@@ -13,6 +13,14 @@ module JusticeGovSk
         path.gsub!(/Stranky\/Sudcovia/i,          'judges')
         path.gsub!(/Stranky\/Sudne-rozhodnutia/i, 'decrees')
         path.gsub!(/Stranky\/Sudy/i,              'courts')
+                
+        path.gsub!(/\/SudDetail/i,              '')
+        path.gsub!(/Sudne-rozhodnutie-detail/i, 'decree')
+        path.gsub!(/PojednavanieDetail/i,       'civil/civil-hearing')
+        path.gsub!(/PojednavanieTrestDetail/i,  'criminal/criminal-hearing')
+        path.gsub!(/PojednavanieSpecDetail/i,   'special/special-hearing')
+        
+        path.downcase!
         
         path = "#{downloader.cache_root}#{path}"
         path = "#{path}.#{downloader.cache_file_extension}" unless downloader.cache_file_extension.nil?
