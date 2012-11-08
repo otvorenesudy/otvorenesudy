@@ -30,7 +30,8 @@ module JusticeGovSk
       end
       
       def defendant(document)
-        find_value_by_label 'selfjudge', document, 'Obžalovaný/á' do |div|
+        find_value_by_label 'defendant', document, 'Obžalovaný/á' do |div|
+          # TODO 
           div.text.strip
         end
       end

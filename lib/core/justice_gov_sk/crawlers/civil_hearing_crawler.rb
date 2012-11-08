@@ -21,6 +21,9 @@ module JusticeGovSk
       end
       
       def judges(document)
+        names = @parser.judges(document)
+        
+        puts names
       end
         
       def proposers(document)
