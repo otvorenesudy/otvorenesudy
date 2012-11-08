@@ -1,0 +1,4 @@
+class ListAgent < Agent
+  
+
+end
