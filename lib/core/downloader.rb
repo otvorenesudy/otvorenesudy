@@ -119,23 +119,27 @@ class Downloader
   def load(path)
     print "Loading #{path} ... "
 
-    if File.readable? path
-      unless @cache_expire_time.nil?
-        delta = Time.now - File.ctime(path)
-
-        if delta >= @cache_expire_time
-          puts "failed (expired)"  
-          return nil
-        end 
+    if File.exists? path
+      if File.readable? path
+        unless @cache_expire_time.nil?
+          delta = Time.now - File.ctime(path)
+  
+          if delta >= @cache_expire_time
+            puts "failed (expired)"  
+            return nil
+          end 
+        end
+  
+        content = super path
+  
+        puts "done (#{content.length} bytes)"
+  
+        content
+      else
+        puts "failed (not readable)"
       end
-
-      content = super path
-
-      puts "done (#{content.length} bytes)"
-
-      content
     else
-      puts "failed (not readable)"
+      puts "failed (not exists)"
     end
   end
 

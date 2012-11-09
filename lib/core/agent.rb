@@ -1,5 +1,7 @@
 require 'mechanize'
 
+# TODO find a common super class / module for downloader & agent
+
 class Agent
   include Output
 
