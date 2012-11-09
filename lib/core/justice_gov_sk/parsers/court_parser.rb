@@ -4,7 +4,7 @@ module JusticeGovSk
   module Parsers
     class CourtParser < JusticeGovSk::Parsers::Parser
       def type(document)
-        name(document).split(/\s/)[0]
+        name(document).split(/\s/).first
       end
       
       def municipality_name(document)
@@ -121,7 +121,7 @@ module JusticeGovSk
         find_value 'coordinates', document, 'div.textInfo iframe' do |iframe|
           @coordinates = {}
                       
-          iframe[0][:src].scan(/sll=(\d+\.\d+)\,(\d+\.\d+)/) do |latitude, longitude|
+          iframe.first[:src].scan(/sll=(\d+\.\d+)\,(\d+\.\d+)/) do |latitude, longitude|
             @coordinates[:latitude]  = coordinate latitude
             @coordinates[:longitude] = coordinate longitude
           end

@@ -128,8 +128,8 @@ module JusticeGovSk
               
               legislation = legislation_factory.find_or_create(value)
               
-              legislation.value    = value
-              legislation.original = original
+              legislation.value     = value
+              legislation.original  = original
               
               legislation.number    = identifiers[:number] 
               legislation.year      = identifiers[:year]
