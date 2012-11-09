@@ -59,6 +59,8 @@ module JusticeGovSk
       def legislation(document)
       end
       
+      protected
+      
       def clear_caches
         super
         

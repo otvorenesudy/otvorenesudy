@@ -44,6 +44,8 @@ module JusticeGovSk
         names
       end
       
+      protected
+      
       def clear_caches
         super
         

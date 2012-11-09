@@ -98,6 +98,14 @@ module JusticeGovSk
         coordinates(document)[:longitude]
       end
       
+      protected
+      
+      def clear_caches
+        super
+        
+        @coordinates = nil
+      end
+      
       private
       
       def office_type_to_group(type)
@@ -116,17 +124,15 @@ module JusticeGovSk
       end
       
       def coordinates(document)
-        return @coordinates unless @coordinates.nil? 
-
-        find_value 'coordinates', document, 'div.textInfo iframe' do |iframe|
-          @coordinates = {}
+        @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe' do |iframe|
+          coordinates = {}
                       
           iframe.first[:src].scan(/sll=(\d+\.\d+)\,(\d+\.\d+)/) do |latitude, longitude|
-            @coordinates[:latitude]  = coordinate latitude
-            @coordinates[:longitude] = coordinate longitude
+            coordinates[:latitude]  = coordinate latitude
+            coordinates[:longitude] = coordinate longitude
           end
           
-          @coordinates
+          coordinates
         end
       end
       
