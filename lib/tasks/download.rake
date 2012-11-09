@@ -11,7 +11,6 @@ namespace :download do
     handler.wait_time         = nil
     handler.cache_load        = false
     handler.cache_store       = false
-    handler.cache_root        = '/media/external-ext4/cache'
     handler.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     crawler = JusticeGovSk::Crawlers::ListCrawler.new handler
