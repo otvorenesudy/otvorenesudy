@@ -20,6 +20,8 @@ module JusticeGovSk
         path.gsub!(/PojednavanieTrestDetail/i,  'criminal/criminal-hearing')
         path.gsub!(/PojednavanieSpecDetail/i,   'special/special-hearing')
         
+        #path.gsub!(/IdTp|IdVp|IdSpecSudKonanie/i, 'id')
+        
         path.downcase!
         
         path = "#{downloader.cache_root}#{path}"
