@@ -2,7 +2,7 @@
 
 namespace :download do
   task :cache, [:type, :offset, :limit] => :environment do |task, args|
-    request = "JusticeGovSk::Requests::#{args[:type]}ListRequest".constantize.new
+    type    = args[:type].camelcase
     offset  = args[:offset].blank? ? 1 : args[:offset].to_i
     limit   = args[:limit].blank? ? nil : args[:limit].to_i
     
@@ -13,6 +13,7 @@ namespace :download do
     handler.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     crawler = JusticeGovSk::Crawlers::ListCrawler.new handler
+    request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
 
     downloader = handler.clone
     

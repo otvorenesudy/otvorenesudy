@@ -95,16 +95,16 @@ class Downloader
     raise e || 'Unable to download'
   end
 
+  def cache_load_and_store=(value)
+    @cache_load = @cache_store = value
+  end
+
   private
 
   include Cache
 
   alias :cache_root= :root=
   alias :cache_root  :root
-
-  def cache_load_and_store=(value)
-    @cache_load = @cache_store = value
-  end
 
   def wait
     unless @wait_time.nil? || @wait_time <= 0
