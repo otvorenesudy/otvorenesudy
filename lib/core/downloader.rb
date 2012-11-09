@@ -102,6 +102,10 @@ class Downloader
   alias :cache_root= :root=
   alias :cache_root  :root
 
+  def cache_load_and_store=(value)
+    @cache_load = @cache_store = value
+  end
+
   def wait
     unless @wait_time.nil? || @wait_time <= 0
       print "Waiting #{@wait_time} sec. ... "

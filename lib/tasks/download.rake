@@ -8,19 +8,17 @@ namespace :download do
     
     handler = Downloader.new
     
-    handler.wait_time         = nil
-    handler.cache_load        = false
-    handler.cache_store       = false
-    handler.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
+    handler.wait_time            = nil
+    handler.cache_load_and_store = false
+    handler.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     crawler = JusticeGovSk::Crawlers::ListCrawler.new handler
 
     downloader = handler.clone
     
-    downloader.headers     = request.headers
-    downloader.data        = {}
-    downloader.cache_load  = true
-    downloader.cache_store = true
+    downloader.headers              = request.headers
+    downloader.data                 = {}
+    downloader.cache_load_and_store = true
     
     crawler.crawl_and_process(request, offset, limit) do |url|
        downloader.download url
