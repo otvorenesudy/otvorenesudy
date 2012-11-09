@@ -57,8 +57,8 @@ describe JusticeGovSk::Agents::ListAgent do
     it "should download second page with 50 results" do
       @request = JusticeGovSk::AgentRequests::CourtListRequest.new
 
-      @request.page = 2 
-      @request.per_page = 50
+      @request.page = 1 
+      @request.per_page = 100
       @request.include_old_records = false
     end
   end
