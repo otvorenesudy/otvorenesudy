@@ -27,7 +27,7 @@ class Agent < Downloader
 
         page = @agent.get(uri)
 
-        page = yield page if block_given?
+        page = yield page
 
         if page
           content = page.content

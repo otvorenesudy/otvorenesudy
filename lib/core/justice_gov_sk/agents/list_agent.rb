@@ -52,7 +52,7 @@ module JusticeGovSk
             page = form.submit
           end
 
-         page 
+          page 
         end
       end
 
