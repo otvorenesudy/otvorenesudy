@@ -1,4 +1,5 @@
 require 'classes/string'
+require 'mechanize'
 require 'nokogiri'
 
 class HtmlParser < Parser
@@ -7,7 +8,7 @@ class HtmlParser < Parser
     
     print "Parsing resource ... "
     
-    if resource.is_a? Nokogiri::HTML::Document
+    if resource.is_a?(Nokogiri::XML::Node) || resource.is_a?(Mechanize::Page)
       puts "done (already parsed)"
       
       document = resource
