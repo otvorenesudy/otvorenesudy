@@ -11,10 +11,11 @@ describe JusticeGovSk::Agents::ListAgent do
   end
 
   after :each do
-    content = @agent.download(@request)
+    page = @agent.download(@request)
 
-    content.should_not be_nil
-    content.should_not be_empty
+    page.should_not be_nil
+    page.content.should_not be_nil
+    page.content.should_not be_empty
   end
 
   describe "for Hearing List request" do
