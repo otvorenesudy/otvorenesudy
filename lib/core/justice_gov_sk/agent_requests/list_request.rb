@@ -5,12 +5,15 @@ module JusticeGovSk
     class ListRequest
       attr_accessor :page,
                     :per_page,
-                    :include_old_records 
+                    :hearing_or_decree_include_old,
+                    :decree_form
+                     
 
       def initialize
         @page = 1
         @per_page = 100
-        @include_old_records = true
+        @hearing_or_decree_include_old = false 
+        @decree_form = nil        
       end
     end
   end
