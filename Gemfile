@@ -24,6 +24,9 @@ gem 'curb'
 # Mechanize
 gem 'mechanize'
 
+# PG search 
+#gem 'pg_seach'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
