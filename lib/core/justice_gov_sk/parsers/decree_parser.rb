@@ -61,20 +61,37 @@ module JusticeGovSk
 
       def legislation(value)
         parts = value.split(/\/|\,/)
-        map   = {}
+        map   = { value: '' }
 
-        map[:number]    = parts[0].match(/d+/) { |m| m[0] } unless parts[0].nil?
-        map[:year]      = parts[1].match(/\Ad+/) { |m| m[0] } unless parts[1].nil?
-        map[:name]      = parts[1].sub(/\Ad+\s+/, '') unless parts[1].nil?
-        map[:paragraph] = parts[2].match(/d+/) { |m| m[0] } unless parts[2].nil?
-        map[:section]   = parts[3].match(/d+/) { |m| m[0] } unless parts[3].nil?
-        map[:letter]    = parts[4].match(/\s+(?<letter>\a-z)\s?\z/i) { |m| m[:letter] } unless parts[4].nil?
+        unless parts[0].nil?
+          map[:number] = parts[0].match(/d+/) { |m| m[0] }
+          map[:value] += "Zákon č. #{map[:number] || '?'}"
+        end
         
-        map[:value]  = "Zákon č. #{map[:number] || '?'}/#{map[:year] || '?'}"
-        map[:value] += " #{map[:name]}"          unless map[:name].blank?
-        map[:value] += "§ #{map[:paragraph]}"    unless map[:paragraph].blank?
-        map[:value] += "Odsek #{map[:section]}"  unless map[:section].blank?
-        map[:value] += "Písmeno #{map[:letter]}" unless map[:letter].blank?
+        map[:value] += "/"
+
+        unless parts[1].nil?
+          map[:year]   = parts[1].match(/\Ad+/) { |m| m[0] }
+          map[:name]   = parts[1].sub(/\Ad+\s+/, '')
+          map[:value] += "#{map[:year] || '?'}" unless map[:year].blank?
+          map[:value] += " #{map[:name]}" unless map[:name].blank?
+        end
+
+        unless parts[2].nil?
+          map[:paragraph] = parts[2].match(/d+/) { |m| m[0] }
+          map[:value]    += "§ #{map[:paragraph]}" unless map[:paragraph].blank?
+        end
+         
+         
+        unless parts[3].nil?
+          map[:section] = parts[3].match(/d+/) { |m| m[0] }
+          map[:value]  += "Odsek #{map[:section]}" unless map[:section].blank?
+        end
+        
+        unless parts[4].nil?
+          map[:letter] = parts[4].match(/\s+(?<letter>\a-z)\s?\z/i) { |m| m[:letter] }
+          map[:value] += "Písmeno #{map[:letter]}" unless map[:letter].blank?
+        end
         
         map
       end
