@@ -16,12 +16,12 @@ module JusticeGovSk
           end
 
           # Include old hearings or decrees
-          if request.hearing_or_decree_include_old
+          if request.include_old_hearing_or_decree
             checkboxes = form.checkboxes.map(&:name)
             
-            hearing_or_decree_include_old_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\Z/) }
+            include_old_hearing_or_decree_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\Z/) }
 
-            form.checkbox_with(name: hearing_or_decree_include_old_checkbox_name).check
+            form.checkbox_with(name: include_old_hearing_or_decree_checkbox_name).check
           end
 
           form = page.form_with(name: form_name)
