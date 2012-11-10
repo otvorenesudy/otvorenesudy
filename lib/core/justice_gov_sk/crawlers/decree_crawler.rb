@@ -120,8 +120,8 @@ module JusticeGovSk
         unless list.empty?
           puts "Processing #{pluralize list.count, 'legislation'}."
           
-          list.each do |original|
-            identifiers = @parser.legislation(value)
+          list.each do |item|
+            identifiers = @parser.legislation(item)
             
             unless identifiers.empty?
               value = identifiers[:value]
@@ -129,7 +129,7 @@ module JusticeGovSk
               legislation = legislation_factory.find_or_create(value)
               
               legislation.value     = value
-              legislation.original  = original
+              legislation.original  = item
               
               legislation.number    = identifiers[:number] 
               legislation.year      = identifiers[:year]

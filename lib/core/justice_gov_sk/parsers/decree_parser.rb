@@ -54,9 +54,29 @@ module JusticeGovSk
       end
         
       def legislations(document)
+        find_value_by_label 'legislations', document, 'Predpisy odkazované v rozhodnutí' do |div|
+          div.search('span').map { |span| span.text.strip }
+        end
       end
 
-      def legislation(document)
+      def legislation(value)
+        parts = value.split(/\/|\,/)
+        map   = {}
+
+        map[:number]    = parts[0].match(/d+/) { |m| m[0] } unless parts[0].nil?
+        map[:year]      = parts[1].match(/\Ad+/) { |m| m[0] } unless parts[1].nil?
+        map[:name]      = parts[1].sub(/\Ad+\s+/, '') unless parts[1].nil?
+        map[:paragraph] = parts[2].match(/d+/) { |m| m[0] } unless parts[2].nil?
+        map[:section]   = parts[3].match(/d+/) { |m| m[0] } unless parts[3].nil?
+        map[:letter]    = parts[4].match(/\s+(?<letter>\a-z)\s?\z/i) { |m| m[:letter] } unless parts[4].nil?
+        
+        map[:value]  = "Zákon č. #{map[:number] || '?'}/#{map[:year] || '?'}"
+        map[:value] += " #{map[:name]}"          unless map[:name].blank?
+        map[:value] += "§ #{map[:paragraph]}"    unless map[:paragraph].blank?
+        map[:value] += "Odsek #{map[:section]}"  unless map[:section].blank?
+        map[:value] += "Písmeno #{map[:letter]}" unless map[:letter].blank?
+        
+        map
       end
       
       protected
