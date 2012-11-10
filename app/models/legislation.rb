@@ -1,5 +1,6 @@
 class Legislation < ActiveRecord::Base
   attr_accessible :value,
+                  :value_unprocessed,
                   :number,
                   :year,
                   :name,

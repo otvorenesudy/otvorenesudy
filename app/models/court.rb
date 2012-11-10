@@ -8,6 +8,7 @@ class Court < ActiveRecord::Base
                   :phone,
                   :fax,
                   :media_person,
+                  :media_person_unprocessed,
                   :media_phone,
                   :latitude,
                   :longitude
@@ -42,10 +43,11 @@ class Court < ActiveRecord::Base
     ;
 EOF
     )
+    
     result = result.to_hash
-   
-    match = result.first 
-    model = Court.find(match['id'])
+    match  = result.first 
+    model  = Court.find(match['id'])
+    
     return model if match['sml'].to_f >= similarity
   end
 end

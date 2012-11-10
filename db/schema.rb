@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.string   "phone"
     t.string   "fax"
     t.string   "media_person"
+    t.string   "media_person_unprocessed"
     t.string   "media_phone"
     t.integer  "information_center_id"
     t.integer  "registry_center_id"
@@ -222,9 +223,10 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "judge_positions", ["value"], :name => "index_judge_positions_on_value", :unique => true
 
   create_table "judges", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",             :null => false
+    t.string   "name_unprocessed", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
@@ -268,16 +270,16 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "legislation_usages", ["legislation_id", "decree_id"], :name => "index_legislation_usages_on_legislation_id_and_decree_id", :unique => true
 
   create_table "legislations", :force => true do |t|
-    t.string   "value",      :null => false
-    t.integer  "number",     :null => false
-    t.integer  "year",       :null => false
-    t.string   "name",       :null => false
-    t.string   "section",    :null => false
-    t.string   "paragraph",  :null => false
+    t.string   "value",             :null => false
+    t.string   "value_unprocessed", :null => false
+    t.integer  "number",            :null => false
+    t.integer  "year",              :null => false
+    t.string   "name",              :null => false
+    t.string   "section",           :null => false
+    t.string   "paragraph",         :null => false
     t.string   "letter"
-    t.string   "original",   :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "legislations", ["number", "year", "name", "section", "paragraph", "letter"], :name => "index_legislations_on_identifiers", :unique => true

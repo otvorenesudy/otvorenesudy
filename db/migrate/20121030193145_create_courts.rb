@@ -15,6 +15,7 @@ class CreateCourts < ActiveRecord::Migration
       t.string :fax
       
       t.string :media_person
+      t.string :media_person_unprocessed
       t.string :media_phone
       
       t.references :information_center
