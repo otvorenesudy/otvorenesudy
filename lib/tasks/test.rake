@@ -60,6 +60,8 @@ namespace :test do
     d = Downloader.new
     p = Persistor.new
     
+    d = Agent.new
+    
     d.wait_time = nil
     d.cache_load = false
     d.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda

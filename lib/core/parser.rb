@@ -1,6 +1,6 @@
 class Parser
   include Output
 
-  def parse(content)
+  def parse(resource)
   end
 end

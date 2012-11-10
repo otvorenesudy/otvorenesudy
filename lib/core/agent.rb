@@ -11,7 +11,9 @@ class Agent < Downloader
   end
 
   def download(request)
-    path, content = predownload(request.url)
+    uri = request.respond_to?(:url) ? request.url : request
+    
+    path, content = predownload(uri)
     
     return content unless content.nil?
 
@@ -20,10 +22,10 @@ class Agent < Downloader
     1.upto @repeat do |i|
       wait
 
-      begin 
-        print "Getting page #{request.url}"
+      begin
+        print "Getting page #{uri}"
 
-        page = @agent.get(request.url)
+        page = @agent.get(uri)
 
         page = yield page if block_given?
 

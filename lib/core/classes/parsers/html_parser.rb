@@ -2,12 +2,23 @@ require 'classes/string'
 require 'nokogiri'
 
 class HtmlParser < Parser
-  def parse(content)
+  def parse(resource)
     clear_caches if self.respond_to? :clear_caches
     
-    content = content.encode Encoding::UTF_8, encoding(content)
+    print "Parsing resource ... "
+    
+    if resource.is_a? Nokogiri::HTML::Document
+      puts "done (already parsed)"
+      
+      document = resource
+    else
+      content  = resource.encode Encoding::UTF_8, encoding(resource)
+      document = Nokogiri::HTML::parse(content)
+      
+      puts "done"
+    end
   
-    Nokogiri::HTML::parse(content)
+    document
   end
   
   protected
