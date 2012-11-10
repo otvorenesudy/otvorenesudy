@@ -23,10 +23,10 @@ module JusticeGovSk
         
         list = []
         
-        @downloader.headers = request.headers
-        @downloader.data    = request.data
+        puts "XXX #{request.per_page}"
+        puts "XXX #{request.page}"
         
-        content  = @downloader.download(request.url)
+        content  = @downloader.download(request)
         document = @parser.parse(content)
         
         @page      = @parser.page(document)

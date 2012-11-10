@@ -53,4 +53,20 @@ class Agent < Downloader
     
     raise e || "Unable to download"  
   end
+  
+  def headers=(value)
+    raise 'Unsupported'
+  end
+  
+  def data=(value)
+    raise 'Unsupported'
+  end
+  
+  def headers
+    @agent.request_headers
+  end
+  
+  def data
+    raise 'Unsupported'
+  end
 end
