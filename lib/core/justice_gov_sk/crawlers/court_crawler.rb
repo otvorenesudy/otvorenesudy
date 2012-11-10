@@ -32,7 +32,7 @@ module JusticeGovSk
         @court.latitude     = @parser.latitude(document)
         @court.longitude    = @parser.longitude(document)
     
-        @court.media_person_unprocessed = @court.media_person_name
+        @court.media_person_unprocessed = @court.media_person
     
         type(document)
         municipality(document)

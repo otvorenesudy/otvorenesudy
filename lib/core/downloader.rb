@@ -42,17 +42,7 @@ class Downloader
     1.upto @repeat do |i|
       wait
 
-      # TODO use GET if no data 
-
-      print "Building HTTP/POST request ... "
-
-      request = Curl::Easy.http_post(uri, @data) do |curl|
-        curl.connect_timeout = @timeout
-        
-        @headers.each { |p, v| curl.headers[p] = v }
-      end
-      
-      puts "done (data #{data.size} bytes)"
+      request = http_request(uri)
 
       begin
         print "Downloading #{uri} ... "
@@ -104,7 +94,7 @@ class Downloader
 
     return path, content
   end
-
+  
   def wait
     unless @wait_time.nil? || @wait_time <= 0
       print "Waiting #{@wait_time} sec. ... "
@@ -156,5 +146,33 @@ class Downloader
 
   def self.uri_to_path(downloader, uri)
     uri_to_path downloader.cache_file_extension.nil? ? uri : "#{uri}.#{downloader.cache_file_extension}"
+  end
+  
+  private
+  
+  def http_request(uri)
+    if @data.empty?
+      http_get uri
+    else
+      http_post uri
+    end
+  end
+  
+  def http_get(uri)
+    Curl::Easy.http_get(uri) { |h| http_settings h }
+  end
+  
+  def http_post(uri)
+    print "Constructing HTTP/POST request ... "
+
+    request = Curl::Easy.http_post(uri, @data) { |h| http_settings h }
+          
+    puts "done (data #{data.size} bytes)"
+  end
+  
+  def http_settings(http)
+      http.connect_timeout = @timeout
+      
+      @headers.each { |p, v| http.headers[p] = v }
   end
 end
