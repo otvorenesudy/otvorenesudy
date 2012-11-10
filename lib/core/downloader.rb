@@ -1,7 +1,5 @@
 require 'net/http'
 
-# TODO: Add verbose parameter to turn on/off verbosity
-
 class Downloader
   include Output
   
@@ -15,9 +13,6 @@ class Downloader
                 :repeat,
                 :timeout,
                 :wait_time
-
-  attr_reader :request,
-              :response_code
 
   def initialize
     @cache_expire_time    = nil
@@ -36,15 +31,9 @@ class Downloader
   end
 
   def download(uri)
-    path = @cache_uri_to_path.call(self, uri)
-
-    FileUtils.mkpath(File.dirname(path)) if @cache_store
-     
-    if @cache_load
-      content = load(path)  
-
-      return content unless content.nil?
-    end
+    path, content = predownload(uri)
+    
+    return content unless content.nil?
     
     e = nil
   
@@ -55,7 +44,7 @@ class Downloader
 
       print "Building HTTP/POST request ... "
 
-      @request = Curl::Easy.http_post(uri, @data) do |curl|
+      request = Curl::Easy.http_post(uri, @data) do |curl|
         curl.connect_timeout = @timeout
         
         @headers.each { |p, v| curl.headers[p] = v }
@@ -66,23 +55,21 @@ class Downloader
       begin
         print "Downloading #{uri} ... "
 
-        @request.perform
+        request.perform
         
-        @response_code = @request.response_code
-        
-        content = @request.body_str
+        content = request.body_str
 
-        if @request.response_code == 200
+        if request.response_code == 200
           puts "done (#{content.length} bytes)"
           
-          store(path, content) if @cache_store
+          store(path, content)
           
           return content
         end
         
-        e = "Invalid response code #{@request.response_code}"
+        e = "Invalid response code #{request.response_code}"
         
-        puts "failed (response code #{@request.response_code}, attempt #{i} of #{@repeat})"
+        puts "failed (response code #{request.response_code}, attempt #{i} of #{@repeat})"
         
       rescue Curl::Err::TimeoutError, Timeout::Error => e
         puts "failed (connection timed out, attempt #{i} of #{@repeat})"
@@ -98,13 +85,23 @@ class Downloader
   def cache_load_and_store=(value)
     @cache_load = @cache_store = value
   end
-
-  private
-
+  
+  protected
+  
   include Cache
 
   alias :cache_root= :root=
   alias :cache_root  :root
+
+  def predownload(uri)
+    path = @cache_uri_to_path.call(self, uri)
+
+    FileUtils.mkpath(File.dirname(path)) if @cache_store
+     
+    content = load(path)
+
+    return path, content
+  end
 
   def wait
     unless @wait_time.nil? || @wait_time <= 0
@@ -117,38 +114,42 @@ class Downloader
   end 
 
   def load(path)
-    print "Loading #{path} ... "
-
-    if File.exists? path
-      if File.readable? path
-        unless @cache_expire_time.nil?
-          delta = Time.now - File.ctime(path)
+    if @cache_load
+      print "Loading #{path} ... "
   
-          if delta >= @cache_expire_time
-            puts "failed (expired)"  
-            return nil
-          end 
+      if File.exists? path
+        if File.readable? path
+          unless @cache_expire_time.nil?
+            delta = Time.now - File.ctime(path)
+    
+            if delta >= @cache_expire_time
+              puts "failed (expired)"  
+              return nil
+            end 
+          end
+    
+          content = super path
+    
+          puts "done (#{content.length} bytes)"
+    
+          content
+        else
+          puts "failed (not readable)"
         end
-  
-        content = super path
-  
-        puts "done (#{content.length} bytes)"
-  
-        content
       else
-        puts "failed (not readable)"
+        puts "failed (not exists)"
       end
-    else
-      puts "failed (not exists)"
     end
   end
 
   def store(path, content)
-    print "Storing #{path} ... "
-
-    super path, content
-
-    puts "done (#{content.length} bytes)"
+    if @cache_store
+      print "Storing #{path} ... "
+  
+      super path, content
+  
+      puts "done (#{content.length} bytes)"
+    end
   end
 
   def self.uri_to_path(downloader, uri)
