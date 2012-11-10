@@ -20,10 +20,8 @@ module JusticeGovSk
       end
       
       def name(document)
-        return @name unless @name.nil?
-        
-        find_value_by_group_and_index 'name', document, 'Kontakt', 0 do |div|
-          @name ||= div.text.strip
+        @name ||= find_value_by_group_and_index 'name', document, 'Kontakt', 0 do |div|
+          div.text.strip
         end
       end
       
@@ -103,6 +101,7 @@ module JusticeGovSk
       def clear_caches
         super
         
+        @name        = nil
         @coordinates = nil
       end
       

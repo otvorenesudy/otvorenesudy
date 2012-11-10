@@ -12,21 +12,21 @@ class HtmlParser < Parser
   
   protected
   
-  def find_value(name, element, selector, &block)
+  def find_value(name, element, selector, options = {}, &block)
     puts "Parsing #{name}."
     
     value = selector.blank? ? element : element.search(selector)
     
     unless value.nil?
       unless value.respond_to?(:empty?) && value.empty?
-        unless value.respond_to?(:text) && value.text.blank?
+        #unless value.respond_to?(:text) && value.text.blank?
         
           value = block.call(value) if block
         
           return value
-        else
-          puts "#{name.upcase_first} text blank."
-        end
+        #else
+        #  puts "#{name.upcase_first} text blank."
+        #end
       else
         puts "#{name.upcase_first} empty."
       end
