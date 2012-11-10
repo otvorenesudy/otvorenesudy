@@ -13,35 +13,46 @@ class HtmlParser < Parser
   protected
   
   def find_value(name, element, selector, options = {}, &block)
+    options = defaults.merge options
+    
     puts "Parsing #{name}."
     
     value = selector.blank? ? element : element.search(selector)
     
-    unless value.nil?
-      unless value.respond_to?(:empty?) && value.empty?
-        #unless value.respond_to?(:text) && value.text.blank?
-        
-          value = block.call(value) if block
-        
-          return value
-        #else
-        #  puts "#{name.upcase_first} text blank."
-        #end
-      else
-        puts "#{name.upcase_first} empty."
+    if options[:present?]
+      if value.nil?
+        puts "#{name.upcase_first} not present."
+        return
       end
-    else
-      puts "#{name.upcase_first} not present."
     end
     
-    nil
+    if options[:empty?]
+      if value.respond_to?(:empty?) && value.empty?
+        puts "#{name.upcase_first} empty."
+        return
+      end
+        
+      if value.respond_to?(:text) && value.text.empty?
+        puts "#{name.upcase_first} text empty."
+        return
+      end
+    end
+    
+    block_given? ? block.call(value) : value 
   end
   
-  def find_values(name, element, selector, &block)
-    find_value(name, element, selector, &block) || []
+  def find_values(name, element, selector, options = {}, &block)
+    find_value(name, element, selector, options, &block) || []
   end
   
   private
+  
+  def defaults
+    {
+      present?: true,
+      empty?:   true,
+    }
+  end
   
   def encoding(content)
     part = ''
