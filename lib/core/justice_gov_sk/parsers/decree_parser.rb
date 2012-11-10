@@ -89,7 +89,7 @@ module JusticeGovSk
         end
         
         unless parts[4].nil?
-          map[:letter] = parts[4].match(/\s+(?<letter>\a-z)\s?\z/i) { |m| m[:letter] }
+          map[:letter] = parts[4].match(/\s+(?<letter>[a-z])\s*\z/i) { |m| m[:letter] }
           map[:value] += "Písmeno #{map[:letter]}" unless map[:letter].blank?
         end
         
