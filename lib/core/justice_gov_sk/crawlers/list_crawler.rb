@@ -34,12 +34,6 @@ module JusticeGovSk
         @per_page  = @parser.per_page(document)
         @next_page = @parser.next_page(document)
         
-        # TODO rm
-        puts "YYYY page      = #{@page}"
-        puts "YYYY pages     = #{@pages}"
-        puts "YYYY per_page  = #{@per_page}"
-        puts "YYYY next_page = #{@next_page}"
-        
         list = @parser.list(document)
     
         puts "done (page #{@page} of #{@pages}, #{pluralize list.count, 'item'}, next page #{@next_page || 'N/A'})"
