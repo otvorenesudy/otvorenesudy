@@ -23,7 +23,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 200 
       @request.per_page = 100 
-      @request.include_old_records = true
+      @request.hearing_or_decree_include_old = true
    end
 
     it "should download 400th page of Civil Hearings with 100 results inluding old records" do
@@ -31,7 +31,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 400 
       @request.per_page = 100 
-      @request.include_old_records = true
+      @request.hearing_or_decree_include_old = true
     end
 
     it "should download 4th page of Special Hearings with 20 results including old records" do
@@ -39,7 +39,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 4 
       @request.per_page = 20 
-      @request.include_old_records = true
+      @request.hearing_or_decree_include_old = true
     end
   end
 
@@ -49,17 +49,15 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 4 
       @request.per_page = 20 
-      @request.include_old_records = false
     end
   end
 
   describe "for Court List request" do
-    it "should download second page with 50 results" do
+    it "should download first page with 100 results" do
       @request = JusticeGovSk::AgentRequests::CourtListRequest.new
 
       @request.page = 1 
       @request.per_page = 100
-      @request.include_old_records = false
     end
   end
 
@@ -69,7 +67,14 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 3500 
       @request.per_page = 100 
-      @request.include_old_records = true
     end
-  end
+
+    it "should download 20th page with 100 results with form value 'R'" do 
+      @request = JusticeGovSk::AgentRequests::DecreeListRequest.new
+
+      @request.page = 15 
+      @request.per_page = 100 
+      @request.decree_form = 'R'
+    end
+  end 
 end
