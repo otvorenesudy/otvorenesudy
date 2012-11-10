@@ -1,9 +1,9 @@
 module JusticeGovSk
   module Requests
-    class CivilHearingListRequest < JusticeGovSk::Requests::HearingListRequest
-
+    class HearingListRequest < JusticeGovSk::Requests::ListRequest
       def initialize
         super
+
         @include_old_hearing_or_decree = true
       end
 
