@@ -1,4 +1,7 @@
 class Court < ActiveRecord::Base
+  #include PgSearch
+  #pg_search_scope :search_by_name, against: name, using: :trigram
+
   attr_accessible :uri,
                   :name,
                   :street,
@@ -28,4 +31,21 @@ class Court < ActiveRecord::Base
              
   validates :name,   presence: true
   validates :street, presence: true
+ 
+  # TODO: replace with gem
+  def self.similar_by_name(name, similarity)
+    result = ActiveRecord::Base.connection.exec_query(<<EOF
+    SELECT id, name, similarity(name, '#{name}') as sml 
+    FROM courts 
+    WHERE name % '#{name}'
+    ORDER BY sml DESC, name 
+    ;
+EOF
+    )
+    result = result.to_hash
+   
+    match = result.first 
+    model = Court.find(match['id'])
+    return model if match['sml'].to_f >= similarity
+  end
 end
