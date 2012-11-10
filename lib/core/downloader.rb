@@ -42,6 +42,8 @@ class Downloader
     1.upto @repeat do |i|
       wait
 
+      # TODO use GET if no data 
+
       print "Building HTTP/POST request ... "
 
       request = Curl::Easy.http_post(uri, @data) do |curl|
