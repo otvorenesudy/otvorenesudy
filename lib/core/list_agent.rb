@@ -1,4 +1,0 @@
-class ListAgent < Agent
-  
-
-end
