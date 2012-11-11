@@ -17,6 +17,9 @@ module JusticeGovSk
         request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
         
         if type == 'Judge'
+          # TODO rm, now only for testing purposes
+          agent.cache_load_and_store = true
+          
           handler = JusticeGovSk::Crawlers::JudgeListCrawler.new agent
 
           handler.crawl_and_process(request, offset, limit)
