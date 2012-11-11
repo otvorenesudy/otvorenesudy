@@ -24,7 +24,17 @@ namespace :download do
     downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     crawler.crawl_and_process(request, offset, limit) do |url|
-      downloader.download url
+      begin
+        downloader.download url
+      rescue Exception => e
+        m = e.to_s.match(/response code (?<code>\d+)/i)
+        
+        if not m.nil? && m[:code] == 302
+          puts "Redirect returned for #{url}, rejected."
+        else
+          raise e
+        end
+      end
     end
   end  
 end

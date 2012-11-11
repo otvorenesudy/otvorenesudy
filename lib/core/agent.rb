@@ -23,7 +23,7 @@ class Agent < Downloader
       wait
 
       begin
-        print "Getting page #{uri}"
+        print "Getting page #{uri} ... "
 
         page = @agent.get(uri)
 
@@ -32,7 +32,7 @@ class Agent < Downloader
         if page
           content = page.content
           
-          puts " done (#{page.content.length} bytes)"
+          puts "done (#{page.content.length} bytes)"
           
           store(path, content)
           
