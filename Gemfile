@@ -24,6 +24,9 @@ gem 'curb'
 # Mechanize
 gem 'mechanize'
 
+# Twitter bootstrap
+gem 'twitter-bootstrap-rails'
+
 # PG search 
 #gem 'pg_seach'
 
