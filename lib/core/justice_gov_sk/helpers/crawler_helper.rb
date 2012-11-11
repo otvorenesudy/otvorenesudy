@@ -3,7 +3,7 @@
 module JusticeGovSk
   module Helpers
     module CrawlerHelper
-      def self.crawl_resources(*args)
+      def self.crawl_resources(args)
         type    = args[:type].camelcase
         offset  = args[:offset].blank? ? 1 : args[:offset].to_i
         limit   = args[:limit].blank? ? nil : args[:limit].to_i
@@ -24,7 +24,7 @@ module JusticeGovSk
           handler = JusticeGovSk::Crawlers::ListCrawler.new agent
   
           downloader = Downloader.new
-          persistor  = Persitor.new
+          persistor  = Persistor.new
   
           downloader.headers              = agent.headers
           downloader.data                 = {}
@@ -32,10 +32,22 @@ module JusticeGovSk
           downloader.cache_load_and_store = true
           downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
   
-          crawler = "JusticeGovSk::Crawlers::#{type}Crawler.new".constantize.new downloader, persistor
+          crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
           
           handler.crawl_and_process(request, offset, limit) do |url|
-            crawler.crawl url
+            begin
+              crawler.crawl url
+            rescue Exception => e
+              puts "XXX #{e.to_s}"
+              
+              m = e.to_s.match(/response code (?<code>\d+)/i)
+              
+              if not m.nil? && m[:code] == 302
+                puts "Redirect returned for #{url}, rejected."
+              else
+                raise e
+              end
+            end
           end
         end
       end
