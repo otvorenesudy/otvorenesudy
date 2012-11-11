@@ -17,7 +17,7 @@ module JusticeGovSk
         mark  = false
         names = []
         
-        participants.each do |div|
+        participants(document).each do |div|
           if div[:class] == 'popiska'
             mark = true if div.text == 'Navrhovatelia'
             break       if div.text == 'Odporcovia'
@@ -33,7 +33,7 @@ module JusticeGovSk
         mark  = false
         names = []
         
-        participants.each do |div|
+        participants(document).each do |div|
           if div[:class] == 'popiska'
             mark = true if div.text == 'Odporcovia'
           end

@@ -6,8 +6,8 @@ module JusticeGovSk
   module Helpers
     module NormalizeHelper
       def self.person_name(value)
-        prefixes  = []
-        sufixes   = []
+        prefixes  = [] 
+        sufixes   = [] 
         classes   = []
         uppercase = []
         mixedcase = []
@@ -21,7 +21,7 @@ module JusticeGovSk
             elsif not part.match(/\((ml|st)\.\)/).nil?
               classes << part
             else
-              prefixes << part              
+              prefixes << part
             end
           else
             if part == part.upcase
@@ -42,14 +42,14 @@ module JusticeGovSk
       end
       
       def self.datetime(value)
-        m = value.strip.match(/(?<day>\d+)\.(?<month>\d+)\.(?<year>\d+)\s+(?<hour>\d+)\.(?<minute>\d+)(\.(?<second>\d+))?/)
+        _, day, month, year, hour, minute, second = *value.strip.match(/(\d+)\.(\d+)\.(\d+)\s+(\d+)\.(\d+)(\.(\d+))?/)
+
+        hour   = 0 if hour.nil?
+        minute = 0 if minute.nil?
+        second = 0 if second.nil?
         
-        m[:hour]   = 0 if m.names.include? :hour
-        m[:minute] = 0 if m.names.include? :minute
-        m[:second] = 0 if m.names.include? :second
-        
-        date = "#{'%04d' % m[:year].to_i}-#{'%02d' % m[:month].to_i}-#{'%02d' % m[:day].to_i}"
-        time = "#{'%02d' % m[:hour].to_i}:#{'%02d' % m[:minute].to_i}:#{'%02d' % m[:second].to_i}"
+        date = "#{'%04d' % year.to_i}-#{'%02d' % month.to_i}-#{'%02d' % day.to_i}"
+        time = "#{'%02d' % hour.to_i}:#{'%02d' % minute.to_i}:#{'%02d' % second.to_i}"
         
         "#{date} #{time}"
       end

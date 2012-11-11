@@ -4,9 +4,9 @@ module JusticeGovSk
   module Helpers
     module CrawlerHelper
       def self.crawl_resources(args)
-        type    = args[:type].camelcase
-        offset  = args[:offset].blank? ? 1 : args[:offset].to_i
-        limit   = args[:limit].blank? ? nil : args[:limit].to_i
+        type   = args[:type].camelcase
+        offset = args[:offset].blank? ? 1 : args[:offset].to_i
+        limit  = args[:limit].blank? ? nil : args[:limit].to_i
         
         persistor = Persistor.new
         
@@ -39,10 +39,9 @@ module JusticeGovSk
             begin
               crawler.crawl url
             rescue Exception => e
-              s = e.to_s
+              _, code = *e.to_s.match(/response code (\d+)/i)
               
-              # TODO refactor
-              if s.match(/response code \d+/i) != nil && s.match(/\d+/)[0] == '302'
+              if code.to_i == 302
                 puts "Redirect returned for #{url}, rejected." 
               else
                 raise e

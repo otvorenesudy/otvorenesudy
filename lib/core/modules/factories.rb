@@ -8,18 +8,19 @@ module Factories
     unless match.nil?
       type = match[:type].camelcase.constantize
       find = "find_by_#{match[:data]}" unless match[:data].nil?
+      key  = "#{type}#{find}"
       
       block ||= lambda { |*a| type.send(find, *a) } unless find.blank?
 
       @factories = {} if @factories.nil?
       
-      @factories[type] ||= FactorySupplier.instance.get type, block
+      @factories[key] ||= FactorySupplier.instance.get type, block
       
-      @factories[type].verbose = verbose
+      @factories[key].verbose = verbose
       
-      @factories[type]
+      @factories[key]
     else
-      super method, *args
+      super method, *args, block
     end
   end
 end
