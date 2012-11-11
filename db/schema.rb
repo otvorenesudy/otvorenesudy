@@ -293,7 +293,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   end
 
   add_index "municipalities", ["name"], :name => "index_municipalities_on_name", :unique => true
-  add_index "municipalities", ["zipcode"], :name => "index_municipalities_on_zipcode", :unique => true
+  add_index "municipalities", ["zipcode"], :name => "index_municipalities_on_zipcode"
 
   create_table "opponents", :force => true do |t|
     t.integer  "hearing_id", :null => false

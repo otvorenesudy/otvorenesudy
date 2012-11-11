@@ -38,8 +38,6 @@ module JusticeGovSk
             begin
               crawler.crawl url
             rescue Exception => e
-              puts "XXX #{e.to_s}"
-              
               m = e.to_s.match(/response code (?<code>\d+)/i)
               
               if not m.nil? && m[:code] == 302

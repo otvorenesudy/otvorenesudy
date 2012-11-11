@@ -8,7 +8,7 @@ class CreateMunicipalities < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :municipalities, :name,    unique: true
-    add_index :municipalities, :zipcode, unique: true
+    add_index :municipalities, :name, unique: true
+    add_index :municipalities, :zipcode
   end
 end
