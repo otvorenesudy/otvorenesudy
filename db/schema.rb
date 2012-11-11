@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   create_table "employments", :force => true do |t|
     t.integer  "court_id",          :null => false
     t.integer  "judge_id",          :null => false
-    t.integer  "judge_position_id", :null => false
+    t.integer  "judge_position_id"
     t.boolean  "active",            :null => false
     t.string   "note"
     t.datetime "created_at",        :null => false
