@@ -39,9 +39,10 @@ module JusticeGovSk
             begin
               crawler.crawl url
             rescue Exception => e
-              m = e.to_s.match(/response code (?<code>\d+)/i)
+              s = e.to_s
               
-              if (not m.nil?) && m[:code] == 302
+              # TODO refactor
+              if s.match(/response code \d+/i) != nil && s.match(/\d+/)[0] == '302'
                 puts "Redirect returned for #{url}, rejected." 
               else
                 raise e
