@@ -53,17 +53,6 @@ module JusticeGovSk
           end
         end
       end
-      
-      private
-      
-      def judging(judge)
-        judging = judging_factory.find_or_create(judging.id, @hearing.id)
-        
-        judging.judge   = judge
-        judging.hearing = @hearing
-        
-        @persistor.persist(judging) if judging.id.nil?
-      end
     end
   end
 end

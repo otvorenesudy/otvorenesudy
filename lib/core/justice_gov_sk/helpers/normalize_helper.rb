@@ -6,11 +6,13 @@ module JusticeGovSk
   module Helpers
     module NormalizeHelper
       def self.person_name(value)
-        prefixes = []
-        sufixes  = []
-        classes  = []
-        names    = []
+        prefixes  = []
+        sufixes   = []
+        classes   = []
+        uppercase = []
+        mixedcase = []
         
+puts "XX #{value}"        
         value.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
           part = part.utf8.strip
           
@@ -24,14 +26,16 @@ module JusticeGovSk
             end
           else
             if part == part.upcase
-              names << part.titlecase
+              uppercase << part.titlecase
             else
-              names = [part.titlecase] + names
+              mixedcase << part.titlecase
             end
           end
         end
         
-        value = names.join ' '
+        value = nil
+        value = mixedcase.join(' ') unless mixedcase.empty?
+        value = (value.nil? ? '' : "#{value} ") + uppercase.join(' ') unless uppercase.empty?
         value = prefixes.join(' ') + ' ' + value unless prefixes.empty?
         value = value + ' '  + classes.join(' ') unless classes.empty?
         value = value + ', ' + sufixes.join(' ') unless sufixes.empty?
