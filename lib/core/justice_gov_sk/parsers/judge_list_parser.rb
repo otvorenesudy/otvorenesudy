@@ -11,10 +11,10 @@ module JusticeGovSk
             hash = {} 
             data = data(row)
          
-            hash[:active]   = activity(data[0])
+            hash[:court]    = court(data[3].text.strip)
             hash[:name]     = name(data[1].text.strip)
             hash[:position] = position(data[2].text.strip)
-            hash[:court]    = court(data[3].text.strip)
+            hash[:active]   = activity(data[0])
             hash[:note]     = note(data[4].text.strip)
 
             values << hash
@@ -33,12 +33,12 @@ module JusticeGovSk
       def activity(element)
         find_value 'activity', element, 'img', empty?: false do |img|
           activity = img.attr('title').text
-          if activity == 'Aktívny' 
-            return true
-          else 
-            return false
-          end
+          activity == 'Aktívny'
         end
+      end
+
+      def court(value)
+        value
       end
 
       def name(value)
@@ -46,10 +46,6 @@ module JusticeGovSk
       end
 
       def position(value)
-        value
-      end
-
-      def court(value)
         value
       end
 

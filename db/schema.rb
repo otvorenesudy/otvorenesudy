@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.datetime "updated_at",        :null => false
   end
 
-  add_index "employments", ["court_id"], :name => "index_employments_on_court_id"
-  add_index "employments", ["judge_id"], :name => "index_employments_on_judge_id"
+  add_index "employments", ["court_id", "judge_id"], :name => "index_employments_on_court_id_and_judge_id"
+  add_index "employments", ["judge_id", "court_id"], :name => "index_employments_on_judge_id_and_court_id"
 
   create_table "hearing_forms", :force => true do |t|
     t.string   "value",      :null => false

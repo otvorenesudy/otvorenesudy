@@ -1,4 +1,4 @@
-class AddGistIndexToCourtName < ActiveRecord::Migration
+class AddGinIndexToCourtName < ActiveRecord::Migration
   def up
     add_index(:courts, :name, :gin => true, :name => 'gin_index_courts_on_name') 
   end
