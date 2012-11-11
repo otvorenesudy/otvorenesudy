@@ -8,9 +8,11 @@ module JusticeGovSk
                   :pages,
                   :next_page
       
-      def initialize(downloader)
-        super(downloader, JusticeGovSk::Parsers::ListParser.new, nil)
-    
+      def initialize(downloader, parser = nil, persistor = nil)
+        parser = JusticeGovSk::Parsers::ListParser.new if parser.nil?
+
+        super(downloader, parser, persistor)
+
         @page      = nil
         @pages     = nil
         @per_page  = nil
@@ -32,7 +34,9 @@ module JusticeGovSk
         @next_page = @parser.next_page(document)
         
         list = @parser.list(document)
-    
+        
+        list = yield list if block_given?
+        
         puts "done (page #{@page} of #{@pages}, #{pluralize list.count, 'item'}, next page #{@next_page || 'N/A'})"
         
         list
