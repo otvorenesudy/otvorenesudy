@@ -12,8 +12,8 @@ module JusticeGovSk
             data = data(row)
          
             hash[:court]            = court(data[3].text.strip)
+            hash[:name]             = name(data[1].text)
             hash[:name_unprocessed] = name(data[1].text.strip)
-            hash[:name]             = JusticeGovSk::Helpers::NormalizeHelper.person_name(hash[:name_unprocessed])
             hash[:position]         = position(data[2].text.strip)
             hash[:active]           = activity(data[0])
             hash[:note]             = note(data[4].text.strip)
@@ -46,7 +46,7 @@ module JusticeGovSk
       end
 
       def name(value)
-        value
+        JusticeGovSk::Helpers::NormalizeHelper.person_name(value)
       end
 
       def position(value)
