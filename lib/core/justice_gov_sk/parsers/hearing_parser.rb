@@ -17,7 +17,7 @@ module JusticeGovSk
       
       def date(document) 
         find_value_by_label 'date', document, 'Dátum pojednávania' do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.datetime(div.text)
         end
       end
       
