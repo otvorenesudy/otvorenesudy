@@ -45,6 +45,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    highcharts-rails (2.3.3)
+      railties (~> 3.1)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -154,8 +156,10 @@ DEPENDENCIES
   coffee-script
   curb
   execjs
+  highcharts-rails (~> 2.3.0)
   jquery-rails
   json
+  less-rails
   mechanize
   nokogiri
   pg
