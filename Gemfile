@@ -26,6 +26,10 @@ gem 'mechanize'
 
 # Twitter bootstrap
 gem 'twitter-bootstrap-rails'
+gem "less-rails"
+
+# Highcharts
+gem "highcharts-rails", "~> 2.3.0"
 
 # PG search 
 #gem 'pg_seach'
