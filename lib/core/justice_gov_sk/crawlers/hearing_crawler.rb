@@ -46,7 +46,9 @@ module JusticeGovSk
         name = @parser.court(document)
         
         unless name.nil?
-          @hearing.court = court_by_name_factory.find(name)
+          court = court_factory { Court.similar_by_name(name, 0.65) }.find
+          
+          @hearing.court = court
         end
       end
       

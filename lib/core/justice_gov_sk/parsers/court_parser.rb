@@ -45,7 +45,7 @@ module JusticeGovSk
       
       def media_person(document)
         find_value_by_group_and_index 'media person', document, 'Kontakt pre médiá', 0 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.person_name(div.text)
         end 
       end
       

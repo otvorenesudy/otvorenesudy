@@ -51,7 +51,7 @@ module JusticeGovSk
           
           divs.each_with_index do |div, i|
             if div[:class] == 'popiska' && div.text.blank? && divs[i + 1][:class] == 'hodnota'
-              names << divs[i + 1].text.strip
+              names << JusticeGovSk::Helpers::NormalizeHelper.person_name(divs[i + 1].text.strip)
             end
           end
           
@@ -61,7 +61,7 @@ module JusticeGovSk
       
       def subject(document)
         find_value_by_label 'subject', document, 'Predmet' do |div|
-          div.text.strip
+          div.text.strip.gsub(/\s+/, '')
         end
       end
       

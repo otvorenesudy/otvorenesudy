@@ -11,11 +11,12 @@ module JusticeGovSk
             hash = {} 
             data = data(row)
          
-            hash[:court]    = court(data[3].text.strip)
-            hash[:name]     = name(data[1].text.strip)
-            hash[:position] = position(data[2].text.strip)
-            hash[:active]   = activity(data[0])
-            hash[:note]     = note(data[4].text.strip)
+            hash[:court]            = court(data[3].text.strip)
+            hash[:name_unprocessed] = name(data[1].text.strip)
+            hash[:name]             = JusticeGovSk::Helpers::NormalizeHelper.person_name(hash[:name_unprocessed])
+            hash[:position]         = position(data[2].text.strip)
+            hash[:active]           = activity(data[0])
+            hash[:note]             = note(data[4].text.strip)
 
             values << hash
           end

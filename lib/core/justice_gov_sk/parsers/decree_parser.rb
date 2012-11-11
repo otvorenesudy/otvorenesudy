@@ -35,7 +35,7 @@ module JusticeGovSk
         
       def judge(document)
         find_value_by_label 'judge', document, 'Meno a priezvisko sudcu, VSÚ' do |div|
-          div.search('a').first.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.person_name(div.search('a').first.text)
         end
       end
         

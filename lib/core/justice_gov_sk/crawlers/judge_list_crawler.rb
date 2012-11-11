@@ -37,7 +37,7 @@ module JusticeGovSk
           judge = judge_factory.find_or_create(name)
           
           judge.name             = name
-          judge.name_unprocessed = name
+          judge.name_unprocessed = data[:name_unprocessed]
           
           @persistor.persist(judge) if judge.id.nil?
           
