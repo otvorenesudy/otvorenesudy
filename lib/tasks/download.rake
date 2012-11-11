@@ -27,9 +27,9 @@ namespace :download do
       begin
         downloader.download url
       rescue Exception => e
-        m = e.to_s.match(/response code (?<code>\d+)/i)
-        
-        if not m.nil? && m[:code] == 302
+        _, code = *e.to_s.match(/response code (\d+)/i)
+              
+        if code.to_i == 302
           puts "Redirect returned for #{url}, rejected."
         else
           raise e
