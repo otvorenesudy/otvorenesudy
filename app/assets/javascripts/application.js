@@ -12,4 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require highcharts/adapters/mootools
+//= require highcharts
+//= require highcharts/highcharts-more
+//= require twitter/bootstrap
 //= require_tree .

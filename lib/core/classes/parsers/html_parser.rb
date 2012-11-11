@@ -24,7 +24,7 @@ class HtmlParser < Parser
   
   protected
   
-  def find_value(name, element, selector, options = {}, &block)
+  def find_value(name, element, selector = nil, options = {}, &block)
     options = defaults.merge options
     
     puts "Parsing #{name}."
