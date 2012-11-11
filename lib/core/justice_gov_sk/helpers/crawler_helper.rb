@@ -8,6 +8,8 @@ module JusticeGovSk
         offset  = args[:offset].blank? ? 1 : args[:offset].to_i
         limit   = args[:limit].blank? ? nil : args[:limit].to_i
         
+        persistor = Persistor.new
+        
         agent = JusticeGovSk::Agents::ListAgent.new
         
         agent.wait_time            = nil
@@ -17,23 +19,22 @@ module JusticeGovSk
         request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
         
         if type == 'Judge'
-          # TODO rm, now only for testing purposes
+          # TODO rm
           agent.cache_load_and_store = true
           
-          handler = JusticeGovSk::Crawlers::JudgeListCrawler.new agent
+          handler = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
 
           handler.crawl_and_process(request, offset, limit)
         else
           handler = JusticeGovSk::Crawlers::ListCrawler.new agent
   
           downloader = Downloader.new
-          persistor  = Persistor.new
   
           downloader.headers              = agent.headers
           downloader.data                 = {}
           downloader.wait_time            = nil
           downloader.cache_load_and_store = true
-          downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
+          downloader.cache_uri_to_path    = agent.cache_uri_to_path
   
           crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
           

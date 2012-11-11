@@ -151,11 +151,7 @@ class Downloader
   private
   
   def http_request(uri)
-    if @data.empty?
-      http_get uri
-    else
-      http_post uri
-    end
+    @data.empty? ? http_get(uri) : http_post(uri)  
   end
   
   def http_get(uri)
@@ -171,8 +167,8 @@ class Downloader
   end
   
   def http_settings(http)
-      http.connect_timeout = @timeout
+    http.connect_timeout = @timeout
       
-      @headers.each { |p, v| http.headers[p] = v }
+    @headers.each { |p, v| http.headers[p] = v }
   end
 end

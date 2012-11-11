@@ -24,8 +24,10 @@ module JusticeGovSk
       
       def court(data)
         name = data[:court]
-
-        court_by_name_factory.find(name) unless name.nil?
+        
+        unless name.nil?
+          court_factory { Court.find :first, :conditions => ['name ILIKE ?', name] }.find
+        end
       end
       
       def judge(data)
@@ -38,6 +40,8 @@ module JusticeGovSk
           judge.name_unprocessed = name
           
           @persistor.persist(judge) if judge.id.nil?
+          
+          judge
         end
       end
       
@@ -50,6 +54,8 @@ module JusticeGovSk
           judge_position.value = value
           
           @persistor.persist(judge_position) if judge_position.id.nil?
+          
+          judge_position
         end
       end
       
@@ -63,6 +69,8 @@ module JusticeGovSk
         employment.note           = data[:note]
 
         @persistor.persist(employment) if employment.id.nil?
+        
+        employment
       end
     end
   end
