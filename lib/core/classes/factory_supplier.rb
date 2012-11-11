@@ -18,7 +18,7 @@ class FactorySupplier
 
     set Factory.new(Defendant) { |hearing_id, name| Defendant.find_by_hearing_id_and_name(hearing_id, name) }
     
-    set Factory.new(Employment)
+    set Factory.new(Employment) { |court_id, judge_id| Employment.find_by_court_id_and_judge_id(court_id, judge_id) }
 
     set Factory.new(Hearing) { |uri| Hearing.find_by_uri(uri) }
     set Factory.new(HearingForm) { |value| HearingForm.find_by_value(value) }
