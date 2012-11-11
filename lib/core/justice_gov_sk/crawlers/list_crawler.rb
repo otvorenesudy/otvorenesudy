@@ -42,7 +42,7 @@ module JusticeGovSk
         list
       end
       
-      def crawl_and_process(request, offset = 1, limit = nil, &block)
+      def crawl_and_process(request, offset = 1, limit = nil)
         request.page = offset
         
         loop do
@@ -54,9 +54,7 @@ module JusticeGovSk
           
           list = crawl request
           
-          list.each do |item|
-            block.call(item)
-          end
+          list.each { |item| yield item if block_given? }
           
           break if next_page == nil
           

@@ -19,9 +19,6 @@ module JusticeGovSk
         request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
         
         if type == 'Judge'
-          # TODO rm
-          agent.cache_load_and_store = true
-          
           handler = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
 
           handler.crawl_and_process(request, offset, limit)
@@ -44,8 +41,8 @@ module JusticeGovSk
             rescue Exception => e
               m = e.to_s.match(/response code (?<code>\d+)/i)
               
-              if not m.nil? && m[:code] == 302
-                puts "Redirect returned for #{url}, rejected."
+              if (not m.nil?) && m[:code] == 302
+                puts "Redirect returned for #{url}, rejected." 
               else
                 raise e
               end
