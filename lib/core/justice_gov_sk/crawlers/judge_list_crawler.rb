@@ -10,8 +10,9 @@ module JusticeGovSk
       end
       
       def crawl(request)
-        super(request) do |list|
-          list.each do |data|
+        super(request) do |elements|
+          elements.each do |element|
+            data  = @parser.data(element)
             court = court(data)
             judge = judge(data)
 

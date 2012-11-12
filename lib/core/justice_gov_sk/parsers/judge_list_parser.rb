@@ -5,36 +5,29 @@ module JusticeGovSk
     class JudgeListParser < JusticeGovSk::Parsers::ListParser
       def list(document)
         find_values 'list', document, 'table.GridTable tr' do |rows|
-          values = []
-
-          rows[1..-2].each do |row|
-            hash = {} 
-            data = data(row)
-         
-            hash[:court]            = court(data[3].text.strip)
-            hash[:name]             = name(data[1].text)
-            hash[:name_unprocessed] = name(data[1].text.strip)
-            hash[:position]         = position(data[2].text.strip)
-            hash[:active]           = activity(data[0])
-            hash[:note]             = note(data[4].text.strip)
-
-            values << hash
-          end
-
-          values 
+          rows[1..-2].to_a
         end
       end
 
-      private 
-
       def data(element)
-        find_value 'data', element, 'td'
+        find_values 'data', element, 'td' do |data|
+          {
+            court:            court(data[3].text.strip),
+            name:             name(data[1].text),
+            name_unprocessed: name(data[1].text.strip),
+            position:         position(data[2].text.strip),
+            active:           activity(data[0]),
+            note:             note(data[4].text.strip)
+          }
+        end
       end
+
+      private
 
       def activity(element)
         find_value 'activity', element, 'img', empty?: false do |img|
           activity = img.attr('title').text
-          activity == 'Aktívny'
+          !activity.match(/Aktívny/i).nil?
         end
       end
 
