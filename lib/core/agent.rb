@@ -7,7 +7,7 @@ class Agent < Downloader
   def initialize
     super
 
-    @agent = Mechanize.new
+    @handler = Mechanize.new
   end
 
   def download(request)
@@ -17,6 +17,9 @@ class Agent < Downloader
     
     return content unless content.nil?
 
+    @handler.open_timeout = @timeout
+    @handler.read_timeout = @timeout
+
     e = nil
 
     1.upto @repeat do |i|
@@ -25,7 +28,7 @@ class Agent < Downloader
       begin
         print "Getting page #{uri} ... "
 
-        page = @agent.get(uri)
+        page = @handler.get(uri)
 
         page = yield page
 
@@ -45,9 +48,13 @@ class Agent < Downloader
 
       rescue Mechanize::Error => e
         puts "failed (unable to download page, attempt #{i} of #{@repeat})"
+      rescue Timeout::Error => e
+        puts "failed (connection timed out, attempt #{i} of #{@repeat})"
       rescue Exception => e 
         puts "failed (unable to handle #{e.class.name})" 
         break
+      ensure
+        @handler.agent.http.shutdown
       end
     end
     
@@ -63,7 +70,7 @@ class Agent < Downloader
   end
   
   def headers
-    @agent.request_headers
+    @handler.request_headers
   end
   
   def data

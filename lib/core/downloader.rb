@@ -25,7 +25,7 @@ class Downloader
     @data                 = {}
 
     @repeat               = 4
-    @timeout              = 30.seconds
+    @timeout              = 8.seconds
 
     @wait_time            = 2.seconds
   end
@@ -42,16 +42,23 @@ class Downloader
     1.upto @repeat do |i|
       wait
 
-      request = http_request(uri)
-
       begin
+        handler = Curl::Easy.new
+        
+        handler.url             = uri
+        handler.connect_timeout = @timeout
+        handler.timeout         = @timeout
+      
+        @headers.each { |p, v| handler.headers[p] = v }
+        @data.empty? ? handler.http_get : handler.http_post(@data)
+
         print "Downloading #{uri} ... "
 
-        request.perform
+        handler.perform
         
-        content = request.body_str
+        content = handler.body_str
 
-        if request.response_code == 200
+        if handler.response_code == 200
           puts "done (#{content.length} bytes)"
           
           store(path, content)
@@ -59,9 +66,9 @@ class Downloader
           return content
         end
         
-        e = "Invalid response code #{request.response_code}"
+        e = "Invalid response code #{handler.response_code}"
         
-        puts "failed (response code #{request.response_code}, attempt #{i} of #{@repeat})"
+        puts "failed (response code #{handler.response_code}, attempt #{i} of #{@repeat})"
       
       rescue Curl::Err::HostResolutionError => e
         puts "failed (host resolution error, attempt #{i} of #{@repeat})"
@@ -70,6 +77,8 @@ class Downloader
       rescue Exception => e
         puts "failed (unable to handle #{e.class.name})"
         break
+      ensure
+        handler.close unless handler.nil?
       end
     end
 
@@ -148,29 +157,5 @@ class Downloader
 
   def self.uri_to_path(downloader, uri)
     uri_to_path downloader.cache_file_extension.nil? ? uri : "#{uri}.#{downloader.cache_file_extension}"
-  end
-  
-  private
-  
-  def http_request(uri)
-    @data.empty? ? http_get(uri) : http_post(uri)  
-  end
-  
-  def http_get(uri)
-    Curl::Easy.http_get(uri) { |h| http_settings h }
-  end
-  
-  def http_post(uri)
-    print "Constructing HTTP/POST request ... "
-
-    request = Curl::Easy.http_post(uri, @data) { |h| http_settings h }
-          
-    puts "done (data #{data.size} bytes)"
-  end
-  
-  def http_settings(http)
-    http.connect_timeout = @timeout
-      
-    @headers.each { |p, v| http.headers[p] = v }
   end
 end
