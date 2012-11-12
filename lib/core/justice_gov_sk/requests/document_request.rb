@@ -9,9 +9,9 @@ module JusticeGovSk
       end
 
       def format=(value)
-        raise "Unsupported format (#{value})" if not [:pdf, :rtf].include?(value.to_sym)
+        raise "Unsupported format (#{value})" if not [:pdf, :rtf, :doc].include?(value.to_sym)
         
-        @document_format = format
+        @document_format = value
       end
     end
   end
