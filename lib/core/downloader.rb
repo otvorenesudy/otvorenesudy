@@ -62,7 +62,9 @@ class Downloader
         e = "Invalid response code #{request.response_code}"
         
         puts "failed (response code #{request.response_code}, attempt #{i} of #{@repeat})"
-        
+      
+      rescue Curl::Err::HostResolutionError => e
+        puts "failed (host resolution error, attempt #{i} of #{@repeat})"
       rescue Curl::Err::TimeoutError, Timeout::Error => e
         puts "failed (connection timed out, attempt #{i} of #{@repeat})"
       rescue Exception => e
