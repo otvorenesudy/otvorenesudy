@@ -31,7 +31,7 @@ module JusticeGovSk
       end
       
       def self.uri_to_path_lambda
-        @uri_to_path_lambda ||= lambda { |downloader, uri| JusticeGovSk::Requests::URL.uri_to_path(downloader, uri) }
+        @uri_to_path_lambda ||= lambda { |downloader, uri| uri_to_path(downloader, uri) }
       end
     end
   end
