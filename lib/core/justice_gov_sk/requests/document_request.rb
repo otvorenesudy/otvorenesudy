@@ -2,16 +2,16 @@ module JusticeGovSk
   module Requests
     class DocumentRequest 
       attr_accessor :url,
-                    :format
+                    :document_format
       
       def initialize
-        @format = :pdf
+        @document_format = :pdf
       end
 
       def format=(value)
         raise "Unsupported format (#{value})" if not [:pdf, :rtf].include?(value.to_sym)
         
-        @format = format
+        @document_format = format
       end
     end
   end

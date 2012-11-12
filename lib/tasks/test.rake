@@ -84,4 +84,18 @@ namespace :test do
     c.crawl u
   end
   
+
+  task :t4 => :environment do 
+    request = JusticeGovSk::Requests::DocumentRequest.new
+    request.url = 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=18D6CF82-5611-4110-A7E2-7A642784707F&PojCislo=167637'
+    request.url = "http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=A125B116-6FF4-4A8B-A787-1DC953EEE3CE&PojCislo=121420"
+
+    agent = JusticeGovSk::Agents::DocumentAgent.new
+    agent.cache_load = false
+    agent.cache_store = true
+    agent.cache_file_extension = request.document_format
+    agent.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
+    agent.download(request)
+  end
+
 end

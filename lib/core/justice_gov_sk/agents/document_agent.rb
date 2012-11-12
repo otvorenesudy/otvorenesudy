@@ -5,13 +5,13 @@ module JusticeGovSk
         super(request) do |page|
           form = page.form_with(name: 'aspnetForm')
           
-          document_viewer_name   = form.fields.map(&:name).find { |f|  f.match(/\A.+rozhodnutieSudneViewer\Z/) }
-          document_viewer_action = "saveToDisk=format:#{request.document_format.to_s}"
-
+          document_viewer_name   = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneViewer'
+          document_viewer_action = "saveToDisk=format:#{request.document_format}"
+          
           form.add_field!('__EVENTTARGET', document_viewer_name)
           form.add_field!('__EVENTARGUMENT', document_viewer_action)
 
-          return form.submit
+          form.submit
         end
       end
     end
