@@ -28,9 +28,12 @@ namespace :download do
         downloader.download url
       rescue Exception => e
         _, code = *e.to_s.match(/response code (\d+)/i)
-              
-        if code.to_i == 302
+
+        case code.to_i
+        when 302 
           puts "Redirect returned for #{url}, rejected."
+        when 500
+          puts "Internal server error for #{url}, rejected."
         else
           raise e
         end
