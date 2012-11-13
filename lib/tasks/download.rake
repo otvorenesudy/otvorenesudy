@@ -54,8 +54,6 @@ namespace :download do
     agent.cache_load_and_store = true
     agent.cache_file_extension = :pdf
     agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
-    
-    parser = "JusticeGovSk::Parsers::#{type}Parser".constantize.new
 
     dir = Dir.new(File.join Agent.new.cache_root, type.downcase.pluralize)
 
@@ -71,18 +69,11 @@ namespace :download do
         
         puts "done (#{content.size} bytes)"
         
-        page = parser.parse content
-        ecli = parser.ecli page
+        request.url = file.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
+        request.url = request.url.sub(/\.html/, '')
+        request.url = "#{JusticeGovSk::Requests::URL.base}/#{request.url}"
         
-        unless ecli.nil?
-          file = file.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
-          file = file.sub(/\.html/, '')
-          request.url = "#{JusticeGovSk::Requests::URL.base}/#{file}"
-          
-          document = agent.download request
-        else
-          puts "Unknown ECLI, unable to proceed."
-        end
+        document = agent.download request
         
         puts
       end
