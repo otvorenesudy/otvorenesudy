@@ -24,7 +24,7 @@ class Downloader
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
     @data                 = {}
 
-    @repeat               = 4
+    @repeat               = 8
     @timeout              = 30.seconds
 
     @wait_time            = 2.seconds
