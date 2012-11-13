@@ -3,7 +3,11 @@ module Cache
                 :binary
   
   def root
-    @root || './tmp/cache/downloads'
+    @root ||= './tmp/cache/downloads'
+  end
+  
+  def binary
+    @binary.nil? ? false : @binary
   end
 
   def load(path)

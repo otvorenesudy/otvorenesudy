@@ -49,10 +49,10 @@ class Downloader
         handler.connect_timeout = @timeout
         handler.timeout         = @timeout
       
+        print "Downloading #{uri} ... "
+      
         @headers.each { |p, v| handler.headers[p] = v }
         @data.empty? ? handler.http_get : handler.http_post(@data)
-
-        print "Downloading #{uri} ... "
 
         handler.perform
         

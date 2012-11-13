@@ -26,7 +26,7 @@ class Agent < Downloader
       wait
 
       begin
-        print "Getting page #{uri} ... "
+        print "Downloading #{uri} ... "
 
         page = @handler.get(uri)
 

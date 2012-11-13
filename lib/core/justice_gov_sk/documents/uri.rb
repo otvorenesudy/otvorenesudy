@@ -13,7 +13,7 @@ module JusticeGovSk
       
       def self.ecli_to_path(downloader, ecli)
         path = File.join downloader.cache_root, 'decrees', ''
-        path = "#{path}#{ecli.gsub(/\:/, '-')}"
+        path = "#{path}decree-#{ecli.gsub(/\:|\./, '-')}"
         path = "#{path}.#{downloader.cache_file_extension}" unless downloader.cache_file_extension.nil?
         path
       end
