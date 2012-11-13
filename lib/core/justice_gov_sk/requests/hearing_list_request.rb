@@ -8,7 +8,7 @@ module JusticeGovSk
       end
 
       def url
-        "#{JusticeGovSk::Requests::URL.base}/Stranky/Pojednavania/PojednavanieZoznam.aspx"
+        @url ||= "#{JusticeGovSk::Requests::URL.base}/Stranky/Pojednavania/PojednavanieZoznam.aspx"
       end
     end
   end
