@@ -19,11 +19,11 @@ module JusticeGovSk
         request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
         
         if type == 'Judge'
-          handler = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
+          lister = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
 
-          handler.crawl_and_process(request, offset, limit)
+          lister.crawl_and_process(request, offset, limit)
         else
-          handler = JusticeGovSk::Crawlers::ListCrawler.new agent
+          lister = JusticeGovSk::Crawlers::ListCrawler.new agent
   
           downloader = Downloader.new
   
@@ -35,7 +35,7 @@ module JusticeGovSk
   
           crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
           
-          handler.crawl_and_process(request, offset, limit) do |url|
+          lister.crawl_and_process(request, offset, limit) do |url|
             begin
               crawler.crawl url
             rescue Exception => e

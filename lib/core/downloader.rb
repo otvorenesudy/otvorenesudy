@@ -84,18 +84,9 @@ class Downloader
 
     raise e || 'Unable to download'
   end
-
-  def cache_load_and_store=(value)
-    @cache_load = @cache_store = value
-  end
   
   protected
   
-  include Cache
-
-  alias :cache_root= :root=
-  alias :cache_root  :root
-
   def predownload(uri)
     path = @cache_uri_to_path.call(self, uri)
 
@@ -105,7 +96,7 @@ class Downloader
 
     return path, content
   end
-  
+
   def wait
     unless @wait_time.nil? || @wait_time <= 0
       print "Waiting #{@wait_time} sec. ... "
@@ -116,6 +107,22 @@ class Downloader
     end
   end 
 
+  include Cache
+
+  public
+
+  alias :cache_root= :root=
+  alias :cache_root  :root
+
+  alias :cache_binary= :binary=
+  alias :cache_binary  :binary
+
+  def cache_load_and_store=(value)
+    @cache_load = @cache_store = value
+  end
+  
+  protected
+  
   def load(path)
     if @cache_load
       print "Loading #{path} ... "

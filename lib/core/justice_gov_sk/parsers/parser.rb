@@ -77,7 +77,7 @@ module JusticeGovSk
       
       def table_rows(document)
         @table_rows ||= find_values('information table, all rows', document, 'div.DetailTable div').select do |div|
-          !div[:class].match(/skupina|popiska|hodnota/).nil?
+          !div[:class].match(/skupina|popiska|hodnota/).nil? unless div[:class].nil?
         end
       end
       
