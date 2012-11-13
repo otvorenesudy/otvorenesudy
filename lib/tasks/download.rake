@@ -21,6 +21,7 @@ namespace :download do
     downloader.data                 = {}
     downloader.wait_time            = nil
     downloader.cache_load_and_store = true
+    downloader.cache_file_extension = :html
     downloader.cache_uri_to_path    = agent.cache_uri_to_path
     
     crawler.crawl_and_process(request, offset, limit) do |url|
@@ -51,7 +52,8 @@ namespace :download do
     agent.cache_root           = JusticeGovSk::Documents::URI.base
     agent.cache_binary         = true
     agent.cache_load_and_store = true
-    agent.cache_file_extension = request.document_format
+    agent.cache_file_extension = :pdf
+    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
     parser = "JusticeGovSk::Parsers::#{type}Parser".constantize.new
 
@@ -73,9 +75,9 @@ namespace :download do
         ecli = parser.ecli page
         
         unless ecli.nil?
-          agent.cache_uri_to_path = proc { JusticeGovSk::Documents::URI.ecli_to_path agent, ecli }
-          
-          request.url = "#{JusticeGovSk::Requests::URL.base}/#{file.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')}"
+          file = file.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
+          file = file.sub(/\.html/, '')
+          request.url = "#{JusticeGovSk::Requests::URL.base}/#{file}"
           
           document = agent.download request
         else

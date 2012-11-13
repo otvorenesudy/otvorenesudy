@@ -25,9 +25,9 @@ module JusticeGovSk
         path.downcase!
         
         path = "#{downloader.cache_root}#{path}"
+        path = "#{path}?#{uri.query}" unless uri.query.nil?
         path = "#{path}.#{downloader.cache_file_extension}" unless downloader.cache_file_extension.nil?
-    
-        uri.query.nil? ? path : "#{path}?#{uri.query}"
+        path
       end
       
       def self.uri_to_path_lambda

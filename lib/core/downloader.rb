@@ -133,7 +133,7 @@ class Downloader
             delta = Time.now - File.ctime(path)
     
             if delta >= @cache_expire_time
-              puts "failed (expired)"  
+              puts "failed (expired)"
               return nil
             end 
           end
