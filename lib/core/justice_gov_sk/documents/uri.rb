@@ -8,16 +8,14 @@ module JusticeGovSk
       def self.uri_to_path(downloader, uri)
         decree = Decree.find_by_uri(uri)
         
-        unless decree.nil?
-          path = File.join downloader.cache_root, 'decrees', ''
-          path = "#{path}#{decree.ecli.gsub(/\:\./, '')}"
-          path = "#{path}.#{downloader.cache_extension}" unless downloader.cache_extension.nil?
-          path
-        end
+        ecli_to_path(decree.ecli) unless decree.nil?
       end
       
-      def self.uri_to_path_lambda
-        @uri_to_path_lambda ||= lambda { |downloader, uri| uri_to_path(downloader, uri) }
+      def self.ecli_to_path(downloader, ecli)
+        path = File.join downloader.cache_root, 'decrees', ''
+        path = "#{path}#{ecli.gsub(/\:/, '-')}"
+        path = "#{path}.#{downloader.cache_file_extension}" unless downloader.cache_file_extension.nil?
+        path
       end
     end
   end
