@@ -8,7 +8,6 @@ namespace :download do
     
     agent = JusticeGovSk::Agents::ListAgent.new
     
-    agent.wait_time            = nil
     agent.cache_load_and_store = false
     agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
     
