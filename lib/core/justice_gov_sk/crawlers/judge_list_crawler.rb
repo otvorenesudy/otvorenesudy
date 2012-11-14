@@ -27,7 +27,7 @@ module JusticeGovSk
         name = data[:court]
         
         unless name.nil?
-          court_factory { Court.find :first, :conditions => ['name ILIKE ?', name] }.find
+          court_by_name_factory.find(name)
         end
       end
       

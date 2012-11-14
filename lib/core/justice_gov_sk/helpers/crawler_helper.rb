@@ -13,7 +13,6 @@ module JusticeGovSk
         agent = JusticeGovSk::Agents::ListAgent.new
         
         agent.cache_load_and_store = false
-        agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
 
         request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
         
@@ -29,7 +28,8 @@ module JusticeGovSk
           downloader.headers              = agent.headers
           downloader.data                 = {}
           downloader.cache_load_and_store = true
-          downloader.cache_uri_to_path    = agent.cache_uri_to_path
+          downloader.cache_file_extension = :html
+          downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
   
           crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
           
