@@ -24,7 +24,8 @@ class CreateDecrees < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :decrees, :uri, unique: true
+    add_index :decrees, :uri,          unique: true
+    add_index :decrees, :document_uri, unique: true
     
     add_index :decrees, :proceeding_id
     add_index :decrees, :court_id

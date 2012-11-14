@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
+  add_index "decrees", ["document_uri"], :name => "index_decrees_on_document_uri", :unique => true
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
