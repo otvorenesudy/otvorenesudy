@@ -1,8 +1,12 @@
 require 'docsplit'
 
 class TextExtractor
-  attr_accessor :cache_root,
-                :use_ocr
+  include Cache
+  
+  alias :cache_root= :root=
+  alias :cache_root  :root
+
+  attr_accessor :use_ocr
 
   def initialize
     @document_formats = [:pdf]
@@ -17,7 +21,7 @@ class TextExtractor
 
     raise 'Unsupported document type' if not @document_formats.include?(extension)
 
-    FileUtils.mkpath(@cache_root) if not File.exists?(@cache_root)
+    FileUtils.mkpath(cache_root) if not File.exists?(cache_root)
     
     return path, extension
   end
@@ -28,13 +32,14 @@ class TextExtractor
     # TODO: resolve files with multiple extensions, unite document format list with doc. request  
     case extension
     when :pdf 
-      Docsplit.extract_text(path, :ocr => @use_ocr, :output => @cache_root)
+      Docsplit.extract_text(path, :ocr => @use_ocr, :output => cache_root)
 
-      path = File.basename(path).sub(/\..+\Z/, '.txt')
+      path    = File.join cache_root, File.basename(path).sub(/\..+\Z/, '.txt')
+      content = File.open(path).read
       
-      file = File.join(@cache_root, path)
-      
-      return File.open(file).read
+      # store to force UTF-8 on file and content
+      store path, content
+      content
     end
   end
 end
