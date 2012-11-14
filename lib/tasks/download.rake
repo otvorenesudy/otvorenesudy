@@ -19,7 +19,6 @@ namespace :download do
     
     downloader.headers              = agent.headers
     downloader.data                 = {}
-    downloader.wait_time            = 0.5
     downloader.cache_load_and_store = true
     downloader.cache_file_extension = :html
     downloader.cache_uri_to_path    = agent.cache_uri_to_path
@@ -48,7 +47,6 @@ namespace :download do
     request = JusticeGovSk::Requests::DocumentRequest.new
     agent   = JusticeGovSk::Agents::DocumentAgent.new
     
-    agent.wait_time            = nil
     agent.cache_root           = JusticeGovSk::Documents::URI.base
     agent.cache_binary         = true
     agent.cache_load_and_store = true
