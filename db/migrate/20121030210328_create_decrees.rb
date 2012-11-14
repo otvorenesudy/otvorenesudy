@@ -3,9 +3,11 @@ class CreateDecrees < ActiveRecord::Migration
     create_table :decrees do |t|
       t.string :uri, null: false
       
-      t.references :proceeding, null: true
-      t.references :court,      null: false
-      t.references :judge,      null: false
+      t.string :document_uri
+      
+      t.references :proceeding
+      t.references :court
+      t.references :judge
       
       t.references :decree_form
       t.references :decree_nature

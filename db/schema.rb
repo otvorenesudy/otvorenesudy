@@ -110,9 +110,10 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
 
   create_table "decrees", :force => true do |t|
     t.string   "uri",                    :null => false
+    t.string   "document_uri"
     t.integer  "proceeding_id"
-    t.integer  "court_id",               :null => false
-    t.integer  "judge_id",               :null => false
+    t.integer  "court_id"
+    t.integer  "judge_id"
     t.integer  "decree_form_id"
     t.integer  "decree_nature_id"
     t.string   "case_number"
@@ -190,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   create_table "hearings", :force => true do |t|
     t.string   "uri",                :null => false
     t.integer  "proceeding_id"
-    t.integer  "court_id",           :null => false
+    t.integer  "court_id"
     t.integer  "hearing_type_id",    :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"
