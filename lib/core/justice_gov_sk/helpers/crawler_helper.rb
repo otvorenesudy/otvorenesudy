@@ -12,7 +12,7 @@ module JusticeGovSk
         
         agent = JusticeGovSk::Agents::ListAgent.new
         
-        agent.wait_time            = nil
+        agent.wait_time            = 0.5
         agent.cache_load_and_store = false
         agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
 
@@ -29,7 +29,7 @@ module JusticeGovSk
   
           downloader.headers              = agent.headers
           downloader.data                 = {}
-          downloader.wait_time            = nil
+          downloader.wait_time            = 0.5
           downloader.cache_load_and_store = true
           downloader.cache_uri_to_path    = agent.cache_uri_to_path
   

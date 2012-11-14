@@ -48,13 +48,10 @@ class Agent < Downloader
 
       rescue Mechanize::Error => e
         puts "failed (unable to download page, attempt #{i} of #{@repeat})"
-      rescue Net::HTTP::Persistent::Error, Timeout::Error => e
-        if e.is_a?(Timeout::Error) || !e.to_s.match(/Timeout\:\:Error/i).nil?
-          puts "failed (connection timed out, attempt #{i} of #{@repeat})"
-        else
-          puts "failed (unable to handle #{e.class.name})" 
-          break
-        end
+      rescue Net::HTTP::Persistent::Error => e
+        puts "failed (#{e}, attempt #{i} of #{@repeat})"
+      rescue Timeout::Error => e
+        puts "failed (connection timed out, attempt #{i} of #{@repeat})"
       rescue Exception => e 
         puts "failed (unable to handle #{e.class.name})" 
         break

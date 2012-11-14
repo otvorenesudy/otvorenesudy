@@ -19,7 +19,7 @@ namespace :download do
     
     downloader.headers              = agent.headers
     downloader.data                 = {}
-    downloader.wait_time            = nil
+    downloader.wait_time            = 0.5
     downloader.cache_load_and_store = true
     downloader.cache_file_extension = :html
     downloader.cache_uri_to_path    = agent.cache_uri_to_path
@@ -73,7 +73,7 @@ namespace :download do
         request.url = request.url.sub(/\.html/, '')
         request.url = "#{JusticeGovSk::Requests::URL.base}/#{request.url}"
         
-        document = agent.download request
+        agent.download request
         
         puts
       end
