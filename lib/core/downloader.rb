@@ -25,9 +25,9 @@ class Downloader
     @data                 = {}
 
     @repeat               = 8
-    @timeout              = 30.seconds
+    @timeout              = 40.seconds
 
-    @wait_time            = 2.seconds
+    @wait_time            = 0.5.seconds
   end
 
   def download(uri)

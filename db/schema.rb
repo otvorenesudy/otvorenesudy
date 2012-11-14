@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
 
   create_table "decree_forms", :force => true do |t|
     t.string   "value",      :null => false
+    t.string   "code",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -110,9 +111,10 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
 
   create_table "decrees", :force => true do |t|
     t.string   "uri",                    :null => false
+    t.string   "document_uri"
     t.integer  "proceeding_id"
-    t.integer  "court_id",               :null => false
-    t.integer  "judge_id",               :null => false
+    t.integer  "court_id"
+    t.integer  "judge_id"
     t.integer  "decree_form_id"
     t.integer  "decree_nature_id"
     t.string   "case_number"
@@ -127,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
+  add_index "decrees", ["document_uri"], :name => "index_decrees_on_document_uri", :unique => true
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
@@ -190,7 +193,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   create_table "hearings", :force => true do |t|
     t.string   "uri",                :null => false
     t.integer  "proceeding_id"
-    t.integer  "court_id",           :null => false
+    t.integer  "court_id"
     t.integer  "hearing_type_id",    :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"

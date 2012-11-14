@@ -3,13 +3,13 @@ class CreateHearings < ActiveRecord::Migration
     create_table :hearings do |t|
       t.string :uri, null: false
       
-      t.references :proceeding, null: true
-      t.references :court,      null: false
+      t.references :proceeding
+      t.references :court
       
       t.references :hearing_type,    null: false
-      t.references :hearing_section, null: true
-      t.references :hearing_subject, null: true
-      t.references :hearing_form,    null: true
+      t.references :hearing_section
+      t.references :hearing_subject
+      t.references :hearing_form
       
       t.string :case_number
       t.string :file_number

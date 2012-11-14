@@ -18,3 +18,18 @@ court.municipality = Municipality.create name: "Košice", zipcode: "04265"
 court.name         = "Ústavný súd Slovenskej republiky"
 court.street       = "Hlavná 110"
 court.save!
+
+DecreeForm.create value: 'Rozsudok',                  code: 'A'
+DecreeForm.create value: 'Uznesenie',                 code: 'N'
+DecreeForm.create value: 'Opravné uznesenie',         code: 'R'
+DecreeForm.create value: 'Dopĺňací rozsudok',         code: 'D'
+DecreeForm.create value: 'Platobný rozkaz',           code: 'P'
+DecreeForm.create value: 'Zmenkový platobný rozkaz',  code: 'M'
+DecreeForm.create value: 'Európsky platobný rozkaz',  code: 'E'
+DecreeForm.create value: 'Šekový platobný rozkaz',    code: 'S'
+DecreeForm.create value: 'Rozkaz na plnenie',         code: 'L'
+DecreeForm.create value: 'Rozsudok pre zmeškanie',    code: 'K'
+DecreeForm.create value: 'Rozsudok pre uznanie',      code: 'U'
+DecreeForm.create value: 'Uznesenie bez odôvodnenia', code: 'C'
+DecreeForm.create value: 'Osvedčenie',                code: 'B'
+DecreeForm.create value: 'Trestný rozkaz',            code: 'T'
