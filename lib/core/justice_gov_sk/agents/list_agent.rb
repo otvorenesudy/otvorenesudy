@@ -34,7 +34,10 @@ module JusticeGovSk
             
             postback_fields(form, per_page_field_name, '') 
             
-            page = form.submit
+            print "... "
+            
+            page  = form.submit
+            @sum += page.content.length
           end
           
           form = page.form_with(name: form_name)
@@ -49,7 +52,10 @@ module JusticeGovSk
             
             postback_fields(form, page_field_name, '')
             
-            page = form.submit
+            print "... "
+            
+            page  = form.submit
+            @sum += page.content.length
           end
 
           page 

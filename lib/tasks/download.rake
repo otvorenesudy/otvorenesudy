@@ -76,6 +76,8 @@ namespace :download do
       end
     end
     
+    dir.close
+    
     puts "finished"
   end
 end

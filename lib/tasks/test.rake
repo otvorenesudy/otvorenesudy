@@ -97,5 +97,48 @@ namespace :test do
     agent.cache_uri_to_path = JusticeGovSk::Requests::URL.uri_to_path_lambda
     agent.download(request)
   end
+  
+  task :stat => :environment do
+    root = File.join Rails.root, 'tmp', 'cache', 'downloads'
+    #root = File.join root, 'hearings'
+    root = File.join root, 'hearings-distributed', 'civil'
+    s = 0
+    n = 0
+    
+    Dir.foreach(root) do |f|
+      p = File.join root, f
+      if !f.start_with?('.') && File.directory?(p)
+        d = Dir.new(p)
+        x=0
+        d.each { |_| x += 1 }
+        d.close
+        x -= 2
+        s += x
+        n += 1
+        
+        puts "#{f} #{x}"
+      end
+    end
+    
+    puts "total -- #{s} -- avg. #{s/n}"
+  end
 
+  task :distrib => :environment do
+    src = File.join Rails.root, 'tmp', 'cache', 'downloads'
+    src = File.join src, 'hearings', 'civil'
+    
+    dst = File.join Rails.root, 'tmp', 'cache', 'downloads'
+    dst = File.join dst, 'hearings-distributed', 'civil'
+    
+    0x00.upto(0xFF) { |i| FileUtils.mkpath File.join dst, i.to_s(16).rjust(2, '0') }
+    
+    Dir.foreach(src) do |f|
+      sp = File.join src, f
+      dp = File.join dst, (f.hash % 0xFF).to_s(16).rjust(2, '0'), f
+      
+      unless File.directory? sp
+        FileUtils.cp sp, dp
+      end
+    end
+  end
 end

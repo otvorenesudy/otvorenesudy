@@ -26,16 +26,17 @@ class Agent < Downloader
       wait
 
       begin
-        print "Downloading #{uri} ... "
+        print "Getting #{uri} ... "
 
         page = @handler.get(uri)
+        @sum = page.content.length
 
-        page = yield page
+        page = yield page if block_given?
 
         if page
           content = page.content
           
-          puts "done (#{page.content.length} bytes)"
+          puts "done (#{@sum} bytes)"
           
           store(path, content)
           

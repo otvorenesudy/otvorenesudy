@@ -59,7 +59,7 @@ class HtmlParser < Parser
     
     value = block_given? ? block.call(value) : value
 
-    puts " done (#{value})" if not @reduced_output
+    puts " done (#{value})" unless @reduced_output
 
     value
   end

@@ -11,7 +11,12 @@ module JusticeGovSk
           form.add_field!('__EVENTTARGET', document_viewer_name)
           form.add_field!('__EVENTARGUMENT', document_viewer_action)
 
-          form.submit
+          print "... "
+
+          page  = form.submit
+          @sum += page.content.length
+          
+          page
         end
       end
     end
