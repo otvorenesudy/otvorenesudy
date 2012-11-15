@@ -55,7 +55,7 @@ module JusticeGovSk
       private
       
       def participants(document)
-        @participants ||= find_rows_by_group 'participants', document, 'Účastníci'
+        @participants ||= find_rows_by_group 'participants', document, 'Účastníci', verbose: false
       end
     end
   end
