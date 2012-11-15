@@ -31,7 +31,7 @@ module JusticeGovSk
         find_values name, rows[from..to], '', options, &block
       end
       
-      def find_value_by_group_and_index(name, element, group, index, options, &block)
+      def find_value_by_group_and_index(name, element, group, index, options = {}, &block)
         group  = table_key(group)
         rows   = table_rows(element)
         values = table_values(element)
