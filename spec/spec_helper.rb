@@ -30,3 +30,10 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 end
+
+FIXTURES = "#{::Rails.root}/spec/fixtures"
+
+def load_fixture(path)
+  File.open("#{FIXTURES}/#{path}").read
+end
+
