@@ -37,7 +37,7 @@ module JusticeGovSk
         
         list = yield list if block_given?
         
-        puts "done (page #{@page} of #{@pages}, #{pluralize list.count, 'item'}, next page #{@next_page || 'N/A'})"
+        puts "done (page #{@page} of #{@pages}, #{pluralize list.nil? ? '?' : list.count, 'item'}, next page #{@next_page || 'N/A'})"
         
         list
       end
