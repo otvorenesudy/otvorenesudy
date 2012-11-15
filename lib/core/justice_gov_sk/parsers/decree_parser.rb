@@ -17,7 +17,7 @@ module JusticeGovSk
 
       def date(document)
         find_value_by_label 'date', document, 'Dátum vydania rozhodnutia' do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.datetime(div.text)
+          JusticeGovSk::Helpers::NormalizeHelper.date(div.text)
         end
       end
 
@@ -46,16 +46,16 @@ module JusticeGovSk
       end
 
       def legislation_area(document)
-        legislation_area_and_subarea.split('-').first.strip
+        legislation_area_and_subarea(document).split('-').first.strip
       end
       
       def legislation_subarea(document)
-        legislation_area_and_subarea.split('-').last.strip
+        legislation_area_and_subarea(document).split('-').last.strip
       end
         
       def legislations(document)
         find_value_by_label 'legislations', document, 'Predpisy odkazované v rozhodnutí' do |div|
-          div.search('span').map { |span| span.text.strip }
+          div.search('span').map { |span| span.text.strip.squeeze(' ') }
         end
       end
 
@@ -108,7 +108,7 @@ module JusticeGovSk
       
       def legislation_area_and_subarea(document)
         @legislation_area_and_subarea ||= find_value_by_label 'legislation area and subarea', document, 'Oblasti právnej úpravy' do |div|
-          div.text.strip
+          div.text.strip.squeeze(' ')
         end
       end
     end
