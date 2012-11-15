@@ -23,11 +23,8 @@ describe JusticeGovSk::Parsers::CriminalHearingParser do
     @parser.subject(document).should       be_eql 'Obžaloba'
     @parser.form(document).should          be_eql 'Hlavné pojednávanie'
 
-    @parser.defendants(document).keys.should      
-      be_eql ['Alexander Kováč', 'Miroslav Kováč']
-    @parser.defendants(document)["Alexander Kováč"].should    
-      be_eql '§ 364 odsek 1 písmeno a Trestného zákona číslo 300/2005 Zbierky zákonov v znení zákona číslo 313/2011 Zbierky zákonov'
-    @parser.defendants(document)["Miroslav Kováč"].should     
-      be_eql 'Miroslav Kováč' =>  '§ 364 odsek 1 písmeno a Trestného zákona číslo 300/2005 Zbierky zákonov v znení zákona číslo 313/2011 Zbierky zákonov'
-     end
+    @parser.defendants(document).keys.should               be_eql ['Alexander Kováč', 'Miroslav Kováč']
+    @parser.defendants(document)["Alexander Kováč"].should be_eql ['§ 364 odsek 1 písmeno a Trestného zákona číslo 300/2005 Zbierky zákonov v znení zákona číslo 313/2011 Zbierky zákonov']
+    @parser.defendants(document)["Miroslav Kováč"].should  be_eql ['§ 364 odsek 1 písmeno a Trestného zákona číslo 300/2005 Zbierky zákonov v znení zákona číslo 313/2011 Zbierky zákonov']   
+  end
 end
