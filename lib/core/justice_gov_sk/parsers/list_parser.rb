@@ -4,7 +4,7 @@ module JusticeGovSk
   module Parsers
     class ListParser < HtmlParser
       def list(document)
-        find_values 'list', document, 'table.GridTable td[align=right] a' do |anchors|
+        find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|
           anchors.map { |a| "#{JusticeGovSk::Requests::URL.base}#{a[:href]}" }
         end
       end

@@ -82,7 +82,6 @@ module JusticeGovSk
           map[:value]    += "§ #{map[:paragraph]}" unless map[:paragraph].blank?
         end
          
-         
         unless parts[3].nil?
           map[:section] = parts[3].match(/d+/) { |m| m[0] }
           map[:value]  += "Odsek #{map[:section]}" unless map[:section].blank?

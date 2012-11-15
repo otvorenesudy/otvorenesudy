@@ -4,13 +4,13 @@ module JusticeGovSk
   module Parsers
     class JudgeListParser < JusticeGovSk::Parsers::ListParser
       def list(document)
-        find_values 'list', document, 'table.GridTable tr' do |rows|
+        find_values 'list', document, 'table.GridTable tr', verbose: false do |rows|
           rows[1..-2].to_a
         end
       end
 
       def data(element)
-        find_values 'data', element, 'td' do |data|
+        find_values 'data', element, 'td', verbose: false do |data|
           {
             court:            court(data[3].text.strip),
             name:             name(data[1].text),
@@ -25,7 +25,7 @@ module JusticeGovSk
       private
 
       def activity(element)
-        find_value 'activity', element, 'img', empty?: false do |img|
+        find_value 'activity', element, 'img', empty?: false, verbose: false do |img|
           activity = img.attr('title').text
           !activity.match(/\AAktívny\Z/i).nil?
         end

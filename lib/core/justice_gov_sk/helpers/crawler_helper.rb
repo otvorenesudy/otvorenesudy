@@ -25,7 +25,7 @@ module JusticeGovSk
   
           downloader = Downloader.new
   
-          downloader.headers              = agent.headers
+          downloader.headers              = JusticeGovSk::Requests::URL.headers
           downloader.data                 = {}
           downloader.cache_load_and_store = true
           downloader.cache_file_extension = :html

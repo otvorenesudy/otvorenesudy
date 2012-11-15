@@ -40,6 +40,12 @@ module JusticeGovSk
         value = value + ', ' + sufixes.join(' ') unless sufixes.empty?
         value
       end
+
+      def self.date(value)
+        _, day, month, year = *value.strip.match(/(\d+)\.(\d+)\.(\d+)?/)
+
+        "#{'%04d' % year.to_i}-#{'%02d' % month.to_i}-#{'%02d' % day.to_i}"
+      end
       
       def self.datetime(value)
         _, day, month, year, hour, minute, second = *value.strip.match(/(\d+)\.(\d+)\.(\d+)\s+(\d+)\.(\d+)(\.(\d+))?/)
@@ -52,12 +58,6 @@ module JusticeGovSk
         time = "#{'%02d' % hour.to_i}:#{'%02d' % minute.to_i}:#{'%02d' % second.to_i}"
         
         "#{date} #{time}"
-      end
-
-      def self.date(value)
-        _, day, month, year = *value.strip.match(/(\d+)\.(\d+)\.(\d+)?/)
-
-        "#{'%04d' % year.to_i}-#{'%02d' % month.to_i}-#{'%02d' % day.to_i}"
       end
     end
   end

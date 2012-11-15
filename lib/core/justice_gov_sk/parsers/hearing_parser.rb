@@ -29,7 +29,7 @@ module JusticeGovSk
 
       def note(document) 
         find_value_by_label 'note', document, 'Poznámka' do |div|
-          div.text.strip
+          div.text.strip.squeeze(' ')
         end
       end
             

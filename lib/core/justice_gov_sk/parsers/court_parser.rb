@@ -84,7 +84,7 @@ module JusticeGovSk
 
       def office_note(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' note', document, office_type_to_group(type), 2 do |div|
-          div.text.strip
+          div.text.strip.squeeze(' ')
         end         
       end
       
@@ -123,7 +123,7 @@ module JusticeGovSk
       end
       
       def coordinates(document)
-        @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe' do |iframe|
+        @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe', verbose: false do |iframe|
           coordinates = {}
                       
           iframe.first[:src].scan(/sll=\-?(\d+\.\d+)\,\-?(\d+\.\d+)/) do |latitude, longitude|

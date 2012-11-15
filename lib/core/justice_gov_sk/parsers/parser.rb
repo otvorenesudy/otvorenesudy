@@ -76,13 +76,13 @@ module JusticeGovSk
       private
       
       def table_rows(document)
-        @table_rows ||= find_values('information table, all rows', document, 'div.DetailTable div').select do |div|
+        @table_rows ||= find_values('information table, all rows', document, 'div.DetailTable div', verbose: false).select do |div|
           !div[:class].match(/skupina|popiska|hodnota/).nil? unless div[:class].nil?
         end
       end
       
       def table_values(document)
-        @table_values ||= find_values 'information table, values only', document, 'div.DetailTable div.hodnota'
+        @table_values ||= find_values 'information table, values only', document, 'div.DetailTable div.hodnota', verbose: false
       end
       
       def table_key(s)
