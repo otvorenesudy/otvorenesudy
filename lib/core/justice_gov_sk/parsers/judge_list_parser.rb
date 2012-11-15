@@ -27,7 +27,7 @@ module JusticeGovSk
       def activity(element)
         find_value 'activity', element, 'img', empty?: false do |img|
           activity = img.attr('title').text
-          !activity.match(/Aktívny/i).nil?
+          !activity.match(/\AAktívny\Z/i).nil?
         end
       end
 
@@ -47,7 +47,11 @@ module JusticeGovSk
       end
 
       def note(value)
-        value.gsub(/\A-/, '').strip
+        if value.blank?
+          nil
+        else
+          value.gsub(/\A-/, '').strip
+        end
       end
     end
   end
