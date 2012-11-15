@@ -53,6 +53,12 @@ module JusticeGovSk
         
         "#{date} #{time}"
       end
+
+      def self.date(value)
+        _, day, month, year = *value.strip.match(/(\d+)\.(\d+)\.(\d+)?/)
+
+        "#{'%04d' % year.to_i}-#{'%02d' % month.to_i}-#{'%02d' % day.to_i}"
+      end
     end
   end
 end
