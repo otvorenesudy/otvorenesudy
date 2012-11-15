@@ -47,11 +47,7 @@ module JusticeGovSk
       end
 
       def note(value)
-        if value.blank?
-          nil
-        else
-          value.gsub(/\A-/, '').strip
-        end
+        value.gsub(/\A-/, '').strip.squeeze(' ') unless value.blank?
       end
     end
   end
