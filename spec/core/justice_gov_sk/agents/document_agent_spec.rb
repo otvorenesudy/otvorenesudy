@@ -6,7 +6,7 @@ describe JusticeGovSk::Agents::DocumentAgent do
     @agent.cache_load = false
     @agent.cache_store = true
     @agent.wait_time = 0
-    @agent.verbose = true
+    @agent.verbose = false
   end
 
   after :each do 

@@ -6,6 +6,7 @@ describe JusticeGovSk::Parsers::JudgeListParser do
     html = load_fixture('judges/judges_list.html')
   
     @parser = JusticeGovSk::Parsers::JudgeListParser.new
+    @parser.verbose = false
 
     document = @parser.parse(html)
 

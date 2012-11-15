@@ -6,7 +6,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
     @agent.cache_store = true
     @agent.cache_load = false
-    @agent.verbose = true
+    @agent.verbose = false
     @agent.wait_time = 0
   end
 
