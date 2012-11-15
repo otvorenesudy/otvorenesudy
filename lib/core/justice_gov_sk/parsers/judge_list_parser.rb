@@ -35,7 +35,7 @@ module JusticeGovSk
         value.sub!(/Najvyšší súd SR/i, 'Najvyšší súd Slovenskej republiky')
         value.sub!(/Ústavný súd SR/i,  'Ústavný súd Slovenskej republiky')
         value.sub!(/\s*\-\s*/, ' ')
-        value.titlecase
+        value
       end
 
       def name(value)
@@ -47,7 +47,7 @@ module JusticeGovSk
       end
 
       def note(value)
-        value
+        value.gsub(/\A-/, '').strip
       end
     end
   end
