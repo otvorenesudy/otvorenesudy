@@ -17,7 +17,7 @@ describe JusticeGovSk::Agents::DocumentAgent do
   end
   
   it "should download document for specific Decree" do
-    @request = JusticeGovSk::AgentRequests::DocumentRequest.new
+    @request = JusticeGovSk::Requests::DocumentRequest.new
     
     @request.document_format = :pdf
     @request.url = "http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=0374BFEA-B34C-4BB8-BC83-21DF2A3E3AFA&PojCislo=478689"
