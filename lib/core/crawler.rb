@@ -1,9 +1,9 @@
 class Crawler
   include Output
 
-  attr_reader :downloader,
-              :parser,
-              :persistor
+  attr_accessor :downloader,
+                :parser,
+                :persistor
 
   def initialize(downloader, parser, persistor)
     @downloader = downloader
