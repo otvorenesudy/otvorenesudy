@@ -28,7 +28,7 @@ module JusticeGovSk
           end
         end
         
-        find_values name, rows[from..to], '', options, &block
+        find_values name, rows[from..to], '', &block
       end
       
       def find_value_by_group_and_index(name, element, group, index, &block)
@@ -43,7 +43,7 @@ module JusticeGovSk
           break  if div[:class] == 'skupina' && table_key(div.text) == group
         end
         
-        find_value name, values[i + index], '', &lock
+        find_value name, values[i + index], '', &block
       end
       
       def find_value_by_label(name, element, label, &block)
