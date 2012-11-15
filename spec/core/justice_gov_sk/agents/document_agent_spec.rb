@@ -12,8 +12,8 @@ describe JusticeGovSk::Agents::DocumentAgent do
   after :each do 
     document = @agent.download(@request)
 
-    document.should_not be_nil
-    document.should_not be_empty
+    document.content.should_not be_nil
+    document.content.should_not be_empty
   end
   
   it "should download document for specific Decree" do
