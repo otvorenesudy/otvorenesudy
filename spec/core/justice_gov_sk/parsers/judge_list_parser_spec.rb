@@ -6,7 +6,6 @@ describe JusticeGovSk::Parsers::JudgeListParser do
     html = load_fixture('judges/judges_list.html')
   
     @parser = JusticeGovSk::Parsers::JudgeListParser.new
-    @parser.verbose = false
 
     document = @parser.parse(html)
 
@@ -17,13 +16,23 @@ describe JusticeGovSk::Parsers::JudgeListParser do
 
     list = @parser.list(document)
 
+    list.length.should      be_eql 100
+
     data = @parser.data(list[4])
 
     data[:court].should     be_eql 'KRAJSKÝ SÚD V BRATISLAVE'
     data[:name].should      be_eql 'JUDr. Margita Horná'
     data[:position].should  be_eql 'sudca'
+    data[:active].should    be_false
+    data[:note].should      be_eql 'od 1. decembra 2009 má prerušený výkon funkcie sudcu podľa § 24 ods. 4 zákona č. 385/2000 Z.z.'
+
+    data = @parser.data(list[86])
+
+    data[:court].should     be_eql 'OKRESNÝ SÚD POVAŽSKÁ BYSTRICA'
+    data[:name].should      be_eql 'JUDr. Róbert Jankovský' 
+    data[:position].should  be_eql 'podpredseda'
     data[:active].should    be_true
-    #data[:note].should      be_eql 'od 1. decembra 2009 má prerušený výkon funkcie sudcu podľa § 24 ods. 4 zákona č. 385/2000 Z.z'
+    data[:note].should      be_nil
   end
 end
 
