@@ -3,6 +3,8 @@ require 'mechanize'
 require 'nokogiri'
 
 class HtmlParser < Parser
+  attr_accessor :reduced_output
+
   def parse(resource)
     clear_caches if self.respond_to? :clear_caches
     
@@ -26,11 +28,16 @@ class HtmlParser < Parser
   
   def find_value(name, element, selector = nil, options = {}, &block)
     options = defaults.merge options
-    
-    puts "Parsing #{name}."
+   
+    if @reduced_output
+      puts "Parsing #{name}."
+    else
+      print "Parsing #{name} ..."
+    end
     
     value = selector.blank? ? element : element.search(selector)
     
+
     if options[:present?]
       if value.nil?
         puts "#{name.upcase_first} not present."
@@ -50,7 +57,11 @@ class HtmlParser < Parser
       end
     end
     
-    block_given? ? block.call(value) : value 
+    value = block_given? ? block.call(value) : value
+
+    puts " done (#{value})" if not @reduced_output
+
+    value
   end
   
   def find_values(name, element, selector, options = {}, &block)
