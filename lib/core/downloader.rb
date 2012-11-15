@@ -3,10 +3,10 @@ require 'net/http'
 class Downloader
   include Output
   
-  attr_accessor :cache_expire_time,
-                :cache_file_extension,
-                :cache_load,
+  attr_accessor :cache_load,
                 :cache_store,
+                :cache_expire_time,
+                :cache_file_extension,
                 :cache_uri_to_path,
                 :headers,
                 :data,
@@ -15,17 +15,17 @@ class Downloader
                 :wait_time
 
   def initialize
-    @cache_expire_time    = nil
-    @cache_file_extension = nil
     @cache_load           = true
     @cache_store          = true
+    @cache_expire_time    = nil
+    @cache_file_extension = nil
     @cache_uri_to_path    = lambda { |downloader, uri| uri_to_path(uri) }
 
     @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
     @data                 = {}
 
     @repeat               = 8
-    @timeout              = 40.seconds
+    @timeout              = 60.seconds
 
     @wait_time            = 0.5.seconds
   end
