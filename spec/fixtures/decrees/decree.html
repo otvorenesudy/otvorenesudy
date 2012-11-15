@@ -1,0 +1,1015 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" __expr-val-dir="ltr" lang="sk-sk" dir="ltr">
+
+<head><link rel="stylesheet" type="text/css" href="/DXR.axd?r=1_4-_9TK3" /><link rel="stylesheet" type="text/css" href="/DXR.axd?r=1_3-_9TK3" /><link rel="stylesheet" type="text/css" href="/DXR.axd?r=1_2-_9TK3" /><link rel="stylesheet" type="text/css" href="/DXR.axd?r=9_10-_9TK3" /><link rel="stylesheet" type="text/css" href="/DXR.axd?r=2_2-_9TK3" /><link rel="stylesheet" type="text/css" href="/DXR.axd?r=2_0-_9TK3" /><link rel="stylesheet" type="text/css" href="/DXR.axd?r=2_1-_9TK3" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="Expires" content="0" /><meta http-equiv="X-UA-Compatible" content="IE=8" /><meta name="author" content="Martin Vozar, Michal Namesny, Peter Kraslan" /><meta name="distribution" content="Slovensko, Slovenská Republika, Slovakia, Slovak Republic" /><meta name="rating" content="general" /><meta name="copyright" content="Copyright (c) 2000 - 2010 Anasoft Apr." /><meta name="description" content="Webový portál ministerstva spravodlivosti SR, MS SR" /><link rel="stylesheet" type="text/css" href="/Style%20Library/MSSR/CSS/main.css" media="all" /><link rel="stylesheet" type="text/css" href="/Style%20Library/MSSR/CSS/print.css" media="print" />
+
+<script src="/Style Library/MSSR/JavaScript/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+ 
+        function TopMenuMouseOver(thisObject) {
+        	if (thisObject.className != 'TopMenuSel')
+        	{
+	            thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_normal', '_mouseover');
+	            thisObject.className = 'TopMenuHover';
+	        }
+        }
+        function TopMenuMouseOut(thisObject) {
+           	if (thisObject.className != 'TopMenuSel')
+        	{
+	            thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_mouseover', '_normal');
+	                thisObject.className = '';
+	        }
+        }
+        
+        function LeftTopMenuMouseOver(thisObject) {
+            if (thisObject.className != 'sel') {
+                thisObject.className = 'LeftTopMenuHover';
+                thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_normal', '_mouseover');
+                document.getElementById('IdPasikNadContentHeadLeftMenu').style.backgroundColor = '#d81920';
+            }
+            
+            
+        }
+        function LeftTopMenuMouseOut(thisObject) {
+            if (thisObject.className != 'sel') {
+                thisObject.className = '';
+                thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_mouseover', '_normal');
+                document.getElementById('IdPasikNadContentHeadLeftMenu').style.backgroundColor = '#482760';
+            }
+            
+        }
+        function Focus(objname, waterMarkText) {
+            obj = document.getElementById(objname);
+            if (obj.value == waterMarkText) {
+                obj.value = "";
+            }
+        }
+        function Blur(objname, waterMarkText) {
+            obj = document.getElementById(objname);
+            if (obj.value == "") {
+                obj.value = waterMarkText;
+            }
+        }
+        
+        function VerziaPreSlabozrakych()
+        {
+        	for(i=0;i<document.styleSheets.length;i++) {
+				void(document.styleSheets.item(i).disabled=true);
+			}
+			el = document.getElementsByTagName('*');
+			for ( i=0; i<el.length; i++) {
+				void(el[i].style.cssText = 'font-size:110%;');
+			}
+        }
+    </script>
+	
+<!-- robots -->
+
+<!-- page title - overridden by asp:content on pages or page layouts -->
+<title>
+	MSSR
+</title>
+<!-- favicon -->
+<link rel="shortcut icon" href="/Style Library/MSSR/Images/favicon.ico" type="image/vnd.microsoft.icon" />
+<!-- page manager interacts with script and the sharepoint object model -->
+
+<!-- unified logging service -->
+
+<!-- load SharePoint javascript -->
+<script type="text/javascript">
+// <![CDATA[
+document.write('<script type="text/javascript" src="/_layouts/1051/init.js?rev=8ORgE1jnxx7MrHNH%2F0qcPQ%3D%3D"></' + 'script>');
+document.write('<script type="text/javascript" src="/ScriptResource.axd?d=XT7Geoj_70gEPvZwRpThegFkCN2e3tWWVLWKKFa3wdKF46Gq1CXGzxQ4Mxg4MStatUro-a80ogIJgE-K9FjwB-Ry27RIz94HC0f_jHsrS6z-y7SOmrs2poXazDAfIaoaikkxpZ8-hXbymOo8wGsG_Z9MGgo1&amp;t=ffffffffb868b5f4"></' + 'script>');
+document.write('<script type="text/javascript" src="/_layouts/blank.js?rev=QGOYAJlouiWgFRlhHVlMKA%3D%3D"></' + 'script>');
+document.write('<script type="text/javascript" src="/ScriptResource.axd?d=UZLVCuTfj-p7IV3-A8gNxLlpdV_2wxSg4gmTOlkgrVBCUzz-v6lsltonJ5s16yTfQ_4p0dwBPrWy1kmoEGP2bO6C7PmQhZLB1Gb49JrEeS13yWIGznI3OCgPaTtEUe9CZtFQ1KsHeMCwfQBGyvRRTxLLQvEXNe8thxwh88SDEOhQ7Avd0&amp;t=ffffffffb868b5f4"></' + 'script>');
+// ]]>
+</script>
+
+<!-- javascript to override the active-x message in ie 
+		// See http://blog.drisgill.com/2010/02/removing-name-activex-control-warning.html for more info
+		// Remove if the IM pressence icons are needed in SharePoint
+		
+	<script type="text/javascript">
+		function ProcessImn(){}
+		function ProcessImnMarkers(){}	
+	</script>
+	-->
+<!-- additional header delegate control -->
+<!-- _lcid="1033" _version="14.0.4758" _dal="1" -->
+<!-- _LocalBinding -->
+<span id="ctl00_ctl00_ctl19_iprRibbon"><span></span></span>
+
+<!-- additional header placeholder - overridden by asp:content on pages or page layouts -->
+	
+	
+	<!-- page title - overridden by asp:content on pages or page layouts -->
+	<title>
+	Sudne-rozhodnutie-detail
+</title>
+
+	<script  type="text/javascript">
+	 $(document).ready(function () 
+	 {   
+	    var $blokLavy = $('.blokLavy').first();
+	    var $blokStredny = $('.blokPravy.blokDlhy').first();
+	    
+	    var $blokLavyLast = $blokLavy.children(".blokDlhy").last().children(".mainText").last();
+	    var $blokStrednyLast = $blokStredny.children(".mainText").last();
+	    
+	    var height1 = $blokLavyLast.offset().top + $blokLavyLast.height();
+	    var height2 = $blokStrednyLast.offset().top + $blokStrednyLast.height();
+	    
+	    var maxHeight = Math.max(height1, height2);
+	
+		$blokLavyLast.css('min-height', maxHeight - $blokLavyLast.offset().top );
+		$blokStrednyLast.css('min-height', maxHeight - $blokStrednyLast.offset().top);
+	});
+	</script>
+
+	<!-- additional header placeholder - overridden by asp:content on pages or page layouts -->
+		
+
+	<!-- microsoft says these should always be inside the head tag. -->
+   	
+	
+
+	<!-- microsoft says these should always be inside the head tag. -->
+	<style type="text/css">
+	.ctl00_ctl00_wpz_0 { border-color:Black;border-width:1px;border-style:Solid; }
+
+</style></head>
+
+	<body onload="javascript:_spBodyOnLoadWrapper();">
+
+	<form name="aspnetForm" method="post" action="Sudne-rozhodnutie-detail.aspx?PorCis=98588111-715D-47E3-A06E-6E8179D45516&amp;PojCislo=509310" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm">
+<div>
+<input type="hidden" name="MSOWebPartPage_PostbackSource" id="MSOWebPartPage_PostbackSource" value="" />
+<input type="hidden" name="MSOTlPn_SelectedWpId" id="MSOTlPn_SelectedWpId" value="" />
+<input type="hidden" name="MSOTlPn_View" id="MSOTlPn_View" value="0" />
+<input type="hidden" name="MSOTlPn_ShowSettings" id="MSOTlPn_ShowSettings" value="False" />
+<input type="hidden" name="MSOGallery_SelectedLibrary" id="MSOGallery_SelectedLibrary" value="" />
+<input type="hidden" name="MSOGallery_FilterString" id="MSOGallery_FilterString" value="" />
+<input type="hidden" name="MSOTlPn_Button" id="MSOTlPn_Button" value="none" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__REQUESTDIGEST" id="__REQUESTDIGEST" value="0x0E1178A00EA1B4A32F7A958BE85D1E5A371055F8783DC970914A1EDA63E03BF5AB4593664861DC5A82938ADCA9F1C90B50C9086B3661F0D3BAE1D140BB2FAAF0,15 Nov 2012 01:14:13 -0000" />
+<input type="hidden" name="MSOSPWebPartManager_DisplayModeName" id="MSOSPWebPartManager_DisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_ExitingDesignMode" id="MSOSPWebPartManager_ExitingDesignMode" value="false" />
+<input type="hidden" name="MSOWebPartPage_Shared" id="MSOWebPartPage_Shared" value="" />
+<input type="hidden" name="MSOLayout_LayoutChanges" id="MSOLayout_LayoutChanges" value="" />
+<input type="hidden" name="MSOLayout_InDesignMode" id="MSOLayout_InDesignMode" value="" />
+<input type="hidden" name="_wpSelected" id="_wpSelected" value="" />
+<input type="hidden" name="_wzSelected" id="_wzSelected" value="" />
+<input type="hidden" name="MSOSPWebPartManager_OldDisplayModeName" id="MSOSPWebPartManager_OldDisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_StartWebPartEditingName" id="MSOSPWebPartManager_StartWebPartEditingName" value="false" />
+<input type="hidden" name="MSOSPWebPartManager_EndWebPartEditing" id="MSOSPWebPartManager_EndWebPartEditing" value="false" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUIMjU2NDAxOTYPZBYCZg9kFgJmD2QWAgIBD2QWBAIBD2QWAgIcD2QWAgIBD2QWAmYPZBYCAgEPFgIeE1ByZXZpb3VzQ29udHJvbE1vZGULKYgBTWljcm9zb2Z0LlNoYXJlUG9pbnQuV2ViQ29udHJvbHMuU1BDb250cm9sTW9kZSwgTWljcm9zb2Z0LlNoYXJlUG9pbnQsIFZlcnNpb249MTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49NzFlOWJjZTExMWU5NDI5YwFkAgMPZBYMAgYPZBYCAgEPZBYEZg9kFgICAQ8WAh4HVmlzaWJsZWgWAmYPZBYEAgIPZBYGAgEPFgIfAWhkAgMPFggeE0NsaWVudE9uQ2xpY2tTY3JpcHQFbWphdmFTY3JpcHQ6Q29yZUludm9rZSgnVGFrZU9mZmxpbmVUb0NsaWVudFJlYWwnLDEsIDUzLCAnaHR0cDpcdTAwMmZcdTAwMmZ3d3cuanVzdGljZS5nb3Yuc2snLCAtMSwgLTEsICcnLCAnJykeGENsaWVudE9uQ2xpY2tOYXZpZ2F0ZVVybGQeKENsaWVudE9uQ2xpY2tTY3JpcHRDb250YWluaW5nUHJlZml4ZWRVcmxkHgxIaWRkZW5TY3JpcHQFIlRha2VPZmZsaW5lRGlzYWJsZWQoMSwgNTMsIC0xLCAtMSlkAgUPFgIfAWhkAgMPDxYKHglBY2Nlc3NLZXkFAS8eD0Fycm93SW1hZ2VXaWR0aAIFHhBBcnJvd0ltYWdlSGVpZ2h0AgMeEUFycm93SW1hZ2VPZmZzZXRYZh4RQXJyb3dJbWFnZU9mZnNldFkC6wNkZAIBD2QWBAIFD2QWAgIBDxAWAh8BaGQUKwEAZAIHD2QWAmYPZBYCZg8UKwADZGRkZAIID2QWAgICDxYCHwFoZAIKD2QWAgICDxYCHwFoZAIMD2QWAgICDxYCHwFoZAIOD2QWCgIBD2QWAgIBD2QWAmYPZBYCAgEPD2QWBh4FY2xhc3MFIm1zLXNidGFibGUgbXMtc2J0YWJsZS1leCBzNC1zZWFyY2geC2NlbGxwYWRkaW5nBQEwHgtjZWxsc3BhY2luZwUBMGQCBw9kFgICAQ9kFgQCAQ8WAh4EVGV4dAUSU8OaRE5FIFJPWkhPRE5VVElBZAIDDxYCHw4FpwY8bGkgY2xhc3M9IiI+PGEgaHJlZj0iL1N0cmFua3kvU3VkbmUtcm96aG9kbnV0aWEvU3VkbmUtcm96aG9kbnV0aWEuYXNweCIgY2xhc3M9IiI+VnloxL5hZMOhdmFuaWUgdiBzw7pkbnljaCByb3pob2RudXRpYWNoPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSJjaWFyYSI+Jm5ic3A7PC9saT48bGkgY2xhc3M9IiI+PGEgaHJlZj0iL1N0cmFua3kvU3VkbmUtcm96aG9kbnV0aWEvUmFkeS1hLXRpcHkuYXNweCIgY2xhc3M9IiI+UmFkeSBhIHRpcHk8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9ImNpYXJhIj4mbmJzcDs8L2xpPjxsaSBjbGFzcz0iIj48YSBocmVmPSIvU3RyYW5reS9TdWRuZS1yb3pob2RudXRpYS9WeXN2ZXRsaXZreS5hc3B4IiBjbGFzcz0iIj5WeXN2ZXRsaXZreTwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Ii9TdHJhbmt5L1N1ZG5lLXJvemhvZG51dGlhL1ByYXZuYS11cHJhdmEuYXNweCIgY2xhc3M9IiI+UHLDoXZuYSDDunByYXZhPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSJjaWFyYSI+Jm5ic3A7PC9saT48bGkgY2xhc3M9IiI+PGEgaHJlZj0iL1N0cmFua3kvU3VkbmUtcm96aG9kbnV0aWEvS29udGFrdC5hc3B4IiBjbGFzcz0iIj5Lb250YWt0PC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSJjaWFyYSI+Jm5ic3A7PC9saT5kAhEPZBYCAgEPFgIfDgXHAjx1bCBpZD0iYnJlYWRjcnVtYiI+CjxsaT48YSBocmVmPSIvIj7DmnZvZG7DoSBzdHLDoW5rYTwvYT48L2xpPgo8bGk+PGEgaHJlZj0iL1N0cmFua3kvU3VkbmUtcm96aG9kbnV0aWEvU3VkbmUtcm96aG9kbnV0aWEuYXNweCIgdGl0bGU9IlPDumRuZSByb3pob2RudXRpYSI+U8O6ZG5lIHJvemhvZG51dGlhPC9hPjwvbGk+CjxsaT48YSBocmVmPSIvU3RyYW5reS9TdWRuZS1yb3pob2RudXRpYS9TdWRuZS1yb3pob2RudXRpZS1kZXRhaWwuYXNweCIgdGl0bGU9IlN1ZG5lLXJvemhvZG51dGllLWRldGFpbCI+U3VkbmUtcm96aG9kbnV0aWUtZGV0YWlsPC9hPjwvbGk+CjwvdWw+CmQCEw9kFgQCAQ9kFgICAQ8WAh8ACysEAWQCAw8PFgIeEVJvemhvZG51dGlhRGV0YWlsMqcjAAEAAAD/////AQAAAAAAAAAMAgAAAFFQb3J0YWxDb250cm9scywgVmVyc2lvbj0xLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWQ0MDVjNjAyYmFlMDc4NDEFAQAAAE9BbmFzb2Z0LlBvcnRhbEp1c3RpY2VXZWIuUG9ydGFsQ29udHJvbHMuRGJNb2RlbC5WX1JPWkhPRE5VVElFX1pWRVJFSk5FTkVfREVUQUlMEQAAAApfZ3NfUG9yQ2lzCl9wb2pfQ2lzbG8KX3N1ZF9OYXpvdgpfc3VkX0Npc2xvDF9zcGlzX1puYWNrYQlfc3Bpc19JQ1MNX3Bval9EYXR1bVBvag1fcG9qX0lueUF1dG9yCV9wb2pfRUNMSQlfSGxhdmlja2EMX1JvemhvZG51dGllDF9PZG92b2RuZW5pZQlfUG91Y2VuaWUGX1ZvdHVtBl9TdW1hcglfRm9ybWFLb2QLX0Zvcm1hTmF6b3YBAAEDAQEAAQEBAQEBAQEAAQUMU3lzdGVtLkludDMyDQMCAAAABgMAAAAkOTg1ODgxMTEtNzE1RC00N0UzLUEwNkUtNkU4MTc5RDQ1NTE2BjUwOTMxMAYEAAAAF09rcmVzbsO9IHPDumQgVHJlbsSNw61uCAgfAAAABgUAAAAZM1QvMTM5LzIwMTIgICAgICAgICAgICAgIAYGAAAACjMxMTIwMTE2MjMAQGX1SI/PCAYHAAAAE0pVRHIuIEV2YSBUw7N0aG92w6EGCAAAAChFQ0xJOlNLOk9TVE46MjAxMjozMTEyMDExNjIzLjEgICAgICAgICAgBgkAAADzAQ0KT2tyZXNuw70gc8O6ZCB2IFRyZW7EjcOtbmUgIHYgdHJlc3RuZWogdmVjaSBwcm90aSBvYnZpbmVuw6ltdSAgbWwuIFUuIFkuLCBuYXIuIFhYLlhYLlhYWFgsIHRydmFsZSBieXRvbSBaLiwgTmEgWC4gxI0uIFhYWFgvWFhBICBuYSB2ZXJlam5vbSAgemFzYWRudXTDrSBrb25hbm9tIGTFiGEgMTMuMTEuMjAxMiBzYW1vc3Vka3nFiG91IEpVRHIuIEV2b3UgVMOzdGhvdm91IHRha3RvDQoNCnIgbyB6IGggbyBkIG8gbCAgIDoNCgYKAAAA9w8NClBvZMS+YSDCpyAzMzQgb2RzLiA0IFRyZXN0bsOpaG8gcG9yaWFka3Ugc8O6ZCAgIHMgYyBoIHYgYSDEviB1IGogZSAgZG9ob2R1IG8gdmluZSBhIHRyZXN0ZSB1emF0dm9yZW7DuiBwcm9rdXLDoXRvcm9tIE9rcmVzbmVqIHByb2t1cmF0w7pyeSB2ICBUcmVuxI3DrW5lIHMgb2J2aW5lbsO9bSBtbC4gVS4gWS4sIG5hci4gWFguWFguWFhYWCwgdHJ2YWxlICBieXRvbSBaLiwgbmEgWC4gxI0uIFhYWFgvWFhBLCBwb2TEvmEga3RvcmVqIG9idmluZW7DvSB1em7DoXZhIHZpbnUgemEgc3DDoWNoYW7DvSBza3V0b2ssICDFvmUgOg0KDQoJdiDEjWFzZSBvZCAxOC4xMi4yMDExIGRvIDAyLjAxLjIwMTIgb2RjdWR6aWwgcG9tb2NvdSBrxL7DusSNYSBza3J5dMOpaG8gcG9kIHBhbmVsb20gcG9kIA0KYsO6ZG91IHogcmlhZG5lIHV6YW1rbnV0ZWogc3RhdmVibmVqIGRyZXZlbmVqIGLDumR5LCBrdG9yw6EgamUgdW1pZXN0bmVuw6EgcHJpIHJvZGlubm9tIGRvbWUgDQpuYSB1bC4gTmEgWC4gxIwuIFhYWFgvWFhBIHYgWi4gYSBzbMO6xb5pIG5hIHVza2xhZG5lbmllIGRvbcOhY2VobyBuw6FyYWRpYSB1aGxvdsO6IA0KYnLDunNrdSB6bi4gTmFyZXggMTUwIG1vZHJlaiBmYXJieSwgenbDoXJhxI1rdSB6bi5VVEEgMjAwIMSNZXJ2ZW5laiBmYXJieSBzcG9sdSBzbyANCnp2YXJvdmFjw61taSBrw6FibGFtaSwgcHJlZGzFvm92YWNpZSBrw6FibGUgMyBrcyBuYSAyMjAgViBhIHRvIDEga3MgdiBkxLrFvmtlIDUwIG0gYmllbGVqIGZhcmJ5IGEgMiANCmtzIHYgZMS6xb5rZSAyMCBtIMSNaWVybmVqIGZhcmJ5IGEgMyBrcyBwcmVkbMW+b3ZhY8OtY2gga8OhYmxvdiBuYSAzODAgViwgeiB0b2h0byAxIGtzIGJpZWxlaiBmYXJieSANCnYgZMS6xb5rZSAzMCBtLCAyIGtzIMSNaWVybmVqIGZhcmJ5IHYgZMS6xb5rZSAxNSBtLCB2xaFldGt5IGJleiBrb25jb3ZpZWssIGEgcG/FoWtvZGVuw6ltdSANCkYuIEsuIHNww7Rzb2JpbCDFoWtvZHUgdm8gdsO9xaFrZSA1MzAgZXVyLCANCg0KdCBlIGQgYQ0KDQotIHByaXN2b2ppbCBzaSBjdWR6aXUgdmVjIHTDvW0sIMW+ZSBzYSBqZWogem1vY25pbCBhIMSNaW4gc3DDoWNoYWwgdmzDoW1hbsOtbSwNCg0KDQrEjSDDrSBtICAgcyBwIMOhIGMgaCBhIGwNCg0KLSBwcmXEjWluIGtyw6FkZcW+ZSBwb2TEvmEgwqcgMjEyIG9kcy4gMiBww61zbS4gYSkgVHIuIHrDoWtvbmEuDQoNCg0KWmEgdG8gc2EgDQogICAgIG8gZCBzIHUgZCB6IHUgaiBlDQoNCglQb2TEvmEgwqcgMjEyIG9kcy4gMiBww61zbS4gYSkgcyBwb3XFvml0w61tIMKnIDU0IGEgwqcgMTExIFRyLiB6w6Frb25hIHYgc3BvamVuw60gcyDCpyAzNiBww61zbS4gbCksIMKnIDM4IG9kcy4gMiwgb2RzLiAzLCBvZHMuIDggVHIuIHrDoWtvbmEgc28gc8O6aGxhc29tIG9idmluZW7DqWhvIG5hIHRyZXN0IHBvdmlubmVqIHByw6FjZSB2byB2w71tZXJlICA0MCAoxaF0eXJpZHNhxaUpIGhvZMOtbi4NCg0KCVBvZMS+YSDCpyA1NSBvZHMuIDEgVHIuIHrDoWtvbmEgamUgb2J2aW5lbsO9IHBvdmlubsO9IHZ5a29uYcWlIHRyZXN0IHBvdmlubmVqIHByw6FjZSBuYWpuZXNrw7RyIGRvIGplZG7DqWhvIHJva2Egb2QgbmFyaWFkZW5pYSB2w71rb251IHRvaHRvIHRyZXN0dS4NCg0KCVBvZMS+YSDCpyA1NSBvZHMuIDMgVHIuIHrDoWtvbmEgamUgb2J2aW5lbsO9IHBvdmlubsO9IHZ5a29uw6F2YcWlIHRyZXN0IHBvdmlubmVqIHByw6FjZSBvc29ibmUgYSB0byB2byB2b8S+bm9tIMSNYXNlIGJleiBuw6Fyb2t1IG5hIG9kbWVudS4NCg0KCVBvZMS+YSDCpyAyODcgb2RzLiAxIFRyLiBwb3JpYWRrdSBzw7pkIHVrbGFkw6Egb2J2aW5lbsOpbXUgcG92aW5ub3PFpSB1aHJhZGnFpSBwb8Wha29kZW7DqW11IEYuIEsuLCBuYXIuIFhYLlhYLlhYWFggdiBaLiwgdHJ2YWxlIGJ5dG9tIFouLCBOYSB2aW5vaHJhZHkgxI0uIFhYWFgvWFhBIMWha29kdSB2byB2w73FoWtlIDUzMCwtIGV1ci4NCg0KCQkNCnByacSNb20gb2J2aW5lbsO9IHPDumhsYXPDrSBzIHVsb8W+ZW7DrW0gdG9odG8gdHJlc3R1IGEgdGVudG8gcHJpasOtbWEuDQoNCgYLAAAA+wkNCkTFiGEgIDIxLjA5LjIwMTIgcG9kYWwgcHJva3Vyw6F0b3IgT2tyZXNuZWogcHJva3VyYXTDunJ5IHYgVHJlbsSNw61uZSBuYSB0dW5hasWhw60gc8O6ZCBuw6F2cmggbmEgc2NodsOhbGVuaWUgZG9ob2R5IG8gdmluZSBhIHRyZXN0ZSBwb2Qgc3AuIHpuLiAyUHYgNTMvMTIga3RvcsO6IHV6YXR2b3JpbCBkxYhhICAyMS4wOS4yMDEyIHMgb2J2aW5lbsO9bSBtbC4gVS4gWS4gdiB6bmVuw60gdXZlZGVub20gdm8gdsO9cm9rb3ZlaiDEjWFzdGkgdG9odG8gcm96c3Vka3UuIEtvbmFuaWUgbyBkb2hvZGUgbyB2aW5lIGEgdHJlc3RlIHphxI1hbCBwcm9rdXLDoXRvciBva3Jlc25laiBwcm9rdXJhdMO6cnkgeiBkw7R2b2R1LCDFvmUgdsO9c2xlZGt5IHZ5xaFldHJvdmFuaWEgZG9zdGF0b8SNbmUgb2TDtHZvZMWIb3ZhbGkgesOhdmVyLCDFvmUgc2t1dG9rLCBrdG9yw6lobyBzYSBkb3B1c3RpbCBvYnZpbmVuw70gamUgdHJlc3Ruw71tIMSNaW5vbS4gT2J2aW5lbsO9IHNhIGsgamVobyBzcMOhY2hhbml1IHByaXpuYWwsIHV6bmFsIHZpbnUgYSBkw7RrYXp5IG5hc3ZlZMSNb3ZhbGkgcHJhdmRpdm9zdGkgamVobyBwcml6bmFuaWEuIA0KDQpOYSB2ZXJlam5vbSB6YXNhZG51dMOtLCBrZGUgc8O6ZCByb3pob2RvdmFsIG8gbsOhdnJodSBuYSBkb2hvZHUgbyB2aW5lIGEgdHJlc3RlIG9kcG92ZWRhbCBvYnZpbmVuw70gbmEgdsWhZXRreSBvdMOhemt5IHV2ZWRlbsOpIHYgwqcgMzMzIG9kcy4gMyBUci4gcG9yaWFka3Uga2xhZG5lIHQuai4g4oCew6Fub+KAnC4NCg0KU2Ftb3N1ZGt5xYhhIG9rcmVzbsOpaG8gc8O6ZHUgICBwcmVza8O6bWFsYSB2IHpteXNsZSDCpyAzMzEgb2RzLiBsIFRyLiBwb3IuIHByZWRsb8W+ZW7DvSBuw6F2cmggZG9ob2R5IG8gdmluZSBhIHRyZXN0ZSAsIGFrbyBhaiBwcmlwb2plbsO9IHZ5xaFldHJvdmFjw60gc3BpcyDEjFZTOk9SUC03L1ROLVROLTIwMTIsICBwcmnEjW9tIG5lemlzdGlsYSDFvmlhZG5lIHrDoXZhxb5uw6kgcG9ydcWhZW5pYSBwcm9jZXNuw71jaCBwcmVkcGlzb3YsIGFuaSDFvmUgYnkgbmF2cmhvdmFuw6EgZG9ob2RhIG8gdmluZSBhIHRyZXN0ZSBib2xhIHpyZWptZSBuZXByaW1lcmFuw6EsIGFsZWJvIG5lc3ByYXZvZGxpdsOhLiANCgkNClByZXRvIHYgem15c2xlIMKnIDMzNCBvZHMuIDQgVHIuIHBvci4gcHJlZG1ldG7DuiBkb2hvZHUgbyB2aW5lIGEgdHJlc3RlIHPDumQgIHNjaHbDoWxpbCwgIMSNbyBwb3R2cmRpbCByb3pzdWRrb20sIGt0b3LDvSBib2wgdmVyZWpuZSB2eWhsw6FzZW7DvS4gDQoJDQoGDAAAAOQBDQpQcm90aSAgdG9tdXRvICByb3pzdWRrdSAgbmllICBqZSAgcHLDrXB1c3Ruw6kgIG9kdm9sYW5pZSwgIGFuaSAgZG92b2xhbmllLCAgb2tyZW0gZG92b2xhbmlhICBwb2TEvmEgIMKnICAzN2wgb2RzLiBsIHDDrXNtLiBjKSBUcmVzdG7DqWhvIHBvcmlhZGt1LiBSb3pzdWRvayAgbmFkb2LDumRhICBwcsOhdm9wbGF0bm9zxaUgYSB2eWtvbmF0ZcS+bm9zxaUgdnlobMOhc2Vuw61tIHJvenN1ZGt1Lg0KBg0AAAAACQ0AAABBBg4AAAA8Um96c3Vkb2sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgC2QWFgIBDw8WBB8OBRdPa3Jlc27DvSBzw7pkIFRyZW7EjcOtbh4LTmF2aWdhdGVVcmwFPS9TdHJhbmt5L1N1ZG5lLXJvemhvZG51dGlhL1N1ZG5lLXJvemhvZG51dGlhLmFzcHg/c3VkQ2lzbG89MzFkZAIDDw8WBB8OBQszVC8xMzkvMjAxMh8QBVgvU3RyYW5reS9TdWRuZS1yb3pob2RudXRpYS9TdWRuZS1yb3pob2RudXRpYS5hc3B4P3NwaXNabmFja2E9M1QlMmYxMzklMmYyMDEyJnN1ZENpc2xvPTMxZGQCBQ8PFgQfDgUKMzExMjAxMTYyMx8QBUMvU3RyYW5reS9TdWRuZS1yb3pob2RudXRpYS9TdWRuZS1yb3pob2RudXRpYS5hc3B4P3NwaXNJZD0zMTEyMDExNjIzZGQCBw8WAh8BZ2QCCQ8WAh8OBQoxMy4xMS4yMDEyZAILDw8WBB8OBRNKVURyLiBFdmEgVMOzdGhvdsOhHxAFUy9TdHJhbmt5L1N1ZG5lLXJvemhvZG51dGlhL1N1ZG5lLXJvemhvZG51dGlhLmFzcHg/YXV0b3I9SlVEci4rRXZhK1QlYzMlYjN0aG92JWMzJWExZGQCDQ8WAh8OBShFQ0xJOlNLOk9TVE46MjAxMjozMTEyMDExNjIzLjEgICAgICAgICAgZAIPDxYCHgtfIUl0ZW1Db3VudAIBFgICAQ9kFgJmDxUBGVRyZXN0bsOpIHByw6F2byAtIE1hamV0b2tkAhEPFgIfEQIBFgICAQ9kFgJmDxUBNFBydm9zdHVwxYhvdsOpIG5lbmFwYWRudXTDqSBvcHJhdm7DvW1pIHByb3N0cmllZGthbWlkAhMPFgIfEQIBFgICAQ9kFgJmDxUBoAFaw6Frb24gICAgICAgICAgICAgICAgICAgICAgICAgIMSNLiAzMDAvMjAwNSBUcmVzdG7DvSB6w6Frb24gPCEtLSBwZW5hbCBjb2RlLCBjcmltaW5hbCBsYXcsIFN0cmFmZ2VzZXR6YnVjaCwgIFRyZXN0bsO9IHrDoWtvbm7DrWssIGNvZGljZSBwZW5hbGUsIGNvZGUgcMOpbmFsLS0+ZAIVDzwrAAcBBBQrAAJkZBYCZg8UKwAJDxYCHg5fIVVzZVZpZXdTdGF0ZWdkZGQUKwABFgIeCUl0ZW1DbGljawV7ZnVuY3Rpb24ocywgZSkgew0KY3RsMDBfY3RsMDBfUGxhY2VIb2xkZXJNYWluX1BsYWNlSG9sZGVyTWFpbl9jdGwwMV9yb3pob2RudXRpZVN1ZG5lVG9vbGJhci5oYW5kbGVCdXR0b24oZS5pdGVtLm5hbWUpOw0KfQ0KZGQPZBAWCmYCAQICAgMCBAIFAgYCBwIIAgkWCjwrAAwCABYIHg5SdW50aW1lQ3JlYXRlZGceBE5hbWUFCUZpcnN0UGFnZR8OZR4HVG9vbFRpcAUMTmEgemHEjWlhdG9rAhQrAAIWAh4DQWx0BQxOYSB6YcSNaWF0b2sUKwABFgQeCENzc0NsYXNzBRpkeFh0cmFSZXBvcnRzX0J0bkZpcnN0UGFnZR4QRGlzYWJsZWRDc3NDbGFzcwUiZHhYdHJhUmVwb3J0c19CdG5GaXJzdFBhZ2VEaXNhYmxlZDwrAAwCABYIHxRnHxUFDFByZXZpb3VzUGFnZR8OZR8WBRdQcmVkY2jDoWR6YWrDumNhIHN0cmFuYQIUKwACFgIfFwUXUHJlZGNow6FkemFqw7pjYSBzdHJhbmEUKwABFgQfGAUZZHhYdHJhUmVwb3J0c19CdG5QcmV2UGFnZR8ZBSFkeFh0cmFSZXBvcnRzX0J0blByZXZQYWdlRGlzYWJsZWQ8KwAMAQAWBB8UZx8VZTwrAAwBABYEHxRnHxUFClBhZ2VOdW1iZXI8KwAMAQAWBB8UZx8VZTwrAAwBABYEHxRnHxUFCVBhZ2VDb3VudDwrAAwCABYIHxRnHxUFCE5leHRQYWdlHw5lHxYFE05hc2xlZHVqw7pjYSBzdHJhbmECFCsAAhYCHxcFE05hc2xlZHVqw7pjYSBzdHJhbmEUKwABFgQfGAUZZHhYdHJhUmVwb3J0c19CdG5OZXh0UGFnZR8ZBSFkeFh0cmFSZXBvcnRzX0J0bk5leHRQYWdlRGlzYWJsZWQ8KwAMAgAWCB8UZx8VBQhMYXN0UGFnZR8OZR8WBQlOYSBrb25pZWMCFCsAAhYCHxcFCU5hIGtvbmllYxQrAAEWBB8YBRlkeFh0cmFSZXBvcnRzX0J0bkxhc3RQYWdlHxkFIWR4WHRyYVJlcG9ydHNfQnRuTGFzdFBhZ2VEaXNhYmxlZDwrAAwCABYMHxRnHxUFClNhdmVUb0Rpc2seCkJlZ2luR3JvdXBnHw5lHxYFEFVsb8W+acWlIG5hIGRpc2seB0VuYWJsZWRnAhQrAAIWAh8XBRBVbG/FvmnFpSBuYSBkaXNrFCsAARYEHxgFFWR4WHRyYVJlcG9ydHNfQnRuU2F2ZR8ZBR1keFh0cmFSZXBvcnRzX0J0blNhdmVEaXNhYmxlZDwrAAwBABYEHxRnHxUFClNhdmVGb3JtYXRkZGQWAmYPZBYCZg9kFgJmD2QWAmYPZBYCZg9kFgJmD2QWAmYPZBYCZg9kFgoCBA9kFgJmD2QWAmYPZBYCZg88KwAEAQAPFgQeD0RhdGFTb3VyY2VCb3VuZGceE0Fzc29jaWF0ZWRDb250cm9sSUQFDVBhZ2VOdW1iZXJfV1JkZAIGD2QWAmYPZBYCZg9kFgJmDzwrAAUBAA8WAh8cZ2RkAggPZBYCZg9kFgJmD2QWAmYPPCsABAEADxYEHxxnHx0FDFBhZ2VDb3VudF9XUmRkAgoPZBYCZg9kFgJmD2QWAmYPPCsABQEADxYCHxxnZGQCFQ9kFgJmD2QWAmYPZBYCZg88KwAFAQAPFgIfHGdkZAIXD2QWAgIBD2QWAmYPZBYCAgMPZBYCAgUPDxYEHgZIZWlnaHQbAAAAAAAAeUABAAAAHgRfIVNCAoABZBYCAgEPPCsACQEADxYEHg1QYXRoU2VwYXJhdG9yBAgeDU5ldmVyRXhwYW5kZWRnZGQCEg9kFgICAQ9kFgJmD2QWAgIDD2QWAgIFDw8WBB8eGwAAAAAAAHlAAQAAAB8fAoABZBYCAgEPPCsACQEADxYEHyAECB8hZ2RkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYEBR1jdGwwMCRjdGwwMCRJZE1wVG9wJGJ0blNlYXJjaAVOY3RsMDAkY3RsMDAkUGxhY2VIb2xkZXJNYWluJFBsYWNlSG9sZGVyTWFpbiRjdGwwMSRyb3pob2RudXRpZVN1ZG5lVG9vbGJhciRNZW51BWRjdGwwMCRjdGwwMCRQbGFjZUhvbGRlck1haW4kUGxhY2VIb2xkZXJNYWluJGN0bDAxJHJvemhvZG51dGllU3VkbmVUb29sYmFyJE1lbnUkSVRDTlQzJFBhZ2VOdW1iZXIkREREBWRjdGwwMCRjdGwwMCRQbGFjZUhvbGRlck1haW4kUGxhY2VIb2xkZXJNYWluJGN0bDAxJHJvemhvZG51dGllU3VkbmVUb29sYmFyJE1lbnUkSVRDTlQ5JFNhdmVGb3JtYXQkRERE5kTZ7BRR7ZDT9VwCmT2qS7yFlAs=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=xe7vrJFOyjI3mEhpzaK4X42oRNxWGIYSTtR_VN8pua86fIss07tdl1Zu2swWiYMPXNZhg7UIqDcvqA90dXUUxS02fbQ1&amp;t=634604460479085897" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+var MSOWebPartPageFormName = 'aspnetForm';
+var g_presenceEnabled = false;
+var g_wsaEnabled = false;
+var g_wsaLCID = 1051;
+var g_wsaSiteTemplateId = 'BLANKINTERNET#2';
+var g_wsaListTemplateId = 850;
+var _fV4UI=true;var _spPageContextInfo = {webServerRelativeUrl: "\u002f", webLanguage: 1051, currentLanguage: 1051, webUIVersion:4,pageListId:"{69710dd5-3321-4249-87a6-da2a75966f4f}",pageItemId:1124, alertsEnabled:false, siteServerRelativeUrl: "\u002f", allowSilverlightPrompt:'True'};//]]>
+</script>
+<script type="text/javascript">
+<!--
+var L_Menu_BaseUrl="";
+var L_Menu_LCID="1051";
+var L_Menu_SiteTheme="";
+//-->
+</script>
+<script type="text/javascript">
+//<![CDATA[
+document.onreadystatechange=fnRemoveAllStatus; function fnRemoveAllStatus(){removeAllStatus(true)};var dlc_fvsi = {"DefaultViews":[],"ViewUrls":[],"WebUrl":"\/"};//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+function _spNavigateHierarchy(nodeDiv, dataSourceId, dataPath, url, listInContext, type) {
+    CoreInvoke('ProcessDefaultNavigateHierarchy', nodeDiv, dataSourceId, dataPath, url, listInContext, type, document.forms.aspnetForm, "", "\u002fStranky\u002fSudne-rozhodnutia\u002fSudne-rozhodnutie-detail.aspx");
+
+}
+//]]>
+</script><script type="text/javascript" >
+<!--
+//-->
+</script>
+<script src="/_layouts/blank.js?rev=QGOYAJlouiWgFRlhHVlMKA%3D%3D" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(DeferWebFormInitCallback) == 'function') DeferWebFormInitCallback();function WebForm_OnSubmit() {
+UpdateFormDigest('\u002f', 1440000);if (typeof(vwpcm) != 'undefined') {vwpcm.SetWpcmVal();};return _spFormOnSubmitWrapper();
+return true;
+}
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCAKMlYHvCwLS1KrTBQLSod+5DQKDxvbnAgLO98JZAv/F9ucCAr/Vn1IC/paC+gifbjJjJmJilcKOnSHqi6RTnoK9gg==" />
+</div>
+		<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ctl00$ScriptManager', document.getElementById('aspnetForm'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tctl00$ctl00$panelZone'], [], [], 90);
+//]]>
+</script>
+
+		
+		<!-- handles SharePoint scripts -->
+		<!-- controls the web parts and zones -->
+		<!-- this control is more navigation for mysites, otherwise it is empty -->
+		<!--
+-->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-23923340-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+		<div id="all">
+			<div id="container">
+				<div id="topService">
+					
+           <ul>
+                <li><a href="/Stranky/Informacie/Mapa-stranky.aspx" title="Mapa stránky">Mapa stránky</a></li>
+                <li><a href="javascript:VerziaPreSlabozrakych()" title="Verzia pre slabozrakých">Verzia pre slabozrakých</a></li>
+                <li><a href="/_layouts/listfeed.aspx?List=69710dd5%2D3321%2D4249%2D87a6%2Dda2a75966f4f" title="poskytovanie informácií">RSS</a></li>
+                <li><a href="/" title="Slovenská verzia">Slovensky</a></li>
+                <!--<li><a href="/" title="English version">English</a></li>-->
+            </ul>
+       
+
+       
+
+				</div>
+				<!-- end div id=topService -->
+				<div class="cleaner" style="height: 0px;">
+				</div>
+				<div id="top">
+					
+                <img src="/Style%20Library/MSSR/Images/ZnakSR.png" alt="Logo SR" title="Logo SR" style="margin-left:32px;float:left;" /><a href="/" title="Hlavná stránka" class="topLogo" >Ministerstvo spravodlivosti<br />Slovenskej republiky</a>
+       
+
+       
+        <div style="float:right;width:322px;">
+                <div id="topMenuSearch">
+                    <input name="ctl00$ctl00$IdMpTop$txtSearch" type="text" value="Hľadaj na celej stránke" id="ctl00_ctl00_IdMpTop_txtSearch" onfocus="Focus(this.id,'Hľadaj na celej stránke')" onblur="Blur(this.id,'Hľadaj na celej stránke')" /><input type="image" name="ctl00$ctl00$IdMpTop$btnSearch" id="ctl00_ctl00_IdMpTop_btnSearch" onmouseover="this.src=this.src.replace('-blue', '-red');" onmouseout="this.src=this.src.replace('-red', '-blue');" src="/Style%20Library/MSSR/Images/button/btn-ok-blue.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$IdMpTop$btnSearch&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" style="border-width:0px;" />
+                 </div>
+                 <div style="display:none"><a href="#" class="rozsirene">Rozšírené vyhľadávanie</a></div>
+        <div style="clear:both;"></div>
+        </div>
+</div>
+				<!-- end div id=top -->
+				<div class="cleaner" style="height: 20px;">
+				</div>
+				<div id="topMenu">
+					
+    <ul>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);" style="background-image:url(/Style%20Library/MSSR/Images/ico/ministerstvo_normal.png); background-position:0px 0px; margin-left:1px; width:180px;"><a href="/Stranky/Ministerstvo/Uvod.aspx" title="Ministerstvo" >Ministerstvo</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/sudy_normal.png); background-position:0px 0px; width:232px;"><a href="/Stranky/Sudy/Uvod.aspx" title="Súdy">Súdy a rozhodnutia</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/zakony_normal.png); background-position:0px 0px; width:210px;"><a href="/Stranky/Zakony/Uvod.aspx" title="Zákony">Právne predpisy</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/registre_normal.png); background-position:0px 0px; width:160px;"><a href="/Stranky/Registre/Uvod.aspx" title="Registre">Registre</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/nasesluzby_normal.png); background-position:0px 0px; width:170px;"><a href="/Stranky/Nase-sluzby/Uvod.aspx" title="Naše služby" style="padding-right:24px;">Naše služby</a></li>
+    </ul>
+
+
+
+
+				</div>
+				<!--<span style="background-color:#000066; height:8px; width:968px; display:block; clear:both;"></span>-->
+				<!-- end div id=topMenu -->
+				<div class="cleaner" style="height: 8px;">
+				</div>
+				<div id="content">
+					
+	<div style="display:none">
+		
+			<table class="s4-wpTopTable" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td valign="top"><div WebPartID="00000000-0000-0000-0000-000000000000" HasPers="true" id="WebPartWPQ1" width="100%" class="noindex" OnlyForMePart="true" allowDelete="false" style="" ><div id="SRSB"> <div>
+			<input name="ctl00$ctl00$PlaceHolderMain$PlaceHolderSearchArea$ctl01$ctl00" type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl00" value="http://www.justice.gov.sk" /><table class="ms-sbtable ms-sbtable-ex s4-search" cellpadding="0" cellspacing="0" border="0">
+				<tr class="ms-sbrow">
+					<td class="ms-sbcell"><input name="ctl00$ctl00$PlaceHolderMain$PlaceHolderSearchArea$ctl01$S2D828D48_InputKeywords" type="text" value="Hľadať na tejto lokalite..." maxlength="200" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords" accesskey="S" title="Hľadať..." class="ms-sbplain" alt="Hľadať..." onkeypress="javascript: return S2D828D48_OSBEK(event);" onfocus="if (document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value =='0') {this.value=''; if (this.className == 's4-searchbox-QueryPrompt') this.className = ''; else this.className = this.className.replace(' s4-searchbox-QueryPrompt',''); document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value=1;}" onblur="if (this.value =='') {this.value='H\u013Eada\u0165 na tejto lokalite...'; if (this.className.indexOf('s4-searchbox-QueryPrompt') == -1) this.className += this.className?' s4-searchbox-QueryPrompt':'s4-searchbox-QueryPrompt'; document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value = '0'} else {document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value='1';}" style="width:170px;" /></td><td class="ms-sbgo ms-sbcell"><a id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_go" title="Hľadať" href="javascript:S2D828D48_Submit()"><img title="Hľadať" onmouseover="this.src='\u002f_layouts\u002fimages\u002fgosearchhover15.png'" onmouseout="this.src='\u002f_layouts\u002fimages\u002fgosearch15.png'" class="srch-gosearchimg" alt="Hľadať" src="/_layouts/images/gosearch15.png" style="border-width:0px;" /></a></td><td class="ms-sbLastcell"></td>
+				</tr>
+			</table><input name="ctl00$ctl00$PlaceHolderMain$PlaceHolderSearchArea$ctl01$ctl04" type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04" value="0" />
+		</div></div></div></td>
+	</tr>
+</table>
+		
+					
+		
+	</div>
+
+        <div class="blokLavy">
+	        
+	
+
+
+<div class="blokDlhy">
+    <div class="blokDlhyHead">
+		<div class="headIco"><img src="/Style%20Library/MSSR/Images/ico/ministerstvo_mouseover.png" alt="ico" title="Menu" /></div>
+        <div class="headText">SÚDNE ROZHODNUTIA</div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div id="mainTextLiMenuMultiID" class="mainText" style="padding-left:0; padding-right:0;">
+            <ul class="LiMenuMulti">
+                <li class=""><a href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx" class="">Vyhľadávanie v súdnych rozhodnutiach</a><div style='clear:both'></div></li><li class="ciara">&nbsp;</li><li class=""><a href="/Stranky/Sudne-rozhodnutia/Rady-a-tipy.aspx" class="">Rady a tipy</a><div style='clear:both'></div></li><li class="ciara">&nbsp;</li><li class=""><a href="/Stranky/Sudne-rozhodnutia/Vysvetlivky.aspx" class="">Vysvetlivky</a><div style='clear:both'></div></li><li class="ciara">&nbsp;</li><li class=""><a href="/Stranky/Sudne-rozhodnutia/Pravna-uprava.aspx" class="">Právna úprava</a><div style='clear:both'></div></li><li class="ciara">&nbsp;</li><li class=""><a href="/Stranky/Sudne-rozhodnutia/Kontakt.aspx" class="">Kontakt</a><div style='clear:both'></div></li><li class="ciara">&nbsp;</li>
+            </ul>
+        </div>
+</div>
+
+
+			
+			
+			
+			
+		</div>
+		<!-- end div id=blokDlhy -->
+        <div class="blokDlhy blokPravy blokWidthLong">
+        	
+
+<div class="blokDlhyHead">
+    <div class="headIco"></div>
+    <div class="headText">
+        <ul id="breadcrumb">
+<li><a href="/">Úvodná stránka</a></li>
+<li><a href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx" title="Súdne rozhodnutia">Súdne rozhodnutia</a></li>
+<li><a href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx" title="Sudne-rozhodnutie-detail">Sudne-rozhodnutie-detail</a></li>
+</ul>
+
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+			<a href="javascript:window.print();" title="print" style="float:right; padding:10px 16px 0 10px;"><img src="/Style%20Library/MSSR/Images/ico/printer_normal.gif" alt="print" title="print" 
+							onmouseover="this.src = this.src.replace('_normal', '_mouseover');" onmouseout="this.src = this.src.replace('_mouseover', '_normal');" /></a>
+            <div class="mainText"">
+            	<div class="sprava">
+						
+	
+			<div class="article article-body">
+				<div class="article-content">
+					<div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl00_ctl00_label" style='display:none'>Obsah stránky</div><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl00_ctl00__ControlWrapper_RichHtmlField" class="ms-rtestate-field" style="display:inline" aria-labelledby="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl00_ctl00_label"></div>
+
+				</div>
+			</div>
+		
+					
+
+
+
+<link href="/Style Library/MSSR/JavaScript/jquery-ui/smoothness/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css" />
+    
+
+<script src="/Style Library/MSSR/JavaScript/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
+<script src="/Style Library/MSSR/JavaScript/tooltip.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        tooltip();
+    });
+</script>
+
+
+<style type="text/css">
+.blokDlhy .sprava td.dxmMenuItem input[type="text"] {
+    padding: 0px;
+}
+
+.blokDlhy .sprava td.dxmMenu td {
+    vertical-align: middle;
+}
+</style>
+
+<h1>Detail súdneho rozhodnutia</h1>
+
+<div  class="DetailTable">
+    <div class="popiska">Súd:</div>
+    <div class="hodnota"><a id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_hpSud" href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx?sudCislo=31">Okresný súd Trenčín</a></div>
+    <div class="riadok"></div>
+
+    <div class="riadok ciara"></div>
+
+    <div class="popiska">Spisová značka:</div>
+    <div class="hodnota"><a id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_hpSpisovaZnacka" href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx?spisZnacka=3T%2f139%2f2012&amp;sudCislo=31">3T/139/2012</a></div>
+    <div class="riadok"></div>
+
+    <div class="popiska">Identifikačné číslo súdneho spisu:</div>
+    <div class="hodnota">
+    <a id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_hpIdSudnehoSpisu" href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx?spisId=3112011623">3112011623</a>
+    
+        <a href="#" class="tooltip tooltipHyperLink" title="Kliknutím na identifikačné číslo súdneho spisu systém vyhľadá <span style='font-weight:bold;'>súvisiace súdne rozhodnutia.</span>">?</a>
+    
+    </div>
+    <div class="riadok"></div>
+
+    <div class="popiska">Dátum vydania rozhodnutia:</div>
+    <div class="hodnota">13.11.2012</div>
+    <div class="riadok"></div>
+    
+    <div class="popiska">Meno a priezvisko sudcu, VSÚ:</div>
+    <div class="hodnota"><a id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_hpSudcaKtoryVydalRozhodnutie" href="/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx?autor=JUDr.+Eva+T%c3%b3thov%c3%a1">JUDr. Eva Tóthová</a></div>
+    <div class="riadok"></div>
+    
+    <div class="popiska">ECLI:</div>
+    <div class="hodnota">ECLI:SK:OSTN:2012:3112011623.1          </div>
+    <div class="riadok"></div>
+
+    
+             <div class="popiska">Oblasti právnej úpravy:</div>
+             <div class="hodnota">
+        
+            <span>Trestné právo - Majetok </span>
+            <br />
+        
+            </div>
+            <div class="riadok"></div>
+        
+
+    
+             <div class="popiska">Povaha rozhodnutia:</div>
+             <div class="hodnota">
+        
+            <span>Prvostupňové nenapadnuté opravnými prostriedkami </span>
+            <br />
+        
+            </div>
+            <div class="riadok"></div>
+        
+
+    
+             <div class="popiska">Predpisy odkazované v rozhodnutí:</div>
+             <div class="hodnota">
+        
+            <span>Zákon                          č. 300/2005 Trestný zákon <!-- penal code, criminal law, Strafgesetzbuch,  Trestný zákonník, codice penale, code pénal--> </span>
+            <br />
+        
+            </div>
+            <div class="riadok"></div>
+        
+
+    <br />
+
+	<script id="dxis_1619270167" src="/DXR.axd?r=1_42-_9TK3" type="text/javascript"></script><script id="dxis_1549619274" src="/DXR.axd?r=9_5-_9TK3" type="text/javascript"></script><script id="dxis_1607851430" src="/DXR.axd?r=1_74-_9TK3" type="text/javascript"></script><script id="dxis_1811100226" src="/DXR.axd?r=1_67-_9TK3" type="text/javascript"></script><script id="dxis_1607644260" src="/DXR.axd?r=1_72-_9TK3" type="text/javascript"></script><script id="dxis_337153100" src="/DXR.axd?r=1_58-_9TK3" type="text/javascript"></script><script id="dxis_382224070" src="/DXR.axd?r=2_22-_9TK3" type="text/javascript"></script><script id="dxis_382595489" src="/DXR.axd?r=2_29-_9TK3" type="text/javascript"></script><script id="dxis_382325417" src="/DXR.axd?r=2_21-_9TK3" type="text/javascript"></script><script id="dxis_1811066529" src="/DXR.axd?r=1_64-_9TK3" type="text/javascript"></script><script id="dxis_382016900" src="/DXR.axd?r=2_24-_9TK3" type="text/javascript"></script><script id="dxis_916237991" src="/DXR.axd?r=9_2-_9TK3" type="text/javascript"></script><script id="dxis_138092869" src="/DXR.axd?r=9_6-_9TK3" type="text/javascript"></script><script id="dxss_677310045" type="text/javascript">
+<!--
+window.__aspxServerFormID = 'aspnetForm';
+
+//-->
+</script><table cellspacing="0" cellpadding="0" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu" border="0" style="border-collapse:collapse;border-collapse:separate;">
+	<tr>
+		<td class="dxmMenu dxmtb" valign="top" style="border-bottom-width:0px;"><table cellspacing="0" cellpadding="0" border="0" style="height:100%;border-collapse:collapse;border-collapse:separate;">
+			<tr>
+				<td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI0_I" title="Na začiatok" class="dxmMenuItemWithImage" onclick="aspxMIClick(event, 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu', '0')" style="cursor:pointer;"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI0_Img" title="Na začiatok" class="dxXtraReports_BtnFirstPage" src="/DXR.axd?r=1_5-_9TK3" alt="Na začiatok" /></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI0_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI1_I" title="Predchádzajúca strana" class="dxmMenuItemWithImage" onclick="aspxMIClick(event, 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu', '1')" style="cursor:pointer;"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI1_Img" title="Predchádzajúca strana" class="dxXtraReports_BtnPrevPage" src="/DXR.axd?r=1_5-_9TK3" alt="Predchádzajúca strana" /></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI1_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td class="dxmMenuItem" style="cursor:pointer;"><label class="dxeBase" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT2_PageLabel" for="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_I" style="margin-left:3px;margin-right:3px;">Strana</label></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI2_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td class="dxmMenuItem" style="cursor:pointer;"><table class="dxeButtonEdit" cellspacing="1" cellpadding="0" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber" border="0" style="width:65px;">
+					<tr>
+						<td style="display:none;"><input id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_VI" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_VI" type="hidden" /></td><td class="dxic" onmousedown="return aspxDDDropDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber', event)" style="width:100%;padding-left:1px;padding-right:1px;padding-top:1px;padding-bottom:1px;"><input class="dxeEditArea dxeEditAreaSys" onkeydown="aspxEKeyDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber', event)" name="ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT3$PageNumber" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_I" onblur="aspxELostFocus('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber')" onfocus="aspxEGotFocus('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber')" type="text" onchange="aspxETextChanged('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber')" readonly="readonly" style="height:15px;cursor:default;" /></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_B-1" class="dxeButtonEditButton" onmousedown="return aspxDDDropDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber', event)" style="-khtml-user-select:none;"><table class="dxbebt" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-collapse:separate;">
+							<tr>
+								<td class="dx"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_B-1Img" class="dxEditors_edtDropDown" src="/DXR.axd?r=1_5-_9TK3" alt="v" /></td>
+							</tr>
+						</table></td>
+					</tr>
+				</table><input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDDWS" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDDWS" value="0:0:-1:-10000:-10000:0:-10000:-10000:1" /><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_PW-1" style="position:absolute;left:0px;top:0px;z-index:10000;visibility:hidden;display:none;">
+					<table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_PWST-1" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-collapse:separate;position:relative;">
+						<tr>
+							<td onmousedown="aspxPWMDown(event,'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD',-1,false)" style="width:200px;cursor:default;"><table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_CLW-1" cellspacing="0" cellpadding="0" border="0" style="width:200px;border-collapse:collapse;border-collapse:separate;">
+								<tr>
+									<td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_PWC-1" style="height:100%;"><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_CSD-1">
+										<input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_LDeletedItems" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_LDeletedItems" value="" /><input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_LInsertedItems" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_LInsertedItems" value="" /><input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_LCustomCallback" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_LCustomCallback" value="" /><table class="dxeListBox" cellspacing="0" cellpadding="0" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L" border="0" style="border-collapse:collapse;border-collapse:separate;">
+											<tr>
+												<td valign="top"><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L_D" class="dxlbd" style="width:100%;overflow-x:hidden;overflow-y:auto;">
+													<input id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L_VI" type="hidden" name="ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT3$PageNumber$DDD$L" /><table cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-collapse:separate;visibility:hidden!important;display:none!important;">
+														<tr id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L_LBI-1" class="dxeListBoxItemRow">
+															<td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L_LBII" class="dxeListBoxItem">&nbsp;</td>
+														</tr>
+													</table><table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L_LBT" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-collapse:collapse;border-collapse:separate;">
+														<tr class="dxeListBoxItemRow">
+															<td class="dxeListBoxItem">1</td>
+														</tr><tr class="dxeListBoxItemRow">
+															<td class="dxeListBoxItem">2</td>
+														</tr>
+													</table>
+												</div></td>
+											</tr>
+										</table><script id="dxss_1383157848" type="text/javascript">
+<!--
+aspxAddDisabledItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L',[[['dxeDisabled'],[''],['']]]);
+
+var dxo = new ASPxClientListBox('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD_L'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT3$PageNumber$DDD$L';
+dxo.SelectedIndexChanged.AddHandler(function (s, e) { aspxCBLBSelectedIndexChanged('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber', e); });
+dxo.ItemClick.AddHandler(function (s, e) { aspxCBLBItemMouseUp('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber', e); });
+dxo.RequireStyleDecoration();
+dxo.styleDecoration.AddStyle('F','dxeFocused','');
+dxo.itemsValue=['1','2'];
+dxo.isComboBoxList = true;
+dxo.hasSampleItem = true;
+dxo.hoverClasses=['dxeListBoxItemHover'];
+dxo.selectedClasses=['dxeListBoxItemSelected'];
+dxo.disabledClasses=['dxeDisabled'];
+dxo.InlineInitialize();
+
+//-->
+</script>
+									</div></td>
+								</tr>
+							</table></td><td style="background:url('/DXR.axd?r=1_25-_9TK3') no-repeat left top;"></td>
+						</tr><tr>
+							<td style="background:url('/DXR.axd?r=1_24-_9TK3') no-repeat left top;"></td><td style="background:url('/DXR.axd?r=1_26-_9TK3') no-repeat left top;"><div style="height:5px;width:5px;">
+
+							</div></td>
+						</tr>
+					</table>
+				</div><script id="dxss_1934778826" type="text/javascript">
+<!--
+
+var dxo = new ASPxClientPopupControl('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_DDD'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT3$PageNumber$DDD';
+dxo.Shown.AddHandler(function (s, e) { aspxDDBPCShown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber', e); });
+dxo.adjustInnerControlsSizeOnShow=false;
+dxo.closeAction='CloseButton';
+dxo.popupHorizontalAlign='LeftSides';
+dxo.popupVerticalAlign='Below';
+dxo.isPopupPositionCorrectionOn=false;
+dxo.width=0;
+dxo.height=0;
+dxo.InlineInitialize();
+
+//-->
+</script><table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_LP" class="dxeLoadingPanel" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;left:0px;top:0px;z-index:30000;display:none;">
+					<tr>
+						<td class="dx" style="padding-right:8px;"><img src="/DXR.axd?r=2_12-_9TK3" alt="" align="middle" /></td><td class="dx" style="padding-left:0px;">Loading&hellip;</td>
+					</tr>
+				</table><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_LD" class="dxeLoadingDiv" style="left:0px;top:0px;z-index:29999;display:none;position:absolute;">
+
+				</div><script id="dxss_1983775887" type="text/javascript">
+<!--
+aspxAddHoverItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber',[[['dxeButtonEditButtonHover'],[''],['B-1'],,[['']],['Img']]]);
+aspxAddPressedItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber',[[['dxeButtonEditButtonPressed'],[''],['B-1'],,[['']],['Img']]]);
+aspxAddDisabledItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber',[[['dxeDisabled'],[''],['','I']],[['dxeDisabled dxeButtonDisabled'],[''],['B-1'],,[[{'spriteCssClass':'dxEditors_edtDropDownDisabled'}]],['Img']]]);
+document.getElementById("ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber_I").setAttribute("autocomplete", "off");
+
+var dxo = new ASPxClientComboBox('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber'] = dxo;
+dxo.callBack = function(arg) { WebForm_DoCallback('ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT3$PageNumber',arg,aspxCallback,'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT3_PageNumber',aspxCallbackError,true); };
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT3$PageNumber';
+dxo.ValueChanged.AddHandler(function(s, e) { ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar.handleButton('PageNumber'); });
+dxo.RequireStyleDecoration();
+dxo.styleDecoration.AddStyle('F','dxeFocused','');
+dxo.InlineInitialize();
+
+//-->
+</script></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI3_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td class="dxmMenuItem" style="cursor:pointer;"><label class="dxeBase" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT4_OfLabel" for="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount_I" style="margin-left:3px;margin-right:3px;">z</label></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI4_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td class="dxmMenuItem" style="cursor:pointer;"><table class="dxeTextBoxSys dxeTextBox dxeReadOnly" cellspacing="0" cellpadding="0" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount" border="0" style="border-collapse:collapse;">
+					<tr>
+						<td class="dxic" style="padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;"><input class="dxeEditArea dxeEditAreaSys" onkeydown="aspxEKeyDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount', event)" name="ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT5$PageCount" onkeyup="aspxEKeyUp('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount', event)" value="2" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount_I" onblur="aspxELostFocus('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount')" onfocus="aspxEGotFocus('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount')" type="text" size="1" readonly="readonly" style="height:15px;" /></td>
+					</tr>
+				</table><script id="dxss_826632704" type="text/javascript">
+<!--
+aspxAddDisabledItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount',[[['dxeDisabled'],[''],['','I']]]);
+
+var dxo = new ASPxClientTextBox('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT5_PageCount'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT5$PageCount';
+dxo.readOnly=true;
+dxo.RequireStyleDecoration();
+dxo.styleDecoration.AddStyle('F','dxeFocused','');
+dxo.InlineInitialize();
+
+//-->
+</script></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI5_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI6_I" title="Nasledujúca strana" class="dxmMenuItemWithImage" onclick="aspxMIClick(event, 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu', '6')" style="cursor:pointer;"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI6_Img" title="Nasledujúca strana" class="dxXtraReports_BtnNextPage" src="/DXR.axd?r=1_5-_9TK3" alt="Nasledujúca strana" /></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI6_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI7_I" title="Na koniec" class="dxmMenuItemWithImage" onclick="aspxMIClick(event, 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu', '7')" style="cursor:pointer;"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI7_Img" title="Na koniec" class="dxXtraReports_BtnLastPage" src="/DXR.axd?r=1_5-_9TK3" alt="Na koniec" /></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI7_II" class="dxmMenuItemSeparatorSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI8_ISF" class="dxmMenuFullHeightSeparator"><div class="dx">
+
+				</div></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI8_IS" class="dxmMenuSeparator"><div class="dx">
+
+				</div></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI8_ISI" class="dxmMenuItemSeparatorSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI8_I" title="Uložiť na disk" class="dxmMenuItemWithImage" onclick="aspxMIClick(event, 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu', '8')" style="cursor:pointer;"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI8_Img" title="Uložiť na disk" class="dxXtraReports_BtnSave" src="/DXR.axd?r=1_5-_9TK3" alt="Uložiť na disk" /></td><td><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_DXI8_II" class="dxmMenuItemSpacing" style="height:1px;overflow:hidden;">
+
+				</div></td><td class="dxmMenuItem" style="cursor:pointer;"><table class="dxeButtonEdit" cellspacing="1" cellpadding="0" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat" border="0" style="width:70px;">
+					<tr>
+						<td style="display:none;"><input id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_VI" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_VI" type="hidden" value="pdf" /></td><td class="dxic" onmousedown="return aspxDDDropDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat', event)" style="width:100%;padding-left:1px;padding-right:1px;padding-top:1px;padding-bottom:1px;"><input class="dxeEditArea dxeEditAreaSys" onkeydown="aspxEKeyDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat', event)" name="ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT9$SaveFormat" value="Pdf" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_I" onblur="aspxELostFocus('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat')" onfocus="aspxEGotFocus('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat')" type="text" onchange="aspxETextChanged('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat')" readonly="readonly" style="height:15px;cursor:default;" /></td><td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_B-1" class="dxeButtonEditButton" onmousedown="return aspxDDDropDown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat', event)" style="-khtml-user-select:none;"><table class="dxbebt" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-collapse:separate;">
+							<tr>
+								<td class="dx"><img id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_B-1Img" class="dxEditors_edtDropDown" src="/DXR.axd?r=1_5-_9TK3" alt="v" /></td>
+							</tr>
+						</table></td>
+					</tr>
+				</table><input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDDWS" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDDWS" value="0:0:-1:-10000:-10000:0:-10000:-10000:1" /><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_PW-1" style="position:absolute;left:0px;top:0px;z-index:10000;visibility:hidden;display:none;">
+					<table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_PWST-1" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-collapse:separate;position:relative;">
+						<tr>
+							<td onmousedown="aspxPWMDown(event,'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD',-1,false)" style="width:200px;cursor:default;"><table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_CLW-1" cellspacing="0" cellpadding="0" border="0" style="width:200px;border-collapse:collapse;border-collapse:separate;">
+								<tr>
+									<td id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_PWC-1" style="height:100%;"><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_CSD-1">
+										<table class="dxeListBox" cellspacing="0" cellpadding="0" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L" border="0" style="border-collapse:collapse;border-collapse:separate;">
+											<tr>
+												<td valign="top"><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L_D" class="dxlbd" style="width:100%;overflow-x:hidden;overflow-y:auto;">
+													<input id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L_VI" type="hidden" name="ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT9$SaveFormat$DDD$L" /><table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L_LBT" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-collapse:collapse;border-collapse:separate;">
+														<tr class="dxeListBoxItemRow">
+															<td class="dxeListBoxItem">Pdf</td>
+														</tr>
+													</table>
+												</div></td>
+											</tr>
+										</table><script id="dxss_936288096" type="text/javascript">
+<!--
+aspxAddDisabledItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L',[[['dxeDisabled'],[''],['']]]);
+
+var dxo = new ASPxClientListBox('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD_L'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT9$SaveFormat$DDD$L';
+dxo.SelectedIndexChanged.AddHandler(function (s, e) { aspxCBLBSelectedIndexChanged('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat', e); });
+dxo.ItemClick.AddHandler(function (s, e) { aspxCBLBItemMouseUp('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat', e); });
+dxo.RequireStyleDecoration();
+dxo.styleDecoration.AddStyle('F','dxeFocused','');
+dxo.savedSelectedIndex = 0;
+dxo.itemsValue=['pdf'];
+dxo.isComboBoxList = true;
+dxo.hoverClasses=['dxeListBoxItemHover'];
+dxo.selectedClasses=['dxeListBoxItemSelected'];
+dxo.disabledClasses=['dxeDisabled'];
+dxo.InlineInitialize();
+
+//-->
+</script>
+									</div></td>
+								</tr>
+							</table></td><td style="background:url('/DXR.axd?r=1_25-_9TK3') no-repeat left top;"></td>
+						</tr><tr>
+							<td style="background:url('/DXR.axd?r=1_24-_9TK3') no-repeat left top;"></td><td style="background:url('/DXR.axd?r=1_26-_9TK3') no-repeat left top;"><div style="height:5px;width:5px;">
+
+							</div></td>
+						</tr>
+					</table>
+				</div><script id="dxss_731240822" type="text/javascript">
+<!--
+
+var dxo = new ASPxClientPopupControl('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_DDD'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT9$SaveFormat$DDD';
+dxo.Shown.AddHandler(function (s, e) { aspxDDBPCShown('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat', e); });
+dxo.adjustInnerControlsSizeOnShow=false;
+dxo.closeAction='CloseButton';
+dxo.popupHorizontalAlign='LeftSides';
+dxo.popupVerticalAlign='Below';
+dxo.isPopupPositionCorrectionOn=false;
+dxo.width=0;
+dxo.height=0;
+dxo.InlineInitialize();
+
+//-->
+</script><script id="dxss_1348124269" type="text/javascript">
+<!--
+aspxAddHoverItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat',[[['dxeButtonEditButtonHover'],[''],['B-1'],,[['']],['Img']]]);
+aspxAddPressedItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat',[[['dxeButtonEditButtonPressed'],[''],['B-1'],,[['']],['Img']]]);
+document.getElementById("ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat_I").setAttribute("autocomplete", "off");
+
+var dxo = new ASPxClientComboBox('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu_ITCNT9_SaveFormat'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu$ITCNT9$SaveFormat';
+dxo.RequireStyleDecoration();
+dxo.styleDecoration.AddStyle('F','dxeFocused','');
+dxo.dropDownRows = 1;
+dxo.InlineInitialize();
+
+//-->
+</script></td>
+			</tr>
+		</table></td>
+	</tr>
+</table><script id="dxss_1742710494" type="text/javascript">
+<!--
+aspxAddHoverItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu',[[[''],[''],['DXM_','DXMBC_']],[['dxmMenuItemHoverWithImage'],[''],['DXI0_','DXI1_','DXI6_','DXI7_','DXI8_'],['I','N','T','P'],[[''],[''],[''],[''],['']],['Img','PImg']]]);
+aspxAddDisabledItems('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu',[[['dxmDisabled'],[''],['DXI0_','DXI1_','DXI2_','DXI3_','DXI4_','DXI5_','DXI6_','DXI7_','DXI8_','DXI9_'],['I','N','T','P'],[[{'spriteCssClass':'dxXtraReports_BtnFirstPageDisabled'}],[{'spriteCssClass':'dxXtraReports_BtnPrevPageDisabled'}],[''],[''],[''],[''],[{'spriteCssClass':'dxXtraReports_BtnNextPageDisabled'}],[{'spriteCssClass':'dxXtraReports_BtnLastPageDisabled'}],[{'spriteCssClass':'dxXtraReports_BtnSaveDisabled'}],['']],['Img','PImg']]]);
+
+var dxo = new ASPxClientMenu('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar$Menu';
+dxo.ItemClick.AddHandler(function(s, e) {
+ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar.handleButton(e.item.name);
+}
+);
+dxo.CreateItems([['FirstPage',,,,,[]],['PreviousPage',,,,,[]],['',,,,,[]],['PageNumber',,,,,[]],['',,,,,[]],['PageCount',,,,,[]],['NextPage',,,,,[]],['LastPage',,,,,[]],['SaveToDisk',,,,,[]],['SaveFormat',,,,,[]]]);
+dxo.InlineInitialize();
+
+//-->
+</script><script id="dxss_1068354810" type="text/javascript">
+<!--
+
+var dxo = new ClientReportToolbar('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar'] = dxo;
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneToolbar';
+dxo.menuID = 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneToolbar_Menu';
+dxo.reportViewerID = 'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer';
+dxo.InlineInitialize();
+
+//-->
+</script>	
+
+    <input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewerDXCurrentPageIndex" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewerDXCurrentPageIndex" value="0" /><input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewerDXCacheKey" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewerDXCacheKey" value="" /><input type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewerDXParameters" name="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewerDXParameters" value="{}" /><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer_Div" style="border-color:#A8A8A8;border-width:1px;border-style:Solid;height:200px;width:100%;overflow:hidden;">
+
+</div><table id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer_LP" cellspacing="0" cellpadding="0" border="0" style="color:Black;background-color:White;border-color:#7B7B7B;border-width:1px;border-style:Solid;font-family:Tahoma;font-size:10pt;border-collapse:collapse;left:0px;top:0px;z-index:30000;display:none;">
+	<tr>
+		<td class="dx" style="padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;"><img src="/DXR.axd?r=1_13-_9TK3" alt="" align="middle" /></td><td class="dx" style="color:Black;font-family:Tahoma;font-size:10pt;text-align:Center;padding-left:0px;padding-right:5px;padding-top:5px;padding-bottom:5px;">Loading&hellip;</td>
+	</tr>
+</table><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer_Bookmark" style="border-color:#A8A8A8;border-width:1px;border-style:Solid;width:100%;border-color:Gray;border-style:Dashed;border-width:3px;display:none;">
+
+</div><script id="dxss_804919451" type="text/javascript">
+<!--
+
+var dxo = new ASPxClientReportViewer('ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer');
+window['ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer'] = dxo;
+dxo.callBack = function(arg) { WebForm_DoCallback('ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneViewer',arg,aspxCallback,'ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl01_rozhodnutieSudneViewer',aspxCallbackError,true); };
+dxo.uniqueID = 'ctl00$ctl00$PlaceHolderMain$PlaceHolderMain$ctl01$rozhodnutieSudneViewer';
+dxo.padding=['10px','10px','10px','10px'];
+dxo.autosize=true;
+
+dxo.InlineInitialize();
+
+//-->
+</script>
+
+    <br />
+
+    
+
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- end div id=blokDlhy -->
+<!-- The form digest security control used to for security validation on forms -->
+
+	
+
+
+<!-- =====  Hidden Placeholders ============================================================ -->
+
+
+<!-- extra form for some instances -->
+
+
+
+				</div>
+				<div class="cleaner">
+				</div>
+			</div>
+			<!--end div id=container --></div>
+		<!-- end div id=all -->
+		<div class="cleaner">
+		</div>
+		<div id="bottomMenuCleaner">
+		</div>
+		<div style="height: 1px;">
+		</div>
+		<div id="bottomMenu">
+			<ul>
+				<li><a href="/Stranky/Informacie/Kontakty.aspx">Kontakty</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Pre-media.aspx">Pre média</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Kariera.aspx">Kariéra</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Poskytovanie-informacii.aspx">Poskytovanie 
+				informácií</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Statistiky.aspx">Štatistiky</a></li>
+			</ul>
+			<div class="cleaner" style="height: 64px;">
+			</div>
+			<div id="copyright">
+				<img src="/Style%20Library/MSSR/Images/EuMiniIco.png" title="Eu" alt="EU ico" style="float: left;" />
+				<span style="float: left; padding-left: 12px; color: #fff;">Part<i>of</i> European Union</span>
+				<span style="float: right; color: #fff;">COPYRIGHT 2011 © MINISTERSTVO SPRAVODLIVOSTI SR</span>
+				<span style="float: right; color: #fff; clear:both;">Správca obsahu: Tlačový a komunikačný referát, e-mail: <a href="mailto:tlacove@justice.sk">tlacove@justice.sk</a></span>
+				<span style="float: right; color: #fff; clear:both;">Technický prevádzkovateľ: Odbor prevádzky informačných systémov a odbor implementácie projektov</span>
+			</div>
+		</div>
+		<!-- end div id=bottomMenu -->
+		<!-- The form digest security control used to for security validation on forms -->
+		
+	
+
+		<!-- =====  Hidden Placeholders ============================================================ -->
+		
+		<!-- Handle Search "enter" key and back button -->
+		<input type="text" name="__spDummyText1" style="display: none;" size="1" /><input type="text" name="__spDummyText2" style="display: none;" size="1" /><div id="ctl00_ctl00_panelZone">
+	<div style='display:none' id='hidZone'><menu class="ms-SrvMenuUI">
+		<ie:menuitem id="MSOMenu_Help" iconsrc="/_layouts/images/HelpIcon.gif" onmenuclick="MSOWebPartPage_SetNewWindowLocation(MenuWebPart.getAttribute(&#39;helpLink&#39;), MenuWebPart.getAttribute(&#39;helpMode&#39;))" text="Pomocník" type="option" style="display:none">
+
+		</ie:menuitem>
+	</menu></div>
+</div><input type='hidden' id='_wpcmWpid' name='_wpcmWpid' value='' /><input type='hidden' id='wpcmVal' name='wpcmVal' value=''/>
+
+<script type="text/javascript">
+//<![CDATA[
+var _spFormDigestRefreshInterval = 1440000;function loadMDN2() { EnsureScript('MDN.js', typeof(loadFilterFn), null); }
+function loadMDN1() { ExecuteOrDelayUntilScriptLoaded(loadMDN2, 'sp.ribbon.js'); }
+_spBodyOnLoadFunctionNames.push('loadMDN1');
+function _spNavigateHierarchyEx(nodeDiv, dataSourceId, dataPath, url, listInContext, type, additionalQString) {
+    SetAdditionalNavigateHierarchyQString(additionalQString);
+    g_originalSPNavigateFunc(nodeDiv, dataSourceId, dataPath, url, listInContext, type);
+}
+
+g_originalSPNavigateFunc = _spNavigateHierarchy;
+_spNavigateHierarchy = _spNavigateHierarchyEx;
+
+function EnsureScripts(scriptInfoList, finalFunction)
+{
+if (scriptInfoList.length == 0)
+{
+finalFunction();
+}
+else
+{
+var scriptInfo = scriptInfoList.shift();
+var rest = function () { EnsureScripts(scriptInfoList, finalFunction); };
+var defd;
+try
+{
+eval('defd = typeof(' + scriptInfo[1] + ');');
+}
+catch (e)
+{
+defd = 'undefined';
+}
+if (scriptInfo[2])
+{
+EnsureScript(scriptInfo[0], defd, null);
+ExecuteOrDelayUntilScriptLoaded(rest, scriptInfo[0]);
+}
+else
+{
+EnsureScript(scriptInfo[0], defd, rest);
+}
+}
+}
+function PublishingRibbonUpdateRibbon()
+{
+var pageManager = SP.Ribbon.PageManager.get_instance();
+if (pageManager)
+{
+pageManager.get_commandDispatcher().executeCommand('appstatechanged', null);
+}
+}var _fV4UI = true;
+function _RegisterWebPartPageCUI()
+{
+    var initInfo = {editable: false,isEditMode: false,allowWebPartAdder: false,listId: "{69710dd5-3321-4249-87a6-da2a75966f4f}",itemId: 1124,recycleBinEnabled: true,enableMinorVersioning: false,enableModeration: false,forceCheckout: true,rootFolderUrl: "\u002fStranky",itemPermissions:{High:16,Low:200769}};
+    SP.Ribbon.WebPartComponent.registerWithPageManager(initInfo);
+    var wpcomp = SP.Ribbon.WebPartComponent.get_instance();
+    var hid;
+    hid = document.getElementById("_wpSelected");
+    if (hid != null)
+    {
+        var wpid = hid.value;
+        if (wpid.length > 0)
+        {
+            var zc = document.getElementById(wpid);
+            if (zc != null)
+                wpcomp.selectWebPart(zc, false);
+        }
+    }
+    hid = document.getElementById("_wzSelected");
+    if (hid != null)
+    {
+        var wzid = hid.value;
+        if (wzid.length > 0)
+        {
+            wpcomp.selectWebPartZone(null, wzid);
+        }
+    }
+}
+ExecuteOrDelayUntilScriptLoaded(_RegisterWebPartPageCUI, "sp.ribbon.js"); var __wpmExportWarning='This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.';var __wpmCloseProviderWarning='You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.';var __wpmDeleteWarning='You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.';//]]>
+</script>
+<script type="text/javascript" language="JavaScript" defer="defer">
+<!--
+function SearchEnsureSOD() { EnsureScript('search.js',typeof(GoSearch)); } _spBodyOnLoadFunctionNames.push('SearchEnsureSOD');function S2D828D48_Submit() {if (document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value == '0') { document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').value=''; }SearchEnsureSOD();GoSearch('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04','ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords',null,true,false,null,'ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl00',null,null,'T\u00E1to lokalita','\u002f_layouts\u002fOssSearchResults.aspx', 'T\u00E1to lokalita','Tento zoznam', 'Tento prie\u010Dinok', 'S\u00FAvisiace lokality', '\u002f_layouts\u002fOSSSearchResults.aspx', '', 'Zadajte najmenej jedno vyh\u013Ead\u00E1van\u00E9 slovo.');if (document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value == '0') { document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').value=''; }}
+// -->
+</script><script type="text/javascript" language="JavaScript" >
+// append an onload event handler
+var S2D828D48__onload= document.body.onload;
+if(typeof document.body.onload == 'function')
+{
+ document.body.onload = function()
+ {
+S2D828D48__onload();        
+  document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').name = 'InputKeywords';
+ }
+}
+else
+{
+ document.body.onload = function()
+ {
+  eval(S2D828D48__onload);        
+  document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').name = 'InputKeywords';
+ }
+}
+
+function S2D828D48_OSBEK(event1) { 
+if((event1.which == 10) || (event1.which == 13))
+{   
+S2D828D48_Submit();return false;
+}
+}
+{ var searchTextBox = document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords');if (searchTextBox.className.indexOf('s4-searchbox-QueryPrompt') == -1) searchTextBox.className += searchTextBox.className?' s4-searchbox-QueryPrompt':'s4-searchbox-QueryPrompt'; }// -->
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+WebForm_InitCallback();//]]>
+</script>
+<script type="text/javascript">
+// <![CDATA[
+// ]]>
+</script>
+<script type="text/javascript">RegisterSod("sp.core.js", "\u002f_layouts\u002fsp.core.js?rev=7ByNlH\u00252BvcgRJg\u00252BRCctdC0w\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("sp.res.resx", "\u002f_layouts\u002fScriptResx.ashx?culture=sk\u00252Dsk\u0026name=SP\u00252ERes\u0026rev=ytvOS6pE0mmoKajkzrpZkg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("sp.runtime.js", "\u002f_layouts\u002fsp.runtime.js?rev=9sKdsC9N6p2BiRk3313M7Q\u00253D\u00253D");RegisterSodDep("sp.runtime.js", "sp.core.js");RegisterSodDep("sp.runtime.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("sp.ui.dialog.js", "\u002f_layouts\u002fsp.ui.dialog.js?rev=IuXtJ2CrScK6oX4zOTTy\u00252BA\u00253D\u00253D");RegisterSodDep("sp.ui.dialog.js", "sp.core.js");RegisterSodDep("sp.ui.dialog.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("sp.js", "\u002f_layouts\u002fsp.js?rev=P7Hm5\u00252BVAn1eiaETiQuLVAw\u00253D\u00253D");RegisterSodDep("sp.js", "sp.core.js");RegisterSodDep("sp.js", "sp.runtime.js");RegisterSodDep("sp.js", "sp.ui.dialog.js");RegisterSodDep("sp.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("cui.js", "\u002f_layouts\u002fcui.js?rev=wvoVpqlQb30nGo4DjDk8Kg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("core.js", "\u002f_layouts\u002f1051\u002fcore.js?rev=nf5EgAZZdlDXa0L9Z4TbTg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("inplview", "\u002f_layouts\u002finplview.js?rev=sQr\u00252B2r8xcXrTt\u00252F0XcXEJkQ\u00253D\u00253D");RegisterSodDep("inplview", "core.js");RegisterSodDep("inplview", "sp.js");</script>
+<script type="text/javascript">RegisterSod("ribbon", "\u002f_layouts\u002fsp.ribbon.js?rev=F\u00252BUEJ66rbXzSvpf7nN69wQ\u00253D\u00253D");RegisterSodDep("ribbon", "core.js");RegisterSodDep("ribbon", "sp.core.js");RegisterSodDep("ribbon", "sp.js");RegisterSodDep("ribbon", "cui.js");RegisterSodDep("ribbon", "sp.res.resx");RegisterSodDep("ribbon", "sp.runtime.js");RegisterSodDep("ribbon", "inplview");</script>
+<script type="text/javascript">RegisterSod("sp.ui.policy.resources.resx", "\u002f_layouts\u002fScriptResx.ashx?culture=sk\u00252Dsk\u0026name=SP\u00252EUI\u00252EPolicy\u00252EResources\u0026rev=xHXeot\u00252Fy6t\u00252BG\u00252BbkoXviBdw\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("mdn.js", "\u002f_layouts\u002fmdn.js?rev=gwmFFJ2\u00252FfFacqXWAqG\u00252FqKg\u00253D\u00253D");RegisterSodDep("mdn.js", "sp.core.js");RegisterSodDep("mdn.js", "sp.runtime.js");RegisterSodDep("mdn.js", "sp.js");RegisterSodDep("mdn.js", "cui.js");RegisterSodDep("mdn.js", "ribbon");RegisterSodDep("mdn.js", "sp.ui.policy.resources.resx");</script>
+<script type="text/javascript">RegisterSod("sp.publishing.resources.resx", "\u002f_layouts\u002fScriptResx.ashx?culture=sk\u00252Dsk\u0026name=SP\u00252EPublishing\u00252EResources\u0026rev=2DoLqyqw2UwnkN\u00252B3S\u00252BKevg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("sp.ui.pub.ribbon.js", "\u002f_layouts\u002fsp.ui.pub.ribbon.js?rev=RGQSBI9Dm0E345iq\u00252FxUpHg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("msstring.js", "\u002f_layouts\u002f1051\u002fmsstring.js?rev=tFIz7foaW9Jevi\u00252FpRTJbKA\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("browserScript", "\u002f_layouts\u002f1051\u002fie55up.js?rev=gRmAlNfhExbQYJO3cMapxA\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("search.js", "\u002f_layouts\u002fsearch.js?rev=3pPWp493ZcP8RyBeS4aKSQ\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSodDep("browserScript", "msstring.js");</script>
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.initialize();
+//]]>
+</script>
+</form>
+		<!-- extra form for some instances -->
+		
+			<!-- warn users of old browsers that they need to upgrade -->
+			
+			<!-- Starter Master Page by Randy Drisgill (http://blog.drisgill.com) - Oct. 7, 2010 -->
+			<!-- Remove this credit if you want, but if you leave it in I will appreciate it! -->
+
+	</body>
+
+	</html>
