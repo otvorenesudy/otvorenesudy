@@ -11,25 +11,25 @@ module JusticeGovSk
     
       def page(document)
         @page ||= find_value 'page', document, 'tr.CssPager select:first-child option[selected="selected"]' do |option|
-          option.text
+          option.text.to_i
         end
       end
       
       def pages(document)
         @pages ||= find_value 'pages', document, 'tr.CssPager select:first-child option:last-child' do |option|
-          option.text
+          option.text.to_i
         end
       end
       
       def per_page(document)
         find_value 'per page', document, 'tr.CssPager select:last-child option[selected="selected"]' do |option|
-          option.text
+          option.text.to_i
         end
       end
     
       def next_page(document)
-        k = page(document).to_i
-        n = pages(document).to_i
+        k = page(document)
+        n = pages(document)
         
         k + 1 if k < n
       end
