@@ -17,7 +17,7 @@ module JusticeGovSk
               name = div.text.strip
               map[name] = []
             elsif div[:class] == 'hodnota'
-              map[name] << div.text.gsub(/^-\s+§/, '$')
+              map[name] << div.text.gsub(/^-\s+§/, '§')
             end
           end
 
