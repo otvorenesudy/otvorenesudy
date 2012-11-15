@@ -34,6 +34,9 @@ gem "highcharts-rails", "~> 2.3.0"
 # PG search 
 #gem 'pg_seach'
 
+# Docsplit - for extracting text from pdf
+gem 'docsplit'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
