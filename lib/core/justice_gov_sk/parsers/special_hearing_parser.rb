@@ -9,7 +9,7 @@ module JusticeGovSk
       
       def commencement_date(document)
         find_value_by_label 'commencement date', document, 'Dátum započatia' do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.datetime(div.text)
         end
       end
       
