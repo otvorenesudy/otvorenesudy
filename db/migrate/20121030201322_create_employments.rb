@@ -7,7 +7,7 @@ class CreateEmployments < ActiveRecord::Migration
 
       t.boolean :active, null: false
       
-      t.string :note
+      t.text :note
 
       t.timestamps
     end

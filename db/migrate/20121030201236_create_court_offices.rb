@@ -12,7 +12,7 @@ class CreateCourtOffices < ActiveRecord::Migration
       t.string :hours_thursday
       t.string :hours_friday
       
-      t.string :note
+      t.text :note
       
       t.timestamps
     end

@@ -3,8 +3,6 @@ class CreateDecrees < ActiveRecord::Migration
     create_table :decrees do |t|
       t.string :uri, null: false
       
-      t.string :document_uri
-      
       t.references :proceeding
       t.references :court
       t.references :judge
@@ -20,12 +18,13 @@ class CreateDecrees < ActiveRecord::Migration
 
       t.references :legislation_area
       t.references :legislation_subarea
+      
+      t.text :text
 
       t.timestamps
     end
     
-    add_index :decrees, :uri,          unique: true
-    add_index :decrees, :document_uri, unique: true
+    add_index :decrees, :uri, unique: true
     
     add_index :decrees, :proceeding_id
     add_index :decrees, :court_id

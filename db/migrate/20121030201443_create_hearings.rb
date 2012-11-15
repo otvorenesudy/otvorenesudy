@@ -22,7 +22,7 @@ class CreateHearings < ActiveRecord::Migration
       t.references :chair_judge
       t.boolean    :selfjudge
 
-      t.string :note
+      t.text :note
 
       t.timestamps
     end

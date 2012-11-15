@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.string   "hours_wednesday"
     t.string   "hours_thursday"
     t.string   "hours_friday"
-    t.string   "note"
+    t.text     "note"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
 
   create_table "decrees", :force => true do |t|
     t.string   "uri",                    :null => false
-    t.string   "document_uri"
     t.integer  "proceeding_id"
     t.integer  "court_id"
     t.integer  "judge_id"
@@ -123,13 +122,13 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.string   "ecli"
     t.integer  "legislation_area_id"
     t.integer  "legislation_subarea_id"
+    t.text     "text"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
-  add_index "decrees", ["document_uri"], :name => "index_decrees_on_document_uri", :unique => true
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
@@ -150,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.integer  "judge_id",          :null => false
     t.integer  "judge_position_id"
     t.boolean  "active",            :null => false
-    t.string   "note"
+    t.text     "note"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -206,7 +205,7 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.datetime "commencement_date"
     t.integer  "chair_judge_id"
     t.boolean  "selfjudge"
-    t.string   "note"
+    t.text     "note"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
