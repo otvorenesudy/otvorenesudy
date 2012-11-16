@@ -62,14 +62,14 @@ module JusticeGovSk
 
       def self.court(name)
         values = {
-          'Krajský súd Banská Bystrica' => 'Krajský súd v Banskej Bystrici',
-          'Krajský súd Bratislava'      => 'Krajský súd v Bratislave',
-          'Krajský súd Košice'          => 'Krajský súd v Košiciach', 
-          'Krajský súd Nitra'           => 'Krajský súd v Nitre',
-          'Krajský súd Prešov',         => 'Krajský súd v Prešove', 
-          'Krajský súd Trenčín'         => 'Krajský súd v Trenčíne',
-          'Krajský súd Trnava',         => 'Krajský súd v Trnave',
-          'Krajský súd Žilina',         => 'Krajský súd v Žiline'
+          "Krajský súd Banská Bystrica" => "Krajský súd v Banskej Bystrici",
+          "Krajský súd Bratislava"      => "Krajský súd v Bratislave",
+          "Krajský súd Košice"          => "Krajský súd v Košiciach", 
+          "Krajský súd Nitra"           => "Krajský súd v Nitre",
+          "Krajský súd Prešov",         => "Krajský súd v Prešove", 
+          "Krajský súd Trenčín"         => "Krajský súd v Trenčíne",
+          "Krajský súd Trnava",         => "Krajský súd v Trnave",
+          "Krajský súd Žilina",         => "Krajský súd v Žiline"
         }
 
         values[name].nil ? name : values[name]
