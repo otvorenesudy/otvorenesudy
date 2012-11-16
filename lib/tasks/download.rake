@@ -56,8 +56,6 @@ namespace :download do
     agent.cache_binary         = storage.binary
     agent.cache_distribute     = storage.distribute
     agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :pdf
-    
-    agent.wait_time = nil
 
     dir = File.join JusticeGovSk::Storages::DecreeStorage.new.root
 
