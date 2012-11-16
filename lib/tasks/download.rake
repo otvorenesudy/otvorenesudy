@@ -41,8 +41,6 @@ namespace :download do
         end
       end
     end
-    
-    puts "finished"    
   end  
 
   # supported types: Decree
@@ -54,21 +52,24 @@ namespace :download do
     agent   = JusticeGovSk::Agents::DocumentAgent.new
     
     agent.cache_load_and_store = true
-    agent.cache_root           = storage.root
+    agent.cache_root           = File.join storage.root, type.downcase.pluralize
     agent.cache_binary         = storage.binary
     agent.cache_distribute     = storage.distribute
     agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
+    
+    agent.wait_time = nil
 
-    # TODO replace dirpath with storage.root --> needs DecreeDocumentStorage class
-    dirpath = File.join JusticeGovSk::Storages::DecreeStorage.new.root, type.downcase.pluralize
+    dir = File.join JusticeGovSk::Storages::DecreeStorage.new.root
 
-    FileUtils.mkpath dirpath unless Dir.exists? dirpath
+    FileUtils.mkpath dir unless Dir.exists? dir
 
-    dir = Dir.new dirpath 
-
-    dir.each do |file|
-      unless file.starts_with? '.'
-        path = File.join dirpath, file
+    Dir.foreach(dir) do |bucket|
+      next if bucket.start_with? '.'
+      
+      Dir.foreach(File.join dir, bucket) do |file|
+        next if file.start_with? '.'
+        
+        path = File.join dir, bucket, file
         
         print "Reading file #{path} ... "
         
@@ -85,9 +86,5 @@ namespace :download do
         puts
       end
     end
-    
-    dir.close
-    
-    puts "finished"
   end
 end

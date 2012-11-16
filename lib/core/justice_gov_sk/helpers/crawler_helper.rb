@@ -54,8 +54,6 @@ module JusticeGovSk
             end
           end
         end
-        
-        puts "finished"
       end
     end
   end

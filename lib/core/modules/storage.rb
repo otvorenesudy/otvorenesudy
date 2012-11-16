@@ -38,7 +38,7 @@ module Storage
     dir    = File.dirname(path)
     dir    = dir == '.' ? '' : dir 
     file   = File.basename(path)
-    bucket = distribute ? bucket(file) : ''
+    bucket = distribute ? Storage::bucket(file) : ''
 
     File.join root, dir, bucket, file
   end
