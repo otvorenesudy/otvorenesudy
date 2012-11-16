@@ -1,5 +1,7 @@
 require 'docsplit'
 
+# TODO refactor to work with new storage system and move to classes
+
 class TextExtractor
   attr_accessor :use_ocr
 

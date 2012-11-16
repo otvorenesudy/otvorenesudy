@@ -5,8 +5,6 @@ class Downloader
   
   attr_accessor :cache_load,
                 :cache_store,
-                :cache_expire_time,
-                :cache_file_extension,
                 :cache_uri_to_path,
                 :headers,
                 :data,
@@ -15,19 +13,17 @@ class Downloader
                 :wait_time
 
   def initialize
-    @cache_load           = true
-    @cache_store          = true
-    @cache_expire_time    = nil
-    @cache_file_extension = nil
-    @cache_uri_to_path    = lambda { |downloader, uri| uri_to_path(uri) }
+    @cache_load        = true
+    @cache_store       = true
+    @cache_uri_to_path = lambda { |uri| self.uri_to_path uri }
 
-    @headers              = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
-    @data                 = {}
+    @headers           = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
+    @data              = {}
 
-    @repeat               = 8
-    @timeout              = 60.seconds
+    @repeat            = 8
+    @timeout           = 60.seconds
 
-    @wait_time            = 0.5.seconds
+    @wait_time         = 0.5.seconds
   end
 
   def download(uri)
@@ -88,13 +84,16 @@ class Downloader
   protected
   
   def predownload(uri)
-    path = @cache_uri_to_path.call(self, uri)
+    path = @cache_uri_to_path.call uri
 
-    FileUtils.mkpath(File.dirname(path)) if @cache_store
-     
     content = load(path)
 
     return path, content
+  end
+  
+  def uri_to_path(uri)
+    uri = URI.parse(uri)
+    uri.query.nil? ? path : "#{path}?#{uri.query}"
   end
 
   def wait
@@ -105,10 +104,10 @@ class Downloader
 
       puts "done"
     end
-  end 
+  end
 
   include Cache
-
+  
   public
 
   alias :cache_root= :root=
@@ -116,6 +115,12 @@ class Downloader
 
   alias :cache_binary= :binary=
   alias :cache_binary  :binary
+
+  alias :cache_distribute= :distribute=
+  alias :cache_distribute  :distribute
+
+  alias :cache_expire_time= :expire_time=
+  alias :cache_expire_time  :expire_time
 
   def cache_load_and_store=(value)
     @cache_load = @cache_store = value
@@ -129,13 +134,9 @@ class Downloader
   
       if File.exists? path
         if File.readable? path
-          unless @cache_expire_time.nil?
-            delta = Time.now - File.ctime(path)
-    
-            if delta >= @cache_expire_time
-              puts "failed (expired)"
-              return nil
-            end 
+          if expired? path
+            puts "failed (expired)"
+            return nil
           end
     
           content = super path
@@ -160,9 +161,5 @@ class Downloader
   
       puts "done (#{content.length} bytes)"
     end
-  end
-
-  def self.uri_to_path(downloader, uri)
-    uri_to_path downloader.cache_file_extension.nil? ? uri : "#{uri}.#{downloader.cache_file_extension}"
   end
 end

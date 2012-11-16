@@ -19,8 +19,8 @@ module JusticeGovSk
         }
       end
       
-      def self.uri_to_path(downloader, uri)
-        uri  = URI.parse(uri)
+      def url_to_path(url)
+        uri  = URI.parse(url)
         path = uri.path
         
         path.gsub!(/Stranky\/Pojednavania/i,      'hearings')
@@ -34,18 +34,14 @@ module JusticeGovSk
         path.gsub!(/PojednavanieTrestDetail/i,  'criminal/criminal-hearing')
         path.gsub!(/PojednavanieSpecDetail/i,   'special/special-hearing')
         
-        #path.gsub!(/IdTp|IdVp|IdSpecSudKonanie/i, 'id')
-        
         path.downcase!
         
-        path = "#{downloader.cache_root}#{path}"
         path = "#{path}?#{uri.query}" unless uri.query.nil?
-        path = "#{path}.#{downloader.cache_file_extension}" unless downloader.cache_file_extension.nil?
-        path
+        "#{path}.html"
       end
       
-      def self.uri_to_path_lambda
-        @uri_to_path_lambda ||= lambda { |downloader, uri| uri_to_path(downloader, uri) }
+      def url_to_path_lambda
+        @url_to_path_lambda ||= lambda { |url| url_to_path(url) }
       end
     end
   end

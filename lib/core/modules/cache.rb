@@ -1,30 +1,17 @@
 module Cache
-  attr_accessor :root,
-                :binary
-  
+  include Storage
+
+  attr_accessor :expire_time
+
   def root
-    @root ||= './tmp/cache/downloads'
+    @root ||= File.join 'tmp', 'cache'
   end
   
-  def binary
-    @binary.nil? ? false : @binary
-  end
-
   def load(path)
-    File.open(path, binary ? 'rb' : 'r:utf-8').read if File.readable? path
+    super(path) unless expired?(path)
   end
   
-  def store(path, content)
-    File.open(path, binary ? 'wb' : 'w:utf-8') do |file|
-      file.write binary ? content : content.force_encoding('utf-8')
-      file.flush
-    end
-  end
-
-  def uri_to_path(uri)
-    uri  = URI.parse(uri)
-    path = "#{root}#{uri.path}"
-    
-    uri.query.nil? ? path : "#{path}?#{uri.query}"
+  def expired?(path)
+    (Time.now - File.ctime(fullpath(path))) >= @expire_time unless @expire_time.nil?
   end
 end
