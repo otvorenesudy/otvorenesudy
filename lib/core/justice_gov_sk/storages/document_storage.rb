@@ -1,14 +1,16 @@
 module JusticeGovSk
   module Storages
-    module Document
-      extend Storage
+    class DocumentStorage
+      include Storage
       
-      def self.root
+      def initialize
+        @binary     = true
+        @distribute = true
+      end
+
+      def root
         @root ||= File.join super, 'documents'
       end
- 
-      @binary     = true
-      @distribute = true 
 #
 # TODO refactor or rm
 #     

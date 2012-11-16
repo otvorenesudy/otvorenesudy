@@ -3,6 +3,7 @@
 module JusticeGovSk
   module Helpers
     module CrawlerHelper
+      # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.crawl_resources(args)
         type   = args[:type].camelcase
         offset = args[:offset].blank? ? 1 : args[:offset].to_i
@@ -21,15 +22,18 @@ module JusticeGovSk
 
           lister.crawl_and_process(request, offset, limit)
         else
-          lister = JusticeGovSk::Crawlers::ListCrawler.new agent
-  
+          lister  = JusticeGovSk::Crawlers::ListCrawler.new agent
+          storage = "JusticeGovSk::Storages::#{type}Storage".constantize.new
+          
           downloader = Downloader.new
   
           downloader.headers              = JusticeGovSk::Requests::URL.headers
           downloader.data                 = {}
           downloader.cache_load_and_store = true
-          downloader.cache_file_extension = :html
-          downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
+          downloader.cache_root           = storage.root
+          downloader.cache_binary         = storage.binary
+          downloader.cache_distribute     = storage.distribute
+          downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
   
           crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
           
@@ -50,6 +54,8 @@ module JusticeGovSk
             end
           end
         end
+        
+        puts "finished"
       end
     end
   end

@@ -93,7 +93,7 @@ class Downloader
   
   def uri_to_path(uri)
     uri = URI.parse(uri)
-    uri.query.nil? ? path : "#{path}?#{uri.query}"
+    uri.query.nil? ? uri.path : "#{uri.path}?#{uri.query}"
   end
 
   def wait
@@ -130,10 +130,12 @@ class Downloader
   
   def load(path)
     if @cache_load
-      print "Loading #{path} ... "
+      fullpath = fullpath path
+      
+      print "Loading #{fullpath} ... "
   
-      if File.exists? path
-        if File.readable? path
+      if File.exists? fullpath
+        if File.readable? fullpath
           if expired? path
             puts "failed (expired)"
             return nil
@@ -155,7 +157,7 @@ class Downloader
 
   def store(path, content)
     if @cache_store
-      print "Storing #{path} ... "
+      print "Storing #{fullpath path} ... "
   
       super path, content
   

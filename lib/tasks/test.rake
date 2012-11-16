@@ -1,20 +1,5 @@
 # encoding: utf-8
 
-#<option value="A">Rozsudok </option>
-#<option value="N" selected="selected">Uznesenie </option>
-#option value="R">Opravné uznesenie </option>
-#<option value="D">Dopĺňací rozsudok </option>
-#<option value="P">Platobný rozkaz </option>
-#<option value="M">Zmenkový platobný rozkaz </option>
-#<option value="E">Európsky platobný rozkaz </option>
-#<option value="S">Šekový platobný rozkaz </option>
-#<option value="L">Rozkaz na plnenie </option>
-#<option value="K">Rozsudok pre zmeškanie </option>
-#<option value="U">Rozsudok pre uznanie </option>
-#<option value="C">Uznesenie bez odôvodnenia </option>
-#<option value="B">Osvedčenie </option>
-#<option value="T">Trestný rozkaz </option>
-
 namespace :test do
   task :t1 => :environment do
     d = Downloader.new

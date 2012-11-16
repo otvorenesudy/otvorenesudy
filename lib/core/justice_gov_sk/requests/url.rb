@@ -19,20 +19,21 @@ module JusticeGovSk
         }
       end
       
-      def url_to_path(url)
+      def self.url_to_path(url)
         uri  = URI.parse(url)
         path = uri.path
         
-        path.gsub!(/Stranky\/Pojednavania/i,      'hearings')
-        path.gsub!(/Stranky\/Sudcovia/i,          'judges')
-        path.gsub!(/Stranky\/Sudne-rozhodnutia/i, 'decrees')
-        path.gsub!(/Stranky\/Sudy/i,              'courts')
-                
+        path.gsub!(/Stranky\/Sudy/i,              '')
+        path.gsub!(/Stranky\/Pojednavania/i,      '')
+        path.gsub!(/Stranky\/Sudne-rozhodnutia/i, '')
+        
         path.gsub!(/\/SudDetail/i,              '')
+        path.gsub!(/PojednavanieDetail/i,       'civil-hearing')
+        path.gsub!(/PojednavanieTrestDetail/i,  'criminal-hearing')
+        path.gsub!(/PojednavanieSpecDetail/i,   'special-hearing')
         path.gsub!(/Sudne-rozhodnutie-detail/i, 'decree')
-        path.gsub!(/PojednavanieDetail/i,       'civil/civil-hearing')
-        path.gsub!(/PojednavanieTrestDetail/i,  'criminal/criminal-hearing')
-        path.gsub!(/PojednavanieSpecDetail/i,   'special/special-hearing')
+
+        path.gsub!(/\//, '')
         
         path.downcase!
         
@@ -40,7 +41,7 @@ module JusticeGovSk
         "#{path}.html"
       end
       
-      def url_to_path_lambda
+      def self.url_to_path_lambda
         @url_to_path_lambda ||= lambda { |url| url_to_path(url) }
       end
     end

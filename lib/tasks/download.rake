@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-namespace :download do
-  task :cache, [:type, :offset, :limit] => :environment do |task, args|
+namespace :download do 
+  # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
+  task :pages, [:type, :offset, :limit] => :environment do |task, args|
     type    = args[:type].camelcase
     offset  = args[:offset].blank? ? 1 : args[:offset].to_i
     limit   = args[:limit].blank? ? nil : args[:limit].to_i
@@ -9,18 +10,20 @@ namespace :download do
     agent = JusticeGovSk::Agents::ListAgent.new
     
     agent.cache_load_and_store = false
-    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
-    
-    crawler = JusticeGovSk::Crawlers::ListCrawler.new agent
+
     request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
+    storage = "JusticeGovSk::Storages::#{type}Storage".constantize.new    
+    crawler = JusticeGovSk::Crawlers::ListCrawler.new agent
 
     downloader = Downloader.new
     
     downloader.headers              = JusticeGovSk::Requests::URL.headers
     downloader.data                 = {}
     downloader.cache_load_and_store = true
-    downloader.cache_file_extension = :html
-    downloader.cache_uri_to_path    = agent.cache_uri_to_path
+    downloader.cache_root           = storage.root
+    downloader.cache_binary         = storage.binary
+    downloader.cache_distribute     = storage.distribute
+    downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
     
     crawler.crawl_and_process(request, offset, limit) do |url|
       begin
@@ -38,27 +41,34 @@ namespace :download do
         end
       end
     end
+    
+    puts "finished"    
   end  
 
+  # supported types: Decree
   task :documents, [:type] => :environment do |task, args|
     type = args[:type].camelcase
     
     request = JusticeGovSk::Requests::DocumentRequest.new
+    storage = JusticeGovSk::Storages::DocumentStorage.new
     agent   = JusticeGovSk::Agents::DocumentAgent.new
     
-    agent.cache_root           = JusticeGovSk::Documents::URI.base
-    agent.cache_binary         = true
     agent.cache_load_and_store = true
-    agent.cache_file_extension = :pdf
-    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.uri_to_path_lambda
+    agent.cache_root           = storage.root
+    agent.cache_binary         = storage.binary
+    agent.cache_distribute     = storage.distribute
+    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
 
-    dir = Dir.new(File.join Agent.new.cache_root, type.downcase.pluralize)
+    # TODO replace dirpath with storage.root --> needs DecreeDocumentStorage class
+    dirpath = File.join JusticeGovSk::Storages::DecreeStorage.new.root, type.downcase.pluralize
 
-    FileUtils.mkpath dir
-    
+    FileUtils.mkpath dirpath unless Dir.exists? dirpath
+
+    dir = Dir.new dirpath 
+
     dir.each do |file|
       unless file.starts_with? '.'
-        path = File.join dir, file
+        path = File.join dirpath, file
         
         print "Reading file #{path} ... "
         

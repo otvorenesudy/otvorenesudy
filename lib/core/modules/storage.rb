@@ -35,18 +35,19 @@ module Storage
   end
   
   def fullpath(path)
-    filename = File.basename(path)
-    
-    File.join root, File.dirname(path), bucket(filename).to_s, filename
+    dir    = File.dirname(path)
+    dir    = dir == '.' ? '' : dir 
+    file   = File.basename(path)
+    bucket = distribute ? bucket(file) : ''
+
+    File.join root, dir, bucket, file
   end
   
-  private
-  
-  def bucket(filename)
-    hash(filename).to_s(16) if distribute
+  def self.bucket(file)
+    '%02x' % hash(file)
   end
   
-  def hash(s)
-    MurmurHash3::V32.str_hash(s) % 256
+  def self.hash(string)
+    MurmurHash3::V32.str_hash(string) % 256
   end
 end
