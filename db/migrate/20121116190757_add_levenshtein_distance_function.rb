@@ -1,3 +1,5 @@
+# TODO rm?
+
 class AddLevenshteinDistanceFunction < ActiveRecord::Migration
   def up
     sql = <<-EOF

@@ -17,6 +17,14 @@ module Storage
     @distribute.nil? ? false : @distribute
   end
 
+  def contains?(path)
+    File.exists? fullpath(path)
+  end
+
+  def loadable?(path)
+    File.readable? fullpath(path)
+  end
+  
   def load(path)
     path = fullpath(path)
     

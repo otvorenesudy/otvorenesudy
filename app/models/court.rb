@@ -1,4 +1,6 @@
 class Court < ActiveRecord::Base
+  
+  # TODO rm
   #include PgSearch
   #pg_search_scope :search_by_name, against: name, using: :trigram
 
@@ -33,7 +35,8 @@ class Court < ActiveRecord::Base
   validates :name,   presence: true
   validates :street, presence: true
  
-  # TODO: replace with gem
+  # TODO rm
+  # TODO replace with gem
   def self.similar_by_name(name, similarity)
     result = ActiveRecord::Base.connection.exec_query(<<EOF
     SELECT id, name, similarity(name, '#{name}') as sml 
