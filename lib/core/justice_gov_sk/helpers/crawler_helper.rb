@@ -33,7 +33,7 @@ module JusticeGovSk
           downloader.cache_root           = storage.root
           downloader.cache_binary         = storage.binary
           downloader.cache_distribute     = storage.distribute
-          downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
+          downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :html
   
           crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
           
