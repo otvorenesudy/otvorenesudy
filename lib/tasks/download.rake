@@ -79,7 +79,11 @@ namespace :download do
         request.url = request.url.sub(/\.html/, '')
         request.url = "#{JusticeGovSk::Requests::URL.base}/#{request.url}"
         
-        agent.download request
+        begin
+          agent.download request
+        rescue Net::HTTP::Persistent::Error => e
+          # silently ignore all persistent errors, mostly timeouts
+        end
         
         puts
       end
