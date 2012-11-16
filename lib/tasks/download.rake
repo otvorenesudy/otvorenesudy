@@ -23,7 +23,7 @@ namespace :download do
     downloader.cache_root           = storage.root
     downloader.cache_binary         = storage.binary
     downloader.cache_distribute     = storage.distribute
-    downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
+    downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :html
     
     crawler.crawl_and_process(request, offset, limit) do |url|
       begin
@@ -55,7 +55,7 @@ namespace :download do
     agent.cache_root           = File.join storage.root, type.downcase.pluralize
     agent.cache_binary         = storage.binary
     agent.cache_distribute     = storage.distribute
-    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda
+    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :pdf
     
     agent.wait_time = nil
 
@@ -71,7 +71,7 @@ namespace :download do
         
         path = File.join dir, bucket, file
         
-        print "Reading file #{path} ... "
+        print "Reading #{path} ... "
         
         content = File.read path
         
