@@ -15,13 +15,13 @@ module JusticeGovSk
       
       def municipality_zipcode(document)
         find_value_by_group_and_index 'municipality zipcode', document, 'Kontakt', 2 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.court(div.text.strip)
+          div.text.strip
         end
       end
       
       def name(document)
         @name ||= find_value_by_group_and_index 'name', document, 'Kontakt', 0 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.court_name(div.text)
         end
       end
       

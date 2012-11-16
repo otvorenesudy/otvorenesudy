@@ -52,7 +52,7 @@ class HtmlParser < Parser
     
     value = block_given? ? block.call(value) : value
 
-    puts options[:verbose] ? " done (#{value})" : " done"
+    puts options[:verbose] ? "done (#{value})" : "done"
 
     value
   end

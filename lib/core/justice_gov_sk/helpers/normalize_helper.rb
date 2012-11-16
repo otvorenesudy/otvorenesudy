@@ -5,6 +5,44 @@ require 'classes/string'
 module JusticeGovSk
   module Helpers
     module NormalizeHelper
+      def self.court_name(value)
+        value.strip!
+        value.gsub!(/\-/, '')
+        value.squeeze!(' ')
+        
+        key = value.ascii.downcase
+
+        court_name_map[key].nil? ? value : court_name_map[key]
+      end
+      
+      private
+      
+      def self.court_name_map
+        return @map unless @map.nil?
+        
+        map = {
+          "Najvyšší súd SR"             => "Najvyšší súd Slovenskej republiky",
+          "Ústavný súd SR"              => "Ústavný súd Slovenskej republiky",
+          
+          "Krajský súd Banská Bystrica" => "Krajský súd v Banskej Bystrici",
+          "Krajský súd Bratislava"      => "Krajský súd v Bratislave",
+          "Krajský súd Košice"          => "Krajský súd v Košiciach", 
+          "Krajský súd Nitra"           => "Krajský súd v Nitre",
+          "Krajský súd Prešov"          => "Krajský súd v Prešove", 
+          "Krajský súd Trenčín"         => "Krajský súd v Trenčíne",
+          "Krajský súd Trnava"          => "Krajský súd v Trnave",
+          "Krajský súd Žilina"          => "Krajský súd v Žiline"
+        }
+        
+        @map = {}
+        
+        map.each { |k, v| @map[k.ascii.downcase] = v }
+        
+        @map 
+      end
+
+      public
+      
       def self.person_name(value)
         prefixes  = [] 
         sufixes   = [] 
@@ -59,21 +97,6 @@ module JusticeGovSk
         
         "#{date} #{time}"
       end
-
-      def self.court(name)
-        values = {
-          "Krajský súd Banská Bystrica" => "Krajský súd v Banskej Bystrici",
-          "Krajský súd Bratislava"      => "Krajský súd v Bratislave",
-          "Krajský súd Košice"          => "Krajský súd v Košiciach", 
-          "Krajský súd Nitra"           => "Krajský súd v Nitre",
-          "Krajský súd Prešov"         => "Krajský súd v Prešove", 
-          "Krajský súd Trenčín"         => "Krajský súd v Trenčíne",
-          "Krajský súd Trnava"         => "Krajský súd v Trnave",
-          "Krajský súd Žilina"         => "Krajský súd v Žiline"
-        }
-
-        values[name].nil? ? name : values[name]
-      end
     end
   end
-  end
+end
