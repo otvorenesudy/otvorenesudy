@@ -130,12 +130,10 @@ class Downloader
   
   def load(path)
     if @cache_load
-      fullpath = fullpath path
-      
-      print "Loading #{fullpath} ... "
+      print "Loading #{fullpath path} ... "
   
-      if File.exists? fullpath
-        if File.readable? fullpath
+      if contains? path
+        if loadable? path
           if expired? path
             puts "failed (expired)"
             return nil
