@@ -13,7 +13,7 @@ module JusticeGovSk
         find_values 'data', element, 'td', verbose: false do |data|
           {
             court:            court(data[3].text.strip),
-            name:             name(data[1].text),
+            name:             JusticeGovSk::Helpers::NormalizeHelper.person_name(name(data[1].text.strip)),
             name_unprocessed: name(data[1].text.strip),
             position:         position(data[2].text.strip),
             active:           activity(data[0]),
@@ -39,7 +39,7 @@ module JusticeGovSk
       end
 
       def name(value)
-        JusticeGovSk::Helpers::NormalizeHelper.person_name(value)
+        value
       end
 
       def position(value)
