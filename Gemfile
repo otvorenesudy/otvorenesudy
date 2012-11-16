@@ -13,20 +13,23 @@ gem "less-rails"
 
 gem 'coffee-script'
 gem 'jquery-rails'
+gem 'rails-timeago'
 gem 'execjs'
-gem 'highcharts-rails', '~> 2.3.0'
+
+gem 'kaminari'
+gem 'kaminari-bootstrap'
 
 gem 'settingslogic'
 
 gem 'curb'
 gem 'mechanize'
 gem 'murmurhash3'
+gem 'docsplit'
 
 # PG search 
 #gem 'pg_seach'
 
-# Docsplit - for extracting text from pdf
-gem 'docsplit'
+gem 'highcharts-rails', '~> 2.3.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
