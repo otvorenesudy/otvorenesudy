@@ -15,7 +15,7 @@ module JusticeGovSk
       
       def municipality_zipcode(document)
         find_value_by_group_and_index 'municipality zipcode', document, 'Kontakt', 2 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.court(div.text.strip)
         end
       end
       

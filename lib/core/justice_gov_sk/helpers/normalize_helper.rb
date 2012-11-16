@@ -72,7 +72,7 @@ module JusticeGovSk
           "Krajský súd Žilina"         => "Krajský súd v Žiline"
         }
 
-        values[name].nil ? name : values[name]
+        values[name].nil? ? name : values[name]
       end
     end
   end
