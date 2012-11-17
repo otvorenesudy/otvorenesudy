@@ -25,7 +25,7 @@ module JusticeGovSk
 
       def chair_judge(document)
         find_value_by_label 'chair judge', document, 'Predseda senátu' do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.person_name(div.text)
         end
       end
       

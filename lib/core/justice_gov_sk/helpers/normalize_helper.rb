@@ -50,7 +50,7 @@ module JusticeGovSk
         uppercase = []
         mixedcase = []
         
-        value.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
+        value.strip.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
           part = part.utf8.strip
           
           unless part.match(/\./).nil?

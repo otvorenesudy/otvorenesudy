@@ -29,7 +29,7 @@ module JusticeGovSk
 
       def court(document)
         find_value_by_label 'court', document, 'Súd' do |div|
-          div.search('a').first.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.court_name(div.search('a').first.text)
         end
       end  
         
