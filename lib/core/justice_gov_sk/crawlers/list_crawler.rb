@@ -3,8 +3,8 @@ module JusticeGovSk
     class ListCrawler < Crawler
       include Pluralize
       
-      attr_reader :page,
-                  :per_page,
+      attr_reader :per_page,
+                  :page,
                   :pages,
                   :next_page
       
@@ -13,9 +13,9 @@ module JusticeGovSk
 
         super(downloader, parser, persistor)
 
+        @per_page  = nil
         @page      = nil
         @pages     = nil
-        @per_page  = nil
         @next_page = nil
       end
           
@@ -28,9 +28,9 @@ module JusticeGovSk
         content  = @downloader.download(request)
         document = @parser.parse(content)
         
+        @per_page  = @parser.per_page(document)
         @page      = @parser.page(document)
         @pages     = @parser.pages(document)
-        @per_page  = @parser.per_page(document)
         @next_page = @parser.next_page(document)
         
         list = @parser.list(document)
