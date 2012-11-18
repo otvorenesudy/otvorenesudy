@@ -8,7 +8,7 @@ module JusticeGovSk
       end
       
       def root
-        @root ||= File.join 'storage', 'pages'
+        @root ||= File.join super, 'pages'
       end
     end
   end

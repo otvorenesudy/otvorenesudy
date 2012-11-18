@@ -4,7 +4,7 @@ module Cache
   attr_accessor :expire_time
 
   def root
-    @root ||= File.join 'tmp', 'cache'
+    @root ||= Configuration.cache.root
   end
     
   def expired?(path)

@@ -6,7 +6,7 @@ module Storage
                 :distribute
   
   def root
-    @root ||= 'storage'
+    @root ||= Configuration.storage.root
   end
   
   def binary

@@ -1,0 +1,18 @@
+development:
+  storage:
+    root: 'storage'
+  cache:
+    root: 'tmp/cache'
+
+test:
+  storage:
+    root: 'storage'
+  cache:
+    root: 'tmp/cache'
+
+production:
+  storage:
+    root: 'storage'
+  cache:
+    root: 'tmp/cache'
+  
