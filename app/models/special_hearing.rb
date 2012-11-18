@@ -1,0 +1,2 @@
+class SpecialHearing < Hearing
+end

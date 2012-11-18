@@ -1,0 +1,2 @@
+class CivilHearing < Hearing
+end

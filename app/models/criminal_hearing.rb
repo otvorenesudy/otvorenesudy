@@ -1,0 +1,2 @@
+class CriminalHearing < Hearing
+end
