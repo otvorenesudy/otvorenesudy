@@ -19,7 +19,7 @@ module JusticeGovSk
         }
       end
       
-      def self.url_to_path(url, ext = :html)
+      def self.url_to_path(url, ext = nil)
         uri  = URI.parse(url)
         path = uri.path
         
@@ -38,10 +38,10 @@ module JusticeGovSk
         path.downcase!
         
         path = "#{path}?#{uri.query}" unless uri.query.nil?
-        "#{path}.#{ext}"
+        "#{path}.#{ext || :html}"
       end
       
-      def self.url_to_path_lambda(ext = :html)
+      def self.url_to_path_lambda(ext = nil)
         lambda { |url| url_to_path(url, ext) }
       end
     end
