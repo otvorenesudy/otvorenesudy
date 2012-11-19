@@ -17,7 +17,7 @@ namespace :download do
 
     downloader = Downloader.new
     
-    downloader.headers              = JusticeGovSk::Requests::URL.headers
+    downloader.headers              = {} #JusticeGovSk::Requests::URL.headers
     downloader.data                 = {}
     downloader.cache_load_and_store = true
     downloader.cache_root           = storage.root
