@@ -1,4 +1,4 @@
-module HtmlHelper
+module TagHelper
   def badge_tag(text, *tags)
     content_tag :span, text, :class => 'badge' + tags.map { |tag| ' badge-' + tag.to_s }.join
   end

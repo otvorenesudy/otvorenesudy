@@ -24,14 +24,14 @@ module JusticeGovSk
           "Najvyšší súd SR"             => "Najvyšší súd Slovenskej republiky",
           "Ústavný súd SR"              => "Ústavný súd Slovenskej republiky",
           
-          "Krajský súd Banská Bystrica" => "Krajský súd v Banskej Bystrici",
-          "Krajský súd Bratislava"      => "Krajský súd v Bratislave",
-          "Krajský súd Košice"          => "Krajský súd v Košiciach", 
-          "Krajský súd Nitra"           => "Krajský súd v Nitre",
-          "Krajský súd Prešov"          => "Krajský súd v Prešove", 
-          "Krajský súd Trenčín"         => "Krajský súd v Trenčíne",
-          "Krajský súd Trnava"          => "Krajský súd v Trnave",
-          "Krajský súd Žilina"          => "Krajský súd v Žiline"
+          "Krajský súd v Banskej Bystrici" => "Krajský súd Banská Bystrica",
+          "Krajský súd v Bratislave"       => "Krajský súd Bratislava",
+          "Krajský súd v Košiciach"        => "Krajský súd Košice", 
+          "Krajský súd v Nitre"            => "Krajský súd Nitra",
+          "Krajský súd v Prešove"          => "Krajský súd Prešov", 
+          "Krajský súd v Trenčíne"         => "Krajský súd Trenčín",
+          "Krajský súd v Trnave"           => "Krajský súd Trnava",
+          "Krajský súd v Žiline"           => "Krajský súd Žilina"
         }
         
         @map = {}
@@ -42,7 +42,8 @@ module JusticeGovSk
       end
 
       public
-      
+
+      # TODO see all media_person names and fix this      
       def self.person_name(value)
         prefixes  = [] 
         sufixes   = [] 
@@ -77,6 +78,45 @@ module JusticeGovSk
         value = value + ' '  + classes.join(' ') unless classes.empty?
         value = value + ', ' + sufixes.join(' ') unless sufixes.empty?
         value
+      end
+      
+      def self.zipcode(value)
+        value = value.strip.gsub(/\s+/, '')
+        
+        "#{value[0..2]} #{value[3..-1]}"
+      end
+      
+      def self.street(value)
+        # TODO implement
+        value.strip
+      end
+      
+      def self.email(value)
+        value.split(/\,|\;/).map { |part| part.strip }.join ', '
+      end
+      
+      def self.phone(value)
+        value.strip
+        
+        # TODO implement
+        #numbers = []
+        #
+        #value.split(/\,|\;/).map do |part|
+        #  part.gsub!(/\s+/, '')
+        #  
+        #  
+        #end
+        #
+        #numbers.join ', '
+      end
+      
+      def self.hours(value)
+        value.split(/\,|\;/).map do |interval|
+          interval.split(/\-/).map do |time|
+            hour, minute = time.split(/\:/)
+            "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
+          end.join ' - '
+        end.join ', '
       end
 
       def self.date(value)

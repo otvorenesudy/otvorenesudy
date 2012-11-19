@@ -15,7 +15,7 @@ module JusticeGovSk
       
       def municipality_zipcode(document)
         find_value_by_group_and_index 'municipality zipcode', document, 'Kontakt', 2 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.zipcode(div.text)
         end
       end
       
@@ -27,19 +27,19 @@ module JusticeGovSk
       
       def street(document)
         find_value_by_group_and_index 'street', document, 'Kontakt', 1 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.street(div.text)
         end
       end
       
       def phone(document)
         find_value_by_group_and_index 'phone', document, 'Kontakt', 4 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
         end
       end
      
       def fax(document)
         find_value_by_group_and_index 'fax', document, 'Kontakt', 5 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
         end
       end
       
@@ -51,19 +51,19 @@ module JusticeGovSk
       
       def media_phone(document)
         find_value_by_group_and_index 'media phone', document, 'Kontakt pre médiá', 1 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
         end 
       end
       
       def office_phone(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' phone', document, office_type_to_group(type), 0 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
         end         
       end
 
       def office_email(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' email', document, office_type_to_group(type), 1 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.email(div.text)
         end                 
       end
 
@@ -71,17 +71,15 @@ module JusticeGovSk
         group = office_type_to_group(type)
         name  = office_type_to_name(type)
         
-        hours = {}
-        
-        find_value_by_group_and_index(name + ' monday hours',    document, group, 3) { |div| hours[:monday]    = div.text.strip }
-        find_value_by_group_and_index(name + ' tuesday hours',   document, group, 4) { |div| hours[:tuesday]   = div.text.strip }
-        find_value_by_group_and_index(name + ' wednesday hours', document, group, 5) { |div| hours[:wednesday] = div.text.strip }
-        find_value_by_group_and_index(name + ' thursday hours',  document, group, 6) { |div| hours[:thursday]  = div.text.strip }
-        find_value_by_group_and_index(name + ' friday hours',    document, group, 7) { |div| hours[:friday]    = div.text.strip }
-        
-        hours       
+        {
+          monday:    office_daily_hours(name + ' monday hours',    document, group, 3),
+          tuesday:   office_daily_hours(name + ' tuesday hours',   document, group, 4),
+          wednesday: office_daily_hours(name + ' wednesday hours', document, group, 5),
+          thursday:  office_daily_hours(name + ' thursday hours',  document, group, 6),
+          friday:    office_daily_hours(name + ' friday hours',    document, group, 7)
+        }
       end
-
+      
       def office_note(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' note', document, office_type_to_group(type), 2 do |div|
           div.text.strip.squeeze(' ')
@@ -120,6 +118,12 @@ module JusticeGovSk
       
       def office_type_to_name(type)
         type.to_s.gsub(/\_/, ' ')
+      end
+      
+      def office_daily_hours(name, document, group, index)
+        find_value_by_group_and_index(name, document, group, 3) do |div|
+           JusticeGovSk::Helpers::NormalizeHelper.hours(div.text)
+        end
       end
       
       def coordinates(document)

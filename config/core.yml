@@ -15,4 +15,3 @@ production:
     root: 'storage'
   cache:
     root: 'tmp/cache'
-  
