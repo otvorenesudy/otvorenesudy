@@ -5,7 +5,6 @@ require 'classes/string'
 module JusticeGovSk
   module Helpers
     module NormalizeHelper
-      # TODO fix me :)
       def self.court_name(value)
         value.strip!
         value.gsub!(/\-/, '')
@@ -13,7 +12,15 @@ module JusticeGovSk
         
         key = value.ascii.downcase
 
-        court_name_map[key].nil? ? value : court_name_map[key]
+        court_name_map[key] || (value.split(/\s+/).map do |part|
+          if ['v', 'nad', 'súd', 'okolie'].include?
+            part.downcase
+          elsif !part.match(/\A(I|V)+\z/).nil?
+            part
+          else
+            part.titlecase
+          end
+        end.join ' ')
       end
       
       private
