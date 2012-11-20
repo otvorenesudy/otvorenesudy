@@ -81,7 +81,7 @@ namespace :download do
         
         begin
           agent.download request
-        rescue Net::HTTP::Persistent::Error => e
+        rescue Exception => e
           # silently ignore all persistent errors, mostly timeouts
         end
         
