@@ -101,8 +101,20 @@ module JusticeGovSk
       end
       
       def self.street(value)
-        # TODO implement
-        value.strip
+        value = value.utf8
+        
+        value.gsub!(/\,/, ' ')
+        value.gsub!(/sv\./i, 'sv. ')
+        value.gsub!(/slov\./i, 'slovenskej')
+        
+        value.gsub!(/Námestie/i) { |s| "#{s[0]}ám." }
+        value.gsub!(/Ulica/i)    { |s| "#{s[0]}l." }
+        value.gsub!(/Číslo/i)    { |s| "#{s[0]}." }
+        
+        value.strip!
+        value.squeeze!(' ')
+        
+        value
       end
       
       def self.email(value)
