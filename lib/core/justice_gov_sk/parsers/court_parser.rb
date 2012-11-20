@@ -44,9 +44,12 @@ module JusticeGovSk
       end
       
       def media_person(document)
-        find_value_by_group_and_index 'media person', document, 'Kontakt pre médiá', 0 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.person_name(div.text)
-        end 
+        @media_person ||= find_value_by_group_and_index 'media person', document, 'Kontakt pre médiá', 0, verbose: false do |div|
+          {
+            name:             JusticeGovSk::Helpers::NormalizeHelper.person_name(div.text),
+            name_unprocessed: div.text.strip
+          }
+        end
       end
       
       def media_phone(document)
@@ -99,8 +102,9 @@ module JusticeGovSk
       def clear_caches
         super
         
-        @name        = nil
-        @coordinates = nil
+        @name         = nil
+        @media_person = nil
+        @coordinates  = nil
       end
       
       private
@@ -121,7 +125,7 @@ module JusticeGovSk
       end
       
       def office_daily_hours(name, document, group, index)
-        find_value_by_group_and_index(name, document, group, 3) do |div|
+        find_value_by_group_and_index name, document, group, index do |div|
            JusticeGovSk::Helpers::NormalizeHelper.hours(div.text)
         end
       end

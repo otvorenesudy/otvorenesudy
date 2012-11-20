@@ -27,12 +27,16 @@ module JusticeGovSk
         @court.street       = @parser.street(document)
         @court.phone        = @parser.phone(document)
         @court.fax          = @parser.fax(document)
-        @court.media_person = @parser.media_person(document)
         @court.media_phone  = @parser.media_phone(document)
         @court.latitude     = @parser.latitude(document)
         @court.longitude    = @parser.longitude(document)
-    
-        @court.media_person_unprocessed = @court.media_person
+        
+        media_person = @parser.media_person(document)
+        
+        unless media_person.nil?
+          @court.media_person             = media_person[:name]
+          @court.media_person_unprocessed = media_person[:name_unprocessed]
+        end
     
         type(document)
         municipality(document)

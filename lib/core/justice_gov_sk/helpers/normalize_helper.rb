@@ -13,7 +13,7 @@ module JusticeGovSk
         key = value.ascii.downcase
 
         court_name_map[key] || (value.split(/\s+/).map do |part|
-          if ['v', 'nad', 'súd', 'okolie'].include?
+          if ['v', 'nad', 'súd', 'okolie'].include? part
             part.downcase
           elsif !part.match(/\A(I|V)+\z/).nil?
             part
@@ -29,8 +29,8 @@ module JusticeGovSk
         return @court_name_map unless @court_name_map.nil?
         
         map = {
-          "Najvyšší súd SR"             => "Najvyšší súd Slovenskej republiky",
-          "Ústavný súd SR"              => "Ústavný súd Slovenskej republiky",
+          "Najvyšší súd SR"                => "Najvyšší súd Slovenskej republiky",
+          "Ústavný súd SR"                 => "Ústavný súd Slovenskej republiky",
           
           "Krajský súd v Banskej Bystrici" => "Krajský súd Banská Bystrica",
           "Krajský súd v Bratislave"       => "Krajský súd Bratislava",
@@ -57,10 +57,9 @@ module JusticeGovSk
         value == 'Bratislava 33' ? 'Bratislava III' : value
       end
 
-      # TODO see all media_person names and fix this      
       def self.person_name(value)
-        prefixes  = [] 
-        sufixes   = [] 
+        prefixes  = []
+        sufixes   = []
         classes   = []
         uppercase = []
         mixedcase = []
@@ -120,20 +119,25 @@ module JusticeGovSk
       def self.email(value)
         value.split(/\,|\;/).map { |part| part.strip }.join ', '
       end
-      
+ 
+      # TODO impl   
       def self.phone(value)
         value.strip
-        
-        # TODO implement
-        #numbers = []
-        #
-        #value.split(/\,|\;/).map do |part|
-        #  part.gsub!(/\s+/, '')
-        #  
-        #  
-        #end
-        #
-        #numbers.join ', '
+#        value.strip!
+#        
+#        value.split(/\,|\;/).map do |part|
+#          if part.match(/[a-zA-Z]/).nil?
+#            part.gsub!(/\s+/, '')
+#            
+#            unless part.match(/\//).nil?
+#              
+#            else
+#              
+#            end
+#          else
+#            part
+#          end
+#        end.join ', '
       end
       
       def self.hours(value)
