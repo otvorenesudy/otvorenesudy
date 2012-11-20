@@ -58,6 +58,10 @@ module JusticeGovSk
       end
 
       def self.person_name(value)
+        _, special = *value.match(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?(?<municipality>.+)\z/i) 
+        
+        value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '') unless special.nil?
+        
         prefixes  = []
         sufixes   = []
         classes   = []
@@ -85,11 +89,21 @@ module JusticeGovSk
         end
         
         value = nil
+        
         value = mixedcase.join(' ') unless mixedcase.empty?
         value = (value.nil? ? '' : "#{value} ") + uppercase.join(' ') unless uppercase.empty?
         value = prefixes.join(' ') + ' ' + value unless prefixes.empty?
         value = value + ' '  + classes.join(' ') unless classes.empty?
         value = value + ', ' + sufixes.join(' ') unless sufixes.empty?
+        
+        unless special.nil?
+          municipality ||= "Trenčíne" unless special.match(/(TN|Trenčín(e)?)/).nil?
+          municipality ||= "Trnave"   unless special.match(/(TT|Trnav(a|e){1})/).nil?
+          
+          role  = "Hovorca krajského súdu v #{municipality}"
+          value = value.blank? ? role : "#{value}, #{role.downcase_first}"
+        end
+        
         value
       end
       
