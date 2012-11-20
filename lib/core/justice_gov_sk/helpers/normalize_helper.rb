@@ -5,6 +5,7 @@ require 'classes/string'
 module JusticeGovSk
   module Helpers
     module NormalizeHelper
+      # TODO fix me :)
       def self.court_name(value)
         value.strip!
         value.gsub!(/\-/, '')
@@ -42,6 +43,12 @@ module JusticeGovSk
       end
 
       public
+      
+      def self.municipality_name(value)
+        value.strip!
+        
+        value == 'Bratislava 33' ? 'Bratislava III' : value
+      end
 
       # TODO see all media_person names and fix this      
       def self.person_name(value)

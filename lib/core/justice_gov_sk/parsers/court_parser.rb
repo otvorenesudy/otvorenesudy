@@ -9,7 +9,7 @@ module JusticeGovSk
       
       def municipality_name(document)
         find_value_by_group_and_index 'municipality name', document, 'Kontakt', 3 do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.municipality_name(div.text)
         end
       end
       
