@@ -19,7 +19,7 @@ module JusticeGovSk
       private
       
       def self.court_name_map
-        return @map unless @map.nil?
+        return @court_name_map unless @court_name_map.nil?
         
         map = {
           "Najvyšší súd SR"             => "Najvyšší súd Slovenskej republiky",
@@ -35,11 +35,11 @@ module JusticeGovSk
           "Krajský súd v Žiline"           => "Krajský súd Žilina"
         }
         
-        @map = {}
+        @court_name_map = {}
         
-        map.each { |k, v| @map[k.ascii.downcase] = v }
+        map.each { |k, v| @court_name_map[k.ascii.downcase] = v }
         
-        @map 
+        @court_name_map 
       end
 
       public
