@@ -31,6 +31,8 @@ gem 'docsplit'
 
 gem 'highcharts-rails', '~> 2.3.0'
 
+gem 'resque'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -42,4 +44,5 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'database_cleaner'
 end
