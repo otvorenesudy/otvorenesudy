@@ -3,7 +3,7 @@ module JusticeGovSk
     class CrawlerJob
       @queue = :crawlers
 
-      def self.perform(type, url)
+      def self.perform(type, url, decree_form)
         type = type.camelcase
 
         persistor  = Persistor.new
