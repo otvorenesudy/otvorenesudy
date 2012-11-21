@@ -6,6 +6,8 @@ module JusticeGovSk
   module Helpers
     module NormalizeHelper
       def self.court_name(value)
+        value = value.utf8
+        
         value.strip!
         value.gsub!(/\-/, '')
         value.squeeze!(' ')
@@ -58,6 +60,8 @@ module JusticeGovSk
       end
 
       def self.person_name(value)
+        value = value.utf8
+        
         _, special = *value.match(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?(?<municipality>.+)\z/i) 
         
         value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '') unless special.nil?
