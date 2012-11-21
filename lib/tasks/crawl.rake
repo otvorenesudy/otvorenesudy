@@ -2,29 +2,29 @@
 
 namespace :crawl do
   task :courts, [:offset, :limit] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Court, args.merge(safe: false)
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Court, { safe: false }.merge(args)
   end
   
   task :judges, [:offset, :limit] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Judge, args
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Judge, { safe: false }.merge(args)
   end
 
   namespace :hearings do
     task :civil, [:offset, :limit] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CivilHearing, args
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CivilHearing, { safe: false }.merge(args)
     end
 
     task :criminal, [:offset, :limit] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CriminalHearing, args
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CriminalHearing, { safe: false }.merge(args)
     end
 
     task :special, [:offset, :limit] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources SpecialHearing, args
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources SpecialHearing, { safe: false }.merge(args)
     end
   end
   
   task :decrees, [:form, :offset, :limit] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Decree, args
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Decree, { safe: false }.merge(args)
   end
 
   task :court, [:url] => :environment do |task, args|

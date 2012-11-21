@@ -19,7 +19,7 @@ module JusticeGovSk
       
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.build_lister_and_request(type)
-        type = type.is_a? Class ? type : type.to_s.camelcase.constantize
+        type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
         
         agent = JusticeGovSk::Agents::ListAgent.new
         
@@ -40,8 +40,8 @@ module JusticeGovSk
 
       # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.build_crawler(type)
-        type = type.is_a? Class ? type : type.to_s.camelcase.constantize
-        
+        type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
+
         storage = "JusticeGovSk::Storages::#{type.name}Storage".constantize.new
 
         downloader = Downloader.new
@@ -63,7 +63,7 @@ module JusticeGovSk
         offset = options[:offset].blank? ? 1 : options[:offset].to_i
         limit  = options[:limit].blank? ? nil : options[:limit].to_i
         
-        _, type = request.class.name.match(/JusticeGovSk::Requests::(?<type>.+)ListRequest/)
+        _, type = *request.class.name.match(/JusticeGovSk::Requests::(.+)ListRequest/)
         
         if type == Judge
           raise "#{lister.class.name}: unable to use block" if block_given?
@@ -81,7 +81,7 @@ module JusticeGovSk
           end
           
           unless block_given?
-            crawler = build_crawler type, options
+            crawler = build_crawler type
             
             block = lambda do
               lister.crawl_and_process(request, offset, limit) do |url|
