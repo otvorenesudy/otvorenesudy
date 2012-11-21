@@ -29,7 +29,7 @@ namespace :crawl do
   end
   
   task :decrees, [:form, :offset, :limit] => :environment do |task, args|
-    args.with_defaults safe: false
+    args.with_defaults decree_form: args[:form], safe: false
     JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Decree, args
   end
 

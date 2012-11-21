@@ -5,21 +5,23 @@ module JusticeGovSk
     module CrawlerHelper
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.crawl_resources(type, options = {})
-        lister, request = build_lister_and_request type
+        lister, request = build_lister_and_request type, options
         
         run_lister lister, request, options
       end
       
       # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.crawl_resource(type, url, options = {})
-        crawler = build_crawler type
+        crawler = build_crawler type, options
         
         run_crawler crawler, url, options
       end
       
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.build_lister_and_request(type)
+      def self.build_lister_and_request(type, options = {})
         type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
+
+        raise "Unsupported type #{type}" unless [Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree].include? type
         
         agent = JusticeGovSk::Agents::ListAgent.new
         
@@ -27,11 +29,13 @@ module JusticeGovSk
 
         request = "JusticeGovSk::Requests::#{type.name}ListRequest".constantize.new
         
-        if type == 'Judge'
+        if type == Judge
           persistor = Persistor.new
           
           lister = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
         else
+          request.decree_form = options[:decree_form] if type == Decree 
+          
           lister = JusticeGovSk::Crawlers::ListCrawler.new agent
         end
         
@@ -39,8 +43,10 @@ module JusticeGovSk
       end
 
       # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.build_crawler(type)
+      def self.build_crawler(type, options = {})
         type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
+
+        raise "Unsupported type #{type}" unless [Court, CivilHearing, SpecialHearing, CriminalHearing, Decree].include? type
 
         storage = "JusticeGovSk::Storages::#{type.name}Storage".constantize.new
 
@@ -57,6 +63,10 @@ module JusticeGovSk
         persistor = Persistor.new
 
         crawler = "JusticeGovSk::Crawlers::#{type.name}Crawler".constantize.new downloader, persistor
+        
+        crawler.form_code = options[:decree_form] if type == Decree
+        
+        crawler
       end      
       
       def self.run_lister(lister, request, options = {}, &block)
@@ -65,6 +75,8 @@ module JusticeGovSk
         
         _, type = *request.class.name.match(/JusticeGovSk::Requests::(.+)ListRequest/)
         
+        type = type.constantize
+        
         if type == Judge
           raise "#{lister.class.name}: unable to use block" if block_given?
 
@@ -72,16 +84,8 @@ module JusticeGovSk
             lister.crawl_and_process(request, offset, limit)
           end
         else
-          if type == Decree
-            raise "#{request.class.name}: decree form not set" if request.decree_from.blank?
-            
-            options.merge decree_form: DecreeForm.find_by_code(request.decree_form)
-            
-            raise "#{request.class.name}: decree form not found" if options[:decree_form].nil?
-          end
-          
           unless block_given?
-            crawler = build_crawler type
+            crawler = build_crawler type, options
             
             block = lambda do
               lister.crawl_and_process(request, offset, limit) do |url|
@@ -90,8 +94,8 @@ module JusticeGovSk
             end
           end
         end
-
-        block_call block, options        
+        
+        block_call block, options
       end
       
       def self.run_crawler(crawler, url, options = {}, &block)

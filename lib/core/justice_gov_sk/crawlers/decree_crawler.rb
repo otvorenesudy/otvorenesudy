@@ -5,7 +5,7 @@ module JusticeGovSk
       include Identify
       include Pluralize
       
-      attr_accessor :form
+      attr_accessor :form_code
       
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parsers::DecreeParser.new, persistor)
@@ -58,7 +58,11 @@ module JusticeGovSk
       end
         
       def form(document)
-        raise "Decree form not set" if @form.nil?
+        raise "Decree form code not set" if @form_code.nil?
+        
+        form = decree_form_by_code_factory.find(@form_code)
+        
+        raise "Decree form not found" if form.nil?
         
         @decree.form = @form
       end
