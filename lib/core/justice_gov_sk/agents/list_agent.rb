@@ -7,21 +7,21 @@ module JusticeGovSk
           form      = page.form_with(name: form_name)
           fields    = form.fields.map(&:name)
 
+          # Include old hearings or decrees
+          if request.include_old_hearings
+            checkboxes = form.checkboxes.map(&:name)
+            
+            include_old_hearings_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\Z/) }
+
+            form.checkbox_with(name: include_old_hearings_checkbox_name).check
+          end
+
           # Select decree form, only for decrees
           if request.decree_form
             decree_form_select_box_name = fields.find { |f| f.match(/\A.+cmbForma\Z/) }
             
             field = form.field_with(:name => decree_form_select_box_name) 
             field.value = request.decree_form
-          end
-
-          # Include old hearings or decrees
-          if request.include_old_hearing_or_decree
-            checkboxes = form.checkboxes.map(&:name)
-            
-            include_old_hearing_or_decree_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\Z/) }
-
-            form.checkbox_with(name: include_old_hearing_or_decree_checkbox_name).check
           end
 
           form = page.form_with(name: form_name)

@@ -24,7 +24,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 200 
       @request.per_page = 100 
-      @request.include_old_hearing_or_decree = true
+      @request.include_old_hearings = true
     end
 
     it "should download 400th page of Civil Hearings with 100 results inluding old records" do
@@ -32,7 +32,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 400 
       @request.per_page = 100 
-      @request.include_old_hearing_or_decree = true
+      @request.include_old_hearings = true
     end
 
     it "should download 4th page of Special Hearings with 20 results including old records" do
@@ -40,7 +40,7 @@ describe JusticeGovSk::Agents::ListAgent do
 
       @request.page = 4 
       @request.per_page = 20 
-      @request.include_old_hearing_or_decree = true
+      @request.include_old_hearings = true
     end
   end
 
