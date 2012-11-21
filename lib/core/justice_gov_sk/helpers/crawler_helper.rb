@@ -113,9 +113,9 @@ module JusticeGovSk
             
             case code.to_i
             when 302
-              puts "Redirect returned for #{url}, rejected."
+              puts "Redirect returned, rejected."
             when 500
-              puts "Internal server error for #{url}, rejected."
+              puts "Internal server error, rejected."
             else
               raise e
             end
