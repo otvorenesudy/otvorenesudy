@@ -34,7 +34,11 @@ module JusticeGovSk
           
           lister = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
         else
-          request.decree_form = options[:decree_form] if type == Decree 
+          if type == Decree
+            request.decree_form = options[:decree_form]
+            
+            raise "Unknown decree form #{request.decree_form}" unless DecreeForm.find_by_code(request.decree_form)
+          end
           
           lister = JusticeGovSk::Crawlers::ListCrawler.new agent
         end
@@ -78,7 +82,7 @@ module JusticeGovSk
         type = type.constantize
         
         if type == Judge
-          raise "#{lister.class.name}: unable to use block" if block_given?
+          raise "Unable to use block" if block_given?
 
           block = lambda do
             lister.crawl_and_process(request, offset, limit)

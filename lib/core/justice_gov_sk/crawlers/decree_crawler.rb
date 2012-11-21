@@ -56,7 +56,7 @@ module JusticeGovSk
           @decree.judge = judge
         end
       end
-        
+      
       def form(document)
         raise "Decree form code not set" if @form_code.nil?
         
@@ -64,7 +64,7 @@ module JusticeGovSk
         
         raise "Decree form not found" if form.nil?
         
-        @decree.form = @form
+        @decree.form = form
       end
       
       def nature(document)
@@ -113,9 +113,9 @@ module JusticeGovSk
       end
         
       def legislations(document)
-        list = @parser.legislations(data)
+        list = @parser.legislations(document)
     
-        unless list.empty?
+        unless list.blank?
           puts "Processing #{pluralize list.count, 'legislation'}."
           
           list.each do |item|

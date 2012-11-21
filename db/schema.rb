@@ -273,17 +273,16 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
   create_table "legislations", :force => true do |t|
     t.string   "value",             :null => false
     t.string   "value_unprocessed", :null => false
-    t.integer  "number",            :null => false
-    t.integer  "year",              :null => false
-    t.string   "name",              :null => false
-    t.string   "section",           :null => false
-    t.string   "paragraph",         :null => false
+    t.integer  "number"
+    t.integer  "year"
+    t.string   "name"
+    t.string   "section"
+    t.string   "paragraph"
     t.string   "letter"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
 
-  add_index "legislations", ["number", "year", "name", "section", "paragraph", "letter"], :name => "index_legislations_on_identifiers", :unique => true
   add_index "legislations", ["value"], :name => "index_legislations_on_value", :unique => true
 
   create_table "municipalities", :force => true do |t|

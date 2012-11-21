@@ -44,7 +44,7 @@ class HtmlParser < Parser
         return
       end
         
-      if value.respond_to?(:text) && value.text.empty?
+      if value.respond_to?(:text) && value.text.strip.empty?
         puts "failed (content empty)"
         return
       end
