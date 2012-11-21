@@ -16,41 +16,57 @@ module JusticeGovSk
         
         run_crawler crawler, url, options
       end
+
+      # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
+      def self.build_request(type, options = {})
+        type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
+        
+        request = "JusticeGovSk::Requests::#{type.name}ListRequest".constantize.new
+        
+        request.per_page = options[:per_page] unless options[:per_page].nil?
+        request.page     = options[:page]     unless options[:page].nil? 
+        
+        if type < Hearing
+          request.include_old_hearings = options[:include_old_hearings] unless options[:include_old_hearings].nil?
+        elsif type < Decree
+          request.decree_form = options[:decree_form] unless options[:decree_form].nil?
+          
+          raise "Unknown decree form #{request.decree_form}" unless DecreeForm.find_by_code(request.decree_form)
+        end
+        
+        request
+      end
       
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.build_lister_and_request(type, options = {})
-        type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
+      def self.build_lister(type, options = {})
+        type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize unless type.nil?
 
-        raise "Unsupported type #{type}" unless [Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree].include? type
-        
         agent = JusticeGovSk::Agents::ListAgent.new
         
         agent.cache_load_and_store = false
-
-        request = "JusticeGovSk::Requests::#{type.name}ListRequest".constantize.new
         
-        if type == Judge
-          persistor = Persistor.new
+        if options[:generic].blank?
+          if type == Judge
+            persistor = Persistor.new
           
-          lister = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
-        else
-          if type == Decree
-            request.decree_form = options[:decree_form]
-            
-            raise "Unknown decree form #{request.decree_form}" unless DecreeForm.find_by_code(request.decree_form)
+            return JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
           end
-          
-          lister = JusticeGovSk::Crawlers::ListCrawler.new agent
         end
         
-        return lister, request
+        JusticeGovSk::Crawlers::ListCrawler.new agent
       end
-
+      
+      # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
+      def self.build_request_and_lister(type, options = {})
+        request = build_request type, options
+        lister  = build_lister  type, options
+        
+        return request, lister
+      end
+      
       # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.build_crawler(type, options = {})
         type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
-
-        raise "Unsupported type #{type}" unless [Court, CivilHearing, SpecialHearing, CriminalHearing, Decree].include? type
 
         storage = "JusticeGovSk::Storages::#{type.name}Storage".constantize.new
 
@@ -80,8 +96,8 @@ module JusticeGovSk
         _, type = *request.class.name.match(/JusticeGovSk::Requests::(.+)ListRequest/)
         
         type = type.constantize
-        
-        if type == Judge
+
+        if options[:generic].blank? && type == Judge
           raise "Unable to use block" if block_given?
 
           block = lambda do

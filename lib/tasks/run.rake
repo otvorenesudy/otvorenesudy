@@ -5,9 +5,14 @@ namespace :run do
   task :crawlers, [:type, :decree_form] => :environment do |_, args|
     type = args[:type].to_s.camelcase.constantize
     
-    lister, request = JusticeGovSk::Helpers::CrawlerHelper.build_lister_and_request type, args
+    options = { generic: true, safe: true, decree_form: args[:decree_form] }
     
-    JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, safe: true do
+    request, lister = JusticeGovSk::Helpers::CrawlerHelper.build_request_and_lister type, options
+    
+    puts "#{request}"
+    puts "#{lister}"
+    
+    JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, options do
       lister.crawl request
     end
     

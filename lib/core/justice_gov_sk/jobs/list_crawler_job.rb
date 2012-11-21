@@ -12,7 +12,7 @@ module JusticeGovSk
         raise "Offset not set #{options}" if options[:offset].nil?
         raise "Limit not set"  if options[:limit].nil?
         
-        lister, request = JusticeGovSk::Helpers::CrawlerHelper.build_lister_and_request type, options
+        request, lister = JusticeGovSk::Helpers::CrawlerHelper.build_request_and_lister type, options
         
         if type == Judge
           JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, options
