@@ -14,10 +14,10 @@ module JusticeGovSk
 
           divs.each do |div|
             if div[:class] == 'popiska'
-              name = div.text.strip
+              name = JusticeGovSk::Helpers::NormalizeHelper.punctuation(div.text)
               map[name] = []
             elsif div[:class] == 'hodnota'
-              map[name] << div.text.strip.gsub(/^-\s+§/, '§').strip.squeeze(' ')
+              map[name] << div.text
             end
           end
 
@@ -26,7 +26,7 @@ module JusticeGovSk
       end
       
       def accusation(value)
-        value
+        value.strip.gsub(/^-\s+§/, '§').strip.squeeze(' ')
       end
     end
   end

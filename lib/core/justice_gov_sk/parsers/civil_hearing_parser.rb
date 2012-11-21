@@ -23,7 +23,9 @@ module JusticeGovSk
             break       if div.text == 'Odporcovia'
           end
 
-          names << div.text.strip if mark && div[:class] == 'hodnota'
+          if mark && div[:class] == 'hodnota'
+            names << JusticeGovSk::Helpers::NormalizeHelper.punctuation(div.text)
+          end
         end
         
         names
@@ -38,7 +40,9 @@ module JusticeGovSk
             mark = true if div.text == 'Odporcovia'
           end
 
-          names << div.text.strip if mark && div[:class] == 'hodnota'
+          if mark && div[:class] == 'hodnota'
+            names << JusticeGovSk::Helpers::NormalizeHelper.punctuation(div.text)
+          end
         end
         
         names

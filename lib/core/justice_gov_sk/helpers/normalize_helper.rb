@@ -183,6 +183,13 @@ module JusticeGovSk
         
         "#{date} #{time}"
       end
+      
+      def self.punctuation(value)
+        value.gsub!(/\s*[\.\,\;]/) { |s| "#{s[-1]} " }
+        value.gsub!(/-/, ' - ')
+        
+        value.strip.squeeze(' ')
+      end
     end
   end
 end

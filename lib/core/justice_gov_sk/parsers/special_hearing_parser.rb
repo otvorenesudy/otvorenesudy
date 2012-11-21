@@ -31,7 +31,7 @@ module JusticeGovSk
       
       def defendant(document)
         find_value_by_label 'defendant', document, 'Obžalovaný/á' do |div|
-          div.text.strip
+          JusticeGovSk::Helpers::NormalizeHelper.punctuation(div.text)
         end
       end
     end
