@@ -17,7 +17,9 @@ module JusticeGovSk
               name = JusticeGovSk::Helpers::NormalizeHelper.punctuation(div.text)
               map[name] = []
             elsif div[:class] == 'hodnota'
-              map[name] << div.text
+              value = accusation(div.text)
+              
+              map[name] << value unless value.blank? 
             end
           end
 
@@ -25,8 +27,10 @@ module JusticeGovSk
         end
       end
       
+      private
+      
       def accusation(value)
-        value.strip.gsub(/^-\s+§/, '§').strip.squeeze(' ')
+        value.strip.gsub(/^-?\s*/, '').strip.squeeze(' ')
       end
     end
   end

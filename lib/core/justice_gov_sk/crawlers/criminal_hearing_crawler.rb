@@ -44,10 +44,10 @@ module JusticeGovSk
           
           values.each do |value|
             accusation = accusation_factory.find_or_create(defendant.id, value)
-            
+              
             accusation.defendant = defendant
-            accusation.value     = @parser.accusation(value)
-            
+            accusation.value     = value
+              
             @persistor.persist(accusation) if accusation.id.nil?
           end         
         end
