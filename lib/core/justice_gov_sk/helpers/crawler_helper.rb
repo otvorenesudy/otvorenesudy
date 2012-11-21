@@ -4,12 +4,22 @@ module JusticeGovSk
   module Helpers
     module CrawlerHelper
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.crawl_resources(type, offset, limit)
-        type   = type.camelcase
-        offset = offset.blank? ? 1 : offset.to_i
-        limit  = limit.blank? ? nil : limit.to_i
+      def self.crawl_resources(type, options = {})
+        lister, request = build_lister_and_request type
         
-        persistor = Persistor.new
+        run_lister lister, request, options
+      end
+      
+      # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
+      def self.crawl_resource(type, url, options = {})
+        crawler = build_crawler type
+        
+        run_crawler crawler, url, options
+      end
+      
+      # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
+      def self.build_lister_and_request(type)
+        type = type.to_s.camelcase
         
         agent = JusticeGovSk::Agents::ListAgent.new
         
@@ -18,21 +28,19 @@ module JusticeGovSk
         request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
         
         if type == 'Judge'
+          persistor = Persistor.new
+          
           lister = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
-
-          lister.crawl_and_process(request, offset, limit)
         else
           lister = JusticeGovSk::Crawlers::ListCrawler.new agent
-          
-          lister.crawl_and_process(request, offset, limit) do |url|
-            crawl_resource type, url
-          end
         end
+        
+        return lister, request
       end
-      
+
       # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.crawl_resource(type, url)
-        type = type.camelcase
+      def self.build_crawler(type)
+        type = type.to_s.camelcase
         
         storage = "JusticeGovSk::Storages::#{type}Storage".constantize.new
 
@@ -49,8 +57,62 @@ module JusticeGovSk
         persistor = Persistor.new
 
         crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
+      end      
+      
+      def self.run_lister(lister, request, options = {}, &block)
+        offset = options[:offset].blank? ? 1 : options[:offset].to_i
+        limit  = options[:limit].blank? ? nil : options[:limit].to_i
         
-        crawler.crawl url
+        _, type = request.class.name.match(/JusticeGovSk::Requests::(?<type>.+)ListRequest/)
+        
+        if type == 'Judge'
+          raise "#{lister.class.name} unable to use block" if block_given?
+
+          block = lambda do
+            lister.crawl_and_process(request, offset, limit)
+          end
+        else
+          unless block_given?
+            crawler = build_crawler(type)
+            
+            block = lambda do
+              lister.crawl_and_process(request, offset, limit) do |url|
+                run_crawler crawler, url, options
+              end
+            end
+          end
+        end
+
+        block_call block, options        
+      end
+      
+      def self.run_crawler(crawler, url, options = {}, &block)
+        block = lambda { crawler.crawl url } unless block_given?
+
+        block_call block, options
+      end
+      
+      def self.block_call(block, options = {})
+        safe = options[:safe].nil? ? true : options[:safe]
+        
+        if safe
+          block.call
+        else
+          begin
+            block.call
+          rescue Exception => e
+            _, code = *e.to_s.match(/response code (\d+)/i)
+            
+            case code.to_i
+            when 302
+              puts "Redirect returned for #{url}, rejected."
+            when 500
+              puts "Internal server error for #{url}, rejected."
+            else
+              raise e
+            end
+          end
+        end
       end
     end
   end
