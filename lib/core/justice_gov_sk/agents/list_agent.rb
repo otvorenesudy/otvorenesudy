@@ -11,14 +11,14 @@ module JusticeGovSk
           if request.include_old_hearings
             checkboxes = form.checkboxes.map(&:name)
             
-            include_old_hearings_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\Z/) }
+            include_old_hearings_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\z/) }
 
             form.checkbox_with(name: include_old_hearings_checkbox_name).check
           end
 
           # Select decree form, only for decrees
           if request.decree_form
-            decree_form_select_box_name = fields.find { |f| f.match(/\A.+cmbForma\Z/) }
+            decree_form_select_box_name = fields.find { |f| f.match(/\A.+cmbForma\z/) }
             
             field = form.field_with(:name => decree_form_select_box_name) 
             field.value = request.decree_form
@@ -27,7 +27,7 @@ module JusticeGovSk
           form = page.form_with(name: form_name)
 
           # Set items per page
-          per_page_field_name = fields.find { |f| f.match(/\A.+cmbAGVCountOnPage\Z/) }
+          per_page_field_name = fields.find { |f| f.match(/\A.+cmbAGVCountOnPage\z/) }
           
           if request.per_page
             form.field_with(name: per_page_field_name).value = request.per_page
@@ -45,7 +45,7 @@ module JusticeGovSk
           # Set page 
           fields = form.fields.map(&:name)
           
-          page_field_name = fields.find { |f| f.match(/\A.+cmbAGVPager\Z/) }
+          page_field_name = fields.find { |f| f.match(/\A.+cmbAGVPager\z/) }
           
           if request.page 
             form.field_with(name: page_field_name).value = request.page
