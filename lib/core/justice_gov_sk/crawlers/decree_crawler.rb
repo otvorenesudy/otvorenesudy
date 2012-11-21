@@ -5,6 +5,8 @@ module JusticeGovSk
       include Identify
       include Pluralize
       
+      attr_accessor :form
+      
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parsers::DecreeParser.new, persistor)
       end
@@ -18,10 +20,10 @@ module JusticeGovSk
         
         @decree.uri = uri    
 
-        @decree.case_number  = @parser.case_number(document)
-        @decree.file_number  = @parser.file_number(document)
-        @decree.date         = @parser.date(document)
-        @decree.ecli         = @parser.ecli(document)
+        @decree.case_number = @parser.case_number(document)
+        @decree.file_number = @parser.file_number(document)
+        @decree.date        = @parser.date(document)
+        @decree.ecli        = @parser.ecli(document)
         
         proceeding(document)
         
@@ -56,17 +58,9 @@ module JusticeGovSk
       end
         
       def form(document)
-        value = @parser.form(document)
+        raise "Decree form not set" if @form.nil?
         
-        unless value.nil?
-          form = decree_form_factory.find_or_create(value)
-          
-          form.value = value
-          
-          @persistor.persist(form) if form.id.nil?
-          
-          @decree.form = form          
-        end
+        @decree.form = @form
       end
       
       def nature(document)

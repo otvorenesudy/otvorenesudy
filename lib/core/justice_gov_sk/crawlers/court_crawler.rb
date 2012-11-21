@@ -22,14 +22,15 @@ module JusticeGovSk
         
         @court = court_factory.find_or_create(uri)
         
-        @court.uri          = uri    
-        @court.name         = @parser.name(document)
-        @court.street       = @parser.street(document)
-        @court.phone        = @parser.phone(document)
-        @court.fax          = @parser.fax(document)
-        @court.media_phone  = @parser.media_phone(document)
-        @court.latitude     = @parser.latitude(document)
-        @court.longitude    = @parser.longitude(document)
+        @court.uri = uri
+           
+        @court.name        = @parser.name(document)
+        @court.street      = @parser.street(document)
+        @court.phone       = @parser.phone(document)
+        @court.fax         = @parser.fax(document)
+        @court.media_phone = @parser.media_phone(document)
+        @court.latitude    = @parser.latitude(document)
+        @court.longitude   = @parser.longitude(document)
         
         media_person = @parser.media_person(document)
         

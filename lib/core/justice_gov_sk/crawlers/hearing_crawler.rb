@@ -22,11 +22,11 @@ module JusticeGovSk
         
         @hearing.uri = uri
 
-        @hearing.case_number  = @parser.case_number(document)
-        @hearing.file_number  = @parser.file_number(document)
-        @hearing.date         = @parser.date(document)
-        @hearing.room         = @parser.room(document)
-        @hearing.note         = @parser.note(document)
+        @hearing.case_number = @parser.case_number(document)
+        @hearing.file_number = @parser.file_number(document)
+        @hearing.date        = @parser.date(document)
+        @hearing.room        = @parser.room(document)
+        @hearing.note        = @parser.note(document)
       
         proceeding(document)
         court(document)
