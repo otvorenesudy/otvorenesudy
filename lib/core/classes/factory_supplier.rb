@@ -4,7 +4,7 @@ class FactorySupplier
   def initialize
     @prototypes = {}
     
-    set Factory.new(Accusation) { |defendant_id, value| Defendant.find_by_defendant_id_and_value(defendant_id, value) }
+    set Factory.new(Accusation) { |defendant_id, value| Accusation.find_by_defendant_id_and_value(defendant_id, value) }
 
     set Factory.new(Court) { |uri| Court.find_by_uri(uri) }
     set Factory.new(CourtJurisdiction)

@@ -46,7 +46,10 @@ module JusticeGovSk
         name = @parser.court(document)
         
         unless name.nil?
-          court = court_factory { Court.similar_by_name(name, 0.65) }.find(name)
+          # TODO rm
+          #court = court_factory { Court.similar_by_name(name, 0.65) }.find(name)
+          
+          court = court_by_name_factory.find(name)
           
           @hearing.court = court
         end
@@ -59,7 +62,7 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'judge'}."
           
           names.each do |name|
-            judge = judge_factory.find(name)
+            judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
             
             judging(judge)
           end
