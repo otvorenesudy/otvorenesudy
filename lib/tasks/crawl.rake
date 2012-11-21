@@ -2,46 +2,46 @@
 
 namespace :crawl do
   task :courts, [:offset, :limit] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Court, args[:offset], args[:limit]
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Court, args.merge(safe: false)
   end
   
   task :judges, [:offset, :limit] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Judge, args[:offset], args[:limit] 
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Judge, args
   end
 
   namespace :hearings do
     task :civil, [:offset, :limit] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CivilHearing, args[:offset], args[:limit]
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CivilHearing, args
     end
 
     task :criminal, [:offset, :limit] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CriminalHearing, args[:offset], args[:limit]
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources CriminalHearing, args
     end
 
     task :special, [:offset, :limit] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources SpecialHearing, args[:offset], args[:limit]
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resources SpecialHearing, args
     end
   end
   
   task :decrees, [:form, :offset, :limit] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Decree, args[:offset], args[:limit]
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resources Decree, args
   end
 
   task :court, [:url] => :environment do |task, args|
-    JusticeGovSk::Helpers::CrawlerHelper.crawl_resource Court, args[:url]
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resource Court, args[:url], args
   end  
   
   namespace :hearing do
     task :civil, [:url] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resource CivilHearing, args[:url]
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resource CivilHearing, args[:url], args
     end
 
     task :criminal, [:url] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resource CriminalHearing, args[:url]
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resource CriminalHearing, args[:url], args
     end
 
     task :special, [:url] => :environment do |task, args|
-      JusticeGovSk::Helpers::CrawlerHelper.crawl_resource SpecialHearing, args[:url]
+      JusticeGovSk::Helpers::CrawlerHelper.crawl_resource SpecialHearing, args[:url], args
     end
   end
 end

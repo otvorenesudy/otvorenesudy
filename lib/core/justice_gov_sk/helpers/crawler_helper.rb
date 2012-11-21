@@ -19,13 +19,13 @@ module JusticeGovSk
       
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.build_lister_and_request(type)
-        type = type.to_s.camelcase
+        type = type.is_a? Class ? type : type.to_s.camelcase.constantize
         
         agent = JusticeGovSk::Agents::ListAgent.new
         
         agent.cache_load_and_store = false
 
-        request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
+        request = "JusticeGovSk::Requests::#{type.name}ListRequest".constantize.new
         
         if type == 'Judge'
           persistor = Persistor.new
@@ -40,9 +40,9 @@ module JusticeGovSk
 
       # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.build_crawler(type)
-        type = type.to_s.camelcase
+        type = type.is_a? Class ? type : type.to_s.camelcase.constantize
         
-        storage = "JusticeGovSk::Storages::#{type}Storage".constantize.new
+        storage = "JusticeGovSk::Storages::#{type.name}Storage".constantize.new
 
         downloader = Downloader.new
 
@@ -56,7 +56,7 @@ module JusticeGovSk
 
         persistor = Persistor.new
 
-        crawler = "JusticeGovSk::Crawlers::#{type}Crawler".constantize.new downloader, persistor
+        crawler = "JusticeGovSk::Crawlers::#{type.name}Crawler".constantize.new downloader, persistor
       end      
       
       def self.run_lister(lister, request, options = {}, &block)
@@ -65,15 +65,23 @@ module JusticeGovSk
         
         _, type = request.class.name.match(/JusticeGovSk::Requests::(?<type>.+)ListRequest/)
         
-        if type == 'Judge'
-          raise "#{lister.class.name} unable to use block" if block_given?
+        if type == Judge
+          raise "#{lister.class.name}: unable to use block" if block_given?
 
           block = lambda do
             lister.crawl_and_process(request, offset, limit)
           end
         else
+          if type == Decree
+            raise "#{request.class.name}: decree form not set" if request.decree_from.blank?
+            
+            options.merge decree_form: DecreeForm.find_by_code(request.decree_form)
+            
+            raise "#{request.class.name}: decree form not found" if options[:decree_form].nil?
+          end
+          
           unless block_given?
-            crawler = build_crawler(type)
+            crawler = build_crawler type, options
             
             block = lambda do
               lister.crawl_and_process(request, offset, limit) do |url|

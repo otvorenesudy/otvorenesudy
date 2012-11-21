@@ -6,15 +6,13 @@ module JusticeGovSk
   module Helpers
     module NormalizeHelper
       def self.court_name(value)
-        value = value.utf8
-        
         value.strip!
         value.gsub!(/\-/, '')
         value.squeeze!(' ')
         
         key = value.ascii.downcase
 
-        court_name_map[key] || (value.split(/\s+/).map do |part|
+        court_name_map[key] || (value.utf8.split(/\s+/).map do |part|
           if ['v', 'nad', 'súd', 'okolie'].include? part
             part.downcase
           elsif !part.match(/\A(I|V)+\z/).nil?
