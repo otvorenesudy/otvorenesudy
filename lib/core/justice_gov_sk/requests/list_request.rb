@@ -14,7 +14,7 @@ module JusticeGovSk
         @page     = 1
         @per_page = 100
         
-        @hearing_or_decree_include_old = true 
+        @include_old_hearing_or_decree = true 
         @decree_form                   = nil
       end
     end
