@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 namespace :storage do
-  task :distribute, [:src, :dst, :verbose] => :environment do |task, args|
+  task :distribute, [:src, :dst, :verbose] => :environment do |_, args|
     src = args[:src]
     dst = args[:dst]
     
@@ -30,7 +30,7 @@ namespace :storage do
     puts "finished"
   end
   
-  task :merge, [:src, :dst, :verbose] => :environment do |task, args|
+  task :merge, [:src, :dst, :verbose] => :environment do |_, args|
     src = args[:src]
     dst = args[:dst]
     
@@ -63,7 +63,7 @@ namespace :storage do
     puts "finished"
   end
   
-  task :stat, [:dir] => :environment do |task, args|
+  task :stat, [:dir] => :environment do |_, args|
     dir = args[:dir]
 
     buckets = {}

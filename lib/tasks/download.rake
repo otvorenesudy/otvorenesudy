@@ -2,7 +2,7 @@
 
 namespace :download do 
   # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
-  task :pages, [:type, :offset, :limit] => :environment do |task, args|
+  task :pages, [:type, :offset, :limit] => :environment do |_, args|
     type    = args[:type].camelcase
     offset  = args[:offset].blank? ? 1 : args[:offset].to_i
     limit   = args[:limit].blank? ? nil : args[:limit].to_i
@@ -44,7 +44,7 @@ namespace :download do
   end  
 
   # supported types: Decree
-  task :documents, [:type] => :environment do |task, args|
+  task :documents, [:type] => :environment do |_, args|
     type = args[:type].camelcase
     
     request = JusticeGovSk::Requests::DocumentRequest.new

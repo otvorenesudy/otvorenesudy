@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+# TODO rm
 namespace :test do
   task :t1 => :environment do
     d = Downloader.new

@@ -3,27 +3,26 @@ module JusticeGovSk
     class ListCrawlerJob
       @queue = :list_crawlers
  
-      def self.perform(type, offset, limit, decree_form)
-        type = type.camelcase
-
-        agent     = JusticeGovSk::Agents::ListAgent.new
-        persistor = Persistor.new
-        request   = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
+      # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
+      def self.perform(type, options = {})
+        type = type.to_s.camelcase.constantize
         
-        request.decree_form = decree_form
-
-        if type == 'Judge'
-          lister = JusticeGovSk::Crawlers::JudgeListCrawler.new agent, persistor
-
-          agent.cache_load_and_store = false
-          lister.crawl_and_process(request, offset, limit)
+        options.symbolize_keys!
+        
+        raise "Offset not set #{options}" if options[:offset].nil?
+        raise "Limit not set"  if options[:limit].nil?
+        
+        lister, request = JusticeGovSk::Helpers::CrawlerHelper.build_lister_and_request type, options
+        
+        if type == Judge
+          JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, options
         else
-          lister    = JusticeGovSk::Crawlers::ListCrawler.new agent
-          storage   = "JusticeGovSk::Storages::#{type}Storage".constantize.new
-          
-          agent.cache_load_and_store = false
-          lister.crawl_and_process(request, offset, limit) do |url|
-            Resque.enqueue(JusticeGovSk::Jobs::CrawlerJob, type, url, decree_form)
+          JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, options do
+            crawler = JusticeGovSk::Helpers::CrawlerHelper.build_crawler type, options
+            
+            lister.crawl_and_process(request, options[:offset], options[:limit]) do |url|
+              Resque.enqueue(JusticeGovSk::Jobs::CrawlerJob, type.name, url, options)
+            end
           end
         end
       end
