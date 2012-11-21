@@ -131,7 +131,7 @@ module JusticeGovSk
       end
       
       def coordinates(document)
-        @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe', verbose: false do |iframe|
+        @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe', empty?: false, verbose: false do |iframe|
           coordinates = {}
                       
           iframe.first[:src].scan(/sll=\-?(\d+\.\d+)\,\-?(\d+\.\d+)/) do |latitude, longitude|
