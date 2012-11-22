@@ -5,7 +5,7 @@ module JusticeGovSk
     module CrawlerHelper
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.crawl_resources(type, options = {})
-        lister, request = build_lister_and_request type, options
+        request, lister = build_request_and_lister type, options
         
         run_lister lister, request, options
       end
