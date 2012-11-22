@@ -21,7 +21,6 @@ describe JusticeGovSk::Parsers::JudgeListParser do
 
     data = @parser.data(list[4])
 
-    puts data[:court]
     data[:court].should     be_eql 'Krajský súd Bratislava'
     data[:name].should      be_eql 'JUDr. Margita Horná'
     data[:position].should  be_eql 'sudca'
@@ -30,7 +29,6 @@ describe JusticeGovSk::Parsers::JudgeListParser do
 
     data = @parser.data(list[86])
 
-    puts data[:court]
     data[:court].should     be_eql 'Okresný súd Považská Bystrica'
     data[:name].should      be_eql 'JUDr. Róbert Jankovský' 
     data[:position].should  be_eql 'podpredseda'
