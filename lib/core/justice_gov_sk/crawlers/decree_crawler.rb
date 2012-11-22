@@ -18,7 +18,10 @@ module JusticeGovSk
                 
         @decree = decree_factory.find_or_create(uri)
         
-        @decree.uri = uri    
+        @decree.uri  = uri
+        @decree.text = fulltext(uri)
+        
+        puts "QQQ #{@decree.text}"
 
         @decree.case_number = @parser.case_number(document)
         @decree.file_number = @parser.file_number(document)
@@ -39,6 +42,28 @@ module JusticeGovSk
         legislations(document)
         
         @persistor.persist(@decree)
+
+        exit
+      end
+      
+      def fulltext(uri)
+        storage = JusticeGovSk::Storages::DecreeDocumentStorage.new
+        request = JusticeGovSk::Requests::DocumentRequest.new
+        agent   = JusticeGovSk::Agents::DocumentAgent.new
+        
+        agent.cache_load_and_store = true
+        agent.cache_root           = storage.root
+        agent.cache_binary         = storage.binary
+        agent.cache_distribute     = storage.distribute
+        agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :pdf
+
+        request.url = uri
+
+        agent.download(request)
+        
+        path = JusticeGovSk::Requests::URL.url_to_path uri, :pdf
+        
+        TextExtractor.new.extract(storage.fullpath path)
       end
       
       def proceeding(document)
