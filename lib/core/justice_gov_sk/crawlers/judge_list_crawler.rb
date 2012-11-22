@@ -35,10 +35,17 @@ module JusticeGovSk
         name = data[:name]
 
         unless name.nil?
-          judge = judge_factory.find_or_create(name)
+          judge = judge_factory.find_or_create(name[:altogether])
           
-          judge.name             = name
+          judge.name             = name[:altogether]
           judge.name_unprocessed = data[:name_unprocessed]
+          
+          judge.prefix   = name[:prefix]
+          judge.first    = name[:first]
+          judge.middle   = name[:middle]
+          judge.last     = name[:last]
+          judge.suffix   = name[:suffix]
+          judge.addition = name[:addition]
           
           @persistor.persist(judge) if judge.id.nil?
           

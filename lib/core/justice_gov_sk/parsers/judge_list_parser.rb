@@ -36,7 +36,7 @@ module JusticeGovSk
       end
 
       def name(value)
-        JusticeGovSk::Helpers::NormalizeHelper.person_name(value)
+        JusticeGovSk::Helpers::NormalizeHelper.person_name_parted(value)
       end
 
       def position(value)

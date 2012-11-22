@@ -226,10 +226,18 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
   create_table "judges", :force => true do |t|
     t.string   "name",             :null => false
     t.string   "name_unprocessed", :null => false
+    t.string   "prefix"
+    t.string   "first",            :null => false
+    t.string   "middle"
+    t.string   "last",             :null => false
+    t.string   "suffix"
+    t.string   "addition"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
 
+  add_index "judges", ["first", "middle", "last"], :name => "index_judges_on_first_and_middle_and_last"
+  add_index "judges", ["last", "middle", "first"], :name => "index_judges_on_last_and_middle_and_first"
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
 
   create_table "judgings", :force => true do |t|
