@@ -1,0 +1,15 @@
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to 'Otvorené súdy', root_path, :id => 'logo' %>
+      <nav>
+        <ul class="nav pull-left">
+          <li><%= link_to 'Súdy',         courts_path %></li>
+          <li><%= link_to 'Sudcovia',     judges_path %></li>
+          <li><%= link_to 'Pojednávania', hearings_path %></li>
+          <li><%= link_to 'Rozhodnutia',  decrees_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
