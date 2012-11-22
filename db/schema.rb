@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
-  add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number", :unique => true
+  add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
-  add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number", :unique => true
+  add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
