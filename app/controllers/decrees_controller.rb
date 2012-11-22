@@ -1,0 +1,2 @@
+class DecreesController < ApplicationController
+end

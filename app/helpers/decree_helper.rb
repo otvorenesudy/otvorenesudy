@@ -1,2 +1,0 @@
-module DecreeHelper
-end
