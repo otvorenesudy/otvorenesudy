@@ -1,5 +1,17 @@
 # encoding: utf-8
 
+# TODO refactor all helpers to be not static, like in app/helpers
+
+# TODO refactor core:
+#
+# do not mix variables:
+# uri -> request
+# content -> ? (resource?)
+#
+# remove subclass specific functionality from superclass,
+# example: mv ListRequest.decree_form -> DecreeListRequest
+# remove lines like: if type < Hearing
+
 module JusticeGovSk
   module Helpers
     module CrawlerHelper
