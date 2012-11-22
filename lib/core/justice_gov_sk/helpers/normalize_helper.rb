@@ -186,6 +186,12 @@ module JusticeGovSk
       
       def self.punctuation(value)
         value.gsub!(/\s*[\.\,\;]/) { |s| "#{s[-1]} " }
+        value.gsub!(/[\.\,\;]\s+[\.\,\;]/) { |s| "#{s[0]}#{s[-1]}" }
+        
+        value.gsub!(/(s\s*\.\s*r\s*\.\s*o|k\s*\.\s*s|a\s*\.\s*s|o\s*\.\s*z|n\s*\.\s*o)\s*\.?/i) do |s|
+          "#{s.gsub(/\s/, '').downcase}#{s[-1] == '.' ? '' : '.'}"
+        end
+        
         value.gsub!(/-/, ' - ')
         
         value.strip.squeeze(' ')
