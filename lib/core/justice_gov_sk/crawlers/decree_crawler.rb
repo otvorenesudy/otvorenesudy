@@ -59,7 +59,13 @@ module JusticeGovSk
         
         path = JusticeGovSk::Requests::URL.url_to_path uri, :pdf
         
-        TextExtractor.new.extract(storage.fullpath path)
+        print "Extracting text ... "
+        
+        text = TextExtractor.new.extract(storage.fullpath path)
+        
+        puts "done (#{text.length} chars)"
+        
+        text
       end
       
       def proceeding(document)
