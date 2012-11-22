@@ -54,7 +54,7 @@ module JusticeGovSk
       end
 
       def self.person_name(value)
-        person_name_parted(value)[:name]
+        person_name_parted(value)[:altogether]
       end
       
       def self.person_name_parted(value)
