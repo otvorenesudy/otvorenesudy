@@ -50,4 +50,9 @@ namespace :crawl do
       JusticeGovSk::Helpers::CrawlerHelper.crawl_resource SpecialHearing, args[:url], safe: true
     end
   end
+  
+  task :decree, [:url, :form] => :environment do |_, args|
+    args.with_defaults decree_form: args[:form], safe: true
+    JusticeGovSk::Helpers::CrawlerHelper.crawl_resource Decree, args[:url], args
+  end
 end
