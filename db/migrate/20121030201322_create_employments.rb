@@ -3,7 +3,7 @@ class CreateEmployments < ActiveRecord::Migration
     create_table :employments do |t|
       t.references :court,          null: false
       t.references :judge,          null: false
-      t.references :judge_position, null: true 
+      t.references :judge_position
 
       t.boolean :active, null: false
       

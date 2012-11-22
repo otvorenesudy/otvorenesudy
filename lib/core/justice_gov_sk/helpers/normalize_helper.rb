@@ -23,8 +23,6 @@ module JusticeGovSk
         end.join ' ')
       end
       
-      private
-      
       def self.court_name_map
         return @court_name_map unless @court_name_map.nil?
         
@@ -48,13 +46,11 @@ module JusticeGovSk
         
         @court_name_map 
       end
-
-      public
       
       def self.municipality_name(value)
         value.strip!
         
-        value == 'Bratislava 33' ? 'Bratislava III' : value
+        value == "Bratislava 33" ? "Bratislava III" : value
       end
 
       def self.person_name(value)
@@ -65,8 +61,8 @@ module JusticeGovSk
         value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '') unless special.nil?
         
         prefixes  = []
-        sufixes   = []
-        classes   = []
+        suffixes  = []
+        additions = []
         uppercase = []
         mixedcase = []
         
@@ -75,9 +71,9 @@ module JusticeGovSk
           
           unless part.match(/\./).nil?
             if not part.match(/(PhD|CSc)\./i).nil?
-              sufixes << part
+              suffixes << part
             elsif not part.match(/\((ml|st)\.\)/).nil?
-              classes << part
+              additions << part.gsub(/[\(\)]/, '')
             else
               prefixes << part
             end
@@ -90,13 +86,14 @@ module JusticeGovSk
           end
         end
         
+        names = mixedcase + uppercase
+        
         value = nil
         
-        value = mixedcase.join(' ') unless mixedcase.empty?
-        value = (value.nil? ? '' : "#{value} ") + uppercase.join(' ') unless uppercase.empty?
+        value = names.join(' ') unless names.empty?
         value = prefixes.join(' ') + ' ' + value unless prefixes.empty?
-        value = value + ' '  + classes.join(' ') unless classes.empty?
-        value = value + ', ' + sufixes.join(' ') unless sufixes.empty?
+        value = value + ' ' + additions.join(' ') unless additions.empty?
+        value = value + ', ' + suffixes.join(' ') unless suffixes.empty?
         
         unless special.nil?
           municipality ||= "Trenčíne" unless special.match(/(TN|Trenčín(e)?)/).nil?

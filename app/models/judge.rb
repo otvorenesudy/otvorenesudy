@@ -1,6 +1,12 @@
 class Judge < ActiveRecord::Base
   attr_accessible :name,
-                  :name_unprocessed
+                  :name_unprocessed,
+                  :prefix,
+                  :first,
+                  :middle,
+                  :last,
+                  :suffix,
+                  :addition
 
   has_many :employments, dependent: :destroy
   

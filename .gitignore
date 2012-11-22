@@ -17,8 +17,8 @@ public/documents/*
 storage
 storage/*
 
-tmp 
-tmp/cache/*
+tmp
+tmp/*
 
 tags
 .tags
