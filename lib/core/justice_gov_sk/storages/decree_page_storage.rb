@@ -1,12 +1,12 @@
 module JusticeGovSk
   module Storages
-    class HearingStorage < JusticeGovSk::Storages::PageStorage
+    class DecreePageStorage < JusticeGovSk::Storages::PageStorage
       def initialize
         @distribute = true
       end
 
       def root
-        @root ||= File.join super, 'hearings'
+        @root ||= File.join super, 'decrees'
       end
     end
   end

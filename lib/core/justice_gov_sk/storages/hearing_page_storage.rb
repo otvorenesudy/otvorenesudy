@@ -1,15 +1,12 @@
 module JusticeGovSk
   module Storages
-    class DocumentStorage
-      include Storage
-      
+    class HearingPageStorage < JusticeGovSk::Storages::PageStorage
       def initialize
-        @binary     = true
         @distribute = true
       end
 
       def root
-        @root ||= File.join super, 'documents'
+        @root ||= File.join super, 'hearings'
       end
     end
   end

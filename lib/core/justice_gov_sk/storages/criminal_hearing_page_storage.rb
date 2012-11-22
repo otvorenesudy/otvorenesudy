@@ -1,6 +1,6 @@
 module JusticeGovSk
   module Storages
-    class CriminalHearingStorage < JusticeGovSk::Storages::HearingStorage
+    class CriminalHearingPageStorage < JusticeGovSk::Storages::HearingPageStorage
       def root
         @root ||= File.join super, 'criminal'
       end

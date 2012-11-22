@@ -1,6 +1,6 @@
 module JusticeGovSk
   module Storages
-    class CourtStorage < JusticeGovSk::Storages::PageStorage
+    class CourtPageStorage < JusticeGovSk::Storages::PageStorage
       def initialize
         @distribute = false
       end

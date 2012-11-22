@@ -1,52 +1,47 @@
 require 'docsplit'
 
-# TODO refactor to work with new storage system and move to classes
-
 class TextExtractor
-  attr_accessor :use_ocr
-
   def initialize
+    @binary      = false
+    @distributed = false
+    
     @document_formats = [:pdf]
-    @cache_path       = File.join(Rails.root, 'tmp', 'documents', 'extracted')
     @use_ocr          = false
   end
 
   def extract(path)
-    path, extension = preextract(path)
+    file, extension = preextract(path)
 
-    # TODO: resolve files with multiple extensions, unite document format list with doc. request  
     case extension
-    when :pdf 
-      Docsplit.extract_text(path, :ocr => @use_ocr, :output => cache_root)
-
-      path    = File.join cache_root, File.basename(path).sub(/\..+\Z/, '.txt')
-      content = File.open(path).read
+    when :pdf
+      Docsplit.extract_text(path, ocr: @use_ocr, output: root)
       
-      # store to force UTF-8 on file and content
-      store path, content
-      content
+      content = load(file)
+      
+      remove(file)
     end
+    
+    content
   end
 
   protected
   
   def preextract(path)
-    raise "File not exists (#{path})" if not File.exists?(path)
+    raise "File not exists #{path}" unless File.exists?(path)
 
     extension = path.split('.').last.to_sym
+    file      = "#{File.basename(path, ".#{extension.to_s}")}.txt"
 
-    raise 'Unsupported document type' if not @document_formats.include?(extension)
-
-    FileUtils.mkpath(cache_root) if not File.exists?(cache_root)
+    raise "Unsupported file type #{extension}" unless @document_formats.include?(extension)
     
-    return path, extension
+    return file, extension
   end
-
+  
   private
   
   include Cache
-  
-  alias :cache_root= :root=
-  alias :cache_root  :root
-end
 
+  def root
+    @root ||= File.join super, 'text'
+  end
+end

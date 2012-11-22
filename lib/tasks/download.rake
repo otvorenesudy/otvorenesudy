@@ -12,7 +12,7 @@ namespace :download do
     agent.cache_load_and_store = false
 
     request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
-    storage = "JusticeGovSk::Storages::#{type}Storage".constantize.new    
+    storage = "JusticeGovSk::Storages::#{type}PageStorage".constantize.new    
     crawler = JusticeGovSk::Crawlers::ListCrawler.new agent
 
     downloader = Downloader.new

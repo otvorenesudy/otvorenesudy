@@ -1,5 +1,7 @@
 require 'net/http'
 
+# TODO refactor: downloader should have a storage, it should not be the storage
+
 class Downloader
   include Output
   

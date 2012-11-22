@@ -42,6 +42,10 @@ module Storage
     end
   end
   
+  def remove(path)
+    FileUtils.rm fullpath(path)
+  end
+  
   def fullpath(path)
     dir    = File.dirname(path)
     dir    = dir == '.' ? '' : dir 
