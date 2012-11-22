@@ -20,8 +20,6 @@ module JusticeGovSk
         
         @decree.uri  = uri
         @decree.text = fulltext(uri)
-        
-        puts "QQQ #{@decree.text}"
 
         @decree.case_number = @parser.case_number(document)
         @decree.file_number = @parser.file_number(document)
@@ -42,8 +40,6 @@ module JusticeGovSk
         legislations(document)
         
         @persistor.persist(@decree)
-
-        exit
       end
       
       def fulltext(uri)
@@ -69,11 +65,11 @@ module JusticeGovSk
       def proceeding(document)
         proceeding = proceeding_by_file_number_factory.find_or_create(@decree.file_number)
         
-        unless proceeding.nil?
-          proceeding.file_number = @decree.file_number
+        proceeding.file_number = @decree.file_number
+        
+        @decree.proceeding = proceeding
           
-          @persistor.persist(proceeding) if proceeding.id.nil?
-        end
+        @persistor.persist(proceeding) if proceeding.id.nil?
       end
       
       def court(document)

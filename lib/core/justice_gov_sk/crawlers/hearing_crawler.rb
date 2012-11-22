@@ -42,11 +42,11 @@ module JusticeGovSk
       def proceeding(document)
         proceeding = proceeding_by_file_number_factory.find_or_create(@hearing.file_number)
         
-        unless proceeding.nil?
-          proceeding.file_number = @hearing.file_number
+        proceeding.file_number = @hearing.file_number
           
-          @persistor.persist(proceeding) if proceeding.id.nil?
-        end
+        @hearing.proceeding = proceeding
+          
+        @persistor.persist(proceeding) if proceeding.id.nil?
       end
       
       def court(document)
