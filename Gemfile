@@ -3,13 +3,18 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 
 #gem 'pg'
+#gem 'pg_seach'
 gem 'mysql2'
 
 gem 'json'
 gem 'nokogiri'
 
-gem 'twitter-bootstrap-rails'
-gem "less-rails"
+# TODO rm
+#gem 'twitter-bootstrap-rails'
+#gem "less-rails"
+
+gem 'bootstrap-sass'
+gem 'font-awesome-sass-rails'
 
 gem 'coffee-script'
 gem 'jquery-rails'
@@ -25,9 +30,6 @@ gem 'curb'
 gem 'mechanize'
 gem 'murmurhash3'
 gem 'docsplit'
-
-# PG search 
-#gem 'pg_seach'
 
 gem 'highcharts-rails', '~> 2.3.0'
 
