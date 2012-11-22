@@ -1,5 +1,9 @@
 require 'resque/tasks'
 
+task "resque:setup" => :environment do 
+  #TODO: configuration
+end
+
 namespace :run do
   # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
   task :crawlers, [:type, :decree_form] => :environment do |_, args|
