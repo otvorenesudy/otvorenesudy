@@ -18,7 +18,7 @@ describe JusticeGovSk::Parsers::CriminalHearingParser do
     @parser.room(document).should          be_eql '7'
     @parser.note(document).should          be_nil
     @parser.section(document).should       be_eql 'Trestný'
-    @parser.court(document).should         be_eql 'OKRESNÝ SÚD ZVOLEN'
+    @parser.court(document).should         be_eql 'Okresný súd Zvolen'
     @parser.judges(document).should        be_eql ['JUDr. Mariana Philadelphyová']
     @parser.subject(document).should       be_eql 'Obžaloba'
     @parser.form(document).should          be_eql 'Hlavné pojednávanie'

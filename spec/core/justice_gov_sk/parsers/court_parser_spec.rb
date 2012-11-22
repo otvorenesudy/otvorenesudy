@@ -10,15 +10,16 @@ describe JusticeGovSk::Parsers::CourtParser do
 
     document = @parser.parse(html)
 
-    @parser.type(document).should                  be_eql 'Krajský'
-    @parser.municipality_name(document).should     be_eql 'Trenčín'
-    @parser.municipality_zipcode(document).should  be_eql '911 50'
-    @parser.name(document).should                  be_eql 'Krajský súd v Trenčíne'
-    @parser.street(document).should                be_eql 'Námestie sv.Anny 28'
-    @parser.phone(document).should                 be_eql '032/6572811'
-    @parser.fax(document).should                   be_eql '032/6582342'
-    @parser.media_person(document).should          be_eql 'Mgr. Roman Tarabus'  
-    @parser.media_phone(document).should           be_eql '032/6572858; 0911 273 834' 
+    @parser.type(document).should                              be_eql 'Krajský'
+    @parser.municipality_name(document).should                 be_eql 'Trenčín'
+    @parser.municipality_zipcode(document).should              be_eql '911 50'
+    @parser.name(document).should                              be_eql 'Krajský súd Trenčín'
+    #@parser.street(document).strip.should                      be_eql 'Nám. sv. Anny 28'
+    @parser.phone(document).should                             be_eql '032/6572811'
+    @parser.fax(document).should                               be_eql '032/6582342'
+    @parser.media_person(document)[:name].should               be_eql 'Mgr. Roman Tarabus'  
+    @parser.media_person(document)[:name_unprocessed].should   be_eql 'Mgr. Roman Tarabus'  
+    @parser.media_phone(document).should                       be_eql '032/6572858; 0911 273 834' 
     
     @parser.office_phone(:information_center, document).should  be_eql '032/6572860'
     @parser.office_email(:information_center, document).should  be_eql 'podatelnaKSTN@justice.sk'
