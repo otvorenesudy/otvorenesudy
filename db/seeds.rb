@@ -6,7 +6,7 @@
 court              = Court.new
 court.uri          = "http://www.nsud.sk" 
 court.type         = CourtType.create value: "Najvyšší"  
-court.municipality = Municipality.create name: "Bratislava", zipcode: "81490"
+court.municipality = Municipality.create name: "Bratislava", zipcode: "814 90"
 court.name         = "Najvyšší súd Slovenskej republiky"
 court.street       = "Župné námestie 13"
 court.save!
@@ -14,7 +14,7 @@ court.save!
 court              = Court.new
 court.uri          = "http://portal.concourt.sk"
 court.type         = CourtType.create value: "Ústavný"  
-court.municipality = Municipality.create name: "Košice", zipcode: "04265"
+court.municipality = Municipality.create name: "Košice", zipcode: "042 65"
 court.name         = "Ústavný súd Slovenskej republiky"
 court.street       = "Hlavná 110"
 court.save!

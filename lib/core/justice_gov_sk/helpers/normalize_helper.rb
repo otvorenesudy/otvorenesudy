@@ -110,7 +110,7 @@ module JusticeGovSk
       end
       
       def self.zipcode(value)
-        value = value.strip.gsub(/\s+/, '')
+        value = value.ascii.strip.gsub(/\s+/, '')
         
         "#{value[0..2]} #{value[3..-1]}"
       end
@@ -157,7 +157,7 @@ module JusticeGovSk
       end
       
       def self.hours(value)
-        value.split(/\,|\;/).map do |interval|
+        value.ascii.split(/\,|\;/).map do |interval|
           interval.split(/\-/).map do |time|
             hour, minute = time.split(/\:/)
             "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"

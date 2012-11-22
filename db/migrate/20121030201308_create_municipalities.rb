@@ -3,7 +3,7 @@ class CreateMunicipalities < ActiveRecord::Migration
     create_table :municipalities do |t|
       t.string :name, null: false
       
-      t.integer :zipcode, null: false
+      t.string :zipcode, null: false
 
       t.timestamps
     end

@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
 
   create_table "municipalities", :force => true do |t|
     t.string   "name",       :null => false
-    t.integer  "zipcode",    :null => false
+    t.string   "zipcode",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
