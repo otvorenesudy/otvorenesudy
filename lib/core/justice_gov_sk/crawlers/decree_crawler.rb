@@ -73,13 +73,20 @@ module JusticeGovSk
       end
       
       def court(document)
+        name = @parser.court(document)
+        
+        unless name.nil?
+          court = court_by_name_factory.find(name)
+          
+          @decree.court = court
+        end
       end
         
       def judge(document)
         name = @parser.judge(document)
         
         unless name.nil?
-          judge = judge_factory.find(name)
+          judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
           
           @decree.judge = judge
         end
