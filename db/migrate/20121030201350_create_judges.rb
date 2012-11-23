@@ -14,7 +14,8 @@ class CreateJudges < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :judges, :name, unique: true
+    add_index :judges, :name,             unique: true
+    add_index :judges, :name_unprocessed, unique: true
     
     add_index :judges, [:first, :middle, :last]
     add_index :judges, [:last, :middle, :first]

@@ -7,8 +7,8 @@ class CreateDecrees < ActiveRecord::Migration
       t.references :court
       t.references :judge
       
-      t.boolean :judge_matched_exactly,  null: false
-      t.string  :judge_name_unprocessed, null: false
+      t.boolean :judge_matched_exactly
+      t.string  :judge_name_unprocessed
       
       t.references :decree_form
       t.references :decree_nature
@@ -32,6 +32,8 @@ class CreateDecrees < ActiveRecord::Migration
     add_index :decrees, :proceeding_id
     add_index :decrees, :court_id
     add_index :decrees, :judge_id
+    
+    add_index :decrees, :judge_name_unprocessed
     
     add_index :decrees, :case_number
     add_index :decrees, :file_number
