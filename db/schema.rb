@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
     t.integer  "proceeding_id"
     t.integer  "court_id"
     t.integer  "judge_id"
+    t.boolean  "judge_matched_exactly",  :null => false
+    t.string   "judge_name_unprocessed", :null => false
     t.integer  "decree_form_id"
     t.integer  "decree_nature_id"
     t.string   "case_number"
@@ -189,10 +191,10 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
   add_index "hearing_types", ["value"], :name => "index_hearing_types_on_value", :unique => true
 
   create_table "hearings", :force => true do |t|
-    t.string   "uri",                :null => false
+    t.string   "uri",                          :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.integer  "hearing_type_id",    :null => false
+    t.integer  "hearing_type_id",              :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"
     t.integer  "hearing_form_id"
@@ -203,10 +205,12 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
     t.string   "special_type"
     t.datetime "commencement_date"
     t.integer  "chair_judge_id"
+    t.boolean  "chair_judge_matched_exactly"
+    t.string   "chair_judge_name_unprocessed"
     t.boolean  "selfjudge"
     t.text     "note"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
@@ -241,10 +245,12 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
 
   create_table "judgings", :force => true do |t|
-    t.integer  "judge_id",   :null => false
-    t.integer  "hearing_id", :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "judge_id",               :null => false
+    t.boolean  "judge_matched_exactly",  :null => false
+    t.string   "judge_name_unprocessed", :null => false
+    t.integer  "hearing_id",             :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   add_index "judgings", ["hearing_id", "judge_id"], :name => "index_judgings_on_hearing_id_and_judge_id", :unique => true

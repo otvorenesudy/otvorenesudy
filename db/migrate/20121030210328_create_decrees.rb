@@ -7,6 +7,9 @@ class CreateDecrees < ActiveRecord::Migration
       t.references :court
       t.references :judge
       
+      t.boolean :judge_matched_exactly,  null: false
+      t.string  :judge_name_unprocessed, null: false
+      
       t.references :decree_form
       t.references :decree_nature
             

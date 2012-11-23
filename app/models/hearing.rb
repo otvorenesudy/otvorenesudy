@@ -6,6 +6,8 @@ class Hearing < ActiveRecord::Base
                   :room,
                   :special_type,
                   :commencement_date,
+                  :chair_judge_matched_exactly,
+                  :chair_judge_name_unprocessed,
                   :selfjudge,
                   :note
   

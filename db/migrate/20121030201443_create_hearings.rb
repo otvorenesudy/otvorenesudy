@@ -20,6 +20,8 @@ class CreateHearings < ActiveRecord::Migration
       t.string     :special_type
       t.datetime   :commencement_date
       t.references :chair_judge
+      t.boolean    :chair_judge_matched_exactly
+      t.string     :chair_judge_name_unprocessed
       t.boolean    :selfjudge
 
       t.text :note

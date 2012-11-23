@@ -1,5 +1,7 @@
 class Decree < ActiveRecord::Base
   attr_accessible :uri,
+                  :judge_matched_exactly,
+                  :judge_name_unprocessed,
                   :case_number,
                   :file_number,
                   :date,
