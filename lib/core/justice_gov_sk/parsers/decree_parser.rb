@@ -34,8 +34,8 @@ module JusticeGovSk
       end  
         
       def judge(document)
-        find_value_by_label 'judge', document, 'Meno a priezvisko sudcu, VSÚ' do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.person_name(div.search('a').first.text)
+        find_value_by_label 'judge', document, 'Meno a priezvisko sudcu, VSÚ', verbose: false do |div|
+          JusticeGovSk::Helpers::NormalizeHelper.person_name_parted(div.search('a').first.text)
         end
       end
         

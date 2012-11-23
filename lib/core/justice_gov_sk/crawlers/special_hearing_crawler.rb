@@ -24,7 +24,20 @@ module JusticeGovSk
         name = @parser.chair_judge(document)
         
         unless name.nil?
-          @hearing.chair_judge = judge_factory.find(name)
+          judge = judge_factory.find(name[:altogether])
+          exact = nil
+          
+          unless judge.nil?
+            exact = true
+          # TODO refactor, see todos in decree crawler
+          #else
+          #  judge = judge_factory_by_last_and_middle_and_first.find(name[:last], name[:middle], name[:first])
+          #  exact = false unless judge.nil?
+          end
+          
+          @hearing.chair_judge                  = judge
+          @hearing.chair_judge_matched_exactly  = exact
+          @hearing.chair_judge_name_unprocessed = name[:unprocessed]
         end
       end
       

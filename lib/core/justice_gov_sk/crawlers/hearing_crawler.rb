@@ -69,9 +69,18 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'judge'}."
           
           names.each do |name|
-            judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
+            judge = judge_factory.find(name[:altogether])
+            exact = nil
             
-            judging(judge)
+            unless judge.nil?
+              exact = true
+            # TODO refactor, see todos in decree crawler
+            #else
+            #  judge = judge_factory_by_last_and_middle_and_first(name[:names])
+            #  exact = false unless judge.nil?
+            end
+            
+            judging(judge, name, exact)
           end
         end
       end
@@ -134,10 +143,13 @@ module JusticeGovSk
       
       private
       
-      def judging(judge)
+      def judging(judge, name, exact)
         judging = judging_factory.find_or_create(judge.id, @hearing.id)
         
-        judging.judge   = judge
+        judging.judge                  = judge
+        judging.judge_matched_exactly  = exact
+        judging.judge_name_unprocessed = name[:unprocessed]
+
         judging.hearing = @hearing
         
         @persistor.persist(judging) if judging.id.nil?

@@ -58,7 +58,8 @@ module JusticeGovSk
       end
       
       def self.person_name_parted(value)
-                value = value.utf8
+        copy  = value.clone 
+        value = value.utf8
         
         _, special = *value.match(/((\,\s+)?hovorca)?\s+KS\s+(v\s+)?(?<municipality>.+)\z/i) 
         
@@ -107,15 +108,16 @@ module JusticeGovSk
         end
         
         {
-          altogether: value,  
-          prefix:     prefixes.count.zero? ? nil : prefixes.join(' '),
-          first:      names.count >= 2 ? names.first.to_s : nil,
-          middle:     names.count >= 3 ? names[1..-2].join(' ') : nil,
-          last:       names.last.to_s,
-          suffix:     suffixes.count.zero? ? nil : suffixes.join(' '),
-          addition:   additions.count.zero? ? nil : additions.join(' '),
-          role:       role
-        }        
+          unprocessed: copy.strip,
+          altogether:  value,
+          prefix:      prefixes.empty? ? nil : prefixes.join(' '),
+          first:       names.count >= 2 ? names.first.to_s : nil,
+          middle:      names.count >= 3 ? names[1..-2].join(' ') : nil,
+          last:        names.last.to_s,
+          suffix:      suffixes.empty? ? nil : suffixes.join(' '),
+          addition:    additions.empty? ? nil : additions.join(' '),
+          role:        role
+        }
       end
       
       def self.zipcode(value)

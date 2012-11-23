@@ -57,7 +57,7 @@ namespace :download do
     agent.cache_distribute     = storage.distribute
     agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :pdf
 
-    dir = File.join JusticeGovSk::Storages::DecreeStorage.new.root
+    dir = File.join JusticeGovSk::Storages::DecreePageStorage.new.root
 
     FileUtils.mkpath dir unless Dir.exists? dir
 

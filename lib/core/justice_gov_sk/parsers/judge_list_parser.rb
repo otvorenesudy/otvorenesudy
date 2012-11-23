@@ -12,12 +12,11 @@ module JusticeGovSk
       def data(element)
         find_values 'data', element, 'td', verbose: false do |td|
           {
-            court:            court(td[3].text),
-            name:             name(td[1].text),
-            name_unprocessed: td[1].text.strip,
-            position:         position(td[2].text.strip),
-            active:           activity(td[0]),
-            note:             note(td[4].text.strip)
+            court:    court(td[3].text),
+            name:     name(td[1].text),
+            position: position(td[2].text.strip),
+            active:   activity(td[0]),
+            note:     note(td[4].text.strip)
           }
         end
       end

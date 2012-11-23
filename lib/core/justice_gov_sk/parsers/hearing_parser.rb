@@ -46,12 +46,12 @@ module JusticeGovSk
       end
       
       def judges(document)
-        find_rows_by_group 'judges', document, 'Sudcovia' do |divs|
+        find_rows_by_group 'judges', document, 'Sudcovia', verbose: false do |divs|
           names = []
           
           divs.each_with_index do |div, i|
             if div[:class] == 'popiska' && div.text.blank? && divs[i + 1][:class] == 'hodnota'
-              names << JusticeGovSk::Helpers::NormalizeHelper.person_name(divs[i + 1].text)
+              names << JusticeGovSk::Helpers::NormalizeHelper.person_name_parted(divs[i + 1].text)
             end
           end
           

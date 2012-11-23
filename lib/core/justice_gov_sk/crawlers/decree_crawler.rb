@@ -87,14 +87,35 @@ module JusticeGovSk
           @decree.court = court
         end
       end
-        
+      
+      # TODO DB: refactor judge to decree / hearing relations
+      # - remove chair judge from decrees, add is_chair to judgings
+      # - add binging table (Judgements for example) between decrees and judges
+      #   with structure same as judgings
+      # - remove matched_exactly, add similarity <- 3 gram sim. value by pgsql 
+      
+      # TODO make helper method for matching judges: decree, hearing & hearing chair_judge
       def judge(document)
         name = @parser.judge(document)
         
         unless name.nil?
-          judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
+          # TODO rm
+          #judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
           
-          @decree.judge = judge
+          judge = judge_factory.find(name[:altogether])
+          exact = nil
+          
+          unless judge.nil?
+            exact = true
+          # TODO refactor, see todos in decree crawler
+          #else
+          #  judge = judge_factory_by_last_and_middle_and_first(name[:names])
+          #  exact = false unless judge.nil?
+          end
+          
+          @decree.judge                  = judge
+          @decree.judge_matched_exactly  = exact
+          @decree.judge_name_unprocessed = name[:unprocessed]
         end
       end
       

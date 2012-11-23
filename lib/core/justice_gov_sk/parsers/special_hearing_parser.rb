@@ -24,8 +24,8 @@ module JusticeGovSk
       end
 
       def chair_judge(document)
-        find_value_by_label 'chair judge', document, 'Predseda senátu' do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.person_name(div.text)
+        find_value_by_label 'chair judge', document, 'Predseda senátu', verbose: false do |div|
+          JusticeGovSk::Helpers::NormalizeHelper.person_name_parted(div.text)
         end
       end
       

@@ -38,7 +38,7 @@ module JusticeGovSk
           judge = judge_factory.find_or_create(name[:altogether])
           
           judge.name             = name[:altogether]
-          judge.name_unprocessed = data[:name_unprocessed]
+          judge.name_unprocessed = name[:unprocessed]
           
           judge.prefix   = name[:prefix]
           judge.first    = name[:first]
