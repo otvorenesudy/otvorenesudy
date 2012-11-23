@@ -60,7 +60,7 @@ module JusticeGovSk
       def self.person_name_parted(value)
                 value = value.utf8
         
-        _, special = *value.match(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?(?<municipality>.+)\z/i) 
+        _, special = *value.match(/((\,\s+)?hovorca)?\s+KS\s+(v\s+)?(?<municipality>.+)\z/i) 
         
         value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '') unless special.nil?
         
