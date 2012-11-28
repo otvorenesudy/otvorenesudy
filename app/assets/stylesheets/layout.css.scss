@@ -12,6 +12,24 @@ body {
 // navbar
 
 .navbar-inverse {
+  a.brand {
+    margin: 0px;
+    padding: 0px;
+
+    width:  40px;
+    height: 40px;
+    
+    img {
+      opacity: 0.5625;
+      filter: alpha(opacity=56);
+      
+      &:active, &:hover {
+        opacity: 1.0;
+        filter: alpha(opacity=100);
+      }
+    }
+  }
+  
   a {
     height: 20px;
     line-height: 20px;
@@ -24,12 +42,12 @@ body {
       font-size: 20px;
       text-decoration: none;
       
-      &:hover {
-        color: $navbarInverseLinkColorHover;
-      }
-      
       &:active {
         color: $navbarInverseLinkColorActive;
+      }
+
+      &:hover {
+        color: $navbarInverseLinkColorHover;
       }
     }
   }
