@@ -15,6 +15,7 @@ gem 'nokogiri'
 
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
+gem "mootools-rails", "~> 1.0.1"
 
 gem 'coffee-script'
 gem 'jquery-rails'
