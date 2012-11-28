@@ -1,7 +1,7 @@
-<!-- <header class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to 'Otvorené súdy', root_path, :class => 'brand' %>
+      <%= link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, :class => :brand %>
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
@@ -10,13 +10,24 @@
           <li><%= link_to 'Pojednávania', hearings_path %></li>
           <li><%= link_to 'Rozhodnutia', decrees_path %></li>
         </ul>
+        <ul class="nav pull-right">
+          <li><%= link_to icon_tag :search, nil %></li>
+          <li><%= link_to icon_tag :signal, root_path %></li>
+        </ul>
       </nav>
     </div>
   </div>
+</div>
+
+<header class="jumbotron subhead">
+  <div class="container">
+    <h1>Customize and download</h1>
+    <p class="lead"><a href="https://github.com/twitter/bootstrap/zipball/master">Download Bootstrap</a> or customize variables, components, JavaScript plugins, and more.</p>
+  </div>
 </header>
--->
+
+<!--
 <header>
-  
   <div class="container navbar">
     <div class="page-header">
       <a href="#"></a>
@@ -25,6 +36,5 @@
       <%= link_to raw('<i class="icon-signal" style="font-size: 30pt;"></i>'), stats_path  %>
     </div>
   </div>
-
-
 </header>
+-->

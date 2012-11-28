@@ -6,57 +6,94 @@ html {
 }
 
 body {
-  padding-top: 20px;
+  padding-top: 40px;
+}
 
-  .navbar {
-    .logo {
-      float: left;
-    }
+// navbar
 
-    .page-header {
-      padding: 20px;
-      padding-top: 5px;
-      color: $linkColor;
+.navbar-inverse {
+  a.brand {
+    margin: 0px;
+    padding: 0px;
 
-      a {
-        padding-right: 20px;
-        font-size: 30pt;
-
-        &:hover {
-          color: $purple;
-          text-decoration: none;
-        }
+    width:  40px;
+    height: 40px;
+    
+    img {
+      opacity: 0.5625;
+      filter: alpha(opacity=56);
+      
+      &:active, &:hover {
+        opacity: 1.0;
+        filter: alpha(opacity=100);
       }
     }
   }
+  
+  a {
+    height: 20px;
+    line-height: 20px;
 
-  .chart {
-    margin: auto;
-    margin-bottom: 100px;
+    i {
+      margin: 0px;
+      padding: 0px;
+      
+      color: $navbarInverseLinkColor;
+      font-size: 20px;
+      text-decoration: none;
+      
+      &:active {
+        color: $navbarInverseLinkColorActive;
+      }
 
-    color: $linkColorHover;
-
-    .highcharts-title {
-      text-align: center;
-      width: 300px;
-      padding-bottom: 10px;
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .highcharts-container {
-      min-width: 400px;
-      height:    600px;
-      margin:   0 auto;
-    }
-
-    .highbarcharts-container {
-      min-width: 400px;
-      height:    1000px;
-      margin:   0 auto;
+      &:hover {
+        color: $navbarInverseLinkColorHover;
+      }
     }
   }
 }
 
+// header
 
+header {
+  padding: 40px 0px 40px 0px;
+  
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: transparent;
+  background-origin: padding-box;
+
+  // TODO fixme
+  background-image: -moz-linear-gradient(270deg, $linkColor 0%, $blue 100%);
+  background-image: -webkit-linear-gradient(270deg, $linkColor 0%, $blue 100%);
+}
+
+// highcharts
+
+.chart {
+  margin: auto;
+  margin-bottom: 100px;
+
+  color: $linkColorHover;
+
+  .highcharts-title {
+    text-align: center;
+    width: 300px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .highcharts-container {
+    min-width: 400px;
+    height:    600px;
+    margin:   0 auto;
+  }
+
+  .highbarcharts-container {
+    min-width: 400px;
+    height:    1000px;
+    margin:   0 auto;
+  }
+}
