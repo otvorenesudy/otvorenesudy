@@ -5,6 +5,7 @@ Otvorenesudy::Application.routes.draw do
   match '/contact', :to => 'static_pages#contact'
   match '/home',    :to => 'static_pages#home'
   match '/stats',   :to => 'static_pages#stats'
+  match '/timeline',  :to => 'static_pages#timeline'
 
   resources :courts
   resources :judges
