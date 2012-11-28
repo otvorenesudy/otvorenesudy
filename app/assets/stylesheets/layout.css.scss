@@ -6,40 +6,44 @@ html {
 }
 
 body {
-  padding-top: 20px;
+  padding-top: 40px;
+}
 
-  .navbar {
-    .logo {
-      float: left;
-    }
+// header and footer
 
-    .page-header {
-      padding: 20px;
-      padding-top: 5px;
-      color: $linkColor;
+.navbar-inverse {
+  a {
+    height: 20px;
+    line-height: 20px;
 
-      a {
-        padding-right: 20px;
-        font-size: 30pt;
-
-        &:hover {
-          color: $purple;
-          text-decoration: none;
-        }
+    i {
+      margin: 0px;
+      padding: 0px;
+      
+      color: $navbarInverseLinkColor;
+      font-size: 20px;
+      text-decoration: none;
+      
+      &:hover {
+        color: $navbarInverseLinkColorHover;
+      }
+      
+      &:active {
+        color: $navbarInverseLinkColorActive;
       }
     }
   }
-
-  .highcharts-title {
-    text-align: center;
-    padding-bottom: 10px;
-  }
-
-  .highcharts-container {
-    min-width: 400px;
-    height:    400px;
-    margin:   0 auto;
-  }
 }
 
+// highcharts
 
+.highcharts-title {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.highcharts-container {
+  min-width: 400px;
+  height:    400px;
+  margin:   0 auto;
+}

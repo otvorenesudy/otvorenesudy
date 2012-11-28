@@ -1,4 +1,4 @@
-<!-- <header class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
       <%= link_to 'Otvorené súdy', root_path, :class => 'brand' %>
@@ -10,13 +10,17 @@
           <li><%= link_to 'Pojednávania', hearings_path %></li>
           <li><%= link_to 'Rozhodnutia', decrees_path %></li>
         </ul>
+        <ul class="nav pull-right">
+          <li><%= link_to icon_tag :search, nil %></li>
+          <li><%= link_to icon_tag :signal, root_path %></li>
+        </ul>
       </nav>
     </div>
   </div>
-</header>
--->
+</div>
+
+<!--
 <header>
-  
   <div class="container navbar">
     <div class="page-header">
       <a href="#"></a>
@@ -25,6 +29,5 @@
       <%= link_to raw('<i class="icon-signal" style="font-size: 30pt;"></i>'), stats_path  %>
     </div>
   </div>
-
-
 </header>
+-->
