@@ -16,6 +16,7 @@
     </div>
     <%= render 'layouts/footer' %>
     <%= javascript_include_tag 'application' %>
+    <%= yield :scripts %>
     <%= render 'shared/shim' %>
     <%= render 'layouts/debug' if Rails.env.development? %>
   </body>

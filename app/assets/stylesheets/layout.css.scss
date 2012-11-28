@@ -9,8 +9,6 @@ body {
   padding-top: 20px;
 
   .navbar {
-    width: 100%;
-    
     .logo {
       float: left;
     }
@@ -22,6 +20,7 @@ body {
 
       a {
         padding-right: 20px;
+        font-size: 30pt;
 
         &:hover {
           color: $purple;
@@ -29,6 +28,17 @@ body {
         }
       }
     }
+  }
+
+  .highcharts-title {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .highcharts-container {
+    min-width: 400px;
+    height:    400px;
+    margin:   0 auto;
   }
 }
 

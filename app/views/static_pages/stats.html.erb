@@ -1,0 +1,287 @@
+<% content_for(:scripts) do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() { 
+  $(function () {
+      var chart;
+      $(document).ready(function() {
+        chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'judges-name-chart',
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: true
+              },
+              title: {
+                  text: ''
+              },
+              tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                  percentageDecimals: 2 
+              },
+              plotOptions: {
+                  pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                          enabled: true,
+                          color: '#000000',
+                          connectorColor: '#000000',
+                          formatter: function() {
+                              return '<b>'+ this.point.name;
+                          }
+                      }
+                  }
+                           },
+credits: {
+enabled: false 
+         },
+
+              series: [{
+                  type: 'pie',
+                  name: 'Počet sudcov s menom',
+                  data: [
+
+['Eva', 3.9],
+['Mária', 3.42],
+['Jana', 3.01],
+['Peter', 2.67],
+['Anna', 2.4],
+['Ján', 2.33],
+['Viera', 2.19],
+['Zuzana', 2.19],
+['Katarína', 2.12],
+['Jozef', 1.99],
+
+                    ]
+              }]
+          });
+      });
+      
+  });
+
+  $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'judges-surname-chart',
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: true
+              },
+              title: {
+                  text: ''
+              },
+              tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                  percentageDecimals: 2
+              },
+              plotOptions: {
+                  pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                          enabled: true,
+                          color: '#000000',
+                          connectorColor: '#000000',
+                          formatter: function() {
+                            return '<b>'+ this.point.name + '</b>';
+                          }
+                      }
+                  }
+                           },
+credits: {
+enabled: false 
+         },
+
+ 
+
+              series: [{
+                  type: 'pie',
+                  name: 'Počet sudcov s menom',
+                  data: [
+
+
+
+['Kováčová', 8.77],
+['Varga', 8.77],
+['Vargová', 8.77],
+['Farkašová', 8.77],
+['Tóth', 7.02],
+['Balážová', 7.02],
+['Lukáč', 7.02],
+['Marková', 7.02],
+['Novotná', 5.26],
+['Tóthová', 5.26],
+['Filová', 5.26],
+['Farkaš', 5.26],
+['Horváthová', 5.26],
+['Kohútová', 5.26],
+['Mészárosová', 5.26],
+                    ]
+              }]
+          });
+      });
+      
+  });
+
+
+
+
+   $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'courts-employments-chart',
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: true
+              },
+              title: {
+                  text: ''
+              },
+              tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                  percentageDecimals: 2
+              },
+              plotOptions: {
+                  pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                          enabled: true,
+                          color: '#000000',
+                          connectorColor: '#000000',
+                          formatter: function() {
+                            return '<b>'+ this.point.name + '</b>';
+                          }
+                      }
+                  }
+                           },
+credits: {
+enabled: false 
+         },
+
+ 
+
+              series: [{
+                  type: 'pie',
+                  name: 'Počet sudcov s menom',
+                  data: [
+
+
+['Krajský súd Banská Bystrica', 246.24],
+['Krajský súd Bratislava', 754.1],
+['Krajský súd Košice', 307.05],
+['Krajský súd Nitra', 104.04],
+['Krajský súd Prešov', 114.98],
+['Krajský súd Trenčín', 83.79],
+['Krajský súd Trnava', 61.56],
+['Krajský súd Žilina', 109.44],
+['Najvyšší súd Slovenskej republiky', 697.74],
+['Okresný súd Bánovce nad Bebravou', 1.71],
+['Okresný súd Banská Bystrica', 61.56],
+['Okresný súd Bardejov', 6.84],
+['Okresný súd Bratislava I', 138.51],
+['Okresný súd Bratislava II', 93.64],
+['Okresný súd Bratislava III', 79.07],
+['Okresný súd Bratislava IV', 30.16],
+['Okresný súd Bratislava v', 70.04],
+['Okresný súd Brezno', 8.28],
+['Okresný súd Čadca', 9.85],
+['Okresný súd Dolný Kubín', 4.38],
+['Okresný súd Dunajská Streda', 11.56],
+['Okresný súd Galanta', 19.77],
+['Okresný súd Humenné', 15.39],
+['Okresný súd Kežmarok', 4.38],
+['Okresný súd Komárno', 15.39],
+['Okresný súd Košice I', 120.66],
+['Okresný súd Košice II', 83.79],
+['Okresný súd Košice okolie', 22.16],
+['Okresný súd Levice', 17.51],
+['Okresný súd Liptovský Mikuláš', 9.85],
+['Okresný súd Lučenec', 19.77],
+['Okresný súd Malacky', 6.84],
+['Okresný súd Martin', 22.16],
+['Okresný súd Michalovce', 30.16],
+['Okresný súd Námestovo', 5.54],
+['Okresný súd Nitra', 65.73],
+['Okresný súd Nové Mesto nad Váhom', 8.28],
+['Okresný súd Nové Zámky', 22.16],
+['Okresný súd Partizánske', 2.46],
+['Okresný súd Pezinok', 15.39],
+['Okresný súd Piešťany', 8.28],
+['Okresný súd Poprad', 19.77],
+['Okresný súd Považská Bystrica', 11.56],
+['Okresný súd Prešov', 61.56],
+['Okresný súd Prievidza', 22.16],
+['Okresný súd Revúca', 2.46],
+['Okresný súd Rimavská Sobota', 15.39],
+['Okresný súd Rožňava', 6.84],
+['Okresný súd Ružomberok', 4.38],
+['Okresný súd Senica', 8.28],
+['Okresný súd Skalica', 2.46],
+['Okresný súd Spišská Nová Ves', 22.16],
+['Okresný súd Stará Ľubovňa', 3.35],
+['Okresný súd Svidník', 4.38],
+['Okresný súd Topoľčany', 8.28],
+['Okresný súd Trebišov', 17.51],
+['Okresný súd Trenčín', 39.4],
+['Okresný súd Trnava', 53.63],
+['Okresný súd Veľký Krtíš', 4.38],
+['Okresný súd Vranov nad Topľou', 6.84],
+['Okresný súd Zvolen', 24.69],
+['Okresný súd Žiar nad Hronom', 9.85],
+['Okresný súd Žilina', 74.49],
+['Špecializovaný Trestný súd', 11.56],
+                    ]
+              }]
+          });
+      });
+      
+  });
+
+
+});
+</script>
+<% end %>
+
+<!-- Rails:  
+judges = Judge.group(:first).order("count_all desc").limit(10).count
+judges_count = 0
+judges.each { |k, v| judges_count += v }
+judges.each do |k,v| puts "['#{k}', #{(v.to_f*100/judges_count).round(2)}]," end
+
+-->
+<h2 class="highcharts-title">Sudcovia podľa mena</h2>
+<div id="judges-name-chart" class="highcharts-container">
+
+</div>
+
+<!-- Rails:  
+judges = Judge.group(:last).order("count_all desc").limit(15).count
+judges_count = 0
+judges.each { |k, v| judges_count += v }
+judges.sort_by(:p.each do |k,v| puts "['#{k}', #{(v.to_f*100/judges_count).round(2)}]," end
+
+-->
+<h2 class="highcharts-title">Sudcovia podľa priezviska</h2>
+<div id="judges-surname-chart" class="highcharts-container">
+
+
+</div>
+
+
+<!-- Rails:  
+
+employment_count = Employment.count
+courts = Court.joins(:employments, :judges).group("courts.name").order("count_all").count
+courts.each do |k,v| puts "['#{k}', #{(v.to_f*100/employment_count).round(2)}]," end 
+
+-->
+<h2 class="highcharts-title">Súdy podľa počtu zamestnancov</h2>
+<div id="courts-employments-chart" class="highcharts-container">
+
+
+</div>
