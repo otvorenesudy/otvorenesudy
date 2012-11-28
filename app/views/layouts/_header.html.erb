@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, :class => :brand %>
+      <%= link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, class: :brand %>
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
@@ -22,7 +22,16 @@
   </div>
 </div>
 
-<header class="jumbotron subhead">
+<div class="search hero-unit">
+  <%= form_tag nil, method: 'get', class: 'form-search' do |f| %>
+    <div class="input-append">
+      <%= search_field_tag :search, params[:search], class: 'search-query' %>
+      <%= button_tag icon_tag(:search, :white), name: nil, class: 'btn' %>
+    </div>
+  <% end %>
+</div>
+
+<header class="jumbotron masthead">
   <div class="container">
     <h1>Customize and download</h1>
     <p class="lead"><a href="https://github.com/twitter/bootstrap/zipball/master">Download Bootstrap</a> or customize variables, components, JavaScript plugins, and more.</p>

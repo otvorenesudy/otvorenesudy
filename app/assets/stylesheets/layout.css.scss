@@ -13,11 +13,10 @@ body {
 
 .navbar-inverse {
   a.brand {
-    margin: 0px;
-    padding: 0px;
-
     width:  40px;
     height: 40px;
+    margin:  0px;
+    padding: 0px;
     
     img {
       opacity: 0.5625;
@@ -53,6 +52,24 @@ body {
   }
 }
 
+// search
+
+div.search {
+  margin: 0px;
+  
+  .form-search {
+    margin: 0px;
+    padding: 0px;    
+
+   .input-append {
+      display: block;
+      width: 272px;
+      margin: 0px auto;
+      //background: #000; // TODO fix width
+    }
+  }
+}
+
 // header
 
 header {
@@ -66,6 +83,12 @@ header {
   // TODO fixme
   background-image: -moz-linear-gradient(270deg, $linkColor 0%, $purple 100%);
   background-image: -webkit-linear-gradient(270deg, $linkColor 0%, $purple 100%);
+  
+  color: $white;
+  
+  h1 {
+    
+  }
 }
 
 // footer
@@ -107,12 +130,12 @@ footer {
   color: $linkColorHover;
 
   .highcharts-title {
-    text-align: center;
     width: 300px;
     padding-bottom: 10px;
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
+
+    text-align: center;
   }
 
   .highcharts-container {
