@@ -6,5 +6,32 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 20px;
+
+  #navbar {
+    width: 100%;
+    
+    .logo {
+      float: left;
+    }
+
+    .page-header {
+      float: right;
+
+      padding: 30px;
+      padding-top: 0px;
+      color: $linkColor;
+
+      a {
+        padding-right: 20px;
+
+        &:hover {
+          color: $purple;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
+
+
