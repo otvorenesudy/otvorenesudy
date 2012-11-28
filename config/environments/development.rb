@@ -34,4 +34,8 @@ Otvorenesudy::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # load only specified locales
+  config.i18n.available_locales = :sk
+  config.i18n.locale            = :sk
 end
