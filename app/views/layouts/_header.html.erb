@@ -5,14 +5,17 @@
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
+          <% # TODO rm
+           #content_tag :li, link_to('Súdy', courts_path), class: current_page?(courts_path) ? :active : nil
+           %>
           <li><%= link_to 'Súdy', courts_path %></li>
           <li><%= link_to 'Sudcovia', judges_path %></li>
           <li><%= link_to 'Pojednávania', hearings_path %></li>
           <li><%= link_to 'Rozhodnutia', decrees_path %></li>
         </ul>
+        
         <ul class="nav pull-right">
-          <li><%= link_to icon_tag :search, nil %></li>
-          <li><%= link_to icon_tag :signal, root_path %></li>
+          <li><%= link_to_with_tooltip icon_tag(:signal), stats_path, 'Štatistiky' %></li>
         </ul>
       </nav>
     </div>
@@ -26,15 +29,3 @@
   </div>
 </header>
 
-<!--
-<header>
-  <div class="container navbar">
-    <div class="page-header">
-      <a href="#"></a>
-      <%= link_to raw('<i class="icon-home" style="font-size: 30pt;"></i>'), root_path %>
-      <%= link_to raw('<i class="icon-search" style="font-size: 30pt;"></i>'), nil %>
-      <%= link_to raw('<i class="icon-signal" style="font-size: 30pt;"></i>'), stats_path  %>
-    </div>
-  </div>
-</header>
--->

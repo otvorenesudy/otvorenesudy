@@ -64,8 +64,38 @@ header {
   background-origin: padding-box;
 
   // TODO fixme
-  background-image: -moz-linear-gradient(270deg, $linkColor 0%, $blue 100%);
-  background-image: -webkit-linear-gradient(270deg, $linkColor 0%, $blue 100%);
+  background-image: -moz-linear-gradient(270deg, $linkColor 0%, $purple 100%);
+  background-image: -webkit-linear-gradient(270deg, $linkColor 0%, $purple 100%);
+}
+
+// footer
+
+footer {
+  margin-top: 40px;
+  border-top: 1px solid $grayLighter;
+  
+  background: $grayLighter;
+  color: $grayLight;
+
+  a {
+    color: $gray;
+
+    &:hover { 
+      color: $grayDarker;
+      text-decoration: none;
+    }
+  }  
+
+  ul {
+    margin: 10px;
+    
+    list-style: none;
+
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
 }
 
 // highcharts
@@ -87,13 +117,13 @@ header {
 
   .highcharts-container {
     min-width: 400px;
-    height:    600px;
-    margin:   0 auto;
+    height: 600px;
+    margin: 0 auto;
   }
 
   .highbarcharts-container {
     min-width: 400px;
-    height:    1000px;
-    margin:   0 auto;
+    height: 1000px;
+    margin: 0 auto;
   }
 }
