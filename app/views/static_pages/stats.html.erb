@@ -12,11 +12,12 @@ $(document).ready(function() {
                   plotShadow: true
               },
               title: {
-                  text: ''
+text: 'Celkový počet sudcov: <b>' + 1460 + '</b>'
               },
               tooltip: {
-                  pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-                  percentageDecimals: 2 
+                  formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: ' + this.point.percentage.toPrecision(3) + '%';
+                    }
               },
               plotOptions: {
                   pie: {
@@ -27,7 +28,7 @@ $(document).ready(function() {
                           color: '#000000',
                           connectorColor: '#000000',
                           formatter: function() {
-                              return '<b>'+ this.point.name;
+                            return '<b>'+ this.point.name + '</b>';
                           }
                       }
                   }
@@ -41,17 +42,28 @@ enabled: false
                   name: 'Počet sudcov s menom',
                   data: [
 
-['Eva', 3.9],
-['Mária', 3.42],
-['Jana', 3.01],
-['Peter', 2.67],
-['Anna', 2.4],
-['Ján', 2.33],
-['Viera', 2.19],
-['Zuzana', 2.19],
-['Katarína', 2.12],
-['Jozef', 1.99],
-
+['Eva', 57.0],
+['Mária', 50.0],
+['Jana', 44.0],
+['Peter', 39.0],
+['Anna', 35.0],
+['Ján', 34.0],
+['Viera', 32.0],
+['Zuzana', 32.0],
+['Katarína', 31.0],
+['Jozef', 29.0],
+['Milan', 25.0],
+['Alena', 22.0],
+['Miroslav', 22.0],
+['Vladimír', 22.0],
+['Andrea', 22.0],
+['Marián', 21.0],
+['Gabriela', 21.0],
+['Monika', 20.0],
+['Iveta', 19.0],
+['Martin', 19.0],
+['Daniela', 17.0],
+['Ostatní', 847]
                     ]
               }]
           });
@@ -69,12 +81,14 @@ enabled: false
                   plotBorderWidth: null,
                   plotShadow: true
               },
-              title: {
-                  text: ''
+title: {
+
+text: 'Celkový počet sudcov: <b>' + 1460 + '</b>'
               },
               tooltip: {
-                  pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-                  percentageDecimals: 2
+                  formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: ' + this.point.percentage.toPrecision(3) + '%';
+                    }
               },
               plotOptions: {
                   pie: {
@@ -98,26 +112,72 @@ enabled: false
 
               series: [{
                   type: 'pie',
-                  name: 'Počet sudcov s menom',
+                  name: 'Počet sudcov s priezviskom',
                   data: [
 
-
-
-['Kováčová', 8.77],
-['Varga', 8.77],
-['Vargová', 8.77],
-['Farkašová', 8.77],
-['Tóth', 7.02],
-['Balážová', 7.02],
-['Lukáč', 7.02],
-['Marková', 7.02],
-['Novotná', 5.26],
-['Tóthová', 5.26],
-['Filová', 5.26],
-['Farkaš', 5.26],
-['Horváthová', 5.26],
-['Kohútová', 5.26],
-['Mészárosová', 5.26],
+                    
+['Kováčová', 5.0],
+['Varga', 5.0],
+['Farkašová', 5.0],
+['Vargová', 5.0],
+['Marková', 4.0],
+['Balážová', 4.0],
+['Tóth', 4.0],
+['Lukáč', 4.0],
+['Horváthová', 3.0],
+['Kohútová', 3.0],
+['Šišková', 3.0],
+['Mészárosová', 3.0],
+['Posluchová', 3.0],
+['Kováč', 3.0],
+['Filová', 3.0],
+['Novák', 3.0],
+['Novotná', 3.0],
+['Farkaš', 3.0],
+['Tóthová', 3.0],
+['Tomáš', 2.0],
+['Vyskočová', 2.0],
+['Záleská', 2.0],
+['Fekete', 2.0],
+['Pacherová', 2.0],
+['Antalová', 2.0],
+['Sládečková', 2.0],
+['Bujňák', 2.0],
+['Koščová', 2.0],
+['Kamenská', 2.0],
+['Bérešová', 2.0],
+['Hargaš', 2.0],
+['Deák', 2.0],
+['Šimonová', 2.0],
+['Trnková', 2.0],
+['Ondrejová', 2.0],
+['Sláviková', 2.0],
+['Janečková', 2.0],
+['Gandelová', 2.0],
+['Greguš', 2.0],
+['Krajčová', 2.0],
+['Fuchsová', 2.0],
+['Repková', 2.0],
+['Bundzel', 2.0],
+['Urban', 2.0],
+['Hudák', 2.0],
+['Szárazová', 2.0],
+['Križanová', 2.0],
+['Vlčková', 2.0],
+['Baláž', 2.0],
+['Podhorcová', 2.0],
+['Krajčovičová', 2.0],
+['Pribula', 2.0],
+['Molnárová', 2.0],
+['Kovácsová', 2.0],
+['Urbanová', 2.0],
+['Bezáková', 2.0],
+['Hatala', 2.0],
+['Malíková', 2.0],
+['Maruščák', 2.0],
+['Sopoliga', 2.0],
+['Králiková', 2.0],
+['Ostatní', 1307]
                     ]
               }]
           });
@@ -133,17 +193,134 @@ enabled: false
       $(document).ready(function() {
           chart = new Highcharts.Chart({
               chart: {
-                  renderTo: 'courts-employments-chart',
+                  renderTo: 'court-employments-chart',
                   plotBackgroundColor: null,
                   plotBorderWidth: null,
                   plotShadow: true
               },
               title: {
-                  text: ''
+text: 'Celkový počet zamestnancov:  <b>' + 1462 + "</b>"
               },
               tooltip: {
-                  pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-                  percentageDecimals: 2
+                  formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: ' + this.point.percentage.toPrecision(3) + '%';
+                    }
+              },
+               plotOptions: {
+                  pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                          enabled: true,
+                          color: '#000000',
+                          connectorColor: '#000000',
+                          formatter: function() {
+                            return '<b>'+ this.point.name + '</b>';
+                          }
+                      }
+                  }
+                           },
+credits: {
+enabled: false 
+         },
+
+ 
+
+              series: [{
+                  type: 'pie',
+                  name: 'Počet zamestnancov z celkového počtu',
+                  data: [
+
+
+['Krajský súd Banská Bystrica', 3600.0],
+['Krajský súd Bratislava', 11025.0],
+['Krajský súd Košice', 4489.0],
+['Krajský súd Nitra', 1521.0],
+['Krajský súd Prešov', 1681.0],
+['Krajský súd Trenčín', 1225.0],
+['Krajský súd Trnava', 900.0],
+['Krajský súd Žilina', 1600.0],
+['Najvyšší súd Slovenskej republiky', 10201.0],
+['Okresný súd Bánovce nad Bebravou', 25.0],
+['Okresný súd Banská Bystrica', 900.0],
+['Okresný súd Bardejov', 100.0],
+['Okresný súd Bratislava I', 2025.0],
+['Okresný súd Bratislava II', 1369.0],
+['Okresný súd Bratislava III', 1156.0],
+['Okresný súd Bratislava IV', 441.0],
+['Okresný súd Bratislava v', 1024.0],
+['Okresný súd Brezno', 121.0],
+['Okresný súd Čadca', 144.0],
+['Okresný súd Dolný Kubín', 64.0],
+['Okresný súd Dunajská Streda', 169.0],
+['Okresný súd Galanta', 289.0],
+['Okresný súd Humenné', 225.0],
+['Okresný súd Kežmarok', 64.0],
+['Okresný súd Komárno', 225.0],
+['Okresný súd Košice I', 1764.0],
+['Okresný súd Košice II', 1225.0],
+['Okresný súd Košice okolie', 324.0],
+['Okresný súd Levice', 256.0],
+['Okresný súd Liptovský Mikuláš', 144.0],
+['Okresný súd Lučenec', 289.0],
+['Okresný súd Malacky', 100.0],
+['Okresný súd Martin', 324.0],
+['Okresný súd Michalovce', 441.0],
+['Okresný súd Námestovo', 81.0],
+['Okresný súd Nitra', 961.0],
+['Okresný súd Nové Mesto nad Váhom', 121.0],
+['Okresný súd Nové Zámky', 324.0],
+['Okresný súd Partizánske', 36.0],
+['Okresný súd Pezinok', 225.0],
+['Okresný súd Piešťany', 121.0],
+['Okresný súd Poprad', 289.0],
+['Okresný súd Považská Bystrica', 169.0],
+['Okresný súd Prešov', 900.0],
+['Okresný súd Prievidza', 324.0],
+['Okresný súd Revúca', 36.0],
+['Okresný súd Rimavská Sobota', 225.0],
+['Okresný súd Rožňava', 100.0],
+['Okresný súd Ružomberok', 64.0],
+['Okresný súd Senica', 121.0],
+['Okresný súd Skalica', 36.0],
+['Okresný súd Spišská Nová Ves', 324.0],
+['Okresný súd Stará Ľubovňa', 49.0],
+['Okresný súd Svidník', 64.0],
+['Okresný súd Topoľčany', 121.0],
+['Okresný súd Trebišov', 256.0],
+['Okresný súd Trenčín', 576.0],
+['Okresný súd Trnava', 784.0],
+['Okresný súd Veľký Krtíš', 64.0],
+['Okresný súd Vranov nad Topľou', 100.0],
+['Okresný súd Zvolen', 361.0],
+['Okresný súd Žiar nad Hronom', 144.0],
+['Okresný súd Žilina', 1089.0],
+['Špecializovaný Trestný súd', 169.0],
+                    ]
+              }]
+          });
+      });
+      
+  });
+
+
+   $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'court-hearings-chart',
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: true
+              },
+              title: {
+text: 'Celkový počet pojednávaní:  <b>' + 71164 + "</b>"
+              },
+              tooltip: {
+                  formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: ' + this.point.percentage.toPrecision(3) + '%';
+                    }
               },
               plotOptions: {
                   pie: {
@@ -167,75 +344,258 @@ enabled: false
 
               series: [{
                   type: 'pie',
-                  name: 'Počet sudcov s menom',
+                  name: 'Počet pojednávaní z celkového počtu',
                   data: [
-
-
-['Krajský súd Banská Bystrica', 246.24],
-['Krajský súd Bratislava', 754.1],
-['Krajský súd Košice', 307.05],
-['Krajský súd Nitra', 104.04],
-['Krajský súd Prešov', 114.98],
-['Krajský súd Trenčín', 83.79],
-['Krajský súd Trnava', 61.56],
-['Krajský súd Žilina', 109.44],
-['Najvyšší súd Slovenskej republiky', 697.74],
-['Okresný súd Bánovce nad Bebravou', 1.71],
-['Okresný súd Banská Bystrica', 61.56],
-['Okresný súd Bardejov', 6.84],
-['Okresný súd Bratislava I', 138.51],
-['Okresný súd Bratislava II', 93.64],
-['Okresný súd Bratislava III', 79.07],
-['Okresný súd Bratislava IV', 30.16],
-['Okresný súd Bratislava v', 70.04],
-['Okresný súd Brezno', 8.28],
-['Okresný súd Čadca', 9.85],
-['Okresný súd Dolný Kubín', 4.38],
-['Okresný súd Dunajská Streda', 11.56],
-['Okresný súd Galanta', 19.77],
-['Okresný súd Humenné', 15.39],
-['Okresný súd Kežmarok', 4.38],
-['Okresný súd Komárno', 15.39],
-['Okresný súd Košice I', 120.66],
-['Okresný súd Košice II', 83.79],
-['Okresný súd Košice okolie', 22.16],
-['Okresný súd Levice', 17.51],
-['Okresný súd Liptovský Mikuláš', 9.85],
-['Okresný súd Lučenec', 19.77],
-['Okresný súd Malacky', 6.84],
-['Okresný súd Martin', 22.16],
-['Okresný súd Michalovce', 30.16],
-['Okresný súd Námestovo', 5.54],
-['Okresný súd Nitra', 65.73],
-['Okresný súd Nové Mesto nad Váhom', 8.28],
-['Okresný súd Nové Zámky', 22.16],
-['Okresný súd Partizánske', 2.46],
-['Okresný súd Pezinok', 15.39],
-['Okresný súd Piešťany', 8.28],
-['Okresný súd Poprad', 19.77],
-['Okresný súd Považská Bystrica', 11.56],
-['Okresný súd Prešov', 61.56],
-['Okresný súd Prievidza', 22.16],
-['Okresný súd Revúca', 2.46],
-['Okresný súd Rimavská Sobota', 15.39],
-['Okresný súd Rožňava', 6.84],
-['Okresný súd Ružomberok', 4.38],
-['Okresný súd Senica', 8.28],
-['Okresný súd Skalica', 2.46],
-['Okresný súd Spišská Nová Ves', 22.16],
-['Okresný súd Stará Ľubovňa', 3.35],
-['Okresný súd Svidník', 4.38],
-['Okresný súd Topoľčany', 8.28],
-['Okresný súd Trebišov', 17.51],
-['Okresný súd Trenčín', 39.4],
-['Okresný súd Trnava', 53.63],
-['Okresný súd Veľký Krtíš', 4.38],
-['Okresný súd Vranov nad Topľou', 6.84],
-['Okresný súd Zvolen', 24.69],
-['Okresný súd Žiar nad Hronom', 9.85],
-['Okresný súd Žilina', 74.49],
-['Špecializovaný Trestný súd', 11.56],
+                    ['Krajský súd Banská Bystrica', 575.0],
+                    
+['Okresný súd Bratislava II', 3359.0],
+['Okresný súd Košice I', 2848.0],
+['Okresný súd Bratislava v', 2773.0],
+['Okresný súd Bratislava I', 2667.0],
+['Okresný súd Žilina', 2482.0],
+['Okresný súd Prešov', 2425.0],
+['Okresný súd Nitra', 2269.0],
+['Okresný súd Dunajská Streda', 2195.0],
+['Okresný súd Pezinok', 1976.0],
+['Okresný súd Košice II', 1933.0],
+['Okresný súd Trnava', 1799.0],
+['Okresný súd Trenčín', 1708.0],
+['Okresný súd Humenné', 1589.0],
+['Okresný súd Bratislava III', 1535.0],
+['Okresný súd Bratislava IV', 1502.0],
+['Okresný súd Martin', 1405.0],
+['Okresný súd Zvolen', 1281.0],
+['Okresný súd Banská Bystrica', 1273.0],
+['Okresný súd Prievidza', 1251.0],
+['Okresný súd Komárno', 1243.0],
+['Okresný súd Poprad', 1237.0],
+['Okresný súd Galanta', 1221.0],
+['Okresný súd Kežmarok', 1207.0],
+['Okresný súd Spišská Nová Ves', 1204.0],
+['Okresný súd Levice', 1166.0],
+['Okresný súd Michalovce', 1142.0],
+['Okresný súd Lučenec', 1051.0],
+['Okresný súd Nové Zámky', 1048.0],
+['Okresný súd Košice okolie', 1033.0],
+['Krajský súd Bratislava', 983.0],
+['Okresný súd Bardejov', 930.0],
+['Okresný súd Trebišov', 868.0],
+['Okresný súd Topoľčany', 855.0],
+['Okresný súd Rimavská Sobota', 807.0],
+['Okresný súd Malacky', 793.0],
+['Okresný súd Čadca', 757.0],
+['Okresný súd Piešťany', 724.0],
+['Okresný súd Svidník', 713.0],
+['Okresný súd Námestovo', 679.0],
+['Okresný súd Liptovský Mikuláš', 645.0],
+['Okresný súd Považská Bystrica', 621.0],
+['Okresný súd Žiar nad Hronom', 607.0],
+['Krajský súd Košice', 602.0],
+['Okresný súd Rožňava', 598.0],
+['Okresný súd Veľký Krtíš', 576.0],
+['Krajský súd Banská Bystrica', 575.0],
+['Okresný súd Skalica', 572.0],
+['Okresný súd Ružomberok', 568.0],
+['Krajský súd Prešov', 563.0],
+['Okresný súd Senica', 556.0],
+['Okresný súd Nové Mesto nad Váhom', 554.0],
+['Okresný súd Stará Ľubovňa', 551.0],
+['Krajský súd Nitra', 515.0],
+['Krajský súd Žilina', 484.0],
+['Okresný súd Brezno', 480.0],
+['Krajský súd Trnava', 472.0],
+['Krajský súd Trenčín', 439.0],
+['Okresný súd Partizánske', 385.0],
+['Okresný súd Revúca', 336.0],
+['Okresný súd Dolný Kubín', 313.0],
+['Okresný súd Vranov nad Topľou', 292.0],
+['Okresný súd Bánovce nad Bebravou', 223.0],
+['Špecializovaný Trestný súd', 115.0],
                     ]
+              }]
+          });
+      });
+      
+   });
+
+
+
+
+  $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'court-hearings-barchart',
+                  type: 'bar'
+              },
+              title: {
+                  text: ''
+              },
+              xAxis: {
+categories: [
+'Okresný súd Bratislava II',
+'Okresný súd Košice I',
+'Okresný súd Bratislava v',
+'Okresný súd Bratislava I',
+'Okresný súd Žilina',
+'Okresný súd Prešov',
+'Okresný súd Nitra',
+'Okresný súd Dunajská Streda',
+'Okresný súd Pezinok',
+'Okresný súd Košice II',
+'Okresný súd Trnava',
+'Okresný súd Trenčín',
+'Okresný súd Humenné',
+'Okresný súd Bratislava III',
+'Okresný súd Bratislava IV',
+'Okresný súd Martin',
+'Okresný súd Zvolen',
+'Okresný súd Banská Bystrica',
+'Okresný súd Prievidza',
+'Okresný súd Komárno',
+'Okresný súd Poprad',
+'Okresný súd Galanta',
+'Okresný súd Kežmarok',
+'Okresný súd Spišská Nová Ves',
+'Okresný súd Levice',
+'Okresný súd Michalovce',
+'Okresný súd Lučenec',
+'Okresný súd Nové Zámky',
+'Okresný súd Košice okolie',
+'Krajský súd Bratislava',
+'Okresný súd Bardejov',
+'Okresný súd Trebišov',
+'Okresný súd Topoľčany',
+'Okresný súd Rimavská Sobota',
+'Okresný súd Malacky',
+'Okresný súd Čadca',
+'Okresný súd Piešťany',
+'Okresný súd Svidník',
+'Okresný súd Námestovo',
+'Okresný súd Liptovský Mikuláš',
+'Okresný súd Považská Bystrica',
+'Okresný súd Žiar nad Hronom',
+'Krajský súd Košice',
+'Okresný súd Rožňava',
+'Okresný súd Veľký Krtíš',
+'Krajský súd Banská Bystrica',
+'Okresný súd Skalica',
+'Okresný súd Ružomberok',
+'Krajský súd Prešov',
+'Okresný súd Senica',
+'Okresný súd Nové Mesto nad Váhom',
+'Okresný súd Stará Ľubovňa',
+'Krajský súd Nitra',
+'Krajský súd Žilina',
+'Okresný súd Brezno',
+'Krajský súd Trnava',
+'Krajský súd Trenčín',
+'Okresný súd Partizánske',
+'Okresný súd Revúca',
+'Okresný súd Dolný Kubín',
+'Okresný súd Vranov nad Topľou',
+'Okresný súd Bánovce nad Bebravou',
+'Špecializovaný Trestný súd',
+],
+                  title: {
+                      text: null
+                  }
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Počet pojednávaní',
+                      align: 'high'
+                  },
+                  labels: {
+                      overflow: 'justify'
+                  }
+              },
+              tooltip: {
+                  formatter: function() {
+                      return ''+
+                          this.x +' má '+ this.y + " pojednávaní";
+                  }
+              },
+              plotOptions: {
+                  bar: {
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+                           },
+              credits: {
+                enabled: false
+                       },
+              series: [{
+                  name: 'Počet pojednávaní',
+                        data: [
+
+3359,
+2848,
+2773,
+2667,
+2482,
+2425,
+2269,
+2195,
+1976,
+1933,
+1799,
+1708,
+1589,
+1535,
+1502,
+1405,
+1281,
+1273,
+1251,
+1243,
+1237,
+1221,
+1207,
+1204,
+1166,
+1142,
+1051,
+1048,
+1033,
+983,
+930,
+868,
+855,
+807,
+793,
+757,
+724,
+713,
+679,
+645,
+621,
+607,
+602,
+598,
+576,
+575,
+572,
+568,
+563,
+556,
+554,
+551,
+515,
+484,
+480,
+472,
+439,
+385,
+336,
+313,
+292,
+223,
+115,
+                          ]
               }]
           });
       });
@@ -243,45 +603,198 @@ enabled: false
   });
 
 
+   $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'judge-hearings-barchart',
+                  type: 'bar'
+              },
+              title: {
+                text: "Počet sudcov: <b>1462</b>",
+
+              },
+              xAxis: {
+categories: [
+'JUDr. Bohuslav Majerníček',
+'Mgr. Rudolf Novotný',
+'JUDr. Ladislav Piros',
+'JUDr. Ivan Roháč',
+'JUDr. Richard Bureš',
+'JUDr. Miroslav Toma',
+'JUDr. Roman Farkaš',
+'JUDr. Pavol Bielik',
+'Mgr. Vanda Mikulášová',
+'JUDr. Ivan Pavlovič',
+'JUDr. Rastislav Dlugoš',
+'JUDr. Jana Grendárová',
+'Mgr. Erika Szalaiová',
+'JUDr. Tibor Šulák',
+'JUDr. Marián Sninský',
+'Mgr. Janette Nôtová',
+'JUDr. Milan Husťák',
+'JUDr. Mariana Philadelphyová',
+'JUDr. Martin Kollár',
+'JUDr. Ján Poprocký',
+'Mgr. Marcela Kosová',
+'Mgr. Eva Strašková',
+'JUDr. Stanislav Galovič',
+'JUDr. Erika Lengyelová',
+'JUDr. Ľuboš Baka',
+'JUDr. Soňa Mihaľáková',
+'JUDr. Milena Jakubíková',
+'Mgr. Erika Dodulíková',
+'JUDr. Tatiana Kovácsová',
+'Mgr. Miroslav Lehoczký',
+'JUDr. Zuzana Bartalská',
+'JUDr. Miroslav Číž',
+'JUDr. Beáta Javorková',
+'JUDr. Daniela Blažovská',
+'JUDr. Alica Vörösová',
+'JUDr. Vladimír Sopúch',
+'JUDr. Noema Turanovičová',
+'Ján Bodnár',
+'JUDr. Ladislav Bujňák',
+'Mgr. Lucia Vícenová',
+
+],
+title: {
+  text: "Sudcovia"
+                  }
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Pojednávania',
+                      align: 'high'
+                  },
+                  labels: {
+                      overflow: 'justify'
+                  }
+              },
+              tooltip: {
+                  formatter: function() {
+                      return ''+
+                          this.x +' súdil '+ this.y + " pojednávaní";
+                  }
+              },
+              plotOptions: {
+                  bar: {
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+                           },
+              credits: {
+                enabled: false
+                       },
+              series: [{
+                  name: 'Počet pojednávaní',
+                        data: [
+
+565,
+462,
+417,
+406,
+371,
+340,
+313,
+297,
+293,
+284,
+269,
+262,
+260,
+248,
+246,
+240,
+238,
+237,
+237,
+236,
+234,
+233,
+232,
+232,
+226,
+223,
+223,
+220,
+220,
+217,
+215,
+214,
+213,
+213,
+213,
+212,
+212,
+205,
+203,
+202,
+                          ]
+              }]
+          });
+      });
+      
+  });
+
+
+
 });
 </script>
 <% end %>
 
 <!-- Rails:  
-judges = Judge.group(:first).order("count_all desc").limit(10).count
-judges_count = 0
-judges.each { |k, v| judges_count += v }
-judges.each do |k,v| puts "['#{k}', #{(v.to_f*100/judges_count).round(2)}]," end
-
+rake stats:judge_names
 -->
-<h2 class="highcharts-title">Sudcovia podľa mena</h2>
-<div id="judges-name-chart" class="highcharts-container">
-
+<div class="chart">
+  <h2 class="highcharts-title">Sudcovia podľa mena</h2>
+  <div id="judges-name-chart" class="highcharts-container">
+  </div>
 </div>
 
 <!-- Rails:  
-judges = Judge.group(:last).order("count_all desc").limit(15).count
-judges_count = 0
-judges.each { |k, v| judges_count += v }
-judges.sort_by(:p.each do |k,v| puts "['#{k}', #{(v.to_f*100/judges_count).round(2)}]," end
-
+rake stats:judge_surnames
 -->
-<h2 class="highcharts-title">Sudcovia podľa priezviska</h2>
-<div id="judges-surname-chart" class="highcharts-container">
-
-
+<div class="chart">
+  <h2 class="highcharts-title">Sudcovia podľa priezviska</h2>
+  <div id="judges-surname-chart" class="highcharts-container">
+  </div>
 </div>
+
 
 
 <!-- Rails:  
-
-employment_count = Employment.count
-courts = Court.joins(:employments, :judges).group("courts.name").order("count_all").count
-courts.each do |k,v| puts "['#{k}', #{(v.to_f*100/employment_count).round(2)}]," end 
-
+rake stats:court_employments
 -->
-<h2 class="highcharts-title">Súdy podľa počtu zamestnancov</h2>
-<div id="courts-employments-chart" class="highcharts-container">
-
-
+<div class="chart">
+  <h2 class="highcharts-title">Súdy podľa počtu zamestnancov</h2>
+  <div id="court-employments-chart" class="highcharts-container">
+  </div>
 </div>
+
+<!-- Rails:  
+rake stats:court_hearings
+-->
+<div class="chart">
+  <h2 class="highcharts-title">Aktivita súdov</h2>
+  <div id="court-hearings-chart" class="highcharts-container">
+  </div>
+  <div id="court-hearings-barchart" class="highbarcharts-container">
+  </div>
+</div>
+
+<!-- Rails:  
+rake stats:judge_hearings
+-->
+<div class="chart">
+  <h2 class="highcharts-title">Aktivita sudcov</h2>
+  <div id="judge-hearings-barchart" class="highbarcharts-container">
+  </div>
+</div>
+
+
+
+
