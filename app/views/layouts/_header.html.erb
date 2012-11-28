@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="search hero-unit">
+<div class="search">
   <%= form_tag nil, method: 'get', class: 'form-search' do |f| %>
     <div class="input-append">
       <%= search_field_tag :search, params[:search], class: 'search-query' %>
@@ -37,7 +37,9 @@
 
 <header class="jumbotron masthead">
   <div class="container">
-    <h1>Customize and download</h1>
+    <h1>
+      <%= number_with_delimiter @count %>
+      <small>dokumentov</small>
+    </h1>
   </div>
 </header>
-
