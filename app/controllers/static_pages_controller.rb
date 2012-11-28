@@ -6,5 +6,6 @@ class StaticPagesController < ApplicationController
   end
   
   def home
+    @count = Hearing.count + Decree.count  
   end
 end
