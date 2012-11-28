@@ -30,15 +30,32 @@ body {
     }
   }
 
-  .highcharts-title {
-    text-align: center;
-    padding-bottom: 10px;
-  }
+  .chart {
+    margin: auto;
+    margin-bottom: 100px;
 
-  .highcharts-container {
-    min-width: 400px;
-    height:    400px;
-    margin:   0 auto;
+    color: $linkColorHover;
+
+    .highcharts-title {
+      text-align: center;
+      width: 300px;
+      padding-bottom: 10px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .highcharts-container {
+      min-width: 400px;
+      height:    600px;
+      margin:   0 auto;
+    }
+
+    .highbarcharts-container {
+      min-width: 400px;
+      height:    1000px;
+      margin:   0 auto;
+    }
   }
 }
 
