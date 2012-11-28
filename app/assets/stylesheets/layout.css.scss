@@ -8,7 +8,7 @@ html {
 body {
   padding-top: 20px;
 
-  #navbar {
+  .navbar {
     width: 100%;
     
     .logo {
@@ -16,10 +16,8 @@ body {
     }
 
     .page-header {
-      float: right;
-
-      padding: 30px;
-      padding-top: 0px;
+      padding: 20px;
+      padding-top: 5px;
       color: $linkColor;
 
       a {
