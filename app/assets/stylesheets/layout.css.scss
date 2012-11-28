@@ -37,17 +37,8 @@ body {
       margin: 0px;
       padding: 0px;
       
-      color: $navbarInverseLinkColor;
       font-size: 20px;
       text-decoration: none;
-      
-      &:active {
-        color: $navbarInverseLinkColorActive;
-      }
-
-      &:hover {
-        color: $navbarInverseLinkColorHover;
-      }
     }
   }
 }
