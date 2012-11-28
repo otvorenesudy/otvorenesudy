@@ -9,7 +9,7 @@ body {
   padding-top: 40px;
 }
 
-// header and footer
+// navbar
 
 .navbar-inverse {
   a {
@@ -33,6 +33,21 @@ body {
       }
     }
   }
+}
+
+// header
+
+header {
+  padding: 40px 0px 40px 0px;
+  
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: transparent;
+  background-origin: padding-box;
+
+  // TODO fixme
+  background-image: -moz-linear-gradient(270deg, $linkColor 0%, $blue 100%);
+  background-image: -webkit-linear-gradient(270deg, $linkColor 0%, $blue 100%);
 }
 
 // highcharts
