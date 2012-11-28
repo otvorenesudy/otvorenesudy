@@ -43,33 +43,6 @@ body {
   }
 }
 
-
-// header
-
-header {
-  padding: 40px 0px 40px 0px;
-  border-top: 1px $navbarInverseBorder solid;
-  border-bottom: 1px $navbarInverseBorder solid;
-  
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: transparent;
-  background-origin: padding-box;
-
-  // TODO fixme
-  background-image: -moz-linear-gradient(270deg, $linkColor 0%, $purple 100%);
-  background-image: -webkit-linear-gradient(270deg, $linkColor 0%, $purple 100%);
-  
-  color: $white;
-  
-  text-align: center;
-  
-  h1 small {
-    display: block;
-    color: $white;
-  }
-}
-
 // search
 
 div.search {
@@ -105,6 +78,47 @@ div.search {
     &:hover {
       color: $gray;
       text-decoration: none;
+    }
+  }
+}
+
+// header
+
+header {
+  border-top: 1px $navbarInverseBorder solid;
+  border-bottom: 1px $navbarInverseBorder solid;
+  
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: transparent;
+  background-origin: padding-box;
+
+  // TODO fixme
+  $headerGradient: 0deg, darken($linkColor, 20%) 0%, darken($purple, 20%) 100%;
+  
+  background-image: linear-gradient($headerGradient);
+  background-image: -moz-linear-gradient($headerGradient);
+  background-image: -ms-linear-gradient($headerGradient);
+  background-image: -o-linear-gradient($headerGradient);
+  background-image: -webkit-linear-gradient($headerGradient);
+  
+  color: $white;
+  
+  text-align: center;
+  
+  .pattern {
+    padding: 40px 0px 40px 0px;
+  
+    background: url('/assets/header-pattern.png') repeat scroll center center transparent;
+  }
+  
+  h1 {
+    line-height: 60px;
+    font-size: 60px;
+    
+    small {
+      display: block;
+      color: $white;
     }
   }
 }

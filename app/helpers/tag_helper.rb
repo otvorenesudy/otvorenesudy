@@ -24,11 +24,7 @@ module TagHelper
      link_to_with_tooltip body, '#', tip, options
   end
   
-  # TODO rm?
-  def link_to_with_tooltip(body, url, tip = body, options = {})
-    link_to body, url, options.merge({ rel: :tooltip, title: tip })
-  end
-  
-  def link_to_with_icon( icon)
+  def link_and_icon_to(type, body, url, options = {})
+    link_to icon_tag(type, body), url, options
   end
 end
