@@ -1,7 +1,7 @@
 <%= provide :title, 'Kontakt' %>
 
 <section class="contact">
-    <div class="page-header">
+  <div class="page-header">
     <h1>
       <%= yield :title %>
       <small>neváhajte nás kontaktovať</small>
@@ -10,7 +10,7 @@
 
   <div class="row">
     <div class="span12">
-      <%= mail_to 'kontakt@otvorenesudy.sk' %>
+      <%= icon_mail_to :envelope, 'kontakt@otvorenesudy.sk', nil, encode: :hex %>
     </div>
   </div>
 </section>
