@@ -1,0 +1,398 @@
+<%= provide :title, 'Štatistiky' %>
+
+<% content_for(:scripts) do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() { 
+   $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'court-employments-chart-county',
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: true
+              },
+              title: {
+text: '<b>Okresné súdy</b>'
+},
+subtitle: {
+  text: "Počet zamestnancov: <b>931</b>"
+
+},
+
+              tooltip: {
+                  formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: ' + this.point.percentage.toPrecision(3) + '%';
+                    }
+              },
+               plotOptions: {
+                  pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                          enabled: true,
+                          color: '#000000',
+                          connectorColor: '#000000',
+                          formatter: function() {
+                            if (this.point.percentage > 1.5) {
+                              return '<b>'+ this.point.name + '</b>';
+                            }
+                          }
+                      }
+                  }
+                           },
+credits: {
+enabled: false 
+         },
+
+ 
+
+              series: [{
+                  type: 'pie',
+                  name: 'Počet zamestnancov z celkového počtu',
+                  data: [
+
+['Okresný súd Bratislava I', 45],
+['Okresný súd Košice I', 42],
+['Okresný súd Bratislava II', 37],
+['Okresný súd Košice II', 35],
+['Okresný súd Bratislava III', 34],
+['Okresný súd Žilina', 33],
+['Okresný súd Bratislava v', 32],
+['Okresný súd Nitra', 31],
+['Okresný súd Banská Bystrica', 30],
+['Okresný súd Prešov', 30],
+['Okresný súd Trnava', 28],
+['Okresný súd Trenčín', 24],
+['Okresný súd Bratislava IV', 21],
+['Okresný súd Michalovce', 21],
+['Okresný súd Zvolen', 19],
+['Okresný súd Košice okolie', 18],
+['Okresný súd Prievidza', 18],
+['Okresný súd Martin', 18],
+['Okresný súd Spišská Nová Ves', 18],
+['Okresný súd Nové Zámky', 18],
+['Okresný súd Poprad', 17],
+['Okresný súd Lučenec', 17],
+['Okresný súd Galanta', 17],
+['Okresný súd Levice', 16],
+['Okresný súd Trebišov', 16],
+['Okresný súd Komárno', 15],
+['Okresný súd Rimavská Sobota', 15],
+['Okresný súd Humenné', 15],
+['Okresný súd Pezinok', 15],
+['Okresný súd Považská Bystrica', 13],
+['Okresný súd Dunajská Streda', 13],
+['Okresný súd Liptovský Mikuláš', 12],
+['Okresný súd Žiar nad Hronom', 12],
+['Okresný súd Čadca', 12],
+['Okresný súd Piešťany', 11],
+['Okresný súd Brezno', 11],
+['Okresný súd Senica', 11],
+['Okresný súd Nové Mesto nad Váhom', 11],
+['Okresný súd Topoľčany', 11],
+['Okresný súd Bardejov', 10],
+['Okresný súd Vranov nad Topľou', 10],
+['Okresný súd Malacky', 10],
+['Okresný súd Rožňava', 10],
+['Okresný súd Námestovo', 9],
+['Okresný súd Veľký Krtíš', 8],
+['Okresný súd Ružomberok', 8],
+['Okresný súd Dolný Kubín', 8],
+['Okresný súd Svidník', 8],
+['Okresný súd Kežmarok', 8],
+['Okresný súd Stará Ľubovňa', 7],
+['Okresný súd Revúca', 6],
+['Okresný súd Skalica', 6],
+['Okresný súd Partizánske', 6],
+['Okresný súd Bánovce nad Bebravou', 5],
+                    ]
+              }]
+          });
+      });
+      
+  });
+
+
+  $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'court-employments-chart-region',
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: true
+              },
+              title: {
+text: '<b>Krajské súdy</b>'
+
+},
+subtitle: {
+  text: "Počet zamestnancov: <b>417</b>"
+},
+ 
+              tooltip: {
+                  formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: ' + this.point.percentage.toPrecision(3) + '%';
+                    }
+              },
+               plotOptions: {
+                  pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                          enabled: true,
+                          color: '#000000',
+                          connectorColor: '#000000',
+                          formatter: function() {
+                            return '<b>'+ this.point.name + '</b>';
+                          }
+                      }
+                  }
+                           },
+credits: {
+enabled: false 
+         },
+
+ 
+
+              series: [{
+                  type: 'pie',
+                  name: 'Počet zamestnancov z celkového počtu',
+                  data: [
+
+['Krajský súd Bratislava', 105],
+['Krajský súd Košice', 67],
+['Krajský súd Banská Bystrica', 60],
+['Krajský súd Prešov', 41],
+['Krajský súd Žilina', 40],
+['Krajský súd Nitra', 39],
+['Krajský súd Trenčín', 35],
+['Krajský súd Trnava', 30],
+                    ]
+              }]
+          });
+      });
+      
+  });
+
+
+ $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'court-employments-barchart',
+                  type: 'bar'
+              },
+              title: {
+text: '<b>Všetky súdy</b>'
+},
+subtitle: {
+  text: "Počet všetkých zamestnancov: <b>1462</b>"
+  },
+legend: {
+enabled: false
+        },
+              xAxis: {
+categories: [
+
+'Krajský súd Bratislava',
+'Najvyšší súd Slovenskej republiky',
+'Krajský súd Košice',
+'Krajský súd Banská Bystrica',
+'Okresný súd Bratislava I',
+'Okresný súd Košice I',
+'Krajský súd Prešov',
+'Krajský súd Žilina',
+'Krajský súd Nitra',
+'Okresný súd Bratislava II',
+'Krajský súd Trenčín',
+'Okresný súd Košice II',
+'Okresný súd Bratislava III',
+'Okresný súd Žilina',
+'Okresný súd Bratislava v',
+'Okresný súd Nitra',
+'Krajský súd Trnava',
+'Okresný súd Banská Bystrica',
+'Okresný súd Prešov',
+'Okresný súd Trnava',
+'Okresný súd Trenčín',
+'Okresný súd Bratislava IV',
+'Okresný súd Michalovce',
+'Okresný súd Zvolen',
+'Okresný súd Martin',
+'Okresný súd Spišská Nová Ves',
+'Okresný súd Nové Zámky',
+'Okresný súd Košice okolie',
+'Okresný súd Prievidza',
+'Okresný súd Galanta',
+'Okresný súd Poprad',
+'Okresný súd Lučenec',
+'Okresný súd Trebišov',
+'Okresný súd Levice',
+'Okresný súd Humenné',
+'Okresný súd Pezinok',
+'Okresný súd Komárno',
+'Okresný súd Rimavská Sobota',
+'Špecializovaný Trestný súd',
+'Okresný súd Dunajská Streda',
+'Okresný súd Považská Bystrica',
+'Okresný súd Čadca',
+'Okresný súd Liptovský Mikuláš',
+'Okresný súd Žiar nad Hronom',
+'Okresný súd Brezno',
+'Okresný súd Senica',
+'Okresný súd Nové Mesto nad Váhom',
+'Okresný súd Topoľčany',
+'Okresný súd Piešťany',
+'Okresný súd Malacky',
+'Okresný súd Rožňava',
+'Okresný súd Bardejov',
+'Okresný súd Vranov nad Topľou',
+'Okresný súd Námestovo',
+'Okresný súd Ružomberok',
+'Okresný súd Dolný Kubín',
+'Okresný súd Svidník',
+'Okresný súd Kežmarok',
+'Okresný súd Veľký Krtíš',
+'Okresný súd Stará Ľubovňa',
+'Okresný súd Skalica',
+'Okresný súd Partizánske',
+'Okresný súd Revúca',
+'Okresný súd Bánovce nad Bebravou',
+],
+                  title: {
+                      text: null
+                  }
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Počet zamestnancov',
+                      align: 'high'
+                  },
+                  labels: {
+                      overflow: 'justify'
+                  }
+              },
+              tooltip: {
+                  formatter: function() {
+                      return ''+
+                          this.x +' má '+ this.y + " zamestnancov.";
+                  }
+              },
+              plotOptions: {
+                  bar: {
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+                           },
+              credits: {
+                enabled: false
+                       },
+              series: [{
+                  name: 'Počet pojednávaní',
+                        data: [
+
+105,
+101,
+67,
+60,
+45,
+42,
+41,
+40,
+39,
+37,
+35,
+35,
+34,
+33,
+32,
+31,
+30,
+30,
+30,
+28,
+24,
+21,
+21,
+19,
+18,
+18,
+18,
+18,
+18,
+17,
+17,
+17,
+16,
+16,
+15,
+15,
+15,
+15,
+13,
+13,
+13,
+12,
+12,
+12,
+11,
+11,
+11,
+11,
+11,
+10,
+10,
+10,
+10,
+9,
+8,
+8,
+8,
+8,
+8,
+7,
+6,
+6,
+6,
+5,
+                          ]
+              }]
+          });
+      });
+      
+  });
+
+
+
+
+
+});
+</script>
+<% end %>
+
+
+<!-- Rails:  
+rake stats:court_employments
+-->
+<div class="chart"  >
+  <h2 class="highcharts-title">Súdy podľa počtu zamestnancov</h2>
+  <div id="court-employments-chart-county" class="highcharts-container">
+  </div>
+  <div id="court-employments-chart-region" class="highcharts-container">
+  </div>
+  <div id="court-employments-barchart" class="highbarcharts-container">
+  </div>
+
+</div>
+
+
+
+
+

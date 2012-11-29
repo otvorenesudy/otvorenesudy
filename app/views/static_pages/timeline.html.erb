@@ -15,7 +15,7 @@
       </div>
       <% @decree = Decree.find_by_file_number(4112010056) %>
 
-      <div class="item post isotope-item right" style="position: relative;">
+      <div class="item post isotope-item left" style="position: relative;">
         <div class="inner" style="margin-top: 60px;">
           <div class="timestamp">1338156000000</div>
           <div class="title"><h3>Rozhodnutie</h3></div>
@@ -36,12 +36,12 @@
             </div>
 
             <div class="clearfix">
-              <%= link_to "Viac informácii", decree_path(@decree), target: '_blank', class: 'more' %>
+              <%= link_to "Viac informácii", @decree.uri, target: '_blank', class: 'more' %>
       </div></div></div></div>
 
 
       <% Hearing.where("file_number = '4112010056'").order("date desc").each_with_index do |h, i| %>
-        <div class="item post isotope-item <%= i % 2 == 0 ? 'left' : 'right' %>" style="position: relative;">
+        <div class="item post isotope-item <%= i % 2 != 0 ? 'left' : 'right' %>" style="position: relative;">
           <div class="inner" style="margin-top: 60px;">
             <div class="timestamp">1338156000000</div>
             <div class="title"><h3>Pojednávanie</h3></div>
@@ -68,7 +68,7 @@
                </div>
 
                <div class="clearfix">
-                  <%= link_to "Viac informácii", hearing_path(h), target: '_blank', class: 'more' %>
+                  <%= link_to "Viac informácii", h.uri, target: '_blank', class: 'more' %>
          </div></div></div></div>
 
        <% end %>
