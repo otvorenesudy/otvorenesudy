@@ -7,6 +7,12 @@ Otvorenesudy::Application.routes.draw do
   match '/stats',   :to => 'static_pages#stats'
   match '/timeline',  :to => 'static_pages#timeline'
 
+  match '/stats/names', :to => 'static_pages#stats_names'
+  match '/stats/surnames', :to => 'static_pages#stats_surnames'
+  match '/stats/employments', :to => 'static_pages#stats_employments'
+  match '/stats/judge_activity', :to => 'static_pages#stats_judge_activity'
+  match '/stats/court_activity', :to => 'static_pages#stats_court_activity'
+
   resources :courts
   resources :judges
   resources :hearings
