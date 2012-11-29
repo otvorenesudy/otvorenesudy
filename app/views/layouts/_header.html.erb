@@ -1,23 +1,23 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= 
-      #link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, class: :brand
-       %>
+      <!-- image_tag(asset_path('logo-white.png'), alt: :logo) -->
+      
+      <%= link_to "Otvorené Súdy", root_path, class: 'capital brand' %>
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
           <% # TODO rm
            #content_tag :li, link_to('Súdy', courts_path), class: current_page?(courts_path) ? :active : nil
            %>
-          <li><%= link_and_icon_to :lemon, 'Otvorené Súdy', home_path %></li>
+          <!--li><%= link_and_icon_to :lemon, 'Otvorené Súdy', home_path %></li-->
+        </ul>
+        
+        <ul class="nav pull-right">
           <li><%= link_and_icon_to :home, 'Súdy', courts_path %></li>
           <li><%= link_and_icon_to :group, 'Sudcovia', judges_path %></li>
           <li><%= link_and_icon_to :comments, 'Pojednávania', hearings_path %></li>
           <li><%= link_and_icon_to :legal, 'Rozhodnutia', decrees_path %></li>
-        </ul>
-        
-        <ul class="nav pull-right">
           <li><%= link_and_icon_to :signal, 'Štatistiky', stats_path %></li>
         </ul>
       </nav>
@@ -36,15 +36,4 @@
   <%= link_to 'Rozšírené vyhľadávanie', nil %>
 </div>
 
-<% unless @header.blank? %>
-  <header class="jumbotron masthead">
-    <div class="pattern">
-      <div class="container">
-        <h1>
-          <%= @header[:title] %>
-          <small><%= @header[:subtitle] %></small>
-        </h1>
-      </div>
-    </div>
-  </header>
-<% end %>
+<%= yield :header %>

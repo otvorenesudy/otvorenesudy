@@ -1,4 +1,4 @@
-<% @header = { title: number_with_delimiter(@count, delimiter: ' '), subtitle: "dokumentov" } %>
+<% provide :header, render(partial: 'header') %>
 
 <section id="highlights">
   <div class="page-header">

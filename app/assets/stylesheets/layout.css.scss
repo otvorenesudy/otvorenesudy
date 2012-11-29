@@ -1,6 +1,8 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
+@font-face { font-family: TrajanPro; src: url('/assets/trajan-pro.otf'); }
+
 html {
   overflow-y: scroll;
 }
@@ -9,14 +11,24 @@ body {
   padding-top: 40px;
 }
 
+// capital
+
+.capital {
+  font-family: TrajanPro, $baseFontFamily;
+}
+
 // navbar
 
 .navbar-inverse {
   a.brand {
-    width:  40px;
-    height: 40px;
-    margin:  0px;
-    padding: 0px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0px;
+    padding: 12px 10px 8px 10px;
+    overflow: hidden;
+    
+    font-size: 18px;
+    vertical-align: middle;
     
     img {
       opacity: 0.5625;
@@ -29,9 +41,10 @@ body {
     }
   }
   
-  a {
+  .nav > li > a {
     height: 20px;
     line-height: 20px;
+    padding: 10px;
 
     i {
       margin: 0px;
@@ -94,7 +107,7 @@ header {
   background-origin: padding-box;
 
   // TODO fixme
-  $headerGradient: 0deg, darken($linkColor, 20%) 0%, darken($purple, 20%) 100%;
+  $headerGradient: 45deg, darken($linkColor, 20%) 0%, darken($purple, 10%) 100%;
   
   background-image: linear-gradient($headerGradient);
   background-image: -moz-linear-gradient($headerGradient);

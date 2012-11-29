@@ -6,6 +6,8 @@ class StaticPagesController < ApplicationController
   end
   
   def home
-    @count = Hearing.count + Decree.count
+    # TODO rm
+    @count = 412569
+    #@count = Hearing.count + Decree.count
   end
 end
