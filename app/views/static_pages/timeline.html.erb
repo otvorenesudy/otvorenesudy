@@ -1,6 +1,15 @@
+<%= provide :title, 'Priebeh súdneho konania, IČS 4112010056' %>
+
+    <div class="page-header">
+    <h1>
+      IČS 4112010056
+      <small>časový priebeh súdneho konania</small>
+    </h1>
+  </div>
+  
   <div id="line-container">
 
-    <div id="timeline" style="position: relative; overflow: hidden;" class="isotope">
+    <div id="timeline" style="position: relative; overflow: hidden; min-height: 2500px;" class="isotope">
 
       <div id="line-container">
         <div id="line" style=""></div>
@@ -28,15 +37,17 @@
                 <dd><%= @decree.judge.name %></dd>
                 <dt>Súd: </dt>
                 <dd><%= @decree.court.name %></dd>
-                <dt>Spisová značka:</dt>
+                <dt>Spis. značka:</dt>
                 <dd><%= @decree.case_number %></dd>
                 <dt>IČS: </dt>
                 <dd><%= @decree.file_number %></dd>
+                <dt>Dokument: </dt>
+                <dd><%= link_to "PDF", '#' %></dd>
               </dl>
             </div>
 
             <div class="clearfix">
-              <%= link_to "Viac informácii", @decree.uri, target: '_blank', class: 'more' %>
+              <%= link_to "Viac informácii", '#', class: 'more' %>
       </div></div></div></div>
 
 
@@ -56,7 +67,7 @@
                   <dd><%= h.court.name %></dd>
                   <dt>Miestnosť: </dt>
                   <dd><%= h.room %></dd>
-                  <dt>Spisová značka:</dt>
+                  <dt>Spis. značka:</dt>
                   <dd><%= h.case_number %></dd>
                   <dt>IČS: </dt>
                   <dd><%= h.file_number %></dd>
@@ -68,10 +79,18 @@
                </div>
 
                <div class="clearfix">
-                  <%= link_to "Viac informácii", h.uri, target: '_blank', class: 'more' %>
-         </div></div></div></div>
+                  <%= link_to "Viac informácii", '#', class: 'more' %>
+              </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
 
        <% end %>
+       <hr/>
      </div>
    </div>
 
+
+<hr/>

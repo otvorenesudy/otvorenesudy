@@ -3,8 +3,8 @@
 <section id="highlights">
   <div class="page-header">
     <h1>
-      <%= title %>
-      <small>transparentný pohľad na slovenské súdnictvo</small>
+      
+      <small>Ukážky dokumentov a štatistík</small>
     </h1>
   </div>
   
@@ -13,17 +13,25 @@
       <div class="tabbable">
         
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab">Tab1</a></li>
-          <li><a href="#tab2" data-toggle="tab">Tab2</a></li>
+          <li class="active"><a href="#tab-timeline" data-toggle="tab">Priebeh konania</a></li>
+          <li><a href="#tab-advanced" data-toggle="tab">Mapa účastníkov pojednávaní</a></li>
         </ul>
   
         <div class="tab-content">
-          <div id="tab1" class="tab-pane active">
-            <p>Hello world! 1</p>
+          <div id="tab-timeline" class="tab-pane active">
+            <p>Príklad <a href="/timeline">priebehu súdneho konania</a> s identifikačným číslom súdneho spisu 4112010056 prehľadne zobrazeného na časovej osi.</p>
+            
+            <a href="/timeline">
+              <img src="/assets/sample-timeline.png" />
+            </a>
           </div>
 
-          <div id="tab2" class="tab-pane">
-            <p>Hello world! 2</p>
+          <div id="tab-advanced" class="tab-pane">
+            <p>Pokročilý graf zobrazuje <a href="/graph">mapu prepojení</a> medzi účastníkmi súdnych pojednávaní.</p>
+            
+            <a href="/graph">
+              <img src="/assets/sample-map.png" />
+            </a>
           </div>
         </div>
         

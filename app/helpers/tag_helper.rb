@@ -36,6 +36,6 @@ module TagHelper
   end
 
   def tooltip_tag(body, tip, options = {})
-    link_to text, '#', options.merge(:rel => :tooltip, :title => tooltip) 
+    link_to text, '#', options.merge(rel: :tooltip, title: tip) 
   end  
 end
