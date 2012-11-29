@@ -1,13 +1,13 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, class: :brand %>
+      <%
+       # link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, class: :brand
+       %>
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
-          <% # TODO rm
-           #
-           %>
+          <%= link_to "Otvorené Súdy", root_path, class: 'capital brand' %>
           <%= li_tag :home, 'Súdy', courts_path %>
           <%= li_tag :group, 'Sudcovia', judges_path %>
           <%= li_tag :comments, 'Pojednávania', hearings_path %>

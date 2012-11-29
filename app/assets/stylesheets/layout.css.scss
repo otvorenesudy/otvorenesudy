@@ -1,6 +1,8 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
+@font-face { font-family: TrajanPro; src: url('/assets/trajan-pro.otf'); }
+
 html {
   overflow-y: scroll;
 }
@@ -22,9 +24,28 @@ input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus,
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(98, 74, 157, 0.6);
 }
 
+// capital
+.capital {
+  font-family: TrajanPro, $baseFontFamily;
+}
+
 // navbar
 
 .navbar-inverse {
+  a.brand {
+    height: 20px;
+    line-height: 20px;
+    margin: 0px;
+    
+    // TODO fix
+    padding: 13px 10px 7px 10px;
+    
+    font-size: 18px;
+    vertical-align: middle;
+  }
+
+// TODO rm
+/*  
   a.brand {
     display: block;
     width: 40px;
@@ -42,7 +63,7 @@ input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus,
       }
     }
   }
-  
+*/  
   .nav > li > a {
     height: 20px;
     line-height: 20px;
