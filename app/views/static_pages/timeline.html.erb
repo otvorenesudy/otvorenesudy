@@ -1,0 +1,77 @@
+  <div id="line-container">
+
+    <div id="timeline" style="position: relative; overflow: hidden;" class="isotope">
+
+      <div id="line-container">
+        <div id="line" style=""></div>
+      </div>
+      <div class="item year-marker isotope-item top" style="">
+        <div class="inner">
+          <div class="inner2">
+            <div class="timestamp">1356994799999</div>
+            <div class="year">2012</div>
+          </div>
+        </div>
+      </div>
+      <% @decree = Decree.find_by_file_number(4112010056) %>
+
+      <div class="item post isotope-item right" style="position: relative;">
+        <div class="inner" style="margin-top: 60px;">
+          <div class="timestamp">1338156000000</div>
+          <div class="title"><h3>Rozhodnutie</h3></div>
+          <div class="date"><%= l @decree.date, format: "%B, %-d." %></div>
+          <div class="body">
+
+            <div class="text">
+              <dl class="dl-horizontal">
+                <dt>Sudca: </dt>
+                <dd><%= @decree.judge.name %></dd>
+                <dt>Súd: </dt>
+                <dd><%= @decree.court.name %></dd>
+                <dt>Spisová značka:</dt>
+                <dd><%= @decree.case_number %></dd>
+                <dt>IČS: </dt>
+                <dd><%= @decree.file_number %></dd>
+              </dl>
+            </div>
+
+            <div class="clearfix">
+              <%= link_to "Viac informácii", decree_path(@decree), target: '_blank', class: 'more' %>
+      </div></div></div></div>
+
+
+      <% Hearing.where("file_number = '4112010056'").order("date desc").each_with_index do |h, i| %>
+        <div class="item post isotope-item <%= i % 2 == 0 ? 'left' : 'right' %>" style="position: relative;">
+          <div class="inner" style="margin-top: 60px;">
+            <div class="timestamp">1338156000000</div>
+            <div class="title"><h3>Pojednávanie</h3></div>
+            <div class="date"><%= l h.date, format: "%B, %-d." %></div>
+            <div class="body">
+
+              <div class="text">
+                <dl class="dl-horizontal">
+                  <dt>Sudca: </dt>
+                  <dd><%= h.judgings.map { |j| j.judge.name }.join(",") %></dd>
+                  <dt>Súd: </dt>
+                  <dd><%= h.court.name %></dd>
+                  <dt>Miestnosť: </dt>
+                  <dd><%= h.room %></dd>
+                  <dt>Spisová značka:</dt>
+                  <dd><%= h.case_number %></dd>
+                  <dt>IČS: </dt>
+                  <dd><%= h.file_number %></dd>
+                  <dt>Predmet:</dt>
+                  <dd><%= h.subject.value %></dd>
+                  <dt>Obžalovaní:</dt>
+                  <dd><%= raw(h.defendants.map(&:name).join("<br>")) %></dd>
+                 </dl>
+               </div>
+
+               <div class="clearfix">
+                  <%= link_to "Viac informácii", hearing_path(h), target: '_blank', class: 'more' %>
+         </div></div></div></div>
+
+       <% end %>
+     </div>
+   </div>
+
