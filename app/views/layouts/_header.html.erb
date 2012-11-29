@@ -1,24 +1,21 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <!-- image_tag(asset_path('logo-white.png'), alt: :logo) -->
-      
-      <%= link_to "Otvorené Súdy", root_path, class: 'capital brand' %>
+      <%
+       # link_to image_tag(asset_path('logo-white.png'), alt: :logo), root_path, class: :brand
+       %>
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
-          <% # TODO rm
-           #content_tag :li, link_to('Súdy', courts_path), class: current_page?(courts_path) ? :active : nil
-           %>
-          <!--li><%= link_and_icon_to :lemon, 'Otvorené Súdy', home_path %></li-->
+          <%= link_to "Otvorené Súdy", root_path, class: 'capital brand' %>
+          <%= li_tag :home, 'Súdy', courts_path %>
+          <%= li_tag :group, 'Sudcovia', judges_path %>
+          <%= li_tag :comments, 'Pojednávania', hearings_path %>
+          <%= li_tag :legal, 'Rozhodnutia', decrees_path %>
         </ul>
         
         <ul class="nav pull-right">
-          <li><%= link_and_icon_to :home, 'Súdy', courts_path %></li>
-          <li><%= link_and_icon_to :group, 'Sudcovia', judges_path %></li>
-          <li><%= link_and_icon_to :comments, 'Pojednávania', hearings_path %></li>
-          <li><%= link_and_icon_to :legal, 'Rozhodnutia', decrees_path %></li>
-          <li><%= link_and_icon_to :signal, 'Štatistiky', stats_path %></li>
+          <%= li_tag :signal, 'Štatistiky', stats_path %>
         </ul>
       </nav>
     </div>

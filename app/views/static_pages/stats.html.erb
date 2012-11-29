@@ -1,18 +1,18 @@
 <%= provide :title, 'Štatistiky' %>
 
+<section class="stats">
+  <div class="page-header">
+    <h1>
+      <%= yield :title %>
+      <small>prehľadné dynamické grafy a tabuľky</small>
+    </h1>
+  </div>
 
-
-<div class="stats-nav">
- <ul class="nav nav-pills">
-  <li><a href="/stats/names">Sudcovia podľa mena</a></li>
-  <li><a href="/stats/surnames">Sudcovia podľa priezviska</a></li>
-  <li><a href="/stats/employments">Sud podľa počtu zamestnancov</a></li>
-  <li><a href="/stats/court_activity">Aktivita súdov</a></li>
-  <li><a href="/stats/judge_activity">Aktivita sudcov</a></li>
-</ul>
-</div>
-
-
-
-
-
+  <ul class="nav nav-pills">
+    <li><a href="/stats/names">Sudcovia podľa mena</a></li>
+    <li><a href="/stats/surnames">Sudcovia podľa priezviska</a></li>
+    <li><a href="/stats/employments">Súdy podľa počtu zamestnancov</a></li>
+    <li><a href="/stats/court_activity">Aktivita súdov</a></li>
+    <li><a href="/stats/judge_activity">Aktivita sudcov</a></li>
+  </ul>
+</section>

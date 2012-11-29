@@ -11,8 +11,20 @@ body {
   padding-top: 40px;
 }
 
-// capital
+// TODO fix
+textarea:focus,
+input[type="text"]:focus, input[type="password"]:focus,
+input[type="datetime"]:focus, input[type="datetime-local"]:focus,
+input[type="date"]:focus, input[type="time"]:focus,
+input[type="month"]:focus, input[type="week"]:focus,
+input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus,
+input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus,
+.uneditable-input:focus {
+    border-color: rgba(98, 74, 157, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(98, 74, 157, 0.6);
+}
 
+// capital
 .capital {
   font-family: TrajanPro, $baseFontFamily;
 }
@@ -24,11 +36,22 @@ body {
     height: 20px;
     line-height: 20px;
     margin: 0px;
-    padding: 12px 10px 8px 10px;
-    overflow: hidden;
+    
+    // TODO fix
+    padding: 13px 10px 7px 10px;
     
     font-size: 18px;
     vertical-align: middle;
+  }
+
+// TODO rm
+/*  
+  a.brand {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0px;
+    padding: 0px;
     
     img {
       opacity: 0.5625;
@@ -40,7 +63,7 @@ body {
       }
     }
   }
-  
+*/  
   .nav > li > a {
     height: 20px;
     line-height: 20px;

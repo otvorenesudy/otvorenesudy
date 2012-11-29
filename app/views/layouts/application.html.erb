@@ -18,6 +18,6 @@
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
     <%= render 'shared/shim' %>
-    <%= render 'layouts/debug' if Rails.env.development? %>
+    <%= render 'layouts/debug' if nil && Rails.env.development? %>
   </body>
 </html>
