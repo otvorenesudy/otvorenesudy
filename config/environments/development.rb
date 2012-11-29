@@ -36,6 +36,7 @@ Otvorenesudy::Application.configure do
   config.assets.debug = true
 
   # load only specified locales
+  config.i18n.default_locale   =  :sk
   config.i18n.available_locales = :sk
   config.i18n.locale            = :sk
 end
