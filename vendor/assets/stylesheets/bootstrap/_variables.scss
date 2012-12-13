@@ -9,7 +9,7 @@ $white:                 #fff !default;
 
 
 // Accent colors
-$blue:                  #624a9d !default;
+$blue:                  #624a9d !default; // #049cdb
 $blueDark:              #0064cd !default;
 $green:                 #46a546 !default;
 $red:                   #9d261d !default;
@@ -25,7 +25,7 @@ $textColor:             $grayDark !default;
 
 
 // Links
-$linkColor:             #4e2d7c !default;
+$linkColor:             #4e2d7c !default; // #08c
 $linkColorHover:        darken($linkColor, 15%) !default;
 
 
@@ -90,17 +90,18 @@ $btnInverseBackgroundHighlight:     $grayDarker !default;
 
 
 // Forms
+$formActionsBackground:         #f5f5f5 !default;
 $inputBackground:               $white !default;
 $inputBorder:                   #ccc !default;
+$inputBorderFocus:              $linkColor !default;
 $inputBorderRadius:             $baseBorderRadius !default;
 $inputDisabledBackground:       $grayLighter !default;
-$formActionsBackground:         #f5f5f5 !default;
 $inputHeight:                   $baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
 
 
 // Dropdowns
 $dropdownBackground:            $white !default;
-$dropdownBorder:                rgba(0,0,0,.2) !default;
+$dropdownBorder:                rgba(0, 0, 0, 0.2) !default;
 $dropdownDividerTop:            #e5e5e5 !default;
 $dropdownDividerBottom:         $white !default;
 
@@ -206,8 +207,8 @@ $successText:             #468847 !default;
 $successBackground:       #dff0d8 !default;
 $successBorder:           darken(adjust-hue($successBackground, -10), 5%) !default;
 
-$infoText:                #69449a !default;
-$infoBackground:          #e4d8ea !default;
+$infoText:                #69449a !default; // #3a87ad
+$infoBackground:          #e4d8ea !default; // #d9edf7
 $infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
 
 
@@ -224,7 +225,7 @@ $popoverTitleBackground:  darken($popoverBackground, 3%) !default;
 
 // Special enhancement for popovers
 $popoverArrowOuterWidth:  $popoverArrowWidth + 1 !default;
-$popoverArrowOuterColor:  rgba(0,0,0,.25) !default;
+$popoverArrowOuterColor:  rgba(0, 0, 0, 0.25) !default;
 
 
 // Default 940px grid
