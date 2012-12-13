@@ -9,13 +9,8 @@ gem 'mysql2'
 gem 'json'
 gem 'nokogiri'
 
-# TODO rm
-#gem 'twitter-bootstrap-rails'
-#gem "less-rails"
-
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
-gem "mootools-rails", "~> 1.0.1"
 
 gem 'coffee-script'
 gem 'jquery-rails'
@@ -32,7 +27,9 @@ gem 'mechanize'
 gem 'murmurhash3'
 gem 'docsplit'
 
-gem 'highcharts-rails', '~> 2.3.0'
+# TODO use or rm
+#gem 'highcharts-rails', '~> 2.3.0'
+#gem 'mootools-rails',   '~> 1.0.1'
 
 gem 'resque'
 
