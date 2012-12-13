@@ -25,7 +25,7 @@ module TagHelper
     mail_to url, icon_tag(type, body), options
   end
 
-  def li_tag(type, body, url, options = {})
+  def navbar_li_tag(type, body, url, options = {})
     options.merge!(class: :active) if current_page? url
     content_tag :li, icon_link_to(type, body, url), options
   end

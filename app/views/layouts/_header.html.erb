@@ -7,15 +7,15 @@
 
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
-          <%= link_to "Otvorené Súdy", root_path, class: 'capital brand' %>
-          <%= li_tag :home, 'Súdy', courts_path %>
-          <%= li_tag :group, 'Sudcovia', judges_path %>
-          <%= li_tag :comments, 'Pojednávania', hearings_path %>
-          <%= li_tag :legal, 'Rozhodnutia', decrees_path %>
+          <li><%= link_to "Otvorené Súdy", root_path, class: 'capital brand' %></li>
+          <%= navbar_li_tag :home, 'Súdy', courts_path %>
+          <%= navbar_li_tag :group, 'Sudcovia', judges_path %>
+          <%= navbar_li_tag :comments, 'Pojednávania', hearings_path %>
+          <%= navbar_li_tag :legal, 'Rozhodnutia', decrees_path %>
         </ul>
         
         <ul class="nav pull-right">
-          <%= li_tag :signal, 'Štatistiky', stats_path %>
+          <%= navbar_li_tag :signal, 'Štatistiky', stats_path %>
         </ul>
       </nav>
     </div>
