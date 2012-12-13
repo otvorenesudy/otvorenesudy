@@ -66,10 +66,15 @@ div.search {
     margin: 0px;
     padding: 0px;    
 
-   .input-append {
+    .input-append {
       display: block;
       width: 272px;
       margin: 0px auto;
+
+      input:focus {
+        border-color: $grayLight;
+        @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($grayLight, 0.6));
+      }
     }
   }
   
