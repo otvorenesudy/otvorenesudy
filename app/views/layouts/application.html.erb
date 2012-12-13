@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= title yield :title %></title>
     <meta charset="utf-8">
+    <meta name="description" content="Zverejňovanie súdnych rozhodnutí a pojednávaní" />
+    <meta name="keywords" content="otvorené súdy, slovenské súdnictvo, súdne rozhodnutia, súdne pojednávania" />
+    <meta name="author" content="github.com/otvorenesudy" />
+    <title><%= title yield :title %></title>
     <%= favicon_link_tag asset_path('favicon.ico'), type: 'image/x-icon' %>
     <%= stylesheet_link_tag 'application' %>
+    <%= render 'shared/shim' %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -15,9 +20,6 @@
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
-    <%= javascript_include_tag 'application' %>
-    <%= yield :scripts %>
-    <%= render 'shared/shim' %>
     <%= render 'layouts/debug' if nil && Rails.env.development? %>
   </body>
 </html>
