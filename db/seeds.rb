@@ -4,19 +4,19 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 court              = Court.new
-court.uri          = "http://www.nsud.sk" 
-court.type         = CourtType.create value: "Najvyšší"  
-court.municipality = Municipality.create name: "Bratislava", zipcode: "814 90"
-court.name         = "Najvyšší súd Slovenskej republiky"
-court.street       = "Župné námestie 13"
-court.save!
-
-court              = Court.new
 court.uri          = "http://portal.concourt.sk"
 court.type         = CourtType.create value: "Ústavný"  
 court.municipality = Municipality.create name: "Košice", zipcode: "042 65"
 court.name         = "Ústavný súd Slovenskej republiky"
 court.street       = "Hlavná 110"
+court.save!
+
+court              = Court.new
+court.uri          = "http://www.nsud.sk" 
+court.type         = CourtType.create value: "Najvyšší"  
+court.municipality = Municipality.create name: "Bratislava", zipcode: "814 90"
+court.name         = "Najvyšší súd Slovenskej republiky"
+court.street       = "Župné námestie 13"
 court.save!
 
 DecreeForm.create value: 'Rozsudok',                  code: 'A'

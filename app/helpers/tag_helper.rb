@@ -35,7 +35,7 @@ module TagHelper
     content_tag :abbr, time.to_formatted_s(format), options
   end
 
-  def tooltip_tag(body, tip, options = {})
-    link_to text, '#', options.merge(rel: :tooltip, title: tip) 
+  def tooltip_tag(body, tip, position = :top, options = {})
+    link_to body, '#', options.merge(rel: :tooltip, class: position, title: tip) 
   end  
 end

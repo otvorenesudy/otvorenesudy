@@ -8,6 +8,9 @@ class Judge < ActiveRecord::Base
                   :suffix,
                   :addition
 
+  scope :active,   where('active = ?', false)
+  scope :inactive, where('active = ?', true)
+
   has_many :employments, dependent: :destroy
   
   has_many :judgings, dependent: :destroy

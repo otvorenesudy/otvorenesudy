@@ -16,6 +16,26 @@ body {
   padding-top: 40px;
 }
 
+table {
+  th a[rel="tooltip"] {
+    color: $textColor;
+    text-decoration: none;
+    border-bottom: 1px dotted $textColor;
+  }
+  
+  .left {
+    text-align: left;
+  }
+
+  .center {
+    text-align: center;
+  }
+  
+  .right {
+    text-align: right;
+  }
+}
+
 // capital
 
 .capital {

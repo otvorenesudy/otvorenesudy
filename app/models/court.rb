@@ -15,6 +15,8 @@ class Court < ActiveRecord::Base
                   :latitude,
                   :longitude
   
+  scope :by_type, lambda { |value| joins(:type).where('value = ?', value) }
+ 
   belongs_to :type, class_name: :CourtType, foreign_key: :court_type_id
   
   has_many :employments, dependent: :destroy
@@ -34,7 +36,7 @@ class Court < ActiveRecord::Base
              
   validates :name,   presence: true
   validates :street, presence: true
- 
+
   # TODO rm
   # TODO replace with gem
   def self.similar_by_name(name, similarity)

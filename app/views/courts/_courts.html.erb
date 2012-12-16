@@ -1,0 +1,28 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="span12">Súd</th>
+      <th><%= tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov." %></th>
+      <th><%= tooltip_tag "Pojednávania", "Počet zverejnených súdnych pojednávaní." %></th>
+      <th><%= tooltip_tag "Rozhodnutia",  "Počet zverejnených súdnych rozhodnutí." %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% courts.each do |court| %>
+      <tr>
+        <td>
+          <%= link_to_court court %>
+        </td>
+        <td class="right">
+          <%= court.judges.count %>
+        </td>
+        <td class="right">
+          <%= court.hearings.count %>
+        </td>
+        <td class="right">
+          <%= court.hearings.count %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
