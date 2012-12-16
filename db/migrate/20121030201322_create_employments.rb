@@ -14,5 +14,7 @@ class CreateEmployments < ActiveRecord::Migration
     
     add_index :employments, [:court_id, :judge_id]
     add_index :employments, [:judge_id, :court_id]
+    
+    add_index :employments, :active
   end
 end
