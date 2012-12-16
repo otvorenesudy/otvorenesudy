@@ -25,6 +25,12 @@ module TagHelper
     mail_to url, icon_tag(type, body), options
   end
 
+  def navbar_logo_tag(title)
+    classes = [:capital]
+    classes << :active if current_page? root_path
+    content_tag :li, link_to(title, root_path, class: :brand), class: classes 
+  end
+
   def navbar_li_tag(type, body, url, options = {})
     options.merge!(class: :active) if current_page? url
     content_tag :li, icon_link_to(type, body, url), options

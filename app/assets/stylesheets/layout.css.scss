@@ -57,17 +57,23 @@ table {
     vertical-align: middle;
   }
 
-  .nav > li > a {
-    height: 20px;
-    line-height: 20px;
-    padding: 10px;
+  .nav {
+    li.capital.active a {
+      background-color: inherit;
+    }
 
-    i {
-      margin: 0px;
-      padding: 0px;
-      
-      font-size: 20px;
-      text-decoration: none;
+    li > a {
+      height: 20px;
+      line-height: 20px;
+      padding: 10px;
+  
+      i {
+        margin: 0px;
+        padding: 0px;
+        
+        font-size: 20px;
+        text-decoration: none;
+      }
     }
   }
 }
