@@ -74,13 +74,17 @@ module JusticeGovSk
         group = office_type_to_group(type)
         name  = office_type_to_name(type)
         
-        {
+        hours = {
           monday:    office_daily_hours(name + ' monday hours',    document, group, 3),
           tuesday:   office_daily_hours(name + ' tuesday hours',   document, group, 4),
           wednesday: office_daily_hours(name + ' wednesday hours', document, group, 5),
           thursday:  office_daily_hours(name + ' thursday hours',  document, group, 6),
           friday:    office_daily_hours(name + ' friday hours',    document, group, 7)
         }
+        
+        hours.values.each { |value| return hours unless value.nil? }
+        
+        nil
       end
       
       def office_note(type, document)

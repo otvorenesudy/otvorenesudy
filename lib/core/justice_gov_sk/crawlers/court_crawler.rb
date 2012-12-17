@@ -94,23 +94,28 @@ module JusticeGovSk
       private
       
       def office(type, office, document)
-        office ||= court_office_factory.create
-        
-        office.court = @court
-        
-        office.phone = @parser.office_phone(type, document)
-        office.email = @parser.office_email(type, document)
-        office.note  = @parser.office_note(type, document)
-        
+        email = @parser.office_email(type, document)
+        phone = @parser.office_phone(type, document)
         hours = @parser.office_hours(type, document)
-        
-        office.hours_monday    = hours[:monday]
-        office.hours_tuesday   = hours[:tuesday]
-        office.hours_wednesday = hours[:wednesday]
-        office.hours_thursday  = hours[:thursday]
-        office.hours_friday    = hours[:friday]
-        
-        @persistor.persist(office)
+        note  = @parser.office_note(type, document)
+
+        unless email.nil? && phone.nil? && hours.nil? && note.nil?
+          office ||= court_office_factory.create
+          
+          office.court = @court
+          
+          office.email = email
+          office.phone = phone
+          office.note  = note
+          
+          office.hours_monday    = hours[:monday]
+          office.hours_tuesday   = hours[:tuesday]
+          office.hours_wednesday = hours[:wednesday]
+          office.hours_thursday  = hours[:thursday]
+          office.hours_friday    = hours[:friday]
+          
+          return @persistor.persist(office)
+        end
       end
     end
   end

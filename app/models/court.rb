@@ -32,7 +32,7 @@ class Court < ActiveRecord::Base
   belongs_to :information_center,       class_name: :CourtOffice, dependent: :destroy
   belongs_to :registry_center,          class_name: :CourtOffice, dependent: :destroy
   belongs_to :business_registry_center, class_name: :CourtOffice, dependent: :destroy
-             
+  
   validates :name,   presence: true
   validates :street, presence: true
   
