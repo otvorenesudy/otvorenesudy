@@ -1,9 +1,4 @@
 class Court < ActiveRecord::Base
-  
-  # TODO rm
-  #include PgSearch
-  #pg_search_scope :search_by_name, against: name, using: :trigram
-
   attr_accessible :uri,
                   :name,
                   :street,
@@ -14,6 +9,10 @@ class Court < ActiveRecord::Base
                   :media_phone,
                   :latitude,
                   :longitude
+  
+  # TODO rm
+  #include PgSearch
+  #pg_search_scope :search_by_name, against: name, using: :trigram
   
   scope :by_type, lambda { |value| joins(:type).where('value = ?', value) }
  
@@ -36,6 +35,11 @@ class Court < ActiveRecord::Base
              
   validates :name,   presence: true
   validates :street, presence: true
+  
+  def address
+    "#{street}, #{municipality.name} #{municipality.zipcode}"
+  end
+    
 
   # TODO rm
   # TODO replace with gem

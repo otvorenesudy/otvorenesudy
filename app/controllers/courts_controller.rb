@@ -2,9 +2,9 @@
 
 class CourtsController < ApplicationController
   def index
-    @constitutional = Court.by_type('Ústavný')
-    @high           = Court.by_type('Najvyšší')
-    @special        = Court.by_type('Špeciálny')
+    @constitutional = Court.by_type('Ústavný').first
+    @highest        = Court.by_type('Najvyšší').first
+    @specialized    = Court.by_type('Špecializovaný').first
 
     @regional = Court.by_type('Krajský').order(:name)
     @district = Court.by_type('Okresný').order(:name)

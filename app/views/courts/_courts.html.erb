@@ -1,7 +1,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th class="span12">Súd</th>
+      <th class="span5">Súd</th>
+      <th class="span7">Adresa</th>
       <th><%= tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov." %></th>
       <th><%= tooltip_tag "Pojednávania", "Počet zverejnených súdnych pojednávaní." %></th>
       <th><%= tooltip_tag "Rozhodnutia",  "Počet zverejnených súdnych rozhodnutí." %></th>
@@ -13,6 +14,11 @@
         <td>
           <%= link_to_court court %>
         </td>
+        <td>
+          <address>
+            <%= court.address %>
+          </address>
+        </td>
         <td class="right">
           <%= court.judges.count %>
         </td>
@@ -20,7 +26,7 @@
           <%= court.hearings.count %>
         </td>
         <td class="right">
-          <%= court.hearings.count %>
+          <%= court.decrees.count %>
         </td>
       </tr>
     <% end %>

@@ -16,13 +16,9 @@ body {
   padding-top: 40px;
 }
 
+// tables
+
 table {
-  th a[rel="tooltip"] {
-    color: $textColor;
-    text-decoration: none;
-    border-bottom: 1px dotted $textColor;
-  }
-  
   .left {
     text-align: left;
   }
@@ -34,6 +30,20 @@ table {
   .right {
     text-align: right;
   }
+  
+  address {
+    margin: 0;
+  }
+}
+
+// popovers and tooltips
+
+a[rel="popover"], a[rel="tooltip"] {
+  border-bottom: 1px dotted $textColor;
+  
+  color: $textColor;
+  cursor: help;
+  text-decoration: none;  
 }
 
 // capital
@@ -174,35 +184,5 @@ footer {
       float: left;
       margin-left: 10px;
     }
-  }
-}
-
-// highcharts // TODO rm
-
-.chart {
-  margin: auto;
-  margin-bottom: 100px;
-
-  color: $linkColorHover;
-
-  .highcharts-title {
-    width: 300px;
-    padding-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-
-    text-align: center;
-  }
-
-  .highcharts-container {
-    min-width: 400px;
-    height: 600px;
-    margin: 0 auto;
-  }
-
-  .highbarcharts-container {
-    min-width: 400px;
-    height: 1000px;
-    margin: 0 auto;
   }
 }

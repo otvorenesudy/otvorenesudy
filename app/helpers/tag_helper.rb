@@ -35,13 +35,27 @@ module TagHelper
     options.merge!(class: :active) if current_page? url
     content_tag :li, icon_link_to(type, body, url), options
   end
+  
+  def popover_tag(body, content, title = nil, placement = :top, trigger = :click, options = {})
+    options.merge! rel: :popover, title: title
+    options.merge! data trigger: trigger, placement: placement, content: content
+    link_to body, '#', options
+  end
     
   def time_tag(time, format = :long_ordinal, options = {})
     options.merge! class: :timeago, title: time.getutc.iso8601
     content_tag :abbr, time.to_formatted_s(format), options
   end
 
-  def tooltip_tag(body, tip, position = :top, options = {})
-    link_to body, '#', options.merge(rel: :tooltip, class: position, title: tip) 
+  def tooltip_tag(body, title, placement = :top, trigger = :hover, options = {})
+    options.merge! rel: :tooltip, title: title
+    options.merge! data trigger: trigger, placement: placement
+    link_to body, '#', options
+  end
+  
+  private
+  
+  def data(options = {})
+    options.inject({}) { |o, (k, v)| o["data-#{k}"] = v; o }
   end  
 end
