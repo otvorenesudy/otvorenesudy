@@ -1,0 +1,46 @@
+<% provide :title, @court.name %>
+
+<section id="profile">
+  <div class="page-header">
+    <h1>
+      <%= @court.name %>
+    </h1>
+  </div>
+  
+  
+</section>
+
+<section id="rest">
+  <div class="row">
+    <div class="span12">
+      <div class="tabbable">
+        
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#info" data-toggle="tab">Informácie</a></li>
+          <li><a href="#judges" data-toggle="tab">Sudcovia</a></li>
+          <li><a href="#hearings" data-toggle="tab">Pojednávania</a></li>
+          <li><a href="#decrees" data-toggle="tab">Rozhodnutia</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="info" class="tab-pane active">
+            <%= render 'info' %>
+          </div>
+
+          <div id="judges" class="tab-pane">
+            <%= render 'judges', judges: @judges %>
+          </div>
+
+          <div id="hearings" class="tab-pane">
+            <%= render 'hearings', hearings: @hearings %>
+          </div>
+
+          <div id="decrees" class="tab-pane">
+            <%= render 'decrees', decrees: @decrees %>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

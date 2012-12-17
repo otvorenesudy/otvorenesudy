@@ -9,4 +9,12 @@ class CourtsController < ApplicationController
     @regional = Court.by_type('Krajský').order(:name)
     @district = Court.by_type('Okresný').order(:name)
   end
+  
+  def show
+    @court = Court.find(params[:id])
+    
+    @judges   = @court.judges
+    @hearings = @court.hearings
+    @decrees  = @court.decrees
+  end
 end
