@@ -39,7 +39,6 @@ class Court < ActiveRecord::Base
   def address
     "#{street}, #{municipality.name} #{municipality.zipcode}"
   end
-    
 
   # TODO rm
   # TODO replace with gem

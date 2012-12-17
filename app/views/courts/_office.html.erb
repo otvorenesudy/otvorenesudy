@@ -1,0 +1,44 @@
+<h2><%= name %></h2>
+
+<% if office.phone? %>
+  <div class="row">
+    <div class="span2">Tel. číslo:</div>
+    <div class="span10"><%= court_phone office %></div>
+  </div>
+<% end %>
+
+<% if office.email? %>
+  <div class="row">
+    <div class="span2">E-mail:</div>
+    <div class="span10"><%= court_email office %></div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="span2">Úradné hodiny:</div>
+  <div class="span1">Pondelok:</div>
+  <div class="span9"><%= office.hours_monday %></div>
+</div>
+<div class="row">
+  <div class="offset2 span1">Utorok:</div>
+  <div class="span9"><%= office.hours_tuesday %></div>
+</div>
+<div class="row">
+  <div class="offset2 span1">Streda:</div>
+  <div class="span9"><%= office.hours_wednesday %></div>
+</div>
+<div class="row">
+  <div class="offset2 span1">Štvrtok:</div>
+  <div class="span9"><%= office.hours_thursday %></div>
+</div>
+<div class="row">
+  <div class="offset2 span1">Piatok:</div>
+  <div class="span9"><%= office.hours_friday %></div>
+</div>
+
+<% if office.note? %>
+  <div class="row">
+    <div class="span2">Poznámka:</div>
+    <div class="span10"><%= office.note %></div>
+  </div>
+<% end %>
