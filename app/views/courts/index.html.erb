@@ -1,10 +1,7 @@
-<%= provide :title, "Súdy Slovenskej Republiky" %>
+<% provide :title, "Súdy Slovenskej Republiky" %>
+<% provide :header, render(partial: 'header') %>
 
 <section id="main-courts">
-  <div class="page-header">
-    <h1><%= yield :title %></h1>
-  </div>
-
   <div class="row">
     <div class="span12">
       <%= render 'courts', courts: [@constitutional, @highest, @specialized] %>
