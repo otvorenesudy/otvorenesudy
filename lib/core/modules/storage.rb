@@ -28,7 +28,7 @@ module Storage
   def load(path)
     path = fullpath(path)
     
-    File.open(path, binary ? 'rb' : 'r:utf-8').read if File.readable? path
+    File.open(path, binary ? 'rb' : 'r:utf-8') { |file| file.read } if File.readable? path
   end
   
   def store(path, content)

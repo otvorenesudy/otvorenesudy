@@ -17,6 +17,7 @@ class Agent < Downloader
     
     return content unless content.nil?
 
+    @handler.keep_alive   = false
     @handler.open_timeout = @timeout
     @handler.read_timeout = @timeout
 
