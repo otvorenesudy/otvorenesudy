@@ -27,6 +27,8 @@ gem 'mechanize'
 gem 'murmurhash3'
 gem 'docsplit'
 
+gem 'gmaps4rails'
+
 # TODO use or rm
 #gem 'highcharts-rails', '~> 2.3.0'
 #gem 'mootools-rails',   '~> 1.0.1'
