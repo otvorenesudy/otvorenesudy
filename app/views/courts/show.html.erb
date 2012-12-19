@@ -10,7 +10,7 @@
   
   <% q = @court.to_gmaps4rails do |court, marker|
 
-  marker.infowindow tooltip_tag "i'm the title", 'hello'
+  marker.infowindow render('map_marker')
   marker.json({ id: @court.id })
   
   end

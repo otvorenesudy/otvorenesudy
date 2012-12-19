@@ -1,0 +1,22 @@
+@import 'variables';
+@import 'mixins';
+
+.map {
+  padding: 0px;
+  border: 1px solid $grayLight;
+  
+  @include box-shadow(0 1px 1px rgba($black, 0.075), 0 2px 4px $grayLight);
+  
+  .view {
+    height: 450px;
+    
+    img { 
+      max-width: none;
+    }
+    
+    label { 
+      display: inline;
+      width: auto; 
+    }
+  }
+}
