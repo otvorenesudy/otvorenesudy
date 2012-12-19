@@ -12,7 +12,7 @@ module JusticeGovSk
         
         key = value.ascii.downcase
 
-        court_name_map[key] || (value.utf8.split(/\s+/).map do |part|
+        court_name_map[key] || (value.utf8.split(/\s+/).map { |part|
           if !part.match(/\A(v|nad|súd|okolie)\z/i).nil?
             part.downcase
           elsif !part.match(/\A(I|V)+\z/).nil?
@@ -20,7 +20,7 @@ module JusticeGovSk
           else
             part.titlecase
           end
-        end.join ' ')
+        }.join ' ')
       end
       
       def self.court_name_map
@@ -168,12 +168,12 @@ module JusticeGovSk
       end
       
       def self.hours(value)
-        value.ascii.split(/\,|\;/).map do |interval|
-          interval.split(/\-/).map do |time|
-            hour, minute = time.split(/\:/)
-            "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
-          end.join ' - '
-        end.join ', '
+        times = value.ascii.split(/\s+\-\s+|\s+|\,|\;/).map do |time|
+          hour, minute = time.split(/\:/)
+          "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
+        end
+        
+        times.each_slice(2).map { |interval| "#{interval.first} - #{interval.last}" }.join ', '
       end
 
       def self.date(value)
