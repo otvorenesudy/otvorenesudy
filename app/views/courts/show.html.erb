@@ -8,41 +8,11 @@
     </h1>
   </div>
   
-  <% q = @court.to_gmaps4rails do |court, marker|
-
-  marker.infowindow render('map_marker')
-  marker.json({ id: @court.id })
-  
-  end
-  
+  <%=#court_map @court
    %>
-
-   
-  <%= q %>
   
-  <%= gmaps(map_options: {language: :sk, hl: :sk, region: :sk,
-            container_class: :map, id: "map_court_#{@court.id}", class: :view,
-            auto_adjust: true, auto_zoom: false, zoom: 16,
-            raw: "{ disableDefaultUI: false }" },
-            
-            markers: { data: q }
-            
-            )
-       %>
-  
-     
-   <% content_for :scripts do %>
-  <script type="text/javascript" charset="utf-8">
-    Gmaps.map_court_3.callback = function() {
-      if (Gmaps.map_court_3.markers.length == 1) {
-        var marker = Gmaps.map_court_3.markers[0];
-        var infowindow = marker.infowindow;
-        infowindow.open(Gmaps.map_court_3.map, marker.serviceObject);
-      }
-    }
-  </script>
-<% end %>
-
+  <%= courts_map Court.all
+   %>
   
 </section>
 
