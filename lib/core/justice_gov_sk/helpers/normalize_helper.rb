@@ -168,7 +168,7 @@ module JusticeGovSk
       end
       
       def self.hours(value)
-        times = value.ascii.split(/\s+\-\s+|\s+|\,|\;/).map do |time|
+        times = value.ascii.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
           hour, minute = time.split(/\:/)
           "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
         end
