@@ -23,7 +23,7 @@ class Downloader
     @data              = {}
 
     @repeat            = 8
-    @timeout           = 60.seconds
+    @timeout           = 2.minutes
 
     @wait_time         = 0.5.seconds
   end
