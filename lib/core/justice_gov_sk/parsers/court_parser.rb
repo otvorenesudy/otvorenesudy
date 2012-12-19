@@ -139,17 +139,12 @@ module JusticeGovSk
           coordinates = {}
                       
           iframe.first[:src].scan(/sll=\-?(\d+\.\d+)\,\-?(\d+\.\d+)/) do |latitude, longitude|
-            coordinates[:latitude]  = coordinate latitude
-            coordinates[:longitude] = coordinate longitude
+            coordinates[:latitude]  = latitude
+            coordinates[:longitude] = longitude
           end
           
           coordinates
         end
-      end
-      
-      def coordinate(value)
-        parts = value.split(/\./)
-        parts.first + parts.last[0..6].ljust(6, '0')
       end
     end
   end

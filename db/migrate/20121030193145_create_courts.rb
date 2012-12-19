@@ -22,8 +22,8 @@ class CreateCourts < ActiveRecord::Migration
       t.references :registry_center
       t.references :business_registry_center
       
-      t.decimal :latitude,  precision: 15, scale: 10
-      t.decimal :longitude, precision: 15, scale: 10
+      t.decimal :latitude,  precision: 12, scale: 8
+      t.decimal :longitude, precision: 12, scale: 8
 
       t.timestamps
     end
