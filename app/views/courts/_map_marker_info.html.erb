@@ -1,3 +1,7 @@
-<strong><%= court.name %></strong>
-<hr/>
-<%= court.address %>
+<% courts.each do |court| %>
+  <p>
+  <strong><%= court.name %></strong>
+  <hr/>
+  <%= court.address %>
+  </p>
+<% end %>

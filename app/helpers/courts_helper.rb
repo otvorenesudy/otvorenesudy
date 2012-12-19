@@ -14,7 +14,7 @@ module CourtsHelper
   
   def courts_map(courts, options = {})
     options = courts_map_defaults.merge options
-    id      = "map_#{'court'.pluralize(courts.count)}"
+    id      = "map_#{'court'.pluralize(courts.count)}_#{courts.hash.abs}"
     data    = {
       map_options: {
         container_class: :map,
@@ -37,17 +37,21 @@ module CourtsHelper
       }
     }
     
-    html = gmaps data
+    map = gmaps(data)
     
     if options[:info]
       content_for :scripts do
         content_tag :script, type: 'text/javascript', charset: 'utf-8' do
-          #render(partial: 'map_marker_info.js', locals: { id: id })
+          render partial: 'map_marker_info.js', locals: { id: id }
         end
       end
     end
     
-    html
+    map
+  end
+  
+  def courts_group_by_address(courts)
+    
   end
   
   def link_to_court(court)
@@ -58,16 +62,28 @@ module CourtsHelper
   
   def courts_map_defaults
     {
-      info: true,
-      zoom: 16,
+      info: false,
+      zoom: 7, # TODO 16
       ui:   true
     }
   end
   
   def courts_map_markers(courts, options)
-    courts.to_gmaps4rails do |court, marker|
-      marker.infowindow render(partial: 'map_marker_info.html', locals: { court: court }) if options[:info]
-      marker.json id: court.id
+    groups = {}
+    marked = []
+    
+    courts.each do |court|
+      coordinates = "#{court.latitude},#{court.longitude}"
+      
+      marked << court if groups[coordinates].nil?
+      
+      groups[coordinates] ||= []
+      groups[coordinates] << court
+    end
+    
+    marked.to_gmaps4rails do |court, marker|
+      coordinates = "#{court.latitude},#{court.longitude}"
+      marker.infowindow render partial: 'map_marker_info.html', locals: { courts: groups[coordinates] }
     end
   end
 end
