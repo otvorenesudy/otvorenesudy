@@ -3,20 +3,48 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+# http://portal.concourt.sk/pages/viewpage.action?pageId=1278049
 court              = Court.new
 court.uri          = "http://portal.concourt.sk"
 court.type         = CourtType.create value: "Ústavný"  
 court.municipality = Municipality.create name: "Košice", zipcode: "042 65"
 court.name         = "Ústavný súd Slovenskej republiky"
 court.street       = "Hlavná 110"
+court.latitude     = 48.725868
+court.longitude    = 21.25517
+court.save!
+court.registry_center                 = CourtOffice.new
+court.registry_center.court           = court
+court.registry_center.email           = nil
+court.registry_center.phone           = "+421-55-7207211, +421-55-6227633"
+court.registry_center.hours_monday    = "7:30 - 12:00, 13:00 - 16:00"
+court.registry_center.hours_tuesday   = "7:30 - 12:00, 13:00 - 16:00"
+court.registry_center.hours_wednesday = "7:30 - 12:00, 13:00 - 16:00"
+court.registry_center.hours_thursday  = "7:30 - 12:00, 13:00 - 16:00"
+court.registry_center.hours_friday    = "7:30 - 12:00, 13:00 - 13:30"
+court.registry_center.save!
 court.save!
 
+# http://www.nsud.sk/kontakt/
 court              = Court.new
 court.uri          = "http://www.nsud.sk" 
 court.type         = CourtType.create value: "Najvyšší"  
 court.municipality = Municipality.create name: "Bratislava", zipcode: "814 90"
 court.name         = "Najvyšší súd Slovenskej republiky"
-court.street       = "Župné námestie 13"
+court.street       = "Župné námestie č. 13"
+court.latitude     = 48.145895
+court.longitude    = 17.104694
+court.save!
+court.registry_center                 = CourtOffice.new
+court.registry_center.court           = court
+court.registry_center.email           = "podatelna@nsud.sk, info@nsud.sk"
+court.registry_center.phone           = "02 / 323 04 660"
+court.registry_center.hours_monday    = "8:00 - 11:30, 12:00 - 15:30"
+court.registry_center.hours_tuesday   = "8:00 - 11:30, 12:00 - 15:30"
+court.registry_center.hours_wednesday = "8:00 - 11:30, 12:00 - 15:30"
+court.registry_center.hours_thursday  = "8:00 - 11:30, 12:00 - 15:30"
+court.registry_center.hours_friday    = "8:00 - 11:30, 12:00 - 15:30"
+court.registry_center.save!
 court.save!
 
 DecreeForm.create value: 'Rozsudok',                  code: 'A'
