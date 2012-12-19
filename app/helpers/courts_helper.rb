@@ -49,14 +49,6 @@ module CourtsHelper
     
     html
   end
-
-# TODO impl
-#  def courts_map
-#    Court.all.to_gmaps4rails do |court, marker|
-#      marker.infowindow render('map_info', court: @court)
-#      marker.json id: @court.id
-#    end
-#  end
   
   def link_to_court(court)
     link_to court.name, court_path(court.id)

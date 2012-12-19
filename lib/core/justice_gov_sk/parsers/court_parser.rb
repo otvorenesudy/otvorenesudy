@@ -136,14 +136,11 @@ module JusticeGovSk
       
       def coordinates(document)
         @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe', empty?: false, verbose: false do |iframe|
-          coordinates = {}
-                      
-          iframe.first[:src].scan(/sll=\-?(\d+\.\d+)\,\-?(\d+\.\d+)/) do |latitude, longitude|
-            coordinates[:latitude]  = latitude
-            coordinates[:longitude] = longitude
-          end
+          data   = iframe.first[:src].scan(/(\&|s)ll=(\-?\d+\.\d+)\,(\-?\d+\.\d+)/)
+          values = data.select { |v| v.first == '&' }.first
+          values = data.first if values.blank?
           
-          coordinates
+          { latitude: values[1], longitude: values[2] }
         end
       end
     end
