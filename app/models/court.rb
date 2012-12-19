@@ -36,15 +36,7 @@ class Court < ActiveRecord::Base
   validates :name,   presence: true
   validates :street, presence: true
   
-  acts_as_gmappable lat: :latitude2, lng: :longitude2
-  
-  def latitude2
-    latitude.to_f / 1000000
-  end
-  
-  def longitude2
-    longitude.to_f / 1000000
-  end
+  acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
   
   def address
     "#{street}, #{municipality.name} #{municipality.zipcode}"

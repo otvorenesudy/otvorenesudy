@@ -65,12 +65,12 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
   add_index "court_types", ["value"], :name => "index_court_types_on_value", :unique => true
 
   create_table "courts", :force => true do |t|
-    t.string   "uri",                         :null => false
-    t.integer  "court_type_id",               :null => false
+    t.string   "uri",                                                         :null => false
+    t.integer  "court_type_id",                                               :null => false
     t.integer  "court_jurisdiction_id"
-    t.integer  "municipality_id",             :null => false
-    t.string   "name",                        :null => false
-    t.string   "street",                      :null => false
+    t.integer  "municipality_id",                                             :null => false
+    t.string   "name",                                                        :null => false
+    t.string   "street",                                                      :null => false
     t.string   "phone"
     t.string   "fax"
     t.string   "media_person"
@@ -79,10 +79,10 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
     t.integer  "information_center_id"
     t.integer  "registry_center_id"
     t.integer  "business_registry_center_id"
-    t.integer  "latitude"
-    t.integer  "longitude"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.decimal  "latitude",                    :precision => 15, :scale => 10
+    t.decimal  "longitude",                   :precision => 15, :scale => 10
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
   end
 
   add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20121116190757) do
     t.datetime "updated_at",        :null => false
   end
 
+  add_index "employments", ["active"], :name => "index_employments_on_active"
   add_index "employments", ["court_id", "judge_id"], :name => "index_employments_on_court_id_and_judge_id"
   add_index "employments", ["judge_id", "court_id"], :name => "index_employments_on_judge_id_and_court_id"
 
