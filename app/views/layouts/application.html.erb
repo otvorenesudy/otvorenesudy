@@ -21,5 +21,6 @@
     </div>
     <%= render 'layouts/footer' %>
     <%= render 'layouts/debug' if nil && Rails.env.development? %>
+    <%= yield :scripts %>
   </body>
 </html>
