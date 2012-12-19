@@ -13,10 +13,10 @@ module JusticeGovSk
         key = value.ascii.downcase
 
         court_name_map[key] || (value.utf8.split(/\s+/).map { |part|
-          if !part.match(/\A(v|nad|súd|okolie)\z/i).nil?
-            part.downcase
-          elsif !part.match(/\A(I|V)+\z/).nil?
+          if !part.match(/\A(I|V)+\z/).nil?
             part
+          elsif !part.match(/\A(v|nad|súd|okolie)\z/i).nil?
+            part.downcase
           else
             part.titlecase
           end
