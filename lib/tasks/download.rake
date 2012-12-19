@@ -3,7 +3,7 @@
 namespace :download do 
   # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
   task :pages, [:type, :offset, :limit] => :environment do |_, args|
-    type    = args[:type].camelcase
+    type    = args[:type].camelcase.split(/\:/).first
     offset  = args[:offset].blank? ? 1 : args[:offset].to_i
     limit   = args[:limit].blank? ? nil : args[:limit].to_i
     
@@ -14,6 +14,11 @@ namespace :download do
     request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
     storage = "JusticeGovSk::Storages::#{type}PageStorage".constantize.new    
     crawler = JusticeGovSk::Crawlers::ListCrawler.new agent
+
+    if request.is_a? JusticeGovSk::Requests::DecreeListRequest
+      request.decree_form = args[:type].scan(/\:(\w)/)
+      abort "Decree form not set" if request.decree_form.blank? 
+    end
 
     downloader = Downloader.new
     
