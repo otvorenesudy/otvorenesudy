@@ -8,7 +8,7 @@
   @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba($grayLight, 0.6));
   
   .view {
-    height: 450px;
+    height: inherit;
     
     img { 
       max-width: none;
@@ -25,4 +25,17 @@
       border-top: 1px solid $grayLighter;
     }
   }
+}
+
+.map {
+  height: $gridRowWidth / 2;
+}
+
+.map.global {
+  height: 10 * $gridRowWidth / 16;
+}
+
+.map.thumbnail {
+  width: 300px;
+  height: 200px;
 }

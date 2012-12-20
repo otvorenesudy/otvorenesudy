@@ -6,9 +6,14 @@ Otvorenesudy::Application.routes.draw do
   match '/home',    :to => 'static_pages#home'
   match '/stats',   :to => 'static_pages#stats'
 
-  resources :courts
+  resources :courts do
+     get :map, on: :collection
+  end
+  
   resources :judges
+  
   resources :hearings
+  
   resources :decrees
 
   mount Resque::Server.new, :at => '/resque'

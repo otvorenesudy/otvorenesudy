@@ -10,6 +10,10 @@ class CourtsController < ApplicationController
     @district = Court.by_type('Okresný').order(:name)
   end
   
+  def map
+    @courts = Court.order(:name).all
+  end
+  
   def show
     @court = Court.find(params[:id])
     

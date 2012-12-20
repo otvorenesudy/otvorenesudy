@@ -24,7 +24,7 @@ module CourtsHelper
     id      = "map_#{'court'.pluralize(courts.count)}_#{courts.hash.abs}"
     data    = {
       map_options: {
-        container_class: :map,
+        container_class: [:map, options[:class]].join(' '),
         class: :view,
         id: id,
         
@@ -70,6 +70,7 @@ module CourtsHelper
   def courts_map_defaults
     {
       maps: :single,
+      class: nil,
       info: false,
       zoom: 7,
       ui: true
