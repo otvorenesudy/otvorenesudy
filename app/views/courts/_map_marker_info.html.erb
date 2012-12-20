@@ -1,7 +1,11 @@
 <% courts.each do |court| %>
-  <p>
-  <strong><%= court.name %></strong>
-  <hr/>
-  <%= court.address %>
-  </p>
+  <div class="info">
+    <strong><%= link_to_court court %></strong>
+    <br/>
+    <%= court.address %>
+  </div>
 <% end %>
+
+<div class="info">
+  <%= external_link_to "Vyhľadať trasu", court_map_direction(courts.first, zoom: 8) %>
+</div>

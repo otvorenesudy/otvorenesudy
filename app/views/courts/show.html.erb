@@ -8,10 +8,10 @@
     </h1>
   </div>
   
-  <%=#court_map @court
+  <%= court_map @court, info: true, zoom: 16
    %>
   
-  <%= courts_map Court.all
+  <%= #courts_map Court.all
    %>
   
 </section>

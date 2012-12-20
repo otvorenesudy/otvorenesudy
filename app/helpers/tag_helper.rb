@@ -3,26 +3,31 @@ module TagHelper
     content_tag :span, body, options.merge(class: "badge badge-#{type.to_s}")
   end
 
-  def icon_tag(type, text = nil, options = {})
-    icon = content_tag :i, text.blank? ? nil : '&nbsp;'.html_safe, options.merge(class: "icon-#{type.to_s}")
+  def external_link_to(body, url, options = {})
+    options.merge target: :_blank
+    icon_link_to 'external-link', body, url, :append, options
+  end
+
+  def icon_tag(type, text = nil, join = :prepend, options = {})
+    icon = content_tag :i, nil, class: "icon-#{type.to_s}"
     
     unless text.blank?
-      body = [icon, text.to_s]
-      body.reverse! unless options[:append].blank?
+      space = content_tag :i, '&nbsp;'.html_safe, class: 'icon-space'
+      body  = [icon, space, text.to_s]
+      body.reverse! if join == :append
       icon = content_tag :span, body.join.html_safe, options
     end
     
     icon
   end
   
-  def icon_link_to(type, body, url, options = {})
-    link_to icon_tag(type, body), url, options
+  def icon_link_to(type, body, url, join = :prepend, options = {})
+    link_to icon_tag(type, body, join), url, options
   end
   
-  def icon_mail_to(type, body, url = nil, options = {})
+  def icon_mail_to(type, body, url = nil, join = :prepend, options = {})
     url = body if url.blank?
-    options.merge body: icon_tag(type, body)
-    mail_to url, icon_tag(type, body), options
+    mail_to url, icon_tag(type, body, join), options
   end
 
   def navbar_logo_tag(title)

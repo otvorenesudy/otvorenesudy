@@ -1,6 +1,14 @@
 @import 'variables';
 @import 'bootstrap';
 
+.popover-inner {
+  text-align: left;
+}
+
+.tooltip-inner {
+  text-align: center;
+}
+
 textarea,
 input[type="text"],
 input[type="password"],
@@ -21,12 +29,4 @@ input[type="color"],
     border-color: rgba($inputBorderFocus, 0.8);
     @include box-shadow(0 1px 1px rgba($black, 0.075), 0 0 8px rgba($inputBorderFocus, 0.6));
   }
-}
-
-.popover-inner {
-  text-align: left;
-}
-
-.tooltip-inner {
-  text-align: center;
 }

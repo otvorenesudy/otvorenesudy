@@ -36,6 +36,20 @@ table {
   }
 }
 
+// capital
+
+.capital {
+  font-family: TrajanPro, $baseFontFamily;
+}
+
+// icons
+
+i.icon-space {
+  width: auto;
+  line-height: inherit;
+  font-size: inherit;
+}
+
 // popovers and tooltips
 
 a[rel="popover"], a[rel="tooltip"] {
@@ -44,12 +58,6 @@ a[rel="popover"], a[rel="tooltip"] {
   color: $textColor;
   cursor: help;
   text-decoration: none;  
-}
-
-// capital
-
-.capital {
-  font-family: TrajanPro, $baseFontFamily;
 }
 
 // navbar
@@ -77,12 +85,21 @@ a[rel="popover"], a[rel="tooltip"] {
       line-height: 20px;
       padding: 10px;
   
+      span {
+        display: inline-block;
+        line-height: 20px;
+      }
+  
       i {
         margin: 0px;
         padding: 0px;
         
         font-size: 20px;
         text-decoration: none;
+      }
+      
+      .icon-space {
+        font-size: $baseFontSize;
       }
     }
   }

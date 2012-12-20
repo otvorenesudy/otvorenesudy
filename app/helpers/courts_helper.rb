@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module CourtsHelper
   def court_email(court, separator = ', ')
     court.email.split(/,\s+/).map { |email| mail_to email, nil, encode: :hex }.join(separator).html_safe
@@ -12,24 +14,29 @@ module CourtsHelper
     courts_map [court], options
   end
   
+  def court_map_direction(court, options = {})
+    options = courts_map_defaults.merge options
+    "https://maps.google.sk/maps?&t=m&z=#{options[:zoom]}&daddr=#{court.address}, Slovenská republika"
+  end
+  
   def courts_map(courts, options = {})
     options = courts_map_defaults.merge options
     id      = "map_#{'court'.pluralize(courts.count)}_#{courts.hash.abs}"
     data    = {
       map_options: {
         container_class: :map,
-        class:           :view,
-        id:              id,
+        class: :view,
+        id: id,
         
         auto_adjust: true,
-        auto_zoom:   false,
-        zoom:        options[:zoom],
+        auto_zoom: false,
+        zoom: options[:zoom],
         
         raw: "{ disableDefaultUI: #{!options[:ui]} }",
         
         language: :sk,
-        hl:       :sk,
-        region:   :sk
+        region: :sk,
+        hl: :sk
       },
       
       markers: {
@@ -50,10 +57,6 @@ module CourtsHelper
     map
   end
   
-  def courts_group_by_address(courts)
-    
-  end
-  
   def link_to_court(court)
     link_to court.name, court_path(court.id)
   end
@@ -63,8 +66,8 @@ module CourtsHelper
   def courts_map_defaults
     {
       info: false,
-      zoom: 7, # TODO 16
-      ui:   true
+      zoom: 7,
+      ui: true
     }
   end
   
