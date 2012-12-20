@@ -53,7 +53,7 @@ module CourtsHelper
     if options[:info]
       content_for :scripts do
         content_tag :script, type: 'text/javascript', charset: 'utf-8' do
-          render partial: 'map_marker_info.js', locals: { id: id }
+          render partial: 'map_marker_info.js', locals: { map_id: id }
         end
       end
     end

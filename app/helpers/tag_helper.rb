@@ -37,7 +37,7 @@ module TagHelper
   end
 
   def navbar_li_tag(type, body, url, options = {})
-    options.merge!(class: :active) if current_page? url
+    options.merge!(class: :active) if request.fullpath.start_with? url
     content_tag :li, icon_link_to(type, body, url), options
   end
   
