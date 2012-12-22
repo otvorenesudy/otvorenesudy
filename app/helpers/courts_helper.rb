@@ -58,10 +58,8 @@ module CourtsHelper
   
   def courts_group_by_coordinates(courts)
     groups = {}
-    groups[:marked] = []
     
     courts.each do |court|
-      groups[:marked] << court unless groups[court.coordinates]
       groups[court.coordinates] ||= []
       groups[court.coordinates] << court
     end
@@ -86,7 +84,7 @@ module CourtsHelper
   end
   
   def courts_map_data(groups, options)
-    groups[:marked].to_gmaps4rails do |court, marker|
+    groups.values.map { |group| group.first }.to_gmaps4rails do |court, marker|
       marker.infowindow render partial: 'map_marker_info.html', locals: { courts: groups[court.coordinates] }
     end
   end
