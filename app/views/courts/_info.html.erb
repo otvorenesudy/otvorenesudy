@@ -9,3 +9,13 @@
   <%= content_tag :hr if @court.information_center || @court.registry_center %>
   <%= render 'office', name: "Informačné stredisko obchodného registra", office: @court.business_registry_center %>
 <% end %>
+
+<hr/>
+
+<h2>Mapa</h2>
+
+<div class="row">
+  <div class="span12">
+    <%= court_map @court, info: true, zoom: 16 %>
+  </div>
+</div>

@@ -4,7 +4,7 @@ module TagHelper
   end
 
   def external_link_to(body, url, options = {})
-    options.merge target: :_blank
+    options.merge! target: :_blank
     icon_link_to 'external-link', body, url, :append, options
   end
 

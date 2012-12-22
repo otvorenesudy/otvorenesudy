@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Court < ActiveRecord::Base
   attr_accessible :uri,
                   :name,
@@ -37,9 +39,16 @@ class Court < ActiveRecord::Base
   validates :street, presence: true
   
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
-  
-  def address
-    "#{street}, #{municipality.name} #{municipality.zipcode}"
+
+  def address(format = '%s, %z %m')
+    parts = {
+      '%s' => street,
+      '%z' => municipality.zipcode,
+      '%m' => municipality.name,
+      '%c' => 'Slovenská republika'
+    }
+    
+    format.gsub(/\%[szmc]/, parts)
   end
 
   # TODO rm

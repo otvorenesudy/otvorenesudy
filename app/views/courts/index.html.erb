@@ -2,16 +2,26 @@
 <% provide :header, render(partial: 'header') %>
 
 <section id="main-courts">
-  <div class="row">
-    <div class="span12">
-      <%= render 'courts', courts: [@constitutional, @highest, @specialized] %>
+  <div class="page-header">
+    <div class="row">
+      <div class="span12">
+        <div class="well well-small">
+          # TODO think of something
+          <h4><%= link_to_court @highest %></h4>
+          <h4><%= link_to_court @constitutional %></h4>
+          <h4><%= link_to_court @specialized %></h4>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="regional-courts">
   <div class="page-header">
-    <h1>Krajské súdy</h1>
+    <h1>
+      Krajské súdy
+      <small>Na Slovensku je <%= @regional.count %> krajských súdov.</small>
+    </h1>
   </div>
 
   <div class="row">
@@ -23,7 +33,10 @@
 
 <section id="district-courts">
   <div class="page-header">
-    <h1>Okresné súdy</h1>
+    <h1>
+      Okresné súdy
+      <small>Na Slovensku je <%= @district.count %> okresných súdov.</small>
+    </h1>
   </div>
 
   <div class="row">

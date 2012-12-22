@@ -1,6 +1,6 @@
 <% provide :title, @court.name %>
 
-<section id="profile">
+<section id="court-profile">
   <div class="page-header">
     <h1>
       <%= @court.name %><br/>
@@ -8,21 +8,10 @@
     </h1>
   </div>
   
-  <%= court_map @court, info: true, zoom: 16, maps: :first
-   %>
-
-  <%= courts_map Court.all[0..5], maps: :middle
-   %>
-
-  <%= courts_map Court.all[10..20], maps: :middle
-   %>
-  
-  <%= courts_map Court.all, maps: :last
-   %>
-  
+  # TODO add some profile info
 </section>
 
-<section id="rest">
+<section id="court-tabs">
   <div class="row">
     <div class="span12">
       <div class="tabbable">

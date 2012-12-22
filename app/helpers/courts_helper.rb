@@ -16,7 +16,7 @@ module CourtsHelper
   
   def court_map_direction(court, options = {})
     options = courts_map_defaults.merge options
-    "https://maps.google.sk/maps?&t=m&z=#{options[:zoom]}&daddr=#{court.address}, Slovenská republika"
+    "https://maps.google.sk/maps?&t=m&z=#{options[:zoom]}&daddr=#{court.address '%s, %z %m, %c'}"
   end
   
   def courts_map(courts, options = {})
