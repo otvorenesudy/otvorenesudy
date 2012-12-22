@@ -1,6 +1,6 @@
-Gmaps.<%= map_id %>.callback = function() {
-  markers = Gmaps.<%= map_id %>.markers
+Gmaps.<%= id %>.callback = function() {
+  markers = Gmaps.<%= id %>.markers
   for (var i = 0; i < markers.length; i ++) {
-    markers[i].infowindow.open(Gmaps.<%= map_id %>.map, markers[i].serviceObject);
+    markers[i].infowindow.open(Gmaps.<%= id %>.map, markers[i].serviceObject);
   }
 }

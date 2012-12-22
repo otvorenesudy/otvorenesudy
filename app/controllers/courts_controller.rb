@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class CourtsController < ApplicationController
+  include CourtsHelper
+  
   def index
     @constitutional = Court.by_type('Ústavný').first
     @highest        = Court.by_type('Najvyšší').first
@@ -12,6 +14,7 @@ class CourtsController < ApplicationController
   
   def map
     @courts = Court.order(:name).all
+    @groups = courts_group_by_coordinates(@courts)
   end
   
   def show

@@ -50,6 +50,10 @@ class Court < ActiveRecord::Base
     
     format.gsub(/\%[szmc]/, parts)
   end
+  
+  def coordinates
+    @coordinates ||= { latitude: latitude, longitude: longitude }
+  end
 
   # TODO rm
   # TODO replace with gem

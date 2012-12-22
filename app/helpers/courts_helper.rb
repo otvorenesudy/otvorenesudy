@@ -21,7 +21,8 @@ module CourtsHelper
   
   def courts_map(courts, options = {})
     options = courts_map_defaults.merge options
-    id      = "map_#{'court'.pluralize(courts.count)}_#{courts.hash.abs}"
+    groups  = courts.is_a?(Hash) ? courts : courts_group_by_coordinates(courts)
+    id      = "map_#{groups.hash.abs}"
     data    = {
       map_options: {
         container_class: [:map, options[:class]].join(' '),
@@ -39,10 +40,10 @@ module CourtsHelper
         hl: :sk
       },
       
-      last_map: [:single, :last].include?(options[:maps]),
+      last_map: [:singleton, :last].include?(options[:maps]),
       
       markers: {
-        data: courts_map_markers(courts, options)
+        data: courts_map_data(groups, options)
       }
     }
     
@@ -50,15 +51,22 @@ module CourtsHelper
     
     map = gmaps(data)
     
-    if options[:info]
-      content_for :scripts do
-        content_tag :script, type: 'text/javascript', charset: 'utf-8' do
-          render partial: 'map_marker_info.js', locals: { map_id: id }
-        end
-      end
-    end
+    courts_map_scripts(id, options) if options[:info]
     
     map
+  end
+  
+  def courts_group_by_coordinates(courts)
+    groups = {}
+    groups[:marked] = []
+    
+    courts.each do |court|
+      groups[:marked] << court unless groups[court.coordinates]
+      groups[court.coordinates] ||= []
+      groups[court.coordinates] << court
+    end
+
+    groups
   end
   
   def link_to_court(court)
@@ -69,7 +77,7 @@ module CourtsHelper
   
   def courts_map_defaults
     {
-      maps: :single,
+      maps: :singleton,
       class: nil,
       info: false,
       zoom: 7,
@@ -77,22 +85,17 @@ module CourtsHelper
     }
   end
   
-  def courts_map_markers(courts, options)
-    groups = {}
-    marked = []
-    
-    courts.each do |court|
-      coordinates = "#{court.latitude},#{court.longitude}"
-      
-      marked << court if groups[coordinates].nil?
-      
-      groups[coordinates] ||= []
-      groups[coordinates] << court
+  def courts_map_data(groups, options)
+    groups[:marked].to_gmaps4rails do |court, marker|
+      marker.infowindow render partial: 'map_marker_info.html', locals: { courts: groups[court.coordinates] }
     end
-    
-    marked.to_gmaps4rails do |court, marker|
-      coordinates = "#{court.latitude},#{court.longitude}"
-      marker.infowindow render partial: 'map_marker_info.html', locals: { courts: groups[coordinates] }
+  end
+  
+  def courts_map_scripts(id, options)
+    content_for :scripts do
+      content_tag :script, type: 'text/javascript', charset: 'utf-8' do
+        render partial: 'map_marker_info.js', locals: { id: id }
+      end
     end
   end
 end

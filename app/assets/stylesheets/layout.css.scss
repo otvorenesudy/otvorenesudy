@@ -16,36 +16,33 @@ body {
   padding-top: 40px;
 }
 
-// tables
-
-table {
-  .left {
-    text-align: left;
-  }
-
-  .center {
-    text-align: center;
-  }
-  
-  .right {
-    text-align: right;
-  }
-  
-  address {
-    margin: 0;
-  }
-}
-
-// capital
+// text
 
 .capital {
   font-family: TrajanPro, $baseFontFamily;
 }
 
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
 // icons
+
+i[class^="icon-"], i[class*="icon-"] {
+  height: auto;
+}
 
 i.icon-space {
   width: auto;
+  height: inherit;
   line-height: inherit;
   font-size: inherit;
 }
