@@ -36,15 +36,18 @@ body {
 
 // icons
 
-i[class^="icon-"], i[class*="icon-"] {
-  height: auto;
-}
-
-i.icon-space {
-  width: auto;
-  height: inherit;
-  line-height: inherit;
-  font-size: inherit;
+[class^="icon-"], [class*=" icon-"] {
+  display: inline-block;
+  height: $baseLineHeight;
+  line-height: $baseLineHeight;
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  
+  &:before {
+    display: inline-block;
+    text-decoration: none;
+  }
 }
 
 // popovers and tooltips
@@ -87,7 +90,7 @@ a[rel="popover"], a[rel="tooltip"] {
         line-height: 20px;
       }
   
-      i {
+      i[class^="icon-"], i[class*=" icon-"] {
         margin: 0px;
         padding: 0px;
         
@@ -95,7 +98,8 @@ a[rel="popover"], a[rel="tooltip"] {
         text-decoration: none;
       }
       
-      .icon-space {
+      i.icon-space {
+        width: auto;
         font-size: $baseFontSize;
       }
     }
@@ -124,6 +128,11 @@ div.search {
       input:focus {
         border-color: $grayLight;
         @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($grayLight, 0.6));
+      }
+      
+      button i.icon-search {
+        height: auto;
+        line-height: auto;
       }
     }
   }
