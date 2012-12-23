@@ -8,7 +8,7 @@ module JusticeGovSk
           anchors.map { |a| "#{JusticeGovSk::Requests::URL.base}#{a[:href]}" }
         end
       end
-    
+      
       def page(document)
         @page ||= find_value 'page', document, 'tr.CssPager select:first-child option[selected="selected"]' do |option|
           option.text.to_i
@@ -31,7 +31,7 @@ module JusticeGovSk
         k = page(document)
         n = pages(document)
         
-        k + 1 if k < n
+        k + 1 if k && n && k < n
       end
       
       protected

@@ -3,16 +3,13 @@ module JusticeGovSk
     class ListAgent < Agent
       def download(request)
         super(request) do |page|
-          form_name = 'aspnetForm'
-          form      = page.form_with(name: form_name)
-          fields    = form.fields.map(&:name)
+          form_name    = 'aspnetForm'
+          form, fields = form_and_fields(page, form_name)
 
           # Include old hearings, only for hearings
           if request.include_old_hearings
             checkboxes = form.checkboxes.map(&:name)
             include_old_hearings_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\z/) }
-
-            form.checkbox_with(name: include_old_hearings_checkbox_name).check
           end
 
           # Select decree form, only for decrees
@@ -23,35 +20,34 @@ module JusticeGovSk
             field.value = request.decree_form
           end
 
-          form = page.form_with(name: form_name)
+          form, fields = form_and_fields(page, form_name)
 
           # Set items per page
-          per_page_field_name = fields.find { |f| f.match(/\A.+cmbAGVCountOnPage\z/) }
-          
           if request.per_page
-            form.field_with(name: per_page_field_name).value = request.per_page
-            postback_fields(form, per_page_field_name, '') 
-            
-            print "... "
-            
-            page  = form.submit
-            @sum += page.content.length
+            if per_page_field_name = fields.find { |f| f.match(/\A.+cmbAGVCountOnPage\z/) }
+              form.field_with(name: per_page_field_name).value = request.per_page
+              postback_fields(form, per_page_field_name, '') 
+              
+              print "... "
+              
+              page  = form.submit
+              @sum += page.content.length
+            end
           end
           
-          form   = page.form_with(name: form_name)
-          fields = form.fields.map(&:name)
-          
+          form, fields = form_and_fields(page, form_name)
+                    
           # Set page 
-          page_field_name = fields.find { |f| f.match(/\A.+cmbAGVPager\z/) }
-          
           if request.page 
-            form.field_with(name: page_field_name).value = request.page
-            postback_fields(form, page_field_name, '')
-            
-            print "... "
-            
-            page  = form.submit
-            @sum += page.content.length
+            if page_field_name = fields.find { |f| f.match(/\A.+cmbAGVPager\z/) }
+              form.field_with(name: page_field_name).value = request.page
+              postback_fields(form, page_field_name, '')
+              
+              print "... "
+              
+              page  = form.submit
+              @sum += page.content.length
+            end
           end
 
           page 
@@ -59,6 +55,13 @@ module JusticeGovSk
       end
 
       private
+      
+      def form_and_fields(page, form_name)
+        form   = page.form_with(name: form_name)
+        fields = form.fields.map(&:name)
+        
+        return form, fields        
+      end
       
       def postback_fields(form, target, argument)
         form.add_field!('__EVENTTARGET', target)
