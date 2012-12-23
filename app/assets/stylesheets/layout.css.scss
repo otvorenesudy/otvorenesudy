@@ -18,20 +18,30 @@ body {
 
 // text
 
+/** TODO rm
 .capital {
-  font-family: TrajanPro, $baseFontFamily;
+  font-family: $serifFontFamily;
+  font-stretch: expanded;
+  font-style: normal;
+  font-variant: small-caps;
+  font-weight: normal;
 }
+*/
 
 .left {
   text-align: left;
 }
 
-.center {
+.right {
+  text-align: right;
+}
+
+.centered {
   text-align: center;
 }
 
-.right {
-  text-align: right;
+.justified {
+  text-align: justify;
 }
 
 // icons
@@ -57,51 +67,53 @@ a[rel="popover"], a[rel="tooltip"] {
   
   color: $textColor;
   cursor: help;
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 // navbar
 
-.navbar-inverse {
-  a.brand {
-    height: 20px;
-    line-height: 20px;
-    margin: 0px;
+.navbar-inverse .nav > li {
+  /** TODO rm
+  &.capital.active > a {
+    background-color: inherit;
     
-    // TODO fix, different behavior: FF vs Chrome
-    padding: 13px 10px 7px 10px;
-    
-    font-size: 18px;
-    vertical-align: middle;
-  }
-
-  .nav {
-    li.capital.active a {
+    &:hover, &:focus {
       background-color: inherit;
     }
+  }
 
-    li > a {
-      height: 20px;
+  & > a.brand {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin: 0px;
+    padding: 5px 10px 5px 10px;
+    
+    font-size: 24px;
+  }
+  */
+
+  & > a {
+    height: 20px;
+    line-height: 20px;
+    padding: 10px;
+
+    span {
+      display: inline-block;
       line-height: 20px;
-      padding: 10px;
-  
-      span {
-        display: inline-block;
-        line-height: 20px;
-      }
-  
-      i[class^="icon-"], i[class*=" icon-"] {
-        margin: 0px;
-        padding: 0px;
-        
-        font-size: 20px;
-        text-decoration: none;
-      }
+    }
+
+    i[class^="icon-"], i[class*=" icon-"] {
+      margin: 0px;
+      padding: 0px;
       
-      i.icon-space {
-        width: auto;
-        font-size: $baseFontSize;
-      }
+      font-size: 20px;
+      text-decoration: none;
+    }
+    
+    i.icon-space {
+      width: auto;
+      font-size: $baseFontSize;
     }
   }
 }
