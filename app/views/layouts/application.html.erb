@@ -8,9 +8,7 @@
     <title><%= title yield :title %></title>
     <%= favicon_link_tag asset_path('favicon.ico'), type: 'image/x-icon' %>
     <%= stylesheet_link_tag 'application' %>
-    <%= render 'shared/shim' %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -21,6 +19,8 @@
     </div>
     <%= render 'layouts/footer' %>
     <%= render 'layouts/debug' if nil && Rails.env.development? %>
+    <%= render 'shared/shim' %>
+    <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
   </body>
 </html>
