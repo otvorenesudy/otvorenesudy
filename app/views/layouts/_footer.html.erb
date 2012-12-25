@@ -1,10 +1,62 @@
 <footer>
   <div class="container">
-    <nav>
-      <ul class="pull-right">
-        <li><%= link_to 'O projekte', about_path %></li>
-        <li><%= link_to 'Kontakt', contact_path %></li>
-      </ul>
-    </nav>
+    <div class="row">
+      <div class="span3">
+        <h4>Otvorené Súdy <%= icon_tag :legal %></h4>
+        <nav class="nav-collapse collapse">
+          <ul class="nav pull-left">
+            <li><%= link_to 'O projekte', about_path %></li>
+            <li><%= link_to 'Často kladené otázky', nil %></li>
+            <li><%= link_to 'Ako môžem pomôcť?', nil %></li>
+            <li><%= link_to 'Zdrojové kódy', nil %></li>
+            <li><%= link_to 'Kontakt', contact_path %></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="span3">
+        <h4>Prehlásenia <%= icon_tag :file %></h4>
+        <nav class="nav-collapse collapse">
+          <ul class="nav pull-left">
+            <li><%= link_to 'Podmienky používania', nil %></li>
+            <li><%= link_to 'Ochrana súkromia', nil %></li>
+            <li><%= link_to 'Autorské práva', nil %></li>
+          </ul>
+        </nav>
+      </div>
+      
+      <div class="span3">
+        <h4>Transparentnosť <%= icon_tag 'ok-circle' %></h4>
+        <nav class="nav-collapse collapse">
+          <ul class="nav pull-left">
+            <li><%= link_to 'Našli ste chybu?', contact_path %></li>
+            <li><%= link_to 'Bezpečnosť', contact_path %></li>
+          </ul>
+        </nav>
+      </div>
+      
+      <div class="span3">
+        <h4>Dáta <%= icon_tag :hdd %></h4>
+        <nav class="nav-collapse collapse">
+          <ul class="nav pull-left">
+            <li><%= link_to 'Ako to funguje?', nil %></li>
+            <li><%= link_to 'História dát', nil %></li>
+            <li><%= link_to 'API', nil %></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span12">
+        <p class="muted">
+          Copyright
+          <%= link_to "Transparency International Slovensko", 'http://www.transparency.sk' %>,
+          <%= link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %> a
+          <%= link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
+          &copy; 2013
+        </p>
+      </div>
+    </div>
   </div>
 </footer>

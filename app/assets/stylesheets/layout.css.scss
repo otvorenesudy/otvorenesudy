@@ -13,11 +13,15 @@ html {
 }
 
 body {
-  padding-top: 40px;
+  margin-top: 40px;
+}
+
+div.nav {
+  margin: 20px 0px;
 }
 
 section + section {
-  padding-top: 40px;
+  margin-top: 40px;
 }
 
 // text
@@ -26,7 +30,6 @@ h1 address {
   margin: 0px;
 }
 
-/** TODO rm
 .capital {
   font-family: $serifFontFamily;
   font-stretch: expanded;
@@ -34,7 +37,6 @@ h1 address {
   font-variant: small-caps;
   font-weight: normal;
 }
-*/
 
 .centered {
   text-align: center;
@@ -95,26 +97,26 @@ a[rel="popover"], a[rel="tooltip"] {
 // navbar
 
 .navbar-inverse .nav > li {
-  /** TODO rm
-  &.capital.active > a {
+  &.capital.active > a,
+  &.capital.active > a:hover,
+  &.capital.active > a:focus {
     background-color: inherit;
-    
-    &:hover, &:focus {
-      background-color: inherit;
-    }
   }
-
+  
   & > a.brand {
     display: inline-block;
     height: 30px;
     line-height: 30px;
     margin: 0px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 10px;
     
     font-size: 24px;
   }
-  */
 
+  &.divider-vertical {
+    margin: 0px;
+  }
+  
   & > a {
     height: 20px;
     line-height: 20px;
@@ -196,7 +198,7 @@ header {
   text-align: center;
   
   .pattern {
-    padding: 40px 0px 40px 0px;
+    padding: 40px 0px;
   }
   
   h1 {
@@ -214,6 +216,7 @@ header {
 
 footer {
   margin-top: 40px;
+  padding: 30px 0px;
   
   background: $grayLighter;
   color: $grayLight;
@@ -225,16 +228,17 @@ footer {
       color: $grayDarker;
       text-decoration: none;
     }
-  }  
+  }
 
-  ul {
-    margin: 10px;
+  ul.nav {
+    margin: 10px 0px 40px 0px;
+
+    li > a {
+      display: inline-block;
+    }
     
-    list-style: none;
-
-    li {
-      float: left;
-      margin-left: 10px;
+    li + li {
+      padding-top: 5px;
     }
   }
 }
