@@ -4,8 +4,8 @@
       <th class="span5">Súd</th>
       <th class="span7">Adresa</th>
       <th><%= tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov." %></th>
-      <th><%= tooltip_tag "Pojednávania", "Počet zverejnených súdnych pojednávaní." %></th>
-      <th><%= tooltip_tag "Rozhodnutia",  "Počet zverejnených súdnych rozhodnutí." %></th>
+      <th><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní." %></th>
+      <th><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí." %></th>
     </tr>
   </thead>
   <tbody>
@@ -15,17 +15,15 @@
           <%= link_to_court court %>
         </td>
         <td>
-          <address>
-            <%= court.address %>
-          </address>
+          <%= court.address %>
         </td>
-        <td class="right">
+        <td class="number">
           <%= court.judges.count %>
         </td>
-        <td class="right">
+        <td class="number">
           <%= court.hearings.count %>
         </td>
-        <td class="right">
+        <td class="number">
           <%= court.decrees.count %>
         </td>
       </tr>

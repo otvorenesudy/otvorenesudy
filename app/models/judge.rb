@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Judge < ActiveRecord::Base
   attr_accessible :name,
                   :name_unprocessed,
@@ -8,10 +10,15 @@ class Judge < ActiveRecord::Base
                   :suffix,
                   :addition
 
-  scope :active,   where('active = ?', false)
-  scope :inactive, where('active = ?', true)
-
+  scope :active,   joins(:employments).where('active = true')
+  scope :inactive, joins(:employments).where('active = false')
+  
+  scope :chair,     joins(:judge_positions).where('value = ? OR ?',    'predseda',    'predsedníčka')
+  scope :vicechair, joins(:judge_positions).where('value = ? OR ?', 'podpredseda', 'podpredsedníčka')
+  
   has_many :employments, dependent: :destroy
+  
+  has_many :judge_positions, through: :employments
   
   has_many :judgings, dependent: :destroy
   

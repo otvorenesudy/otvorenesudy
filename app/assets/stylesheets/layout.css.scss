@@ -16,7 +16,15 @@ body {
   padding-top: 40px;
 }
 
+section + section {
+  padding-top: 40px;
+}
+
 // text
+
+h1 address {
+  margin: 0px;
+}
 
 /** TODO rm
 .capital {
@@ -28,20 +36,29 @@ body {
 }
 */
 
-.left {
-  text-align: left;
-}
-
-.right {
-  text-align: right;
-}
-
 .centered {
   text-align: center;
+  
+  &.nav-pills li {
+    display: inline-block;
+    float: none;
+  }
 }
 
 .justified {
   text-align: justify;
+}
+
+// tables
+
+table {
+  .number {
+    text-align: right;
+  }
+  
+  address {
+    margin: 0px;
+  }
 }
 
 // icons
@@ -58,6 +75,11 @@ body {
     display: inline-block;
     text-decoration: none;
   }
+}
+
+i.icon-space {
+  width: auto;
+  font-size: $baseFontSize;
 }
 
 // popovers and tooltips
@@ -110,11 +132,6 @@ a[rel="popover"], a[rel="tooltip"] {
       font-size: 20px;
       text-decoration: none;
     }
-    
-    i.icon-space {
-      width: auto;
-      font-size: $baseFontSize;
-    }
   }
 }
 
@@ -130,7 +147,7 @@ div.search {
   
   .form-search {
     margin: 0px;
-    padding: 0px;    
+    padding: 0px;
 
     .input-append {
       display: block;
@@ -169,8 +186,8 @@ div.search {
 // header
 
 header {
-  border-top: 1px $navbarInverseBorder solid;
-  border-bottom: 1px $navbarInverseBorder solid;
+  border-top: 1px solid $navbarInverseBorder;
+  border-bottom: 1px solid $navbarInverseBorder;
   
   @include linear-gradient(45deg, darken($linkColor, 20%), darken($blue, 10%));
   

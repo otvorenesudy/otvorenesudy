@@ -5,9 +5,8 @@ module CourtsHelper
     court.email.split(/,\s+/).map { |email| mail_to email, nil, encode: :hex }.join(separator).html_safe
   end
 
-  # TODO implement
   def court_phone(court, separator = ', ')
-    court.phone
+    court.phone.split(/,\s+/).join(separator).html_safe
   end
   
   def court_map(court, options = {})
@@ -25,7 +24,7 @@ module CourtsHelper
     id      = "map_#{groups.hash.abs}"
     data    = {
       map_options: {
-        container_class: [:map, options[:class]].join(' '),
+        container_class: options[:class] ? [:map, options[:class]].join(' ') : :map,
         class: :view,
         id: id,
         

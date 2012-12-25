@@ -43,7 +43,7 @@ module TagHelper
   
   def popover_tag(body, content, title = nil, placement = :top, trigger = :click, options = {})
     options.merge! rel: :popover, title: title
-    options.merge! data trigger: trigger, placement: placement, content: content
+    options.merge! data trigger: trigger, placement: placement, content: content, html: true
     link_to body, '#', options
   end
     

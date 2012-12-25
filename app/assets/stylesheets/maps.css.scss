@@ -10,13 +10,20 @@
   .view {
     height: inherit;
     
-    img { 
+    img {
       max-width: none;
     }
     
-    label { 
+    label {
       display: inline;
       width: auto; 
+    }
+    
+    .info {
+      [class^="icon-"], [class*=" icon-"] {
+        height: inherit;
+        line-height: inherit;
+      }
     }
     
     .info + .info {
