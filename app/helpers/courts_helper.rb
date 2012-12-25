@@ -90,7 +90,7 @@ module CourtsHelper
   
   def courts_map_scripts(id, options)
     content_for :scripts do
-      content_tag :script, type: 'text/javascript', charset: 'utf-8' do
+      content_tag :script, type: :'text/javascript', charset: :'utf-8' do
         render partial: 'map_marker_info.js', locals: { id: id }
       end
     end
