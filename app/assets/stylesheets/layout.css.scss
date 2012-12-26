@@ -21,18 +21,13 @@ div.nav {
 }
 
 section + section {
-  margin-top: 40px;
+  padding-top: 40px;
 }
 
 // text
 
-h1 address {
-  margin: 0px;
-}
-
 .capital {
   font-family: $serifFontFamily;
-  font-stretch: expanded;
   font-style: normal;
   font-variant: small-caps;
   font-weight: normal;
@@ -96,10 +91,10 @@ a[rel="popover"], a[rel="tooltip"] {
 
 // navbar
 
-.navbar-inverse .nav > li {
-  &.capital.active > a,
-  &.capital.active > a:hover,
-  &.capital.active > a:focus {
+.navbar .nav > li {
+  &.active > a,
+  &.active > a:hover,
+  &.active > a:focus {
     background-color: inherit;
   }
   
@@ -226,7 +221,7 @@ footer {
 
     &:hover { 
       color: $grayDarker;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
 
@@ -235,6 +230,10 @@ footer {
 
     li > a {
       display: inline-block;
+      
+      &:hover {
+        text-decoration: underline; 
+      }
     }
     
     li + li {

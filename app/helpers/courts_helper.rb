@@ -39,14 +39,14 @@ module CourtsHelper
         hl: :sk
       },
       
-      last_map: [:singleton, :last].include?(options[:maps]),
+      last_map: [:singleton, :last].include?(options[:map]),
       
       markers: {
         data: courts_map_data(groups, options)
       }
     }
     
-    data[:scripts] = :none if [:first, :middle].include?(options[:maps])
+    data[:scripts] = :none if [:first, :middle].include?(options[:map])
     
     map = gmaps(data)
     
@@ -74,7 +74,7 @@ module CourtsHelper
   
   def courts_map_defaults
     {
-      maps: :singleton,
+      map: :singleton,
       class: nil,
       info: false,
       zoom: 7,

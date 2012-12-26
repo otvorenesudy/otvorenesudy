@@ -13,8 +13,8 @@ class Judge < ActiveRecord::Base
   scope :active,   joins(:employments).where('active = true')
   scope :inactive, joins(:employments).where('active = false')
   
-  scope :chair,     joins(:judge_positions).where('value = ? OR ?',    'predseda',    'predsedníčka')
-  scope :vicechair, joins(:judge_positions).where('value = ? OR ?', 'podpredseda', 'podpredsedníčka')
+  scope :chair,     joins(:judge_positions).where('value = ? OR value = ?',    'predseda',    'predsedníčka')
+  scope :vicechair, joins(:judge_positions).where('value = ? OR value = ?', 'podpredseda', 'podpredsedníčka')
   
   has_many :employments, dependent: :destroy
   
