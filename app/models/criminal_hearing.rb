@@ -2,5 +2,5 @@
 
 class CriminalHearing < Hearing
   include Hearing::Scoped.to('Trestné')
-  default_scope Hearing::Scoped.apply
+  default_scope apply
 end

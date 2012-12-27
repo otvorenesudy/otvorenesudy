@@ -2,11 +2,23 @@ module Hearing::Scoped
   extend ActiveSupport::Concern
   
   def self.to(value)
-    @@hearing_type = HearingType.find_by_value(value)
+    ClassMethods.type = HearingType.find_or_create_by_value(value)
     self
   end
   
-  def self.apply
-    { conditions: { hearing_type_id: @@hearing_type.id } }
+  module ClassMethods
+    def self.type=(type)
+      @@type = type
+    end
+    
+    def type
+      @@type
+    end
+    
+    private
+    
+    def apply
+      { conditions: { hearing_type_id: @@type.id } }
+    end
   end
 end

@@ -3,6 +3,8 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+# courts
+
 # http://portal.concourt.sk/pages/viewpage.action?pageId=1278049
 court              = Court.new
 court.uri          = "http://portal.concourt.sk"
@@ -16,7 +18,7 @@ court.save!
 court.registry_center                 = CourtOffice.new
 court.registry_center.court           = court
 court.registry_center.email           = nil
-court.registry_center.phone           = "+421-55-7207211, +421-55-6227633"
+court.registry_center.phone           = "+421-55-7207211, +421-55-6227633" # TODO format
 court.registry_center.hours_monday    = "7:30 - 12:00, 13:00 - 16:00"
 court.registry_center.hours_tuesday   = "7:30 - 12:00, 13:00 - 16:00"
 court.registry_center.hours_wednesday = "7:30 - 12:00, 13:00 - 16:00"
@@ -38,7 +40,7 @@ court.save!
 court.registry_center                 = CourtOffice.new
 court.registry_center.court           = court
 court.registry_center.email           = "podatelna@nsud.sk, info@nsud.sk"
-court.registry_center.phone           = "02 / 323 04 660"
+court.registry_center.phone           = "02 / 323 04 660" # TODO format
 court.registry_center.hours_monday    = "8:00 - 11:30, 12:00 - 15:30"
 court.registry_center.hours_tuesday   = "8:00 - 11:30, 12:00 - 15:30"
 court.registry_center.hours_wednesday = "8:00 - 11:30, 12:00 - 15:30"
@@ -46,6 +48,8 @@ court.registry_center.hours_thursday  = "8:00 - 11:30, 12:00 - 15:30"
 court.registry_center.hours_friday    = "8:00 - 11:30, 12:00 - 15:30"
 court.registry_center.save!
 court.save!
+
+# decrees
 
 DecreeForm.create value: "Rozsudok",                  code: 'A'
 DecreeForm.create value: "Uznesenie",                 code: 'N'
@@ -62,7 +66,3 @@ DecreeForm.create value: "Rozsudok bez odôvodnenia",  code: 'F'
 DecreeForm.create value: "Uznesenie bez odôvodnenia", code: 'C'
 DecreeForm.create value: "Osvedčenie",                code: 'B'
 DecreeForm.create value: "Trestný rozkaz",            code: 'T'
-
-HearingType.create value: "Civilné"
-HearingType.create value: "Trestné"
-HearingType.create value: "Špecializovaného trestného súdu"
