@@ -62,3 +62,7 @@ DecreeForm.create value: "Rozsudok bez odôvodnenia",  code: 'F'
 DecreeForm.create value: "Uznesenie bez odôvodnenia", code: 'C'
 DecreeForm.create value: "Osvedčenie",                code: 'B'
 DecreeForm.create value: "Trestný rozkaz",            code: 'T'
+
+HearingType.create value: "Civilné"
+HearingType.create value: "Trestné"
+HearingType.create value: "Špecializovaného trestného súdu"
