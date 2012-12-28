@@ -4,5 +4,3 @@ jQuery ->
 
   $('a[href="#"]').click ->
     return false
-
-

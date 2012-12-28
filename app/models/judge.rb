@@ -10,6 +10,7 @@ class Judge < ActiveRecord::Base
                   :suffix,
                   :addition
 
+  # TODO rm or mv to employments -- refactor!
   scope :active,   joins(:employments).where('active = true')
   scope :inactive, joins(:employments).where('active = false')
   
