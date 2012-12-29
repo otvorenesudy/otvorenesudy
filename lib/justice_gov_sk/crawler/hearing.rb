@@ -1,10 +1,6 @@
 module JusticeGovSk
   module Crawler
     class Hearing < JusticeGovSk::Crawler
-      include Factories
-      include Identify
-      include Pluralize 
-      
       def initialize(downloader, parser, persistor)
         super(downloader, parser, persistor)
       end

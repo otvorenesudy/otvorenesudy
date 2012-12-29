@@ -1,10 +1,6 @@
 module JusticeGovSk
   module Crawler
     class Court < JusticeGovSk::Crawler
-      include Factories
-      include Identify
-      include Pluralize 
-      
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parser::Court.new, persistor)
       end

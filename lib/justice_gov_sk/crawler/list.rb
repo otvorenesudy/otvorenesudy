@@ -1,8 +1,6 @@
 module JusticeGovSk
   module Crawler
     class List < JusticeGovSk::Crawler
-      include Pluralize
-      
       attr_reader :per_page,
                   :page,
                   :pages,

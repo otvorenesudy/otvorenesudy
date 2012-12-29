@@ -1,10 +1,6 @@
 module JusticeGovSk
   module Crawler
     class Decree < JusticeGovSk::Crawler
-      include Factories
-      include Identify
-      include Pluralize
-      
       attr_accessor :form_code
       
       def initialize(downloader, persistor)
