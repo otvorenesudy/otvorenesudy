@@ -3,10 +3,6 @@
 module JusticeGovSk
   module Parser
     class CriminalHearing < JusticeGovSk::Parser::Hearing
-      def type(document)
-        'Trestné'
-      end
-      
       def defendants(document)
         find_rows_by_group 'defendants', document, 'Obžalovaní' do |divs|
           map  = {}

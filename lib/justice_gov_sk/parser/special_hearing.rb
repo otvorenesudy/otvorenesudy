@@ -3,10 +3,6 @@
 module JusticeGovSk
   module Parser
     class SpecialHearing < JusticeGovSk::Parser::Hearing
-      def type(document)
-        'Špecializovaného trestného súdu'
-      end
-      
       def commencement_date(document)
         find_value_by_label 'commencement date', document, 'Dátum započatia' do |div|
           JusticeGovSk::Helpers::NormalizeHelper.datetime(div.text)

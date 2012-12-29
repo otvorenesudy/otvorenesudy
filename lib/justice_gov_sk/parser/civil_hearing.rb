@@ -3,10 +3,6 @@
 module JusticeGovSk
   module Parser
     class CivilHearing < JusticeGovSk::Parser::Hearing
-      def type(document)
-        'Civilné'
-      end
-      
       def special_type(document)
         find_value_by_label 'special type', document, 'Typ' do |div|
           div.text.strip

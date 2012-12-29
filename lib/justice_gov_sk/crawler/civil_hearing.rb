@@ -10,6 +10,8 @@ module JusticeGovSk
       def process(uri, content)
         document = preprocess(uri, content)
 
+        @hearing.type = CivilHearing.type
+        
         @hearing.special_type = @parser.special_type(document)
         
         judges(document)

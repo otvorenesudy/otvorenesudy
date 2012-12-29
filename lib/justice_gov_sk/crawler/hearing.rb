@@ -31,7 +31,6 @@ module JusticeGovSk
         proceeding(document)
         court(document)
         
-        type(document)
         section(document)
         subject(document)
         form(document)
@@ -82,20 +81,6 @@ module JusticeGovSk
             
             judging(judge, name, exact)
           end
-        end
-      end
-      
-      def type(document)
-        value = @parser.type(document)
-        
-        unless value.nil?
-          type = hearing_type_factory.find_or_create(value)
-          
-          type.value = value
-          
-          @persistor.persist(type) if type.id.nil?
-          
-          @hearing.type = type          
         end
       end
       
