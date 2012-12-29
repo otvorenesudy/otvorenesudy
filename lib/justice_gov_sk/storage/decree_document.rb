@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Storages
-    class DecreeDocumentStorage < JusticeGovSk::Storages::DocumentStorage
+  module Storage
+    class DecreeDocument < JusticeGovSk::Storage::Document
       def root
         @root ||= File.join super, 'decrees'
       end

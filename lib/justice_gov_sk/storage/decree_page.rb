@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Storages
-    class DecreePageStorage < JusticeGovSk::Storages::PageStorage
+  module Storage
+    class DecreePage < JusticeGovSk::Storage::Page
       def initialize
         @distribute = true
       end

@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Storages
-    class HearingPageStorage < JusticeGovSk::Storages::PageStorage
+  module Storage
+    class HearingPage < JusticeGovSk::Storage::Page
       def initialize
         @distribute = true
       end
