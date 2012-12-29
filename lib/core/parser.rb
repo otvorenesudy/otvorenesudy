@@ -1,6 +1,6 @@
-class Parser
-  include Output
-
-  def parse(resource)
-  end
+module Core
+  class Parser
+    def parse(resource)
+    end
+  end  
 end
