@@ -7,7 +7,7 @@ module Core
                   :distribute
     
     def root
-      @root ||= Configuration.storage.root
+      @root ||= Core::Configuration.storage.root
     end
     
     def binary

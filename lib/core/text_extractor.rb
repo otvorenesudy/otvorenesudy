@@ -40,7 +40,7 @@ module Core
     
     private
     
-    include Core::Cache
+    include Core::Storage::Cache
   
     def root
       @root ||= File.join super, 'text'
