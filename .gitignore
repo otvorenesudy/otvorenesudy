@@ -14,8 +14,8 @@ public/assets/*
 public/documents
 public/documents/*
 
-storage
-storage/*
+./storage
+./storage/*
 
 tmp
 tmp/*
