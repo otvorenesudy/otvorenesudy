@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parsers
-    class HearingParser < JusticeGovSk::Parsers::Parser
+  module Parser
+    class Hearing < JusticeGovSk::Parser
       def case_number(document)
         find_value_by_label 'case number', document, 'Spisová značka' do |div|
           div.text.strip

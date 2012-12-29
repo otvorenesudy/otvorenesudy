@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Jobs
-    class ListCrawlerJob
+  module Job
+    class ListCrawler
       @queue = :list_crawlers
  
       # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree

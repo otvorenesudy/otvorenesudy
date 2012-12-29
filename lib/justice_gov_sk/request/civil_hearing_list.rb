@@ -1,8 +1,8 @@
 module JusticeGovSk
-  module Requests
-    class CivilHearingListRequest < JusticeGovSk::Requests::HearingListRequest
+  module Request
+    class CivilHearingList < JusticeGovSk::Request::HearingList
       def url
-        @url ||= "#{JusticeGovSk::Requests::URL.base}/Stranky/Pojednavania/PojednavanieZoznam.aspx"
+        @url ||= "#{super}/Stranky/Pojednavania/PojednavanieZoznam.aspx"
       end
     end
   end

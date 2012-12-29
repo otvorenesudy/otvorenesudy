@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parsers
-    class JudgeListParser < JusticeGovSk::Parsers::ListParser
+  module Parser
+    class JudgeList < JusticeGovSk::Parser::List
       def list(document)
         find_values 'list', document, 'table.GridTable tr', verbose: false do |trs|
           trs[1..-2].to_a

@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parsers
-    class CriminalHearingParser < HearingParser
+  module Parser
+    class CriminalHearing < JusticeGovSk::Parser::Hearing
       def type(document)
         'Trestné'
       end

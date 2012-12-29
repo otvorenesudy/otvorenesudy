@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Crawlers
-    class DecreeCrawler < Crawler
+  module Crawler
+    class Decree < JusticeGovSk::Crawler
       include Factories
       include Identify
       include Pluralize
@@ -8,7 +8,7 @@ module JusticeGovSk
       attr_accessor :form_code
       
       def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parsers::DecreeParser.new, persistor)
+        super(downloader, JusticeGovSk::Parser::Decree.new, persistor)
       end
       
       protected

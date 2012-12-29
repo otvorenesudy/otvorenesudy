@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Agents
-    class ListAgent < Agent
+  module Agent
+    class List < JusticeGovSk::Agent
       def download(request)
         super(request) do |page|
           form_name    = 'aspnetForm'

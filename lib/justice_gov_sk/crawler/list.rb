@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Crawlers
-    class ListCrawler < Crawler
+  module Crawler
+    class List < JusticeGovSk::Crawler
       include Pluralize
       
       attr_reader :per_page,
@@ -9,7 +9,7 @@ module JusticeGovSk
                   :next_page
       
       def initialize(downloader, parser = nil, persistor = nil)
-        parser = JusticeGovSk::Parsers::ListParser.new if parser.nil?
+        parser ||= JusticeGovSk::Parser::List.new
 
         super(downloader, parser, persistor)
 

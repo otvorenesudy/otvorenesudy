@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parsers
-    class DecreeParser < JusticeGovSk::Parsers::Parser
+  module Parser
+    class Decree < JusticeGovSk::Parser
       def case_number(document)
         find_value_by_label 'case number', document, 'Spisová značka' do |div|
           div.search('a').first.text.strip

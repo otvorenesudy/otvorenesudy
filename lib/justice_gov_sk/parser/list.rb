@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parsers
-    class ListParser < HtmlParser
+  module Parser
+    class List < JusticeGovSk::Parser
       def list(document)
         find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|
-          anchors.map { |a| "#{JusticeGovSk::Requests::URL.base}#{a[:href]}" }
+          anchors.map { |a| "#{JusticeGovSk::URL.base}#{a[:href]}" }
         end
       end
       

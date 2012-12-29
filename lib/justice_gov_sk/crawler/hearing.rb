@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Crawlers
-    class HearingCrawler < Crawler
+  module Crawler
+    class Hearing < JusticeGovSk::Crawler
       include Factories
       include Identify
       include Pluralize 

@@ -1,8 +1,8 @@
 module JusticeGovSk
-  module Crawlers
-    class CivilHearingCrawler < HearingCrawler
+  module Crawler
+    class CivilHearing < JusticeGovSk::Crawler::Hearing
       def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parsers::CivilHearingParser.new, persistor)
+        super(downloader, JusticeGovSk::Parser::CivilHearing.new, persistor)
       end
       
       protected

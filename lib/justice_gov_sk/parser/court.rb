@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parsers
-    class CourtParser < JusticeGovSk::Parsers::Parser
+  module Parser
+    class Court < JusticeGovSk::Parser
       def type(document)
         name(document).split(/\s/).first
       end

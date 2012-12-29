@@ -1,8 +1,8 @@
 module JusticeGovSk
-  module Requests
-    class JudgeListRequest < JusticeGovSk::Requests::ListRequest
+  module Request
+    class JudgeList < JusticeGovSk::Request::List
       def url
-        @url ||= "#{JusticeGovSk::Requests::URL.base}/Stranky/Sudcovia/SudcaZoznam.aspx"
+        @url ||= "#{super}/Stranky/Sudcovia/SudcaZoznam.aspx"
       end
     end
   end

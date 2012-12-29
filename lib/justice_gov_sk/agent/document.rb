@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Agents
-    class DocumentAgent < Agent
+  module Agent
+    class Document < JusticeGovSk::Agent
       def download(request)
         super(request) do |page|
           form = page.form_with(name: 'aspnetForm')

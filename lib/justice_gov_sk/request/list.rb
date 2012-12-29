@@ -1,12 +1,12 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Requests
-    class ListRequest
-      attr_accessor :url,
-                    :page,
+  module Request
+    class List < JusticeGovSk::Request
+      attr_accessor :page,
                     :per_page
-                    
+      
+      # TODO mv
       attr_accessor :include_old_hearings,
                     :decree_form
 
