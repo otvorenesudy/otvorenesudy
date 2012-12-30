@@ -12,6 +12,7 @@
 # example: mv ListRequest.decree_form -> DecreeListRequest
 # remove lines like: if type < Hearing
 
+require 'justice_gov_sk/configuration'
 require 'justice_gov_sk/url'
 require 'justice_gov_sk/storage'
 require 'justice_gov_sk/storage/page'
