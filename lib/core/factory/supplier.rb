@@ -6,11 +6,10 @@ module Core
       end
     
       def get(type, find = nil, options = {})
-        key     = "#{type}.#{find || 'new'}"
+        key     = "#{type}.#{find || 'new'}".intern
         factory = @factories[key]
-        puts "XXX #{factory.type || nil}"
+
         unless factory
-          puts "CREATING #{key}"
           if find
             find_block = lambda { |*a| type.send(find, *a) }
             factory = Factory.new(type) { |*args| find_block.call(*args) }
@@ -22,7 +21,7 @@ module Core
           
           @factories[key] = factory
         end
-        puts "GETTING #{key}"
+
         factory
       end
     end
