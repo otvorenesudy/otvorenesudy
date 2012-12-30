@@ -1,4 +1,7 @@
 require 'active_support/inflector'
+require 'active_support/multibyte'
+
+require 'ruby/string'
 
 require 'docsplit'
 require 'mechanize'
