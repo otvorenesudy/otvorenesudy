@@ -35,7 +35,7 @@ module JusticeGovSk
         name = data[:name]
 
         unless name.nil?
-          judge = judge_factory.find_or_create(name[:altogether])
+          judge = judge_by_name_factory.find_or_create(name[:altogether])
           
           judge.name             = name[:altogether]
           judge.name_unprocessed = name[:unprocessed]
@@ -57,7 +57,7 @@ module JusticeGovSk
         value = data[:position]
 
         unless value.nil?
-          judge_position = judge_position_factory.find_or_create(value)
+          judge_position = judge_position_by_value_factory.find_or_create(value)
           
           judge_position.value = value
           
@@ -68,7 +68,7 @@ module JusticeGovSk
       end
       
       def employment(court, judge, data)
-        employment = employment_factory.find_or_create(court.id, judge.id)
+        employment = employment_by_court_id_and_judge_id_factory.find_or_create(court.id, judge.id)
         
         employment.court          = court
         employment.judge          = judge

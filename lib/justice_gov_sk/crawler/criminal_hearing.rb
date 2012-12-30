@@ -26,7 +26,7 @@ module JusticeGovSk
           puts "Processing #{pluralize map.size, 'defendant'}."
           
           map.each do |name, values|
-            defendant = defendant_factory.find_or_create(@hearing.id, name)
+            defendant = defendant_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
             
             defendant.hearing = @hearing
             defendant.name    = name
@@ -45,7 +45,7 @@ module JusticeGovSk
           puts "Processing #{pluralize values.count, 'accusation'}."
           
           values.each do |value|
-            accusation = accusation_factory.find_or_create(defendant.id, value)
+            accusation = accusation_by_defendant_id_and_value_factory.find_or_create(defendant.id, value)
               
             accusation.defendant = defendant
             accusation.value     = value

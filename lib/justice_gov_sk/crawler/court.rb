@@ -16,7 +16,7 @@ module JusticeGovSk
           return nil
         end
         
-        @court = court_factory.find_or_create(uri)
+        @court = court_by_uri_factory.find_or_create(uri)
         
         @court.uri = uri
            
@@ -49,7 +49,7 @@ module JusticeGovSk
         value = @parser.type(document)
         
         unless value.nil?
-          type = court_type_factory.find_or_create(value)
+          type = court_type_by_value_factory.find_or_create(value)
           
           type.value = value
           
@@ -64,7 +64,7 @@ module JusticeGovSk
         zipcode = @parser.municipality_zipcode(document)
         
         unless name.nil? || zipcode.nil?
-          municipality = municipality_factory.find_or_create(name)
+          municipality = municipality_by_name_factory.find_or_create(name)
           
           municipality.name    = name
           municipality.zipcode = zipcode

@@ -22,6 +22,8 @@ module JusticeGovSk
         @persistor.persist(@hearing)
       end
       
+      # TODO refactor -> common method for proposers and oponents
+      
       def proposers(document)
         names = @parser.proposers(document)
     
@@ -29,7 +31,7 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'proposer'}."
           
           names.each do |name|
-            proposer = proposer_factory.find_or_create(@hearing.id, name)
+            proposer = proposer_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
             
             proposer.hearing = @hearing
             proposer.name    = name
@@ -46,7 +48,7 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'opponent'}."
           
           names.each do |name|
-            opponent = opponent_factory.find_or_create(@hearing.id, name)
+            opponent = opponent_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
             
             opponent.hearing = @hearing
             opponent.name    = name

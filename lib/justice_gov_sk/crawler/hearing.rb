@@ -14,7 +14,7 @@ module JusticeGovSk
       def preprocess(uri, content)
         document = @parser.parse(content)
                 
-        @hearing = hearing_factory.find_or_create(uri)
+        @hearing = hearing_by_uri_factory.find_or_create(uri)
         
         @hearing.uri = uri
 
@@ -64,7 +64,7 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'judge'}."
           
           names.each do |name|
-            judge = judge_factory.find(name[:altogether])
+            judge = judge_by_name_factory.find(name[:altogether])
             exact = nil
             
             unless judge.nil?
@@ -84,7 +84,7 @@ module JusticeGovSk
         value = @parser.section(document)
         
         unless value.nil?
-          section = hearing_section_factory.find_or_create(value)
+          section = hearing_section_by_value_factory.find_or_create(value)
           
           section.value = value
           
@@ -98,7 +98,7 @@ module JusticeGovSk
         value = @parser.subject(document)
         
         unless value.nil?
-          subject = hearing_subject_factory.find_or_create(value)
+          subject = hearing_subject_by_value_factory.find_or_create(value)
           
           subject.value = value
           
@@ -112,7 +112,7 @@ module JusticeGovSk
         value = @parser.form(document)
         
         unless value.nil?
-          form = hearing_form_factory.find_or_create(value)
+          form = hearing_form_by_value_factory.find_or_create(value)
           
           form.value = value
           
@@ -125,7 +125,7 @@ module JusticeGovSk
       private
       
       def judging(judge, name, exact)
-        judging = judging_factory.find_or_create(judge.id, @hearing.id)
+        judging = judging_by_judge_id_and_hearing_id_factory.find_or_create(judge.id, @hearing.id)
         
         judging.judge                  = judge
         judging.judge_matched_exactly  = exact

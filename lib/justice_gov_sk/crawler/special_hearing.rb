@@ -26,7 +26,7 @@ module JusticeGovSk
         name = @parser.chair_judge(document)
         
         unless name.nil?
-          judge = judge_factory.find(name[:altogether])
+          judge = judge_by_name_factory.find(name[:altogether])
           exact = nil
           
           unless judge.nil?
@@ -47,7 +47,7 @@ module JusticeGovSk
         name = @parser.defendant(document)
         
         unless name.nil?
-          defendant = defendant_factory.find_or_create(@hearing.id, name)
+          defendant = defendant_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
           
           defendant.hearing = @hearing
           defendant.name    = name

@@ -12,7 +12,7 @@ module JusticeGovSk
       def process(uri, content)
         document = @parser.parse(content)
                 
-        @decree = decree_factory.find_or_create(uri)
+        @decree = decree_by_uri_factory.find_or_create(uri)
         
         @decree.uri  = uri
         @decree.text = fulltext(uri)
@@ -98,7 +98,7 @@ module JusticeGovSk
           # TODO rm
           #judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
           
-          judge = judge_factory.find(name[:altogether])
+          judge = judge_by_name_factory.find(name[:altogether])
           exact = nil
           
           unless judge.nil?
@@ -129,7 +129,7 @@ module JusticeGovSk
         value = @parser.nature(document)
         
         unless value.nil?
-          nature = decree_nature_factory.find_or_create(value)
+          nature = decree_nature_by_value_factory.find_or_create(value)
           
           nature.value = value
           
@@ -143,7 +143,7 @@ module JusticeGovSk
         value = @parser.legislation_area(document)
         
         unless value.nil?
-          legislation_area = legislation_area_factory.find_or_create(value)
+          legislation_area = legislation_area_by_value_factory.find_or_create(value)
           
           legislation_area.value = value
           
@@ -157,7 +157,7 @@ module JusticeGovSk
         value = @parser.legislation_subarea(document)
         
         unless value.nil?
-          legislation_subarea = legislation_subarea_factory.find_or_create(value)
+          legislation_subarea = legislation_subarea_by_value_factory.find_or_create(value)
 
           legislation_area(document) if @decree.legislation_area.nil?
           
@@ -182,7 +182,7 @@ module JusticeGovSk
             unless identifiers.empty?
               value = identifiers[:value]
               
-              legislation = legislation_factory.find_or_create(value)
+              legislation = legislation_by_value_factory.find_or_create(value)
               
               legislation.value             = value
               legislation.value_unprocessed = item
@@ -205,7 +205,7 @@ module JusticeGovSk
       private
       
       def legislation_usage(legislation)
-        legislation_usage = legislation_usage_factory.find_or_create(legislation.id, @decree.id)
+        legislation_usage = legislation_usage_by_legislation_id_and_decree_id_factory.find_or_create(legislation.id, @decree.id)
         
         legislation_usage.legislation = legislation
         legislation_usage.decree      = @decree
