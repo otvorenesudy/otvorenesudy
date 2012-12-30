@@ -4,6 +4,10 @@ module JusticeGovSk
       'http://www.justice.gov.sk'
     end
     
+    def self.valid?(url)
+      url.start_with? self.base
+    end
+    
     def self.url_to_path(url, ext = nil)
       uri  = URI.parse(url)
       path = uri.path
