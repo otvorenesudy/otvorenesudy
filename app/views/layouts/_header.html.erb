@@ -25,9 +25,10 @@
       <%= search_field_tag :search, params[:search], class: :'search-query' %>
       <%= button_tag icon_tag(:search), name: nil, class: :btn %>
     </div>
+ 
+    <%= link_to "Rozšírené vyhľadávanie", nil %>
   <% end %>
-  
-  <%= link_to "Rozšírené vyhľadávanie", nil %>
+
 </div>
 
 <%= yield :header %>

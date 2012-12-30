@@ -143,8 +143,9 @@ div.search {
   background: $grayLighter;
   
   .form-search {
-    margin: 0px;
+    margin: 0px auto;
     padding: 0px;
+    width: 603px;
 
     .input-append {
       display: block;
@@ -161,23 +162,25 @@ div.search {
         line-height: auto;
       }
     }
-  }
-  
-  a {
-    position: absolute;
-    height: 30px;
-    line-height: 30px;
-    top: 40px;
-    right: 28%;
-    font-size: 14px;
 
-    color: $grayLight;
+    a {
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      top: -30px;
+      left: 450px;
+      font-size: 14px;
 
-    &:hover {
-      color: $gray;
-      text-decoration: none;
+      color: $grayLight;
+
+      &:hover {
+        color: $gray;
+        text-decoration: none;
+      }
     }
+
   }
+
 }
 
 // header
