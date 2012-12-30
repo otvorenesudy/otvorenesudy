@@ -25,7 +25,7 @@ module Otvorenesudy
     # config.autoload_paths += %W(#{config.root}/extras)
 
     # Include all library directories.
-    #config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    # config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -40,7 +40,7 @@ module Otvorenesudy
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :sk
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
