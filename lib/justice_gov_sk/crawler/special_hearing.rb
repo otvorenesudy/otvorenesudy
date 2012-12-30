@@ -10,7 +10,7 @@ module JusticeGovSk
       def process(uri, content)
         document = preprocess(uri, content)
 
-        @hearing.type = SpecialHearing.type
+        @hearing.type = HearingType.special
         
         @hearing.commencement_date = @parser.commencement_date(document)
         @hearing.selfjudge         = @parser.selfjudge(document)
