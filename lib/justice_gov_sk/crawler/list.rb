@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Crawler
+  class Crawler
     class List < JusticeGovSk::Crawler
       attr_reader :per_page,
                   :page,

@@ -1,5 +1,3 @@
-require 'active_support/inflector'
-
 module Core
   module Pluralize
     def pluralize(n, s)

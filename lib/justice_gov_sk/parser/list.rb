@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parser
+  class Parser
     class List < JusticeGovSk::Parser
       def list(document)
         find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|

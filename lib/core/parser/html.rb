@@ -1,8 +1,5 @@
-require 'mechanize'
-require 'nokogiri'
-
 module Core
-  module Parser
+  class Parser
     class HTML < Core::Parser
       def parse(resource)
         clear_caches if self.respond_to? :clear_caches

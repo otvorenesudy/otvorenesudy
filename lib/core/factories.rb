@@ -7,17 +7,10 @@ module Core
       unless match.nil?
         type = match[:type].camelcase.constantize
         find = "find_by_#{match[:data]}" unless match[:data].nil?
-        key  = "#{type}#{find}"
         
-        block ||= lambda { |*a| type.send(find, *a) } unless find.blank?
-  
-        @factories = {} if @factories.nil?
+        @supplier ||= Core::Factory::Supplier.new
         
-        @factories[key] ||= Core::Factory::Supplier.instance.get type, block
-        
-        @factories[key].verbose = verbose
-        
-        @factories[key]
+        @supplier.get type, find, verbose: verbose
       else
         super method, *args, block
       end

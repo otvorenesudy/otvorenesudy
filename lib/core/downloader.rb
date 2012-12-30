@@ -106,7 +106,7 @@ module Core
       end
     end
   
-    include Core::Cache
+    include Core::Storage::Cache
     
     public
   

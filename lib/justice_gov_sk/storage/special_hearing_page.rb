@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Storage
+  class Storage
     class SpecialHearingPage < JusticeGovSk::Storage::HearingPage
       def root
         @root ||= File.join super, 'special'

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parser
+  class Parser
     class CivilHearing < JusticeGovSk::Parser::Hearing
       def special_type(document)
         find_value_by_label 'special type', document, 'Typ' do |div|

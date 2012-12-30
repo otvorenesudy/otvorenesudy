@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Request
+  class Request
     class List < JusticeGovSk::Request
       attr_accessor :page,
                     :per_page

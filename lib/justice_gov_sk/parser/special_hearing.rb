@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parser
+  class Parser
     class SpecialHearing < JusticeGovSk::Parser::Hearing
       def commencement_date(document)
         find_value_by_label 'commencement date', document, 'Dátum započatia' do |div|

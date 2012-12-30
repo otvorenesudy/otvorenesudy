@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Agent
+  class Agent
     class Document < JusticeGovSk::Agent
       def download(request)
         super(request) do |page|

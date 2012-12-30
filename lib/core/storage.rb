@@ -1,5 +1,3 @@
-require 'murmurhash3'
-
 module Core
   module Storage
     attr_accessor :root,

@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Crawler
+  class Crawler
     class Decree < JusticeGovSk::Crawler
       attr_accessor :form_code
       

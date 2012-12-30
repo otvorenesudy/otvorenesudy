@@ -1,5 +1,3 @@
-require 'mechanize'
-
 module Core
   class Agent < Core::Downloader
     attr_reader :headers,

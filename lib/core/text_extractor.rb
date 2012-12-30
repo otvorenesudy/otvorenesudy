@@ -1,5 +1,3 @@
-require 'docsplit'
-
 module Core
   class TextExtractor
     def initialize

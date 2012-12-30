@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Request
+  class Request
     class Document < JusticeGovSk::Request
       attr_accessor :format
       

@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Storage
+  class Storage
     class CourtPage < JusticeGovSk::Storage::Page
       def initialize
         @distribute = false

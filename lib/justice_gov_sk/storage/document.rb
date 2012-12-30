@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Storage
+  class Storage
     class Document < JusticeGovSk::Storage
       def initialize
         @binary     = true

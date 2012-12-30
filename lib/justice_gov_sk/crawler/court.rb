@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Crawler
+  class Crawler
     class Court < JusticeGovSk::Crawler
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parser::Court.new, persistor)

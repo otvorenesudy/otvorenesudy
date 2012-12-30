@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Crawler
-    class JudgeList < JusticeGovSk::Crawler::ListCrawler
+  class Crawler
+    class JudgeList < JusticeGovSk::Crawler::List
       include Core::Factories
       include Core::Identify
       include Core::Pluralize 

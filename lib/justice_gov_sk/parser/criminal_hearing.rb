@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  module Parser
+  class Parser
     class CriminalHearing < JusticeGovSk::Parser::Hearing
       def defendants(document)
         find_rows_by_group 'defendants', document, 'Obžalovaní' do |divs|

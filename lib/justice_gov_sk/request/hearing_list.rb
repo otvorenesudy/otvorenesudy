@@ -1,5 +1,5 @@
 module JusticeGovSk
-  module Request
+  class Request
     class HearingList < JusticeGovSk::Request::List
       def initialize
         super
