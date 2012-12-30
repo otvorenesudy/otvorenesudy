@@ -31,11 +31,11 @@ module JusticeGovSk
       end
 
       def court(value)
-        JusticeGovSk::Helpers::NormalizeHelper.court_name(value)
+        JusticeGovSk::Normalizer.court_name(value)
       end
 
       def name(value)
-        JusticeGovSk::Helpers::NormalizeHelper.person_name_parted(value)
+        JusticeGovSk::Normalizer.person_name_parted(value)
       end
 
       def position(value)

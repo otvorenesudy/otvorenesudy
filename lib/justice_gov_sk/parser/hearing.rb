@@ -17,7 +17,7 @@ module JusticeGovSk
       
       def date(document) 
         find_value_by_label 'date', document, 'Dátum pojednávania' do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.datetime(div.text)
+          JusticeGovSk::Normalizer.datetime(div.text)
         end
       end
       
@@ -41,7 +41,7 @@ module JusticeGovSk
       
       def court(document)
         find_value_by_label 'court', document, 'Súd' do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.court_name(div.text)
+          JusticeGovSk::Normalizer.court_name(div.text)
         end
       end
       
@@ -51,7 +51,7 @@ module JusticeGovSk
           
           divs.each_with_index do |div, i|
             if div[:class] == 'popiska' && div.text.blank? && divs[i + 1][:class] == 'hodnota'
-              names << JusticeGovSk::Helpers::NormalizeHelper.person_name_parted(divs[i + 1].text)
+              names << JusticeGovSk::Normalizer.person_name_parted(divs[i + 1].text)
             end
           end
           

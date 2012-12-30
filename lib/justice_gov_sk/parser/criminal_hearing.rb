@@ -10,7 +10,7 @@ module JusticeGovSk
 
           divs.each do |div|
             if div[:class] == 'popiska'
-              name = JusticeGovSk::Helpers::NormalizeHelper.punctuation(div.text)
+              name = JusticeGovSk::Normalizer.punctuation(div.text)
               map[name] = []
             elsif div[:class] == 'hodnota'
               value = accusation(div.text)

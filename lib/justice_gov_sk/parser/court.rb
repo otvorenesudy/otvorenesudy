@@ -9,44 +9,44 @@ module JusticeGovSk
       
       def municipality_name(document)
         find_value_by_group_and_index 'municipality name', document, 'Kontakt', 3 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.municipality_name(div.text)
+          JusticeGovSk::Normalizer.municipality_name(div.text)
         end
       end
       
       def municipality_zipcode(document)
         find_value_by_group_and_index 'municipality zipcode', document, 'Kontakt', 2 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.zipcode(div.text)
+          JusticeGovSk::Normalizer.zipcode(div.text)
         end
       end
       
       def name(document)
         @name ||= find_value_by_group_and_index 'name', document, 'Kontakt', 0 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.court_name(div.text)
+          JusticeGovSk::Normalizer.court_name(div.text)
         end
       end
       
       def street(document)
         find_value_by_group_and_index 'street', document, 'Kontakt', 1 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.street(div.text)
+          JusticeGovSk::Normalizer.street(div.text)
         end
       end
       
       def phone(document)
         find_value_by_group_and_index 'phone', document, 'Kontakt', 4 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
+          JusticeGovSk::Normalizer.phone(div.text)
         end
       end
      
       def fax(document)
         find_value_by_group_and_index 'fax', document, 'Kontakt', 5 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
+          JusticeGovSk::Normalizer.phone(div.text)
         end
       end
       
       def media_person(document)
         @media_person ||= find_value_by_group_and_index 'media person', document, 'Kontakt pre médiá', 0, verbose: false do |div|
           {
-            name:             JusticeGovSk::Helpers::NormalizeHelper.person_name(div.text),
+            name:             JusticeGovSk::Normalizer.person_name(div.text),
             name_unprocessed: div.text.strip
           }
         end
@@ -54,19 +54,19 @@ module JusticeGovSk
       
       def media_phone(document)
         find_value_by_group_and_index 'media phone', document, 'Kontakt pre médiá', 1 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
+          JusticeGovSk::Normalizer.phone(div.text)
         end 
       end
       
       def office_phone(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' phone', document, office_type_to_group(type), 0 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.phone(div.text)
+          JusticeGovSk::Normalizer.phone(div.text)
         end         
       end
 
       def office_email(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' email', document, office_type_to_group(type), 1 do |div|
-          JusticeGovSk::Helpers::NormalizeHelper.email(div.text)
+          JusticeGovSk::Normalizer.email(div.text)
         end                 
       end
 
@@ -130,7 +130,7 @@ module JusticeGovSk
       
       def office_daily_hours(name, document, group, index)
         find_value_by_group_and_index name, document, group, index do |div|
-           JusticeGovSk::Helpers::NormalizeHelper.hours(div.text)
+           JusticeGovSk::Normalizer.hours(div.text)
         end
       end
       

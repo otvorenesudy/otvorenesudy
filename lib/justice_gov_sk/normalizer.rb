@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# TODO find a way to include normalizer into parser without method name conflicts
+
 module JusticeGovSk
   module Normalizer
     def self.court_name(value)
