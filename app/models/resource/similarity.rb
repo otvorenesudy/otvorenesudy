@@ -1,6 +1,6 @@
 module Resource::Similarity
 
-  def similar_to(column, value, similarity)
+  def similar_by(column, value, similarity)
     column = column.gsub(/[^a-zA-Z_\?]/, '')
         
     sql = <<-SQL
