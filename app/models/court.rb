@@ -2,7 +2,8 @@
 
 class Court < ActiveRecord::Base
   #include Resource::Storage.use(JusticeGovSk::Storages::CourtPageStorage) # TODO rm or refactor
-  
+  extend Resource::Similarity
+
   attr_accessible :uri,
                   :name,
                   :street,
@@ -13,7 +14,7 @@ class Court < ActiveRecord::Base
                   :media_phone,
                   :latitude,
                   :longitude
-  
+    
   # TODO rm
   #include PgSearch
   #pg_search_scope :search_by_name, against: name, using: :trigram
@@ -57,22 +58,4 @@ class Court < ActiveRecord::Base
     @coordinates ||= { latitude: latitude, longitude: longitude }
   end
 
-  # TODO rm
-  # TODO replace with gem
-  def self.similar_by_name(name, similarity)
-    result = ActiveRecord::Base.connection.exec_query(<<EOF
-    SELECT id, name, similarity(name, '#{name}') as sml 
-    FROM courts 
-    WHERE name % '#{name}'
-    ORDER BY sml DESC, name 
-    ;
-EOF
-    )
-    
-    result = result.to_hash
-    match  = result.first 
-    model  = Court.find(match['id'])
-    
-    return model if match['sml'].to_f >= similarity
-  end
 end
