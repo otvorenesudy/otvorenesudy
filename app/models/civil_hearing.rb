@@ -1,6 +1,4 @@
-# encoding: utf-8
-
 class CivilHearing < Hearing
-  include Hearing::Scoped.to('Civilné')
+  include Hearing::Scoped.to HearingType.civil
   default_scope apply
 end

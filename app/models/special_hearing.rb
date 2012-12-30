@@ -1,6 +1,4 @@
-# encoding: utf-8
-
 class SpecialHearing < Hearing
-  include Hearing::Scoped.to('Špecializovaného trestného súdu')
+  include Hearing::Scoped.to HearingType.special
   default_scope apply
 end

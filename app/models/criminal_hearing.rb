@@ -1,6 +1,4 @@
-# encoding: utf-8
-
 class CriminalHearing < Hearing
-  include Hearing::Scoped.to('Trestné')
+  include Hearing::Scoped.to HearingType.criminal
   default_scope apply
 end
