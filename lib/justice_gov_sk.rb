@@ -82,7 +82,7 @@ module JusticeGovSk
 
     downloader = Downloader.new
 
-    downloader.headers              = JusticeGovSk::URL.headers
+    downloader.headers              = JusticeGovSk::Request.headers
     downloader.data                 = {}
     downloader.cache_load_and_store = true
     downloader.cache_root           = storage.root
