@@ -2,9 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
-#gem 'pg'
-#gem 'pg_seach'
-gem 'mysql2'
+gem 'pg'
+gem 'pg_search'
 
 gem 'json'
 gem 'nokogiri'
@@ -51,3 +50,5 @@ group :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'database_cleaner'
 end
+
+gem 'tire'
