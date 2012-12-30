@@ -9,8 +9,8 @@ module Core
   
     def initialize(type, &find_block)
       @type         = type
-      @create_block = lambda { |args| @type.new }
-      @find_block   = block_given? ? find_block : lambda { |args| nil }
+      @create_block = lambda { |*args| @type.new }
+      @find_block   = block_given? ? find_block : lambda { |*args| nil }
     end
     
     def create(*args)
@@ -44,9 +44,9 @@ module Core
     private
     
     def call(block, *args)
-      *args = [nil] if args.nil? || args.empty?
+      *args = [] if args.nil? || args.empty?
       
-      block.call(*args)
+      block.call(*args.flatten(1))
     end
   end  
 end

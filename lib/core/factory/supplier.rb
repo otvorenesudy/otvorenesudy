@@ -11,8 +11,7 @@ module Core
 
         unless factory
           if find
-            find_block = lambda { |*a| type.send(find, *a) }
-            factory = Factory.new(type) { |*args| find_block.call(*args) }
+            factory = Factory.new(type) { |*args| type.send(find, *args) }
           else
             factory = Factory.new(type)
           end
