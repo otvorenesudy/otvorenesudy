@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Court < ActiveRecord::Base
+  #include Resource::Storage.use(JusticeGovSk::Storages::CourtPageStorage) # TODO rm or refactor
+  
   attr_accessible :uri,
                   :name,
                   :street,
