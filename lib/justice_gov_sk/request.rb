@@ -1,6 +1,6 @@
 module JusticeGovSk
-  class Request # TODO < Core::Request
-    attr_accessor :url
+  class Request
+    include Core::Request
     
     def self.headers
       {

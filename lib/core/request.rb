@@ -1,5 +1,5 @@
 module Core
-  class Request
+  module Request
     def url
       'http://www.example.com'
     end

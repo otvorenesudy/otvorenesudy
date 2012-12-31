@@ -1,11 +1,13 @@
 module Core
-  class Request
-    class List < Core::Request
+  module Request
+    module List
+      include Core::Request
+      
       attr_accessor :page,
                     :per_page
       
-      def initialize
-        @page = 1
+      def page
+        @page ||= 1
       end
     end
   end
