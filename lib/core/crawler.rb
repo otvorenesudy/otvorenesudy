@@ -1,5 +1,5 @@
 module Core
-  class Crawler
+  module Crawler
     include Core::Output
   
     attr_accessor :downloader,

@@ -1,5 +1,5 @@
 module Core
-  class Persistor
+  module Persistor
     include Core::Identify
     include Core::Output
     

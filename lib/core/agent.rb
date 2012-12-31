@@ -1,5 +1,7 @@
 module Core
-  class Agent < Core::Downloader
+  module Agent
+    include Core::Downloader
+    
     def initialize
       super
   

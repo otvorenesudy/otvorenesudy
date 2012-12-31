@@ -1,6 +1,6 @@
 # TODO refactor: downloader should have a storage, it should not be the storage
 module Core
-  class Downloader
+  module Downloader
     include Core::Output
     
     attr_accessor :cache_load,

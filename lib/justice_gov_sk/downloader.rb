@@ -1,4 +1,5 @@
 module JusticeGovSk
-  class Downloader < Core::Downloader
+  class Downloader
+    include Core::Downloader
   end
 end

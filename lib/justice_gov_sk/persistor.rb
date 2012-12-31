@@ -1,4 +1,5 @@
 module JusticeGovSk
-  class Persistor < Core::Persistor
+  class Persistor
+    include Core::Persistor
   end
 end

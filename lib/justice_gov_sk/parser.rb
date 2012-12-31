@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 module JusticeGovSk
-  class Parser < Core::Parser::HTML
+  class Parser
+    include Core::Parser::HTML
+    
     protected
     
     def find_rows_by_group(name, element, group, options = {}, &block)

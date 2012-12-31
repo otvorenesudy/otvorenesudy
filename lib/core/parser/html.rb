@@ -1,6 +1,8 @@
 module Core
-  class Parser
-    class HTML < Core::Parser
+  module Parser
+    module HTML
+      include Core::Parser
+      
       def parse(resource)
         clear_caches if self.respond_to? :clear_caches
         

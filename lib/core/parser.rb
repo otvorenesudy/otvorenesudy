@@ -1,5 +1,5 @@
 module Core
-  class Parser
+  module Parser
     def parse(resource)
     end
   end  
