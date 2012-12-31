@@ -21,8 +21,6 @@ module Resource::Similarity
   end
   
   def method_missing(method, *args, &block)
-    puts "#{method}; #{args.inspect};"
-
     match = method.to_s.match(/\Asimilar_by_(?<column>.*)\z/)
     
     if match
