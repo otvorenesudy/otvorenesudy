@@ -1,8 +1,5 @@
 module Core
   class Agent < Core::Downloader
-    attr_reader :headers,
-                :data
-  
     def initialize
       super
   
