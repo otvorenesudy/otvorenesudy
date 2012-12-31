@@ -10,9 +10,7 @@ module Core
     end
   
     def download(request)
-      uri = request.respond_to?(:url) ? request.url : request
-      
-      path, content = predownload(uri)
+      uri, path, content = predownload(request)
       
       return content unless content.nil?
   
@@ -46,7 +44,6 @@ module Core
             
             puts "failed (page empty, attempt #{i} of #{@repeat})"
           end
-  
         rescue Mechanize::Error => e
           puts "failed (unable to download page, attempt #{i} of #{@repeat})"
         rescue Net::HTTP::Persistent::Error => e
@@ -61,7 +58,7 @@ module Core
         end
       end
       
-      raise e || "Unable to download"  
+      raise e || "Unable to download"
     end
     
     def headers=(value)

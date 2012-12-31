@@ -26,14 +26,12 @@ module Core
       @wait_time         = 0.5.seconds
     end
   
-    def download(uri)
-      path, content = predownload(uri)
+    def download(request)
+      uri, path, content = predownload(uri)
       
       return content unless content.nil?
       
       e = nil
-    
-      uri = URI.encode(uri)
   
       1.upto @repeat do |i|
         wait
@@ -41,7 +39,7 @@ module Core
         begin
           handler = Curl::Easy.new
           
-          handler.url             = uri
+          handler.url             = URI.encode(uri)
           handler.connect_timeout = @timeout
           handler.timeout         = @timeout
         
@@ -65,7 +63,6 @@ module Core
           e = "Invalid response code #{handler.response_code}"
           
           puts "failed (response code #{handler.response_code}, attempt #{i} of #{@repeat})"
-        
         rescue Curl::Err::HostResolutionError => e
           puts "failed (host resolution error, attempt #{i} of #{@repeat})"
         rescue Curl::Err::TimeoutError, Timeout::Error => e
@@ -83,12 +80,19 @@ module Core
     
     protected
     
-    def predownload(uri)
-      path = @cache_uri_to_path.call uri
-  
+    def predownload(request)
+      if request.respond_to? :uri
+        uri = request.uri
+      elsif request.respond_to? :url
+        uri = request.url
+      else
+        uri = request.to_s
+      end
+      
+      path    = @cache_uri_to_path.call uri
       content = load(path)
-  
-      return path, content
+      
+      return uri, path, content
     end
     
     def uri_to_path(uri)
