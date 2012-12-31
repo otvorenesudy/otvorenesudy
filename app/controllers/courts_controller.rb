@@ -3,6 +3,7 @@
 class CourtsController < ApplicationController
   include CourtsHelper
   
+  # TODO refactor, use CourtType.constant instead of strings
   def index
     @constitutional = Court.by_type('Ústavný').first
     @highest        = Court.by_type('Najvyšší').first
