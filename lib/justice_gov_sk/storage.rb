@@ -2,6 +2,8 @@ module JusticeGovSk
   class Storage
     include Core::Storage
     
-    # TODO mv config from core here
+    def root
+      @root ||= JusticeGovSk::Configuration.storage
+    end
   end
 end

@@ -4,10 +4,6 @@ module Core
                   :binary,
                   :distribute
     
-    def root
-      @root ||= Core::Configuration.storage.root
-    end
-    
     def binary
       @binary.nil? ? false : @binary
     end

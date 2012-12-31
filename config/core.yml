@@ -1,19 +1,11 @@
-# TODO mv this config to justice.gov.sk; add core specific config only, such as verbose
-
 development:
-  storage:
-    root: 'storage'
-  cache:
-    root: 'tmp/cache'
+  cache: 'tmp/cache'
+  verbose: true
 
 test:
-  storage:
-    root: 'storage'
-  cache:
-    root: 'tmp/cache'
+  cache: 'tmp/cache'
+  verbose: false
 
 production:
-  storage:
-    root: 'storage'
-  cache:
-    root: 'tmp/cache'
+  cache: 'tmp/cache'
+  verbose: false

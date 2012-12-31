@@ -6,11 +6,11 @@ module Core
     alias :default_puts  :puts
     
     def verbose=(value)
-      @verbose = value.nil? ? true : value
+      @verbose = (value == true)
     end
     
     def verbose
-      @verbose.nil? ? true : @verbose
+      @verbose.nil? ? Core::Configuration.verbose : @verbose
     end
   
     def puts(*args)
