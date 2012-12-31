@@ -2,40 +2,49 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
+# database
 gem 'pg'
 gem 'pg_search'
 
-gem 'json'
-gem 'nokogiri'
+gem 'tire'
 
+# styles
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 
+# scripts
 gem 'coffee-script'
 gem 'jquery-rails'
 gem 'rails-timeago'
 gem 'execjs'
 
+# pagination
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 
+# TODO use or rm
+#gem 'highcharts-rails', '~> 2.3.0'
+#gem 'mootools-rails',   '~> 1.0.1'
+
+# maps
+gem 'gmaps4rails'
+
+# localization
+gem 'rails-i18n'
+
+# crawlers
 gem 'settingslogic'
+
+gem 'json'
+gem 'nokogiri'
 
 gem 'curb'
 gem 'mechanize'
 gem 'murmurhash3'
 gem 'docsplit'
 
-gem 'gmaps4rails'
-
-# TODO use or rm
-#gem 'highcharts-rails', '~> 2.3.0'
-#gem 'mootools-rails',   '~> 1.0.1'
-
+# background jobs
 gem 'resque'
-
-# localization
-gem 'rails-i18n' 
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -50,5 +59,3 @@ group :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'database_cleaner'
 end
-
-gem 'tire'
