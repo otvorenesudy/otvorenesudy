@@ -41,7 +41,8 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "court_office_types", ["value"], :name => "index_court_office_types_on_value", :unique => true
 
   create_table "court_offices", :force => true do |t|
-    t.integer  "court_id",        :null => false
+    t.integer  "court_id",             :null => false
+    t.integer  "court_office_type_id", :null => false
     t.string   "email"
     t.string   "phone"
     t.string   "hours_monday"
@@ -50,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.string   "hours_thursday"
     t.string   "hours_friday"
     t.text     "note"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   add_index "court_offices", ["court_id"], :name => "index_court_offices_on_court_id"
@@ -121,7 +122,6 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.string   "uri",                    :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.integer  "judge_id"
     t.boolean  "judge_matched_exactly"
     t.string   "judge_name_unprocessed"
     t.integer  "decree_form_id"
@@ -140,8 +140,6 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
-  add_index "decrees", ["judge_id"], :name => "index_decrees_on_judge_id"
-  add_index "decrees", ["judge_name_unprocessed"], :name => "index_decrees_on_judge_name_unprocessed"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
 
@@ -202,10 +200,10 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "hearing_types", ["value"], :name => "index_hearing_types_on_value", :unique => true
 
   create_table "hearings", :force => true do |t|
-    t.string   "uri",                          :null => false
+    t.string   "uri",                :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.integer  "hearing_type_id",              :null => false
+    t.integer  "hearing_type_id",    :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"
     t.integer  "hearing_form_id"
@@ -215,18 +213,13 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
     t.string   "room"
     t.string   "special_type"
     t.datetime "commencement_date"
-    t.integer  "chair_judge_id"
-    t.boolean  "chair_judge_matched_exactly"
-    t.string   "chair_judge_name_unprocessed"
     t.boolean  "selfjudge"
     t.text     "note"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
-  add_index "hearings", ["chair_judge_id"], :name => "index_hearings_on_chair_judge_id"
-  add_index "hearings", ["chair_judge_name_unprocessed"], :name => "index_hearings_on_chair_judge_name_unprocessed"
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
   add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
@@ -239,6 +232,19 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   end
 
   add_index "judge_positions", ["value"], :name => "index_judge_positions_on_value", :unique => true
+
+  create_table "judgements", :force => true do |t|
+    t.integer  "judge_id",                                             :null => false
+    t.integer  "decree_id",                                            :null => false
+    t.decimal  "judge_name_similarity",  :precision => 3, :scale => 2, :null => false
+    t.string   "judge_name_unprocessed",                               :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+  end
+
+  add_index "judgements", ["decree_id", "judge_id"], :name => "index_judgements_on_decree_id_and_judge_id", :unique => true
+  add_index "judgements", ["judge_id", "decree_id"], :name => "index_judgements_on_judge_id_and_decree_id", :unique => true
+  add_index "judgements", ["judge_name_unprocessed"], :name => "index_judgements_on_judge_name_unprocessed"
 
   create_table "judges", :force => true do |t|
     t.string   "name",             :null => false
@@ -259,12 +265,13 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
 
   create_table "judgings", :force => true do |t|
-    t.integer  "judge_id",               :null => false
-    t.integer  "hearing_id",             :null => false
-    t.boolean  "judge_matched_exactly",  :null => false
-    t.string   "judge_name_unprocessed", :null => false
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.integer  "judge_id",                                             :null => false
+    t.integer  "hearing_id",                                           :null => false
+    t.decimal  "judge_name_similarity",  :precision => 3, :scale => 2, :null => false
+    t.string   "judge_name_unprocessed",                               :null => false
+    t.boolean  "judge_chair",                                          :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
   end
 
   add_index "judgings", ["hearing_id", "judge_id"], :name => "index_judgings_on_hearing_id_and_judge_id", :unique => true

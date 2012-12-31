@@ -17,12 +17,9 @@ class CreateHearings < ActiveRecord::Migration
       t.datetime :date
       t.string   :room
       
-      t.string     :special_type
-      t.datetime   :commencement_date
-      t.references :chair_judge
-      t.boolean    :chair_judge_matched_exactly
-      t.string     :chair_judge_name_unprocessed
-      t.boolean    :selfjudge
+      t.string   :special_type
+      t.datetime :commencement_date
+      t.boolean  :selfjudge
 
       t.text :note
 
@@ -36,8 +33,5 @@ class CreateHearings < ActiveRecord::Migration
     
     add_index :hearings, :case_number
     add_index :hearings, :file_number
-    
-    add_index :hearings, :chair_judge_id
-    add_index :hearings, :chair_judge_name_unprocessed
   end
 end

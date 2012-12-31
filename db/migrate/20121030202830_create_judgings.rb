@@ -4,8 +4,9 @@ class CreateJudgings < ActiveRecord::Migration
       t.references :judge,   null: false
       t.references :hearing, null: false
       
-      t.boolean    :judge_matched_exactly,  null: false
-      t.string     :judge_name_unprocessed, null: false
+      t.decimal :judge_name_similarity,  null: false, precision: 3, scale: 2
+      t.string  :judge_name_unprocessed, null: false
+      t.boolean :judge_chair,            null: false
 
       t.timestamps
     end
