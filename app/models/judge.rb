@@ -26,11 +26,10 @@ class Judge < ActiveRecord::Base
   has_many :hearings, through: :judgings,
                       dependent: :destroy
   
-  has_many :chaired_hearings, class_name: :Hearing,
-                              foreign_key: :chair_judge_id,
-                              dependent: :destroy
+  has_many :judgements, dependent: :destroy
   
-  has_many :decrees, dependent: :destroy
-             
+  has_many :decrees, through: :judgements,
+                     dependent: :destroy
+  
   validates :name, presence: true
 end

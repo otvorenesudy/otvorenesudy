@@ -1,7 +1,5 @@
 class Decree < ActiveRecord::Base
   attr_accessible :uri,
-                  :judge_matched_exactly,
-                  :judge_name_unprocessed,
                   :case_number,
                   :file_number,
                   :date,
@@ -11,7 +9,10 @@ class Decree < ActiveRecord::Base
   belongs_to :proceeding
   
   belongs_to :court
-  belongs_to :judge
+  
+  has_many :judgements, dependent: :destroy
+  
+  has_many :judges, through: :judgements
   
   belongs_to :form,   class_name: :DecreeForm,   foreign_key: :decree_form_id
   belongs_to :nature, class_name: :DecreeNature, foreign_key: :decree_nature_id
