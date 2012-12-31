@@ -26,7 +26,7 @@ module Resource::Similarity
     if match
       value, similarity = args
 
-      return similar_to(match[:column], value, similarity)
+      return similar_by(match[:column], value, similarity)
     end
 
     super(m, *args, &block)
