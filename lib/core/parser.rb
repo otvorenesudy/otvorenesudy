@@ -1,6 +1,6 @@
 module Core
   module Parser
-    def parse(resource)
+    def parse(content)
     end
   end  
 end

@@ -3,7 +3,7 @@ module Core
     module HTML
       include Core::Parser
       
-      def parse(resource)
+      def parse(content)
         clear_caches if self.respond_to? :clear_caches
         
         print "Parsing resource ... "
@@ -11,14 +11,14 @@ module Core
         if resource.is_a?(Nokogiri::XML::Node) || resource.is_a?(Mechanize::Page)
           puts "done (already parsed)"
           
-          document = resource
+          document = content
         else
-          content  = resource.encode Encoding::UTF_8, encoding(resource)
+          content  = content.encode Encoding::UTF_8, encoding(content)
           document = Nokogiri::HTML::parse(content)
           
           puts "done"
         end
-      
+        
         document
       end
       

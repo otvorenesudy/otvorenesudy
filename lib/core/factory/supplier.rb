@@ -16,11 +16,10 @@ module Core
             factory = Factory.new(type)
           end
           
-          factory.verbose = options[:verbose] unless options[:verbose].nil?
-          
           @factories[key] = factory
         end
 
+        factory.verbose = options[:verbose] unless options[:verbose].nil?
         factory
       end
     end

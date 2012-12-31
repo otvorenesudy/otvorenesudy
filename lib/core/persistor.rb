@@ -5,9 +5,9 @@ module Core
     
     def persist(instance)
       print "Persisting #{identify instance} ... "
-  
+      
       instance.save!    
-  
+      
       puts "done (#{identify instance})"
       
       instance
