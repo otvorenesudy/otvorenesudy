@@ -128,7 +128,7 @@ module JusticeGovSk
   def self.build_crawler(type, options = {})
     type = type.is_a?(Class) ? type : type.to_s.camelcase.constantize
 
-    storage = "JusticeGovSk::Storage::#{type.name}Page".constantize.new
+    storage = "JusticeGovSk::Storage::#{type.name}Page".constantize.instance
 
     downloader = Downloader.new
 
