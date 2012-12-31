@@ -29,7 +29,7 @@ module Resource::Similarity
       return similar_to(match[:column], value, similarity)
     end
 
-    method_missing(m, *args, &block)
+    super(m, *args, &block)
   end
 
 end
