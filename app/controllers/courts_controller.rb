@@ -1,16 +1,14 @@
-# encoding: utf-8
-
 class CourtsController < ApplicationController
   include CourtsHelper
   
   # TODO refactor, use CourtType.constant instead of strings
   def index
-    @constitutional = Court.by_type('Ústavný').first
-    @highest        = Court.by_type('Najvyšší').first
-    @specialized    = Court.by_type('Špecializovaný').first
+    @constitutional = Court.by_type(CourtType.constitutional).first
+    @highest        = Court.by_type(CourtType.highest).first
+    @specialized    = Court.by_type(CourtType.specialized).first
 
-    @regional = Court.by_type('Krajský').order(:name)
-    @district = Court.by_type('Okresný').order(:name)
+    @regional = Court.by_type(CourtType.regional).order(:name)
+    @district = Court.by_type(CourtType.district).order(:name)
   end
   
   def map

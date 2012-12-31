@@ -19,7 +19,7 @@ class Court < ActiveRecord::Base
   #include PgSearch
   #pg_search_scope :search_by_name, against: name, using: :trigram
   
-  scope :by_type, lambda { |value| joins(:type).where('value = ?', value) }
+  scope :by_type, lambda { |court_type| where('court_type_id = ?', court_type.id) }
  
   belongs_to :type, class_name: :CourtType, foreign_key: :court_type_id
   
