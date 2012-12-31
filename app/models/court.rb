@@ -57,5 +57,4 @@ class Court < ActiveRecord::Base
   def coordinates
     @coordinates ||= { latitude: latitude, longitude: longitude }
   end
-
 end

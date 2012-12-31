@@ -1,5 +1,4 @@
 module Resource::Similarity
-
   def similar_by(column, value, similarity)
     column = column.gsub(/[^a-zA-Z_\?]/, '')
         
@@ -15,9 +14,7 @@ module Resource::Similarity
     
     result = ActiveRecord::Base.connection.exec_query(sanitize_sql_array([sql, value, value]))
 
-    result = result.to_hash
-
-    result.map { |hash| self.find(hash['id']) }
+    result.to_hash.map { |hash| self.find(hash['id']) }
   end
   
   def method_missing(method, *args, &block)
@@ -29,7 +26,6 @@ module Resource::Similarity
       return similar_to(match[:column], value, similarity)
     end
 
-    method_missing(m, *args, &block)
+    method_missing(method, *args, &block)
   end
-
 end
