@@ -1,7 +1,8 @@
 class CreateCourtOffices < ActiveRecord::Migration
   def change
     create_table :court_offices do |t|
-      t.references :court, null: false
+      t.references :court,             null: false
+      t.references :court_office_type, null: false
       
       t.string :email
       t.string :phone

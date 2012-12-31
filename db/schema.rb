@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "court_jurisdictions", ["court_proceeding_type_id"], :name => "index_court_jurisdictions_on_court_proceeding_type_id"
   add_index "court_jurisdictions", ["municipality_id"], :name => "index_court_jurisdictions_on_municipality_id"
 
+  create_table "court_office_types", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "court_office_types", ["value"], :name => "index_court_office_types_on_value", :unique => true
+
   create_table "court_offices", :force => true do |t|
     t.integer  "court_id",        :null => false
     t.string   "email"
