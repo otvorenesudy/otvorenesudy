@@ -9,19 +9,20 @@ module JusticeGovSk
         
         options.symbolize_keys!
         
-        raise "Offset not set #{options}" if options[:offset].nil?
-        raise "Limit not set"  if options[:limit].nil?
+        raise "Offset not set" if options[:offset].nil?
+        raise "Limit not set" if options[:limit].nil?
         
-        request, lister = JusticeGovSk::Helpers::CrawlerHelper.build_request_and_lister type, options
+        request, lister = JusticeGovSk.build_request_and_lister type, options
         
+        # TODO fix
         if type == Judge
-          JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, options
+          JusticeGovSk.run_lister lister, request, options
         else
-          JusticeGovSk::Helpers::CrawlerHelper.run_lister lister, request, options do
-            crawler = JusticeGovSk::Helpers::CrawlerHelper.build_crawler type, options
+          JusticeGovSk.run_lister lister, request, options do
+            crawler = JusticeGovSk.build_crawler type, options
             
-            lister.crawl_and_process(request, options[:offset], options[:limit]) do |url|
-              Resque.enqueue(JusticeGovSk::Jobs::CrawlerJob, type.name, url, options)
+            lister.crawl(request, options[:offset], options[:limit]) do |url|
+              Resque.enqueue(JusticeGovSk::Job::Crawler, type.name, url, options)
             end
           end
         end

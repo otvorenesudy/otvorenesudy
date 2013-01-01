@@ -7,7 +7,7 @@ module JusticeGovSk
       def self.perform(type, url, options = {})
         options.symbolize_keys!
         
-        JusticeGovSk::Helpers::CrawlerHelper.crawl_resource type, url, options
+        JusticeGovSk.crawl_resource type, url, options
       end
     end
   end
