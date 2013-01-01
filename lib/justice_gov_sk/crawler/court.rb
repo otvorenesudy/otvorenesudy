@@ -11,10 +11,7 @@ module JusticeGovSk
         super do
           uri = JusticeGovSk::Request.uri(request)
           
-          unless JusticeGovSk::URL.valid? uri
-            puts "Invalid URI, court rejected."
-            return nil
-          end
+          return nil unless JusticeGovSk::URL.valid? uri
           
           @court = court_by_uri_factory.find_or_create(uri)
           

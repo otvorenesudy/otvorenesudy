@@ -8,14 +8,12 @@ module JusticeGovSk
       protected
       
       def process(request)
-        super(request) do |elements|
-          elements.each do |element|
-            data  = @parser.data(element)
-            court = court(data)
-            judge = judge(data)
+        super(request) do |item|
+          data  = @parser.data(item)
+          court = court(data)
+          judge = judge(data)
 
-            employment(court, judge, data)            
-          end
+          employment(court, judge, data)
         end
       end
       

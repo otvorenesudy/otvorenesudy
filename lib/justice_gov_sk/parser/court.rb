@@ -114,14 +114,7 @@ module JusticeGovSk
       private
       
       def office_type_to_name(type)
-        case type
-        when CourtOfficeType.information_center
-            'information center'
-        when :registry_center
-            'registry center'
-        when :business_registry_center
-            'business registry center'
-        end
+        type.name.to_s.gsub(/\_/, ' ')
       end
       
       def office_daily_hours(name, document, group, index)

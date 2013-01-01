@@ -18,9 +18,7 @@ module Core
             break if limit < 0
           end
           
-          list = super(request)
-          
-          list.each { |item| yield item if block_given? }
+          super(request)
           
           break if next_page == nil
           
@@ -42,12 +40,23 @@ module Core
         @page      = @parser.page(@document)
         @pages     = @parser.pages(@document)
         @next_page = @parser.next_page(@document)
+         
+        @result = @parser.list(@document)
         
-        @result = list = @parser.list(@document)
-        @result = yield list if block_given?
+        puts "Processing list, #{state}."
         
-        puts "done (page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{pluralize list.nil? ? '?' : list.count, 'item'}, next page #{@next_page || 'N/A'})"
+        @result.each { |item| yield item }
       end
+      
+      def postcrawl
+        super "finished (#{state})"
+      end
+      
+      private
+      
+      def state
+        "page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{pluralize @result.nil? ? '?' : @result.count, 'item'}, next page #{@next_page || 'N/A'}"
+      end      
     end
   end
 end

@@ -2,6 +2,8 @@
 
 # TODO refactor all helpers to be not static, like in app/helpers
 
+# TODO add filter option: crawl only data not in DB / update DB
+
 # TODO refactor core:
 #
 # do not mix variables:
@@ -112,14 +114,14 @@ module JusticeGovSk
         raise "Unable to use block" if block_given?
         
         block = lambda do
-          lister.crawl_and_process(request, offset, limit)
+          lister.crawl(request, offset, limit)
         end
       else
         unless block_given?
           crawler = build_crawler type, options
           
           block = lambda do
-            lister.crawl_and_process(request, offset, limit) do |url|
+            lister.crawl(request, offset, limit) do |url|
               run_crawler crawler, url, options
             end
           end
@@ -154,9 +156,9 @@ module JusticeGovSk
           
           case code.to_i
           when 302
-            puts "Redirect returned, rejected."
+            puts "failed (redirect returned)"
           when 500
-            puts "Internal server error, rejected."
+            puts "failed (internal server error)"
           else
             raise e
           end

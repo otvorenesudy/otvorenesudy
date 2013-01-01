@@ -19,7 +19,7 @@ module Core
     
     def crawl(request, &block)
       precrawl
-      process request, &block
+      process(request, &block)
       postcrawl
     end
     
@@ -46,11 +46,11 @@ module Core
       @persistor.persist(@result) unless @persistor.nil?
     end
     
-    def postcrawl
+    def postcrawl(message = "finished")
       unless @content.nil?
         unless @document.nil?
           unless @result.nil?
-            puts "done"
+            puts message
             
             @result
           else
