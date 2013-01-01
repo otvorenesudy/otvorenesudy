@@ -8,7 +8,7 @@ module Core
         
         print "Parsing resource ... "
         
-        if resource.is_a?(Nokogiri::XML::Node) || resource.is_a?(Mechanize::Page)
+        if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
           puts "done (already parsed)"
           
           document = content

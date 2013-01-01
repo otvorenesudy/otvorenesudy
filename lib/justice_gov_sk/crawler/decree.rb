@@ -11,10 +11,12 @@ module JusticeGovSk
       
       def process(request)
         super do
-          @decree = decree_by_uri_factory.find_or_create(request.uri)
+          uri = JusticeGovSk::Request.uri(request)
           
-          @decree.uri  = request.uri
-          @decree.text = fulltext(request.uri)
+          @decree = decree_by_uri_factory.find_or_create(uri)
+          
+          @decree.uri  = uri
+          @decree.text = fulltext(uri)
   
           @decree.case_number = @parser.case_number(@document)
           @decree.file_number = @parser.file_number(@document)

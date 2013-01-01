@@ -9,15 +9,16 @@ module JusticeGovSk
       
       def process(request)
         super do
+          uri = JusticeGovSk::Request.uri(request)
+          
           unless JusticeGovSk::URL.valid? uri
             puts "Invalid URI, court rejected."
-            
             return nil
           end
           
-          @court = court_by_uri_factory.find_or_create(request.uri)
+          @court = court_by_uri_factory.find_or_create(uri)
           
-          @court.uri = request.uri
+          @court.uri = uri
              
           @court.name        = @parser.name(@document)
           @court.street      = @parser.street(@document)

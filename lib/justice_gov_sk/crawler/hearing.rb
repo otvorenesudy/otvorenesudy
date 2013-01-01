@@ -9,9 +9,11 @@ module JusticeGovSk
     
       def process(request)
         super do
-          @hearing = hearing_by_uri_factory.find_or_create(request.uri)
+          uri = JusticeGovSk::Request.uri(request)
           
-          @hearing.uri = request.uri
+          @hearing = hearing_by_uri_factory.find_or_create(uri)
+          
+          @hearing.uri = uri
   
           @hearing.case_number = @parser.case_number(@document)
           @hearing.file_number = @parser.file_number(@document)

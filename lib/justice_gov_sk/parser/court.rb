@@ -59,19 +59,19 @@ module JusticeGovSk
       end
       
       def office_phone(type, document)
-        find_value_by_group_and_index office_type_to_name(type) + ' phone', document, office_type_to_group(type), 0 do |div|
+        find_value_by_group_and_index office_type_to_name(type) + ' phone', document, type.value, 0 do |div|
           JusticeGovSk::Normalizer.phone(div.text)
         end         
       end
 
       def office_email(type, document)
-        find_value_by_group_and_index office_type_to_name(type) + ' email', document, office_type_to_group(type), 1 do |div|
+        find_value_by_group_and_index office_type_to_name(type) + ' email', document, type.value, 1 do |div|
           JusticeGovSk::Normalizer.email(div.text)
         end                 
       end
 
       def office_hours(type, document)
-        group = office_type_to_group(type)
+        group = type.value
         name  = office_type_to_name(type)
         
         hours = {
@@ -88,7 +88,7 @@ module JusticeGovSk
       end
       
       def office_note(type, document)
-        find_value_by_group_and_index office_type_to_name(type) + ' note', document, office_type_to_group(type), 2 do |div|
+        find_value_by_group_and_index office_type_to_name(type) + ' note', document, type.value, 2 do |div|
           div.text.strip.squeeze(' ')
         end         
       end
@@ -113,19 +113,15 @@ module JusticeGovSk
       
       private
       
-      def office_type_to_group(type)
-        case type 
-        when :information_center
-            'Informačné centrum'
-        when :registry_center
-            'Podateľňa'
-        when :business_registry_center
-            'Informačné stredisko obchodného registra'
-        end
-      end
-      
       def office_type_to_name(type)
-        type.to_s.gsub(/\_/, ' ')
+        case type
+        when CourtOfficeType.information_center
+            'information center'
+        when :registry_center
+            'registry center'
+        when :business_registry_center
+            'business registry center'
+        end
       end
       
       def office_daily_hours(name, document, group, index)

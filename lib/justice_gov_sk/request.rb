@@ -16,6 +16,10 @@ module JusticeGovSk
       }
     end
     
+    def self.uri(request)
+      Core::Request.uri(request)
+    end
+    
     def url
       JusticeGovSk::URL::base
     end

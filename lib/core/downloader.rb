@@ -11,23 +11,23 @@ module Core
                   :repeat,
                   :timeout,
                   :wait_time
-  
+    
     def initialize
       @cache_load        = false
       @cache_store       = false
       @cache_uri_to_path = lambda { |uri| self.uri_to_path uri }
-  
+      
       @headers           = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
       @data              = {}
-  
+      
       @repeat            = 8
       @timeout           = 2.minutes
-  
+      
       @wait_time         = 0.5.seconds
     end
   
     def download(request)
-      uri, path, content = predownload(uri)
+      uri, path, content = predownload(request)
       
       return content unless content.nil?
       
@@ -81,7 +81,7 @@ module Core
     protected
     
     def predownload(request)
-      uri     = request.respond_to?(:uri) ? request.uri : request.to_s
+      uri     = Core::Request.uri request
       path    = @cache_uri_to_path.call uri
       content = load(path)
       

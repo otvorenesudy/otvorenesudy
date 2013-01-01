@@ -86,7 +86,7 @@ module JusticeGovSk
     end
     
     def table_key(s)
-      s.utf8.strip.downcase.gsub(/:/,'')
+      s.utf8.strip.downcase.gsub(/:/, '')
     end
   end
 end
