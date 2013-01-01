@@ -16,11 +16,11 @@ module JusticeGovSk
       path.gsub!(/Stranky\/Pojednavania/i,      '')
       path.gsub!(/Stranky\/Sudne-rozhodnutia/i, '')
       
-      path.gsub!(/\/SudDetail/i,              '')
-      path.gsub!(/PojednavanieDetail/i,       'civil-hearing')
-      path.gsub!(/PojednavanieTrestDetail/i,  'criminal-hearing')
-      path.gsub!(/PojednavanieSpecDetail/i,   'special-hearing')
-      path.gsub!(/Sudne-rozhodnutie-detail/i, 'decree')
+      path.gsub!(/(?<court>[\-\w]+)\/SudDetail/i, 'court-\k<court>')
+      path.gsub!(/PojednavanieDetail/i,           'civil-hearing')
+      path.gsub!(/PojednavanieTrestDetail/i,      'criminal-hearing')
+      path.gsub!(/PojednavanieSpecDetail/i,       'special-hearing')
+      path.gsub!(/Sudne-rozhodnutie-detail/i,     'decree')
 
       path.gsub!(/\//, '')
       
