@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# TODO refactor: hide impl to justice.gov.sk/main.rb
+
 namespace :download do 
   # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
   task :pages, [:type, :offset, :limit] => :environment do |_, args|
