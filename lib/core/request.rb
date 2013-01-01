@@ -1,7 +1,7 @@
 module Core
   module Request
-    def url
-      'http://www.example.com'
+    def uri
+      url if respond_to? :url
     end
   end
 end

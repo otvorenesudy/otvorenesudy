@@ -6,47 +6,47 @@ module JusticeGovSk
       end
       
       protected
-    
-      def process(uri, content)
-        document = @parser.parse(content)
-        
-        unless JusticeGovSk::URL.valid? uri
-          puts "Invalid URI, court rejected."
+      
+      def process(request)
+        super do
+          unless JusticeGovSk::URL.valid? uri
+            puts "Invalid URI, court rejected."
+            
+            return nil
+          end
           
-          return nil
+          @court = court_by_uri_factory.find_or_create(request.uri)
+          
+          @court.uri = request.uri
+             
+          @court.name        = @parser.name(@document)
+          @court.street      = @parser.street(@document)
+          @court.phone       = @parser.phone(@document)
+          @court.fax         = @parser.fax(@document)
+          @court.media_phone = @parser.media_phone(@document)
+          @court.latitude    = @parser.latitude(@document)
+          @court.longitude   = @parser.longitude(@document)
+          
+          media_person = @parser.media_person(@document)
+          
+          unless media_person.nil?
+            @court.media_person             = media_person[:name]
+            @court.media_person_unprocessed = media_person[:name_unprocessed]
+          end
+      
+          type
+          municipality
+          
+          information_center
+          registry_center
+          business_registry_center
+          
+          @court
         end
-        
-        @court = court_by_uri_factory.find_or_create(uri)
-        
-        @court.uri = uri
-           
-        @court.name        = @parser.name(document)
-        @court.street      = @parser.street(document)
-        @court.phone       = @parser.phone(document)
-        @court.fax         = @parser.fax(document)
-        @court.media_phone = @parser.media_phone(document)
-        @court.latitude    = @parser.latitude(document)
-        @court.longitude   = @parser.longitude(document)
-        
-        media_person = @parser.media_person(document)
-        
-        unless media_person.nil?
-          @court.media_person             = media_person[:name]
-          @court.media_person_unprocessed = media_person[:name_unprocessed]
-        end
-    
-        type(document)
-        municipality(document)
-        
-        information_center(document)
-        registry_center(document)
-        business_registry_center(document)
-        
-        @persistor.persist(@court)
       end
       
-      def type(document)
-        value = @parser.type(document)
+      def type
+        value = @parser.type(@document)
         
         unless value.nil?
           type = court_type_by_value_factory.find_or_create(value)
@@ -59,9 +59,9 @@ module JusticeGovSk
         end
       end
       
-      def municipality(document)
-        name    = @parser.municipality_name(document)
-        zipcode = @parser.municipality_zipcode(document)
+      def municipality
+        name    = @parser.municipality_name(@document)
+        zipcode = @parser.municipality_zipcode(@document)
         
         unless name.nil? || zipcode.nil?
           municipality = municipality_by_name_factory.find_or_create(name)
@@ -75,30 +75,31 @@ module JusticeGovSk
         end
       end
       
-      def information_center(document)
-        @court.information_center = office :information_center, @court.information_center, document
+      def information_center
+        @court.information_center = office CourtOfficeType.information_center, @court.information_center
       end
       
-      def registry_center(document)
-        @court.registry_center = office :registry_center, @court.registry_center, document
+      def registry_center
+        @court.registry_center = office CourtOfficeType.registry_center, @court.registry_center
       end
       
-      def business_registry_center(document)
-        @court.business_registry_center = office :business_registry_center, @court.business_registry_center, document
+      def business_registry_center
+        @court.business_registry_center = office CourtOfficeType.business_registry_center, @court.business_registry_center
       end
 
       private
       
-      def office(type, office, document)
-        email = @parser.office_email(type, document)
-        phone = @parser.office_phone(type, document)
-        hours = @parser.office_hours(type, document)
-        note  = @parser.office_note(type, document)
+      def office(type, office)
+        email = @parser.office_email(type, @document)
+        phone = @parser.office_phone(type, @document)
+        hours = @parser.office_hours(type, @document)
+        note  = @parser.office_note(type, @document)
 
         unless email.nil? && phone.nil? && hours.nil? && note.nil?
           office ||= court_office_factory.create
           
           office.court = @court
+          office.type  = type
           
           office.email = email
           office.phone = phone

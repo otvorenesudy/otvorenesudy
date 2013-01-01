@@ -8,22 +8,22 @@ module JusticeGovSk
       protected
     
       def process(uri, content)
-        document = preprocess(uri, content)
-
-        @hearing.type = HearingType.special
-        
-        @hearing.commencement_date = @parser.commencement_date(document)
-        @hearing.selfjudge         = @parser.selfjudge(document)
-        
-        chair_judge(document)
-        
-        defendant(document)
-        
-        @persistor.persist(@hearing)
+        super do
+          @hearing.type = HearingType.special
+          
+          @hearing.commencement_date = @parser.commencement_date(@document)
+          @hearing.selfjudge         = @parser.selfjudge(@document)
+          
+          chair_judge
+          
+          defendant
+          
+          @hearing
+        end
       end
       
-      def chair_judge(document)
-        name = @parser.chair_judge(document)
+      def chair_judge
+        name = @parser.chair_judge(@document)
         
         unless name.nil?
           judge = judge_by_name_factory.find(name[:altogether])
@@ -43,8 +43,8 @@ module JusticeGovSk
         end
       end
       
-      def defendant(document)
-        name = @parser.defendant(document)
+      def defendant
+        name = @parser.defendant(@document)
         
         unless name.nil?
           defendant = defendant_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)

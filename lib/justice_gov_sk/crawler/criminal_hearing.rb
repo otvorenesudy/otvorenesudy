@@ -7,20 +7,20 @@ module JusticeGovSk
       
       protected
     
-      def process(uri, content)
-        document = preprocess(uri, content)
-
-        @hearing.type = HearingType.criminal
-
-        judges(document)
-
-        defendants(document)
-        
-        @persistor.persist(@hearing)
+      def process(request)
+        super do
+          @hearing.type = HearingType.criminal
+  
+          judges
+  
+          defendants
+          
+          @hearing
+        end
       end
       
-      def defendants(document)
-        map = @parser.defendants(document)
+      def defendants
+        map = @parser.defendants(@document)
     
         unless map.empty?
           puts "Processing #{pluralize map.size, 'defendant'}."

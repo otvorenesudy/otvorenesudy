@@ -6,35 +6,31 @@ module JusticeGovSk
       end
       
       protected
-      
-      def process(uri, content)
-        raise
-      end
     
-      def preprocess(uri, content)
-        document = @parser.parse(content)
-                
-        @hearing = hearing_by_uri_factory.find_or_create(uri)
+      def process(request)
+        super do
+          @hearing = hearing_by_uri_factory.find_or_create(request.uri)
+          
+          @hearing.uri = request.uri
+  
+          @hearing.case_number = @parser.case_number(@document)
+          @hearing.file_number = @parser.file_number(@document)
+          @hearing.date        = @parser.date(@document)
+          @hearing.room        = @parser.room(@document)
+          @hearing.note        = @parser.note(@document)
         
-        @hearing.uri = uri
-
-        @hearing.case_number = @parser.case_number(document)
-        @hearing.file_number = @parser.file_number(document)
-        @hearing.date        = @parser.date(document)
-        @hearing.room        = @parser.room(document)
-        @hearing.note        = @parser.note(document)
-      
-        proceeding(document)
-        court(document)
-        
-        section(document)
-        subject(document)
-        form(document)
-        
-        document
+          proceeding
+          court
+          
+          section
+          subject
+          form
+          
+          yield
+        end
       end
       
-      def proceeding(document)
+      def proceeding
         proceeding = proceeding_by_file_number_factory.find_or_create(@hearing.file_number)
         
         proceeding.file_number = @hearing.file_number
@@ -44,8 +40,8 @@ module JusticeGovSk
         @persistor.persist(proceeding) if proceeding.id.nil?
       end
       
-      def court(document)
-        name = @parser.court(document)
+      def court
+        name = @parser.court(@document)
         
         unless name.nil?
           # TODO rm
@@ -57,8 +53,8 @@ module JusticeGovSk
         end
       end
       
-      def judges(document)
-        names = @parser.judges(document)
+      def judges
+        names = @parser.judges(@document)
     
         unless names.empty?
           puts "Processing #{pluralize names.count, 'judge'}."
@@ -80,8 +76,8 @@ module JusticeGovSk
         end
       end
       
-      def section(document)
-        value = @parser.section(document)
+      def section
+        value = @parser.section(@document)
         
         unless value.nil?
           section = hearing_section_by_value_factory.find_or_create(value)
@@ -94,8 +90,8 @@ module JusticeGovSk
         end
       end
       
-      def subject(document)
-        value = @parser.subject(document)
+      def subject
+        value = @parser.subject(@document)
         
         unless value.nil?
           subject = hearing_subject_by_value_factory.find_or_create(value)
@@ -108,8 +104,8 @@ module JusticeGovSk
         end
       end
       
-      def form(document)
-        value = @parser.form(document)
+      def form
+        value = @parser.form(@document)
         
         unless value.nil?
           form = hearing_form_by_value_factory.find_or_create(value)

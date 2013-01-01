@@ -7,25 +7,25 @@ module JusticeGovSk
       
       protected
 
-      def process(uri, content)
-        document = preprocess(uri, content)
+      def process(request)
+        super do
+          @hearing.type = HearingType.civil
+          
+          @hearing.special_type = @parser.special_type(@document)
+          
+          judges
+          
+          proposers
+          opponents
 
-        @hearing.type = HearingType.civil
-        
-        @hearing.special_type = @parser.special_type(document)
-        
-        judges(document)
-        
-        proposers(document)
-        opponents(document)
-        
-        @persistor.persist(@hearing)
+          @hearing
+        end
       end
       
       # TODO refactor -> common method for proposers and oponents
       
-      def proposers(document)
-        names = @parser.proposers(document)
+      def proposers
+        names = @parser.proposers(@document)
     
         unless names.empty?
           puts "Processing #{pluralize names.count, 'proposer'}."
@@ -41,8 +41,8 @@ module JusticeGovSk
         end
       end
 
-      def opponents(document)
-        names = @parser.opponents(document)
+      def opponents
+        names = @parser.opponents(@document)
     
         unless names.empty?
           puts "Processing #{pluralize names.count, 'opponent'}."

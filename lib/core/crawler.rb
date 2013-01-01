@@ -17,9 +17,9 @@ module Core
       @persistor  = persistor
     end
     
-    def crawl(request)
+    def crawl(request, &block)
       precrawl
-      process request
+      process request, &block
       postcrawl
     end
     
@@ -54,7 +54,7 @@ module Core
             
             @result
           else
-            puts "failed (no instance created)"
+            puts "failed (no result produced)"
           end
         else
           puts "faild (no document parsed)"

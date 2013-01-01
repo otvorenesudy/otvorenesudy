@@ -1,15 +1,13 @@
 module JusticeGovSk
   class Crawler
     class JudgeList < JusticeGovSk::Crawler::List
-      include Core::Factories
-      include Core::Identify
-      include Core::Pluralize 
-      
       def initialize(downloader, persistor)
         super(downloader, JusticeGovSk::Parser::JudgeList.new, persistor)
       end
       
-      def crawl(request)
+      protected
+      
+      def process(request)
         super(request) do |elements|
           elements.each do |element|
             data  = @parser.data(element)

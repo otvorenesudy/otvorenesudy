@@ -8,52 +8,52 @@ module JusticeGovSk
       end
       
       protected
-    
-      def process(uri, content)
-        document = @parser.parse(content)
-                
-        @decree = decree_by_uri_factory.find_or_create(uri)
-        
-        @decree.uri  = uri
-        @decree.text = fulltext(uri)
+      
+      def process(request)
+        super do
+          @decree = decree_by_uri_factory.find_or_create(request.uri)
+          
+          @decree.uri  = request.uri
+          @decree.text = fulltext(request.uri)
+  
+          @decree.case_number = @parser.case_number(@document)
+          @decree.file_number = @parser.file_number(@document)
+          @decree.date        = @parser.date(@document)
+          @decree.ecli        = @parser.ecli(@document)
+          
+          proceeding
+          
+          court
+          judges
+          
+          form
+          nature
+          
+          legislation_area
+          legislation_subarea
+          
+          legislations
 
-        @decree.case_number = @parser.case_number(document)
-        @decree.file_number = @parser.file_number(document)
-        @decree.date        = @parser.date(document)
-        @decree.ecli        = @parser.ecli(document)
-        
-        proceeding(document)
-        
-        court(document)
-        judge(document)
-        
-        form(document)
-        nature(document)
-        
-        legislation_area(document)
-        legislation_subarea(document)
-        
-        legislations(document)
-        
-        @persistor.persist(@decree)
+          @decree          
+        end
       end
       
       def fulltext(uri)
-        storage = JusticeGovSk::Storages::DecreeDocumentStorage.new
-        request = JusticeGovSk::Requests::DocumentRequest.new
-        agent   = JusticeGovSk::Agents::DocumentAgent.new
+        storage = JusticeGovSk::Storage::DecreeDocument.instance
+        request = JusticeGovSk::Request::Document.new
+        agent   = JusticeGovSk::Agent::Document.new
         
         agent.cache_load_and_store = true
         agent.cache_root           = storage.root
         agent.cache_binary         = storage.binary
         agent.cache_distribute     = storage.distribute
-        agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :pdf
+        agent.cache_uri_to_path    = JusticeGovSk::URL.url_to_path_lambda :pdf
 
         request.url = uri
 
         agent.download(request)
         
-        path = JusticeGovSk::Requests::URL.url_to_path uri, :pdf
+        path = JusticeGovSk::URL.url_to_path uri, :pdf
         
         print "Extracting text ... "
         
@@ -64,7 +64,7 @@ module JusticeGovSk
         text
       end
       
-      def proceeding(document)
+      def proceeding
         proceeding = proceeding_by_file_number_factory.find_or_create(@decree.file_number)
         
         proceeding.file_number = @decree.file_number
@@ -74,8 +74,8 @@ module JusticeGovSk
         @persistor.persist(proceeding) if proceeding.id.nil?
       end
       
-      def court(document)
-        name = @parser.court(document)
+      def court
+        name = @parser.court(@document)
         
         unless name.nil?
           court = court_by_name_factory.find(name)
@@ -91,8 +91,8 @@ module JusticeGovSk
       # - remove matched_exactly, add similarity <- 3 gram sim. value by pgsql 
       
       # TODO make helper method for matching judges: decree, hearing & hearing chair_judge
-      def judge(document)
-        name = @parser.judge(document)
+      def judge
+        name = @parser.judge(@document)
         
         unless name.nil?
           # TODO rm
@@ -115,7 +115,7 @@ module JusticeGovSk
         end
       end
       
-      def form(document)
+      def form
         raise "Decree form code not set" if @form_code.nil?
         
         form = decree_form_by_code_factory.find(@form_code)
@@ -125,8 +125,8 @@ module JusticeGovSk
         @decree.form = form
       end
       
-      def nature(document)
-        value = @parser.nature(document)
+      def nature
+        value = @parser.nature(@document)
         
         unless value.nil?
           nature = decree_nature_by_value_factory.find_or_create(value)
@@ -139,8 +139,8 @@ module JusticeGovSk
         end
       end
         
-      def legislation_area(document)
-        value = @parser.legislation_area(document)
+      def legislation_area
+        value = @parser.legislation_area(@document)
         
         unless value.nil?
           legislation_area = legislation_area_by_value_factory.find_or_create(value)
@@ -153,8 +153,8 @@ module JusticeGovSk
         end
       end
       
-      def legislation_subarea(document)
-        value = @parser.legislation_subarea(document)
+      def legislation_subarea
+        value = @parser.legislation_subarea(@document)
         
         unless value.nil?
           legislation_subarea = legislation_subarea_by_value_factory.find_or_create(value)
@@ -170,8 +170,8 @@ module JusticeGovSk
         end
       end
         
-      def legislations(document)
-        list = @parser.legislations(document)
+      def legislations
+        list = @parser.legislations(@document)
     
         unless list.blank?
           puts "Processing #{pluralize list.count, 'legislation'}."

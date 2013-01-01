@@ -81,14 +81,7 @@ module Core
     protected
     
     def predownload(request)
-      if request.respond_to? :uri
-        uri = request.uri
-      elsif request.respond_to? :url
-        uri = request.url
-      else
-        uri = request.to_s
-      end
-      
+      uri     = request.respond_to?(:uri) ? request.uri : request.to_s
       path    = @cache_uri_to_path.call uri
       content = load(path)
       
