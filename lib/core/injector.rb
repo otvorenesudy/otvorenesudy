@@ -1,7 +1,7 @@
 module Core
   module Injector
     def inject(base, options = {})
-      instantiate resolve(base, options)
+      instantiate resolve(base, options), options[:args]
     end
     
     private
@@ -32,10 +32,10 @@ module Core
       base
     end
     
-    def instantiate(type)
+    def instantiate(type, args)
       return type.instance if type.respond_to? :instance
       
-      type.new
+      args.blank? ? type.new : type.new(args)
     end
   end
 end

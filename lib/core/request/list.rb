@@ -3,8 +3,8 @@ module Core
     module List
       include Core::Request
       
-      attr_accessor :page,
-                    :per_page
+      attr_accessor :per_page,
+                    :page
       
       def page
         @page ||= 1

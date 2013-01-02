@@ -47,8 +47,7 @@ namespace :download do
     end
 
     task :documents => :environment do
-      args.with_defaults safe: false
-      JusticeGovSk.download_documents Decree
+      JusticeGovSk.download_documents Decree, safe: false
     end    
   end
 end

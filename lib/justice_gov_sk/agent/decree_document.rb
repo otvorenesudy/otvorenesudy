@@ -1,6 +1,6 @@
 module JusticeGovSk
   class Agent
-    class Decree < JusticeGovSk::Agent::Document
+    class DecreeDocument < JusticeGovSk::Agent::Document
       def download(request)
         super(request) do |page|
           form = page.form_with(name: 'aspnetForm')
@@ -18,6 +18,14 @@ module JusticeGovSk
           
           page
         end
+      end
+      
+      def storage
+        @storage ||= JusticeGovSk::Storage::DecreeDocument.instance
+      end
+      
+      def uri_to_path(uri)
+        JusticeGovSk::URL.url_to_path(uri, :pdf)
       end
     end
   end 

@@ -2,6 +2,8 @@ module JusticeGovSk
   class Request
     include Core::Request
     
+    attr_accessor :url
+    
     def self.headers
       {
         'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -20,8 +22,11 @@ module JusticeGovSk
       Core::Request.uri(request)
     end
     
+    def initialize(options = {})
+    end
+    
     def url
-      JusticeGovSk::URL::base
+      @url ||= JusticeGovSk::URL::base
     end
   end
 end

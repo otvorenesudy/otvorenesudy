@@ -3,10 +3,10 @@ module JusticeGovSk
     class HearingList < JusticeGovSk::Request::List
       attr_accessor :include_old_hearings
  
-      def initialize
-        super
+      def initialize(options = {})
+        super(options)
 
-        @include_old_hearings = true
+        @include_old_hearings = options[:include_old_hearings] || true
       end
     end
   end

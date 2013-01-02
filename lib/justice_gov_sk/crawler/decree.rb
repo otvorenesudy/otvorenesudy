@@ -6,6 +6,8 @@ module JusticeGovSk
       protected
       
       def process(request)
+        @form_code = request.decree_form
+        
         super do
           uri = JusticeGovSk::Request.uri(request)
           

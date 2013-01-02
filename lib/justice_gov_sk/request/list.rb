@@ -5,9 +5,9 @@ module JusticeGovSk
     class List < JusticeGovSk::Request
       include Core::Request::List
       
-      def initialize
-        @page     = 1
-        @per_page = 100
+      def initialize(options = {})
+        @per_page = options[:per_page] || 100
+        @page     = options[:page]     || 1
       end
     end
   end
