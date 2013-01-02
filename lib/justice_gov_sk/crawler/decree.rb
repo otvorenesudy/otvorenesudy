@@ -84,12 +84,6 @@ module JusticeGovSk
         end
       end
       
-      # TODO DB: refactor judge to decree / hearing relations
-      # - remove chair judge from decrees, add is_chair to judgings
-      # - add binging table (Judgements for example) between decrees and judges
-      #   with structure same as judgings
-      # - remove matched_exactly, add similarity <- 3 gram sim. value by pgsql 
-      
       # TODO make helper method for matching judges: decree, hearing & hearing chair_judge
       def judge
         name = @parser.judge(@document)

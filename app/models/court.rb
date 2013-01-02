@@ -2,7 +2,6 @@
 
 class Court < ActiveRecord::Base
   #include Resource::Storage.use(JusticeGovSk::Storages::CourtPageStorage) # TODO rm or refactor
-  extend Resource::Similarity
 
   attr_accessible :uri,
                   :name,

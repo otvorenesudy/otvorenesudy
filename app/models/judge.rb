@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Judge < ActiveRecord::Base
+  include Resource::Similarity
+  
   attr_accessible :name,
                   :name_unprocessed,
                   :prefix,
