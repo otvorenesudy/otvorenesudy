@@ -1,4 +1,11 @@
 class Hearing < ActiveRecord::Base
+  include Resource::Storage
+
+  # TODO add page storage
+  
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   attr_accessible :uri,
                   :case_number,
                   :file_number,
@@ -9,9 +16,6 @@ class Hearing < ActiveRecord::Base
                   :selfjudge,
                   :note
 
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-  
   belongs_to :proceeding
   
   belongs_to :court
@@ -28,7 +32,6 @@ class Hearing < ActiveRecord::Base
   has_many :proposers,  dependent: :destroy
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
-
 
   settings analysis: { 
             filter: {

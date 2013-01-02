@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Court < ActiveRecord::Base
-  #include Resource::Storage.use(JusticeGovSk::Storages::CourtPageStorage) # TODO rm or refactor
+  include Resource::Storage
 
   attr_accessible :uri,
                   :name,
@@ -17,6 +17,8 @@ class Court < ActiveRecord::Base
   # TODO rm
   #include PgSearch
   #pg_search_scope :search_by_name, against: name, using: :trigram
+  
+  storage :page, JusticeGovSk::Storage::CourtPage
   
   scope :by_type, lambda { |court_type| where('court_type_id = ?', court_type.id) }
  
@@ -56,4 +58,6 @@ class Court < ActiveRecord::Base
   def coordinates
     @coordinates ||= { latitude: latitude, longitude: longitude }
   end
+  
+  storage :page, JusticeGovSk::Storage::DecreePage, extension: :html
 end

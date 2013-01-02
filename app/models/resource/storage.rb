@@ -1,29 +1,29 @@
-# TODO rm or refactor
 module Resource::Storage
   extend ActiveSupport::Concern
   
-  def self.use(type)
-    ClassMethods.storage = type.new
-    self
-  end
-  
   module ClassMethods
-    def self.storage=(storage)
-      @@storage = storage
+    def storages
+      @storages || {}
     end
 
-    def self.storage
-      @@storage
-    end
-    
-    def storage
-      @@storage
+    def storage(name, type, options = {}, &block)
+      @storages = {} unless @storages
+      
+      @storages[name] = type.instance unless @storages[name]
+      
+      define_method "#{name}_storage" do
+        self.class.storages[name]
+      end
+      
+      define_method "#{name}_path" do
+        if block_given?
+          path = block.call uri 
+        else
+          path = JusticeGovSk::URL.url_to_path(uri, options[:extension])
+        end
+        
+        self.class.storages[name].fullpath(path) if path 
+      end
     end
   end
-
-  module InstanceMethods
-    def path
-      ClassMethods.storage.fullpath JusticeGovSk::Requests::URL.url_to_path(uri)
-    end
-  end  
 end

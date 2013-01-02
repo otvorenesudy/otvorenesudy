@@ -1,4 +1,6 @@
 class Decree < ActiveRecord::Base
+  include Resource::Storage
+  
   attr_accessible :uri,
                   :case_number,
                   :file_number,
@@ -23,4 +25,7 @@ class Decree < ActiveRecord::Base
   has_many :legislation_usages
   
   has_many :legislations, through: :legislation_usages
+
+  storage :page,     JusticeGovSk::Storage::DecreePage,     extension: :html
+  storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
 end

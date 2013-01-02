@@ -27,7 +27,7 @@ module JusticeGovSk
       path.downcase!
       
       path = "#{path}?#{uri.query}" unless uri.query.nil?
-      "#{path}.#{ext || :html}"
+      "#{path}.#{ext || :html}" unless path.blank?
     end
   end
 end
