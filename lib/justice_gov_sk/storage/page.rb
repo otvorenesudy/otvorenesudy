@@ -1,9 +1,7 @@
 module JusticeGovSk
   class Storage
     class Page < JusticeGovSk::Storage
-      def initialize
-        @binary = false
-      end
+      include Core::Storage::Textual
       
       def root
         @root ||= File.join super, 'pages'

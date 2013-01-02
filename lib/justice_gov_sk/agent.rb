@@ -1,5 +1,5 @@
 module JusticeGovSk
-  class Agent
+  class Agent < JusticeGovSk::Downloader
     include Core::Agent
   end
 end

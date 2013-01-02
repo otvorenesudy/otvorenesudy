@@ -29,7 +29,8 @@ module JusticeGovSk
       path = "#{path}?#{uri.query}" unless uri.query.nil?
       "#{path}.#{ext || :html}"
     end
-    
+
+    # TODO rm, hide to downloader    
     def self.url_to_path_lambda(ext = nil)
       lambda { |url| url_to_path(url, ext) }
     end

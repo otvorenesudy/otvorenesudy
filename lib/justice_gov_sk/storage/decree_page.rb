@@ -1,9 +1,7 @@
 module JusticeGovSk
   class Storage
     class DecreePage < JusticeGovSk::Storage::Page
-      def initialize
-        @distribute = true
-      end
+      include Core::Storage::Distributed
 
       def root
         @root ||= File.join super, 'decrees'

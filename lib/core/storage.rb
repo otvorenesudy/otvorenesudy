@@ -1,16 +1,6 @@
 module Core
   module Storage
-    attr_accessor :root,
-                  :binary,
-                  :distribute
-    
-    def binary
-      @binary.nil? ? false : @binary
-    end
-    
-    def distribute
-      @distribute.nil? ? false : @distribute
-    end
+    attr_accessor :root
   
     def contains?(path)
       File.exists? fullpath(path)
@@ -19,20 +9,21 @@ module Core
     def loadable?(path)
       File.readable? fullpath(path)
     end
-    
+  
     def load(path)
       path = fullpath(path)
       
-      File.open(path, binary ? 'rb' : 'r:utf-8') { |file| file.read } if File.readable? path
+      read(path) { |file| file.read } if File.readable? path
     end
     
     def store(path, content)
       path = fullpath(path)
+      dir  = File.dirname(path)
       
-      FileUtils.mkpath File.dirname(path) unless Dir.exists? File.dirname(path)
+      FileUtils.mkpath dir unless Dir.exists? dir
       
-      File.open(path, binary ? 'wb' : 'w:utf-8') do |file|
-        file.write binary ? content : content.force_encoding('utf-8')
+      write(path) do |file|
+        file.write content
         file.flush
       end
     end
@@ -42,20 +33,18 @@ module Core
     end
     
     def fullpath(path)
-      dir    = File.dirname(path)
-      dir    = dir == '.' ? '' : dir 
-      file   = File.basename(path)
-      bucket = distribute ? Storage::bucket(file) : ''
-  
-      File.join root, dir, bucket, file
+      File.join(partition(path).select { |part| part != '.' })
     end
     
-    def self.bucket(file)
-      '%02x' % hash(file)
-    end
+    protected
+
+    include Core::Storage::Binary
     
-    def self.hash(string)
-      MurmurHash3::V32.str_hash(string) % 256
+    def partition(path)
+      dir  = File.dirname(path)
+      file = File.basename(path)
+
+      [root, dir, file] 
     end
   end  
 end

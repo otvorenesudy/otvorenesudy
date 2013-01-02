@@ -1,11 +1,9 @@
-# TODO refactor: downloader should have a storage, it should not be the storage
 module Core
   module Downloader
     include Core::Output
     
-    attr_accessor :cache_load,
-                  :cache_store,
-                  :cache_uri_to_path,
+    attr_accessor :storage,
+                  :uri_to_path,
                   :headers,
                   :data,
                   :repeat,
@@ -13,17 +11,16 @@ module Core
                   :wait_time
     
     def initialize
-      @cache_load        = false
-      @cache_store       = false
-      @cache_uri_to_path = lambda { |uri| self.uri_to_path uri }
+      @storage     = nil
+      @uri_to_path = nil
       
-      @headers           = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
-      @data              = {}
+      @headers     = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
+      @data        = {}
       
-      @repeat            = 8
-      @timeout           = 2.minutes
+      @repeat      = 8
+      @timeout     = 2.minutes
       
-      @wait_time         = 0.5.seconds
+      @wait_time   = 0.5.seconds
     end
   
     def download(request)
@@ -82,17 +79,12 @@ module Core
     
     def predownload(request)
       uri     = Core::Request.uri request
-      path    = @cache_uri_to_path.call uri
+      path    = @uri_to_path.call uri
       content = load(path)
       
       return uri, path, content
     end
     
-    def uri_to_path(uri)
-      uri = URI.parse(uri)
-      uri.query.nil? ? uri.path : "#{uri.path}?#{uri.query}"
-    end
-  
     def wait
       unless @wait_time.nil? || @wait_time <= 0
         print "Waiting #{@wait_time} sec. ... "
@@ -102,45 +94,23 @@ module Core
         puts "done"
       end
     end
-  
-    include Core::Storage::Cache
-    
-    public
-  
-    alias :cache_root= :root=
-    alias :cache_root  :root
-  
-    alias :cache_binary= :binary=
-    alias :cache_binary  :binary
-  
-    alias :cache_distribute= :distribute=
-    alias :cache_distribute  :distribute
-  
-    alias :cache_expire_time= :expire_time=
-    alias :cache_expire_time  :expire_time
-  
-    def cache_load_and_store=(value)
-      @cache_load = @cache_store = value
-    end
     
     protected
     
     def load(path)
-      if @cache_load
+      if @storage
         print "Loading #{fullpath path} ... "
-    
-        if contains? path
-          if loadable? path
-            if expired? path
+        
+        if @storage.contains? path
+          if @storage.loadable? path
+            # TODO fix
+            if @cache.valid? path
+              content = @storage.load path
+              
+              puts "done (#{content.length} bytes)"
+            else
               puts "failed (expired)"
-              return nil
             end
-      
-            content = super path
-      
-            puts "done (#{content.length} bytes)"
-      
-            content
           else
             puts "failed (not readable)"
           end
@@ -149,13 +119,13 @@ module Core
         end
       end
     end
-  
+    
     def store(path, content)
-      if @cache_store
+      if @storage
         print "Storing #{fullpath path} ... "
-    
-        super path, content
-    
+        
+        @storage.store path, content
+        
         puts "done (#{content.length} bytes)"
       end
     end
