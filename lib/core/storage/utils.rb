@@ -2,7 +2,7 @@
 
 module Core
   module Storage
-    module Util
+    module Utils
       def self.distribute(src, dst, options = {})
         verbose = options[:verbose] || false 
         

@@ -3,16 +3,16 @@
 namespace :storage do
   task :distribute, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
-    Core::Storage::Util.distribute args[:src], args[:dst], args[:verbose]
+    Core::Storage::Utils.distribute args[:src], args[:dst], args[:verbose]
   end
   
   task :merge, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
-    Core::Storage::Util.merge args[:src], args[:dst], args[:verbose]
+    Core::Storage::Utils.merge args[:src], args[:dst], args[:verbose]
   end
   
   task :stat, [:src] => :environment do |_, args|
-    Core::Storage::Util.stat args[:src]
+    Core::Storage::Utils.stat args[:src]
   end
 
   # TODO refactor
