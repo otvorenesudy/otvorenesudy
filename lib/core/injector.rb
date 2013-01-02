@@ -39,6 +39,8 @@ module Core
     end
     
     def instantiate(type)
+      return type.instance if type.respond_to? :instance
+      
       type.new
     end
   end

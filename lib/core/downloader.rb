@@ -100,18 +100,18 @@ module Core
     
     def load(path)
       if storage
-        print "Loading #{fullpath path} ... "
+        print "Loading #{storage.fullpath path} ... "
         
         if storage.contains? path
           if storage.loadable? path
             # TODO fix
-            if @cache.valid? path
+#            if storage.expired? path
               content = storage.load path
               
               puts "done (#{content.length} bytes)"
-            else
-              puts "failed (expired)"
-            end
+#            else
+#              puts "failed (expired)"
+#            end
           else
             puts "failed (not readable)"
           end
