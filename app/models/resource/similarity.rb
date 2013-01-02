@@ -15,9 +15,17 @@ module Resource::Similarity
      
       ActiveRecord::Base.connection.exec_query("SELECT set_limit(#{similarity.to_f != 0.0 ? similarity.to_f : 1.0});")
       
-      result = ActiveRecord::Base.connection.exec_query(sanitize_sql_array([sql, value, value]))
+      values = ActiveRecord::Base.connection.exec_query(sanitize_sql_array([sql, value, value]))
   
-      result.to_hash.map { |hash| self.find(hash['id']) }
+      result = Hash.new
+      values.to_hash.each do |hash| 
+        sml = hash['sml']
+
+        result[sml] = [] unless result[sml]
+        result[sml] << self.find(hash['id'])
+      end
+
+      result
     end
     
     def method_missing(method, *args, &block)
