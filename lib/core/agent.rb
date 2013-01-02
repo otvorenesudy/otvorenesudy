@@ -14,12 +14,12 @@ module Core
       return content unless content.nil?
   
       @handler.keep_alive   = false
-      @handler.open_timeout = @timeout
-      @handler.read_timeout = @timeout
+      @handler.open_timeout = timeout
+      @handler.read_timeout = timeout
   
       e = nil
   
-      1.upto @repeat do |i|
+      1.upto repeat do |i|
         wait
   
         begin
@@ -41,14 +41,14 @@ module Core
           else
             e = "Empty page"
             
-            puts "failed (page empty, attempt #{i} of #{@repeat})"
+            puts "failed (page empty, attempt #{i} of #{repeat})"
           end
         rescue Mechanize::Error => e
-          puts "failed (unable to download page, attempt #{i} of #{@repeat})"
+          puts "failed (unable to download page, attempt #{i} of #{repeat})"
         rescue Net::HTTP::Persistent::Error => e
-          puts "failed (#{e}, attempt #{i} of #{@repeat})"
+          puts "failed (#{e}, attempt #{i} of #{repeat})"
         rescue Timeout::Error => e
-          puts "failed (connection timed out, attempt #{i} of #{@repeat})"
+          puts "failed (connection timed out, attempt #{i} of #{repeat})"
         rescue Exception => e 
           puts "failed (unable to handle #{e.class.name})" 
           break

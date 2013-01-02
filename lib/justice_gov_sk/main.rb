@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-# TODO refactor all helpers to be not static, like in app/helpers
-
 # TODO add filter option: crawl only data not in DB / update DB
 
 # TODO refactor core:
@@ -13,6 +11,12 @@
 # remove subclass specific functionality from superclass,
 # example: mv ListRequest.decree_form -> DecreeListRequest
 # remove lines like: if type < Hearing
+
+# TODO
+# consider distinguishing between pages and documents everywhere, like in storages
+# example: Downloader::CourtPage, Parser::CourtPage? 
+# also consider storage/page/decree.rb vs. storage/decree_page.rb 
+# or remove _page suffix from storages? and leave only _document (and _list)
 
 module JusticeGovSk
   module Main
@@ -134,7 +138,8 @@ module JusticeGovSk
       
       request.per_page = options[:per_page] unless options[:per_page].nil?
       request.page     = options[:page]     unless options[:page].nil? 
-      
+
+      # TODO refactor      
       if type < Hearing
         request.include_old_hearings = options[:include_old_hearings] unless options[:include_old_hearings].nil?
       elsif type < Decree
@@ -149,10 +154,9 @@ module JusticeGovSk
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_lister(type, options = {})
       type = resolve type
-  
+      
       agent = JusticeGovSk::Agent::List.new
       
-      agent.cache_load_and_store = false
       
       if options[:generic].blank?
         if type == Judge
@@ -177,22 +181,9 @@ module JusticeGovSk
     def build_crawler(type, options = {})
       type = resolve type
   
-      storage = "JusticeGovSk::Storage::#{type.name}Page".constantize.instance
-  
-      downloader = Downloader.new
-  
-      downloader.headers              = JusticeGovSk::Request.headers
-      downloader.data                 = {}
-      downloader.cache_load_and_store = true
-      downloader.cache_root           = storage.root
-      downloader.cache_binary         = storage.binary
-      downloader.cache_distribute     = storage.distribute
-      downloader.cache_uri_to_path    = JusticeGovSk::URL.url_to_path_lambda :html
-  
-      persistor = Persistor.new
-  
       crawler = "JusticeGovSk::Crawler::#{type.name}".constantize.new downloader, persistor
-      
+
+      # TODO refactor      
       crawler.form_code = options[:decree_form] if type == Decree
       
       crawler
@@ -206,6 +197,7 @@ module JusticeGovSk
       
       type = type.constantize
   
+      # TODO refactor
       if options[:generic].blank? && type == Judge
         raise "Unable to use block" if block_given?
         

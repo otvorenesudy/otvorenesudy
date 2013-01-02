@@ -1,10 +1,6 @@
 module JusticeGovSk
   class Crawler
     class SpecialHearing < JusticeGovSk::Crawler::Hearing
-      def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parser::SpecialHearing.new, persistor)
-      end
-      
       protected
     
       def process(uri, content)

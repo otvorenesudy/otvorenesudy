@@ -1,10 +1,6 @@
 module JusticeGovSk
   class Crawler
     class Court < JusticeGovSk::Crawler
-      def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parser::Court.new, persistor)
-      end
-      
       protected
       
       def process(request)

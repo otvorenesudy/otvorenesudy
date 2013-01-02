@@ -11,16 +11,13 @@ module Core
                   :wait_time
     
     def initialize
-      @storage     = nil
-      @uri_to_path = nil
+      @headers   = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
+      @data      = {}
       
-      @headers     = { 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0' }
-      @data        = {}
+      @repeat    = 8
+      @timeout   = 2.minutes
       
-      @repeat      = 8
-      @timeout     = 2.minutes
-      
-      @wait_time   = 0.5.seconds
+      @wait_time = 0.5.seconds
     end
   
     def download(request)
@@ -30,20 +27,20 @@ module Core
       
       e = nil
   
-      1.upto @repeat do |i|
+      1.upto repeat do |i|
         wait
   
         begin
           handler = Curl::Easy.new
           
           handler.url             = URI.encode(uri)
-          handler.connect_timeout = @timeout
-          handler.timeout         = @timeout
+          handler.connect_timeout = timeout
+          handler.timeout         = timeout
         
           print "Downloading #{uri} ... "
         
-          @headers.each { |p, v| handler.headers[p] = v }
-          @data.empty? ? handler.http_get : handler.http_post(@data)
+          headers.each { |p, v| handler.headers[p] = v }
+          data.empty? ? handler.http_get : handler.http_post(data)
   
           handler.perform
           
@@ -59,11 +56,11 @@ module Core
           
           e = "Invalid response code #{handler.response_code}"
           
-          puts "failed (response code #{handler.response_code}, attempt #{i} of #{@repeat})"
+          puts "failed (response code #{handler.response_code}, attempt #{i} of #{repeat})"
         rescue Curl::Err::HostResolutionError => e
-          puts "failed (host resolution error, attempt #{i} of #{@repeat})"
+          puts "failed (host resolution error, attempt #{i} of #{repeat})"
         rescue Curl::Err::TimeoutError, Timeout::Error => e
-          puts "failed (connection timed out, attempt #{i} of #{@repeat})"
+          puts "failed (connection timed out, attempt #{i} of #{repeat})"
         rescue Exception => e
           puts "failed (unable to handle #{e.class.name})"
           break
@@ -79,17 +76,21 @@ module Core
     
     def predownload(request)
       uri     = Core::Request.uri request
-      path    = @uri_to_path.call uri
+      path    = uri_to_path uri
       content = load(path)
       
       return uri, path, content
     end
+
+    def uri_to_path(uri)
+      @uri_to_path.call(uri) if @uri_to_path
+    end
     
     def wait
-      unless @wait_time.nil? || @wait_time <= 0
-        print "Waiting #{@wait_time} sec. ... "
+      unless wait_time.nil? || wait_time <= 0
+        print "Waiting #{wait_time} sec. ... "
   
-        sleep @wait_time
+        sleep wait_time
   
         puts "done"
       end
@@ -98,14 +99,14 @@ module Core
     protected
     
     def load(path)
-      if @storage
+      if storage
         print "Loading #{fullpath path} ... "
         
-        if @storage.contains? path
-          if @storage.loadable? path
+        if storage.contains? path
+          if storage.loadable? path
             # TODO fix
             if @cache.valid? path
-              content = @storage.load path
+              content = storage.load path
               
               puts "done (#{content.length} bytes)"
             else
@@ -121,10 +122,10 @@ module Core
     end
     
     def store(path, content)
-      if @storage
+      if storage
         print "Storing #{fullpath path} ... "
         
-        @storage.store path, content
+        storage.store path, content
         
         puts "done (#{content.length} bytes)"
       end

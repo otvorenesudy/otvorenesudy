@@ -1,10 +1,6 @@
 module JusticeGovSk
   class Crawler
     class CivilHearing < JusticeGovSk::Crawler::Hearing
-      def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parser::CivilHearing.new, persistor)
-      end
-      
       protected
 
       def process(request)
@@ -21,8 +17,6 @@ module JusticeGovSk
           @hearing
         end
       end
-      
-      # TODO refactor -> common method for proposers and oponents
       
       def proposers
         names = @parser.proposers(@document)

@@ -3,24 +3,7 @@ module JusticeGovSk
     class List < JusticeGovSk::Agent
       def download(request)
         super(request) do |page|
-          form_name    = 'aspnetForm'
-          form, fields = form_and_fields(page, form_name)
-
-          # TODO refactor -> rm (+mv) request specific behavior
-          # Include old hearings, only for hearings
-          if request.respond_to?(:include_old_hearings) && request.include_old_hearings
-            checkboxes = form.checkboxes.map(&:name)
-            include_old_hearings_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\z/) }
-          end
-
-          # TODO refactor -> rm (+mv) request specific behavior
-          # Select decree form, only for decrees
-          if request.respond_to?(:decree_form) && request.decree_form
-            decree_form_select_box_name = fields.find { |f| f.match(/\A.+cmbForma\z/) }
-            
-            field       = form.field_with(name: decree_form_select_box_name) 
-            field.value = request.decree_form
-          end
+          yield page if block_given? 
 
           form, fields = form_and_fields(page, form_name)
 
@@ -52,11 +35,15 @@ module JusticeGovSk
             end
           end
 
-          page 
+          page
         end
       end
 
-      private
+      protected
+      
+      def form_name
+        'aspnetForm'
+      end
       
       def form_and_fields(page, form_name)
         form   = page.form_with(name: form_name)

@@ -65,7 +65,7 @@ module Core
     end
     
     private
-    
+
     def introduce
       print "Running #{self.class.name} using " 
       print "#{@downloader.nil? ? 'no downloader' : @downloader.class.name}, "

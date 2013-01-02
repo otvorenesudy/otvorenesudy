@@ -1,0 +1,19 @@
+module JusticeGovSk
+  class Agent
+    class DecreeList < JusticeGovSk::Agent::List
+      def download(request)
+        super(request) do |page|
+          form, fields = form_and_fields(page, form_name)
+
+          # Select decree form, only for decrees
+          if request.respond_to?(:decree_form) && request.decree_form
+            decree_form_select_box_name = fields.find { |f| f.match(/\A.+cmbForma\z/) }
+            
+            field       = form.field_with(name: decree_form_select_box_name) 
+            field.value = request.decree_form
+          end
+        end
+      end
+    end
+  end
+end

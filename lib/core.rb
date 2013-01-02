@@ -32,6 +32,7 @@ require 'core/parser/html'
 require 'core/persistor'
 require 'core/crawler'
 require 'core/crawler/list'
+require 'core/injector'
 require 'core/version'
 
 module Core

@@ -3,10 +3,6 @@ module JusticeGovSk
     class Decree < JusticeGovSk::Crawler
       attr_accessor :form_code
       
-      def initialize(downloader, persistor)
-        super(downloader, JusticeGovSk::Parser::Decree.new, persistor)
-      end
-      
       protected
       
       def process(request)
