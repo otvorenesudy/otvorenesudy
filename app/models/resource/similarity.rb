@@ -6,7 +6,7 @@ module Resource::Similarity
     SELECT id, similarity(#{column}, ?) as sml 
     FROM  #{self.name.downcase.pluralize}
     WHERE name % ?
-    ORDER BY sml DESC, name 
+    ORDER BY sml DESC  
     ;
     SQL
    
