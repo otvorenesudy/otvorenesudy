@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :storage do
   task :distribute, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
