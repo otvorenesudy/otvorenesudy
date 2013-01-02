@@ -1,4 +1,4 @@
-jQuery ->
+$(document).ready ->
   $('a[rel="popover"]').popover()
   $('a[rel="tooltip"]').tooltip()
 
