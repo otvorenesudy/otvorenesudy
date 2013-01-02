@@ -1,4 +1,14 @@
-# encoding: utf-8
+# Examples:
+# 
+# rake crawl:courts
+# 
+# rake crawl:judges
+# 
+# rake crawl:hearings:civil
+# rake crawl:hearings:criminal
+# rake crawl:hearings:special
+# 
+# rake crawl:decrees[F]
 
 namespace :crawl do
   task :courts, [:offset, :limit] => :environment do |_, args|
@@ -32,7 +42,7 @@ namespace :crawl do
     args.with_defaults decree_form: args[:form], safe: false
     JusticeGovSk.crawl_resources Decree, args
   end
-
+  
   task :court, [:url] => :environment do |_, args|
     JusticeGovSk.crawl_resource Court, args[:url], safe: true
   end  

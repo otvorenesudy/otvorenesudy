@@ -1,99 +1,49 @@
-# encoding: utf-8
+# Examples:
+# 
+# rake download:courts:pages
+# 
+# rake download:hearings:civil:pages
+# rake download:hearings:criminal:pages
+# rake download:hearings:special:pages
+# 
+# rake download:decrees:pages[F]
+# rake download:decrees:documents
 
-# TODO refactor: hide impl to justice.gov.sk/main.rb
-
-namespace :download do 
-  # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
-  task :pages, [:type, :offset, :limit] => :environment do |_, args|
-    type    = args[:type].camelcase.split(/\:/).first
-    offset  = args[:offset].blank? ? 1 : args[:offset].to_i
-    limit   = args[:limit].blank? ? nil : args[:limit].to_i
-    
-    agent = JusticeGovSk::Agents::ListAgent.new
-    
-    agent.cache_load_and_store = false
-
-    request = "JusticeGovSk::Requests::#{type}ListRequest".constantize.new
-    storage = "JusticeGovSk::Storages::#{type}PageStorage".constantize.new    
-    crawler = JusticeGovSk::Crawlers::ListCrawler.new agent
-
-    if request.is_a? JusticeGovSk::Requests::DecreeListRequest
-      request.decree_form = args[:type].scan(/\:(\w)/)
-      abort "Decree form not set" if request.decree_form.blank? 
+namespace :download do
+  namespace :courts do
+    task :pages, [:offset, :limit] => :environment do |_, args|
+      JusticeGovSk.download_pages Court, args
     end
-
-    downloader = Downloader.new
-    
-    downloader.headers              = {} #JusticeGovSk::Requests::URL.headers
-    downloader.data                 = {}
-    downloader.cache_load_and_store = true
-    downloader.cache_root           = storage.root
-    downloader.cache_binary         = storage.binary
-    downloader.cache_distribute     = storage.distribute
-    downloader.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :html
-    
-    crawler.crawl_and_process(request, offset, limit) do |url|
-      begin
-        downloader.download url
-      rescue Exception => e
-        _, code = *e.to_s.match(/response code (\d+)/i)
-
-        case code.to_i
-        when 302 
-          puts "Redirect returned for #{url}, rejected."
-        when 500
-          puts "Internal server error for #{url}, rejected."
-        else
-          raise e
-        end
+  end
+  
+  namespace :hearings do
+    namespace :civil do
+      task :pages, [:offset, :limit] => :environment do |_, args|
+        JusticeGovSk.download_pages CivilHearing, args
       end
     end
-  end  
-
-  # supported types: Decree
-  task :documents, [:type] => :environment do |_, args|
-    type = args[:type].camelcase
     
-    request = JusticeGovSk::Requests::DocumentRequest.new
-    storage = JusticeGovSk::Storages::DocumentStorage.new
-    agent   = JusticeGovSk::Agents::DocumentAgent.new
-    
-    agent.cache_load_and_store = true
-    agent.cache_root           = File.join storage.root, type.downcase.pluralize
-    agent.cache_binary         = storage.binary
-    agent.cache_distribute     = storage.distribute
-    agent.cache_uri_to_path    = JusticeGovSk::Requests::URL.url_to_path_lambda :pdf
-
-    dir = File.join JusticeGovSk::Storages::DecreePageStorage.new.root
-
-    FileUtils.mkpath dir unless Dir.exists? dir
-
-    Dir.foreach(dir) do |bucket|
-      next if bucket.start_with? '.'
-      
-      Dir.foreach(File.join dir, bucket) do |file|
-        next if file.start_with? '.'
-        
-        path = File.join dir, bucket, file
-        
-        print "Reading #{path} ... "
-        
-        content = File.read path
-        
-        puts "done (#{content.size} bytes)"
-        
-        request.url = file.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
-        request.url = request.url.sub(/\.html/, '')
-        request.url = "#{JusticeGovSk::Requests::URL.base}/#{request.url}"
-        
-        begin
-          agent.download request
-        rescue Exception => e
-          # silently ignore all persistent errors, mostly timeouts
-        end
-        
-        puts
+    namespace :criminal do
+      task :pages, [:offset, :limit] => :environment do |_, args|
+        JusticeGovSk.download_pages CriminalHearing, args
       end
     end
+    
+    namespace :special do
+      task :pages, [:offset, :limit] => :environment do |_, args|
+        JusticeGovSk.download_pages SpecialHearing, args
+      end
+    end
+  end
+
+  namespace :decrees do
+    task :pages, [:form, :offset, :limit] => :environment do |_, args|
+      args.with_defaults decree_form: args[:form]
+      JusticeGovSk.download_pages Decree, args
+    end
+
+    task :documents do
+      JusticeGovSk.download_documents Decree
+    end    
   end
 end
