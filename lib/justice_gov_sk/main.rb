@@ -24,48 +24,21 @@ module JusticeGovSk
     
     # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
     def download_pages(type, options = {})
-      type    = type.camelcase.split(/\:/).first
-      offset  = options[:offset].blank? ? 1 : options[:offset].to_i
-      limit   = options[:limit].blank? ? nil : options[:limit].to_i
+      offset = options[:offset].blank? ? 1 : options[:offset].to_i
+      limit  = options[:limit].blank? ? nil : options[:limit].to_i
       
-      agent = JusticeGovSk::Agents::ListAgent.new
+      request, lister = build_request_and_lister type, options
       
-      agent.cache_load_and_store = false
-      
-      request = "JusticeGovSk::Request::#{type}List".constantize.new
-      storage = "JusticeGovSk::Storage::#{type}Page".constantize.instance    
-      crawler = JusticeGovSk::Crawler::ListCrawler.new agent
-      
+      # TODO refactor
       if request.is_a? JusticeGovSk::Request::DecreeList
         request.decree_form = args[:type].scan(/\:(\w)/)
         abort "Decree form not set" if request.decree_form.blank? 
       end
       
-      downloader = Downloader.new
+      downloader = inject JusticeGovSk::Downloader, implementation: type
       
-      downloader.headers              = {} #JusticeGovSk::Requests::URL.headers
-      downloader.data                 = {}
-      downloader.cache_load_and_store = true
-      downloader.cache_root           = storage.root
-      downloader.cache_binary         = storage.binary
-      downloader.cache_distribute     = storage.distribute
-      downloader.cache_uri_to_path    = JusticeGovSk::URL.url_to_path_lambda :html
-      
-      crawler.crawl(request, offset, limit) do |url|
-        begin
-          downloader.download url
-        rescue Exception => e
-          _, code = *e.to_s.match(/response code (\d+)/i)
-          
-          case code.to_i
-          when 302 
-            puts "Redirect returned for #{url}, rejected."
-          when 500
-            puts "Internal server error for #{url}, rejected."
-          else
-            raise e
-          end
-        end
+      run_lister lister, request, options do |url|
+        downloader.download url
       end
     end  
     
@@ -134,12 +107,12 @@ module JusticeGovSk
     def build_request(type, options = {})
       type = resolve type
       
-      request = "JusticeGovSk::Request::#{type.name}List".constantize.new
+      request = inject JusticeGovSk::Request, implementation: type, suffix: :List
       
       request.per_page = options[:per_page] unless options[:per_page].nil?
       request.page     = options[:page]     unless options[:page].nil? 
 
-      # TODO refactor      
+      # TODO refactor  
       if type < Hearing
         request.include_old_hearings = options[:include_old_hearings] unless options[:include_old_hearings].nil?
       elsif type < Decree
@@ -153,20 +126,7 @@ module JusticeGovSk
     
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_lister(type, options = {})
-      type = resolve type
-      
-      agent = JusticeGovSk::Agent::List.new
-      
-      
-      if options[:generic].blank?
-        if type == Judge
-          persistor = JusticeGovSk::Persistor.new
-        
-          return JusticeGovSk::Crawler::JudgeList.new agent, persistor
-        end
-      end
-      
-      JusticeGovSk::Crawler::List.new agent
+      inject JusticeGovSk::Crawler, implementation: type, suffix: :List
     end
     
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
@@ -181,7 +141,7 @@ module JusticeGovSk
     def build_crawler(type, options = {})
       type = resolve type
   
-      crawler = "JusticeGovSk::Crawler::#{type.name}".constantize.new downloader, persistor
+      crawler = inject JusticeGovSk::Crawler, implementation: type
 
       # TODO refactor      
       crawler.form_code = options[:decree_form] if type == Decree
@@ -196,9 +156,9 @@ module JusticeGovSk
       _, type = *request.class.name.match(/JusticeGovSk::Request::(.+)List/)
       
       type = type.constantize
-  
+      
       # TODO refactor
-      if options[:generic].blank? && type == Judge
+      if type == Judge
         raise "Unable to use block" if block_given?
         
         block = lambda do
@@ -225,38 +185,24 @@ module JusticeGovSk
       call block, options
     end
     
-    # TODO refactor work
-    
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
-    def work(type, options = {})
-      type = resolve type
+    def run_workers(type, options = {})
+      request, lister = build_request_and_lister type, options
       
-      request_and_lister_options = { generic: true, safe: true }
-      request_and_lister_options.merge! decree_form: options[:decree_form] if type == Decree
-      
-      request, lister = build_request_and_lister type, request_and_lister_options
-      
-      # TODO rm
-      puts "#{request}"
-      puts "#{lister}"
-      
-      run_lister lister, request, request_and_lister_options do
+      run_lister lister, request, options do
         lister.crawl request
       end
       
-      job_options = { safe: true, limit: 1 }
-      job_options.merge! decree_form: options[:decree_form] if type == Decree
-  
+      options.merge! limit: 1
+      
       1.upto lister.pages do |page|
-        Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, job_options.merge(offset: page))
+        Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, options.merge(offset: page))
       end
     end
     
     private
     
-    def resolve(type)
-      type.is_a?(Class) ? type : type.to_s.camelcase.constantize
-    end
+    include Core::Injector
     
     def call(block, options = {})
       safe = options[:safe].nil? ? true : options[:safe]

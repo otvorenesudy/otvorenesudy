@@ -1,30 +1,28 @@
 module Core
   module Injector
     def inject(base, options = {})
-      implementation = options[:implementation] || self.class
-      
-      instantiate(resolve(base, implementation, options))
+      instantiate resolve(base, options)
     end
     
     private
     
-    def resolve(base, implementation, options = {})
+    def resolve(base, options = {})
       base  = base.to_s.constantize
       
       words = []
       words << options[:prefix] unless options[:prefix].blank?
-      words += implementation.to_s.split(/::/).last.split(/(?=[A-Z])/)
+      words +=(options[:implementation] || self.class).to_s.split(/::/).last.split(/(?=[A-Z])/)
       words << options[:suffix] unless options[:suffix].blank?
       
       until words.empty? do
         name = words.join
         
         # TODO rm
-        puts "NAME #{name}"
+        #puts "NAME #{name}"
         
         begin
           # TODO rm
-          puts "STMT #{base.const_get(name)} = #{base}.const_get(\"#{name}\")"
+          #puts "STMT #{base.const_get(name)} = #{base}.const_get(\"#{name}\")"
           
           constant = base.const_get(name)
           
@@ -40,7 +38,7 @@ module Core
       base
     end
     
-    def instantiate(type, options = {})
+    def instantiate(type)
       type.new
     end
   end

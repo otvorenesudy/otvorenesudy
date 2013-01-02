@@ -1,10 +1,4 @@
-# TODO refactor resque task interface
-
 # Examples:
-# 
-# rake run:crawlers:courts
-# 
-# rake run:crawlers:judges
 # 
 # rake run:crawlers:hearings:civil
 # rake run:crawlers:hearings:criminal
@@ -13,11 +7,24 @@
 # rake run:crawlers:decrees[F]
 
 namespace :run do
-  # TODO refactor interface
-  
-  
-  
-  task :crawlers, [:type, :decree_form] => :environment do |_, args|
-    JusticeGovSk.work args[:type], decree_form: args[:decree_form]
+  namespace :crawlers do
+    namespace :hearings do
+      task :civil => :environment do
+        JusticeGovSk.run_workers CivilHearing, safe: true 
+      end
+ 
+      task :criminal => :environment do
+        JusticeGovSk.run_workers CriminalHearing, safe: true
+      end
+
+      task :special => :environment do
+        JusticeGovSk.run_workers SpecialHearing, safe: true
+      end
+    end
+
+    task :decrees, [:form] => :environment do |_, args|
+      args.with_defaults decree_form: args[:form], safe: true
+      JusticeGovSk.run_workers Decree, args
+    end
   end
 end
