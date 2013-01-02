@@ -8,7 +8,7 @@ module Core
       end
       
       def store(path, content)
-        super(path, content.encode(encoding))
+        super(path, content.force_encoding(encoding))
       end
       
       protected

@@ -1,13 +1,17 @@
 module Core
   module Storage
     attr_accessor :root
-  
+    
     def contains?(path)
       File.exists? fullpath(path)
     end
-  
+    
     def loadable?(path)
       File.readable? fullpath(path)
+    end
+    
+    def expired?(path)
+      false
     end
   
     def load(path)

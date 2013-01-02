@@ -43,7 +43,7 @@ module Core
          
         @result = @parser.list(@document)
         
-        puts "Processing list, #{state}."
+        puts "Processing list #{state}."
         
         @result.each { |item| yield item }
       end

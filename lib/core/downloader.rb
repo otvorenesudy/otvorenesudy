@@ -104,14 +104,15 @@ module Core
         
         if storage.contains? path
           if storage.loadable? path
-            # TODO fix
-#            if storage.expired? path
+            unless storage.expired? path
               content = storage.load path
               
               puts "done (#{content.length} bytes)"
-#            else
-#              puts "failed (expired)"
-#            end
+              
+              content
+            else
+              puts "failed (expired)"
+            end
           else
             puts "failed (not readable)"
           end
@@ -123,7 +124,7 @@ module Core
     
     def store(path, content)
       if storage
-        print "Storing #{fullpath path} ... "
+        print "Storing #{storage.fullpath path} ... "
         
         storage.store path, content
         

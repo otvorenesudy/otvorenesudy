@@ -17,13 +17,7 @@ module Core
       until words.empty? do
         name = words.join
         
-        # TODO rm
-        #puts "NAME #{name}"
-        
         begin
-          # TODO rm
-          #puts "STMT #{base.const_get(name)} = #{base}.const_get(\"#{name}\")"
-          
           constant = base.const_get(name)
           
           if constant.is_a?(Class) && constant.to_s.start_with?(base.to_s)
