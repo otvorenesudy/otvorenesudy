@@ -10,7 +10,7 @@ module JusticeGovSk
       map = Judge.similar_by_name(name, 0.55)
       
       if map.any?
-        exact = map[1]
+        exact = map[1.0]
         
         if exact
           puts "done (exact match)"

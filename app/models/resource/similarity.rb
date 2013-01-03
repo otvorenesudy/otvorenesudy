@@ -12,17 +12,17 @@ module Resource::Similarity
       ORDER BY sml DESC  
       ;
       SQL
-     
+      
       ActiveRecord::Base.connection.exec_query("SELECT set_limit(#{similarity.to_f != 0.0 ? similarity.to_f : 1.0});")
       
       values = ActiveRecord::Base.connection.exec_query(sanitize_sql_array([sql, value, value]))
-  
       result = Hash.new
+      
       values.to_hash.each do |hash| 
-        sml = hash['sml']
+        key = hash['sml'].to_f
 
-        result[sml] = [] unless result[sml]
-        result[sml] << self.find(hash['id'])
+        result[key] ||= []
+        result[key] << self.find(hash['id'])
       end
 
       result
