@@ -1,6 +1,10 @@
+# TODO consider reseting matched judges, i.e. judgements when updating 
+
 module JusticeGovSk
   class Crawler
     class Decree < JusticeGovSk::Crawler
+      include JudgeMatcher
+      
       attr_accessor :form_code
       
       protected
@@ -84,28 +88,13 @@ module JusticeGovSk
         end
       end
       
-      # TODO make helper method for matching judges: decree, hearing & hearing chair_judge
       def judge
         name = @parser.judge(@document)
         
         unless name.nil?
-          # TODO rm
-          #judge = judge_factory { Judge.find :first, conditions: ['name LIKE ?', "#{name}%"] }.find(name)
-          
-          judge = judge_by_name_factory.find(name[:altogether])
-          exact = nil
-          
-          unless judge.nil?
-            exact = true
-          # TODO refactor, see todos in decree crawler
-          #else
-          #  judge = judge_factory_by_last_and_middle_and_first(name[:names])
-          #  exact = false unless judge.nil?
+          judges_similar_to(name) do |similarity, judge|
+            judging(judge, similarity, name)
           end
-          
-          @decree.judge                  = judge
-          @decree.judge_matched_exactly  = exact
-          @decree.judge_name_unprocessed = name[:unprocessed]
         end
       end
       
@@ -197,6 +186,19 @@ module JusticeGovSk
       end
       
       private
+      
+      def judgement(judge, similarity, name)
+        judgement = judgement_by_judge_id_and_decree_id_factory.find_or_create(judge.id, @decree.id)
+        
+        judgement.judge                  = judge
+        judgement.judge_name_similarity  = similarity
+        judgement.judge_name_unprocessed = name[:unprocessed]
+        judgement.judge_chair            = chair
+
+        judgement.decree = @decree
+        
+        @persistor.persist(judgement) if judgement.id.nil?
+      end
       
       def legislation_usage(legislation)
         legislation_usage = legislation_usage_by_legislation_id_and_decree_id_factory.find_or_create(legislation.id, @decree.id)

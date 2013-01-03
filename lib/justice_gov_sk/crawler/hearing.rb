@@ -1,6 +1,8 @@
 module JusticeGovSk
   class Crawler
     class Hearing < JusticeGovSk::Crawler
+      include JudgeMatcher
+      
       protected
     
       def process(request)
@@ -50,23 +52,14 @@ module JusticeGovSk
       
       def judges
         names = @parser.judges(@document)
-    
+        
         unless names.empty?
           puts "Processing #{pluralize names.count, 'judge'}."
           
           names.each do |name|
-            judge = judge_by_name_factory.find(name[:altogether])
-            exact = nil
-            
-            unless judge.nil?
-              exact = true
-            # TODO refactor, see todos in decree crawler
-            #else
-            #  judge = judge_factory_by_last_and_middle_and_first(name[:names])
-            #  exact = false unless judge.nil?
+            judges_similar_to(name) do |similarity, judge|
+              judging(judge, similarity, name, false)
             end
-            
-            judging(judge, name, exact)
           end
         end
       end
@@ -115,12 +108,13 @@ module JusticeGovSk
       
       private
       
-      def judging(judge, name, exact)
+      def judging(judge, similarity, name, chair)
         judging = judging_by_judge_id_and_hearing_id_factory.find_or_create(judge.id, @hearing.id)
         
         judging.judge                  = judge
-        judging.judge_matched_exactly  = exact
+        judging.judge_name_similarity  = similarity
         judging.judge_name_unprocessed = name[:unprocessed]
+        judging.judge_chair            = chair
 
         judging.hearing = @hearing
         

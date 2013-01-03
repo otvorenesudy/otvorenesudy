@@ -3,7 +3,7 @@ module JusticeGovSk
     class SpecialHearing < JusticeGovSk::Crawler::Hearing
       protected
     
-      def process(uri, content)
+      def process(request)
         super do
           @hearing.type = HearingType.special
           
@@ -22,20 +22,9 @@ module JusticeGovSk
         name = @parser.chair_judge(@document)
         
         unless name.nil?
-          judge = judge_by_name_factory.find(name[:altogether])
-          exact = nil
-          
-          unless judge.nil?
-            exact = true
-          # TODO refactor, see todos in decree crawler
-          #else
-          #  judge = judge_factory_by_last_and_middle_and_first.find(name[:last], name[:middle], name[:first])
-          #  exact = false unless judge.nil?
+          judges_similar_to(name) do |similarity, judge|
+            judging(judge, similarity, name, true)
           end
-          
-          @hearing.chair_judge                  = judge
-          @hearing.chair_judge_matched_exactly  = exact
-          @hearing.chair_judge_name_unprocessed = name[:unprocessed]
         end
       end
       

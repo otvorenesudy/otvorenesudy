@@ -7,7 +7,7 @@ module JusticeGovSk
       
       print "Matching judges by name #{name} ... "
       
-      map = Judge.similar_by_name(name, 0.6)
+      map = Judge.similar_by_name(name, 0.55)
       
       if map.any?
         exact = map[1]
@@ -21,10 +21,12 @@ module JusticeGovSk
           end
         else
           puts "done (approximate match)"
-          
+
           map.each do |similarity, judges|
             puts judges_matched similarity, judges
-            
+          end
+          
+          map.each do |similarity, judges|
             judges.each do |judge|
               yield similarity, judge
             end
