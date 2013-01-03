@@ -1,8 +1,6 @@
 class Hearing < ActiveRecord::Base
   include Resource::Storage
 
-  # TODO add page storage
-  
 #  include Tire::Model::Search
 #  include Tire::Model::Callbacks
 
@@ -74,4 +72,7 @@ class Hearing < ActiveRecord::Base
 #                                analyzer: 'name_analyzer'
 #  end
 
+  storage :page, JusticeGovSk::Storage::HearingPage do |hearing|
+    File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
+  end
 end

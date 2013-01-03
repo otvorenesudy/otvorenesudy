@@ -6,7 +6,7 @@ module Resource::Storage
       @storages || {}
     end
 
-    def storage(name, type, options = {}, &block)
+    def storage(name, type, options = {})
       @storages = {} unless @storages
       
       @storages[name] = type.instance unless @storages[name]
@@ -17,7 +17,7 @@ module Resource::Storage
       
       define_method "#{name}_path" do
         if block_given?
-          path = block.call uri 
+          path = yield self
         else
           path = JusticeGovSk::URL.url_to_path(uri, options[:extension])
         end
