@@ -42,7 +42,7 @@ module JusticeGovSk
     private
     
     def judges_matched(similarity, judges)
-      "Matched similarity #{similarity} #{judges.map { |judge| judge.name }.join ', '}"
+      "Matched with similarity #{similarity} #{judges.map { |judge| judge.name }.join ', '}"
     end
   end
 end

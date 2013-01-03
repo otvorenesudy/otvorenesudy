@@ -7,11 +7,15 @@ module JusticeGovSk
       
       attr_accessor :form_code
       
+      def initialize(options = {})
+        super(options)
+        
+        @form_code = options[:decree_form]
+      end
+      
       protected
       
       def process(request)
-        @form_code = request.decree_form
-        
         super do
           uri = JusticeGovSk::Request.uri(request)
           
@@ -28,7 +32,7 @@ module JusticeGovSk
           proceeding
           
           court
-          judges
+          judge
           
           form
           nature
@@ -43,25 +47,18 @@ module JusticeGovSk
       end
       
       def fulltext(uri)
-        storage = JusticeGovSk::Storage::DecreeDocument.instance
-        request = JusticeGovSk::Request::Document.new
-        agent   = JusticeGovSk::Agent::Document.new
+        request = inject JusticeGovSk::Request, implementation: Decree, suffix: :Document
+        agent   = inject JusticeGovSk::Agent,   implementation: Decree, suffix: :Document
         
-        agent.cache_load_and_store = true
-        agent.cache_root           = storage.root
-        agent.cache_binary         = storage.binary
-        agent.cache_distribute     = storage.distribute
-        agent.cache_uri_to_path    = JusticeGovSk::URL.url_to_path_lambda :pdf
-
         request.url = uri
 
         agent.download(request)
         
-        path = JusticeGovSk::URL.url_to_path uri, :pdf
+        path = agent.storage.fullpath(agent.uri_to_path uri)
         
         print "Extracting text ... "
         
-        text = TextExtractor.new.extract(storage.fullpath path)
+        text = Core::TextExtractor.new.extract(path)
         
         puts "done (#{text.length} chars)"
         
@@ -93,7 +90,7 @@ module JusticeGovSk
         
         unless name.nil?
           judges_similar_to(name) do |similarity, judge|
-            judging(judge, similarity, name)
+            judgement(judge, similarity, name)
           end
         end
       end
@@ -193,7 +190,6 @@ module JusticeGovSk
         judgement.judge                  = judge
         judgement.judge_name_similarity  = similarity
         judgement.judge_name_unprocessed = name[:unprocessed]
-        judgement.judge_chair            = chair
 
         judgement.decree = @decree
         
