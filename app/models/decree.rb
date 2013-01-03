@@ -28,4 +28,21 @@ class Decree < ActiveRecord::Base
 
   storage :page,     JusticeGovSk::Storage::DecreePage,     extension: :html
   storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
+
+  # TODO: add judgements and judges
+  mapping do
+    indexes :id
+    indexes :case_number
+    indexes :file_number
+    indexes :date
+    indexes :ecli
+    indexes :text
+    
+    indexes :court,               as: lambda { |d| d.court.name if d.court                        }
+    indexes :form,                as: lambda { |d| d.form.value                                   }
+    indexes :nature,              as: lambda { |d| d.nature.value                                 }
+    indexes :legislation_area,    as: lambda { |d| d.legislation_area                             }
+    indexes :legislation_subarea, as: lambda { |d| d.legislation_subarea                          }
+    indexes :legislations,        as: lambda { |d| d.legislations.map { |l| l.legislation.value } }
+  end
 end
