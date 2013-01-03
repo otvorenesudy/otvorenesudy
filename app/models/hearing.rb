@@ -33,6 +33,7 @@ class Hearing < ActiveRecord::Base
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
 
+  # TODO: add analyzers for other fields
   settings analysis: { 
             filter: {
               name_ngram: {
@@ -62,6 +63,7 @@ class Hearing < ActiveRecord::Base
     indexes :type,              as: lambda { |h| h.section.value                     }
     indexes :subject,           as: lambda { |h| h.subject.value                     }
     indexes :form,              as: lambda { |h| h.form.value                        }
+    indexes :court,             as: lambda { |h| h.court.name if court               }
     indexes :judges,            as: lambda { |h| h.judgings.map { |j| j.judge.name } }, 
                                 analyzer: 'name_analyzer'
     indexes :proposers,         as: lambda { |h| h.proposers.map { |p| p.name }      },
