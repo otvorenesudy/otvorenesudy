@@ -38,11 +38,7 @@ module JusticeGovSk
       def court
         name = @parser.court(@document)
         
-        unless name.nil?
-          court = court_by_name_factory.find(name)
-          
-          @hearing.court = court
-        end
+        @hearing.court = court_by_name_factory.find(name) unless name.nil?
       end
       
       def judges

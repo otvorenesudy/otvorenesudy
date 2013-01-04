@@ -73,11 +73,7 @@ module JusticeGovSk
       def court
         name = @parser.court(@document)
         
-        unless name.nil?
-          court = court_by_name_factory.find(name)
-          
-          @decree.court = court
-        end
+        @decree.court = court_by_name_factory.find(name) unless name.nil?
       end
       
       def judge
@@ -93,11 +89,9 @@ module JusticeGovSk
       def form
         raise "Decree form code not set" if @form_code.nil?
         
-        form = decree_form_by_code_factory.find(@form_code)
+        @decree.form = decree_form_by_code_factory.find(@form_code)
         
-        raise "Decree form not found" if form.nil?
-        
-        @decree.form = form
+        raise "Decree form not found" if @decree.form.nil?
       end
       
       def nature

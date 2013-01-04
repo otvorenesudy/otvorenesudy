@@ -11,9 +11,9 @@ module JusticeGovSk
       
       def match_and_process_proceeding_for(instance)
         match_proceeding_by(instance.file_number) do |proceeding|
-          instance.proceeding = proceeding
-          
           persistor.persist(proceeding) if proceeding.id.nil?
+          
+          instance.proceeding = proceeding
         end
       end
     end
