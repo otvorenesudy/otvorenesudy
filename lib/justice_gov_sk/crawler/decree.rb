@@ -3,7 +3,8 @@
 module JusticeGovSk
   class Crawler
     class Decree < JusticeGovSk::Crawler
-      include JudgeMatcher
+      include JusticeGovSk::Matcher::Proceeding
+      include JusticeGovSk::Matcher::Judge
       
       attr_accessor :form_code
       
@@ -66,13 +67,7 @@ module JusticeGovSk
       end
       
       def proceeding
-        proceeding = proceeding_by_file_number_factory.find_or_create(@decree.file_number)
-        
-        proceeding.file_number = @decree.file_number
-        
-        @decree.proceeding = proceeding
-          
-        @persistor.persist(proceeding) if proceeding.id.nil?
+        match_and_process_proceeding_for @decree
       end
       
       def court
@@ -89,7 +84,7 @@ module JusticeGovSk
         name = @parser.judge(@document)
         
         unless name.nil?
-          judges_similar_to(name) do |similarity, judge|
+          match_judges_by(name) do |similarity, judge|
             judgement(judge, similarity, name)
           end
         end

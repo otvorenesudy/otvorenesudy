@@ -22,7 +22,7 @@ module JusticeGovSk
         name = @parser.chair_judge(@document)
         
         unless name.nil?
-          judges_similar_to(name) do |similarity, judge|
+          match_judges_by(name) do |similarity, judge|
             judging(judge, similarity, name, true)
           end
         end
