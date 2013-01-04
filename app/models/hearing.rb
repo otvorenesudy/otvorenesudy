@@ -1,10 +1,8 @@
 class Hearing < ActiveRecord::Base
   include Resource::Storage
 
-  # TODO add page storage
-  
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+#  include Tire::Model::Search
+#  include Tire::Model::Callbacks
 
   attr_accessible :uri,
                   :case_number,
@@ -34,43 +32,47 @@ class Hearing < ActiveRecord::Base
   has_many :defendants, dependent: :destroy
 
   # TODO: add analyzers for other fields
-  settings analysis: { 
-            filter: {
-              name_ngram: {
-                'type'      => 'NGram',
-                'min_gram'  => 3,
-                'max_gram'  => 12
-              }
-            },
-            analyzer: {
-              name_analyzer: {
-                'type'      => 'custom',
-                'tokenizer' => 'standard',
-                'filter'    => %w(lowercase asciifolding name_ngram)
-              }
-            }
-  }
+#  settings analysis: { 
+#            filter: {
+#              name_ngram: {
+#                'type'      => 'NGram',
+#                'min_gram'  => 3,
+#                'max_gram'  => 12
+#              }
+#            },
+#            analyzer: {
+#              name_analyzer: {
+#                'type'      => 'custom',
+#                'tokenizer' => 'standard',
+#                'filter'    => %w(lowercase asciifolding name_ngram)
+#              }
+#            }
+#  }
 
-  mapping do
-    indexes :id
-    indexes :case_number 
-    indexes :file_number
-    indexes :date
-    indexes :room
-    indexes :special_type
-    indexes :commencement_date
+#  mapping do
+#    indexes :id
+#    indexes :case_number 
+#    indexes :file_number
+#    indexes :date
+#    indexes :room
+#    indexes :special_type
+#    indexes :commencement_date
+#
+#    indexes :type,              as: lambda { |h| h.section.value                     }
+#    indexes :subject,           as: lambda { |h| h.subject.value                     }
+#    indexes :form,              as: lambda { |h| h.form.value                        }
+#    indexes :court,             as: lambda { |h| h.court.name if court               }
+#    indexes :judges,            as: lambda { |h| h.judgings.map { |j| j.judge.name } }, 
+#                                analyzer: 'name_analyzer'
+#    indexes :proposers,         as: lambda { |h| h.proposers.map { |p| p.name }      },
+#                                analyzer: 'name_analyzer'
+#    indexes :opponents,         as: lambda { |h| h.opponents.map { |o| o.name }      },
+#                                analyzer: 'name_analyzer'
+#    indexes :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }     },
+#                                analyzer: 'name_analyzer'
+#  end
 
-    indexes :type,              as: lambda { |h| h.section.value                     }
-    indexes :subject,           as: lambda { |h| h.subject.value                     }
-    indexes :form,              as: lambda { |h| h.form.value                        }
-    indexes :court,             as: lambda { |h| h.court.name if court               }
-    indexes :judges,            as: lambda { |h| h.judgings.map { |j| j.judge.name } }, 
-                                analyzer: 'name_analyzer'
-    indexes :proposers,         as: lambda { |h| h.proposers.map { |p| p.name }      },
-                                analyzer: 'name_analyzer'
-    indexes :opponents,         as: lambda { |h| h.opponents.map { |o| o.name }      },
-                                analyzer: 'name_analyzer'
-    indexes :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }     },
-                                analyzer: 'name_analyzer'
+  storage :page, JusticeGovSk::Storage::HearingPage do |hearing|
+    File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
   end
 end

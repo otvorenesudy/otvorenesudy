@@ -20,9 +20,7 @@ module Type::Enumerable
     end
   end
   
-  module InstanceMethods
-    def name
-      self.class.values.invert[self]
-    end
+  def name
+    self.class.values.invert[self]
   end
 end

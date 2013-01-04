@@ -96,7 +96,7 @@ module JusticeGovSk
     
     # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_crawler(type, options = {})
-      inject JusticeGovSk::Crawler, implementation: type
+      inject JusticeGovSk::Crawler, implementation: type, args: options
     end      
     
     def run_lister(lister, request, options = {}, &block)
