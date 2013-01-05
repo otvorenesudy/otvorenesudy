@@ -147,7 +147,7 @@ module JusticeGovSk
       
       def normalize_email(value)
         value.split(/\,|\;/).map { |part| part.strip }.join ', '
-        end
+      end
    
         # TODO impl   
       def normalize_phone(value)
@@ -173,7 +173,7 @@ module JusticeGovSk
         times = value.ascii.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
           hour, minute = time.split(/\:/)
           "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
-        end
+      end
         
         times.each_slice(2).map { |interval| "#{interval.first} - #{interval.last}" }.join ', '
       end
@@ -208,6 +208,10 @@ module JusticeGovSk
         value.gsub!(/-/, ' - ')
         
         value.strip.squeeze(' ')
+      end
+
+      def hearing_form(value)
+        value ? value.upcase_first : nil
       end
     end
   end

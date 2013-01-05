@@ -11,7 +11,10 @@ module JusticeGovSk
             
             field       = form.field_with(name: decree_form_select_box_name) 
             field.value = request.decree_form
+            page        = form.submit
           end
+
+          page
         end
       end
     end
