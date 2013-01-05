@@ -191,8 +191,6 @@ describe JusticeGovSk do
     end
 
     it "should crawl decree" do
-      pending 'implement test for decree'
-
       @decree = Decree.first
 
       @decree.uri.should eql(DECREE_URL)
