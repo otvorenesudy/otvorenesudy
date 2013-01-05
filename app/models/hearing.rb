@@ -1,8 +1,8 @@
 class Hearing < ActiveRecord::Base
   include Resource::Storage
 
-#  include Tire::Model::Search
-#  include Tire::Model::Callbacks
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
 
   attr_accessible :uri,
                   :case_number,
