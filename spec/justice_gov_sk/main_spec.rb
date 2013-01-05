@@ -197,15 +197,15 @@ describe JusticeGovSk do
       @decree.case_number.should eql('1T/199/2012')
       @decree.file_number.should eql('7812010519')
       #TODO: @decree.date....
-      @decree.ecli.should eql('ECLI:SK:OSZA:2013:5112893534.1')
+      @decree.ecli.should eql('ECLI:SK:OSRV:2012:7812010519.1')
       @decree.text.should_not be_nil
 
       @decree.legislation_area.value.should eql('Trestné právo')
       @decree.legislation_subarea.value.should eql('Život a zdravie')
       @decree.legislation_usages.size.should eql(3)
-      @decree.legislation_usages[0].legislation.value eql('Zákon č. 300/2005, § 172, Odsek 1, Písmeno a')
-      @decree.legislation_usages[1].legislation.value eql('Zákon č. 300/2005, § 172, Odsek 1, Písmeno d')
-      @decree.legislation_usages[2].legislation.value eql('Zákon č. 313/2011 2011')
+      @decree.legislation_usages[0].legislation.value.should eql('Zákon č. 300/2005, § 172, Odsek 1, Písmeno a')
+      @decree.legislation_usages[1].legislation.value.should eql('Zákon č. 300/2005, § 172, Odsek 1, Písmeno d')
+      @decree.legislation_usages[2].legislation.value.should eql('Zákon č. 313/2011 2011')
       
       @decree.court.name.should eql('Okresný súd Rožňava')
       
