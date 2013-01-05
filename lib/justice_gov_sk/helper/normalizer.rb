@@ -56,7 +56,7 @@ module JusticeGovSk
       end
   
       def normalize_person_name(value)
-        person_name_parted(value)[:altogether]
+        partition_person_name(value)[:altogether]
       end
       
       def partition_person_name(value)
