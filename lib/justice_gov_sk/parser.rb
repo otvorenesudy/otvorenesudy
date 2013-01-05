@@ -6,6 +6,8 @@ module JusticeGovSk
     
     protected
     
+    include JusticeGovSk::Helper::Normalizer
+    
     def find_rows_by_group(name, element, group, options = {}, &block)
       group  = table_key(group)
       rows   = table_rows(element)

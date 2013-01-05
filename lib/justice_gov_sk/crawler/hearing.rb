@@ -1,11 +1,11 @@
 module JusticeGovSk
   class Crawler
     class Hearing < JusticeGovSk::Crawler
+      protected
+    
       include JusticeGovSk::Helper::JudgeMatcher
       include JusticeGovSk::Helper::ProceedingSupplier
       
-      protected
-    
       def process(request)
         super do
           uri = JusticeGovSk::Request.uri(request)

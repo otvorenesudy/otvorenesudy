@@ -3,9 +3,6 @@
 module JusticeGovSk
   class Crawler
     class Decree < JusticeGovSk::Crawler
-      include JusticeGovSk::Helper::JudgeMatcher
-      include JusticeGovSk::Helper::ProceedingSupplier
-      
       attr_accessor :form_code
       
       def initialize(options = {})
@@ -15,6 +12,9 @@ module JusticeGovSk
       end
       
       protected
+      
+      include JusticeGovSk::Helper::JudgeMatcher
+      include JusticeGovSk::Helper::ProceedingSupplier
       
       def process(request)
         super do

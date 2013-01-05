@@ -17,7 +17,7 @@ module JusticeGovSk
 
       def date(document)
         find_value_by_label 'date', document, 'Dátum vydania rozhodnutia' do |div|
-          JusticeGovSk::Normalizer.date(div.text)
+          normalize_date(div.text)
         end
       end
 
@@ -29,13 +29,13 @@ module JusticeGovSk
 
       def court(document)
         find_value_by_label 'court', document, 'Súd' do |div|
-          JusticeGovSk::Normalizer.court_name(div.search('a').first.text)
+          normalize_court_name(div.search('a').first.text)
         end
       end  
         
       def judge(document)
         find_value_by_label 'judge', document, 'Meno a priezvisko sudcu, VSÚ', verbose: false do |div|
-          JusticeGovSk::Normalizer.person_name_parted(div.search('a').first.text)
+          partition_person_name(div.search('a').first.text)
         end
       end
         
