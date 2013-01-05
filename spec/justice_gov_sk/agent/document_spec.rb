@@ -1,12 +1,10 @@
 require 'agent_spec_helper'
 
-describe JusticeGovSk::Agents::DocumentAgent do 
+describe JusticeGovSk::Agent::Document do 
   before :each do 
-    @agent = JusticeGovSk::Agents::DocumentAgent.new
-    @agent.cache_load = false
-    @agent.cache_store = true
+    @agent = JusticeGovSk::Agent::Document.new
+
     @agent.wait_time = 0
-    @agent.verbose = false
   end
 
   after :each do 
@@ -17,9 +15,9 @@ describe JusticeGovSk::Agents::DocumentAgent do
   end
   
   it "should download document for specific Decree" do
-    @request = JusticeGovSk::Requests::DocumentRequest.new
+    @request = JusticeGovSk::Request::Document.new
     
-    @request.document_format = :pdf
+    @request.format = :pdf
     @request.url = "http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail.aspx?PorCis=0374BFEA-B34C-4BB8-BC83-21DF2A3E3AFA&PojCislo=478689"
   end
 end
