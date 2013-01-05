@@ -16,3 +16,9 @@
      -moz-box-shadow: $inner inset, $outer; // Firefox 3.5 - 3.6 
           box-shadow: $inner inset, $outer; // Opera 10.5, Internet Explorer 9, Firefox 4+, Chrome 10+ 
 }
+
+@mixin box-shadow-none {
+  -webkit-box-shadow: none; // Safari 3 - 4 
+     -moz-box-shadow: none; // Firefox 3.5 - 3.6 
+          box-shadow: none; // Opera 10.5, Internet Explorer 9, Firefox 4+, Chrome 10+ 
+}

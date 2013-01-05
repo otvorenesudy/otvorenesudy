@@ -96,6 +96,7 @@ a[rel="popover"], a[rel="tooltip"] {
   &.active > a:hover,
   &.active > a:focus {
     background-color: inherit;
+    @include box-shadow-none;
   }
   
   & > a.brand {
