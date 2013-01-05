@@ -1,0 +1,32 @@
+<% provide :title, @error %>
+
+<section id="error">
+  <div class="unicorn centered">
+    <img src="<%= asset_path('unicorn.png') %>" alt="Jednorožec" />
+  </div>
+
+  <div class="page-header centered">
+    <h1>
+      <span class="text-error">Ups, rozzúrili ste jednorožca!</span>
+      <br/>
+      <small><%= @description %></small>
+    </h1>
+  </div>
+</section>
+
+<% if nil && Rails.env.development? %>
+  <section id="traces">
+    <div class="page-header">
+      <h1>
+        <%= @status %>
+        <small><%= @message %></small>
+      </h1>
+    </div>
+    
+    <div class="row">
+      <div class="span12">
+        <%= trace @trace %>
+      </div>
+    </div>
+  </section>  
+<% end %>

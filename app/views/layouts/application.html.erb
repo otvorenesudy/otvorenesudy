@@ -18,7 +18,7 @@
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
-    <%= render 'layouts/debug' if nil && Rails.env.development? %>
+    <%= render 'layouts/debug' if Rails.env.development? %>
     <%= render 'shared/shim' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>

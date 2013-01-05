@@ -1,11 +1,11 @@
 Otvorenesudy::Application.routes.draw do
-  root :to => 'static_pages#home'
+  root to: 'static_pages#home'
   
-  match '/about',   :to => 'static_pages#about'
-  match '/contact', :to => 'static_pages#contact'
-  match '/home',    :to => 'static_pages#home'
-  match '/stats',   :to => 'static_pages#stats'
-
+  match '/about',   to: 'static_pages#about'
+  match '/contact', to: 'static_pages#contact'
+  match '/home',    to: 'static_pages#home'
+  match '/stats',   to: 'static_pages#stats'
+  
   resources :courts do
      get :map, on: :collection
   end
@@ -15,8 +15,11 @@ Otvorenesudy::Application.routes.draw do
   resources :hearings
   
   resources :decrees
-
-  mount Resque::Server.new, :at => '/resque'
+  
+  match '/404', to: 'errors#show'
+  match '/500', to: 'errors#show'
+  
+  mount Resque::Server.new, at: '/resque'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

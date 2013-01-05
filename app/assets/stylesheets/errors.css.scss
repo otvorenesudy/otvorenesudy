@@ -1,0 +1,12 @@
+@import 'variables';
+
+#error {
+  .page-header {
+    border-bottom: 1px solid $bodyBackground;
+  }
+  
+  .unicorn {
+    margin-top: 80px;
+    margin-bottom: 60px;
+  }
+}
