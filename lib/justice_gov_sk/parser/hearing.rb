@@ -67,7 +67,7 @@ module JusticeGovSk
       
       def form(document)
         find_value_by_label 'form', document, 'Forma úkonu' do |div|
-          JusticeGovSk::Normalizer.hearing_form(div.text.strip)
+          hearing_form(div.text.strip)
         end
       end
     end
