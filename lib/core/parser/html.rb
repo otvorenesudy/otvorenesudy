@@ -1,6 +1,7 @@
 module Core
   module Parser
     module HTML
+      include Core::Output
       include Core::Parser
       
       def parse(content)
