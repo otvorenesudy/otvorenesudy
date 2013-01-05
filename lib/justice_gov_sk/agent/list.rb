@@ -3,7 +3,7 @@ module JusticeGovSk
     class List < JusticeGovSk::Agent
       def download(request)
         super(request) do |page|
-          yield page if block_given? 
+          page = yield page if block_given? 
 
           form, fields = form_and_fields(page, form_name)
 
