@@ -1,6 +1,6 @@
 module JusticeGovSk
-  module Matcher
-    module Judge
+  module Helper
+    module JudgeMatcher
       include Core::Pluralize
       
       def match_judges_by(name)

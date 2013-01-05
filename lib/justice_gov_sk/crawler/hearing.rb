@@ -1,8 +1,8 @@
 module JusticeGovSk
   class Crawler
     class Hearing < JusticeGovSk::Crawler
-      include JusticeGovSk::Matcher::Proceeding
-      include JusticeGovSk::Matcher::Judge
+      include JusticeGovSk::Helper::JudgeMatcher
+      include JusticeGovSk::Helper::ProceedingSupplier
       
       protected
     
@@ -20,7 +20,8 @@ module JusticeGovSk
           @hearing.room        = @parser.room(@document)
           @hearing.note        = @parser.note(@document)
         
-          proceeding
+          supply_proceeding_for @hearing
+          
           court
           
           section
@@ -29,10 +30,6 @@ module JusticeGovSk
           
           yield
         end
-      end
-      
-      def proceeding
-        match_and_process_proceeding_for @hearing
       end
       
       def court

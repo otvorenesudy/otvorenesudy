@@ -3,8 +3,8 @@
 module JusticeGovSk
   class Crawler
     class Decree < JusticeGovSk::Crawler
-      include JusticeGovSk::Matcher::Proceeding
-      include JusticeGovSk::Matcher::Judge
+      include JusticeGovSk::Helper::JudgeMatcher
+      include JusticeGovSk::Helper::ProceedingSupplier
       
       attr_accessor :form_code
       
@@ -30,7 +30,7 @@ module JusticeGovSk
           @decree.date        = @parser.date(@document)
           @decree.ecli        = @parser.ecli(@document)
           
-          proceeding
+          supply_proceeding_for @decree
           
           court
           judge
@@ -64,10 +64,6 @@ module JusticeGovSk
         puts "done (#{text.length} chars)"
         
         text
-      end
-      
-      def proceeding
-        match_and_process_proceeding_for @decree
       end
       
       def court
