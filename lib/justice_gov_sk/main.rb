@@ -19,6 +19,8 @@
 
 module JusticeGovSk
   module Main
+    include Core::Output
+    
     # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
     def download_pages(type, options = {})
       offset = options[:offset].blank? ? 1 : options[:offset].to_i
