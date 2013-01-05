@@ -20,7 +20,7 @@ module JusticeGovSk
           end
 
           if mark && div[:class] == 'hodnota'
-            names << JusticeGovSk::Normalizer.punctuation(div.text)
+            names << normalize_punctuation(div.text)
           end
         end
         
@@ -37,7 +37,7 @@ module JusticeGovSk
           end
 
           if mark && div[:class] == 'hodnota'
-            names << JusticeGovSk::Normalizer.punctuation(div.text)
+            names << normalize_punctuation(div.text)
           end
         end
         

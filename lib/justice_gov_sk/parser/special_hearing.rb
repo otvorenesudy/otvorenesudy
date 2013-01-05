@@ -5,7 +5,7 @@ module JusticeGovSk
     class SpecialHearing < JusticeGovSk::Parser::Hearing
       def commencement_date(document)
         find_value_by_label 'commencement date', document, 'Dátum započatia' do |div|
-          JusticeGovSk::Normalizer.datetime(div.text)
+          normalize_datetime(div.text)
         end
       end
       
@@ -21,13 +21,13 @@ module JusticeGovSk
 
       def chair_judge(document)
         find_value_by_label 'chair judge', document, 'Predseda senátu', verbose: false do |div|
-          JusticeGovSk::Normalizer.person_name_parted(div.text)
+          partition_person_name(div.text)
         end
       end
       
       def defendant(document)
         find_value_by_label 'defendant', document, 'Obžalovaný/á' do |div|
-          JusticeGovSk::Normalizer.punctuation(div.text)
+          normalize_punctuation(div.text)
         end
       end
     end

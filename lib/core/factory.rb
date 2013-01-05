@@ -24,7 +24,7 @@ module Core
     end
     
     def find(*args)
-      print "Finding #{@type.name} by #{args.join ', '} ... "
+      print "Finding #{@type.name} by #{args.flatten(1).map { |arg| arg || '?' }.join ', '} ... "
   
       instance = call @find_block, *args
       

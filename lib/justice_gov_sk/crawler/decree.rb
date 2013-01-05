@@ -3,8 +3,6 @@
 module JusticeGovSk
   class Crawler
     class Decree < JusticeGovSk::Crawler
-      include JudgeMatcher
-      
       attr_accessor :form_code
       
       def initialize(options = {})
@@ -14,6 +12,9 @@ module JusticeGovSk
       end
       
       protected
+      
+      include JusticeGovSk::Helper::JudgeMatcher
+      include JusticeGovSk::Helper::ProceedingSupplier
       
       def process(request)
         super do
@@ -29,7 +30,7 @@ module JusticeGovSk
           @decree.date        = @parser.date(@document)
           @decree.ecli        = @parser.ecli(@document)
           
-          proceeding
+          supply_proceeding_for @decree
           
           court
           judge
@@ -65,31 +66,17 @@ module JusticeGovSk
         text
       end
       
-      def proceeding
-        proceeding = proceeding_by_file_number_factory.find_or_create(@decree.file_number)
-        
-        proceeding.file_number = @decree.file_number
-        
-        @decree.proceeding = proceeding
-          
-        @persistor.persist(proceeding) if proceeding.id.nil?
-      end
-      
       def court
         name = @parser.court(@document)
         
-        unless name.nil?
-          court = court_by_name_factory.find(name)
-          
-          @decree.court = court
-        end
+        @decree.court = court_by_name_factory.find(name) unless name.nil?
       end
       
       def judge
         name = @parser.judge(@document)
         
         unless name.nil?
-          judges_similar_to(name) do |similarity, judge|
+          match_judges_by(name) do |similarity, judge|
             judgement(judge, similarity, name)
           end
         end
@@ -98,11 +85,9 @@ module JusticeGovSk
       def form
         raise "Decree form code not set" if @form_code.nil?
         
-        form = decree_form_by_code_factory.find(@form_code)
+        @decree.form = decree_form_by_code_factory.find(@form_code)
         
-        raise "Decree form not found" if form.nil?
-        
-        @decree.form = form
+        raise "Decree form not found" if @decree.form.nil?
       end
       
       def nature

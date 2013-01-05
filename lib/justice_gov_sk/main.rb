@@ -13,6 +13,10 @@
 # also consider storage/page/decree.rb vs. storage/decree_page.rb 
 # or remove _page suffix from storages? and leave only _document (and _list)
 
+# TODO add InstanceSupplier + InstanceWithJustValueSupplier
+# (useful for creating / finding = processing: DecreeNature, HearingSection,
+# HearingSubject, ...) => benefit: much more simplified crawlers :)
+
 module JusticeGovSk
   module Main
     # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree

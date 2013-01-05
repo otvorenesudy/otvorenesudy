@@ -1,10 +1,11 @@
 module JusticeGovSk
   class Crawler
     class Hearing < JusticeGovSk::Crawler
-      include JudgeMatcher
-      
       protected
     
+      include JusticeGovSk::Helper::JudgeMatcher
+      include JusticeGovSk::Helper::ProceedingSupplier
+      
       def process(request)
         super do
           uri = JusticeGovSk::Request.uri(request)
@@ -19,7 +20,8 @@ module JusticeGovSk
           @hearing.room        = @parser.room(@document)
           @hearing.note        = @parser.note(@document)
         
-          proceeding
+          supply_proceeding_for @hearing
+          
           court
           
           section
@@ -30,24 +32,10 @@ module JusticeGovSk
         end
       end
       
-      def proceeding
-        proceeding = proceeding_by_file_number_factory.find_or_create(@hearing.file_number)
-        
-        proceeding.file_number = @hearing.file_number
-          
-        @hearing.proceeding = proceeding
-          
-        @persistor.persist(proceeding) if proceeding.id.nil?
-      end
-      
       def court
         name = @parser.court(@document)
         
-        unless name.nil?
-          court = court_by_name_factory.find(name)
-          
-          @hearing.court = court
-        end
+        @hearing.court = court_by_name_factory.find(name) unless name.nil?
       end
       
       def judges
@@ -57,7 +45,7 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'judge'}."
           
           names.each do |name|
-            judges_similar_to(name) do |similarity, judge|
+            match_judges_by(name) do |similarity, judge|
               judging(judge, similarity, name, false)
             end
           end
