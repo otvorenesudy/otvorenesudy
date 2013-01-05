@@ -209,10 +209,6 @@ module JusticeGovSk
         
         value.strip.squeeze(' ')
       end
-
-      def hearing_form(value)
-        value ? value.upcase_first : nil
-      end
     end
   end
 end

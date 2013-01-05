@@ -67,7 +67,7 @@ module JusticeGovSk
       
       def form(document)
         find_value_by_label 'form', document, 'Forma úkonu' do |div|
-          hearing_form(div.text.strip)
+          div.text.strip.upcase_first
         end
       end
     end
