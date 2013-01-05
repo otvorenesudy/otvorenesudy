@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'justice_gov_sk/configuration'
 require 'justice_gov_sk/url'
 require 'justice_gov_sk/storage'
