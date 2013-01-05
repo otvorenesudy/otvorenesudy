@@ -148,7 +148,7 @@ module JusticeGovSk
     
     def self.email(value)
       value.split(/\,|\;/).map { |part| part.strip }.join ', '
-      end
+    end
  
       # TODO impl   
     def self.phone(value)
@@ -209,6 +209,10 @@ module JusticeGovSk
       value.gsub!(/-/, ' - ')
       
       value.strip.squeeze(' ')
+    end
+
+    def self.hearing_form(value)
+      value ? value.upcase_first : nil
     end
   end
 end
