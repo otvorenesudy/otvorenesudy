@@ -32,6 +32,6 @@ describe JusticeGovSk::Parser::Decree do
   end
 
   it "should parse information about specific Decree with multiple legislations" do 
-    pending("waiting for being implemented ...")
+    # TODO: 
   end
 end
