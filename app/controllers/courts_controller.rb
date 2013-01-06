@@ -1,7 +1,6 @@
 class CourtsController < ApplicationController
   include CourtsHelper
   
-  # TODO refactor, use CourtType.constant instead of strings
   def index
     @constitutional = Court.by_type(CourtType.constitutional).first
     @highest        = Court.by_type(CourtType.highest).first

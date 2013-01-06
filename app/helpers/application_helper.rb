@@ -4,10 +4,8 @@ module ApplicationHelper
   def title(title = nil)
     base = "Otvorené súdy"
 
-    if title.blank?
-      base
-    else
-      "#{html_escape title} &middot; #{base}".html_safe
-    end
+    return base if title.blank?
+
+    "#{html_escape title} &middot; #{base}".html_safe
   end
 end
