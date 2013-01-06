@@ -21,6 +21,7 @@ module Otvorenesudy
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Sets exceptions application routing, allows custom error handling.
     config.exceptions_app = self.routes
 
     # Custom directories with classes and modules you want to be autoloadable.
