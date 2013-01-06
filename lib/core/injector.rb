@@ -7,7 +7,7 @@ module Core
     private
     
     def resolve(base, options = {})
-      base  = base.to_s.constantize
+      base = base.to_s.constantize
       
       words = []
       words << options[:prefix] unless options[:prefix].blank?

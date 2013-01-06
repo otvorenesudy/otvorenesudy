@@ -18,7 +18,7 @@ module JusticeGovSk
             puts matched_judges 1.0, exact
             
             exact.each do |judge|
-              yield 1, judge
+              yield 1.0, judge
             end
           else
             puts "done (approximate match)"

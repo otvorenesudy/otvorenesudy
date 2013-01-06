@@ -173,7 +173,7 @@ module JusticeGovSk
         times = value.ascii.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
           hour, minute = time.split(/\:/)
           "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
-      end
+        end
         
         times.each_slice(2).map { |interval| "#{interval.first} - #{interval.last}" }.join ', '
       end
