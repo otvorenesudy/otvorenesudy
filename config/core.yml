@@ -1,5 +1,8 @@
 development:
+  # Cache root path 
   cache: 'tmp/cache'
+  
+  # Verbose output
   verbose: true
 
 test:
