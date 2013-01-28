@@ -57,9 +57,9 @@ require 'justice_gov_sk/crawler/decree'
 require 'justice_gov_sk/crawler/decree_list'
 require 'justice_gov_sk/job/crawler'
 require 'justice_gov_sk/job/list_crawler'
-require 'justice_gov_sk/main'
+require 'justice_gov_sk/base'
 require 'justice_gov_sk/version'
 
 module JusticeGovSk
-  extend JusticeGovSk::Main
+  extend JusticeGovSk::Base
 end

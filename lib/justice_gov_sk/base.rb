@@ -18,7 +18,7 @@
 # HearingSubject, ...) => benefit: much more simplified crawlers :)
 
 module JusticeGovSk
-  module Main
+  module Base
     include Core::Output
     
     # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
