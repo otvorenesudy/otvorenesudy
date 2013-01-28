@@ -1,3 +1,5 @@
+# TODO find more common super type for HTML and JSON parser, consider Support module? 
+
 module Core
   module Parser
     module HTML
@@ -7,7 +9,7 @@ module Core
       def parse(content)
         clear if self.respond_to? :clear
         
-        print "Parsing resource ... "
+        print "Parsing content ... "
         
         if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
           puts "done (already parsed)"

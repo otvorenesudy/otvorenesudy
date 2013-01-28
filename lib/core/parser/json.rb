@@ -5,7 +5,9 @@ module Core
       include Core::Parser
       
       def parse(content)
-        ActiveSupport::JSON.decode(content)
+        super do
+          ActiveSupport::JSON.decode(content)
+        end
       end
       
       protected
