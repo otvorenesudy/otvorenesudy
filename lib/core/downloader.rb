@@ -103,7 +103,7 @@ module Core
         print "Loading #{storage.fullpath path} ... "
         
         if storage.contains? path
-          if storage.loadable? path
+          if storage.readable? path
             unless storage.expired? path
               content = storage.load path
               

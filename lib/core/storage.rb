@@ -6,7 +6,7 @@ module Core
       File.exists? fullpath(path)
     end
     
-    def loadable?(path)
+    def readable?(path)
       File.readable? fullpath(path)
     end
     
