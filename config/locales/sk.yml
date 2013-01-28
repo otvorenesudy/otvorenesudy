@@ -10,8 +10,3 @@ sk:
       bad_request:
         title: "Chybná požiadavka"
         description: "Server nerozumel vašej požiadavke. Mohla byť poškodená."
-
-  súd:
-    one: "súd"
-    few: "sudy"
-    other: "súdov"
