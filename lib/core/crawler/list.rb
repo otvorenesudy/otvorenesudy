@@ -1,6 +1,8 @@
 module Core
   module Crawler
     module List
+      include Core::Crawler
+      include Core::Output
       include Core::Pluralize
       
       attr_reader :per_page,
