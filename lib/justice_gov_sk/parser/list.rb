@@ -1,7 +1,7 @@
 module JusticeGovSk
   class Parser
     class List < JusticeGovSk::Parser
-      include JusticeGovSk::Parser::List
+      include Core::Parser::List
       
       def list(document)
         find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|
