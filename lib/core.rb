@@ -1,4 +1,5 @@
 require 'active_support/inflector'
+require 'active_support/json'
 require 'active_support/multibyte'
 
 require 'ruby/string'
@@ -29,6 +30,7 @@ require 'core/factory/supplier'
 require 'core/factories'
 require 'core/parser'
 require 'core/parser/html'
+require 'core/parser/json'
 require 'core/persistor'
 require 'core/crawler'
 require 'core/crawler/list'
