@@ -9,10 +9,6 @@ module Core
         @root ||= Core::Configuration.cache
       end
       
-      def valid?(path)
-        !expired?
-      end
-      
       def expired?(path)
         (Time.now - File.ctime(fullpath(path))) >= @expire_time unless @expire_time.nil?
       end
