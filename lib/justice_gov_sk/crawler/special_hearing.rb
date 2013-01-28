@@ -37,7 +37,7 @@ module JusticeGovSk
           defendant.hearing = @hearing
           defendant.name    = name
           
-          @persistor.persist(defendant) if defendant.id.nil?
+          @persistor.persist(defendant)
         end
       end
     end

@@ -47,7 +47,7 @@ module JusticeGovSk
           
           type.value = value
           
-          @persistor.persist(type) if type.id.nil?
+          @persistor.persist(type)
           
           @court.type = type          
         end
@@ -63,7 +63,7 @@ module JusticeGovSk
           municipality.name    = name
           municipality.zipcode = zipcode
           
-          @persistor.persist(municipality) if municipality.id.nil?
+          @persistor.persist(municipality)
           
           @court.municipality = municipality
         end

@@ -60,7 +60,7 @@ module JusticeGovSk
           
           section.value = value
           
-          @persistor.persist(section) if section.id.nil?
+          @persistor.persist(section)
           
           @hearing.section = section
         end
@@ -74,7 +74,7 @@ module JusticeGovSk
           
           subject.value = value
           
-          @persistor.persist(subject) if subject.id.nil?
+          @persistor.persist(subject)
           
           @hearing.subject = subject
         end
@@ -88,7 +88,7 @@ module JusticeGovSk
           
           form.value = value
           
-          @persistor.persist(form) if form.id.nil?
+          @persistor.persist(form)
           
           @hearing.form = form          
         end
@@ -106,7 +106,7 @@ module JusticeGovSk
 
         judging.hearing = @hearing
         
-        @persistor.persist(judging) if judging.id.nil?
+        @persistor.persist(judging)
       end
     end
   end

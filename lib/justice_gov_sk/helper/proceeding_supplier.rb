@@ -3,7 +3,7 @@ module JusticeGovSk
     module ProceedingSupplier
       def supply_proceeding_for(instance)
         build_proceeding_by(instance.file_number) do |proceeding|
-          persistor.persist(proceeding) if proceeding.id.nil?
+          persistor.persist(proceeding)
           
           instance.proceeding = proceeding
         end

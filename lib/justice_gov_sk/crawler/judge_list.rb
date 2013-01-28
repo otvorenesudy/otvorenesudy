@@ -39,7 +39,7 @@ module JusticeGovSk
           judge.suffix   = name[:suffix]
           judge.addition = name[:addition]
           
-          @persistor.persist(judge) if judge.id.nil?
+          @persistor.persist(judge)
           
           judge
         end
@@ -53,7 +53,7 @@ module JusticeGovSk
           
           judge_position.value = value
           
-          @persistor.persist(judge_position) if judge_position.id.nil?
+          @persistor.persist(judge_position)
           
           judge_position
         end
@@ -68,7 +68,7 @@ module JusticeGovSk
         employment.active         = data[:active]
         employment.note           = data[:note]
 
-        @persistor.persist(employment) if employment.id.nil?
+        @persistor.persist(employment)
         
         employment
       end

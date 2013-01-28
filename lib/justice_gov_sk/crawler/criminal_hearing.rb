@@ -27,7 +27,7 @@ module JusticeGovSk
             defendant.hearing = @hearing
             defendant.name    = name
             
-            @persistor.persist(defendant) if defendant.id.nil?
+            @persistor.persist(defendant)
             
             accusations(defendant, values)
           end
@@ -46,7 +46,7 @@ module JusticeGovSk
             accusation.defendant = defendant
             accusation.value     = value
               
-            @persistor.persist(accusation) if accusation.id.nil?
+            @persistor.persist(accusation)
           end         
         end
       end

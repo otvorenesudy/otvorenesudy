@@ -30,7 +30,7 @@ module JusticeGovSk
             proposer.hearing = @hearing
             proposer.name    = name
             
-            @persistor.persist(proposer) if proposer.id.nil?
+            @persistor.persist(proposer)
           end
         end
       end
@@ -47,7 +47,7 @@ module JusticeGovSk
             opponent.hearing = @hearing
             opponent.name    = name
             
-            @persistor.persist(opponent) if opponent.id.nil?
+            @persistor.persist(opponent)
           end
         end
       end

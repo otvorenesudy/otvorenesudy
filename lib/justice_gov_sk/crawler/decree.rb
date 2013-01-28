@@ -98,7 +98,7 @@ module JusticeGovSk
           
           nature.value = value
           
-          @persistor.persist(nature) if nature.id.nil?
+          @persistor.persist(nature)
           
           @decree.nature = nature          
         end
@@ -112,7 +112,7 @@ module JusticeGovSk
           
           legislation_area.value = value
           
-          @persistor.persist(legislation_area) if legislation_area.id.nil?
+          @persistor.persist(legislation_area)
           
           @decree.legislation_area = legislation_area          
         end
@@ -129,7 +129,7 @@ module JusticeGovSk
           legislation_subarea.area  = @decree.legislation_area
           legislation_subarea.value = value
           
-          @persistor.persist(legislation_subarea) if legislation_subarea.id.nil?
+          @persistor.persist(legislation_subarea)
           
           @decree.legislation_subarea = legislation_subarea          
         end
@@ -159,7 +159,7 @@ module JusticeGovSk
               legislation.section   = identifiers[:section]
               legislation.letter    = identifiers[:letter]
               
-              @persistor.persist(legislation) if legislation.id.nil?
+              @persistor.persist(legislation)
               
               legislation_usage(legislation)
             end
@@ -178,7 +178,7 @@ module JusticeGovSk
 
         judgement.decree = @decree
         
-        @persistor.persist(judgement) if judgement.id.nil?
+        @persistor.persist(judgement)
       end
       
       def legislation_usage(legislation)
@@ -187,7 +187,7 @@ module JusticeGovSk
         legislation_usage.legislation = legislation
         legislation_usage.decree      = @decree
         
-        @persistor.persist(legislation_usage) if legislation_usage.id.nil?
+        @persistor.persist(legislation_usage)
       end
     end
   end
