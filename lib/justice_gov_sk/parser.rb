@@ -70,7 +70,7 @@ module JusticeGovSk
       find_value name, rows[index], '', options, &block
     end
     
-    def clear_caches
+    def clear
       @table_rows   = nil
       @table_values = nil
     end

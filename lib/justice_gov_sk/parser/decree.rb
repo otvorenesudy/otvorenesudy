@@ -97,7 +97,7 @@ module JusticeGovSk
       
       protected
       
-      def clear_caches
+      def clear
         super
         
         @legislation_area_and_subarea = nil

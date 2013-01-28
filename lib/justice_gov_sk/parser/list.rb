@@ -36,7 +36,7 @@ module JusticeGovSk
       
       protected
       
-      def clear_caches
+      def clear
         @page  = nil
         @pages = nil
       end

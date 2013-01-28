@@ -103,7 +103,7 @@ module JusticeGovSk
       
       protected
       
-      def clear_caches
+      def clear
         super
         
         @name         = nil

@@ -5,7 +5,7 @@ module Core
       include Core::Parser
       
       def parse(content)
-        clear_caches if self.respond_to? :clear_caches
+        clear if self.respond_to? :clear
         
         print "Parsing resource ... "
         

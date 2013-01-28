@@ -46,7 +46,7 @@ module JusticeGovSk
       
       protected
       
-      def clear_caches
+      def clear
         super
         
         @participants = nil
