@@ -1,4 +1,4 @@
-Otvorenesudy::Application.routes.draw do
+OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
   
   match '/about',   to: 'static_pages#about'

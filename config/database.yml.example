@@ -1,10 +1,10 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: otvorenesudy_development
+  database: opencourts_development
   pool: 5
-  username: otvorenesudy
-  password: otvorenesudy
+  username: opencourts
+  password: opencourts
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -12,15 +12,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: otvorenesudy_test
+  database: opencourts_test
   pool: 5
-  username: otvorenesudy
-  password: otvorenesudy 
+  username: opencourts
+  password: opencourts 
   
 production:
   adapter: postgresql
   encoding: unicode
-  database: otvorenesudy_production
+  database: opencourts_production
   pool: 5
-  username: otvorenesudy
-  password: otvorenesudy
+  username: opencourts
+  password: opencourts

@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-Otvorenesudy::Application.config.session_store :cookie_store, key: '_otvorenesudy_session'
+OpenCourts::Application.config.session_store :cookie_store, key: '_opencourts_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# Otvorenesudy::Application.config.session_store :active_record_store
+# OpenCourts::Application.config.session_store :active_record_store

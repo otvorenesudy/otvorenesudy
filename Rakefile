@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Otvorenesudy::Application.load_tasks
+OpenCourts::Application.load_tasks
