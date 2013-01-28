@@ -1,8 +1,8 @@
-# encoding: utf-8
-
 module JusticeGovSk
   class Parser
     class List < JusticeGovSk::Parser
+      include JusticeGovSk::Parser::List
+      
       def list(document)
         find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|
           anchors.map { |a| "#{JusticeGovSk::URL.base}#{a[:href]}" }
@@ -25,13 +25,6 @@ module JusticeGovSk
         find_value 'per page', document, 'tr.CssPager select:last-child option[selected="selected"]' do |option|
           option.text.to_i
         end
-      end
-    
-      def next_page(document)
-        k = page(document)
-        n = pages(document)
-        
-        k + 1 if k && n && k < n
       end
       
       protected
