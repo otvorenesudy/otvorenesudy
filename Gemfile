@@ -39,6 +39,7 @@ gem 'settingslogic'
 gem 'json'
 gem 'nokogiri'
 
+gem 'colored',     '~> 1.2'
 gem 'curb',        '>= 0.8.3'
 gem 'mechanize',   '~> 2.5.1'
 gem 'murmurhash3', '>= 0.1.3'
