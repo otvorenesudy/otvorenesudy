@@ -10,8 +10,8 @@ gem 'pg_search'
 gem 'tire'
 
 # styles
-gem 'bootstrap-sass'
-gem 'font-awesome-sass-rails'
+gem 'bootstrap-sass',          '~> 2.2.2.0'
+gem 'font-awesome-sass-rails', '~> 3.0.0.1'
 
 # scripts
 gem 'coffee-script'
@@ -20,15 +20,15 @@ gem 'rails-timeago'
 gem 'execjs'
 
 # pagination
-gem 'kaminari'
-gem 'kaminari-bootstrap'
+gem 'kaminari',           '~> 0.14.1'
+gem 'kaminari-bootstrap', '~> 0.1.3'
 
 # TODO use or rm
 #gem 'highcharts-rails', '~> 2.3.0'
 #gem 'mootools-rails',   '~> 1.0.1'
 
 # maps
-gem 'gmaps4rails'
+gem 'gmaps4rails', '~> 1.5.6'
 
 # localization
 gem 'rails-i18n'
@@ -39,10 +39,10 @@ gem 'settingslogic'
 gem 'json'
 gem 'nokogiri'
 
-gem 'curb'
-gem 'mechanize'
-gem 'murmurhash3'
-gem 'docsplit'
+gem 'curb',        '>= 0.8.3'
+gem 'mechanize',   '~> 2.5.1'
+gem 'murmurhash3', '>= 0.1.3'
+gem 'docsplit',    '~> 0.6.4'
 
 # background jobs
 gem 'resque'
@@ -57,6 +57,6 @@ group :assets do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 2.0'
-  gem 'database_cleaner'
+  gem 'rspec-rails',      '~> 2.0'
+  gem 'database_cleaner', '~> 0.9.1'
 end
