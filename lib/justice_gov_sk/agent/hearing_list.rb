@@ -10,7 +10,7 @@ module JusticeGovSk
             checkboxes = form.checkboxes.map(&:name)
             include_old_hearings_checkbox_name = checkboxes.find { |f| f.match(/\A.+StarsiePojednavania\z/) }
             
-            form.checkbox_with(:name => include_old_hearings_checkbox_name).check
+            form.checkbox_with(name: include_old_hearings_checkbox_name).check
             
             page = form.submit
           end

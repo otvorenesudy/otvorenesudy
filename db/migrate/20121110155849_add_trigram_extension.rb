@@ -1,5 +1,3 @@
-# TODO rm?
-
 class AddTrigramExtension < ActiveRecord::Migration
   def up
     execute "CREATE EXTENSION pg_trgm"
