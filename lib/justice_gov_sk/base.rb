@@ -108,29 +108,7 @@ module JusticeGovSk
     def run_lister(lister, request, options = {}, &block)
       offset = options[:offset].blank? ? 1 : options[:offset].to_i
       limit  = options[:limit].blank? ? nil : options[:limit].to_i
-      
-      _, type = *request.class.name.match(/JusticeGovSk::Request::(.+)List/)
-      
-      type = type.constantize
-      
-      # TODO refactor
-      if type == Judge
-        raise "Unable to use block" if block_given?
-        
-        block = lambda do
-          lister.crawl(request, offset, limit)
-        end
-      else
-        unless block_given?
-          crawler = build_crawler type, options
-          
-          block = lambda do
-            lister.crawl(request, offset, limit) do |url|
-              run_crawler crawler, url, options
-            end
-          end
-        end
-      end
+      block  = lambda { lister.crawl request, offset, limit } unless block_given?
       
       call block, options
     end
