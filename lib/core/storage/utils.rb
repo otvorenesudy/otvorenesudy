@@ -1,102 +1,165 @@
-# TODO refactor
-
 module Core
   module Storage
     module Utils
-      def self.distribute(src, dst, options = {})
-        verbose = options[:verbose] || false 
+      extend Core::Output
+      extend self
+      
+      def build(root, *flags)
+        Class.new {
+          include Core::Storage
+          include Core::Storage::Distributed if flags.include? :distributed
+          include Core::Storage::Textual     if flags.include? :textual
+          
+          def initialize(root)
+            @root = root
+          end
+        }.new(root)
+      end
+      
+      def distribute(src, dst, options = {})
+        verbose = get options, :verbose, default: false
+        batch   = get options, :batch,   default: 1000
+        
+        src = build src
+        dst = build dst, :distributed
         
         i = 0
         
-        Dir.foreach(src) do |f|
-          next if f.start_with? '.' 
+        src.each do |p|
+          b = dst.bucket(p)
+          s = File.join src.root, p
+          d = File.join dst.root, b, p
           
-          b = Storage.bucket f
-          s = File.join src, f
-          d = File.join dst, b, f
-          
-          FileUtils.mkpath File.join(dst, b) unless Dir.exists? File.join(dst, b)
+          FileUtils.mkpath File.join(dst.root, b)
           
           puts "#{i} cp #{s} -> #{d}" if verbose
           
           FileUtils.cp s, d
           i += 1
           
-          puts "#{i}" if !verbose && i % 1000 == 0
+          puts "#{i}" if !verbose && batch && i % batch == 0
         end
         
-        puts "finished"
+        puts "finished" if verbose
       end
       
-      def self.merge(src, dst, options = {})
-        verbose = options[:verbose] || false
+      def merge(src, dst, options = {})
+        verbose = get options, :verbose, default: false
+        batch   = get options, :batch,   default: 1000
+
+        src = build src, :distributed
+        dst = build dst
         
-        FileUtils.mkpath dst unless Dir.exists? dst
-    
+        FileUtils.mkpath dst.root
+        
         i = 0
         
-        Dir.foreach(src) do |b|
-          next if b.start_with?('.') || !Dir.exists?(File.join src, b)
+        src.each do |p, b|
+          s = File.join src.root, b, p
+          d = File.join dst.root, p
           
-          Dir.foreach(File.join src, b) do |f|
-            next if f.start_with? '.'
-            
-            s = File.join src, b, f
-            d = File.join dst, f
-            
-            puts "#{i} cp #{s} -> #{d}" if verbose
-    
-            FileUtils.cp s, d
-            i += 1
-            
-            puts "#{i}" if !verbose && i % 1000 == 0
-          end
+          puts "#{i} cp #{s} -> #{d}" if verbose
+          
+          FileUtils.cp s, d
+          i += 1
+          
+          puts "#{i}" if !verbose && batch && i % batch == 0
         end
         
-        puts "finished"
+        puts "finished" if verbose
+      end
+      
+      def validate(src, options = {})
+        verbose = get options, :verbose, default: false
+        batch   = get options, :batch,   default: 1000
+        
+        src = build src, :distributed
+        dst = build "#{src.root}-#{options[:invalid] || :invalid}"
+        
+        i = 0
+        
+        src.each do |p, b|
+          s = File.join src.root, b, p
+          
+          i += 1
+          
+          puts "#{i} #{s}" if verbose
+          
+          unless yield s
+            d = File.join dst.root, b, p
+            
+            puts "#{i} mv #{s} -> #{d} invalid !"
+            
+            FileUtils.mkpath(File.dirname d)
+            FileUtils.mv s, d
+          end
+          
+          puts "#{i}" if !verbose && batch && i % batch == 0
+        end
+        
+        puts "finished" if verbose
       end
 
-      # TODO add / use options      
-      def self.stat(src, options = {})
-        buckets = {}
+      def stat(src, options = {})
+        verbose = get options, :verbose, default: true
         
-        Dir.foreach(src) do |b|
-          next if b.start_with?('.') || !Dir.exists?(File.join src, b)
-          
-          buckets[b] = -2
-          
-          Dir.foreach(File.join src, b) { buckets[b] += 1 }
-        end
+        src     = build src, :distributed
+        buckets = Hash.new 0
         
-        min = nil
-        max = nil
-        sum = 0
+        src.each { |_, b| buckets[b] += 1 }
+        
+        min, max, sum = nil, nil, 0
         
         buckets.each do |b, c|
-          min = c if min.nil? || min > c
-          max = c if max.nil? || max < c
-          
+          min  = c if min.nil? || min > c
+          max  = c if max.nil? || max < c
           sum += c
         end
         
         avg = (sum / buckets.count).to_i
-    
-        puts "--"
-    
-        buckets.sort.each do |b, c|
-          d = c - avg
+        
+        if verbose
+          puts "--"
           
-          puts "#{b}  #{'%8d' % c} #{'%8d' % d.abs}#{d < 0 ? '-' : (d == 0 ? '' : '+')}"
+          buckets.sort.each do |b, c|
+            puts "#{b}  #{'%8d' % c} #{delta c - avg}"
+          end
+          
+          puts "--"
+          puts "sum #{'%8d' % sum}"
+          puts "min #{'%8d' % min} #{delta min - avg}"
+          puts "avg #{'%8d' % avg} #{delta 0}"
+          puts "max #{'%8d' % max} #{delta max - avg}"
+          puts "--"
+        else
+          puts sum
         end
-        
-        mind, maxd = min - avg, max - avg 
-        
-        puts "--"
-        puts "sum #{'%8d' % sum}"
-        puts "min #{'%8d' % min} #{'%8d' % mind.abs}#{mind < 0 ? '-' : (mind == 0 ? '' : '+')}"
-        puts "avg #{'%8d' % avg} #{'%8d' % 0}"
-        puts "max #{'%8d' % max} #{'%8d' % maxd.abs}#{maxd < 0 ? '-' : (maxd == 0 ? '' : '+')}"
-        puts "--"
+      end
+      
+      private
+      
+      def get(hash, key, options = {})
+        hash[key].nil? ? options[:default] : hash[key]
+      end
+      
+      def delta(d)
+        "#{'%8d' % d.abs}#{d < 0 ? '-' : (d == 0 ? '=' : '+')}"
+      end
+      
+      def colorize(args)
+        super(args).map do |arg|
+          arg.gsub!(/^sum(?<space>\s+)(?<sum>\d+)/i, 'sum'.blue.bold + '\k<space>' + '\k<sum>'.bold)
+         #arg.gsub!(/[\w\-\_\?\=\.]+(\/[\w\-\_\?\=\.]+)+/) { |s| s.underline }
+          
+          arg.gsub!(/^([a-f\d]{2}\s|\d+)/i) { |s| s.blue.bold  }
+          arg.gsub!(/^(avg|min|max)/i)      { |s| s.blue.bold  }
+          arg.gsub!(/\d+\+$/i)              { |s| s.green.bold }
+          arg.gsub!(/\d+\-$/i)              { |s| s.red.bold   }
+          arg.gsub!(/0\=$/i)                { |s| s.bold       }
+          arg.gsub!(/\s\w*\s*\!$/i)               { |s| s.red.bold   }
+          
+          arg          
+        end
       end
     end  
   end  

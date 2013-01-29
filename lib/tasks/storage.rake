@@ -3,92 +3,30 @@
 namespace :storage do
   task :distribute, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
-    Core::Storage::Utils.distribute args[:src], args[:dst], args[:verbose]
+    Core::Storage::Utils.distribute args[:src], args[:dst], args
   end
   
   task :merge, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
-    Core::Storage::Utils.merge args[:src], args[:dst], args[:verbose]
+    Core::Storage::Utils.merge args[:src], args[:dst], args
   end
   
-  task :stat, [:src] => :environment do |_, args|
-    Core::Storage::Utils.stat args[:src]
+  task :stat, [:src, :verbose] => :environment do |_, args|
+    Core::Storage::Utils.stat args[:src], args
   end
-
-  # TODO refactor
-  namespace :check do 
-    task :documents, [:dir, :verbose] => :environment do |_, args|
-      dir     = args[:dir]
-      err     = "#{dir}-corrupted"
-      verbose = args[:verbose] || false
-      
-      i = 0
-      
-      Dir.foreach(dir) do |b|
-        next if b.start_with?('.') || !Dir.exists?(File.join dir, b)
-            
-        Dir.foreach(File.join dir, b) do |f|
-          next if f.start_with? '.'
-          
-          s = File.join dir, b, f
-      
-          puts "#{i} #{s}" if verbose
-        
-          buffer = File.open(s, 'r') { |file| file.read 32 }
-          
-          unless (buffer =~ /\%PDF-\d+\.\d+.*/) == 0
-            d = File.join err, b, f
-            
-            puts "#{i} mv #{s} -> #{d}"
-            
-            FileUtils.mkpath(File.dirname d)
-            FileUtils.mv s, d
-          end
-          
-          i += 1
-          
-          puts "#{i}" if !verbose && i % 1000 == 0
-        end
+  
+  namespace :validate do
+    task :documents, [:src, :verbose] => :environment do |_, args|
+      Core::Storage::Utils.validate args[:src], args do |file|
+        (File.open(file, 'r') { |f| f.read 32 } =~ /\%PDF-\d+\.\d+.*/) == 0
       end
-      
-      puts "finished"
     end
     
-    task :pages, [:dir, :verbose] => :environment do |_, args|
-      dir     = args[:dir]
-      err     = "#{dir}-corrupted"
-      verbose = args[:verbose] || false
-      
-      i = 0
-
-      Dir.foreach(dir) do |b|
-        next if b.start_with?('.') || !Dir.exists?(File.join dir, b)
-            
-        Dir.foreach(File.join dir, b) do |f|
-          next if f.start_with? '.'
-          
-          s = File.join dir, b, f
-      
-          puts "#{i} #{s}" if verbose
-        
-          buffer = File.open(s, 'r') { |file| file.read }
-          
-          if (buffer =~ /\<h1\>Detail\s(pojednávania|súdneho\srozhodnutia)\<\/h1\>/i).nil?
-            d = File.join err, b, f
-            
-            puts "#{i} mv #{s} -> #{d}"
-            
-            FileUtils.mkpath(File.dirname d)
-            FileUtils.mv s, d
-          end
-          
-          i += 1
-          
-          puts "#{i}" if !verbose && i % 1000 == 0
-        end
+    task :pages, [:src, :verbose] => :environment do |_, args|
+      Core::Storage::Utils.validate args[:src], args do |file|
+         buffer = File.open(file, 'r') { |f| f.read }
+        (buffer =~ /\<h1\>Detail\s(pojednávania|súdneho\srozhodnutia)\<\/h1\>/i) != nil
       end
-      
-      puts "finished"
     end
   end
 end
