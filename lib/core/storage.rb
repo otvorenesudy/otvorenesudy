@@ -40,6 +40,12 @@ module Core
       File.join(partition(path).select { |part| part != '.' })
     end
     
+    def each
+      Dir.foreach(root) do |path|
+        yield path unless path.start_with? '.'
+      end
+    end
+    
     protected
 
     include Core::Storage::Binary

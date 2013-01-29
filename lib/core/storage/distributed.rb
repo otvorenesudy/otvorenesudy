@@ -1,6 +1,14 @@
 module Core
   module Storage
     module Distributed
+      def each
+        super do |bucket|
+          Dir.foreach(bucket) do |path|
+            yield path, bucket unless file.start_with? '.'
+          end
+        end
+      end
+      
       protected
       
       def partition(path)
