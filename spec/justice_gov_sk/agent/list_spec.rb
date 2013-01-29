@@ -80,7 +80,7 @@ describe JusticeGovSk::Agent::List do
 
       @request.page = 15
       @request.per_page = 100 
-      @request.decree_form = 'R'
+      @request.decree_form_code = 'R'
     end
 
     it "should fail when downloading 20th page with 100 results for form 'B'" do
@@ -88,7 +88,7 @@ describe JusticeGovSk::Agent::List do
 
       @request.page = 20
       @request.per_page = 100 
-      @request.decree_form = 'B'
+      @request.decree_form_code = 'B'
     end
   end 
 end

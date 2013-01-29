@@ -10,7 +10,7 @@ describe JusticeGovSk do
       JusticeGovSk.crawl_resource  SpecialHearing, SPECIAL_HEARING_URL, safe: true
       JusticeGovSk.crawl_resource  CivilHearing, CIVIL_HEARING_URL, safe: true
       JusticeGovSk.crawl_resource  CriminalHearing, CRIMINAL_HEARING_URL, safe: true
-      JusticeGovSk.crawl_resource  Decree, DECREE_URL, decree_form: 'A', safe: true
+      JusticeGovSk.crawl_resource  Decree, DECREE_URL, decree_form_code: 'A', safe: true
     end
 
     it "should crawl all courts" do

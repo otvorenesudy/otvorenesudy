@@ -8,7 +8,7 @@ module JusticeGovSk
       def initialize(options = {})
         super(options)
         
-        @form_code = options[:decree_form]
+        @form_code = options[:decree_form_code]
       end
       
       protected

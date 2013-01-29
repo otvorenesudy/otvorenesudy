@@ -23,7 +23,7 @@ namespace :run do
     end
 
     task :decrees, [:form] => :environment do |_, args|
-      args.with_defaults decree_form: args[:form], safe: true
+      args.with_defaults decree_form_code: args[:form], safe: true
       JusticeGovSk.run_workers Decree, args
     end
   end
