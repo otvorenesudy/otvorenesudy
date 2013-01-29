@@ -5,14 +5,14 @@
         <ul class="nav pull-left">
           <%= navbar_logo_tag "Otvorené Súdy" %>
           <li class="divider-vertical"></li>
-          <%= navbar_li_tag :home, "Súdy", courts_path %>
-          <%= navbar_li_tag :group, "Sudcovia", judges_path %>
+          <%= navbar_li_tag :building, "Súdy", courts_path %>
+          <%= navbar_li_tag :user, "Sudcovia", judges_path %>
           <%= navbar_li_tag :comments, "Pojednávania", hearings_path %>
           <%= navbar_li_tag :legal, "Rozhodnutia", decrees_path %>
         </ul>
         
         <ul class="nav pull-right">
-          <%= navbar_li_tag :signal, 'Štatistiky', stats_path %>
+          <%= navbar_li_tag :'bar-chart', 'Štatistiky', stats_path %>
         </ul>
       </nav>
     </div>
