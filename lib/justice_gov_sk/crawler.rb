@@ -6,10 +6,7 @@ module JusticeGovSk
     include Core::Injector
     include Core::Pluralize
     
-    attr_accessor :options
-    
     def initialize(options = {})
-      @options    = options
       @downloader = inject JusticeGovSk::Downloader
       @parser     = inject JusticeGovSk::Parser
       @persistor  = inject JusticeGovSk::Persistor
