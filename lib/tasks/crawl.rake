@@ -38,8 +38,8 @@ namespace :crawl do
     end
   end
   
-  task :decrees, [:form, :offset, :limit] => :environment do |_, args|
-    args.with_defaults decree_form_code: args[:form], safe: false
+  task :decrees, [:decree_form_code, :offset, :limit] => :environment do |_, args|
+    args.with_defaults safe: false
     JusticeGovSk.crawl_resources Decree, args
   end
   
@@ -61,8 +61,8 @@ namespace :crawl do
     end
   end
   
-  task :decree, [:url, :form] => :environment do |_, args|
-    args.with_defaults decree_form_code: args[:form], safe: true
+  task :decree, [:url, :decree_form_code] => :environment do |_, args|
+    args.with_defaults safe: true
     JusticeGovSk.crawl_resource Decree, args[:url], args
   end
 end

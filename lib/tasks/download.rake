@@ -41,8 +41,8 @@ namespace :download do
   end
 
   namespace :decrees do
-    task :pages, [:form, :offset, :limit] => :environment do |_, args|
-      args.with_defaults decree_form_code: args[:form], safe: false
+    task :pages, [:decree_form_code, :offset, :limit] => :environment do |_, args|
+      args.with_defaults safe: false
       JusticeGovSk.download_pages Decree, args
     end
 
