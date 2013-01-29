@@ -5,12 +5,11 @@ module JusticeGovSk
       
       def initialize(options = {})
         @options = options
+        @type    = @options[:type]
         
-        type = options[:type]
-        
-        @downloader = inject JusticeGovSk::Agent,     implementation: type, suffix: :List
-        @parser     = inject JusticeGovSk::Parser,    implementation: type, suffix: :List
-        @persistor  = inject JusticeGovSk::Persistor, implementation: type, suffix: :List
+        @downloader = inject JusticeGovSk::Agent,     implementation: @type, suffix: :List
+        @parser     = inject JusticeGovSk::Parser,    implementation: @type, suffix: :List
+        @persistor  = inject JusticeGovSk::Persistor, implementation: @type, suffix: :List
       end
       
       protected
@@ -18,10 +17,10 @@ module JusticeGovSk
       def process(request)
         return super(request) if block_given?
         
-        crawler = JusticeGovSk.build_crawler options[:type], options
+        crawler = JusticeGovSk.build_crawler @type, @options
         
         super(request) do |url|
-          JusticeGovSk.run_crawler crawler, url, options
+          JusticeGovSk.run_crawler crawler, url, @options
         end
       end
     end

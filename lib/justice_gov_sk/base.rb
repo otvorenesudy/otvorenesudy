@@ -145,7 +145,7 @@ module JusticeGovSk
     include Core::Injector
     
     def build_args(type, options = {})
-      options.merge type: type
+      options.to_hash.merge type: type
     end
     
     def call(block, options = {})
