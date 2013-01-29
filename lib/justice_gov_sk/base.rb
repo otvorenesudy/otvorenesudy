@@ -84,12 +84,16 @@ module JusticeGovSk
   
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_request(type, options = {})
-      inject JusticeGovSk::Request, implementation: type, suffix: :List, args: options
+      args = build_args type, options
+      
+      inject JusticeGovSk::Request, implementation: type, suffix: :List, args: args
     end
     
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_lister(type, options = {})
-      inject JusticeGovSk::Crawler, implementation: type, suffix: :List, args: { type: type }
+      args = build_args type, options
+      
+      inject JusticeGovSk::Crawler, implementation: type, suffix: :List, args: args
     end
     
     # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
@@ -102,7 +106,9 @@ module JusticeGovSk
     
     # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_crawler(type, options = {})
-      inject JusticeGovSk::Crawler, implementation: type, args: options
+      args = build_args type, options
+      
+      inject JusticeGovSk::Crawler, implementation: type, args: args
     end      
     
     def run_lister(lister, request, options = {}, &block)
@@ -137,6 +143,10 @@ module JusticeGovSk
     private
     
     include Core::Injector
+    
+    def build_args(type, options = {})
+      options.merge type: type
+    end
     
     def call(block, options = {})
       safe = options[:safe].nil? ? true : options[:safe]

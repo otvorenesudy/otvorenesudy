@@ -9,6 +9,7 @@ module JusticeGovSk
     attr_accessor :options
     
     def initialize(options = {})
+      @options    = options
       @downloader = inject JusticeGovSk::Downloader
       @parser     = inject JusticeGovSk::Parser
       @persistor  = inject JusticeGovSk::Persistor
