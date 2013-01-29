@@ -1,14 +1,19 @@
 development:
   # Cache root path 
   cache: 'tmp/cache'
+
+  # Colored output
+  colors: true
   
   # Verbose output
   verbose: true
 
 test:
   cache: 'tmp/cache'
+  colors: false
   verbose: false
 
 production:
   cache: 'tmp/cache'
+  colors: false
   verbose: false

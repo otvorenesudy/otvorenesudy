@@ -57,7 +57,7 @@ module Core
             puts "failed (no result produced)"
           end
         else
-          puts "faild (no document parsed)"
+          puts "failed (no document parsed)"
         end
       else
         puts "failed (no content downloaded)"
@@ -67,7 +67,7 @@ module Core
     private
 
     def introduce
-      print "Running #{self.class.name} using " 
+      print "Running #{self.class.name} using "
       print "#{@downloader.nil? ? 'no downloader' : @downloader.class.name}, "
       print "#{@parser.nil?     ? 'no parser'     : @parser.class.name} and "
       puts  "#{@persistor.nil?  ? 'no persistor'  : @persistor.class.name}."
