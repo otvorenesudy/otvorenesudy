@@ -54,13 +54,13 @@ module Core
             
             @result
           else
-            puts "failed (no result produced)"
+            puts "aborted (no result produced)"
           end
         else
-          puts "failed (no document parsed)"
+          puts "aborted (no document parsed)"
         end
       else
-        puts "failed (no content downloaded)"
+        puts "aborted (no content downloaded)"
       end
     end
     

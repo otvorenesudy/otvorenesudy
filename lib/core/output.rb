@@ -40,6 +40,7 @@ module Core
         
         arg.gsub!(/^running/i)         { |s| s.bold       }
         arg.gsub!(/^finished/i)        { |s| s.green.bold }
+        arg.gsub!(/^aborted/i)         { |s| s.red.bold   }
        #arg.gsub!(/^\w+ing/)           { |s| s.underline  }
         arg.gsub!(/\w+(\:\:\w+)+/)     { |s| s.blue.bold  }
         arg.gsub!(/[a-z]+\:(\?|\d+)/i) { |s| s.bold       }

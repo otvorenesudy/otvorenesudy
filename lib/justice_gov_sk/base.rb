@@ -161,9 +161,9 @@ module JusticeGovSk
           
           case code.to_i
           when 302
-            puts "failed (redirect returned)"
+            puts "aborted (redirect returned)"
           when 500
-            puts "failed (internal server error)"
+            puts "aborted (internal server error)"
           else
             raise e
           end
