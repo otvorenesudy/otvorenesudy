@@ -1,3 +1,5 @@
+# TODO improve API
+
 module Core
   module Crawler
     module Helper
