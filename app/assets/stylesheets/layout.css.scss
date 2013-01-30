@@ -140,20 +140,18 @@ div.search {
   position: relative;
   margin: 0px;
   padding: 40px;
-  height: 30px;
   
   background: $grayLighter;
   
   .form-search {
     margin: 0px auto;
     padding: 0px;
-    width: 603px;
-
+    
     .input-append {
       display: block;
-      width: 272px;
       margin: 0px auto;
-
+      text-align: center;
+      
       input:focus {
         border-color: $grayLight;
         @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($grayLight, 0.6));
@@ -164,21 +162,20 @@ div.search {
         line-height: auto;
       }
     }
-
-    a {
-      position: relative;
-      height: 30px;
-      line-height: 30px;
-      top: -30px;
-      left: 450px;
-      font-size: 14px;
-
-      color: $grayLight;
-
-      &:hover {
-        color: $gray;
-        text-decoration: none;
-      }
+  }
+  
+  a {
+    display: inline-block;
+    margin-left: -$gridGutterWidth;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    
+    color: $grayLight;
+    
+    &:hover {
+      color: $gray;
+      text-decoration: none;
     }
   }
 }

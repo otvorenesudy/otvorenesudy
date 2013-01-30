@@ -10,7 +10,6 @@
           <%= navbar_li_tag :comments, "Pojednávania", hearings_path %>
           <%= navbar_li_tag :legal, "Rozhodnutia", decrees_path %>
         </ul>
-        
         <ul class="nav pull-right">
           <%= navbar_li_tag :'bar-chart', 'Štatistiky', stats_path %>
         </ul>
@@ -20,15 +19,21 @@
 </div>
 
 <div class="search">
-  <%= form_tag nil, method: :get, class: :'form-search' do |f| %>
-    <div class="input-append">
-      <%= search_field_tag :search, params[:search], class: :'search-query' %>
-      <%= button_tag icon_tag(:search), name: nil, class: :btn %>
+  <div class="container">
+    <div class="row">
+      <div class="offset4 span4">
+        <%= form_tag nil, method: :get, class: :'form-search' do %>
+          <div class="input-append">
+            <%= search_field_tag :search, params[:search], class: :'search-query' %>
+            <%= button_tag icon_tag(:search), name: nil, class: :btn %>
+          </div>
+        <% end %>
+      </div>
+      <div class="span4">
+        <%= link_to "Rozšírené vyhľadávanie", nil %>
+      </div>
     </div>
- 
-    <%= link_to "Rozšírené vyhľadávanie", nil %>
-  <% end %>
-
+  </div>
 </div>
 
 <%= yield :header %>
