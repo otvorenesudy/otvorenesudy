@@ -22,20 +22,13 @@ module JusticeGovSk
         
           supply_proceeding_for @hearing
           
-          court
-          
-          section
-          subject
-          form
+          supply @hearing, :court,   parse: [:name],  factory: { strategy: :find }
+          supply @hearing, :section, parse: [:value], factory: { type: HearingSection }
+          supply @hearing, :subject, parse: [:value], factory: { type: HearingSubject }
+          supply @hearing, :form,    parse: [:value], factory: { type: HearingForm }
           
           yield
         end
-      end
-      
-      def court
-        name = @parser.court(@document)
-        
-        @hearing.court = court_by_name_factory.find(name) unless name.nil?
       end
       
       def judges
@@ -49,48 +42,6 @@ module JusticeGovSk
               judging(judge, similarity, name, false)
             end
           end
-        end
-      end
-      
-      def section
-        value = @parser.section(@document)
-        
-        unless value.nil?
-          section = hearing_section_by_value_factory.find_or_create(value)
-          
-          section.value = value
-          
-          @persistor.persist(section)
-          
-          @hearing.section = section
-        end
-      end
-      
-      def subject
-        value = @parser.subject(@document)
-        
-        unless value.nil?
-          subject = hearing_subject_by_value_factory.find_or_create(value)
-          
-          subject.value = value
-          
-          @persistor.persist(subject)
-          
-          @hearing.subject = subject
-        end
-      end
-      
-      def form
-        value = @parser.form(@document)
-        
-        unless value.nil?
-          form = hearing_form_by_value_factory.find_or_create(value)
-          
-          form.value = value
-          
-          @persistor.persist(form)
-          
-          @hearing.form = form          
         end
       end
       

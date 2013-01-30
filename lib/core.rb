@@ -1,3 +1,4 @@
+require 'active_support/core_ext/hash/deep_merge'
 require 'active_support/inflector'
 require 'active_support/json'
 require 'active_support/multibyte'

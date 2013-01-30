@@ -17,10 +17,16 @@ module JusticeGovSk
       include JusticeGovSk::Helper::ProceedingSupplier
       
       def process(request)
+        raise "Decree form code not set" unless @form_code
+
         super do
           uri = JusticeGovSk::Request.uri(request)
           
           @decree = decree_by_uri_factory.find_or_create(uri)
+
+          @decree.form = decree_form_by_code_factory.find(@form_code)
+        
+          raise "Decree form not found" unless @decree.form
           
           @decree.uri  = uri
           @decree.text = fulltext(uri)
@@ -32,14 +38,16 @@ module JusticeGovSk
           
           supply_proceeding_for @decree
           
-          court
+          supply @decree, :court, parse: [:name], factory: { strategy: :find }
+          
           judge
           
-          form
-          nature
+          supply @decree, :nature, parse: [:value], factory: { type: DecreeNature }
           
-          legislation_area
-          legislation_subarea
+          supply @decree, :legislation_area, parse: [:value]
+          supply @decree, :legislation_subarea, { parse: [:value],
+            defaults: { legislation_area: @decree.legislation_area }
+          }
           
           legislations
 
@@ -60,10 +68,8 @@ module JusticeGovSk
         JusticeGovSk::Crawler::Decree::Extractor::Text.extract(path)
       end
       
-      def court
-        name = @parser.court(@document)
-        
-        @decree.court = court_by_name_factory.find(name) unless name.nil?
+      def images
+        # TODO
       end
       
       def judge
@@ -76,59 +82,6 @@ module JusticeGovSk
         end
       end
       
-      def form
-        raise "Decree form code not set" if @form_code.nil?
-        
-        @decree.form = decree_form_by_code_factory.find(@form_code)
-        
-        raise "Decree form not found" if @decree.form.nil?
-      end
-      
-      def nature
-        value = @parser.nature(@document)
-        
-        unless value.nil?
-          nature = decree_nature_by_value_factory.find_or_create(value)
-          
-          nature.value = value
-          
-          @persistor.persist(nature)
-          
-          @decree.nature = nature          
-        end
-      end
-        
-      def legislation_area
-        value = @parser.legislation_area(@document)
-        
-        unless value.nil?
-          legislation_area = legislation_area_by_value_factory.find_or_create(value)
-          
-          legislation_area.value = value
-          
-          @persistor.persist(legislation_area)
-          
-          @decree.legislation_area = legislation_area          
-        end
-      end
-      
-      def legislation_subarea
-        value = @parser.legislation_subarea(@document)
-        
-        unless value.nil?
-          legislation_subarea = legislation_subarea_by_value_factory.find_or_create(value)
-
-          legislation_area(document) if @decree.legislation_area.nil?
-          
-          legislation_subarea.area  = @decree.legislation_area
-          legislation_subarea.value = value
-          
-          @persistor.persist(legislation_subarea)
-          
-          @decree.legislation_subarea = legislation_subarea          
-        end
-      end
-        
       def legislations
         list = @parser.legislations(@document)
     
@@ -184,6 +137,7 @@ module JusticeGovSk
         @persistor.persist(legislation_usage)
       end
       
+      # TODO mv to extractor.rb
       module Extractor
         module Text
           extend Core::Extractor::Text

@@ -27,22 +27,15 @@ module JusticeGovSk
             @court.media_person             = media_person[:name]
             @court.media_person_unprocessed = media_person[:name_unprocessed]
           end
-      
-          supply_by_value @court, :type
           
-          municipality
+          supply @court, :type, parse: [:value], factory: { type: CourtType }
+          supply @court, :municipality, parse: [:name, :zipcode], factory: { args: [:name] }
           
           information_center
           registry_center
           business_registry_center
           
           @court
-        end
-      end
-      
-      def municipality
-        supply @court, :municipality, [:name, :zipcode], presence: :all do |name|
-          municipality = municipality_by_name_factory.find_or_create(name) 
         end
       end
        

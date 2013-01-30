@@ -2,7 +2,7 @@ module JusticeGovSk
   class Crawler
     class SpecialHearing < JusticeGovSk::Crawler::Hearing
       protected
-    
+      
       def process(request)
         super do
           @hearing.type = HearingType.special
@@ -12,7 +12,10 @@ module JusticeGovSk
           
           chair_judge
           
-          defendant
+          supply @hearing, :defendant, { parse: [:name],
+            defaults: { hearing_id: @hearing.id },
+            factory: { args: [:hearing_id, :name] }
+          }
           
           @hearing
         end
@@ -25,19 +28,6 @@ module JusticeGovSk
           match_judges_by(name) do |similarity, judge|
             judging(judge, similarity, name, true)
           end
-        end
-      end
-      
-      def defendant
-        name = @parser.defendant(@document)
-        
-        unless name.nil?
-          defendant = defendant_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
-          
-          defendant.hearing = @hearing
-          defendant.name    = name
-          
-          @persistor.persist(defendant)
         end
       end
     end
