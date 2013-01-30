@@ -45,9 +45,12 @@ module JusticeGovSk
           supply @decree, :nature, parse: [:value], factory: { type: DecreeNature }
           
           supply @decree, :legislation_area, parse: [:value]
-          supply @decree, :legislation_subarea, { parse: [:value],
-            defaults: { legislation_area: @decree.legislation_area }
-          }
+          
+          # TODO fix helper
+          #supply @decree, :legislation_subarea, { parse: [:value],
+          #  defaults: { legislation_area: @decree.legislation_area },
+          #  factory: { args: [:value] }
+          #}
           
           legislations
 
