@@ -41,7 +41,7 @@ module Core
     end
     
     def remove(path)
-      FileUtils.rm fullpath(path)
+      FileUtils.remove_entry_secure fullpath(path)
     end
     
     def fullpath(path)
