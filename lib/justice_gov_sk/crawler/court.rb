@@ -28,7 +28,8 @@ module JusticeGovSk
             @court.media_person_unprocessed = media_person[:name_unprocessed]
           end
       
-          type
+          supply_by_value @court, :type
+          
           municipality
           
           information_center
@@ -39,36 +40,12 @@ module JusticeGovSk
         end
       end
       
-      def type
-        value = @parser.type(@document)
-        
-        unless value.nil?
-          type = court_type_by_value_factory.find_or_create(value)
-          
-          type.value = value
-          
-          @persistor.persist(type)
-          
-          @court.type = type          
-        end
-      end
-      
       def municipality
-        name    = @parser.municipality_name(@document)
-        zipcode = @parser.municipality_zipcode(@document)
-        
-        unless name.nil? || zipcode.nil?
-          municipality = municipality_by_name_factory.find_or_create(name)
-          
-          municipality.name    = name
-          municipality.zipcode = zipcode
-          
-          @persistor.persist(municipality)
-          
-          @court.municipality = municipality
+        supply @court, :municipality, [:name, :zipcode], presence: :all do |name|
+          municipality = municipality_by_name_factory.find_or_create(name) 
         end
       end
-      
+       
       def information_center
         @court.information_center = office CourtOfficeType.information_center, @court.information_center
       end

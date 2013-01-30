@@ -1,6 +1,7 @@
 module JusticeGovSk
   class Crawler
     include Core::Crawler
+    include Core::Crawler::Helper
     include Core::Factories
     include Core::Identify
     include Core::Injector
