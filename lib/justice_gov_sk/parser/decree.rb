@@ -54,7 +54,7 @@ module JusticeGovSk
       end
         
       def legislations(document)
-        find_value_by_label 'legislations', document, 'Predpisy odkazované v rozhodnutí' do |div|
+        find_value_by_label 'legislations', document, 'Predpisy odkazované v rozhodnutí', verbose: false do |div|
           div.search('span').map { |span| span.text.strip.squeeze(' ') }
         end
       end
