@@ -2,24 +2,18 @@ module Core
   module Extractor
     include Core::Output
     
-    attr_accessor :formats
-    
     def extract(path)
-      return unless format = preextract(path)
-      postextract yield format
+      return unless extension = preextract(path)
+      postextract yield extension
     end
     
     protected
     
     def preextract(path)
       print "Extracting #{path} ... "
+      puts  "failed (not readable)" unless File.readable?(path)
       
-      format = path.split('.').last.to_sym      
-      
-      puts "failed (not readable)"          unless File.readable?(path)
-      puts "failed (unsupported file type)" unless formats.include?(format)
-      
-      format
+      path.split('.').last.to_sym
     end
     
     def postextract(result, note = nil)

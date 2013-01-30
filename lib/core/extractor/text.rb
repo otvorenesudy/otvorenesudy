@@ -3,31 +3,16 @@ module Core
     module Text
       include Core::Extractor
       
-      attr_accessor :use_ocr
-      
-      def extract(path)
-        super do |format|
-          file = "#{File.basename(path, ".#{format.to_s}")}.txt"
+      def extract(path, options = {})
+        options = extract_defaults.merge options
+        
+        super(path) do |extension|
+          options[:output] = root
           
-          case format
-          when :pdf
-            Docsplit.extract_text(path, ocr: use_ocr, output: root)
-            
-            content = load(file)
-            
-            remove(file)
-          end
+          Docsplit.extract_text(path, options)
           
-          content
+          unload "#{File.basename(path, ".#{extension.to_s}")}.txt"
         end
-      end
-      
-      def formats
-        @formats ||= [:pdf]
-      end
-      
-      def use_ocr
-        @use_ocr.nil? ? false : @use_ocr
       end
       
       protected
@@ -37,6 +22,10 @@ module Core
       end
       
       private
+
+      def extract_defaults
+        { ocr: false }
+      end
       
       include Core::Storage::Cache
       

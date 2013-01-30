@@ -10,7 +10,7 @@ Requires:
 
 Setup:
 
-1. Ensure trigram extension is used:
+1. PostgreSQL trigram extension:
        sudo apt-get install postgresql-contrib
        sudo service postgresql restart
        cd /usr/share/postgresql/9.1/extension/
@@ -19,6 +19,10 @@ Setup:
 
 2. ElasticSearch:
        TODO
+
+3. PDF processing:
+       sudo apt-get install graphicsmagick
+       sudo apt-get install tesseract-ocr
 
 == Data
 
@@ -32,7 +36,7 @@ Setup:
 3. Run Resque workers:
        rake resque:workers QUEUE=* COUNT=4
 
-4. Crawl the rest using Resque jobs in any order:
+4. Continue crawling the rest using Resque jobs in any order:
        rake run:crawlers:hearings:civil
        rake run:crawlers:hearings:criminal
        rake run:crawlers:hearings:special

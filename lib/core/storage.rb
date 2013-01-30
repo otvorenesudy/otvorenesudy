@@ -20,6 +20,14 @@ module Core
       read(path) { |file| file.read } if File.readable? path
     end
     
+    def unload(path)
+      content = load(path)
+      
+      remove(path)
+      
+      content
+    end
+    
     def store(path, content)
       path = fullpath(path)
       dir  = File.dirname(path)
