@@ -25,18 +25,18 @@ Setup:
 1. Setup database:
        rake db:setup
 
-2. Start crawling data:
+2. Start crawling the necessary data:
        rake crawl:courts
        rake crawl:judges
   
 3. Run Resque workers:
        rake resque:workers QUEUE=* COUNT=4
 
-4. Crawl the rest using Resque jobs:
-       * <tt>rake run:crawlers:hearings:civil</tt>
-       * <tt>rake run:crawlers:hearings:criminal</tt>
-       * <tt>rake run:crawlers:hearings:special</tt>
-       * <tt>rake run:crawlers:decrees</tt>
+4. Crawl the rest using Resque jobs in any order:
+       rake run:crawlers:hearings:civil
+       rake run:crawlers:hearings:criminal
+       rake run:crawlers:hearings:special
+       rake run:crawlers:decrees
 
 == License
 
