@@ -125,11 +125,11 @@ module JusticeGovSk
       
       def coordinates(document)
         @coordinates ||= find_value 'coordinates', document, 'div.textInfo iframe', empty?: false, verbose: false do |iframe|
-          data   = iframe.first[:src].scan(/(\&|s)ll=(\-?\d+\.\d+)\,(\-?\d+\.\d+)/)
-          values = data.select { |v| v.first == '&' }.first
-          values = data.first if values.blank?
-          
-          { latitude: values[1], longitude: values[2] }
+          if @name =~ /Okresný súd Liptovský Mikuláš/i
+            { latitude: 49.08515, longitude: 19.60792 }
+          else
+            iframe.first[:src].match(/[\?\&]ll\=(?<latitude>\-?\d+\.\d+)\,(?<longitude>\-?\d+\.\d+)/)
+          end
         end
       end
     end
