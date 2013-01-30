@@ -29,6 +29,7 @@ module JusticeGovSk
         map = {
           "Najvyšší súd SR"                => "Najvyšší súd Slovenskej republiky",
           "Ústavný súd SR"                 => "Ústavný súd Slovenskej republiky",
+          "Špecializovaný trestný súd"     => "Špecializovaný trestný súd",
           
           "Krajský súd v Banskej Bystrici" => "Krajský súd Banská Bystrica",
           "Krajský súd v Bratislave"       => "Krajský súd Bratislava",
