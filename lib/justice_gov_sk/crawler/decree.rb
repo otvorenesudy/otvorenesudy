@@ -52,18 +52,12 @@ module JusticeGovSk
         agent   = inject JusticeGovSk::Agent,   implementation: Decree, suffix: :Document
         
         request.url = uri
-
+        
         agent.download(request)
         
         path = agent.storage.fullpath(agent.uri_to_path uri)
         
-        print "Extracting text ... "
-        
-        text = Core::TextExtractor.new.extract(path)
-        
-        puts "done (#{text.length} chars)"
-        
-        text
+        JusticeGovSk::Crawler::Decree::Extractor::Text.extract(path)
       end
       
       def court
@@ -188,6 +182,16 @@ module JusticeGovSk
         legislation_usage.decree      = @decree
         
         @persistor.persist(legislation_usage)
+      end
+      
+      module Extractor
+        module Text
+          extend Core::Extractor::Text
+        end
+        
+        module Image
+          extend Core::Extractor::Image
+        end
       end
     end
   end

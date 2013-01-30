@@ -16,7 +16,7 @@ module Core
             remove(file)
           end
           
-          return content, "#{content.size} bytes"
+          return content, "#{content.size} characters"
         end
       end
       
