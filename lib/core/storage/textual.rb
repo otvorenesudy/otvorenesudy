@@ -7,8 +7,8 @@ module Core
         @encoding ||= Encoding::UTF_8
       end
       
-      def store(path, content)
-        super(path, content.force_encoding(encoding))
+      def store(entry, content)
+        super(entry, content.force_encoding(encoding))
       end
       
       protected

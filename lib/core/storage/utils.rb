@@ -25,10 +25,10 @@ module Core
         
         i = 0
         
-        src.each do |p|
-          b = dst.bucket(p)
-          s = File.join src.root, p
-          d = File.join dst.root, b, p
+        src.each do |e|
+          b = dst.bucket(e)
+          s = File.join src.root, e
+          d = File.join dst.root, b, e
           
           FileUtils.mkpath File.join(dst.root, b)
           
@@ -54,9 +54,9 @@ module Core
         
         i = 0
         
-        src.each do |p, b|
-          s = File.join src.root, b, p
-          d = File.join dst.root, p
+        src.each do |e, b|
+          s = File.join src.root, b, e
+          d = File.join dst.root, e
           
           puts "#{i} cp #{s} -> #{d}" if verbose
           
@@ -78,15 +78,15 @@ module Core
         
         i = 0
         
-        src.each do |p, b|
-          s = File.join src.root, b, p
+        src.each do |e, b|
+          s = File.join src.root, b, e
           
           i += 1
           
           puts "#{i} #{s}" if verbose
           
           unless yield s
-            d = File.join dst.root, b, p
+            d = File.join dst.root, b, e
             
             puts "#{i} mv #{s} -> #{d} invalid !"
             
@@ -156,7 +156,7 @@ module Core
           arg.gsub!(/\d+\+$/i)              { |s| s.green.bold }
           arg.gsub!(/\d+\-$/i)              { |s| s.red.bold   }
           arg.gsub!(/0\=$/i)                { |s| s.bold       }
-          arg.gsub!(/\s\w*\s*\!$/i)               { |s| s.red.bold   }
+          arg.gsub!(/\s\w*\s*\!$/i)         { |s| s.red.bold   }
           
           arg          
         end

@@ -15,14 +15,18 @@ module Resource::Storage
         self.class.storages[name]
       end
       
-      define_method "#{name}_path" do
+      define_methos "#{name}_entry" do
         if block_given?
-          path = yield self
+          yield self
         else
-          path = JusticeGovSk::URL.url_to_path(uri, options[:extension])
+          JusticeGovSk::URL.url_to_path(uri, options[:extension])
         end
+      end
+      
+      define_method "#{name}_path" do
+        entry = self.send("#{name}_entry")
         
-        self.class.storages[name].fullpath(path) if path 
+        self.class.storages[name].path(entry) if entry 
       end
     end
   end

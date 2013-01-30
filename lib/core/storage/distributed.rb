@@ -3,20 +3,20 @@ module Core
     module Distributed
       def each
         super do |bucket|
-          Dir.foreach(File.join root, bucket) do |path|
-            yield path, bucket unless path.start_with? '.'
+          Dir.foreach(File.join root, bucket) do |entry|
+            yield entry, bucket unless entry.start_with? '.'
           end
         end
       end
       
-      def bucket(path)
-        partition(path)[-2]
+      def bucket(entry)
+        partition(entry)[-2]
       end
       
       protected
       
-      def partition(path)
-        parts = super(path)
+      def partition(entry)
+        parts = super(entry)
         parts << parts.last
         parts[-2] = distribute(parts.last)
         parts

@@ -9,12 +9,12 @@ module Core
         @root ||= Core::Configuration.cache
       end
       
-      def expired?(path)
-        (Time.now - File.ctime(fullpath(path))) >= @expire_time unless @expire_time.nil?
+      def expired?(entry)
+        (Time.now - File.ctime(path(entry))) >= @expire_time unless @expire_time.nil?
       end
       
-      def load(path)
-        super(path) unless expired?(path)
+      def load(entry)
+        super(entry) unless expired?(entry)
       end
     end
   end

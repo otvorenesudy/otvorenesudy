@@ -2,35 +2,34 @@ module Core
   module Storage
     attr_accessor :root
     
-    def contains?(path)
-      File.exists? fullpath(path)
+    def contains?(entry)
+      File.exists? path(entry)
     end
     
-    def readable?(path)
-      File.readable? fullpath(path)
+    def readable?(entry)
+      File.readable? path(entry)
     end
     
-    def expired?(path)
+    def expired?(entry)
       false
     end
   
-    def load(path)
-      path = fullpath(path)
+    def load(entry)
+      path = path(entry)
       
       read(path) { |file| file.read } if File.readable? path
     end
     
-    def unload(path)
-      content = load(path)
+    def unload(entry)
+      content = load(entry)
       
-      remove(path)
-      
+      remove(entry)
       content
     end
     
-    def store(path, content)
-      path = fullpath(path)
-      dir  = File.dirname(path)
+    def store(entry, content)
+      path = path(entry)
+      dir  = File.dirname(entry)
       
       FileUtils.mkpath dir unless Dir.exists? dir
       
@@ -40,17 +39,17 @@ module Core
       end
     end
     
-    def remove(path)
-      FileUtils.remove_entry_secure fullpath(path)
+    def remove(entry)
+      FileUtils.remove_entry_secure path(entry)
     end
     
-    def fullpath(path)
-      File.join(partition(path).select { |part| part != '.' })
+    def path(entry)
+      File.join(partition(entry).select { |part| part != '.' })
     end
     
     def each
-      Dir.foreach(root) do |path|
-        yield path unless path.start_with? '.'
+      Dir.foreach(root) do |entry|
+        yield entry unless entry.start_with? '.'
       end
     end
     
@@ -58,10 +57,10 @@ module Core
 
     include Core::Storage::Binary
     
-    def partition(path)
-      dir  = File.dirname(path)
-      file = File.basename(path)
-
+    def partition(entry)
+      dir  = File.dirname(entry)
+      file = File.basename(entry)
+      
       [root, dir, file] 
     end
   end  
