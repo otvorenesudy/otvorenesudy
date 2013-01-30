@@ -8,6 +8,7 @@
 # rake run:crawlers:hearings:criminal
 # rake run:crawlers:hearings:special
 # 
+# rake run:crawlers:decrees
 # rake run:crawlers:decrees[F]
 
 namespace :run do
