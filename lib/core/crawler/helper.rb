@@ -1,33 +1,31 @@
 module Core
   module Crawler
     module Helper
-      def supply(instance, name, options = {})
+      def supply(base, attribute, options = {})
         options = supply_defaults.deep_merge options
         map     = options[:defaults] || {}
         
-        options[:parse].each do |attribute|
-          method_name    = parser_method_name(name, attribute)
-          map[attribute] = @parser.send(method_name, @document)
+        options[:parse].each do |k|
+          method_name = parser_method_name(attribute, k)
+          map[k]      = @parser.send(method_name, @document)
           
-          return if options[:validate] == :all && map[attribute].blank?
+          return if options[:validate] == :all && map[k].blank?
         end
         
         if block_given?
-          o = yield(*map.values)
-        elsif options[:factory]
-          o = factory_supply name, map, options[:factory]
+          instance = yield(*map.values)
         else
-          raise "No block given"
+          instance = factory_supply attribute, map, options[:factory]
         end
         
-        unless o.nil?
+        unless instance.nil?
           map.each do |k, v|
-            o.send("#{k}=", v)
+            instance.send("#{k}=", v)
           end
           
-          @persistor.persist(o)
+          @persistor.persist(instance)
           
-          instance.send("#{name}=", o) if instance.respond_to? "#{name}="
+          base.send("#{attribute}=", instance) if instance.respond_to? "#{attribute}="
         end
       end
       
@@ -42,18 +40,18 @@ module Core
         }
       end
       
-      def parser_method_name(name, attribute, options = {})
-        method_name = "#{name}_#{attribute}"
+      def parser_method_name(base, attribute, options = {})
+        method_name = "#{base}_#{attribute}"
         
         return method_name if @parser.respond_to? method_name 
-        return name        if @parser.respond_to? name
+        return base        if @parser.respond_to? base
         return attribute   if @parser.respond_to? attribute
         
-        raise "No parser method found for #{name} and #{attribute}"
+        raise "No parser method found for #{base} and #{attribute}"
       end
       
-      def factory_supply(name, map, options = {})
-        type     = options[:type] || name
+      def factory_supply(base, map, options = {})
+        type     = options[:type] || base
         args     = options[:args] || map.keys
         factory  = send("#{type}_by_#{args.join('_and_')}_factory")
         
