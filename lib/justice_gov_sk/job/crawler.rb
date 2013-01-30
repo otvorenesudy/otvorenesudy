@@ -2,9 +2,11 @@ module JusticeGovSk
   module Job
     class Crawler
       @queue = :crawlers
-
-      # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
+      
+      # supported types: CivilHearing, SpecialHearing, CriminalHearing, Decree
       def self.perform(type, url, options = {})
+        type = type.to_s.constantize
+        
         options.symbolize_keys!
         
         JusticeGovSk.crawl_resource type, url, options

@@ -82,21 +82,18 @@ module JusticeGovSk
       run_crawler crawler, url, options
     end
   
-    # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_request(type, options = {})
       args = build_args type, options
       
       inject JusticeGovSk::Request, implementation: type, suffix: :List, args: args
     end
     
-    # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_lister(type, options = {})
       args = build_args type, options
       
       inject JusticeGovSk::Crawler, implementation: type, suffix: :List, args: args
     end
     
-    # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_request_and_lister(type, options = {})
       request = build_request type, options
       lister  = build_lister  type, options
@@ -104,7 +101,6 @@ module JusticeGovSk
       return request, lister
     end
     
-    # supported types: Court, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def build_crawler(type, options = {})
       args = build_args type, options
       
@@ -125,19 +121,28 @@ module JusticeGovSk
       call block, options
     end
     
-    # supported types: Court, Judge, CivilHearing, SpecialHearing, CriminalHearing, Decree
     def run_workers(type, options = {})
       request, lister = build_request_and_lister type, options
       
       run_lister lister, request, options do
-        lister.crawl(request)
+        puts "Running list crawler to obtain page count."
+        
+        lister.crawl(request, 1, 1) {}
       end
       
-      options.merge! limit: 1
+      puts  "Running job builder."
+
+      options = options.to_hash.merge! limit: 1
       
       1.upto lister.pages do |page|
-        Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, options.merge(offset: page))
+        options.merge!(offset: page)
+        
+        puts "Enqueing job for page #{page}, using #{pack options}."
+        
+        Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, options)
       end
+      
+      puts "finished (#{lister.pages} jobs)"
     end
     
     private
@@ -151,7 +156,7 @@ module JusticeGovSk
     def call(block, options = {})
       safe = options[:safe].nil? ? true : options[:safe]
       
-      puts "Setting #{options.map { |k, v| "#{k}: #{v.is_a?(Class) ? v.name : v}" }.join ', '}"
+      puts "Setting #{pack options}"
       
       if safe
         block.call
@@ -171,6 +176,10 @@ module JusticeGovSk
           end
         end
       end
+    end
+    
+    def pack(options = {})
+      options.map { |k, v| "#{k}: #{v.is_a?(Class) ? v.name : v}" }.join(', ') || 'nothing'
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110160219) do
+ActiveRecord::Schema.define(:version => 20121110155849) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -97,7 +97,6 @@ ActiveRecord::Schema.define(:version => 20121110160219) do
   add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
-  add_index "courts", ["name"], :name => "gin_index_courts_on_name"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
   add_index "courts", ["uri"], :name => "index_courts_on_uri", :unique => true
 

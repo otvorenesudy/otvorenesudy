@@ -1,5 +1,9 @@
-# Examples:
+# Requires:
 # 
+# rake resque:workers QUEUE=* COUNT=4
+# 
+# Examples:
+#
 # rake run:crawlers:hearings:civil
 # rake run:crawlers:hearings:criminal
 # rake run:crawlers:hearings:special
@@ -22,9 +26,19 @@ namespace :run do
       end
     end
 
-    task :decrees, [:form] => :environment do |_, args|
-      args.with_defaults decree_form_code: args[:form], safe: true
-      JusticeGovSk.run_workers Decree, args
+    task :decrees, [:decree_form_code] => :environment do |_, args|
+      args.with_defaults safe: true
+      
+      if args[:decree_form_code].blank?
+        codes = DecreeForm.all.map { |form| form.code }
+      else
+        codes = [args[:decree_form_code]]
+      end 
+      
+      codes.each do |code|
+        args.to_hash.merge! decree_form_code: code
+        JusticeGovSk.run_workers Decree, args
+      end
     end
   end
 end
