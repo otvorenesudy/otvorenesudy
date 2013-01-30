@@ -151,6 +151,8 @@ module JusticeGovSk
     def call(block, options = {})
       safe = options[:safe].nil? ? true : options[:safe]
       
+      puts "Setting #{options.map { |k, v| "#{k}: #{v.is_a?(Class) ? v.name : v}" }.join ', '}"
+      
       if safe
         block.call
       else
@@ -169,6 +171,6 @@ module JusticeGovSk
           end
         end
       end
-    end    
+    end
   end
 end

@@ -38,7 +38,7 @@ module Core
       args.map do |arg|
         arg = arg.to_s
         
-        arg.gsub!(/^running/i)         { |s| s.bold       }
+        arg.gsub!(/^(runn|sett)ing/i)  { |s| s.bold       }
         arg.gsub!(/^finished/i)        { |s| s.green.bold }
         arg.gsub!(/^aborted/i)         { |s| s.red.bold   }
        #arg.gsub!(/^\w+ing/)           { |s| s.underline  }
