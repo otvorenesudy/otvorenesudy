@@ -11,37 +11,32 @@ Requires:
 Setup:
 
 1. Ensure trigram extension is used:
-  sudo apt-get install postgresql-contrib
-  sudo service postgresql restart
-  cd /usr/share/postgresql/9.1/extension/
-  psql -U postgres -d opencourts -f pg_trgm--1.0.sql
-  rake db:migrate
+       sudo apt-get install postgresql-contrib
+       sudo service postgresql restart
+       cd /usr/share/postgresql/9.1/extension/
+       psql -U postgres -d opencourts -f pg_trgm--1.0.sql
+       rake db:migrate
 
 2. ElasticSearch:
-  TODO
+       TODO
 
 == Data
 
 1. Setup database:
-  rake db:setup
+       rake db:setup
 
 2. Start crawling data:
-  rake crawl:courts
-  rake crawl:judges
+       rake crawl:courts
+       rake crawl:judges
   
 3. Run Resque workers:
-  rake resque:workers QUEUE=* COUNT=4
+       rake resque:workers QUEUE=* COUNT=4
 
 4. Crawl the rest using Resque jobs:
-
-* 
-  rake run:crawlers:hearings:civil
-* 
-  rake run:crawlers:hearings:criminal
-* 
-  rake run:crawlers:hearings:special
-* 
-  rake run:crawlers:decrees
+       * <tt>rake run:crawlers:hearings:civil</tt>
+       * <tt>rake run:crawlers:hearings:criminal</tt>
+       * <tt>rake run:crawlers:hearings:special</tt>
+       * <tt>rake run:crawlers:decrees</tt>
 
 == License
 
