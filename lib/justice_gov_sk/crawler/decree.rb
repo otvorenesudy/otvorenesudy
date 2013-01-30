@@ -65,7 +65,7 @@ module JusticeGovSk
         
         path = agent.storage.fullpath(agent.uri_to_path uri)
         
-        JusticeGovSk::Crawler::Decree::Extractor::Text.extract(path)
+        JusticeGovSk::Extractor::Text.extract(path)
       end
       
       def images
@@ -135,17 +135,6 @@ module JusticeGovSk
         legislation_usage.decree      = @decree
         
         @persistor.persist(legislation_usage)
-      end
-      
-      # TODO mv to extractor.rb
-      module Extractor
-        module Text
-          extend Core::Extractor::Text
-        end
-        
-        module Image
-          extend Core::Extractor::Image
-        end
       end
     end
   end
