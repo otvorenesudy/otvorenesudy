@@ -1,6 +1,8 @@
 module Core
   module Extractor
     module Image
+      include Core::Extractor
+      
       def extract(path)
         # TODO implement
       end

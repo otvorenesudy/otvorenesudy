@@ -1,6 +1,8 @@
 module Core
   module Extractor
     module Text
+      include Core::Extractor
+      
       attr_accessor :use_ocr
       
       def extract(path)
@@ -16,7 +18,7 @@ module Core
             remove(file)
           end
           
-          return content, "#{content.size} characters"
+          content
         end
       end
       
@@ -26,6 +28,12 @@ module Core
       
       def use_ocr
         @use_ocr.nil? ? false : @use_ocr
+      end
+      
+      protected
+      
+      def postextract(content)
+        super content, "#{content.size} characters"
       end
       
       private

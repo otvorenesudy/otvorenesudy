@@ -5,14 +5,14 @@ module Core
     attr_accessor :formats
     
     def extract(path)
-      return unless extension = preextract(path)
-      postextract yield path, extension
+      return unless format = preextract(path)
+      postextract yield format
     end
     
     protected
     
     def preextract(path)
-      puts "Extracting from #{path} ... "
+      print "Extracting #{path} ... "
       
       format = path.split('.').last.to_sym      
       
@@ -23,7 +23,7 @@ module Core
     end
     
     def postextract(result, note = nil)
-      puts "#{result ? "done" : "failed"}#{!note.blank? ? ' ' + note : ''}"
+      puts "#{result ? "done" : "failed"}#{!note.blank? ? " (#{note})" : ''}"
       result
     end
   end
