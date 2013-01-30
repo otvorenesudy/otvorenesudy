@@ -36,9 +36,17 @@ section + section {
 .centered {
   text-align: center;
   
-  &.nav-pills li {
-    display: inline-block;
-    float: none;
+  &.nav {
+    float: left;
+    position: relative;
+    left: 50%;
+  }  
+  
+  .nav-pills {
+    float: left;
+    position: relative;
+    left: -50%;
+    margin: 0px;
   }
 }
 

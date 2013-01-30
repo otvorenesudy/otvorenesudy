@@ -1,8 +1,8 @@
 <% provide :title, "Súdy Slovenskej Republiky" %>
 <% provide :header, render(partial: 'header') %>
 
-<div class="nav">
-  <ul class="nav nav-pills centered">
+<div class="nav centered">
+  <ul class="nav nav-pills">
     <li><%= icon_link_to :'list-alt', "Krajské súdy", '#regional-courts' %></li>
     <li><%= icon_link_to :'list-alt', "Okresné súdy", '#district-courts' %></li>
     <li><%= icon_link_to :'map-marker', "Mapa súdov", map_courts_path %></li>
