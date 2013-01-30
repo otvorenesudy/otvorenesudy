@@ -38,7 +38,8 @@ module Core
     end
     
     def process(request)
-      @request  = request
+      return unless @request = request
+      
       @content  = @downloader.download(@request) unless @downloader.nil?
       @document = @parser.parse(@content) unless @parser.nil?
       @result   = yield
@@ -47,20 +48,24 @@ module Core
     end
     
     def postcrawl(message = "finished")
-      unless @content.nil?
-        unless @document.nil?
-          unless @result.nil?
-            puts message
-            
-            @result
+      unless @request.nil?
+        unless @content.nil?
+          unless @document.nil?
+            unless @result.nil?
+              puts message
+              
+              @result
+            else
+              puts "aborted (no result produced)"
+            end
           else
-            puts "aborted (no result produced)"
+            puts "aborted (no document parsed)"
           end
         else
-          puts "aborted (no document parsed)"
+          puts "aborted (no content downloaded)"
         end
       else
-        puts "aborted (no content downloaded)"
+        puts "aborted (no request provided)"
       end
     end
     
