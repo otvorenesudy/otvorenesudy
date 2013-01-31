@@ -7,8 +7,6 @@ module Core
       include Core::Parser
       
       def parse(content)
-        clear if self.respond_to? :clear
-        
         print "Parsing content ... "
         
         if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
@@ -25,54 +23,7 @@ module Core
         document
       end
       
-      protected
-      
-      def find_value(name, element, selector = nil, options = {}, &block)
-        options = defaults.merge options
-       
-        print "Parsing #{name} ... "
-        
-        value = selector.blank? ? element : element.search(selector)
-        
-        if options[:present?]
-          if value.nil?
-            puts "failed (not present)"
-            return
-          end
-        end
-        
-        if options[:empty?]
-          if value.respond_to?(:empty?) && value.empty?
-            puts "failed (empty)"
-            return
-          end
-            
-          if value.respond_to?(:text) && value.text.strip.empty?
-            puts "failed (content empty)"
-            return
-          end
-        end
-        
-        value = block_given? ? block.call(value) : value
-    
-        puts options[:verbose] ? "done (#{value})" : "done"
-    
-        value
-      end
-      
-      def find_values(name, element, selector, options = {}, &block)
-        find_value(name, element, selector, options, &block) || []
-      end
-      
       private
-      
-      def defaults
-        {
-          present?: true,
-          empty?:   true,
-          verbose:  true
-        }
-      end
       
       def encoding(content)
         part = ''
