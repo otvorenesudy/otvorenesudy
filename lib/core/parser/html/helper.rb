@@ -4,8 +4,10 @@ module Core
       module Helper
         include Core::Parser::Helper
         
-        def find_value(name, element, selector = nil, options = {}, &block)
-          super { selector.blank? ? element : element.search(selector) }
+        private
+        
+        def find_strategy(name, element, selector = nil, options = {}, &block)
+          selector.blank? ? element : element.search(selector)
         end
       end
     end

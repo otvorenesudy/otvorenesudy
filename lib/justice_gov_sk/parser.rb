@@ -3,8 +3,7 @@
 module JusticeGovSk
   class Parser
     include Core::Parser::HTML
-    
-    protected
+    include Core::Parser::HTML::Helper
     
     include JusticeGovSk::Helper::Normalizer
     
@@ -69,6 +68,8 @@ module JusticeGovSk
       
       find_value name, rows[index], '', options, &block
     end
+    
+    protected
     
     def clear
       @table_rows   = nil

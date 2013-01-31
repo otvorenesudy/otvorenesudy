@@ -4,8 +4,10 @@ module Core
       module Helper
         include Core::Parser::Helper
         
-        def find_value(name, data, key = name, options = {}, &block)
-          super { data.respond_to?(:'[]') ? data[key] : nil } 
+        private
+        
+        def find_strategy(name, data, key = name, options = {}, &block)
+          data.respond_to?(:'[]') ? data[key] : nil
         end
       end
     end

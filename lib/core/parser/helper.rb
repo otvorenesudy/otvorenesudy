@@ -8,7 +8,7 @@ module Core
         
         print "Parsing #{name} ... "
         
-        value = yield name, document, pattern, options
+        value = find_strategy name, document, pattern, options
         
         if [:presence, :content].include? options[:validate]
           if value.nil?
@@ -31,19 +31,19 @@ module Core
         
         value = block_given? ? block.call(value) : value
         
-        puts options[:verbose] == :extra ? "done (#{value})" : "done"
+        puts options[:verbose] ? "done (#{value})" : "done"
         
         value
       end
       
-      def find_value(name, document, pattern, options = {}, &block)
+      def find_values(name, document, pattern, options = {}, &block)
         find_value(name, document, pattern, options, &block) || []
       end
       
       private
       
       def find_defaults
-        { validate: :content, verbose: :extra }
+        { validate: :content, verbose: true }
       end
     end
   end

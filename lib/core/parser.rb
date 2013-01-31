@@ -8,7 +8,7 @@ module Core
       document = yield content, options
       message  = options[:message]
       
-      puts "#{result ? 'done' : 'failed'}#{message.blank? ? '' : " (#{message})"}"
+      puts "#{document ? 'done' : 'failed'}#{message.blank? ? '' : " (#{message})"}"
       
       document
     end
