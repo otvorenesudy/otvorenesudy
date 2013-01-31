@@ -9,6 +9,12 @@ module Core
         end
       end
       
+      def batch
+        Dir.foreach(root) do |bucket|
+          yield Dir.entries(File.join root, bucket).select { |e| !e.start_with? '.' }, bucket
+        end
+      end
+      
       def bucket(entry)
         partition(entry)[-2]
       end
