@@ -21,7 +21,7 @@ module JusticeGovSk
         JusticeGovSk.run_lister lister, request, options do
           lister.crawl(request, options[:offset], options[:limit]) do |url|
             next unless crawlable? type, url
-            Resque.enqueue(JusticeGovSk::Job::Crawler, type.name, url, options)
+            Resque.enqueue(JusticeGovSk::Job::ResourceCrawler, type.name, url, options)
           end
         end
       end
