@@ -18,6 +18,7 @@ module Core
             s = File.join dir, f
             d = File.join options[:output], f.scan(/\_(\d+\.\w+)\z/).first
             
+            FileUtils.mkpath options[:output]
             FileUtils.mv s, d
           end
           
