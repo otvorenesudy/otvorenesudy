@@ -1,4 +1,4 @@
-# TODO improve API
+# TODO improve API, not all crawlers are OK with current state -- not working
 
 module Core
   module Crawler

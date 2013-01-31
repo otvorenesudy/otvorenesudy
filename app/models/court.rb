@@ -13,10 +13,6 @@ class Court < ActiveRecord::Base
                   :media_phone,
                   :latitude,
                   :longitude
-    
-  # TODO rm
-  #include PgSearch
-  #pg_search_scope :search_by_name, against: name, using: :trigram
   
   storage :page, JusticeGovSk::Storage::CourtPage
   

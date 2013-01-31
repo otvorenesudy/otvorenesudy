@@ -2,20 +2,11 @@
 
 # TODO add filter option: crawl only data not in DB / update DB
 
-# TODO refactor core:
-# remove subclass specific functionality from superclass,
-# example: mv ListRequest.decree_form -> DecreeListRequest
-# remove lines like: if type < Hearing
-
 # TODO
 # consider distinguishing between pages and documents everywhere, like in storages
 # example: Downloader::CourtPage, Parser::CourtPage? 
 # also consider storage/page/decree.rb vs. storage/decree_page.rb 
 # or remove _page suffix from storages? and leave only _document (and _list)
-
-# TODO add InstanceSupplier + InstanceWithJustValueSupplier
-# (useful for creating / finding = processing: DecreeNature, HearingSection,
-# HearingSubject, ...) => benefit: much more simplified crawlers :)
 
 module JusticeGovSk
   module Base

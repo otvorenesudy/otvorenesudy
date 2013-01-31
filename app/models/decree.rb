@@ -26,14 +26,6 @@ class Decree < ActiveRecord::Base
   
   has_many :legislations, through: :legislation_usages
   
-  storage :page,           JusticeGovSk::Storage::DecreePage,     extension: :html
-  storage :document,       JusticeGovSk::Storage::DecreeDocument, extension: :pdf
-  storage :document_pages, JusticeGovSk::Storage::DecreeImage,    extension: :pdf
-  
-  def document_pages
-    Dir.glob("#{document_pages_path}/*").sort
-  end
-  
 # # TODO: add judgements and judges
   #mapping do
     #indexes :id
@@ -50,4 +42,12 @@ class Decree < ActiveRecord::Base
     #indexes :legislation_subarea, as: lambda { |d| d.legislation_subarea                          }
     #indexes :legislations,        as: lambda { |d| d.legislations.map { |l| l.legislation.value } }
   #end
+  
+  storage :page,           JusticeGovSk::Storage::DecreePage,     extension: :html
+  storage :document,       JusticeGovSk::Storage::DecreeDocument, extension: :pdf
+  storage :document_pages, JusticeGovSk::Storage::DecreeImage,    extension: :pdf
+  
+  def document_pages
+    Dir.glob("#{document_pages_path}/*").sort
+  end
 end
