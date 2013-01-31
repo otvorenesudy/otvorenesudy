@@ -21,7 +21,7 @@ module JusticeGovSk
       
       run_lister lister, request, options do
         lister.crawl(request, offset, limit) do |url|
-          downloader.download url
+          call lambda { downloader.download url }, options
         end
       end
     end  

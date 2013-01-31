@@ -1,6 +1,10 @@
+# TODO test if it does not queue jobs when the type is not updateable
+
 module JusticeGovSk
   module Job
     class ListCrawler
+      extend JusticeGovSk::Helper::UpdateController::Resource
+      
       @queue = :listers
       
       # supported types: CivilHearing, SpecialHearing, CriminalHearing, Decree
@@ -16,6 +20,7 @@ module JusticeGovSk
         
         JusticeGovSk.run_lister lister, request, options do
           lister.crawl(request, options[:offset], options[:limit]) do |url|
+            next unless crawlable? type, url
             Resque.enqueue(JusticeGovSk::Job::Crawler, type.name, url, options)
           end
         end

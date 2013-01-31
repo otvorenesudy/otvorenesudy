@@ -3,31 +3,16 @@ module JusticeGovSk
     class JudgeList < JusticeGovSk::Crawler::List
       protected
       
+      include JusticeGovSk::Helper::UpdateController::Instance
+      
       def process(request)
         super(request) do |item|
-          data  = @parser.data(item)
-          court = court(data)
-          judge = judge(data)
-
-          employment(court, judge, data)
-        end
-      end
-      
-      private
-      
-      def court(data)
-        name = data[:court]
-        
-        unless name.nil?
-          court_by_name_factory.find(name)
-        end
-      end
-      
-      def judge(data)
-        name = data[:name]
-
-        unless name.nil?
+          data = @parser.data(item)
+          name = data[:name]
+          
           judge = judge_by_name_factory.find_or_create(name[:altogether])
+          
+          next judge unless crawlable?(judge)
           
           judge.name             = name[:altogether]
           judge.name_unprocessed = name[:unprocessed]
@@ -41,8 +26,26 @@ module JusticeGovSk
           
           @persistor.persist(judge)
           
-          judge
+          court = court_by_name_factory.find(data[:court]) unless data[:court].nil?
+
+          employment(court, judge, data)
         end
+      end
+      
+      private
+      
+      def employment(court, judge, data)
+        employment = employment_by_court_id_and_judge_id_factory.find_or_create(court.id, judge.id)
+        
+        employment.court          = court
+        employment.judge          = judge
+        employment.judge_position = judge_position(data)
+        employment.active         = data[:active]
+        employment.note           = data[:note]
+
+        @persistor.persist(employment)
+        
+        employment
       end
       
       def judge_position(data)
@@ -57,20 +60,6 @@ module JusticeGovSk
           
           judge_position
         end
-      end
-      
-      def employment(court, judge, data)
-        employment = employment_by_court_id_and_judge_id_factory.find_or_create(court.id, judge.id)
-        
-        employment.court          = court
-        employment.judge          = judge
-        employment.judge_position = judge_position(data)
-        employment.active         = data[:active]
-        employment.note           = data[:note]
-
-        @persistor.persist(employment)
-        
-        employment
       end
     end
   end

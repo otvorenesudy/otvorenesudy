@@ -1,9 +1,14 @@
 development:
   # Storage root path
   storage: 'storage'
+  
+  # List of models updateable by crawlers
+  updateable: [Court, Judge, Hearing, Decree]
 
 test:
   storage: 'storage'
+  updateable: [Court, Judge]
 
 production:
   storage: 'storage'
+  updateable: [Court, Judge]

@@ -3,6 +3,8 @@ module JusticeGovSk
     class Court < JusticeGovSk::Crawler
       protected
       
+      include JusticeGovSk::Helper::UpdateController::Instance
+      
       def process(request)
         super do
           uri = JusticeGovSk::Request.uri(request)
@@ -10,6 +12,8 @@ module JusticeGovSk
           return nil unless JusticeGovSk::URL.valid? uri
           
           @court = court_by_uri_factory.find_or_create(uri)
+          
+          next @court unless crawlable?(@court)
           
           @court.uri = uri
              

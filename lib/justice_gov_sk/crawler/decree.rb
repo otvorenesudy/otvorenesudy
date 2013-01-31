@@ -1,5 +1,3 @@
-# TODO consider reseting matched judges, i.e. judgements when updating 
-
 module JusticeGovSk
   class Crawler
     class Decree < JusticeGovSk::Crawler
@@ -15,6 +13,7 @@ module JusticeGovSk
       
       include JusticeGovSk::Helper::JudgeMatcher
       include JusticeGovSk::Helper::ProceedingSupplier
+      include JusticeGovSk::Helper::UpdateController::Instance
       
       def process(request)
         raise "Decree form code not set" unless @form_code
@@ -23,6 +22,8 @@ module JusticeGovSk
           uri = JusticeGovSk::Request.uri(request)
           
           @decree = decree_by_uri_factory.find_or_create(uri)
+          
+          next @decree unless crawlable?(@decree)
           
           @decree.form = decree_form_by_code_factory.find(@form_code)
           

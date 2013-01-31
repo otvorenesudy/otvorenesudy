@@ -5,12 +5,15 @@ module JusticeGovSk
     
       include JusticeGovSk::Helper::JudgeMatcher
       include JusticeGovSk::Helper::ProceedingSupplier
+      include JusticeGovSk::Helper::UpdateController::Instance
       
       def process(request)
         super do
           uri = JusticeGovSk::Request.uri(request)
           
           @hearing = hearing_by_uri_factory.find_or_create(uri)
+          
+          next @hearing unless crawlable?(@hearing)
           
           @hearing.uri = uri
   
