@@ -12,7 +12,7 @@ module Core
     def preextract(path, options = {})
       subject = options[:subject]
       
-      print "Extracting#{subject.blank? ? '' : " #{subject}"} #{path} ... "
+      print "Extracting#{subject.blank? ? '' : " #{subject}"} from #{path} ... "
       puts  "failed (not readable)" unless File.readable?(path)
       
       path.split('.').last.to_sym
