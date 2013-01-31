@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-# TODO add filter option: crawl only data not in DB / update DB
-
 # TODO
 # consider distinguishing between pages and documents everywhere, like in storages
 # example: Downloader::CourtPage, Parser::CourtPage? 
@@ -22,7 +20,7 @@ module JusticeGovSk
       downloader = inject JusticeGovSk::Downloader, implementation: type
       
       run_lister lister, request, options do
-        lister.crawl(request) do |url|
+        lister.crawl(request, offset, limit) do |url|
           downloader.download url
         end
       end
