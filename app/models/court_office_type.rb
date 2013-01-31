@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class CourtOfficeType < ActiveRecord::Base
-  include Type::Enumerable
+  include Resource::Enumerable
   
   attr_accessible :value
   

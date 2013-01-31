@@ -1,4 +1,4 @@
-module Type::Enumerable
+module Resource::Enumerable
   extend ActiveSupport::Concern
 
   module ClassMethods
