@@ -43,12 +43,17 @@ module Core
             
             puts "failed (page empty, attempt #{i} of #{repeat})"
           end
-        rescue Mechanize::Error => e
-          puts "failed (unable to download page, attempt #{i} of #{repeat})"
+        rescue Mechanize::ResponseCodeError => e
+          c = e.response_code
+          e = "Invalid response code #{c}"
+          
+          puts "failed (response code #{c}, attempt #{i} of #{repeat})"
         rescue Net::HTTP::Persistent::Error => e
           puts "failed (#{e}, attempt #{i} of #{repeat})"
-        rescue Timeout::Error => e
+        rescue Net::HTTPRequestTimeOut, Timeout::Error => e
           puts "failed (connection timed out, attempt #{i} of #{repeat})"
+        rescue Mechanize::Error => e
+          puts "failed (unable to download page, attempt #{i} of #{repeat})"
         rescue Exception => e 
           puts "failed (unable to handle #{e.class.name})" 
           break
