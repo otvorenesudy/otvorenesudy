@@ -4,11 +4,8 @@ module Core
       include Core::Output
       include Core::Parser
       
-      def parse(content)
-        # TODO add clearing
-        super do
-          ActiveSupport::JSON.decode(content)
-        end
+      def parse(content, options = {})
+        super { ActiveSupport::JSON.decode(content) }
       end
     end
   end

@@ -1,31 +1,26 @@
-# TODO find more common super type for HTML and JSON parser, consider Support module? 
-
 module Core
   module Parser
     module HTML
       include Core::Output
       include Core::Parser
       
-      def parse(content)
-        print "Parsing content ... "
-        
-        if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
-          puts "done (already parsed)"
-          
-          document = content
-        else
-          content  = content.encode Encoding::UTF_8, encoding(content)
-          document = Nokogiri::HTML::parse(content)
-          
-          puts "done"
+      def parse(content, options = {})
+        super do
+          if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
+            options[:message] = "already parsed"
+            
+            content
+          else
+            content = content.encode Encoding::UTF_8, encoding(content)
+            
+            Nokogiri::HTML::parse(content)
+          end
         end
-        
-        document
       end
       
       private
       
-      def encoding(content)
+      def encoding(content, options = {})
         part = ''
         
         content.bytes do |b|

@@ -5,9 +5,10 @@ module Core
       
       print "Parsing content ... "
       
-      document = yield content
+      document = yield content, options
+      message  = options[:message]
       
-      puts "done"
+      puts "#{result ? 'done' : 'failed'}#{message.blank? ? '' : " (#{message})"}"
       
       document
     end

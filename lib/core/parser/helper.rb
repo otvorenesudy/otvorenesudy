@@ -1,16 +1,38 @@
 module Core
   module Parser
     module Helper
+      include Core::Output
+      
       def find_value(name, document, pattern, options = {}, &block)
         options = find_defaults.merge options
-       
+        
         print "Parsing #{name} ... "
         
         value = yield name, document, pattern, options
+        
+        if [:presence, :content].include? options[:validate]
+          if value.nil?
+            puts "failed (not present)"
+            return
+          end
+        end
+        
+        if options[:validate] == :content
+          if value.respond_to?(:empty?) && value.empty?
+            puts "failed (empty)"
+            return
+          end
+          
+          if value.respond_to?(:text) && value.text.strip.empty?
+            puts "failed (content empty)"
+            return
+          end
+        end
+        
         value = block_given? ? block.call(value) : value
-    
-        puts options[:verbose] ? "done (#{value})" : "done"
-    
+        
+        puts options[:verbose] == :extra ? "done (#{value})" : "done"
+        
         value
       end
       
@@ -21,11 +43,7 @@ module Core
       private
       
       def find_defaults
-        {
-          present?: true,
-          empty?:   true,
-          verbose:  true
-        }
+        { validate: :content, verbose: :extra }
       end
     end
   end
