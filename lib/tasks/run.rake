@@ -14,19 +14,23 @@
 namespace :run do
   namespace :crawlers do
     namespace :hearings do
+      desc "Crawl civil hearings from justice.gov.sk"
       task :civil => :environment do
         JusticeGovSk.run_workers CivilHearing, safe: true 
       end
  
+      desc "Crawl criminal hearings from justice.gov.sk"
       task :criminal => :environment do
         JusticeGovSk.run_workers CriminalHearing, safe: true
       end
 
+      desc "Crawl special hearings from justice.gov.sk"
       task :special => :environment do
         JusticeGovSk.run_workers SpecialHearing, safe: true
       end
     end
 
+    desc "Crawl decrees from justice.gov.sk"
     task :decrees, [:decree_form_code] => :environment do |_, args|
       args.with_defaults safe: true
       

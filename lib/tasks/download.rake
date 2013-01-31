@@ -11,6 +11,7 @@
 
 namespace :download do
   namespace :courts do
+    desc "Download HTML pages of courts from justice.gov.sk"
     task :pages, [:offset, :limit] => :environment do |_, args|
       args.with_defaults safe: false
       JusticeGovSk.download_pages Court, args
@@ -19,6 +20,7 @@ namespace :download do
   
   namespace :hearings do
     namespace :civil do
+      desc "Download HTML pages of civil hearings from justice.gov.sk"
       task :pages, [:offset, :limit] => :environment do |_, args|
         args.with_defaults safe: false
         JusticeGovSk.download_pages CivilHearing, args
@@ -26,6 +28,7 @@ namespace :download do
     end
     
     namespace :criminal do
+      desc "Download HTML pages of criminal hearings from justice.gov.sk"
       task :pages, [:offset, :limit] => :environment do |_, args|
         args.with_defaults safe: false
         JusticeGovSk.download_pages CriminalHearing, args
@@ -33,6 +36,7 @@ namespace :download do
     end
     
     namespace :special do
+      desc "Download HTML pages of special hearings from justice.gov.sk"
       task :pages, [:offset, :limit] => :environment do |_, args|
         args.with_defaults safe: false
         JusticeGovSk.download_pages SpecialHearing, args
@@ -41,11 +45,13 @@ namespace :download do
   end
 
   namespace :decrees do
+    desc "Download HTML pages of decrees from justice.gov.sk"
     task :pages, [:decree_form_code, :offset, :limit] => :environment do |_, args|
       args.with_defaults safe: false
       JusticeGovSk.download_pages Decree, args
     end
 
+    desc "Download PDF documents of decrees from justice.gov.sk"
     task :documents => :environment do
       JusticeGovSk.download_documents Decree, safe: false
     end    
