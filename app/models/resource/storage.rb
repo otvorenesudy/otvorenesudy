@@ -15,7 +15,7 @@ module Resource::Storage
         self.class.storages[name]
       end
       
-      define_methos "#{name}_entry" do
+      define_method "#{name}_entry" do
         if block_given?
           yield self
         else

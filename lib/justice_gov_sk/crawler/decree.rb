@@ -23,14 +23,16 @@ module JusticeGovSk
           uri = JusticeGovSk::Request.uri(request)
           
           @decree = decree_by_uri_factory.find_or_create(uri)
-
+          
           @decree.form = decree_form_by_code_factory.find(@form_code)
-        
+          
           raise "Decree form not found" unless @decree.form
           
           @decree.uri  = uri
           @decree.text = fulltext(uri)
-  
+          
+          images
+          
           @decree.case_number = @parser.case_number(@document)
           @decree.file_number = @parser.file_number(@document)
           @decree.date        = @parser.date(@document)
@@ -43,7 +45,6 @@ module JusticeGovSk
           judge
           
           supply @decree, :nature, parse: [:value], factory: { type: DecreeNature }
-          
           supply @decree, :legislation_area, parse: [:value]
           
           # TODO fix helper
@@ -66,13 +67,16 @@ module JusticeGovSk
         
         agent.download(request)
         
-        path = agent.storage.fullpath(agent.uri_to_path uri)
+        path = agent.storage.path(agent.uri_to_path uri)
         
         JusticeGovSk::Extractor::Text.extract(path)
       end
       
       def images
-        # TODO
+        storage = JusticeGovSk::Storage::DecreeImage.instance
+        options = { output: storage.path(@decree.document_entry) }
+        
+        JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
       end
       
       def judge

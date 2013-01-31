@@ -98,14 +98,14 @@ module Core
     
     protected
     
-    def load(path)
+    def load(entry)
       if storage
-        print "Loading #{storage.fullpath path} ... "
+        print "Loading #{storage.path entry} ... "
         
-        if storage.contains? path
-          if storage.readable? path
-            unless storage.expired? path
-              content = storage.load path
+        if storage.contains? entry
+          if storage.readable? entry
+            unless storage.expired? entry
+              content = storage.load entry
               
               puts "done (#{content.length} bytes)"
               
@@ -122,11 +122,11 @@ module Core
       end
     end
     
-    def store(path, content)
+    def store(entry, content)
       if storage
-        print "Storing #{storage.fullpath path} ... "
+        print "Storing #{storage.path path} ... "
         
-        storage.store path, content
+        storage.store entry, content
         
         puts "done (#{content.length} bytes)"
       end
