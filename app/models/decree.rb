@@ -25,10 +25,15 @@ class Decree < ActiveRecord::Base
   has_many :legislation_usages
   
   has_many :legislations, through: :legislation_usages
-
-  storage :page,     JusticeGovSk::Storage::DecreePage,     extension: :html
-  storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
-
+  
+  storage :page,           JusticeGovSk::Storage::DecreePage,     extension: :html
+  storage :document,       JusticeGovSk::Storage::DecreeDocument, extension: :pdf
+  storage :document_pages, JusticeGovSk::Storage::DecreeImage,    extension: :pdf
+  
+  def document_pages
+    Dir.glob("#{document_pages_path}/*").sort
+  end
+  
 # # TODO: add judgements and judges
   #mapping do
     #indexes :id
