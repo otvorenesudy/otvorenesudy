@@ -7,25 +7,29 @@
 # 
 # rake storage:stat[storage/pages/decrees]
 # 
-# rake storage:validate:documents[storage/documents/decrees]
 # rake storage:validate:pages[storage/pages/decrees]
+# rake storage:validate:documents[storage/documents/decrees]
 
 namespace :storage do
+  desc "Copy standard storage into distributed storage"
   task :distribute, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
     Core::Storage::Utils.distribute args[:src], args[:dst], args
   end
   
+  desc "Copy distributed storage into standard storage"
   task :merge, [:src, :dst, :verbose] => :environment do |_, args|
     args.with_defaults verbose: false
     Core::Storage::Utils.merge args[:src], args[:dst], args
   end
   
+  desc "Compute size statistics of distributed storage"
   task :stat, [:src, :verbose] => :environment do |_, args|
     Core::Storage::Utils.stat args[:src], args
   end
   
   namespace :validate do
+    desc "Check if distributed storage contains only proper HTML pages"
     task :pages, [:src, :verbose] => :environment do |_, args|
       Core::Storage::Utils.validate args[:src], args do |file|
          buffer = File.open(file, 'r') { |f| f.read }
@@ -33,6 +37,7 @@ namespace :storage do
       end
     end
     
+    desc "Check if distributed storage contains only PDF documents"
     task :documents, [:src, :verbose] => :environment do |_, args|
       Core::Storage::Utils.validate args[:src], args do |file|
         (File.open(file, 'r') { |f| f.read 32 } =~ /\%PDF-\d+\.\d+.*/) == 0
