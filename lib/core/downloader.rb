@@ -124,7 +124,7 @@ module Core
     
     def store(entry, content)
       if storage
-        print "Storing #{storage.path path} ... "
+        print "Storing #{storage.path entry} ... "
         
         storage.store entry, content
         
