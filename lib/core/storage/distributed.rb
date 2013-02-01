@@ -11,7 +11,7 @@ module Core
       
       def batch
         Dir.foreach(root) do |bucket|
-          next if entry.start_with? '.'
+          next if bucket.start_with? '.'
           yield Dir.entries(File.join root, bucket).reject { |e| e.start_with? '.' }, bucket
         end
       end
