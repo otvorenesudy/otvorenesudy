@@ -23,6 +23,21 @@ sk:
       long: '%A %d. %B %Y %H:%M'
       short: '%d.%m. %H:%M'
 
+  days:
+    one: "1 deň"
+    few: "%{count} dni"
+    other: "%{count} dní"
+    
+  months:
+    one: "1 mesiac"
+    few: "%{count} mesiace"
+    other: "%{count} mesiacov"
+    
+  years:
+    one: "1 rok"
+    few: "%{count} roky"
+    other: "%{count} rokov"
+    
   court:
     zero: "žiadny súd"
     one: "1 súd"
@@ -33,7 +48,7 @@ sk:
     zero: "žiadny sudca"
     one: "1 sudca"
     few: "%{count} sudcovia"
-    other: "%{count} sudcovia"
+    other: "%{count} sudcov"
 
   hearing:
     zero: "žiadne pojednávanie"
@@ -46,3 +61,15 @@ sk:
     one: "1 rozhodnutie"
     few: "%{count} rozhodnutia"
     other: "%{count} rozhodnutí"
+
+  document:
+    zero: "žiaden dokument"
+    one: "1 dokument"
+    few: "%{count} dokumenty"
+    other: "%{count} dokumentov"
+
+  pages:
+    zero: "žiadna strana"
+    one: "1 strana"
+    few: "%{count} strany"
+    other: "%{count} strán"
