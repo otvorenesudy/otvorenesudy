@@ -10,3 +10,39 @@ sk:
       bad_request:
         title: "Chybná požiadavka"
         description: "Server nerozumel vašej požiadavke. Mohla byť poškodená."
+
+  date:
+    formats:
+      default: '%d.%m. %Y'
+      long: '%d. %B %Y'
+      short: '%d.%m.'
+
+  time:
+    formats:
+      default: '%d.%m. %Y %H:%M'
+      long: '%A %d. %B %Y %H:%M'
+      short: '%d.%m. %H:%M'
+
+  court:
+    zero: "žiadny súd"
+    one: "1 súd"
+    few: "%{count} súdy"
+    other: "%{count} súdov"
+
+  judge:
+    zero: "žiadny sudca"
+    one: "1 sudca"
+    few: "%{count} sudcovia"
+    other: "%{count} sudcovia"
+
+  hearing:
+    zero: "žiadne pojednávanie"
+    one: "1 pojednávanie"
+    few: "%{count} pojednávania"
+    other: "%{count} pojednávaní"
+
+  decree:
+    zero: "žiadne rozhodnutie"
+    one: "1 rozhodnutie"
+    few: "%{count} rozhodnutia"
+    other: "%{count} rozhodnutí"
