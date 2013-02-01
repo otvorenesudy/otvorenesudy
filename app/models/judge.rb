@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Judge < ActiveRecord::Base
   include Resource::Similarity
   
@@ -12,12 +10,11 @@ class Judge < ActiveRecord::Base
                   :suffix,
                   :addition
 
-  # TODO rm or mv to employments -- refactor!
-  scope :active,   joins(:employments).where('active = true')
-  scope :inactive, joins(:employments).where('active = false')
+  scope :active,   joins(:judge_positions).merge(Employment.active)
+  scope :inactive, joins(:judge_positions).merge(Employment.inactive)
   
-  scope :chair,     joins(:judge_positions).where('value = ? OR value = ?',    'predseda',    'predsedníčka')
-  scope :vicechair, joins(:judge_positions).where('value = ? OR value = ?', 'podpredseda', 'podpredsedníčka')
+  scope :chair,     joins(:judge_positions).merge(JudgePosition.chair)
+  scope :vicechair, joins(:judge_positions).merge(JudgePosition.vicechair)
   
   has_many :employments, dependent: :destroy
   
