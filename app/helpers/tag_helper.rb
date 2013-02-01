@@ -46,17 +46,6 @@ module TagHelper
     options.merge! data trigger: trigger, placement: placement, content: content, html: true
     link_to body, '#', options
   end
-    
-  def time_tag(time, format = :long_ordinal, options = {})
-    options.merge! class: :timeago, title: time.getutc.iso8601
-    content_tag :abbr, time.to_formatted_s(format), options
-  end
-
-  def tooltip_tag(body, title, placement = :top, trigger = :hover, options = {})
-    options.merge! rel: :tooltip, title: title
-    options.merge! data trigger: trigger, placement: placement
-    link_to body, '#', options
-  end
   
   private
   
