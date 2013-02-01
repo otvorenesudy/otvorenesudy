@@ -39,37 +39,37 @@ sk:
     other: "%{count} rokov"
     
   court:
-    zero: "žiadny súd"
+    zero: "žiadne súdy"
     one: "1 súd"
     few: "%{count} súdy"
     other: "%{count} súdov"
 
   judge:
-    zero: "žiadny sudca"
+    zero: "žiadny sudcovia"
     one: "1 sudca"
     few: "%{count} sudcovia"
     other: "%{count} sudcov"
 
   hearing:
-    zero: "žiadne pojednávanie"
+    zero: "žiadne pojednávania"
     one: "1 pojednávanie"
     few: "%{count} pojednávania"
     other: "%{count} pojednávaní"
 
   decree:
-    zero: "žiadne rozhodnutie"
+    zero: "žiadne rozhodnutia"
     one: "1 rozhodnutie"
     few: "%{count} rozhodnutia"
     other: "%{count} rozhodnutí"
 
   document:
-    zero: "žiaden dokument"
+    zero: "žiadne dokumenty"
     one: "1 dokument"
     few: "%{count} dokumenty"
     other: "%{count} dokumentov"
 
   pages:
-    zero: "žiadna strana"
+    zero: "žiadne strany"
     one: "1 strana"
     few: "%{count} strany"
     other: "%{count} strán"
