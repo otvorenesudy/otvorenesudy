@@ -28,32 +28,30 @@ module JusticeGovSk
     
     # supported types: Decree
     def download_documents(type, options = {})
-      source  = File.join JusticeGovSk::Storage::DecreePage.instance.root
+      storage = JusticeGovSk::Storage::DecreePage.instance
       request = JusticeGovSk::Request::Document.new
       agent   = JusticeGovSk::Agent::DecreeDocument.new
       
-      Dir.foreach(source) do |bucket|
-        next if bucket.start_with? '.'
+      extend JusticeGovSk::Helper::ContentValidator
+      
+      storage.each do |entry, bucket|
+        path = File.join storage.root, bucket, entry
         
-        Dir.foreach(File.join source, bucket) do |file|
-          next if file.start_with? '.'
-          
-          path = File.join source, bucket, file
-          
-          print "Reading #{path} ... "
-          
-          content = File.read path
-          
-          puts "done (#{content.size} bytes)"
-          
-          request.url = file.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
-          request.url = request.url.sub(/\.html/, '')
-          request.url = "#{JusticeGovSk::URL.base}/#{request.url}"
-          
-          call lambda { agent.download request }, options
-          
-          puts
-        end
+        print "Reading #{path} ... "
+        
+        content = File.read path
+        
+        puts "done (#{content.size} bytes)"
+        
+        request.url = entry.sub(/decree/, 'Stranky/Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
+        request.url = request.url.sub(/\.html/, '')
+        request.url = "#{JusticeGovSk::URL.base}/#{request.url}"
+        
+        call lambda { agent.download request }, options
+        
+        valid_content? agent.storage.path(entry.sub(/html\z/, 'pdf')), :decree_pdf
+        
+        puts
       end
     end
     
@@ -158,6 +156,10 @@ module JusticeGovSk
           case code.to_i
           when 302
             puts "aborted (redirect returned)"
+          when 403
+            puts "aborted (forbidden)"
+          when 404
+            puts "aborted (not found)"
           when 500
             puts "aborted (internal server error)"
           else
