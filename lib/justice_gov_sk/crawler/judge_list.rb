@@ -10,7 +10,7 @@ module JusticeGovSk
           data = @parser.data(item)
           name = data[:name]
           
-          judge = judge_by_name_factory.find_or_create(name[:altogether])
+          judge = judge_by_name_unprocessed_factory.find_or_create(name[:unprocessed])
           
           next judge unless crawlable?(judge)
           
