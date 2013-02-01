@@ -11,6 +11,7 @@ module JusticeGovSk
       
       protected
       
+      include JusticeGovSk::Helper::ContentValidator
       include JusticeGovSk::Helper::JudgeMatcher
       include JusticeGovSk::Helper::ProceedingSupplier
       include JusticeGovSk::Helper::UpdateController::Instance
@@ -30,9 +31,8 @@ module JusticeGovSk
           raise "Decree form not found" unless @decree.form
           
           @decree.uri  = uri
-          @decree.text = fulltext(uri)
           
-          images
+          fulltext(uri)
           
           @decree.case_number = @parser.case_number(@document)
           @decree.file_number = @parser.file_number(@document)
@@ -70,14 +70,14 @@ module JusticeGovSk
         
         path = agent.storage.path(agent.uri_to_path uri)
         
-        JusticeGovSk::Extractor::Text.extract(path)
-      end
-      
-      def images
-        storage = JusticeGovSk::Storage::DecreeImage.instance
-        options = { output: storage.path(@decree.document_entry) }
-        
-        JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
+        if valid_content? path, :decree_pdf
+          @decree.text = JusticeGovSk::Extractor::Text.extract(path) 
+  
+          storage = JusticeGovSk::Storage::DecreeImage.instance
+          options = { output: storage.path(@decree.document_entry) }
+           
+          JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
+        end
       end
       
       def judge
