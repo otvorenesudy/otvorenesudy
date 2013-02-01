@@ -1,0 +1,2 @@
+window.OpenCourts = {}
+window.Util       = {}
