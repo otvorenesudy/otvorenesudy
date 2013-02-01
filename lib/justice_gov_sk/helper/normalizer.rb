@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# http://sk.wikipedia.org/wiki/Akademický_titul
+
 module JusticeGovSk
   module Helper
     module Normalizer
@@ -77,12 +79,14 @@ module JusticeGovSk
         value.strip.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
           part = part.utf8.strip
           
-          unless part.match(/\./).nil?
-            if not part.match(/(PhD|CSc)\./i).nil?
+          if part.match(/\./)
+            if part.match(/(PhD|CSc|DrSc)\./i)
               suffixes << part
-            elsif not part.match(/\((ml|st)\.\)/).nil?
+            elsif part.match(/\((ml|st)\.\)/)
               additions << part.gsub(/[\(\)]/, '')
             else
+              part.downcase! if part.match(/(akad|arch|art|doc|prof)\./i)
+              
               prefixes << part
             end
           else
