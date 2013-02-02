@@ -11,6 +11,14 @@ sk:
         title: "Chybná požiadavka"
         description: "Server nerozumel vašej požiadavke. Mohla byť poškodená."
 
+  views:
+    pagination:
+      last: "Posledná strana"
+      first: "Prvá strana"
+      next: "&raquo;"
+      previous: "&laquo;"
+      truncate: "&hellip;"
+
   date:
     formats:
       default: '%d.%m. %Y'
