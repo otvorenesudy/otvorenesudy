@@ -77,7 +77,7 @@ module JusticeGovSk
         mixedcase = []
         
         value.strip.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
-          part = part.utf8.strip
+          part = part.utf8.squeeze('.').strip
           
           if part.match(/\./)
             if part.match(/(PhD|CSc|DrSc)\./i)
