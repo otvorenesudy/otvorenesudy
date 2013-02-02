@@ -24,6 +24,16 @@ section + section[id$="-tabs"] {
   padding-top: 0px;
 }
 
+nav, table, p {
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+nav.pagination {
+  margin-top: 40px;
+}
+
 div.nav {
   margin: 20px 0px;
 }
@@ -36,6 +46,8 @@ div.nav {
   font-variant: small-caps;
   font-weight: normal;
 }
+
+// helpers
 
 .centered {
   text-align: center;
@@ -74,8 +86,6 @@ table {
 
 [class^="icon-"], [class*=" icon-"] {
   display: inline-block;
-  height: $baseLineHeight;
-  line-height: $baseLineHeight;
   margin: 0px;
   padding: 0px;
   text-decoration: none;

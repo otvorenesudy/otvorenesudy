@@ -13,11 +13,21 @@ sk:
 
   views:
     pagination:
-      last: "Posledná strana"
       first: "Prvá strana"
-      next: "&raquo;"
-      previous: "&laquo;"
+      last: "Posledná strana"
+      previous: <i class="icon-angle-left"></i>
+      next: <i class="icon-angle-right"></i>
       truncate: "&hellip;"
+
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No %{entry_name} found"
+          one: "Displaying <strong>1</strong> %{entry_name}"
+          other: "Displaying <strong>all %{count}</strong> %{entry_name}"
+      more_pages:
+        display_entries: "Displaying %{entry_name} <strong>%{first}&nbsp;-&nbsp;%{last}</strong> of <strong>%{total}</strong> in total"
 
   date:
     formats:
