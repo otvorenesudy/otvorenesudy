@@ -1,4 +1,5 @@
 # TODO improve API, not all crawlers are OK with current state -- not working
+# TODO seriously REFACTOR this API
 
 module Core
   module Crawler
@@ -27,7 +28,11 @@ module Core
           
           @persistor.persist(instance)
           
-          base.send("#{attribute}=", instance) if instance.respond_to? "#{attribute}="
+          begin
+            base.send("#{attribute}=", instance)
+          rescue
+            # TODO FIX LOL
+          end
         end
       end
       
