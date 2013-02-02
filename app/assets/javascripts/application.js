@@ -20,3 +20,4 @@
 //= require namespace
 //= require_tree ./core
 //= require search/search
+//= require_tree ./gmaps4rails
