@@ -4,9 +4,9 @@
       <%= content_tag :pre, class: :debug_dump do %>
         <% ["        page link: #{link_to(instance.uri, instance.uri)}",
             "        page file: #{instance.page_path}",
-            "      change time: #{File.ctime(instance.page_path)}",
-            " last access time: #{File.atime(instance.page_path)}",
-            "modification time: #{File.mtime(instance.page_path)}"
+            "      change time: #{File.ctime(instance.page_path) if instance.page_path}",
+            " last access time: #{File.atime(instance.page_path) if instance.page_path}",
+            "modification time: #{File.mtime(instance.page_path) if instance.page_path}"
             ].join("\n").html_safe %>
       <% end %>
       

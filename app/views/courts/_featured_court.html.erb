@@ -1,12 +1,12 @@
 <div class="page-header">
-  <h1>
+  <h2>
     <%= link_to_court court %>
-  </h1>
+  </h2>
 </div>
 
 <div class="row">
   <div class="span8">
-    <div class="lead well well-small justified">
+    <div class="justified">
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
           <%= judge_position(court.chair, court).upcase_first %> súdu je <%= link_to_judge court.chair %><%= court.vicechair ? ' a'.html_safe : '.' %>
@@ -32,7 +32,7 @@
     </div>
   </div>
   <div class="span4">
-    <address class="lead well well-small">
+    <address class="well well-small">
       <span class="muted pull-right"><%= icon_tag :envelope %></span>
       <strong><%= court.street %></strong>
       <br/>
