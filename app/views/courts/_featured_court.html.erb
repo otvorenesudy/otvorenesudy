@@ -9,26 +9,23 @@
     <div class="justified">
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
-          <%= judge_position(court.chair, court).upcase_first %> súdu je <%= link_to_judge court.chair %><%= court.vicechair ? ' a'.html_safe : '.' %>
+          <%= judge_position(court.chair, court).upcase_first %> súdu je <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? ' a'.html_safe : '.' %>
         <% end %>
         <% if court.vicechair %>
           <% unless court.chair %>
-            <%= judge_position(court.vicechair, court).upcase_first %> súdu
+            <strong><%= judge_position(court.vicechair, court).upcase_first %></strong> súdu
           <% else %>
-            <%= judge_position(court.vicechair, court) %>
+            <strong><%= judge_position(court.vicechair, court) %></strong>
           <% end %>
           je <%= link_to_judge court.vicechair %>.
         <% end %>
       <% end %>
       <% if court.judges.any? %>
-        Na súde pracuje <%= t :judge, count: court.judges.count %>.
+        Na súde pracuje <strong><%= t :judge, count: court.judges.count %></strong>.
       <% end %>
       Pre súd <%= 'zatiaľ ne' if court.hearings.none? %>evidujeme
-      <%= t :hearing, count: court.hearings.count %>
-      a&nbsp;<%= t :decree, count: court.decrees.count %>.
-      <% unless court.chair || court.vicechair %>
-        <br/>&nbsp; <!-- TODO rm this nasty trick :P -->
-      <% end %>
+      <strong><%= t :hearing, count: court.hearings.count %></strong>
+      a&nbsp;<strong><%= t :decree, count: court.decrees.count %></strong>.
     </div>
   </div>
   <div class="span4">
