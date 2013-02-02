@@ -20,4 +20,6 @@
 //= require namespace
 //= require_tree ./core
 //= require search/search
-//= require_tree ./gmaps4rails
+//= require gmaps4rails/gmaps4rails.base
+//= require gmaps4rails/gmaps4rails.googlemaps
+//= require fixes
