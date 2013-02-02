@@ -1,0 +1,44 @@
+<div class="page-header">
+  <h1>
+    <%= link_to_court court %>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <div class="lead well well-small justified">
+      <% if court.chair || court.vicechair %>
+        <% if court.chair %>
+          <%= judge_position(court.chair, court).upcase_first %> súdu je <%= link_to_judge court.chair %><%= court.vicechair ? ' a'.html_safe : '.' %>
+        <% end %>
+        <% if court.vicechair %>
+          <% unless court.chair %>
+            <%= judge_position(court.vicechair, court).upcase_first %> súdu
+          <% else %>
+            <%= judge_position(court.vicechair, court) %>
+          <% end %>
+          je <%= link_to_judge court.vicechair %>.
+        <% end %>
+      <% end %>
+      <% if court.judges.any? %>
+        Na súde pracuje <%= t :judge, count: court.judges.count %>.
+      <% end %>
+      Pre súd <%= 'zatiaľ ne' if court.hearings.none? %>evidujeme
+      <%= t :hearing, count: court.hearings.count %>
+      a&nbsp;<%= t :decree, count: court.decrees.count %>.
+      <% unless court.chair || court.vicechair %>
+        <br/>&nbsp; <!-- TODO rm this nasty trick :P -->
+      <% end %>
+    </div>
+  </div>
+  <div class="span4">
+    <address class="lead well well-small">
+      <span class="muted pull-right"><%= icon_tag :envelope %></span>
+      <strong><%= court.street %></strong>
+      <br/>
+      <%= court.municipality.zipcode %> <%= court.municipality.name %>
+      <br/>
+      Slovenská republika
+    </address>
+  </div>
+</div>

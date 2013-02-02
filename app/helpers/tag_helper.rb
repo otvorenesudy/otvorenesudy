@@ -47,6 +47,12 @@ module TagHelper
     link_to body, '#', options
   end
   
+  def tooltip_tag(body, title, placement = :top, trigger = :hover, options = {})
+    options.merge! rel: :tooltip, title: title
+    options.merge! data trigger: trigger, placement: placement
+    link_to body, '#', options
+  end
+  
   private
   
   def data(options = {})

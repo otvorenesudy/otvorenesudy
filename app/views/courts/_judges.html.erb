@@ -1,0 +1,54 @@
+<h2>Vedenie súdu</h2>
+
+<div class="row">
+  <div class="span12">
+    <% if @court.chair %>
+      <%= judge_position(@court.chair, @court).upcase_first %> súdu je <%= link_to_judge @court.chair %><%= @court.vicechair ? ' a'.html_safe : '.' %>
+    <% end %>
+    <% if @court.vicechair %>
+      <% unless @court.chair %>
+        <%= judge_position(@court.vicechair, @court).upcase_first %> súdu
+      <% else %>
+        <%= judge_position(@court.vicechair, @court) %>
+      <% end %>
+      je <%= link_to_judge @court.vicechair %>.
+    <% end %>
+  </div>
+</div>
+
+<hr/>
+
+<h2>Sudcovia</h2>
+
+<div class="row">
+  <div class="span12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Tituly</th>
+          <th class="span12">Meno</th>
+          <th><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní." %></th>
+          <th><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí." %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @judges.each do |judge| %>
+          <tr>
+            <td>
+              <%= judge_titles judge %>
+            </td>
+            <td>
+              <%= link_to_judge judge, '%f %m %l, %a' %>
+            </td>
+            <td class="number">
+              <%= judge.hearings.count %>
+            </td>
+            <td class="number">
+              <%= judge.decrees.count %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

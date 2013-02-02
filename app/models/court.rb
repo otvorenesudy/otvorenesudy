@@ -40,7 +40,9 @@ class Court < ActiveRecord::Base
   
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
-  def address(format = '%s, %z %m')
+  def address(format = nil)
+    format ||= '%s, %z %m'
+    
     parts = {
       '%s' => street,
       '%z' => municipality.zipcode,
@@ -53,6 +55,14 @@ class Court < ActiveRecord::Base
   
   def coordinates
     @coordinates ||= { latitude: latitude, longitude: longitude }
+  end
+  
+  def chair
+    judges.active.chair.first
+  end
+  
+  def vicechair
+    judges.active.vicechair.first
   end
   
   storage :page, JusticeGovSk::Storage::DecreePage, extension: :html

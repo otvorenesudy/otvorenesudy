@@ -1,44 +1,49 @@
 <h2><%= name %></h2>
 
-<% if office.phone? %>
-  <div class="row">
-    <div class="span2">Tel. číslo:</div>
-    <div class="span10"><%= court_phone office %></div>
+<div class="row">
+  <div class="span4">
+    <table class="table table-condensed table-bordered table-striped">
+      <thead>
+        <th colspan="2">
+          Otváracie hodiny <%= icon_tag :time %>
+        </th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="span1">Pondelok:</td>
+          <td class="span2"><%= office.hours_monday %></td>
+        </tr>
+        <tr>
+          <td class="span1">Utorok:</td>
+          <td class="span2"><%= office.hours_tuesday %></td>
+        </tr>
+        <tr>
+          <td class="span1">Streda:</td>
+          <td class="span2"><%= office.hours_wednesday %></td>
+        </tr>
+        <tr>
+          <td class="span1">Štvrtok:</td>
+          <td class="span2"><%= office.hours_thursday %></td>
+        </tr>
+        <tr>  
+          <td class="span1">Piatok:</td>
+          <td class="span2"><%= office.hours_friday %></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-<% end %>
 
-<% if office.email? %>
-  <div class="row">
-    <div class="span2">E-mail:</div>
-    <div class="span10"><%= court_email office %></div>
+  <div class="span8">
+    <% if office.phone? %>
+      <p><%= icon_tag :phone %> Tel. číslo: <%= court_phone office %></p>
+    <% end %>
+
+    <% if office.email? %>
+      <p><%= icon_tag :envelope %> E-mail: <%= court_email office %></p>
+    <% end %>
+
+    <% if office.note? %>
+      <p><%= icon_tag :'paper-clip' %> Poznámka: <%= office.note %></p>
+    <% end %>
   </div>
-<% end %>
-
-<div class="row">
-  <div class="span2">Úradné hodiny:</div>
-  <div class="span1">Pondelok:</div>
-  <div class="span9"><%= office.hours_monday %></div>
 </div>
-<div class="row">
-  <div class="offset2 span1">Utorok:</div>
-  <div class="span9"><%= office.hours_tuesday %></div>
-</div>
-<div class="row">
-  <div class="offset2 span1">Streda:</div>
-  <div class="span9"><%= office.hours_wednesday %></div>
-</div>
-<div class="row">
-  <div class="offset2 span1">Štvrtok:</div>
-  <div class="span9"><%= office.hours_thursday %></div>
-</div>
-<div class="row">
-  <div class="offset2 span1">Piatok:</div>
-  <div class="span9"><%= office.hours_friday %></div>
-</div>
-
-<% if office.note? %>
-  <div class="row">
-    <div class="span2">Poznámka:</div>
-    <div class="span10"><%= office.note %></div>
-  </div>
-<% end %>

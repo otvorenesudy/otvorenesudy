@@ -9,30 +9,18 @@
   </ul>
 </div>
 
-<section id="main-courts">
+<div class="clearfix"></div>
 
-    <div class="row">
-      <div class="span12">
-        <div class="well well-small">
-          <h2><%= link_to_court @constitutional %></h2>
-        </div>
-      </div>
-    </div>
+<section id="constitutional-court">
+  <%= render 'featured_court', court: @constitutional %>
+</section>
 
-    <div class="row">
-      <div class="span6">
-        <div class="well well-small">
-          <h3><%= link_to_court @highest %></h3>
-        </div>
-      </div>
+<section id="highest-court">
+  <%= render 'featured_court', court: @highest %>
+</section>
 
-      <div class="span6">
-        <div class="well well-small">
-          <h3><%= link_to_court @specialized %></h3>
-        </div>
-      </div>
-    </div>
-
+<section id="specialized-court">
+  <%= render 'featured_court', court: @specialized %>
 </section>
 
 <section id="regional-courts">

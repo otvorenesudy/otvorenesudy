@@ -8,63 +8,6 @@
       <small><%= @court.address %></small>
     </h1>
   </div>
-
-<!--
-  <div class="row">
-    <div class="span6">
-      <h4>Vedenie súdu</h4>
-      <div class="row">
-        <div class="span2">Predseda:</div>
-        <div class="span4"><%= @court.judges.chair.first.name %></div>
-      </div>
-      <div class="row">
-        <div class="span2">Podpredseda:</div>
-        <div class="span4"><%= @court.judges.vicechair.first.name %></div>
-      </div>
-    </div>
-    
-    <div class="span4">
-      <h4>Adresa</h4>
-      <address>
-        <%= @court.name %>
-        <br/>
-        <%= @court.street %>
-        <br/>
-        <%= @court.municipality.zipcode %> <%= @court.municipality.name %>
-        <br/>
-        Slovenská republika
-      </address>
-    </div>
-  </div>  
-
-  <div class="row">
-    <div class="span4">
-      <h4>Kontakt</h4>
-      <div class="row">
-        <div class="span2">Tel. číslo:</div>
-        <div class="span2"><%= @court.phone %></div>
-      </div>
-      <div class="row">
-        <div class="span2">Fax:</div>
-        <div class="span2"><%= @court.fax %></div>
-      </div>
-    </div>
-    
-    <div class="span4">
-      <h4>Kontakt pre médiá</h4>
-      <div class="row">
-        <div class="span2">Kontaktná osoba:</div>
-        <div class="span2"><%= @court.media_person %></div>
-      </div>
-      <div class="row">
-        <div class="span2">Tel. číslo:</div>
-        <div class="span2"><%= @court.media_phone %></div>
-      </div>
-    </div>
-  </div>
-  
-  -->
-  
 </section>
 
 <section id="court-tabs">
@@ -104,6 +47,19 @@
           </div>
         </div>
         
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="court-source">
+  <div class="row">
+    <div class="span12">
+      <div class="pull-right">
+        <small class="muted">
+          Informácie o súde boli získané zo <%= external_link_to 'zdroja', @court.uri, class: :muted %>,
+          ktorého posledná aktualizácia bola zistená <%= time_tag @court.updated_at.to_date, format: :default %>.
+        </small>
       </div>
     </div>
   </div>

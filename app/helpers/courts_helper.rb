@@ -1,8 +1,6 @@
-# encoding: utf-8
-
 module CourtsHelper
   def court_email(court, separator = ', ')
-    court.email.split(/,\s+/).map { |email| mail_to email, nil, encode: :hex }.join(separator).html_safe
+    court.email.split(/,\s+/).map { |email| mail_to(email, nil, encode: :hex).ascii }.join(separator).html_safe
   end
 
   def court_phone(court, separator = ', ')

@@ -16,12 +16,16 @@ body {
   margin-top: 40px;
 }
 
-div.nav {
-  margin: 20px 0px;
-}
-
 section + section {
   padding-top: 40px;
+}
+
+section + section[id$="-tabs"] {
+  padding-top: 0px;
+}
+
+div.nav {
+  margin: 20px 0px;
 }
 
 // text
