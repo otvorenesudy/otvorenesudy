@@ -9,7 +9,7 @@
     <div class="justified">
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
-          <%= judge_at_court_position(court.chair, court).upcase_first %> súdu je <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? ' a'.html_safe : '.' %>
+          <strong><%= judge_at_court_position(court.chair, court).upcase_first %></strong> súdu je <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? ' a'.html_safe : '.' %>
         <% end %>
         <% if court.vicechair %>
           <% unless court.chair %>
@@ -17,7 +17,7 @@
           <% else %>
             <strong><%= judge_at_court_position(court.vicechair, court) %></strong>
           <% end %>
-          je <%= link_to_judge court.vicechair %>.
+          je <strong><%= link_to_judge court.vicechair %></strong>.
         <% end %>
       <% end %>
       <% if court.judges.any? %>
