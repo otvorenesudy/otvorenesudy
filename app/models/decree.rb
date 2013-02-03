@@ -10,7 +10,7 @@ class Decree < ActiveRecord::Base
   
   scope :at_court, lambda { |court| where court_id: court }
   
-  scope :during, lambda { |employment| where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge)) }
+  scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge)) }
   
   belongs_to :proceeding
   

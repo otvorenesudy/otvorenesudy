@@ -16,7 +16,7 @@ module Resource::Enumerable
       
       define_singleton_method name do
         @values[name]
-      end      
+      end
     end
   end
   

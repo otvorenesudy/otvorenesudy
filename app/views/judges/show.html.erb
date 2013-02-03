@@ -3,7 +3,7 @@
 <section id="judge-profile">
   <div class="page-header">
     <h1>
-      <%= @judge.name %>
+      <%= yield :title %>
       <small>
         <%= t :hearing, count: @judge.hearings.count %> a
         <%= t :decree,  count: @judge.decrees.count %>.
@@ -19,9 +19,9 @@
           <%= employment.judge_position.value.upcase_first %>
           na súde 
           <%= link_to_court employment.court %>,
-          <%= 'zatiaľ ne' if Hearing.during(employment).none? %>evidujeme
-          <%= t :hearing, count: Hearing.during(employment).count %> a
-          <%= t :decree, count: Decree.during(employment).count %>.
+          <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
+          <%= t :hearing, count: Hearing.during_employment(employment).count %> a
+          <%= t :decree, count: Decree.during_employment(employment).count %>.
         </p>
       <% end %>
     </div>
@@ -35,7 +35,7 @@
         
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#hearings" data-toggle="tab">Kontakt</a>
+            <a href="#hearings" data-toggle="tab">Pojednávania</a>
           </li>
           <li><a href="#decrees" data-toggle="tab">Rozhodnutia</a></li>
         </ul>
