@@ -5,6 +5,7 @@ OpenCourts::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   match '/home',    to: 'static_pages#home'
   match '/stats',   to: 'static_pages#stats'
+  match '/search',  to: 'search#index'
   
   resources :courts do
      get :map, on: :collection
