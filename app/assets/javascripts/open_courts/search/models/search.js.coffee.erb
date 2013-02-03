@@ -2,7 +2,8 @@ class OpenCourts.Search extends Backbone.AbstractModel
   @include Util.Logger
   @include Util.Model.Attributes
 
-  #defaults:
+  defaults:
+    judges: []
     
   initialize: ->
     @.log 'Initializing ...'
