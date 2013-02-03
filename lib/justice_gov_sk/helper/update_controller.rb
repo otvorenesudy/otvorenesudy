@@ -12,7 +12,7 @@ module JusticeGovSk
         end
 
         def changeable?(type, uri)
-          !exists(type, uri) || updateable?(type)
+          !exists?(type, uri) || updateable?(type)
         end
       end
       
