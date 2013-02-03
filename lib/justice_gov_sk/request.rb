@@ -21,11 +21,15 @@ module JusticeGovSk
       Core::Request.uri(request)
     end
     
+    def self.url
+      @url ||= JusticeGovSk::URL::base
+    end
+
     def initialize(options = {})
     end
-    
+
     def url
-      @url ||= JusticeGovSk::URL::base
+      self.class.url
     end
   end
 end

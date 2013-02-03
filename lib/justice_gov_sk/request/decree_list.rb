@@ -9,7 +9,7 @@ module JusticeGovSk
         @decree_form_code = options[:decree_form_code] 
       end
 
-      def url
+      def self.url
         @url ||= "#{super}/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx"
       end
     end

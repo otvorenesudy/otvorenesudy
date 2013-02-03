@@ -1,7 +1,7 @@
 module JusticeGovSk
   class Request
     class CriminalHearingList < JusticeGovSk::Request::HearingList
-      def url
+      def self.url
         @url ||= "#{super}/Stranky/Pojednavania/PojednavanieTrestZoznam.aspx"
       end
     end
