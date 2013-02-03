@@ -10,7 +10,7 @@
     height: 100%;
     padding: 10px;
 
-    .facet {
+    .category {
       margin-bottom: 20px;
 
       .title {
@@ -24,8 +24,36 @@
 
       ul {
 
+
         li {
-          margin-left: 12px;
+
+          position: relative;
+          margin-left: 15px;
+
+          .remove {
+            position: absolute;
+            left: -17px;
+            top: 2px;
+            color: $grayLight;
+
+            cursor: pointer;
+
+            &:hover {
+              color: $linkColorHover;
+            }
+          }
+
+          .facet {
+            font-size: 8pt;
+            height: 12px;
+            line-height: 12px;
+            padding: 2px 7px;
+            margin-left: 7px;
+
+            background-color: $grayLighter;
+            color: $gray;
+            text-shadow: none;
+          }
         }
       }
     }

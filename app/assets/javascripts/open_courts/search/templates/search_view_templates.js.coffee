@@ -7,7 +7,7 @@ OpenCourts.SearchViewTemplates =
     list_item: _.template("
       <li data-value='<%= value %>'> 
         <a href='#'><%= value %></a>
-        <span class='facet'><%= facet %></span>
+        <span class='facet badge'><%= facet %></span>
       </li>
     "),
 
