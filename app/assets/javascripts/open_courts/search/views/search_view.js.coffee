@@ -8,12 +8,15 @@ $(document).ready ->
       @include Util.View.Autocomplete
       @include Util.View.Loading
       @include Util.View.ScrollTo
+ 
       @include OpenCourts.SearchViewTemplates
       
       el:  "#search-view"
  
-      #events:
-
+      events:
+        'click a[href="#"]'                 : 'onClickButton'
+        'click #search-panel ul li a'       : 'onClickListItem'
+        'click #search-panel ul li .remove' : 'onRemoveListItem'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -27,17 +30,17 @@ $(document).ready ->
 
         @model.page = 1
 
-        @.log 'Initialization done.'
+        @.autocompleteList 'judges'
 
-        if Backbone.history.getHash().length > 0
-          @.onAdvancedSearch()
-        else
-          @.onModelChange(@model)
+        @.log 'Initialization done.'
+          
+        @.onModelChange(@model)
 
       onModelChange: (obj) ->
         @.log "Model changed. (model=#{@.inspect obj})"
 
         @.onSearch reload: true, scrollTo: true, more: true, =>
+          @.updateList('judges')
           
       updateList: (name) ->
         @.log "Updating list: #{name}"
