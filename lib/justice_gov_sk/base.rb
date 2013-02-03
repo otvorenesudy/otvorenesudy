@@ -36,7 +36,7 @@ module JusticeGovSk
       
       storage.each do |entry, bucket|
         path = File.join storage.root, bucket, entry
-        
+
         print "Reading #{path} ... "
         
         content = File.read path
@@ -47,7 +47,12 @@ module JusticeGovSk
         request.url = request.url.sub(/\.html/, '')
         request.url = "#{JusticeGovSk::URL.base}/#{request.url}"
         
-        call lambda { agent.download request }, options
+        begin
+          call lambda { agent.download request }, options
+        rescue Exception => e
+          next if e.to_s =~ /timeout/i
+          raise e
+        end
         
         valid_content? agent.storage.path(entry.sub(/html\z/, 'pdf')), :decree_pdf
         
