@@ -10,13 +10,18 @@ class Judge < ActiveRecord::Base
                   :suffix,
                   :addition
 
-  scope :active,   joins(:judge_positions).merge(Employment.active)
-  scope :inactive, joins(:judge_positions).merge(Employment.inactive)
+  scope :active,   joins(:employments).merge(Employment.active)
+  scope :inactive, joins(:employments).merge(Employment.inactive)
   
   scope :chair,     joins(:judge_positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:judge_positions).merge(JudgePosition.vicechair)
   
-  has_many :employments, dependent: :destroy
+  paginates_per 25
+  max_paginates_per 100
+  
+  has_many :employments, dependent: :destroy, order: :'active desc'
+  
+  has_many :courts, through: :employments
   
   has_many :judge_positions, through: :employments
   
@@ -31,4 +36,10 @@ class Judge < ActiveRecord::Base
                      dependent: :destroy
   
   validates :name, presence: true
+  
+  def active
+    employments.active.any?
+  end
+  
+  alias :active? :active
 end

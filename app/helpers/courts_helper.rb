@@ -64,8 +64,13 @@ module CourtsHelper
     groups
   end
   
-  def link_to_court(court)
-    link_to court.name, court_path(court.id)
+  def link_to_court(court, options = {})
+    link_to court.name, court_path(court.id), options
+  end
+  
+  def link_to_court_by_judge_employment(employment, options = {})
+    options.merge! employment.active ? {} : { class: :muted } if options.delete :adjust_by_activity 
+    link_to_court employment.court, options
   end
   
   private

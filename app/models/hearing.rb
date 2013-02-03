@@ -14,6 +14,10 @@ class Hearing < ActiveRecord::Base
                   :selfjudge,
                   :note
 
+  scope :at_court, lambda { |court| where court_id: court }
+  
+  scope :during, lambda { |employment| where(court_id: employment.court).joins(:judgings).merge(Judging.of_judge(employment.judge)) }
+
   belongs_to :proceeding
   
   belongs_to :court

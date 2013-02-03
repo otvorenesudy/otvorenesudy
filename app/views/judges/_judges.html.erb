@@ -1,0 +1,44 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= tooltip_tag icon_tag(:adjust), 'Status', :top, :hover, class: :'muted undecorated' %></th>
+      <th class="span4">Sudca</th>
+      <th class="span3">Pozícia</th>
+      <th class="span5">Súd</th>
+      <th><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní." %></th>
+      <th><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí." %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% judges.each do |judge| %>
+      <tr>
+        <td>
+          <%= judge_activity_tag judge.active? %>
+        </td>
+        <td>
+          <%= link_to_judge judge, adjust_by_activity: true %>
+        </td>
+        <td>
+          <% judge.employments.each do |employment| %>
+            <p><%= judge_position employment %></p>
+          <% end %>
+        </td>
+        <td>
+          <% judge.employments.each do |employment| %>
+            <p><%= link_to_court_by_judge_employment employment, adjust_by_activity: true %></p>
+          <% end %>
+        </td>
+        <td class="number">
+          <% judge.employments.each do |employment| %>
+            <p><%= judge_hearings_count_by_employment employment %></p>
+          <% end %>
+        </td>
+        <td class="number">
+          <% judge.employments.each do |employment| %>
+            <p><%= judge_decrees_count_by_employment employment %></p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

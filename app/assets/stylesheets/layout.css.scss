@@ -20,9 +20,10 @@ section + section {
   padding-top: 40px;
 }
 
-section + section[id$="-tabs"] {
-  padding-top: 0px;
-}
+// TODO fixme
+//section + section[id$="-tabs"] {
+//  padding-top: 0px;
+//}
 
 nav, table, p {
   &:last-child {
@@ -109,6 +110,15 @@ a[rel="popover"], a[rel="tooltip"] {
   color: $textColor;
   cursor: help;
   text-decoration: none;
+  
+  &.muted {
+    border-bottom-color: $grayLight;
+    color: $grayLight;
+  }
+  
+  &.undecorated {
+    border-bottom: none;
+  }
 }
 
 // navbar

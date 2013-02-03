@@ -3,6 +3,8 @@ class Judging < ActiveRecord::Base
                   :judge_name_unprocessed,
                   :judge_chair
   
+  scope :of_judge, lambda { |judge| where judge_id: judge }
+  
   belongs_to :judge
   belongs_to :hearing
 end

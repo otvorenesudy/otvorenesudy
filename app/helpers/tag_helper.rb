@@ -1,8 +1,12 @@
 module TagHelper
-  def badge_tag(type, body, options = {})
-    content_tag :span, body, options.merge(class: "badge badge-#{type.to_s}")
+  def square_tag(type, body, options = {})
+    content_tag :span, body, options.merge(class: "label label-#{type.to_s}")
   end
 
+  def round_tag(type, body, options = {})
+    content_tag :span, body, options.merge(class: "badge badge-#{type.to_s}")
+  end
+  
   def external_link_to(body, url, options = {})
     options.merge! target: :_blank
     icon_link_to :'external-link', body, url, :append, options

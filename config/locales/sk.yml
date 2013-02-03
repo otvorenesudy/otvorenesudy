@@ -19,6 +19,7 @@ sk:
       next: <i class="icon-angle-right"></i>
       truncate: "&hellip;"
 
+  # TODO
   helpers:
     page_entries_info:
       one_page:

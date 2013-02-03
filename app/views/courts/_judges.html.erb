@@ -2,17 +2,22 @@
 
 <div class="row">
   <div class="span12">
-    <% if @court.chair %>
-      <%= judge_position(@court.chair, @court).upcase_first %> súdu je <%= link_to_judge @court.chair %><%= @court.vicechair ? ' a'.html_safe : '.' %>
-    <% end %>
-    <% if @court.vicechair %>
-      <% unless @court.chair %>
-        <%= judge_position(@court.vicechair, @court).upcase_first %> súdu
-      <% else %>
-        <%= judge_position(@court.vicechair, @court) %>
+    <p>
+      <% if @court.chair %>
+        <%= judge_at_court_position(@court.chair, @court).upcase_first %> súdu je <%= link_to_judge @court.chair %><%= @court.vicechair ? ' a'.html_safe : '.' %>
       <% end %>
-      je <%= link_to_judge @court.vicechair %>.
-    <% end %>
+      <% if @court.vicechair %>
+        <% unless @court.chair %>
+          <%= judge_at_court_position(@court.vicechair, @court).upcase_first %> súdu
+        <% else %>
+          <%= judge_at_court_position(@court.vicechair, @court) %>
+        <% end %>
+        je <%= link_to_judge @court.vicechair %>.
+      <% end %>
+    </p>
+    <p>
+      Na súde pracuje <%= t :judge, count: @court.judges.count %>.
+    </p>
   </div>
 </div>
 
@@ -38,7 +43,7 @@
               <%= judge_titles judge %>
             </td>
             <td>
-              <%= link_to_judge judge, '%f %m %l, %a' %>
+              <%= link_to_judge judge, format: '%f %m %l, %a' %>
             </td>
             <td class="number">
               <%= judge.hearings.count %>

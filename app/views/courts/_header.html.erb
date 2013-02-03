@@ -3,7 +3,12 @@
     <div class="container">
       <h1>
         <%= yield :title %>
-        <small>#TODO add something</small>
+        <small>
+          <%= t :court,   count: Court.count %>,
+          <%= t :judge,   count: Judge.count %>,
+          <%= t :hearing, count: Hearing.count %> a
+          <%= t :decree,  count: Decree.count %>
+        </small>
       </h1>
     </div>
   </div>
