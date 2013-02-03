@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.autocomplete
 //= require bootstrap
 //= require underscore
 //= require backbone
@@ -19,7 +20,6 @@
 //= require backbone_datalink
 //= require namespace
 //= require_tree ./core
-//= require search/search
 //= require gmaps4rails/gmaps4rails.base
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require fixes

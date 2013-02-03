@@ -1,0 +1,61 @@
+// Place all the styles related to the Search controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+
+#search-view {
+  
+  #search-panel {
+    //border-right: 1px solid $grayLight;
+    height: 100%;
+    padding: 10px;
+
+    .category {
+      margin-bottom: 20px;
+
+      .title {
+        border-bottom: 1px solid $grayLighter;
+        margin-bottom: 10px;
+      }
+
+      input {
+        width: 186px;
+      }
+
+      ul {
+
+
+        li {
+
+          position: relative;
+          margin-left: 15px;
+
+          .remove {
+            position: absolute;
+            left: -17px;
+            top: 2px;
+            color: $grayLight;
+
+            cursor: pointer;
+
+            &:hover {
+              color: $linkColorHover;
+            }
+          }
+
+          .facet {
+            font-size: 8pt;
+            height: 12px;
+            line-height: 12px;
+            padding: 2px 7px;
+            margin-left: 7px;
+
+            background-color: $grayLighter;
+            color: $gray;
+            text-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}

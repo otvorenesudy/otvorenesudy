@@ -1,0 +1,46 @@
+class OpenCourts.Search extends Backbone.AbstractModel
+  @include Util.Logger
+  @include Util.Model.Attributes
+
+  defaults:
+    judges: []
+    
+  initialize: ->
+    @.log 'Initializing ...'
+
+    @page = 1
+
+    @.log 'Initialized.'
+    
+  find: (term, callback) ->
+    $.ajax
+      url: 'blabla'
+      type: 'POST'
+      data:
+        data:
+          type: @.getType()
+          title: term
+      success: (response) ->
+        callback?(response)
+      error: ->
+        @.err "Error occured while finding: #{term}"
+
+  search: (callback) ->
+    $.ajax
+      url: "/search"
+      type: "POST"
+      data:
+        page: @page,
+        data: @.toJSON()
+      success: (response) =>
+        @facets = response.facets
+        
+        callback?(response)
+      error: ->
+        @.err "Error occured while searching (model=#{@.toJSON()})"
+
+  values: (field) ->
+    @facets?.values?[field]
+
+  facet: (field, value) ->
+    @facets?.facets?[field]?[value] or ""

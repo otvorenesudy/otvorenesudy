@@ -56,6 +56,7 @@ group :assets do
   gem 'uglifier',     '>= 1.0.3'
   gem 'therubyracer', '~> 0.10.2'
   
+  gem 'jquery-ui-rails'
   gem 'rails-backbone'
 end
 

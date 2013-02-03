@@ -1,5 +1,4 @@
 class window.Config
-  @environment: '<%= Rails.env %>'
-  @debug: <%= !Rails.env.production? %>
-
-
+  @appName:     "<%= Rails.application.class.parent_name %>"
+  @environment: "<%= Rails.env %>"
+  @debug:       <%= !Rails.env.production?  %>
