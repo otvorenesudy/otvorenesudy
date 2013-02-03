@@ -1,0 +1,25 @@
+<% content_for :scripts do %>
+<%= javascript_include_tag 'open_courts/search/search' %>
+<% end %>
+
+<div class="container">
+  <div id="search-view" class="row-fluid">
+    <div id="search-panel" class="span3">
+  
+      <div id='judges' class="facet">
+        <div class="title">
+          Sudcovia
+        </div>
+
+        <input type="text" name="input" placeholder="Meno sudcu"/>
+
+        <ul id='judges-list' class="unstyled">
+        </ul>
+      </div>
+    </div>
+
+    <div id="search-results" class="span9">
+      
+    </div>
+  </div>
+</div>
