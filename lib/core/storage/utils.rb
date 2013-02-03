@@ -104,59 +104,105 @@ module Core
         verbose = get options, :verbose, default: true
         
         src     = build src, :distributed
-        buckets = Hash.new 0
+        buckets = {}
         
-        src.each { |_, b| buckets[b] += 1 }
+        src.each { |e, b| stat_data_update(buckets, src, b, e) }
         
-        min, max, sum = nil, nil, 0
+        count, size = stat_attribute(buckets), stat_attribute(buckets)
+
+        count.format = lambda { |s| '%8s'  % s }
         
-        buckets.each do |b, c|
-          min  = c if min.nil? || min > c
-          max  = c if max.nil? || max < c
-          sum += c
+        size.format = lambda do |number|
+          exponent = number.zero? ? 0 : (Math.log(number) / Math.log(1024)).to_i
+          '%13.1f %3s' % ["#{number.to_f / 1024 ** exponent}", [:B, :KiB, :MiB, :GiB, :TiB][exponent]]
         end
         
-        avg = (sum / buckets.count).to_i
+        buckets.each do |b, v|
+          stat_attribute_update count, v.count
+          stat_attribute_update size,  v.size
+        end
         
         if verbose
           puts "--"
           
-          buckets.sort.each do |b, c|
-            puts "#{b}  #{'%8d' % c} #{delta c - avg}"
+          buckets.sort.each do |b, v|
+            puts "#{b}  #{count.format.call v.count} #{delta count.format, v.count - count.avg} #{size.format.call v.size} #{delta size.format, v.size - size.avg}"
           end
           
           puts "--"
-          puts "sum #{'%8d' % sum}"
-          puts "min #{'%8d' % min} #{delta min - avg}"
-          puts "avg #{'%8d' % avg} #{delta 0}"
-          puts "max #{'%8d' % max} #{delta max - avg}"
+          puts "sum #{count.format.call count.sum} #{count.format.call ' '}  #{size.format.call size.sum}"
+
+          [:min, :avg, :max].each do |key|
+            puts "#{key}#{[count, size].map { |attribute| " #{attribute.format.call attribute.send(key)} #{delta attribute.format, attribute.send(key) - attribute.avg}" }.join}"
+          end
+
           puts "--"
         else
-          puts sum
+          puts "#{count.sum} #{size.sum}"
         end
       end
       
       private
       
+      def construct(defaults)
+        Class.new {
+          defaults.keys.each { |k| attr_accessor k }
+          
+          def initialize(defaults)
+            defaults.each { |k, v| self.instance_variable_set "@#{k}", v }
+          end
+        }.new defaults
+      end
+      
       def get(hash, key, options = {})
         hash[key].nil? ? options[:default] : hash[key]
       end
       
-      def delta(d)
-        "#{'%8d' % d.abs}#{d < 0 ? '-' : (d == 0 ? '=' : '+')}"
+      def delta(format, value)
+        "#{format.call value.abs}#{value < 0 ? '-' : (value == 0 ? '=' : '+')}"
       end
       
+      def stat_data
+        construct count: 0, size: 0
+      end
+      
+      def stat_data_update(buckets, storage, bucket, entry)
+        path        = File.join storage.root, bucket, entry
+        data        = (buckets[bucket] ||= stat_data)
+        data.count += 1
+        
+        if File.directory? path
+          Dir.glob("#{path}/**/*").each { |p| data.size  += File.size(p) }
+        else
+          data.size += File.size(path)
+        end
+        
+        data
+      end
+      
+      def stat_attribute(buckets)
+        construct min: nil, max: nil, sum: 0, avg: 0, count: buckets.count, format: nil
+      end
+      
+      def stat_attribute_update(attribute, value)
+        attribute.min  = value if attribute.min.nil? || attribute.min > value
+        attribute.max  = value if attribute.max.nil? || attribute.max < value
+        attribute.sum += value
+        attribute.avg  = (attribute.sum / attribute.count).to_i
+        attribute
+      end
+
       def colorize(args)
         super(args).map do |arg|
-          arg.gsub!(/^sum(?<space>\s+)(?<sum>\d+)/i, 'sum'.blue.bold + '\k<space>' + '\k<sum>'.bold)
+          arg.gsub!(/^sum(?<line>.+)/i, 'sum'.blue.bold + '\k<line>'.bold)
          #arg.gsub!(/[\w\-\_\?\=\.]+(\/[\w\-\_\?\=\.]+)+/) { |s| s.underline }
           
-          arg.gsub!(/^([a-f\d]{2}\s|\d+)/i) { |s| s.blue.bold  }
-          arg.gsub!(/^(avg|min|max)/i)      { |s| s.blue.bold  }
-          arg.gsub!(/\d+\+$/i)              { |s| s.green.bold }
-          arg.gsub!(/\d+\-$/i)              { |s| s.red.bold   }
-          arg.gsub!(/0\=$/i)                { |s| s.bold       }
-          arg.gsub!(/\s\w*\s*\!$/i)         { |s| s.red.bold   }
+          arg.gsub!(/^([a-f\d]{2}\s|\d+)/i)      { |s| s.blue.bold  }
+          arg.gsub!(/^(avg|min|max)/i)           { |s| s.blue.bold  }
+          arg.gsub!(/\d+(\.\d+)?(\s+.?i?B)?\+/i) { |s| s.green.bold }
+          arg.gsub!(/\d+(\.\d+)?(\s+.?i?B)?\-/i) { |s| s.red.bold   }
+          arg.gsub!( /0+(\.?0+)?(\s+.?i?B)?\=/i) { |s| s.bold       }
+          arg.gsub!(/\s\w*\s*\!$/i)              { |s| s.red.bold   }
           
           arg          
         end
