@@ -29,7 +29,7 @@ module JusticeGovSk
     end
 
     def url
-      self.class.url
+      @url ||= self.class.url.dup
     end
   end
 end
