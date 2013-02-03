@@ -175,7 +175,9 @@ module JusticeGovSk
       end
       
       def normalize_hours(value)
-        times = value.ascii.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
+        value = value.ascii.gsub(/[a-z]+/i, '')
+        
+        times = value.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
           hour, minute = time.split(/\:/)
           "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
         end
