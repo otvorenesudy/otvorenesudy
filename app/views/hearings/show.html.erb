@@ -1,28 +1,158 @@
-<% provide :title, @hearing.file_number %>
+<% provide :title, "IČS #{@hearing.file_number} &middot; #{hearing_type @type}".html_safe %>
 
 <section id="hearing-info">
   <div class="page-header">
     <h1>
-      <%= yield :title %>
+      <%= hearing_type @type %>
+      <%= tooltip_tag @hearing.file_number, "Identifikačné číslo súdneho spisu", :right %>
+      <br/>
       <small>
-      <!-- TODO -->
+        Pojednávanie <%= @past ? "prebehlo" : "prebehne" %> dňa &ndash;
+        <%= hearing_date @hearing.date %>
       </small>
     </h1>
   </div>
   
+  <%-# All hearing types -%>
+  
   <div class="row">
-    <div class="span12">
-      <!-- TODO -->
+    <div class="span8">
+      Pojednávanie sa <%= @past ? "konalo" : "bude konať" %> na súde <%= link_to_court @court %><%= ", v miestnosti #{@hearing.room}" if @hearing.room %>.
+    </div>
+    
+    <div class="span3">
+      <div class="well well-small">
+        <p>
+          <strong>Spisová značka: <span class="pull-right"><%= @hearing.case_number %></span></strong>
+        </p>
+        <p>
+          <%= tooltip_tag "Identifikačné č.", "Identifikačné číslo súdneho spisu", :left %>:
+          <span class="pull-right"><%= @hearing.file_number %></span>
+        </p>
+      </div>      
     </div>
   </div>
+
+  
+  
+  <% if @hearing.form %>
+    <div class="row">
+      <div class="span2">Forma úkonu:</div>
+      <div class="span10"><%= @hearing.form.value %></div>
+    </div>
+  <% end %>
+      
+  <% if @hearing.subject %>
+    <div class="row">
+      <div class="span2">Predmet:</div>
+      <div class="span10"><%= @hearing.subject.value %></div>
+    </div>
+  <% end %>
+
+  <% if @hearing.section %>
+    <div class="row">
+      <div class="span2">Úsek:</div>
+      <div class="span10"><%= @hearing.section.value %></div>
+    </div>
+  <% end %>
+
+  <%-# Civil hearings only -%>
+  
+  <% if @hearing.special_type %>
+    <div class="row">
+      <div class="span2">Typ:</div>
+      <div class="span10"><%= @hearing.special_type %></div>
+    </div>
+  <% end %>
+
+  <%-# Special hearings only -%>
+  
+  <% if @hearing.commencement_date? %>  
+  <div class="row">
+    <div class="span2">Dátum započatia:</div>
+    <div class="span10"><%= hearing_date @hearing.commencement_date %></div>
+  </div>
+  <% end %>
+  
+  <% unless @hearing.selfjudge.nil? %>
+    <div class="row">
+      <div class="span2">Samosudca:</div>
+      <div class="span10"><%= @hearing.selfjudge ? 'áno' : 'nie' %></div>
+    </div>
+  <% end %>
+  
+  <%-# All hearing types -%>
+
+  <% if @hearing.note %>  
+    <div class="row">
+      <div class="span2">Poznámka:</div>
+      <div class="span10"><%= @hearing.note %></div>
+    </div>
+  <% end %>
 </section>
+
+<%-# Civil hearings only -%>
+
+<% if @proposers.any? %>
+  <section id="hearing-proposers">
+    <h2>Navrhovatelia</h2>
+    
+    <div class="row">
+    </div>
+  </section>
+<% end %>
+
+<% if @opponents.any? %>
+  <section id="hearing-opponents">
+    <h2>Odporcovia</h2>
+    
+    <div class="row">
+    </div>
+  </section>
+<% end %>
+
+<%-# Criminal and Special hearings only -%>
+
+<% if @defendants.any? %>
+  <section id="hearing-defendants">
+    <h2>Obžalovaní</h2>
+    
+    <div class="row">
+    </div>
+  </section>
+<% end %>
+
+<%-# All hearing types -%>
+
+<% if @hearing.judgings.any? %>
+  <section id="hearing-judges">
+    <h2>Sudcovia</h2>
+    
+    <%-# Special hearings only -%>
+
+    <% if @hearing.judgings.chaired.any? %>    
+      <div class="row">
+        <div class="span12">
+          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map { |judging| judging.judge} %>.
+        </div>
+      </div>
+    <% end %>
+
+    <%-# Civil and Criminal hearings only -%>
+    
+    <% if @hearing.judgings.normal.any? %>
+      <div class="row">
+      </div>
+    <% end %>
+  </section>
+<% end %>
 
 <section id="hearing-resource">
   <div class="row">
     <div class="span12">
       <div class="pull-right">
         <small class="muted">
-          Informácie o súdnom pojednávaní boli získané zo <%= external_link_to 'zdroja', .url, class: :muted %>,
+          Informácie o súdnom pojednávaní boli získané zo <%= external_link_to 'zdroja', @hearing.uri, class: :muted %>,
           ktorého posledná aktualizácia bola zistená <%= time_tag @hearing.updated_at.to_date, format: :default %>.
         </small>
       </div>

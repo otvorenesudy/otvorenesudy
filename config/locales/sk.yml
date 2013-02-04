@@ -32,15 +32,15 @@ sk:
 
   date:
     formats:
-      default: '%d.%m. %Y'
-      long: '%d. %B %Y'
-      short: '%d.%m.'
+      default: '%-d.%-m. %Y'
+      long: '%-d. %B %Y'
+      short: '%-d.%-m.'
 
   time:
     formats:
-      default: '%d.%m. %Y %H:%M'
-      long: '%A %d. %B %Y %H:%M'
-      short: '%d.%m. %H:%M'
+      default: '%-d.%-m. %Y %-H:%M'
+      long: '%A %-d. %B %Y %-H:%M'
+      short: '%-d.%-m. %-H:%M'
 
   days:
     one: "1 deň"

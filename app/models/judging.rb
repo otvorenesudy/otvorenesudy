@@ -6,7 +6,7 @@ class Judging < ActiveRecord::Base
   scope :exact,   where('judgings.judge_name_similarity = 1.0')
   scope :inexact, where('judgings.judge_name_similarity < 1.0')
 
-  scope :common,  where('judgings.judge_chair = false')
+  scope :normal,  where('judgings.judge_chair = false')
   scope :chaired, where('judgings.judge_chair = true')
   
   scope :of_judge, lambda { |judge| where judge_id: judge }
