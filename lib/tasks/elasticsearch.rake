@@ -1,11 +1,11 @@
 namespace :es do
-  INDICES = ['hearings']
+  INDICES = ['judges']
   
   task :import => :environment do
     INDICES.each do |index|
       puts "* Importing index: #{index}"
 
-      model = eval index.singularize.camelize
+      model = index.singularize.camelize.constantize
 
       model.index.import model.all
     end
