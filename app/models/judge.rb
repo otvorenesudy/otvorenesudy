@@ -16,8 +16,10 @@ class Judge < ActiveRecord::Base
   scope :chair,     joins(:judge_positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:judge_positions).merge(JudgePosition.vicechair)
   
-  paginates_per 25
+  scope :chaired, joins(:judgings).merge(Judging.chaired)
+  
   max_paginates_per 100
+      paginates_per 25
   
   has_many :employments, dependent: :destroy, order: :'active desc'
   

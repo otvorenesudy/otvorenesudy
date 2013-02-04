@@ -116,6 +116,12 @@ a[rel="popover"], a[rel="tooltip"] {
   }
 }
 
+h1, h2 {
+  a[rel="popover"], a[rel="tooltip"] {
+    border-bottom: 2px dashed $grayLight;
+  }
+}
+
 // navbar
 
 .navbar .nav > li {

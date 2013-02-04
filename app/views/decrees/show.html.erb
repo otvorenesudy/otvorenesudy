@@ -1,9 +1,9 @@
-<% provide :title, @decree.file_number %>
+<% provide :title, "IČS #{@decree.file_number} &middot; Súdne rozhodnutie".html_safe %>
 
 <section id="decree-info">
   <div class="page-header">
     <h1>
-      <%= yield :title %>
+      Súdne pojednávanie <%= tooltip_tag @decree.file_number, "Identifikačné číslo súdneho spisu.", :right %>
       <small>
       <!-- TODO -->
       </small>

@@ -54,4 +54,10 @@ module JudgesHelper
     options.merge! judge.active ? {} : { class: :muted } if options.delete :adjust_by_activity 
     link_to judge_name(judge, options.delete(:format)), judge_path(judge.id), options
   end
+  
+  def links_to_judges(judges, options = {})
+    separator = options.delete(:separator) || ', '
+    
+    judges.map { |judge| link_to_judge judge, options }.join(separator).html_safe
+  end
 end

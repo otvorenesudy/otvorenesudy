@@ -1,6 +1,7 @@
 <% if Rails.env.development? %>
-  <% if instance = @court || @judge || @hearing || @decree %>
-    <div class="container">
+  <% instances = [@court, @judge, @hearing, @decree].reverse %>
+  <div class="container">
+    <% instances.reject(&:nil?).each do |instance| %>
       <% if instance.respond_to? :uri %>
         <%= content_tag :pre, class: :debug_dump do %>
           <% ["        page link: #{link_to(instance.uri, instance.uri)}",
@@ -13,7 +14,8 @@
       <% end %>
       
       <%= debug(instance) %>
-      <%= debug(params) %>
-    </div>
-  <% end %>
+    <% end %>
+    
+    <%= debug(params) %>
+  </div>
 <% end %>
