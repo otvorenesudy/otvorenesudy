@@ -1,5 +1,3 @@
-# TODO test if it does not queue jobs when the type is not updateable
-
 module JusticeGovSk
   module Job
     class ListCrawler

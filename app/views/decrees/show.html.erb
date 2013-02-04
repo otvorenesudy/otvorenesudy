@@ -1,0 +1,39 @@
+<% provide :title, @decree.file_number %>
+
+<section id="decree-info">
+  <div class="page-header">
+    <h1>
+      <%= yield :title %>
+      <small>
+      <!-- TODO -->
+      </small>
+    </h1>
+  </div>
+  
+  <div class="row">
+    <div class="span12">
+      <!-- TODO -->
+    </div>
+  </div>
+</section>
+
+<section id="decree-document">
+  <div class="row">
+    <div class="span12">
+      <!-- TODO -->
+    </div>
+  </div>
+</section>
+
+<section id="decree-resource">
+  <div class="row">
+    <div class="span12">
+      <div class="pull-right">
+        <small class="muted">
+          Informácie o súdnom rozhodnutí boli získané zo <%= external_link_to 'zdroja', @decree.uri, class: :muted %>,
+          ktorého posledná aktualizácia bola zistená <%= time_tag @decree.updated_at.to_date, format: :default %>.
+        </small>
+      </div>
+    </div>
+  </div>
+</section>

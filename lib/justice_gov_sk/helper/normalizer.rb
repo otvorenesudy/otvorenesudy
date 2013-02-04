@@ -40,7 +40,9 @@ module JusticeGovSk
           "Krajský súd v Prešove"          => "Krajský súd Prešov", 
           "Krajský súd v Trenčíne"         => "Krajský súd Trenčín",
           "Krajský súd v Trnave"           => "Krajský súd Trnava",
-          "Krajský súd v Žiline"           => "Krajský súd Žilina"
+          "Krajský súd v Žiline"           => "Krajský súd Žilina",
+          
+          "Okresný súd Bánovce n/B"        => "Okresný súd Bánovce nad Bebravou"
         }
         
         @court_name_map = {}
@@ -175,7 +177,9 @@ module JusticeGovSk
       end
       
       def normalize_hours(value)
-        times = value.ascii.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
+        value = value.ascii.gsub(/[a-z]+/i, '')
+        
+        times = value.split(/\s*\-\s*|\,\s*|\;\s*|\s+/).map do |time|
           hour, minute = time.split(/\:/)
           "#{'%d' % hour.to_i}:#{'%02d' % minute.to_i}"
         end

@@ -29,9 +29,9 @@ module Core
     
     def store(entry, content)
       path = path(entry)
-      dir  = File.dirname(entry)
+      dir  = File.dirname(path)
       
-      FileUtils.mkpath dir unless Dir.exists? dir
+      FileUtils.mkpath dir
       
       write(path) do |file|
         file.write content

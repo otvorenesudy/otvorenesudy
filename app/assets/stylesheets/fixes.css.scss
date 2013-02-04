@@ -1,11 +1,12 @@
 @import 'variables';
-@import 'bootstrap';
+@import 'mixins';
 
 .popover-inner {
   text-align: left;
 }
 
 .tooltip-inner {
+  line-height: $baseLineHeight;
   text-align: center;
 }
 
