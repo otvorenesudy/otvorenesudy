@@ -17,11 +17,9 @@
   
   <div class="row">
     <div class="span8">
-      <p>
-        Pojednávanie sa <%= @past ? "konalo" : "bude konať" %> na súde <%= link_to_court @court %><%= ", v miestnosti #{@hearing.room}" if @hearing.room %>.
-      </p>
-      <p>
-      </p>
+      <% if @court %>
+        <p>Pojednávanie sa <%= @past ? "konalo" : "bude konať" %> na súde <%= link_to_court @court %><%= ", v miestnosti #{@hearing.room}" if @hearing.room %>.</p>
+      <% end %>
       <% if @hearing.section || @hearing.special_type %>
         <p>
           <% if @hearing.section %>
@@ -64,13 +62,14 @@
   
     <%-# All hearing types -%>
     
-    <div class="span3">
+    <div class="span4">
       <div class="well well-small">
         <p>
-          Spisová značka: <span class="pull-right"><%= @hearing.case_number %></span>
+          <%= tooltip_tag "SZ", "Spisová značka", :left %>:
+          <span class="pull-right"><%= @hearing.case_number %></span>
         </p>
         <p>
-          <%= tooltip_tag "Identifikačné č.", "Identifikačné číslo súdneho spisu", :left %>:
+          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", :left %>:
           <span class="pull-right"><%= @hearing.file_number %></span>
         </p>
       </div>      
@@ -85,6 +84,13 @@
     <h2>Navrhovatelia</h2>
     
     <div class="row">
+      <div class="span12">
+        <ul>
+          <% @proposers.each do |proposer| %>
+            <li><%= proposer.name %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </section>
 <% end %>
@@ -94,6 +100,13 @@
     <h2>Odporcovia</h2>
     
     <div class="row">
+      <div class="span12">
+        <ul>
+          <% @opponents.each do |opponent| %>
+            <li><%= opponent.name %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </section>
 <% end %>
@@ -105,6 +118,22 @@
     <h2>Obžalovaní</h2>
     
     <div class="row">
+      <div class="span12">
+        <ul>
+          <% @defendants.each do |defendant| %>
+            <li>
+              <%= defendant.name %>
+              <% if defendant.accusations.any? %>
+                <ul>
+                  <% defendant.accusations.each do |accusation| %>
+                    <li><%= accusation.value %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </section>
 <% end %>
@@ -120,7 +149,7 @@
     <% if @hearing.judgings.chaired.any? %>    
       <div class="row">
         <div class="span12">
-          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map { |judging| judging.judge} %>.
+          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map { |judging| judging.judge } %>.
         </div>
       </div>
     <% end %>
@@ -129,6 +158,9 @@
     
     <% if @hearing.judgings.normal.any? %>
       <div class="row">
+        <div class="span12">
+          <%= links_to_judges @hearing.judgings.normal.map { |judging| judging.judge } %>
+        </div>
       </div>
     <% end %>
   </section>

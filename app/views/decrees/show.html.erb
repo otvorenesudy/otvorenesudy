@@ -1,18 +1,60 @@
 <% provide :title, "IČS #{@decree.file_number} &middot; Súdne rozhodnutie".html_safe %>
 
-<section id="decree-info">
+<section id="hearing-info">
   <div class="page-header">
     <h1>
-      Súdne pojednávanie <%= tooltip_tag @decree.file_number, "Identifikačné číslo súdneho spisu.", :right %>
+      Súdne rozhodnutie
+      <%= tooltip_tag @decree.file_number, "Identifikačné číslo súdneho spisu", :right %>
+      <br/>
       <small>
-      <!-- TODO -->
+        Rozhodnutie bolo vynesené dňa &ndash;
+        <%= decree_date @decree.date %>
       </small>
     </h1>
   </div>
   
   <div class="row">
-    <div class="span12">
-      <!-- TODO -->
+    <div class="span8">
+      <% if @court %>
+        <p>Rozhodnuté bolo na súde <%= link_to_court @court %>.</p>
+      <% end %>
+      <% if @decree.judges.any? %>
+        <p>Rozhodutie vydal sudca <%= links_to_judges @decree.judges %>.</p>
+      <% end %>
+      <% if @decree.legislation_area %>
+        <p>Oblasti právnej úpravy &ndash; <%= @decree.legislation_area.value %><%= "&ndash; #{@decree.legislation_subarea.value}".html_safe if @decree.legislation_subarea %>.</p>
+      <% end %>
+      <% if @decree.form %>
+        <p>Forma rozhodnutia &ndash; <%= @decree.form.value %>.</p>
+      <% end %>
+      <% if @decree.nature %>
+        <p>Povaha rozhodnutia &ndash; <%= @decree.nature.value %>.</p>
+      <% end %>
+      <% if @legislations.any? %>
+        <p>Predpisy odkazované v rozhodnutí:</p>
+        <ul>
+          <% @legislations.each do |legislation| %>
+            <li><%= legislation.value %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  
+    <div class="span4">
+      <div class="well well-small">
+        <p>
+          <%= tooltip_tag "ECLI", "European Case Law Identifier", :left %>:
+          <span class="pull-right"><%= @decree.ecli %></span>
+        </p>
+        <p>
+          <%= tooltip_tag "SZ", "Spisová značka", :left %>:
+          <span class="pull-right"><%= @decree.case_number %></span>
+        </p>
+        <p>
+          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", :left %>:
+          <span class="pull-right"><%= @decree.file_number %></span>
+        </p>
+      </div>      
     </div>
   </div>
 </section>
@@ -20,7 +62,7 @@
 <section id="decree-document">
   <div class="row">
     <div class="span12">
-      <!-- TODO -->
+      <!-- TODO <%= @decree.text %> -->
     </div>
   </div>
 </section>
