@@ -57,24 +57,24 @@ module TagHelper
     link_to body, '#', options
   end
 
-  def button_group(values, options = {})
+  def button_group_tag(values, options = {})
     options.merge! class: 'btn-group' 
     options.merge! data(toggle: 'buttons-radio')
 
-    content_tag :div, buttons(values).join.html_safe, options
+    content_tag :div, button_tags(values).join.html_safe, options
   end
 
-  def buttons(values)
-    values.map { |value| button(value).html_safe }
+  def button_tags(values)
+    values.map do |value| 
+      options = {}
+
+      options.merge! class: 'btn', type: 'button'
+      options.merge! data(value: value)
+
+      button_tag value, options
+    end
   end
 
-  def button(value, options = {})
-    options.merge! class: 'btn', type: 'button'
-    options.merge! data(value: value)
-
-    button_tag value, options
-  end
-  
   private
   
   def data(options = {})
