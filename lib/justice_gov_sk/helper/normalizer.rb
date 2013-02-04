@@ -40,7 +40,9 @@ module JusticeGovSk
           "Krajský súd v Prešove"          => "Krajský súd Prešov", 
           "Krajský súd v Trenčíne"         => "Krajský súd Trenčín",
           "Krajský súd v Trnave"           => "Krajský súd Trnava",
-          "Krajský súd v Žiline"           => "Krajský súd Žilina"
+          "Krajský súd v Žiline"           => "Krajský súd Žilina",
+          
+          "Okresný súd Bánovce n/B"        => "Okresný súd Bánovce nad Bebravou"
         }
         
         @court_name_map = {}
