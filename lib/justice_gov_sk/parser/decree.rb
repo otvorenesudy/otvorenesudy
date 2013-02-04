@@ -60,7 +60,7 @@ module JusticeGovSk
       end
 
       def legislation(value)
-        parts = value.split(/\/|\,/)
+        parts = value.split(/\/|\,/).map { |part| part.strip }
         map   = { value: '' }
 
         unless parts[0].nil?
