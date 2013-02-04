@@ -116,9 +116,9 @@ a[rel="popover"], a[rel="tooltip"] {
   }
 }
 
-h1, h2 {
+h1, h2, strong {
   a[rel="popover"], a[rel="tooltip"] {
-    border-bottom: 2px dashed $grayLight;
+    border-bottom: 1px dashed $grayLight;
   }
 }
 

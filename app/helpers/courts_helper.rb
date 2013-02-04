@@ -69,7 +69,8 @@ module CourtsHelper
   end
   
   def link_to_court_by_judge_employment(employment, options = {})
-    options.merge! employment.active ? {} : { class: :muted } if options.delete :adjust_by_activity 
+    options = judge_options employment.judge, options.merge(adjust_by_activity_at: employment.court)
+    
     link_to_court employment.court, options
   end
   

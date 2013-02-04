@@ -27,8 +27,10 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Tituly</th>
-          <th class="span12">Meno</th>
+          <th><%= tooltip_tag icon_tag(:adjust), 'Status', :left, :hover, class: :'muted undecorated' %></th>
+          <th class="span2">Tituly</th>
+          <th class="span7">Meno</th>
+          <th class="span3">Pozícia</th>
           <th><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní." %></th>
           <th><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí." %></th>
         </tr>
@@ -37,16 +39,28 @@
         <% @judges.each do |judge| %>
           <tr>
             <td>
-              <%= judge_titles judge %>
+              <%= judge_activity_tag judge.active_at?(@court) %>
             </td>
             <td>
-              <%= link_to_judge judge, format: '%f %m %l, %a' %>
+              <%= judge_titles judge, adjust_by_activity_at: @court %>
+            </td>
+            <td>
+              <%= link_to_judge judge, adjust_by_activity_at: @court, format: '%f %m %l, %a' %>
+            </td>
+            <td>
+              <% judge.employments.at_court(@court).each do |employment| %>
+                <p><%= judge_position employment %></p>
+              <% end %>
             </td>
             <td class="number">
-              <%= judge.hearings.count %>
+              <% judge.employments.at_court(@court).each do |employment| %>
+                <p><%= judge_hearings_count_by_employment employment %></p>
+              <% end %>
             </td>
             <td class="number">
-              <%= judge.decrees.count %>
+              <% judge.employments.at_court(@court).each do |employment| %>
+                <p><%= judge_decrees_count_by_employment employment %></p>
+              <% end %>
             </td>
           </tr>
         <% end %>

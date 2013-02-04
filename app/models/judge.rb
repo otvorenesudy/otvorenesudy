@@ -15,8 +15,8 @@ class Judge < ActiveRecord::Base
   scope :active,   joins(:employments).merge(Employment.active)
   scope :inactive, joins(:employments).merge(Employment.inactive)
   
-  scope :chair,     joins(:judge_positions).merge(JudgePosition.chair)
-  scope :vicechair, joins(:judge_positions).merge(JudgePosition.vicechair)
+  scope :chair,     joins(:positions).merge(JudgePosition.chair)
+  scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
   
   scope :chaired, joins(:judgings).merge(Judging.chaired)
   
@@ -27,7 +27,7 @@ class Judge < ActiveRecord::Base
   
   has_many :courts, through: :employments
   
-  has_many :judge_positions, through: :employments
+  has_many :positions, through: :employments, source: :judge_position
   
   has_many :judgings, dependent: :destroy
   
@@ -47,5 +47,10 @@ class Judge < ActiveRecord::Base
     employments.active.any?
   end
   
-  alias :active? :active
+  def active_at(court)
+    employments.at_court(court).active.any?
+  end
+  
+  alias :active?    :active
+  alias :active_at? :active_at
 end
