@@ -6,7 +6,6 @@
 #search-view {
   
   #search-panel {
-    //border-right: 1px solid $grayLight;
     height: 100%;
     padding: 10px;
 
@@ -18,12 +17,8 @@
         margin-bottom: 10px;
       }
 
-      input {
-        width: 186px;
-      }
-
       ul {
-
+        min-height: 150px;
 
         li {
 
