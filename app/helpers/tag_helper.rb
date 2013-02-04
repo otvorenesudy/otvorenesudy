@@ -56,10 +56,28 @@ module TagHelper
     options.merge! data trigger: trigger, placement: placement
     link_to body, '#', options
   end
+
+  def button_group(values, options = {})
+    options.merge! class: 'btn-group' 
+    options.merge! data(toggle: 'buttons-radio')
+
+    content_tag :div, buttons(values).join.html_safe, options
+  end
+
+  def buttons(values)
+    values.map { |value| button(value).html_safe }
+  end
+
+  def button(value, options = {})
+    options.merge! class: 'btn', type: 'button'
+    options.merge! data(value: value)
+
+    content_tag :button, value, options
+  end
   
   private
   
   def data(options = {})
     options.inject({}) { |o, (k, v)| o["data-#{k}"] = v; o }
-  end  
+  end 
 end
