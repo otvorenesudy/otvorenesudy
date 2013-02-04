@@ -4,21 +4,17 @@
 
 <div class="container">
   <div id="search-view" class="row-fluid">
-    <div id="search-panel" class="span3">
+    <div id="search-panel" class="span4">
   
       <div id='judges-category' class="category">
-        <div class="title">
-          Sudcovia
-        </div>
-
-        <input id='judges' type="text" name="input" placeholder="Meno sudcu"/>
-        
-        <ul id='judges-list' class="unstyled">
-        </ul>
+        <%= category_title('Sudcovia') %>
+        <%= category_input(id: 'judges', placeholder: 'Meno sudcu') %>
+        <%= category_list(id: 'judges') %>
       </div>
+
     </div>
 
-    <div id="search-results" class="span9">
+    <div id="search-results" class="span8">
     </div>
   </div>
 </div>
