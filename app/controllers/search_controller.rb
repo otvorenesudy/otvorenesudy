@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   def autocomplete
     @setup = { 
-      :judge => :name
+      :judges => :name
     }
 
     entity = params[:entity].to_sym
