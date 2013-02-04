@@ -14,9 +14,10 @@ $(document).ready ->
       el:  "#search-view"
  
       events:
-        'click a[href="#"]'                 : 'onClickButton'
-        'click #search-panel ul li a'       : 'onClickListItem'
-        'click #search-panel ul li .remove' : 'onRemoveListItem'
+        'click a[href="#"]'                   : 'onClickButton'
+        'click #type button'                  : 'onChangeType'
+        'click #search-panel ul li a'         : 'onClickListItem'
+        'click #search-panel ul li .remove'   : 'onRemoveListItem'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -40,8 +41,16 @@ $(document).ready ->
         @.log "Model changed. (model=#{@.inspect obj})"
 
         @.onSearch reload: true, scrollTo: true, more: true, =>
+          @.updateType()
           @.updateList('judges')
-          
+        
+      findButton: (selector, value) ->
+        $(selector).find("*[data-value='#{value}']")
+
+      updateType: ->
+        @.log "Updating type: #{@model.getType()}"
+        @.findButton('#type', @model.getType()).addClass('active')
+
       updateList: (name) ->
         @.log "Updating list: #{name}"
 
@@ -70,6 +79,11 @@ $(document).ready ->
 
       onClickButton: (event) ->
         false
+
+      onChangeType: (event) ->
+        value = @.findValue(event.target, 'data-value')
+
+        @model.setType(value)
 
       onClickListItem: (event) ->
         list  = @.listByItem(event.target)
