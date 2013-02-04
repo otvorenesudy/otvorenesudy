@@ -5,16 +5,16 @@ module ElasticSearch
       base.settings analysis: { 
         filter: {
           autocomplete_ngram: {
-            'type'      => 'NGram',
-            'min_gram'  => 1,
-            'max_gram'  => 10,
+            :type      => 'NGram',
+            :min_gram  => 1,
+            :max_gram  => 10,
           }
         },
         analyzer: {
           autocomplete_analyzer: {
-            'type'      => 'custom',
-            'tokenizer' => 'standard',
-            'filter'    => %w(lowercase asciifolding autocomplete_ngram)
+            :type      => 'custom',
+            :tokenizer => 'standard',
+            :filter    => %w(lowercase asciifolding autocomplete_ngram)
           }
         }
       }
