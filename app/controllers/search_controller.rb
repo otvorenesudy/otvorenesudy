@@ -1,12 +1,25 @@
 class SearchController < ApplicationController
 
   def autocomplete
-    @models = %w(Judge)
-    
-    # TODO: remove, test purpose
-    render json: {
-      data: Judge.first(5).shuffle.map { |e| { value: e.name, facet: '20' } }
+    @setup = { 
+      'judges' => :name
     }
+
+    entity = params[:entity]
+    term   = params[:term]
+
+    if @setup.keys.include?(entity)
+      model = entity.singularize.camelcase.constantize  
+
+      render json: {
+        data: model.suggest(@setup[entity], term)   
+      }
+    else
+      render status: 422,
+      json: {
+        error: "#{params[:entity]} is not valid autocomplete entity."
+      }
+    end
   end
 
 end
