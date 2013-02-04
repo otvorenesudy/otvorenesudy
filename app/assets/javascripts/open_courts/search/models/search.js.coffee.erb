@@ -3,6 +3,7 @@ class OpenCourts.Search extends Backbone.AbstractModel
   @include Util.Model.Attributes
 
   defaults:
+    type:   ['Rozhodnutia']
     judges: []
     
   initialize: ->
@@ -11,6 +12,12 @@ class OpenCourts.Search extends Backbone.AbstractModel
     @page = 1
 
     @.log 'Initialized.'
+
+  getType: ->
+    @.getValue('type')
+
+  setType: (value) ->
+    @.setValue('type', value)
     
   find: (term, callback) ->
     $.ajax
