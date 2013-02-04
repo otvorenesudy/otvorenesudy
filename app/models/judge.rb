@@ -1,6 +1,8 @@
 class Judge < ActiveRecord::Base
   include Resource::Similarity
-  
+  include Tire::Model::Search
+  extend  ElasticSearch::Autocomplete
+
   attr_accessible :name,
                   :name_unprocessed,
                   :prefix,
@@ -38,6 +40,8 @@ class Judge < ActiveRecord::Base
                      dependent: :destroy
   
   validates :name, presence: true
+
+  autocomplete :name
   
   def active
     employments.active.any?

@@ -6,29 +6,24 @@
 #search-view {
   
   #search-panel {
-    //border-right: 1px solid $grayLight;
     height: 100%;
     padding: 10px;
 
     .category {
       margin-bottom: 20px;
 
+
       .title {
         border-bottom: 1px solid $grayLighter;
         margin-bottom: 10px;
       }
 
-      input {
-        width: 186px;
-      }
-
       ul {
-
+        min-height: 150px;
 
         li {
 
           position: relative;
-          margin-left: 15px;
 
           .remove {
             position: absolute;
