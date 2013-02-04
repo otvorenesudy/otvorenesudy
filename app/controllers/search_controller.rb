@@ -2,14 +2,14 @@ class SearchController < ApplicationController
 
   def autocomplete
     @setup = { 
-      'judges' => :name
+      :judge => :name
     }
 
-    entity = params[:entity]
+    entity = params[:entity].to_sym
     term   = params[:term]
 
     if @setup.keys.include?(entity)
-      model = entity.singularize.camelcase.constantize  
+      model = entity.to_s.singularize.camelize.constantize  
 
       render json: {
         data: model.suggest(@setup[entity], term)   
