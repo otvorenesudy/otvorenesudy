@@ -44,12 +44,11 @@ $(document).ready ->
           @.updateType()
           @.updateList('judges')
         
-      findButton: (selector, value) ->
-        $(selector).find("*[data-value='#{value}']")
 
       updateType: ->
         @.log "Updating type: #{@model.getType()}"
-        @.findButton('#type', @model.getType()).addClass('active')
+
+        @.findElementByValue('#type', @model.getType()).addClass('active')
 
       updateList: (name) ->
         @.log "Updating list: #{name}"

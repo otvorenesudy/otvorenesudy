@@ -72,7 +72,7 @@ module TagHelper
     options.merge! class: 'btn', type: 'button'
     options.merge! data(value: value)
 
-    content_tag :button, value, options
+    button_tag value, options
   end
   
   private

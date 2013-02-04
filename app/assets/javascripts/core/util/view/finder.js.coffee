@@ -13,3 +13,6 @@ Util.View.Finder =
 
     value
 
+  findElementByValue: (selector, value) ->
+    $(selector).find("*[data-value='#{value}']")
+
