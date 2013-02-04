@@ -61,7 +61,7 @@ module JusticeGovSk
       
       def subject(document)
         find_value_by_label 'subject', document, 'Predmet' do |div|
-          div.text.strip.gsub(/\s+/, ' ')
+          div.text.strip.squeeze(' ').upcase_first
         end
       end
       
