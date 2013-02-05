@@ -54,6 +54,8 @@ module Core
           puts "failed (connection timed out, attempt #{i} of #{repeat})"
         rescue Mechanize::Error => e
           puts "failed (unable to download page, attempt #{i} of #{repeat})"
+        rescue SocketError => e
+          puts "failed (#{e}, attempt #{i} of #{repeat})"
         rescue Exception => e 
           puts "failed (unable to handle #{e.class.name})" 
           break
