@@ -1,25 +1,25 @@
 class SearchController < ApplicationController
 
   def autocomplete
-    @setup = { 
-      :judges => :name
-    }
+    @whitelist = [:judges]
 
     entity = params[:entity].to_sym
     term   = params[:term]
 
-    if @setup.keys.include?(entity)
-      model = entity.to_s.singularize.camelize.constantize  
-
+    if @whitelist.include?(entity)
       render json: {
-        data: model.suggest(@setup[entity], term)   
+        data: Hearing.suggest(entity, term)   
       }
     else
       render status: 422,
       json: {
-        error: "#{params[:entity]} is not valid autocomplete entity."
+        error: "#{params[:entity]} is not valid autocomplete entity, damn!"
       }
     end
+  end
+
+  def search
+
   end
 
 end
