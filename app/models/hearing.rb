@@ -1,8 +1,13 @@
+# encoding: utf-8
+
 class Hearing < ActiveRecord::Base
   include Resource::Storage
 
   include Tire::Model::Search
-  include Tire::Model::Callbacks
+
+  include Document::Indexable
+  include Document::Autocompletable 
+  include Document::Searchable
 
   attr_accessible :uri,
                   :case_number,
@@ -35,45 +40,27 @@ class Hearing < ActiveRecord::Base
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
 
-  # TODO: add analyzers for other fields
-  settings analysis: { 
-            filter: {
-              name_ngram: {
-                'type'      => 'NGram',
-                'min_gram'  => 3,
-                'max_gram'  => 12
-              }
-            },
-            analyzer: {
-              name_analyzer: {
-                'type'      => 'custom',
-                'tokenizer' => 'standard',
-                'filter'    => %w(lowercase asciifolding name_ngram)
-              }
-            }
-  }
+  mappings do
+    map     :id        
+    analyze :case_number
+    analyze :file_number
+    analyze :date,              type: 'date'
+    analyze :room       
+    analyze :special_type   
+    analyze :commencement_date, type: 'date'
+    analyze :type,              as: lambda { |h| h.section.value  if h.section        }
+    analyze :subject,           as: lambda { |h| h.subject.value  if h.subject        }
+    analyze :form,              as: lambda { |h| h.form.value     if h.form           }
+    analyze :court,             as: lambda { |h| h.court.name     if court            }
+    analyze :judges,            as: lambda { |h| h.judgings.map   { |j| j.judge.name }}
+    analyze :proposers,         as: lambda { |h| h.proposers.map  { |p| p.name }      }
+    analyze :opponents,         as: lambda { |h| h.opponents.map  { |o| o.name }      }
+    analyze :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }      }
+  end
 
-  mapping do
-    indexes :id
-    indexes :case_number 
-    indexes :file_number
-    indexes :date
-    indexes :room
-    indexes :special_type
-    indexes :commencement_date
-
-    indexes :type,              as: lambda { |h| h.section.value  if h.section       }
-    indexes :subject,           as: lambda { |h| h.subject.value  if h.subject       }
-    indexes :form,              as: lambda { |h| h.form.value     if h.form          }
-    indexes :court,             as: lambda { |h| h.court.name     if court           }
-    indexes :judges,            as: lambda { |h| h.judgings.map { |j| j.judge.name } }, 
-                                analyzer: 'name_analyzer'
-    indexes :proposers,         as: lambda { |h| h.proposers.map { |p| p.name }      },
-                                analyzer: 'name_analyzer'
-    indexes :opponents,         as: lambda { |h| h.opponents.map { |o| o.name }      },
-                                analyzer: 'name_analyzer'
-    indexes :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }     },
-                                analyzer: 'name_analyzer'
+  # TODO: refactor to proxy class, sorting
+  def self.search(params)
+    _search(params)    
   end
 
   storage :page, JusticeGovSk::Storage::HearingPage do |hearing|
