@@ -7,7 +7,9 @@ namespace :es do
 
       model = index.singularize.camelize.constantize
 
-      model.index.import model.all
+      model.find_in_batches(batch_size: 5000) do |group|
+        model.index.import group
+      end
     end
   end
 
