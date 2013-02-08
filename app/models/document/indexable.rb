@@ -3,22 +3,23 @@ module Document
 
     def self.included(base)
       base.send(:extend,  ClassMethods)
+      base.send(:include, Tire::Model::Search)
 
-      base.configure analysis: { 
-        analyzer: {
-          text_analyzer: {
-            :type      => 'custom',
-            :tokenizer => 'letter',
-            :filter    => %w(lowercase asciifolding)
-          }
-        }
-      }
+      base.configure
     end
 
     module ClassMethods
 
-      def configure(params)
-        tire.settings.deep_merge!(params)
+      def config
+        YAML.load_file(File.join(Rails.root, 'config', 'elasticsearch.yml')).symbolize_keys
+      end
+
+      def configure(params = {})
+        settings = config[:index]
+
+        settings.deep_merge!(params)
+
+        tire.settings.deep_merge!(settings)
       end
 
       def mappings
@@ -46,7 +47,6 @@ module Document
                     untouched: { type: type,  index: :not_analyzed }
                   }
               )
-
             end
 
           end
@@ -66,10 +66,6 @@ module Document
 
         @mappings[field][:type]    = :analyzed
         @mappings[field][:options] = options
-      end
-
-      def facet(field, result)
-        result.symbolize_keys[field]['terms'].map { |e| e.symbolize_keys  }
       end
 
     end

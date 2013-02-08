@@ -1,0 +1,8 @@
+index:
+  analysis:
+    analyzer:
+      text_analyzer:
+        type: custom
+        tokenizer: letter
+        filter: [lowercase, asciifolding]
+  
