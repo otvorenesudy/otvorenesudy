@@ -9,7 +9,7 @@ $(document).ready =>
     @include Util.Logger
 
     start: ->
-       @model  = new OpenCourts.Search
+       @model  = new OpenCourts.SearchModel
        @router = new OpenCourts.SearchRouter model: @model
        @view   = new OpenCourts.SearchView model: @model
        

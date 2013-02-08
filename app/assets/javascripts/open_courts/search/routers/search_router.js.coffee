@@ -10,6 +10,7 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
       @.log 'Initializing...'
 
       @model = options.model
+
       @model.bind "change", =>
         @.adjustUrl()
 
@@ -22,7 +23,8 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
         json = UrlParser.parse params
 
         @model.set
-          judges: json.judges or []
+          category: json.category or []
+          judges:   json.judges   or []
 
     format: (json) ->
       UrlParser.dump json

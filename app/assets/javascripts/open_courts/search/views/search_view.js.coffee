@@ -11,13 +11,13 @@ $(document).ready ->
  
       @include OpenCourts.SearchViewTemplates
       
-      el:  "#search-view"
+      el:  '#search-view'
  
       events:
-        'click a[href="#"]'                   : 'onClickButton'
-        'click #type button'                  : 'onChangeType'
-        'click #search-panel ul li a'         : 'onClickListItem'
-        'click #search-panel ul li .remove'   : 'onRemoveListItem'
+        'click a[href="#"]'                 : 'onClickButton'
+        'click #category button'            : 'onChangeCategory'
+        'click #search-panel ul li a'       : 'onClickListItem'
+        'click #search-panel ul li .remove' : 'onRemoveListItem'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -40,15 +40,15 @@ $(document).ready ->
       onModelChange: (obj) ->
         @.log "Model changed. (model=#{@.inspect obj})"
 
-        @.onSearch reload: true, scrollTo: true, more: true, =>
-          @.updateType()
+        @.onSearch reload: true, =>
+          @.updateCategory()
           @.updateList('judges')
         
 
-      updateType: ->
-        @.log "Updating type: #{@model.getType()}"
+      updateCategory: ->
+        @.log "Updating category: #{@model.getCategory()}"
 
-        @.findElementByValue('#type', @model.getType()).addClass('active')
+        @.findElementByValue('#category', @model.getCategory()).addClass('active')
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
@@ -79,10 +79,10 @@ $(document).ready ->
       onClickButton: (event) ->
         false
 
-      onChangeType: (event) ->
+      onChangeCategory: (event) ->
         value = @.findValue(event.target, 'data-value')
 
-        @model.setType(value)
+        @model.setCategory(value)
 
       onClickListItem: (event) ->
         list  = @.listByItem(event.target)
@@ -97,13 +97,6 @@ $(document).ready ->
         value = @.listItemValue(event.target)
 
         @model.remove attr, value
-
-      onLoadMore: (event) ->
-        @model.page += 1
-        
-        @.log "Loading more ... (page=#{@model.page})"
-
-        @.onSearch reload: false, scrollTo: true, more: true
 
       onChangeSlider: (event, ui, el, format) ->
         @.log "Changing slider ... (element=#{el}, values=#{ui.values})"
