@@ -1,10 +1,11 @@
-class OpenCourts.Search extends Backbone.AbstractModel
+class OpenCourts.SearchModel extends Backbone.AbstractModel
   @include Util.Logger
   @include Util.Model.Attributes
 
   defaults:
-    type:   ['Rozhodnutia']
+    category:   ['Pojednávania']
     judges: []
+    courts: []
     
   initialize: ->
     @.log 'Initializing ...'
@@ -13,11 +14,11 @@ class OpenCourts.Search extends Backbone.AbstractModel
 
     @.log 'Initialized.'
 
-  getType: ->
-    @.getValue('type')
+  getCategory: ->
+    @.getValue('category')
 
-  setType: (value) ->
-    @.setValue('type', value)
+  setCategory: (value) ->
+    @.setValue('category', value)
     
   find: (term, callback) ->
     $.ajax
@@ -41,13 +42,15 @@ class OpenCourts.Search extends Backbone.AbstractModel
         data: @.toJSON()
       success: (response) =>
         @facets = response.facets
-        
+
+        @.log "Response: #{@.inspect response}"
+                
         callback?(response)
       error: ->
         @.err "Error occured while searching (model=#{@.toJSON()})"
 
   values: (field) ->
-    @facets?.values?[field]
+    @facets?[field]?.map (facet) -> facet.term
 
   facet: (field, value) ->
     @facets?.facets?[field]?[value] or ""
