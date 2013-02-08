@@ -3,12 +3,10 @@
 class Hearing < ActiveRecord::Base
   include Resource::Storage
 
-  include Tire::Model::Search
-
   include Document::Indexable
-  include Document::Autocompletable 
+  include Document::Suggestable
   include Document::Searchable
-
+  
   attr_accessible :uri,
                   :case_number,
                   :file_number,
@@ -56,11 +54,6 @@ class Hearing < ActiveRecord::Base
     analyze :proposers,         as: lambda { |h| h.proposers.map  { |p| p.name }      }
     analyze :opponents,         as: lambda { |h| h.opponents.map  { |o| o.name }      }
     analyze :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }      }
-  end
-
-  # TODO: refactor to proxy class, sorting
-  def self.search(params)
-    _search(params)    
   end
 
   storage :page, JusticeGovSk::Storage::HearingPage do |hearing|
