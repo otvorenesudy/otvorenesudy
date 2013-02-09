@@ -52,7 +52,7 @@ module Document
         facets     = params[:facets]
         sort_block = params[:sort]
 
-        results = tire.search do
+        results = tire.search page: page, per_page: per_page do
 
           if query.any? or terms.any?
             query do
