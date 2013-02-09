@@ -57,6 +57,7 @@ group :assets do
   gem 'therubyracer', '~> 0.10.2'
   
   gem 'jquery-ui-rails'
+  gem 'spinjs-rails'
   gem 'rails-backbone'
 end
 
