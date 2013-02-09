@@ -3,6 +3,7 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
   @include Util.Model.Attributes
 
   defaults:
+    page:       []
     category:   ['Pojednávania']
     judges:     []
     court:      []
@@ -19,6 +20,13 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
   setCategory: (value) ->
     @.setValue('category', value)
+
+  getPage: ->
+    @.getValue('page')
+
+  setPage: (value) ->
+    value = 1 unless value
+    @.setValue('page', value)
     
   find: (term, callback) ->
     $.ajax
@@ -38,7 +46,6 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
       url: "/search"
       type: "POST"
       data:
-        page: @page,
         data: @.toJSON()
       success: (response) =>
         @facets = response.facets

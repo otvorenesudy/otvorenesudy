@@ -19,6 +19,7 @@ $(document).ready ->
         'click #category button'            : 'onChangeCategory'
         'click #search-panel ul li a'       : 'onClickListItem'
         'click #search-panel ul li .remove' : 'onRemoveListItem'
+        'click .pagination ul li a'         : 'onChangePage'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -88,6 +89,17 @@ $(document).ready ->
         value = @.findValue(event.target, 'data-value')
 
         @model.setCategory(value)
+
+      onChangePage: (event) ->
+        event.preventDefault()
+        
+        value = @.findValue(event.target, 'href').match(/&page=\d+$/)?[0]
+
+        value = parseInt(value?.match(/\d+$/)?[0])
+        
+        @.log "Setting page to #{value}"
+
+        @model.setPage(value)
 
       onClickListItem: (event) ->
         list  = @.listByItem(event.target)

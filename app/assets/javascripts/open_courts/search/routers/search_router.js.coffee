@@ -23,6 +23,7 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
         json = UrlParser.parse params
 
         @model.set
+          page:     json.page     or []
           category: json.category or []
           judges:   json.judges   or []
           court:    json.court    or []
