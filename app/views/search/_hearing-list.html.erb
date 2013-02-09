@@ -1,0 +1,25 @@
+<ol class="unstyled">
+  <% hearings.each do |hearing| %>
+    <li>
+      <h5 class='title'>
+        <%= hearing_title(hearing) %>
+      </h5>
+
+      <p>
+        <strong>Súd:</strong>
+        <%= hearing.court.name %>
+      </p>
+
+      <p>
+        <strong>Sudcovia:</strong>
+        <%= hearing.judges.map(&:name).join(', ') %>
+      </p>
+
+      <p>
+        <strong>Spisová značka:</strong>
+        <%= hearing.case_number  %>
+      </p>
+ 
+    </li>
+  <% end %>
+</ul>

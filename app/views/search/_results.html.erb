@@ -1,0 +1,11 @@
+<div class="controls">
+  <div class="total-count">
+    Celkovo najdených <strong><%= options[:total] %></strong> súdnych dokumentov.
+  </div>
+</div>
+
+<% if type == Hearing %>
+  <%= render :partial => 'hearing-list', locals: { hearings: values } %>
+<% elsif type == Decree %>
+  <%= render :partial => 'decree-list', locals: { decrees: values } %>
+<% end %>

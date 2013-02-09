@@ -6,7 +6,7 @@
   <div id="search-view" class="row-fluid">
     <div id="search-panel" class="span4">
 
-      <div id="type" class="category">
+      <div id="category" class="category">
         <%= category_title('Kategoria') %>
         <%= button_group_tag(%w(Rozhodnutia Pojednávania)) %>
       </div>
@@ -16,6 +16,13 @@
         <%= category_input(id: 'judges', placeholder: 'Meno sudcu') %>
         <%= category_list(id: 'judges') %>
       </div>
+
+      <div id='court-category' class="category">
+        <%= category_title('Súdy') %>
+        <%= category_input(id: 'court', placeholder: 'Názov súdu') %>
+        <%= category_list(id: 'court') %>
+      </div>
+
 
     </div>
 
