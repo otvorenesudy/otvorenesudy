@@ -2,8 +2,6 @@ Util.View.Loading =
   loading: (element, options) ->
     @.log "Loading ... (element=#{element}, options=#{JSON.stringify options})"
 
-    $('.btn-load-more').remove()
-
     $(element).empty() if options.reload
     $(element).append(@template['spin'])
 
