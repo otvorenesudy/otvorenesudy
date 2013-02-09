@@ -53,4 +53,39 @@
       }
     }
   }
+
+  #search-results {
+    .spin {
+      margin: auto;
+      height: 200px;
+      width: 100%;
+    }
+
+    .controls {
+      padding: 5px;
+      border-bottom: 1px solid $grayLighter;
+      margin-bottom: 10px;
+      text-align:    right;
+
+    }
+
+    ol {
+
+      li {
+        padding: 10px;
+        border-bottom: 1px dotted $grayLighter;
+
+        .title {
+          padding: 0px;
+          margin: 0px 0px 10px 0px;
+        }
+
+        p {
+          margin-bottom: 3px;
+        }
+      }
+
+    }
+
+  }
 }
