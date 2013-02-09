@@ -25,10 +25,10 @@ class SearchController < ApplicationController
     
     @query[:facets] = [:judges, :court]
     
-    result, total_count = @model.search_by(@query)
+    result, total_count, results = @model.search_by(@query)
     
     render json: {
-      data: render_to_string(:partial => 'results', locals: { type: @model, values: result[:results], options: { total: total_count } }),
+      data: render_to_string(:partial => 'results', locals: { type: @model, values: result[:results], options: { total: total_count, results: results } }),
       facets: result[:facets]
     }
   end
@@ -45,6 +45,8 @@ class SearchController < ApplicationController
     params.symbolize_keys.each do |key, value|
 
       case key
+      when :page
+        query[:page] = value.first if value.is_a?(Array)
       when :category
         # TODO: Parse category
       when :judges
