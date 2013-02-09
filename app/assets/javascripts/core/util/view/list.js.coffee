@@ -39,7 +39,19 @@ Util.View.List =
   addListItem: (list, value, facet) ->
     @.log "Adding list item (value=#{value}, facet=#{facet})"
     
-    $(list).append(@template['list_item'](value: value, facet: facet ?= ''))
+    $(@.list(list)).append(@template['list_item'](value: value, facet: facet ?= ''))
+
+  addListItem: (list, value, facet) ->
+    @.log "Adding list item (value=#{value}, facet=#{facet})"
+
+    @.list(list).append(@template['list_item'](value: value, facet: facet ?= ''))
+
+  prependListItem: (list, value, facet) ->
+    @.log "Prepending list item (value=#{value}, facet=#{facet})"
+
+    @.findListItem(list, value).remove()
+
+    @.list(list).prepend(@template['list_item'](value: value, facet: facet ?= ''))
 
   clearList: (list, options = {}) ->
     selector = if options.selected then 'li:not(.selected)' else 'li'
