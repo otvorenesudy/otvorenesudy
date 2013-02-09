@@ -1,4 +1,7 @@
 Util.View.Finder =
+  elementValue: (selector) ->
+    $(selector).text()
+
   findValue: (selector, attr) ->
     @.log "Finding value  ... (selector=#{selector}, attribute=#{attr}"
 
