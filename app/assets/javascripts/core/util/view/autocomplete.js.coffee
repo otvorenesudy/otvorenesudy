@@ -5,6 +5,7 @@ Util.View.Autocomplete =
     @.log "Setting up autocomplete: #{entity}"
 
     $(el).autocomplete
+      minLength: 0
       messages:
         noResults: null,
         results: -> {}
@@ -15,6 +16,7 @@ Util.View.Autocomplete =
           url: "/autocomplete/#{entity}"
           dataType: "json"
           data:
+            data: options.query?()
             term: request.term
           success: (d) ->
             response d.data
