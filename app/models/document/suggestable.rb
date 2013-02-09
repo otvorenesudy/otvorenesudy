@@ -14,6 +14,8 @@ module Document
         options[:query][field] = term
         options[:facets]       = field
 
+        options[:filter].delete(field)
+
         facets = format_facets(compose_search(options).facets)
 
         facets[field]
