@@ -11,7 +11,8 @@ $(document).ready ->
  
       @include OpenCourts.SearchViewTemplates
       
-      el:  '#search-view'
+      el:          '#search-view'
+      result_list: '#search-results'
  
       events:
         'click a[href="#"]'                 : 'onClickButton'
@@ -31,11 +32,13 @@ $(document).ready ->
 
         @model.page = 1
 
-        @.autocompleteList 'judges'
+        @.autocompleteList 'judges', query: => @model.toJSON()
+
+        @.autocompleteList 'court', query: => @model.toJSON()
 
         @.log 'Initialization done.'
           
-        @.onModelChange(@model)
+        @.onModelChange()
 
       onModelChange: (obj) ->
         @.log "Model changed. (model=#{@.inspect obj})"
@@ -43,7 +46,7 @@ $(document).ready ->
         @.onSearch reload: true, =>
           @.updateCategory()
           @.updateList('judges')
-        
+          @.updateList('court')
 
       updateCategory: ->
         @.log "Updating category: #{@model.getCategory()}"
@@ -58,7 +61,7 @@ $(document).ready ->
         list = @.list(name)
 
         for value in @model.get name
-          @.addListItem(list, value, @model.facet(name, value)) unless @.listHasItem(list, value)
+          @.prependListItem(list, value, @model.facet(name, value))
           @.selectListItem(list, value)
   
       refreshListValues: (name) ->
@@ -75,6 +78,8 @@ $(document).ready ->
           for value in values
             @.addListItem(list, value, @model.facet(name, value)) unless @.listHasItem(list, value)
 
+      updateResultList: (html) ->
+        $(@result_list).html(html)
 
       onClickButton: (event) ->
         false
@@ -129,21 +134,14 @@ $(document).ready ->
       onSearch: (options, callback) ->
         @.log "Searching ... (options=#{@.inspect options})"
         
-        #@.loading @movie_list, options
+        @.loading @result_list, options
 
         @model.search (response) =>
           @.log 'Search was successful.'
 
           if response.data
-            #@.updateMovieList @movie_list, response.data,
-            #  reload: options.reload,
-            #  more:   options.more unless response.last_page
-          else
-            @.noMoreResults() if options.reload
-
-          #@.unloading @movie_list
+            @.updateResultList response.data
+          
+          @.unloading @result_list
 
           callback?()
-
-      noMoreResults: ->
-        $(@movie_list).append(@template['no_more_results'])

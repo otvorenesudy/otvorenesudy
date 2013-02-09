@@ -4,8 +4,8 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
   defaults:
     category:   ['Pojednávania']
-    judges: []
-    courts: []
+    judges:     []
+    court:      []
     
   initialize: ->
     @.log 'Initializing ...'
@@ -53,4 +53,4 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     @facets?[field]?.map (facet) -> facet.term
 
   facet: (field, value) ->
-    @facets?.facets?[field]?[value] or ""
+    (@facets?[field].filter (e) -> e.term == value)?[0]?.count
