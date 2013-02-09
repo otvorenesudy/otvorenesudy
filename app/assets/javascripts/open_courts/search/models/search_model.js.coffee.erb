@@ -43,7 +43,7 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
   search: (callback) ->
     $.ajax
-      url: "/search"
+      url: "/async_search"
       type: "POST"
       data:
         data: @.toJSON()

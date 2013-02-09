@@ -1,12 +1,10 @@
 class SearchController < ApplicationController
 
   def autocomplete
-    @whitelist = [:judges, :court]
-
     @entity = params[:entity].to_sym
     @term   = params[:term]
 
-    if @whitelist.include?(@entity)
+    if [:judges, :court].include?(@entity)
       @model, @query = parse_search_query(params[:data])
 
       render json: {
@@ -25,17 +23,24 @@ class SearchController < ApplicationController
     
     @query[:facets] = [:judges, :court]
     
-    result, total_count, results = @model.search_by(@query)
+    @search, @results = @model.search_by(@query)
     
     render json: {
-      data: render_to_string(:partial => 'results', locals: { type: @model, values: result[:results], options: { total: total_count, results: results } }),
-      facets: result[:facets]
+      data: render_to_string(partial: 'results', 
+                             locals: { 
+                                type: @model, 
+                                values: @search[:results], 
+                                options: { results: @results } 
+                            }
+      ),
+      facets: @search[:facets]
     }
   end
     
   private 
 
   def parse_search_query(params)
+    params ||= Hash.new
 
     model = Hearing
     query = Hash.new
