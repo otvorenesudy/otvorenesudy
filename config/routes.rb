@@ -6,8 +6,8 @@ OpenCourts::Application.routes.draw do
   match '/home',         to: 'static_pages#home'
   match '/stats',        to: 'static_pages#stats'
 
-  match '/advanced_search',      to: 'search#index'
-  match '/search',               to: 'search#search'
+  match '/search',               to: 'search#index'
+  match '/async_search',         to: 'search#search'
   match '/autocomplete/:entity', to: 'search#autocomplete'
   
   resources :courts do
