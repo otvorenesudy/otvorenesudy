@@ -39,7 +39,7 @@ module Document
         data[:results] = fetch_records(result.results)
         data[:facets]  = format_facets(result.facets)
 
-        data
+        return data, result.total, result
       end
 
       def compose_search(params)
