@@ -9,3 +9,5 @@
 <% elsif type == Decree %>
   <%= render :partial => 'decree-list', locals: { decrees: values } %>
 <% end %>
+
+<%= paginate options[:results] %>
