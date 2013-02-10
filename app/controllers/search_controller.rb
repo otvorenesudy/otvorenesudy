@@ -21,7 +21,8 @@ class SearchController < ApplicationController
   def search
     @model, @query = parse_search_query(params[:data])
     
-    @query[:facets] = [:judges, :court]
+    @query[:facets]  = [:judges, :court]
+    @query[:options] = { global_facets: true }
     
     @search, @results = @model.search_by(@query)
     
