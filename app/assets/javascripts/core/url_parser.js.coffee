@@ -13,17 +13,19 @@ class window.UrlParser
     unless value instanceof Array
       throw "Wrong type, damn!"
 
-  @encode: (str) ->
-    str.replace(/\+/g, ' ')
+  @decode: (str) ->
+    decodeURI(str.replace(/\+/g, ' '))
 
-  @decode: (value) ->
-    value.toString().replace(/\s/g, '+')
+  @encode: (value) ->
+    encodeURI(value.toString().replace(/\s/g, '+'))
 
   @parseParam: (param) ->
     param = param.split(':')
 
     attr  = param[0]
-    value = @.encode(param[1]).split(',')
+    value = @.decode(param[1]).split(',')
+
+    Util.Logger.log "Parsing #{attr}: #{value}"
 
     return [attr, value]
 
@@ -43,6 +45,6 @@ class window.UrlParser
   @dump: (json) ->
     str = ""
     for key, value of json
-      str += "#{key}:#{@.decode(value)}&" if value?.length > 0
+      str += "#{key}:#{@.encode(value)}&" if value?.length > 0
     str.replace(/&$/, '')
 
