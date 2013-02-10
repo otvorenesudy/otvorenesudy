@@ -27,7 +27,9 @@ module Document
         return result unless facets
 
         facets.each do |field, values|
-          result[field.to_sym] = values['terms'].map { |e| e.symbolize_keys } 
+          next if values['terms'].nil? 
+
+          result[field.to_sym] = values['terms'].map { |e| e.symbolize_keys }
         end
 
         result
@@ -43,14 +45,17 @@ module Document
       end
 
       def compose_search(params)
-        puts params.inspect
-
         page       = params[:page]      || 1
         per_page   = params[:per_page]  || 10
         query      = params[:query]     || Hash.new
         terms      = params[:filter]    || Hash.new
-        facets     = params[:facets]
+        facets     = params[:facets]    || []
         sort_block = params[:sort]
+        options    = params[:options]   || {}
+
+        options[:global_facets] ||= false
+
+        facets = [facets] unless facets.respond_to?(:each)
 
         results = tire.search page: page, per_page: per_page do
 
@@ -92,22 +97,33 @@ module Document
             end
           end
 
-          if facets.respond_to?(:each)
+          if facets.any?
+            facets.each do |facet|
 
-            facets.each do |field|
+              facet facet.to_s, global: options[:global_facets] do 
+                terms "#{facet}.untouched"
 
-              facet field.to_s do 
-                terms "#{field}.untouched"
+                if terms.any?
+                  filter_values = []
+ 
+                  terms.except(facet).each do |field, value|
+                    if value.respond_to?(:each)
+                     
+                      value.each do |e|
+                        filter_values << { term: { "#{field}.untouched" => e } }
+                      end
+
+                    else
+                      
+                      filter_values << { term: { "#{field}.untouched" => value } }
+
+                    end
+                  end
+
+                  facet_filter :and, filter_values if filter_values.any?
+                end
               end
-
             end
-
-          elsif facets
-
-            facet facets.to_s do
-              terms "#{facets}.untouched"
-            end
-
           end
 
           if sort_block
