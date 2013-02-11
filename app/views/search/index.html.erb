@@ -1,27 +1,31 @@
+<% provide :title, "Rozšírené vyhľadávanie" %>
+
 <% content_for :scripts do %>
   <%= javascript_include_tag 'open_courts/search/search' %>
 <% end %>
 
-<div id="search-view" class="row">
-  <div id="search-panel" class="span4">
+<section id="search-view">
+  <div class="row">
+    <div id="search-panel" class="span4">
 
-    <div id="category" class="category">
-      <%= category_title 'Kategoria' %>
-      <%= button_group_tag %w(Rozhodnutia Pojednávania) %>
+      <div id="category" class="category">
+        <%= button_group_tag %w(Rozhodnutia Pojednávania) %>
+      </div>
+
+      <div id='judges-category' class="category">
+        <%= category_title 'Sudcovia' %>
+        <%= category_input id: 'judges', placeholder: 'Meno sudcu' %>
+        <%= category_list id: 'judges' %>
+      </div>
+
+      <div id='court-category' class="category">
+        <%= category_title 'Súdy' %>
+        <%= category_input id: :court, placeholder: 'Názov súdu' %>
+        <%= category_list id: :court %>
+      </div>
+
     </div>
 
-    <div id='judges-category' class="category">
-      <%= category_title 'Sudcovia' %>
-      <%= category_input id: 'judges', placeholder: 'Meno sudcu' %>
-      <%= category_list id: 'judges' %>
-    </div>
-
-    <div id='court-category' class="category">
-      <%= category_title 'Súdy' %>
-      <%= category_input id: :court, placeholder: 'Názov súdu' %>
-      <%= category_list id: :court %>
-    </div>
-
+    <div id="search-results" class="span8"></div>
   </div>
-  <div id="search-results" class="span8"></div>
-</div>
+</section>

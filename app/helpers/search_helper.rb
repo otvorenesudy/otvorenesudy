@@ -1,6 +1,6 @@
 module SearchHelper
   def category_title(title)
-    content_tag :div, title, class: 'title'     
+    content_tag :h4, title, class: 'title'     
   end
 
   def category_input(options)

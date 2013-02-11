@@ -1,13 +1,15 @@
-<div class="controls">
-  <div class="total-count">
-    Celkovo najdených <strong><%= options[:results].total %></strong> súdnych dokumentov.
-  </div>
+<div class="pull-right">
+  <p class="muted">
+      Celkovo najdených <strong><%= options[:results].total %></strong> súdnych dokumentov.
+  </p>
 </div>
 
+<div class="clearfix"></div>
+
 <% if type == Hearing %>
-  <%= render :partial => 'hearing-list', locals: { hearings: values } %>
+  <%= render :partial => 'hearings', locals: { hearings: values } %>
 <% elsif type == Decree %>
-  <%= render :partial => 'decree-list', locals: { decrees: values } %>
+  <%= render :partial => 'decrees', locals: { decrees: values } %>
 <% end %>
 
 <%= paginate options[:results] %>

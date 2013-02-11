@@ -1,97 +1,42 @@
-// TODO rm?
-
-// Place all the styles related to the Search controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'variables';
 
-/*
-
-#search-view {
-  
+section#search-view {
+  padding-top: 40px;
+ 
   #search-panel {
-    height: 100%;
-    padding: 10px;
+    .category + .category {
+      margin-top: 20px;
+    }
+    
+    li {
+      position: relative;
 
-    .category {
-      margin-bottom: 20px;
-
-
-      .title {
-        border-bottom: 1px solid $grayLighter;
-        margin-bottom: 10px;
+      .facet {
+        background-color: $grayLighter;
+        color: $gray;
+        text-shadow: none;
       }
 
-      ul {
-        min-height: 150px;
+      .remove {
+        position: absolute;
+        left: -17px;
+        top: 2px;
 
-        li {
+        cursor: pointer;
+        color: $grayLight;
 
-          position: relative;
-
-          .remove {
-            position: absolute;
-            left: -17px;
-            top: 2px;
-            color: $grayLight;
-
-            cursor: pointer;
-
-            &:hover {
-              color: $linkColorHover;
-            }
-          }
-
-          .facet {
-            font-size: 8pt;
-            height: 12px;
-            line-height: 12px;
-            padding: 2px 7px;
-            margin-left: 7px;
-
-            background-color: $grayLighter;
-            color: $gray;
-            text-shadow: none;
-          }
+        &:hover {
+          color: $linkColorHover;
         }
       }
     }
   }
-
+  
   #search-results {
-    .spin {
-      margin: auto;
-      height: 200px;
-      width: 100%;
+    li + li {
+      margin: 20px 0px;
+      padding-top: 10px;
+      border-top: 1px solid $grayLighter;
     }
-
-    .controls {
-      padding: 5px;
-      border-bottom: 1px solid $grayLighter;
-      margin-bottom: 10px;
-      text-align:    right;
-
-    }
-
-    ol {
-
-      li {
-        padding: 10px;
-        border-bottom: 1px dotted $grayLighter;
-
-        .title {
-          padding: 0px;
-          margin: 0px 0px 10px 0px;
-        }
-
-        p {
-          margin-bottom: 3px;
-        }
-      }
-
-    }
-
   }
 }
-
-*/
