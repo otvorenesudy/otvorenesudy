@@ -65,14 +65,9 @@ module TagHelper
   end
 
   def button_tags(values)
-    values.map do |value| 
-      options = {}
-
-      options.merge! class: 'btn', type: 'button'
-      options.merge! data(value: value)
-
-      button_tag value, options
-    end
+    options = { class: 'btn', type: 'button' }
+    
+    values.map { |value| button_tag value, options.merge(data value: value) }
   end
 
   private
