@@ -17,10 +17,10 @@ OpenCourts::Application.routes.draw do
   resources :judges
   
   resources :hearings
-  
   resources :decrees
   
   match '/404', to: 'errors#show'
+  match '/422', to: 'errors#show'
   match '/500', to: 'errors#show'
   
   mount Resque::Server.new, at: '/resque'
