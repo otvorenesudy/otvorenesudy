@@ -6,10 +6,5 @@
 
 <div class="clearfix"></div>
 
-<% if type == Hearing %>
-  <%= render :partial => 'hearings', locals: { hearings: values } %>
-<% elsif type == Decree %>
-  <%= render :partial => 'decrees', locals: { decrees: values } %>
-<% end %>
-
+<%= render partial: type.name.downcase.pluralize, locals: { type.name.downcase.pluralize.to_sym => values } %>
 <%= paginate options[:results] %>
