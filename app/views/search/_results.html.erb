@@ -7,4 +7,3 @@
 <div class="clearfix"></div>
 
 <%= render partial: type.name.downcase.pluralize, locals: { type.name.downcase.pluralize.to_sym => values } %>
-<%= paginate options[:results] %>
