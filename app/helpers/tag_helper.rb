@@ -59,20 +59,15 @@ module TagHelper
 
   def button_group_tag(values, options = {})
     options.merge! class: 'btn-group' 
-    options.merge! data(toggle: 'buttons-radio')
+    options.merge! data toggle: 'buttons-radio'
 
     content_tag :div, button_tags(values).join.html_safe, options
   end
 
   def button_tags(values)
-    values.map do |value| 
-      options = {}
+    options = { class: 'btn', type: 'button' }
 
-      options.merge! class: 'btn', type: 'button'
-      options.merge! data(value: value)
-
-      button_tag value, options
-    end
+    values.map { |value| button_tag value, options.merge(data value: value) }
   end
 
   private

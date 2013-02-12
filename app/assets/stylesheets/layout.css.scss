@@ -78,7 +78,7 @@ table {
   }
 }
 
-// icons
+// icons and images
 
 [class^="icon-"], [class*=" icon-"] {
   display: inline-block;
@@ -95,6 +95,11 @@ table {
 i.icon-space {
   width: auto;
   font-size: $baseFontSize;
+}
+
+.spin {
+  width: 100%;
+  margin: 40px auto;
 }
 
 // popovers and tooltips

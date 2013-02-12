@@ -16,6 +16,6 @@ module HearingsHelper
   end
   
   def link_to_hearing(hearing, options = {})
-    link_to hearing.name, hearing_path(hearing.id), options
+    link_to hearing.file_number, hearing_path(hearing.id), options
   end
 end
