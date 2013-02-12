@@ -14,12 +14,15 @@ Util.Model.Attributes =
 
     @.set attr, values
 
-  add: (attr, value) ->
+  add: (attr, value, options) ->
     @.setupAttribute(attr)
 
-    @.log "Adding to '#{attr}': #{value}"
+    @.log "Adding to '#{attr}': #{value} ... (options=#{@.inspect options}"
 
-    @[attr].push(value) unless value in @[attr]
+    if options?.multi
+      @[attr].push(value) unless value in @[attr]
+    else
+      @[attr] = [value]
 
     @.log "Setting '#{attr}': #{@.inspect @[attr]}"
 
