@@ -13,6 +13,8 @@ Util.View.Loading =
       corners: 1
 
     @.scrollTo?("#{element} .spin") if options?.scrollTo? is true
+    
+    options.callback?()
 
   unloading: (element) ->
     @.log "Unloading ... (element=#{element})"
