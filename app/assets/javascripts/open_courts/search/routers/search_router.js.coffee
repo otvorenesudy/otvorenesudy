@@ -22,6 +22,8 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
       if UrlParser.validate params
         json = UrlParser.parse params
 
+        @.log "Updating model ... (json=#{@.inspect json})"
+
         @model.set
           page:     json.page     or []
           category: json.category or []
