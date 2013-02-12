@@ -14,13 +14,13 @@
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
 //= require jquery.spin
+//= require inflection
 //= require bootstrap
 //= require underscore
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require namespace
-//= require_tree ./core
 //= require gmaps4rails/gmaps4rails.base
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require fixes
