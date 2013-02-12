@@ -1,21 +1,28 @@
 <% if Rails.env.development? %>
   <% instances = [@court, @judge, @hearing, @decree].reverse %>
+
   <div class="container">
     <% instances.reject(&:nil?).each do |instance| %>
       <% if instance.respond_to? :uri %>
-        <%= content_tag :pre, class: :debug_dump do %>
-          <% ["        page link: #{link_to(instance.uri, instance.uri)}",
-              "        page file: #{instance.page_path}",
-              "      change time: #{File.ctime(instance.page_path) if instance.page_path}",
-              " last access time: #{File.atime(instance.page_path) if instance.page_path}",
-              "modification time: #{File.mtime(instance.page_path) if instance.page_path}"
-              ].join("\n").html_safe %>
-        <% end %>
+        <%= content_tag :pre, class: :debug_dump do
+          lines = ["        page link: #{link_to(instance.uri, instance.uri)}",
+                   "        page file: #{instance.page_path}"]
+
+          if !File.readable? instance.page_path
+            lines += ["      change time: #{File.ctime(instance.page_path) if instance.page_path}",
+                      " last access time: #{File.atime(instance.page_path) if instance.page_path}",
+                      "modification time: #{File.mtime(instance.page_path) if instance.page_path}"]
+          else
+            lines[-1] += " (#{File.exists?(instance.page_path) ? 'not readable' : 'not exists'})" 
+          end
+
+          lines.join("\n").html_safe
+        end %>
       <% end %>
-      
+
       <%= debug(instance) %>
     <% end %>
-    
+
     <%= debug(params) %>
   </div>
 <% end %>
