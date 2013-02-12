@@ -17,7 +17,7 @@ class window.UrlParser
     decodeURI(str.replace(/\+/g, ' '))
 
   @encode: (value) ->
-    encodeURI(value.toString().replace(/\s/g, '+'))
+    value.toString().replace(/\s/g, '+')
 
   @parseParam: (param) ->
     param = param.split(':')
