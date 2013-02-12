@@ -79,8 +79,12 @@ $(document).ready ->
           for value in values
             @.addListItem(list, value, @model.facet(name, value)) unless @.listHasItem(list, value)
 
+      fixes: ->
+        $('a[rel="tooltip"]').tooltip()
+
       updateResultList: (html) ->
-        $(@result_list).html(html)
+        $(@result_list).html(html) # no worries, synchronious
+        @.fixes()
 
       onClickButton: (event) ->
         false
