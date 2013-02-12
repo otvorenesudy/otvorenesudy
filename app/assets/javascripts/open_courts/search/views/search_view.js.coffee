@@ -11,8 +11,10 @@ $(document).ready ->
  
       @include OpenCourts.SearchViewTemplates
       
-      el:          '#search-view'
-      result_list: '#search-results'
+      el:                '#search-view'
+      result_list:       '#search-results'
+      result_info:       '#search-info'
+      result_pagination: '#search-pagination'
  
       events:
         'click a[href="#"]'                 : 'onClickButton'
@@ -80,10 +82,14 @@ $(document).ready ->
             @.addListItem(list, value, @model.facet(name, value)) unless @.listHasItem(list, value)
 
       fixes: ->
-        $('a[rel="tooltip"]').tooltip()
+        @.log 'Applying fixes ...'
 
-      updateResultList: (html) ->
-        $(@result_list).html(html) # no worries, synchronious
+        fixes?()
+
+      updateResults: (data) ->
+        $(@result_list).html(data.results) # no worries, synchronious
+        $(@result_pagination).html(data.pagination)
+        $(@result_info).html(data.info)
         @.fixes()
 
       onClickButton: (event) ->
@@ -110,7 +116,7 @@ $(document).ready ->
         value = @.listItemValue(event.target)
         attr  = @.listEntity(list)
 
-        @model.add attr, value
+        @model.add attr, value, multi: attr.pluralized()
         
       onRemoveListItem: (event) ->
         list  = @.listByItem(event.target)
@@ -152,11 +158,13 @@ $(document).ready ->
         
         @.loading @result_list, options
 
+        $("#{@result_pagination}, #{@result_info}").empty()
+
         @model.search (response) =>
           @.log 'Search was successful.'
 
-          if response.data
-            @.updateResultList response.data
+          if response
+            @.updateResults response
           
           @.unloading @result_list
 
