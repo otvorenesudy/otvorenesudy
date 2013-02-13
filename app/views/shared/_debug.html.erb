@@ -8,12 +8,16 @@
           lines = ["        page link: #{link_to(instance.uri, instance.uri)}",
                    "        page file: #{instance.page_path}"]
 
-          if File.readable? instance.page_path
-            lines += ["      change time: #{File.ctime(instance.page_path) if instance.page_path}",
-                      " last access time: #{File.atime(instance.page_path) if instance.page_path}",
-                      "modification time: #{File.mtime(instance.page_path) if instance.page_path}"]
+          if instance.page_path
+            if File.readable?(instance.page_path)
+              lines += ["      change time: #{File.ctime(instance.page_path) if instance.page_path}",
+                        " last access time: #{File.atime(instance.page_path) if instance.page_path}",
+                        "modification time: #{File.mtime(instance.page_path) if instance.page_path}"]
+            else
+              lines[-1] += " (#{File.exists?(instance.page_path) ? 'not readable' : 'not exists'})" 
+            end
           else
-            lines[-1] += " (#{File.exists?(instance.page_path) ? 'not readable' : 'not exists'})" 
+            lines[-1] += "nil (not present)"
           end
 
           lines.join("\n").html_safe
