@@ -33,10 +33,18 @@ section#search-view {
   }
   
   #search-results {
-    li + li {
-      margin: 20px 0px;
-      padding-top: 10px;
-      border-top: 1px solid $grayLighter;
+    ol {
+      margin: 0px;
+      
+      li + li {
+        margin: 20px 0px;
+        padding-top: 10px;
+        border-top: 1px solid $grayLighter;
+      }
+      
+      li:last-child {
+        margin-bottom: 0px;
+      }
     }
   }
 }

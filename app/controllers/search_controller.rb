@@ -19,7 +19,6 @@ class SearchController < ApplicationController
   end
 
   def search
-    # TODO refactor -- name variables more carefully
     @model, @query = parse_search_query(params[:data])
     
     @query[:facets]  = [:judges, :court]
@@ -27,11 +26,15 @@ class SearchController < ApplicationController
     
     @search, @results = @model.search_by(@query)
     
+    @type  = @model.name.downcase.to_sym
+    @count = @results.total_count
+    @page  = @search[:results]
+    
     render json: {
       facets:     @search[:facets],
-      results:    render_to_string(partial: 'results', locals: {  type: @model, values: @search[:results], options: { results: @results }}),
-      info:       render_to_string(partial: 'info', locals: { count: @results.total_count }),
-      pagination: render_to_string(partial: 'pagination', locals: { results: @results })
+      info:       render_to_string(partial: 'info'),
+      results:    render_to_string(partial: 'results'),
+      pagination: render_to_string(partial: 'pagination')
     }
   end
     

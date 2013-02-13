@@ -1,5 +1,1 @@
-<div id="search-info"></div>
-
-<div class="clearfix"></div>
-
-<%= render partial: type.name.downcase.pluralize, locals: { type.name.downcase.pluralize.to_sym => values } %>
+<%= render @type.to_s.pluralize, @type.to_s.pluralize.to_sym => @page %>
