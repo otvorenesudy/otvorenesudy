@@ -21,6 +21,6 @@ OpenCourts.SearchViewTemplates =
       <div>No more results.</div>
     '),
 
-    spin: _.template('
-      <div class="spin"></div>
+    spinner: _.template('
+      <div class="spinner"></div>
     ')

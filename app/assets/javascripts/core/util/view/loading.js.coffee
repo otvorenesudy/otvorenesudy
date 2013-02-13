@@ -3,23 +3,26 @@ Util.View.Loading =
     @.log "Loading ... (element=#{element}, options=#{JSON.stringify options})"
 
     $(element).empty() if options.reload
-    $(element).append(@template['spin'])
+    $(element).append(@template['spinner'])
 
-    $(element).find('.spin').spin
-      lines: 13
-      color: "#878787"
+    $(element).find('.spinner').spin
+      lines: 12
+      color: "#999"
       length: 10
-      radius: 15
+      radius: 12
       corners: 1
+      hwaccel: true
+      zIndex: 900
+      className: "inner"
 
-    @.scrollTo?("#{element} .spin") if options?.scrollTo? is true
+    @.scrollTo?("#{element} .spinner") if options?.scrollTo? is true
     
     options.callback?()
 
   unloading: (element) ->
     @.log "Unloading ... (element=#{element})"
 
-    $(element).find('.spin').spin(false).remove()
+    $(element).find('.spinner').spin(false).remove()
 
   loadMoreButton: (element) ->
     $(element).append(@template['load_more'])

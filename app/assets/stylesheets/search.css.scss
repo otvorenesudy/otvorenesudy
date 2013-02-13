@@ -33,6 +33,10 @@ section#search-view {
   }
   
   #search-results {
+    .spinner {
+      margin: 40px;
+    }
+
     ol {
       margin: 0px;
       
