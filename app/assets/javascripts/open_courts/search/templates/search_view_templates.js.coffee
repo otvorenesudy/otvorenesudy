@@ -1,7 +1,7 @@
 OpenCourts.SearchViewTemplates =
   template:
     remove_list_item: _.template('
-      <i class="icon-remove-sign remove"></i>
+      <i class="icon-remove remove"></i>
     '),
 
     list_item: _.template('
@@ -18,7 +18,7 @@ OpenCourts.SearchViewTemplates =
     '),
 
     no_more_results: _.template('
-      <h2 align="center">No more results.</h2>
+      <div>No more results.</div>
     '),
 
     spin: _.template('

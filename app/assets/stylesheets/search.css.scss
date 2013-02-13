@@ -19,8 +19,8 @@ section#search-view {
 
       .remove {
         position: absolute;
+        top: 2px;
         left: -17px;
-        top: 3px;
 
         cursor: pointer;
         color: $grayLight;
