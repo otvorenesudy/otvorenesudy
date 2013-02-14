@@ -113,24 +113,24 @@ module Document
       def search_facets(index, facets, terms, options)
         if facets.any?
 
-          facets.each do |facet, facet_options|
+          facets.each do |field, facet|
 
             # TODO: add ordering (for dates, etc)
-            index.facet facet.to_s, global: options[:global_facets] do |f|
+            index.facet field.to_s, global: options[:global_facets] do |f|
               
-              case facet_options.type
+              case facet.type
               when :terms 
 
-                f.terms not_analyzed(facet)
+                f.terms not_analyzed(field)
 
               when :date  
 
-                f.date not_analyzed(facet), interval: facet_options.interval
+                f.date not_analyzed(field), interval: facet.interval
 
               end
 
-              if terms.except(facet).any?
-                f.facet_filter :and, facet_filter_values(terms.except(facet))
+              if terms.except(field).any?
+                f.facet_filter :and, facet_filter_values(terms.except(field))
               end
             end
           end
