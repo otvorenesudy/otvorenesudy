@@ -43,9 +43,9 @@ Follow [offical installation guide](https://github.com/elasticsearch/elasticsear
 ```
 
 #### Tests
-Run tests to check by `rspec` if the setup is complete. 
+Run tests by `rspec` to check if the setup is complete. 
 
-### Data
+## Data
 1. Start crawling the necessary data:
 ```
     rake crawl:courts
