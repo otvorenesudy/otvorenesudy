@@ -21,7 +21,6 @@ class SearchController < ApplicationController
   def search
     @model, @query = parse_search_query(params[:data])
     
-    @query[:facets]  = [:judges, :court]
     @query[:options] = { global_facets: true }
     
     @search, @results = @model.search_by(@query)
@@ -59,6 +58,10 @@ class SearchController < ApplicationController
         query[:filter].merge!(judges: params[key]) if params[key].is_a?(Array)
       when :court
         query[:filter].merge!(court: params[key]) if params[key].is_a?(Array)
+      when :date
+        times = params[key][0].split('..').map { |e| Time.parse(e) }
+
+        query[:filter].merge!(date: times[0]..times[1])
       end
 
     end

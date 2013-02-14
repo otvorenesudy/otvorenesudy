@@ -22,8 +22,16 @@ module Document
         tire.settings.deep_merge!(settings)
       end
 
+      def analyzed(field)
+        "#{field}.analyzed".to_sym
+      end
+
+      def not_analyzed(field)
+        "#{field}.untouched".to_sym
+      end
+
       def mappings
-        @mappings = {}
+        @mappings ||= {}
 
         yield
 
@@ -35,11 +43,8 @@ module Document
             analyzer = options[:analyzer] || 'text_analyzer'  
 
             if value[:type].eql? :mapped
-
               indexes field, options.merge!(index: :not_analyzed)
-
             else
-              
               indexes field, options.deep_merge!(
                   type:   'multi_field', 
                   fields: {
@@ -51,8 +56,15 @@ module Document
 
           end
         end
-
       end
+
+      def facets
+        @facets ||= {}
+        
+        yield
+      end
+
+      private
 
       def map(field, options = {})
         @mappings[field] = {}
@@ -66,6 +78,13 @@ module Document
 
         @mappings[field][:type]    = :analyzed
         @mappings[field][:options] = options
+      end
+
+      def use(field, options = {})
+        type = options[:type]
+
+        # TODO: use core/injector?
+        @facets[field] = "Document::Digest::#{type.to_s.camelcase}Facet".constantize.new(field, options)
       end
 
     end

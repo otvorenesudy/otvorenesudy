@@ -56,6 +56,12 @@ class Hearing < ActiveRecord::Base
     analyze :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }      }
   end
 
+  facets do
+    use :judges, type: :terms
+    use :court,  type: :terms
+    use :date,   type: :date, interval: :month # using default alias for interval from DateFacet
+  end
+
   storage :page, JusticeGovSk::Storage::HearingPage do |hearing|
     File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
   end
