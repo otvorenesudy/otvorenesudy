@@ -7,7 +7,7 @@ module Document
 
     module ClassMethods
 
-      def search_by(params)
+      def search_by(params = {})
         format_result(compose_search(params))
       end
 
@@ -21,15 +21,19 @@ module Document
         end
       end
 
+      # TODO: create separate parsers
       def format_facets(facets)
         result = Hash.new
 
         return result unless facets
 
         facets.each do |field, values|
-          next if values['terms'].nil? 
+          field  = field.to_sym
+          facet  = @facets[field]
 
-          result[field.to_sym] = values['terms'].map { |e| e.symbolize_keys }
+          facet.populate(values)
+
+          result[field] = facet.values
         end
 
         result
@@ -49,7 +53,7 @@ module Document
         per_page   = params[:per_page]  || 10
         query      = params[:query]     || Hash.new
         terms      = params[:filter]    || Hash.new
-        facets     = params[:facets]    || []
+        facets     = params[:facets]    || @facets
         options    = params[:options]   || {}
         sort_block = params[:sort]
 
@@ -59,91 +63,108 @@ module Document
 
         results = tire.search page: page, per_page: per_page do |index|
 
-          if block
-            block.call(index)
-          else
-            query(index, query, terms, options)
-            facets(index, facets, terms, options)
-            sort(index, sort_block, options)
-          end
+          search_query(index, query, terms, options)
+          search_facets(index, facets, terms, options)
+          search_sort(index, sort_block, options)
 
         end
 
         results
       end
 
-      def query(index, query, terms, options)
+      private
+
+      def search_query(index, query, terms, options)
         if query.any? or terms.any?
-          index.query do
-            boolean do
+          
+          index.query do |q|
+            q.boolean do |bool|
+            
               query.each do |field, values|
+                field = analyzed(field)
 
-                case 
-                when values.is_a?(Range)
-
-                  must { range field, { gte: values.min, lte: values.max } }
-
-                else
-
-                  must { string "*#{values}*", default_field: "#{field}.analyzed", default_operator: :and, analyze_wildcard: true  }
-
-                end
-
+                bool.must { string "#{values}*", default_field: field, default_operator: :and, analyze_wildcard: true }
               end
 
               terms.each do |field, value|
-                field = "#{field}.untouched"
+                field = not_analyzed(field)
 
-                if value.respond_to?(:each)
-
-                  value.each do |e|
-                    must { term field, e }
-                  end
+                case
+                when value.is_a?(Range)
+                
+                  bool.must { range field, { gte: value.min, lte: value.max }}
+ 
+                when value.respond_to?(:each)
+                 
+                  value.each { |e| bool.must { term field, e }}
 
                 else
 
-                  must { term field, value }
+                  bool.must { term field, value }
 
                 end
-
               end
+
             end
           end
         end
       end
 
-      def facets(index, facets, terms, options)
+      def search_facets(index, facets, terms, options)
         if facets.any?
-          facets.each do |facet|
 
-            index.facet facet.to_s, global: options[:global_facets] do 
-              terms "#{facet}.untouched"
+          facets.each do |facet, facet_options|
 
-              if terms.any?
-                filter_values = []
+            # TODO: add ordering (for dates, etc)
+            index.facet facet.to_s, global: options[:global_facets] do |f|
+              
+              case facet_options.type
+              when :terms 
 
-                terms.except(facet).each do |field, value|
-                  if value.respond_to?(:each)
+                f.terms not_analyzed(facet)
 
-                    value.each do |e|
-                      filter_values << { term: { "#{field}.untouched" => e } }
-                    end
+              when :date  
 
-                  else
+                f.date not_analyzed(facet), interval: facet_options.interval
 
-                    filter_values << { term: { "#{field}.untouched" => value } }
+              end
 
-                  end
-                end
-
-                facet_filter :and, filter_values if filter_values.any?
+              if terms.except(facet).any?
+                f.facet_filter :and, facet_filter_values(terms.except(facet))
               end
             end
           end
+
         end
       end
 
-      def sort(index, sort_block, options)
+      def facet_filter_values(terms)
+        filter_values = []
+
+        terms.each do |field, value|
+
+          case
+          when value.is_a?(Range)
+            
+            filter_values << { range: { not_analyzed(field) => { gte: value.min, lte: value.max }}}
+
+          when value.respond_to?(:each)
+            
+            value.each do |e|
+              filter_values << { term: { not_analyzed(field) => e } }
+            end
+
+          else
+
+            filter_values << { term: { not_analyzed(field) => value } }
+
+          end
+        end
+
+        filter_values
+      end
+
+      def search_sort(index, sort_block, options)
         if sort_block
           index.sort sort_block
         end
