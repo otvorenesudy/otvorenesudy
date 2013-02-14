@@ -11,8 +11,8 @@ module Document
       def suggest(field, term, options = {})
         options[:query] ||= {}
 
+        options[:facets]       = @facets.slice(field)
         options[:query][field] = term
-        options[:facets]       = field
 
         options[:filter].delete(field)
 
