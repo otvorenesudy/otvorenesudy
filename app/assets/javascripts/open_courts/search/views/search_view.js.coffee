@@ -50,6 +50,7 @@ $(document).ready ->
           @.updateCategory()
           @.updateList('judges')
           @.updateList('court')
+          @.updateList('date')
 
       updateCategory: ->
         @.log "Updating category: #{@model.getCategory()}"
@@ -64,7 +65,9 @@ $(document).ready ->
         list = @.list(name)
 
         for value in @model.get name
-          @.prependListItem(list, value, @model.facet(name, value))
+          label = @model.label(name, value)
+
+          @.prependListItem(list, label, value, @model.facet(name, value))
           @.selectListItem(list, value)
   
       refreshListValues: (name) ->
@@ -79,7 +82,9 @@ $(document).ready ->
           @.log "Refreshing ... (values=#{values})"
 
           for value in values
-            @.addListItem(list, value, @model.facet(name, value)) unless @.listHasItem(list, value)
+            label = @model.label(name, value)
+
+            @.addListItem(list, label, value, @model.facet(name, value)) unless @.listHasItem(list, value)
 
       fixes: ->
         @.log 'Applying fixes ...'

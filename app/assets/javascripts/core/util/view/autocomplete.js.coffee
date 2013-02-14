@@ -27,5 +27,5 @@ Util.View.Autocomplete =
 
     @.autocomplete(entity, options)
       .data('autocomplete')._renderItem = (ul, item) =>
-        @.findOrCreateListItem(entity, item.term, item.count)
+        @.findOrCreateListItem(entity, item.alias, item.term, item.count)
 

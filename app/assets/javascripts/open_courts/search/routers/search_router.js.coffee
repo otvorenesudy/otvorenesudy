@@ -29,6 +29,7 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
           category: json.category or []
           judges:   json.judges   or []
           court:    json.court    or []
+          date:     json.date     or []
 
     format: (json) ->
       UrlParser.dump json

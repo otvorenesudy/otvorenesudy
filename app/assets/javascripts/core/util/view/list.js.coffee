@@ -36,22 +36,19 @@ Util.View.List =
 
     @.findListItem(@.list(list), value).length ? true : false
 
-  addListItem: (list, value, facet) ->
-    @.log "Adding list item (value=#{value}, facet=#{facet})"
-    
-    $(@.list(list)).append(@template['list_item'](value: value, facet: facet ?= ''))
+  addListItem: (list, label, value, facet) ->
+    @.log "Appending list item (label=#{label}, value=#{value}, facet=#{facet})"
 
-  addListItem: (list, value, facet) ->
-    @.log "Adding list item (value=#{value}, facet=#{facet})"
+    # TODO: create separate method to handle template generation for prepend and
+    # append 
+    @.list(list).append(@template['list_item'](label: label ?= value, value: value, facet: facet ?= ''))
 
-    @.list(list).append(@template['list_item'](value: value, facet: facet ?= ''))
-
-  prependListItem: (list, value, facet) ->
-    @.log "Prepending list item (value=#{value}, facet=#{facet})"
+  prependListItem: (list, label, value, facet) ->
+    @.log "Prepending list item (label=#{label}, value=#{value}, facet=#{facet})"
 
     @.findListItem(list, value).remove()
 
-    @.list(list).prepend(@template['list_item'](value: value, facet: facet ?= ''))
+    @.list(list).prepend(@template['list_item'](label: label ?= value, value: value, facet: facet ?= ''))
 
   clearList: (list, options = {}) ->
     selector = if options.selected then 'li:not(.selected)' else 'li'
@@ -60,10 +57,10 @@ Util.View.List =
 
     $(@.list(list)).find(selector).remove()
 
-  findOrCreateListItem: (list, value, facet) ->
+  findOrCreateListItem: (list, label, value, facet) ->
     list = @.list(list)
 
     if @.listHasItem(list, value)
       @.findListItem(list, value)
     else
-      @.addListItem(list, value, facet)
+      @.addListItem(list, label, value, facet)
