@@ -25,8 +25,6 @@ class Document::Digest::Facet
       data.slice(:value, :count, :alias)
     end
 
-    puts @values
-
     @values
   end
 
