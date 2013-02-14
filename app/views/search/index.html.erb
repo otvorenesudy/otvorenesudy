@@ -11,17 +11,23 @@
         <%= button_group_tag %w(Rozhodnutia Pojednávania) %>
       </div>
 
-      <div id="judges-category" class="category">
+      <div class="category">
         <%= category_title 'Sudcovia' %>
         <%= category_input id: 'judges', placeholder: 'Meno sudcu' %>
         <%= category_list id: 'judges' %>
       </div>
 
-      <div id="court-category" class="category">
+      <div class="category">
         <%= category_title 'Súdy' %>
         <%= category_input id: :court, placeholder: 'Názov súdu' %>
         <%= category_list id: :court %>
       </div>
+
+      <div class="category">
+        <%= category_title 'Dátum' %>
+        <%= category_list id: :date %>
+      </div>
+
     </div>
 
     <div class="span8">
