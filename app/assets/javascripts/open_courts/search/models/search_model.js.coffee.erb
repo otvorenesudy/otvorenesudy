@@ -59,10 +59,10 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
         @.err "Error occured while searching (model=#{@.toJSON()})"
 
   values: (field) ->
-    @facets?[field]?.map (facet) -> facet.term
+    @facets?[field]?.map (facet) -> facet.value
 
   filterFacets: (field, value) ->
-    (@facets?[field].filter (e) -> e.term == value)?[0]
+    (@facets?[field].filter (e) -> e.value == value)?[0]
     
   facet: (field, value) ->
     @.filterFacets(field, value)?.count
