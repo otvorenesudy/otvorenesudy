@@ -20,15 +20,18 @@ cp config/database.{yml.example,yml}
 
 Open `config/database.yml` and edit database configuration.
 
-Create database, load schema and seeds by `rake db:setup`.
-
 ### PostgreSQL Trigram extension
 ```
 sudo apt-get install postgresql-contrib
 sudo service postgresql restart
 cd /usr/share/postgresql/9.1/extension/
-psql -U postgres -d opencourts_development -f pg_trgm--1.0.sql
+RAILS_ENV=development
+psql -U postgres -d opencourts_$RAILS_ENV -f pg_trgm--1.0.sql
 ```
+
+Set `$RAILS_ENV` variable to your environment (development, test), e.g. `RAILS_ENV=development`.
+Create database, load schema and seeds by `rake db:setup`.
+
 
 ### ElasticSearch
 Follow the [offical installation guide](https://github.com/elasticsearch/elasticsearch).
@@ -40,6 +43,7 @@ sudo apt-get install tesseract-ocr
 ```
 
 ### Tests
+Be sure to add PostgreSQL trigram extension to test database `RAILS_ENV=test` and then setup database by running `rake db:setup RAILS_ENV=test`.
 Run tests by `rspec` to check if the setup is complete. 
 
 ## Data
