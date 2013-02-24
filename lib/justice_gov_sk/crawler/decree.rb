@@ -41,18 +41,16 @@ module JusticeGovSk
           
           supply_proceeding_for @decree
           
-          supply @decree, :court, parse: [:name], factory: { strategy: :find }
+          supply @decree, :court, parse: :name, factory: { strategy: :find }
           
           judge
           
-          supply @decree, :nature, parse: [:value], factory: { type: DecreeNature }
-          supply @decree, :legislation_area, parse: [:value]
-          
-          # TODO fix helper
-          #supply @decree, :legislation_subarea, { parse: [:value],
-          #  defaults: { legislation_area: @decree.legislation_area },
-          #  factory: { args: [:value] }
-          #}
+          supply @decree, :nature, parse: :value, factory: { type: DecreeNature }
+          supply @decree, :legislation_area, parse: :value
+          supply @decree, :legislation_subarea, { parse: :value,
+            defaults: { area: @decree.legislation_area },
+            factory: { args: :value }
+          }
           
           legislations
 

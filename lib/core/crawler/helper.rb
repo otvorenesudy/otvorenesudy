@@ -1,38 +1,41 @@
-# TODO improve API, not all crawlers are OK with current state -- not working
-# TODO seriously REFACTOR this API
-
 module Core
   module Crawler
     module Helper
       def supply(base, attribute, options = {})
         options = supply_defaults.deep_merge options
-        map     = options[:defaults] || {}
-        
-        options[:parse].each do |k|
-          method_name = parser_method_name(attribute, k)
-          map[k]      = @parser.send(method_name, @document)
-          
-          return if options[:validate] == :all && map[k].blank?
-        end
-        
-        if block_given?
-          instance = yield(*map.values)
+
+        if options[:parser].is_a? Proc
+          map = options[:parser].call attribute
         else
-          instance = factory_supply attribute, map, options[:factory]
+          map = parse_instance_attributes attribute, options
         end
         
-        unless instance.nil?
-          map.each do |k, v|
-            instance.send("#{k}=", v)
-          end
-          
-          @persistor.persist(instance)
-          
-          begin
-            base.send("#{attribute}=", instance)
-          rescue
-            # TODO FIX LOL
-          end
+        return if map.nil?
+        
+        if options[:factory].is_a? Proc
+          instance = options[:factory].call(*map.values)
+        else
+          instance = supply_instance attribute, map, options[:factory]
+        end
+        
+        # TODO consider merging factory and instance together:
+        # supply_instance + set_instance_attributes,
+        # it could simplify for example (chair) judge supplying
+        
+        return if instance.nil?
+        
+        if options[:instance].is_a? Proc
+          options[:instance].call instance, map
+        else
+          set_instance_attributes instance, map, options
+        end
+        
+        @persistor.persist(instance)
+        
+        if options[:association].is_a? Proc
+          options[:association].call base, attribute, instance
+        else
+          set_base_attribute base, attribute, instance, options
         end
       end
       
@@ -41,10 +44,24 @@ module Core
       def supply_defaults
         {
           validate: :all,
-          factory: {
-            strategy: :find_or_create
-          }
+          parser: {},
+          factory: { strategy: :find_or_create },
+          instance: {},
+          association: :belongs_to
         }
+      end
+      
+      def parse_instance_attributes(attribute, options = {})
+        map = options[:defaults] || {}
+        
+        Array.wrap(options[:parse]).each do |k|
+          method_name = parser_method_name(attribute, k)
+          map[k]      = @parser.send(method_name, @document)
+          
+          return if options[:validate] == :all && map[k].blank?
+        end
+        
+        map
       end
       
       def parser_method_name(base, attribute, options = {})
@@ -57,12 +74,39 @@ module Core
         raise "No parser method found for #{base} and #{attribute}"
       end
       
-      def factory_supply(base, map, options = {})
+      def supply_instance(base, map, options = {})
         type     = options[:type] || base
-        args     = options[:args] || map.keys
+        args     = Array.wrap options[:args] || map.keys
         factory  = send("#{type}_by_#{args.join('_and_')}_factory")
         
-        factory.send(options[:strategy], *(args.map { |k| map[k] }))
+        factory.send options[:strategy], *(args.map { |k| map[k] })
+      end
+      
+      def set_instance_attributes(instance, map, options = {})
+        Array.wrap(options[:instance][:attributes] || map.keys).each do |k|
+          instance.send("#{k}=", map[k])
+        end
+      end
+      
+      def set_base_attribute(base, attribute, instance, options = {})
+        case options[:association]
+        when :belongs_to
+          begin
+            base.send("#{attribute}=", instance)
+          rescue
+            raise "Unable to associate #{base} with #{instance} through #{attribute}"
+          end
+        when :has_many
+          begin
+            attribute = base.class.name.underscore
+            
+            instance.send("#{attribute}=", base)
+          rescue
+            raise "Unable to associate #{instance} with #{base} through #{attribute}"
+          end
+        else
+          raise "Unknown association #{options[:association]}"
+        end
       end
     end
   end
