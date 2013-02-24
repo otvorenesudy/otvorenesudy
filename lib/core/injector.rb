@@ -33,8 +33,9 @@ module Core
     end
     
     def instantiate(type, args)
+      return type          if type.is_a? Module
       return type.instance if type.respond_to? :instance
-      return type.new if args.blank?
+      return type.new      if args.blank?
       
       args = [args] unless args.is_a? Array
       
