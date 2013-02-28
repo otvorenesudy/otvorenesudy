@@ -83,7 +83,7 @@ module Document
       def use(field, options = {})
         type = options[:type]
 
-        # TODO: use core/injector?
+        # TODO: use core/injector? -> Hell yeah! Use Core::Injector on this for sure!
         @facets[field] = "Document::Digest::#{type.to_s.camelcase}Facet".constantize.new(field, options)
       end
 
