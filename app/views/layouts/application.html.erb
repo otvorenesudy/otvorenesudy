@@ -23,7 +23,7 @@
     </div>
     <%= render 'layouts/footer' %>
     <%= render 'shared/debug' if Rails.env.development? %>
-    <%= render 'shared/shim' %>
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
   </body>
