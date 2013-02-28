@@ -1,0 +1,31 @@
+<% provide :title, "IČS #{@proceeding.file_number} &middot; Súdne konanie".html_safe %>
+
+<section id="proceeding-info">
+  <div class="page-header">
+    <h1>
+      Súdne konanie
+      <%= tooltip_tag @proceeding.file_number, "Identifikačné číslo súdnych spisov", :right %>
+      <br/>
+      <small>
+        Evidujeme <%= t :hearing, count: @hearings.count %>
+        a <%= t :decree, count: @decrees.count %>
+      </small>
+    </h1>
+  </div>
+  
+  <div class="row">
+    <div class="span8">
+      <!-- TODO -->
+    </div>
+  </div>
+</section>
+
+<section id="proceeding-resource">
+  <div class="row">
+    <div class="span12">
+      <div class="pull-right">
+        <!-- TODO -->
+      </div>
+    </div>
+  </div>
+</section>
