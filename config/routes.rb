@@ -1,13 +1,13 @@
 OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
   
-  match '/about',        to: 'static_pages#about'
-  match '/contact',      to: 'static_pages#contact'
-  match '/home',         to: 'static_pages#home'
-  match '/stats',        to: 'static_pages#stats'
+  match '/about',   to: 'static_pages#about'
+  match '/contact', to: 'static_pages#contact'
+  match '/home',    to: 'static_pages#home'
+  match '/stats',   to: 'static_pages#stats'
 
   match '/search',               to: 'search#index'
-  match '/async_search',         to: 'search#search'
+  match '/async_search',         to: 'search#search' # TODO rename, probably both route & to
   match '/autocomplete/:entity', to: 'search#autocomplete'
   
   resources :courts do
@@ -16,6 +16,7 @@ OpenCourts::Application.routes.draw do
   
   resources :judges
   
+  resources :proceedings
   resources :hearings
   resources :decrees
   
