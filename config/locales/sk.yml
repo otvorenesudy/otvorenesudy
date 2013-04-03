@@ -30,6 +30,11 @@ sk:
       more_pages:
         display_entries: "Displaying %{entry_name} <strong>%{first}&nbsp;-&nbsp;%{last}</strong> of <strong>%{total}</strong> in total"
 
+  number:
+    format:
+      delimiter: ' '
+      separator: ','
+
   date:
     formats:
       default: '%-d.%-m. %Y'
@@ -38,25 +43,25 @@ sk:
 
   time:
     formats:
-      default: '%-d.%-m. %Y %-H:%M'
-      long: '%A %-d. %B %Y %-H:%M'
-      short: '%-d.%-m. %-H:%M'
+      default: '%-d.%-m. %Y o %-H:%M'
+      long: '%A %-d. %B %Y o %-H:%M'
+      short: '%-d.%-m. o %-H:%M'
 
   days:
     one: "1 deň"
     few: "%{count} dni"
     other: "%{count} dní"
-    
+
   months:
     one: "1 mesiac"
     few: "%{count} mesiace"
     other: "%{count} mesiacov"
-    
+
   years:
     one: "1 rok"
     few: "%{count} roky"
     other: "%{count} rokov"
-    
+
   court:
     zero: "žiadne súdy"
     one: "1 súd"
