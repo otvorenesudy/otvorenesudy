@@ -87,8 +87,10 @@ describe JusticeGovSk::Agent::List do
       @request = JusticeGovSk::Request::DecreeList.new
 
       @request.page = 20
-      @request.per_page = 100 
+      @request.per_page = 100
       @request.decree_form_code = 'B'
+
+      @agent.download(@request).should raise_error("Invalid response code 50")
     end
-  end 
+  end
 end
