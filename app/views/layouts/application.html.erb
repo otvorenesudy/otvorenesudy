@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="sk">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="description" content="Zverejňovanie súdnych rozhodnutí a pojednávaní" />
     <meta name="keywords" content="otvorené súdy, slovenské súdnictvo, sudcovia, súdne rozhodnutia, súdne pojednávania" />
     <meta name="author" content="Samuel Molnár a Pavol Zbell" />
     <title><%= title yield :title %></title>
-    <%= favicon_link_tag asset_path('favicon.ico'), type: :'image/x-icon' %>
+    <link rel="apple-touch-icon" href="<%= asset_path 'touchicon.png' %>" />
+    <link rel="icon" href="<%= asset_path 'favicon.png' %>" />
+    <!--[if IE]><link rel="shortcut icon" href="<%= asset_path 'favicon.ico' %>" /><![endif]-->
+    <meta name="msapplication-TileColor" content="#fff" />
+    <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>" />
     <%= stylesheet_link_tag 'application' %>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -19,7 +23,7 @@
     </div>
     <%= render 'layouts/footer' %>
     <%= render 'shared/debug' if Rails.env.development? %>
-    <%= render 'shared/shim' %>
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
   </body>

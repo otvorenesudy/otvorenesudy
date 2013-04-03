@@ -14,8 +14,6 @@ class Court < ActiveRecord::Base
                   :latitude,
                   :longitude
   
-  storage :page, JusticeGovSk::Storage::CourtPage
-  
   scope :by_type, lambda { |court_type| where('court_type_id = ?', court_type.id) }
  
   belongs_to :type, class_name: :CourtType, foreign_key: :court_type_id
@@ -65,5 +63,5 @@ class Court < ActiveRecord::Base
     judges.active.vicechair.first
   end
   
-  storage :page, JusticeGovSk::Storage::DecreePage, extension: :html
+  storage :page, JusticeGovSk::Storage::CourtPage, extension: :html
 end

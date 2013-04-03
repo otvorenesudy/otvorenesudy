@@ -1,6 +1,6 @@
 <% provide :title, "IČS #{@decree.file_number} &middot; Súdne rozhodnutie".html_safe %>
 
-<section id="hearing-info">
+<section id="decree-info">
   <div class="page-header">
     <h1>
       Súdne rozhodnutie
@@ -22,7 +22,7 @@
         <p>Rozhodutie vydal sudca <%= links_to_judges @decree.judges %>.</p>
       <% end %>
       <% if @decree.legislation_area %>
-        <p>Oblasti právnej úpravy &ndash; <%= @decree.legislation_area.value %><%= "&ndash; #{@decree.legislation_subarea.value}".html_safe if @decree.legislation_subarea %>.</p>
+        <p>Oblasti právnej úpravy &ndash; <%= @decree.legislation_area.value %><%= " &ndash; #{@decree.legislation_subarea.value}".html_safe if @decree.legislation_subarea %>.</p>
       <% end %>
       <% if @decree.form %>
         <p>Forma rozhodnutia &ndash; <%= @decree.form.value %>.</p>

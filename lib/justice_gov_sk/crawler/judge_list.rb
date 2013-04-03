@@ -29,6 +29,8 @@ module JusticeGovSk
           court = court_by_name_factory.find(data[:court]) unless data[:court].nil?
 
           employment(court, judge, data)
+          
+          judge
         end
       end
       

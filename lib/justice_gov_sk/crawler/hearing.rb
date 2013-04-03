@@ -22,13 +22,13 @@ module JusticeGovSk
           @hearing.date        = @parser.date(@document)
           @hearing.room        = @parser.room(@document)
           @hearing.note        = @parser.note(@document)
-        
+          
           supply_proceeding_for @hearing
           
-          supply @hearing, :court,   parse: [:name],  factory: { strategy: :find }
-          supply @hearing, :section, parse: [:value], factory: { type: HearingSection }
-          supply @hearing, :subject, parse: [:value], factory: { type: HearingSubject }
-          supply @hearing, :form,    parse: [:value], factory: { type: HearingForm }
+          supply @hearing, :court,   parse: :name,  factory: { strategy: :find }
+          supply @hearing, :section, parse: :value, factory: { type: HearingSection }
+          supply @hearing, :subject, parse: :value, factory: { type: HearingSubject }
+          supply @hearing, :form,    parse: :value, factory: { type: HearingForm }
           
           yield
         end

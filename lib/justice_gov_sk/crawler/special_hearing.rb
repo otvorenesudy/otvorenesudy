@@ -12,9 +12,10 @@ module JusticeGovSk
           
           chair_judge
           
-          supply @hearing, :defendant, { parse: [:name],
+          supply @hearing, :defendant, { parse: :name,
             defaults: { hearing_id: @hearing.id },
-            factory: { args: [:hearing_id, :name] }
+            factory: { args: [:hearing_id, :name] },
+            association: :has_many
           }
           
           @hearing
@@ -22,6 +23,13 @@ module JusticeGovSk
       end
       
       def chair_judge
+# TODO try to supply
+#        supply @hearing, :chair_judge, parse: :name, instance: Proc.new {}, factory: lambda { |name|
+#          match_judges_by(name) do |similarity, judge|
+#            judging(judge, similarity, name, true)#.judge
+#          end
+#        }
+        
         name = @parser.chair_judge(@document)
         
         unless name.nil?
