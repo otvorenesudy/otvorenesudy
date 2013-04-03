@@ -6,7 +6,7 @@ Util.Model.Attributes =
 
   getValue: (attr, pos) ->
     (@.get attr)[pos? or 0]
-  
+
   setValue: (attr, value, pos) ->
     values = clone(@.get attr)
 

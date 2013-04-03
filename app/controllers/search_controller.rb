@@ -20,15 +20,15 @@ class SearchController < ApplicationController
 
   def search
     @model, @query = parse_search_query(params[:data])
-    
+
     @query[:options] = { global_facets: true }
-    
+
     @search, @results = @model.search_by(@query)
-    
+
     @type  = @model.name.downcase.to_sym
     @count = @results.total_count
     @page  = @search[:results]
-    
+
     render json: {
       facets:     @search[:facets],
       info:       render_to_string(partial: 'info'),
@@ -36,7 +36,7 @@ class SearchController < ApplicationController
       pagination: render_to_string(partial: 'pagination')
     }
   end
-    
+
   private 
 
   def parse_search_query(params)
@@ -46,7 +46,7 @@ class SearchController < ApplicationController
     query = Hash.new
 
     query[:filter] = Hash.new
-    
+
     params.symbolize_keys.each do |key, value|
 
       case key

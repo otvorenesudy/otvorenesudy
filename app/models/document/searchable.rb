@@ -11,7 +11,7 @@ module Document
         format_result(compose_search(params))
       end
 
-      private 
+      private
 
       def fetch_records(hits)
         return [] unless hits
@@ -21,7 +21,6 @@ module Document
         end
       end
 
-      # TODO: create separate parsers
       def format_facets(facets)
         result = Hash.new
 
@@ -38,7 +37,7 @@ module Document
 
         result
       end
-     
+
       def format_result(result)
         data = Hash.new
 
@@ -76,10 +75,10 @@ module Document
 
       def search_query(index, query, terms, options)
         if query.any? or terms.any?
-          
+
           index.query do |q|
             q.boolean do |bool|
-            
+
               query.each do |field, values|
                 field = analyzed(field)
 
@@ -91,11 +90,11 @@ module Document
 
                 case
                 when value.is_a?(Range)
-                
+
                   bool.must { range field, { gte: value.min, lte: value.max }}
- 
+
                 when value.respond_to?(:each)
-                 
+
                   value.each { |e| bool.must { term field, e }}
 
                 else
@@ -117,13 +116,13 @@ module Document
 
             # TODO: add ordering (for dates, etc)
             index.facet field.to_s, global: options[:global_facets] do |f|
-              
+
               case facet.type
-              when :terms 
+              when :terms
 
                 f.terms not_analyzed(field)
 
-              when :date  
+              when :date
 
                 f.date not_analyzed(field), interval: facet.interval
 
@@ -145,11 +144,11 @@ module Document
 
           case
           when value.is_a?(Range)
-            
+
             filter_values << { range: { not_analyzed(field) => { gte: value.min, lte: value.max }}}
 
           when value.respond_to?(:each)
-            
+
             value.each do |e|
               filter_values << { term: { not_analyzed(field) => e } }
             end

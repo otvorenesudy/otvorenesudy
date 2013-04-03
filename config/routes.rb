@@ -1,6 +1,6 @@
 OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
-  
+
   match '/about',        to: 'static_pages#about'
   match '/contact',      to: 'static_pages#contact'
   match '/home',         to: 'static_pages#home'
@@ -9,22 +9,22 @@ OpenCourts::Application.routes.draw do
   match '/search',               to: 'search#index'
   match '/async_search',         to: 'search#search'
   match '/autocomplete/:entity', to: 'search#autocomplete'
-  
+
   resources :courts do
      get :map, on: :collection
   end
-  
+
   resources :judges
-  
+
   resources :hearings
   resources :decrees
-  
+
   match '/404', to: 'errors#show'
   match '/422', to: 'errors#show'
   match '/500', to: 'errors#show'
-  
+
   mount Resque::Server.new, at: '/resque'
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
