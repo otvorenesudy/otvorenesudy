@@ -64,12 +64,12 @@ rake crawl:judges
 rake resque:workers QUEUE=* COUNT=4
 ```
 
-4. Continue crawling the rest using Resque jobs in any order:
+4. Continue crawling the rest using Resque workers in any order:
 ```
-rake run:crawlers:hearings:civil
-rake run:crawlers:hearings:criminal
-rake run:crawlers:hearings:special
-rake run:crawlers:decrees
+rake work:hearings:civil
+rake work:hearings:criminal
+rake work:hearings:special
+rake work:decrees
 ```
 
 ## Licence
