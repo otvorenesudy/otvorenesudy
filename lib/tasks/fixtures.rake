@@ -1,7 +1,17 @@
 namespace :fixtures do
   namespace :db do
+    desc "Setups small database with production data"
     task setup: :environment do
+      Rake::Task['crawl:courts'].invoke
+      Rake::Task['crawl:judges'].invoke
       
+      Rake::Task['crawl:hearings:civil'].invoke    1, 5000
+      Rake::Task['crawl:hearings:criminal'].invoke 1, 5000
+      Rake::Task['crawl:hearings:special'].invoke  1, 5000
+      
+      DecreeForm.all.each do |form|
+        Rake::Task['crawl:decrees'].invoke form.code, 1, 5000
+      end
     end
   end
   
