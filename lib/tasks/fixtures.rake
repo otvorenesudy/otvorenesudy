@@ -1,6 +1,6 @@
 namespace :fixtures do
   namespace :db do
-    desc "Setups small database with production data"
+    desc "Setups small database with production data using Resque workers"
     task setup: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
@@ -10,7 +10,7 @@ namespace :fixtures do
       Rake::Task['crawl:hearings:special'].invoke  1, 5000
       
       DecreeForm.all.each do |form|
-        Rake::Task['crawl:decrees'].invoke form.code, 1, 5000
+        Rake::Task['crawl:decrees'].invoke form.code, 1, 1000
       end
     end
   end

@@ -14,17 +14,17 @@
 namespace :work do
   namespace :hearings do
     desc "Start Resque jobs for crawling civil hearings from justice.gov.sk"
-    task :civil => :environment do
+    task civil: :environment do
       JusticeGovSk.run_workers CivilHearing, safe: true 
     end
  
     desc "Start Resque jobs for crawling criminal hearings from justice.gov.sk"
-    task :criminal => :environment do
+    task criminal: :environment do
       JusticeGovSk.run_workers CriminalHearing, safe: true
     end
 
     desc "Start Resque jobs for crawling special hearings from justice.gov.sk"
-    task :special => :environment do
+    task special: :environment do
       JusticeGovSk.run_workers SpecialHearing, safe: true
     end
   end

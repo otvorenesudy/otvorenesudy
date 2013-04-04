@@ -52,7 +52,7 @@ namespace :download do
     end
 
     desc "Download PDF documents of decrees from justice.gov.sk"
-    task :documents => :environment do
+    task documents: :environment do
       JusticeGovSk.download_documents Decree, safe: false
     end    
   end
