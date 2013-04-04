@@ -1,4 +1,10 @@
-namespace :patch do
+namespace :fixtures do
+  namespace :db do
+    task setup: :environment do
+      
+    end
+  end
+  
   namespace :decrees do
     desc "Extract missing images of decree documents"
     task :extract_images, [:override] => :environment do |_, args|

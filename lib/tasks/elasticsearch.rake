@@ -1,7 +1,7 @@
 namespace :es do
   INDICES = ['hearings']
   
-  task :import => :environment do
+  task import: :environment do
     INDICES.each do |index|
       puts "* Importing index: #{index}"
 
@@ -19,7 +19,7 @@ namespace :es do
     Rake::Task['tire:index:drop'].invoke
   end
 
-  task :reload => :environment do
+  task reload: :environment do
     Rake::Task['es:drop'].invoke
     Rake::Task['es:import'].invoke
   end

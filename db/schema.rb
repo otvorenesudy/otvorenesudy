@@ -121,8 +121,6 @@ ActiveRecord::Schema.define(:version => 20121110155849) do
     t.string   "uri",                    :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.boolean  "judge_matched_exactly"
-    t.string   "judge_name_unprocessed"
     t.integer  "decree_form_id"
     t.integer  "decree_nature_id"
     t.string   "case_number"
