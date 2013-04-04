@@ -1,8 +1,8 @@
 class CreateLegislations < ActiveRecord::Migration
   def change
     create_table :legislations do |t|
-      t.string  :value,             null: false
-      t.string  :value_unprocessed, null: false
+      t.string  :value,             null: false, limit: 1000
+      t.string  :value_unprocessed, null: false, limit: 1000
 
       t.integer :number
       t.integer :year

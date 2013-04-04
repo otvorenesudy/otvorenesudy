@@ -304,16 +304,16 @@ ActiveRecord::Schema.define(:version => 20121110155849) do
   add_index "legislation_usages", ["legislation_id", "decree_id"], :name => "index_legislation_usages_on_legislation_id_and_decree_id", :unique => true
 
   create_table "legislations", :force => true do |t|
-    t.string   "value",             :null => false
-    t.string   "value_unprocessed", :null => false
+    t.string   "value",             :limit => 1000, :null => false
+    t.string   "value_unprocessed", :limit => 1000, :null => false
     t.integer  "number"
     t.integer  "year"
     t.string   "name"
     t.string   "section"
     t.string   "paragraph"
     t.string   "letter"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "legislations", ["value"], :name => "index_legislations_on_value", :unique => true
