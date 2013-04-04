@@ -13,13 +13,13 @@ module Resource::Enumerable
         @values[name] = self.find_or_create_by_value(value)
         @values[name].save!
       end
-      
+
       define_singleton_method name do
         @values[name]
       end
     end
   end
-  
+
   def name
     self.class.values.invert[self]
   end

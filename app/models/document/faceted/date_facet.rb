@@ -1,4 +1,4 @@
-class Document::Digest::DateFacet < Document::Digest::Facet
+class Document::Faceted::DateFacet < Document::Faceted::Facet
   attr_accessor :interval
 
   def initialize(name, options)
@@ -10,12 +10,12 @@ class Document::Digest::DateFacet < Document::Digest::Facet
 
   def populate(results)
     super(results) do |res|
-      
+
       res['entries'].map do |e|
-        { 
+        {
           time:  format_time(e['time']), # for alias
           value: format_date_range(e['time']).to_s,
-          count: e['count'] 
+          count: e['count']
         }
       end
 
@@ -25,12 +25,12 @@ class Document::Digest::DateFacet < Document::Digest::Facet
   private
 
   def format_time(timestamp)
-    Time.at(timestamp.to_i/1000)
+    Time.at(timestamp.to_i/1000).to_datetime
   end
 
   def format_date_range(timestamp)
     # TODO: more interval options
-    
+
     date = format_time(timestamp).to_datetime
 
     case @interval
@@ -40,13 +40,13 @@ class Document::Digest::DateFacet < Document::Digest::Facet
   end
 
   def alias_date(data)
-    # TODO: locale
+    # TODO: use sk.yml for format? such as :month and so on, according to @interval?
 
     format = case @interval
              when :month then '%B, %Y'
              end
 
-    data[:time].strftime(format)
+    I18n.l data[:time], format: format
   end
 
 end

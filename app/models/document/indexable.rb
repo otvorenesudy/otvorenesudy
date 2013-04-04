@@ -4,6 +4,7 @@ module Document
     def self.included(base)
       base.send(:extend,  ClassMethods)
       base.send(:include, Tire::Model::Search)
+      base.send(:include, Tire::Model::Callbacks)
 
       base.configure
     end
@@ -60,7 +61,7 @@ module Document
 
       def facets
         @facets ||= {}
-        
+
         yield
       end
 
@@ -83,8 +84,8 @@ module Document
       def use(field, options = {})
         type = options[:type]
 
-        # TODO: use core/injector? -> Hell yeah! Use Core::Injector on this for sure!
-        @facets[field] = "Document::Digest::#{type.to_s.camelcase}Facet".constantize.new(field, options)
+        # TODO: use core/injector?
+        @facets[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
       end
 
     end

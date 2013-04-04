@@ -6,7 +6,7 @@ class Hearing < ActiveRecord::Base
   include Document::Indexable
   include Document::Suggestable
   include Document::Searchable
-  
+
   attr_accessible :uri,
                   :case_number,
                   :file_number,
@@ -18,33 +18,33 @@ class Hearing < ActiveRecord::Base
                   :note
 
   scope :at_court, lambda { |court| where court_id: court }
-  
+
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgings).merge(Judging.of_judge(employment.judge)) }
 
   belongs_to :proceeding
-  
+
   belongs_to :court
-  
+
   has_many :judgings, dependent: :destroy
-  
+
   has_many :judges, through: :judgings
-  
+
   belongs_to :type,    class_name: :HearingType,    foreign_key: :hearing_type_id
   belongs_to :section, class_name: :HearingSection, foreign_key: :hearing_section_id
   belongs_to :subject, class_name: :HearingSubject, foreign_key: :hearing_subject_id
   belongs_to :form,    class_name: :HearingForm,    foreign_key: :hearing_form_id
-  
+
   has_many :proposers,  dependent: :destroy
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
 
   mappings do
-    map     :id        
+    map     :id
     analyze :case_number
     analyze :file_number
     analyze :date,              type: 'date'
-    analyze :room       
-    analyze :special_type   
+    analyze :room
+    analyze :special_type
     analyze :commencement_date, type: 'date'
     analyze :type,              as: lambda { |h| h.section.value  if h.section        }
     analyze :subject,           as: lambda { |h| h.subject.value  if h.subject        }

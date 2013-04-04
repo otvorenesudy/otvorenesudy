@@ -8,14 +8,14 @@ $(document).ready ->
       @include Util.View.Autocomplete
       @include Util.View.Loading
       @include Util.View.ScrollTo
- 
+
       @include OpenCourts.SearchViewTemplates
-      
+
       el:                '#search-view'
       result_list:       '#search-results'
       result_info:       '#search-info'
       result_pagination: '#search-pagination'
- 
+
       events:
         'click a[href="#"]'                 : 'onClickButton'
         'click #category button'            : 'onChangeCategory'
@@ -40,7 +40,7 @@ $(document).ready ->
         @.autocompleteList 'court', query: => @model.toJSON()
 
         @.log 'Initialization done.'
-          
+
         @.onModelChange()
 
       onModelChange: (obj) ->
@@ -69,7 +69,7 @@ $(document).ready ->
 
           @.prependListItem(list, label, value, @model.facet(name, value))
           @.selectListItem(list, value)
-  
+
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"
 
@@ -77,7 +77,7 @@ $(document).ready ->
         values = @model.values name
 
         @.clearList(list)
-        
+
         if values
           @.log "Refreshing ... (values=#{values})"
 
@@ -107,11 +107,11 @@ $(document).ready ->
 
       onChangePage: (event) ->
         event.preventDefault()
-        
+
         value = @.findValue(event.target, 'href').match(/&page=\d+$/)?[0]
 
         value = parseInt(value?.match(/\d+$/)?[0])
-        
+
         @.log "Setting page to #{value}"
 
         @model.setPage(value)
@@ -122,7 +122,7 @@ $(document).ready ->
         attr  = @.listEntity(list)
 
         @model.add attr, value, multi: attr.pluralized()
-        
+
       onRemoveListItem: (event) ->
         list  = @.listByItem(event.target)
         attr  = @.listEntity(list)
@@ -149,7 +149,7 @@ $(document).ready ->
 
         if value
           #@.loading(@movie_list, reload: true)
-          
+
           @model.find value, (response) =>
             @.log 'Response recieved.'
 
@@ -160,7 +160,7 @@ $(document).ready ->
 
       onSearch: (options, callback) ->
         @.log "Searching ... (options=#{@.inspect options})"
-        
+
         @.loading @result_list, options
 
         $("#{@result_pagination}, #{@result_info}").empty()
@@ -170,7 +170,7 @@ $(document).ready ->
 
           if response
             @.updateResults response
-          
+
           @.unloading @result_list
 
           callback?()

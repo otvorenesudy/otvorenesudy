@@ -1,4 +1,4 @@
-class Document::Digest::Facet
+class Document::Faceted::Facet
   attr_accessor :name,
                 :type,
                 :alias,
