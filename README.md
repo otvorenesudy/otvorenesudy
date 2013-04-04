@@ -46,6 +46,8 @@ sudo apt-get install tesseract-ocr
 Run tests by `rspec` to check if the setup is complete.
 Be sure to add PostgreSQL Trigram extension to the test database `RAILS_ENV=test` and then setup database by running `rake db:setup RAILS_ENV=test`.
 
+To quicky setup a small database with real production data for test or development purposes execute `rake fixtures:db:setup` command.
+
 ## Data
 1. Setup database:
 ```
