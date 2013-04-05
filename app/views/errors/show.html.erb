@@ -15,10 +15,12 @@
 </section>
 
 <% if Rails.env.development? %>
-  <div class="row">
-    <div class="span12">
-      <%= debug @exception %>
-      <%= trace @trace %>
+  <section id="trace">
+    <div class="row">
+      <div class="span12">
+        <%= debug @exception %>
+        <%= trace @trace %>
+      </div>
     </div>
-  </div>
+  </section>
 <% end %>
