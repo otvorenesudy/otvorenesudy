@@ -38,14 +38,19 @@ module Core
       args.map do |arg|
         arg = arg.to_s
         
-        arg.gsub!(/^(runn|sett)ing/i)  { |s| s.bold       }
-        arg.gsub!(/^finished/i)        { |s| s.green.bold }
-        arg.gsub!(/^aborted/i)         { |s| s.red.bold   }
-       #arg.gsub!(/^\w+ing/)           { |s| s.underline  }
-        arg.gsub!(/\w+(\:\:\w+)+/)     { |s| s.blue.bold  }
-        arg.gsub!(/[a-z]+\:(\?|\d+)/i) { |s| s.bold       }
-        arg.gsub!(/done/i)             { |s| s.green.bold }
-        arg.gsub!(/failed/i)           { |s| s.red.bold   }
+        arg.gsub!(/^(sett|process)ing.*$/i) do |s|
+          i = s.index(/ing/i) + 3
+          s[0..i - 1].yellow.bold + s[i..-1].bold
+        end
+        
+        arg.gsub!(/^(running|request)/i) { |s| s.bold       }
+        arg.gsub!(/^finished/i)          { |s| s.green.bold }
+        arg.gsub!(/^aborted/i)           { |s| s.red.bold   }
+       #arg.gsub!(/^\w+ing/)             { |s| s.underline  }
+        arg.gsub!(/\w+(\:\:\w+)+/)       { |s| s.blue.bold  }
+        arg.gsub!(/[a-z]+\:(\?|\d+)/i)   { |s| s.bold       }
+        arg.gsub!(/done/i)               { |s| s.green.bold }
+        arg.gsub!(/failed/i)             { |s| s.red.bold   }
         
         arg
       end
