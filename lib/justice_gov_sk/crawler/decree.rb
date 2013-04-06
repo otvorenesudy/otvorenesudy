@@ -69,12 +69,22 @@ module JusticeGovSk
         path = agent.storage.path(agent.uri_to_path uri)
         
         if valid_content? path, :decree_pdf
-          @decree.text = JusticeGovSk::Extractor::Text.extract(path) 
-  
+          configuration = JusticeGovSk::Configuration.extractor
+          
+          if configuration.text.perform
+            if configuration.text.override || @decree.text.blank? 
+              @decree.text = JusticeGovSk::Extractor::Text.extract(path)
+            end
+          end 
+          
           storage = JusticeGovSk::Storage::DecreeImage.instance
           options = { output: storage.path(@decree.document_entry) }
-           
-          JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
+          
+          if configuration.image.perform
+            if configuration.image.override || !storage.contains?(options[:output])
+              JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
+            end
+          end
         end
       end
       
