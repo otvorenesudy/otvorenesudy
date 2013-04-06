@@ -13,6 +13,8 @@ module Core
       def crawl(request, offset = 1, limit = nil)
         request.page = offset
         
+        @total = @count = 0
+        
         loop do
           unless limit.nil?
             limit -= 1
@@ -45,20 +47,33 @@ module Core
          
         @result = @parser.list(@document)
         
-        puts "Processing list #{state}."
+        puts "Processing list #{state_page}."
         
-        @result.each { |item| yield item }
+        @total += @result.count
+        
+        @result.each_with_index do |item, index|
+          @count += 1
+          @index  = index
+          
+          puts "Processing list #{state_item}."
+          
+          yield item
+        end
       end
       
       def postcrawl
-        super "finished (#{state})"
+        super "finished (#{state_page})"
       end
       
       private
       
-      def state
-        "page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{pluralize @result.nil? ? '?' : @result.count, 'item'}, next page #{@next_page || 'N/A'}"
-      end      
+      def state_page
+        "page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{@result.nil? ? '?' : pluralize(@result.count, 'item')}, next page #{@next_page || 'N/A'}"
+      end
+      
+      def state_item
+        "item #{@count} of total #{@total}, item #{@index} of #{pluralize @result.count, "item"} on page #{@page || 'N/A'} of #{@pages || 'N/A'}"
+      end
     end
   end
 end
