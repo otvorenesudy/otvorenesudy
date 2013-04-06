@@ -5,12 +5,12 @@ namespace :fixtures do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
       
-      Rake::Task['crawl:hearings:civil'].invoke    1, 2500
-      Rake::Task['crawl:hearings:criminal'].invoke 1, 2500
-      Rake::Task['crawl:hearings:special'].invoke  1, 2500
+      Rake::Task['crawl:hearings:civil'].invoke    1, 50
+      Rake::Task['crawl:hearings:criminal'].invoke 1, 50
+      Rake::Task['crawl:hearings:special'].invoke  1, 50
       
       DecreeForm.all.each do |form|
-        Rake::Task['crawl:decrees'].invoke form.code, 1, 500
+        Rake::Task['crawl:decrees'].invoke form.code, 1, 10
       end
     end
   end
