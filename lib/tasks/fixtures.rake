@@ -8,8 +8,8 @@ namespace :fixtures do
       Rake::Task['db:seed'].invoke
     end
     
-    desc "Setups small database with production data using Resque workers"
-    task setup: :environment do
+    desc "Builds small database with production data using Resque workers"
+    task seed: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
       
