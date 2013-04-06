@@ -71,8 +71,9 @@ module JusticeGovSk
         if valid_content? path, :decree_pdf
           configuration = JusticeGovSk::Configuration.extractor
           
-          if configuration.text.perform.include? :Decree
-            if configuration.text.override.include?(:Decree) || @decree.text.blank? 
+          # TODO refactor .map(&:constantize) -> see bugs in settingslogic & custom config YML files
+          if configuration.text.perform.map(&:constantize).include? @decree.class
+            if configuration.text.override.map(&:constantize).include?(@decree.class) || @decree.text.blank? 
               @decree.text = JusticeGovSk::Extractor::Text.extract(path)
             end
           end
@@ -80,8 +81,8 @@ module JusticeGovSk
           storage = JusticeGovSk::Storage::DecreeImage.instance
           options = { output: storage.path(@decree.document_entry) }
           
-          if configuration.image.perform.include? :Decree
-            if configuration.image.override.include?(:Decree) || !storage.contains?(options[:output])
+          if configuration.image.perform.map(&:constantize).include? @decree.class
+            if configuration.image.override.map(&:constantize).include?(@decree.class) || !storage.contains?(options[:output])
               JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
             end
           end
