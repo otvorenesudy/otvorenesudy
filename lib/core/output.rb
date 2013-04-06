@@ -38,8 +38,8 @@ module Core
       args.map do |arg|
         arg = arg.to_s
         
-        arg.gsub!(/^(sett|process)ing.*$/i) do |s|
-          i = s.index(/ing/i) + 3
+        arg.gsub!(/^(settings|processing\s+list).*$/i) do |s|
+          i = (s.index(/ngs/i) || s.index(/ing/i)) + 3
           s[0..i - 1].yellow.bold + s[i..-1].bold
         end
         

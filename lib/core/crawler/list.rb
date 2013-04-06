@@ -11,15 +11,16 @@ module Core
                   :next_page
 
       def crawl(request, offset = 1, limit = nil)
-        request.page = offset
-        
+        @offset, @limit = offset, limit
         @total = @count = 0
         
+        request.page = offset
+        
         loop do
-          unless limit.nil?
-            limit -= 1
+          unless @limit.nil?
+            @limit -= 1
             
-            break if limit < 0
+            break if @limit < 0
           end
           
           super(request)
@@ -35,7 +36,7 @@ module Core
       def process(request)
         @request = request
         
-        puts "Request #{@request.class.name} on page #{@request.page} of #{@pages || '?'}, max. #{pluralize @request.per_page, 'item'} per page."
+        puts "#{state_request.upcase_first}."
         
         @content  = @downloader.download(request)
         @document = @parser.parse(@content)
@@ -67,12 +68,16 @@ module Core
       
       private
       
+      def state_request
+        "request #{@request.class.name} on page #{@request.page} of #{@pages || '?'}, max. #{@limit ? pluralize(@limit, 'page') : '? pages'}, max. #{pluralize @request.per_page, 'item'} per page"
+      end
+      
       def state_page
         "page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{@result.nil? ? '?' : pluralize(@result.count, 'item')}, next page #{@next_page || 'N/A'}"
       end
       
       def state_item
-        "item #{@count} of total #{@total}, item #{@index} of #{pluralize @result.count, "item"} on page #{@page || 'N/A'} of #{@pages || 'N/A'}"
+        "item #{@count} of total #{@total}, item #{@index} of #{@result.count} on page #{@page || 'N/A'} of #{@pages || 'N/A'}"
       end
     end
   end

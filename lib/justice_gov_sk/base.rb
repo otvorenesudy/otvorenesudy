@@ -148,7 +148,7 @@ module JusticeGovSk
     def call(block, options = {})
       safe = options[:safe].nil? ? true : options[:safe]
       
-      puts "Setting #{pack options}"
+      puts "Settings #{pack options}"
       
       if safe
         block.call
