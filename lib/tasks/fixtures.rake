@@ -1,5 +1,13 @@
 namespace :fixtures do
   namespace :db do
+    desc "Drops, creates, migrates and loads seed data into the database"
+    task rebuild: :environment do
+      Rake::Task['db:drop'].invoke
+      Rake::Task['db:create'].invoke
+      Rake::Task['db:migrate'].invoke
+      Rake::Task['db:seed'].invoke
+    end
+    
     desc "Setups small database with production data using Resque workers"
     task setup: :environment do
       Rake::Task['crawl:courts'].invoke
