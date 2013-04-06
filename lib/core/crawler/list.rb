@@ -14,13 +14,14 @@ module Core
         @offset, @limit = offset, limit
         @total = @count = 0
         
+        counter      = limit if @limit
         request.page = offset
         
         loop do
-          unless @limit.nil?
-            @limit -= 1
+          if @limit
+            counter -= 1
             
-            break if @limit < 0
+            break if counter < 0
           end
           
           super(request)
