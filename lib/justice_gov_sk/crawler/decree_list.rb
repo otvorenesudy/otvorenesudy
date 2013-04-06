@@ -5,14 +5,7 @@ module JusticeGovSk
       
       def process(request)
         raise "Decree from code not set" unless request.decree_form_code
-        
-        return super(request) if block_given?
-        
-        super(request) do |url|
-          crawler = JusticeGovSk::Crawler::Decree.new(decree_form_code: request.decree_form_code)
-          
-          crawler.crawl url
-        end
+        super        
       end
     end
   end
