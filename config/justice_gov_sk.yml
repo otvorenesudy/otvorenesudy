@@ -14,29 +14,42 @@ defaults: &defaults
   # Extractor configuration
   extractor:
     
-    # Perform image extraction on specified resources if possible  
-    image.perform: [Decree]
+    image:
+      # Perform image extraction on specified resources if possible
+      perform: [Decree]
       
-    # Override existing image extractions for specified resources
-    image.override: [Decree]
+      # Override existing image extractions for specified resources
+      override: [Decree]
 
-    # Perform text extraction on specified resources if possible
-    text.perform: [Decree]
+    text:
+      # Perform text extraction on specified resources if possible
+      perform: [Decree]
 
-    # Override existing text extractions for specified resources
-    text.override: [Decree]
+      # Override existing text extractions for specified resources
+      override: [Decree]
 
 development:
   <<: *defaults 
   
-  extractor.image.perform: []
+  # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
+  extractor:
+    image:
+      perform: []
+      override: []
+    text:
+      perform: [Decree]
+      override: [Decree]
 
 test:
   <<: *defaults
   
-  resource.updateable: [Court, Judge]
-
+  # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
+  resource:
+    updateable: [Court, Judge]
+      
 production:
   <<: *defaults
   
-  resource.updateable: [Court, Judge]
+  # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
+  resource:
+    updateable: [Court, Judge]

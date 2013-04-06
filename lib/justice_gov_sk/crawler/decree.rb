@@ -71,17 +71,17 @@ module JusticeGovSk
         if valid_content? path, :decree_pdf
           configuration = JusticeGovSk::Configuration.extractor
           
-          if configuration.text.perform
-            if configuration.text.override || @decree.text.blank? 
+          if configuration.text.perform.include? :Decree
+            if configuration.text.override.include?(:Decree) || @decree.text.blank? 
               @decree.text = JusticeGovSk::Extractor::Text.extract(path)
             end
-          end 
+          end
           
           storage = JusticeGovSk::Storage::DecreeImage.instance
           options = { output: storage.path(@decree.document_entry) }
           
-          if configuration.image.perform
-            if configuration.image.override || !storage.contains?(options[:output])
+          if configuration.image.perform.include? :Decree
+            if configuration.image.override.include?(:Decree) || !storage.contains?(options[:output])
               JusticeGovSk::Extractor::Image.extract(@decree.document_path, options)
             end
           end
