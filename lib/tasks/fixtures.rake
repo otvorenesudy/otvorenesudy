@@ -8,7 +8,13 @@ namespace :fixtures do
       Rake::Task['db:seed'].invoke
     end
     
-    desc "Builds small database with production data using Resque workers"
+    desc "Setups small database with production data (drops existing database)"
+    task setup: :environment do
+      Rake::Task['fixtures:db:rebuild'].invoke
+      Rake::Task['fixtures:db:seed'].invoke
+    end
+        
+    desc "Crawls small amount of production data"
     task seed: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
@@ -22,7 +28,7 @@ namespace :fixtures do
       end
     end
     
-    desc "Prints basic statistics about active database"
+    desc "Prints basic statistics about the database"
     task stat: :environment do
       puts "Courts: #{Court.count}"
       puts "Judges: #{Judge.count}"
