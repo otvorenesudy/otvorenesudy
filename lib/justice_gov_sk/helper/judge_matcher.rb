@@ -37,7 +37,12 @@ module JusticeGovSk
         else
           puts "failed (no match)"
           
-          raise "Unable to find judge similar to #{name}"
+          # TODO rm
+          #raise "Unable to find judge similar to #{name}"
+          
+          puts "No judges matched, storing partial entry for #{name}."
+          
+          yield 0.0, nil
         end
       end
       

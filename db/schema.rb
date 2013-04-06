@@ -231,7 +231,7 @@ ActiveRecord::Schema.define(:version => 20121110155849) do
   add_index "judge_positions", ["value"], :name => "index_judge_positions_on_value", :unique => true
 
   create_table "judgements", :force => true do |t|
-    t.integer  "judge_id",                                             :null => false
+    t.integer  "judge_id"
     t.integer  "decree_id",                                            :null => false
     t.decimal  "judge_name_similarity",  :precision => 3, :scale => 2, :null => false
     t.string   "judge_name_unprocessed",                               :null => false
@@ -262,7 +262,7 @@ ActiveRecord::Schema.define(:version => 20121110155849) do
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
 
   create_table "judgings", :force => true do |t|
-    t.integer  "judge_id",                                             :null => false
+    t.integer  "judge_id"
     t.integer  "hearing_id",                                           :null => false
     t.decimal  "judge_name_similarity",  :precision => 3, :scale => 2, :null => false
     t.string   "judge_name_unprocessed",                               :null => false

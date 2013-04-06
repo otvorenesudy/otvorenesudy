@@ -1,7 +1,7 @@
 class CreateJudgings < ActiveRecord::Migration
   def change
     create_table :judgings do |t|
-      t.references :judge,   null: false
+      t.references :judge
       t.references :hearing, null: false
       
       t.decimal :judge_name_similarity,  null: false, precision: 3, scale: 2
