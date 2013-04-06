@@ -1,14 +1,42 @@
-development:
-  # Storage root path
-  storage: 'storage'
+defaults: &defaults
+  # Storage configuration
+  storage:
+    
+    # Storage root path
+    root: 'storage'
   
-  # List of models updateable by crawlers
-  updateable: [Court, Judge, Hearing, Decree]
+  # Resources configuration
+  resource:
+    
+    # List of resources updateable by crawlers
+    updateable: [Court, Judge, Hearing, Decree]
+  
+  # Extractor configuration
+  extractor:
+    
+    # Perform image extraction on specified resources if possible  
+    image.perform: [Decree]
+      
+    # Override existing image extractions for specified resources
+    image.override: [Decree]
+
+    # Perform text extraction on specified resources if possible
+    text.perform: [Decree]
+
+    # Override existing text extractions for specified resources
+    text.override: [Decree]
+
+development:
+  <<: *defaults 
+  
+  extractor.image.perform: []
 
 test:
-  storage: 'storage'
-  updateable: [Court, Judge]
+  <<: *defaults
+  
+  resource.updateable: [Court, Judge]
 
 production:
-  storage: 'storage'
-  updateable: [Court, Judge]
+  <<: *defaults
+  
+  resource.updateable: [Court, Judge]

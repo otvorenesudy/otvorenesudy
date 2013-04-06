@@ -1,19 +1,32 @@
-development:
-  # Cache root path 
-  cache: 'tmp/cache'
-
-  # Colored output
-  colors: true
+defaults: &defaults
+  # Storage configuration
+  storage:
+    
+    # Cache root path
+    cache.root: 'tmp/cache'
   
-  # Verbose output
-  verbose: true
+  # Console output configuration 
+  output:
+
+    # Colored output
+    colors: true
+    
+    # Verbose output
+    verbose: true
+
+development:
+  <<: *defaults  
 
 test:
-  cache: 'tmp/cache'
-  colors: false
-  verbose: false
+  <<: *defaults  
+  
+  output:
+    colors: false
+    verbose: false
 
 production:
-  cache: 'tmp/cache'
-  colors: false
-  verbose: false
+  <<: *defaults
+  
+  output:
+    colors: false
+    verbose: false

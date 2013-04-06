@@ -33,7 +33,7 @@ module JusticeGovSk
       end
       
       def updateable?(type)
-        @updateable ||= JusticeGovSk::Configuration.updateable.map(&:constantize)
+        @updateable ||= JusticeGovSk::Configuration.resource.updateable.map(&:constantize)
         
         @updateable.select { |t| t <= type }.any?
       end

@@ -11,7 +11,7 @@ module Core
     end
     
     def colored
-      @colored.nil? ? Core::Configuration.colors : @colored
+      @colored.nil? ? Core::Configuration.output.colors : @colored
     end
     
     def verbose=(value)
@@ -19,7 +19,7 @@ module Core
     end
     
     def verbose
-      @verbose.nil? ? Core::Configuration.verbose : @verbose
+      @verbose.nil? ? Core::Configuration.output.verbose : @verbose
     end
     
     def puts(*args)

@@ -6,7 +6,7 @@ module Core
       attr_accessor :expire_time
       
       def root
-        @root ||= Core::Configuration.cache
+        @root ||= Core::Configuration.storage.cache.root
       end
       
       def expired?(entry)

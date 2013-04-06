@@ -16,11 +16,11 @@ namespace :fixtures do
         
     desc "Crawls small amount of production data"
     task seed: :environment do
-      Rake::Task['crawl:courts'].invoke
-      Rake::Task['crawl:judges'].invoke
-      
-      Rake::Task['crawl:hearings:civil'].invoke    1, 50
-      Rake::Task['crawl:hearings:criminal'].invoke 1, 50
+      #Rake::Task['crawl:courts'].invoke
+      #Rake::Task['crawl:judges'].invoke
+
+      #Rake::Task['crawl:hearings:civil'].invoke    1, 50
+      #Rake::Task['crawl:hearings:criminal'].invoke 1, 50
       Rake::Task['crawl:hearings:special'].invoke  1, 50
       
       DecreeForm.order(:code).all.each do |form|
