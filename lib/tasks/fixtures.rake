@@ -9,8 +9,23 @@ namespace :fixtures do
       Rake::Task['crawl:hearings:criminal'].invoke 1, 50
       Rake::Task['crawl:hearings:special'].invoke  1, 50
       
-      DecreeForm.all.each do |form|
+      DecreeForm.order(:code).all.each do |form|
         Rake::Task['crawl:decrees'].invoke form.code, 1, 10
+      end
+    end
+    
+    desc "Prints basic statistics about active database"
+    task stat: :environment do
+      puts "Courts: #{Court.count}"
+      puts "Judges: #{Judge.count}"
+      puts
+      puts "Hearings civil:    #{CivilHearing.count}"
+      puts "Hearings criminal: #{CriminalHearing.count}"
+      puts "Hearings special:  #{SpecialHearing.count}"
+      puts
+      
+      DecreeForm.order(:code).all.each do |form|
+        puts "Decrees form #{form.code}: #{Decree.where('decree_form_id = ?', form.id).count}"
       end
     end
   end
