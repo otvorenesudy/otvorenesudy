@@ -53,7 +53,7 @@ module Core
         
         @result.each_with_index do |item, index|
           @count += 1
-          @index  = index
+          @index  = 1 + index
           
           puts "Processing list #{state_item}."
           
