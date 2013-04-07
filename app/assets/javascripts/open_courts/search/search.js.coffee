@@ -12,11 +12,7 @@ $(document).ready =>
        @model  = new OpenCourts.SearchModel
        @router = new OpenCourts.SearchRouter model: @model
        @view   = new OpenCourts.SearchView model: @model
-       
+
        Backbone.history.start()
-       
+
        @.log 'App is running.'
-
-  @app = new OpenCourts.Search.App
-  @app.start()
-
