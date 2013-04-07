@@ -1,7 +1,12 @@
 <% provide :title, "Rozšírené vyhľadávanie" %>
 
 <% content_for :scripts do %>
-  <%= javascript_include_tag 'open_courts/search/search' %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        window.app = new OpenCourts.Search.App
+        window.start()
+    })
+  </script>
 <% end %>
 
 <section id="search-view">
