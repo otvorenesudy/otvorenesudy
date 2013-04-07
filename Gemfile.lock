@@ -57,6 +57,7 @@ GEM
     font-awesome-sass-rails (3.0.0.1)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
+    garelic (0.2.1)
     gmaps4rails (1.5.6)
     guard (1.6.2)
       listen (>= 0.6.0)
@@ -238,6 +239,7 @@ DEPENDENCIES
   docsplit (~> 0.6.4)
   execjs
   font-awesome-sass-rails (~> 3.0.0.1)
+  garelic
   gmaps4rails (~> 1.5.6)
   guard-jasmine
   inflection-js-rails
