@@ -18,6 +18,8 @@ class Decree < ActiveRecord::Base
   
   has_many :judgements, dependent: :destroy
   
+  has_many :partial_judgements, dependent: :destroy
+  
   has_many :judges, through: :judgements
   
   belongs_to :form,   class_name: :DecreeForm,   foreign_key: :decree_form_id

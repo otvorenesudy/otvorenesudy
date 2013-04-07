@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110155849) do
+ActiveRecord::Schema.define(:version => 20130407151849) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -337,6 +337,31 @@ ActiveRecord::Schema.define(:version => 20121110155849) do
 
   add_index "opponents", ["hearing_id", "name"], :name => "index_opponents_on_hearing_id_and_name", :unique => true
   add_index "opponents", ["name"], :name => "index_opponents_on_name"
+
+  create_table "partial_judgements", :force => true do |t|
+    t.integer  "decree_id",              :null => false
+    t.string   "judge_name",             :null => false
+    t.string   "judge_name_unprocessed", :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "partial_judgements", ["decree_id", "judge_name"], :name => "index_partial_judgements_on_decree_id_and_judge_name", :unique => true
+  add_index "partial_judgements", ["judge_name", "decree_id"], :name => "index_partial_judgements_on_judge_name_and_decree_id", :unique => true
+  add_index "partial_judgements", ["judge_name_unprocessed"], :name => "index_partial_judgements_on_judge_name_unprocessed"
+
+  create_table "partial_judgings", :force => true do |t|
+    t.integer  "hearing_id",             :null => false
+    t.string   "judge_name",             :null => false
+    t.string   "judge_name_unprocessed", :null => false
+    t.boolean  "judge_chair",            :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "partial_judgings", ["hearing_id", "judge_name"], :name => "index_partial_judgings_on_hearing_id_and_judge_name", :unique => true
+  add_index "partial_judgings", ["judge_name", "hearing_id"], :name => "index_partial_judgings_on_judge_name_and_hearing_id", :unique => true
+  add_index "partial_judgings", ["judge_name_unprocessed"], :name => "index_partial_judgings_on_judge_name_unprocessed"
 
   create_table "proceedings", :force => true do |t|
     t.string   "file_number"
