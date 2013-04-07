@@ -6,12 +6,18 @@ Util.View.List =
     return param unless typeof(param) is 'string'
     $(@.listSelector(param))
 
+  listShow: (list) ->
+    @.list(list).show()
+
+  listHideAll: ->
+    $('ul[id$=-list]').hide()
+
   listEntity: (list) ->
     @.list(list).attr('id').replace(/(#|-list)/g, '')
 
   item: (target) ->
     $(target).parent()
-  
+
   listItemValue: (target) ->
     @.item(target).attr('data-value')
 
@@ -52,7 +58,7 @@ Util.View.List =
 
   clearList: (list, options = {}) ->
     selector = if options.selected then 'li:not(.selected)' else 'li'
-    
+
     @.log "Clearing list ... (list=#{@.inspect list}, selector=#{@.inspect selector}, options=#{@.inspect options})"
 
     $(@.list(list)).find(selector).remove()

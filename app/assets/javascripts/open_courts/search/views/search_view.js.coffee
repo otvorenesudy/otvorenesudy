@@ -47,18 +47,31 @@ $(document).ready ->
         @.log "Model changed. (model=#{@.inspect obj})"
 
         @.onSearch reload: true, =>
+          @.hideEntities()
+
           @.updateCategory()
-          @.updateList('judges')
-          @.updateList('court')
-          @.updateList('date')
+
+          for entity, value of @model.facets
+            @.showEntity(entity)
+            @.updateList(entity)
+
+      hideEntities: ->
+        $('.category').hide()
+
+      showEntity: (name) ->
+        @.list(name).parent().show()
 
       updateCategory: ->
         @.log "Updating category: #{@model.getCategory()}"
+
+        $('#category').show()
 
         @.findElementByValue('#category', @model.getCategory()).addClass('active')
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
+
+        @.listShow(name)
 
         @.refreshListValues(name)
 
