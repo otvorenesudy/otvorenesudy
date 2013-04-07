@@ -19,6 +19,12 @@ gem 'jquery-rails'
 gem 'rails-timeago'
 gem 'execjs'
 
+# js libraries
+gem 'inflection-js-rails'
+gem 'jquery-ui-rails'
+gem 'spinjs-rails'
+gem 'rails-backbone'
+
 # pagination
 gem 'kaminari',           '~> 0.14.1'
 gem 'kaminari-bootstrap', '~> 0.1.3'
@@ -48,6 +54,8 @@ gem 'docsplit',    '~> 0.6.4'
 # background jobs
 gem 'resque'
 
+gem 'github-markup'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -55,12 +63,16 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier',     '>= 1.0.3'
   gem 'therubyracer', '~> 0.10.2'
-  
-  gem 'inflection-js-rails'
-  gem 'jquery-ui-rails'
-  gem 'spinjs-rails'
-  gem 'rails-backbone'
+
+  # deployment
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'rvm-capistrano'
+  gem 'factory_girl'
 end
+
+# resque for capistrano, (all enviroments just to be sure)
+gem 'capistrano-resque', '~> 0.1.0'
 
 group :development, :test do
   gem 'rspec-rails',      '~> 2.0'
