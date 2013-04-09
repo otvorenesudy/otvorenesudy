@@ -54,7 +54,8 @@ gem 'docsplit',    '~> 0.6.4'
 # background jobs
 gem 'resque'
 
-gem 'github-markup'
+# analytics
+gem 'garelic'
 
 # Gems used only for assets and not required
 # in production environments by default.

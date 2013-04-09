@@ -46,7 +46,7 @@ sudo apt-get install tesseract-ocr
 Run tests by `rspec` to check if the setup is complete.
 Be sure to add PostgreSQL Trigram extension to the test database `RAILS_ENV=test` and then setup database by running `rake db:setup RAILS_ENV=test`.
 
-To quicky setup a small database with real production data for test or development purposes execute `rake fixtures:db:setup` command.
+To quicky setup a small database with real production data for test or development purposes run `rake fixtures:db:setup` command.
 
 ## Data
 1. Setup database:
@@ -73,6 +73,14 @@ rake work:hearings:criminal
 rake work:hearings:special
 rake work:decrees
 ```
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch `git checkout -b new-feature`
+3. Commit your changes `git commit -am 'Added some feature'`
+4. Push to the branch `git push origin new-feature`
+5. Create new Pull Request
 
 ## Licence
 TODO

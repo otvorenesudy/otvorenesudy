@@ -26,6 +26,8 @@ class Hearing < ActiveRecord::Base
   belongs_to :court
 
   has_many :judgings, dependent: :destroy
+  
+  has_many :partial_judgings, dependent: :destroy
 
   has_many :judges, through: :judgings
 
