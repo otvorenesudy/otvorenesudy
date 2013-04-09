@@ -126,7 +126,7 @@ namespace :deploy do
 
   after 'deploy',             'deploy:cleanup'
   after 'deploy:update_code', 'rvm:trust_rvmrc'
-  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'db:create_release', 'deploy:migrate'
+  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'db:create_release'#, 'deploy:migrate'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
