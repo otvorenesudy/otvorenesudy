@@ -14,7 +14,7 @@ class Document::Faceted::Facet
     results = yield results if block_given?
 
     @values = results.map(&:symbolize_keys)
-  end 
+  end
 
   def values
     @values.map! do |data|

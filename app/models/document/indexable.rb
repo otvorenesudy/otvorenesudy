@@ -47,7 +47,7 @@ module Document
               indexes field, options.merge!(index: :not_analyzed)
             else
               indexes field, options.deep_merge!(
-                  type:   'multi_field', 
+                  type:   'multi_field',
                   fields: {
                     analyzed:  { type: type,  analyzer: analyzer },
                     untouched: { type: type,  index: :not_analyzed }
@@ -71,7 +71,7 @@ module Document
         @mappings[field] = {}
 
         @mappings[field][:type]    = :mapped
-        @mappings[field][:options] = options 
+        @mappings[field][:options] = options
       end
 
       def analyze(field, options = {})

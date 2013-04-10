@@ -26,7 +26,7 @@ class Hearing < ActiveRecord::Base
   belongs_to :court
 
   has_many :judgings, dependent: :destroy
-  
+
   has_many :partial_judgings, dependent: :destroy
 
   has_many :judges, through: :judgings
@@ -52,7 +52,7 @@ class Hearing < ActiveRecord::Base
     analyze :subject,           as: lambda { |h| h.subject.value  if h.subject        }
     analyze :form,              as: lambda { |h| h.form.value     if h.form           }
     analyze :court,             as: lambda { |h| h.court.name     if court            }
-    analyze :judges,            as: lambda { |h| h.judgings.map   { |j| j.judge.name }}
+    analyze :judges,            as: lambda { |h| h.judges.map(&:name).concat(h.partial_judgings.map(&:judge_name)) }
     analyze :proposers,         as: lambda { |h| h.proposers.map  { |p| p.name }      }
     analyze :opponents,         as: lambda { |h| h.opponents.map  { |o| o.name }      }
     analyze :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }      }
