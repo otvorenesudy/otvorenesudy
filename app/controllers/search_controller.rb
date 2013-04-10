@@ -28,9 +28,10 @@ class SearchController < ApplicationController
 
       @search, @results = @model.search_by(@query)
 
-      @type  = @model.name.downcase.to_sym
-      @count = @results.total_count
-      @page  = @search[:results]
+      @type       = @model.name.downcase.to_sym
+      @count      = @results.total_count
+      @page       = @search[:results]
+      @highlights = @search[:highlights]
 
       render json: {
         facets:     format_facets(@search[:facets]),
@@ -56,6 +57,7 @@ class SearchController < ApplicationController
 
     query          = Hash.new
     query[:filter] = Hash.new
+    query[:query]  = Hash.new
 
     begin
 
@@ -78,6 +80,8 @@ class SearchController < ApplicationController
           times = data[key][0].split('..').map { |e| Time.parse(e) }
 
           query[:filter].merge!(date: times[0]..times[1])
+        when :fulltext
+          query[:query].merge!(text: data[key].first)
         end
 
       end

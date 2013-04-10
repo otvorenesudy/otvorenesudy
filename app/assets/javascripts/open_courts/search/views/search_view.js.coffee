@@ -19,6 +19,7 @@ $(document).ready ->
       events:
         'click a[href="#"]'                 : 'onClickButton'
         'click #fulltext button'            : 'onSubmitFulltext'
+        'change #fulltext input'            : 'onSubmitFulltext'
         'click #search-panel ul li a'       : 'onClickListItem'
         'click #search-panel ul li .remove' : 'onRemoveListItem'
         'click .pagination ul li a'         : 'onChangePage'
@@ -46,8 +47,13 @@ $(document).ready ->
 
         @.onSearch reload: true, =>
 
+          @.updateFulltext(@model.getFulltext())
+
           for entity, value of @model.facets
             @.updateList(entity)
+
+      updateFulltext: (value) ->
+        $('#fulltext input').val(value)
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
@@ -95,7 +101,7 @@ $(document).ready ->
         event.preventDefault()
 
       onSubmitFulltext: ->
-        value = $('#fulltext input').value()
+        value = $('#fulltext input').val()
 
         @model.setFulltext(value)
 
