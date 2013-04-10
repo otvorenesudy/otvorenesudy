@@ -23,6 +23,10 @@ module Document
         tire.settings.deep_merge!(settings)
       end
 
+      def field(name)
+        name.sub(/\.(analyzed|untouched)/, '').to_sym
+      end
+
       def analyzed(field)
         "#{field}.analyzed".to_sym
       end
@@ -32,7 +36,8 @@ module Document
       end
 
       def mappings
-        @mappings ||= {}
+        @mappings   ||= {}
+        @highlights ||= []
 
         yield
 
@@ -41,7 +46,9 @@ module Document
             options  = value[:options]
 
             type     = options[:type]     || :string
-            analyzer = options[:analyzer] || 'text_analyzer'  
+            analyzer = options[:analyzer] || 'text_analyzer'
+
+            @highlights << field if options[:highlight]
 
             if value[:type].eql? :mapped
               indexes field, options.merge!(index: :not_analyzed)
