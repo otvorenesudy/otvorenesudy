@@ -76,7 +76,7 @@ module Document
           search_query(index, query, terms, options)
           search_facets(index, facets, query, terms, options)
           search_sort(index, sort_block, options)
-          search_hightlights(index, query, highlights, options)
+          search_highlights(index, query, highlights, options)
 
         end
 
@@ -154,31 +154,26 @@ module Document
       def facet_filter(query, terms)
         filter = Hash.new
 
-        filter[:query] = facet_filter_query(query) if query.any?
-        filter[:and]   = facet_filter_terms(terms) if terms.any?
+        filter[:and] = facet_filter_values(query, terms) if query.any? or terms.any?
 
         filter
       end
 
-      def facet_filter_query(query)
-        result = { bool: { must: [] }}
+      def facet_filter_values(query, terms)
+        filter_values = []
 
         query.each do |field, value|
-          result[:bool][:must] << {
-            query_string: {
-              query: "#{value}*",
-              default_field: analyzed(field),
-              default_operator: :and,
-              analyze_wildcard: true
+          filter_values << {
+            query: {
+              query_string: {
+                query: "#{value}*",
+                default_field: analyzed(field),
+                default_operator: :and,
+                analyze_wildcard: true
+              }
             }
           }
         end
-
-        result
-      end
-
-      def facet_filter_terms(terms)
-        filter_values = []
 
         terms.each do |field, value|
 
@@ -209,7 +204,7 @@ module Document
         end
       end
 
-      def search_hightlights(index, query, highlights, options)
+      def search_highlights(index, query, highlights, options)
         options = highlights.find_all { |f| query.key?(f) }.map { |e| analyzed(e) }
 
         index.highlight(*options)
