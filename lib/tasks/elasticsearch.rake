@@ -1,5 +1,5 @@
 namespace :es do
-  INDICES = ['hearings']
+  INDICES = ['hearings', 'decrees']
 
   task update: :environment do
     INDICES.each do |index|
