@@ -1,0 +1,62 @@
+<ol class="unstyled">
+  <% hearings.each do |hearing| %>
+    <li>
+      <h4>
+        <%= link_to "#{hearing_type hearing.type} #{hearing.file_number}", hearing_path(hearing.id) %>
+        <br/>
+        <small>
+          Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
+          <%= hearing_date hearing.date %>
+        </small>
+      </h4>
+
+      <div class="row">
+        <div class="span6">
+          <% if hearing.court %>
+            Súd &ndash; <%= link_to_court hearing.court %>
+          <% end %>
+          <% if hearing.judgings.normal.any? %>
+            <br/>
+            Sudcovia &ndash; <%= links_to_judges hearing.judgings.normal.map { |judging| judging.judge } %>
+          <% end %>
+
+<!-- TODO consider adding other attributes such as:
+
+          <% if hearing.form %>
+            <br/>
+            Forma úkonu &ndash; <%= hearing.form.value %>.
+          <% end %>
+          <% if hearing.subject %>
+            <br/>
+            Predmet &ndash; <%= hearing.subject.value %>.
+          <% end %>
+
+-->
+
+          <% if hearing.proposers.any? %>
+            <br/>
+            Navrhovatelia &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+          <% end %>
+          <% if hearing.opponents.any? %>
+            <br/>
+            Odporcovia &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+          <% end %>
+          <% if hearing.defendants.any? %>
+            <br/>
+            Obžalovaní &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+          <% end %>
+        </div>
+
+        <div class="span2">
+          <span class="pull-right">
+            <%= tooltip_tag hearing.case_number, "Spisová značka", :right %>
+          </span>
+          <br/>
+          <span class="pull-right">
+            <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", :right %>
+          </span>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ol>

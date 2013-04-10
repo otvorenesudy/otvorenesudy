@@ -13,6 +13,7 @@ module Document
 
       private
 
+      # TODO: deprecated in favor of default tire AR results load
       def fetch_records(hits)
         return [] unless hits
 
@@ -41,7 +42,7 @@ module Document
       def format_result(result)
         data = Hash.new
 
-        data[:results] = fetch_records(result.results)
+        data[:results] = result.results
         data[:facets]  = format_facets(result.facets)
 
         return data, result
@@ -60,7 +61,7 @@ module Document
 
         facets = [facets] unless facets.respond_to?(:each)
 
-        results = tire.search page: page, per_page: per_page do |index|
+        results = tire.search page: page, per_page: per_page, load: true do |index|
 
           search_query(index, query, terms, options)
           search_facets(index, facets, terms, options)

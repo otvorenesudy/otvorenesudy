@@ -1,1 +1,1 @@
-<%= render @type.to_s.pluralize, @type.to_s.pluralize.to_sym => @page %>
+<%= render "#{@type.to_s.pluralize}/results", @type.to_s.pluralize.to_sym => @page %>

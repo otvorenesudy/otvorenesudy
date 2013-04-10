@@ -3,8 +3,8 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
   @include Util.Model.Attributes
 
   defaults:
+    fulltext:   []
     page:       []
-    category:   ['Pojednávania']
     judges:     []
     court:      []
     date:       []
@@ -16,39 +16,30 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
     @.log 'Initialized.'
 
-  getCategory: ->
-    @.getValue('category')
+  getFulltext: (value) ->
+    @.getValue('fulltext')
 
-  setCategory: (value) ->
-    @.setValue('category', value)
+  setFulltext: (value) ->
+    @.setValue('fulltext', value)
 
   getPage: ->
     @.getValue('page')
 
   setPage: (value) ->
     value = 1 unless value
+
     @.setValue('page', value)
 
-  find: (term, callback) ->
-    $.ajax
-      url: 'blabla'
-      type: 'POST'
-      data:
-        data:
-          type: @.getType()
-          title: term
-      success: (response) ->
-        callback?(response)
-      error: ->
-        @.err "Error occured while finding: #{term}"
+  query: ->
+    type: @type, data: @.toJSON()
 
   search: (callback) ->
     $.ajax
-      url: "/async_search"
-      type: "POST"
+      url: "/search"
+      type: "GET"
       dataType: 'json'
       data:
-        data: @.toJSON()
+        @.query()
       success: (response) =>
         @facets = response.facets
 

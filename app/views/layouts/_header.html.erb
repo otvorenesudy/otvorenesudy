@@ -7,8 +7,8 @@
           <li class="divider-vertical"></li>
           <%= navbar_li_tag :building, "Súdy", courts_path %>
           <%= navbar_li_tag :user, "Sudcovia", judges_path %>
-          <%= navbar_li_tag :comments, "Pojednávania", hearings_path %>
-          <%= navbar_li_tag :legal, "Rozhodnutia", decrees_path %>
+          <%= navbar_li_tag :comments, "Pojednávania", search_hearings_path %>
+          <%= navbar_li_tag :legal, "Rozhodnutia", search_decrees_path %>
         </ul>
         <ul class="nav pull-right">
           <%= navbar_li_tag :'bar-chart', 'Štatistiky', stats_path %>
@@ -30,7 +30,7 @@
         <% end %>
       </div>
       <div class="span4">
-        <%= link_to "Rozšírené vyhľadávanie", search_path %>
+        <%= link_to "Rozšírené vyhľadávanie", search_decrees_path %>
       </div>
     </div>
   </div>

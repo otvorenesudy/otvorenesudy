@@ -5,7 +5,7 @@ $(document).ready ->
       @include Util.View.Finder
       @include Util.View.List
       @include Util.View.Slider
-      @include Util.View.Autocomplete
+      @include Util.View.Suggest
       @include Util.View.Loading
       @include Util.View.ScrollTo
 
@@ -18,7 +18,7 @@ $(document).ready ->
 
       events:
         'click a[href="#"]'                 : 'onClickButton'
-        'click #category button'            : 'onChangeCategory'
+        'click #fulltext button'            : 'onSubmitFulltext'
         'click #search-panel ul li a'       : 'onClickListItem'
         'click #search-panel ul li .remove' : 'onRemoveListItem'
         'click .pagination ul li a'         : 'onChangePage'
@@ -33,11 +33,9 @@ $(document).ready ->
         @model.bind 'change', (obj) =>
           @.onModelChange(obj)
 
-        @model.page = 1
+        @.suggestList 'judges', query: => @model.query()
 
-        @.autocompleteList 'judges', query: => @model.toJSON()
-
-        @.autocompleteList 'court', query: => @model.toJSON()
+        @.suggestList 'court', query: => @model.query()
 
         @.log 'Initialization done.'
 
@@ -47,26 +45,9 @@ $(document).ready ->
         @.log "Model changed. (model=#{@.inspect obj})"
 
         @.onSearch reload: true, =>
-          @.hideEntities()
-
-          @.updateCategory()
 
           for entity, value of @model.facets
-            @.showEntity(entity)
             @.updateList(entity)
-
-      hideEntities: ->
-        $('.category').hide()
-
-      showEntity: (name) ->
-        @.list(name).parent().show()
-
-      updateCategory: ->
-        @.log "Updating category: #{@model.getCategory()}"
-
-        $('#category').show()
-
-        @.findElementByValue('#category', @model.getCategory()).addClass('active')
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
@@ -111,12 +92,12 @@ $(document).ready ->
         @.fixes()
 
       onClickButton: (event) ->
-        false
+        event.preventDefault()
 
-      onChangeCategory: (event) ->
-        value = @.findValue(event.target, 'data-value')
+      onSubmitFulltext: ->
+        value = $('#fulltext input').value()
 
-        @model.setCategory(value)
+        @model.setFulltext(value)
 
       onChangePage: (event) ->
         event.preventDefault()
@@ -152,24 +133,6 @@ $(document).ready ->
           format(el, ui.values)
         else
           el.html("#{ui.values[0]} &ndash; #{ui.values[1]}")
-
-      onQuickSearch: (event) ->
-        @.advancedSearchClose()
-
-        value = $(event.target).val()
-
-        @.log "Starting quicksearch ... (value='#{value}')"
-
-        if value
-          #@.loading(@movie_list, reload: true)
-
-          @model.find value, (response) =>
-            @.log 'Response recieved.'
-
-            #@.updateMovieList(@movie_list, response.data, reload: true)
-        else
-          @.onModelChange(@model)
-
 
       onSearch: (options, callback) ->
         @.log "Searching ... (options=#{@.inspect options})"

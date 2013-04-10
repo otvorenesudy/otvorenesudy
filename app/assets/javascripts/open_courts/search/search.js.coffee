@@ -8,8 +8,13 @@ $(document).ready =>
   class OpenCourts.Search.App extends window.Module
     @include Util.Logger
 
+    constructor: (options) ->
+      @type = options.type
+
     start: ->
-       @model  = new OpenCourts.SearchModel
+       @model      = new OpenCourts.SearchModel
+       @model.type = @type
+
        @router = new OpenCourts.SearchRouter model: @model
        @view   = new OpenCourts.SearchView model: @model
 

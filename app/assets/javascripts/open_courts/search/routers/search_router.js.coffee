@@ -26,7 +26,6 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
 
         @model.set
           page:     json.page     or []
-          category: json.category or []
           judges:   json.judges   or []
           court:    json.court    or []
           date:     json.date     or []
@@ -36,7 +35,7 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
 
     adjustUrl: ->
       url = @.format @model.toJSON()
-      
+
       @.log "Navigating to url: '#{url}'"
       @.navigate url
 

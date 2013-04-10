@@ -1,8 +1,8 @@
-Util.View.Autocomplete =
-  autocomplete: (entity, options = {}) ->
+Util.View.Suggest =
+  suggest: (entity, options = {}) ->
     el = "##{entity}"
-    
-    @.log "Setting up autocomplete: #{entity}"
+
+    @.log "Setting up suggesting for #{entity}"
 
     $(el).autocomplete
       minLength: 0
@@ -12,20 +12,22 @@ Util.View.Autocomplete =
       source: (request, response) ->
         options.refresh?(entity)
 
+        data      = options.query?()
+        data.term = request.term
+
         $.ajax
-          url: "/autocomplete/#{entity}"
+          url: "/suggest/#{entity}"
           dataType: "json"
-          data:
-            data: options.query?()
-            term: request.term
+          data: data
           success: (d) ->
             response d.data
-  
-  autocompleteList: (entity, options = {}) ->
+
+  suggestList: (entity, options = {}) ->
     options.refresh = (entity) =>
       @.clearList(entity, selected: true)
 
-    @.autocomplete(entity, options)
+    @.suggest(entity, options)
       .data('autocomplete')._renderItem = (ul, item) =>
+        # TODO: append 'No item found' if there is not item found :)
         @.findOrCreateListItem(entity, item.alias, item.value, item.count)
 

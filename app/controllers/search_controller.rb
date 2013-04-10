@@ -1,11 +1,12 @@
 class SearchController < ApplicationController
+  include ActionView::Helpers::NumberHelper
 
   def autocomplete
     @entity = params[:entity].to_sym
     @term   = params[:term]
 
     if [:judges, :court].include?(@entity)
-      @model, @query = parse_search_query(params[:data])
+      @model, @query = parse_search_query
 
       render json: {
         data: @model.suggest(@entity, @term, @query)
@@ -19,54 +20,85 @@ class SearchController < ApplicationController
   end
 
   def search
-    @model, @query = parse_search_query(params[:data])
+    @model, @query = parse_search_query
 
-    @query[:options] = { global_facets: true }
+    if @model && @query
 
-    @search, @results = @model.search_by(@query)
+      @query[:options] = { global_facets: true }
 
-    @type  = @model.name.downcase.to_sym
-    @count = @results.total_count
-    @page  = @search[:results]
+      @search, @results = @model.search_by(@query)
 
-    render json: {
-      facets:     @search[:facets],
-      info:       render_to_string(partial: 'info'),
-      results:    render_to_string(partial: 'results'),
-      pagination: render_to_string(partial: 'pagination')
-    }
+      @type  = @model.name.downcase.to_sym
+      @count = @results.total_count
+      @page  = @search[:results]
+
+      render json: {
+        facets:     format_facets(@search[:facets]),
+        info:       render_to_string(partial: 'info'),
+        results:    render_to_string(partial: 'results'),
+        pagination: render_to_string(partial: 'pagination')
+      }
+
+    else
+      render status: 422, json: {
+        error: 'Not a valid query.'
+      }
+    end
   end
 
-  private 
+  private
 
-  def parse_search_query(params)
-    params ||= Hash.new
+  helper_method :parse_search_query,
+                :format_facets
 
-    model = Hearing
-    query = Hash.new
+  def parse_search_query
+    models = [:hearing, :decree]
 
+    query          = Hash.new
     query[:filter] = Hash.new
 
-    params.symbolize_keys.each do |key, value|
+    begin
 
-      case key
-      when :page
-        query[:page] = value.first if value.is_a?(Array)
-      when :category
-        # TODO: Parse category
-      when :judges
-        query[:filter].merge!(judges: params[key]) if params[key].is_a?(Array)
-      when :court
-        query[:filter].merge!(court: params[key]) if params[key].is_a?(Array)
-      when :date
-        times = params[key][0].split('..').map { |e| Time.parse(e) }
+      raise unless models.include?(params[:type].to_sym)
 
-        query[:filter].merge!(date: times[0]..times[1])
+      model = params[:type].camelize.constantize
+
+      data = params[:data] || Hash.new
+
+      data.symbolize_keys.each do |key, value|
+
+        case key
+        when :page
+          query[:page] = value.first
+        when :judges
+          query[:filter].merge!(judges: data[key])
+        when :court
+          query[:filter].merge!(court: data[key])
+        when :date
+          times = data[key][0].split('..').map { |e| Time.parse(e) }
+
+          query[:filter].merge!(date: times[0]..times[1])
+        end
+
       end
 
+      return model, query
+
+    rescue Exception => e
+      puts e.message
+
+      nil
     end
 
-    return model, query
+  end
+
+  def format_facets(facets)
+    # TODO: use better way to formatting facets count and etc?
+    facets.each do |key, values|
+      values.each do |facet|
+        facet[:count] = number_with_delimiter(facet[:count])
+      end
+    end
   end
 
 end

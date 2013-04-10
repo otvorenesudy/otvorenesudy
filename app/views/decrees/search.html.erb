@@ -1,15 +1,21 @@
-<% provide :title, "Rozšírené vyhľadávanie" %>
+<% provide :title, "Rozhodnutia" %>
 
 <% content_for :scripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-        window.app = new OpenCourts.Search.App
+        window.app = new OpenCourts.Search.App({ type: 'decree' })
         window.app.start()
     })
   </script>
 <% end %>
 
 <section id="search-view">
+
+  <div id="fulltext" class="input-append">
+    <%= facet_input class: 'input-xlarge', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
+    <button class='btn' type="button"><%= icon_tag 'search' %></button>
+  </div>
+
   <div class="row">
     <div id="search-panel" class="span4">
       <div class="facet">
