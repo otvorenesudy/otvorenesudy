@@ -7,12 +7,13 @@ module Document
     module ClassMethods
       # TODO: implement facet_filter to filter facets according to specified
       # query
-      
+
       def suggest(field, term, options = {})
         options[:query] ||= {}
 
         options[:facets]       = @facets.slice(field)
         options[:query][field] = term
+        options[:global_facets] = true
 
         options[:filter].delete(field)
 

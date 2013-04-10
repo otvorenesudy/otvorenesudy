@@ -42,30 +42,41 @@ module Document
       def format_result(result)
         data = Hash.new
 
-        data[:results] = result.results
-        data[:facets]  = format_facets(result.facets)
+        data[:results]    = fetch_records(result.results)
+        data[:facets]     = format_facets(result.facets)
+        data[:highlights] = result.results.map do |res|
+          highlights = Hash.new
+
+          @highlights.each do |field|
+            highlights[field] = res.highlight[analyzed(field)] if res.highlight
+          end
+
+          highlights
+        end
 
         return data, result
       end
 
       def compose_search(params, &block)
-        page       = params[:page]      || 1
-        per_page   = params[:per_page]  || 10
-        query      = params[:query]     || Hash.new
-        terms      = params[:filter]    || Hash.new
-        facets     = params[:facets]    || @facets
-        options    = params[:options]   || {}
+        page       = params[:page]       || 1
+        per_page   = params[:per_page]   || 10
+        query      = params[:query]      || Hash.new
+        terms      = params[:filter]     || Hash.new
+        facets     = params[:facets]     || @facets
+        highlights = params[:highlights] || @highlights
+        options    = params[:options]    || {}
         sort_block = params[:sort]
 
         options[:global_facets] ||= false
 
         facets = [facets] unless facets.respond_to?(:each)
 
-        results = tire.search page: page, per_page: per_page, load: true do |index|
+        results = tire.search page: page, per_page: per_page do |index|
 
           search_query(index, query, terms, options)
-          search_facets(index, facets, terms, options)
+          search_facets(index, facets, query, terms, options)
           search_sort(index, sort_block, options)
+          search_hightlights(index, query, highlights, options)
 
         end
 
@@ -110,13 +121,18 @@ module Document
         end
       end
 
-      def search_facets(index, facets, terms, options)
+      def search_facets(index, facets, query, terms, options)
         if facets.any?
 
           facets.each do |field, facet|
 
+            facet_options = Hash.new
+
+            facet_options[:global]       = options[:global_facets]
+            facet_options[:facet_filter] = facet_filter(query.except(field), terms.except(field))
+
             # TODO: add ordering (for dates, etc)
-            index.facet field.to_s, global: options[:global_facets] do |f|
+            index.facet field.to_s, facet_options do |f|
 
               case facet.type
               when :terms
@@ -129,16 +145,39 @@ module Document
 
               end
 
-              if terms.except(field).any?
-                f.facet_filter :and, facet_filter_values(terms.except(field))
-              end
             end
           end
 
         end
       end
 
-      def facet_filter_values(terms)
+      def facet_filter(query, terms)
+        filter = Hash.new
+
+        filter[:query] = facet_filter_query(query) if query.any?
+        filter[:and]   = facet_filter_terms(terms) if terms.any?
+
+        filter
+      end
+
+      def facet_filter_query(query)
+        result = { bool: { must: [] }}
+
+        query.each do |field, value|
+          result[:bool][:must] << {
+            query_string: {
+              query: "#{value}*",
+              default_field: analyzed(field),
+              default_operator: :and,
+              analyze_wildcard: true
+            }
+          }
+        end
+
+        result
+      end
+
+      def facet_filter_terms(terms)
         filter_values = []
 
         terms.each do |field, value|
@@ -170,6 +209,11 @@ module Document
         end
       end
 
+      def search_hightlights(index, query, highlights, options)
+        options = highlights.find_all { |f| query.key?(f) }.map { |e| analyzed(e) }
+
+        index.highlight(*options)
+      end
     end
   end
 end
