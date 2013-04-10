@@ -1,5 +1,5 @@
 <ol class="unstyled">
-  <% decrees.each do |decree| %>
+  <% decrees.each_with_index do |decree, i| %>
     <li>
       <h4>
         <%= link_to "Rozhodnutie #{decree.file_number}", decree_path(decree.id) %>
@@ -41,6 +41,13 @@
           </span>
         </div>
       </div>
+
+
+      <% if @highlights[i] && @highlights[i][:text] %>
+      <blockquote>
+        <%= sanitize(@highlights[i][:text].first, tags: %w(em)) %>
+      </blockquote>
+    <% end %>
     </li>
   <% end %>
 </ol>
