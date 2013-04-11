@@ -58,8 +58,6 @@ $(document).ready ->
       updateList: (name) ->
         @.log "Updating list: #{name}"
 
-        @.listShow(name)
-
         @.refreshListValues(name)
 
         list = @.list(name)
@@ -67,8 +65,9 @@ $(document).ready ->
         for value in @model.get name
           label = @model.label(name, value)
 
-          @.prependListItem(list, label, value, @model.facet(name, value))
+          @.prependListItem(list, label, value)
           @.selectListItem(list, value)
+
 
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"
@@ -108,7 +107,7 @@ $(document).ready ->
       onChangePage: (event) ->
         event.preventDefault()
 
-        value = @.findValue(event.target, 'href').match(/&page=\d+$/)?[0]
+        value = @.findValue(event.target, 'href').match(/&page=\d+/)?[0]
 
         value = parseInt(value?.match(/\d+$/)?[0])
 
