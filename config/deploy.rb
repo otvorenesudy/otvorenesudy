@@ -7,8 +7,8 @@ require "capistrano-resque"
 
 set :domain, "37.205.9.136"
 
-set :stages,        [:devel]
-set :default_stage, :devel
+set :stages,        [:staging]
+set :default_stage, :staging
 
 set :application,    "opencourts"
 set :scm,            :git
