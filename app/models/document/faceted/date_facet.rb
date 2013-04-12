@@ -4,7 +4,7 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
   def initialize(name, options)
     super(name, options)
 
-    @interval = options[:interval] 
+    @interval = options[:interval]
     @alias  ||= method(:alias_date)
   end
 
@@ -17,7 +17,7 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
           value: format_date_range(e['time']).to_s,
           count: e['count']
         }
-      end
+      end.reverse!
 
     end
   end
@@ -25,17 +25,17 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
   private
 
   def format_time(timestamp)
-    Time.at(timestamp.to_i/1000).to_datetime
+    Time.at(timestamp.to_i/1000)
   end
 
   def format_date_range(timestamp)
     # TODO: more interval options
 
-    date = format_time(timestamp).to_datetime
+    date = format_time(timestamp)
 
     case @interval
     when :month
-      date..(date + 1.month)
+      date.beginning_of_month.to_i..date.end_of_month.to_i
     end
   end
 
