@@ -2,12 +2,12 @@
 
 section#search-view {
   padding-top: 40px;
- 
+
   #search-panel {
     .category + .category {
       margin-top: 20px;
     }
-    
+
     li {
       position: relative;
 
@@ -15,6 +15,27 @@ section#search-view {
         background-color: $grayLighter;
         color: $gray;
         text-shadow: none;
+      }
+
+      .add {
+        display: none;
+      }
+
+      &:not(.selected):hover {
+        .add {
+          display: block;
+
+          position: absolute;
+          top: 3px;
+          left: -17px;
+
+          cursor: pointer;
+          color: $grayLight;
+
+          &:hover {
+            color: $linkColorHover;
+          }
+        }
       }
 
       .remove {
@@ -31,7 +52,7 @@ section#search-view {
       }
     }
   }
-  
+
   #search-results {
     .spinner {
       margin: 40px;
@@ -39,13 +60,13 @@ section#search-view {
 
     ol {
       margin: 0px;
-      
+
       li + li {
         margin: 20px 0px;
         padding-top: 10px;
         border-top: 1px solid $grayLighter;
       }
-      
+
       li:last-child {
         margin-bottom: 0px;
       }

@@ -20,7 +20,8 @@ $(document).ready ->
         'click a[href="#"]'                 : 'onClickButton'
         'click #fulltext button'            : 'onSubmitFulltext'
         'change #fulltext input'            : 'onSubmitFulltext'
-        'click #search-panel ul li a'       : 'onClickListItem'
+        'click #search-panel ul li a'       : 'onSelectListItem'
+        'click #search-panel ul li .add'    : 'onAddListItem'
         'click #search-panel ul li .remove' : 'onRemoveListItem'
         'click .pagination ul li a'         : 'onChangePage'
 
@@ -65,9 +66,8 @@ $(document).ready ->
         for value in @model.get name
           label = @model.label(name, value)
 
-          @.prependListItem(list, label, value)
+          @.prependListItem(list, label, value, @model.facet(name, value))
           @.selectListItem(list, value)
-
 
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"
@@ -115,12 +115,19 @@ $(document).ready ->
 
         @model.setPage(value)
 
-      onClickListItem: (event) ->
+      onSelectListItem: (event) ->
         list  = @.listByItem(event.target)
         value = @.listItemValue(event.target)
         attr  = @.listEntity(list)
 
-        @model.add attr, value, multi: attr.pluralized()
+        @model.add attr, value, multi: false
+
+      onAddListItem: (event) ->
+        list  = @.listByItem(event.target)
+        value = @.listItemValue(event.target)
+        attr  = @.listEntity(list)
+
+        @model.add attr, value, multi: true
 
       onRemoveListItem: (event) ->
         list  = @.listByItem(event.target)
