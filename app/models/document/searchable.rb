@@ -13,7 +13,6 @@ module Document
 
       private
 
-      # TODO: deprecated in favor of default tire AR results load
       def fetch_records(hits)
         return [] unless hits
 
@@ -74,10 +73,12 @@ module Document
         results = tire.search page: page, per_page: per_page do |index|
 
           search_query(index, query, terms, options)
+          search_filter(index, terms, options)
           search_facets(index, facets, query, terms, options)
           search_sort(index, sort_block, options)
           search_highlights(index, query, highlights, options)
 
+          puts JSON.pretty_generate(index.to_hash)
         end
 
         results
@@ -86,39 +87,30 @@ module Document
       private
 
       def search_query(index, query, terms, options)
-        if query.any? or terms.any?
+        if query.any?
 
+          # TODO: refactor, move wildcard for suggest module
           index.query do |q|
             q.boolean do |bool|
 
               query.each do |field, values|
                 field = analyzed(field)
 
-                bool.must { string "#{values}*", default_field: field, default_operator: :and, analyze_wildcard: true }
-              end
-
-              terms.each do |field, value|
-                field = not_analyzed(field)
-
-                case
-                when value.is_a?(Range)
-
-                  bool.must { range field, { gte: value.min, lte: value.max }}
-
-                when value.respond_to?(:each)
-
-                  value.each { |e| bool.must { term field, e }}
-
-                else
-
-                  bool.must { term field, value }
-
-                end
+                bool.must {
+                  string "#{values}*",
+                  default_field: field,
+                  default_operator: :and,
+                  analyze_wildcard: true
+                }
               end
 
             end
           end
         end
+      end
+
+      def search_filter(index, terms, options)
+        index.filter :and, build_filters(terms) if terms.any?
       end
 
       def search_facets(index, facets, query, terms, options)
@@ -131,18 +123,13 @@ module Document
             facet_options[:global]       = options[:global_facets]
             facet_options[:facet_filter] = facet_filter(query.except(field), terms.except(field))
 
-            # TODO: add ordering (for dates, etc)
             index.facet field.to_s, facet_options do |f|
 
               case facet.type
               when :terms
-
                 f.terms not_analyzed(field)
-
               when :date
-
                 f.date not_analyzed(field), interval: facet.interval
-
               end
 
             end
@@ -151,19 +138,11 @@ module Document
         end
       end
 
-      def facet_filter(query, terms)
-        filter = Hash.new
-
-        filter[:and] = facet_filter_values(query, terms) if query.any? or terms.any?
-
-        filter
-      end
-
-      def facet_filter_values(query, terms)
-        filter_values = []
+      def build_query(query)
+        filters = []
 
         query.each do |field, value|
-          filter_values << {
+          filters << {
             query: {
               query_string: {
                 query: "#{value}*",
@@ -175,25 +154,47 @@ module Document
           }
         end
 
-        terms.each do |field, value|
+        filters
+      end
 
-          case
-          when value.is_a?(Range)
+      def build_filters(terms)
+        filters = []
 
-            filter_values << { range: { not_analyzed(field) => { gte: value.min, lte: value.max }}}
+        terms.each do |field, values|
+          field = not_analyzed(field)
 
-          when value.respond_to?(:each)
+          filter = []
 
-            value.each do |e|
-              filter_values << { term: { not_analyzed(field) => e } }
+          values.each do |value|
+
+            case
+            when value.is_a?(Range)
+              filter << { range: { field => { gte: value.min, lte: value.max }}}
+            else
+              filter << { term: { field => value }}
             end
 
-          else
-
-            filter_values << { term: { not_analyzed(field) => value } }
-
           end
+
+          filters << { or: filter }
         end
+
+        filters
+      end
+
+      def facet_filter(query, terms)
+        filter = Hash.new
+
+        filter[:and] = build_facet_filter(query, terms) if query.any? or terms.any?
+
+        filter
+      end
+
+      def build_facet_filter(query, terms)
+        filter_values = []
+
+        filter_values.concat(build_query(query))
+        filter_values.concat(build_filters(terms))
 
         filter_values
       end

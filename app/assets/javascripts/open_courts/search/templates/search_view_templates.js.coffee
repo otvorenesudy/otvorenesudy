@@ -1,11 +1,12 @@
 OpenCourts.SearchViewTemplates =
   template:
     remove_list_item: _.template('
-      <i class="icon-remove-sign remove"></i>
+      <i class="icon-remove remove"></i>
     '),
 
     list_item: _.template('
       <li data-value="<%= value %>"> 
+        <i class="icon-plus add"></i>
         <a href="#"><%= label %></a>
         <span class="label facet"><%= facet %></span>
       </li>

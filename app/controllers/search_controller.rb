@@ -77,9 +77,11 @@ class SearchController < ApplicationController
         when :court
           query[:filter].merge!(court: data[key])
         when :date
-          times = data[key][0].split('..').map { |e| Time.parse(e) }
+          dates = data[key].map { |e| e.split('..') }
 
-          query[:filter].merge!(date: times[0]..times[1])
+          dates.map! { |e| Time.at(e[0].to_i)..Time.at(e[1].to_i)}
+
+          query[:filter].merge!(date: dates)
         when :fulltext
           query[:query].merge!(text: data[key].first)
         end
