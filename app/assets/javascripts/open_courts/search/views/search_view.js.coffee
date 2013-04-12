@@ -66,8 +66,11 @@ $(document).ready ->
         for value in @model.get name
           label = @model.label(name, value)
 
-          @.prependListItem(list, label, value, @model.facet(name, value))
-          @.selectListItem(list, value)
+          if label
+            @.prependListItem(list, label, value, @model.facet(name, value))
+            @.selectListItem(list, value)
+          else
+            @model.remove name, value, silent: true
 
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"
