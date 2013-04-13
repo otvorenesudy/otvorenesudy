@@ -39,6 +39,9 @@ class Judge < ActiveRecord::Base
   has_many :decrees, through: :judgements,
                      dependent: :destroy
 
+  has_many :property_declarations, class_name: :JudgePropertyDeclaration,
+                                   dependent: :destroy
+
   validates :name, presence: true
 
   def active
