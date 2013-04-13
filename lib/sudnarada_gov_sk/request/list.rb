@@ -1,6 +1,6 @@
-module JusticeGovSk
+module SudnaradaGovSk
   class Request
-    class List < JusticeGovSk::Request
+    class List < SudnaradaGovSk::Request
       include Core::Request::List
       
       def initialize(options = {})
