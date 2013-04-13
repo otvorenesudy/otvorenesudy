@@ -4,7 +4,7 @@ class Document::Faceted::TermsFacet < Document::Faceted::Facet
     super(results) do |res|
 
       res['terms'].map do |e|
-        { value: e['term'], count: e['count'] }
+        { value: e['term'], count: e['count'], alias: e['term'] }
       end
 
     end

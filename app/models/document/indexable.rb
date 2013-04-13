@@ -36,8 +36,8 @@ module Document
       end
 
       def mappings
-        @mappings   ||= {}
-        @highlights ||= []
+        @mappings           ||= {}
+        @highlighted_fields ||= []
 
         yield
 
@@ -48,7 +48,7 @@ module Document
             type     = options[:type]     || :string
             analyzer = options[:analyzer] || 'text_analyzer'
 
-            @highlights << field if options[:highlight]
+            @highlighted_fields << field if options[:highlight]
 
             if value[:type].eql? :mapped
               indexes field, options.merge!(index: :not_analyzed)
@@ -67,7 +67,7 @@ module Document
       end
 
       def facets
-        @facets ||= {}
+        @faceted_fields ||= {}
 
         yield
       end
@@ -92,7 +92,7 @@ module Document
         type = options[:type]
 
         # TODO: use core/injector?
-        @facets[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
+        @faceted_fields[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
       end
 
     end

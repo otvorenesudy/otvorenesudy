@@ -21,21 +21,21 @@ module Document
         end
       end
 
-      def format_facets(facets)
-        result = Hash.new
+      def format_facets(results)
+        facets = Hash.new
 
-        return result unless facets
+        return facets unless results
 
-        facets.each do |field, values|
+        results.each do |field, values|
           field  = field.to_sym
-          facet  = @facets[field]
+          facet  = @facets[field] # look up our facet wrapper fot the field
 
           facet.populate(values)
 
-          result[field] = facet.values
+          facets[field] = facet.values
         end
 
-        result
+        facets
       end
 
       def format_result(result)
@@ -57,26 +57,26 @@ module Document
       end
 
       def compose_search(params, &block)
-        page       = params[:page]       || 1
-        per_page   = params[:per_page]   || 10
-        query      = params[:query]      || Hash.new
-        terms      = params[:filter]     || Hash.new
-        facets     = params[:facets]     || @facets
-        highlights = params[:highlights] || @highlights
-        options    = params[:options]    || {}
-        sort_block = params[:sort]
+        @page       = params[:page]       || 1
+        @per_page   = params[:per_page]   || 10
+        @query      = params[:query]      || Hash.new
+        @terms      = params[:filter]     || Hash.new
+        @facets     = params[:facets]     || @faceted_fields
+        @highlights = params[:highlights] || @highlighted_fields
+        @options    = params[:options]    || {}
+        @sort_block = params[:sort]
 
-        options[:global_facets] ||= false
+        @options[:global_facets] ||= false
 
-        facets = [facets] unless facets.respond_to?(:each)
+        @facets = [@facets] unless @facets.respond_to?(:each)
 
-        results = tire.search page: page, per_page: per_page do |index|
+        results = tire.search page: @page, per_page: @per_page do |index|
 
-          search_query(index, query, terms, options)
-          search_filter(index, terms, options)
-          search_facets(index, facets, query, terms, options)
-          search_sort(index, sort_block, options)
-          search_highlights(index, query, highlights, options)
+          search_query(index)
+          search_filter(index)
+          search_facets(index)
+          search_sort(index)
+          search_highlights(index)
 
           puts JSON.pretty_generate(index.to_hash)
         end
@@ -86,14 +86,14 @@ module Document
 
       private
 
-      def search_query(index, query, terms, options)
-        if query.any?
+      def search_query(index)
+        if @query.any?
 
           # TODO: refactor, move wildcard for suggest module
           index.query do |q|
             q.boolean do |bool|
 
-              query.each do |field, values|
+              @query.each do |field, values|
                 field = analyzed(field)
 
                 bool.must {
@@ -109,19 +109,19 @@ module Document
         end
       end
 
-      def search_filter(index, terms, options)
-        index.filter :and, build_filters(terms) if terms.any?
+      def search_filter(index)
+        index.filter :and, build_filters(@terms) if @terms.any?
       end
 
-      def search_facets(index, facets, query, terms, options)
-        if facets.any?
+      def search_facets(index)
+        if @facets.any?
 
-          facets.each do |field, facet|
+          @facets.each do |field, facet|
 
             facet_options = Hash.new
 
-            facet_options[:global]       = options[:global_facets]
-            facet_options[:facet_filter] = facet_filter(query.except(field), terms.except(field))
+            facet_options[:global]       = @options[:global_facets]
+            facet_options[:facet_filter] = facet_filter(@query.except(field), @terms.except(field))
 
             index.facet field.to_s, facet_options do |f|
 
@@ -199,14 +199,14 @@ module Document
         filter_values
       end
 
-      def search_sort(index, sort_block, options)
-        if sort_block
-          index.sort sort_block
+      def search_sort(index)
+        if @sort_block
+          index.sort @sort_block
         end
       end
 
-      def search_highlights(index, query, highlights, options)
-        options = highlights.find_all { |f| query.key?(f) }.map { |e| analyzed(e) }
+      def search_highlights(index)
+        options = @highlights.find_all { |f| @query.key?(f) }.map { |e| analyzed(e) }
 
         index.highlight(*options)
       end

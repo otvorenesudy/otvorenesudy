@@ -28,7 +28,7 @@ Util.Model.Attributes =
 
     @.set(attr, @[attr])
 
-  remove: (attr, value) ->
+  remove: (attr, value, options) ->
     @.setupAttribute(attr)
 
     @.log "Removing from '#{attr}': #{value}"
@@ -37,5 +37,5 @@ Util.Model.Attributes =
 
     @.log "Setting '#{attr}': #{@.inspect @[attr]}"
 
-    @.set(attr, @[attr])
+    @.set(attr, @[attr], silent: options?.silent)
 
