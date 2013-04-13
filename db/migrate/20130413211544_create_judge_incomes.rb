@@ -1,4 +1,4 @@
-class CreateJudgeReceipts < ActiveRecord::Migration
+class CreateJudgeIncomes < ActiveRecord::Migration
   def change
     create_table :judge_incomes do |t|
       t.references :judge_property_declaration, null: false
@@ -9,7 +9,8 @@ class CreateJudgeReceipts < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :judge_incomes, [:judge_property_declaration_id, :description], unique: true
+    add_index :judge_incomes, [:judge_property_declaration_id, :description],
+               unique: true, name: 'index_judge_incomes_on_unique_values'
     
     add_index :judge_incomes, :description
   end

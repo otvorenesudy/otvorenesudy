@@ -7,7 +7,10 @@ class CreateJudgePropertyLists < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :judge_property_lists, [:judge_property_declaration_id, :judge_property_category_id], unique: true
-    add_index :judge_property_lists, [:judge_property_category_id, :judge_property_declaration_id], unique: true
+    add_index :judge_property_lists, [:judge_property_declaration_id, :judge_property_category_id],
+               unique: true, name: 'index_judge_property_lists_on_unique_values'
+                
+    add_index :judge_property_lists, [:judge_property_category_id, :judge_property_declaration_id],
+               unique: true, name: 'index_judge_property_lists_on_unique_values_reversed'
   end
 end

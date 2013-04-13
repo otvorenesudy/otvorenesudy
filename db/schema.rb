@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407151849) do
+ActiveRecord::Schema.define(:version => 20130413211610) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -222,6 +222,17 @@ ActiveRecord::Schema.define(:version => 20130407151849) do
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
+  create_table "judge_incomes", :force => true do |t|
+    t.integer  "judge_property_declaration_id",                                :null => false
+    t.string   "description",                                                  :null => false
+    t.decimal  "value",                         :precision => 12, :scale => 2, :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
+
+  add_index "judge_incomes", ["description"], :name => "index_judge_incomes_on_description"
+  add_index "judge_incomes", ["judge_property_declaration_id", "description"], :name => "index_judge_incomes_on_unique_values", :unique => true
+
   create_table "judge_positions", :force => true do |t|
     t.string   "value",      :null => false
     t.datetime "created_at", :null => false
@@ -229,6 +240,105 @@ ActiveRecord::Schema.define(:version => 20130407151849) do
   end
 
   add_index "judge_positions", ["value"], :name => "index_judge_positions_on_value", :unique => true
+
+  create_table "judge_proclaims", :force => true do |t|
+    t.integer  "judge_property_declaration_id", :null => false
+    t.integer  "judge_statement_id",            :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "judge_proclaims", ["judge_property_declaration_id", "judge_statement_id"], :name => "index_judge_proclaims_on_unique_values", :unique => true
+  add_index "judge_proclaims", ["judge_statement_id", "judge_property_declaration_id"], :name => "index_judge_proclaims_on_unique_values_reversed", :unique => true
+
+  create_table "judge_properties", :force => true do |t|
+    t.integer  "judge_property_list_id",               :null => false
+    t.integer  "judge_property_acquisition_reason_id", :null => false
+    t.integer  "judge_property_ownership_form_id",     :null => false
+    t.integer  "judge_property_change_id_id",          :null => false
+    t.string   "description",                          :null => false
+    t.date     "acquisition_date",                     :null => false
+    t.integer  "cost",                                 :null => false
+    t.string   "share_size"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "judge_properties", ["judge_property_list_id"], :name => "index_judge_properties_on_judge_property_list_id"
+
+  create_table "judge_property_acquisition_reasons", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_property_acquisition_reasons", ["value"], :name => "index_judge_property_acquisition_reasons_on_value", :unique => true
+
+  create_table "judge_property_categories", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_property_categories", ["value"], :name => "index_judge_property_categories_on_value", :unique => true
+
+  create_table "judge_property_changes", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_property_changes", ["value"], :name => "index_judge_property_changes_on_value", :unique => true
+
+  create_table "judge_property_declarations", :force => true do |t|
+    t.integer  "judge_id",   :null => false
+    t.integer  "year",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_property_declarations", ["judge_id", "year"], :name => "index_judge_property_declarations_on_judge_id_and_year", :unique => true
+  add_index "judge_property_declarations", ["year", "judge_id"], :name => "index_judge_property_declarations_on_year_and_judge_id", :unique => true
+
+  create_table "judge_property_lists", :force => true do |t|
+    t.integer  "judge_property_declaration_id", :null => false
+    t.integer  "judge_property_category_id",    :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "judge_property_lists", ["judge_property_category_id", "judge_property_declaration_id"], :name => "index_judge_property_lists_on_unique_values_reversed", :unique => true
+  add_index "judge_property_lists", ["judge_property_declaration_id", "judge_property_category_id"], :name => "index_judge_property_lists_on_unique_values", :unique => true
+
+  create_table "judge_property_ownership_forms", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_property_ownership_forms", ["value"], :name => "index_judge_property_ownership_forms_on_value", :unique => true
+
+  create_table "judge_related_people", :force => true do |t|
+    t.integer  "judge_property_declaration_id", :null => false
+    t.string   "name",                          :null => false
+    t.string   "institution",                   :null => false
+    t.string   "function",                      :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "judge_related_people", ["function"], :name => "index_judge_related_people_on_function"
+  add_index "judge_related_people", ["institution"], :name => "index_judge_related_people_on_institution"
+  add_index "judge_related_people", ["judge_property_declaration_id", "name"], :name => "index_judge_related_people_on_unique_values", :unique => true
+  add_index "judge_related_people", ["name"], :name => "index_judge_related_people_on_name"
+
+  create_table "judge_statements", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_statements", ["value"], :name => "index_judge_statements_on_value", :unique => true
 
   create_table "judgements", :force => true do |t|
     t.integer  "decree_id",                                            :null => false

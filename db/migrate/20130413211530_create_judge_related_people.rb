@@ -10,7 +10,8 @@ class CreateJudgeRelatedPeople < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :judge_related_people, [:judge_property_declaration_id, :name], unique: true
+    add_index :judge_related_people, [:judge_property_declaration_id, :name],
+               unique: true, name: 'index_judge_related_people_on_unique_values'
     
     add_index :judge_related_people, :name
     add_index :judge_related_people, :institution
