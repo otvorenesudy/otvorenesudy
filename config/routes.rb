@@ -7,7 +7,7 @@ OpenCourts::Application.routes.draw do
   match '/stats',   to: 'static_pages#stats'
 
   match '/search',          to: 'search#search' # TODO rename, probably both route & to
-  match '/suggest/:entity', to: 'search#autocomplete'
+  match '/suggest/:entity', to: 'search#suggest'
 
   resources :courts do
      get :map, on: :collection
