@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
-  def autocomplete
+  def suggest
     @entity = params[:entity].to_sym
     @term   = params[:term]
 
@@ -23,8 +23,9 @@ class SearchController < ApplicationController
     @model, @query = parse_search_query
 
     if @model && @query
+      @query[:options] ||= Hash.new
 
-      @query[:options] = { global_facets: true }
+      @query[:options].merge! global_facets: true
 
       @search, @results = @model.search_by(@query)
 
@@ -79,7 +80,7 @@ class SearchController < ApplicationController
         when :date
           dates = data[key].map { |e| e.split('..') }
 
-          dates.map! { |e| Time.at(e[0].to_i)..Time.at(e[1].to_i)}
+          dates.map! { |e| Time.at(e[0].to_i)..Time.at(e[1].to_i) }
 
           query[:filter].merge!(date: dates)
         when :fulltext

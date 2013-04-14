@@ -30,6 +30,8 @@ module Document
           field  = field.to_sym
           facet  = @facets[field] # look up our facet wrapper fot the field
 
+          facet.selected = @terms[field]
+
           facet.populate(values)
 
           facets[field] = facet.values
