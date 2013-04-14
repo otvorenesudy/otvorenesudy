@@ -43,7 +43,7 @@ module Core
     end      
     
     def run_lister(lister, request, options = {}, &block)
-      offset = options[:offset].blank? ? 1 : options[:offset].to_i
+      offset = options[:offset].blank? ? nil : options[:offset].to_i
       limit  = options[:limit].blank? ? nil : options[:limit].to_i
       block  = lambda { lister.crawl request, offset, limit } unless block_given?
       

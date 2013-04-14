@@ -10,12 +10,12 @@ module Core
                   :pages,
                   :next_page
 
-      def crawl(request, offset = 1, limit = nil)
+      def crawl(request, offset = nil, limit = nil)
         @offset, @limit = offset, limit
         @total = @count = 0
         
-        counter      = limit if @limit
-        request.page = offset
+        counter      = @limit  if @limit
+        request.page = @offset if @offset
         
         loop do
           if @limit
@@ -70,11 +70,11 @@ module Core
       private
       
       def state_request
-        "request #{@request.class.name} on page #{@request.page} of #{@pages || '?'}, max. #{@limit ? pluralize(@limit, 'page') : '? pages'}, max. #{pluralize @request.per_page, 'item'} per page"
+        "request #{@request.class.name} on page #{@request.page} of #{@pages || '?'}, max. #{@limit ? pluralize(@limit, 'page') : '? pages'}, max. #{@request.per_page ? pluralize(@request.per_page, 'item') : '?'} per page"
       end
       
       def state_page
-        "page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{@result.nil? ? '?' : pluralize(@result.count, 'item')}, next page #{@next_page || 'N/A'}"
+        "page #{@page || 'N/A'} of #{@pages || 'N/A'}, #{@result ? pluralize(@result.count, 'item') : '?'}, next page #{@next_page || 'N/A'}"
       end
       
       def state_item
