@@ -3,8 +3,8 @@ class JudgeRelatedPerson < ActiveRecord::Base
                   :institution,
                   :function
   
-  has_many :property_declarations, class_name: :JudgePropertyDeclaration,
-                                   foreign_key: :judge_property_declaration_id
+  belongs_to :property_declaration, class_name: :JudgePropertyDeclaration,
+                                    foreign_key: :judge_property_declaration_id
              
   validates :name,        presence: true
   validates :institution, presence: true
