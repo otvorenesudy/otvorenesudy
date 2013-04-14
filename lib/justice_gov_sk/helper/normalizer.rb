@@ -26,7 +26,7 @@ module JusticeGovSk
       private
       
       def court_name_map
-        return @court_name_map unless @court_name_map.nil?
+        return @court_name_map if @court_name_map
         
         map = {
           "Najvyšší súd SR"                => "Najvyšší súd Slovenskej republiky",
@@ -83,7 +83,7 @@ module JusticeGovSk
           
           if part.match(/\./)
             if part.match(/(PhD|CSc|DrSc)\./i)
-              suffixes << part
+              suffixes << person_name_title_map[part.downcase.to_sym]
             elsif part.match(/\((ml|st)\.\)/)
               additions << part.gsub(/[\(\)]/, '')
             else
@@ -92,7 +92,9 @@ module JusticeGovSk
               prefixes << part
             end
           else
-            if part == part.upcase
+            if part.match(/(JUDr|Mgr)/i)
+              prefixes << "#{person_name_title_map[part.downcase.to_sym]}."
+            elsif part == part.upcase
               uppercase << part.titlecase
             else
               mixedcase << part.titlecase
@@ -128,6 +130,20 @@ module JusticeGovSk
           role:        role
         }
       end
+      
+      private
+      
+      def person_name_title_map
+        @person_name_title_map if @person_name_title_map
+        
+        map = {}
+        
+        ['JUDr', 'Mgr', 'PhD', 'CSc', 'DrSc'].each { |v| map[v.downcase.to_sym] = v }
+        
+        @person_name_title_map = map
+      end
+      
+      public
       
       def normalize_zipcode(value)
         value = value.ascii.strip.gsub(/\s+/, '')
