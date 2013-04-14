@@ -7,9 +7,9 @@ module SudnaradaGovSk
         @options = options
         @type    = @options[:type]
         
-        @downloader = inject SudnaradaGovSk::Downloader, implementation: @type, suffix: :List
-        @parser     = inject SudnaradaGovSk::Parser,     implementation: @type, suffix: :List
-        @persistor  = inject SudnaradaGovSk::Persistor,  implementation: @type, suffix: :List
+        @downloader = inject SudnaradaGovSk::Agent,     implementation: @type, suffix: :List
+        @parser     = inject SudnaradaGovSk::Parser,    implementation: @type, suffix: :List
+        @persistor  = inject SudnaradaGovSk::Persistor, implementation: @type, suffix: :List
       end
       
       protected

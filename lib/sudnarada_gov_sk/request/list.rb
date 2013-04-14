@@ -4,8 +4,7 @@ module SudnaradaGovSk
       include Core::Request::List
       
       def initialize(options = {})
-        @per_page = options[:per_page] || 100
-        @page     = options[:page]     || 1
+        @page = options[:page] || 1
       end
     end
   end

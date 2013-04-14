@@ -8,7 +8,7 @@ module SudnaradaGovSk
     include Core::Pluralize
     
     def initialize(options = {})
-      @downloader = inject SudnaradaGovSk::Downloader
+      @downloader = inject SudnaradaGovSk::Agent
       @parser     = inject SudnaradaGovSk::Parser
       @persistor  = inject SudnaradaGovSk::Persistor
     end
