@@ -50,16 +50,8 @@ $(document).ready ->
 
           @.updateFulltext(@model.getFulltext())
 
-          selected = {}
-
           for entity, value of @model.facets
-            selected[entity] = @.updateList(entity)
-
-          @.log "Selected items: #{@.inspect selected}"
-
-          # TODO: find another solution for this hotfix
-          @model.set selected # some values might not be part of results, so remove them from query
-
+            @.updateList(entity)
 
       updateFulltext: (value) ->
         $('#fulltext input').val(value)
@@ -71,18 +63,12 @@ $(document).ready ->
 
         list = @.list(name)
 
-        selected = []
-
         for value in @model.get name
           label = @model.label(name, value)
 
-          if label
-            @.prependListItem(list, label, value, @model.facet(name, value)) unless @.listHasItem(list, value)
-            @.selectListItem(list, value)
-
-            selected.push value
-
-        selected
+          # TODO: consider not showing facet count for selected items
+          @.prependListItem(list, label, value, @model.facet(name, value))
+          @.selectListItem(list, value)
 
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"
