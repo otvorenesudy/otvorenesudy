@@ -2,27 +2,34 @@ module SudnaradaGovSk
   class Parser
     class JudgePropertyDeclarationList < SudnaradaGovSk::Parser::List
       def list(document)
-        find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|
-          anchors.map { |a| "#{JusticeGovSk::URL.base}#{a[:href]}" }
+        find_values 'list', document, 'table.table_list td.roky a', verbose: false do |anchors|
+          anchors.map { |a| "#{SudnaradaGovSk::URL.base}#{a[:href]}" }
         end
       end
       
       def page(document)
-        @page ||= find_value 'page', document, 'tr.CssPager select:first-child option[selected="selected"]' do |option|
-          option.text.to_i
+        @page ||= find_value 'page', document, 'div.pagelist b' do |bold|
+          bold.text.to_i
         end
       end
       
       def pages(document)
-        @pages ||= find_value 'pages', document, 'tr.CssPager select:first-child option:last-child' do |option|
-          option.text.to_i
+        @pages ||= find_value 'pages', document, 'div.pagelist a' do |anchors|
+          pages = nil
+          
+          anchors.reverse.each do |anchor|
+            if anchor.text =~ /\d+/
+              pages = anchor.text.to_i
+              break
+            end 
+          end
+          
+          pages
         end
       end
       
       def per_page(document)
-        find_value 'per page', document, 'tr.CssPager select:last-child option[selected="selected"]' do |option|
-          option.text.to_i
-        end
+        nil
       end
     end
   end

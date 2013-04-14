@@ -1,7 +1,7 @@
 module SudnaradaGovSk
   module URL
     def self.base
-      'http://www.sudnarada.gov.sk'
+      'http://mps.sudnarada.gov.sk'
     end
     
     def self.valid?(url)
@@ -9,27 +9,18 @@ module SudnaradaGovSk
     end
     
     def self.url_to_path(url, ext = nil)
-      
-      # TODO reimplement
-      
       uri  = URI.parse(url)
       path = uri.path
-      
-      path.gsub!(/Stranky\/Sudy/i,              '')
-      path.gsub!(/Stranky\/Pojednavania/i,      '')
-      path.gsub!(/Stranky\/Sudne-rozhodnutia/i, '')
-      
-      path.gsub!(/(?<court>[\-\w]+)\/SudDetail/i, 'court-\k<court>')
-      path.gsub!(/PojednavanieDetail/i,           'civil-hearing')
-      path.gsub!(/PojednavanieTrestDetail/i,      'criminal-hearing')
-      path.gsub!(/PojednavanieSpecDetail/i,       'special-hearing')
-      path.gsub!(/Sudne-rozhodnutie-detail/i,     'decree')
 
-      path.gsub!(/\//, '')
+      if path =~ /\d+\/\z/
+        parts = path.split(/\//)
+        path  = "#{parts.last.match(/\d+\z/)[0]}/#{parts.second}"
+      else
+        path.gsub!(/\//, '')
+      end
       
       path.downcase!
       
-      path = "#{path}?#{uri.query}" unless uri.query.nil?
       "#{path}.#{ext || :html}" unless path.blank?
     end
   end
