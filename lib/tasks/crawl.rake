@@ -27,7 +27,7 @@ namespace :crawl do
   desc "Crawl judge property declarations from sudnarada.gov.sk"
   task :judge_property_declarations, [:offset, :limit] => :environment do |_, args|
     args.with_defaults safe: false
-    SudnaradaGovSk.crawl_resource JudgePropertyDeclaration, args
+    SudnaradaGovSk.crawl_resources JudgePropertyDeclaration, args
   end
   
   namespace :hearings do
