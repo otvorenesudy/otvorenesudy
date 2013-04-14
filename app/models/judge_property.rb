@@ -15,8 +15,4 @@ class JudgeProperty < ActiveRecord::Base
 
   belongs_to :change, class_name: :JudgePropertyChange,
                       foreign_key: :judge_property_change_id
-  
-  validates :description,      presence: true
-  validates :acquisition_date, presence: true
-  validates :cost,             presence: true
 end
