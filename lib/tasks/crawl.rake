@@ -3,6 +3,7 @@
 # rake crawl:courts
 # 
 # rake crawl:judges
+# rake crawl:judge_property_declarations
 # 
 # rake crawl:hearings:civil
 # rake crawl:hearings:criminal
@@ -23,6 +24,12 @@ namespace :crawl do
     JusticeGovSk.crawl_resources Judge, args
   end
 
+  desc "Crawl judge property declarations from sudnarada.gov.sk"
+  task :judge_property_declarations, [:offset, :limit] => :environment do |_, args|
+    args.with_defaults safe: false
+    SudnaradaGovSk.crawl_resource JudgePropertyDeclaration, args
+  end
+  
   namespace :hearings do
     desc "Crawl civil hearings from justice.gov.sk"
     task :civil, [:offset, :limit] => :environment do |_, args|
@@ -53,6 +60,11 @@ namespace :crawl do
   task :court, [:url] => :environment do |_, args|
     JusticeGovSk.crawl_resource Court, args[:url], safe: true
   end  
+  
+  desc "Crawl specific judge property declaration from sudnarada.gov.sk"
+  task :judge_property_declaration, [:url] => :environment do |_, args|
+    SudnaradaGovSk.crawl_resource JudgePropertyDeclaration, args[:url], safe: true
+  end
   
   namespace :hearing do
     desc "Crawl specific civil hearing from justice.gov.sk"
