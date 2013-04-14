@@ -4,8 +4,8 @@ class CreateJudgeRelatedPeople < ActiveRecord::Migration
       t.references :judge_property_declaration, null: false
       
       t.string :name,        null: false
-      t.string :institution, null: false
-      t.string :function,    null: false
+      t.string :institution, null: true
+      t.string :function,    null: true
 
       t.timestamps
     end

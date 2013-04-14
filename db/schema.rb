@@ -321,8 +321,8 @@ ActiveRecord::Schema.define(:version => 20130413211610) do
   create_table "judge_related_people", :force => true do |t|
     t.integer  "judge_property_declaration_id", :null => false
     t.string   "name",                          :null => false
-    t.string   "institution",                   :null => false
-    t.string   "function",                      :null => false
+    t.string   "institution"
+    t.string   "function"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end

@@ -6,7 +6,5 @@ class JudgeRelatedPerson < ActiveRecord::Base
   belongs_to :property_declaration, class_name: :JudgePropertyDeclaration,
                                     foreign_key: :judge_property_declaration_id
              
-  validates :name,        presence: true
-  validates :institution, presence: true
-  validates :function,    presence: true
+  validates :name, presence: true
 end
