@@ -5,7 +5,7 @@ class CreateJudgeProperties < ActiveRecord::Migration
       
       t.references :judge_property_acquisition_reason, null: false
       t.references :judge_property_ownership_form,     null: false
-      t.references :judge_property_change_id,          null: false
+      t.references :judge_property_change,             null: false
       
       t.string  :description,      null: false
       t.date    :acquisition_date, null: false
