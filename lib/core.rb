@@ -43,7 +43,9 @@ require 'core/crawler'
 require 'core/crawler/helper'
 require 'core/crawler/list'
 require 'core/injector'
+require 'core/base'
 require 'core/version'
 
 module Core
+  extend Core::Base
 end
