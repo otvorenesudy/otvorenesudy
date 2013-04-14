@@ -257,7 +257,7 @@ ActiveRecord::Schema.define(:version => 20130413211610) do
     t.integer  "judge_property_ownership_form_id"
     t.integer  "judge_property_change_id"
     t.string   "description"
-    t.date     "acquisition_date"
+    t.string   "acquisition_date"
     t.integer  "cost"
     t.string   "share_size"
     t.datetime "created_at",                           :null => false

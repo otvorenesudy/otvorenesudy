@@ -8,7 +8,7 @@ class CreateJudgeProperties < ActiveRecord::Migration
       t.references :judge_property_change
       
       t.string  :description
-      t.date    :acquisition_date
+      t.string  :acquisition_date
       t.integer :cost
       t.string  :share_size
       
