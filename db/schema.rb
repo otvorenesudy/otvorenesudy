@@ -253,12 +253,12 @@ ActiveRecord::Schema.define(:version => 20130413211610) do
 
   create_table "judge_properties", :force => true do |t|
     t.integer  "judge_property_list_id",               :null => false
-    t.integer  "judge_property_acquisition_reason_id", :null => false
-    t.integer  "judge_property_ownership_form_id",     :null => false
-    t.integer  "judge_property_change_id",             :null => false
-    t.string   "description",                          :null => false
-    t.date     "acquisition_date",                     :null => false
-    t.integer  "cost",                                 :null => false
+    t.integer  "judge_property_acquisition_reason_id"
+    t.integer  "judge_property_ownership_form_id"
+    t.integer  "judge_property_change_id"
+    t.string   "description"
+    t.date     "acquisition_date"
+    t.integer  "cost"
     t.string   "share_size"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
