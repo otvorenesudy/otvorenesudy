@@ -5,7 +5,7 @@ module JusticeGovSk
       include Core::Pluralize
       
       def match_judges_by(name)
-        name = name[:altogether]
+        name = name.is_a?(Hash) ? name[:altogether] : name.to_s
         
         print "Matching judges by name #{name} ... "
         
@@ -18,6 +18,8 @@ module JusticeGovSk
             puts "done (exact match)"
             puts matched_judges 1.0, exact
             
+            return { 1.0 => map[1.0] } unless block_given?
+            
             exact.each do |judge|
               yield 1.0, judge
             end
@@ -27,6 +29,8 @@ module JusticeGovSk
             map.each do |similarity, judges|
               puts matched_judges similarity, judges
             end
+  
+            return map unless block_given?
             
             map.each do |similarity, judges|
               judges.each do |judge|
@@ -38,6 +42,8 @@ module JusticeGovSk
           puts "failed (no match)"
           puts "No judges matched, storing partial entry for #{name}."
           
+          return { 0.0 => nil } unless block_given?
+
           yield 0.0, nil
         end
       end
