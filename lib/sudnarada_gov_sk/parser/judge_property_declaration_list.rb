@@ -3,13 +3,13 @@ module SudnaradaGovSk
     class JudgePropertyDeclarationList < SudnaradaGovSk::Parser::List
       def list(document)
         find_values 'list', document, 'table.table_list td.roky a', verbose: false do |anchors|
-          anchors.map { |a| "#{SudnaradaGovSk::URL.base}#{a[:href]}" }
+          anchors.map { |a| "#{SudnaradaGovSk::URL.base}#{a[:href].ascii}" }
         end
       end
       
       def page(document)
         @page ||= find_value 'page', document, 'div.pagelist b' do |bold|
-          bold.text.to_i
+          bold.text.to_i - 1
         end
       end
       
