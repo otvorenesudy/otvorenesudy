@@ -143,6 +143,7 @@ module Document
       def build_query(query)
         filters = []
 
+        # TODO: tokenize value by space
         query.each do |field, value|
           filters << {
             query: {

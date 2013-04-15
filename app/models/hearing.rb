@@ -52,6 +52,7 @@ class Hearing < ActiveRecord::Base
     analyze :subject,           as: lambda { |h| h.subject.value  if h.subject        }
     analyze :form,              as: lambda { |h| h.form.value     if h.form           }
     analyze :court,             as: lambda { |h| h.court.name     if court            }
+    # TODO: consider naming in singular
     analyze :judges,            as: lambda { |h| h.judges.map(&:name).concat(h.partial_judgings.map(&:judge_name)) }
     analyze :proposers,         as: lambda { |h| h.proposers.map  { |p| p.name }      }
     analyze :opponents,         as: lambda { |h| h.opponents.map  { |o| o.name }      }

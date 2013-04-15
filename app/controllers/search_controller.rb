@@ -83,7 +83,7 @@ class SearchController < ApplicationController
           dates.map! { |e| Time.at(e[0].to_i)..Time.at(e[1].to_i) }
 
           query[:filter].merge!(date: dates)
-        when :fulltext
+        when :q
           query[:query].merge!(text: data[key].first)
         end
 
