@@ -5,8 +5,8 @@
         <%= link_to "Rozhodnutie #{decree.file_number}", decree_path(decree.id) %>
         <br/>
         <small>
-          Pojednávanie <%= decree.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
-          <%= decree.date %>
+          Rozhodnutie bolo vydané dňa &ndash;
+          <%= time_tag decree.date, format: :long %>
         </small>
       </h4>
 
