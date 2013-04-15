@@ -29,6 +29,7 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
 
   def format_value(value)
     # TODO: more interval options
+    # TODO: resolve multiple time format (es=Date, others=Timestamp)
 
     if value.is_a?(Range)
       date = value.first

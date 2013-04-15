@@ -27,10 +27,6 @@ class Document::Faceted::Facet
     @values = results.map(&:symbolize_keys)
   end
 
-  def format_value(value)
-    value
-  end
-
   def values
     @values.map! do |data|
       data = yield data if block_given?
@@ -47,6 +43,12 @@ class Document::Faceted::Facet
     end
 
     @values
+  end
+
+  private
+
+  def format_value(value)
+    value
   end
 
 end
