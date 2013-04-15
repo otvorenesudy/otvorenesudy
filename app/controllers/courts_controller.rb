@@ -21,5 +21,10 @@ class CourtsController < ApplicationController
     @judges   = @court.judges.order(:first, :middle, :last)
     @hearings = @court.hearings
     @decrees  = @court.decrees
+
+    @query = { court: [@court.name] }
+
+    @hearings = @court.hearings.limit(10)
+    @decrees  = @court.decrees.limit(10)
   end
 end

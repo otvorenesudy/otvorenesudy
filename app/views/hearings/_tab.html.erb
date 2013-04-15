@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="span9">
+    <%= render partial: 'hearings/results', locals: { hearings: @hearings } %>
+  </div>
+
+  <div class="span3">
+    <h4>
+      <%= link_to_hearings_search "Viac pojednávaní", params: @query  %>
+    </h4>
+  </div>
+</div>
+
+

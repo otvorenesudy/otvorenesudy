@@ -8,7 +8,7 @@
       <small><%= @court.address %></small>
     </h1>
   </div>
-  
+
   <div class="row">
     <div class="span12">
       <p>
@@ -25,7 +25,7 @@
   <div class="row">
     <div class="span12">
       <div class="tabbable">
-        
+
         <ul class="nav nav-tabs">
           <li class="active">
             <a href="#contact" data-toggle="tab">Kontakt</a>
@@ -50,14 +50,14 @@
           </div>
 
           <div id="hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @hearings %>
+            <%= render partial: 'hearings/tab' %>
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render 'decrees', decrees: @decrees %>
+            <%= render partial: 'decrees/tab' %>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>

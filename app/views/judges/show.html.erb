@@ -10,7 +10,7 @@
       </small>
     </h1>
   </div>
-  
+
   <div class="row">
     <div class="span12">
       <% @employments.each do |employment| %>
@@ -32,7 +32,7 @@
   <div class="row">
     <div class="span12">
       <div class="tabbable">
-        
+
         <ul class="nav nav-tabs">
           <li class="active">
             <a href="#hearings" data-toggle="tab">Pojednávania</a>
@@ -42,14 +42,14 @@
 
         <div class="tab-content">
          <div id="hearings" class="tab-pane active">
-            <%= render 'hearings', hearings: @hearings %>
+            <%= render partial: 'hearings/tab' %>
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render 'decrees', decrees: @decrees %>
+            <%= render partial: 'decrees/tab' %>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>

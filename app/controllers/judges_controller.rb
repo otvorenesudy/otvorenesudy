@@ -9,5 +9,7 @@ class JudgesController < ApplicationController
     @employments = @judge.employments
     @hearings    = @judge.hearings
     @decrees     = @judge.decrees
+
+    @query = { judges: @judge.name }
   end
 end
