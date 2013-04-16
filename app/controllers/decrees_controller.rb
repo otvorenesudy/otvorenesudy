@@ -4,6 +4,6 @@ class DecreesController < ApplicationController
     
     @court = @decree.court
     
-    @legislations = @decree.legislations
+    @legislations = @decree.legislations.order(:value)
   end
 end
