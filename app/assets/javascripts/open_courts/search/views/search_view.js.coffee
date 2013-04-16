@@ -155,9 +155,11 @@ $(document).ready ->
         $("#{@result_pagination}, #{@result_info}").empty()
 
         @model.search (response) =>
-          @.log 'Search was successful.'
+          @.log 'Running response callback.'
 
-          if response
+          if response.error
+            $(@result_list).html(response.html)
+          else
             @.updateResults response
 
           @.unloading @result_list

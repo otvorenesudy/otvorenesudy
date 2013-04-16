@@ -47,8 +47,11 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
         @.log "Response: #{@.inspect response}"
 
         callback?(response)
-      error: ->
+      error: (error) =>
         @.err "Error occured while searching (model=#{@.toJSON()})"
+
+        # dirty fix for server errors
+        document.write(error.responseText)
 
   values: (field) ->
     @facets?[field]?.map (facet) -> facet.value
