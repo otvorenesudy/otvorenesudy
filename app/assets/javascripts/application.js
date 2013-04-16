@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.autocomplete
+//= require jquery.ui.all
 //= require jquery.spin
 //= require inflection
 //= require bootstrap
@@ -24,4 +24,5 @@
 //= require open_courts/search/search
 //= require gmaps4rails/gmaps4rails.base
 //= require gmaps4rails/gmaps4rails.googlemaps
+//= require document_viewer/dv
 //= require fixes

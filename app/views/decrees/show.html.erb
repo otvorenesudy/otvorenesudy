@@ -67,6 +67,10 @@
   </div>
 </section>
 
+<div id="DV-container">
+</div>
+
+
 <section id="decree-resource">
   <div class="row">
     <div class="span12">
@@ -79,3 +83,21 @@
     </div>
   </div>
 </section>
+
+
+
+<% content_for :scripts do %>
+
+<script type="text/javascript">
+  DV.load('/19864-goldman-sachs-internal-emails.json', { 
+        container: '#DV-container', 
+        width: 1000, 
+        height: 800, 
+        search: true, 
+        sidebar: false, 
+        zoom: 'auto', 
+        showNotes: 'false'
+  });
+</script>
+<% end %>
+</script>

@@ -9,5 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require assets
+ *= require errors
+ *= require fixes
+ *= require layout
+ *= require maps
+ *= require mixins
+ *= require search
+ *= require variables
+ *= require document_viewer/dv
  */
