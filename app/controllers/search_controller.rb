@@ -42,8 +42,9 @@ class SearchController < ApplicationController
       }
 
     else
-      render status: 422, json: {
-        error: 'Not a valid query.'
+      render json: {
+        error: 'Y U NO haz valid query!',
+        html:  render_to_string(partial: 'error')
       }
     end
   end
@@ -61,7 +62,6 @@ class SearchController < ApplicationController
     query[:query]  = Hash.new
 
     begin
-
       raise unless models.include?(params[:type].to_sym)
 
       model = params[:type].camelize.constantize
@@ -69,6 +69,7 @@ class SearchController < ApplicationController
       data = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
+        raise unless model.has_field?(key)
 
         case key
         when :page
