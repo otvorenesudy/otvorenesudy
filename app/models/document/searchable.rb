@@ -214,12 +214,7 @@ module Document
       def build_facet(index, name, field, facet, options)
         index.facet name, options do |f|
 
-          case facet.type
-          when :terms
-            f.terms not_analyzed(field)
-          when :date
-            f.date not_analyzed(field), interval: facet.interval
-          end
+          facet.build(f, not_analyzed(field))
 
         end
       end

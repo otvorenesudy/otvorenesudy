@@ -1,5 +1,9 @@
 class Document::Faceted::TermsFacet < Document::Faceted::Facet
 
+  def build(facet, field)
+    facet.terms field
+  end
+
   private
 
   def format_facets(results)

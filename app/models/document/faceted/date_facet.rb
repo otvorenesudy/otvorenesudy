@@ -8,6 +8,10 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
     @alias  ||= method(:alias_date)
   end
 
+  def build(facet, field)
+    facet.date field, interval: @interval
+  end
+
   private
 
   def format_facets(results)
