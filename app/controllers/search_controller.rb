@@ -61,7 +61,6 @@ class SearchController < ApplicationController
     query[:filter] = Hash.new
     query[:query]  = Hash.new
 
-    begin
       raise unless models.include?(params[:type].to_sym)
 
       model = params[:type].camelize.constantize
@@ -69,7 +68,7 @@ class SearchController < ApplicationController
       data = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
-        raise unless model.has_field?(key)
+        raise unless model.has_field?(key) || [:page, :per_page, :q].include?(field)
 
         case key
         when :page
@@ -91,12 +90,6 @@ class SearchController < ApplicationController
       end
 
       return model, query
-
-    rescue Exception => e
-      puts e.message
-
-      nil
-    end
 
   end
 

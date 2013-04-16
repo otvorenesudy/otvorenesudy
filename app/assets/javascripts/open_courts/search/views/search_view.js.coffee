@@ -108,9 +108,9 @@ $(document).ready ->
       onChangePage: (event) ->
         event.preventDefault()
 
-        value = @.findValue(event.target, 'href').match(/&page=\d+/)?[0]
+        value = $(event.target).attr('href').match(/&page=\d+/)?[0]
 
-        value = parseInt(value?.match(/\d+$/)?[0])
+        value = parseInt(value?.match(/\d+/)?[0])
 
         @.log "Setting page to #{value}"
 
