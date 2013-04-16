@@ -1,6 +1,6 @@
 class JudgesController < ApplicationController
   def index
-    @judges = Judge.order(:first, :middle, :last).page(params[:page])
+    @judges = Judge.order(:last, :middle, :first).page(params[:page])
   end
 
   def show
