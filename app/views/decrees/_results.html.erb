@@ -6,7 +6,7 @@
         <br/>
         <small>
           Rozhodnutie bolo vydané dňa &ndash;
-          <%= time_tag decree.date, format: :long %>
+          <%= decree_date decree.date %>
         </small>
       </h4>
 
@@ -18,8 +18,6 @@
           <% if decree.judgements.any? || decree.partial_judgements.any? %>
             <br/>
             Sudcovia &ndash; <%= links_to_judges(decree.judgements.map { |j| j.judge }.concat(decree.partial_judgements.map { |j| j.judge_name })) %>
-
-
           <% end %>
 
 <!-- TODO consider adding other attributes such as:

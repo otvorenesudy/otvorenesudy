@@ -38,7 +38,7 @@ sk:
   date:
     formats:
       default: '%-d.%-m. %Y'
-      long: '%-d. %B %Y'
+      long: '%A %-d. %B %Y'
       short: '%-d.%-m.'
 
   time:
