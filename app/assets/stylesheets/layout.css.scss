@@ -97,6 +97,13 @@ i.icon-space {
   font-size: $baseFontSize;
 }
 
+// alerts
+
+.alert {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
 // popovers and tooltips
 
 a[rel="popover"], a[rel="tooltip"] {
