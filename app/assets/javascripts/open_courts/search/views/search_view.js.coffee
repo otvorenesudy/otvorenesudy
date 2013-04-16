@@ -41,7 +41,7 @@ $(document).ready ->
 
         @.log 'Initialization done.'
 
-        @.onModelChange()
+        @.onModelChange() unless Backbone.history.getHash().length > 0
 
       onModelChange: (obj) ->
         @.log "Model changed. (model=#{@.inspect obj})"
