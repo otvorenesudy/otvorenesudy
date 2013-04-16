@@ -5,8 +5,8 @@
     <h1>
       <%= yield :title %>
       <small>
-        <%= t :hearing, count: @judge.hearings.count %> a
-        <%= t :decree,  count: @judge.decrees.count %>.
+        <%= t :hearing, count: number_with_delimiter(@judge.hearings.count) %> a
+        <%= t :decree,  count: number_with_delimiter(@judge.decrees.count) %>.
       </small>
     </h1>
   </div>
@@ -20,8 +20,8 @@
           na súde 
           <%= link_to_court employment.court %>,
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
-          <%= t :hearing, count: Hearing.during_employment(employment).count %> a
-          <%= t :decree, count: Decree.during_employment(employment).count %>.
+          <%= t :hearing, count: number_with_delimiter(Hearing.during_employment(employment).count) %> a
+          <%= t :decree, count: number_with_delimiter(Decree.during_employment(employment).count) %>.
         </p>
       <% end %>
     </div>

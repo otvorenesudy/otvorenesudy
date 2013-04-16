@@ -4,10 +4,10 @@
       <h1>
         <%= yield :title %>
         <small>
-          <%= t :court,   count: Court.count %>,
-          <%= t :judge,   count: Judge.count %>,
-          <%= t :hearing, count: Hearing.count %> a
-          <%= t :decree,  count: Decree.count %>
+          <%= t :court,   count: number_with_delimiter(Court.count) %>,
+          <%= t :judge,   count: number_with_delimiter(Judge.count) %>,
+          <%= t :hearing, count: number_with_delimiter(Hearing.count) %> a
+          <%= t :decree,  count: number_with_delimiter(Decree.count) %>
         </small>
       </h1>
     </div>

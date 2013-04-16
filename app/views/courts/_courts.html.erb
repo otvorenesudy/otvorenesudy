@@ -18,13 +18,13 @@
           <%= court.address %>
         </td>
         <td class="number">
-          <%= court.judges.count %>
+          <%= number_with_delimiter court.judges.count %>
         </td>
         <td class="number">
-          <%= court.hearings.count %>
+          <%= number_with_delimiter court.hearings.count %>
         </td>
         <td class="number">
-          <%= court.decrees.count %>
+          <%= number_with_delimiter court.decrees.count %>
         </td>
       </tr>
     <% end %>

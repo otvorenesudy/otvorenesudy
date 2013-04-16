@@ -12,10 +12,10 @@
   <div class="row">
     <div class="span12">
       <p>
-        Na súde pracuje <%= t :judge, count: @court.judges.count %>.
+        Na súde pracuje <%= t :judge, count: number_with_delimiter(@court.judges.count) %>.
         Pre súd <%= 'zatiaľ ne' if @court.hearings.none? %>evidujeme
-        <%= t :hearing, count: @court.hearings.count %>
-        a&nbsp;<%= t :decree, count: @court.decrees.count %>.
+        <%= t :hearing, count: number_with_delimiter(@court.hearings.count) %>
+        a&nbsp;<%= t :decree, count: number_with_delimiter(@court.decrees.count) %>.
       </p>
     </div>
   </div>

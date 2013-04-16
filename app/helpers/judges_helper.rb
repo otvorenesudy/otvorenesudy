@@ -24,11 +24,11 @@ module JudgesHelper
   end
 
   def judge_hearings_count_by_employment(employment, options = {})
-    content_tag :span, Hearing.during_employment(employment).count, employment.active ? {} : { class: :muted }
+    content_tag :span, number_with_delimiter(Hearing.during_employment(employment).count), employment.active ? {} : { class: :muted }
   end
 
   def judge_decrees_count_by_employment(employment, options = {})
-    content_tag :span, Decree.during_employment(employment).count, employment.active ? {} : { class: :muted }
+    content_tag :span, number_with_delimiter(Decree.during_employment(employment).count), employment.active ? {} : { class: :muted }
   end
 
   def judge_name(judge, format = nil)
