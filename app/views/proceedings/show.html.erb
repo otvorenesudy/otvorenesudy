@@ -7,8 +7,8 @@
       <%= tooltip_tag @proceeding.file_number, "Identifikačné číslo súdnych spisov", :right %>
       <br/>
       <small>
-        Evidujeme <%= t :hearing, count: @hearings.count %>
-        a <%= t :decree, count: @decrees.count %>
+        Evidujeme <%= t :hearing, number_with_delimiter(count: @hearings.count) %>
+        a <%= t :decree, count: number_with_delimiter(@decrees.count) %>
       </small>
     </h1>
   </div>
