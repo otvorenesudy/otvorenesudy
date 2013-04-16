@@ -1,6 +1,8 @@
 @import 'variables';
 @import 'mixins';
 
+// popovers and tooltips
+
 .popover-inner {
   text-align: left;
 }
@@ -9,6 +11,8 @@
   line-height: $baseLineHeight;
   text-align: center;
 }
+
+// forms
 
 textarea,
 input[type="text"],
@@ -31,6 +35,55 @@ input[type="color"],
     @include box-shadow(0 1px 1px rgba($black, 0.075), 0 0 8px rgba($inputBorderFocus, 0.6));
   }
 }
+
+// alerts
+
+.alert a {
+  text-decoration: underline;
+  
+  &.close {
+    text-decoration: none;
+  }
+  
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
+
+.alert-error a {
+  color: $errorLinkColor;
+  
+  &:hover, &:focus {
+    color: $errorLinkColorHover;
+  }
+}
+
+.alert-info a {
+  color: $infoLinkColor;
+  
+  &:hover, &:focus {
+    color: $infoLinkColorHover;
+  }
+}
+
+.alert-notice a,
+.alert-warning a {
+  color: $warningLinkColor;
+  
+  &:hover, &:focus {
+    color: $warningLinkColorHover;
+  }
+}
+
+.alert-success a {
+  color: $successLinkColor;
+  
+  &:hover, &:focus {
+    color: $successLinkColorHover;
+  }
+}
+
+// other stuff
 
 .ui-helper-hidden-accessible {
   display:none;

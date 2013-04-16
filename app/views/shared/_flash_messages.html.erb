@@ -1,6 +1,7 @@
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
-    <a class="close" data-dismiss="alert" href="#">&times;</a>
-    <%= value %>
-  </div>
-<% end %>
+<section id="flash">
+  <% flash.each do |type, message| %>
+    <div class="alert alert-<%= type %>">
+      <%= message %>
+    </div>
+  <% end %>
+</section>
