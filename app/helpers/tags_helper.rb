@@ -1,4 +1,4 @@
-module TagHelper
+module TagsHelper
   def square_tag(type, body, options = {})
     content_tag :span, body, options.merge(class: "label label-#{type.to_s}")
   end
