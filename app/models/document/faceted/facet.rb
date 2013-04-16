@@ -16,7 +16,7 @@ class Document::Faceted::Facet
 
     results = format_facets(results)
 
-    results.concat format_facets(selected)
+    results.concat format_facets(selected) if selected
 
     @values = results.map(&:symbolize_keys)
   end

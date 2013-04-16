@@ -11,6 +11,7 @@ module Document
       def suggest(field, term, options = {})
         options[:query] ||= {}
 
+        facet                   = faceted_fields[field]
         options[:facets]        = faceted_fields.slice(field)
         options[:query][field]  = term
         options[:global_facets] = true
@@ -19,9 +20,15 @@ module Document
         options[:filter].delete(field)
 
         result = compose_search(options) do |index|
-          search_facets(index)
+          facet_options = Hash.new
+
+          facet_options[:global]       = true
+          facet_options[:facet_filter] = facet_filter(@query, @terms)
+
+          build_facet(index, field, field, facet, facet_options)
         end
 
+        # TODO: use facet validator to exclude redundant facets
         format_facets(result.facets)[field]
       end
 
