@@ -43,6 +43,10 @@ module Document
         field.to_s =~ /_selected/
       end
 
+      def has_field?(field)
+        @mappings[field].present?
+      end
+
       def faceted_fields
         @faceted_fields ||= {}
       end
