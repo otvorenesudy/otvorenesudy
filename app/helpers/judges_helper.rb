@@ -61,7 +61,7 @@ module JudgesHelper
   end
 
   def link_to_partial_judge(name, options = {})
-    tooltip_tag name, 'Sudca nie je uvedený v zozname sudcov.', :bottom, :hover, options
+    tooltip_tag name, 'Sudca nie je uvedený v zozname sudcov', :bottom, :hover, options
   end
 
   def links_to_partial_judges(judges, options = {})
