@@ -8,7 +8,7 @@ class DecreesController < ApplicationController
     
     @legislations = @decree.legislations.order(:value)
     
-    flash[:error]  = render_to_string(partial: 'date_error').html_safe  if @decree.date > Time.now.to_date
-    flash[:notice] = render_to_string(partial: 'date_notice').html_safe if @decree.date > @decree.created_at.to_date
+    flash.now[:notice] = render_to_string(partial: 'date_notice').html_safe if @decree.had_future_date?
+    flash.now[:error]  = render_to_string(partial: 'date_error').html_safe  if @decree.has_future_date?
   end
 end

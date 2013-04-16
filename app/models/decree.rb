@@ -59,6 +59,14 @@ class Decree < ActiveRecord::Base
     use :court,  type: :terms
     use :date,   type: :date, interval: :month # using default alias for interval from DateFacet
   end
+  
+  def has_future_date?
+    date > Time.now.to_date
+  end
+  
+  def had_future_date?
+    date > created_at.to_date
+  end
 
   storage :page,           JusticeGovSk::Storage::DecreePage,     extension: :html
   storage :document,       JusticeGovSk::Storage::DecreeDocument, extension: :pdf

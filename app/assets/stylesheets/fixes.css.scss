@@ -40,11 +40,7 @@ input[type="color"],
 
 .alert a {
   text-decoration: underline;
-  
-  &.close {
-    text-decoration: none;
-  }
-  
+
   &:hover, &:focus {
     text-decoration: none;
   }
