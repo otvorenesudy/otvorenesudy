@@ -7,7 +7,7 @@ class JudgesController < ApplicationController
     @judge = Judge.find(params[:id])
 
     @employments = @judge.employments
-    @hearings    = @judge.hearings
-    @decrees     = @judge.decrees
+    @hearings    = @judge.hearings.limit(10)
+    @decrees     = @judge.decrees.limit(10)
   end
 end
