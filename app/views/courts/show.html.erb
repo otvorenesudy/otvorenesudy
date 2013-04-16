@@ -50,11 +50,11 @@
           </div>
 
           <div id="hearings" class="tab-pane">
-            <%= render partial: 'hearings/tab' %>
+            <%= render partial: 'hearings/tab', locals: { query: { court: @court.name } } %>
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render partial: 'decrees/tab' %>
+            <%= render partial: 'decrees/tab', locals: { query: { court: @court.name } } %>
           </div>
         </div>
 

@@ -22,8 +22,6 @@ class CourtsController < ApplicationController
     @hearings = @court.hearings
     @decrees  = @court.decrees
 
-    @query = { court: [@court.name] }
-
     @hearings = @court.hearings.limit(10)
     @decrees  = @court.decrees.limit(10)
   end
