@@ -4,10 +4,10 @@
       <h1>
         <%= yield :title %>
         <small>
-          <%= t :court,   count: number_with_delimiter(Court.count) %>,
-          <%= t :judge,   count: number_with_delimiter(Judge.count) %>,
-          <%= t :hearing, count: number_with_delimiter(Hearing.count) %> a
-          <%= t :decree,  count: number_with_delimiter(Decree.count) %>
+          <%= number_with_translation(Court.count,   key: :court) %>,
+          <%= number_with_translation(Judge.count,   key: :judge) %>,
+          <%= number_with_translation(Hearing.count, key: :hearing) %> a
+          <%= number_with_translation(Decree.count,  key: :decree) %>
         </small>
       </h1>
     </div>

@@ -21,11 +21,11 @@
         <% end %>
       <% end %>
       <% if court.judges.any? %>
-        Na súde pracuje <strong><%= t :judge, count: number_with_delimiter(court.judges.count) %></strong>.
+        Na súde pracuje <strong><%= number_with_translation(court.judges.count, key: :judge) %></strong>.
       <% end %>
       Pre súd <%= 'zatiaľ ne' if court.hearings.none? %>evidujeme
-      <strong><%= t :hearing, count: number_with_delimiter(court.hearings.count) %></strong>
-      a&nbsp;<strong><%= t :decree, count: number_with_delimiter(court.decrees.count) %></strong>.
+      <strong><%= number_with_translation(court.hearings.count, key: :hearing) %></strong>
+      a&nbsp;<strong><%= number_with_translation(court.decrees.count, key: :decree) %></strong>.
     </div>
   </div>
   <div class="span4">
