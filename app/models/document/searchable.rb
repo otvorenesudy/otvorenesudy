@@ -26,11 +26,14 @@ module Document
 
         return facets unless results
 
-        results.each do |field, values|
-          field  = field.to_sym
+        results.symbolize_keys!
+
+        facet_results = results.select { |field, _| !selected?(field) }
+
+        facet_results.each do |field, values|
           facet  = @facets[field] # look up our facet wrapper fot the field
 
-          facet.selected = @terms[field]
+          facet.selected = results[selected(field)]
 
           facet.populate(values)
 
@@ -58,13 +61,13 @@ module Document
         return data, result
       end
 
-      def compose_search(params, &block)
+      def compose_search(params)
         @page       = params[:page]       || 1
         @per_page   = params[:per_page]   || 10
         @query      = params[:query]      || Hash.new
         @terms      = params[:filter]     || Hash.new
-        @facets     = params[:facets]     || @faceted_fields
-        @highlights = params[:highlights] || @highlighted_fields
+        @facets     = params[:facets]     || faceted_fields
+        @highlights = params[:highlights] || highlighted_fields
         @options    = params[:options]    || {}
         @sort_block = params[:sort]
 
@@ -74,19 +77,37 @@ module Document
 
         results = tire.search page: @page, per_page: @per_page do |index|
 
-          search_query(index)
-          search_filter(index)
-          search_facets(index)
-          search_sort(index)
-          search_highlights(index)
+          if block_given?
 
-          puts JSON.pretty_generate(index.to_hash)
+            yield index
+
+          else
+
+            search_query(index)
+            search_filter(index)
+            search_facets(index)
+            search_sort(index)
+            search_highlights(index)
+
+          end
+
+          puts JSON.pretty_generate(index.to_hash) # debug
         end
 
         results
       end
 
       private
+
+      def escape_query(value)
+        value.gsub(/"/, '\"')
+      end
+
+      def prepare_query(value)
+        q = escape_query(value).split(/\s/).map { |e| "#{e}*" }.join(' ')
+
+        q.present? ? q : "*"
+      end
 
       def search_query(index)
         if @query.any?
@@ -98,8 +119,10 @@ module Document
               @query.each do |field, values|
                 field = analyzed(field)
 
+                values = prepare_query(values)
+
                 bool.must {
-                  string "#{values}*",
+                  string values,
                   default_field: field,
                   default_operator: :and,
                   analyze_wildcard: true
@@ -112,29 +135,33 @@ module Document
       end
 
       def search_filter(index)
-        index.filter :and, build_filters(@terms) if @terms.any?
+        if @query.any? || @terms.any?
+          filters = []
+
+          filters.concat build_filters(@terms) if @terms.any?
+          filters.concat build_query(@query)   if @query.any?
+
+          index.filter :and, filters
+        end
       end
 
       def search_facets(index)
         if @facets.any?
 
           @facets.each do |field, facet|
-
             facet_options = Hash.new
 
+            # global facets
             facet_options[:global]       = @options[:global_facets]
             facet_options[:facet_filter] = facet_filter(@query.except(field), @terms.except(field))
 
-            index.facet field.to_s, facet_options do |f|
+            build_facet(index, field, field, facet, facet_options)
 
-              case facet.type
-              when :terms
-                f.terms not_analyzed(field)
-              when :date
-                f.date not_analyzed(field), interval: facet.interval
-              end
+            # facets for selected values
+            facet_options[:global]       = false
+            facet_options[:facet_filter] = facet_filter(@query, @terms)
 
-            end
+            build_facet(index, selected(field), field, facet, facet_options)
           end
 
         end
@@ -143,12 +170,11 @@ module Document
       def build_query(query)
         filters = []
 
-        # TODO: tokenize value by space
         query.each do |field, value|
           filters << {
             query: {
               query_string: {
-                query: "#{value}*",
+                query: "#{prepare_query(value)}",
                 default_field: analyzed(field),
                 default_operator: :and,
                 analyze_wildcard: true
@@ -185,6 +211,19 @@ module Document
         filters
       end
 
+      def build_facet(index, name, field, facet, options)
+        index.facet name, options do |f|
+
+          case facet.type
+          when :terms
+            f.terms not_analyzed(field)
+          when :date
+            f.date not_analyzed(field), interval: facet.interval
+          end
+
+        end
+      end
+
       def facet_filter(query, terms)
         filter = Hash.new
 
@@ -196,8 +235,8 @@ module Document
       def build_facet_filter(query, terms)
         filter_values = []
 
-        filter_values.concat(build_query(query))
-        filter_values.concat(build_filters(terms))
+        filter_values.concat build_query(query)
+        filter_values.concat build_filters(terms)
 
         filter_values
       end

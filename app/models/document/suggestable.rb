@@ -11,15 +11,18 @@ module Document
       def suggest(field, term, options = {})
         options[:query] ||= {}
 
-        options[:facets]       = @facets.slice(field)
-        options[:query][field] = term
+        options[:facets]        = faceted_fields.slice(field)
+        options[:query][field]  = term
         options[:global_facets] = true
+        options[:per_page]      = 0 # dont fetch any documents
 
         options[:filter].delete(field)
 
-        facets = format_facets(compose_search(options).facets)
+        result = compose_search(options) do |index|
+          search_facets(index)
+        end
 
-        facets[field]
+        format_facets(result.facets)[field]
       end
 
     end

@@ -35,9 +35,24 @@ module Document
         "#{field}.untouched".to_sym
       end
 
+      def selected(field)
+        "#{field}_selected".to_sym
+      end
+
+      def selected?(field)
+        field.to_s =~ /_selected/
+      end
+
+      def faceted_fields
+        @faceted_fields ||= {}
+      end
+
+      def highlighted_fields
+        @highlighted_fields ||= []
+      end
+
       def mappings
         @mappings           ||= {}
-        @highlighted_fields ||= []
 
         yield
 
@@ -48,7 +63,7 @@ module Document
             type     = options[:type]     || :string
             analyzer = options[:analyzer] || 'text_analyzer'
 
-            @highlighted_fields << field if options[:highlight]
+            highlighted_fields << field if options[:highlight]
 
             if value[:type].eql? :mapped
               indexes field, options.merge!(index: :not_analyzed)
@@ -67,8 +82,6 @@ module Document
       end
 
       def facets
-        @faceted_fields ||= {}
-
         yield
       end
 
@@ -92,7 +105,7 @@ module Document
         type = options[:type]
 
         # TODO: use core/injector?
-        @faceted_fields[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
+        faceted_fields[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
       end
 
     end

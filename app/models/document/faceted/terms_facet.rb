@@ -1,13 +1,15 @@
 class Document::Faceted::TermsFacet < Document::Faceted::Facet
 
-  def populate(results)
-    super(results) do |res|
+  private
 
-      res['terms'].map do |e|
-        { value: e['term'], count: e['count'] }
-      end
-
+  def format_facets(results)
+    results['terms'].map do |term|
+      format_term(term)
     end
+  end
+
+  def format_term(term)
+    { value: term['term'], count: term['count'] }
   end
 
 end

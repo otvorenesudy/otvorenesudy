@@ -14,15 +14,9 @@ class Document::Faceted::Facet
   def populate(results)
     results = yield results if block_given?
 
-    if @selected
-      @selected.each do |term|
-        value = format_value(term)
+    results = format_facets(results)
 
-        next if results.detect { |e| e[:value] == value }
-
-        results.append value: value
-      end
-    end
+    results.concat format_facets(selected)
 
     @values = results.map(&:symbolize_keys)
   end

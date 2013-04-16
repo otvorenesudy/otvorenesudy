@@ -8,20 +8,17 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
     @alias  ||= method(:alias_date)
   end
 
-  def populate(results)
-    super(results) do |res|
+  private
 
-      res['entries'].map do |e|
-        {
-          value: format_value(e['time']),
-          count: e['count']
-        }
-      end.reverse!
-
-    end
+  def format_facets(results)
+    results['entries'].map do |e|
+      format_entry(e)
+    end.reverse!
   end
 
-  private
+  def format_entry(entry)
+    { value: format_value(entry['time']),  count: entry['count'] }
+  end
 
   def format_time(timestamp)
     Time.at(timestamp.to_i/1000)
