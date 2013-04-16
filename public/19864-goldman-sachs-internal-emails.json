@@ -1,0 +1,82 @@
+{
+   "id":"19864-goldman-sachs-internal-emails",
+   "title":"Goldman Sachs and the Financial Crisis",
+   "pages":100,
+   "description":"The Senate Permanent Subcommittee on Investigations released e-mail messages on April 24, 2010, from Goldman Sachs executives that discussed the firm\u2019s practices involving mortgage-backed securities and collateralized debt obligations. \r\n<p></p>\r\nThe documents released by Goldman, including numerous e-mail messages, explain how the firm handled the financial crisis itself and dealt with questions about its actions.",
+   "source":null,
+   "created_at":"Sat, 24 Apr 2010 05:09:21 +0000",
+   "updated_at":"Mon, 15 Apr 2013 23:49:49 +0000",
+   "canonical_url":"http://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.html",
+   "contributor":"NYT News",
+   "contributor_organization":"The New York Times",
+   "resources":{
+      "pdf":"http://s3.documentcloud.org/documents/19864/goldman-sachs-internal-emails.pdf",
+      "text":"http://s3.documentcloud.org/documents/19864/goldman-sachs-internal-emails.txt",
+      "thumbnail":"http://s3.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p1-thumbnail.gif",
+      "search":"http://www.documentcloud.org/documents/19864/search.json?q={query}",
+      "print_annotations":"http://www.documentcloud.org/notes/print?docs[]=19864",
+      "page":{
+         "text":"http://www.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}.txt",
+         "image":"http://s3.documentcloud.org/documents/19864/pages/goldman-sachs-internal-emails-p{page}-normal.gif"
+      },
+      "related_article":"http://www.nytimes.com/2010/04/25/business/25goldman.html",
+      "published_url":"http://documents.nytimes.com/goldman-sachs-internal-emails"
+   },
+   "sections":[
+      {
+         "title":"Subcommittee's Statement on Tuesday's Hearing on Goldman",
+         "page":1
+      },
+      {
+         "title":"Exhibits Include Four Goldman E-Mail Messages",
+         "page":3
+      },
+      {
+         "title":"Exhibit #101: November 18, 2007",
+         "page":4
+      },
+      {
+         "title":"Exhibit #102: October 11, 2007",
+         "page":5
+      },
+      {
+         "title":"Exhibit #103: May 17, 2007",
+         "page":7
+      },
+      {
+         "title":"Exhibit #104: July 25, 2007",
+         "page":9
+      },
+      {
+         "title":"Goldman Sachs' Response",
+         "page":11
+      },
+      {
+         "title":"E-Mail Exchanges Among Goldman Executives",
+         "page":23
+      },
+      {
+         "title":"Presentation to Goldman Board, September 2007",
+         "page":53
+      },
+      {
+         "title":"Daily Mortgage VaR",
+         "page":69
+      },
+      {
+         "title":"Summary of Goldman's Response to Mortgage Crisis",
+         "page":71
+      },
+      {
+         "title":"Additional E-Mail Exchanges Among Goldman Executives",
+         "page":75
+      },
+      {
+         "title":"E-Mail Exchanges Involving Fabrice Tourre",
+         "page":80
+      }
+   ],
+   "annotations":[
+
+   ]
+}
