@@ -17,13 +17,13 @@ class window.UrlParser
     decodeURI(str.replace(/\+/g, ' '))
 
   @encode: (value) ->
-    value.toString().replace(/\s/g, '+')
+    value.join(';').replace(/\s/g, '+')
 
   @parseParam: (param) ->
     param = param.split(':')
 
     attr  = param[0]
-    value = @.decode(param[1]).split(',')
+    value = @.decode(param[1]).split(';')
 
     Util.Logger.log "Parsing #{attr}: #{value}"
 

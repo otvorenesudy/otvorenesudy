@@ -6,7 +6,7 @@ module SearchHelper
 
     params.each { |field, values| params[field] = [values] unless values.is_a?(Array) }
 
-    url << params.map { |field, values| "#{field}:#{values.join(',').gsub(/\s/,'+')}" }.join('&')
+    url << params.map { |field, values| "#{field}:#{values.join(';').gsub(/\s/,'+')}" }.join('&')
 
     link_to body, url, options.except(:params)
   end
