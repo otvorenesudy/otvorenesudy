@@ -3,7 +3,7 @@
 module JudgesHelper
   def judge_activity_tag(status)
     if status == true || (status.respond_to?(:active) && status.active)
-      tooltip_tag icon_tag(:circle), 'Aktívny', :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag(:'ok-sign'), 'Aktívny', :left, :hover, class: :'muted undecorated'
     else
       tooltip_tag icon_tag(:'circle-blank'), 'Neaktívny', :left, :hover, class: :'muted undecorated'
     end 

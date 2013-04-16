@@ -40,10 +40,10 @@ input[type="color"],
 // alerts
 
 .alert a {
-  text-decoration: underline;
+  text-decoration: none;
 
   &:hover, &:focus {
-    text-decoration: none;
+    text-decoration: underline;
   }
 }
 

@@ -16,7 +16,8 @@
       <% @employments.each do |employment| %>
         <p>
           <%= judge_activity_tag employment %>
-          <%= employment.judge_position.value.upcase_first %>
+          <%= employment.active ? 'Aktívny' : 'Neaktívny' %>
+          <%= employment.judge_position.value %>
           na súde 
           <%= link_to_court employment.court %>,
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
