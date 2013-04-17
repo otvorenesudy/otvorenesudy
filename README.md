@@ -1,10 +1,10 @@
 # Open Courts (Otvorené Súdy in Slovak)
 
-Public data project aimed at creating much more user friendly interface to public data provided by [Departement of Justice](http://justice.gov.sk) in Slovak Republic.
+Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of the Slovak Republic.
 
 ## Setup
 ### Requirements
-* Ruby version at least 1.9.3
+* Ruby 1.9.3
 * Rails 3
 * PostgreSQL with trigram extension
 * Resque & Redis
@@ -55,24 +55,34 @@ rake db:setup
 ```
 The `db:setup` task loads schema and seed data. Note that the seed data are essential for the next steps.
 
-2. Crawl the necessary data:
+2. Crawl the necessary data -- courts and judges from justice.gov.sk:
 ```
 rake crawl:courts
 rake crawl:judges
 ```
 
-3. Run Resque workers:
+### Data from justice.gov.sk
+
+1. Start Resque workers:
 ```
 rake resque:workers QUEUE=* COUNT=4
 ```
 
-4. Continue crawling the rest using Resque workers in any order:
+2. Crawl hearings and decrees using Resque workers in any order:
 ```
 rake work:hearings:civil
 rake work:hearings:criminal
 rake work:hearings:special
 rake work:decrees
 ```
+
+### Data from sudnarada.gov.sk
+
+Crawl judge property declarations:
+```
+rake crawl:judge_property_declarations
+```
+Note that currect support is only for property declarations of 2011.
 
 ## Contributing
 
