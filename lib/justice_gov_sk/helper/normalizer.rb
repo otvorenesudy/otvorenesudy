@@ -42,7 +42,8 @@ module JusticeGovSk
           "Krajský súd v Trnave"           => "Krajský súd Trnava",
           "Krajský súd v Žiline"           => "Krajský súd Žilina",
           
-          "Okresný súd Bánovce n/B"        => "Okresný súd Bánovce nad Bebravou"
+          "Okresný súd Bánovce n/B"        => "Okresný súd Bánovce nad Bebravou",
+          "Okresný súd Nové Mesto n/V"     => "Okresný súd Nové Mesto nad Váhom"
         }
         
         @court_name_map = {}
