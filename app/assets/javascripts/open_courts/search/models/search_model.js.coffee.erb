@@ -4,11 +4,15 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
   # TODO: rename fulltext to q
   defaults:
-    q:          []
-    page:       []
-    judges:     []
-    court:      []
-    date:       []
+    q:                   []
+    page:                []
+    judges:              []
+    court:               []
+    date:                []
+    form:                []
+    nature:              []
+    legislation_area:    []
+    legislation_subarea: []
 
   initialize: ->
     @.log 'Initializing ...'

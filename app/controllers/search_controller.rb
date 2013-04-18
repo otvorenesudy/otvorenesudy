@@ -5,9 +5,9 @@ class SearchController < ApplicationController
     @entity = params[:entity].to_sym
     @term   = params[:term]
 
-    if [:judges, :court].include?(@entity)
-      @model, @query = parse_search_query
+    @model, @query = parse_search_query
 
+    if @model && @model.has_facet?(@entity)
       render json: {
         data: @model.suggest(@entity, @term, @query)
       }
@@ -69,15 +69,11 @@ class SearchController < ApplicationController
       data = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
-        raise unless model.has_field?(key) || [:page, :per_page, :q].include?(key)
+        raise unless model.has_facet?(key) || [:page, :per_page, :q].include?(key)
 
         case key
         when :page
           query[:page] = value.first
-        when :judges
-          query[:filter].merge!(judges: data[key])
-        when :court
-          query[:filter].merge!(court: data[key])
         when :date
           dates = data[key].map { |e| e.split('..') }
 
@@ -86,6 +82,8 @@ class SearchController < ApplicationController
           query[:filter].merge!(date: dates)
         when :q
           query[:query].merge!(text: data[key].first)
+        else
+          query[:filter].merge!(key => data[key])
         end
 
       end
@@ -93,7 +91,9 @@ class SearchController < ApplicationController
       return model, query
 
     rescue Exception => e
-      puts e.message
+      raise e.message
+
+      puts e.trace
 
       nil
     end
