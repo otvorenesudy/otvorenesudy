@@ -63,7 +63,7 @@ module Document
 
       def compose_search(params)
         @page       = params[:page]       || 1
-        @per_page   = params[:per_page]   || 10
+        @per_page   = params[:per_page]   || 20
         @query      = params[:query]      || Hash.new
         @terms      = params[:filter]     || Hash.new
         @facets     = params[:facets]     || faceted_fields
@@ -157,11 +157,14 @@ module Document
 
             build_facet(index, field, field, facet, facet_options)
 
-            # facets for selected values
-            facet_options[:global]       = false
-            facet_options[:facet_filter] = facet_filter(@query, @terms)
 
-            build_facet(index, selected(field), field, facet, facet_options)
+            # facets for selected values
+            if @query[field] || @terms[field]
+              facet_options[:global]       = false
+              facet_options[:facet_filter] = facet_filter(@query, @terms)
+
+              build_facet(index, selected(field), field, facet, facet_options)
+            end
           end
 
         end
