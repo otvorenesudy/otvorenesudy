@@ -17,6 +17,19 @@
 
   <div class="row">
     <div id="search-panel" class="span4">
+
+      <div class="facet">
+        <%= facet_title 'Forma' %>
+        <%= facet_input id: 'form', placeholder: 'Forma rozhodnutia' %>
+        <%= facet_list id: 'form' %>
+      </div>
+
+      <div class="facet">
+        <%= facet_title 'Povaha' %>
+        <%= facet_input id: 'nature', placeholder: 'Povaha rozhodnutia' %>
+        <%= facet_list id: 'nature' %>
+      </div>
+
       <div class="facet">
         <%= facet_title 'Sudcovia' %>
         <%= facet_input id: 'judges', placeholder: 'Meno sudcu' %>
