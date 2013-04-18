@@ -1,6 +1,9 @@
 Util.View.List =
+  listID: (name) ->
+    "#{name}-list"
+
   listSelector: (param) ->
-    "##{param}-list"
+    "##{@.listID(param)}"
 
   list: (param) ->
     return param unless typeof(param) is 'string'
@@ -15,14 +18,63 @@ Util.View.List =
   listEntity: (list) ->
     @.list(list).attr('id').replace(/(#|-list)/g, '')
 
+  listFoldState: (list, value) ->
+    if value?
+      @.list(list).find('.fold').attr('data-state', value)
+    else
+      @.list(list).find('.fold').attr('data-state')
+
+  listUnfold: (list, options) ->
+    @.log "Unfolding list #{@.list(list).attr('id')}"
+
+    @.list(list).append(@template['list_items_unfold'])
+    @.list(list).find("li:gt(#{options.visible})").show()
+
+    @.listFoldState(list, 'unfolded')
+
+  listFold: (list, options) ->
+    @.log "Folding list #{@.list(list).attr('id')}"
+
+    @.list(list).append(@template['list_items_fold'])
+    @.list(list).find("li:gt(#{options.visible})").hide()
+
+    @.listFoldState(list, 'folded')
+
+  listToggle: (list, options) ->
+    state = @.listFoldState(list)
+
+    state = if state == 'folded' then 'unfolded' else 'folded'
+
+    options.state = state
+
+    @.listCollapse(list, options)
+
+  listCollapse: (list, options) ->
+    elements = @.list(list).find('li')
+    state    = options.state or @.listFoldState(list)
+
+    @.list(list).find('a.fold').remove()
+
+    unless state?
+      @.listFold(list, options) if elements.length > options.visible
+    else
+      if state == 'unfolded'
+        @.listUnfold(list, options)
+      else
+        @.listFold(list, options)
+
+
   item: (target) ->
     $(target).parent()
 
   listItemValue: (target) ->
     @.item(target).attr('data-value')
 
+  closestList: (target) ->
+    $(target).closest('[id$=-list]')
+
   listByItem: (target) ->
-    @.item(target).parent()
+    @.closestList(@.item(target))
 
   findListItem: (list, value) ->
     @.log "Find list value: #{value}"

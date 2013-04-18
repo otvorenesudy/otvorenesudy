@@ -12,14 +12,16 @@ OpenCourts.SearchViewTemplates =
       </li>
     '),
 
-    load_more: _.template('
-      <a class="btn btn-load-more" href="#">
-        <i class="icon-repeat" /> Load more.
+    list_items_fold: _.template('
+      <a href="#" class="fold muted">
+        Zobraziť viac <i class="icon-caret-down"></i>
       </a>
     '),
 
-    no_more_results: _.template('
-      <div>No more results.</div>
+    list_items_unfold: _.template('
+      <a href="#" class="fold muted">
+        Zobraziť menej <i class="icon-caret-up"></i>
+      </a>
     '),
 
     spinner: _.template('

@@ -24,6 +24,7 @@ $(document).ready ->
         'click #search-panel ul li .add'    : 'onAddListItem'
         'click #search-panel ul li .remove' : 'onRemoveListItem'
         'click .pagination ul li a'         : 'onChangePage'
+        'click #search-panel ul a.fold'  : 'onToggleFold'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -35,9 +36,7 @@ $(document).ready ->
         @model.bind 'change', (obj) =>
           @.onModelChange(obj)
 
-        @.suggestList 'judges', query: => @model.query()
-
-        @.suggestList 'court', query: => @model.query()
+        @.setupListSuggest()
 
         @.log 'Initialization done.'
 
@@ -85,6 +84,8 @@ $(document).ready ->
             label = @model.label(name, value)
 
             @.addListItem(list, label, value, @model.facet(name, value)) unless @.listHasItem(list, value)
+
+          @.listCollapse(list, visible: 10)
 
       fixes: ->
         @.log 'Applying fixes ...'
@@ -137,15 +138,15 @@ $(document).ready ->
 
         @model.remove attr, value
 
-      onChangeSlider: (event, ui, el, format) ->
-        @.log "Changing slider ... (element=#{el}, values=#{ui.values})"
+      onToggleFold: (event) ->
+        list = @.closestList(event.target)
 
-        el = $(@el).find("##{el}-slider-bar")
+        @.listToggle(list, visible: 10, manual: true)
 
-        if format?
-          format(el, ui.values)
-        else
-          el.html("#{ui.values[0]} &ndash; #{ui.values[1]}")
+      setupListSuggest: ->
+        $('.facet input').each (i, el) =>
+          @.suggestList $(el).attr('id'), query: => @model.query()
+
 
       onSearch: (options, callback) ->
         @.log "Searching ... (options=#{@.inspect options})"
