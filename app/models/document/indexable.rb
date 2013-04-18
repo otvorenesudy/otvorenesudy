@@ -47,6 +47,10 @@ module Document
         @mappings[field].present?
       end
 
+      def has_facet?(name)
+        faceted_fields[name].present?
+      end
+
       def faceted_fields
         @faceted_fields ||= {}
       end

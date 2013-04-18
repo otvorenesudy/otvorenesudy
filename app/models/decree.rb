@@ -57,13 +57,15 @@ class Decree < ActiveRecord::Base
   facets do
     use :judges, type: :terms
     use :court,  type: :terms
+    use :form,   type: :terms
+    use :nature, type: :terms
     use :date,   type: :date, interval: :month # using default alias for interval from DateFacet
   end
-  
+
   def has_future_date?
     date > Time.now.to_date
   end
-  
+
   def had_future_date?
     date > created_at.to_date
   end
