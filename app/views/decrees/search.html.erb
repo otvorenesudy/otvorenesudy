@@ -24,10 +24,18 @@
         <%= facet_list id: 'form' %>
       </div>
 
+      <!--
       <div class="facet">
         <%= facet_title 'Povaha' %>
         <%= facet_input id: 'nature', placeholder: 'Povaha rozhodnutia' %>
         <%= facet_list id: 'nature' %>
+      </div>
+      -->
+
+      <div class="facet">
+        <%= facet_title 'Oblasť právnej úpravy' %>
+        <%= facet_list id: 'legislation_area' %>
+        <%= facet_list id: 'legislation_subarea' %>
       </div>
 
       <div class="facet">
