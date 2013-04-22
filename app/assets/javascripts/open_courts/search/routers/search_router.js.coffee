@@ -24,12 +24,14 @@ class OpenCourts.SearchRouter extends Backbone.AbstractRouter
 
         @.log "Updating model ... (json=#{@.inspect json})"
 
-        @model.set
-          page:     json.page     or []
-          q:        json.q        or []
-          judges:   json.judges   or []
-          court:    json.court    or []
-          date:     json.date     or []
+        data = {}
+
+        for field of @model.defaults
+          data[field] = json[field]  || []
+
+        @.log "Updating model with formated data ... (data=#{@.inspect data})"
+
+        @model.set data
 
     format: (json) ->
       UrlParser.dump json
