@@ -63,7 +63,6 @@ Util.View.List =
       else
         @.listFold(list, options)
 
-
   item: (target) ->
     $(target).parent()
 
@@ -110,6 +109,7 @@ Util.View.List =
 
   clearList: (list, options = {}) ->
     selector = if options.selected then 'li:not(.selected)' else 'li'
+    selector = "#{selector}, a.fold"
 
     @.log "Clearing list ... (list=#{@.inspect list}, selector=#{@.inspect selector}, options=#{@.inspect options})"
 
