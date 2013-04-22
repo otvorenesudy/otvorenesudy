@@ -27,19 +27,19 @@ module Document
         name.sub(/\.(analyzed|untouched)/, '').to_sym
       end
 
-      def analyzed(field)
+      def analyzed_field(field)
         "#{field}.analyzed".to_sym
       end
 
-      def not_analyzed(field)
+      def not_analyzed_field(field)
         "#{field}.untouched".to_sym
       end
 
-      def selected(field)
+      def selected_field(field)
         "#{field}_selected".to_sym
       end
 
-      def selected?(field)
+      def selected_field?(field)
         field.to_s =~ /_selected/
       end
 
@@ -48,30 +48,23 @@ module Document
       end
 
       def has_facet?(name)
-        faceted_fields[name].present?
+        @facets[name].present?
       end
 
-      def faceted_fields
-        @faceted_fields ||= {}
-      end
-
-      def highlighted_fields
-        @highlighted_fields ||= []
-      end
-
-      def mappings
-        @mappings           ||= {}
+      def use_mapping
+        @mapping    ||= {}
+        @highlights ||= []
 
         yield
 
         tire.mapping do
-          @mappings.each do |field, value|
+          @mapping.each do |field, value|
             options  = value[:options]
 
             type     = options[:type]     || :string
             analyzer = options[:analyzer] || 'text_analyzer'
 
-            highlighted_fields << field if options[:highlight]
+            @highlights << field if options[:highlight]
 
             if value[:type].eql? :mapped
               indexes field, options.merge!(index: :not_analyzed)
@@ -89,31 +82,33 @@ module Document
         end
       end
 
-      def facets
+      def use_facets
+        @facets ||= {}
+
         yield
       end
 
       private
 
       def map(field, options = {})
-        @mappings[field] = {}
+        @mapping[field] = {}
 
-        @mappings[field][:type]    = :mapped
-        @mappings[field][:options] = options
+        @mapping[field][:type]    = :mapped
+        @mapping[field][:options] = options
       end
 
       def analyze(field, options = {})
-        @mappings[field] = {}
+        @mapping[field] = {}
 
-        @mappings[field][:type]    = :analyzed
-        @mappings[field][:options] = options
+        @mapping[field][:type]    = :analyzed
+        @mapping[field][:options] = options
       end
 
-      def use(field, options = {})
+      def facet(field, options = {})
         type = options[:type]
 
-        # TODO: use core/injector?
-        faceted_fields[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
+        # TODO: use core injector
+        @facets[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
       end
 
     end

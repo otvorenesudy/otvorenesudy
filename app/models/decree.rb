@@ -36,7 +36,7 @@ class Decree < ActiveRecord::Base
 
   has_many :legislations, through: :legislation_usages
 
-  mappings do
+  use_mapping do
     map     :id
     analyze :case_number
     analyze :file_number
@@ -54,12 +54,14 @@ class Decree < ActiveRecord::Base
     analyze :judges,              as: lambda { |d| d.judges.map(&:name).concat(d.partial_judgements.map(&:judge_name)) }
   end
 
-  facets do
-    use :judges, type: :terms
-    use :court,  type: :terms
-    use :form,   type: :terms
-    use :nature, type: :terms
-    use :date,   type: :date, interval: :month # using default alias for interval from DateFacet
+  use_facets do
+    facet :judges,              type: :terms
+    facet :court,               type: :terms
+    facet :form,                type: :terms
+    facet :nature,              type: :terms
+    facet :legislation_area,    type: :terms, size: 1000
+    facet :legislation_subarea, type: :terms, size: 1000
+    facet :date,                type: :date,  interval: :month # using default alias for interval from DateFacet
   end
 
   def has_future_date?

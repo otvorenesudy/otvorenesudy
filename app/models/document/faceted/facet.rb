@@ -3,12 +3,14 @@ class Document::Faceted::Facet
                 :selected,
                 :type,
                 :alias,
-                :values
+                :values,
+                :size
 
   def initialize(name, options)
     @name     = name
     @type     = options[:type]
     @alias    = options[:as]
+    @size     = options[:size] || 10
   end
 
   def populate(results)

@@ -11,8 +11,7 @@ module Document
       def suggest(field, term, options = {})
         options[:query] ||= {}
 
-        facet                   = faceted_fields[field]
-        options[:facets]        = faceted_fields.slice(field)
+        facet                   = @facets[field]
         options[:query][field]  = term
         options[:global_facets] = true
         options[:per_page]      = 0 # dont fetch any documents
