@@ -1,8 +1,8 @@
-class Document::Faceted::DateFacet < Document::Faceted::Facet
+class Document::Facets::DateFacet < Document::Facets::Facet
   attr_accessor :interval
 
-  def initialize(name, options)
-    super(name, options)
+  def initialize(name, field, options)
+    super(name, field, options)
 
     @interval = options[:interval]
     @alias  ||= method(:alias_date)
@@ -10,6 +10,12 @@ class Document::Faceted::DateFacet < Document::Faceted::Facet
 
   def build(facet, field)
     facet.date field, interval: @interval
+  end
+
+  def build_filter
+    terms.map do |value|
+      { range: { @field => { gte: value.min, lte: value.max } } }
+    end
   end
 
   private

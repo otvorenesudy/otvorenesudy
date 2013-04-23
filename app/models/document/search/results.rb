@@ -10,7 +10,7 @@ module Document
         end
       end
 
-      def format_facets(results)
+      def format_facets(defined_facets, results)
         facets = Hash.new
 
         return facets unless results
@@ -20,7 +20,7 @@ module Document
         facet_results = results.select { |field, _| !selected_field?(field) }
 
         facet_results.each do |field, values|
-          facet  = @facets[field]
+          facet  = defined_facets[field]
 
           facet.selected = results[selected_field(field)]
 
@@ -32,19 +32,19 @@ module Document
         facets
       end
 
-      def format_result(result)
+      def format_result(facets, highlights, result)
         data = Hash.new
 
         data[:results]    = fetch_records(result.results)
-        data[:facets]     = format_facets(result.facets)
+        data[:facets]     = format_facets(facets, result.facets)
         data[:highlights] = result.results.map do |res|
-          highlights = Hash.new
+          hl = Hash.new
 
-          @highlights.each do |field|
-            highlights[field] = res.highlight[analyzed_field(field)] if res.highlight
+          highlights.each do |field|
+            hl[field] = res.highlight[analyzed_field(field)] if res.highlight
           end
 
-          highlights
+          hl
         end
 
         return data, result

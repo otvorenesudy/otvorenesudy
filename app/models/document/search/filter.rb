@@ -2,26 +2,15 @@ module Document
   module Search
     module Filter
 
-      def build_filters(terms)
+      def build_filter(type, facets)
         filters = []
 
-        terms.each do |field, values|
-          field = not_analyzed_field(field)
+        facets.each do |field, facet|
+          if facet.terms.any?
+            field = not_analyzed_field(field)
 
-          filter = []
-
-          values.each do |value|
-
-            case
-            when value.is_a?(Range)
-              filter << { range: { field => { gte: value.min, lte: value.max }}}
-            else
-              filter << { term: { field => value }}
-            end
-
+            filters << { or: facet.build_filter }
           end
-
-          filters << { or: filter }
         end
 
         filters

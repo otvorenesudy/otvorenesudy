@@ -1,16 +1,28 @@
-class Document::Faceted::Facet
+class Document::Facets::Facet
   attr_accessor :name,
                 :selected,
+                :terms,
                 :type,
                 :alias,
                 :values,
                 :size
 
-  def initialize(name, options)
+  def initialize(name, field, options)
     @name     = name
+    @field    = field
     @type     = options[:type]
     @alias    = options[:as]
     @size     = options[:size] || 10
+    @selected = Array.new
+  end
+
+  def terms
+    @terms ||= []
+  end
+
+  def refresh!
+    @selected = []
+    @terms    = []
   end
 
   def populate(results)

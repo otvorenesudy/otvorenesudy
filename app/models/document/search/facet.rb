@@ -10,21 +10,14 @@ module Document
         end
       end
 
-      def facet_filter(query, terms)
-        filter = Hash.new
+      def facet_filter(query, facets)
+        filter = build_facet_filter(query, facets) if query.any? or facets.any?
 
-        filter[:and] = build_facet_filter(query, terms) if query.any? or terms.any?
-
-        filter
+        { and: filter } if filter.any?
       end
 
-      def build_facet_filter(query, terms)
-        filter_values = []
-
-        filter_values.concat build_query(query)
-        filter_values.concat build_filters(terms)
-
-        filter_values
+      def build_facet_filter(query, facets)
+        build_query(query).concat(build_filter(:or, facets))
       end
 
     end

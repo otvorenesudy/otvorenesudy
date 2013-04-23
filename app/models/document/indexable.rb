@@ -10,6 +10,7 @@ module Document
     end
 
     module ClassMethods
+      attr_reader :facets
 
       def config
         YAML.load_file(File.join(Rails.root, 'config', 'elasticsearch.yml')).symbolize_keys
@@ -108,7 +109,7 @@ module Document
         type = options[:type]
 
         # TODO: use core injector
-        @facets[field] = "Document::Faceted::#{type.to_s.camelcase}Facet".constantize.new(field, options)
+        @facets[field] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(field, not_analyzed_field(field), options)
       end
 
     end

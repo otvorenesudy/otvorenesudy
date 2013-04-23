@@ -1,7 +1,13 @@
-class Document::Faceted::TermsFacet < Document::Faceted::Facet
+class Document::Facets::TermsFacet < Document::Facets::Facet
 
   def build(facet, field)
     facet.terms field, size: @size
+  end
+
+  def build_filter
+    terms.map do |value|
+      { term: { @field => value } }
+    end
   end
 
   private
