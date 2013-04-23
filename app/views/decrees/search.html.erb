@@ -5,8 +5,8 @@
     $(document).ready(function() {
         window.app = new OpenCourts.Search.App({ type: 'decree' })
         window.app.start()
-    })
-  </script>
+        })
+</script>
 <% end %>
 
 <section id="search-view">
@@ -18,42 +18,10 @@
   <div class="row">
     <div id="search-panel" class="span4">
 
-      <div class="facet">
-        <%= facet_title 'Forma' %>
-        <%= facet_input id: 'form', placeholder: 'Forma rozhodnutia' %>
-        <%= facet_list id: 'form' %>
-      </div>
+      <% Decree.facets.each do |field, facet| %>
+        <%= render "facets/#{facet.type.to_s}_facet", field: field %>
+      <% end %>
 
-      <!--
-      <div class="facet">
-        <%= facet_title 'Povaha' %>
-        <%= facet_input id: 'nature', placeholder: 'Povaha rozhodnutia' %>
-        <%= facet_list id: 'nature' %>
-      </div>
-      -->
-
-      <div class="facet">
-        <%= facet_title 'Oblasť právnej úpravy' %>
-        <%= facet_list id: 'legislation_area' %>
-        <%= facet_list id: 'legislation_subarea' %>
-      </div>
-
-      <div class="facet">
-        <%= facet_title 'Sudcovia' %>
-        <%= facet_input id: 'judges', placeholder: 'Meno sudcu' %>
-        <%= facet_list id: 'judges' %>
-      </div>
-
-      <div class="facet">
-        <%= facet_title 'Súdy' %>
-        <%= facet_input id: :court, placeholder: 'Názov súdu' %>
-        <%= facet_list id: :court %>
-      </div>
-
-      <div class="facet">
-        <%= facet_title 'Dátum' %>
-        <%= facet_list id: :date %>
-      </div>
     </div>
 
     <div class="span8">

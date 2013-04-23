@@ -1,0 +1,15 @@
+<% trans = t("facets.#{field}") %>
+
+<div class="facet">
+  <% if trans[:title] %>
+    <%= facet_title trans[:title]  %>
+  <% end %>
+
+  <% if trans[:placeholder] %>
+    <%= facet_input id: field, placeholder: trans[:placeholder] %>
+  <% end %>
+
+  <%= facet_list id: field %>
+</div>
+
+
