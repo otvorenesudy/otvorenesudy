@@ -98,22 +98,21 @@ sk:
     few: "%{count} strany"
     other: "%{count} strán"
 
-  # facets
   facets:
     judges:
-      title:       'Sudcovia'
+      title: 'Sudcovia'
       placeholder: 'Meno sudcu'
 
     court:
-      title:       'Súd'
+      title: 'Súd'
       placeholder: 'Meno súdu'
 
     form:
-      title:       'Forma'
+      title: 'Forma'
       placeholder: 'Forma rozhodnutia'
 
     nature:
-      title:       'Povaha'
+      title: 'Povaha'
       placeholder: 'Povaha rozhodnutia'
 
     legislation_area:
@@ -124,7 +123,3 @@ sk:
 
     date:
       title: 'Dátum'
-
-
-
-
