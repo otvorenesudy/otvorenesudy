@@ -97,3 +97,34 @@ sk:
     one: "1 strana"
     few: "%{count} strany"
     other: "%{count} strán"
+
+  # facets
+  facets:
+    judges:
+      title:       'Sudcovia'
+      placeholder: 'Meno sudcu'
+
+    court:
+      title:       'Súd'
+      placeholder: 'Meno súdu'
+
+    form:
+      title:       'Forma'
+      placeholder: 'Forma rozhodnutia'
+
+    nature:
+      title:       'Povaha'
+      placeholder: 'Povaha rozhodnutia'
+
+    legislation_area:
+      title: 'Oblasť právnej úpravy'
+
+    legislation_subarea:
+      title: 'Podoblasť právnej úpravy'
+
+    date:
+      title: 'Dátum'
+
+
+
+
