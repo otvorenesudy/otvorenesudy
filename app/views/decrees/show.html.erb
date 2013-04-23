@@ -22,18 +22,18 @@
         <p>Rozhodutie vydal sudca <%= links_to_judges @decree.judges %>.</p>
       <% end %>
       <% if @decree.legislation_area %>
-        <p>Oblasti právnej úpravy &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value} %>
+        <p>Oblasti právnej úpravy &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
 
         <%= " &ndash; #{link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_subarea: @decree.legislation_subarea.value } }".html_safe if @decree.legislation_subarea %>.</p>
       <% end %>
       <% if @decree.form %>
-        <p>Forma rozhodnutia &ndash; <%= link_to_decrees_search @decree.form.value, params: {form: @decree.form.value } %>.</p>
+        <p>Forma rozhodnutia &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %>.</p>
       <% end %>
       <% if @decree.nature %>
 
         <p>Povaha rozhodnutia &ndash; <%= @decree.nature.value %>.</p>
 
-        <!--
+        <!-- TODO
         <p>Povaha rozhodnutia &ndash; <%= link_to_decrees_search @decree.nature.value, params: { nature: @decree.nature.value } %>.</p>
         -->
       <% end %>
