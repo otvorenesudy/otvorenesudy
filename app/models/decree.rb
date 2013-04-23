@@ -2,8 +2,8 @@ class Decree < ActiveRecord::Base
   include Resource::Storage
 
   include Document::Indexable
-  include Document::Suggestable
   include Document::Searchable
+  include Document::Suggestable
 
   attr_accessible :uri,
                   :case_number,
@@ -58,7 +58,7 @@ class Decree < ActiveRecord::Base
     facet :judges,              type: :terms
     facet :court,               type: :terms
     facet :form,                type: :terms
-    facet :nature,              type: :terms
+    #facet :nature,              type: :terms
     facet :legislation_area,    type: :terms, size: 1000
     facet :legislation_subarea, type: :terms, size: 1000
     facet :date,                type: :date,  interval: :month # using default alias for interval from DateFacet
