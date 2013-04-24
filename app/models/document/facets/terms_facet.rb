@@ -6,7 +6,7 @@ class Document::Facets::TermsFacet < Document::Facets::Facet
 
   def build_filter
     terms.map do |value|
-      { term: { @field => value } }
+      { term: { not_analyzed_field(@field) => value } }
     end
   end
 

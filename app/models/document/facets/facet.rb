@@ -1,6 +1,10 @@
 class Document::Facets::Facet
+  include Document::Index::Helpers
+
   attr_accessor :name,
+                :field,
                 :selected,
+                :visible,
                 :terms,
                 :type,
                 :alias,
@@ -8,12 +12,13 @@ class Document::Facets::Facet
                 :size
 
   def initialize(name, field, options)
-    @name     = name
-    @field    = field
-    @type     = options[:type]
-    @alias    = options[:as]
-    @size     = options[:size] || 10
-    @selected = Array.new
+    @name        = name
+    @field       = field
+    @type        = options[:type]
+    @alias       = options[:as]
+    @size        = options[:size] || 10
+    @visible     = options[:visible].nil? ? true : options[:visible]
+    @selected    = Array.new
   end
 
   def terms

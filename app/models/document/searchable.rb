@@ -35,8 +35,8 @@ module Document
           facet.refresh!
         end
 
-        terms.each do |field, values|
-          facets[field].terms = values
+        terms.each do |name, values|
+          facets[name].terms = values
         end
 
         results = tire.search page: page, per_page: per_page do |index|
@@ -95,23 +95,23 @@ module Document
       def search_facets(index, query, facets, options)
         if facets.any?
 
-          facets.each do |field, facet|
+          facets.each do |name, facet|
             facet_options = Hash.new
 
             # global facets
             facet_options[:global]       = options[:global_facets]
-            facet_options[:facet_filter] = facet_filter(query.except(field), facets.except(field))
+            facet_options[:facet_filter] = facet_filter(query.except(name), facets.except(name))
             facet_options[:size]         = facet.size
 
-            build_facet(index, field, field, facet, facet_options)
+            build_facet(index, name, facet.field, facet, facet_options)
 
             # facets for selected values
-            if query[field] || facets[field].terms.any?
+            if query[name] || facets[name].terms.any?
               facet_options[:global]       = false
               facet_options[:facet_filter] = facet_filter(query, facets)
               facet_options[:size]         = facet.size
 
-              build_facet(index, selected_field(field), field, facet, facet_options)
+              build_facet(index, selected_field(name), facet.field, facet, facet_options)
             end
           end
 

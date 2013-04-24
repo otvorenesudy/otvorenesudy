@@ -14,7 +14,7 @@ class Document::Facets::DateFacet < Document::Facets::Facet
 
   def build_filter
     terms.map do |value|
-      { range: { @field => { gte: value.min, lte: value.max } } }
+      { range: { not_analyzed_field(@field) => { gte: value.min, lte: value.max } } }
     end
   end
 

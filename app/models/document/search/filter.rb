@@ -5,10 +5,8 @@ module Document
       def build_filter(type, facets)
         filters = []
 
-        facets.each do |field, facet|
+        facets.each do |_, facet|
           if facet.terms.any?
-            field = not_analyzed_field(field)
-
             filters << { or: facet.build_filter }
           end
         end

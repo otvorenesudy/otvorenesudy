@@ -18,8 +18,10 @@
   <div class="row">
     <div id="search-panel" class="span4">
 
-      <% Decree.facets.each do |field, facet| %>
-        <%= render "facets/#{facet.type.to_s}_facet", field: field %>
+      <% Decree.facets.each do |name, facet| %>
+        <% if facet.visible %>
+          <%= render "facets/#{facet.type.to_s}_facet", name: name %>
+        <% end %>
       <% end %>
 
     </div>

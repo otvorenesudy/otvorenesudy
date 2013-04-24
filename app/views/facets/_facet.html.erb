@@ -1,4 +1,4 @@
-<% trans = t "facets.#{field}" %>
+<% trans = t "facets.#{name}" %>
 
 <div class="facet">
   <% if trans[:title] %>
@@ -6,8 +6,8 @@
   <% end %>
 
   <% if trans[:placeholder] %>
-    <%= facet_input id: field, placeholder: trans[:placeholder] %>
+    <%= facet_input id: name, placeholder: trans[:placeholder] %>
   <% end %>
 
-  <%= facet_list id: field %>
+  <%= facet_list id: name %>
 </div>
