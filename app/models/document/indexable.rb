@@ -10,6 +10,8 @@ module Document
     end
 
     module ClassMethods
+      include Document::Index::Helpers
+
       attr_reader :facets
 
       def config
@@ -22,34 +24,6 @@ module Document
         settings.deep_merge!(params)
 
         tire.settings.deep_merge!(settings)
-      end
-
-      def field(name)
-        name.sub(/\.(analyzed|untouched)/, '').to_sym
-      end
-
-      def analyzed_field(field)
-        "#{field}.analyzed".to_sym
-      end
-
-      def not_analyzed_field(field)
-        "#{field}.untouched".to_sym
-      end
-
-      def selected_field(field)
-        "#{field}_selected".to_sym
-      end
-
-      def selected_field?(field)
-        field.to_s =~ /_selected/
-      end
-
-      def has_field?(field)
-        @mappings[field].present?
-      end
-
-      def has_facet?(name)
-        @facets[name].present?
       end
 
       def use_mapping
@@ -105,11 +79,13 @@ module Document
         @mapping[field][:options] = options
       end
 
-      def facet(field, options = {})
+      def facet(name, options = {})
         type = options[:type]
 
+        field = options[:field] || name
+
         # TODO: use core injector
-        @facets[field] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(field, not_analyzed_field(field), options)
+        @facets[name] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
       end
 
     end
