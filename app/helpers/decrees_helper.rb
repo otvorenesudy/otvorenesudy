@@ -6,4 +6,14 @@ module DecreesHelper
   def link_to_decree(decree, options = {})
     link_to decree.file_number, decree_path(decree.id), options
   end
+
+  def external_link_to_legislation(legislation, options = {})
+    if legislation.year && legislation.number 
+      url = "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}"
+    else
+      url = "http://www.zakonypreludi.sk/main/search.aspx?text=#{legislation.value}"
+    end
+
+    external_link_to legislation.value, url, options
+  end
 end

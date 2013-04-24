@@ -41,7 +41,7 @@
         <p>Predpisy odkazované v rozhodnutí:</p>
         <ul>
           <% @legislations.each do |legislation| %>
-            <li><%= legislation.value %></li>
+            <li><%= external_link_to_legislation legislation %></li>
           <% end %>
         </ul>
       <% end %>
