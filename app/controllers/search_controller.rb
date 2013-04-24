@@ -69,7 +69,7 @@ class SearchController < ApplicationController
       data = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
-        raise unless model.has_facet?(key) || [:page, :per_page, :q].include?(key)
+        next unless model.has_facet?(key) || [:page, :per_page, :q, :old].include?(key)
 
         case key
         when :page
@@ -80,6 +80,13 @@ class SearchController < ApplicationController
           dates.map! { |e| Time.at(e[0].to_i)..Time.at(e[1].to_i) }
 
           query[:filter].merge!(date: dates)
+
+        when :historical
+          if value[0] == 'false'
+            dates = [Time.now..Time.parse('2038-01-19')]
+
+            query[:filter].merge!(historical: dates)
+          end
         when :q
           query[:query].merge!(text: data[key].first)
         else
@@ -91,10 +98,7 @@ class SearchController < ApplicationController
       return model, query
 
     rescue Exception => e
-      raise e.message
-
-      puts e.trace
-
+      raise e
       nil
     end
 

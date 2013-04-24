@@ -13,6 +13,7 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     nature:              []
     legislation_area:    []
     legislation_subarea: []
+    historical:          [false]
 
   initialize: ->
     @.log 'Initializing ...'
@@ -34,6 +35,12 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     value = 1 unless value
 
     @.setValue('page', value)
+
+  getHistorical: ->
+    if @.getValue('historical') == "true" then true else false
+
+  setHistorical: (value) ->
+    @.setValue('historical', value.toString())
 
   query: ->
     type: @type, data: @.toJSON()

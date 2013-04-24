@@ -13,9 +13,17 @@
   <div class="row">
     <div id="search-panel" class="span4">
 
-      <% Hearing.facets.each do |field, facet| %>
-        <%= render "facets/#{facet.type}_facet", field: field %>
+      <label class="checkbox">
+        <input type="checkbox" id='historical'>Zobraziť staršie
+      </label>
+
+
+      <% Hearing.facets.each do |name, facet| %>
+        <% if facet.visible %>
+          <%= render "facets/#{facet.type}_facet", name: name %>
+        <% end %>
       <% end %>
+
 
     </div>
 

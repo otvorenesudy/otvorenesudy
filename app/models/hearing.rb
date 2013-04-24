@@ -63,6 +63,7 @@ class Hearing < ActiveRecord::Base
     facet :judges, type: :terms
     facet :court,  type: :terms
     facet :date,   type: :date, interval: :month # using default alias for interval from DateFacet
+    facet :historical, field: :date, type: :date, interval: :month, visible: false
   end
 
   storage :page, JusticeGovSk::Storage::HearingPage do |hearing|

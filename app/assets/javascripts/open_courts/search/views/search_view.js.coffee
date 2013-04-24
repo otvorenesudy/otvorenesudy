@@ -17,14 +17,15 @@ $(document).ready ->
       result_pagination: '#search-pagination'
 
       events:
-        'click a[href="#"]'                 : 'onClickButton'
-        'click #fulltext button'            : 'onSubmitFulltext'
-        'change #fulltext input'            : 'onSubmitFulltext'
-        'click #search-panel ul li a'       : 'onSelectListItem'
-        'click #search-panel ul li .add'    : 'onAddListItem'
-        'click #search-panel ul li .remove' : 'onRemoveListItem'
-        'click .pagination ul li a'         : 'onChangePage'
-        'click #search-panel ul a.fold'  : 'onToggleFold'
+        'click a[href="#"]'                   : 'onClickButton'
+        'click #fulltext button'              : 'onSubmitFulltext'
+        'change #fulltext input'              : 'onSubmitFulltext'
+        'click #search-panel ul li a'         : 'onSelectListItem'
+        'click #search-panel ul li .add'      : 'onAddListItem'
+        'click #search-panel ul li .remove'   : 'onRemoveListItem'
+        'click .pagination ul li a'           : 'onChangePage'
+        'click #search-panel ul a.fold'       : 'onToggleFold'
+        'click #search-panel input#historical': 'onClickHistorical'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -48,12 +49,16 @@ $(document).ready ->
         @.onSearch reload: true, =>
 
           @.updateFulltext(@model.getFulltext())
+          @.updateHistorical()
 
           for entity, value of @model.facets
             @.updateList(entity)
 
       updateFulltext: (value) ->
         $('#fulltext input').val(value)
+
+      updateHistorical: (value) ->
+        $('#historical').prop('checked', @model.getHistorical())
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
@@ -143,10 +148,12 @@ $(document).ready ->
 
         @.listToggle(list, visible: 10, manual: true)
 
+      onClickHistorical: (event) ->
+        @model.setHistorical(event.target.checked)
+
       setupListSuggest: ->
         $('.facet input').each (i, el) =>
           @.suggestList $(el).attr('id'), query: => @model.query()
-
 
       onSearch: (options, callback) ->
         @.log "Searching ... (options=#{@.inspect options})"
