@@ -17,6 +17,7 @@ gem 'font-awesome-sass-rails', '~> 3.0.0.1'
 gem 'coffee-script'
 gem 'jquery-rails'
 gem 'rails-timeago'
+gem 'jquery-tablesorter'
 gem 'execjs'
 
 # js libraries
@@ -82,3 +83,5 @@ group :development, :test do
   gem 'jasminerice'
   gem 'guard-jasmine' # requires phantomjs -> apt-get install phantomjs
 end
+
+#gem 'postgres-copy'
