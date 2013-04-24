@@ -55,12 +55,12 @@ class Decree < ActiveRecord::Base
   end
 
   use_facets do
-    facet :judges,              type: :terms
-    facet :court,               type: :terms
     facet :form,                type: :terms
-    #facet :nature,              type: :terms
     facet :legislation_area,    type: :terms, size: 1000
     facet :legislation_subarea, type: :terms, size: 1000
+    facet :judges,              type: :terms
+    facet :court,               type: :terms
+    #facet :nature,              type: :terms
     facet :date,                type: :date,  interval: :month # using default alias for interval from DateFacet
   end
 
