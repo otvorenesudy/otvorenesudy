@@ -17,6 +17,6 @@
  *= require mixins
  *= require search
  *= require variables
- *= require jquery-tablesorter/theme.bootstrap
+ *= require tablesorter/theme.bootstrap
  *= require document_viewer/dv
  */

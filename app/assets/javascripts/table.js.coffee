@@ -22,3 +22,6 @@ $(document).ready ->
       theme: 'bootstrap'
       headerTemplate : '{content} {icon}'
       widgets: ["uitheme", 'resizeable']
+
+    $('table').bind 'sortEnd', ->
+      fixes()
