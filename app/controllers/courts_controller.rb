@@ -22,7 +22,8 @@ class CourtsController < ApplicationController
     @hearings = @court.hearings
     @decrees  = @court.decrees
 
-    @hearings = @court.hearings.limit(10)
-    @decrees  = @court.decrees.limit(10)
+    @past_hearings     = @court.hearings.past.limit(10)
+    @upcoming_hearings = @court.hearings.upcoming.limit(10)
+    @decrees           = @court.decrees.limit(10)
   end
 end

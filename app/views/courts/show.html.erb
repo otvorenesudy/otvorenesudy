@@ -31,9 +31,10 @@
             <a href="#contact" data-toggle="tab">Kontakt</a>
           </li>
           <li><a href="#offices" data-toggle="tab">Pracoviská</a></li>
-          <li><a href="#judges" data-toggle="tab">Sudcovia</a></li>
-          <li><a href="#hearings" data-toggle="tab">Pojednávania</a></li>
-          <li><a href="#decrees" data-toggle="tab">Rozhodnutia</a></li>
+          <li><%= link_to_with_count 'Sudcovia', "#judges", @court.judges.count %></li>
+          <li><%= link_to_with_count 'Minulé pojednávania', '#past-hearings', @court.hearings.past.count %></li>
+          <li><%= link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @court.hearings.upcoming.count %></li>
+          <li><%= link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count %></li>
         </ul>
 
         <div class="tab-content">
@@ -49,12 +50,16 @@
             <%= render 'judges', judges: @judges %>
           </div>
 
-          <div id="hearings" class="tab-pane">
-            <%= render 'hearings', query: { court: @court.name } %>
+          <div id="past-hearings" class="tab-pane">
+            <%= render 'hearings', hearings: @past_hearings, query: { court: @court.name, historical: 'true' } %>
+          </div>
+
+          <div id="upcoming-hearings" class="tab-pane">
+            <%= render 'hearings', hearings: @upcoming_hearings, query: { court: @court.name } %>
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render 'decrees', query: { court: @court.name } %>
+            <%= render 'decrees', decrees: @decrees, query: { court: @court.name } %>
           </div>
         </div>
 
@@ -75,3 +80,11 @@
     </div>
   </div>
 </section>
+
+<% content_for :scripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() { 
+        initializeTablesorter()
+        });
+</script>
+<% end %>

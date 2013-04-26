@@ -21,6 +21,9 @@ class Hearing < ActiveRecord::Base
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgings).merge(Judging.of_judge(employment.judge)) }
 
+  scope :upcoming, lambda { where("date >= ?", Time.now)  }
+  scope :past, lambda { where("date < ?", Time.now) }
+
   belongs_to :proceeding
 
   belongs_to :court

@@ -1,3 +1,5 @@
-<%= render 'decrees/results', decrees: @decrees %>
-<hr/>
-<%= link_to_decrees_search "Viac rozhodnutí", params: query  %>
+<% if decrees.any? %>
+  <%= render 'decrees/results', decrees: decrees %>
+  <hr/>
+  <%= link_to_decrees_search "Viac rozhodnutí", params: query  %>
+<% end %>

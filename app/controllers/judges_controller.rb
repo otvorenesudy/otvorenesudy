@@ -6,8 +6,9 @@ class JudgesController < ApplicationController
   def show
     @judge = Judge.find(params[:id])
 
-    @employments = @judge.employments
-    @hearings    = @judge.hearings.limit(10)
-    @decrees     = @judge.decrees.limit(10)
+    @employments          = @judge.employments
+    @past_hearings        = @judge.hearings.past.limit(10)
+    @upcoming_hearings    = @judge.hearings.upcoming.limit(10)
+    @decrees              = @judge.decrees.limit(10)
   end
 end
