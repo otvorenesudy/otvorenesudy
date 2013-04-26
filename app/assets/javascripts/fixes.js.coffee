@@ -7,18 +7,14 @@ $(document).ready ->
       event.preventDefault()
 
     # Fix for tab hashcode in url
-    # from: http://stackoverflow.com/questions/12131273/twitter-bootstrap-tabs-url-doesnt-change
-    hash = window.location.hash
-    hash && $("ul.nav a[href='#{hash}']").tab('show')
+    # from: http://stackoverflow.com/questions/9685968/best-way-to-make-twitter-bootstrap-tabs-persistent
+    #if location.ha#sh != ''
+      #$("a[href='#{location.hash}']").tab('show')
 
-    $('.nav-tabs a').click (e) ->
-      e.preventDefault()
+    #$('a[data-toggle="tab"]').on 'shown', (e) ->
+      #location.hash = $(e.target).attr('href').substr(1)
 
-      $(this).tab('show')
-
-      scrollmem = $('body').scrollTop()
-      window.location.hash = $(this).attr('href')
-
-      $('html,body').scrollTop(scrollmem)
+    #$('a[data-toggle="tab"]').click (e) ->
+      #e.preventDefault()
 
   fixes()
