@@ -4,10 +4,13 @@
   <div class="page-header">
     <h1>
       <%= yield :title %>
+      <%- #TODO: remove %>
+      <!-- 
       <small>
         <%= number_with_translation(@judge.hearings.count, key: :hearing) %> a
         <%= number_with_translation(@judge.decrees.count,  key: :decree) %>.
       </small>
+      -->
     </h1>
   </div>
 
@@ -36,18 +39,28 @@
 
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#hearings" data-toggle="tab">Pojednávania</a>
+            <%= link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
           </li>
-          <li><a href="#decrees" data-toggle="tab">Rozhodnutia</a></li>
+          <li>
+            <%= link_to_with_count "Budúce pojednávania", "#upcoming-hearings", @judge.hearings.upcoming.count %>
+          </li>
+
+          <li>
+            <%= link_to_with_count "Rozhodnutia", "#decrees", @judge.decrees.count %>
+          </li>
         </ul>
 
         <div class="tab-content">
-         <div id="hearings" class="tab-pane active">
-           <%= render 'hearings', query: { judges: @judge.name } %>
+         <div id="past-hearings" class="tab-pane active">
+           <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: 'true' } %>
+         </div>
+
+         <div id="upcoming-hearings" class="tab-pane">
+           <%= render 'hearings', hearings: @upcoming_hearings, query: { judges: @judge.name } %>
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render 'decrees', query: { judges: @judge.name } %>
+            <%= render 'decrees', decrees: @decrees, query: { judges: @judge.name } %>
           </div>
         </div>
 
