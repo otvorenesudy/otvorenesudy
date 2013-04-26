@@ -1,9 +1,9 @@
 <% if @decrees.any? %>
   <%= render 'decrees/results', decrees: @decrees %>
   <hr/>
-  Sudca má celkovo <%= number_with_translation(@decrees.count,  key: :decree) %>. 
+  Sudca má celkovo <%= number_with_translation(@judge.decrees.count,  key: :decree) %>. 
   &sdot;
   <%= link_to_decrees_search "Viac rozhodnutí", params: query  %>
 <% else %>
-  Sudca nemá <%= number_with_translation(@decrees.count,  key: :decree) %>.
+  Sudca nemá <%= number_with_translation(@judge.decrees.count,  key: :decree) %>.
 <% end %>
