@@ -1,14 +1,9 @@
 <% if @hearings.any? %>
   <%= render 'hearings/results', hearings: @hearings %>
   <hr/>
-  Sudca má celkovo
-<% else %>
-  Sudca nemá
-<% end %>
-<%= number_with_translation(@hearings.count,  key: :hearing) %>. 
-
-
-<% if @hearings.any? %>
+  Sudca má celkovo <%= number_with_translation(@hearings.count,  key: :hearing) %>.
   &sdot;
   <%= link_to_hearings_search "Viac pojednávaní", params: query  %>
+<% else %>
+  Sudca nemá <%= number_with_translation(@hearings.count,  key: :hearing) %>.
 <% end %>
