@@ -9,6 +9,8 @@ Util.View.Suggest =
       messages:
         noResults: null,
         results: -> {}
+      open: ->
+        options.open?(entity)
       source: (request, response) ->
         options.refresh?(entity)
 
@@ -25,6 +27,9 @@ Util.View.Suggest =
   suggestList: (entity, options = {}) ->
     options.refresh = (entity) =>
       @.clearList(entity, selected: true)
+
+    options.open = (entity) =>
+      @.listCollapse(entity, visible: 10)
 
     @.suggest(entity, options)
       .data('autocomplete')._renderItem = (ul, item) =>
