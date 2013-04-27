@@ -39,14 +39,14 @@
 
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
+            <%= tab_link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
           </li>
           <li>
-            <%= link_to_with_count "Budúce pojednávania", "#upcoming-hearings", @judge.hearings.upcoming.count %>
+            <%= tab_link_to_with_count "Budúce pojednávania", "#upcoming-hearings", @judge.hearings.upcoming.count %>
           </li>
 
           <li>
-            <%= link_to_with_count "Rozhodnutia", "#decrees", @judge.decrees.count %>
+            <%= tab_link_to_with_count "Rozhodnutia", "#decrees", @judge.decrees.count %>
           </li>
         </ul>
 
