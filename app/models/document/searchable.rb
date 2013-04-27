@@ -41,7 +41,7 @@ module Document
 
         results = tire.search page: page, per_page: per_page do |index|
           if block_given?
-            yield index, query, terms, facets, highlights, sort_block, options
+            yield index, query, facets, highlights, sort_block, options
           else
             search_query(index, query, options)
             search_filter(index, query, facets, options)
