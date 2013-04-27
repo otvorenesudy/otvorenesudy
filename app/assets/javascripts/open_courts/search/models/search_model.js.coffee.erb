@@ -2,18 +2,8 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
   @include Util.Logger
   @include Util.Model.Attributes
 
-  # TODO: rename fulltext to q
   defaults:
-    q:                   []
-    page:                []
-    judges:              []
-    court:               []
-    date:                []
-    form:                []
-    nature:              []
-    legislation_area:    []
-    legislation_subarea: []
-    historical:          [false]
+    page:  [1]
 
   initialize: ->
     @.log 'Initializing ...'
@@ -22,25 +12,13 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
     @.log 'Initialized.'
 
-  getFulltext: (value) ->
-    @.getValue('q')
-
-  setFulltext: (value) ->
-    @.setValue('q', value)
-
   getPage: ->
-    @.getValue('page')
+    @.getValue('page') or 1
 
   setPage: (value) ->
-    value = 1 unless value
+    value = 1 if !value or isNaN(value)
 
     @.setValue('page', value)
-
-  getHistorical: ->
-    if @.getValue('historical') == "true" then true else false
-
-  setHistorical: (value) ->
-    @.setValue('historical', value.toString())
 
   query: ->
     type: @type, data: @.toJSON()

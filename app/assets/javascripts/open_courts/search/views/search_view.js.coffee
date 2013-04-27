@@ -48,8 +48,8 @@ $(document).ready ->
 
         @.onSearch reload: true, =>
 
-          @.updateFulltext(@model.getFulltext())
-          @.updateHistorical()
+          @.updateFulltext(@model.getFulltext()) if @model.getFulltext?
+          @.updateHistorical() if @model.getHistorical?
 
           for entity, value of @model.facets
             @.updateList(entity)
@@ -70,7 +70,6 @@ $(document).ready ->
         for value in @model.get name
           label = @model.label(name, value)
 
-          # TODO: consider not showing facet count for selected items
           @.prependListItem(list, label, value, @model.facet(name, value))
           @.selectListItem(list, value)
 

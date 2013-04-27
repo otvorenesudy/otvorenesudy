@@ -1,0 +1,19 @@
+#= require ./search_model
+
+class OpenCourts.DecreeSearchModel extends OpenCourts.SearchModel
+
+  type:  'decree'
+  defaults:
+    q:    []
+    <% Decree.facets.each do |name, facet| %>
+    <%= "#{name}: []" %>
+    <% end %>
+
+
+  getFulltext: (value) ->
+    @.getValue('q')
+
+  setFulltext: (value) ->
+    @.setValue('q', value)
+
+_.extend(OpenCourts.DecreeSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)

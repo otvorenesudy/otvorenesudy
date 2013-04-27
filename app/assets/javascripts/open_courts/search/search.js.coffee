@@ -9,14 +9,12 @@ $(document).ready =>
     @include Util.Logger
 
     constructor: (options) ->
-      @type = options.type
+      @model_class = options.model
 
     start: ->
-       @model      = new OpenCourts.SearchModel
-       @model.type = @type
-
-       @router = new OpenCourts.SearchRouter model: @model
-       @view   = new OpenCourts.SearchView model: @model
+       @model      = new @model_class
+       @router     = new OpenCourts.SearchRouter model: @model
+       @view       = new OpenCourts.SearchView model: @model
 
        Backbone.history.start()
 
