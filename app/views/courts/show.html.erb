@@ -31,10 +31,10 @@
             <a href="#contact" data-toggle="tab">Kontakt</a>
           </li>
           <li><a href="#offices" data-toggle="tab">Pracoviská</a></li>
-          <li><%= link_to_with_count 'Sudcovia', "#judges", @court.judges.count %></li>
-          <li><%= link_to_with_count 'Minulé pojednávania', '#past-hearings', @court.hearings.past.count %></li>
-          <li><%= link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @court.hearings.upcoming.count %></li>
-          <li><%= link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count %></li>
+          <li><%= tab_link_to_with_count 'Sudcovia', "#judges", @court.judges.count%></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#past-hearings', @court.hearings.past.count %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @court.hearings.upcoming.count %></li>
+          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count %></li>
         </ul>
 
         <div class="tab-content">

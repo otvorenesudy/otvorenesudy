@@ -73,9 +73,13 @@ module TagsHelper
   def link_to_with_count(title, href, count, options = {})
     count = content_tag :span, "&nbsp;(#{number_with_delimiter(count)})".html_safe, class: :muted
 
+    link_to title.concat(count).html_safe, href, options
+  end
+
+  def tab_link_to_with_count(title, href, count, options = {})
     options.merge! :'data-toggle' => :tab
 
-    link_to title.concat(count).html_safe, href, options
+    link_to_with_count(title, href, count, options)
   end
 
   private
