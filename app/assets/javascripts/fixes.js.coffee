@@ -19,6 +19,8 @@ $(document).ready ->
         if $(selector).length > 0
           $(selector).tab('show')
 
+          scrollToTabs($(selector))
+
       $('a[data-toggle="tab"]').on 'shown', (e) ->
         window.location.hash = $(e.target).attr('href').substr(1)
 
