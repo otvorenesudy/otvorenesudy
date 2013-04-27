@@ -8,13 +8,25 @@ $(document).ready ->
 
     # Fix for tab hashcode in url
     # from: http://stackoverflow.com/questions/9685968/best-way-to-make-twitter-bootstrap-tabs-persistent
-    #if location.ha#sh != ''
-      #$("a[href='#{location.hash}']").tab('show')
+    window.fixTabs = ->
+      window.scrollToTabs =  (el) ->
+        # TODO: remove relative navbar height if navbar does not stay fixed
+        $(document).scrollTop(el.closest('ul.nav').offset().top - $('.navbar').height() - 10)
 
-    #$('a[data-toggle="tab"]').on 'shown', (e) ->
-      #location.hash = $(e.target).attr('href').substr(1)
+      if location.hash != ''
+        selector = "a[href='#{location.hash}']"
 
-    #$('a[data-toggle="tab"]').click (e) ->
-      #e.preventDefault()
+        if $(selector).length > 0
+          $(selector).tab('show')
+
+      $('a[data-toggle="tab"]').on 'shown', (e) ->
+        window.location.hash = $(e.target).attr('href').substr(1)
+
+        scrollToTabs($(this))
+
+      $('a[data-toggle="tab"]').click (e) ->
+        e.preventDefault()
+
+    window.fixTabs()
 
   fixes()
