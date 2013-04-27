@@ -120,6 +120,7 @@ sk:
 
     legislation_subarea:
       title: 'Podoblasť právnej úpravy'
+      placeholder: 'Podoblasť právnej úpravy'
 
     date:
       title: 'Dátum'
