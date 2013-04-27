@@ -3,7 +3,7 @@
 <% content_for :scripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-        window.app = new OpenCourts.Search.App({ type: 'decree' })
+        window.app = new OpenCourts.Search.App({ model: OpenCourts.DecreeSearchModel })
         window.app.start()
         })
 </script>
