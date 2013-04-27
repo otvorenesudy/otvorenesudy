@@ -16,6 +16,7 @@ $(document).ready ->
       even       : ''
       odd        : ''
 
+  # TODO: check if all characters are considered
   $.extend($.tablesorter.characterEquivalents, 
     'a': 'áä'
     'A': 'ÁÄ'
