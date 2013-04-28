@@ -26,6 +26,8 @@ $(document).ready ->
         'click .pagination ul li a'           : 'onChangePage'
         'click #search-panel ul a.fold'       : 'onToggleFold'
         'click #search-panel input#historical': 'onClickHistorical'
+        'change #sort'                        : 'onChangeSort'
+        'click  #order'                       : 'onClickOrder'
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -50,6 +52,8 @@ $(document).ready ->
 
           @.updateFulltext(@model.getFulltext()) if @model.getFulltext?
           @.updateHistorical() if @model.getHistorical?
+          @.updateSort(@model.getSort())
+          @.updateOrder(@model.getOrder())
 
           for entity, value of @model.facets
             @.updateList(entity)
@@ -59,6 +63,13 @@ $(document).ready ->
 
       updateHistorical: (value) ->
         $('#historical').prop('checked', @model.getHistorical())
+
+      updateSort: (value) ->
+        $('#sort').val(value)
+
+      updateOrder: (value) ->
+        $('#order button').removeClass('active')
+        $("#order").find("button[data-order='#{value}']").addClass('active')
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
@@ -149,6 +160,20 @@ $(document).ready ->
 
       onClickHistorical: (event) ->
         @model.setHistorical(event.target.checked)
+
+      onChangeSort: (event) ->
+        value = $(event.target).val()
+
+        @.log "Setting sort to #{value}"
+
+        @model.setSort(value)
+
+      onClickOrder: (event) ->
+        value = @.findValue(event.target, 'data-order')
+
+        @.log "Setting order to #{value}"
+
+        @model.setOrder(value)
 
       setupListSuggest: ->
         $('.facet input').each (i, el) =>

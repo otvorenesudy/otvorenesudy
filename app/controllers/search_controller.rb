@@ -69,7 +69,7 @@ class SearchController < ApplicationController
       data = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
-        next unless model.has_facet?(key) || [:page, :per_page, :q, :sort, :sort_order].include?(key)
+        next unless model.has_facet?(key) || [:page, :per_page, :q, :sort, :order].include?(key)
 
         case key
         when :page
@@ -88,6 +88,10 @@ class SearchController < ApplicationController
           end
         when :q
           query[:query].merge!(text: data[key].first)
+        when :sort
+          query[:sort] = value.first.to_sym
+        when :order
+          query[:order] = value.first.to_sym
         else
           query[:filter].merge!(key => data[key])
         end

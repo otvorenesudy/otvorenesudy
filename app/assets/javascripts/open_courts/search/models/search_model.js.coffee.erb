@@ -4,6 +4,8 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
   defaults:
     page:  [1]
+    sort:  ['date']
+    order: ['desc']
 
   initialize: ->
     @.log 'Initializing ...'
@@ -19,6 +21,18 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     value = 1 if !value or isNaN(value)
 
     @.setValue('page', value)
+
+  getSort: ->
+    @.getValue('sort')
+
+  setSort: (value) ->
+    @.setValue('sort', value)
+
+  getOrder: ->
+    @.getValue('order')
+
+  setOrder: (value) ->
+    @.setValue('order', value)
 
   query: ->
     type: @type, data: @.toJSON()

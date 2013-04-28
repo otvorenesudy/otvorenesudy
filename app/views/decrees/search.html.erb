@@ -7,37 +7,57 @@
         window.app.start()
         })
 </script>
-<% end %>
+    <% end %>
 
-<section id="search-view">
-  <div id="fulltext" class="input-append">
-    <%= facet_input class: 'input-xlarge', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
-    <button class='btn' type="button"><%= icon_tag 'search' %></button>
-  </div>
-
-  <div class="row">
-    <div id="search-panel" class="span4">
-
-      <% Decree.facets.each do |name, facet| %>
-        <% if facet.visible %>
-          <%= render "facets/#{facet.type.to_s}_facet", name: name %>
-        <% end %>
-      <% end %>
-
-    </div>
-
-    <div class="span8">
+    <section id="search-view">
       <div class="row">
-        <div id="search-info" class="span8"></div>
+
+        <div class="span6">
+          <div id="fulltext" class="input-append">
+            <%= facet_input class: 'input-xlarge', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
+            <button class='btn' type="button"><%= icon_tag 'search' %></button>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div class="pull-right">
+            Zoradiť podľa
+
+            <select id="sort">
+              <option value="date">Dátum</option>
+            </select>
+
+            <div id="order" class="btn-group" data-toggle="buttons-radio">
+              <button type="button" class="btn" data-order="desc"><%= icon_tag :'angle-down' %></button>
+
+              <button type="button" class="btn" data-order="asc"><%= icon_tag :'angle-up' %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div id="search-panel" class="span4">
+
+          <% Decree.facets.each do |name, facet| %>
+            <% if facet.visible %>
+              <%= render "facets/#{facet.type.to_s}_facet", name: name %>
+            <% end %>
+          <% end %>
+
+        </div>
+
+        <div class="span8">
+          <div class="row">
+            <div id="search-info" class="span8"></div>
+          </div>
+
+          <div class="row">
+            <div id="search-results" class="span8"></div>
+          </div>
+        </div>
       </div>
 
       <div class="row">
-        <div id="search-results" class="span8"></div>
+        <div id="search-pagination" class="span12"></div>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div id="search-pagination" class="span12"></div>
-  </div>
-</section>
+    </section>

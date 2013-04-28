@@ -27,7 +27,8 @@ module Document
         facets     = params[:facets]     || @facets
         highlights = params[:highlights] || @highlights
         options    = params[:options]    || {}
-        sort_block = params[:sort]
+        sort       = params[:sort]
+        order      = params[:order]
 
         options[:global_facets] ||= false
 
@@ -41,12 +42,12 @@ module Document
 
         results = tire.search page: page, per_page: per_page do |index|
           if block_given?
-            yield index, query, facets, highlights, sort_block, options
+            yield index, query, facets, highlights, sort, order, options
           else
             search_query(index, query, options)
             search_filter(index, query, facets, options)
             search_facets(index, query, facets, options)
-            search_sort(index, sort_block, options)
+            search_sort(index, sort, order, options)
             search_highlights(index, query, highlights, options)
           end
 
@@ -118,9 +119,11 @@ module Document
         end
       end
 
-      def search_sort(index, sort_block, options)
-        if sort_block
-          index.sort sort_block
+      def search_sort(index, sort, order, options)
+        field = not_analyzed_field(sort)
+
+        if sort
+          index.sort { by field, order || 'desc' }
         end
       end
 
