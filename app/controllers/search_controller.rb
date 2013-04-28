@@ -14,7 +14,7 @@ class SearchController < ApplicationController
     else
       render status: 422,
       json: {
-        error: "#{params[:entity]} is not valid autocomplete entity!"
+        error: "#{params[:entity]} is not valid suggestable entity!"
       }
     end
   end
@@ -43,7 +43,7 @@ class SearchController < ApplicationController
 
     else
       render json: {
-        error: 'Y U NO haz valid query!',
+        error: 'Invalid query.',
         html:  render_to_string(partial: 'error')
       }
     end
@@ -69,7 +69,7 @@ class SearchController < ApplicationController
       data = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
-        next unless model.has_facet?(key) || [:page, :per_page, :q, :old].include?(key)
+        next unless model.has_facet?(key) || [:page, :per_page, :q, :sort, :sort_order].include?(key)
 
         case key
         when :page
