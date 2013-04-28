@@ -9,8 +9,8 @@ module DecreesHelper
 
   def external_link_to_legislation(legislation, options = {})
     if legislation.year && legislation.number
-      hash = "#{legislation.paragraph}-#{legislation.section}-#{legislation.letter}"
-      url  = "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}#p#{hash}"
+      hash = "p#{legislation.paragraph}-#{legislation.section}-#{legislation.letter}"
+      url  = "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}##{hash}"
     else
       url = "http://www.zakonypreludi.sk/main/search.aspx?text=#{legislation.value}"
     end
