@@ -57,6 +57,7 @@ $(document).ready ->
 
           for entity, value of @model.facets
             @.updateList(entity)
+            @.listCollapse(entity, visible: 10)
 
       updateFulltext: (value) ->
         $('#fulltext input').val(value)
@@ -100,7 +101,6 @@ $(document).ready ->
 
             @.addListItem(list, label, value, @model.facet(name, value)) unless @.listHasItem(list, value)
 
-          @.listCollapse(list, visible: 10)
 
       fixes: ->
         @.log 'Applying fixes ...'

@@ -28,7 +28,7 @@ Util.View.List =
     @.log "Unfolding list #{@.list(list).attr('id')}"
 
     @.list(list).append(@template['list_items_unfold'])
-    @.list(list).find("li:gt(#{options.visible})").show()
+    @.list(list).find("li:not(.selected):gt(#{options.visible})").show()
 
     @.listFoldState(list, 'unfolded')
 
@@ -36,7 +36,7 @@ Util.View.List =
     @.log "Folding list #{@.list(list).attr('id')}"
 
     @.list(list).append(@template['list_items_fold'])
-    @.list(list).find("li:gt(#{options.visible})").hide()
+    @.list(list).find("li:not(.selected):gt(#{options.visible})").hide()
 
     @.listFoldState(list, 'folded')
 
@@ -50,7 +50,7 @@ Util.View.List =
     @.listCollapse(list, options)
 
   listCollapse: (list, options) ->
-    elements = @.list(list).find('li')
+    elements = @.list(list).find('li:not(.selected)')
     state    = options.state or @.listFoldState(list)
 
     @.list(list).find('a.fold').remove()
