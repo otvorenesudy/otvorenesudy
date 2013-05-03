@@ -18,11 +18,11 @@ module Document
       end
 
       def has_field?(field)
-        @mappings[field].present?
+        @mappings ? @mappings[field].present? : false
       end
 
       def has_facet?(name)
-        @facets[name].present?
+        @facets ? @facets[name].present? : false
       end
     end
   end
