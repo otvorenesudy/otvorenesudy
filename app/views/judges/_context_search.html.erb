@@ -1,0 +1,12 @@
+<% if @results %>
+  <h4>Výsledky kontextového vyhľadávania</h4>
+  <hr />
+  <dl>
+   <% @results.each do |result| %>
+     <dt><%= link_to result[:title], result[:url] %></dt>
+     <dd><%= result[:description] %></dd>
+   <% end %>
+ </dl>
+
+ <p class="muted"><%= @search.query %></p>
+<% end %>
