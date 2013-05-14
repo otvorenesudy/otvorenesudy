@@ -32,8 +32,6 @@ class Hearing < ActiveRecord::Base
 
   has_many :judgings, dependent: :destroy
 
-  has_many :partial_judgings, dependent: :destroy
-
   has_many :judges, through: :judgings
 
   belongs_to :type,    class_name: :HearingType,    foreign_key: :hearing_type_id
