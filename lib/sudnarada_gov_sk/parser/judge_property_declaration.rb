@@ -28,7 +28,7 @@ module SudnaradaGovSk
                 description:        normalize_value(row.search('td.nazov').text),
                 acquisition_reason: normalize_value(row.search('td.dovod').text),
                 acquisition_date:   normalize_value(row.search('td.datum').text),
-                cost:               normalize_value(row.search('td.cena').text),
+                cost:               normalize_value(row.search('td.cena').text.gsub(/\s+/, '')),
                 ownership_form:     normalize_value(row.search('td.vlast').text),
                 share_size:         normalize_value(row.search('td.podiel').text),
                 change:             normalize_value(row.search('td.zmena').text)
@@ -49,7 +49,7 @@ module SudnaradaGovSk
           
           cells.each_with_index do |cell, i|
             next if cell.text.blank?
-            incomes << { description: cell.text.strip, value: values[i].text.strip[0..-3].to_f }
+            incomes << { description: cell.text.strip, value: values[i].text.gsub(/\s+/, '')[0..-3].to_f }
           end
           
           incomes
