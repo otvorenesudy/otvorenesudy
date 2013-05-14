@@ -100,6 +100,8 @@ module JusticeGovSk
         
         unless name.nil?
           match_judges_by(name) do |similarity, judge|
+            judge = make_judge(@decree.uri, @decree.source, name, court: @decree.court) unless judge
+
             judgement(judge, similarity, name)
           end
         end
