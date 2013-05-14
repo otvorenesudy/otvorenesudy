@@ -12,7 +12,7 @@ module Bing
       rescue JSON::ParserError
         Bing::Cache.del(url)
 
-        return nil
+        return
       end
     end
 
@@ -49,6 +49,5 @@ module Bing
 
       results
     end
-
   end
 end
