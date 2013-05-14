@@ -30,7 +30,8 @@ module JusticeGovSk
           
           raise "Decree form not found" unless @decree.form
           
-          @decree.uri  = uri
+          @decree.uri    = uri
+          @decree.source = JusticeGovSk.source
           
           fulltext(uri)
           

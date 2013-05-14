@@ -15,7 +15,8 @@ module JusticeGovSk
           
           next @hearing unless crawlable?(@hearing)
           
-          @hearing.uri = uri
+          @hearing.uri    = uri
+          @hearing.source = JusticeGovSk.source
   
           @hearing.case_number = @parser.case_number(@document)
           @hearing.file_number = @parser.file_number(@document)

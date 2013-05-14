@@ -15,7 +15,8 @@ module JusticeGovSk
           
           next @court unless crawlable?(@court)
           
-          @court.uri = uri
+          @court.uri    = uri
+          @court.source = JusticeGovSk.source
           
           @court.name        = @parser.name(@document)
           @court.street      = @parser.street(@document)

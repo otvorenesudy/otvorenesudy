@@ -8,6 +8,10 @@ module JusticeGovSk
   module Base
     include Core::Base
     
+    def source
+      @source ||= Source.find_by_module self.name
+    end
+    
     # supported types: Court, CivilHearing, CriminalHearing, SpecialHearing, Decree
     def download_pages(type, options = {})
       offset = options[:offset].blank? ? 1 : options[:offset].to_i

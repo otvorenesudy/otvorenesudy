@@ -14,6 +14,9 @@ module JusticeGovSk
           
           next judge unless crawlable?(judge)
           
+          judge.uri    = JusticeGovSk::Request.uri(request)
+          judge.source = JusticeGovSk.source
+          
           judge.name             = name[:altogether]
           judge.name_unprocessed = name[:unprocessed]
           

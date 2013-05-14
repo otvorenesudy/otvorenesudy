@@ -20,6 +20,9 @@ module SudnaradaGovSk
           
           @declaration = judge_property_declaration_by_year_and_judge_id_factory.find_or_create(year, judge.id)
           
+          @declaration.uri    = uri
+          @declaration.source = SudnaradaGovSk.source
+          
           @declaration.year  = year
           @declaration.judge = judge
           
