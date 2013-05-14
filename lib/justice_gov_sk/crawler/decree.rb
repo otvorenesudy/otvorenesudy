@@ -114,7 +114,7 @@ module JusticeGovSk
           puts "Processing decree #{pluralize list.count, 'nature'}."
           
           list.each do |value|
-            nature = decree_nature_factory.find_or_create(value)
+            nature = decree_nature_by_value_factory.find_or_create(value)
             
             nature.value = value
             
