@@ -49,7 +49,7 @@ class Decree < ActiveRecord::Base
     analyze :commencement_date,   type: 'date'
     analyze :court,               as: lambda { |d| d.court.name if d.court                        }
     analyze :form,                as: lambda { |d| d.form.value if d.form                         }
-    analyze :nature,              as: lambda { |d| d.nature.value if d.nature                     }
+    analyze :natures,             as: lambda { |d| d.natures.map { |l| l.value } if d.natures }
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     # TODO: consider naming in singular for simplified quering
