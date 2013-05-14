@@ -39,9 +39,9 @@ module JusticeGovSk
         end
       end
         
-      def nature(document)
+      def natures(document)
         find_value_by_label 'nature', document, 'Povaha rozhodnutia' do |div|
-          div.text.strip
+          div.text.split(/\n/).map! { |s| s.strip }
         end
       end
 

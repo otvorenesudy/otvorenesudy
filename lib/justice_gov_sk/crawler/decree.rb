@@ -46,7 +46,8 @@ module JusticeGovSk
           
           judge
           
-          supply @decree, :nature, parse: :value, factory: { type: DecreeNature }
+          natures
+          
           supply @decree, :legislation_area, parse: :value
           supply @decree, :legislation_subarea, { parse: :value,
             defaults: { area: @decree.legislation_area },
@@ -100,6 +101,24 @@ module JusticeGovSk
         end
       end
       
+      def natures
+        list = @parser.natures(@document)
+        
+        unless list.blank?
+          puts "Processing decree #{pluralize list.count, 'nature'}."
+          
+          list.each do |value|
+            nature = decree_nature_factory.find_or_create(value)
+            
+            nature.value = value
+            
+            @persistor.persist(nature)
+            
+            naturalization(nature)
+          end
+        end
+      end
+      
       def legislations
         list = @parser.legislations(@document)
     
@@ -149,6 +168,15 @@ module JusticeGovSk
         judgement.decree = @decree
         
         @persistor.persist(judgement)
+      end
+      
+      def naturalization(nature)
+        naturalization = decree_naturalization_by_decree_id_and_decree_nature_id_factory.find_or_create(@decree.id, nature.id)
+        
+        naturalization.decree = @decree
+        naturalization.nature = nature
+        
+        @persistor.persist(naturalization)
       end
       
       def legislation_usage(legislation)
