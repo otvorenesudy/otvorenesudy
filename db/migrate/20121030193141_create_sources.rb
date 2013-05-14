@@ -7,9 +7,9 @@ class CreateSources < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
   
-  add_index :sources, :module, unique: true
-  add_index :sources, :name,   unique: true
-  add_index :sources, :uri,    unique: true
+    add_index :sources, :module, unique: true
+    add_index :sources, :name,   unique: true
+    add_index :sources, :uri,    unique: true
+  end
 end

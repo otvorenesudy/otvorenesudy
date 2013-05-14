@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   create_table "courts", :force => true do |t|
     t.string   "uri",                                                        :null => false
+    t.integer  "source_id",                                                  :null => false
     t.integer  "court_type_id",                                              :null => false
     t.integer  "court_jurisdiction_id"
     t.integer  "municipality_id",                                            :null => false
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
+  add_index "courts", ["source_id"], :name => "index_courts_on_source_id"
   add_index "courts", ["uri"], :name => "index_courts_on_uri", :unique => true
 
   create_table "decree_forms", :force => true do |t|
@@ -109,6 +111,16 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   add_index "decree_forms", ["value"], :name => "index_decree_forms_on_value", :unique => true
 
+  create_table "decree_naturalizations", :force => true do |t|
+    t.integer  "decree_id",        :null => false
+    t.integer  "decree_nature_id", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "decree_naturalizations", ["decree_id", "decree_nature_id"], :name => "index_decree_naturalizations_on_decree_id_and_decree_nature_id", :unique => true
+  add_index "decree_naturalizations", ["decree_nature_id", "decree_id"], :name => "index_decree_naturalizations_on_decree_nature_id_and_decree_id", :unique => true
+
   create_table "decree_natures", :force => true do |t|
     t.string   "value",      :null => false
     t.datetime "created_at", :null => false
@@ -119,10 +131,10 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   create_table "decrees", :force => true do |t|
     t.string   "uri",                    :null => false
+    t.integer  "source_id",              :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
     t.integer  "decree_form_id"
-    t.integer  "decree_nature_id"
     t.string   "case_number"
     t.string   "file_number"
     t.date     "date"
@@ -136,8 +148,10 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
+  add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
+  add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
 
   create_table "defendants", :force => true do |t|
@@ -198,6 +212,7 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   create_table "hearings", :force => true do |t|
     t.string   "uri",                :null => false
+    t.integer  "source_id",          :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
     t.integer  "hearing_type_id",    :null => false
@@ -220,6 +235,7 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
   add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
+  add_index "hearings", ["source_id"], :name => "index_hearings_on_source_id"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
   create_table "judge_incomes", :force => true do |t|
@@ -291,6 +307,8 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "judge_property_changes", ["value"], :name => "index_judge_property_changes_on_value", :unique => true
 
   create_table "judge_property_declarations", :force => true do |t|
+    t.string   "uri",        :null => false
+    t.integer  "source_id",  :null => false
     t.integer  "judge_id",   :null => false
     t.integer  "year",       :null => false
     t.datetime "created_at", :null => false
@@ -298,6 +316,8 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   end
 
   add_index "judge_property_declarations", ["judge_id", "year"], :name => "index_judge_property_declarations_on_judge_id_and_year", :unique => true
+  add_index "judge_property_declarations", ["source_id"], :name => "index_judge_property_declarations_on_source_id"
+  add_index "judge_property_declarations", ["uri"], :name => "index_judge_property_declarations_on_uri", :unique => true
   add_index "judge_property_declarations", ["year", "judge_id"], :name => "index_judge_property_declarations_on_year_and_judge_id", :unique => true
 
   create_table "judge_property_lists", :force => true do |t|
@@ -349,6 +369,8 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "judge_statements", ["value"], :name => "index_judge_statements_on_value", :unique => true
 
   create_table "judge_statistical_summaries", :force => true do |t|
+    t.string   "uri",                                            :null => false
+    t.integer  "source_id",                                      :null => false
     t.integer  "court_id",                                       :null => false
     t.integer  "judge_id",                                       :null => false
     t.integer  "judge_senate_inclusion_id"
@@ -372,6 +394,8 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "judge_statistical_summaries", ["court_id"], :name => "index_judge_statistical_summaries_on_court_id"
   add_index "judge_statistical_summaries", ["date"], :name => "index_judge_statistical_summaries_on_date"
   add_index "judge_statistical_summaries", ["judge_id"], :name => "index_judge_statistical_summaries_on_judge_id"
+  add_index "judge_statistical_summaries", ["source_id"], :name => "index_judge_statistical_summaries_on_source_id"
+  add_index "judge_statistical_summaries", ["uri"], :name => "index_judge_statistical_summaries_on_uri", :unique => true
   add_index "judge_statistical_summaries", ["year"], :name => "index_judge_statistical_summaries_on_year"
 
   create_table "judge_statistical_table_cells", :force => true do |t|
@@ -451,6 +475,8 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "judgements", ["judge_name_unprocessed"], :name => "index_judgements_on_judge_name_unprocessed"
 
   create_table "judges", :force => true do |t|
+    t.string   "uri",              :null => false
+    t.integer  "source_id",        :null => false
     t.string   "name",             :null => false
     t.string   "name_unprocessed", :null => false
     t.string   "prefix"
@@ -467,6 +493,8 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   add_index "judges", ["last", "middle", "first"], :name => "index_judges_on_last_and_middle_and_first"
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
+  add_index "judges", ["source_id"], :name => "index_judges_on_source_id"
+  add_index "judges", ["uri"], :name => "index_judges_on_uri"
 
   create_table "judgings", :force => true do |t|
     t.integer  "hearing_id",                                           :null => false
@@ -587,5 +615,17 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   add_index "proposers", ["hearing_id", "name"], :name => "index_proposers_on_hearing_id_and_name", :unique => true
   add_index "proposers", ["name"], :name => "index_proposers_on_name"
+
+  create_table "sources", :force => true do |t|
+    t.string   "module",     :null => false
+    t.string   "name",       :null => false
+    t.string   "uri",        :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sources", ["module"], :name => "index_sources_on_module", :unique => true
+  add_index "sources", ["name"], :name => "index_sources_on_name", :unique => true
+  add_index "sources", ["uri"], :name => "index_sources_on_uri", :unique => true
 
 end
