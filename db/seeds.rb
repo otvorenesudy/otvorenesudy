@@ -3,11 +3,31 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+# sources
+source        = Source.new
+source.module = "JusticeGovSk"
+source.name   = "Portál ministerstva spravodlivosti Slovenskej republiky"
+source.uri    = "http://www.justice.gov.sk"
+source.save!
+
+source        = Source.new
+source.module = "SudnaradaGovSk"
+source.name   = "Portál súdnej rady Slovenskej republiky"
+source.uri    = "http://mps.sudnarada.gov.sk"
+source.save!
+
+seeds        = Source.new
+seeds.module = "seeds"
+seeds.name   = "Database seeds file"
+seeds.uri    = "db/seeds.rb"
+seeds.save!
+
 # courts
 
 # http://portal.concourt.sk/pages/viewpage.action?pageId=1278049
 court              = Court.new
 court.uri          = "http://portal.concourt.sk"
+court.source       = seeds
 court.type         = CourtType.constitutional
 court.municipality = Municipality.create name: "Košice", zipcode: "042 65"
 court.name         = "Ústavný súd Slovenskej republiky"
@@ -30,7 +50,8 @@ court.save!
 
 # http://www.nsud.sk/kontakt/
 court              = Court.new
-court.uri          = "http://www.nsud.sk" 
+court.uri          = "http://www.nsud.sk"
+court.source       = seeds
 court.type         = CourtType.highest
 court.municipality = Municipality.create name: "Bratislava", zipcode: "814 90"
 court.name         = "Najvyšší súd Slovenskej republiky"
