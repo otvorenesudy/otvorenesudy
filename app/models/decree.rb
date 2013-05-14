@@ -35,7 +35,7 @@ class Decree < ActiveRecord::Base
   belongs_to :legislation_area
   belongs_to :legislation_subarea
 
-  has_many :legislation_usages
+  has_many :legislation_usages, dependent: :destroy
 
   has_many :legislations, through: :legislation_usages
 
