@@ -28,8 +28,11 @@ class Decree < ActiveRecord::Base
 
   has_many :judges, through: :judgements
 
-  belongs_to :form,   class_name: :DecreeForm,   foreign_key: :decree_form_id
-  belongs_to :nature, class_name: :DecreeNature, foreign_key: :decree_nature_id
+  belongs_to :form, class_name: :DecreeForm, foreign_key: :decree_form_id
+  
+  has_many :naturalizations, class_name: :DecreeNaturalization, dependent: :destroy
+  
+  has_many :natures, class_name: :DecreeNature, through: :naturalizations
 
   belongs_to :legislation_area
   belongs_to :legislation_subarea

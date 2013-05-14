@@ -8,7 +8,6 @@ class CreateDecrees < ActiveRecord::Migration
       t.references :court
       
       t.references :decree_form
-      t.references :decree_nature
             
       t.string :case_number
       t.string :file_number
@@ -29,6 +28,8 @@ class CreateDecrees < ActiveRecord::Migration
     
     add_index :decrees, :proceeding_id
     add_index :decrees, :court_id
+
+    add_index :decrees, :decree_form_id
     
     add_index :decrees, :case_number
     add_index :decrees, :file_number
