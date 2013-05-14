@@ -18,7 +18,7 @@ module JusticeGovSk
             puts "done (exact match)"
             puts matched_judges 1.0, exact
             
-            return { 1.0 => map[1.0] } unless block_given?
+            return { 1.0 => exact } unless block_given?
             
             exact.each do |judge|
               yield 1.0, judge

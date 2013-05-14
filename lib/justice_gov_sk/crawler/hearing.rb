@@ -45,6 +45,10 @@ module JusticeGovSk
           
           names.each do |name|
             match_judges_by(name) do |similarity, judge|
+              judge = nil
+              
+              judge = make_judge(@hearing.uri, @hearing.source, name) unless judge
+              
               judging(judge, similarity, name, false)
             end
           end

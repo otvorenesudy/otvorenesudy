@@ -8,26 +8,13 @@ module JusticeGovSk
       
       def process(request)
         super(request) do |item|
-          uri  = JusticeGovSk::Request.uri(request)
-          data = @parser.data(item)
-          name = data[:name]
+          uri     = JusticeGovSk::Request.uri(request)
+          data    = @parser.data(item)
+          options = { require_court: true, require_position: true }
 
           next unless crawlable?(Judge, uri) 
           
-          judge = make_judge uri, JusticeGovSk.source, name
-          
-          @persistor.persist(judge)
-          
-          court    = court_by_name_factory.find(data[:court]) unless data[:court].nil?
-          position = make_judge_position(data[:position])
-  
-          @persistor.persist(position)
-  
-          employment = make_employment(court, judge, position, data[:active], data[:note])
-          
-          @persistor.persist(employment)
-          
-          judge
+          make_judge uri, JusticeGovSk.source, data[:name], data, options
         end
       end
     end
