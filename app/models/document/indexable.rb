@@ -12,8 +12,6 @@ module Document
     module ClassMethods
       include Document::Index::Helpers
 
-      attr_reader :facets
-
       def config
         YAML.load_file(File.join(Rails.root, 'config', 'elasticsearch.yml')).symbolize_keys
       end
@@ -26,41 +24,56 @@ module Document
         tire.settings.deep_merge!(settings)
       end
 
-      def use_mapping
-        @mapping    ||= {}
-        @highlights ||= []
+      def mapping
+        @mapping      ||= {}
+        @highlights   ||= []
+        @dependencies ||= {}
 
-        yield
+        unless block_given?
+          return @mapping, @highlights
+        else
+          yield
 
-        tire.mapping do
-          @mapping.each do |field, value|
-            options  = value[:options]
+          tire.mapping do
+            @mapping.each do |field, value|
+              options  = value[:options]
 
-            type     = options[:type]     || :string
-            analyzer = options[:analyzer] || 'text_analyzer'
+              type     = options[:type]     || :string
+              analyzer = options[:analyzer] || 'text_analyzer'
 
-            @highlights << field if options[:highlight]
+              @highlights << field if options[:highlight]
 
-            if value[:type].eql? :mapped
-              indexes field, options.merge!(index: :not_analyzed)
-            else
-              indexes field, options.deep_merge!(
-                  type:   'multi_field',
+              if options[:depends]
+                dependencies(field, options)
+
+                options.delete(:depends_on)
+              end
+
+              if value[:type].eql? :mapped
+                indexes field, options.merge!(index: :not_analyzed)
+              else
+                indexes field, options.deep_merge!(
+                  type:   :multi_field,
                   fields: {
                     analyzed:  { type: type,  analyzer: analyzer },
                     untouched: { type: type,  index: :not_analyzed }
                   }
-              )
-            end
+                )
+              end
 
+            end
           end
         end
       end
 
-      def use_facets
+      def facets
         @facets ||= {}
 
-        yield
+        if block_given?
+          yield
+        else
+          @facets
+        end
       end
 
       private
@@ -86,6 +99,23 @@ module Document
 
         # TODO: use core injector
         @facets[name] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
+      end
+
+      def dependencies(field, options)
+        dependent = options[:depends][:on]
+
+        @dependencies[field]              = {}
+        @dependencies[field][dependent] ||= {}
+
+        dependencies = @dependencies[field]
+
+        find_each do |record|
+          value       = options[:as] ? options[:as].call(record) : record.send(field)
+          dependency  = options[:depends][:as].call(record)
+
+          dependencies[dependent][value] ||= []
+          dependencies[dependent][value] << dependency unless dependencies[dependent][value].include?(dependency)
+        end
       end
 
     end
