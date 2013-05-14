@@ -3,6 +3,7 @@ module SudnaradaGovSk
     class JudgePropertyDeclaration < SudnaradaGovSk::Crawler
       protected
       
+      include JusticeGovSk::Helper::JudgeMaker
       include JusticeGovSk::Helper::JudgeMatcher
       
       def process(request)
@@ -18,6 +19,8 @@ module SudnaradaGovSk
           judge      = judges_map[judges_map.keys.sort.last].first
           
           raise "More than one similar judge matched." if judges_map[judges_map.keys.sort.last].count > 1
+          
+          judge = make_judge(uri, SudnaradaGovSk.source, judge_name, court: court) unless judge
           
           @declaration = judge_property_declaration_by_year_and_judge_id_factory.find_or_create(year, judge.id)
           

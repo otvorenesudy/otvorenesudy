@@ -1,3 +1,4 @@
+require 'justice_gov_sk/helper/judge_maker'
 require 'justice_gov_sk/helper/judge_matcher'
 require 'justice_gov_sk/helper/normalizer'
 
