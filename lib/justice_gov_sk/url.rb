@@ -1,7 +1,7 @@
 module JusticeGovSk
   module URL
     def self.base
-      'http://www.justice.gov.sk'
+      JusticeGovSk.source.uri
     end
     
     def self.valid?(url)

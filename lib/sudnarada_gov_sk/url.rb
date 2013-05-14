@@ -1,7 +1,7 @@
 module SudnaradaGovSk
   module URL
     def self.base
-      'http://mps.sudnarada.gov.sk'
+      SudnaradaGovSk.source.uri
     end
     
     def self.valid?(url)
