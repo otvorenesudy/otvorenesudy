@@ -5,7 +5,9 @@ class JudgePropertyDeclaration < ActiveRecord::Base
   scope :of_year, lambda { |year| where('year = ?', year) }
 
   belongs_to :source
-    
+  
+  belongs_to :court
+  
   belongs_to :judge
   
   has_many :lists, class_name: :JudgePropertyList,

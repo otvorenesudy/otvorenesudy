@@ -309,12 +309,14 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
   create_table "judge_property_declarations", :force => true do |t|
     t.string   "uri",        :null => false
     t.integer  "source_id",  :null => false
+    t.integer  "court_id",   :null => false
     t.integer  "judge_id",   :null => false
     t.integer  "year",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "judge_property_declarations", ["court_id"], :name => "index_judge_property_declarations_on_court_id"
   add_index "judge_property_declarations", ["judge_id", "year"], :name => "index_judge_property_declarations_on_judge_id_and_year", :unique => true
   add_index "judge_property_declarations", ["source_id"], :name => "index_judge_property_declarations_on_source_id"
   add_index "judge_property_declarations", ["uri"], :name => "index_judge_property_declarations_on_uri", :unique => true

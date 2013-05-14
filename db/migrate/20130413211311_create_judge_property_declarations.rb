@@ -4,7 +4,8 @@ class CreateJudgePropertyDeclarations < ActiveRecord::Migration
       t.string     :uri,    null: false
       t.references :source, null: false
       
-      t.references :judge,  null: false
+      t.references :court, null: false
+      t.references :judge, null: false
       
       t.integer :year, null: false 
 
@@ -13,6 +14,8 @@ class CreateJudgePropertyDeclarations < ActiveRecord::Migration
     
     add_index :judge_property_declarations, :uri, unique: true
     add_index :judge_property_declarations, :source_id
+    
+    add_index :judge_property_declarations, :court_id
     
     add_index :judge_property_declarations, [:judge_id, :year], unique: true
     add_index :judge_property_declarations, [:year, :judge_id], unique: true
