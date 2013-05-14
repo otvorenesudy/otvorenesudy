@@ -20,29 +20,24 @@ module Document
       private
 
       def compose_search(params)
-        page       = params[:page]       || 1
-        per_page   = params[:per_page]   || 20
-        query      = params[:query]      || Hash.new
-        terms      = params[:filter]     || Hash.new
-        facets     = params[:facets]     || @facets
-        highlights = params[:highlights] || @highlights
-        options    = params[:options]    || {}
-        sort       = params[:sort]
-        order      = params[:order]
+        page         = params[:page]         || 1
+        per_page     = params[:per_page]     || 20
+        query        = params[:query]        || Hash.new
+        terms        = params[:filter]       || Hash.new
+        facets       = params[:facets]       || @facets
+        highlights   = params[:highlights]   || @highlights
+        dependencies = params[:dependencies] || @dependencies
+        options      = params[:options]      || {}
+        sort         = params[:sort]
+        order        = params[:order]
 
         options[:global_facets] ||= false
 
-        facets.each do |_, facet|
-          facet.refresh!
-        end
-
-        terms.each do |name, values|
-          facets[name].terms = values
-        end
+        prepare(terms, facets, dependencies)
 
         results = tire.search page: page, per_page: per_page do |index|
           if block_given?
-            yield index, query, facets, highlights, sort, order, options
+            yield index, query, facets, highlights, dependencies, sort, order, options
           else
             search_query(index, query, options)
             search_filter(index, query, facets, options)
@@ -57,7 +52,17 @@ module Document
         return facets, highlights, results
       end
 
-      private
+      def prepare(terms, facets, dependencies)
+        facets.each do |_, facet|
+          facet.refresh!
+        end
+
+        terms.each do |name, values|
+          facets[name].terms = values
+        end
+
+        # TODO: use dependencies
+      end
 
       # TODO: figure out how to send hash insted of dsl to elastic from tire for search query
       def search_query(index, query, options)
