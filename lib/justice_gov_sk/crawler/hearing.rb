@@ -15,6 +15,8 @@ module JusticeGovSk
           
           next @hearing unless crawlable?(@hearing)
           
+          @hearing.judgings = []
+          
           @hearing.uri    = uri
           @hearing.source = JusticeGovSk.source
   

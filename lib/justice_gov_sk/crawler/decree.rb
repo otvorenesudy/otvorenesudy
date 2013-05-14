@@ -30,6 +30,10 @@ module JusticeGovSk
           
           raise "Decree form not found" unless @decree.form
           
+          @decree.judgements         = []
+          @decree.naturalizations    = []
+          @decree.legislation_usages = []
+          
           @decree.uri    = uri
           @decree.source = JusticeGovSk.source
           
