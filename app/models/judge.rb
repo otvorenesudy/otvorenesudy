@@ -3,7 +3,8 @@ class Judge < ActiveRecord::Base
 
   include Tire::Model::Search
 
-  attr_accessible :name,
+  attr_accessible :uri,
+                  :name,
                   :name_unprocessed,
                   :prefix,
                   :first,
@@ -23,6 +24,8 @@ class Judge < ActiveRecord::Base
   max_paginates_per 100
       paginates_per 25
 
+  belongs_to :source
+  
   has_many :employments, dependent: :destroy, order: :'active desc'
 
   has_many :courts, through: :employments

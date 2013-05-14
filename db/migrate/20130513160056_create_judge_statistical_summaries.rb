@@ -1,6 +1,9 @@
 class CreateJudgeStatisticalSummaries < ActiveRecord::Migration
   def change
     create_table :judge_statistical_summaries do |t|
+      t.string     :uri,    null: false
+      t.references :source, null: false
+      
       t.references :court,                  null: false
       t.references :judge,                  null: false
       t.references :judge_senate_inclusion
@@ -23,6 +26,9 @@ class CreateJudgeStatisticalSummaries < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :judge_statistical_summaries, :uri, unique: true
+    add_index :judge_statistical_summaries, :source_id
     
     add_index :judge_statistical_summaries, :court_id
     add_index :judge_statistical_summaries, :judge_id

@@ -1,6 +1,9 @@
 class CreateJudges < ActiveRecord::Migration
   def change
     create_table :judges do |t|
+      t.string     :uri,    null: false
+      t.references :source, null: false
+      
       t.string :name,             null: false
       t.string :name_unprocessed, null: false
 
@@ -13,6 +16,9 @@ class CreateJudges < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :judges, :uri, unique: false
+    add_index :judges, :source_id
     
     add_index :judges, :name,             unique: true
     add_index :judges, :name_unprocessed, unique: true

@@ -1,8 +1,9 @@
 class CreateCourts < ActiveRecord::Migration
   def change
     create_table :courts do |t|
-      t.string :uri, null: false
-      
+      t.string     :uri,    null: false
+      t.references :source, null: false
+
       t.references :court_type,         null: false
       t.references :court_jurisdiction, null: true
       
@@ -29,6 +30,7 @@ class CreateCourts < ActiveRecord::Migration
     end
     
     add_index :courts, :uri, unique: true
+    add_index :courts, :source_id
     
     add_index :courts, :court_type_id
     add_index :courts, :court_jurisdiction_id

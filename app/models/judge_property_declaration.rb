@@ -1,8 +1,11 @@
 class JudgePropertyDeclaration < ActiveRecord::Base
-  attr_accessible :year
+  attr_accessible :uri,
+                  :year
   
   scope :of_year, lambda { |year| where('year = ?', year) }
-  
+
+  belongs_to :source
+    
   belongs_to :judge
   
   has_many :lists, class_name: :JudgePropertyList,

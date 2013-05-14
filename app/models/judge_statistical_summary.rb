@@ -1,5 +1,6 @@
 class JudgeStatisticalSummary < ActiveRecord::Base
-  attr_accessible :author,
+  attr_accessible :uri,
+                  :author,
                   :year,
                   :date,
                   :days_worked,
@@ -11,6 +12,8 @@ class JudgeStatisticalSummary < ActiveRecord::Base
                   :educational_activities,
                   :substantiation_notes,
                   :court_chair_actions
+  
+  belongs_to :source
   
   belongs_to :court
   

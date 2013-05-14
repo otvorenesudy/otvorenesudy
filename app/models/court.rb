@@ -16,6 +16,8 @@ class Court < ActiveRecord::Base
   
   scope :by_type, lambda { |court_type| where('court_type_id = ?', court_type.id) }
  
+  belongs_to :source
+ 
   belongs_to :type, class_name: :CourtType, foreign_key: :court_type_id
   
   has_many :employments, dependent: :destroy

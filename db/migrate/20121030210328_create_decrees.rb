@@ -1,7 +1,8 @@
 class CreateDecrees < ActiveRecord::Migration
   def change
     create_table :decrees do |t|
-      t.string :uri, null: false
+      t.string     :uri,    null: false
+      t.references :source, null: false
       
       t.references :proceeding
       t.references :court
@@ -24,6 +25,7 @@ class CreateDecrees < ActiveRecord::Migration
     end
     
     add_index :decrees, :uri, unique: true
+    add_index :decrees, :source_id
     
     add_index :decrees, :proceeding_id
     add_index :decrees, :court_id

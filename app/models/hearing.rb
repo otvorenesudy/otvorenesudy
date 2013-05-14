@@ -24,6 +24,8 @@ class Hearing < ActiveRecord::Base
   scope :upcoming, lambda { where("date >= ?", Time.now)  }
   scope :past, lambda { where("date < ?", Time.now) }
 
+  belongs_to :source
+  
   belongs_to :proceeding
 
   belongs_to :court
