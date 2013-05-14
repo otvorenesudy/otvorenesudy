@@ -157,7 +157,6 @@ module JusticeGovSk
         judgement = judgement_by_decree_id_and_judge_id_factory.find_or_create(@decree.id, judge.id)
         
         judgement.judge                  = judge 
-        judgement.judge_name             = name[:altogether]
         judgement.judge_name_similarity  = similarity
         judgement.judge_name_unprocessed = name[:unprocessed]
 

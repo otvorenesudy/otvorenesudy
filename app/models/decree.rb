@@ -54,7 +54,7 @@ class Decree < ActiveRecord::Base
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     # TODO: consider naming in singular for simplified quering
     analyze :legislations,        as: lambda { |d| d.legislations.map { |l| l.value } if d.legislations }
-    analyze :judges,              as: lambda { |d| d.judges.map(&:name).concat(d.partial_judgements.map(&:judge_name)) }
+    analyze :judges,              as: lambda { |d| d.judges.map(&:name) }
   end
 
   use_facets do

@@ -55,7 +55,6 @@ module JusticeGovSk
         judging = judging_by_hearing_id_and_judge_id_factory.find_or_create(@hearing.id, judge.id)
         
         judging.judge                  = judge 
-        judging.judge_name             = name[:altogether]
         judging.judge_name_similarity  = similarity
         judging.judge_name_unprocessed = name[:unprocessed]
         judging.judge_chair            = chair
