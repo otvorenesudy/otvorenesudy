@@ -12,6 +12,7 @@ module SudnaradaGovSk
           return nil unless SudnaradaGovSk::URL.valid? uri
           
           year       = @parser.year(@document)
+          court      = court_by_name_factory.find(request.court)
           judge_name = @parser.judge(@document)
           judges_map = match_judges_by(judge_name)
           judge      = judges_map[judges_map.keys.sort.last].first
@@ -23,8 +24,10 @@ module SudnaradaGovSk
           @declaration.uri    = uri
           @declaration.source = SudnaradaGovSk.source
           
-          @declaration.year  = year
+          @declaration.court = court
           @declaration.judge = judge
+          
+          @declaration.year = year
           
           property_lists
           incomes

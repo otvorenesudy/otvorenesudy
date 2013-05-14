@@ -17,7 +17,7 @@ module JusticeGovSk
       include JusticeGovSk::Helper::UpdateController::Instance
       
       def process(request)
-        raise "Decree form code not set" unless @form_code
+        raise "No decree form code" unless @form_code
 
         super do
           uri = JusticeGovSk::Request.uri(request)
