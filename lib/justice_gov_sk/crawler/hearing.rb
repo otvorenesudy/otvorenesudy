@@ -52,15 +52,11 @@ module JusticeGovSk
       private
       
       def judging(judge, similarity, name, chair)
-        if judge
-          judging = judging_by_hearing_id_and_judge_id_factory.find_or_create(@hearing.id, judge.id)
-        else
-          judging = partial_judging_by_hearing_id_and_judge_name_factory.find_or_create(@hearing.id, name[:altogether])
-        end
+        judging = judging_by_hearing_id_and_judge_id_factory.find_or_create(@hearing.id, judge.id)
         
-        judging.judge                  = judge             if judging.is_a? Judging 
-        judging.judge_name             = name[:altogether] if judging.is_a? PartialJudging
-        judging.judge_name_similarity  = similarity        if judging.is_a? Judging
+        judging.judge                  = judge 
+        judging.judge_name             = name[:altogether]
+        judging.judge_name_similarity  = similarity
         judging.judge_name_unprocessed = name[:unprocessed]
         judging.judge_chair            = chair
 

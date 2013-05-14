@@ -154,15 +154,11 @@ module JusticeGovSk
       private
       
       def judgement(judge, similarity, name)
-        if judge
-          judgement = judgement_by_decree_id_and_judge_id_factory.find_or_create(@decree.id, judge.id)
-        else
-          judgement = partial_judgement_by_decree_id_and_judge_name_factory.find_or_create(@decree.id, name[:altogether])
-        end
+        judgement = judgement_by_decree_id_and_judge_id_factory.find_or_create(@decree.id, judge.id)
         
-        judgement.judge                  = judge             if judgement.is_a? Judgement 
-        judgement.judge_name             = name[:altogether] if judgement.is_a? PartialJudgement
-        judgement.judge_name_similarity  = similarity        if judgement.is_a? Judgement
+        judgement.judge                  = judge 
+        judgement.judge_name             = name[:altogether]
+        judgement.judge_name_similarity  = similarity
         judgement.judge_name_unprocessed = name[:unprocessed]
 
         judgement.decree = @decree
