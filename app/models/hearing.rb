@@ -41,7 +41,7 @@ class Hearing < ActiveRecord::Base
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
 
-  use_mapping do
+  mapping do
     map     :id
     analyze :case_number
     analyze :file_number
@@ -60,7 +60,7 @@ class Hearing < ActiveRecord::Base
     analyze :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }      }
   end
 
-  use_facets do
+  facets do
     facet :judges, type: :terms
     facet :court,  type: :terms
     facet :date,   type: :date, interval: :month # using default alias for interval from DateFacet

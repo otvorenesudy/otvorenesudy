@@ -37,7 +37,7 @@ class Decree < ActiveRecord::Base
 
   has_many :legislations, through: :legislation_usages
 
-  use_mapping do
+  mapping do
     map     :id
     analyze :case_number
     analyze :file_number
@@ -50,12 +50,11 @@ class Decree < ActiveRecord::Base
     analyze :natures,             as: lambda { |d| d.natures.map { |l| l.value } if d.natures }
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
-    # TODO: consider naming in singular for simplified quering
     analyze :legislations,        as: lambda { |d| d.legislations.map { |l| l.value } if d.legislations }
     analyze :judges,              as: lambda { |d| d.judges.map(&:name) }
   end
 
-  use_facets do
+  facets do
     facet :form,                type: :terms
     facet :legislation_area,    type: :terms, size: 1000
     facet :legislation_subarea, type: :terms, size: 1000
