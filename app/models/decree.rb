@@ -1,12 +1,12 @@
 class Decree < ActiveRecord::Base
+  include Resource::Uri
   include Resource::Storage
 
   include Document::Indexable
   include Document::Searchable
   include Document::Suggestable
 
-  attr_accessible :uri,
-                  :case_number,
+  attr_accessible :case_number,
                   :file_number,
                   :date,
                   :ecli,
@@ -15,8 +15,6 @@ class Decree < ActiveRecord::Base
   scope :at_court, lambda { |court| where court_id: court }
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge)) }
-
-  belongs_to :source
   
   belongs_to :proceeding
 

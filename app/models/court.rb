@@ -1,10 +1,10 @@
 # encoding: utf-8
 
 class Court < ActiveRecord::Base
+  include Resource::Uri
   include Resource::Storage
 
-  attr_accessible :uri,
-                  :name,
+  attr_accessible :name,
                   :street,
                   :phone,
                   :fax,
@@ -15,8 +15,6 @@ class Court < ActiveRecord::Base
                   :longitude
   
   scope :by_type, lambda { |court_type| where('court_type_id = ?', court_type.id) }
- 
-  belongs_to :source
  
   belongs_to :type, class_name: :CourtType, foreign_key: :court_type_id
   

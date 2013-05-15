@@ -1,14 +1,14 @@
 # encoding: utf-8
 
 class Hearing < ActiveRecord::Base
+  include Resource::Uri
   include Resource::Storage
 
   include Document::Indexable
   include Document::Suggestable
   include Document::Searchable
 
-  attr_accessible :uri,
-                  :case_number,
+  attr_accessible :case_number,
                   :file_number,
                   :date,
                   :room,
@@ -23,8 +23,6 @@ class Hearing < ActiveRecord::Base
 
   scope :upcoming, lambda { where("date >= ?", Time.now)  }
   scope :past, lambda { where("date < ?", Time.now) }
-
-  belongs_to :source
   
   belongs_to :proceeding
 
