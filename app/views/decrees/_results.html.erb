@@ -44,12 +44,13 @@
 
 
       <% if @highlights && @highlights[i] && @highlights[i][:text] %>
-      <blockquote>
-        <%= sanitize(@highlights[i][:text].first, tags: %w(em)) %>
-      </blockquote>
-      
-      
-    <% end %>
+        <% @highlights[i][:text].each do |highlight|  %>
+          <blockquote>
+            <%= sanitize(highlight, tags: %w(em)) %>
+          </blockquote>
+        <% end %>
+      <% end %>
+
     </li>
   <% end %>
 </ol>
