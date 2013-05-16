@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(:version => 20130516184433) do
     t.integer  "court_id",          :null => false
     t.integer  "judge_id",          :null => false
     t.integer  "judge_position_id"
-    t.boolean  "active",            :null => false
+    t.boolean  "active"
     t.text     "note"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false

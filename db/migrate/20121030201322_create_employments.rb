@@ -5,7 +5,7 @@ class CreateEmployments < ActiveRecord::Migration
       t.references :judge,          null: false
       t.references :judge_position
 
-      t.boolean :active, null: false
+      t.boolean :active
       
       t.text :note
 
