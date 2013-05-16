@@ -82,72 +82,62 @@ module SudnaradaGovSk
           statements
         end
       end
-    end
-    
-    private
-    
-    # TODO extract this code into some normalizer helper
-    
-    def normalize_value(value)
-      value.strip!
+
+      private
       
-#      return nil if value.ascii.match(/\Anemam\z/i)
-#      return nil if value == '-'
+      # TODO extract this code into some normalizer helper
       
-      value if value != '-'
-    end
-    
-    def normalize_spaces(value)
-      parts = []
+      def normalize_value(value)
+        value.strip!
+        
+  #      return nil if value.ascii.match(/\Anemam\z/i)
+  #      return nil if value == '-'
+        
+        value if value != '-'
+      end
       
-      value.utf8.split(/\s+/).each do |part|
-        if part.size == 1
-          parts[-1] = parts[-1] + part
+      def normalize_spaces(value)
+        value.squeeze(' ').utf8.gsub(/\s[A-Z](\s[a-z])+/) { |s| ' ' + s.gsub(/\s/, '') }
+      end
+      
+      # TODO implement normalization of acquisition date
+      
+      def normalize_acquisition_date(value)
+        value = value.ascii.strip
+  
+        value.gsub!(/stav\s+k/i, '')
+        value.gsub!(/rok/i, '')
+        value.gsub!(/r\./i, '')
+        value.strip!
+        
+        return nil if value == '-'
+  
+        puts "VALUE #{value}" #TODO rm
+  
+        case
+        when value =~ /\./
+          parts = value.split(/\./)
+          puts "-. #{parts}" #TODO rm
+        when value =~ /\//
+          parts = value.split(/\//)
+          
+          puts "-/ #{parts}" #TODO rm
+        when value =~ /[a-z]/
+          months = ['januar', 'februar', 'marec', 'april', 'maj', 'jun', 'jul', 'august', 'september', 'oktober', 'november', 'december']
+          parts  = [months.index(value.match(/[a-z]+/)[0]) + 1, value.match(/\d+\z/)[0]]
+          
+          puts "az #{parts}" #TODO rm
         else
-          parts << part
+          parts = [value.to_i]
+          puts "el !#{parts}" #TODO rm
         end
-      end
-            
-      parts.join ' '
-    end
-    
-    # TODO implement normalization of acquisition date
-    
-    def normalize_acquisition_date(value)
-      value = value.ascii.strip
-
-      value.gsub!(/stav\s+k/i, '')
-      value.gsub!(/rok/i, '')
-      value.gsub!(/r\./i, '')
-      value.strip!
-      
-      return nil if value == '-'
-
-puts "VALUE #{value}" #TODO rm
-
-      case
-      when value =~ /\./
-        parts = value.split(/\./)
-        puts "-. #{parts}" #TODO rm
-      when value =~ /\//
-        parts = value.split(/\//)
+  
+        year  = parts.last
+        month = parts[-2] || 1
+        day   = parts[-3] || 1
         
-        puts "-/ #{parts}" #TODO rm
-      when value =~ /[a-z]/
-        months = ['januar', 'februar', 'marec', 'april', 'maj', 'jun', 'jul', 'august', 'september', 'oktober', 'november', 'december']
-        parts  = [months.index(value.match(/[a-z]+/)[0]) + 1, value.match(/\d+\z/)[0]]
-        
-        puts "az #{parts}" #TODO rm
-      else
-        parts = [value.to_i]
-        puts "el !#{parts}" #TODO rm
+        "#{'%04d' % year.to_i}-#{'%02d' % month.to_i}-#{'%02d' % day.to_i}"
       end
-
-      year  = parts.last
-      month = parts[-2] || 1
-      day   = parts[-3] || 1
-      
-      "#{'%04d' % year.to_i}-#{'%02d' % month.to_i}-#{'%02d' % day.to_i}"
     end
   end
 end
