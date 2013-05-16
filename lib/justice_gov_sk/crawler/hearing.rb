@@ -3,6 +3,7 @@ module JusticeGovSk
     class Hearing < JusticeGovSk::Crawler
       protected
     
+      include JusticeGovSk::Helper::JudgeMaker
       include JusticeGovSk::Helper::JudgeMatcher
       include JusticeGovSk::Helper::ProceedingSupplier
       include JusticeGovSk::Helper::UpdateController::Instance

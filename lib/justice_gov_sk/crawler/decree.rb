@@ -12,6 +12,7 @@ module JusticeGovSk
       protected
       
       include JusticeGovSk::Helper::ContentValidator
+      include JusticeGovSk::Helper::JudgeMaker
       include JusticeGovSk::Helper::JudgeMatcher
       include JusticeGovSk::Helper::ProceedingSupplier
       include JusticeGovSk::Helper::UpdateController::Instance
