@@ -27,7 +27,7 @@ module SudnaradaGovSk
             judge = make_judge(uri, SudnaradaGovSk.source, judge_name, court: court)
           end
           
-          @declaration = judge_property_declaration_by_uri_factory.find_or_create(uri)
+          @declaration = judge_property_declaration_by_year_and_judge_id_factory.find_or_create(year, judge.id)
           
           @declaration.uri    = uri
           @declaration.source = SudnaradaGovSk.source
