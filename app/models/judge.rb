@@ -26,6 +26,8 @@ class Judge < ActiveRecord::Base
 
   belongs_to :source
   
+  has_many :appointments, class_name: :JudgeAppointment, dependent: :destroy
+  
   has_many :employments, dependent: :destroy, order: :'active desc'
 
   has_many :courts, through: :employments
