@@ -129,6 +129,16 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
 
   add_index "decree_natures", ["value"], :name => "index_decree_natures_on_value", :unique => true
 
+  create_table "decree_pages", :force => true do |t|
+    t.integer  "decree_id",  :null => false
+    t.integer  "number",     :null => false
+    t.text     "text",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "decree_pages", ["decree_id", "number"], :name => "index_decree_pages_on_decree_id_and_number", :unique => true
+
   create_table "decrees", :force => true do |t|
     t.string   "uri",                    :null => false
     t.integer  "source_id",              :null => false
@@ -141,7 +151,6 @@ ActiveRecord::Schema.define(:version => 20130513160231) do
     t.string   "ecli"
     t.integer  "legislation_area_id"
     t.integer  "legislation_subarea_id"
-    t.text     "text"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end

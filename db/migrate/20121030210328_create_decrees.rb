@@ -18,8 +18,6 @@ class CreateDecrees < ActiveRecord::Migration
       t.references :legislation_area
       t.references :legislation_subarea
       
-      t.text :text
-
       t.timestamps
     end
     
