@@ -8,14 +8,21 @@ module Document
       end
 
       def facet_filter(query, facets)
-        filter = build_facet_filter(query, facets) if query.any? || facets.any?
+        if query.any? || facets.any?
+          if block_given?
+            filters = yield(query, facets)
+          else
+            filters = build_facet_filter(query, facets)
+          end
+        end
 
-        { and: filter } if filter.any?
+        { and: filters } if filters.any?
       end
 
       def build_facet_filter(query, facets)
-        build_query(query).concat(build_filter(:or, facets))
+        build_search_query(query).concat(build_filter(:or, facets))
       end
+
     end
   end
 end

@@ -6,23 +6,23 @@ module Document
         value.gsub(/"/, '\"')
       end
 
-      def prepare_query(value)
+      def analyze_query(value)
         q = escape_query(value).split(/\s/).map { |e| "#{e}*" }.join(' ')
 
         q.present? ? q : "*"
       end
 
-      def build_query(query)
+      def build_query(query, options = {})
         filters = []
 
         query.each do |field, value|
           filters << {
             query: {
               query_string: {
-                query: "#{prepare_query(value)}",
+                query: value,
                 default_field: analyzed_field(field),
-                default_operator: :and,
-                analyze_wildcard: true
+                default_operator: options[:operator] || :or,
+                analyze_wildcard: options[:analyze_wildcard] || true
               }
             }
           }
@@ -30,6 +30,19 @@ module Document
 
         filters
       end
+
+      def build_search_query(query)
+        escaped_query = Hash[query.map { |k, v| [k, escape_query(v)] }]
+
+        build_query(escaped_query)
+      end
+
+      def build_suggest_query(query)
+        analyzed_query = Hash[query.map { |k, v| [k, analyze_query(v) ] }]
+
+        build_query(analyzed_query, operator: :and)
+      end
+
 
     end
   end

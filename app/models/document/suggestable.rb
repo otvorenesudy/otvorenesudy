@@ -21,7 +21,9 @@ module Document
           facet_options = Hash.new
 
           facet_options[:global]       = true
-          facet_options[:facet_filter] = facet_filter(query, facets)
+          facet_options[:facet_filter] = facet_filter(query, facets) do |q, f|
+            build_suggest_query(q).concat(build_filter(:or, f))
+          end
 
           build_facet(index, field, field, facet, facet_options)
         end

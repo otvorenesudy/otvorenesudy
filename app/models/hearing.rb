@@ -45,10 +45,10 @@ class Hearing < ActiveRecord::Base
     map     :id
     analyze :case_number
     analyze :file_number
-    analyze :date,              type: 'date'
+    analyze :date,              type: :date
     analyze :room
     analyze :special_type
-    analyze :commencement_date, type: 'date'
+    analyze :commencement_date, type: :date
     analyze :type,              as: lambda { |h| h.section.value  if h.section        }
     analyze :subject,           as: lambda { |h| h.subject.value  if h.subject        }
     analyze :form,              as: lambda { |h| h.form.value     if h.form           }

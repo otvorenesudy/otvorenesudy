@@ -73,12 +73,12 @@ module Document
               query.each do |field, values|
                 field = analyzed_field(field)
 
-                values = prepare_query(values)
+                values = escape_query(values)
 
                 bool.must {
                   string values,
                   default_field: field,
-                  default_operator: :and,
+                  default_operator: :or,
                   analyze_wildcard: true
                 }
               end
@@ -125,7 +125,7 @@ module Document
       end
 
       def search_sort(index, sort, order, options)
-        field = not_analyzed_field(sort)
+        field = sort == :_score ? :_score : not_analyzed_field(sort)
 
         if sort
           index.sort { by field, order || 'desc' }

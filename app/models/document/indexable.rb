@@ -1,6 +1,5 @@
 module Document
   module Indexable
-
     def self.included(base)
       base.send(:extend,  ClassMethods)
       base.send(:include, Tire::Model::Search)
@@ -42,12 +41,6 @@ module Document
               analyzer = options[:analyzer] || 'text_analyzer'
 
               @highlights << field if options[:highlight]
-
-              if options[:depends]
-                dependencies(field, options)
-
-                options.delete(:depends_on)
-              end
 
               if value[:type].eql? :mapped
                 indexes field, options.merge!(index: :not_analyzed)
@@ -100,24 +93,6 @@ module Document
         # TODO: use core injector
         @facets[name] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
       end
-
-      def dependencies(field, options)
-        dependent = options[:depends][:on]
-
-        @dependencies[field]              = {}
-        @dependencies[field][dependent] ||= {}
-
-        dependencies = @dependencies[field]
-
-        find_each do |record|
-          value       = options[:as] ? options[:as].call(record) : record.send(field)
-          dependency  = options[:depends][:as].call(record)
-
-          dependencies[dependent][value] ||= []
-          dependencies[dependent][value] << dependency unless dependencies[dependent][value].include?(dependency)
-        end
-      end
-
     end
   end
 end
