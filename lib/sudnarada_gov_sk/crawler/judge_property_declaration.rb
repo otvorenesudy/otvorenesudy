@@ -17,17 +17,17 @@ module SudnaradaGovSk
           judge_name = @parser.judge(@document)
           judges_map = match_judges_by(judge_name)
           
-          most_similar_judges = judges_map[judges_map.keys.sort.last]
+          exactly_matched_judges = judges_map[1.0]
 
-          if most_similar_judges
-            raise "More than one similar judge matched." if most_similar_judges.count > 1
-            
-            judge = most_similar_judges.first
+          unless exactly_matched_judges.blank?
+            raise if exactly_matched_judges.count > 1
+
+            judge = exactly_matched_judges.first
           else
             judge = make_judge(uri, SudnaradaGovSk.source, judge_name, court: court)
           end
           
-          @declaration = judge_property_declaration_by_year_and_judge_id_factory.find_or_create(year, judge.id)
+          @declaration = judge_property_declaration_by_uri_factory.find_or_create(uri)
           
           @declaration.uri    = uri
           @declaration.source = SudnaradaGovSk.source
