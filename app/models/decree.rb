@@ -37,13 +37,15 @@ class Decree < ActiveRecord::Base
 
   has_many :legislations, through: :legislation_usages
 
+  has_many :pages, class_name: :DecreePage, dependent: :destroy
+
   mapping do
     map     :id
     analyze :case_number
     analyze :file_number
     analyze :date,                type: 'date'
     analyze :ecli
-    analyze :text,                highlight: true
+    analyze :text,                as: lambda { |d| d.pages.map { |p| p.text } if d.pages }, highlight: true
     analyze :commencement_date,   type: 'date'
     analyze :court,               as: lambda { |d| d.court.name if d.court                        }
     analyze :form,                as: lambda { |d| d.form.value if d.form                         }
