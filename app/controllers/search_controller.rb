@@ -89,8 +89,7 @@ class SearchController < ApplicationController
         when :q
           query[:query].merge!(text: data[key].first)
         when :sort
-          value = value.first.to_sym
-          query[:sort] = value unless value == :none
+          query[:sort] = value.first.to_sym
         when :order
           query[:order] = value.first.to_sym
         else

@@ -125,7 +125,7 @@ module Document
       end
 
       def search_sort(index, sort, order, options)
-        field = not_analyzed_field(sort)
+        field = sort == :_score ? :_score : not_analyzed_field(sort)
 
         if sort
           index.sort { by field, order || 'desc' }
