@@ -40,7 +40,6 @@ module JusticeGovSk
           end
         else
           puts "failed (no match)"
-          puts "No judges matched, processing partial entry for #{name}."
           
           return { 0.0 => nil } unless block_given?
 
