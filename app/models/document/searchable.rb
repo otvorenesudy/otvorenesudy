@@ -73,12 +73,12 @@ module Document
               query.each do |field, values|
                 field = analyzed_field(field)
 
-                values = prepare_query(values)
+                values = escape_query(values)
 
                 bool.must {
                   string values,
                   default_field: field,
-                  default_operator: :and,
+                  default_operator: :or,
                   analyze_wildcard: true
                 }
               end
