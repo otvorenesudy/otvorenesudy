@@ -84,7 +84,7 @@ module JusticeGovSk
           
           if part.match(/\./)
             if part.match(/(PhD|CSc|DrSc)\./i)
-              suffixes << person_name_title_map[part.downcase.to_sym]
+              suffixes << "#{person_name_title_map[part[0..-2].downcase.to_sym]}."
             elsif part.match(/\((ml|st)\.\)/)
               additions << part.gsub(/[\(\)]/, '')
             else
@@ -106,8 +106,8 @@ module JusticeGovSk
         names = mixedcase + uppercase
         
         value = nil
-        value = names.join(' ') unless names.empty?
-        value = prefixes.join(' ') + ' ' + value unless prefixes.empty?
+        value = names.join(' ')                   unless names.empty?
+        value = prefixes.join(' ') + ' ' + value  unless prefixes.empty?
         value = value + ' ' + additions.join(' ') unless additions.empty?
         value = value + ', ' + suffixes.join(' ') unless suffixes.empty?
         
