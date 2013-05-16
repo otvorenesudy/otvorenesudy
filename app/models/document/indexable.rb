@@ -1,11 +1,12 @@
 module Document
   module Indexable
-    def self.included(base)
-      base.send(:extend,  ClassMethods)
-      base.send(:include, Tire::Model::Search)
-      base.send(:include, Tire::Model::Callbacks)
+    extend ActiveSupport::Concern
+    
+    included do
+      include Tire::Model::Search
+      include Tire::Model::Callbacks
 
-      base.configure
+      configure
     end
 
     module ClassMethods

@@ -1,14 +1,12 @@
 module Document
   module Searchable
-    # TODO: use ActiveSupport::Concern
+    extend ActiveSupport::Concern
 
-    def self.included(base)
-      base.extend(ClassMethods)
-
-      base.extend(Document::Search::Query)
-      base.extend(Document::Search::Filter)
-      base.extend(Document::Search::Facet)
-      base.extend(Document::Search::Results)
+    included do
+      extend Document::Search::Query
+      extend Document::Search::Filter
+      extend Document::Search::Facet
+      extend Document::Search::Results
     end
 
     module ClassMethods
