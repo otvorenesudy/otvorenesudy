@@ -49,6 +49,10 @@ class Judge < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def listed?
+    uri == JusticeGovSk::Request::JudgeList.uri
+  end
+
   def active
     employments.active.any?
   end
