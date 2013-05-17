@@ -7,7 +7,7 @@ Public data project aimed at creating much more user friendly interface to inter
 * Ruby 1.9.3
 * Rails 3
 * PostgreSQL with trigram extension
-* Resque & Redis
+* Redis & Resque
 * ElasticSearch
 
 ### Project and Database
@@ -55,7 +55,7 @@ rake db:setup
 ```
 The `db:setup` task loads schema and seed data. Note that the seed data are essential for the next steps.
 
-2. Crawl the necessary data -- courts and judges from justice.gov.sk:
+2. Crawl the necessary data, courts and judges from justice.gov.sk:
 ```
 rake crawl:courts
 rake crawl:judges
@@ -78,11 +78,27 @@ rake work:decrees
 
 ### Data from sudnarada.gov.sk
 
-Crawl judge property declarations:
+* Crawl judge property declarations:
 ```
 rake crawl:judge_property_declarations
 ```
 Note that currect support is only for property declarations of 2011.
+
+* TODO
+
+### Data from other sources
+
+* Process judge appointments:
+```
+rake process:judge_appointments
+```
+(currently under development)
+
+* Process judge statistical summaries:
+```
+rake process:judge_statistical_summaries
+```
+(currently under development)
 
 ## Contributing
 
