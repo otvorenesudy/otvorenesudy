@@ -17,7 +17,7 @@ module Core
           Dir["#{dir}/*.txt"].each do |entry|
             number = entry[/_(\d+)\.txt/, 1].try(:to_i)
             
-            pages[number] = File.read(entry) if number 
+            pages[number] = File.read(entry).gsub(/\f\z/, '') if number 
           end
           
           FileUtils.remove_entry dir
