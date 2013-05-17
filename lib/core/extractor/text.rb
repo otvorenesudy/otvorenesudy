@@ -7,7 +7,7 @@ module Core
       def extract(path, options = {})
         options = extract_defaults.merge options
         
-        super do |extension|
+        super do
           dir = File.join root, File.basename(path)
           
           Docsplit.extract_text path, options.merge(output: dir)
@@ -16,8 +16,9 @@ module Core
           
           Dir["#{dir}/*.txt"].each do |entry|
             number = entry[/_(\d+)\.txt/, 1].try(:to_i)
+            text   = File.read(entry).gsub(/\f\z/, '')
             
-            pages[number] = File.read(entry).gsub(/\f\z/, '') if number 
+            pages[number] = text unless text.blank? 
           end
           
           FileUtils.remove_entry dir
@@ -29,7 +30,7 @@ module Core
       private
 
       def extract_defaults
-        { subject: :text, unit: :character, pages: 'all', ocr: false }
+        { subject: :text, unit: :page, pages: 'all', ocr: false }
       end
     end
   end
