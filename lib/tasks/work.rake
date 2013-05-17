@@ -2,7 +2,7 @@
 # 
 # rake resque:workers QUEUE=* COUNT=4
 # 
-# Examples:
+# Usage:
 #
 # rake work:hearings:civil
 # rake work:hearings:criminal

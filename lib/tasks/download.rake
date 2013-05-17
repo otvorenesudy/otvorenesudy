@@ -1,4 +1,4 @@
-# Examples:
+# Usage:
 # 
 # rake download:courts:pages
 # 

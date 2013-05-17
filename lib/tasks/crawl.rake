@@ -1,4 +1,4 @@
-# Examples:
+# Usage:
 # 
 # rake crawl:courts
 # 

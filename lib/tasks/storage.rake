@@ -1,4 +1,4 @@
-# Examples
+# Usage:
 # 
 # rake storage:distribute['storage/pages/courts','storage/pages/courts-distributed']
 # rake storage:merge['storage/pages/hearings/special','storage/pages/hearings/special-merged']
