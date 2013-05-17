@@ -8,18 +8,28 @@ module Core
         options = extract_defaults.merge options
         
         super do |extension|
-          options[:output] = root
+          dir = File.join root, File.basename(path)
           
-          Docsplit.extract_text path, options
+          Docsplit.extract_text path, options.merge(output: dir)
           
-          unload "#{File.basename path, ".#{extension.to_s}"}.txt"
+          pages = {}
+          
+          Dir["#{dir}/*.txt"].each do |entry|
+            number = entry[/_(\d+)\.txt/, 1].try(:to_i)
+            
+            pages[number] = File.read(entry) if number 
+          end
+          
+          FileUtils.remove_entry dir
+          
+          pages          
         end
       end
       
       private
 
       def extract_defaults
-        { subject: :text, unit: :character, ocr: false }
+        { subject: :text, unit: :character, pages: 'all', ocr: false }
       end
     end
   end
