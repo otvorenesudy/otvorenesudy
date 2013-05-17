@@ -74,11 +74,7 @@ class Decree < ActiveRecord::Base
     date > created_at.to_date
   end
 
-  storage :page,           JusticeGovSk::Storage::DecreePage,     extension: :html
-  storage :document,       JusticeGovSk::Storage::DecreeDocument, extension: :pdf
-  storage :document_pages, JusticeGovSk::Storage::DecreeImage,    extension: :pdf
-
-  def document_pages
-    Dir.glob("#{document_pages_path}/*").sort
-  end
+  storage :page,     JusticeGovSk::Storage::DecreePage,     extension: :html
+  storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
+  storage :image,    JusticeGovSk::Storage::DecreeImage,    extension: :pdf
 end
