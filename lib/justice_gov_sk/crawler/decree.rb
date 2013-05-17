@@ -80,8 +80,18 @@ module JusticeGovSk
           
           # TODO refactor .map(&:constantize) -> see bugs in settingslogic & custom config YML files
           if configuration.text.perform.map(&:constantize).include? @decree.class
-            if configuration.text.override.map(&:constantize).include?(@decree.class) || @decree.text.blank? 
-              @decree.text = JusticeGovSk::Extractor::Text.extract(path)
+            if configuration.text.override.map(&:constantize).include?(@decree.class) || @decree.pages.none?
+              @decree.pages = []
+              
+              JusticeGovSk::Extractor::Text.extract(path).each do |number, text|
+                page = decree_page_factory.create
+                
+                page.decree = @decree
+                page.number = number
+                page.text   = text
+                
+                @persistor.persist(page)
+              end
             end
           end
           
