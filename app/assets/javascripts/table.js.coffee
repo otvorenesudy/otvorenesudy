@@ -48,13 +48,23 @@ $(document).ready ->
     'Z': 'Ž'
   )
 
-  # TODO: use for every table?
   window.initializeTablesorter = (tables) ->
     $('table').tablesorter
       theme: 'bootstrap'
       headerTemplate : '{content} {icon}'
       widgets: ["uitheme", 'resizeable']
       sortLocaleCompare: true
+      textExtraction: (node, table, column) ->
+        columns = $(table).find("tr:nth(1) td").length
+        row     = $(node).closest('tr').index()
+        result  = ""
+
+        while column < columns
+          value = $(table).find("tbody tr:nth(#{row}) td:nth(#{column})").attr('data-value')
+          result += "#{value}," if value?
+          column++
+
+        result
 
     $('table').bind 'sortEnd', ->
       fixes()
