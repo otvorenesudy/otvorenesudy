@@ -1,29 +1,38 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th class="span5">Súd</th>
-      <th class="span7">Adresa</th>
-      <th><%= tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov" %></th>
-      <th><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" %></th>
-      <th><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" %></th>
+      <%= sortable_th_tag "Súd", class: 'span5' %>
+      <%= sortable_th_tag "Adresa", class: 'span7' %>
+
+      <%= sortable_th_tag do %>
+        <%= tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov" %>
+      <% end %>
+
+      <%= sortable_th_tag do %>
+        <%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" %>
+      <% end %>
+
+      <%= sortable_th_tag do %>
+        <%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" %>
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% courts.each do |court| %>
       <tr>
-        <td>
+        <td data-value="<%= court.name %>">
           <strong><%= link_to_court court %></strong>
         </td>
-        <td>
+        <td data-value="<%= court.address %>">
           <%= court.address %>
         </td>
-        <td class="number">
+        <td class="number" data-value="<%= court.judges.count %>">
           <%= number_with_delimiter court.judges.count %>
         </td>
-        <td class="number">
+        <td class="number" data-value="<%= court.hearings.count %>">
           <%= number_with_delimiter court.hearings.count %>
         </td>
-        <td class="number">
+        <td class="number" data-value="<%= court.decrees.count %>">
           <%= number_with_delimiter court.decrees.count %>
         </td>
       </tr>
