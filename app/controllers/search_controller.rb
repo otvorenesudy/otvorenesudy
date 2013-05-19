@@ -40,7 +40,6 @@ class SearchController < ApplicationController
         results:    render_to_string(partial: 'results'),
         pagination: render_to_string(partial: 'pagination')
       }
-
     else
       render json: {
         error: 'Invalid query.',
@@ -65,8 +64,7 @@ class SearchController < ApplicationController
       raise unless models.include?(params[:type].to_sym)
 
       model = params[:type].camelize.constantize
-
-      data = params[:data] || Hash.new
+      data  = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|
         next unless model.has_facet?(key) || [:page, :per_page, :q, :sort, :order].include?(key)
@@ -95,7 +93,6 @@ class SearchController < ApplicationController
         else
           query[:filter].merge!(key => data[key])
         end
-
       end
 
       return model, query
@@ -104,7 +101,6 @@ class SearchController < ApplicationController
       raise e
       nil
     end
-
   end
 
   def format_facets(facets)
@@ -115,5 +111,4 @@ class SearchController < ApplicationController
       end
     end
   end
-
 end

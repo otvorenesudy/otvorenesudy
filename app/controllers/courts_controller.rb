@@ -18,7 +18,7 @@ class CourtsController < ApplicationController
   def show
     @court = Court.find(params[:id])
 
-    @judges   = @court.judges.order(:last, :middle, :first)
+    @judges = @court.judges.order(:last, :middle, :first)
 
     @past_hearings     = @court.hearings.past.limit(10)
     @upcoming_hearings = @court.hearings.upcoming.limit(10)
