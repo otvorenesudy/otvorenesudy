@@ -88,9 +88,9 @@ Note that currect support is only for property declarations of 2011.
 
 ### Data from other sources
 
-* Process judge appointments:
+* Process judge designations
 ```
-rake process:judge_appointments
+rake process:judge_designations
 ```
 (currently under development)
 
