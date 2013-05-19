@@ -15,7 +15,7 @@ module JudgesHelper
     if employment.judge_position
       tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
     else
-      tooltip_tag 'neznáma', 'Ku sudcovi neevidujeme jeho pozíciu.', :left, :hover, options
+      tooltip_tag 'neznáma', 'Pracovnú pozíciu ku sudcovi neevidujeme.', :left, :hover, options
     end
   end
 
@@ -61,17 +61,7 @@ module JudgesHelper
   def links_to_judges(judges, options = {})
     separator = options.delete(:separator) || ', '
 
-    judges.map { |judge| judge.respond_to?(:id) ? link_to_judge(judge, options) : link_to_partial_judge(judge, options) }.join(separator).html_safe
-  end
-
-  def link_to_partial_judge(name, options = {})
-    tooltip_tag name, 'Sudca nie je uvedený v zozname sudcov', :bottom, :hover, options
-  end
-
-  def links_to_partial_judges(judges, options = {})
-    separator = options.delete(:separator) || ', '
-
-    judges.map { |judge| link_to_partial_judge judge, options }.join(separator)
+    judges.map { |judge| link_to_judge(judge, options) }.join(separator).html_safe
   end
 
   private

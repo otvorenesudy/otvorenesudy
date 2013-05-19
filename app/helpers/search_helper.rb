@@ -1,4 +1,16 @@
 module SearchHelper
+  def facet_title(title)
+    content_tag :h4, title, class: 'title'     
+  end
+
+  def facet_input(options)
+    content_tag :input, nil, options.merge(name: :input, type: :text)
+  end
+
+  def facet_list(options)
+    content_tag :ul, nil, options.merge(id: "#{options[:id]}-list", class: :unstyled)
+  end
+
   def link_to_search(type, body, options)
     url = "#{url_for(controller: type, action: :search)}#"
 
@@ -17,17 +29,5 @@ module SearchHelper
 
   def link_to_decrees_search(body, options)
     link_to_search(:decrees, body, options)
-  end
-
-  def facet_title(title)
-    content_tag :h4, title, class: 'title'     
-  end
-
-  def facet_input(options)
-    content_tag :input, nil, options.merge(name: :input, type: :text)
-  end
-
-  def facet_list(options)
-    content_tag :ul, nil, options.merge(id: "#{options[:id]}-list", class: :unstyled)
   end
 end

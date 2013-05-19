@@ -13,7 +13,7 @@ module DecreesHelper
       hash << "-#{legislation.section}" if legislation.section
       hash << "-#{legislation.letter}"  if legislation.letter
 
-      url  = "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}##{hash}"
+      url = "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}##{hash}"
     else
       url = "http://www.zakonypreludi.sk/main/search.aspx?text=#{legislation.value}"
     end
