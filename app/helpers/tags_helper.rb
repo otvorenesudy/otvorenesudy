@@ -82,6 +82,16 @@ module TagsHelper
     link_to_with_count(title, href, count, options)
   end
 
+  def sortable_th_tag(title = nil, options = {}, &block)
+    options.merge! :'data-sorter' => :text
+
+    if block_given?
+      content_tag :th, options, &block
+    else
+      content_tag :th, title, options
+    end
+  end
+
   private
 
   def data(options = {})
