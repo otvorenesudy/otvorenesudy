@@ -1,20 +1,11 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <%= sortable_th_tag "Súd", class: 'span5' %>
+      <%= sortable_th_tag "Súd",    class: 'span5' %>
       <%= sortable_th_tag "Adresa", class: 'span7' %>
-
-      <%= sortable_th_tag do %>
-        <%= tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov" %>
-      <% end %>
-
-      <%= sortable_th_tag do %>
-        <%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" %>
-      <% end %>
-
-      <%= sortable_th_tag do %>
-        <%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" %>
-      <% end %>
+      <%= sortable_th_tag { tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov" } %>
+      <%= sortable_th_tag { tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" } %>
+      <%= sortable_th_tag { tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí"  } %>
     </tr>
   </thead>
   <tbody>

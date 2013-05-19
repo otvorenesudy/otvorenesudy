@@ -1,10 +1,10 @@
 <% provide :title, "Pojednávania" %>
 
 <% content_for :scripts do %>
-  <script type="text/javascript" charset="utf-8">
+  <script type="text/javascript">
     $(document).ready(function() {
-        window.app = new OpenCourts.Search.App({ model: OpenCourts.HearingSearchModel })
-        window.app.start()
+      window.app = new OpenCourts.Search.App({ model: OpenCourts.HearingSearchModel })
+      window.app.start()
     })
   </script>
 <% end %>
@@ -12,19 +12,15 @@
 <section id="search-view">
   <div class="row">
     <div id="search-panel" class="span4">
-
       <label class="checkbox">
         <input type="checkbox" id='historical'>Zobraziť minulé pojednávania
       </label>
-
 
       <% Hearing.facets.each do |name, facet| %>
         <% if facet.visible %>
           <%= render "facets/#{facet.type}_facet", name: name %>
         <% end %>
       <% end %>
-
-
     </div>
 
     <div class="span8">

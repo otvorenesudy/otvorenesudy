@@ -1,12 +1,12 @@
-<% trans = t "facets.#{name}" %>
+<% translation = t "facets.#{name}" %>
 
 <div class="facet">
-  <% if trans[:title] %>
-    <%= facet_title trans[:title]  %>
+  <% if translation[:title] %>
+    <%= facet_title translation[:title]  %>
   <% end %>
 
-  <% if trans[:placeholder] %>
-    <%= facet_input id: name, placeholder: trans[:placeholder] %>
+  <% if translation[:placeholder] %>
+    <%= facet_input id: name, placeholder: translation[:placeholder] %>
   <% end %>
 
   <%= facet_list id: name %>

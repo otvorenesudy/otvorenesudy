@@ -4,13 +4,6 @@
   <div class="page-header">
     <h1>
       <%= yield :title %>
-      <%- #TODO: remove %>
-      <!-- 
-      <small>
-        <%= number_with_translation(@judge.hearings.count, key: :hearing) %> a
-        <%= number_with_translation(@judge.decrees.count,  key: :decree) %>.
-      </small>
-      -->
     </h1>
   </div>
 
@@ -43,14 +36,13 @@
 
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= tab_link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
+            <%= tab_link_to_with_count "Rozhodnutia", "#decrees", @judge.decrees.count %>
           </li>
           <li>
             <%= tab_link_to_with_count "Budúce pojednávania", "#upcoming-hearings", @judge.hearings.upcoming.count %>
           </li>
-
           <li>
-            <%= tab_link_to_with_count "Rozhodnutia", "#decrees", @judge.decrees.count %>
+            <%= tab_link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
           </li>
         </ul>
 
@@ -78,7 +70,7 @@
     <div class="span12">
       <div class="pull-right">
         <small class="muted">
-          Informácie o sudcovi boli získané zo <%= external_link_to 'zdroja', JusticeGovSk::Request::JudgeList.url, class: :muted %>,
+          Informácie o sudcovi boli získané zo <%= external_link_to 'zdroja', @judge.uri, class: :muted %>,
           ktorého posledná aktualizácia bola zistená <%= time_tag @judge.updated_at.to_date, format: :default %>.
         </small>
       </div>
