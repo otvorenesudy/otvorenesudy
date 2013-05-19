@@ -248,16 +248,19 @@ ActiveRecord::Schema.define(:version => 20130519163020) do
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
   create_table "judge_designation_types", :force => true do |t|
-    t.string   "value"
+    t.string   "value",      :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "judge_designation_types", ["value"], :name => "index_judge_designation_types_on_value", :unique => true
+
   create_table "judge_designations", :force => true do |t|
-    t.integer  "judge_id",   :null => false
-    t.date     "date",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "judge_id",                  :null => false
+    t.integer  "judge_designation_type_id"
+    t.date     "date",                      :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   add_index "judge_designations", ["judge_id"], :name => "index_judge_designations_on_judge_id"

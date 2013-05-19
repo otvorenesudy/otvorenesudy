@@ -1,9 +1,9 @@
 class CreateJudgeDesignations < ActiveRecord::Migration
   def change
     create_table :judge_designations do |t|
-      t.references :judge, null: false
-
-      t.references :judge_designation_type
+      t.references :judge,                  null: false
+      t.references :judge_designation_type, null: true
+      
       t.date :date, null: false
 
       t.timestamps
