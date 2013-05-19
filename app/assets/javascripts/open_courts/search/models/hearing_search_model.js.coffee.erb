@@ -20,4 +20,4 @@ class OpenCourts.HearingSearchModel extends OpenCourts.SearchModel
     @.setValue('historical', value.toString())
 
 
-_.defaults(OpenCourts.HearingSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)
+_.extend(OpenCourts.HearingSearchModel.prototype.default, OpenCourts.SearchModel.prototype.default)

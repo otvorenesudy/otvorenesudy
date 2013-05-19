@@ -27,5 +27,3 @@
 //= require jquery-tablesorter
 //= require table
 //= require fixes
-
-

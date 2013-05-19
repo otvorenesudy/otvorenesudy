@@ -1,4 +1,4 @@
-Util.View.List =
+View.List =
   listID: (name) ->
     "#{name}-list"
 

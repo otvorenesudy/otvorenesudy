@@ -1,4 +1,4 @@
-Util.View.Slider =
+View.Slider =
   slider: (entity, options = {}) ->
     @.log "Setting up slider: #{entity}"
 

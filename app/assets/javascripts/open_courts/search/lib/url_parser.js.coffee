@@ -1,11 +1,11 @@
-#= require core/util/logger
+#= require ./logger
 
 class window.UrlParser
   @validate: (params) ->
     try
       @.parse(params)
     catch error
-      Util.Logger.log "Validation failed. (params=#{params}, error: #{error.message})"
+      Logger.log "Validation failed. (params=#{params}, error: #{error.message})"
       return false
     return true
 
@@ -25,7 +25,7 @@ class window.UrlParser
     attr  = param[0]
     value = @.decode(param[1]).split(';')
 
-    Util.Logger.log "Parsing #{attr}: #{value}"
+    Logger.log "Parsing #{attr}: #{value}"
 
     return [attr, value]
 

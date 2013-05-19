@@ -1,6 +1,5 @@
-window.Util       = {}
-window.Util.View  = {}
-window.Util.Model = {}
+window.View  = {}
+window.Model = {}
 
 window.OpenCourts = {
   Search: {}

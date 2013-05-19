@@ -1,4 +1,4 @@
-Util.View.Finder =
+View.Finder =
   elementValue: (selector) ->
     $(selector).text()
 

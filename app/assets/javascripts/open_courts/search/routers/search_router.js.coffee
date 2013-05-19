@@ -1,7 +1,7 @@
-#= require core/url_parser
+#= require open_courts/search/lib/url_parser
 
 class OpenCourts.SearchRouter extends Backbone.AbstractRouter
-    @include Util.Logger
+    @include Logger
 
     routes:
       "*params": "onSearch"

@@ -1,4 +1,4 @@
-Util.View.Suggest =
+View.Suggest =
   suggest: (entity, options = {}) ->
     el = "##{entity}"
 
@@ -33,6 +33,6 @@ Util.View.Suggest =
 
     @.suggest(entity, options)
       .data('autocomplete')._renderItem = (ul, item) =>
-        # TODO: append 'No item found' if there is not item found :)
+        # TODO: append 'No item found' if there is not item found
         @.findOrCreateListItem(entity, item.alias, item.value, item.count)
 

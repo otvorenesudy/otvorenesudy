@@ -1,15 +1,13 @@
 $(document).ready ->
     class OpenCourts.SearchView extends Backbone.AbstractView
-      @include Util.Logger
-      @include Util.Initializer
-      @include Util.View.Finder
-      @include Util.View.List
-      @include Util.View.Slider
-      @include Util.View.Suggest
-      @include Util.View.Loading
-      @include Util.View.ScrollTo
-
-      @include OpenCourts.SearchViewTemplates
+      @include Logger
+      @include Initializer
+      @include View.Finder
+      @include View.List
+      @include View.Slider
+      @include View.Suggest
+      @include View.Loading
+      @include View.ScrollTo
 
       el:                '#search-view'
       result_list:       '#search-results'
@@ -28,6 +26,13 @@ $(document).ready ->
         'click #search-panel input#historical': 'onClickHistorical'
         'change #sort'                        : 'onChangeSort'
         'click  #order'                       : 'onClickOrder'
+
+      template:
+        list_item:         JST['open_courts/search/templates/list_item']
+        list_items_fold:   JST['open_courts/search/templates/list_items_fold']
+        list_items_unfold: JST['open_courts/search/templates/list_items_unfold']
+        remove_list_item:  JST['open_courts/search/templates/remove_list_item']
+        spinner:           JST['open_courts/search/templates/spinner']
 
       initialize: (options) ->
         @.log 'Initializing ...'

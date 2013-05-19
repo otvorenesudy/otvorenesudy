@@ -1,16 +1,16 @@
-Util.Model.Attributes =
+Model.Attributes =
   setupAttribute: (attr) ->
     @.log "Initializing attribute: #{attr}"
 
     @[attr] = clone(@.get(attr))
 
   getValue: (attr, pos) ->
-    (@.get attr)[pos? or 0]
+    (@.get attr)[pos or 0]
 
   setValue: (attr, value, pos) ->
     values = clone(@.get attr)
 
-    values[pos? or 0] = value
+    values[pos or 0] = value
 
     @.set attr, values
 

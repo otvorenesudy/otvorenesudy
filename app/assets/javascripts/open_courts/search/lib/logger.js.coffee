@@ -1,4 +1,4 @@
-Util.Logger =
+window.Logger =
   prefix: ->
     @constructor.name
 
@@ -16,5 +16,5 @@ Util.Logger =
 
   err: (msg) ->
     @.log "[ ERROR ] #{msg}"
-    
+
 

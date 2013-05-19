@@ -1,4 +1,4 @@
-Util.View.Loading =
+View.Loading =
   loading: (element, options) ->
     @.log "Loading ... (element=#{element}, options=#{JSON.stringify options})"
 
@@ -16,15 +16,10 @@ Util.View.Loading =
       className: "inner"
 
     @.scrollTo?("#{element} .spinner") if options?.scrollTo? is true
-    
+
     options.callback?()
 
   unloading: (element) ->
     @.log "Unloading ... (element=#{element})"
 
     $(element).find('.spinner').spin(false).remove()
-
-  loadMoreButton: (element) ->
-    $(element).append(@template['load_more'])
-
-
