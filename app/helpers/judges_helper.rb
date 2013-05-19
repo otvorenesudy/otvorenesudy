@@ -12,7 +12,11 @@ module JudgesHelper
   def judge_position(employment)
     options = employment.active ? {} : { class: :muted }
 
-    tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
+    if employment.judge_position
+      tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
+    else
+      tooltip_tag 'neznáma', 'Ku sudcovi neevidujeme jeho pozíciu.', :left, :hover, options
+    end
   end
 
   def judge_at_court_employment(judge, court)
