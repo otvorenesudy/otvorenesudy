@@ -65,6 +65,7 @@ module JusticeGovSk
         partition_person_name(value)[:altogether]
       end
       
+      # TODO refactor, method too large -> focus on titles
       def partition_person_name(value)
         copy  = value.clone
         value = value.utf8
@@ -87,7 +88,7 @@ module JusticeGovSk
           part = part.utf8.squeeze('.').strip
           
           if part.match(/\./)
-            if part.match(/prom\.\s*práv\./i)
+            if part.match(/prom\.\správ\./i)
               prefixes << "prom. práv."
             elsif part.match(/rod\./i)
               flags << :born
@@ -105,6 +106,8 @@ module JusticeGovSk
           else
             if part.match(/(JUDr|Mgr)/i)
               prefixes << "#{person_name_title_map[part.downcase.to_sym]}."
+            elsif part.match(/(PhD|CSc|DrSc)/i)
+              suffixes << "#{person_name_title_map[part.downcase.to_sym]}."
             elsif part == part.upcase
               uppercase << part.titlecase
             else
