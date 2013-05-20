@@ -15,7 +15,7 @@ class Decree < ActiveRecord::Base
   scope :at_court, lambda { |court| where court_id: court }
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge)) }
-  
+
   belongs_to :proceeding
 
   belongs_to :court
@@ -25,9 +25,9 @@ class Decree < ActiveRecord::Base
   has_many :judges, through: :judgements
 
   belongs_to :form, class_name: :DecreeForm, foreign_key: :decree_form_id
-  
+
   has_many :naturalizations, class_name: :DecreeNaturalization, dependent: :destroy
-  
+
   has_many :natures, class_name: :DecreeNature, through: :naturalizations
 
   belongs_to :legislation_area
@@ -51,8 +51,8 @@ class Decree < ActiveRecord::Base
     analyze :ecli
     analyze :text,                highlight: true
     analyze :commencement_date,   type: 'date'
-    analyze :court,               as: lambda { |d| d.court.name if d.court                        }
-    analyze :form,                as: lambda { |d| d.form.value if d.form                         }
+    analyze :court,               as: lambda { |d| d.court.name if d.court }
+    analyze :form,                as: lambda { |d| d.form.value if d.form  }
     analyze :natures,             as: lambda { |d| d.natures.map { |l| l.value } if d.natures }
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
@@ -62,11 +62,11 @@ class Decree < ActiveRecord::Base
 
   facets do
     facet :form,                type: :terms
-    facet :legislation_area,    type: :terms, size: 1000
-    facet :legislation_subarea, type: :terms, size: 1000
+    facet :legislation_area,    type: :terms, size: LegislationArea.count
+    facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
     facet :judges,              type: :terms
     facet :court,               type: :terms
-    #facet :nature,              type: :terms
+    facet :natures,             type: :terms, size: DecreeNature.count
     facet :date,                type: :date,  interval: :month # using default alias for interval from DateFacet
   end
 
