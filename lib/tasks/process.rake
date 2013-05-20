@@ -1,16 +1,26 @@
 # Usage:
 #
-# rake process:judge_appointments
+# rake process:judge_designations
 # rake process:judge_statistical_summaries
 
 namespace :process do
-  desc "Process judge appointments"
-  task judge_appointments: :environment do
-    # TODO
+  desc "Process judge designations"
+  task judge_designations: :environment do
+    processor = NrsrSk::Processor::JudgeDesignations.new
+
+    options = { separator: "\t" }
+
+    Dir.glob('data/judge_designations_*.csv') do |file|
+      processor.process(file, options)
+    end
   end
 
   desc "Process judge statistical summaries"
   task judge_statistical_summaries: :environment do
-    # TODO
+    processor = JusticeGovSk::Processor::JudgeStatisticalSummaries.new
+
+    options = { separator: "\t" }
+
+    processor.process("#{Rails.root}/data/judge_statistical_summaries_2012.csv")
   end
 end
