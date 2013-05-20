@@ -1,6 +1,6 @@
 server domain, :app, :web, :db, primary: true
 
-set :deploy_to, "/home/deploy/projects/#{application}_devel"
+set :deploy_to, "/home/deploy/projects/#{application}_staging"
 set :user,      "deploy"
 set :branch,    "master"
 set :rails_env, "production"
