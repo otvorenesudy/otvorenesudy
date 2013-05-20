@@ -30,12 +30,29 @@
           <%= number_with_translation(Decree.during_employment(employment).count,  key: :decree) %>.
         </p>
       <% end %>
+
+      <% @designations.each do |designation| %>
+        <p>
+          <%= tooltip_tag icon_tag(:legal), 'Vymenovanie', :left, :hover, class: 'muted undecorated' %>
+
+          Sudca bol vymenovaný v <%= judge_designation_date_tag(designation) %>
+      </p>
+    <% end %>
     </div>
   </div>
 </section>
 
-<section id="judge-context-results">
-  <%= render 'context_search' %>
+<section>
+  <div class="row">
+    <div class="span4">
+      <%= render 'indicators' %>
+    </div>
+
+    <div class="span8">
+      <%= render 'context_search' %>
+    </div>
+  </div>
+
 </section>
 
 <section id="judge-tabs">
