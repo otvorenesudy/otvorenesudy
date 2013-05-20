@@ -69,21 +69,31 @@ module JusticeGovSk
         copy  = value.clone
         value = value.utf8
         
-        _, special = *value.match(/((\,\s+)?hovorca)?\s+KS\s+(v\s+)?(?<municipality>.+)\z/i) 
-        
-        value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '') unless special.nil?
-        
         prefixes  = []
         suffixes  = []
         additions = []
         uppercase = []
         mixedcase = []
+        flags     = []
+
+        _, special = *value.match(/((\,\s+)?hovorca)?\s+KS\s+(v\s+)?(?<municipality>.+)\z/i) 
+        
+        unless special.nil?
+          flags << :special
+          value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '')
+        end
         
         value.strip.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
           part = part.utf8.squeeze('.').strip
           
           if part.match(/\./)
-            if part.match(/(PhD|CSc|DrSc)\./i)
+            if part.match(/prom\.\s*práv\./i)
+              prefixes << "prom. práv."
+            elsif part.match(/rod\./i)
+              flags << :born
+            elsif part.match(/(JUDr|Mgr)\./i)
+              prefixes << "#{person_name_title_map[part[0..-2].downcase.to_sym]}."
+            elsif part.match(/(PhD|CSc|DrSc)\./i)
               suffixes << "#{person_name_title_map[part[0..-2].downcase.to_sym]}."
             elsif part.match(/\((ml|st)\.\)/)
               additions << part.gsub(/[\(\)]/, '')
@@ -105,13 +115,18 @@ module JusticeGovSk
         
         names = mixedcase + uppercase
         
+        if flags.include? :born
+          names << names.last
+          names[-2] = "rod."
+        end
+        
         value = nil
         value = names.join(' ')                   unless names.empty?
         value = prefixes.join(' ') + ' ' + value  unless prefixes.empty?
         value = value + ' ' + additions.join(' ') unless additions.empty?
         value = value + ', ' + suffixes.join(' ') unless suffixes.empty?
         
-        unless special.nil?
+        if flags.include? :special
           municipality ||= "Trenčíne" unless special.match(/(TN|Trenčín(e)?)/).nil?
           municipality ||= "Trnave"   unless special.match(/(TT|Trnav(a|e){1})/).nil?
           

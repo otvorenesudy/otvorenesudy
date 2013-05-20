@@ -11,7 +11,7 @@ module SudnaradaGovSk
       
       def judge(document)
         find_value 'judge', document, 'h1.sudca', verbose: false do |h1|
-          partition_person_name(normalize_spaces h1.text)
+          partition_person_name(normalize_name h1.text)
         end
       end
       
@@ -96,8 +96,11 @@ module SudnaradaGovSk
         value if value != '-'
       end
       
-      def normalize_spaces(value)
-        value.squeeze(' ').utf8.gsub(/\s[A-Z](\s[a-z])+/) { |s| ' ' + s.gsub(/\s/, '') }
+      def normalize_name(value)
+        value.squeeze!(' ')
+        value.gsub!(/\sx+/i, '')
+        
+        value.utf8.gsub(/(\s[\S\.\,]){2,}/) { |s| ' ' + s.gsub(/\s/, '') }
       end
       
       # TODO implement normalization of acquisition date
