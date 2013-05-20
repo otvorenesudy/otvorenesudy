@@ -16,6 +16,12 @@ source.name   = "Portál súdnej rady Slovenskej republiky"
 source.uri    = "http://mps.sudnarada.gov.sk"
 source.save!
 
+source        = Source.new
+source.module = "NrsrSk"
+source.name   = "Národná rada Slovenskej republiky"
+source.uri    = "http://nrsr.sk"
+source.save!
+
 seeds        = Source.new
 seeds.module = "seeds"
 seeds.name   = "Database seeds file"
