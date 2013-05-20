@@ -100,7 +100,7 @@ sk:
 
   facets:
     judges:
-      title: 'Sudcovia'
+      title: 'Sudca'
       placeholder: 'Meno sudcu'
 
     court:
@@ -111,7 +111,7 @@ sk:
       title: 'Forma'
       placeholder: 'Forma rozhodnutia'
 
-    nature:
+    natures:
       title: 'Povaha'
       placeholder: 'Povaha rozhodnutia'
 
