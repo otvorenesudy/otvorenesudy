@@ -3,7 +3,7 @@ module Bing
     attr_accessor :query
 
     def perform
-      url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='#{@query}'&$format=json"
+      url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='#{@query}'&$format=json&$top=10"
 
       data = connect(url)
 
