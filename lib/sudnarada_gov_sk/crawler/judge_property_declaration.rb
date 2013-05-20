@@ -1,6 +1,14 @@
 module SudnaradaGovSk
   class Crawler
     class JudgePropertyDeclaration < SudnaradaGovSk::Crawler
+      attr_accessor :court_name
+      
+      def initialize(options = {})
+        super(options)
+        
+        @court_name = options[:court_name]
+      end
+      
       protected
       
       include JusticeGovSk::Helper::JudgeMaker
@@ -13,7 +21,7 @@ module SudnaradaGovSk
           return nil unless SudnaradaGovSk::URL.valid? uri
           
           year       = @parser.year(@document)
-          court      = court_by_name_factory.find(request.court)
+          court      = court_by_name_factory.find(request.respond_to?(:court) ? request.court : @court_name)
           judge_name = @parser.judge(@document)
           judges_map = match_judges_by(judge_name)
           

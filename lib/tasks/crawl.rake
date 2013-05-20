@@ -62,8 +62,9 @@ namespace :crawl do
   end  
   
   desc "Crawl specific judge property declaration from sudnarada.gov.sk"
-  task :judge_property_declaration, [:url] => :environment do |_, args|
-    SudnaradaGovSk.crawl_resource JudgePropertyDeclaration, args[:url], safe: true
+  task :judge_property_declaration, [:url, :court_name] => :environment do |_, args|
+    args.with_defaults safe: true
+    SudnaradaGovSk.crawl_resource JudgePropertyDeclaration, args[:url], args
   end
   
   namespace :hearing do
