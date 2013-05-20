@@ -1,4 +1,4 @@
-class JudgeDesignations < ActiveRecord::Base
+class JudgeDesignation < ActiveRecord::Base
   attr_accessible :date
 
   belongs_to :judge
