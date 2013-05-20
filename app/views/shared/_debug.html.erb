@@ -3,7 +3,7 @@
 
   <div class="container">
     <% instances.reject(&:nil?).each do |instance| %>
-      <% if instance.respond_to? :uri %>
+      <% if instance.respond_to?(:uri) && instance.respond_to?(:page_path) %>
         <%= content_tag :pre, class: :debug_dump do
           lines = ["        page link: #{link_to(instance.uri, instance.uri)}",
                    "        page file: #{instance.page_path}"]

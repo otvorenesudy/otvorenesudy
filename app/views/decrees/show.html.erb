@@ -29,13 +29,8 @@
       <% if @decree.form %>
         <p>Forma rozhodnutia &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %>.</p>
       <% end %>
-      <% if @decree.nature %>
-
-        <p>Povaha rozhodnutia &ndash; <%= @decree.nature.value %>.</p>
-
-        <!-- TODO
-        <p>Povaha rozhodnutia &ndash; <%= link_to_decrees_search @decree.nature.value, params: { nature: @decree.nature.value } %>.</p>
-        -->
+      <% if @decree.natures.any? %>
+        <p>Povaha rozhodnutia &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search(nature.value, params: { nature: nature.value }) }.join(', ').html_safe %>.</p>
       <% end %>
       <% if @legislations.any? %>
         <p>Predpisy odkazované v rozhodnutí:</p>

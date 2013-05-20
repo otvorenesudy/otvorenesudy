@@ -2,11 +2,14 @@
 
 module JudgesHelper
   def judge_activity_tag(status)
-    if status == true || (status.respond_to?(:active) && status.active)
+    case status
+    when true
       tooltip_tag icon_tag(:'ok-sign'), 'Aktívny', :left, :hover, class: :'muted undecorated'
-    else
+    when false
       tooltip_tag icon_tag(:'circle-blank'), 'Neaktívny', :left, :hover, class: :'muted undecorated'
-    end 
+    else
+      '&nbsp;'.html_safe
+    end
   end
 
   def judge_position(employment)
@@ -15,7 +18,7 @@ module JudgesHelper
     if employment.judge_position
       tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
     else
-      tooltip_tag 'neznáma', 'Pracovnú pozíciu ku sudcovi neevidujeme.', :left, :hover, options
+      content_tag :span, 'neznáma', options
     end
   end
 

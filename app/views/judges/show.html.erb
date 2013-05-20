@@ -11,9 +11,18 @@
     <div class="span12">
       <% @employments.each do |employment| %>
         <p>
-          <%= judge_activity_tag employment %>
-          <%= employment.active ? 'Aktívny' : 'Neaktívny' %>
-          <%= employment.judge_position.value %>
+          <%= judge_activity_tag employment.active unless employment.active.nil? %>
+          <% case employment.active  %>
+          <% when true %>
+            Aktívny
+          <% when false %>
+            Neaktívny
+          <% end %>
+          <% if employment.judge_position %>
+            <%= employment.judge_position %>
+          <% else %>
+            <%= employment.active == nil ? 'N' : 'n' %>eznámy pracovník
+          <% end %>
           na súde 
           <%= link_to_court employment.court %>,
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
@@ -47,16 +56,16 @@
         </ul>
 
         <div class="tab-content">
-         <div id="past-hearings" class="tab-pane active">
-           <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: 'true' } %>
-         </div>
-
-         <div id="upcoming-hearings" class="tab-pane">
-           <%= render 'hearings', hearings: @upcoming_hearings, query: { judges: @judge.name } %>
+          <div id="decrees" class="tab-pane active">
+            <%= render 'decrees', decrees: @decrees, query: { judges: @judge.name } %>
           </div>
 
-          <div id="decrees" class="tab-pane">
-            <%= render 'decrees', decrees: @decrees, query: { judges: @judge.name } %>
+          <div id="upcoming-hearings" class="tab-pane">
+            <%= render 'hearings', hearings: @upcoming_hearings, query: { judges: @judge.name } %>
+          </div>
+
+          <div id="past-hearings" class="tab-pane">
+            <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: 'true' } %>
           </div>
         </div>
 

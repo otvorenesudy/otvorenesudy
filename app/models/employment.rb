@@ -6,6 +6,7 @@ class Employment < ActiveRecord::Base
   
   scope :active,   where('employments.active = true')
   scope :inactive, where('employments.active = false')
+  scope :unknown,  where('employments.active IS NULL')
   
   scope :at_court, lambda { |court| where court_id: court }
   

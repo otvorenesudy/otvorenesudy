@@ -15,9 +15,9 @@
           <% if decree.court %>
             Súd &ndash; <%= link_to_court decree.court %>
           <% end %>
-          <% if decree.judgements.any? || decree.partial_judgements.any? %>
+          <% if decree.judgements.any? %>
             <br/>
-            Sudcovia &ndash; <%= links_to_judges(decree.judgements.map { |j| j.judge }.concat(decree.partial_judgements.map { |j| j.judge_name })) %>
+            Sudcovia &ndash; <%= links_to_judges(decree.judgements.map { |j| j.judge }) %>
           <% end %>
 
 <!-- TODO consider adding other attributes such as:

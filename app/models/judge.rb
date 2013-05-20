@@ -1,4 +1,5 @@
 class Judge < ActiveRecord::Base
+  include Resource::Uri
   include Resource::Similarity
 
   include Tire::Model::Search
@@ -54,11 +55,13 @@ class Judge < ActiveRecord::Base
   end
 
   def active
-    employments.active.any?
+    return true  if employments.active.any?
+    return false if employments.inactive.any?
   end
 
   def active_at(court)
-    employments.at_court(court).active.any?
+    return true  if employments.at_court(court).active.any?
+    return false if employments.at_court(court).inactive.any?
   end
 
   alias :active?    :active
