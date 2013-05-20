@@ -19,7 +19,7 @@
             Neaktívny
           <% end %>
           <% if employment.judge_position %>
-            <%= employment.judge_position %>
+            <%= employment.judge_position.value %>
           <% else %>
             <%= employment.active == nil ? 'N' : 'n' %>eznámy pracovník
           <% end %>
