@@ -11,6 +11,7 @@ class JudgesController < ApplicationController
     @past_hearings     = @judge.hearings.past.limit(10)
     @upcoming_hearings = @judge.hearings.upcoming.limit(10)
     @decrees           = @judge.decrees.limit(10)
+    @designations      = @judge.designations
 
     @search       = Bing::Search.new
     @search.query = "sud \"#{@judge.first} #{@judge.middle} #{@judge.last}\" -site:judikaty.info -site:rozsudkyodetoch.sk -site:najpravo.sk -site:striedavastarostlivost.sk -site:prezident.sk -site:justice.gov.sk -site:justice.gov.sk -site:wwwold.justice.sk -site:sudnarada.gov.sk -site:paragraf.sk"

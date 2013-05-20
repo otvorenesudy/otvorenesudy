@@ -67,6 +67,14 @@ module JudgesHelper
     judges.map { |judge| link_to_judge(judge, options) }.join(separator).html_safe
   end
 
+  def judge_designation_date_tag(designation, options = {})
+    designation_type = designation.judge_designation_type
+
+    return time_tag(designation.date) unless designation_type
+
+    tooltip_tag time_tag(designation.date), designation_type.value, :right
+  end
+
   private
 
   def judge_options(judge, options)
