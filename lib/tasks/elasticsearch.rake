@@ -1,6 +1,8 @@
 namespace :es do
   INDICES = ['hearings', 'decrees']
 
+  # TODO: find out why index increses by multiple update
+
   task update: :environment do
     INDICES.each do |index|
       puts "* Importing index: #{index}"
