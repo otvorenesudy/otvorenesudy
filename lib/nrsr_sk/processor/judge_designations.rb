@@ -16,12 +16,11 @@ module NrsrSk
           judge_name = @parser.judge
           judges_map = match_judges_by(judge_name)
 
-          exactly_matched_judges = judges_map[1.0]
+          _, matched_judges = judges_map.first
 
-          next if exactly_matched_judges.blank?
-          raise if exactly_matched_judges.count > 1
+          next if matched_judges.blank? || matched_judges.count > 1
 
-          judge = exactly_matched_judges.first
+          judge = matched_judges.first
           date  = @parser.date
 
           @designation = judge_designation_by_judge_id_and_date_factory.find_or_create(judge.id, date)

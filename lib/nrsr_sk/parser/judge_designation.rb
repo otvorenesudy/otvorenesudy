@@ -16,9 +16,7 @@ module NrsrSk
       end
 
       def designation_type
-        type = @data[2].strip.squeeze
-
-        type == "n/a" ? nil : type
+        return @data[2] && @data[2] != 'n/a' ? @data[2].strip.squeeze.upcase_first : nil
       end
     end
   end
