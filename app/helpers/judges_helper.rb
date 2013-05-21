@@ -1,6 +1,25 @@
 # encoding: utf-8
 
 module JudgesHelper
+  def judge_name(judge, format = nil)
+    return judge.name if format.nil? || format == '%p %f %m %l %a, %s'
+
+    parts = {
+      '%p' => judge.prefix,
+      '%f' => judge.first,
+      '%m' => judge.middle,
+      '%l' => judge.last,
+      '%s' => judge.suffix,
+      '%a' => judge.addition
+    }
+
+    format.gsub(/\%[pfmlsa]/, parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+  end
+
+  def judge_titles(judge, options = {})
+    content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_options(judge, options)
+  end
+
   def judge_activity_tag(status)
     case status
     when true
@@ -38,25 +57,14 @@ module JudgesHelper
     content_tag :span, number_with_delimiter(Decree.during_employment(employment).count), employment.active ? {} : { class: :muted }
   end
 
-  def judge_name(judge, format = nil)
-    return judge.name if format.nil? || format == '%p %f %m %l %a, %s'
+  def judge_designation_date_tag(designation, options = {})
+    designation_type = designation.judge_designation_type
 
-    parts = {
-      '%p' => judge.prefix,
-      '%f' => judge.first,
-      '%m' => judge.middle,
-      '%l' => judge.last,
-      '%s' => judge.suffix,
-      '%a' => judge.addition
-    }
+    return time_tag(designation.date) unless designation_type
 
-    format.gsub(/\%[pfmlsa]/, parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+    tooltip_tag time_tag(designation.date), designation_type.value, :right
   end
-
-  def judge_titles(judge, options = {})
-    content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_options(judge, options)
-  end
-
+  
   def link_to_judge(judge, options = {})
     link_to judge_name(judge, options.delete(:format)), judge_path(judge.id), judge_options(judge, options)
   end
@@ -65,14 +73,6 @@ module JudgesHelper
     separator = options.delete(:separator) || ', '
 
     judges.map { |judge| link_to_judge(judge, options) }.join(separator).html_safe
-  end
-
-  def judge_designation_date_tag(designation, options = {})
-    designation_type = designation.judge_designation_type
-
-    return time_tag(designation.date) unless designation_type
-
-    tooltip_tag time_tag(designation.date), designation_type.value, :right
   end
 
   private
