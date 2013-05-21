@@ -60,7 +60,10 @@ $(document).ready ->
       result  = ""
 
       while column < columns
-        value = $(table).find("tbody tr:nth(#{row}) td:nth(#{column})").attr('data-value')
+        cell = $(table).find("tbody tr:nth(#{row}) td:nth(#{column})")
+
+        value = $.trim(cell.attr('data-value') or cell.text())
+
         result += "#{value}," if value?
         column++
 
