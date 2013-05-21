@@ -24,7 +24,7 @@
 
 <div class="row">
   <div class="span12">
-    <table class="table table-striped">
+    <%= sortable_table_tag class: 'table table-striped' do %>
       <thead>
         <tr>
           <th data-sorter='false'><%= tooltip_tag icon_tag(:adjust), 'Status', :left, :hover, class: :'muted undecorated' %></th>
@@ -44,7 +44,7 @@
             <td>
               <%= judge_titles judge, adjust_by_activity_at: @court %>
             </td>
-            <td>
+            <td data-value="<%= judge.last %>">
               <%= link_to_judge judge, adjust_by_activity_at: @court, format: '%f %m %l, %a' %>
             </td>
             <td>
@@ -65,6 +65,6 @@
           </tr>
         <% end %>
       </tbody>
-    </table>
+    <% end %>
   </div>
 </div>

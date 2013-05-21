@@ -7,12 +7,12 @@ Model.Attributes =
   getValue: (attr, pos) ->
     (@.get attr)[pos or 0]
 
-  setValue: (attr, value, pos) ->
+  setValue: (attr, value, options) ->
     values = clone(@.get attr)
 
-    values[pos or 0] = value
+    values[options?.pos or 0] = value
 
-    @.set attr, values
+    @.set attr, values, options
 
   add: (attr, value, options) ->
     @.setupAttribute(attr)
@@ -26,7 +26,7 @@ Model.Attributes =
 
     @.log "Setting '#{attr}': #{@.inspect @[attr]}"
 
-    @.set(attr, @[attr])
+    @.set(attr, @[attr], silent: options?.silent)
 
   remove: (attr, value, options) ->
     @.setupAttribute(attr)
