@@ -48,9 +48,9 @@ class Decree < ActiveRecord::Base
     analyze :case_number
     analyze :file_number
     analyze :date,                type: 'date'
-    analyze :ecli
-    analyze :text,                highlight: true
     analyze :commencement_date,   type: 'date'
+    analyze :ecli
+    analyze :text,                as: lambda { |d| d.text }, highlight: true
     analyze :court,               as: lambda { |d| d.court.name if d.court }
     analyze :form,                as: lambda { |d| d.form.value if d.form  }
     analyze :natures,             as: lambda { |d| d.natures.map { |l| l.value } if d.natures }

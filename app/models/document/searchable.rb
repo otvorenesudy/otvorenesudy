@@ -71,7 +71,7 @@ module Document
               query.each do |field, values|
                 field = analyzed_field(field)
 
-                values = escape_query(values)
+                values = analyze_query(values)
 
                 bool.must {
                   string values,
@@ -89,7 +89,7 @@ module Document
         if query.any? || facets.any?
           filters = []
 
-          filters.concat build_query(query)        if query.any?
+          filters.concat build_search_query(query) if query.any?
           filters.concat build_filter(:or, facets) if facets.any?
 
           index.filter :and, filters if filters.any?

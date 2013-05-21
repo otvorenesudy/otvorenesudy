@@ -32,9 +32,9 @@ module Document
       end
 
       def build_search_query(query)
-        escaped_query = Hash[query.map { |k, v| [k, escape_query(v)] }]
+        query = Hash[query.map { |k, v| [k, analyze_query(v)] }]
 
-        build_query(escaped_query)
+        build_query(query)
       end
 
       def build_suggest_query(query)
