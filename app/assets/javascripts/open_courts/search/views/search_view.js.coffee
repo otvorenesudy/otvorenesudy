@@ -124,6 +124,8 @@ $(document).ready ->
       onSubmitFulltext: ->
         value = $('#fulltext input').val()
 
+        @model.setPage 1, silent: true
+
         @model.setFulltext(value)
 
       onChangePage: (event) ->
@@ -142,6 +144,8 @@ $(document).ready ->
         value = @.listItemValue(event.target)
         attr  = @.listEntity(list)
 
+        @model.setPage 1, silent: true
+
         @model.add attr, value, multi: false
 
       onAddListItem: (event) ->
@@ -149,12 +153,16 @@ $(document).ready ->
         value = @.listItemValue(event.target)
         attr  = @.listEntity(list)
 
+        @model.setPage 1, silent: true
+
         @model.add attr, value, multi: true
 
       onRemoveListItem: (event) ->
         list  = @.listByItem(event.target)
         attr  = @.listEntity(list)
         value = @.listItemValue(event.target)
+
+        @model.setPage 1, silent: true
 
         @model.remove attr, value
 
@@ -164,6 +172,7 @@ $(document).ready ->
         @.listToggle(list, visible: 10, manual: true)
 
       onClickHistorical: (event) ->
+        @model.setPage 1, silent: true
         @model.setHistorical(event.target.checked)
 
       onChangeSort: (event) ->

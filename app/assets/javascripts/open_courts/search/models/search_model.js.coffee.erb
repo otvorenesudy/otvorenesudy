@@ -17,10 +17,10 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
   getPage: ->
     @.getValue('page') or 1
 
-  setPage: (value) ->
+  setPage: (value, options) ->
     value = 1 if !value or isNaN(value)
 
-    @.setValue('page', value)
+    @.setValue('page', value, options)
 
   getSort: ->
     @.getValue('sort')
