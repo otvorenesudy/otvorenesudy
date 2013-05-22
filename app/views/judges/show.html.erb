@@ -11,8 +11,10 @@
     <div class="span12">
       <% @employments.each do |employment| %>
         <p>
-          <%= judge_activity_tag employment.active unless employment.active.nil? %>
-          <% case employment.active  %>
+          <span class="gutter centered">
+            <%= judge_activity_tag employment.active unless employment.active.nil? %>
+          </span>
+          <% case employment.active %>
           <% when true %>
             Aktívny
           <% when false %>
@@ -28,13 +30,19 @@
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
           <%= number_with_translation(Hearing.during_employment(employment).count, key: :hearing) %> a
           <%= number_with_translation(Decree.during_employment(employment).count,  key: :decree) %>.
+          
+          <% if employment.note %>
+            <br/>
+            <span class="gutter centered muted"><%= icon_tag :pushpin %></span>
+            Poznámka: <%= employment.note %>
+          <% end %>
         </p>
       <% end %>
 
       <% @designations.each do |designation| %>
         <p>
-          <span class="muted"><%= icon_tag :calendar %></span>
-          Sudca bol vymenovaný do funkcie dňa <%= judge_designation_date(designation) %>
+          <span class="gutter centered muted"><%= icon_tag :calendar %></span>
+          Sudca bol vymenovaný do funkcie dňa <%= judge_designation_date(designation) %>.
         </p>
       <% end %>
     </div>
@@ -51,7 +59,6 @@
       <%= render 'context_search' %>
     </div>
   </div>
-
 </section>
 
 <section id="judge-tabs">

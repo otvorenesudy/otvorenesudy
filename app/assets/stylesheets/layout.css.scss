@@ -66,6 +66,11 @@ div.nav {
   text-align: justify;
 }
 
+.gutter {
+  display: inline-block;
+  width: $gridGutterWidth;
+}
+
 // tables
 
 table {

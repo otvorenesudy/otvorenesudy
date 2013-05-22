@@ -2,4 +2,6 @@
   <%= render 'hearings/results', hearings: hearings %>
   <hr/>
   <%= link_to_hearings_search "Viac pojednávaní", params: query  %>
+<% else %>
+  Pre súd neevidujeme žiadne súdne pojednávania. 
 <% end %>

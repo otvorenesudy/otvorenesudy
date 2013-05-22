@@ -2,4 +2,6 @@
   <%= render 'decrees/results', decrees: decrees %>
   <hr/>
   <%= link_to_decrees_search "Viac rozhodnutí", params: query  %>
+<% else %>
+  Pre sudcu neevidujeme žiadne súdne rozhodnutia.
 <% end %>
