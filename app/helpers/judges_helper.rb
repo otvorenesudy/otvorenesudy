@@ -27,7 +27,7 @@ module JudgesHelper
     when false
       tooltip_tag icon_tag(:'circle-blank'), 'Neaktívny', :left, :hover, class: :'muted undecorated'
     else
-      '&nbsp;'.html_safe
+      tooltip_tag icon_tag(:question), 'Neznámy', :left, :hover, class: :'muted undecorated'
     end
   end
 
