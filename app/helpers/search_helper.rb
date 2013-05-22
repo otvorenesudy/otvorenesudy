@@ -16,7 +16,7 @@ module SearchHelper
 
     params = options[:params]
 
-    params.each { |field, values| params[field] = [values] unless values.is_a?(Array) }
+    params.each { |field, values| params[field] = [values] unless values.is_a? Array }
 
     url << params.map { |field, values| "#{field}:#{values.join(';').gsub(/\s/,'+')}" }.join('&')
 
