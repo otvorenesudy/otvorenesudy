@@ -57,7 +57,7 @@ module JudgesHelper
     content_tag :span, number_with_delimiter(Decree.during_employment(employment).count), employment.active ? {} : { class: :muted }
   end
 
-  def judge_designation_date_tag(designation, options = {})
+  def judge_designation_date(designation, options = {})
     designation_type = designation.judge_designation_type
 
     return time_tag(designation.date) unless designation_type
