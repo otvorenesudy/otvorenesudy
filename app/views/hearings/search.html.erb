@@ -1,13 +1,6 @@
 <% provide :title, "Pojednávania" %>
 
-<% content_for :scripts do %>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      window.app = new OpenCourts.Search.App({ model: OpenCourts.HearingSearchModel })
-      window.app.start()
-    })
-  </script>
-<% end %>
+<% render 'search/initialization.js', type: Hearing %>
 
 <section id="search-view">
   <div class="row">

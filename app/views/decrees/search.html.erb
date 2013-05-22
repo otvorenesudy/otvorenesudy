@@ -1,13 +1,6 @@
 <% provide :title, "Rozhodnutia" %>
 
-<% content_for :scripts do %>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      window.app = new OpenCourts.Search.App({ model: OpenCourts.DecreeSearchModel })
-      window.app.start()
-    })
-  </script>
-<% end %>
+<% render 'search/initialization.js', type: Decree %>
 
 <section id="search-view">
   <div class="row">

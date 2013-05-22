@@ -1,0 +1,8 @@
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      window.app = new OpenCourts.Search.App({ model: OpenCourts.<%= type %>SearchModel })
+      window.app.start()
+    })
+  </script>
+<% end %>
