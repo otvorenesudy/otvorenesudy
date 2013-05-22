@@ -10,9 +10,11 @@
           <%= navbar_li_tag :comments, "Pojednávania", search_hearings_path %>
           <%= navbar_li_tag :legal, "Rozhodnutia", search_decrees_path %>
         </ul>
+<!-- TODO rm? or wat?        
         <ul class="nav pull-right">
           <%= navbar_li_tag :signal, 'Štatistiky', stats_path %>
         </ul>
+-->
       </nav>
     </div>
   </div>
@@ -24,7 +26,8 @@
       <div class="offset4 span4">
         <%= form_tag nil, method: :get, class: :'form-search' do %>
           <div class="input-append">
-            <%= search_field_tag :search, params[:search], class: :'search-query' %>
+            <!-- TODO enable search field here! -->
+            <%= search_field_tag :search, params[:search], class: :'search-query', disabled: true %>
             <%= button_tag icon_tag(:search), name: nil, class: :btn %>
           </div>
         <% end %>
