@@ -11,19 +11,19 @@
   <tbody>
     <% courts.each do |court| %>
       <tr>
-        <td data-value="<%= court.name %>">
+        <td>
           <strong><%= link_to_court court %></strong>
         </td>
-        <td data-value="<%= court.address %>">
+        <td>
           <%= court.address %>
         </td>
-        <td class="number" data-value="<%= court.judges.count %>">
+        <td class="number">
           <%= number_with_delimiter court.judges.count %>
         </td>
-        <td class="number" data-value="<%= court.hearings.count %>">
+        <td class="number">
           <%= number_with_delimiter court.hearings.count %>
         </td>
-        <td class="number" data-value="<%= court.decrees.count %>">
+        <td class="number">
           <%= number_with_delimiter court.decrees.count %>
         </td>
       </tr>

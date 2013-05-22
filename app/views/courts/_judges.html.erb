@@ -27,12 +27,12 @@
     <%= sortable_table_tag class: 'table table-striped' do %>
       <thead>
         <tr>
-          <th data-sorter='false'><%= tooltip_tag icon_tag(:adjust), 'Status', :left, :hover, class: :'muted undecorated' %></th>
+          <th data-sorter="false"><%= tooltip_tag icon_tag(:adjust), 'Status', :left, :hover, class: :'muted undecorated' %></th>
           <th class="span2">Tituly</th>
           <th class="span7">Meno</th>
-          <th class="span3">Pozícia</th>
-          <th><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" %></th>
-          <th><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" %></th>
+          <th data-sorter="false" class="span3">Pozícia</th>
+          <th data-sorter="false"><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" %></th>
+          <th data-sorter="false"><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" %></th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +44,7 @@
             <td>
               <%= judge_titles judge, adjust_by_activity_at: @court %>
             </td>
-            <td data-value="<%= judge.last %>">
+            <td data-value="<%= judge_name judge, '%l %m %f, %a' %>">
               <%= link_to_judge judge, adjust_by_activity_at: @court, format: '%f %m %l, %a' %>
             </td>
             <td>
