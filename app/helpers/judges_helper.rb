@@ -20,14 +20,35 @@ module JudgesHelper
     content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_options(judge, options)
   end
 
-  def judge_activity_tag(status)
+  
+  def judge_activity(status)
+    return 'Aktívny'   if status == true
+    return 'Neaktívny' if status == false
+    return 'Neznámy'   if status == nil
+    raise
+  end
+  
+  def judge_activity_icon_tag(status)
+    return icon_tag(:'ok-sign')      if status == true
+    return icon_tag(:'circle-blank') if status == false
+    return icon_tag(:question)       if status == nil
+    raise
+  end
+  
+  def judge_activity_tag(status, options = {})
+    options  = { tooltip: true }.merge options
+    icon_tag = judge_activity_icon_tag(status)
+    activity = judge_activity(status)
+    
+    return icon_tag unless options[:tooltip]
+    
     case status
     when true
-      tooltip_tag icon_tag(:'ok-sign'), 'Aktívny', :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag, activity, :left, :hover, class: :'muted undecorated'
     when false
-      tooltip_tag icon_tag(:'circle-blank'), 'Neaktívny', :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag, activity, :left, :hover, class: :'muted undecorated'
     else
-      tooltip_tag icon_tag(:question), 'Neznámy', :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag, activity, :left, :hover, class: :'muted undecorated'
     end
   end
 

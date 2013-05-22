@@ -11,8 +11,8 @@
     <div class="span12">
       <% @employments.each do |employment| %>
         <p>
-          <span class="gutter centered">
-            <%= judge_activity_tag employment.active unless employment.active.nil? %>
+          <span class="gutter centered muted">
+            <%= judge_activity_tag employment.active, tooltip: !employment.active.nil? %>
           </span>
           <% case employment.active %>
           <% when true %>
