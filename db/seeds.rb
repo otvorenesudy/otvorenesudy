@@ -58,7 +58,7 @@ court.save!
 court              = Court.new
 court.uri          = "http://www.nsud.sk"
 court.source       = seeds
-court.type         = CourtType.highest
+court.type         = CourtType.supreme
 court.municipality = Municipality.create name: "Bratislava", zipcode: "814 90"
 court.name         = "Najvyšší súd Slovenskej republiky"
 court.street       = "Župné námestie č. 13"

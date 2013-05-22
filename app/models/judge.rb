@@ -50,8 +50,12 @@ class Judge < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def probably_superior_court_officer?
+    source == Source.of(JusticeGovSk) && !listed?
+  end
+
   def listed?
-    uri == JusticeGovSk::Request::JudgeList.uri
+    uri == JusticeGovSk::Request::JudgeList.url
   end
 
   def active

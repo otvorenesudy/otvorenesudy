@@ -3,7 +3,7 @@ class CourtsController < ApplicationController
 
   def index
     @constitutional = Court.by_type(CourtType.constitutional).first
-    @highest        = Court.by_type(CourtType.highest).first
+    @supreme        = Court.by_type(CourtType.supreme).first
     @specialized    = Court.by_type(CourtType.specialized).first
 
     @regional = Court.by_type(CourtType.regional).order(:name)
