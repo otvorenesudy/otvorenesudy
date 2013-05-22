@@ -88,14 +88,14 @@ module CourtsHelper
   
   def courts_map_data(groups, options)
     groups.values.map { |group| group.first }.to_gmaps4rails do |court, marker|
-      marker.infowindow render partial: 'map_marker_info.html', locals: { courts: groups[court.coordinates] }
+      marker.infowindow render 'map_marker_info.html', courts: groups[court.coordinates]
     end
   end
   
   def courts_map_scripts(id, options)
     content_for :scripts do
       content_tag :script, type: :'text/javascript', charset: :'utf-8' do
-        render partial: 'map_marker_info.js', locals: { id: id }
+        render 'map_marker_info.js', id: id
       end
     end
   end
