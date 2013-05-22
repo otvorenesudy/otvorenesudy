@@ -37,7 +37,7 @@ module JudgesHelper
     if employment.judge_position
       tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
     else
-      content_tag :span, 'neznáma', options
+      tooltip_tag 'neznáma', "Pravdepodobne ide o VSÚ", :left, :hover, options
     end
   end
 
