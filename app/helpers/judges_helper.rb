@@ -58,11 +58,9 @@ module JudgesHelper
   end
 
   def judge_designation_date(designation, options = {})
-    designation_type = designation.judge_designation_type
+    return time_tag(designation.date) unless designation.type
 
-    return time_tag(designation.date) unless designation_type
-
-    tooltip_tag time_tag(designation.date), designation_type.value, :right
+    tooltip_tag time_tag(designation.date), designation.type.value, :right
   end
   
   def link_to_judge(judge, options = {})
