@@ -10,8 +10,8 @@ gem 'pg_search'
 gem 'tire'
 
 # styles
-gem 'bootstrap-sass',          '~> 2.2.2.0'
-gem 'font-awesome-sass-rails', '~> 3.0.0.1'
+gem 'bootstrap-sass',     '~> 2.2.2.0'
+gem 'font-awesome-rails', '~> 3.1.1.2'
 
 # scripts
 gem 'coffee-script'
@@ -29,10 +29,6 @@ gem 'rails-backbone'
 # pagination
 gem 'kaminari',           '~> 0.14.1'
 gem 'kaminari-bootstrap', '~> 0.1.3'
-
-# TODO use or rm
-#gem 'highcharts-rails', '~> 2.3.0'
-#gem 'mootools-rails',   '~> 1.0.1'
 
 # maps
 gem 'gmaps4rails', '~> 1.5.6'
@@ -73,7 +69,7 @@ group :assets do
   gem 'factory_girl'
 end
 
-# resque for capistrano, (all enviroments just to be sure)
+# resque for capistrano
 gem 'capistrano-resque', '~> 0.1.0'
 
 group :development, :test do
@@ -81,7 +77,5 @@ group :development, :test do
   gem 'database_cleaner', '~> 0.9.1'
 
   gem 'jasminerice'
-  gem 'guard-jasmine' # requires phantomjs -> apt-get install phantomjs
+  gem 'guard-jasmine'
 end
-
-#gem 'postgres-copy'
