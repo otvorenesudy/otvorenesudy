@@ -15,7 +15,7 @@ namespace :process do
       processor.process(file)
     end
   end
-  
+
   desc "Process court statistical summaries"
   task court_statistical_summaries: :environment do
     processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
@@ -27,8 +27,10 @@ namespace :process do
   task judge_designations: :environment do
     processor = NrsrSk::Processor::JudgeDesignations.new
 
-    Dir.glob('data/judge_designations_*.csv') do |file|
-      processor.process(file)
+    options = { separator: "\t" }
+
+    Dir.glob('data/judge_designations*.csv') do |file|
+      processor.process(file, options)
     end
   end
 
