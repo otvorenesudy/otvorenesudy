@@ -87,7 +87,7 @@ module JusticeGovSk
           value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '')
         end
 
-        value.strip.gsub(/[\,\;]/, '').split(/\s+/).each do |part|
+        value.strip.gsub(/[\,\;]/, '').gsub(/\./, '. ').split(/\s+/).each do |part|
           part = part.utf8.squeeze('.').strip
 
           if part.match(/\./)
