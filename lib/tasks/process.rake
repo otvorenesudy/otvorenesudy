@@ -23,4 +23,14 @@ namespace :process do
 
     processor.process("#{Rails.root}/data/judge_statistical_summaries_2012.csv")
   end
+
+  desc "Process court statistical summaries"
+  task court_statistical_summaries: :environment do
+    processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
+
+    options = { separator: "\t" }
+
+    processor.process("#{Rails.root}/data/court_statistical_summaries_2012.csv")
+  end
+
 end
