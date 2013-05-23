@@ -5,5 +5,5 @@ class StatisticalTable < ActiveRecord::Base
                     foreign_key: :statistical_table_name_id
 
   has_many :columns, class_name: :StatisticalTableColumn
-  has_many :rows, class_name: :StatisticalTableRow
+  has_many :rows,    class_name: :StatisticalTableRow
 end

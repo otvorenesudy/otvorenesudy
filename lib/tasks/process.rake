@@ -11,18 +11,14 @@ namespace :process do
   task court_expenses: :environment do
     processor = JusticeGovSk::Processor::CourtExpenses.new
 
-    options = { separator: "\t" }
-
     Dir.glob('data/court_expenses_*.csv') do |file|
-      processor.process(file, options)
+      processor.process(file)
     end
   end
   
   desc "Process court statistical summaries"
   task court_statistical_summaries: :environment do
     processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
-
-    options = { separator: "\t" }
 
     processor.process('data/court_statistical_summaries_2012.csv')
   end
@@ -31,18 +27,14 @@ namespace :process do
   task judge_designations: :environment do
     processor = NrsrSk::Processor::JudgeDesignations.new
 
-    options = { separator: "\t" }
-
     Dir.glob('data/judge_designations_*.csv') do |file|
-      processor.process(file, options)
+      processor.process(file)
     end
   end
 
   desc "Process judge statistical summaries"
   task judge_statistical_summaries: :environment do
     processor = JusticeGovSk::Processor::JudgeStatisticalSummaries.new
-
-    options = { separator: "\t" }
 
     processor.process('data/judge_statistical_summaries_2012.csv')
   end
