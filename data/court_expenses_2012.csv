@@ -1,70 +1,63 @@
-Krajský súd v Bratislave	17 500
-Okresný súd Bratislava I	102 133
-Okresný súd Bratislava II	23 900
-Okresný súd Bratislava III	91 320
-Okresný súd Bratislava IV	30 000
-Okresný súd Bratislava V	12 100
-Okresný súd Malacky	1 000
-Okresný súd Pezinok	7 300
-	
-Krajský súd v Trnave	4 000
-Okresný súd Trnava	47 500
-Okresný súd Dunajská Streda	3 000
-Okresný súd Galanta	31 000
-Okresný súd Senica	2 500
-Okresný súd Piešťany	10 250
-Okresný súd Skalica	0
-	
-Krajský súd v Nitre	0
-Okresný súd Nitra	3 000
-Okresný súd Komárno	0
-Okresný súd Levice	0
-Okresný súd Nové Zámky	22 500
-Okresný súd Topoľčany	0
-	
-Krajský súd v Trenčíne	0
-Okresný súd Trenčín	29 000
-Okresný súd Bánovce nad Bebravou	1 500
-Okresný súd Nové Mesto nad Váhom	342
-Okresný súd Partizánske	0
-Okresný súd Považská Bystrica	0
-Okresný súd Prievidza	0
-	
-Krajský súd v Žiline	1 000
-Okresný súd Žilina	102 100
-Okresný súd Čadca	51 000
-Okresný súd Dolný Kubín	0
-Okresný súd Liptovský Mikuláš	3 300
-Okresný súd Martin	8 500
-Okresný súd Námestovo	9 500
-Okresný súd Ružomberok	0
-	
-Krajský súd v Banskej Bystrici	0
-Okresný súd Banská Bystrica	1 500
-Okresný súd Brezno	0
-Okresný súd Lučenec	0
-Okresný súd Revúca	0
-Okresný súd Rimavská Sobota	2 500
-Okresný súd Veľký Krtíš	0
-Okresný súd Zvolen	0
-Okresný súd Žiar nad  Hronom	3 500
-	
-Krajský súd v Prešove	0
-Okresný súd Prešov	4 000
-Okresný súd Bardejov	1 000
-Okresný súd Humenné	3 500
-Okresný súd Kežmarok	8 000
-Okresný súd Poprad	11 000
-Okresný súd Stará Ľubovňa	0
-Okresný súd Svidník	0
-Okresný súd Vranov nad Topľou	0
-	
-Krajský súd v Košiciach	0
-Okresný súd Košice I	35 000
-Okresný súd Košice II	32 300
-Okresný súd Košice - okolie	50 000
-Okresný súd Michalovce	0
-Okresný súd Rožňava	0
-Okresný súd Spišská Nová Ves	17 500
-Okresný súd Trebišov	6 000
-
+súd	rok	čiastka
+Krajský súd v Bratislave	2012	17500
+Okresný súd Bratislava I	2012	102133
+Okresný súd Bratislava II	2012	23900
+Okresný súd Bratislava III	2012	91320
+Okresný súd Bratislava IV	2012	30000
+Okresný súd Bratislava V	2012	12100
+Okresný súd Malacky	2012	1000
+Okresný súd Pezinok	2012	7300
+Krajský súd v Trnave	2012	4000
+Okresný súd Trnava	2012	47500
+Okresný súd Dunajská Streda	2012	3000
+Okresný súd Galanta	2012	31000
+Okresný súd Senica	2012	2500
+Okresný súd Piešťany	2012	10250
+Okresný súd Skalica	2012	0
+Krajský súd v Nitre	2012	0
+Okresný súd Nitra	2012	3000
+Okresný súd Komárno	2012	0
+Okresný súd Levice	2012	0
+Okresný súd Nové Zámky	2012	22500
+Okresný súd Topoľčany	2012	0
+Krajský súd v Trenčíne	2012	0
+Okresný súd Trenčín	2012	29000
+Okresný súd Bánovce nad Bebravou	2012	1500
+Okresný súd Nové Mesto nad Váhom	2012	342
+Okresný súd Partizánske	2012	0
+Okresný súd Považská Bystrica	2012	0
+Okresný súd Prievidza	2012	0
+Krajský súd v Žiline	2012	1000
+Okresný súd Žilina	2012	102100
+Okresný súd Čadca	2012	51000
+Okresný súd Dolný Kubín	2012	0
+Okresný súd Liptovský Mikuláš	2012	3300
+Okresný súd Martin	2012	8500
+Okresný súd Námestovo	2012	9500
+Okresný súd Ružomberok	2012	0
+Krajský súd v Banskej Bystrici	2012	0
+Okresný súd Banská Bystrica	2012	1500
+Okresný súd Brezno	2012	0
+Okresný súd Lučenec	2012	0
+Okresný súd Revúca	2012	0
+Okresný súd Rimavská Sobota	2012	2500
+Okresný súd Veľký Krtíš	2012	0
+Okresný súd Zvolen	2012	0
+Okresný súd Žiar nad  Hronom	2012	3500
+Krajský súd v Prešove	2012	0
+Okresný súd Prešov	2012	4000
+Okresný súd Bardejov	2012	1000
+Okresný súd Humenné	2012	3500
+Okresný súd Kežmarok	2012	8000
+Okresný súd Poprad	2012	11000
+Okresný súd Stará Ľubovňa	2012	0
+Okresný súd Svidník	2012	0
+Okresný súd Vranov nad Topľou	2012	0
+Krajský súd v Košiciach	2012	0
+Okresný súd Košice I	2012	35000
+Okresný súd Košice II	2012	32300
+Okresný súd Košice - okolie	2012	50000
+Okresný súd Michalovce	2012	0
+Okresný súd Rožňava	2012	0
+Okresný súd Spišská Nová Ves	2012	17500
+Okresný súd Trebišov	2012	6000
