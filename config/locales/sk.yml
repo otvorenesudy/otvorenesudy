@@ -102,11 +102,10 @@ sk:
     hearing:
       type:
         title: 'Typ'
-        placeholder: 'Typ pojednávania'
   
       court:
         title: 'Súd'
-        placeholder: 'Meno súdu'
+        placeholder: 'Názov súdu'
 
       judges:
         title: 'Sudca'
@@ -118,7 +117,6 @@ sk:
   
       section:
         title: 'Úsek'
-        placeholder: 'Úsek pojednávania'
 
       subject:
         title: 'Predmet'
@@ -130,7 +128,7 @@ sk:
     decree:
       court:
         title: 'Súd'
-        placeholder: 'Meno súdu'
+        placeholder: 'Názov súdu'
 
       judges:
         title: 'Sudca'
