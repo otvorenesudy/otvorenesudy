@@ -32,7 +32,7 @@
     <div id="search-panel" class="span4">
       <% Decree.facets.each do |name, facet| %>
         <% if facet.visible %>
-          <%= render "facets/#{facet.type.to_s}_facet", name: name %>
+          <%= render "facets/#{facet.type}_facet", type: :decree, name: name %>
         <% end %>
       <% end %>
     </div>

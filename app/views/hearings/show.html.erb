@@ -37,7 +37,7 @@
       <%-# All hearing types -%>
 
       <% if @hearing.form %>
-        <p>Forma úkonu &ndash; <%= link_to_hearings_search @hearing.form.value, params: { subject: @hearing.form.value } %>.</p>
+        <p>Forma úkonu &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %>.</p>
       <% end %>
       <% if @hearing.subject %>
         <p>Predmet &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %>.</p>

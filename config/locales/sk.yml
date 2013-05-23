@@ -99,28 +99,57 @@ sk:
     other: "%{count} strán"
 
   facets:
-    judges:
-      title: 'Sudca'
-      placeholder: 'Meno sudcu'
+    hearing:
+      type:
+        title: 'Typ'
+        placeholder: 'Typ pojednávania'
+  
+      court:
+        title: 'Súd'
+        placeholder: 'Meno súdu'
 
-    court:
-      title: 'Súd'
-      placeholder: 'Meno súdu'
+      judges:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'
+  
+      form:
+        title: 'Forma'
+        placeholder: 'Forma pojednávania'
+  
+      section:
+        title: 'Úsek'
+        placeholder: 'Úsek pojednávania'
 
-    form:
-      title: 'Forma'
-      placeholder: 'Forma rozhodnutia'
+      subject:
+        title: 'Predmet'
+        placeholder: 'Predment pojednávania'
+    
+      date:
+        title: 'Dátum'
+      
+    decree:
+      court:
+        title: 'Súd'
+        placeholder: 'Meno súdu'
 
-    natures:
-      title: 'Povaha'
-      placeholder: 'Povaha rozhodnutia'
-
-    legislation_area:
-      title: 'Oblasť právnej úpravy'
-
-    legislation_subarea:
-      title: 'Podoblasť právnej úpravy'
-      placeholder: 'Podoblasť právnej úpravy'
-
-    date:
-      title: 'Dátum'
+      judges:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'  
+  
+      form:
+        title: 'Forma'
+        placeholder: 'Forma rozhodnutia'
+  
+      natures:
+        title: 'Povaha'
+        placeholder: 'Povaha rozhodnutia'
+  
+      legislation_area:
+        title: 'Oblasť právnej úpravy'
+  
+      legislation_subarea:
+        title: 'Podoblasť právnej úpravy'
+        placeholder: 'Podoblasť právnej úpravy'
+  
+      date:
+        title: 'Dátum'

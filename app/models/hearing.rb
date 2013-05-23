@@ -49,21 +49,25 @@ class Hearing < ActiveRecord::Base
     analyze :room
     analyze :special_type
     analyze :commencement_date, type: :date
-    analyze :type,              as: lambda { |h| h.section.value  if h.section        }
-    analyze :subject,           as: lambda { |h| h.subject.value  if h.subject        }
-    analyze :form,              as: lambda { |h| h.form.value     if h.form           }
-    analyze :court,             as: lambda { |h| h.court.name     if court            }
-    # TODO: consider naming in singular
-    analyze :judges,            as: lambda { |h| h.judges.map(&:name)                 }
-    analyze :proposers,         as: lambda { |h| h.proposers.map  { |p| p.name }      }
-    analyze :opponents,         as: lambda { |h| h.opponents.map  { |o| o.name }      }
-    analyze :defendants,        as: lambda { |h| h.defendants.map { |d| d.name }      }
+    analyze :type,              as: lambda { |h| h.type if h.type }
+    analyze :court,             as: lambda { |h| h.court.name if h.court }
+    analyze :judges,            as: lambda { |h| h.judges.pluck(:name) }
+    analyze :form,              as: lambda { |h| h.form.value if h.form }
+    analyze :section,           as: lambda { |h| h.subject.value if h.section }
+    analyze :subject,           as: lambda { |h| h.subject.value if h.subject }
+    analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
+    analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
+    analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
   end
 
   facets do
-    facet :judges, type: :terms
-    facet :court,  type: :terms
-    facet :date,   type: :date, interval: :month # using default alias for interval from DateFacet
+    facet :type,    type: :terms
+    facet :judges,  type: :terms
+    facet :court,   type: :terms
+    facet :form,    type: :terms
+    facet :section, type: :terms
+    facet :subject, type: :terms
+    facet :date,    type: :date, interval: :month # using default alias for interval from DateFacet
     facet :historical, field: :date, type: :date, interval: :month, visible: false
   end
 

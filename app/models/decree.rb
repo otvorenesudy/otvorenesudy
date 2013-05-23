@@ -52,12 +52,12 @@ class Decree < ActiveRecord::Base
     analyze :ecli
     analyze :text,                as: lambda { |d| d.text }, highlight: true
     analyze :court,               as: lambda { |d| d.court.name if d.court }
-    analyze :form,                as: lambda { |d| d.form.value if d.form  }
-    analyze :natures,             as: lambda { |d| d.natures.map { |l| l.value } if d.natures }
+    analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
+    analyze :form,                as: lambda { |d| d.form.value if d.form }
+    analyze :natures,             as: lambda { |d| d.natures.pluck(:value) if d.natures }
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
-    analyze :legislations,        as: lambda { |d| d.legislations.map { |l| l.value } if d.legislations }
-    analyze :judges,              as: lambda { |d| d.judges.map(&:name) }
+    analyze :legislations,        as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
   end
 
   facets do
