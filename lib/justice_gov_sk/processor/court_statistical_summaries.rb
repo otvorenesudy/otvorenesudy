@@ -9,7 +9,7 @@ module JusticeGovSk
         super(filename, options) do |record|
           @parser.parse(record)
 
-          @court = court_by_name_factory.find_or_create(@parser.court)
+          @court = court_by_name_factory.find(@parser.court)
 
           summary
           table
