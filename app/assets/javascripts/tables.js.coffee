@@ -3,13 +3,13 @@ $(document).ready ->
   # Define styles
   $.extend $.tablesorter.themes.bootstrap,
       table      : 'table table-striped'
-      header     : 'bootstrap-header'
+      header     : ''
       footerRow  : ''
       footerCells: ''
       icons      : ''
-      sortNone   : 'bootstrap-icon-unsorted',
-      sortAsc    : 'icon-chevron-up',
-      sortDesc   : 'icon-chevron-down',
+      sortNone   : 'icon-sort',
+      sortAsc    : 'icon-sort-up',
+      sortDesc   : 'icon-sort-down',
       active     : ''
       hover      : ''
       filterRow  : ''
@@ -52,7 +52,8 @@ $(document).ready ->
   $('table[data-sortable="true"]').tablesorter
     theme: 'bootstrap'
     headerTemplate : '{content} {icon}'
-    widgets: ["uitheme", 'resizeable']
+    widgets: ['uitheme', 'resizeable']
+    
     sortLocaleCompare: true
     textExtraction: (node, table, column) ->
       columns = $(table).find("tr:nth(1) td").length
