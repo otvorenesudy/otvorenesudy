@@ -1,10 +1,11 @@
 class CourtStatisticalSummary < ActiveRecord::Base
-  belongs_to :source
+  include Resource::Uri
+ 
+  attr_accessible :year
+
   belongs_to :court
-  attr_accessible :uri, :year
 
   has_many :tables, class_name: :StatisticalTable, as: :statistical_summary
 
-  validates :uri,  presence: true
   validates :year, presence: true
 end

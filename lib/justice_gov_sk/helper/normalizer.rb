@@ -45,8 +45,8 @@ module JusticeGovSk
 
           "Okresný súd Bánovce n/B"        => "Okresný súd Bánovce nad Bebravou",
           "Okresný súd Nové Mesto n/V"     => "Okresný súd Nové Mesto nad Váhom",
-          "Okresný súd Žiar n/H"           => "Okresný súd Žiar nad Hronom",
-          "Okresný súd Vranov n/T"         => "Okresný súd Vranov nad Topľou"
+          "Okresný súd Vranov n/T"         => "Okresný súd Vranov nad Topľou",
+          "Okresný súd Žiar n/H"           => "Okresný súd Žiar nad Hronom"
         }
 
         @court_name_map = {}

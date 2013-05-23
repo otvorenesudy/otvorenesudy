@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130522160707) do
+ActiveRecord::Schema.define(:version => 20130519163020) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -64,18 +64,6 @@ ActiveRecord::Schema.define(:version => 20130522160707) do
   end
 
   add_index "court_proceeding_types", ["value"], :name => "index_court_proceeding_types_on_value", :unique => true
-
-  create_table "court_statistical_summaries", :force => true do |t|
-    t.string   "uri",        :null => false
-    t.integer  "source_id",  :null => false
-    t.integer  "court_id",   :null => false
-    t.integer  "year",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "court_statistical_summaries", ["court_id"], :name => "index_court_statistical_summaries_on_court_id"
-  add_index "court_statistical_summaries", ["source_id"], :name => "index_court_statistical_summaries_on_source_id"
 
   create_table "court_types", :force => true do |t|
     t.string   "value",      :null => false
@@ -410,25 +398,25 @@ ActiveRecord::Schema.define(:version => 20130522160707) do
   add_index "judge_statements", ["value"], :name => "index_judge_statements_on_value", :unique => true
 
   create_table "judge_statistical_summaries", :force => true do |t|
-    t.string   "uri",                             :null => false
-    t.integer  "source_id",                       :null => false
-    t.integer  "court_id",                        :null => false
-    t.integer  "judge_id",                        :null => false
+    t.string   "uri",                                            :null => false
+    t.integer  "source_id",                                      :null => false
+    t.integer  "court_id",                                       :null => false
+    t.integer  "judge_id",                                       :null => false
     t.integer  "judge_senate_inclusion_id"
-    t.string   "author"
-    t.integer  "year",                            :null => false
-    t.date     "date"
+    t.string   "author",                                         :null => false
+    t.integer  "year",                                           :null => false
+    t.date     "date",                                           :null => false
     t.integer  "days_worked"
     t.integer  "days_heard"
     t.integer  "days_used"
     t.integer  "released_constitutional_decrees"
     t.integer  "delayed_constitutional_decrees"
-    t.text     "idea_reduction_reasons"
-    t.text     "educational_activities"
-    t.text     "substantiation_notes"
-    t.text     "court_chair_actions"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.string   "idea_reduction_reasons",          :limit => 510
+    t.string   "educational_activities",          :limit => 510
+    t.string   "substantiation_notes",            :limit => 510
+    t.string   "court_chair_actions",             :limit => 510
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   add_index "judge_statistical_summaries", ["author"], :name => "index_judge_statistical_summaries_on_author"
@@ -436,8 +424,71 @@ ActiveRecord::Schema.define(:version => 20130522160707) do
   add_index "judge_statistical_summaries", ["date"], :name => "index_judge_statistical_summaries_on_date"
   add_index "judge_statistical_summaries", ["judge_id"], :name => "index_judge_statistical_summaries_on_judge_id"
   add_index "judge_statistical_summaries", ["source_id"], :name => "index_judge_statistical_summaries_on_source_id"
-  add_index "judge_statistical_summaries", ["uri"], :name => "index_judge_statistical_summaries_on_uri"
+  add_index "judge_statistical_summaries", ["uri"], :name => "index_judge_statistical_summaries_on_uri", :unique => true
   add_index "judge_statistical_summaries", ["year"], :name => "index_judge_statistical_summaries_on_year"
+
+  create_table "judge_statistical_table_cells", :force => true do |t|
+    t.integer  "judge_statistical_table_column_id", :null => false
+    t.integer  "judge_statistical_table_row_id",    :null => false
+    t.string   "value"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "judge_statistical_table_cells", ["judge_statistical_table_column_id", "judge_statistical_table_row_id"], :name => "index_judge_statistical_table_cells_on_unique_values", :unique => true
+  add_index "judge_statistical_table_cells", ["judge_statistical_table_row_id", "judge_statistical_table_column_id"], :name => "index_judge_statistical_table_cells_on_unique_values_reversed", :unique => true
+
+  create_table "judge_statistical_table_column_names", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_statistical_table_column_names", ["value"], :name => "index_judge_statistical_table_column_names_on_value", :unique => true
+
+  create_table "judge_statistical_table_columns", :force => true do |t|
+    t.integer  "judge_statistical_table_id",             :null => false
+    t.integer  "judge_statistical_table_column_name_id", :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "judge_statistical_table_columns", ["judge_statistical_table_id", "judge_statistical_table_column_name_id"], :name => "index_judge_statistical_table_columns_on_unique_values", :unique => true
+
+  create_table "judge_statistical_table_names", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_statistical_table_names", ["value"], :name => "index_judge_statistical_table_names_on_value", :unique => true
+
+  create_table "judge_statistical_table_row_names", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "judge_statistical_table_row_names", ["value"], :name => "index_judge_statistical_table_row_names_on_value", :unique => true
+
+  create_table "judge_statistical_table_rows", :force => true do |t|
+    t.integer  "judge_statistical_table_id",          :null => false
+    t.integer  "judge_statistical_table_row_name_id", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "judge_statistical_table_rows", ["judge_statistical_table_id", "judge_statistical_table_row_name_id"], :name => "index_judge_statistical_table_rows_on_unique_values", :unique => true
+
+  create_table "judge_statistical_tables", :force => true do |t|
+    t.integer  "judge_statistical_summary_id",    :null => false
+    t.integer  "judge_statistical_table_name_id", :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "judge_statistical_tables", ["judge_statistical_summary_id"], :name => "index_judge_statistical_tables_on_summaries"
+  add_index "judge_statistical_tables", ["judge_statistical_table_name_id"], :name => "index_judge_statistical_tables_on_table_names"
 
   create_table "judgements", :force => true do |t|
     t.integer  "decree_id",                                            :null => false
@@ -580,71 +631,5 @@ ActiveRecord::Schema.define(:version => 20130522160707) do
   add_index "sources", ["module"], :name => "index_sources_on_module", :unique => true
   add_index "sources", ["name"], :name => "index_sources_on_name", :unique => true
   add_index "sources", ["uri"], :name => "index_sources_on_uri", :unique => true
-
-  create_table "statistical_table_cells", :force => true do |t|
-    t.integer  "statistical_table_column_id", :null => false
-    t.integer  "statistical_table_row_id",    :null => false
-    t.string   "value"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-  end
-
-  add_index "statistical_table_cells", ["statistical_table_column_id", "statistical_table_row_id"], :name => "index_statistical_table_cells_on_unique_values", :unique => true
-  add_index "statistical_table_cells", ["statistical_table_row_id", "statistical_table_column_id"], :name => "index_statistical_table_cells_on_unique_values_reversed", :unique => true
-
-  create_table "statistical_table_column_names", :force => true do |t|
-    t.string   "value",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "statistical_table_column_names", ["value"], :name => "index_statistical_table_column_names_on_value", :unique => true
-
-  create_table "statistical_table_columns", :force => true do |t|
-    t.integer  "statistical_table_id",             :null => false
-    t.integer  "statistical_table_column_name_id", :null => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-  end
-
-  add_index "statistical_table_columns", ["statistical_table_id", "statistical_table_column_name_id"], :name => "index_statistical_table_columns_on_unique_values", :unique => true
-
-  create_table "statistical_table_names", :force => true do |t|
-    t.string   "value",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "statistical_table_names", ["value"], :name => "index_statistical_table_names_on_value", :unique => true
-
-  create_table "statistical_table_row_names", :force => true do |t|
-    t.string   "value",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "statistical_table_row_names", ["value"], :name => "index_statistical_table_row_names_on_value", :unique => true
-
-  create_table "statistical_table_rows", :force => true do |t|
-    t.integer  "statistical_table_id",          :null => false
-    t.integer  "statistical_table_row_name_id", :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
-  add_index "statistical_table_rows", ["statistical_table_id", "statistical_table_row_name_id"], :name => "index_statistical_table_rows_on_unique_values", :unique => true
-
-  create_table "statistical_tables", :force => true do |t|
-    t.integer  "statistical_summary_id",    :null => false
-    t.string   "statistical_summary_type",  :null => false
-    t.integer  "statistical_table_name_id", :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
-  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_id_and_type"
-  add_index "statistical_tables", ["statistical_summary_id"], :name => "index_statistical_tables_on_statistical_summary_id"
-  add_index "statistical_tables", ["statistical_summary_type"], :name => "index_statistical_tables_on_statistical_summary_type"
-  add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
 
 end
