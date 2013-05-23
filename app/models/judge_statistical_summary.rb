@@ -1,6 +1,6 @@
 class JudgeStatisticalSummary < ActiveRecord::Base
   include Resource::Uri
-  
+
   attr_accessible :author,
                   :year,
                   :date,
@@ -13,17 +13,16 @@ class JudgeStatisticalSummary < ActiveRecord::Base
                   :educational_activities,
                   :substantiation_notes,
                   :court_chair_actions
-  
+
   belongs_to :court
-  
+
   belongs_to :judge
-  
-  has_many :tables, class_name: :JudgeStatisticalTable
-  
+
+  has_many :tables, class_name: :StatisticalTable, as: :statistical_summary
+
   belongs_to :senate_inclusion, class_name: :JudgeSenateInclusion,
                                 foreign_key: :judge_senate_inclusion_id
 
-  validates :author, presence: true
+  # TODO: validate presence of date and author
   validates :year,   presence: true
-  validates :date,   presence: true
 end

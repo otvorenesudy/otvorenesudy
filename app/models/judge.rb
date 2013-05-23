@@ -48,6 +48,9 @@ class Judge < ActiveRecord::Base
   has_many :property_declarations, class_name: :JudgePropertyDeclaration,
                                    dependent: :destroy
 
+  has_many :summaries, class_name: :JudgeStatisticalSummary,
+                       dependent:  :destroy
+
   validates :name, presence: true
 
   def probably_superior_court_officer?
