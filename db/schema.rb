@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130519163020) do
+ActiveRecord::Schema.define(:version => 20130523011102) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -21,6 +21,21 @@ ActiveRecord::Schema.define(:version => 20130519163020) do
   end
 
   add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
+
+  create_table "court_expenses", :force => true do |t|
+    t.string   "uri",        :null => false
+    t.integer  "source_id",  :null => false
+    t.integer  "court_id",   :null => false
+    t.integer  "year",       :null => false
+    t.integer  "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "court_expenses", ["court_id"], :name => "index_court_expenses_on_court_id"
+  add_index "court_expenses", ["source_id"], :name => "index_court_expenses_on_source_id"
+  add_index "court_expenses", ["uri"], :name => "index_court_expenses_on_uri"
+  add_index "court_expenses", ["year"], :name => "index_court_expenses_on_year"
 
   create_table "court_jurisdictions", :force => true do |t|
     t.integer  "court_proceeding_type_id", :null => false
@@ -64,6 +79,20 @@ ActiveRecord::Schema.define(:version => 20130519163020) do
   end
 
   add_index "court_proceeding_types", ["value"], :name => "index_court_proceeding_types_on_value", :unique => true
+
+  create_table "court_statistical_summaries", :force => true do |t|
+    t.string   "uri",        :null => false
+    t.integer  "source_id",  :null => false
+    t.integer  "court_id",   :null => false
+    t.integer  "year",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "court_statistical_summaries", ["court_id"], :name => "index_court_statistical_summaries_on_court_id"
+  add_index "court_statistical_summaries", ["source_id"], :name => "index_court_statistical_summaries_on_source_id"
+  add_index "court_statistical_summaries", ["uri"], :name => "index_court_statistical_summaries_on_uri"
+  add_index "court_statistical_summaries", ["year"], :name => "index_court_statistical_summaries_on_year"
 
   create_table "court_types", :force => true do |t|
     t.string   "value",      :null => false

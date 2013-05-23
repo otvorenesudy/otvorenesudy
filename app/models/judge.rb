@@ -4,8 +4,7 @@ class Judge < ActiveRecord::Base
 
   include Tire::Model::Search
 
-  attr_accessible :uri,
-                  :name,
+  attr_accessible :name,
                   :name_unprocessed,
                   :prefix,
                   :first,

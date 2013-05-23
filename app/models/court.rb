@@ -36,12 +36,11 @@ class Court < ActiveRecord::Base
   validates :name,   presence: true
   validates :street, presence: true
 
-  has_many :summaries, class_name: :CourtStatisticalSummary,
-                       dependent:  :destroy
+  has_many :expenses, class_name: :CourtExpense, 
+                      dependent: :destroy
 
-  has_many :expenses,  class_name: :CourtExpense, 
-                       dependent: :destroy
-
+  has_many :statistical_summaries, class_name: :CourtStatisticalSummary,
+                                   dependent: :destroy
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 

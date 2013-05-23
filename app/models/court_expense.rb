@@ -1,9 +1,10 @@
 class CourtExpense < ActiveRecord::Base
-  belongs_to :source
-  belongs_to :court
-  attr_accessible :uri, :value, :year
+  include Resource::Uri
 
-  validates :uri,   presence: true
+  attr_accessible :year, :value
+
+  belongs_to :court
+
   validates :value, presence: true
   validates :year,  presence: true
 end
