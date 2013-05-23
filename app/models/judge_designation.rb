@@ -1,6 +1,6 @@
 class JudgeDesignation < ActiveRecord::Base
-  include Resource::URI
-  
+  include Resource::Uri
+
   attr_accessible :date
 
   belongs_to :judge
