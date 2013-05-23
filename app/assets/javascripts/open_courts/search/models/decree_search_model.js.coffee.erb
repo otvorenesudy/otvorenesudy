@@ -1,8 +1,8 @@
 #= require ./search_model
 
 class OpenCourts.DecreeSearchModel extends OpenCourts.SearchModel
+  _type:  'decree'
 
-  type:  'decree'
   defaults:
     q:    []
     <% Decree.facets.each do |name, facet| %>
