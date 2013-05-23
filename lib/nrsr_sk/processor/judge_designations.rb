@@ -9,8 +9,8 @@ module NrsrSk
         @parser = NrsrSk::Parser::JudgeDesignation.new
       end
 
-      def process(file, options = {})
-        read(file, options) do |record|
+      def process(filepath, options = {})
+        read(filepath, options) do |record|
           @parser.parse(record)
 
           judge_name = @parser.judge
@@ -37,7 +37,7 @@ module NrsrSk
           @designation.date   = date
           @designation.type   = @designation_type
           @designation.source = NrsrSk.source
-          @designation.uri    = @file
+          @designation.uri    = @filename
 
           persist(@designation)
         end

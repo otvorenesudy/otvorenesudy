@@ -5,8 +5,8 @@ module JusticeGovSk
         @parser = inject JusticeGovSk::Parser::CourtStatisticalSummary
       end
 
-      def process(filename, options = {})
-        super(filename, options) do |record|
+      def process(filepath, options = {})
+        super(filepath, options) do |record|
           @parser.parse(record)
 
           @court = court_by_name_factory.find(@parser.court)
@@ -21,7 +21,7 @@ module JusticeGovSk
 
         @summary.court  = @court
         @summary.year   = @parser.year
-        @summary.uri    = @file
+        @summary.uri    = @filename
         @summary.source = JusticeGovSk.source
 
         persist(@summary)

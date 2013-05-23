@@ -5,8 +5,8 @@ module Core
     module CSV
       include Core::Output
 
-      def read(path, options = {})
-        puts "Processing #{path} as csv ..."
+      def read(filepath, options = {})
+        puts "Processing #{filepath} as csv ..."
 
         settings = Hash.new
 
@@ -15,9 +15,9 @@ module Core
 
         lines = 0
 
-        @file = File.basename(path)
+        @filename = File.basename(filepath)
 
-        ::CSV.foreach(path, settings) do |line|
+        ::CSV.foreach(filepath, settings) do |line|
           yield line if block_given?
 
           lines += 1
