@@ -1,5 +1,5 @@
 class Decree < ActiveRecord::Base
-  include Resource::Uri
+  include Resource::URI
   include Resource::Storage
 
   include Document::Indexable

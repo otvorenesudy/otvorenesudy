@@ -1,5 +1,5 @@
 class CourtStatisticalSummary < ActiveRecord::Base
-  include Resource::Uri
+  include Resource::URI
  
   attr_accessible :year
 

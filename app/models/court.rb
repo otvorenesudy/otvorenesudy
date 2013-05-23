@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Court < ActiveRecord::Base
-  include Resource::Uri
+  include Resource::URI
   include Resource::Storage
 
   attr_accessible :name,

@@ -1,5 +1,5 @@
 class CourtExpense < ActiveRecord::Base
-  include Resource::Uri
+  include Resource::URI
 
   attr_accessible :year, :value
 

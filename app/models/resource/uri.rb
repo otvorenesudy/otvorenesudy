@@ -1,4 +1,4 @@
-module Resource::Uri
+module Resource::URI
   extend ActiveSupport::Concern
 
   included do

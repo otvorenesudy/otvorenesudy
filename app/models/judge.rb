@@ -1,5 +1,5 @@
 class Judge < ActiveRecord::Base
-  include Resource::Uri
+  include Resource::URI
   include Resource::Similarity
 
   include Tire::Model::Search

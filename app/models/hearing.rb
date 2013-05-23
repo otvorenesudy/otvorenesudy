@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Hearing < ActiveRecord::Base
-  include Resource::Uri
+  include Resource::URI
   include Resource::Storage
 
   include Document::Indexable
