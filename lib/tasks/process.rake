@@ -33,4 +33,15 @@ namespace :process do
     processor.process("#{Rails.root}/data/court_statistical_summaries_2012.csv")
   end
 
+  desc "Process judge designations"
+  task court_expenses: :environment do
+    processor = JusticeGovSk::Processor::CourtExpenses.new
+
+    options = { separator: "\t" }
+
+    Dir.glob('data/court_expenses_*.csv') do |file|
+      processor.process(file, options)
+    end
+  end
+
 end
