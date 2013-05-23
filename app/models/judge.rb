@@ -49,7 +49,7 @@ class Judge < ActiveRecord::Base
                                    dependent: :destroy
 
   has_many :statistical_summaries, class_name: :JudgeStatisticalSummary,
-                                   dependent:  :destroy
+                                   dependent: :destroy
 
   validates :name, presence: true
 

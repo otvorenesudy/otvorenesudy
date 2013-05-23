@@ -34,7 +34,7 @@ class Court < ActiveRecord::Base
   belongs_to :business_registry_center, class_name: :CourtOffice, dependent: :destroy
   
   has_many :statistical_summaries, class_name: :CourtStatisticalSummary,
-                                   dependent:  :destroy
+                                   dependent: :destroy
   
   validates :name,   presence: true
   validates :street, presence: true
