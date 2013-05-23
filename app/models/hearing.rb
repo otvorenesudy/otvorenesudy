@@ -23,7 +23,7 @@ class Hearing < ActiveRecord::Base
 
   scope :upcoming, lambda { where("date >= ?", Time.now)  }
   scope :past, lambda { where("date < ?", Time.now) }
-  
+
   belongs_to :proceeding
 
   belongs_to :court
@@ -49,7 +49,7 @@ class Hearing < ActiveRecord::Base
     analyze :room
     analyze :special_type
     analyze :commencement_date, type: :date
-    analyze :type,              as: lambda { |h| h.type if h.type }
+    analyze :type,              as: lambda { |h| h.type.value if h.type }
     analyze :court,             as: lambda { |h| h.court.name if h.court }
     analyze :judges,            as: lambda { |h| h.judges.pluck(:name) }
     analyze :form,              as: lambda { |h| h.form.value if h.form }
