@@ -9,9 +9,6 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
 
   initialize: ->
     @.log 'Initializing ...'
-
-    @page = 1
-
     @.log 'Initialized.'
 
   getPage: ->
@@ -35,7 +32,7 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     @.setValue('order', value)
 
   query: ->
-    type: @type, data: @.toJSON()
+    _type: @_type, data: @.toJSON()
 
   search: (callback) ->
     $.ajax

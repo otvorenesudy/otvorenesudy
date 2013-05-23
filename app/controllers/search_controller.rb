@@ -61,9 +61,9 @@ class SearchController < ApplicationController
     query[:query]  = Hash.new
 
     begin
-      raise unless models.include?(params[:type].to_sym)
+      raise unless models.include?(params[:_type].to_sym)
 
-      model = params[:type].camelize.constantize
+      model = params[:_type].camelize.constantize
       data  = params[:data] || Hash.new
 
       data.symbolize_keys.each do |key, value|

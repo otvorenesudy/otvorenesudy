@@ -1,7 +1,7 @@
 #= require ./search_model
 
 class OpenCourts.HearingSearchModel extends OpenCourts.SearchModel
-  type:  'hearing'
+  _type:  'hearing'
 
   defaults:
     <% Hearing.facets.each do |name, facet| %>
