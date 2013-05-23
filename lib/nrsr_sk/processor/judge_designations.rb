@@ -33,9 +33,11 @@ module NrsrSk
             persist(@designation_type)
           end
 
-          @designation.judge                  = judge
-          @designation.date                   = date
-          @designation.judge_designation_type = @designation_type
+          @designation.judge  = judge
+          @designation.date   = date
+          @designation.type   = @designation_type
+          @designation.source = NrsrSk.source
+          @designation.uri    = @file
 
           persist(@designation)
         end

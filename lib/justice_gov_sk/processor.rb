@@ -8,12 +8,10 @@ module JusticeGovSk
     include JusticeGovSk::Helper::JudgeMatcher
     include JusticeGovSk::Helper::Normalizer
 
-    def process(filename, options = {})
-      options.merge!(separator: "\t")
+    def process(path, options = {})
+      options.merge! separator: "\t"
 
-      @file_uri = File.basename(filename)
-
-      read(filename, options) do |record|
+      read(path, options) do |record|
         yield record
       end
     end
