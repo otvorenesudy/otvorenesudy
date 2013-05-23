@@ -42,6 +42,13 @@ namespace :fixtures do
       DecreeForm.order(:code).all.each do |form|
         puts "Decrees form #{form.code}: #{Decree.where('decree_form_id = ?', form.id).count}"
       end
+      
+      puts
+      puts "Court expenses:   #{CourtExpense.count}"
+      puts "Court statistics: #{CourtStatisticalSummary.count}"
+      puts
+      puts "Judge desigantions: #{JudgeDesignation.count}"
+      puts "Judge statistics:   #{JudgeStatisticalSummary.count}"
     end
   end
   
