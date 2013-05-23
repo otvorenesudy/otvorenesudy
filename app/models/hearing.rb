@@ -53,7 +53,7 @@ class Hearing < ActiveRecord::Base
     analyze :court,             as: lambda { |h| h.court.name if h.court }
     analyze :judges,            as: lambda { |h| h.judges.pluck(:name) }
     analyze :form,              as: lambda { |h| h.form.value if h.form }
-    analyze :section,           as: lambda { |h| h.subject.value if h.section }
+    analyze :section,           as: lambda { |h| h.section.value if h.section }
     analyze :subject,           as: lambda { |h| h.subject.value if h.subject }
     analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
