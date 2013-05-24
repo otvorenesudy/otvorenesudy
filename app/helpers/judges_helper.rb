@@ -84,6 +84,12 @@ module JudgesHelper
     content_tag :span, number_with_delimiter(Decree.during_employment(employment).count), employment.active ? {} : { class: :muted }
   end
 
+    # TODO rm
+#    
+  def judge_designation_distance(designation)
+    tooltip_tag distance_of_time_in_words_to_now(designation.date), I18n.l(designation.date, format: :long)
+  end
+  
   def judge_designation_date(designation, options = {})
     return time_tag(designation.date) unless designation.type
 
