@@ -36,7 +36,7 @@ class Court < ActiveRecord::Base
   validates :name,   presence: true
   validates :street, presence: true
 
-  has_many :expenses, class_name: :CourtExpense, 
+  has_many :expenses, class_name: :CourtExpense,
                       dependent: :destroy
 
   has_many :statistical_summaries, class_name: :CourtStatisticalSummary,
@@ -67,6 +67,10 @@ class Court < ActiveRecord::Base
 
   def vicechair
     judges.active.vicechair.first
+  end
+
+  def expenses_total
+    expenses.map { |expense| expense.value.to_i }.inject(:+)
   end
 
   storage :page, JusticeGovSk::Storage::CourtPage, extension: :html

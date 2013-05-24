@@ -35,6 +35,11 @@ sk:
       delimiter: ' '
       separator: ','
 
+    currency:
+      format:
+        format: '%n %u'
+        unit: '€'
+
   date:
     formats:
       default: '%-d.%-m. %Y'

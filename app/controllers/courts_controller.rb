@@ -19,6 +19,8 @@ class CourtsController < ApplicationController
     @court = Court.find(params[:id])
 
     @judges = @court.judges.order(:last, :middle, :first)
+    
+    @expenses = @court.expenses.order(:year)
 
     @past_hearings     = @court.hearings.past.limit(10)
     @upcoming_hearings = @court.hearings.upcoming.limit(10)

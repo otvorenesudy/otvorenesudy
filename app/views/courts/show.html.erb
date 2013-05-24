@@ -12,11 +12,23 @@
   <div class="row">
     <div class="span12">
       <p>
+        <span class="gutter centered muted"><%= icon_tag :user %></span>
         Na súde pracuje <%= number_with_translation(@court.judges.count, key: :judge) %>.
         Pre súd <%= 'zatiaľ ne' if @court.hearings.none? %>evidujeme
         <%= number_with_translation(@court.hearings.count, key: :hearing) %>
         a&nbsp;<%= number_with_translation(@court.decrees.count, key: :decree) %>.
       </p>
+      <% if @court.expenses.any? %>
+        <p>
+          <span class="gutter centered muted"><%= icon_tag :money %></span>
+          Výdavky súdu na nálezy Ústavného súdu Slovenskej republiky za roky
+          <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
+          boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
+          <br/>
+          <span class="gutter centered muted"></span>
+          Za rok <%= @expenses.reverse.map { |expense| "#{expense.year} &ndash; #{number_to_currency expense.value, precision: 0}" }.join(', ').html_safe %>.
+        </p>
+      <% end %>
     </div>
   </div>
 </section>

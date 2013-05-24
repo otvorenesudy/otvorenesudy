@@ -6,8 +6,8 @@
     position: relative;
     padding: 8px;
     
-    cursor: pointer;
     padding-right: 18px + 8px;
+    cursor: pointer;
     
     a[rel="tooltip"] {
       position: relative;
@@ -41,5 +41,6 @@
   
   th[data-sorter="false"] {
     padding-right: 8px;
+    cursor: default;
   }
 }
