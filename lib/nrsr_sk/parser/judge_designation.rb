@@ -16,7 +16,13 @@ module NrsrSk
       end
 
       def designation_type
-        return @data[2] && @data[2] != 'n/a' ? @data[2].strip.squeeze.upcase_first : nil
+        if @data[2] && @data[2] != 'n/a'
+          type = @data[2].strip.squeeze.upcase_first
+          
+          return "Bez časového obmedzenia funkcie" if type =~ /bez\s+obmedzenia/i
+          
+          type
+        end
       end
     end
   end
