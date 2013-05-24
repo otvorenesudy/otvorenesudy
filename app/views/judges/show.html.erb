@@ -23,7 +23,11 @@
           <% if employment.judge_position %>
             <%= employment.judge_position.value %>
           <% else %>
-            <%= employment.active == nil ? 'N' : 'n' %>eznámy pracovník
+            <% if @judge.probably_superior_court_officer? %>
+              <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
+            <% else %>
+              <%= employment.active == nil ? 'N' : 'n' %>eznámy pracovník
+            <% end %>
           <% end %>
           na súde 
           <%= link_to_court employment.court %>,

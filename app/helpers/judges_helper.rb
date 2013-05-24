@@ -59,7 +59,9 @@ module JudgesHelper
       tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
     else
       if employment.judge.probably_superior_court_officer?
-        tooltip_tag 'neznáma', "Pravdepodobne ide o VSÚ", :left, :hover, options
+        content_tag :span, options.clone do
+          ('pravdepodobne ' + tooltip_tag('VSÚ', "Vyšší súdny úradník", :top, :hover, options)).html_safe
+        end
       else
         'neznáma'
       end
