@@ -1,22 +1,5 @@
 $(document).ready ->
 
-  # Define styles
-  $.extend $.tablesorter.themes.bootstrap,
-      table      : 'table table-striped'
-      header     : ''
-      footerRow  : ''
-      footerCells: ''
-      icons      : ''
-      sortNone   : 'icon-sort',
-      sortAsc    : 'icon-sort-up',
-      sortDesc   : 'icon-sort-down',
-      active     : ''
-      hover      : ''
-      filterRow  : ''
-      even       : ''
-      odd        : ''
-
-  # TODO: check if all characters are considered
   $.extend($.tablesorter.characterEquivalents, 
     'a': 'áä'
     'A': 'ÁÄ'
@@ -48,11 +31,35 @@ $(document).ready ->
     'Z': 'Ž'
   )
 
+  $.extend $.tablesorter.themes.bootstrap,
+      table      : 'table table-striped'
+      header     : ''
+      footerRow  : ''
+      footerCells: ''
+      icons      : ''
+      sortNone   : 'icon-sort'
+      sortAsc    : 'icon-sort-up'
+      sortDesc   : 'icon-sort-down'
+      active     : ''
+      hover      : ''
+      filterRow  : ''
+      even       : ''
+      odd        : ''
 
   $('table[data-sortable="true"]').tablesorter
-    theme: 'bootstrap'
-    headerTemplate : '{content} {icon}'
-    widgets: ['uitheme', 'resizeable']
+    theme:         'bootstrap'
+    tableClass:    'table'
+    cssAsc:        'table-header-asc'
+    cssDesc:       'table-header-desc'
+    cssChildRow:   'table-children'
+    cssHeader:     'table-header'
+    cssHeaderRow:  'table-headers'
+    cssIcon:       'table-icon'
+    cssInfoBlock:  'table-info'
+    cssProcessing: 'table-processing'
+
+    headerTemplate: '{content} <span>{icon}</span>'
+    widgets: ['uitheme']
     
     sortLocaleCompare: true
     textExtraction: (node, table, column) ->
