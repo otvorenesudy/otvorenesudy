@@ -42,15 +42,13 @@
         </div>
       </div>
 
-
-      <% if @highlights && @highlights[i] && @highlights[i][:text] %>
+      <% if @highlights[i] && @highlights[i][:text] %>
         <% @highlights[i][:text].each do |highlight|  %>
           <blockquote>
-            <%= sanitize(highlight, tags: %w(em)) %>
+            <%= sanitize(highlight.gsub(/\A\W*\s*|\s*\W*\z/, '&hellip;'), tags: %w(em)) %>
           </blockquote>
         <% end %>
       <% end %>
-
     </li>
   <% end %>
 </ol>

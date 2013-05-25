@@ -149,7 +149,7 @@
     <% if @hearing.judgings.chaired.any? %>    
       <div class="row">
         <div class="span12">
-          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map { |judging| judging.judge } %>.
+          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map(&:judge) %>.
         </div>
       </div>
     <% end %>
