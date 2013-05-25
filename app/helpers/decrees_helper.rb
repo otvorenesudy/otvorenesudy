@@ -1,4 +1,20 @@
+# encoding: utf-8
+
 module DecreesHelper
+  def decree_title(decree)
+    # TODO for page title
+  end
+  
+  # TODO rm?
+  def decree_headline(decree)
+    introduction = [decree.legislation_subarea, decree.form].reject(&:blank?).map(&:value)
+    natures      = decree.natures.pluck(:value).join(', ')
+    
+    #["Súdne rozhodnutie", introduction, natures].join(' ').html_safe
+    
+    [introduction.join(' &ndash; '), natures].join(', ').html_safe
+  end
+  
   def decree_date(date)
     time_tag date, format: :long 
   end

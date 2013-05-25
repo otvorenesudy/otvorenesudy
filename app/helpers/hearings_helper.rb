@@ -1,6 +1,17 @@
 # encoding: utf-8
 
 module HearingsHelper
+  def hearing_title(hearing)
+    # TODO for page title
+  end
+  
+  # TODO rm?
+  def hearing_headline(hearing)
+    type = hearing_type hearing.type
+    
+    hearing.subject ? "#{type} &dash; #{hearing.subject.value}".html_safe : type
+  end
+  
   def hearing_type(type)
     if type == HearingType.special
       "Pojednávanie Špecializovaného trestného súdu"
