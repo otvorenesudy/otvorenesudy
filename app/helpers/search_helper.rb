@@ -10,6 +10,10 @@ module SearchHelper
   def facet_list(options)
     content_tag :ul, nil, options.merge(id: options[:id], :'data-id' => "#{options[:'data-id']}-list", class: :unstyled)
   end
+  
+  def strip_text(value)
+    sanitize(value.gsub(/\A(\s*[^\w\<])*|(\s*[^\w\>])*\z/, '&hellip;'), tags: %w(em))
+  end
 
   def link_to_search(type, body, options)
     url = "#{url_for(controller: type, action: :search)}#"
