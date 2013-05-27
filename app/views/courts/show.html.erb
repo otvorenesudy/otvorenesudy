@@ -13,12 +13,13 @@
     <div class="span12">
       <p>
         <span class="gutter centered muted"><%= icon_tag :user %></span>
-        Na súde pracuje <%= number_with_translation(@court.judges.count, key: :judge) %>.
+        Na súde <%= @judges.any? ? 'pracuje' : 'nepracujú' %>
+        <%= number_with_translation(@judges.count, key: :judge) %>.
         Pre súd <%= 'zatiaľ ne' if @court.hearings.none? %>evidujeme
         <%= number_with_translation(@court.hearings.count, key: :hearing) %>
         a&nbsp;<%= number_with_translation(@court.decrees.count, key: :decree) %>.
       </p>
-      <% if @court.expenses.any? %>
+      <% if @expenses.any? %>
         <p>
           <span class="gutter centered muted"><%= icon_tag :money %></span>
           Výdavky súdu na nálezy Ústavného súdu Slovenskej republiky za roky

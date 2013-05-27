@@ -60,7 +60,7 @@ module JudgesHelper
     else
       if employment.judge.probably_superior_court_officer?
         content_tag :span, options.clone do
-          ('pravdepodobne ' + tooltip_tag('VSÚ', "Vyšší súdny úradník", :top, :hover, options)).html_safe
+          ('pravdepodobne ' + tooltip_tag('VSÚ', 'Vyšší súdny úradník', :top, :hover, options)).html_safe
         end
       else
         'neznáma'
@@ -84,16 +84,12 @@ module JudgesHelper
     content_tag :span, number_with_delimiter(Decree.during_employment(employment).count), employment.active ? {} : { class: :muted }
   end
 
-    # TODO rm
-#    
-  def judge_designation_distance(designation)
-    tooltip_tag distance_of_time_in_words_to_now(designation.date), I18n.l(designation.date, format: :long)
+  def judge_designation_date_tag(designation)
+    tooltip_tag icon_tag(:calendar), localize(designation.date, format: :long), :left, :hover, class: :'muted undecorated'
   end
-  
-  def judge_designation_date(designation, options = {})
-    return time_tag(designation.date) unless designation.type
 
-    tooltip_tag time_tag(designation.date), designation.type.value, :right
+  def judge_designation_date_distance(designation)
+    tooltip_tag distance_of_time_in_words_to_now(designation.date), localize(designation.date, format: :long)
   end
   
   def link_to_judge(judge, options = {})

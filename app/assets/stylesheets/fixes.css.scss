@@ -37,7 +37,15 @@ input[type="color"],
   }
 }
 
-// alerts
+// tabs
+
+.tabbable {
+  [class*="span"] {
+    overflow: hidden;
+  }
+}
+
+// alert links
 
 .alert a {
   text-decoration: none;

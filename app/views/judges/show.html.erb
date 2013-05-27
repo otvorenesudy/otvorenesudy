@@ -43,23 +43,13 @@
         </p>
       <% end %>
 
-<!-- TODO rm -->
       <% @designations.each do |designation| %>
         <p>
-          <span class="gutter centered muted"><%= icon_tag :calendar %></span>
-          Sudca bol vymenovaný do funkcie
-          pred <%= judge_designation_distance designation %>,
-          <% if designation.type %>
-            <%= designation.type.value.sub(/^\D{0,1}/) { |c| c.downcase } %>
-          <% end %>.
-        </p>
-      <% end %>
-
-
-      <% @designations.each do |designation| %>
-        <p>
-          <span class="gutter centered muted"><%= icon_tag :calendar %></span>
-          Sudca bol vymenovaný do funkcie dňa <%= judge_designation_date(designation) %>.
+          <span class="gutter centered muted">
+            <%= judge_designation_date_tag designation %>
+          </span>
+          Sudca bol vymenovaný do funkcie pred
+          <%= judge_designation_date_distance designation %><%= ", #{designation.type.value.sub(/^\D{0,1}/) { |c| c.downcase }}" if designation.type %>.
         </p>
       <% end %>
     </div>

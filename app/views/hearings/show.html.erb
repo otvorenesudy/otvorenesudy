@@ -159,7 +159,7 @@
     <% if @hearing.judgings.normal.any? %>
       <div class="row">
         <div class="span12">
-          <%= links_to_judges @hearing.judgings.normal.map { |judging| judging.judge } %>
+          <%= links_to_judges @hearing.judgings.normal.map(&:judge) %>
         </div>
       </div>
     <% end %>
