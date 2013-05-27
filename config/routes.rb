@@ -26,6 +26,13 @@ OpenCourts::Application.routes.draw do
     collection do
       get :search
     end
+
+    resources :decree_pages, as: :pages, path: :pages do
+      member do
+        get :text
+        get :image
+      end
+    end
   end
 
   match '/404', to: 'errors#show'

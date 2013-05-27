@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery_setup
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require jquery.spin
@@ -28,3 +29,4 @@
 //= require tables
 //= require hash
 //= require fixes
+//= require_tree ./document_viewer
