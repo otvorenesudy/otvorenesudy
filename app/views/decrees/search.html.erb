@@ -6,8 +6,8 @@
   <div class="row">
     <div class="span6">
       <div id="fulltext" class="input-append">
-        <%= facet_input class: 'input-xlarge', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
-        <button class='btn' type="button"><%= icon_tag 'search' %></button>
+        <%= facet_input class: :'input-xlarge', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
+        <button type="button" class="btn" /><%= icon_tag 'search' %></button>
       </div>
     </div>
 
@@ -30,11 +30,7 @@
   
   <div class="row">
     <div id="search-panel" class="span4">
-      <% Decree.facets.each do |name, facet| %>
-        <% if facet.visible %>
-          <%= render "facets/#{facet.type}_facet", type: :decree, name: name %>
-        <% end %>
-      <% end %>
+      <%= render 'facets/facets', type: Decree %> <!-- TODO try @model -->
     </div>
 
     <div class="span8">

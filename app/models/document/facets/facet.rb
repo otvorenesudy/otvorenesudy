@@ -1,10 +1,12 @@
 class Document::Facets::Facet
   include Document::Index::Helpers
 
-  attr_accessor :name,
+  attr_accessor :base, # TODO Decree / Hearing
+                :name,
                 :field,
                 :selected,
                 :visible,
+                :collapsible, # TODO
                 :terms,
                 :type,
                 :alias,
@@ -18,7 +20,12 @@ class Document::Facets::Facet
     @alias       = options[:as]
     @size        = options[:size] || 10
     @visible     = options[:visible].nil? ? true : options[:visible]
+    @visible     = options[:visible].nil? ? true : options[:visible] # TODO
     @selected    = Array.new
+  end
+
+  def id
+    # TODO 
   end
 
   def terms

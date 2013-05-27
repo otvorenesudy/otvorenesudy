@@ -67,7 +67,7 @@ class Decree < ActiveRecord::Base
     facet :judges,              type: :terms
     facet :court,               type: :terms
     facet :natures,             type: :terms, size: DecreeNature.count
-    facet :date,                type: :date,  interval: :month # using default alias for interval from DateFacet
+    facet :date,                type: :date,  interval: :month
   end
 
   def has_future_date?

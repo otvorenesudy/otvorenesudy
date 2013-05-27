@@ -17,7 +17,7 @@
           <% end %>
           <% if hearing.judgings.normal.any? %>
             <br/>
-            Sudcovia &ndash; <%= links_to_judges hearing.judgings.normal.map { |judging| judging.judge } %>
+            Sudcovia &ndash; <%= links_to_judges hearing.judgings.normal.map(&:judge) %>
           <% end %>
 
 <!-- TODO consider adding other attributes such as:
