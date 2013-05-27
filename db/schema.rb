@@ -290,6 +290,8 @@ ActiveRecord::Schema.define(:version => 20130523011102) do
     t.date     "date",                      :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.string   "uri",                       :null => false
+    t.integer  "source_id",                 :null => false
   end
 
   add_index "judge_designations", ["judge_id"], :name => "index_judge_designations_on_judge_id"
@@ -486,6 +488,7 @@ ActiveRecord::Schema.define(:version => 20130523011102) do
 
   add_index "judges", ["first", "middle", "last"], :name => "index_judges_on_first_and_middle_and_last"
   add_index "judges", ["last", "middle", "first"], :name => "index_judges_on_last_and_middle_and_first"
+  add_index "judges", ["last"], :name => "test"
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
   add_index "judges", ["source_id"], :name => "index_judges_on_source_id"
