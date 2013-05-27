@@ -2,7 +2,7 @@ $(document).ready ->
   window.fixes = ->
     $('a[rel="popover"]').popover()
     $('a[rel="tooltip"]').tooltip()
-    
+
     $('.tablesorter-wrapper').removeAttr('style')
 
     $('a[href="#"]').click (event) ->
