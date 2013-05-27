@@ -1,8 +1,4 @@
 module SearchHelper
-  def facet_title(title)
-    content_tag :h4, title, class: 'title'     
-  end
-
   def facet_input(options)
     content_tag :input, nil, options.merge(name: :input, type: :text)
   end

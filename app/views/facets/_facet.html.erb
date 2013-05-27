@@ -1,25 +1,22 @@
-<% translation = t "facets.#{facet.base.to_s.downcase}.#{facet.name}" %>
+<% translation = t facet.key %>
 
 <div id="<%= facet.id %>" data-id="<%= facet.name %>" class="facet">
-
-<!-- TODO
-<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo">
-  simple collapsible
-</button>
-
-<div id="demo" class="collapse in"> heleleoeoe<br/>
-  heleleoeoe<br/>
-  heleleoeoe<br/>
-  heleleoeoe<br/>heleleoeoe<br/>heleleoeoe<br/> </div>
--->
-
   <% if translation[:title] %>
-    <%= facet_title translation[:title]  %>
+    <h4>
+      <%= translation[:title] %>
+      <% if facet.collapsible? %>
+        <button type="button" class="btn" data-toggle="collapse" data-target="#<%= facet.id %>-body">
+          <%= icon_tag :beer %>
+        </button>
+      <% end %>
+    </h4>
   <% end %>
-
-  <% if translation[:placeholder] %>
-    <%= facet_input id: facet.id, :'data-id' => facet.name, placeholder: translation[:placeholder] %>
-  <% end %>
-
-  <%= facet_list id: facet.id, :'data-id' => facet.name %>
+  
+  <div id="<%= facet.id %>-body" class="collapse<%= ' in' unless facet.collapsed? %>">
+    <% if translation[:placeholder] %>
+      <%= facet_input :'data-id' => facet.name, placeholder: translation[:placeholder] %>
+    <% end %>
+  
+    <%= facet_list id: "#{facet.id}-list", :'data-id' => facet.name %>
+  </div>
 </div>

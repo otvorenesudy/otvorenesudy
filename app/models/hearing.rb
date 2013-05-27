@@ -61,7 +61,7 @@ class Hearing < ActiveRecord::Base
   end
 
   facets do
-    facet :type,    type: :terms
+    facet :type,    type: :terms, collapsible: false
     facet :judges,  type: :terms
     facet :court,   type: :terms
     facet :form,    type: :terms
