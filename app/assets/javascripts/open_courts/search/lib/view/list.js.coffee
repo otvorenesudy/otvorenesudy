@@ -3,7 +3,7 @@ View.List =
     "#{name}-list"
 
   listSelector: (param) ->
-    "##{@.listID(param)}"
+    "[data-id='#{@.listID(param)}']"
 
   list: (param) ->
     return param unless typeof(param) is 'string'
@@ -12,11 +12,8 @@ View.List =
   listShow: (list) ->
     @.list(list).show()
 
-  listHideAll: ->
-    $('ul[id$=-list]').hide()
-
   listEntity: (list) ->
-    @.list(list).attr('id').replace(/(#|-list)/g, '')
+    @.list(list).attr('data-id').replace(/(#|-list)/g, '')
 
   listFoldState: (list, value) ->
     if value?
@@ -25,18 +22,18 @@ View.List =
       @.list(list).find('.fold').attr('data-state')
 
   listUnfold: (list, options) ->
-    @.log "Unfolding list #{@.list(list).attr('id')}"
+    @.log "Unfolding list #{@.list(list).attr('data-id')}"
 
     @.list(list).append(@template['list_items_unfold'])
-    @.list(list).find("li:not(.selected):gt(#{options.visible})").show()
+    @.list(list).find("li:not(.selected):gt(#{options.visible - 1})").show()
 
     @.listFoldState(list, 'unfolded')
 
   listFold: (list, options) ->
-    @.log "Folding list #{@.list(list).attr('id')}"
+    @.log "Folding list #{@.list(list).attr('data-id')}"
 
     @.list(list).append(@template['list_items_fold'])
-    @.list(list).find("li:not(.selected):gt(#{options.visible})").hide()
+    @.list(list).find("li:not(.selected):gt(#{options.visible - 1})").hide()
 
     @.listFoldState(list, 'folded')
 
@@ -70,7 +67,7 @@ View.List =
     @.item(target).attr('data-value')
 
   closestList: (target) ->
-    $(target).closest('[id$=-list]')
+    $(target).closest('[data-id$=-list]')
 
   listByItem: (target) ->
     @.closestList(@.item(target))

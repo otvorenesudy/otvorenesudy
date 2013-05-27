@@ -9,11 +9,7 @@
         <input type="checkbox" id="historical" />Zobraziť minulé pojednávania
       </label>
 
-      <% Hearing.facets.each do |name, facet| %>
-        <% if facet.visible %>
-          <%= render "facets/#{facet.type}_facet", type: :hearing, name: name %>
-        <% end %>
-      <% end %>
+      <%= render "facets/facets", type: Hearing %>
     </div>
 
     <div class="span8">

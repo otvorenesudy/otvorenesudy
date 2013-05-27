@@ -1,12 +1,12 @@
-<% translation = t "facets.#{type.to_s.downcase}.#{name}" %>
+<% translation = t "facets.#{facet.base.to_s.downcase}.#{facet.name}" %>
 
-<div id="<%= id %>" class="facet">
+<div id="<%= facet.id %>" data-id="<%= facet.name %>" class="facet">
 
 <!-- TODO
 <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo">
   simple collapsible
 </button>
- 
+
 <div id="demo" class="collapse in"> heleleoeoe<br/>
   heleleoeoe<br/>
   heleleoeoe<br/>
@@ -18,8 +18,8 @@
   <% end %>
 
   <% if translation[:placeholder] %>
-    <%= facet_input id: id, placeholder: translation[:placeholder] %>
+    <%= facet_input id: facet.id, :'data-id' => facet.name, placeholder: translation[:placeholder] %>
   <% end %>
 
-  <%= facet_list id: id %>
+  <%= facet_list id: facet.id, :'data-id' => facet.name %>
 </div>

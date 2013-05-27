@@ -1,7 +1,5 @@
 View.Suggest =
-  suggest: (entity, options = {}) ->
-    el = "##{entity}"
-
+  suggest: (el, entity, options = {}) ->
     @.log "Setting up suggesting for #{entity}"
 
     $(el).autocomplete
@@ -24,14 +22,14 @@ View.Suggest =
           success: (d) ->
             response d.data
 
-  suggestList: (entity, options = {}) ->
+  suggestList: (el, entity, options = {}) ->
     options.refresh = (entity) =>
       @.clearList(entity, selected: true)
 
     options.open = (entity) =>
       @.listCollapse(entity, visible: 10)
 
-    @.suggest(entity, options)
+    @.suggest(el, entity, options)
       .data('autocomplete')._renderItem = (ul, item) =>
         # TODO: append 'No item found' if there is not item found
         @.findOrCreateListItem(entity, item.alias, item.value, item.count)

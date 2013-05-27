@@ -1,7 +1,7 @@
 class Document::Facets::Facet
   include Document::Index::Helpers
 
-  attr_accessor :base, # TODO Decree / Hearing
+  attr_accessor :base,
                 :name,
                 :field,
                 :selected,
@@ -16,6 +16,7 @@ class Document::Facets::Facet
   def initialize(name, field, options)
     @name        = name
     @field       = field
+    @base        = options[:base]
     @type        = options[:type]
     @alias       = options[:as]
     @size        = options[:size] || 10
@@ -25,7 +26,7 @@ class Document::Facets::Facet
   end
 
   def id
-    # TODO 
+    ""
   end
 
   def terms

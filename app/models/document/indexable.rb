@@ -1,7 +1,7 @@
 module Document
   module Indexable
     extend ActiveSupport::Concern
-    
+
     included do
       include Tire::Model::Search
       include Tire::Model::Callbacks
@@ -90,6 +90,8 @@ module Document
         type = options[:type]
 
         field = options[:field] || name
+
+        options.merge! base: self
 
         # TODO: use core injector
         @facets[name] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)

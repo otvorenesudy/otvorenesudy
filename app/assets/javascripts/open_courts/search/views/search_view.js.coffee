@@ -4,7 +4,6 @@ $(document).ready ->
       @include Initializer
       @include View.Finder
       @include View.List
-      @include View.Slider
       @include View.Suggest
       @include View.Loading
       @include View.ScrollTo
@@ -169,7 +168,7 @@ $(document).ready ->
       onToggleFold: (event) ->
         list = @.closestList(event.target)
 
-        @.listToggle(list, visible: 10, manual: true)
+        @.listToggle(list, visible: Config.facets.max_visible, manual: true)
 
       onClickHistorical: (event) ->
         @model.setPage 1, silent: true
@@ -191,7 +190,7 @@ $(document).ready ->
 
       setupListSuggest: ->
         $('.facet input').each (i, el) =>
-          @.suggestList $(el).attr('id'), query: => @model.query()
+          @.suggestList el, $(el).attr('data-id'), query: => @model.query()
 
       onSearch: (options, callback) ->
         @.log "Searching ... (options=#{@.inspect options})"

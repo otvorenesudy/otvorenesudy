@@ -1,4 +1,4 @@
-<% type.facets.each do |name, facet| %>
+<% type.facets.each do |_, facet| %>
   <% if facet.visible %>
     <%= render "facets/#{facet.type}_facet", facet: facet %>
   <% end %>

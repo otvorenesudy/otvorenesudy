@@ -8,7 +8,7 @@ module SearchHelper
   end
 
   def facet_list(options)
-    content_tag :ul, nil, options.merge(id: "#{options[:id]}-list", class: :unstyled)
+    content_tag :ul, nil, options.merge(id: options[:id], :'data-id' => "#{options[:'data-id']}-list", class: :unstyled)
   end
 
   def link_to_search(type, body, options)
