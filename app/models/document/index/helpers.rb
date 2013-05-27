@@ -2,10 +2,14 @@ module Document
   module Index
     module Helpers
       def analyzed_field(field)
+        return field.map { |f| "#{f}.analyzed".to_sym } if field.is_a? Array
+
         "#{field}.analyzed".to_sym
       end
 
       def not_analyzed_field(field)
+        return field.map { |f| "#{field}.untouched".to_sym } if field.is_a? Array
+
         "#{field}.untouched".to_sym
       end
 

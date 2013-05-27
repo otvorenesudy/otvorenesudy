@@ -7,7 +7,7 @@ module Document
       end
 
       def analyze_query(value)
-        q = escape_query(value).split(/\s/).map { |e| "#{e}*" }.join(' ')
+        q = escape_query(value).split(/\s/).map { |e| "*#{e}*" }.join(' ')
 
         q.present? ? q : "*"
       end
@@ -16,11 +16,13 @@ module Document
         filters = []
 
         query.each do |field, value|
+          fields = analyzed_field(field)
+
           filters << {
             query: {
               query_string: {
                 query: value,
-                default_field: analyzed_field(field),
+                fields: fields.is_a?(Array) ? fields : [fields],
                 default_operator: options[:operator] || :or,
                 analyze_wildcard: options[:analyze_wildcard] || true
               }
