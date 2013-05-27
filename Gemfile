@@ -15,14 +15,14 @@ gem 'font-awesome-rails', '~> 3.1.1.2'
 
 # scripts
 gem 'coffee-script'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.2.1'
 gem 'rails-timeago'
 gem 'jquery-tablesorter'
 gem 'execjs'
 
 # js libraries
 gem 'inflection-js-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'spinjs-rails'
 gem 'rails-backbone'
 
