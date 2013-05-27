@@ -44,7 +44,7 @@
 
       <% if @highlights && @highlights[i] && @highlights[i][:text] %>
         <% @highlights[i][:text].each do |highlight|  %>
-          <blockquote>
+          <blockquote> <!-- TODO fix -->
             <%= sanitize(highlight.gsub(/\A\W*\s*|\s*\W*\z/, '&hellip;'), tags: %w(em)) %>
           </blockquote>
         <% end %>

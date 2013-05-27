@@ -23,7 +23,7 @@ module SudnaradaGovSk
           year       = @parser.year(@document)
           court      = court_by_name_factory.find(request.respond_to?(:court) ? request.court : @court_name)
           judge_name = @parser.judge(@document)
-          judges_map = match_judges_by(judge_name)
+          judges_map = match_judges_by(judge_name, unaccet: true)
           
           most_similar_judges = judges_map[judges_map.keys.sort.last]
 
