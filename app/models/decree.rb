@@ -50,7 +50,7 @@ class Decree < ActiveRecord::Base
     analyze :date,                type: 'date'
     analyze :commencement_date,   type: 'date'
     analyze :ecli
-    analyze :text,                as: lambda { |d| d.text }, highlight: true
+    analyze :text,                as: lambda { |d| d.text }
     analyze :court,               as: lambda { |d| d.court.name if d.court }
     analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
     analyze :form,                as: lambda { |d| d.form.value if d.form }
@@ -58,6 +58,7 @@ class Decree < ActiveRecord::Base
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,        as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
+    fulltext :text
   end
 
   facets do

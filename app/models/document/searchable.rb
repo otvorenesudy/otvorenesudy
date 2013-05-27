@@ -23,34 +23,35 @@ module Document
         query        = params[:query]        || Hash.new
         terms        = params[:filter]       || Hash.new
         facets       = params[:facets]       || @facets
-        highlights   = params[:highlights]   || @highlights
-        dependencies = params[:dependencies] || @dependencies
+        fulltext     = params[:fulltext]     || @fulltext
         options      = params[:options]      || {}
         sort         = params[:sort]
         order        = params[:order]
 
         options[:global_facets] ||= false
 
-        prepare(terms, facets, dependencies)
+        prepare(terms, facets)
+
+        query[fulltext] = params[:q] if params[:q]
 
         results = tire.search page: page, per_page: per_page do |index|
           if block_given?
-            yield index, query, facets, highlights, dependencies, sort, order, options
+            yield index, query, facets, fulltext, sort, order, options
           else
             search_query(index, query, options)
             search_filter(index, query, facets, options)
             search_facets(index, query, facets, options)
             search_sort(index, sort, order, options)
-            search_highlights(index, query, highlights, options)
+            search_highlights(index, query, fulltext, options)
           end
 
-          puts JSON.pretty_generate(index.to_hash) # debug
+          puts JSON.pretty_generate(index.to_hash) # TODO: debug
         end
 
-        return facets, highlights, results
+        return facets, fulltext, results
       end
 
-      def prepare(terms, facets, dependencies)
+      def prepare(terms, facets)
         facets.each do |_, facet|
           facet.refresh!
         end
@@ -58,8 +59,6 @@ module Document
         terms.each do |name, values|
           facets[name].terms = values
         end
-
-        # TODO: use dependencies
       end
 
       # TODO: figure out how to send hash insted of dsl to elastic from tire for search query
@@ -69,13 +68,13 @@ module Document
           index.query do |q|
             q.boolean do |bool|
               query.each do |field, values|
-                field = analyzed_field(field)
+                fields = analyzed_field(field)
 
                 values = analyze_query(values)
 
                 bool.must {
                   string values,
-                  default_field: field,
+                  fields: fields.is_a?(Array) ? fields : [fields],
                   default_operator: :or,
                   analyze_wildcard: true
                 }
@@ -131,7 +130,7 @@ module Document
       end
 
       def search_highlights(index, query, highlights, options)
-        options = highlights.find_all { |f| query.key?(f) }.map { |e| analyzed_field(e) }
+        options = highlights.map { |e| analyzed_field(e) }
 
         index.highlight(*options)
       end

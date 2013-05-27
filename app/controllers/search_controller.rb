@@ -85,7 +85,7 @@ class SearchController < ApplicationController
             query[:filter].merge!(historical: dates)
           end
         when :q
-          query[:query].merge!(text: data[key].first)
+          query[:q] = data[key].first
         when :sort
           query[:sort] = value.first.to_sym
         when :order

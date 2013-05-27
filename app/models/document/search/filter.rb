@@ -7,7 +7,7 @@ module Document
 
         facets.each do |_, facet|
           if facet.terms.any?
-            filters << { or: facet.build_filter }
+            filters << { type => facet.build_filter }
           end
         end
 
