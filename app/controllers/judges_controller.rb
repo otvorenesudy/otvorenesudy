@@ -14,7 +14,8 @@ class JudgesController < ApplicationController
     @designations      = @judge.designations.order('date desc')
 
     @search       = Bing::Search.new
-    @search.query = "sud \"#{@judge.first} #{@judge.middle} #{@judge.last}\" -site:judikaty.info -site:rozsudkyodetoch.sk -site:najpravo.sk -site:striedavastarostlivost.sk -site:prezident.sk -site:justice.gov.sk -site:justice.gov.sk -site:wwwold.justice.sk -site:sudnarada.gov.sk -site:paragraf.sk"
+    #@search.query = "sud \"#{@judge.first} #{@judge.middle} #{@judge.last}\" -site:judikaty.info -site:rozsudkyodetoch.sk -site:najpravo.sk -site:striedavastarostlivost.sk -site:prezident.sk -site:justice.gov.sk -site:justice.gov.sk -site:wwwold.justice.sk -site:sudnarada.gov.sk -site:paragraf.sk"
+    @search.query = "sud \"#{@judge.first} #{@judge.middle} #{@judge.last}\" site:(sme.sk OR sme.sk OR tyzden.sk OR webnoviny.sk OR tvnoviny.sk OR pravda.sk OR etrend.sk OR aktualne.sk)"
     @results      = @search.perform
   end
 end
