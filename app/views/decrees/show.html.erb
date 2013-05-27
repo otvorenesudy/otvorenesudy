@@ -72,6 +72,10 @@
   </div>
 </section>
 
+<div class="document">
+</div>
+
+
 <section id="decree-resource">
   <div class="row">
     <div class="span12">
@@ -84,3 +88,21 @@
     </div>
   </div>
 </section>
+
+<% content_for :scripts do %>
+  <script type="text/javascript" charset="utf-8">
+     $(function() {
+    var dv = DV.DocumentViewer.init({
+      container: $('.document'),
+      attachments: <%== [decree_to_document_viewer(@decree)].to_json %>,
+      comments: [],
+      currentUser: "",
+      width: '673px',
+      height: '990px',
+      annotationsAllowed: false,
+      zoom: true,
+      commentList: false
+    });
+  });
+  </script>
+<% end %>
