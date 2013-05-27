@@ -4,12 +4,14 @@ module JusticeGovSk
       include Core::Output
       include Core::Pluralize
       
-      def match_judges_by(name)
-        name = name.is_a?(Hash) ? name[:altogether] : name.to_s
+      def match_judges_by(name, options = {})
+        name     = name.is_a?(Hash) ? name[:altogether] : name.to_s
+        limit    = options[:similar] != nil && options[:similar] == false ? 1.0 : 0.55
+        function = options[:unaccent] ? :unaccent : nil
         
-        print "Matching judges by name #{name} ... "
+        print "Matching judges by name #{name} with min. similarity limit #{limit} applying #{function || 'no'} function ... "
         
-        map = Judge.similar_by_name(name, 0.55)
+        map = Judge.similar_by_name(name, limit: limit, function: function)
         
         if map.any?
           exact = map[1.0]

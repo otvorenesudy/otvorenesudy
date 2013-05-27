@@ -23,14 +23,14 @@ module SudnaradaGovSk
           year       = @parser.year(@document)
           court      = court_by_name_factory.find(request.respond_to?(:court) ? request.court : @court_name)
           judge_name = @parser.judge(@document)
-          judges_map = match_judges_by(judge_name)
+          judges_map = match_judges_by(judge_name, unaccet: true)
           
-          exactly_matched_judges = judges_map[1.0]
+          most_similar_judges = judges_map[judges_map.keys.sort.last]
 
-          unless exactly_matched_judges.blank?
-            raise if exactly_matched_judges.count > 1
+          unless most_similar_judges.blank?
+            raise if most_similar_judges.count > 1
 
-            judge = exactly_matched_judges.first
+            judge = most_similar_judges.first
           else
             judge = make_judge(uri, SudnaradaGovSk.source, judge_name, court: court)
           end

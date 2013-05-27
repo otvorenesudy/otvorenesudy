@@ -2,24 +2,34 @@ module Resource::Similarity
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def similar_by(column, value, similarity)
-      column = column.to_s.gsub(/[^a-zA-Z_\?]/, '')
+    def similar_by(column, value, options = {})
+      limit        = options[:limit] ? options[:limit].to_f : 1.0
+      table        = self.name.downcase.pluralize
+      column       = column.to_s.gsub(/[^a-zA-Z_\?]/, '')
+      substitution = '?'
+
+      raise if limit <= 0.0 || limit > 1.0
+
+      if options[:function]
+        function     = options[:function]
+        column       = "#{function}(#{column})"
+        substitution = "#{function}(?)"
+      end
 
       sql = <<-SQL
-      SELECT id, similarity(#{column}, ?) as sml 
-      FROM  #{self.name.downcase.pluralize}
-      WHERE name % ?
-      ORDER BY sml DESC  
-      ;
+      SELECT id, similarity(#{column}, #{substitution}) as s 
+      FROM  #{table}
+      WHERE #{column} % #{substitution}
+      ORDER BY s DESC;
       SQL
 
-      ActiveRecord::Base.connection.exec_query("SELECT set_limit(#{similarity.to_f != 0.0 ? similarity.to_f : 1.0});")
+      ActiveRecord::Base.connection.exec_query("SELECT set_limit(#{limit});")
 
       values = ActiveRecord::Base.connection.exec_query(sanitize_sql_array([sql, value, value]))
       result = Hash.new
 
       values.to_hash.each do |hash| 
-        key = hash['sml'].to_f
+        key = hash['s'].to_f
 
         result[key] ||= []
         result[key] << self.find(hash['id'])
@@ -29,12 +39,10 @@ module Resource::Similarity
     end
 
     def method_missing(method, *args, &block)
-      match = method.to_s.match(/\Asimilar_by_(?<column>.*)\z/)
+      if match = method.to_s.match(/\Asimilar_by_(?<column>.*)\z/)
+        value, options = args
 
-      if match
-        value, similarity = args
-
-        return similar_by(match[:column], value, similarity)
+        return similar_by(match[:column], value, options || {})
       end
 
       super(method, *args, &block)
