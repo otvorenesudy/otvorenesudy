@@ -115,6 +115,7 @@ namespace :deploy do
   desc "Symlink shared"
   task :symlink_shared, roles: :app do
     run "ln -nfs #{shared_path} #{release_path}/shared"
+    run "ln -nfs #{shared_path}/storage #{release_path}"
   end
 
   desc "Move in database.yml for this environment"
