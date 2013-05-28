@@ -102,6 +102,18 @@ module JudgesHelper
     judges.map { |judge| link_to_judge(judge, options) }.join(separator).html_safe
   end
 
+  def link_to_related_person(person, options = {})
+    return link_to_judge(person, options) if person.known_judge?
+
+    person.name
+  end
+
+  def links_to_related_persons(persons, options = {})
+    separator = options.delete(:separator) || ', '
+
+    persons.map { |person| link_to_related_person(person, options) }.join(separator).html_safe
+  end
+
   private
 
   def judge_options(judge, options)
