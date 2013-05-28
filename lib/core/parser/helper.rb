@@ -29,6 +29,7 @@ module Core
           end
         end
         
+        value = normalize_spaces(value) if options[:normalize]
         value = block_given? ? block.call(value) : value
         
         puts options[:verbose] ? "done (#{value})" : "done"
@@ -40,10 +41,14 @@ module Core
         find_value(name, document, pattern, options, &block) || []
       end
       
+      def normalize_spaces(value)
+        value.gsub(/[[:space:]]/, ' ')
+      end
+      
       private
       
       def find_defaults
-        { validate: :content, verbose: true }
+        { normalize: true, validate: :content, verbose: true }
       end
     end
   end
