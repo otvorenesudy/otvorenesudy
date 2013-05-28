@@ -5,14 +5,14 @@
     <h4>
       <%= translation[:title] %>
       <% if facet.collapsible? %>
-        <button type="button" class="btn" data-toggle="collapse" data-target="#<%= facet.id %>-body">
+        <button type="button" class="btn" data-toggle="collapse" data-target="#<%= facet.id %>-content">
           <%= icon_tag :beer %>
         </button>
       <% end %>
     </h4>
   <% end %>
-  
-  <div id="<%= facet.id %>-body" class="collapse<%= ' in' unless facet.collapsed? %>">
+
+  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless facet.collapsed?}" if facet.collapsible? %>">
     <% if translation[:placeholder] %>
       <%= facet_input :'data-id' => facet.name, placeholder: translation[:placeholder] %>
     <% end %>
