@@ -75,7 +75,7 @@ class Court < ActiveRecord::Base
 
   def context_query
     query = "\"#{self.name}\""
-    sites = %w(sme.sk sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+    sites = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
 
     "#{query} site:(#{sites.join(' OR ')})"
   end

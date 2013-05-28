@@ -70,13 +70,13 @@ class Judge < ActiveRecord::Base
     return false if employments.at_court(court).inactive.any?
   end
 
+  alias :active?    :active
+  alias :active_at? :active_at
+
   def context_query
     query = "sud \"#{self.first} #{self.middle} #{self.last}\""
-    sites = %w(sme.sk sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+    sites = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
 
     "#{query} site:(#{sites.join(' OR ')})"
   end
-
-  alias :active?    :active
-  alias :active_at? :active_at
 end
