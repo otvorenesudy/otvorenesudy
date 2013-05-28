@@ -78,7 +78,7 @@ rake work:decrees
 
 ### Judge property declarations from sudnarada.gov.sk
 
-* Crawl judge property declarations:
+Crawl judge property declarations:
 ```
 rake crawl:judge_property_declarations
 ```
@@ -91,11 +91,11 @@ rake process:court_statistical_summaries:2011
 rake process:court_statistical_summaries:2012
 ```
 
-* Court expenses from justice.gov.sk
+* Court expenses:
 ```
-rake process:judge_designations:2010
-rake process:judge_designations:2011
-rake process:judge_designations:2012
+rake process:court_expenses:2010
+rake process:court_expenses:2011
+rake process:court_expenses:2012
 ```
 
 * Judge statistical summaries from justice.gov.sk:
@@ -104,7 +104,7 @@ rake process:judge_statistical_summaries:2011
 rake process:judge_statistical_summaries:2012
 ```
 
-* Process judge designations
+* Process judge designations:
 ```
 rake process:judge_designations:nrsr_sk
 rake process:judge_designations:2013_president
