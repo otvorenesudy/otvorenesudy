@@ -73,5 +73,12 @@ class Court < ActiveRecord::Base
     expenses.map { |expense| expense.value.to_i }.inject(:+)
   end
 
+  def context_query
+    query = "\"#{self.name}\""
+    sites = %w(sme.sk sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+
+    "#{query} site:(#{sites.join(' OR ')})"
+  end
+
   storage :page, JusticeGovSk::Storage::CourtPage, extension: :html
 end

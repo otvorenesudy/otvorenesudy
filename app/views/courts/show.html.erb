@@ -74,11 +74,16 @@
           <div id="past-hearings" class="tab-pane">
             <%= render 'hearings', hearings: @past_hearings, query: { court: @court.name, historical: 'true' } %>
           </div>
+
         </div>
 
       </div>
     </div>
   </div>
+</section>
+
+<section id="context-search">
+  <%= render 'shared/context_search' %>
 </section>
 
 <section id="court-resource">

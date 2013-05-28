@@ -34,7 +34,7 @@
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
           <%= number_with_translation(Hearing.during_employment(employment).count, key: :hearing) %> a
           <%= number_with_translation(Decree.during_employment(employment).count,  key: :decree) %>.
-          
+
           <% if employment.note %>
             <br/>
             <span class="gutter centered muted"><%= icon_tag :pushpin %></span>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="span8">
-      <%= render 'context_search' %>
+      <%= render 'shared/context_search' %>
     </div>
   </div>
 </section>
