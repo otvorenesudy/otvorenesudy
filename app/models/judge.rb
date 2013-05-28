@@ -71,7 +71,7 @@ class Judge < ActiveRecord::Base
   end
 
   def context_query
-    query = "sud \"#{self.name}\""
+    query = "sud \"#{self.first} #{self.middle} #{self.last}\""
     sites = %w(sme.sk sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
 
     "#{query} site:(#{sites.join(' OR ')})"
