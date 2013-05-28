@@ -1,13 +1,12 @@
 # Usage:
 #
-# rake process:court_expenses
-# rake process:court_statistical_summaries
+# rake process:court_expenses:2010
+# rake process:court_statistical_summaries:2011
 #
-# rake process:judge_designations
-# rake process:judge_statistical_summaries
+# rake process:judge_designations:nrsr_sk
+# rake process:judge_statistical_summaries:2011
 
 namespace :process do
-
   namespace :court_expenses do
     desc "Process court expenses from 2010"
     task :'2010' => :environment do
@@ -17,14 +16,14 @@ namespace :process do
     end
 
     desc "Process court expenses from 2011"
-    task :'2010' => :environment do
+    task :'2011' => :environment do
       processor = JusticeGovSk::Processor::CourtExpenses.new
 
       processor.process('data/court_expenses_2011.csv')
     end
 
     desc "Process court expenses from 2012"
-    task :'2010' => :environment do
+    task :'2012' => :environment do
       processor = JusticeGovSk::Processor::CourtExpenses.new
 
       processor.process('data/court_expenses_2012.csv')
