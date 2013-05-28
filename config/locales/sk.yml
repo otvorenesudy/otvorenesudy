@@ -106,7 +106,7 @@ sk:
   facets:
     hearing:
       type:
-        title: 'Typ'
+        title: 'Typ pojednávania'
   
       court:
         title: 'Súd'
