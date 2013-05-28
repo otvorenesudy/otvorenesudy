@@ -1,8 +1,10 @@
 class DecreePage < ActiveRecord::Base
   attr_accessible :number,
                   :text
-  
+
   belongs_to :decree
+
+  scope :by_number, lambda { order :number }
 
   def image_entry
     "#{number}.png"

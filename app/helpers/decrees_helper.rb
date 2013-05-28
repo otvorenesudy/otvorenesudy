@@ -40,11 +40,11 @@ module DecreesHelper
   def decree_to_document_viewer(decree)
     result = Hash.new
 
-    result[:name]   = decree.file_number
+    result[:name]   = "Rozhodnutie #{decree.file_number}"
     result[:number] = 1
-    result[:pages]  = decree.pages.map do |page|
+    result[:pages]  = decree.pages.by_number.map do |page|
       { 
-        number:  page.number, 
+        number:  page.number,
         scanUrl: image_decree_page_path(decree, page.number),
         textUrl: text_decree_page_path(decree, page.number),
         comments: []
