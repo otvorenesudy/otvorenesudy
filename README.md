@@ -61,14 +61,14 @@ rake crawl:courts
 rake crawl:judges
 ```
 
-### Data from justice.gov.sk
+### Hearings and decrees from justice.gov.sk
 
 1. Start Resque workers:
 ```
 rake resque:workers QUEUE=* COUNT=4
 ```
 
-2. Crawl hearings and decrees using Resque workers in any order:
+2. Crawl and process hearings and decrees using Resque workers in any order:
 ```
 rake work:hearings:civil
 rake work:hearings:criminal
@@ -76,29 +76,39 @@ rake work:hearings:special
 rake work:decrees
 ```
 
-### Data from sudnarada.gov.sk
+### Judge property declarations from sudnarada.gov.sk
 
-* Crawl judge property declarations:
+Crawl judge property declarations:
 ```
 rake crawl:judge_property_declarations
 ```
 Note that currect support is only for property declarations of 2011.
 
-* TODO
+### Partially preprocessed data from various sources
+* Court statistical summaries from justice.gov.sk:
+```
+rake process:court_statistical_summaries:2011
+rake process:court_statistical_summaries:2012
+```
 
-### Data from other sources
+* Court expenses:
+```
+rake process:court_expenses:2010
+rake process:court_expenses:2011
+rake process:court_expenses:2012
+```
 
-* Process judge designations
+* Judge statistical summaries from justice.gov.sk:
 ```
-rake process:judge_designations
+rake process:judge_statistical_summaries:2011
+rake process:judge_statistical_summaries:2012
 ```
-(currently under development)
 
-* Process judge statistical summaries:
+* Process judge designations:
 ```
-rake process:judge_statistical_summaries
+rake process:judge_designations:nrsr_sk
+rake process:judge_designations:2013_president
 ```
-(currently under development)
 
 ## Contributing
 

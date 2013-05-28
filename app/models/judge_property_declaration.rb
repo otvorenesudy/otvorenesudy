@@ -18,9 +18,10 @@ class JudgePropertyDeclaration < ActiveRecord::Base
   has_many :proclaims, class_name: :JudgeProclaim,
                        dependent: :destroy
   
-  has_many :statements, through: :proclaims
+  has_many :statements, class_name: :JudgeStatement,
+                        through: :proclaims
 
-  has_many :related_persons, class_name: :JudgePropertyRelatedPerson,
+  has_many :related_persons, class_name: :JudgeRelatedPerson,
                              dependent: :destroy
   
   validates :year, presence: true

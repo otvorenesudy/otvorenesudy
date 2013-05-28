@@ -51,6 +51,85 @@ namespace :fixtures do
       puts "Judge statistics:   #{JudgeStatisticalSummary.count}"
     end
   end
+
+  namespace :export do
+    desc "Export judge property declarations and some other related data into CSVs" 
+    task :judge_property_declarations, [:path] => :environment do |_, args|
+      include Core::Pluralize
+      include Core::Output
+      
+      path = args[:path] || 'tmp'
+      
+      FileUtils.mkpath path
+      
+      f  = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
+      fi = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
+      fp = File.open File.join(path, 'judge-property-declarations-persons.csv'), 'w'
+      fs = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
+      
+      data  = [:uri, :judge_name]
+      data += [:court_name, :year]
+      data += [:category]
+      data += [:description]
+      data += [:cost, :share_size, :acquisition_date]
+      data += [:acquisition_reason, :ownership_form, :change]
+      
+      f.write(data.join("\t") + "\n")
+      
+      Judge.order(:name).all.each do |judge|
+        print "Exporting declaration properties for judge #{judge.name} ... "
+        
+        judge.property_declarations.each do |declaration|
+          declaration.lists.each do |list|
+            list.items.each do |property|
+              data  = [declaration.uri, judge.name]
+              data += [declaration.court.name, declaration.year]
+              data += [list.category.value]
+              data += [property.description]
+              data += [property.cost, property.share_size, property.acquisition_date]
+              data << property.acquisition_reason.nil? ? '' : property.acquisition_reason.value
+              data << property.ownership_form.nil?     ? '' : property.ownership_form.value
+              data << property.change.nil?             ? '' : property.change.value 
+              
+              f.write(data.join("\t") + "\n")
+            end
+          end
+
+          declaration.incomes.each do |income|
+            data  = [declaration.uri, judge.name]
+            data += [declaration.court.name, declaration.year]
+            data += [income.description, income.value]            
+            
+            fi.write(data.join("\t") + "\n") 
+          end
+
+          declaration.related_persons.each do |person|
+            data  = [declaration.uri, judge.name]
+            data += [declaration.court.name, declaration.year]
+            data += [person.name, person.institution, person.function]            
+            
+            fp.write(data.join("\t") + "\n") 
+          end
+          
+          declaration.statements.each do |statement|
+            data  = [declaration.uri, judge.name]
+            data += [declaration.court.name, declaration.year]
+            data += [statement.value]            
+            
+            fs.write(data.join("\t") + "\n") 
+          end
+        end
+        
+        puts "done"
+      end
+      
+      f.close
+      
+      fi.close
+      fp.close
+      fs.close
+    end
+  end
   
   namespace :decrees do
     desc "Extract missing images of decree documents"
