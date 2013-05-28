@@ -2,6 +2,8 @@
 
 class window.UrlParser
   @validate: (params) ->
+    return false unless params?
+
     try
       @.parse(params)
     catch error
