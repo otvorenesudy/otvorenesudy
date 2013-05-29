@@ -49,7 +49,7 @@ module SudnaradaGovSk
           
           cells.each_with_index do |cell, i|
             next if cell.text.blank?
-            incomes << { description: cell.text.strip, value: values[i].text.gsub(/\s+/, '')[0..-3].to_f }
+            incomes << { description: cell.text.strip, value: values[i].text.gsub(/\s+/, '').gsub(/\,/, '.').to_f }
           end
           
           incomes

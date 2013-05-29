@@ -87,9 +87,9 @@ namespace :fixtures do
               data += [list.category.value]
               data += [property.description]
               data += [property.cost, property.share_size, property.acquisition_date]
-              data << property.acquisition_reason.nil? ? '' : property.acquisition_reason.value
-              data << property.ownership_form.nil?     ? '' : property.ownership_form.value
-              data << property.change.nil?             ? '' : property.change.value 
+              data << (property.acquisition_reason.nil? ? '' : property.acquisition_reason.value)
+              data << (property.ownership_form.nil?     ? '' : property.ownership_form.value)
+              data << (property.change.nil?             ? '' : property.change.value)
               
               f.write(data.join("\t") + "\n")
             end
