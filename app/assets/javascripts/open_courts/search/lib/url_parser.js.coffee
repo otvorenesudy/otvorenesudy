@@ -2,7 +2,8 @@
 
 class window.UrlParser
   @validate: (params) ->
-    return false unless params?
+    # TODO: Fix weird error in firefox not caching exceptions
+    return false if params? and params.length == 0
 
     try
       @.parse(params)
@@ -13,7 +14,7 @@ class window.UrlParser
 
   @check: (value) ->
     unless value instanceof Array
-      throw "Wrong type, damn!"
+      throw "Wrong type."
 
   @decode: (str) ->
     decodeURI(str.replace(/\+/g, ' '))
