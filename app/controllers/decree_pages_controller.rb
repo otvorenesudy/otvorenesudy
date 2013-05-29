@@ -12,4 +12,15 @@ class DecreePagesController < ApplicationController
 
     send_file File.join(Rails.root, @page.image_path), type: 'image/png', disposition: 'inline'
   end
+
+  def search
+    @results, @highlights = DecreePage.search_pages(params[:decree_id], params[:q])
+
+    render json: {
+      results: render_to_string(partial: 'results')
+    }
+  end
+
+  private
+
 end

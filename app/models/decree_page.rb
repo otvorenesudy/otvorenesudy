@@ -1,10 +1,50 @@
 class DecreePage < ActiveRecord::Base
+  include Document::Indexable
+  include Document::Searchable
+
   attr_accessible :number,
                   :text
 
   belongs_to :decree
 
   scope :by_number, lambda { order :number }
+
+  mapping do
+    map     :decree_id
+    map     :number
+    analyze :text
+  end
+
+  def self.search_pages(decree_id, text, options = {})
+    text         = analyze_query(text)
+    search_field = analyzed_field(:text)
+    highlights   = []
+
+    results = search do
+      query do
+        boolean do
+          must { term :decree_id, decree_id }
+
+          must do
+            string text,
+            default_field: search_field,
+            default_operator: :or,
+            analyze_wildcard: true
+          end
+        end
+      end
+
+      highlight search_field
+    end
+
+    results.each do |result|
+      result.highlight[search_field.to_s].each do |highlight|
+        highlights << { number: result.number, text: highlight }
+      end
+    end
+
+    return results, highlights
+  end
 
   def image_entry
     "#{number}.png"
