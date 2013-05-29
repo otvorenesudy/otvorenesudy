@@ -5,6 +5,7 @@ class Decree < ActiveRecord::Base
   include Document::Indexable
   include Document::Searchable
   include Document::Suggestable
+  include Document::Serializable
 
   attr_accessible :case_number,
                   :file_number,
@@ -48,7 +49,6 @@ class Decree < ActiveRecord::Base
     analyze :case_number
     analyze :file_number
     analyze :date,                type: 'date'
-    analyze :commencement_date,   type: 'date'
     analyze :ecli
     analyze :text,                as: lambda { |d| d.text }
     analyze :court,               as: lambda { |d| d.court.name if d.court }
@@ -58,6 +58,11 @@ class Decree < ActiveRecord::Base
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,        as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
+    nested :pages, fields: [:number, :text] do
+      indexes :number, index: :not_analyzed
+      indexes :text,   analyzer: :text_analyzer
+    end
+
     fulltext :text
   end
 

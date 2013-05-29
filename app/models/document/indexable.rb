@@ -3,6 +3,7 @@ module Document
     extend ActiveSupport::Concern
 
     included do
+      include Document::Serializable
       include Tire::Model::Search
       include Tire::Model::Callbacks
 
@@ -30,7 +31,7 @@ module Document
         @fulltext     ||= []
 
         unless block_given?
-          return @mapping, @fulltext
+          return @mapping
         else
           yield
 
@@ -41,9 +42,10 @@ module Document
               type     = options[:type]     || :string
               analyzer = options[:analyzer] || 'text_analyzer'
 
-              if value[:type].eql? :mapped
+              case value[:type]
+              when :mapped
                 indexes field, options.merge!(index: :not_analyzed)
-              else
+              when :analyzed
                 indexes field, options.deep_merge!(
                   type:   :multi_field,
                   fields: {
@@ -51,8 +53,9 @@ module Document
                     untouched: { type: type,  index: :not_analyzed }
                   }
                 )
+              when :nested
+                indexes field, type: :nested, &value[:block]
               end
-
             end
           end
         end
@@ -82,6 +85,14 @@ module Document
 
         @mapping[field][:type]    = :analyzed
         @mapping[field][:options] = options
+      end
+
+      def nested(field, options = {}, &block)
+        @mapping[field] = {}
+
+        @mapping[field][:type]    = :nested
+        @mapping[field][:options] = options
+        @mapping[field][:block]   = block
       end
 
       def fulltext(*args)
