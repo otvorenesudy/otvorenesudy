@@ -1,20 +1,87 @@
 <div class="_dv_document_control">
-  <a href="" class="dv_button scan _dv_document_scan">Scan</a>
-  <a href="" class="dv_button fulltext _dv_document_fulltext">Fulltext</a>
+
+  <div class="row">
+    <div class="span4">
+      <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn dv_button scan _dv_document_scan">Scan</button>
+        <button type="button" class="btn dv_button fulltext _dv_document_fulltext">Fulltext</button>
+      </div>
+    </div>
+
+    <div class="span4">
+      <div class="pages _dv_page_nav form-inline">
+          <a href="#" class="btn up _dv_prev_page" title="Predchádzajúca strana">&uarr;</a>
+          <div class="input-append">
+            <input type="text" class="input-mini _dv_current_page"/>
+            <span class="add-on">
+              <i class="icon-copy"></i>
+              <span class="_dv_total_pages "></span>
+            </span>
+          </div>
+
+          <a href="#" class="btn down _dv_next_page" title="Nasledujúca strana">&darr;</a>
+      </div>
+    </div>
+
+    <div class="span4">
+      <div class="_dv_search pull-right input-append">
+        <input type="text" name="" id="" value="" placeholder="Zadajte text"/>
+        <a href="#" class="btn">Hľadať</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="_dv_search_results">
+  </div>
 </div>
 
-<div class="pages _dv_page_nav">
-  <a href="#" class="up _dv_prev_page" title="Predchádzajúca strana">&uarr;</a>
-  <input type="text" class="_dv_current_page" size="2" /> <span>/</span> <span class="_dv_total_pages"></span>
-  <a href="#" class="down _dv_next_page" title="Nasledujúca strana">&darr;</a>
+
+<div class="_dv_document_control" style="visibilitity: hidden;">
+
+  <div class="row">
+    <div class="span4">
+      <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn dv_button scan _dv_document_scan">Scan</button>
+        <button type="button" class="btn dv_button fulltext _dv_document_fulltext">Fulltext</button>
+      </div>
+    </div>
+
+    <div class="span8">
+      <div class="pages _dv_page_nav form-inline pull-right">
+          <a href="#" class="btn up _dv_prev_page" title="Predchádzajúca strana">&uarr;</a>
+          <div class="input-append">
+            <input type="text" class="input-mini _dv_current_page"/>
+            <span class="add-on">
+              <i class="icon-copy"></i>
+              <span class="_dv_total_pages "></span>
+            </span>
+          </div>
+
+          <a href="#" class="btn down _dv_next_page" title="Nasledujúca strana">&darr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="_dv_search_results">
+  </div>
 </div>
+
+
 
 <div class="doc _dv_document"></div>
 <div class="doc _dv_comments"></div>
 
 
-<div class="pages _dv_page_nav">
-  <a href="#" class="up _dv_prev_page" title="Predchádzajúca strana">&uarr;</a>
-  <input type="text" class="_dv_current_page" size="2" /> <span>/</span> <span class="_dv_total_pages"></span>
-  <a href="#" class="down _dv_next_page" title="Nasledujúca strana">&darr;</a>
+<div class="pages _dv_page_nav form-inline">
+<a href="#" class="btn up _dv_prev_page" title="Predchádzajúca strana">&uarr;</a>
+<div class="input-append">
+<input type="text" class="input-mini _dv_current_page"/>
+<span class="add-on">
+<i class="icon-copy"></i>
+<span class="_dv_total_pages "></span>
+</span>
+</div>
+
+<a href="#" class="btn down _dv_next_page" title="Nasledujúca strana">&darr;</a>
 </div>
