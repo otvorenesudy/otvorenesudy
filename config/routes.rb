@@ -32,6 +32,8 @@ OpenCourts::Application.routes.draw do
         get :text
         get :image
       end
+
+      get :search, on: :collection
     end
   end
 
