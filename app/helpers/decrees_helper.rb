@@ -23,6 +23,10 @@ module DecreesHelper
     link_to decree.file_number, decree_path(decree.id), options
   end
 
+  def link_to_decree_with_params(title, decree, params, options = {})
+    link_to title, decree_path_with_params(decree, params), options
+  end
+
   def external_link_to_legislation(legislation, options = {})
     if legislation.year && legislation.number
       hash = "p#{legislation.paragraph}"
@@ -52,5 +56,9 @@ module DecreesHelper
     end
 
     result
+  end
+
+  def decree_path_with_params(decree, params, options = {})
+    "#{decree_path(decree)}?#{params.map { |k, v| "#{k}=#{v}" if v }.join('&') }"
   end
 end
