@@ -76,10 +76,11 @@ class Judge < ActiveRecord::Base
   alias :active?    :active
   alias :active_at? :active_at
 
-  def context_query
-    query = "sud \"#{self.first} #{self.middle} #{self.last}\""
-    sites = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+  def to_context_query
+    query     = "sud \"#{self.first} #{self.middle} #{self.last}\""
+    sites     = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+    blacklist = %w(http://www.sme.sk/diskusie/ blog.sme.sk)
 
-    "#{query} site:(#{sites.join(' OR ')})"
+    "#{query} site:(#{sites.join(' OR ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
   end
 end
