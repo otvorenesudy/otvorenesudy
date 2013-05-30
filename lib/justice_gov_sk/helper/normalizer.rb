@@ -84,12 +84,17 @@ module JusticeGovSk
           value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '')
         end
 
-        value.strip.gsub(/[\,\;]/, '').gsub(/(\.+\s*)+/, '. ').split(/\s+/).each do |part|
+        value.strip!
+        value.gsub!(/[\,\;\(\)]/, '')
+        value.gsub!(/(\.+\s*)+/, '. ')
+        value.gsub!(/\s*\-\s*/, '-')
+        
+        value.split(/\s+/).each do |part|
           key = person_name_map_key(part)
           
           if prefix = person_name_prefix_map[key]
             prefixes << prefix
-          elsif suffix = person_name_prefix_map[key]
+          elsif suffix = person_name_suffix_map[key]
             suffixes << suffix
           else
             part = part.utf8.strip
@@ -97,15 +102,15 @@ module JusticeGovSk
             if part.match(/\./)
               if part.match(/rod\./i)
                 flags << :born
-              elsif part.match(/\((ml|st)\.\)/)
+              elsif part.match(/(ml|st)\./)
                 flags << :relative
-                additions << part.gsub(/[\(\)]/, '')
+                additions << part
               end
             else
               if part == part.upcase
-                uppercase << part.titlecase
+                uppercase << part.split(/\-/).map(&:titlecase).join(' - ')
               else
-                mixedcase << part.titlecase
+                mixedcase << part.split(/\-/).map(&:titlecase).join(' - ')
               end
             end
           end
@@ -182,7 +187,7 @@ module JusticeGovSk
       end
       
       def person_name_map_key(value)
-        value.ascii.downcase.gsub(/[\s\.\,\;\(\)]/, '').to_sym
+        value.ascii.downcase.gsub(/[\s\.\,\;\-\(\)]/, '').to_sym
       end
       
       public
