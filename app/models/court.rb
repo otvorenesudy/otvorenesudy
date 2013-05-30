@@ -33,14 +33,14 @@ class Court < ActiveRecord::Base
   belongs_to :registry_center,          class_name: :CourtOffice, dependent: :destroy
   belongs_to :business_registry_center, class_name: :CourtOffice, dependent: :destroy
 
-  validates :name,   presence: true
-  validates :street, presence: true
-
   has_many :expenses, class_name: :CourtExpense,
                       dependent: :destroy
 
   has_many :statistical_summaries, class_name: :CourtStatisticalSummary,
                                    dependent: :destroy
+
+  validates :name,   presence: true
+  validates :street, presence: true
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 

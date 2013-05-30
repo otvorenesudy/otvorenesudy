@@ -9,6 +9,9 @@ class DecreePage < ActiveRecord::Base
 
   scope :by_number, lambda { order :number }
 
+  validates :number, presence: true
+  validates :text,   presence: true
+
   mapping do
     map     :decree_id
     map     :number
@@ -53,7 +56,4 @@ class DecreePage < ActiveRecord::Base
   def image_path
     File.join decree.image_path, image_entry
   end
-
-  validates :number, presence: true
-  validates :text,   presence: true
 end

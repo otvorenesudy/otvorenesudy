@@ -36,13 +36,11 @@ class Judge < ActiveRecord::Base
 
   has_many :judgings, dependent: :destroy
 
-  has_many :hearings, through: :judgings,
-                      dependent: :destroy
+  has_many :hearings, through: :judgings
 
   has_many :judgements, dependent: :destroy
 
-  has_many :decrees, through: :judgements,
-                     dependent: :destroy
+  has_many :decrees, through: :judgements
 
   has_many :property_declarations, class_name: :JudgePropertyDeclaration,
                                    dependent: :destroy

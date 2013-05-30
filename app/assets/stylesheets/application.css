@@ -13,9 +13,10 @@
  *
  *= require assets
  *= require errors
- *= require maps
- *= require search
  *= require tables
+ *= require maps
+ *= require documents
+ *= require search
  *
  *= require fixes
  */
