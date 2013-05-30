@@ -1,5 +1,5 @@
 namespace :es do
-  INDICES = ['hearings', 'decrees']
+  INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : ['hearings', 'decrees', 'decree_pages']
 
   # TODO: find out why index increses by multiple update
 
