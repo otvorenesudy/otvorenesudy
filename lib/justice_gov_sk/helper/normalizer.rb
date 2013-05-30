@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-# http://sk.wikipedia.org/wiki/Akademický_titul
-
 module JusticeGovSk
   module Helper
     module Normalizer
@@ -68,7 +66,6 @@ module JusticeGovSk
         partition_person_name(value)[:altogether]
       end
 
-      # TODO refactor, method too large -> focus on titles
       def partition_person_name(value)
         copy  = value.clone
         value = value.utf8
@@ -80,41 +77,36 @@ module JusticeGovSk
         mixedcase = []
         flags     = []
 
-        _, special = *value.match(/((\,\s+)?hovorca)?\s+KS\s+(v\s+)?(?<municipality>.+)\z/i) 
+        _, representantive = *value.match(/((\,\s+)?hovorca)?\s+KS\s+(v\s+)?(?<municipality>.+)\z/i) 
 
-        unless special.nil?
-          flags << :special
+        unless representantive.nil?
+          flags << :representantive
           value.sub!(/((\,\s+)?hovorca\s+)?KS\s+(v\s+)?.+\z/i, '')
         end
 
-        value.strip.gsub(/[\,\;]/, '').gsub(/\./, '. ').split(/\s+/).each do |part|
-          part = part.utf8.squeeze('.').strip
-
-          if part.match(/\./)
-            if part.match(/prom\.\správ\./i)
-              prefixes << "prom. práv."
-            elsif part.match(/rod\./i)
-              flags << :born
-            elsif part.match(/(JUDr|Mgr)\./i)
-              prefixes << "#{person_name_title_map[part[0..-2].downcase.to_sym]}."
-            elsif part.match(/(PhD|CSc|DrSc)\./i)
-              suffixes << "#{person_name_title_map[part[0..-2].downcase.to_sym]}."
-            elsif part.match(/\((ml|st)\.\)/)
-              additions << part.gsub(/[\(\)]/, '')
-            else
-              part.downcase! if part.match(/(akad|arch|art|doc|prof)\./i)
-
-              prefixes << part
-            end
+        value.strip.gsub(/[\,\;]/, '').gsub(/(\.+\s*)+/, '. ').split(/\s+/).each do |part|
+          key = person_name_map_key(part)
+          
+          if prefix = person_name_prefix_map[key]
+            prefixes << prefix
+          elsif suffix = person_name_prefix_map[key]
+            suffixes << suffix
           else
-            if part.match(/(JUDr|Mgr)/i)
-              prefixes << "#{person_name_title_map[part.downcase.to_sym]}."
-            elsif part.match(/(PhD|CSc|DrSc)/i)
-              suffixes << "#{person_name_title_map[part.downcase.to_sym]}."
-            elsif part == part.upcase
-              uppercase << part.titlecase
+            part = part.utf8.strip
+  
+            if part.match(/\./)
+              if part.match(/rod\./i)
+                flags << :born
+              elsif part.match(/\((ml|st)\.\)/)
+                flags << :relative
+                additions << part.gsub(/[\(\)]/, '')
+              end
             else
-              mixedcase << part.titlecase
+              if part == part.upcase
+                uppercase << part.titlecase
+              else
+                mixedcase << part.titlecase
+              end
             end
           end
         end
@@ -132,9 +124,9 @@ module JusticeGovSk
         value = value + ' ' + additions.join(' ') unless additions.empty?
         value = value + ', ' + suffixes.join(' ') unless suffixes.empty?
 
-        if flags.include? :special
-          municipality ||= "Trenčíne" unless special.match(/(TN|Trenčín(e)?)/).nil?
-          municipality ||= "Trnave"   unless special.match(/(TT|Trnav(a|e){1})/).nil?
+        if flags.include? :representantive
+          municipality ||= "Trenčíne" unless representantive.match(/(TN|Trenčín(e)?)/).nil?
+          municipality ||= "Trnave"   unless representantive.match(/(TT|Trnav(a|e){1})/).nil?
 
           role  = "Hovorca krajského súdu v #{municipality}"
           value = value.blank? ? role : "#{value}, #{role.downcase_first}"
@@ -149,22 +141,50 @@ module JusticeGovSk
           last:        names.last.to_s,
           suffix:      suffixes.empty? ? nil : suffixes.join(' '),
           addition:    additions.empty? ? nil : additions.join(' '),
+          flags:       flags,
           role:        role
         }
       end
 
       private
-
-      def person_name_title_map
-        @person_name_title_map if @person_name_title_map
-
-        map = {}
-
-        ['JUDr', 'Mgr', 'PhD', 'CSc', 'DrSc'].each { |v| map[v.downcase.to_sym] = v }
-
-        @person_name_title_map = map
+      
+      def person_name_prefix_map
+        @person_name_prefix_map ||= person_name_map_using ['abs. v. š.',
+         'akad.', 'akad. arch.', 'akad. mal.', 'akad. soch.', 'arch.', 'Bc.',
+         'Bc. arch.', 'BcA.', 'B.Ed.', 'B.Sc.', 'Bw. (VWA)', 'doc.', 'Dr.',
+         'Dr hab.', 'Dr inž.', 'Dr. jur.', 'Dr.h.c.', 'Dr.ir.', 'Dr.phil.',
+         'Eng.', 'ICDr.', 'Ing.', 'Ing. arch.', 'JUC.', 'JUDr.', 'Kfm.',
+         'Kfm. (FH)', 'Lic.', 'Mag', 'Mag.', 'Mag. (FH)', 'Mag. iur',
+         'Magistra Artium', 'Mag.rer.nat.', 'MDDr.', 'MgA.', 'Mgr.',
+         'Mgr. art.', 'mgr inž.', 'Mgr. phil.', 'MMag.', 'Mr.sc.', 'MSDr.',
+         'MUc.', 'MUDr.', 'MVc.', 'MVDr.', 'PaedDr.', 'PharmDr.', 'PhDr.',
+         'PhMr.', 'prof.', 'prof. mpx. h.c.', 'prof.h.c.', 'RCDr.', 'RNDr.',
+         'RSDr.', 'ThDr.', 'ThLic.']
       end
-
+      
+      def person_name_suffix_map
+        @person_name_suffix_map ||= person_name_map_using ['ArtD.', 'BA',
+        'BA (Hons)', 'BBA', 'BBS', 'BBus', 'BBus (Hons)', 'BS', 'BSBA', 'BSc',
+        'Cert Mgmt', 'CPA', 'CSc.', 'DDr.', 'Dipl. Ing.', 'Dipl. Kfm.',
+        'Dipl.ECEIM', 'DiS.', 'DiS.art', 'Dr.', 'Dr.h.c.', 'DrSc.', 'DSc.',
+        'EMBA', 'E.M.M.', 'Eqm.', 'Litt.D.', 'LL.A.', 'LL.B.', 'LL.M.',
+        'M.A.', 'MAE', 'MAS', 'MBA', 'MBSc', 'M.C.L.', 'MEng.', 'MIM', 'MMBA',
+        'MPH', 'M.Phil.', 'MS', 'MSc', 'M.S.Ed.', 'Ph.D.', 'PhD.',
+        'prom. biol.', 'prom. ek.', 'prom. fil.', 'prom. filol.',
+        'prom. fyz.', 'prom. geog.', 'prom. geol.', 'prom. hist.',
+        'prom. chem.', 'prom. knih.', 'prom. logop.', 'prom. mat.',
+        'prom. nov.', 'prom. ped.', 'prom. pharm.', 'prom. práv.',
+        'prom. psych.', 'prom. vet.', 'prom. zub.', 'ThD.']
+      end
+      
+      def person_name_map_using(values)
+        values.inject({}) { |m, v| m[person_name_map_key(v)] = v; m }
+      end
+      
+      def person_name_map_key(value)
+        value.ascii.downcase.gsub(/[\s\.\,\;\(\)]/, '').to_sym
+      end
+      
       public
 
       def normalize_zipcode(value)
