@@ -1,7 +1,6 @@
 class JudgesController < ApplicationController
   def index
-    # TODO enable judges from other sources as well
-    @judges = Judge.where(source_id: Source.find_by_module(:JusticeGovSk).id).order(:last, :middle, :first).page(params[:page])
+    @judges = Judge.order(:last, :middle, :first).page(params[:page])
   end
 
   def show
