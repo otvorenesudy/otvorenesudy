@@ -24,11 +24,11 @@ module SudnaradaGovSk
           year       = @parser.year(@document)
           court_name = @parser.normalize_court_name(request.respond_to?(:court) ? request.court : @court_name)
           court      = court_by_name_factory.find(court_name)
-          judge_name = @parser.normalize_person_name(request.respond_to?(:judge) ? request.judge : @judge_name)
+          judge_name = @parser.partition_person_name(request.respond_to?(:judge) ? request.judge : @judge_name)
           judges_map = match_judges_by(judge_name, unaccet: true)
 
-          if judge_name != (parsed_judge_name = @parser.judge(@document)[:altogether])
-            puts "Notice: supplied judge name #{judge_name} does not match parsed judge name #{parsed_judge_name}."
+          if judge_name != (parsed_judge_name = @parser.judge(@document))
+            puts "Notice: supplied judge name #{judge_name[:altogether]} does not match parsed judge name #{parsed_judge_name[:altogether]}."
           end
           
           most_similar_judges = judges_map[judges_map.keys.sort.last]
