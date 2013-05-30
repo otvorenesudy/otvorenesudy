@@ -17,7 +17,7 @@ module Core
           end
         end
         
-        value = normalize_spaces(value.respond_to?(:text) ? value.text : value) if options[:normalize]
+        normalize_spaces!(value.respond_to?(:text) ? value.text : value) if options[:normalize]
         
         if options[:validate] == :content
           if value.respond_to?(:empty?) && value.empty?
@@ -53,7 +53,7 @@ module Core
       private
       
       def find_defaults
-        { validate: :content, verbose: true }
+        { normalize: true, validate: :content, verbose: true }
       end
     end
   end
