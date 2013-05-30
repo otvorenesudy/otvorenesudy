@@ -11,9 +11,10 @@ module SudnaradaGovSk
             
             if a
               url   = "#{SudnaradaGovSk::URL.base}#{a[:href].ascii}"
-              court = normalize_court_name(data[1].text)
+              court = data[1].text
+              judge = data[0].text
               
-              items << { url: url, court: court } 
+              items << { url: url, court: court, judge: judge } 
             end
           end
           
