@@ -27,9 +27,7 @@ module SudnaradaGovSk
           
           most_similar_judges = judges_map[judges_map.keys.sort.last]
 
-          unless most_similar_judges.blank?
-            raise if most_similar_judges.count > 1
-
+          if most_similar_judges.count == 1
             judge = most_similar_judges.first
           else
             judge = make_judge(uri, SudnaradaGovSk.source, judge_name, court: court)
