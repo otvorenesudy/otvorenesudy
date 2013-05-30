@@ -99,7 +99,13 @@
       height: '1300px',
       annotationsAllowed: false,
       zoom: true,
-      commentList: false
+      commentList: false,
+      search: {
+        query:    "<%= params[:q] || "" %>",
+        callback: function(q, callback) {
+          searchDecreePages(<%= @decree.id %>, q, callback)
+        }
+      }
     });
   });
   </script>

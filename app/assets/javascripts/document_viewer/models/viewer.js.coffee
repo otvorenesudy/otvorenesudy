@@ -16,6 +16,9 @@ class DV.Viewer extends Backbone.Model
       document.bind("all", (eventName) => @trigger("document:#{eventName}"))
     @set(comments: options.comments)
 
+    @query  = options.search.query
+    @search = options.search.callback
+
     methods = ['previousPage', 'getCurrentDocumentNumber': 'getNumber', 'nextPage', 'getPages', 'getTotalPages', 'getCurrentPageNumber', 'getType', 'toggleAnnotatingMode', 'getMode', 'setMode']
     delegate(methods, {from: @, to: @getCurrentDocument})
 
@@ -145,3 +148,6 @@ class DV.Viewer extends Backbone.Model
 
   hasAttachments: ->
     @documents.length > 0
+
+  search: (q) ->
+    @search(q)

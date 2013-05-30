@@ -2,7 +2,7 @@
   <% decrees.each_with_index do |decree, i| %>
     <li>
       <h4>
-        <%= link_to "Rozhodnutie #{decree.file_number}", decree_path(decree.id) %>
+        <%= link_to_decree_with_params "Rozhodnutie #{decree.file_number}", decree, q: @query[:q] %>
         <br/>
         <small>
           Rozhodnutie bolo vydané dňa &ndash;

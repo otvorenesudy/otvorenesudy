@@ -5,6 +5,9 @@ class DV.DocumentControlView extends Backbone.View
     "click ._dv_document_comments":  "showComments"
     "click ._dv_add_annotation":     "toggleAnnotatingMode"
     "click ._dv_pin_annotations":    "toggleAnnotations"
+    "change ._dv_search input":      "onSearch"
+    "click  ._dv_search a":          "onSearch"
+    "click  ._dv_search_results a":  "onClickSearchResult"
 
   initialize: (options) ->
     @dv = options.dv
@@ -24,10 +27,17 @@ class DV.DocumentControlView extends Backbone.View
     @instructions = $('.instructions')
     @pinAnnotations = $('._dv_pin_annotations')
     @annotationTools = $('._dv_annotation_tools')
+    @searchInput     = $('._dv_search input')
+    @searchResults   = $('._dv_search_results')
+    @hiddenControls  = $('._dv_document_control.hidden')
 
     @pinAnnotations.html('Zobraziť')
     $('._dv_annotations_count').html("(#{@dv.getNumberOfAnnotations()})")
     @commentsButton.html("#{@commentsButton.html()} (#{@dv.getNumberOfComments()})")
+
+    @searchInput.val(@dv.query)
+
+    @onSearch() if @searchInput.val().length > 0
 
   showScan: ->
     @dv.showScan()
@@ -86,6 +96,16 @@ class DV.DocumentControlView extends Backbone.View
       @commentsButton.addClass("active")
       @annotationTools.show()
       @instructions.hide()
+
+  onSearch: ->
+    q = @searchInput.val()
+
+    html = @dv.search q, (html) =>
+      @searchResults.html(html)
+      @hiddenControls.show()
+
+  onClickSearchResult: ->
+    $('html, body').scrollTop(@hiddenControls.position().top)
 
   documentSwitched: ->
     @disableOrEnableAnnotatingButton()

@@ -14,6 +14,7 @@ class DV.DocumentViewer
       annotationsAllowed: options.annotationsAllowed
       zoom: options.zoom
       commentList: options.commentList
+      search: options.search
 
     chrome = new DV.ChromeView(dv: @dv, el: $(options.container))
     chrome.render()
