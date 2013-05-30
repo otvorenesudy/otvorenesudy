@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523011102) do
+ActiveRecord::Schema.define(:version => 20130527211651) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -285,16 +285,20 @@ ActiveRecord::Schema.define(:version => 20130523011102) do
   add_index "judge_designation_types", ["value"], :name => "index_judge_designation_types_on_value", :unique => true
 
   create_table "judge_designations", :force => true do |t|
+    t.string   "uri",                       :null => false
+    t.integer  "source_id",                 :null => false
     t.integer  "judge_id",                  :null => false
     t.integer  "judge_designation_type_id"
     t.date     "date",                      :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.string   "uri",                       :null => false
-    t.integer  "source_id",                 :null => false
   end
 
+  add_index "judge_designations", ["date"], :name => "index_judge_designations_on_date"
+  add_index "judge_designations", ["judge_designation_type_id"], :name => "index_judge_designations_on_judge_designation_type_id"
   add_index "judge_designations", ["judge_id"], :name => "index_judge_designations_on_judge_id"
+  add_index "judge_designations", ["source_id"], :name => "index_judge_designations_on_source_id"
+  add_index "judge_designations", ["uri"], :name => "index_judge_designations_on_uri"
 
   create_table "judge_incomes", :force => true do |t|
     t.integer  "judge_property_declaration_id",                                :null => false
@@ -488,7 +492,6 @@ ActiveRecord::Schema.define(:version => 20130523011102) do
 
   add_index "judges", ["first", "middle", "last"], :name => "index_judges_on_first_and_middle_and_last"
   add_index "judges", ["last", "middle", "first"], :name => "index_judges_on_last_and_middle_and_first"
-  add_index "judges", ["last"], :name => "test"
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
   add_index "judges", ["source_id"], :name => "index_judges_on_source_id"
