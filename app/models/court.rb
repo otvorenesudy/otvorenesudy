@@ -73,11 +73,12 @@ class Court < ActiveRecord::Base
     expenses.map { |expense| expense.value.to_i }.inject(:+)
   end
 
-  def context_query
-    query = "\"#{self.name}\""
-    sites = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+  def to_context_query
+    query     = "\"#{self.name}\""
+    sites     = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
+    blacklist = %w(http://www.sme.sk/diskusie/ http://blog.sme.sk)
 
-    "#{query} site:(#{sites.join(' OR ')})"
+    "#{query} site:(#{sites.join(' or ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
   end
 
   storage :page, JusticeGovSk::Storage::CourtPage, extension: :html
