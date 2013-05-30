@@ -46,13 +46,13 @@ div.nav {
 
 .centered {
   text-align: center;
-  
+
   &.nav {
     float: left;
     position: relative;
     left: 50%;
   }  
-  
+
   .nav-pills {
     float: left;
     position: relative;
@@ -80,7 +80,7 @@ table {
   .number {
     text-align: right;
   }
-  
+
   address {
     margin: 0px;
   }
@@ -93,7 +93,7 @@ table {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
-  
+
   &:before {
     display: inline-block;
     text-decoration: none;
@@ -116,16 +116,16 @@ i.icon-space {
 
 a[rel="popover"], a[rel="tooltip"] {
   border-bottom: 1px dotted $textColor;
-  
+
   color: $textColor;
   cursor: help;
   text-decoration: none;
-  
+
   &.muted {
     border-bottom-color: $grayLight;
     color: $grayLight;
   }
-  
+
   &.undecorated {
     border-bottom: none;
   }
@@ -146,21 +146,21 @@ h1, h2, strong {
     background-color: inherit;
     @include box-shadow-none;
   }
-  
+
   & > a.brand {
     display: inline-block;
     height: 30px;
     line-height: 30px;
     margin: 0px;
     padding: 5px 10px;
-    
+
     font-size: 24px;
   }
 
   &.divider-vertical {
     margin: 0px;
   }
-  
+
   & > a {
     height: 20px;
     line-height: 20px;
@@ -174,7 +174,7 @@ h1, h2, strong {
     i[class^="icon-"], i[class*=" icon-"] {
       margin: 0px;
       padding: 0px;
-      
+
       font-size: 20px;
       text-decoration: none;
     }
@@ -188,39 +188,39 @@ div.search {
   position: relative;
   margin: 0px;
   padding: 40px;
-  
+
   background: $grayLighter;
-  
+
   .form-search {
     margin: 0px auto;
     padding: 0px;
-    
+
     .input-append {
       display: block;
       margin: 0px auto;
       text-align: center;
-      
+
       input:focus {
         border-color: $grayLight;
         @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($grayLight, 0.6));
       }
-      
+
       button i.icon-search {
         height: auto;
         line-height: auto;
       }
     }
   }
-  
+
   a {
     display: inline-block;
     margin-left: -$gridGutterWidth;
     height: 30px;
     line-height: 30px;
     font-size: 14px;
-    
+
     color: $grayLight;
-    
+
     &:hover {
       color: $gray;
       text-decoration: none;
@@ -233,21 +233,21 @@ div.search {
 header {
   border-top: 1px solid $navbarInverseBorder;
   border-bottom: 1px solid $navbarInverseBorder;
-  
+
   @include linear-gradient(45deg, darken($linkColor, 20%), darken($blue, 10%));
-  
+
   color: $white;
-    
+
   text-align: center;
-  
+
   .pattern {
     padding: 40px 0px;
   }
-  
+
   h1 {
     line-height: 60px;
     font-size: 60px;
-    
+
     small {
       display: block;
       margin: 10px 0px;
@@ -261,7 +261,7 @@ header {
 footer {
   margin-top: 40px;
   padding: 30px 0px;
-  
+
   background: $grayLighter;
   color: $grayLight;
 
@@ -279,14 +279,18 @@ footer {
 
     li > a {
       display: inline-block;
-      
+
       &:hover {
         text-decoration: underline; 
       }
     }
-    
+
     li + li {
       padding-top: 5px;
     }
   }
+}
+
+.hidden {
+  display: none;
 }
