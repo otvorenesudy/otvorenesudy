@@ -17,6 +17,8 @@ module Core
           end
         end
         
+        value = normalize_spaces(value.respond_to?(:text) ? value.text : value) if options[:normalize]
+        
         if options[:validate] == :content
           if value.respond_to?(:empty?) && value.empty?
             puts "failed (empty)"
@@ -29,7 +31,6 @@ module Core
           end
         end
         
-        value = normalize_spaces(value) if options[:normalize]
         value = block_given? ? block.call(value) : value
         
         puts options[:verbose] ? "done (#{value})" : "done"
@@ -42,13 +43,17 @@ module Core
       end
       
       def normalize_spaces(value)
-        value.gsub(/[[:space:]]/, ' ')
+        normalize_spaces! value.dup
+      end
+
+      def normalize_spaces!(value)
+        value.gsub!(/[[:space:]]/, ' ')
       end
       
       private
       
       def find_defaults
-        { normalize: true, validate: :content, verbose: true }
+        { validate: :content, verbose: true }
       end
     end
   end
