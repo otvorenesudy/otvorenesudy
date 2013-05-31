@@ -1,22 +1,18 @@
 <% if @highlights.any? %>
-<h3>Výsledky vyhľadávania <span class="muted">(<%= @highlights.count %>)</span></h3>
-
-<ul class="unstyled">
-  <% @highlights.each do |highlight| %>
-    <div class="row">
-      <div class="span1">
-        <strong>Strana <%= highlight[:number] %></strong>
+  <h3>Výsledky vyhľadávania <span class="muted">(<%= @highlights.count %>)</span></h3>  
+  <ul class="unstyled">
+    <% @highlights.each do |highlight| %>
+      <div class="row">
+        <div class="span1">
+          <strong>Strana <%= highlight[:number] %></strong>
+        </div>
+  
+        <div class="span11">
+          <%= link_to_decree_page @decree, params[:q], highlight[:number], strip_text(highlight[:text]) %>
+        </div>
       </div>
-
-      <div class="span11">
-        <%= link_to_decree_page @decree, params[:q], highlight[:number], strip_text(highlight[:text]) %>
-      </div>
-
-    </div>
-
-  <% end %>
-</ul>
+    <% end %>
+  </ul>
 <% else %>
   <p class="muted">Nenašli sa žiadne výsledky.</p>
 <% end %>
-<br />
