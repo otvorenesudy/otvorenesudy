@@ -52,7 +52,7 @@
           <%= judge_designation_date_distance designation %><%= ", #{designation.type.value.sub(/^\D{0,1}/) { |c| c.downcase }}" if designation.type %>.
         </p>
       <% end %>
-<!-- TODO release when names are normalized      
+<!-- TODO release when names are normalized  -->
       <% if @related_persons.any? %>
         <p>
           <span class="gutter centered muted">
@@ -62,7 +62,6 @@
           <%= links_to_related_persons(@related_persons) %>
         </p>
       <% end %>
--->
     </div>
   </div>
 </section>
