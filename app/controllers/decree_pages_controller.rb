@@ -2,7 +2,7 @@ class DecreePagesController < ApplicationController
   def text
     @page = DecreePage.find_by_decree_id_and_number(params[:decree_id], params[:id])
 
-    render text: @page ? @page.text.gsub("\n", "<br/>") : ''
+    render text: @page.text.gsub("\n", '<br/>')
   end
 
   def image
@@ -16,8 +16,6 @@ class DecreePagesController < ApplicationController
 
     @results, @highlights = DecreePage.search_pages(@decree.id, params[:q])
 
-    render json: {
-      results: render_to_string(partial: 'results')
-    }
+    render json: { results: render_to_string(partial: 'results') }
   end
 end

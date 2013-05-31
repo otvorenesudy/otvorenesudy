@@ -1,4 +1,4 @@
-module TagsHelper
+module TagHelper
   def square_tag(type, body, options = {})
     content_tag :span, body, options.merge(class: "label label-#{type.to_s}")
   end
@@ -7,27 +7,28 @@ module TagsHelper
     content_tag :span, body, options.merge(class: "badge badge-#{type.to_s}")
   end
 
-  def icon_tag(type, text = nil, join = :prepend, options = {})
-    icon = content_tag :i, nil, class: "icon-#{type.to_s}"
+  def icon_tag(type, options = {})
+    icon  = content_tag :i, nil, class: "icon-#{type.to_s}"
+    label = options.delete(:label)
 
-    unless text.blank?
+    unless label.blank?
       space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
-      body  = [icon, space, text.to_s]
-      body.reverse! if join == :append
+      body  = [icon, space, label.to_s]
+      body.reverse! if options.delete(:join) == :append
       icon = content_tag :span, body.join.html_safe, options
     end
 
     icon
   end
 
-  def icon_link_to(type, body, url, join = :prepend, options = {})
-    link_to icon_tag(type, body, join), url, options
+  def icon_link_to(type, body, url, options = {})
+    link_to icon_tag(type, label: body, join: options.delete(:join)), url, options
   end
 
-  def icon_mail_to(type, body, url = nil, join = :prepend, options = {})
+  def icon_mail_to(type, body, url = nil, options = {})
     url = body if url.blank?
 
-    mail_to url, icon_tag(type, body, join), options
+    mail_to url, icon_tag(type, body, join: options.delete(:join)), options
   end
 
   def navbar_logo_tag(title)
@@ -43,16 +44,17 @@ module TagsHelper
     content_tag :li, icon_link_to(type, body, url), options
   end
 
-  def popover_tag(body, content, title = nil, placement = :top, trigger = :click, options = {})
-    options.merge! rel: :popover, title: title
-    options.merge! data trigger: trigger, placement: placement, content: content, html: true
+  def popover_tag(body, content, options = {})
+    options.merge! rel: :popover, title: options.delete(:title)
+    options.merge! data placement: options.delete(:placement) || :top, trigger: options.delete(:trigger) || :click
+    options.merge! data content: content, html: true
 
     link_to body, '#', options
   end
 
-  def tooltip_tag(body, title, placement = :top, trigger = :hover, options = {})
+  def tooltip_tag(body, title, options = {})
     options.merge! rel: :tooltip, title: title
-    options.merge! data trigger: trigger, placement: placement
+    options.merge! data placement: options.delete(:placement) || :top, trigger: options.delete(:trigger) || :hover
 
     link_to body, '#', options
   end
@@ -99,7 +101,7 @@ module TagsHelper
   def external_link_to(body, url, options = {})
     options.merge! target: :_blank
 
-    icon_link_to :'external-link', body, url, :append, options
+    icon_link_to :'external-link', body, url, options.merge(join: :append)
   end
 
   private

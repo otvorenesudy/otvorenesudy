@@ -59,6 +59,6 @@ module DecreesHelper
   end
 
   def decree_path_with_params(decree, params, options = {})
-    "#{decree_path(decree)}?#{params.map { |k, v| "#{k}=#{v}" if v }.join('&') }"
+    "#{decree_path decree}?#{params.map { |k, v| "#{k}=#{v}" if v }.join '&'}"
   end
 end

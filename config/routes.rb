@@ -6,7 +6,7 @@ OpenCourts::Application.routes.draw do
   match '/home',    to: 'static_pages#home'
   match '/stats',   to: 'static_pages#stats'
 
-  match '/search',          to: 'search#search' # TODO rename, probably both route & to
+  match '/search',          to: 'search#search'
   match '/suggest/:entity', to: 'search#suggest'
 
   resources :courts do
@@ -15,28 +15,27 @@ OpenCourts::Application.routes.draw do
 
   resources :judges
 
-  resources :proceedings
   resources :hearings do
-    collection do
-      get :search
-    end
+    get :search, on: :collection
   end
 
   resources :decrees do
-    collection do
-      get :search
-    end
+    get :search, on: :collection
+    
+    get :document, on: :member
 
     resources :decree_pages, as: :pages, path: :pages do
+      get :search, on: :collection
+
       member do
         get :text
         get :image
       end
-
-      get :search, on: :collection
     end
   end
 
+  resources :proceedings
+  
   match '/404', to: 'errors#show'
   match '/422', to: 'errors#show'
   match '/500', to: 'errors#show'

@@ -2,14 +2,14 @@
 
 module HearingsHelper
   def hearing_title(hearing)
-    # TODO for page title
+    options     = { separator: ' &middot; ', tooltip: false }
+    identifiers = join_and_truncate hearing_identifiers(hearing), options.dup
+    
+    "#{identifiers}#{options[:separator]}#{hearing_type hearing.type}".html_safe
   end
   
-  # TODO rm?
   def hearing_headline(hearing)
-    type = hearing_type hearing.type
-    
-    hearing.subject ? "#{type} &dash; #{hearing.subject.value}".html_safe : type
+    join_and_truncate hearing_identifiers(hearing), separator: ' &ndash; ', tooltip: true
   end
   
   def hearing_type(type)
@@ -28,5 +28,11 @@ module HearingsHelper
   
   def link_to_hearing(hearing, options = {})
     link_to hearing.file_number, hearing_path(hearing.id), options
+  end
+  
+  private
+  
+  def hearing_identifiers(hearing)
+    [hearing.form, hearing.subject].reject(&:blank?).map(&:value)
   end
 end

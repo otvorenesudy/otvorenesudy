@@ -1,10 +1,10 @@
-<% provide :title, "IČS #{@hearing.file_number} &middot; #{hearing_type @type}".html_safe %>
+<% provide :title, hearing_title(@hearing) %>
 
 <section id="hearing-info">
   <div class="page-header">
     <h1>
-      <%= hearing_type @type %>
-      <%= tooltip_tag @hearing.file_number, "Identifikačné číslo súdneho spisu", :right %>
+      <%= hearing_headline @hearing %>
+      <!--<%= tooltip_tag @hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>-->
       <br/>
       <small>
         Pojednávanie <%= @past ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -65,11 +65,11 @@
     <div class="span4">
       <div class="well well-small">
         <p>
-          <%= tooltip_tag "SZ", "Spisová značka", :left %>:
+          <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
           <span class="pull-right"><%= @hearing.case_number %></span>
         </p>
         <p>
-          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", :left %>:
+          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
           <span class="pull-right"><%= @hearing.file_number %></span>
         </p>
       </div>      
