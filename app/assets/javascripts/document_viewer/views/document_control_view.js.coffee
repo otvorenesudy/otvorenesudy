@@ -37,7 +37,10 @@ class DV.DocumentControlView extends Backbone.View
 
     @searchInput.val(@dv.query)
 
-    @onSearch() if @searchInput.val().length > 0
+    if @dv.query.length > 0
+      @onSearch()
+
+      scrollTo(@searchResults.position().top)
 
   showScan: ->
     @dv.showScan()
@@ -105,7 +108,7 @@ class DV.DocumentControlView extends Backbone.View
       @hiddenControls.show()
 
   onClickSearchResult: ->
-    $('html, body').scrollTop(@hiddenControls.position().top)
+    scrollTo(@hiddenControls.position().top)
 
   documentSwitched: ->
     @disableOrEnableAnnotatingButton()
