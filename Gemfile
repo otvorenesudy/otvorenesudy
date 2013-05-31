@@ -20,7 +20,7 @@ gem 'rails-timeago'
 gem 'jquery-tablesorter'
 gem 'execjs'
 
-# js libraries
+# JS libraries
 gem 'inflection-js-rails'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'spinjs-rails'
@@ -37,16 +37,19 @@ gem 'gmaps4rails', '~> 1.5.6'
 gem 'rails-i18n'
 
 # crawlers
-gem 'settingslogic'
+gem 'curb',        '>= 0.8.3'
+gem 'mechanize',   '~> 2.5.1'
+gem 'docsplit',    '~> 0.6.4'
 
 gem 'json'
 gem 'nokogiri'
 
+# utilities
 gem 'colored',     '~> 1.2'
-gem 'curb',        '>= 0.8.3'
-gem 'mechanize',   '~> 2.5.1'
 gem 'murmurhash3', '>= 0.1.3'
-gem 'docsplit',    '~> 0.6.4'
+
+gem 'htmlentities'
+gem 'settingslogic'
 
 # background jobs
 gem 'resque'
