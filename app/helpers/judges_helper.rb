@@ -44,11 +44,11 @@ module JudgesHelper
     
     case status
     when true
-      tooltip_tag icon_tag, activity, :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag, activity, placement: :left, class: :'muted undecorated'
     when false
-      tooltip_tag icon_tag, activity, :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag, activity, placement: :left, class: :'muted undecorated'
     else
-      tooltip_tag icon_tag, activity, :left, :hover, class: :'muted undecorated'
+      tooltip_tag icon_tag, activity, placement: :left, class: :'muted undecorated'
     end
   end
 
@@ -56,11 +56,11 @@ module JudgesHelper
     options = employment.active ? {} : { class: :muted }
 
     if employment.judge_position
-      tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', :left, :hover, options
+      tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', options.merge(placement: :left)
     else
       if employment.judge.probably_superior_court_officer?
         content_tag :span, options.clone do
-          ('pravdepodobne ' + tooltip_tag('VSÚ', 'Vyšší súdny úradník', :top, :hover, options)).html_safe
+          ('pravdepodobne ' + tooltip_tag('VSÚ', 'Vyšší súdny úradník', options)).html_safe
         end
       else
         'neznáma'
@@ -85,7 +85,7 @@ module JudgesHelper
   end
 
   def judge_designation_date_tag(designation)
-    tooltip_tag icon_tag(:calendar), localize(designation.date, format: :long), :left, :hover, class: :'muted undecorated'
+    tooltip_tag icon_tag(:calendar), localize(designation.date, format: :long), placement: :left, class: :'muted undecorated'
   end
 
   def judge_designation_date_distance(designation)

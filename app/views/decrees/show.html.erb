@@ -4,7 +4,7 @@
   <div class="page-header">
     <h1>
       Súdne rozhodnutie
-      <%= tooltip_tag @decree.file_number, "Identifikačné číslo súdneho spisu", :right %>
+      <%= tooltip_tag @decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
       <br/>
       <small>
         Rozhodnutie bolo vynesené dňa &ndash;
@@ -48,15 +48,15 @@
     <div class="span4">
       <div class="well well-small">
         <p>
-          <%= tooltip_tag "ECLI", "European Case Law Identifier", :left %>:
+          <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
           <span class="pull-right"><%= @decree.ecli %></span>
         </p>
         <p>
-          <%= tooltip_tag "SZ", "Spisová značka", :left %>:
+          <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
           <span class="pull-right"><%= @decree.case_number %></span>
         </p>
         <p>
-          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", :left %>:
+          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
           <span class="pull-right"><%= @decree.file_number %></span>
         </p>
       </div>
