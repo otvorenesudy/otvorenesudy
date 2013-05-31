@@ -26,7 +26,7 @@
       <% if @decree.legislation_area %>
         <p>
           Oblasti právnej úpravy &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
-          <%= " &ndash; #{link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_subarea: @decree.legislation_subarea.value } }".html_safe if @decree.legislation_subarea %>.
+        <%= " &ndash; #{link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_area: @decree.legislation_area.value,  legislation_subarea: @decree.legislation_subarea.value } }".html_safe if @decree.legislation_subarea %>.
         </p>
       <% end %>
       <% if @decree.form %>
