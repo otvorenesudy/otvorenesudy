@@ -2,8 +2,7 @@ class DecreePagesController < ApplicationController
   def text
     @page = DecreePage.find_by_decree_id_and_number(params[:decree_id], params[:id])
 
-    # TODO: render error for nonexisting page? YES! may be just plain text
-    render text: @page ? @page.text.gsub("\n", "<br>") : ''
+    render text: @page ? @page.text.gsub("\n", "<br/>") : ''
   end
 
   def image
