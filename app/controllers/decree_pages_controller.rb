@@ -8,7 +8,10 @@ class DecreePagesController < ApplicationController
   def image
     @page = DecreePage.find_by_decree_id_and_number(params[:decree_id], params[:id])
 
-    send_file File.join(Rails.root, @page.image_path), type: 'image/png', disposition: 'inline'
+    path = File.join(Rails.root, @page.image_path)
+    path = 'public/assets/documents/unprocessed.png' unless File.exists? path
+
+    send_file path, type: 'image/png', disposition: 'inline'
   end
 
   def search
