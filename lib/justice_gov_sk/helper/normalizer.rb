@@ -115,6 +115,9 @@ module JusticeGovSk
             end
           end
         end
+        
+        prefixes.uniq!
+        suffixes.uniq!
 
         names = mixedcase + uppercase
 
