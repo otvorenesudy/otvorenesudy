@@ -87,7 +87,6 @@ Note that currect support is only for property declarations of 2011.
 ### Partially preprocessed data from various sources
 * Court statistical summaries from justice.gov.sk:
 ```
-rake process:court_statistical_summaries:2011
 rake process:court_statistical_summaries:2012
 ```
 

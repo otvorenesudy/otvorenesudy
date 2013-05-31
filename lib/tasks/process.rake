@@ -32,16 +32,9 @@ namespace :process do
 
   desc "process court statistical summaries"
   namespace :court_statistical_summaries do
-    desc "process court statistical summaries from 2011"
-    task :'2011' => :environment do
-      processor = justicegovsk::processor::courtstatisticalsummaries.new
-
-      processor.process('data/court_statistical_summaries_2011.csv')
-    end
-
     desc "process court statistical summaries from 2012"
     task :'2012' => :environment do
-      processor = justicegovsk::processor::courtstatisticalsummaries.new
+      processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
 
       processor.process('data/court_statistical_summaries_2012.csv')
     end
@@ -49,7 +42,7 @@ namespace :process do
 
   namespace :judge_designations do
     desc "Process judge designations from Nrsr.sk"
-    task :nrsr_sk do
+    task :nrsr_sk => :environment do
       processor = NrsrSk::Processor::JudgeDesignations.new
 
       options = { separator: "\t" }
