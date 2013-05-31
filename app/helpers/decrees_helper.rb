@@ -2,17 +2,14 @@
 
 module DecreesHelper
   def decree_title(decree)
-    # TODO for page title
+    options     = { separator: ' &middot; ', tooltip: false }
+    identifiers = join_and_truncate decree_identifiers(decree), options.dup
+    
+    "#{identifiers}#{options[:separator]}Súdne rozhodnutie".html_safe
   end
 
-  # TODO rm?
   def decree_headline(decree)
-    introduction = [decree.legislation_subarea, decree.form].reject(&:blank?).map(&:value)
-    natures      = decree.natures.pluck(:value).join(', ')
-
-    #["Súdne rozhodnutie", introduction, natures].join(' ').html_safe
-
-    [introduction.join(' &ndash; '), natures].join(', ').html_safe
+    join_and_truncate decree_identifiers(decree), separator: ' &ndash; ', tooltip: true
   end
 
   def decree_date(date)
@@ -60,5 +57,11 @@ module DecreesHelper
 
   def decree_path_with_params(decree, params, options = {})
     "#{decree_path decree}?#{params.map { |k, v| "#{k}=#{v}" if v }.join '&'}"
+  end
+  
+  private
+  
+  def decree_identifiers(decree)
+    [decree.form, decree.legislation_area, decree.legislation_subarea].reject(&:blank?).map(&:value) << decree.natures.pluck(:value).join(', ')
   end
 end

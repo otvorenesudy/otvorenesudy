@@ -28,7 +28,7 @@ module TagHelper
   def icon_mail_to(type, body, url = nil, options = {})
     url = body if url.blank?
 
-    mail_to url, icon_tag(type, body, join: options.delete(:join)), options
+    mail_to url, icon_tag(type, label: body, join: options.delete(:join)), options
   end
 
   def navbar_logo_tag(title)

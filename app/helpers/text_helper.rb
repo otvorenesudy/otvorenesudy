@@ -15,7 +15,7 @@ module TextHelper
     
     if packed.length > limit
       if tooltip
-        result += tooltip_tag omission.html_safe, parts.last, { placement: :right }.merge(options)
+        result += tooltip_tag omission.html_safe, packed, { placement: :right }.merge(options)
       else
         result += omission
       end

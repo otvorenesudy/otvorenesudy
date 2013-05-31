@@ -1,10 +1,9 @@
-<% provide :title, "IČS #{@decree.file_number} &middot; Súdne rozhodnutie".html_safe %>
+<% provide :title, decree_title(@decree) %>
 
 <section id="decree-info">
   <div class="page-header">
     <h1>
-      Súdne rozhodnutie
-      <%= tooltip_tag @decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
+      <%= decree_headline @decree %>
       <br/>
       <small>
         Rozhodnutie bolo vynesené dňa &ndash;
