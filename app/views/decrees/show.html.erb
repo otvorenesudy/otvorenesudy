@@ -1,5 +1,7 @@
 <% provide :title, decree_title(@decree) %>
 
+<% render 'document_viewer_initialization.js', decree: @decree %>
+
 <section id="decree-info">
   <div class="page-header">
     <h1>
@@ -18,9 +20,7 @@
         <p>Rozhodnuté bolo na súde <%= link_to_court @court %>.</p>
       <% end %>
       <% if @decree.judges.any? %>
-        <p>
-          Rozhodutie vydal sudca <%= links_to_judges @decree.judges %>.
-        </p>
+        <p>Rozhodutie vydal sudca <%= links_to_judges @decree.judges %>.</p>
       <% end %>
       <% if @decree.legislation_area %>
         <p>
@@ -84,25 +84,3 @@
     </div>
   </div>
 </section>
-
-<% content_for :scripts do %>
-  <script type="text/javascript">
-    $(function() {
-      var dv = DV.DocumentViewer.init({
-      container: $('.document'),
-      attachments: <%== [decree_to_document_viewer(@decree)].to_json %>,
-      width: '940px',
-      height: '1300px',
-      annotationsAllowed: false,
-      zoom: true,
-      commentList: false,
-      search: {
-        query: "<%= params[:q] || "" %>",
-          callback: function(q, callback) {
-            searchDecreePages(<%= @decree.id %>, q, callback)
-          }
-        }
-      });
-    });
-  </script>
-<% end %>

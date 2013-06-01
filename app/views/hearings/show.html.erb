@@ -47,7 +47,6 @@
       <% if @hearing.commencement_date? %>  
         <p>Dátum započatia &ndash; <%= hearing_date @hearing.commencement_date %>.</p>
       <% end %>
-
       <% unless @hearing.selfjudge.nil? %>
         <p>Samosudca &ndash; <%= @hearing.selfjudge ? 'áno' : 'nie' %>.</p>
       <% end %>
