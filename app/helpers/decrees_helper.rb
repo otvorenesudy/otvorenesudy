@@ -62,6 +62,6 @@ module DecreesHelper
   private
   
   def decree_identifiers(decree)
-    [decree.form, decree.legislation_area, decree.legislation_subarea].reject(&:blank?).map(&:value) << decree.natures.pluck(:value).join(', ')
+    [decree.form, decree.legislation_area, decree.legislation_subarea].reject(&:blank?).map(&:value) << decree.natures.order(:value).pluck(:value).join(', ')
   end
 end

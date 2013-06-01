@@ -66,14 +66,11 @@
 <section id="decree-document">
   <div class="row">
     <div class="span12">
-      <!-- TODO <%= @decree.text %> -->
+      <!-- TODO change class? -->
+      <div class="document"></div>
     </div>
   </div>
 </section>
-
-<div class="document">
-</div>
-
 
 <section id="decree-resource">
   <div class="row">
@@ -89,9 +86,9 @@
 </section>
 
 <% content_for :scripts do %>
-  <script type="text/javascript" charset="utf-8">
-     $(function() {
-    var dv = DV.DocumentViewer.init({
+  <script type="text/javascript">
+    $(function() {
+      var dv = DV.DocumentViewer.init({
       container: $('.document'),
       attachments: <%== [decree_to_document_viewer(@decree)].to_json %>,
       width: '940px',
@@ -100,12 +97,12 @@
       zoom: true,
       commentList: false,
       search: {
-        query:    "<%= params[:q] || "" %>",
-        callback: function(q, callback) {
-          searchDecreePages(<%= @decree.id %>, q, callback)
+        query: "<%= params[:q] || "" %>",
+          callback: function(q, callback) {
+            searchDecreePages(<%= @decree.id %>, q, callback)
+          }
         }
-      }
+      });
     });
-  });
   </script>
 <% end %>
