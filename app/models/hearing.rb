@@ -21,8 +21,8 @@ class Hearing < ActiveRecord::Base
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgings).merge(Judging.of_judge(employment.judge)) }
 
-  scope :upcoming, lambda { where("date >= ?", Time.now)  }
-  scope :past, lambda { where("date < ?", Time.now) }
+  scope :upcoming, lambda { where("date >= ?", Time.now) }
+  scope :past,     lambda { where("date <  ?", Time.now) }
 
   belongs_to :proceeding
 
@@ -67,7 +67,9 @@ class Hearing < ActiveRecord::Base
     facet :form,    type: :terms
     facet :section, type: :terms
     facet :subject, type: :terms
-    facet :date,    type: :date, interval: :month # using default alias for interval from DateFacet
+    facet :date,    type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
+    
+    # TODO make this normally vidsible facet with boolean type, so we can fit it inside the facet list!
     facet :historical, field: :date, type: :date, interval: :month, visible: false
   end
 

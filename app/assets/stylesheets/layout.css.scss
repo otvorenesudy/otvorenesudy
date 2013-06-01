@@ -267,7 +267,7 @@ footer {
   padding: 30px 0px;
 
   background: $grayLighter;
-  color: $grayLight;
+  color: $gray;
 
   a {
     color: $gray;
@@ -291,6 +291,12 @@ footer {
 
     li + li {
       padding-top: 5px;
+    }
+  }
+  
+  .copyright {
+    a {
+      color: darken($grayLight, 12.5%);
     }
   }
 }

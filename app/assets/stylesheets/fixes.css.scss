@@ -48,10 +48,8 @@ input[type="color"],
 // alert links
 
 .alert a {
-  text-decoration: underline;
-
   &:hover, &:focus {
-    text-decoration: none;
+    text-decoration: underline;
   }
 }
 
