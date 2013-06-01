@@ -26,8 +26,8 @@ module HearingsHelper
     time_tag date, format: :long 
   end
   
-  def link_to_hearing(hearing, options = {})
-    link_to hearing.file_number, hearing_path(hearing.id), options
+  def link_to_hearing(hearing, body, options = {})
+    link_to body, hearing_path(hearing.id), options
   end
   
   private

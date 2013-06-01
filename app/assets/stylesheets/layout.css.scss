@@ -33,6 +33,10 @@ div.nav {
   margin: 20px 0px;
 }
 
+.hidden {
+  display: none;
+}
+
 // text
 
 .capital {
@@ -289,8 +293,4 @@ footer {
       padding-top: 5px;
     }
   }
-}
-
-.hidden {
-  display: none;
 }

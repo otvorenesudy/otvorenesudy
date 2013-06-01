@@ -1,3 +1,4 @@
+@import 'mixins';
 @import 'variables';
 
 #search-view {
@@ -15,6 +16,10 @@
       margin: 0px;
 
       li blockquote em {
+        padding: 0px 4px;
+
+        @include border-radius(2px);
+
         background: $infoBackground;
         color: $infoText;
       }

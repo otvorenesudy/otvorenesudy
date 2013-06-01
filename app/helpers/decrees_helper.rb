@@ -16,17 +16,37 @@ module DecreesHelper
     time_tag date, format: :long 
   end
 
-  def link_to_decree(decree, options = {})
-    link_to decree.file_number, decree_path(decree.id), options
+  def decree_as_attachments(decree)
+    {
+      name: "Súdne rozhodnutie #{decree.ecli}",
+      number: 1,
+      pages: decree.pages.by_number.map { |page|
+        { 
+          number:  page.number,
+          scanUrl: image_decree_page_path(decree, page.number),
+          textUrl: text_decree_page_path(decree, page.number),
+          comments: []
+        }
+      }
+    }
   end
 
-  def link_to_decree_with_params(title, decree, params, options = {})
-    link_to title, decree_path_with_params(decree, params), options
+  def decree_path_with_params(decree, params)
+    params = params.map { |k, v| "#{k}=#{v}" if v }.join '&'
+    path   = decree_path decree
+    
+    return path if params.blank?
+    
+    "#{decree_path decree}?#{params}"
+  end
+
+  def link_to_decree(decree, body, options = {})
+    link_to body, decree_path_with_params(decree, options.delete(:params)), options
   end
 
   def external_link_to_legislation(legislation, options = {})
     if legislation.year && legislation.number
-      hash = "p#{legislation.paragraph}"
+      hash =  "p#{legislation.paragraph}"
       hash << "-#{legislation.section}" if legislation.section
       hash << "-#{legislation.letter}"  if legislation.letter
 
@@ -37,28 +57,7 @@ module DecreesHelper
 
     external_link_to legislation.value, url, options
   end
-
-  def decree_to_document_viewer(decree)
-    result = Hash.new
-
-    result[:name]   = "Rozhodnutie #{decree.file_number}"
-    result[:number] = 1
-    result[:pages]  = decree.pages.by_number.map do |page|
-      { 
-        number:  page.number,
-        scanUrl: image_decree_page_path(decree, page.number),
-        textUrl: text_decree_page_path(decree, page.number),
-        comments: []
-      }
-    end
-
-    result
-  end
-
-  def decree_path_with_params(decree, params, options = {})
-    "#{decree_path decree}?#{params.map { |k, v| "#{k}=#{v}" if v }.join '&'}"
-  end
-  
+    
   private
   
   def decree_identifiers(decree)

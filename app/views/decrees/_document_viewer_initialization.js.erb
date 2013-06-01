@@ -3,7 +3,7 @@
     $(function() {
       var dv = DV.DocumentViewer.init({
       container: $('.document'),
-      attachments: <%== [decree_to_document_viewer(decree)].to_json %>,
+      attachments: <%== [decree_as_attachments(decree)].to_json %>,
       width: '940px',
       height: '1300px',
       annotationsAllowed: false,

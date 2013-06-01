@@ -1,2 +1,56 @@
 @import 'variables';
 @import 'mixins';
+
+.document {
+  .controls {
+    .page {
+      width: 24px;
+      text-align: right;
+
+      & + .page {
+        width: 24px + 2px;
+        text-align: left;
+      }      
+    }
+  }
+  
+  .results {
+    margin-bottom: 20px;
+    
+    ul {
+      margin-top: 20px;
+    }
+    
+    .page {
+      display: inline-block;
+      min-width: 30px;
+      padding-left: 10px;
+      
+      text-align: right;
+    }
+    
+    a {
+      color: $textColor;
+
+      em {
+        padding: 0px 4px;
+
+        @include border-radius(2px);
+        
+        background: $infoBackground;
+        color: $infoText;
+      }
+      
+      &:hover, &:focus {
+        color: $textColor;
+        text-decoration: underline;
+      } 
+    }
+  }
+  
+  .viewport {
+    margin: 15px 0px 20px 0px;
+    
+    outline: 1px solid $grayLighter;
+  }
+}

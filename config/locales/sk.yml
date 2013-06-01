@@ -95,13 +95,19 @@ sk:
     zero: "žiadne dokumenty"
     one: "1 dokument"
     few: "%{count} dokumenty"
-    other: "%{count} dokumentov"
+    other: "%{count} dokumentov"  
 
-  pages:
+  page:
     zero: "žiadne strany"
     one: "1 strana"
     few: "%{count} strany"
     other: "%{count} strán"
+    
+  result:
+    zero: "žiadne výsledky"
+    one: "1 výsledko"
+    few: "%{count} výsledky"
+    other: "%{count} výsledkov"
 
   facets:
     hearing:
