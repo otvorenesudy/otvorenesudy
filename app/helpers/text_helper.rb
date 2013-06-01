@@ -30,6 +30,6 @@ module TextHelper
   end
   
   def strip_text(value)
-    sanitize(value.gsub(/\A(\s*[^[[:alnum:]]\<])*|(\s*[^[[:alnum:]]\>])*\z/, '&hellip;'), tags: %w(em))
+    sanitize(value.gsub(/\A(\s*[^[[:alnum:]]\<])+|(\s*[^[[:alnum:]]\>])+\z/, '&hellip;'), tags: %w(em))
   end
 end

@@ -89,7 +89,7 @@ module TagHelper
   def link_to_with_count(body, url, count, options = {})
     count = content_tag :span, "&nbsp;(#{number_with_delimiter(count)})".html_safe, class: :muted
 
-    link_to body.concat(count).html_safe, href, options
+    link_to body.concat(count).html_safe, url, options
   end
 
   def tab_link_to_with_count(body, url, count, options = {})
