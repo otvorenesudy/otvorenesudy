@@ -167,12 +167,12 @@
 <section id="hearing-resource">
   <div class="row">
     <div class="span12">
-      <div class="pull-right">
-        <small class="muted">
-          Informácie o súdnom pojednávaní boli získané zo <%= external_link_to 'zdroja', @hearing.uri, class: :muted %>,
-          ktorého posledná aktualizácia bola zistená <%= time_tag @hearing.updated_at.to_date, format: :default %>.
-        </small>
-      </div>
+      <small class="muted">
+        Informácie o súdnom pojednávaní boli získané z <%= external_link_to 'dokumentu', @hearing.uri, class: :muted %>,
+        ktorého posledná aktualizácia bola zistená <%= time_tag @hearing.updated_at.to_date, format: :default %>.<br/>
+        Odkaz na <%= external_link_to 'pôvodný dokument', @hearing.uri, class: :muted %> už nemusí byť platný,
+        pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+      </small>
     </div>
   </div>
 </section>

@@ -89,12 +89,10 @@
 <section id="court-resource">
   <div class="row">
     <div class="span12">
-      <div class="pull-right">
-        <small class="muted">
-          Informácie o súde boli získané zo <%= external_link_to 'zdroja', @court.uri, class: :muted %>,
-          ktorého posledná aktualizácia bola zistená <%= time_tag @court.updated_at.to_date, format: :default %>.
-        </small>
-      </div>
+      <small class="muted">
+        Informácie o súde boli získané z <%= external_link_to 'dokumentu', @court.uri, class: :muted %>,
+        ktorého posledná aktualizácia bola zistená <%= time_tag @court.updated_at.to_date, format: :default %>.
+      </small>
     </div>
   </div>
 </section>

@@ -113,12 +113,10 @@
 <section id="judge-resource">
   <div class="row">
     <div class="span12">
-      <div class="pull-right">
-        <small class="muted">
-          Informácie o sudcovi boli získané zo <%= external_link_to 'zdroja', @judge.uri, class: :muted %>,
-          ktorého posledná aktualizácia bola zistená <%= time_tag @judge.updated_at.to_date, format: :default %>.
-        </small>
-      </div>
+      <small class="muted">
+        Informácie o sudcovi boli získané <%= @judge.listed ? 'zo' : 'z' %> <%= external_link_to @judge.listed ? 'zoznamu' : 'dokumentu', @judge.uri, class: :muted %>,
+        ktorého posledná aktualizácia bola zistená <%= time_tag @judge.updated_at.to_date, format: :default %>.
+      </small>
     </div>
   </div>
 </section>

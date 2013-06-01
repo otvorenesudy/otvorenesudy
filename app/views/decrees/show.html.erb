@@ -75,12 +75,12 @@
 <section id="decree-resource">
   <div class="row">
     <div class="span12">
-      <div class="pull-right">
-        <small class="muted">
-          Informácie o súdnom rozhodnutí boli získané zo <%= external_link_to 'zdroja', @decree.uri, class: :muted %>,
-          ktorého posledná aktualizácia bola zistená <%= time_tag @decree.updated_at.to_date, format: :default %>.
-        </small>
-      </div>
+      <small class="muted">
+        Informácie o súdnom rozhodnutí boli získané z <%= external_link_to 'dokumentu', @decree.uri, class: :muted %>,
+        ktorého posledná aktualizácia bola zistená <%= time_tag @decree.updated_at.to_date, format: :default %>.<br/>
+        Odkaz na <%= external_link_to 'pôvodný dokument', @decree.uri, class: :muted %> už nemusí byť platný,
+        pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+      </small>
     </div>
   </div>
 </section>

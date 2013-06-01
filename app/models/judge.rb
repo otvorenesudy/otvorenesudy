@@ -57,9 +57,11 @@ class Judge < ActiveRecord::Base
     source == Source.of(JusticeGovSk) && !listed?
   end
 
-  def listed?
+  def listed
     uri == JusticeGovSk::Request::JudgeList.url
   end
+
+  alias :listed? :listed
 
   def active
     return true  if employments.active.any?
