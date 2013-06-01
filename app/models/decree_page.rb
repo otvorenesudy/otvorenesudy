@@ -21,7 +21,7 @@ class DecreePage < ActiveRecord::Base
   def self.search_pages(decree_id, text, options = {})
     text         = analyze_query(text)
     search_field = analyzed_field(:text)
-    highlights   = []
+    highlights   = {}
 
     results = search do
       query do
@@ -42,7 +42,8 @@ class DecreePage < ActiveRecord::Base
 
     results.each do |result|
       result.highlight[search_field.to_s].each do |highlight|
-        highlights << { number: result.number, text: highlight }
+        highlights[result.number] ||= []
+        highlights[result.number] << highlight
       end
     end
 

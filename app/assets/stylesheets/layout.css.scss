@@ -33,10 +33,6 @@ div.nav {
   margin: 20px 0px;
 }
 
-.hidden {
-  display: none;
-}
-
 // text
 
 .capital {
@@ -47,6 +43,10 @@ div.nav {
 }
 
 // helpers
+
+.hidden {
+  display: none;
+}
 
 .centered {
   text-align: center;
@@ -87,6 +87,22 @@ table {
 
   address {
     margin: 0px;
+  }
+}
+
+// lists
+
+dl {
+  dt {
+    font-weight: normal;
+  }
+  
+  dd + dt {
+    margin-top: 20px;
+  }
+  
+  dd {
+    margin-top: 10px;
   }
 }
 

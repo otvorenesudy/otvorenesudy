@@ -5,14 +5,14 @@
     <strong><%= number_with_translation(@highlights.count, key: :result) %></strong>.
   </div>
 
-  <ul class="unstyled">
-    <% @highlights.each do |highlight| %>
-      <li>
-        <span class="page"><%= icon_tag :file, label: highlight[:number], join: :append, class: :muted %></span>
-        <%= link_to_decree_page @decree, highlight[:number], strip_text(highlight[:text]), query: params[:q] %>
-      </li>
+  <dl class="unstyled">
+    <% @highlights.each do |number, texts| %>
+      <dt><%= icon_tag :file, label: "Strana #{number}", join: :append, class: :muted %></dt>
+      <% texts.each do |text| %>
+        <dd><%= link_to_decree_page @decree, number, strip_text(text), query: params[:q] %></dd>
+      <% end %>
     <% end %>
-  </ul>
+  </dl>
 <% else %>
   <div class="alert alert-info">
     <%= icon_tag :frown %> Pre hľadaný výraz sa nenašli <strong>žiadne výsledky</strong>.
