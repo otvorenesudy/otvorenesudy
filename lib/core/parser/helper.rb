@@ -17,14 +17,6 @@ module Core
           end
         end
         
-        if options[:normalize]
-          if value.is_a? Array
-            normalize_values(value)
-          else
-            normalize_value(value)
-          end
-        end
-        
         if options[:validate] == :content
           if value.respond_to?(:empty?) && value.empty?
             puts "failed (empty)"
@@ -48,26 +40,10 @@ module Core
         find_value(name, document, pattern, options, &block) || []
       end
 
-      def normalize_value(value)
-        normalize_spaces!(value.respond_to?(:text) ? value.text : value)
-      end
-      
-      def normalize_values(values)
-        values.each { |value| normalize_value(value) }
-      end
-      
       private
-
-      def normalize_spaces(value)
-        normalize_spaces! value.dup
-      end
-
-      def normalize_spaces!(value)
-        value.gsub!(/[[:space:]]/, ' ')
-      end
-      
+        
       def find_defaults
-        { normalize: true, validate: :content, verbose: true }
+        { validate: :content, verbose: true }
       end
     end
   end

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Core
   module Parser
     module HTML
@@ -9,16 +11,20 @@ module Core
           if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
             options[:message] = "already parsed"
 
-            content
+            content = content.to_s
           else
             content = content.encode Encoding::UTF_8, encoding(content)
-
-            Nokogiri::HTML::parse(content)
           end
+
+          Nokogiri::HTML::parse(normalize_spaces content)
         end
       end
 
       private
+
+      def normalize_spaces(value)
+        value.gsub(/[[:space:]]|(\&nbsp\;?)/, ' ')
+      end
 
       def encoding(content, options = {})
         part = ''
