@@ -13,12 +13,12 @@ module TextHelper
     packed = parts.map { |part| part.squeeze(' ').strip }.join separator
     result = truncate packed, length: limit, separator: ' ', omission: ''
     
-    result.gsub!(Regexp.new("\s*#{separator.strip}\s*$"), '')
+    result.gsub!(/\s*#{separator.strip}\s*$/, '')
     
     if packed.length > limit
       if tooltip
         index   = result.rindex(separator) || 0 # TODO improve index matching
-        title   = packed[index..-1].gsub(Regexp.new("^\s*#{separator.strip}\s*"), '')
+        title   = packed[index..-1].gsub(/^\s*#{separator.strip}\s*/, '')
         title   = html_escape @entities.decode(title)
         result += tooltip_tag omission.html_safe, title, { placement: :right }.merge(options)
       else
