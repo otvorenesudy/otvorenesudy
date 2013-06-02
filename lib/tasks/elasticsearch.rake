@@ -1,9 +1,14 @@
 namespace :es do
-  INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Document::Configuration.indices
 
   # TODO: find out why index increses by multiple update
 
+  task prepare: :environment do
+    INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Document::Configuration.indices
+  end
+
   task update: :environment do
+    Rake::Task['es:prepare'].invoke
+
     INDICES.each do |index|
       puts "* Importing index: #{index}"
 
@@ -16,6 +21,8 @@ namespace :es do
   end
 
   task drop: :environment do
+    Rake::Task['es:prepare'].invoke
+
     ENV['INDICES'] = INDICES.join(',')
 
     Rake::Task['tire:index:drop'].invoke
