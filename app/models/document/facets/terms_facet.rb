@@ -1,7 +1,7 @@
 module Document::Facets
   class TermsFacet < Document::Facets::Facet
-    def build(facet, field)
-      facet.terms field, size: @size
+    def build(facet)
+      facet.terms not_analyzed_field(@field), size: @size
     end
 
     def build_filter

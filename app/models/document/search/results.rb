@@ -17,35 +17,56 @@ module Document
 
         results.symbolize_keys!
 
-        facet_results = results.select { |field, _| !selected_field?(field) }
+        facet_results = results.select { |field, _| !selected_facet_name?(field) }
 
-        facet_results.each do |field, values|
-          facet  = defined_facets[field]
+        facet_results.each do |name, values|
+          facet = defined_facets[name]
 
-          facet.selected = results[selected_field(field)]
+          facet.selected = results[selected_facet_name(name)]
 
           facet.populate(values)
 
-          facets[field] = facet.values
+          facets[name] = facet.values
         end
 
         facets
       end
 
-      def format_result(facets, highlights, result)
-        data = Hash.new
+      def format_highlights(facets, results)
+        highlights = []
+
+        facets = facets.select { |_, f| f.highlighted? }
+
+        results.each do |result|
+          highlight = Hash.new
+
+          facets.each do |_, facet|
+            field = facet.field
+
+            if field.respond_to? :each
+              field.each do |f|
+                analyzed_field = analyzed_field(f)
+
+                highlight[f] = result.highlight[analyzed_field] if result.highlight
+              end
+            else
+
+              highlight[field] = result.highlight[analyzed_field] if result.highlight
+            end
+          end
+
+          highlights << highlight
+        end
+
+        highlights
+      end
+
+      def format_result(facets, result)
+        data               = Hash.new
 
         data[:results]    = fetch_records(result.results)
         data[:facets]     = format_facets(facets, result.facets)
-        data[:highlights] = result.results.map do |res|
-          hl = Hash.new
-
-          highlights.each do |field|
-            hl[field] = res.highlight[analyzed_field(field)] if res.highlight
-          end
-
-          hl
-        end
+        data[:highlights] = format_highlights(facets, result.results)
 
         return data, result
       end

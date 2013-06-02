@@ -10,8 +10,8 @@ module Document::Facets
       @interval = options[:interval]
     end
 
-    def build(facet, field)
-      facet.date field, interval: @interval
+    def build(facet)
+      facet.date not_analyzed_field(@field), interval: @interval
     end
 
     private
@@ -27,9 +27,6 @@ module Document::Facets
     end
 
     def format_value(value)
-      # TODO: more interval options
-      # TODO: resolve multiple time format (es=Date, others=Timestamp)
-
       date = @converter.from_elastic(value)
 
       case @interval

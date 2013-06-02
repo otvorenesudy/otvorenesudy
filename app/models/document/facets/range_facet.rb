@@ -8,8 +8,8 @@ module Document::Facets
       @alias     = method(:alias_range)
     end
 
-    def build(facet, field)
-      facet.range field, build_ranges
+    def build(facet)
+      facet.range not_analyzed_field(@field), build_ranges
     end
 
     def build_ranges
