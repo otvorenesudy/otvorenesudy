@@ -35,8 +35,11 @@ module TextHelper
     left  = options[:left]  == false ? '' : options[:left]  || left
     right = options[:right] == false ? '' : options[:right] || right
 
-    value = value.gsub(/\A([^[[:alnum:]]\<])+/, '') if left
-    value = value.gsub(/([^[[:alnum:]]\>])+\z/, '') if right
+    value = value.dup
+    
+    value.gsub!(/\A([^[:alnum:]\<])+/, '') if left
+    value.gsub!(/([^[:alnum:]\>])+\z/, '') if right
+    value.gsub!(/\s*[^[:alnum:]]*\s*(\.\s*\.+\s*)+\s*/, '&hellip; ')
     
     "#{left}#{sanitize value, tags: %w(em) }#{right}".html_safe 
   end
