@@ -13,12 +13,16 @@ module Document
         "#{field}.untouched".to_sym
       end
 
-      def selected_field(field)
-        "#{field}_selected".to_sym
+      def selected_facet_name(name)
+        "#{name}_selected".to_sym
       end
 
-      def selected_field?(field)
-        field.to_s =~ /_selected/
+      def selected_facet_name?(name)
+        name.to_s =~ /_selected/
+      end
+
+      def suggested_facet_name(name)
+        "#{name}_suggest"
       end
 
       def has_field?(field)

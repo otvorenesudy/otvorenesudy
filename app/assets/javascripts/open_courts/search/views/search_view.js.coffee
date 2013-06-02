@@ -15,8 +15,8 @@ $(document).ready ->
 
       events:
         'click a[href="#"]'                   : 'onClickButton'
-        'click #fulltext button'              : 'onSubmitFulltext'
-        'change #fulltext input'              : 'onSubmitFulltext'
+        'click [data-id="q"] button'          : 'onSubmitQuery'
+        'change [data-id="q"] input'          : 'onSubmitQuery'
         'click #search-panel ul li a'         : 'onSelectListItem'
         'click #search-panel ul li .add'      : 'onAddListItem'
         'click #search-panel ul li .remove'   : 'onRemoveListItem'
@@ -43,6 +43,14 @@ $(document).ready ->
         @model.bind 'change', (obj) =>
           @.onModelChange(obj)
 
+        @facetInputs        = $('.facet input')
+        @queryInput         = $('[data-id="q"] input')
+        @queryButton        = $('[data-id="q"] button')
+        @historicalCheckbox = $('[data-id="historical"]')
+        @sortSelectbox      = $('#sort')
+        @orderRadiobox      = $('#order')
+        @orderButton        = $('#order button')
+
         @.setupListSuggest()
 
         @.log 'Initialization done.'
@@ -54,8 +62,8 @@ $(document).ready ->
 
         @.onSearch reload: true, =>
 
-          @.updateFulltext(@model.getFulltext()) if @model.getFulltext?
           @.updateHistorical() if @model.getHistorical?
+          @.updateQuery(@model.getQuery()) if @model.getQuery?
           @.updateSort(@model.getSort())
           @.updateOrder(@model.getOrder())
 
@@ -63,18 +71,18 @@ $(document).ready ->
             @.updateList(entity)
             @.listCollapse(entity, visible: 10)
 
-      updateFulltext: (value) ->
-        $('#fulltext input').val(value)
+      updateQuery: (value) ->
+        @queryInput.val(value)
 
       updateHistorical: (value) ->
-        $('#historical').prop('checked', @model.getHistorical())
+        @historicalCheckbox.prop('checked', @model.getHistorical())
 
       updateSort: (value) ->
-        $('#sort').val(value)
+        @sortSelectbox.val(value)
 
       updateOrder: (value) ->
-        $('#order button').removeClass('active')
-        $("#order").find("button[data-order='#{value}']").addClass('active')
+        @orderButton.removeClass('active')
+        @orderRadiobox.find("button[data-order='#{value}']").addClass('active')
 
       updateList: (name) ->
         @.log "Updating list: #{name}"
@@ -120,12 +128,12 @@ $(document).ready ->
       onClickButton: (event) ->
         event.preventDefault()
 
-      onSubmitFulltext: ->
-        value = $('#fulltext input').val()
+      onSubmitQuery: ->
+        value = @queryInput.val()
 
         @model.setPage 1, silent: true
 
-        @model.setFulltext(value)
+        @model.setQuery(value)
 
       onChangePage: (event) ->
         event.preventDefault()
@@ -189,7 +197,7 @@ $(document).ready ->
         @model.setOrder(value)
 
       setupListSuggest: ->
-        $('.facet input').each (i, el) =>
+        @facetInputs.each (i, el) =>
           @.suggestList el, $(el).attr('data-id'), query: => @model.query()
 
       onSearch: (options, callback) ->

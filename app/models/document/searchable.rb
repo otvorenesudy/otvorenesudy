@@ -20,10 +20,8 @@ module Document
       def compose_search(params)
         page         = params[:page]         || 1
         per_page     = params[:per_page]     || 20
-        query        = params[:query]        || Hash.new
         terms        = params[:filter]       || Hash.new
         facets       = params[:facets]       || @facets
-        fulltext     = params[:fulltext]     || @fulltext
         options      = params[:options]      || {}
         sort         = params[:sort]
         order        = params[:order]
@@ -32,23 +30,20 @@ module Document
 
         prepare(terms, facets)
 
-        query[fulltext] = params[:q] if params[:q]
-
         results = tire.search page: page, per_page: per_page do |index|
           if block_given?
-            yield index, query, facets, fulltext, sort, order, options
+            yield index, facets, sort, order, options
           else
-            search_query(index, query, options)
-            search_filter(index, query, facets, options)
-            search_facets(index, query, facets, options)
+            search_query(index, facets, options)
+            search_filter(index, facets, options)
+            search_facets(index, facets, options)
             search_sort(index, sort, order, options)
-            search_highlights(index, query, fulltext, options)
           end
 
-          puts JSON.pretty_generate(index.to_hash) # TODO: debug
+          puts JSON.pretty_generate(index.to_hash) # TODO: debug, rm
         end
 
-        return facets, fulltext, results
+        return facets, results
       end
 
       def prepare(terms, facets)
@@ -61,63 +56,53 @@ module Document
         end
       end
 
-      # TODO: figure out how to send hash insted of dsl to elastic from tire for search query
-      def search_query(index, query, options)
-        if query.any?
+      def search_query(index, facets, options)
+        if facets.any?
+          queries = []
 
-          index.query do |q|
-            q.boolean do |bool|
-              query.each do |field, values|
-                fields = analyzed_field(field)
+          facets.each do |_, facet|
+            if facet.respond_to?(:build_query) && facet.terms.present?
+              queries << facet.build_query
+            end
+          end
 
-                values = analyze_query(values)
-
-                bool.must {
-                  string values,
-                  fields: fields.is_a?(Array) ? fields : [fields],
-                  default_operator: :or,
-                  analyze_wildcard: true
-                }
+          if queries.any?
+            index.query do |query|
+              query.boolean do |boolean|
+                queries.each { |q| boolean.must(&q) }
               end
             end
           end
         end
       end
 
-      def search_filter(index, query, facets, options)
-        if query.any? || facets.any?
-          filters = []
+      def search_filter(index, facets, options)
+        type, filters = build_search_filter(facets)
 
-          filters.concat build_search_query(query) if query.any?
-          filters.concat build_filter(:or, facets) if facets.any?
-
-          index.filter :and, filters if filters.any?
-        end
+        index.filter type, filters if type && filters.any?
       end
 
-      def search_facets(index, query, facets, options)
+      def search_facets(index, facets, options)
         if facets.any?
-
           facets.each do |name, facet|
+            next if facet.abstract?
+
             facet_options = Hash.new
 
-            # global facets
             facet_options[:global]       = options[:global_facets]
-            facet_options[:facet_filter] = facet_filter(query.except(name), facets.except(name))
+            facet_options[:facet_filter] = build_facet_filter(facets.except(name))
             facet_options[:size]         = facet.size
 
             build_facet(index, name, facet.field, facet, facet_options)
 
-            # facets for selected values
-            if query[name] || facets[name].terms.any?
+            if facet.terms.any?
               facet_options[:global]       = false
-              facet_options[:facet_filter] = facet_filter(query, facets)
-              facet_options[:size]         = facet.size
+              facet_options[:facet_filter] = build_facet_filter(facets)
+              facet_options[:size]         = facet.terms.size
 
-              build_facet(index, selected_field(name), facet.field, facet, facet_options)
+              build_facet(index, selected_facet_name(name), facet.field, facet, facet_options)
             end
           end
-
         end
       end
 
@@ -133,6 +118,20 @@ module Document
         options = highlights.map { |e| analyzed_field(e) }
 
         index.highlight(*options)
+      end
+
+      private
+
+      def build_search_filter(facets)
+        filter = build_filter_from(:or, facets)
+
+        return :and, filter if filter.any?
+      end
+
+      def build_facet_filter(facets)
+        type, filters = build_search_filter(facets)
+
+        { type => filters } if type && filters
       end
     end
   end

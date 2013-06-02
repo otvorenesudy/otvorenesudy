@@ -12,9 +12,11 @@ module Document::Facets
                   :values,
                   :selected
 
-    attr_accessor :visible,
+    attr_accessor :highlight,
+                  :visible,
                   :collapsible,
-                  :collapsed
+                  :collapsed,
+                  :abstract
 
     def initialize(name, field, options)
       @base        = options[:base]
@@ -25,9 +27,11 @@ module Document::Facets
       @size        = options[:size] || 10
       @selected    = Array.new
 
+      @highlight   = options[:highlight].nil? ? false : true
       @visible     = options[:visible].nil? ? true : options[:visible]
       @collapsible = options[:collapsible].nil? ? true : options[:collapsible]
       @collapsed   = options[:collapsed].nil? ? false : options[:collapsed]
+      @abstract    = options[:abstract].nil? ? false : options[:abstract]
     end
 
     def id
@@ -83,9 +87,11 @@ module Document::Facets
       values
     end
 
-    alias :visible?     :visible
-    alias :collapsible? :collapsible
-    alias :collapsed?   :collapsed
+    alias :highlighted?   :highlight
+    alias :visible?       :visible
+    alias :collapsible?   :collapsible
+    alias :collapsed?     :collapsed
+    alias :abstract?      :abstract
 
     private
 
