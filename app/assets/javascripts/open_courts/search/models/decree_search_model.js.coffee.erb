@@ -9,10 +9,10 @@ class OpenCourts.DecreeSearchModel extends OpenCourts.SearchModel
     <%= "#{name}: []" %>
     <% end %>
 
-  getFulltext: (value) ->
+  getQuery: (value) ->
     @.getValue('q')
 
-  setFulltext: (value) ->
+  setQuery: (value) ->
     @.setValue('q', value)
 
 _.extend(OpenCourts.DecreeSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)
