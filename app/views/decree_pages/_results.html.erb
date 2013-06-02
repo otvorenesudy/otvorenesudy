@@ -9,7 +9,7 @@
     <% @highlights.each do |number, texts| %>
       <dt><%= icon_tag :file, label: "Strana #{number}", join: :append, class: :muted %></dt>
       <% texts.each do |text| %>
-        <dd><%= link_to_decree_page @decree, number, strip_text(text), query: params[:q] %></dd>
+        <dd><%= link_to_decree_page @decree, number, strip_and_highlight(text), query: params[:q] %></dd>
       <% end %>
     <% end %>
   </dl>

@@ -17,8 +17,15 @@
   .results {
     margin-bottom: 20px;
     
-    ul {
+    dl {
       margin-top: 20px;
+      padding-bottom: 20px;
+      
+      border-bottom: 1px solid $grayLighter;
+      
+      dt {
+        border-bottom: 1px solid $grayLighter;
+      }
     }
     
     .page {

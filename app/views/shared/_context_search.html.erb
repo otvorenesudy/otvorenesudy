@@ -5,8 +5,8 @@
 <% if @results %>
   <dl>
     <% @results.each do |result| %>
-      <dt><%= external_link_to strip_text(result[:title]), result[:url] %></dt>
-      <dd><%= strip_text result[:description] %></dd>
+      <dt><%= external_link_to strip_and_highlight(result[:title], omission: false), result[:url] %></dt>
+      <dd><%= strip_and_highlight result[:description], left: false %></dd>
     <% end %>
   </dl>
 

@@ -44,9 +44,9 @@
 
       <!-- TODO do something with this ugly IF - simplify it, simplify @highilights access / structure -->
       <% if @highlights && @highlights[i] && @highlights[i][:text] %>
-        <% @highlights[i][:text].each do |highlight|  %>
+        <% @highlights[i][:text].each do |text|  %>
           <blockquote>
-            <%= strip_text highlight %>
+            <%= strip_and_highlight text %>
           </blockquote>
         <% end %>
       <% end %>
