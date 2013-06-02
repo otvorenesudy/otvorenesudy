@@ -274,14 +274,26 @@ module JusticeGovSk
       end
 
       def normalize_punctuation(value)
-        value.gsub!(/\s*[\.\,\;]/) { |s| "#{s[-1]} " }
-        value.gsub!(/[\.\,\;]\s+[\.\,\;]/) { |s| "#{s[0]}#{s[-1]}" }
+        value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
+        value.gsub!(/\s*(?<c>[\.\,\;\:])+\s*/, '\k<c> ')
+        
+        value.gsub!(/(\-\s*){3,}/, '--')
+        value.gsub!(/\s*\-\-\s*/, ' – ')
+        value.gsub!(/\s*\-\s*/, '-')
+
+        value.gsub!(/\s*§+\s*/, ' § ')
+        
+        value.gsub!(/\s*\/+\s*/, ' / ')
+        value.gsub!(/(\s*\/+\s*\d)|(\d\s*\/+\s*)/) { |s| s.gsub(/\s*\/+\s*/, '/') }
+
+        value.gsub!(/\s*(?<c>[\(\[\{])\s*/, ' \k<c>')
+        value.gsub!(/\s*(?<c>[\)\]\}])\s*/, '\k<c> ')
+        value.gsub!(/([\(\[\{]\s*)+/) { |s| s.gsub(/\s/, '') }
+        value.gsub!(/(\s*[\)\]\}])+/) { |s| s.gsub(/\s/, '') }
 
         value.gsub!(/(s\s*\.\s*r\s*\.\s*o|k\s*\.\s*s|a\s*\.\s*s|o\s*\.\s*z|n\s*\.\s*o)\s*\.?/i) do |s|
           "#{s.gsub(/\s/, '').downcase}#{s[-1] == '.' ? '' : '.'}"
         end
-
-        value.gsub!(/-/, ' - ')
 
         value.strip.squeeze(' ')
       end
