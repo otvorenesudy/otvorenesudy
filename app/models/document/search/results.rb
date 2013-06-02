@@ -49,8 +49,8 @@ module Document
               field.each do |f|
                 analyzed_field = analyzed_field(f)
 
-                highlight[f] = []
-                highlight[f] = result.highlight[analyzed_field] if result.highlight
+                highlight[f]   = result.highlight[analyzed_field] if result.highlight
+                highlight[f] ||= []
               end
             end
           end
