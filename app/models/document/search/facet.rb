@@ -8,6 +8,7 @@ module Document
       end
 
       def facet_filter(query, facets)
+        # TODO: parametrize type
         if query.any? || facets.any?
           if block_given?
             filters = yield(query, facets)
