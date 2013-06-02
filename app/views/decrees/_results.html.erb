@@ -1,5 +1,7 @@
 <ol class="unstyled">
   <% decrees.each_with_index do |decree, i| %>
+    <% highlight = @highlights[i] %>
+
     <li>
       <h4>
         <%= link_to_decree decree, "Rozhodnutie #{decree.file_number}", params: { q: @query ? @query[:q] : nil } %>
@@ -42,9 +44,8 @@
         </div>
       </div>
 
-      <!-- TODO do something with this ugly IF - simplify it, simplify @highilights access / structure -->
-      <% if @highlights && @highlights[i] && @highlights[i][:text] %>
-        <% @highlights[i][:text].each do |text|  %>
+      <% if highlight && highlight[:text] %>
+        <% highlight[:text].each do |text|  %>
           <blockquote>
             <%= strip_and_highlight text %>
           </blockquote>
