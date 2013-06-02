@@ -1,10 +1,20 @@
-index:
-  number_of_shards: 1
-  number_of_replicas: 1
-  analysis:
-    analyzer:
-      text_analyzer:
-        type: custom
-        tokenizer: letter
-        filter: [lowercase, asciifolding]
+defaults: &defaults
+  indices: [hearings, decrees, judges, decree_pages]
+  index:
+    number_of_shards: 1
+    number_of_replicas: 1
+    analysis:
+      analyzer:
+        text_analyzer:
+          type: custom
+          tokenizer: letter
+          filter: [lowercase, asciifolding]
 
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

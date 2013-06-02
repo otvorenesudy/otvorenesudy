@@ -3,7 +3,6 @@ module Document
     extend ActiveSupport::Concern
 
     included do
-      include Document::Serializable
       include Tire::Model::Search
       include Tire::Model::Callbacks
 
@@ -14,11 +13,11 @@ module Document
       include Document::Index::Helpers
 
       def config
-        YAML.load_file(File.join(Rails.root, 'config', 'elasticsearch.yml')).symbolize_keys
+        Document::Configuration
       end
 
       def configure(params = {})
-        settings = config[:index]
+        settings = config.index
 
         settings.deep_merge!(params)
 
