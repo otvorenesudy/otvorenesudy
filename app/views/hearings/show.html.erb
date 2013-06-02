@@ -73,6 +73,16 @@
       </div>      
     </div>
   </div>
+  
+  <div class="row">
+    <div class="span12">
+      <p>
+        Odkazy &ndash;
+        <%= external_link_to 'pôvodný dokument', @hearing.uri %> (odkaz už nemusí byť platný),        
+        <%= link_to_hearing_resource @hearing, icon_tag(:file, label: 'spracovaný dokument', join: :append) %> (z dňa <%= time_tag @hearing.updated_at.to_date, format: :default %>).
+      </p>
+    </div>
+  </div>
 </section>
 
 <%-# Civil hearings only -%>
@@ -169,7 +179,7 @@
     <div class="span12">
       <small class="muted">
         Informácie o súdnom pojednávaní boli získané z <%= external_link_to 'dokumentu', @hearing.uri, class: :muted %>,
-        ktorého posledná aktualizácia bola zistená <%= time_tag @hearing.updated_at.to_date, format: :default %>.<br/>
+        ktorého posledná aktualizácia bola vykonaná <%= time_tag @hearing.updated_at.to_date, format: :default %>.<br/>
         Odkaz na <%= external_link_to 'pôvodný dokument', @hearing.uri, class: :muted %> už nemusí byť platný,
         pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
       </small>

@@ -1,4 +1,6 @@
 class HearingsController < ApplicationController
+  include FileHelper
+  
   def show
     @hearing = Hearing.find(params[:id])
     
@@ -9,5 +11,11 @@ class HearingsController < ApplicationController
     @proposers  = @hearing.proposers.order(:name)
     @opponents  = @hearing.opponents.order(:name)
     @defendants = @hearing.defendants.order(:name)
+  end
+  
+  def resource
+    @hearing = Hearing.find(params[:id])
+    
+    send_file_in @hearing.resource_path
   end
 end

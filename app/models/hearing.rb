@@ -73,7 +73,7 @@ class Hearing < ActiveRecord::Base
     facet :historical, field: :date, type: :date, interval: :month, visible: false
   end
 
-  storage :page, JusticeGovSk::Storage::HearingPage do |hearing|
+  storage :resource, JusticeGovSk::Storage::HearingPage do |hearing|
     File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
   end
 end

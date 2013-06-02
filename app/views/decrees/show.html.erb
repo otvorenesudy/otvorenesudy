@@ -61,12 +61,24 @@
       </div>
     </div>
   </div>
+  
+  <div class="row">
+    <div class="span12">
+      <p>
+        Odkazy &ndash;
+        <%= external_link_to 'pôvodný dokument', @decree.uri %> (odkaz už nemusí byť platný),        
+        <%= link_to_decree_resource @decree, icon_tag(:file, label: 'spracovaný dokument', join: :append) %> (z dňa <%= time_tag @decree.updated_at.to_date, format: :default %>).
+      </p>
+      <p>
+        Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:download, label: 'PDF dokument', join: :append) %>
+      </p>
+    </div>
+  </div>
 </section>
 
 <section id="decree-document">
   <div class="row">
     <div class="span12">
-      <!-- TODO change class? -->
       <div class="document"></div>
     </div>
   </div>
@@ -77,7 +89,7 @@
     <div class="span12">
       <small class="muted">
         Informácie o súdnom rozhodnutí boli získané z <%= external_link_to 'dokumentu', @decree.uri, class: :muted %>,
-        ktorého posledná aktualizácia bola zistená <%= time_tag @decree.updated_at.to_date, format: :default %>.<br/>
+        ktorého posledná aktualizácia bola vykonaná <%= time_tag @decree.updated_at.to_date, format: :default %>.<br/>
         Odkaz na <%= external_link_to 'pôvodný dokument', @decree.uri, class: :muted %> už nemusí byť platný,
         pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
       </small>

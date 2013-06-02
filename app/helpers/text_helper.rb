@@ -2,7 +2,7 @@ module TextHelper
   def join_and_truncate(text, options = {})
     @entities ||= HTMLEntities.new
     
-    limit     = options.delete(:limit)     || 55
+    limit     = options.delete(:limit)     || 48
     separator = options.delete(:separator) || ', '
     omission  = options.delete(:omission)  || '&hellip;'
     tooltip   = options.delete(:tooltip)

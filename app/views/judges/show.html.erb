@@ -115,7 +115,7 @@
     <div class="span12">
       <small class="muted">
         Informácie o sudcovi boli získané <%= @judge.listed ? 'zo' : 'z' %> <%= external_link_to @judge.listed ? 'zoznamu' : 'dokumentu', @judge.uri, class: :muted %>,
-        ktorého posledná aktualizácia bola zistená <%= time_tag @judge.updated_at.to_date, format: :default %>.
+        ktorého posledná aktualizácia bola vykonaná <%= time_tag @judge.updated_at.to_date, format: :default %>.
       </small>
     </div>
   </div>

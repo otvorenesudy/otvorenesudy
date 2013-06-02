@@ -81,5 +81,5 @@ class Court < ActiveRecord::Base
     "#{query} site:(#{sites.join(' or ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
   end
 
-  storage :page, JusticeGovSk::Storage::CourtPage, extension: :html
+  storage :resource, JusticeGovSk::Storage::CourtPage, extension: :html
 end

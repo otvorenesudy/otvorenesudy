@@ -78,7 +78,7 @@ class Decree < ActiveRecord::Base
     date > created_at.to_date
   end
 
-  storage :page,     JusticeGovSk::Storage::DecreePage,     extension: :html
+  storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html
   storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
   storage :image,    JusticeGovSk::Storage::DecreeImage,    extension: :pdf
 end
