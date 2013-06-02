@@ -63,10 +63,11 @@ module Document::Facets
         if @alias
           data[:alias] = @alias.call data[:value]
         else
-          data[:alias] = data[:value]
+          data[:alias] = localize(data[:value])
         end
 
-        data[:value] = data[:value].to_s
+        data[:value]   = data[:value].to_s
+        data[:alias] ||= data[:value]
 
         data.slice(:value, :count, :alias)
       end
@@ -87,6 +88,14 @@ module Document::Facets
     alias :collapsed?   :collapsed
 
     private
+
+    def localize(value)
+      translation = I18n.t "#{key}.#{value}", default: "_missing"
+
+      return if translation == "_missing"
+
+      translation
+    end
 
     def format_value(value)
       value

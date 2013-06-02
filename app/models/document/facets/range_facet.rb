@@ -28,7 +28,7 @@ module Document::Facets
 
     def build_filter
       terms.map do |value|
-        { range: { not_analyzed_field(@field) => { gt: value.min, lte: value.max } } }
+        { range: { not_analyzed_field(@field) => { gte: value.min, lt: value.max } } }
       end
     end
 
@@ -66,14 +66,14 @@ module Document::Facets
       case
       when range.begin == -Float::INFINITY
         entry          = :less
-        params[:count] = range.end
+        params[:count] = range.end.to_i
       when range.end == Float::INFINITY
         entry          = :more
-        params[:count] = range.begin
+        params[:count] = range.begin.to_i
       else
         entry          = :between
-        params[:lower] = range.begin
-        params[:upper] = range.end
+        params[:lower] = range.begin.to_i
+        params[:upper] = range.end.to_i
       end
 
       path = "#{key}.#{entry}"

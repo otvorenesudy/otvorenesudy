@@ -116,6 +116,30 @@ sk:
         more:    'viac ako %{count}'
         between: '%{lower} až %{upper}'
 
+    judge:
+      name:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'
+
+      activity:
+        title: 'Aktivita'
+
+        active: 'Aktívny'
+        inactive: 'Neaktívny'
+
+      positions:
+        title: 'Pozícia sudcu'
+
+      courts:
+        title: 'Súd'
+        placeholder: 'Názov súdu'
+
+      hearings_count:
+        title: 'Počet pojednávaní'
+
+      decrees_count:
+        title: 'Počet rozhodnutí'
+
     hearing:
       type:
         title: 'Typ pojednávania'

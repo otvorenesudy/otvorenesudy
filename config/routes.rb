@@ -13,7 +13,9 @@ OpenCourts::Application.routes.draw do
      get :map, on: :collection
   end
 
-  resources :judges
+  resources :judges do
+    get :search, on: :collection
+  end
 
   resources :hearings do
     get :search, on: :collection

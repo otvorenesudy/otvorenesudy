@@ -1,0 +1,12 @@
+#= require ./search_model
+
+class OpenCourts.JudgeSearchModel extends OpenCourts.SearchModel
+  _type:  'judge'
+
+  defaults:
+    sort: ["_score"]
+    <% Judge.facets.each do |name, facet| %>
+    <%= "#{name}: []" %>
+    <% end %>
+
+_.extend(OpenCourts.JudgeSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)

@@ -54,7 +54,7 @@ class SearchController < ApplicationController
                 :format_facets
 
   def parse_search_query
-    models = [:hearing, :decree]
+    models = Document::Configuration.models
 
     query          = Hash.new
     query[:filter] = Hash.new

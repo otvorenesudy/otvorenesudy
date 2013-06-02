@@ -1,5 +1,5 @@
 namespace :es do
-  INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : ['hearings', 'decrees', 'decree_pages']
+  INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Document::Configuration.indices
 
   # TODO: find out why index increses by multiple update
 
