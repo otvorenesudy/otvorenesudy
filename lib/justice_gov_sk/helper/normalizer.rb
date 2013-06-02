@@ -274,14 +274,23 @@ module JusticeGovSk
       end
 
       def normalize_punctuation(value)
+        value.gsub!(/\,\-/, '')
+        value.gsub!(/\d*(\.|\,)*\d+/) { |n| n.gsub(/\./, ' ') }
+
         value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
-        value.gsub!(/\s*(?<c>[\.\,\;\:])+\s*/, '\k<c> ')
+        value.gsub!(/\s*(?<c>[\.\,\;\:\?\!])+\s*/, '\k<c> ')
+        
+        value.gsub!(/\d\s*\,\s*\d/)  { |n| n.gsub(/\s/, '') }
         
         value.gsub!(/(\-\s*){3,}/, '--')
         value.gsub!(/\s*\-\-\s*/, ' – ')
         value.gsub!(/\s*\-\s*/, '-')
 
         value.gsub!(/\s*§+\s*/, ' § ')
+        
+        value.gsub!(/\s*(€|eur)+\s*/i, ' € ')
+        value.gsub!(/\s*(sk)+\s*/i, ' Sk ')
+        value.gsub!(/\s*(k[Čč])+\s*/i, ' Kč ')
         
         value.gsub!(/\s*\/+\s*/, ' / ')
         value.gsub!(/(\s*\/+\s*\d)|(\d\s*\/+\s*)/) { |s| s.gsub(/\s*\/+\s*/, '/') }

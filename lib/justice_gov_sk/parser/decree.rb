@@ -73,7 +73,7 @@ module JusticeGovSk
         unless parts[1].nil?
           map[:year]   = parts[1].match(/\d+/) { |m| m[0] }
           map[:name]   = parts[1].sub(/\A\d+\s+/, '')
-          map[:value] += "#{map[:year] || '?'}" unless map[:year].blank?
+          map[:value] += "#{map[:year] || '?'}"
           map[:value] += " #{map[:name]}" unless map[:name].blank?
         end
 

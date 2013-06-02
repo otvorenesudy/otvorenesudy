@@ -89,7 +89,7 @@ module JusticeGovSk
       
       def office_note(type, document)
         find_value_by_group_and_index office_type_to_name(type) + ' note', document, type.value, 2 do |div|
-          div.text.strip.squeeze(' ')
+          normalize_punctuation(div.text)
         end         
       end
       
