@@ -20,6 +20,18 @@
   </div>
 </section>
 
+<section id="proceeding-timeline">
+  <div class="row">
+    <div class="span12">
+      <div class="pull-right">
+        <% @events.each do |event| %>
+          <%= render event.class.name.downcase, event.class.name.downcase => event %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="proceeding-resource">
   <div class="row">
     <div class="span12">

@@ -2,10 +2,12 @@ module JusticeGovSk
   module Helper
     module ProceedingSupplier
       def supply_proceeding_for(instance)
-        build_proceeding_by(instance.file_number) do |proceeding|
-          persistor.persist(proceeding)
-          
-          instance.proceeding = proceeding
+        if instance.file_number
+          build_proceeding_by(instance.file_number) do |proceeding|
+            persistor.persist(proceeding)
+            
+            instance.proceeding = proceeding
+          end
         end
       end
 

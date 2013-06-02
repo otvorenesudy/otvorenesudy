@@ -29,7 +29,18 @@ module TextHelper
     result.html_safe
   end
   
-  def strip_text(value)
-    sanitize(value.gsub(/\A(\s*[^[[:alnum:]]\<])+|(\s*[^[[:alnum:]]\>])+\z/, '&hellip;'), tags: %w(em))
+  def strip_and_highlight(value, options = {})
+    left = right = options[:omission] == false ? '' : options[:omission] || '&hellip;'
+    
+    left  = options[:left]  == false ? '' : options[:left]  || left
+    right = options[:right] == false ? '' : options[:right] || right
+
+    value = value.dup
+    
+    value.gsub!(/\A([^[:alnum:]\<])+/, '') if left
+    value.gsub!(/([^[:alnum:]\>])+\z/, '') if right
+    value.gsub!(/\s*[^[:alnum:]]*\s*(\.\s*\.+\s*)+\s*/, '&hellip; ')
+    
+    "#{left}#{sanitize value, tags: %w(em) }#{right}".html_safe 
   end
 end
