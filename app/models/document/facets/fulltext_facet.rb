@@ -2,6 +2,8 @@ module Document::Facets
   class FulltextFacet < Document::Facets::Facet
     include Document::Search::Query
 
+    attr_accessor :query_options
+
     def initialize(name, field, options)
       super name, field, options.merge!(abstract: true)
     end

@@ -61,6 +61,7 @@ class Decree < ActiveRecord::Base
   end
 
   facets do
+    facet :q,                   field: :text, type: :fulltext, highlight: true, visible: false
     facet :form,                type: :terms
     facet :legislation_area,    type: :terms, size: LegislationArea.count
     facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
@@ -68,7 +69,6 @@ class Decree < ActiveRecord::Base
     facet :court,               type: :terms
     facet :natures,             type: :terms, size: DecreeNature.count
     facet :date,                type: :date,  interval: :month
-    facet :q,                   field: :text, type: :fulltext, highlight: true, visible: false
   end
 
   def has_future_date?

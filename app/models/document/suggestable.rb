@@ -12,7 +12,8 @@ module Document
 
         suggest_facet = Document::Facets::FulltextFacet.new(suggested_facet_name(name), facet.field, {})
 
-        suggest_facet.terms = suggest_facet.parse(term)
+        suggest_facet.terms         = suggest_facet.parse(term)
+        suggest_facet.query_options = { operator: :and, analyze_wildcard: true }
 
         options[:global_facets] = true
         options[:per_page]      = 0
@@ -22,10 +23,10 @@ module Document
         defined_facets, result = compose_search(options) do |index, facets|
           facets = facets.merge(suggest_facet.name => suggest_facet)
 
-          facet_options = Hash.new
-
-          facet_options[:global]       = true
-          facet_options[:facet_filter] = build_facet_filter(facets)
+          facet_options = {
+            global:       true,
+            facet_filter: build_facet_filter(facets)
+          }
 
           build_facet(index, name, name, facet, facet_options)
         end

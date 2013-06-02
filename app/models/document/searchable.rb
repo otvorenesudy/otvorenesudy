@@ -38,6 +38,7 @@ module Document
             search_filter(index, facets, options)
             search_facets(index, facets, options)
             search_sort(index, sort, order, options)
+            search_highlights(index, facets, options)
           end
 
           puts JSON.pretty_generate(index.to_hash) # TODO: debug, rm
@@ -114,8 +115,8 @@ module Document
         end
       end
 
-      def search_highlights(index, query, highlights, options)
-        options = highlights.map { |e| analyzed_field(e) }
+      def search_highlights(index, facets, options)
+        options = facets.find_all { |_, f| f.highlighted? }.map { |_,f| analyzed_field(f.field) }.flatten
 
         index.highlight(*options)
       end
