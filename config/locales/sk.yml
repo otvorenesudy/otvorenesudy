@@ -102,7 +102,7 @@ sk:
     one: "1 strana"
     few: "%{count} strany"
     other: "%{count} strán"
-    
+
   result:
     zero: "žiadne výsledky"
     one: "1 výsledko"
@@ -110,10 +110,16 @@ sk:
     other: "%{count} výsledkov"
 
   facets:
+    types:
+      range:
+        less:    'menej ako %{count}'
+        more:    'viac ako %{count}'
+        between: '%{lower} až %{upper}'
+
     hearing:
       type:
         title: 'Typ pojednávania'
-  
+
       court:
         title: 'Súd'
         placeholder: 'Názov súdu'
@@ -121,21 +127,21 @@ sk:
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
-  
+
       form:
         title: 'Forma'
         placeholder: 'Forma pojednávania'
-  
+
       section:
         title: 'Úsek'
 
       subject:
         title: 'Predmet'
         placeholder: 'Predment pojednávania'
-    
+
       date:
         title: 'Dátum'
-      
+
     decree:
       court:
         title: 'Súd'
@@ -144,21 +150,24 @@ sk:
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'  
-  
+
       form:
         title: 'Forma'
         placeholder: 'Forma rozhodnutia'
-  
+
       natures:
         title: 'Povaha'
         placeholder: 'Povaha rozhodnutia'
-  
+
       legislation_area:
         title: 'Oblasť právnej úpravy'
-  
+
       legislation_subarea:
         title: 'Podoblasť právnej úpravy'
         placeholder: 'Podoblasť právnej úpravy'
-  
+
       date:
         title: 'Dátum'
+
+      id_range:
+        title: 'Rozloženie id'

@@ -44,10 +44,10 @@ class Decree < ActiveRecord::Base
   end
 
   mapping do
-    map     :id
+    analyze :id
     analyze :case_number
     analyze :file_number
-    analyze :date,                type: 'date'
+    analyze :date,                type: :date
     analyze :ecli
     analyze :text,                as: lambda { |d| d.text }
     analyze :court,               as: lambda { |d| d.court.name if d.court }
@@ -68,6 +68,9 @@ class Decree < ActiveRecord::Base
     facet :court,               type: :terms
     facet :natures,             type: :terms, size: DecreeNature.count
     facet :date,                type: :date,  interval: :month
+
+    # TODO: remove range facet example
+    facet :id_range,            type: :range, field: :id, ranges: [1..1000, 1000...5000, 5000..30_000]
   end
 
   def has_future_date?
