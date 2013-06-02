@@ -43,15 +43,15 @@ module Document
           facets.each do |_, facet|
             field = facet.field
 
+            field = [field] unless field.respond_to? :each
+
             if field.respond_to? :each
               field.each do |f|
                 analyzed_field = analyzed_field(f)
 
+                highlight[f] = []
                 highlight[f] = result.highlight[analyzed_field] if result.highlight
               end
-            else
-
-              highlight[field] = result.highlight[analyzed_field] if result.highlight
             end
           end
 

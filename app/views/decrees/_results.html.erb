@@ -1,7 +1,5 @@
 <ol class="unstyled">
   <% decrees.each_with_index do |decree, i| %>
-    <% highlight = @highlights[i] %>
-
     <li>
       <h4>
         <%= link_to_decree decree, "Rozhodnutie #{decree.file_number}", params: { q: @query ? @query[:q] : nil } %>
@@ -44,12 +42,10 @@
         </div>
       </div>
 
-      <% if highlight[:text] %>
-        <% highlight[:text].each do |text|  %>
-          <blockquote>
-            <%= strip_and_highlight text %>
-          </blockquote>
-        <% end %>
+      <% @highlight[i][:text].each do |text|  %>
+        <blockquote>
+          <%= strip_and_highlight text %>
+        </blockquote>
       <% end %>
     </li>
   <% end %>
