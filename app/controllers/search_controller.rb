@@ -72,12 +72,6 @@ class SearchController < ApplicationController
         case key
         when :page
           query[:page] = value.first
-        when :date
-          dates = data[key].map { |e| e.split('..') }
-
-          dates.map! { |e| Time.at(e[0].to_i)..Time.at(e[1].to_i) }
-
-          query[:filter].merge!(date: dates)
         when :historical
           if value[0] == 'false'
             dates = [Time.now..Time.parse('2038-01-19')]
@@ -91,7 +85,9 @@ class SearchController < ApplicationController
         when :order
           query[:order] = value.first.to_sym
         else
-          query[:filter].merge!(key => data[key])
+          facet = model.facets[key]
+
+          query[:filter].merge!(key => facet.parse(value))
         end
       end
 

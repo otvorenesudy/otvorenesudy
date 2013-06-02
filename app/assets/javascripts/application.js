@@ -27,6 +27,7 @@
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require jquery-tablesorter
 //= require tables
+//= require scroll_to
 //= require hash
 //= require fixes
 //= require_tree ./document_viewer
