@@ -205,7 +205,8 @@ module JusticeGovSk
         value = value.utf8
 
         value.gsub!(/\,/, ' ')
-        value.gsub!(/sv\./i, 'sv. ')
+        value.gsub!(/\.\s*/, '. ')
+        value.gsub!(/sv\./i, 'sv.')
         value.gsub!(/slov\./i, 'slovenskej')
 
         value.gsub!(/Námestie/i) { |s| "#{s[0]}ám." }
