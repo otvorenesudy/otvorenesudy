@@ -1,8 +1,10 @@
 class DecreePagesController < ApplicationController
+  include ActionView::Helpers::TextHelper
+  
   def text
     @page = DecreePage.find_by_decree_id_and_number(params[:decree_id], params[:id])
 
-    render text: @page.text.gsub("\n", '<br/>')
+    render text: simple_format(@page.text)
   end
 
   def image

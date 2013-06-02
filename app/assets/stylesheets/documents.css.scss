@@ -52,5 +52,17 @@
     margin: 15px 0px 20px 0px;
     
     outline: 1px solid $grayLighter;
+    
+    p {
+      margin: 0px 50px 10px 50px;
+      
+      &:first-child {
+        margin-top: 50px;
+      }
+      
+      &:last-child {
+        margin-bottom: 50px;
+      }
+    }
   }
 }

@@ -13,7 +13,7 @@ module DecreesHelper
   end
 
   def decree_date(date)
-    time_tag date, format: :long 
+    time_tag date, format: :long
   end
 
   def decree_as_attachments(decree)
@@ -42,6 +42,14 @@ module DecreesHelper
 
   def link_to_decree(decree, body, options = {})
     link_to body, decree_path_with_params(decree, options.delete(:params)), options
+  end
+
+  def link_to_decree_resource(decree, body, options = {})
+    link_to body, "#{decree_path decree}/resource", { target: :_blank }.merge(options)
+  end
+
+  def link_to_decree_document(decree, body, options = {})
+    link_to body, "#{decree_path decree}/document", { target: :_blank }.merge(options)
   end
 
   def external_link_to_legislation(legislation, options = {})

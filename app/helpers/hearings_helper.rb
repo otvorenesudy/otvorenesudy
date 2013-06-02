@@ -30,6 +30,10 @@ module HearingsHelper
     link_to body, hearing_path(hearing.id), options
   end
   
+  def link_to_hearing_resource(hearing, body, options = {})
+    link_to body, "#{hearing_path hearing}/resource", { target: :_blank }.merge(options)
+  end
+  
   private
   
   def hearing_identifiers(hearing)

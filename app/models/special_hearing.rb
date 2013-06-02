@@ -3,5 +3,5 @@ class SpecialHearing < Hearing
 
   default_scope apply
 
-  storage :page, JusticeGovSk::Storage::SpecialHearingPage, extension: :html
+  storage :resource, JusticeGovSk::Storage::SpecialHearingPage, extension: :html
 end
