@@ -1,0 +1,25 @@
+<% provide :title, "Rozhodnutia" %>
+
+<% render 'search/initialization.js', type: Judge %>
+
+<section id="search-view">
+  <div class="row">
+    <div id="search-panel" class="span4">
+      <%= render 'facets/facets', type: Judge %> <!-- TODO try @model -->
+    </div>
+
+    <div class="span8">
+      <div class="row">
+        <div id="search-info" class="span8"></div>
+      </div>
+
+      <div class="row">
+        <div id="search-results" class="span8"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="search-pagination" class="span12"></div>
+  </div>
+</section>
