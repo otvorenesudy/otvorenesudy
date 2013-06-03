@@ -15,7 +15,7 @@ class DecreesController < ApplicationController
   def resource
     @decree = Decree.find(params[:id])
     
-    send_file_in @decree.resource_path
+    send_file_in @decree.resource_path, type: 'text/plain'
   end
   
   def document

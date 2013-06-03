@@ -16,6 +16,6 @@ class HearingsController < ApplicationController
   def resource
     @hearing = Hearing.find(params[:id])
     
-    send_file_in @hearing.resource_path
+    send_file_in @hearing.resource_path, type: 'text/plain'
   end
 end
