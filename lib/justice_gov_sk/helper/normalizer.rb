@@ -5,12 +5,52 @@ module JusticeGovSk
     module Normalizer
       def normalize_court_name(value)
         value.strip!
-        value.gsub!(/\-/, '')
+        value.gsub!(/[\-\,]/, '')
+        
+        value.gsub!(/1/, ' I ')
+        value.gsub!(/2/, ' II ')
+        value.gsub!(/3/, ' III ')
+        value.gsub!(/4/, ' IV ')
+        value.gsub!(/5/, ' V ')
+        value.gsub!(/III/, ' III ')
+        
         value.squeeze!(' ')
+        
+        value.gsub!(/KS|Kraj.\s*súd/, "Krajský súd")
+        value.gsub!(/OS/, "Okresný súd")
+        
+        value.gsub!(/BA/, "Bratislava")
+        value.gsub!(/KE/, "Košice")
+        value.gsub!(/ZA/, "Žilina")
+        
+        value.gsub!(/BB|B\.Bystrica/, "Banská Bystrica")
+        value.gsub!(/D\.\s*Kubín/, "Dolný Kubín")
+
+        value.gsub!(/v\s+Bansk(á|ej)\s+Bystric(a|i)/i, "Banská Bystrica")
+        value.gsub!(/v\s+Bratislav(a|e)/i, "Bratislava")
+        value.gsub!(/v\s+Košic(a|iach)/i, "Košice") 
+        value.gsub!(/v\s+Nitr(a|e)/i, "Nitra")
+        value.gsub!(/v\s+Prešove?/i, "Prešov")
+        value.gsub!(/v\s+Trenčíne?/i, "Trenčín")
+        value.gsub!(/v\s+Trnav(a|e)/i, "Trnava")
+        value.gsub!(/v\s+Žilin(a|e)/i, "Žilina")
+
+        value.gsub!(/n\/B/i, "nad Bebravou")
+        value.gsub!(/n\/V/i, "nad Váhom")
+        value.gsub!(/n\/T|n\.T\./i, "nad Topľou")
+        value.gsub!(/n\/H/i, "nad Hronom")
+
+        value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
+        value.gsub!(/Najvyšší\s*súd(\s*SR)?|NS\s*SR/i, "Najvyšší súd Slovenskej republiky")
+        value.gsub!(/ŠTS\s*v\s*Pezinku/i, "Špecializovaný trestný súd")
+
+        value.gsub!(/SR/, "Slovenskej republiky")
+        
+        value.gsub!(/\./, '')
 
         key = value.ascii.downcase
 
-        court_name_map[key] || (value.utf8.split(/\s+/).map { |part|
+        value.utf8.split(/\s+/.map { |part|
           if !part.match(/\A(I|V)+\z/).nil?
             part
           elsif !part.match(/\A(v|nad|súd|okolie)\z/i).nil?
@@ -19,39 +59,6 @@ module JusticeGovSk
             part.titlecase
           end
         }.join ' ')
-      end
-
-      private
-
-      def court_name_map
-        return @court_name_map if @court_name_map
-
-        map = {
-          "Najvyšší súd SR"                => "Najvyšší súd Slovenskej republiky",
-          "Najvyšší súd"                   => "Najvyšší súd Slovenskej republiky",
-          "Ústavný súd SR"                 => "Ústavný súd Slovenskej republiky",
-          "Špecializovaný trestný súd"     => "Špecializovaný trestný súd",
-
-          "Krajský súd v Banskej Bystrici" => "Krajský súd Banská Bystrica",
-          "Krajský súd v Bratislave"       => "Krajský súd Bratislava",
-          "Krajský súd v Košiciach"        => "Krajský súd Košice", 
-          "Krajský súd v Nitre"            => "Krajský súd Nitra",
-          "Krajský súd v Prešove"          => "Krajský súd Prešov", 
-          "Krajský súd v Trenčíne"         => "Krajský súd Trenčín",
-          "Krajský súd v Trnave"           => "Krajský súd Trnava",
-          "Krajský súd v Žiline"           => "Krajský súd Žilina",
-
-          "Okresný súd Bánovce n/B"        => "Okresný súd Bánovce nad Bebravou",
-          "Okresný súd Nové Mesto n/V"     => "Okresný súd Nové Mesto nad Váhom",
-          "Okresný súd Vranov n/T"         => "Okresný súd Vranov nad Topľou",
-          "Okresný súd Žiar n/H"           => "Okresný súd Žiar nad Hronom"
-        }
-
-        @court_name_map = {}
-
-        map.each { |k, v| @court_name_map[k.ascii.downcase] = v }
-
-        @court_name_map 
       end
 
       public

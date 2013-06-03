@@ -63,8 +63,8 @@ module SudnaradaGovSk
             
             {
               name:        partition_person_name(normalize_related_person_name(person.text), reverse: true),
-              institution: normalize_value(row.search('td.instit')[0].text.strip),
-              function:    normalize_value(row.search('td.zmena')[0].text.strip)
+              institution: normalize_institution(row.search('td.instit')[0].text),
+              function:    normalize_function(row.search('td.zmena')[0].text)
             }
           }.reject { |row| row.blank? }
         end
@@ -103,6 +103,34 @@ module SudnaradaGovSk
         value.gsub!(/Okresný\s+Súd\s+Bratislava\s+Vyšší\s+Súdny\s+Úradník\s+I/i, '')
         value.gsub!(/Manžel/i, '')
         value.gsub!(/Švagrina/i, '')
+      end
+      
+      def normalize_institution(value)
+        return unless value = normalize_value(value)
+        
+        value = normalize_court_name(value)
+        
+        value.gsub!(/(U|Ú)VTOS/i, 'ÚVTOS')
+        value.gsub!(/Ún?VV/i, 'ÚVV')
+        value.gsub!(/ÚZVJS/i, 'ÚZVJS')
+        
+        value
+      end
+      
+      def normalize_function(value)
+        return unless value = normalize_value(value)
+
+        value.gsub!(/súdkyňa/, 'sudkyňa')        
+        value.gsub!(/probačnýa\s*mediač\.+\s*prac\.+/i, 'probačný a mediačný pracovník')
+        value.gsub!(/administr\.+/i, 'administratívny')
+        value.gsub!(/VS[Úú]/i, 'vyšší súdny úradník')
+        value.gsub!(/\-bez\s*zaradenia\-MD/i, 'bez zaradenia')
+
+        value = normalize_punctuation(value)
+        
+        value.gsub!(/\s*-\s*/, ' – ')
+        
+        value.downcase_first
       end
       
       # TODO impossible to implement normalization of acquisition date on current data
