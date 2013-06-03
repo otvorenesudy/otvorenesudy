@@ -16,7 +16,8 @@ module Document::Facets
                   :visible,
                   :collapsible,
                   :collapsed,
-                  :abstract
+                  :abstract,
+                  :countless
 
     def initialize(name, field, options)
       @base        = options[:base]
@@ -32,6 +33,7 @@ module Document::Facets
       @collapsible = options[:collapsible].nil? ? true : options[:collapsible]
       @collapsed   = options[:collapsed].nil? ? false : options[:collapsed]
       @abstract    = options[:abstract].nil? ? false : options[:abstract]
+      @countless   = options[:countless].nil? ? false : options[:countless]
     end
 
     def id
@@ -73,7 +75,11 @@ module Document::Facets
         data[:value]   = data[:value].to_s
         data[:alias] ||= data[:value]
 
-        data.slice(:value, :count, :alias)
+        if @countless
+          data.slice(:value, :alias)
+        else
+          data.slice(:value, :count, :alias)
+        end
       end
 
       @values
@@ -92,6 +98,7 @@ module Document::Facets
     alias :collapsible?   :collapsible
     alias :collapsed?     :collapsed
     alias :abstract?      :abstract
+    alias :countless?     :countless
 
     private
 
