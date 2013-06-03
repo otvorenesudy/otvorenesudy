@@ -8,4 +8,8 @@ module ApplicationHelper
 
     "#{html_escape title} &middot; #{base}".html_safe
   end
+  
+  def canonical_url
+    "http://#{request.host}#{request.fullpath}"
+  end
 end
