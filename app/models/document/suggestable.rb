@@ -28,7 +28,7 @@ module Document
             facet_filter: build_facet_filter(facets)
           }
 
-          build_facet(index, name, name, facet, facet_options)
+          build_facet(index, name, facet.field, facet, facet_options)
         end
 
         # TODO: use facet validator to exclude redundant facets
