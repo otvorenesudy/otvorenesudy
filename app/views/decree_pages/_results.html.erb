@@ -1,5 +1,6 @@
 <% if @highlights.any? %>
   <div class="alert alert-info">
+    <%= link_to '&times;'.html_safe, @decree, class: :close %>
     <%= icon_tag :legal %>
     Pre hľadaný výraz <strong>&bdquo;<%= html_escape params[:q] %>&ldquo;</strong> sme našli
     <strong><%= number_with_translation(@highlights.count, key: :result) %></strong>.
