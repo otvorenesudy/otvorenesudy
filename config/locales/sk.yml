@@ -193,5 +193,6 @@ sk:
       date:
         title: 'Dátum'
 
-      id_range:
-        title: 'Rozloženie id'
+      legislations:
+        title: 'Ustanovenia'
+        placeholder: 'Použité ustanovanie'
