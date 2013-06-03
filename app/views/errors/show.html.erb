@@ -1,4 +1,4 @@
-<% provide :title, "#{@status} &middot; #{@error}".html_safe %>
+<% provide :title, title(@status, @error) %>
 
 <section id="error">
   <div class="unicorn centered">

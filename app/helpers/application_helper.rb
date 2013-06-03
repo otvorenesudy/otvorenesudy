@@ -1,12 +1,18 @@
 # encoding: utf-8
 
 module ApplicationHelper
-  def title(title = nil)
-    base = "Otvorené súdy"
+  def default_title
+    'Otvorené súdy'
+  end
+  
+  def title(*values)
+    (values << default_title).map { |value| html_escape value }.join(' &middot; ').html_safe
+  end
 
-    return base if title.blank?
-
-    "#{html_escape title} &middot; #{base}".html_safe
+  def obtain(value)
+    return value unless value.blank?
+    
+    default_title
   end
   
   def canonical_url

@@ -105,7 +105,7 @@ sk:
 
   result:
     zero: "žiadne výsledky"
-    one: "1 výsledko"
+    one: "1 výsledok"
     few: "%{count} výsledky"
     other: "%{count} výsledkov"
 

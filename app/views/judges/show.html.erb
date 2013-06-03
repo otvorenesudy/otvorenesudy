@@ -1,9 +1,9 @@
-<% provide :title, @judge.name %>
+<% provide :title, title(@judge.name, 'Sudca') %>
 
 <section id="judge-profile">
   <div class="page-header">
     <h1>
-      <%= yield :title %>
+      <%= @judge.name %>
     </h1>
   </div>
 
