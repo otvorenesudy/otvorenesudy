@@ -27,7 +27,6 @@ module Document
       def mapping
         @mapping      ||= {}
         @dependencies ||= {}
-        @fulltext     ||= []
 
         unless block_given?
           return @mapping
@@ -92,10 +91,6 @@ module Document
         @mapping[field][:type]    = :nested
         @mapping[field][:options] = options
         @mapping[field][:block]   = block
-      end
-
-      def fulltext(*args)
-        @fulltext = args
       end
 
       def facet(name, options = {})

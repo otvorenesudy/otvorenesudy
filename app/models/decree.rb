@@ -57,7 +57,6 @@ class Decree < ActiveRecord::Base
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,        as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
-    fulltext :text
   end
 
   facets do
