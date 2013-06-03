@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Judge < ActiveRecord::Base
   include Resource::URI
   include Resource::Similarity
@@ -58,7 +60,7 @@ class Judge < ActiveRecord::Base
   mapping do
     map     :id
     analyze :name
-    analyze :activity,                  as: lambda { |j| j.active? ? :active : :inactive }
+    analyze :activity,                  as: lambda { |j| j.active ? :active : :inactive }
     analyze :positions,                 as: lambda { |j| j.positions.pluck(:value) }
     analyze :courts,                    as: lambda { |j| j.courts.pluck(:name) }
     analyze :hearings,  type: :integer, as: lambda { |j| j.hearings.count }
@@ -71,18 +73,20 @@ class Judge < ActiveRecord::Base
     facet :positions,      type: :terms
     facet :courts,         type: :terms
     facet :hearings_count, type: :range, field: :hearings, ranges: [10..50, 50..100, 100..1000]
-    facet :decrees_count,  type: :range, field: :decrees, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :decrees_count,  type: :range, field: :decrees,  ranges: [10..50, 50..100, 100..500, 500..1000]
   end
 
   def probably_superior_court_officer?
     source == Source.of(JusticeGovSk) && !listed?
   end
-
-  def listed
-    uri == JusticeGovSk::Request::JudgeList.url
+  
+  def probably_woman?
+    last.end_with? 'ová'
   end
 
-  alias :listed? :listed
+  def listed?
+    uri == JusticeGovSk::Request::JudgeList.url
+  end
 
   def active
     return true  if employments.active.any?
