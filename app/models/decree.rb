@@ -67,6 +67,7 @@ class Decree < ActiveRecord::Base
     facet :judges,              type: :terms
     facet :court,               type: :terms
     facet :natures,             type: :terms, size: DecreeNature.count
+    facet :legislations,        type: :terms
     facet :date,                type: :date,  interval: :month
   end
 
