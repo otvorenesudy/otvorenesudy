@@ -220,11 +220,6 @@ div.search {
       margin: 0px auto;
       text-align: center;
 
-      input:focus {
-        border-color: $grayLight;
-        @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($grayLight, 0.6));
-      }
-
       button i.icon-search {
         height: auto;
         line-height: auto;

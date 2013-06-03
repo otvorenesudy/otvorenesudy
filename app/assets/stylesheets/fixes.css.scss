@@ -32,8 +32,8 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   &:focus {
-    border-color: rgba($inputBorderFocus, 0.8);
-    @include box-shadow(0 1px 1px rgba($black, 0.075), 0 0 8px rgba($inputBorderFocus, 0.6));
+    border-color: $grayLight;
+    @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba($grayLight, 0.6));
   }
 }
 
@@ -50,6 +50,28 @@ input[type="color"],
 .alert a {
   &:hover, &:focus {
     text-decoration: underline;
+  }
+
+  &.close, &.close i {
+    display: inline-block;
+    
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    top: 0px;
+    bottom: 0px;
+    
+    right: -25px;
+    
+    font-size: $baseFontSize;
+    font-weight: normal;
+    
+    text-align: center;
+    text-decoration: none;
+    
+    &:hover, &:focus {
+      text-decoration: none;
+    }
   }
 }
 

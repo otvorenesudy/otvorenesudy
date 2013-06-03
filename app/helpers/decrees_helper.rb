@@ -32,12 +32,9 @@ module DecreesHelper
   end
 
   def decree_path_with_params(decree, params)
-    params = params.map { |k, v| "#{k}=#{v}" if v }.join '&'
-    path   = decree_path decree
+    return decree_path decree if params.blank?
     
-    return path if params.blank?
-    
-    "#{decree_path decree}?#{params}"
+    "#{decree_path decree}?#{params.map { |k, v| "#{k}=#{v}" if v }.join '&'}"
   end
 
   def link_to_decree(decree, body, options = {})

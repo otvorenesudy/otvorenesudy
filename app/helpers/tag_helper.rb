@@ -87,10 +87,16 @@ module TagHelper
   end
 
   def link_to_with_count(body, url, count, options = {})
-    count = content_tag :span, "&nbsp;(#{number_with_delimiter(count)})".html_safe, class: :muted
+    count = content_tag :span, "&nbsp;(#{number_with_delimiter count})".html_safe, class: :muted
 
     link_to body.concat(count).html_safe, url, options
   end
+  
+  def close_link(url = nil)
+    link_to icon_tag(:remove), url || '#', class: :close
+  end
+  
+  alias :close_link_to :close_link
 
   def tab_link_to_with_count(body, url, count, options = {})
     options.merge! :'data-toggle' => :tab
