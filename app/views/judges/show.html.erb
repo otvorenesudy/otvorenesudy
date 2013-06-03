@@ -1,6 +1,6 @@
 <% provide :title, title(@judge.name, 'Sudca') %>
 
-<section id="judge-profile">
+<section id="judge-profile" class="profile">
   <div class="page-header">
     <h1>
       <%= @judge.name %>
@@ -34,7 +34,6 @@
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
           <%= number_with_translation(Hearing.during_employment(employment).count, key: :hearing) %> a
           <%= number_with_translation(Decree.during_employment(employment).count,  key: :decree) %>.
-
           <% if employment.note %>
             <br/>
             <span class="gutter centered muted"><%= icon_tag :pushpin %></span>
@@ -52,15 +51,18 @@
           <%= judge_designation_date_distance designation %><%= ", #{designation.type.value.sub(/^\D{0,1}/) { |c| c.downcase }}" if designation.type %>.
         </p>
       <% end %>
-<!-- TODO release when names are normalized  -->
       <% if @related_persons.any? %>
         <p>
           <span class="gutter centered muted">
             <%= icon_tag :user %>
           </span>
-          <%= tooltip_tag 'Blízke osoby', 'Blízke osoby uvedené v majetkových priznaniach sudcu' %> &ndash;
-          <%= links_to_related_persons(@related_persons) %>
+          Blízke osoby uvedené v majetkových priznaniach sudcu:
         </p>
+        <ul>
+          <% @related_persons.each do |person| %>
+            <li><%= "#{person.function} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}" if person.institution %></li>
+          <% end %>
+        </ul>
       <% end %>
     </div>
   </div>

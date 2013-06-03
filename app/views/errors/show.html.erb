@@ -1,6 +1,6 @@
 <% provide :title, title(@status, @error) %>
 
-<section id="error">
+<section id="error-description" class="error">
   <div class="unicorn centered">
     <img src="<%= asset_path('unicorn.png') %>" alt="Jednorožec" />
   </div>
@@ -15,7 +15,7 @@
 </section>
 
 <% if Rails.env.development? %>
-  <section id="trace">
+  <section id="error-trace" class="error">
     <div class="row">
       <div class="span12">
         <%= debug @exception %>

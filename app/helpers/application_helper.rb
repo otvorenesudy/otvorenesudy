@@ -10,9 +10,10 @@ module ApplicationHelper
   end
 
   def obtain(value)
-    return value unless value.blank?
+    return default_title if value.blank?
+    return title(value) unless value.end_with? default_title
     
-    default_title
+    value
   end
   
   def canonical_url

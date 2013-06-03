@@ -5,9 +5,7 @@
     <h4>
       <%= translation[:title] %>
       <% if facet.collapsible? %>
-        <button type="button" class="btn" data-toggle="collapse" data-target="#<%= facet.id %>-content">
-          <%= icon_tag :beer %>
-        </button>
+        <i class="icon-circle" data-toggle="collapse" data-target="#<%= facet.id %>-content"></i>
       <% end %>
     </h4>
   <% end %>
@@ -16,7 +14,7 @@
     <% if translation[:placeholder] %>
       <%= facet_input :'data-id' => facet.name, placeholder: translation[:placeholder] %>
     <% end %>
-  
+
     <%= facet_list id: "#{facet.id}-list", :'data-id' => facet.name %>
   </div>
 </div>

@@ -102,6 +102,12 @@ module JudgesHelper
     judges.map { |judge| link_to_judge(judge, options) }.join(separator).html_safe
   end
 
+  def link_to_institution(institution, options = {})
+    link_to_court(institution, options) if Court.where(name: institution).first 
+    
+    institution
+  end
+
   def link_to_related_person(person, options = {})
     return link_to_judge(person, options) if person.known_judge?
 

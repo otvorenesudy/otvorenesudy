@@ -1,6 +1,6 @@
 <% provide :title, @court.name %>
 
-<section id="court-profile">
+<section id="court-profile" class="profile">
   <div class="page-header">
     <h1>
       <%= yield :title %>
@@ -25,9 +25,11 @@
           Výdavky súdu na nálezy Ústavného súdu Slovenskej republiky za roky
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
           boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
-          <br/>
-          <span class="gutter centered muted"></span>
-          Za rok <%= @expenses.reverse.map { |expense| "#{expense.year} &ndash; #{number_to_currency expense.value, precision: 0}" }.join(', ').html_safe %>.
+          <ul>
+            <% @expenses.reverse.each do |expense| %>
+              <li>Za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
+            <% end %>
+          </ul>
         </p>
       <% end %>
     </div>
@@ -74,7 +76,6 @@
           <div id="past-hearings" class="tab-pane">
             <%= render 'hearings', hearings: @past_hearings, query: { court: @court.name, historical: 'true' } %>
           </div>
-
         </div>
 
       </div>

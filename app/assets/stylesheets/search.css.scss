@@ -39,12 +39,30 @@
 
 .facet {
   & + .facet {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   h4 {
+    margin-top: 10px;
+    
     i {
-      // TODO
+      display: inline-block;
+      position: relative;
+      float: right;
+
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      
+      color: darken($grayLighter, 2.5%);
+      cursor: pointer;
+    
+      text-decoration: none;
+      text-align: center;
+      
+      &:focus, &:hover {
+        color: $grayLight;
+      }
     }
   }
   
@@ -53,6 +71,10 @@
     
     left: -20px;
     padding-left: 20px;
+    
+    input[type="text"] {
+      margin-top: 5px;
+    }
     
     li {
       position: relative;
