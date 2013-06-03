@@ -28,7 +28,12 @@ module Document::Facets
 
     def build_filter
       terms.map do |value|
-        { range: { not_analyzed_field(@field) => { gte: value.min, lt: value.max } } }
+        range       = Hash.new
+
+        range[:gte] = value.min if value.min > -Float::INFINITY
+        range[:lt]  = value.max if value.max <  Float::INFINITY
+
+        { range: { not_analyzed_field(@field) => range } }
       end
     end
 
