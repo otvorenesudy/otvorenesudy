@@ -76,18 +76,6 @@ class Judge < ActiveRecord::Base
     facet :decrees_count,  type: :range, field: :decrees,  ranges: [10..50, 50..100, 100..500, 500..1000]
   end
 
-  def probably_superior_court_officer?
-    source == Source.of(JusticeGovSk) && !listed?
-  end
-  
-  def probably_woman?
-    last.end_with? 'ová'
-  end
-
-  def listed?
-    uri == JusticeGovSk::Request::JudgeList.url
-  end
-
   def active
     return true  if employments.active.any?
     return false if employments.inactive.any?
@@ -100,6 +88,23 @@ class Judge < ActiveRecord::Base
 
   alias :active?    :active
   alias :active_at? :active_at
+
+  def listed
+    uri == JusticeGovSk::Request::JudgeList.url
+  end
+  
+  alias :listed? :listed
+
+  def probably_superior_court_officer
+    source == Source.of(JusticeGovSk) && !listed?
+  end
+  
+  def probably_woman
+    last.end_with? 'ová'
+  end
+
+  alias :probably_superior_court_officer? :probably_superior_court_officer
+  alias :probably_woman?                  :probably_woman
 
   def to_context_query
     query     = "sud \"#{self.first} #{self.middle} #{self.last}\""

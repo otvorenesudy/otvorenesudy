@@ -25,11 +25,13 @@
           Výdavky súdu na nálezy Ústavného súdu Slovenskej republiky za roky
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
           boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
-          <ul>
-            <% @expenses.reverse.each do |expense| %>
-              <li>Za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
-            <% end %>
-          </ul>
+          <% unless @court.expenses_total.zero? %>
+            <ul>
+              <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
+                <li>Za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
+              <% end %>
+            </ul>
+          <% end %>
         </p>
       <% end %>
     </div>

@@ -16,11 +16,12 @@
           </span>
           <% case employment.active %>
           <% when true %>
-            Aktívny
+            Aktívn<%= @judge.probably_woman ? 'a' : 'y' %>
           <% when false %>
-            Neaktívny
+            Neaktívn<%= @judge.probably_woman ? 'a' : 'y' %>
           <% end %>
           <% if employment.judge_position %>
+            <%= @judge.probably_woman ? 'pracovníčka' : 'pracovník' if employment.judge_position.value.start_with? 'poverená' %>
             <%= employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
@@ -60,7 +61,7 @@
         </p>
         <ul>
           <% @related_persons.each do |person| %>
-            <li><%= "#{person.function} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}" if person.institution %></li>
+            <li><%= "#{person.function} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %></li>
           <% end %>
         </ul>
       <% end %>

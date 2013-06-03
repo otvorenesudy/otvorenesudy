@@ -103,7 +103,9 @@ module JudgesHelper
   end
 
   def link_to_institution(institution, options = {})
-    link_to_court(institution, options) if Court.where(name: institution).first 
+    court = Court.where(name: institution).first
+    
+    return link_to_court(court, options) if court  
     
     institution
   end
