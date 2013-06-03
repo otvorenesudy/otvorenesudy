@@ -70,8 +70,8 @@ class Judge < ActiveRecord::Base
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms
-    facet :hearings_count, type: :range, field: :hearings, ranges: [0..10, 10..50, 50..100, 100..1000]
-    facet :decrees_count,  type: :range, field: :decrees, ranges: [0..10, 10..50, 50..100, 100..500, 500..1000]
+    facet :hearings_count, type: :range, field: :hearings, ranges: [10..50, 50..100, 100..1000]
+    facet :decrees_count,  type: :range, field: :decrees, ranges: [10..50, 50..100, 100..500, 500..1000]
   end
 
   def probably_superior_court_officer?
