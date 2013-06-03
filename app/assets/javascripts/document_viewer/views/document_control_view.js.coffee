@@ -29,7 +29,6 @@ class DV.DocumentControlView extends Backbone.View
     @annotationTools = $('._dv_annotation_tools')
     @searchInput     = $('._dv_search input')
     @searchResults   = $('._dv_search_results')
-    @hiddenControls  = $('._dv_document_control.hidden')
 
     @pinAnnotations.html('Zobraziť')
     $('._dv_annotations_count').html("(#{@dv.getNumberOfAnnotations()})")
@@ -105,10 +104,9 @@ class DV.DocumentControlView extends Backbone.View
 
     html = @dv.search q, (html) =>
       @searchResults.html(html)
-      @hiddenControls.show()
 
   onClickSearchResult: ->
-    scrollTo(@hiddenControls.position().top)
+    scrollTo(@searchInput.position().top)
 
   documentSwitched: ->
     @disableOrEnableAnnotatingButton()
