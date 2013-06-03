@@ -14,9 +14,9 @@ module JusticeGovSk
           {
             court:    court(td[3].text),
             name:     name(td[1].text),
-            position: position(td[2].text.strip),
+            position: position(td[2].text),
             active:   activity(td[0]),
-            note:     note(td[4].text.strip)
+            note:     note(td[4].text)
           }
         end
       end
@@ -39,11 +39,11 @@ module JusticeGovSk
       end
 
       def position(value)
-        value
+        normalize_punctuation(value)
       end
 
       def note(value)
-        value.gsub(/\A-/, '').strip.squeeze(' ') unless value.blank?
+        normalize_punctuation(value.gsub(/\A-/, '')) unless value.blank?
       end
     end
   end
