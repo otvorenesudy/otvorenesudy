@@ -42,10 +42,12 @@
         </div>
       </div>
 
-      <% @highlights[i][:text].each do |text|  %>
-        <blockquote>
-          <%= strip_and_highlight text %>
-        </blockquote>
+      <% if @highlights %>
+        <% @highlights[i][:text].each do |text|  %>
+          <blockquote>
+            <%= strip_and_highlight text %>
+          </blockquote>
+        <% end %>
       <% end %>
     </li>
   <% end %>
