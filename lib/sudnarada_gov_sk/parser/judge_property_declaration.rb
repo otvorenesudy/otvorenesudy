@@ -62,7 +62,7 @@ module SudnaradaGovSk
             next unless person = row.search('td.nazov')[0]
             
             {
-              name:        partition_person_name(person.text),
+              name:        partition_person_name(normalize_related_person_name(person.text), reverse: true),
               institution: normalize_value(row.search('td.instit')[0].text.strip),
               function:    normalize_value(row.search('td.zmena')[0].text.strip)
             }
@@ -85,13 +85,8 @@ module SudnaradaGovSk
 
       private
       
-      # TODO extract this code into some normalizer helper
-      
       def normalize_value(value)
         value.strip!
-        
-  #      return nil if value.ascii.match(/\Anemam\z/i)
-  #      return nil if value == '-'
         
         value if value != '-'
       end
@@ -103,7 +98,15 @@ module SudnaradaGovSk
         value.utf8.gsub(/(\s[\S\.\,]){2,}/) { |s| ' ' + s.gsub(/\s/, '') }
       end
       
-      # TODO implement normalization of acquisition date
+      def normalize_related_person_name(value)
+        value.gsub!(/[:space:]/, ' ')
+        value.gsub!(/Okresný\s+Súd\s+Bratislava\s+Vyšší\s+Súdny\s+Úradník\s+I/i, '')
+        value.gsub!(/Manžel/i, '')
+        value.gsub!(/Švagrina/i, '')
+      end
+      
+      # TODO impossible to implement normalization of acquisition date on current data
+      # TODO rm, unused
       
       def normalize_acquisition_date(value)
         value = value.ascii.strip

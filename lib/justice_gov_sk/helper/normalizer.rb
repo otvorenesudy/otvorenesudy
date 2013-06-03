@@ -62,11 +62,11 @@ module JusticeGovSk
         value == "Bratislava 33" ? "Bratislava III" : value
       end
 
-      def normalize_person_name(value)
-        partition_person_name(value)[:altogether]
+      def normalize_person_name(value, options = {})
+        partition_person_name(value, options)[:altogether]
       end
 
-      def partition_person_name(value)
+      def partition_person_name(value, options = {})
         copy  = value.clone
         value = value.utf8
 
@@ -120,6 +120,14 @@ module JusticeGovSk
         suffixes.uniq!
 
         names = mixedcase + uppercase
+
+        if options[:reverse]
+          if names.size >= 3
+            names[0], names[1..-1] = names[-1], names[0..-2]
+          else
+            names.reverse!
+          end
+        end
 
         if flags.include? :born
           names << names.last

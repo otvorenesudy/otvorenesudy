@@ -3,9 +3,10 @@ class CreateJudgeRelatedPeople < ActiveRecord::Migration
     create_table :judge_related_people do |t|
       t.references :judge_property_declaration, null: false
       
-      t.string :name,        null: false
-      t.string :institution, null: true
-      t.string :function,    null: true
+      t.string :name,             null: false
+      t.string :name_unprocessed, null: false
+      t.string :institution,      null: true
+      t.string :function,         null: true
 
       t.timestamps
     end

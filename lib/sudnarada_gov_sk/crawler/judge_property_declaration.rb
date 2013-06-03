@@ -135,6 +135,7 @@ module SudnaradaGovSk
             
             person.property_declaration = @declaration
             person.name                 = data[:name][:altogether]
+            person.name_unprocessed     = data[:name][:unprocessed]
             person.institution          = data[:institution]
             person.function             = data[:function]
             

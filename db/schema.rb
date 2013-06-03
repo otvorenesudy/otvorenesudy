@@ -405,6 +405,7 @@ ActiveRecord::Schema.define(:version => 20130527211651) do
   create_table "judge_related_people", :force => true do |t|
     t.integer  "judge_property_declaration_id", :null => false
     t.string   "name",                          :null => false
+    t.string   "name_unprocessed",              :null => false
     t.string   "institution"
     t.string   "function"
     t.datetime "created_at",                    :null => false
