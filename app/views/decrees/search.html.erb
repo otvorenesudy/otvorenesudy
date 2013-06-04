@@ -5,14 +5,7 @@
 
 <section id="search-view">
   <div class="row">
-    <div class="span4">
-      <div data-id='q' class="input-append">
-        <%= facet_input class: :'input-large', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
-        <button type="button" class="btn" /><%= icon_tag 'search' %></button>
-      </div>
-    </div>
-
-    <div class="span6">
+    <div class="span10">
       <div class="pull-right">
         <select id="sort">
           <option value="_score">Relevancia</option>
@@ -20,7 +13,7 @@
         </select>
       </div>
     </div>
-  
+
     <div class="span2">
       <div class="pull-right">
         <div id="order" class="btn-group" data-toggle="buttons-radio">

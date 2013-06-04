@@ -9,32 +9,12 @@ module Document::Facets
     end
 
     def build(facet)
-      facet.range not_analyzed_field(@field), build_ranges
-    end
-
-    def build_ranges
-      ranges = []
-
-      ranges << { to: @ranges.first.begin }
-
-      @ranges.each do |range|
-        ranges << { from: range.begin, to: range.end }
-      end
-
-      ranges << { from: @ranges.last.end }
-
-      ranges
+      facet.range not_analyzed_field(@field), build_facet_ranges
     end
 
     def build_filter
       terms.map do |value|
-        range       = Hash.new
-
-        # TODO fix
-        range[:gte] = value.min #if value.min > -Float::INFINITY
-        range[:lt]  = value.max #if value.max <  Float::INFINITY
-
-        { range: { not_analyzed_field(@field) => range } }
+        { range: { not_analyzed_field(@field) => build_range_for(value) } }
       end
     end
 
@@ -47,6 +27,24 @@ module Document::Facets
     end
 
     private
+
+    def build_range_for(value)
+      @converter.to_elastic_range(value)
+    end
+
+    def build_facet_ranges
+      ranges = []
+
+      ranges << { to: @ranges.first.begin }
+
+      @ranges.each do |range|
+        ranges << { from: range.begin, to: range.end }
+      end
+
+      ranges << { from: @ranges.last.end }
+
+      ranges
+    end
 
     def format_facets(results)
       results['ranges'].map do |e|
