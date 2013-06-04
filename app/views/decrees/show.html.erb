@@ -65,13 +65,13 @@
   <div class="row">
     <div class="span12">
       <p>
-        Odkazy &ndash;
-        <%= external_link_to 'pôvodný dokument', @decree.uri %> (odkaz už nemusí byť platný),        
-        <%= link_to_decree_resource @decree, icon_tag(:file, label: 'spracovaný dokument', join: :append), class: :icon %> (z dňa <%= time_tag @decree.updated_at.to_date, format: :default %>).
+        <%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už nemusí byť platný).
       </p>
-      <p>
-        Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %>
-      </p>
+      <% if File.readable? @decree.document_path %>
+        <p>
+          Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %>
+        </p>
+      <% end %>
     </div>
   </div>
 </section>
@@ -89,9 +89,14 @@
     <div class="span12">
       <small class="muted">
         Informácie o súdnom rozhodnutí boli získané z <%= external_link_to 'dokumentu', @decree.uri, class: :muted %>,
-        ktorého posledná aktualizácia bola vykonaná <%= time_tag @decree.updated_at.to_date, format: :default %>.<br/>
+        ktorého posledná aktualizácia bola vykonaná <%= time_tag @decree.updated_at.to_date, format: :default %>.
+        <br/>
         Odkaz na <%= external_link_to 'pôvodný dokument', @decree.uri, class: :muted %> už nemusí byť platný,
         pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+        <% if File.readable? @decree.resource_path %>
+          <br/>
+          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_decree_resource @decree, icon_tag(:file, label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
+        <% end %>
       </small>
     </div>
   </div>

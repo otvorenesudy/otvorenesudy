@@ -6,6 +6,6 @@ module FileHelper
     
     options[:filename] = "#{name.gsub(/\W/, '-')}#{extension}"
     
-    send_file File.join(Rails.root, path), options 
+    send_file path, options 
   end
 end
