@@ -13,9 +13,11 @@ module TagHelper
 
     return icon if label.blank?
     
-    space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
+    label = label.to_s.html_safe
     join  = options.delete(:join)
-    body  = [icon, space, content_tag(:span, label.to_s.html_safe, options)]
+    wrap  = options.delete(:wrap)
+    space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
+    body  = [icon, space, wrap.nil? || wrap ? content_tag(:span, label, options) : label]
 
     body.reverse! if join == :append
     body.join.html_safe
@@ -24,7 +26,7 @@ module TagHelper
   def icon_link_to(type, body, url, options = {})
     options[:class] = Array.wrap(options[:class]) << :icon
     
-    link_to icon_tag(type, label: body, join: options.delete(:join)), url, options
+    link_to icon_tag(type, label: body, join: options.delete(:join), wrap: options.delete(:wrap)), url, options
   end
 
   def icon_mail_to(type, body, url = nil, options = {})
@@ -46,7 +48,7 @@ module TagHelper
     classes = Array.wrap options.delete(:class)
     classes << :active if request.fullpath.start_with? url
 
-    content_tag :li, body, options.merge(class: classes)
+    content_tag :li, body, options.merge(class: classes.blank? ? nil : classes)
   end
   
 
@@ -57,9 +59,9 @@ module TagHelper
   def navbar_dropdown_tag(type, body, url, options = {}, &block)
     caret = options.delete(:caret)
     
-    body = body << '&nbsp;' << icon_tag(caret) if caret
+    body = icon_tag(caret, label: body, join: :append, wrap: true) if caret
     
-    link = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown)
+    link = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown, wrap: !caret)
     list = content_tag :ul, capture(&block), class: :'dropdown-menu'
     body = (link << list).html_safe
     
