@@ -55,6 +55,12 @@ textarea:hover, textarea:active {
   outline: 0;
 }
 
+// muted links
+
+.muted a {
+  color: $grayLight;
+}
+
 // alert links
 
 .alert a {
