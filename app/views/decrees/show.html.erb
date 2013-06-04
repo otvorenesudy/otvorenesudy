@@ -65,7 +65,7 @@
   <div class="row">
     <div class="span12">
       <p>
-        <%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už nemusí byť platný).
+        <%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
       </p>
       <% if File.readable? @decree.document_path %>
         <p>

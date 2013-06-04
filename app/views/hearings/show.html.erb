@@ -77,7 +77,7 @@
   <div class="row">
     <div class="span12">
       <p>
-        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už nemusí byť platný).
+        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
       </p>
     </div>
   </div>
