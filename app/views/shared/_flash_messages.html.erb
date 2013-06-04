@@ -1,7 +1,9 @@
-<section id="flash">
-  <% flash.each do |type, message| %>
-    <div class="alert alert-<%= type %>">
-      <%= message %>
-    </div>
-  <% end %>
-</section>
+<% unless flash.blank? %>
+  <section id="flash">
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type %>">
+        <%= message %>
+      </div>
+    <% end %>
+  </section>
+<% end %>

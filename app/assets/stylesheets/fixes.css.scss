@@ -45,13 +45,23 @@ input[type="color"],
   }
 }
 
+// outlines on links and inputs
+
+a:hover, a:active,
+a[data-toggle="tab"]:focus,
+input:hover, input:active,
+select:hover, select:active, select:focus,
+textarea:hover, textarea:active {
+  outline: 0;
+}
+
+a:focus {
+  text-decoration: underline;
+}
+
 // alert links
 
 .alert a {
-  &:hover, &:focus {
-    text-decoration: underline;
-  }
-
   &.close, &.close i {
     display: inline-block;
     

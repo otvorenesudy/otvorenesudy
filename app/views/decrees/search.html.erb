@@ -1,28 +1,31 @@
-<% provide :title, "Rozhodnutia" %>
+<% provide :title, "Vyhľadávanie v súdnych rozhodnutiach" %>
+<% provide :header, render(partial: 'search/header') %>
 
 <% render 'search/initialization.js', type: Decree %>
 
 <section id="search-view">
   <div class="row">
-    <div class="span6">
+    <div class="span4">
       <div data-id='q' class="input-append">
-        <%= facet_input class: :'input-xlarge', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
+        <%= facet_input class: :'input-large', placeholder: 'Vyhľadávanie v rozhodnutiach' %>
         <button type="button" class="btn" /><%= icon_tag 'search' %></button>
       </div>
     </div>
 
     <div class="span6">
       <div class="pull-right">
-        Zoradiť podľa
-
         <select id="sort">
           <option value="_score">Relevancia</option>
           <option value="date">Dátum</option>
         </select>
-
+      </div>
+    </div>
+  
+    <div class="span2">
+      <div class="pull-right">
         <div id="order" class="btn-group" data-toggle="buttons-radio">
-          <button type="button" class="btn" data-order="desc"><%= icon_tag :'angle-down' %></button>
-          <button type="button" class="btn" data-order="asc"><%= icon_tag :'angle-up' %></button>
+          <button type="button" class="btn" data-order="desc"><%= icon_tag :'chevron-down' %></button>
+          <button type="button" class="btn" data-order="asc"><%= icon_tag :'chevron-up' %></button>
         </div>
       </div>
     </div>

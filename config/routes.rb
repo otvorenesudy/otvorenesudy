@@ -10,7 +10,10 @@ OpenCourts::Application.routes.draw do
   match '/suggest/:entity', to: 'search#suggest'
 
   resources :courts do
-     get :map, on: :collection
+    collection do
+      get :search
+      get :map
+    end
   end
 
   resources :judges do
@@ -43,7 +46,9 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :proceedings
+  resources :proceedings do
+    get :search, on: :collection
+  end
   
   match '/404', to: 'errors#show'
   match '/422', to: 'errors#show'

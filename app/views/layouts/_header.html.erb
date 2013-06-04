@@ -5,28 +5,31 @@
         <ul class="nav pull-left">
           <%= navbar_logo_tag "Otvorené Súdy" %>
           <li class="divider-vertical"></li>
-          <%= navbar_li_tag :building, "Súdy", courts_path %>
-          <%= navbar_li_tag :user, "Sudcovia", judges_path %>
-          <%= navbar_li_tag :comments, "Pojednávania", search_hearings_path %>
-          <%= navbar_li_tag :legal, "Rozhodnutia", search_decrees_path %>
+          <%= navbar_dropdown_tag :building, "Súdy", courts_path, caret: :'caret-down' do %>
+            <li><%= icon_link_to :search, "Vyhľadávanie", search_courts_path %></li>
+            <li><%= icon_link_to :list, "Zoznam", courts_path %></li>
+            <li><%= icon_link_to :'map-marker', "Mapa", map_courts_path %></li>
+          <% end %>
+          <%= navbar_dropdown_tag :user, "Sudcovia", judges_path, caret: :'caret-down' do %>
+            <li><%= icon_link_to :search, "Vyhľadávanie", search_judges_path %></li>
+            <li><%= icon_link_to :list, "Zoznam", judges_path %></li>
+          <% end %>
+          <%= navbar_link_tag :comments, "Pojednávania", search_hearings_path %>
+          <%= navbar_link_tag :legal, "Rozhodnutia", search_decrees_path %>
         </ul>
-<!-- TODO rm? or wat?        
-        <ul class="nav pull-right">
-          <%= navbar_li_tag :signal, 'Štatistiky', stats_path %>
-        </ul>
--->
       </nav>
     </div>
   </div>
 </div>
 
+<!-- TODO enable search field here! -->
+<!--
 <div class="search">
   <div class="container">
     <div class="row">
       <div class="offset4 span4">
         <%= form_tag nil, method: :get, class: :'form-search' do %>
           <div class="input-append">
-            <!-- TODO enable search field here! -->
             <%= search_field_tag :search, params[:search], class: :'search-query', disabled: true %>
             <%= button_tag icon_tag(:search), name: nil, class: :btn %>
           </div>
@@ -38,5 +41,6 @@
     </div>
   </div>
 </div>
+-->
 
 <%= yield :header %>

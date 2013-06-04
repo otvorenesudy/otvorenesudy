@@ -91,6 +91,12 @@ sk:
     few: "%{count} rozhodnutia"
     other: "%{count} rozhodnutí"
 
+  proceeding:
+    zero: "žiadne konania"
+    one: "1 konanie"
+    few: "%{count} konania"
+    other: "%{count} konaní"
+
   document:
     zero: "žiadne dokumenty"
     one: "1 dokument"

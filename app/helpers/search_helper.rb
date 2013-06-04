@@ -1,6 +1,6 @@
 module SearchHelper
   def facet_input(options)
-    content_tag :input, nil, options.merge(name: :input, type: :text)
+    tag :input, options.merge(name: :input, type: :text)
   end
 
   def facet_list(options)

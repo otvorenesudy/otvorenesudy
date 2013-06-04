@@ -106,7 +106,7 @@ dl {
   }
 }
 
-// icons and images
+// icons
 
 [class^="icon-"], [class*=" icon-"] {
   display: inline-block;
@@ -123,6 +123,26 @@ dl {
 i.icon-space {
   width: auto;
   font-size: $baseFontSize;
+}
+
+// links with icons
+
+a.icon {
+  &:hover, &:focus {
+    text-decoration: none;
+    
+    span {
+      text-decoration: underline;
+    }
+  }
+}
+
+.nav a {
+  &:hover, &:focus {
+    span {
+      text-decoration: none;
+    }
+  }
 }
 
 // alerts
@@ -162,7 +182,10 @@ h1, h2, strong {
 .navbar .nav > li {
   &.active > a,
   &.active > a:hover,
-  &.active > a:focus {
+  &.active > a:focus,
+  &.dropdown.active > .dropdown-toggle,
+  &.dropdown.active.open > .dropdown-toggle,
+  &.dropdown.open > .dropdown-toggle {
     background-color: inherit;
     @include box-shadow-none;
   }
@@ -191,12 +214,24 @@ h1, h2, strong {
       line-height: 20px;
     }
 
-    i[class^="icon-"], i[class*=" icon-"] {
+    [class^="icon-"], [class*=" icon-"] {
       margin: 0px;
       padding: 0px;
 
-      font-size: 20px;
       text-decoration: none;
+    }
+  }
+  
+  li > a {
+    [class^="icon-"], [class*=" icon-"] {
+      display: inline-block;
+      width: 18px;
+      
+      text-align: center;
+    }
+    
+    i.icon-space {
+      width: inherit;
     }
   }
 }
@@ -236,7 +271,7 @@ div.search {
 
     color: $grayLight;
 
-    &:hover {
+    &:hover, &:focus {
       color: $gray;
       text-decoration: none;
     }
@@ -256,7 +291,7 @@ header {
   text-align: center;
 
   .pattern {
-    padding: 40px 0px;
+    padding: 92px 0px;
   }
 
   h1 {

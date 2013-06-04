@@ -11,21 +11,25 @@ module TagHelper
     icon  = content_tag :i, nil, class: "icon-#{type.to_s}"
     label = options.delete(:label)
 
-    unless label.blank?
-      space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
-      body  = [icon, space, label.to_s]
-      body.reverse! if options.delete(:join) == :append
-      icon = content_tag :span, body.join.html_safe, options
-    end
+    return icon if label.blank?
+    
+    space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
+    join  = options.delete(:join)
+    body  = [icon, space, content_tag(:span, label.to_s.html_safe, options)]
 
-    icon
+    body.reverse! if join == :append
+    body.join.html_safe
   end
 
   def icon_link_to(type, body, url, options = {})
+    options[:class] = Array.wrap(options[:class]) << :icon
+    
     link_to icon_tag(type, label: body, join: options.delete(:join)), url, options
   end
 
   def icon_mail_to(type, body, url = nil, options = {})
+    options[:class] = Array.wrap(options[:class]) << :icon
+    
     url = body if url.blank?
 
     mail_to url, icon_tag(type, label: body, join: options.delete(:join)), options
@@ -38,10 +42,28 @@ module TagHelper
     content_tag :li, link_to(title, root_path, class: :brand), class: classes 
   end
 
-  def navbar_li_tag(type, body, url, options = {})
-    options.merge!(class: :active) if request.fullpath.start_with? url
+  def navbar_li_tag(body, url, options = {})
+    classes = Array.wrap options.delete(:class)
+    classes << :active if request.fullpath.start_with? url
 
-    content_tag :li, icon_link_to(type, body, url), options
+    content_tag :li, body, options.merge(class: classes)
+  end
+  
+
+  def navbar_link_tag(type, body, url, options = {})
+    navbar_li_tag icon_link_to(type, body, url), url, options
+  end
+  
+  def navbar_dropdown_tag(type, body, url, options = {}, &block)
+    caret = options.delete(:caret)
+    
+    body = body << '&nbsp;' << icon_tag(caret) if caret
+    
+    link = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown)
+    list = content_tag :ul, capture(&block), class: :'dropdown-menu'
+    body = (link << list).html_safe
+    
+    navbar_li_tag body, url, options.merge(class: :dropdown)
   end
 
   def popover_tag(body, content, options = {})

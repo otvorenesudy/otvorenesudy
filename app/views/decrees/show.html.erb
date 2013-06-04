@@ -67,10 +67,10 @@
       <p>
         Odkazy &ndash;
         <%= external_link_to 'pôvodný dokument', @decree.uri %> (odkaz už nemusí byť platný),        
-        <%= link_to_decree_resource @decree, icon_tag(:file, label: 'spracovaný dokument', join: :append) %> (z dňa <%= time_tag @decree.updated_at.to_date, format: :default %>).
+        <%= link_to_decree_resource @decree, icon_tag(:file, label: 'spracovaný dokument', join: :append), class: :icon %> (z dňa <%= time_tag @decree.updated_at.to_date, format: :default %>).
       </p>
       <p>
-        Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:download, label: 'PDF dokument', join: :append) %>
+        Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %>
       </p>
     </div>
   </div>

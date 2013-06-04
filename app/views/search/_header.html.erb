@@ -1,0 +1,28 @@
+<header>
+  <div class="pattern">
+    <div class="container">
+      <h1>
+        Otvorené vyhľadávanie
+        <small>
+          <%= number_with_translation(Court.count,   key: :court) %>,
+          <%= number_with_translation(Judge.count,   key: :judge) %>,
+          <%= number_with_translation(Hearing.count, key: :hearing) %>,
+          <%= number_with_translation(Decree.count,  key: :decree) %> a
+          <%= number_with_translation(Proceeding.count,  key: :proceeding) %>
+        </small>
+      </h1>
+    </div>
+  </div>
+</header>
+
+<div class="nav centered">
+  <ul class="nav nav-pills">
+    <li><%= link_to "Súdy",         search_courts_path %></li>
+    <li><%= link_to "Sudcovia",     search_judges_path %></li>
+    <li><%= link_to "Pojednávania", search_hearings_path %></li>
+    <li><%= link_to "Rozhodnutia",  search_decrees_path %></li>
+    <li><%= link_to "Konania",      search_proceedings_path %></li>
+  </ul>
+</div>
+
+<div class="clearfix"></div>

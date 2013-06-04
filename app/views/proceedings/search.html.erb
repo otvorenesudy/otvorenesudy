@@ -1,17 +1,12 @@
-<% provide :title, "Vyhľadávanie v súdnych pojednávaniach" %>
+<% provide :title, "Vyhľadávanie v súdnych konaniach" %>
 <% provide :header, render(partial: 'search/header') %>
 
-<% render 'search/initialization.js', type: Hearing %>
+<% render 'search/initialization.js', type: Proceeding %>
 
 <section id="search-view">
   <div class="row">
     <div id="search-panel" class="span4">
-      <label class="checkbox">
-        <input type="checkbox" id="historical" name="historical" value="true" />
-        Zobraziť minulé pojednávania
-      </label>
-
-      <%= render "facets/facets", type: Hearing %>
+      <%= render 'facets/facets', type: Proceeding %> <!-- TODO try @model -->
     </div>
 
     <div class="span8">
