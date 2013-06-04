@@ -180,6 +180,12 @@ h1, h2, strong {
   }
 }
 
+.well {
+  a[rel="popover"], a[rel="tooltip"] {
+    border-bottom-color: $gray;
+  }
+}
+
 // navigation
 
 .navbar .nav > li {
