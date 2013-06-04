@@ -30,8 +30,9 @@ module Document::Facets
       terms.map do |value|
         range       = Hash.new
 
-        range[:gte] = value.min if value.min > -Float::INFINITY
-        range[:lt]  = value.max if value.max <  Float::INFINITY
+        # TODO fix
+        range[:gte] = value.min #if value.min > -Float::INFINITY
+        range[:lt]  = value.max #if value.max <  Float::INFINITY
 
         { range: { not_analyzed_field(@field) => range } }
       end
