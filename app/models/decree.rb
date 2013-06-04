@@ -44,31 +44,32 @@ class Decree < ActiveRecord::Base
   end
 
   mapping do
-    analyze :id,                  type: :integer
+    analyze :id,                     type: :integer
     analyze :case_number
     analyze :file_number
-    analyze :date,                type: :date
+    analyze :date,                   type: :date
     analyze :ecli
-    analyze :text,                as: lambda { |d| d.text }
-    analyze :court,               as: lambda { |d| d.court.name if d.court }
-    analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
-    analyze :form,                as: lambda { |d| d.form.value if d.form }
-    analyze :natures,             as: lambda { |d| d.natures.pluck(:value) if d.natures }
-    analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
-    analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
-    analyze :legislations,        as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
+    analyze :text,                   as: lambda { |d| d.text }
+    analyze :court,                  as: lambda { |d| d.court.name if d.court }
+    analyze :judges,                 as: lambda { |d| d.judges.pluck(:name) }
+    analyze :form,                   as: lambda { |d| d.form.value if d.form }
+    analyze :natures,                as: lambda { |d| d.natures.pluck(:value) if d.natures }
+    analyze :legislation_area,       as: lambda { |d| d.legislation_area.value if d.legislation_area }
+    analyze :legislation_subarea,    as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
+    analyze :legislation_paragraph,  as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
+    analyze :legislation_number,     as: lambda { |d| d.legislations.pluck(:number) if d.legislations }
+    analyze :legislation_year,       as: lambda { |d| d.legislations.pluck(:year) if d.legislations }
   end
 
   facets do
-    facet :q,                   field: :text, type: :fulltext, highlight: true, visible: false
-    facet :form,                type: :terms
-    facet :legislation_area,    type: :terms, size: LegislationArea.count
-    facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
-    facet :judges,              type: :terms
-    facet :court,               type: :terms
-    facet :natures,             type: :terms, size: DecreeNature.count
-    facet :legislations,        type: :terms
-    facet :date,                type: :date,  interval: :month
+    facet :q,                     field: :text, type: :fulltext, highlight: true
+    facet :form,                  type: :terms
+    facet :legislation_area,      type: :terms, size: LegislationArea.count
+    facet :legislation_subarea,   type: :terms, size: LegislationSubarea.count
+    facet :judges,                type: :terms
+    facet :court,                 type: :terms
+    facet :natures,               type: :terms, size: DecreeNature.count
+    facet :date,                  type: :date,  interval: :month
   end
 
   def has_future_date?
