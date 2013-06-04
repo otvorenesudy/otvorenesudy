@@ -88,6 +88,10 @@ table {
   address {
     margin: 0px;
   }
+  
+  p:last-child {
+    margin-bottom: 0px;
+  }
 }
 
 // lists
