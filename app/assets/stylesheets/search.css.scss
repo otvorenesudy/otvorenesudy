@@ -41,10 +41,10 @@
   & + .facet {
     margin-top: 10px;
   }
-  
+
   h4 {
     margin-top: 10px;
-    
+
     i {
       display: inline-block;
       position: relative;
@@ -53,29 +53,29 @@
       width: 20px;
       height: 20px;
       line-height: 20px;
-      
+
       color: darken($grayLighter, 2.5%);
       cursor: pointer;
-    
+
       text-decoration: none;
       text-align: center;
-      
+
       &:focus, &:hover {
         color: $grayLight;
       }
     }
   }
-  
+
   .facet-content {
     position: relative;
-    
+
     left: -20px;
     padding-left: 20px;
-    
-    input[type="text"] {
+
+    input[type="text"], .add-on {
       margin-top: 5px;
     }
-    
+
     li {
       position: relative;
 

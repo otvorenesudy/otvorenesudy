@@ -213,6 +213,16 @@ sk:
         title: 'Ustanovenia'
         placeholder: 'Použité ustanovanie'
 
+      legislations:
+        title: 'Ustanovanie'
+        paragraph:
+          prepend: '§'
+          placeholder: 'Paragraf'
+        number:
+          placeholder: 'Číslo'
+        year:
+          placeholder: 'Rok'
+
       q:
         placeholder: 'Vyhľadávanie v rozhodnutiach'
 
