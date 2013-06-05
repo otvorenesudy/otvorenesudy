@@ -27,11 +27,12 @@ $(document).ready ->
         'click  #order'                       : 'onClickOrder'
 
       template:
-        list_item:         JST['open_courts/search/templates/list_item']
-        list_items_fold:   JST['open_courts/search/templates/list_items_fold']
-        list_items_unfold: JST['open_courts/search/templates/list_items_unfold']
-        remove_list_item:  JST['open_courts/search/templates/remove_list_item']
-        spinner:           JST['open_courts/search/templates/spinner']
+        list_item:          JST['open_courts/search/templates/list_item']
+        list_items_fold:    JST['open_courts/search/templates/list_items_fold']
+        list_items_unfold:  JST['open_courts/search/templates/list_items_unfold']
+        remove_list_item:   JST['open_courts/search/templates/remove_list_item']
+        spinner:            JST['open_courts/search/templates/spinner']
+        empty_list_message: JST['open_courts/search/templates/empty_list_message']
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -97,6 +98,8 @@ $(document).ready ->
 
           @.prependListItem(list, label, value, @model.facet(name, value))
           @.selectListItem(list, value)
+
+        list.html(@template.empty_list_message) if @.listEmpty(list)
 
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"

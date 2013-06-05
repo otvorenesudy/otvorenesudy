@@ -12,6 +12,9 @@ View.List =
   listShow: (list) ->
     @.list(list).show()
 
+  listEmpty: (list) ->
+    @.list(list).find('li').length == 0
+
   listEntity: (list) ->
     @.list(list).attr('data-id').replace(/(#|-list)/g, '')
 
