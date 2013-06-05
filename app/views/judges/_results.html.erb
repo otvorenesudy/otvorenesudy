@@ -1,12 +1,29 @@
 <ol class="unstyled">
   <% judges.each_with_index do |judge, i| %>
-    <li>
+    <li class="<%= "muted" unless judge.active? %>">
       <h4>
         <%= link_to_judge judge %>
         <br/>
         <small>
         </small>
       </h4>
+
+      <div class="row">
+        <div class="span6">
+        </div>
+
+        <div class="span2">
+          <span class="pull-right">
+            <%= tooltip_tag 'Pojednávania', 'Počet pojednávaní', placement: :left %>: 
+            <%= number_with_delimiter judge.hearings.count %>
+          </span>
+          <br/>
+          <span class="pull-right">
+            <%= tooltip_tag 'Rozhodnutia', 'Počet rozhodnutí', placement: :left %>:
+            <%= number_with_delimiter judge.decrees.count %>
+          </span>
+        </div>
+      </div>
     </li>
   <% end %>
 </ol>
