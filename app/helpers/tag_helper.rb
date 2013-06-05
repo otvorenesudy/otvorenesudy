@@ -83,19 +83,6 @@ module TagHelper
     link_to body, '#', options
   end
 
-  def button_group_tag(values, options = {})
-    options.merge! class: 'btn-group' 
-    options.merge! data toggle: 'buttons-radio'
-
-    content_tag :div, button_tags(values).join.html_safe, options
-  end
-
-  def button_tags(values)
-    options = { class: 'btn', type: 'button' }
-
-    values.map { |value| button_tag value, options.merge(data value: value) }
-  end
-
   def sortable_table_tag(options = {}, &block)
     options.merge! :'data-sortable' => true
 
