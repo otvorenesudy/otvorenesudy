@@ -45,7 +45,13 @@ module Document::Facets
     end
 
     def terms
-      @terms ||= []
+      @terms = [] if @terms.nil?
+
+      @terms
+    end
+
+    def terms?
+      @terms.present?
     end
 
     def refresh!
