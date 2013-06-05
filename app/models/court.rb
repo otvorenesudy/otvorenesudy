@@ -67,6 +67,7 @@ class Court < ActiveRecord::Base
     facet :q,              type: :fulltext, field: [:name, :street, :judges, :municipality]
     facet :type,           type: :terms
     facet :municipality,   type: :terms
+    facet :judges,         type: :terms
     facet :hearings_count, type: :range, field: :hearings, ranges: [10..50, 50..100, 100..500, 500..1000]
     facet :decrees_count,  type: :range, field: :decrees, ranges: [10..50, 50..100, 100..500, 500..1000]
     facet :judges_count,   type: :range, ranges: [5..10, 10..20, 20..50, 50..100]
