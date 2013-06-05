@@ -58,12 +58,10 @@ module TagHelper
   
   def navbar_dropdown_tag(type, body, url, options = {}, &block)
     caret = options.delete(:caret)
-    
-    body = icon_tag(caret, label: body, join: :append, wrap: true) if caret
-    
-    link = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown, wrap: !caret)
-    list = content_tag :ul, capture(&block), class: :'dropdown-menu'
-    body = (link << list).html_safe
+    body  = icon_tag(caret, label: body, join: :append, wrap: true) if caret
+    link  = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown, wrap: !caret)
+    list  = content_tag :ul, capture(&block), class: :'dropdown-menu'
+    body  = (link << list).html_safe
     
     navbar_li_tag body, url, options.merge(class: :dropdown)
   end
@@ -84,9 +82,7 @@ module TagHelper
   end
 
   def sortable_table_tag(options = {}, &block)
-    options.merge! :'data-sortable' => true
-
-    content_tag :table, options, &block
+    content_tag :table, options.merge(:'data-sortable' => true), &block
   end
 
   def sortable_th_tag(title = nil, options = {}, &block)
@@ -110,15 +106,11 @@ module TagHelper
   alias :close_link_to :close_link
 
   def tab_link_to_with_count(body, url, count, options = {})
-    options.merge! :'data-toggle' => :tab
-
-    link_to_with_count(body, url, count, options)
+    link_to_with_count body, url, count, options.merge(:'data-toggle' => :tab)
   end
 
   def external_link_to(body, url, options = {})
-    options.merge! target: :_blank
-
-    icon_link_to :'external-link', body, url, options.merge(join: :append)
+    icon_link_to :'external-link', body, url, options.merge(target: :_blank, join: :append)
   end
 
   private
