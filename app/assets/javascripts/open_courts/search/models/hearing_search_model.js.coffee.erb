@@ -19,5 +19,8 @@ class OpenCourts.HearingSearchModel extends OpenCourts.SearchModel
   setHistorical: (value) ->
     @.setValue('historical', value.toString())
 
+  query: ->
+    super (data) =>
+      data.historical = @.getHistorical()
 
 _.extend(OpenCourts.HearingSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)

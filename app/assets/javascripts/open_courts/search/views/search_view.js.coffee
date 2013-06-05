@@ -22,7 +22,7 @@ $(document).ready ->
         'click #search-panel ul li .remove'   : 'onRemoveListItem'
         'click .pagination ul li a'           : 'onChangePage'
         'click #search-panel ul a.fold'       : 'onToggleFold'
-        'click #search-panel input#historical': 'onClickHistorical'
+        'click input[data-id="historical"]'    : 'onClickHistorical'
         'change #sort'                        : 'onChangeSort'
         'click  #order'                       : 'onClickOrder'
 
@@ -74,6 +74,7 @@ $(document).ready ->
       updateQuery: (value) ->
         @queryInput.val(value)
 
+      # TODO: refactor to updateBooleanFacet
       updateHistorical: (value) ->
         @historicalCheckbox.prop('checked', @model.getHistorical())
 
@@ -178,6 +179,7 @@ $(document).ready ->
 
         @.listToggle(list, visible: Config.facets.max_visible, manual: true)
 
+      # TODO: refactor to onClickBooleanFacet
       onClickHistorical: (event) ->
         @model.setPage 1, silent: true
         @model.setHistorical(event.target.checked)
