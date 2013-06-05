@@ -123,6 +123,9 @@ sk:
         between: '%{lower} až %{upper}'
 
     judge:
+      q:
+        placeholder: 'Meno alebo priezvisko sudcu'
+
       name:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
@@ -172,6 +175,9 @@ sk:
       date:
         title: 'Dátum'
 
+      historical:
+        value: 'Zobraziť minulé pojednávania'
+
     decree:
       court:
         title: 'Súd'
@@ -202,3 +208,6 @@ sk:
       legislations:
         title: 'Ustanovenia'
         placeholder: 'Použité ustanovanie'
+
+      q:
+        placeholder: 'Vyhľadávanie v rozhodnutiach'

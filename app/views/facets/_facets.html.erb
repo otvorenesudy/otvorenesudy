@@ -1,5 +1,5 @@
 <% type.facets.each do |_, facet| %>
   <% if facet.visible %>
-    <%= render "facets/#{facet.type}_facet", facet: facet %>
+    <%= render "facets/#{facet.type}_facet", facet: facet, translation: t(facet.key) %>
   <% end %>
 <% end %>
