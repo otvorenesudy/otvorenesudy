@@ -71,17 +71,11 @@ class SearchController < ApplicationController
 
         case key
         when :page
-          query[:page] = value.first
-        when :historical
-          if value[0] == 'false'
-            dates = [Time.now..Time.parse('2038-01-19')]
-
-            query[:filter].merge!(historical: dates)
-          end
+          query[:page] = value
         when :sort
-          query[:sort] = value.first.to_sym
+          query[:sort] = value.to_sym
         when :order
-          query[:order] = value.first.to_sym
+          query[:order] = value.to_sym
         else
           facet = model.facets[key]
 
