@@ -61,7 +61,7 @@ module JusticeGovSk
       
       def subject(document)
         find_value_by_label 'subject', document, 'Predmet' do |div|
-          normalize_punctuation(div.text.gsub(/\A\s*\-+/).strip.upcase_first)
+          normalize_punctuation(div.text.gsub(/\A\s*\-+/, '').strip.upcase_first)
         end
       end
       
