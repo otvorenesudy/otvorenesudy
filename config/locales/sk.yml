@@ -124,7 +124,7 @@ sk:
 
     judge:
       q:
-        placeholder: 'Meno alebo priezvisko sudcu'
+        placeholder: 'Vyhľadávanie v sudcoch'
 
       name:
         title: 'Sudca'
@@ -224,7 +224,7 @@ sk:
         title: 'Typ'
 
       judges:
-        title: 'Sudcovia'
+        title: 'Sudca'
         placeholder: 'Meno sudcu'
 
       municipality:
