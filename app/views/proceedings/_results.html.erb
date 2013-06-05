@@ -2,7 +2,7 @@
   <% proceedings.each_with_index do |proceeding, i| %>
     <li>
       <h4>
-        <%= link_to_proceeding proceeding, 'test' %>
+        <%= link_to_proceeding proceeding, proceeding.file_number %>
         <br/>
         <small>
         </small>

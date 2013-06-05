@@ -9,6 +9,8 @@ class OpenCourts.JudgeSearchModel extends OpenCourts.SearchModel
     <%= "#{name}: []" %>
     <% end %>
 
-
+  query: ->
+    super (data) =>
+      data.q = @.getQuery() if @.getQuery()?
 
 _.extend(OpenCourts.JudgeSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)

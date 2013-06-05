@@ -127,5 +127,9 @@ module Document::Facets
       else                raise "No converter found for type #{type}."
       end
     end
+
+    def missing_translation?(key)
+      I18n.t(key, default: '__missing__') == '__missing__'
+    end
   end
 end

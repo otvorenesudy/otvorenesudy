@@ -63,12 +63,12 @@ class Decree < ActiveRecord::Base
 
   facets do
     facet :q,                     field: :text, type: :fulltext, highlight: true
-    facet :form,                  type: :terms
+    facet :judges,                type: :terms
     facet :legislation_area,      type: :terms, size: LegislationArea.count
     facet :legislation_subarea,   type: :terms, size: LegislationSubarea.count
-    facet :judges,                type: :terms
-    facet :court,                 type: :terms
     facet :natures,               type: :terms, size: DecreeNature.count
+    facet :form,                  type: :terms
+    facet :court,                 type: :terms
     facet :date,                  type: :date,  interval: :month
   end
 

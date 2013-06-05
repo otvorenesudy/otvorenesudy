@@ -80,13 +80,22 @@ module Document::Facets
         params[:upper] = range.end.to_i
       end
 
-      path = "#{key}.#{entry}"
+      count  = params[:count] || params[:upper]
 
-      if I18n.t(path, default: '_missing').to_sym == :_missing
+      path   = "#{key}.#{entry}"
+      suffix = "#{key}.suffix"
+
+      if missing_translation?(path)
         path = "facets.types.range.#{entry}"
       end
 
-      I18n.t(path, params)
+      result = I18n.t(path, params)
+
+      unless missing_translation?(suffix)
+        result.sub!(/\d+\z/, I18n.t(suffix, count: count))
+      end
+
+      result
     end
   end
 end

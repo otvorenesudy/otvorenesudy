@@ -22,7 +22,7 @@ $(document).ready ->
         'click #search-panel ul li .remove'   : 'onRemoveListItem'
         'click .pagination ul li a'           : 'onChangePage'
         'click #search-panel ul a.fold'       : 'onToggleFold'
-        'click input[data-id="historical"]'    : 'onClickHistorical'
+        'click input[data-id="historical"]'   : 'onClickHistorical'
         'change #sort'                        : 'onChangeSort'
         'click  #order'                       : 'onClickOrder'
 

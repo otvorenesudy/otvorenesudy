@@ -62,12 +62,12 @@ class Hearing < ActiveRecord::Base
 
   facets do
     facet :type,      type: :terms, collapsible: false
-    facet :judges,    type: :terms
     facet :court,     type: :terms
+    facet :subject,   type: :terms
+    facet :judges,    type: :terms
+    facet :date,      type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
     facet :form,      type: :terms
     facet :section,   type: :terms
-    facet :subject,   type: :terms
-    facet :date,      type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
 
     facet :historical, type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
   end
