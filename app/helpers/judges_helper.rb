@@ -63,7 +63,7 @@ module JudgesHelper
           ('pravdepodobne ' + tooltip_tag('VSÚ', 'Vyšší súdny úradník', options)).html_safe
         end
       else
-        'neznáma'
+        content_tag :span, 'neznáma', options
       end
     end
   end
