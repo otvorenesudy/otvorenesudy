@@ -96,6 +96,7 @@ class SearchController < ApplicationController
     facets.each do |key, values|
       values.each do |facet|
         facet[:count] = number_with_delimiter(facet[:count])
+        facet[:alias] = facet[:alias].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
       end
     end
   end
