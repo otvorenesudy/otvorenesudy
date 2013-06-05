@@ -65,6 +65,17 @@
           <% end %>
         </ul>
       <% end %>
+
+      <% if @judge.curriculum %>
+        <p>
+          <span class="gutter centered muted">
+            <%= icon_tag :'file-alt' %>
+          </span>
+
+          <%= link_to "Životopis sudcu", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberových konaniach.
+        </p>
+      <% end %>
+
     </div>
   </div>
 </section>

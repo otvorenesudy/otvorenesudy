@@ -215,13 +215,7 @@ sk:
 
       legislations:
         title: 'Ustanovanie'
-        paragraph:
-          prepend: '§'
-          placeholder: 'Paragraf'
-        number:
-          placeholder: 'Číslo'
-        year:
-          placeholder: 'Rok'
+        placeholder: 'Číslo §, zákona alebo rok'
 
       q:
         placeholder: 'Vyhľadávanie v rozhodnutiach'

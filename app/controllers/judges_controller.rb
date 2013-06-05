@@ -19,4 +19,10 @@ class JudgesController < ApplicationController
     @search.query = @judge.to_context_query
     @results      = @search.perform
   end
+
+  def curriculum
+    @judge = Judge.find(params[:id])
+
+    send_file @judge.curriculum_path, type: 'application/pdf', disposition: 'inline'
+  end
 end
