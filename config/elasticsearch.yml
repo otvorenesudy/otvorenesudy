@@ -7,7 +7,7 @@ defaults: &defaults
       analyzer:
         text_analyzer:
           type: custom
-          tokenizer: letter
+          tokenizer: standard
           filter: [lowercase, asciifolding]
 
 development:
