@@ -68,7 +68,7 @@ class Judge < ActiveRecord::Base
   end
 
   facets do
-    facet :name,           type: :terms, countless: true
+    facet :q,              field: [:name, :courts], type: :fulltext, highlight: true
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms
@@ -92,13 +92,13 @@ class Judge < ActiveRecord::Base
   def listed
     uri == JusticeGovSk::Request::JudgeList.url
   end
-  
+
   alias :listed? :listed
 
   def probably_superior_court_officer
     source == Source.of(JusticeGovSk) && !listed?
   end
-  
+
   def probably_woman
     last.end_with? 'ová'
   end
