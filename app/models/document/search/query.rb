@@ -31,9 +31,13 @@ module Document
       end
 
       def analyze_query(value)
-        q = escape_query(value).split(/\s/).map { |e| "*#{e}*" }.join(' ')
+        exact = value.scan(/"[^"]+"/)
 
-        q.present? ? q : "*"
+        exact.each { |e| value.gsub!(e, '') }
+
+        q = escape_query(value.strip).split(/\s+/).map { |e| "*#{e}*" }.join(' ')
+
+        q.present? || exact.present? ? "#{q} #{exact.join(' ')}" : "*"
       end
 
       def build_query_options(fields, options)
