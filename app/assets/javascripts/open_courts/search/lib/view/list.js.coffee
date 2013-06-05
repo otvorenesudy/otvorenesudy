@@ -109,7 +109,7 @@ View.List =
 
   clearList: (list, options = {}) ->
     selector = if options.selected then 'li:not(.selected)' else 'li'
-    selector = "#{selector}, a.fold"
+    selector = "#{selector}, a.fold, p"
 
     @.log "Clearing list ... (list=#{@.inspect list}, selector=#{@.inspect selector}, options=#{@.inspect options})"
 

@@ -31,6 +31,8 @@ module Document
       end
 
       def analyze_query(value)
+        value = value.dup
+
         exact = value.scan(/"[^"]+"/)
 
         exact.each { |e| value.gsub!(e, '') }
