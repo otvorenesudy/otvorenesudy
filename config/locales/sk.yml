@@ -124,7 +124,7 @@ sk:
 
     judge:
       q:
-        placeholder: 'Vyhľadávanie v sudcoch'
+        placeholder: 'Vyhľadávanie medzi sudcami'
 
       name:
         title: 'Sudca'
