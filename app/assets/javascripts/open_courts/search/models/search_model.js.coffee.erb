@@ -79,4 +79,7 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     @.filterFacets(field, value)?.count
 
   label: (field, value) ->
-    @.filterFacets(field, value)?.alias
+    @.filterFacets(field, value)?.label
+
+  title: (field, value) ->
+    @.filterFacets(field, value)?.title

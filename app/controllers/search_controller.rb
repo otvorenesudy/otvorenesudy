@@ -9,7 +9,7 @@ class SearchController < ApplicationController
 
     if @model && @model.has_facet?(@entity)
       render json: {
-        data: @model.suggest(@entity, @term, @query)
+        data: format_facet(@model.suggest(@entity, @term, @query))
       }
     else
       render status: 422,
@@ -94,10 +94,16 @@ class SearchController < ApplicationController
   def format_facets(facets)
     # TODO: use better way to formatting facets count and etc?
     facets.each do |key, values|
-      values.each do |facet|
-        facet[:count] = number_with_delimiter(facet[:count])
-        facet[:alias] = facet[:alias].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
-      end
+      format_facet(values)
+    end
+  end
+
+  def format_facet(values)
+    values.each do |facet|
+      facet[:count] = number_with_delimiter(facet[:count])
+      facet[:label] = facet[:title] = facet[:label].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
+
+      facet[:label] = "#{facet[:label].first(30)}..." if facet[:label].length > 30
     end
   end
 end

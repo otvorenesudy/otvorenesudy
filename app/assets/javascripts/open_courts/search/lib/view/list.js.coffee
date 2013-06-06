@@ -93,19 +93,19 @@ View.List =
 
     @.findListItem(@.list(list), value).length ? true : false
 
-  addListItem: (list, label, value, facet) ->
-    @.log "Appending list item (label=#{label}, value=#{value}, facet=#{facet})"
+  addListItem: (list, data) ->
+    @.log "Appending list item (data=#{@.inspect data})"
 
     # TODO: create separate method to handle template generation for prepend and
     # append 
-    @.list(list).append(@template['list_item'](label: label ?= value, value: value, facet: facet ?= ''))
+    @.list(list).append(@template['list_item'](data))
 
-  prependListItem: (list, label, value, facet) ->
-    @.log "Prepending list item (label=#{label}, value=#{value}, facet=#{facet})"
+  prependListItem: (list, data) ->
+    @.log "Prepending list item (data=#{@.inspect data})"
 
-    @.findListItem(list, value).remove()
+    @.findListItem(list, data.value).remove()
 
-    @.list(list).prepend(@template['list_item'](label: label ?= value, value: value, facet: facet ?= ''))
+    @.list(list).prepend(@template['list_item'](data))
 
   clearList: (list, options = {}) ->
     selector = if options.selected then 'li:not(.selected)' else 'li'
@@ -115,10 +115,10 @@ View.List =
 
     $(@.list(list)).find(selector).remove()
 
-  findOrCreateListItem: (list, label, value, facet) ->
+  findOrCreateListItem: (list, data) ->
     list = @.list(list)
 
-    if @.listHasItem(list, value)
-      @.findListItem(list, value)
+    if @.listHasItem(list, data.value)
+      @.findListItem(elst, data.value)
     else
-      @.addListItem(list, label, value, facet)
+      @.addListItem(list, data)
