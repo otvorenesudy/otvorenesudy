@@ -1,9 +1,10 @@
 module Bing
   class Search
-    attr_accessor :query
+    attr_accessor :query,
+                  :exclude
 
     def perform
-      url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='#{@query}'&$format=json&$top=10"
+      url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='#{@query}'&$format=json&$top=100"
 
       data = connect(url)
 
@@ -44,10 +45,20 @@ module Bing
       results = Array.new
 
       json[:d][:results].each do |result|
+        next unless valid?(result)
+
         results << { title: result[:Title], description: result[:Description], url: result[:Url] }
       end
 
       results
+    end
+
+    def valid?(result)
+      return @validator.call(result) if @validator && @validator.respond_to?(:call)
+
+      return !@exclude.match(result[:Url]) if @exclude
+
+      true
     end
   end
 end

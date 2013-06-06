@@ -83,7 +83,6 @@
 <section>
   <div class="row">
     <div class="offset4 span8">
-      <%= render 'shared/context_search' %>
     </div>
   </div>
 </section>
@@ -103,6 +102,9 @@
           <li>
             <%= tab_link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
           </li>
+          <li>
+          <%= link_to "V médiach", "#in-media", :'data-toggle' => :tab %>
+          </li>
         </ul>
 
         <div class="tab-content">
@@ -116,6 +118,10 @@
 
           <div id="past-hearings" class="tab-pane">
             <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: 'true' } %>
+          </div>
+
+          <div id="in-media" class="tab-pane">
+            <%= render 'shared/context_search' %>
           </div>
         </div>
 

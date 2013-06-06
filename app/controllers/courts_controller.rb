@@ -28,6 +28,6 @@ class CourtsController < ApplicationController
 
     @search       = Bing::Search.new
     @search.query = @court.to_context_query
-    @results      = @search.perform
+    @results      = @search.perform[0..10]
   end
 end
