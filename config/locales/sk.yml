@@ -239,7 +239,7 @@ sk:
         title: 'Dátum'
 
       legislations:
-        title: 'Ustanovanie'
+        title: 'Ustanovenie'
         placeholder: 'Číslo §, zákona alebo rok'
 
         _missing: 'neuvedené'
