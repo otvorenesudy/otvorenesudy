@@ -103,7 +103,7 @@
             <%= tab_link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
           </li>
           <li>
-          <%= link_to "V médiach", "#in-media", :'data-toggle' => :tab %>
+            <a href="#media" data-toggle="tab">V médiach</a>
           </li>
         </ul>
 
@@ -120,7 +120,7 @@
             <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: 'true' } %>
           </div>
 
-          <div id="in-media" class="tab-pane">
+          <div id="media" class="tab-pane">
             <%= render 'shared/context_search' %>
           </div>
         </div>
