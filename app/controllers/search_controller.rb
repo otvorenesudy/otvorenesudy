@@ -1,5 +1,8 @@
 class SearchController < ApplicationController
   include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::TextHelper
+
+  include TextHelper
 
   def suggest
     @entity = params[:entity].to_sym
@@ -49,7 +52,7 @@ class SearchController < ApplicationController
   end
 
   private
-
+  
   helper_method :parse_search_query,
                 :format_facets
 
@@ -105,7 +108,7 @@ class SearchController < ApplicationController
 
       if facet[:label].length > 30
         facet[:title] = facet[:label]
-        facet[:label] = "#{facet[:label].first(30)}&hellip;"
+        facet[:label] = join_and_truncate facet[:label], limit: 30
       end
     end
   end
