@@ -12,6 +12,12 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     @.log 'Initializing ...'
     @.log 'Initialized.'
 
+  getQuery: (value) ->
+    @.getValue('q')
+
+  setQuery: (value) ->
+    @.setValue('q', value)
+
   getPage: ->
     @.getValue('page') or 1
 
@@ -32,8 +38,17 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
   setOrder: (value) ->
     @.setValue('order', value)
 
-  query: ->
-    _type: @_type, data: @.toJSON()
+  query: (block) ->
+    query = _type: @_type, data: @.toJSON()
+    data  = query.data
+
+    data.sort  = @.getSort()
+    data.order = @.getOrder()
+    data.page  = @.getPage()
+
+    block?(data)
+
+    query
 
   search: (callback) ->
     $.ajax
@@ -64,4 +79,7 @@ class OpenCourts.SearchModel extends Backbone.AbstractModel
     @.filterFacets(field, value)?.count
 
   label: (field, value) ->
-    @.filterFacets(field, value)?.alias
+    @.filterFacets(field, value)?.label
+
+  title: (field, value) ->
+    @.filterFacets(field, value)?.title

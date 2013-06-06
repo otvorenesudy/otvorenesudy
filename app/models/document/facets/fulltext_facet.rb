@@ -17,7 +17,7 @@ module Document::Facets
     end
 
     def parse(value)
-      value.respond_to?(:join) ? value.join(' ').to_s : value.to_s
+      value.respond_to?(:join) ? value.join(' ') : value.to_s
     end
 
     private
@@ -25,6 +25,5 @@ module Document::Facets
     def query_options
       @query_options ||= { operator: :or, analyze_wildcard: true }
     end
-
   end
 end

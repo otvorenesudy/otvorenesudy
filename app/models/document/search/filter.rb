@@ -5,7 +5,7 @@ module Document
         filters = []
 
         facets.each do |_, facet|
-          filters << { type => facet.build_filter } if facet.terms.present?
+          filters << { type => facet.build_filter } if facet.terms?
         end
 
         filters

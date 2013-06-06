@@ -62,7 +62,7 @@ module Document
           queries = []
 
           facets.each do |_, facet|
-            if facet.respond_to?(:build_query) && facet.terms.present?
+            if facet.respond_to?(:build_query) && facet.terms?
               queries << facet.build_query
             end
           end
@@ -96,7 +96,7 @@ module Document
 
             build_facet(index, name, facet.field, facet, facet_options)
 
-            if facet.terms.any?
+            if facet.terms?
               facet_options[:global]       = false
               facet_options[:facet_filter] = build_facet_filter(facets)
               facet_options[:size]         = facet.terms.size

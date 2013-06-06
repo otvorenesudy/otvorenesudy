@@ -101,7 +101,7 @@ module Document
         options.merge! base: self
 
         # TODO: use core injector
-        @facets[name] = "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
+        @facets[name] = create_facet(type, name, field, options)
       end
     end
   end

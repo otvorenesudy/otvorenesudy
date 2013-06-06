@@ -45,7 +45,13 @@ module Document::Facets
     end
 
     def terms
-      @terms ||= []
+      @terms = [] if @terms.nil?
+
+      @terms
+    end
+
+    def terms?
+      @terms.present?
     end
 
     def refresh!
@@ -67,18 +73,18 @@ module Document::Facets
         data = yield data if block_given?
 
         if @alias
-          data[:alias] = @alias.call data[:value]
+          data[:label] = @alias.call data[:value]
         else
-          data[:alias] = localize(data[:value])
+          data[:label] = localize(data[:value])
         end
 
         data[:value]   = data[:value].to_s
-        data[:alias] ||= data[:value]
+        data[:label] ||= data[:value]
 
         if @countless
-          data.slice(:value, :alias)
+          data.slice(:value, :label)
         else
-          data.slice(:value, :count, :alias)
+          data.slice(:value, :count, :label)
         end
       end
 
@@ -120,6 +126,10 @@ module Document::Facets
       when type == Date   then Document::Converters::Date
       else                raise "No converter found for type #{type}."
       end
+    end
+
+    def missing_translation?(key)
+      I18n.t(key, default: '__missing__') == '__missing__'
     end
   end
 end

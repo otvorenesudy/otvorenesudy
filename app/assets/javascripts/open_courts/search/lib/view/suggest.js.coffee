@@ -32,5 +32,5 @@ View.Suggest =
     @.suggest(el, entity, options)
       .data('autocomplete')._renderItem = (ul, item) =>
         # TODO: append 'No item found' if there is not item found
-        @.findOrCreateListItem(entity, item.alias, item.value, item.count)
+        @.findOrCreateListItem(entity, item)
 

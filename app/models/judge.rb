@@ -3,6 +3,7 @@
 class Judge < ActiveRecord::Base
   include Resource::URI
   include Resource::Similarity
+  include Resource::Storage
 
   include Document::Indexable
   include Document::Searchable
@@ -68,7 +69,7 @@ class Judge < ActiveRecord::Base
   end
 
   facets do
-    facet :name,           type: :terms, countless: true
+    facet :q,              field: [:name, :courts], type: :fulltext, highlight: true
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms
@@ -92,13 +93,13 @@ class Judge < ActiveRecord::Base
   def listed
     uri == JusticeGovSk::Request::JudgeList.url
   end
-  
+
   alias :listed? :listed
 
   def probably_superior_court_officer
     source == Source.of(JusticeGovSk) && !listed?
   end
-  
+
   def probably_woman
     last.end_with? 'ová'
   end
@@ -112,5 +113,13 @@ class Judge < ActiveRecord::Base
     blacklist = %w(http://www.sme.sk/diskusie/ blog.sme.sk)
 
     "#{query} site:(#{sites.join(' OR ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
+  end
+
+  def curriculum
+    return curriculum_path if File.exists?(curriculum_path)
+  end
+
+  storage :curriculum, JusticeGovSk::Storage::JudgeCurriculum, extension: :pdf do |judge|
+    "#{judge.name}"
   end
 end

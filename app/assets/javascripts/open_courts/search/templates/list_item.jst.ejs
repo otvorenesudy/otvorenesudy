@@ -1,5 +1,11 @@
 <li data-value="<%= value %>"> 
   <i class="icon-plus add"></i>
-  <a href="#"><%= label %></a>
-  <span class="label facet"><%= facet %></span>
+  <% if (defined(title)) { %>
+   <a href="" title="<%= title %>">
+  <% } else { %>
+    <a href="">
+  <% } %>
+      <%= label %>
+    </a>
+  <span class="label facet"><%= count %></span>
 </li>

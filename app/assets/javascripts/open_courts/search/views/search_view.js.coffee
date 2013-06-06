@@ -22,16 +22,17 @@ $(document).ready ->
         'click #search-panel ul li .remove'   : 'onRemoveListItem'
         'click .pagination ul li a'           : 'onChangePage'
         'click #search-panel ul a.fold'       : 'onToggleFold'
-        'click #search-panel input#historical': 'onClickHistorical'
+        'click input[data-id="historical"]'   : 'onClickHistorical'
         'change #sort'                        : 'onChangeSort'
         'click  #order'                       : 'onClickOrder'
 
       template:
-        list_item:         JST['open_courts/search/templates/list_item']
-        list_items_fold:   JST['open_courts/search/templates/list_items_fold']
-        list_items_unfold: JST['open_courts/search/templates/list_items_unfold']
-        remove_list_item:  JST['open_courts/search/templates/remove_list_item']
-        spinner:           JST['open_courts/search/templates/spinner']
+        list_item:          JST['open_courts/search/templates/list_item']
+        list_items_fold:    JST['open_courts/search/templates/list_items_fold']
+        list_items_unfold:  JST['open_courts/search/templates/list_items_unfold']
+        remove_list_item:   JST['open_courts/search/templates/remove_list_item']
+        spinner:            JST['open_courts/search/templates/spinner']
+        empty_list_message: JST['open_courts/search/templates/empty_list_message']
 
       initialize: (options) ->
         @.log 'Initializing ...'
@@ -71,9 +72,13 @@ $(document).ready ->
             @.updateList(entity)
             @.listCollapse(entity, visible: 10)
 
+          @.fixes()
+
+
       updateQuery: (value) ->
         @queryInput.val(value)
 
+      # TODO: refactor to updateBooleanFacet
       updateHistorical: (value) ->
         @historicalCheckbox.prop('checked', @model.getHistorical())
 
@@ -94,8 +99,10 @@ $(document).ready ->
         for value in @model.get name
           label = @model.label(name, value)
 
-          @.prependListItem(list, label, value, @model.facet(name, value))
+          @.prependListItem(list, label: label, title: @model.title(name, value), value: value, count: @model.facet(name, value))
           @.selectListItem(list, value)
+
+        list.html(@template.empty_list_message) if @.listEmpty(list)
 
       refreshListValues: (name) ->
         @.log "Refreshing: #{name}"
@@ -111,7 +118,7 @@ $(document).ready ->
           for value in values
             label = @model.label(name, value)
 
-            @.addListItem(list, label, value, @model.facet(name, value)) unless @.listHasItem(list, value)
+            @.addListItem(list, label: label, title: @model.title(name, value), value: value, count: @model.facet(name, value)) unless @.listHasItem(list, value)
 
 
       fixes: ->
@@ -178,6 +185,7 @@ $(document).ready ->
 
         @.listToggle(list, visible: Config.facets.max_visible, manual: true)
 
+      # TODO: refactor to onClickBooleanFacet
       onClickHistorical: (event) ->
         @model.setPage 1, silent: true
         @model.setHistorical(event.target.checked)

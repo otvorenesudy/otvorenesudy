@@ -65,6 +65,17 @@
           <% end %>
         </ul>
       <% end %>
+
+      <% if @judge.curriculum %>
+        <p>
+          <span class="gutter centered muted">
+            <%= icon_tag :'file-alt' %>
+          </span>
+
+          <%= link_to "Životopis sudcu", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberových konaniach.
+        </p>
+      <% end %>
+
     </div>
   </div>
 </section>
@@ -72,7 +83,6 @@
 <section>
   <div class="row">
     <div class="offset4 span8">
-      <%= render 'shared/context_search' %>
     </div>
   </div>
 </section>
@@ -92,6 +102,9 @@
           <li>
             <%= tab_link_to_with_count "Minulé pojednávania", "#past-hearings", @judge.hearings.past.count %>
           </li>
+          <li>
+            <a href="#media" data-toggle="tab">V médiach</a>
+          </li>
         </ul>
 
         <div class="tab-content">
@@ -105,6 +118,10 @@
 
           <div id="past-hearings" class="tab-pane">
             <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: 'true' } %>
+          </div>
+
+          <div id="media" class="tab-pane">
+            <%= render 'shared/context_search' %>
           </div>
         </div>
 

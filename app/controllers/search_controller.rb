@@ -9,7 +9,7 @@ class SearchController < ApplicationController
 
     if @model && @model.has_facet?(@entity)
       render json: {
-        data: @model.suggest(@entity, @term, @query)
+        data: format_facet(@model.suggest(@entity, @term, @query))
       }
     else
       render status: 422,
@@ -71,17 +71,11 @@ class SearchController < ApplicationController
 
         case key
         when :page
-          query[:page] = value.first
-        when :historical
-          if value[0] == 'false'
-            dates = [Time.now..Time.parse('2038-01-19')]
-
-            query[:filter].merge!(historical: dates)
-          end
+          query[:page] = value
         when :sort
-          query[:sort] = value.first.to_sym
+          query[:sort] = value.to_sym
         when :order
-          query[:order] = value.first.to_sym
+          query[:order] = value.to_sym
         else
           facet = model.facets[key]
 
@@ -100,8 +94,18 @@ class SearchController < ApplicationController
   def format_facets(facets)
     # TODO: use better way to formatting facets count and etc?
     facets.each do |key, values|
-      values.each do |facet|
-        facet[:count] = number_with_delimiter(facet[:count])
+      format_facet(values)
+    end
+  end
+
+  def format_facet(values)
+    values.each do |facet|
+      facet[:count] = number_with_delimiter(facet[:count])
+      facet[:label] = facet[:label].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
+
+      if facet[:label].length > 30
+        facet[:title] = facet[:label]
+        facet[:label] = "#{facet[:label].first(30)}&hellip;"
       end
     end
   end

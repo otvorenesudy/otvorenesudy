@@ -18,6 +18,7 @@ OpenCourts::Application.routes.draw do
 
   resources :judges do
     get :search, on: :collection
+    get :curriculum, on: :member
   end
 
   resources :hearings do
@@ -30,7 +31,7 @@ OpenCourts::Application.routes.draw do
 
   resources :decrees do
     get :search, on: :collection
-    
+
     member do
       get :resource
       get :document
@@ -49,7 +50,7 @@ OpenCourts::Application.routes.draw do
   resources :proceedings do
     get :search, on: :collection
   end
-  
+
   match '/404', to: 'errors#show'
   match '/422', to: 'errors#show'
   match '/500', to: 'errors#show'

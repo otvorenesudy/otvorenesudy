@@ -32,6 +32,11 @@ module Document
       def has_facet?(name)
         @facets ? @facets[name].present? : false
       end
+
+      def create_facet(type, name, field, options)
+        # TODO: core/injector
+        "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
+      end
     end
   end
 end

@@ -4,15 +4,13 @@ class OpenCourts.DecreeSearchModel extends OpenCourts.SearchModel
   _type:  'decree'
 
   defaults:
-    q:    []
     <% Decree.facets.each do |name, facet| %>
     <%= "#{name}: []" %>
     <% end %>
 
-  getQuery: (value) ->
-    @.getValue('q')
 
-  setQuery: (value) ->
-    @.setValue('q', value)
+  query: ->
+    super (data) =>
+      data.q = @.getQuery() if @.getQuery()?
 
 _.extend(OpenCourts.DecreeSearchModel.prototype.defaults, OpenCourts.SearchModel.prototype.defaults)

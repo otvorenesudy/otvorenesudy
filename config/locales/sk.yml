@@ -67,37 +67,37 @@ sk:
     few: "%{count} roky"
     other: "%{count} rokov"
 
-  court:
+  court: &court
     zero: "žiadne súdy"
     one: "1 súd"
     few: "%{count} súdy"
     other: "%{count} súdov"
 
-  judge:
+  judge: &judge
     zero: "žiadny sudcovia"
     one: "1 sudca"
     few: "%{count} sudcovia"
     other: "%{count} sudcov"
 
-  hearing:
+  hearing: &hearing
     zero: "žiadne pojednávania"
     one: "1 pojednávanie"
     few: "%{count} pojednávania"
     other: "%{count} pojednávaní"
 
-  decree:
+  decree: &decree
     zero: "žiadne rozhodnutia"
     one: "1 rozhodnutie"
     few: "%{count} rozhodnutia"
     other: "%{count} rozhodnutí"
 
-  proceeding:
+  proceeding: &proceeding
     zero: "žiadne konania"
     one: "1 konanie"
     few: "%{count} konania"
     other: "%{count} konaní"
 
-  document:
+  document: &document
     zero: "žiadne dokumenty"
     one: "1 dokument"
     few: "%{count} dokumenty"
@@ -123,6 +123,9 @@ sk:
         between: '%{lower} až %{upper}'
 
     judge:
+      q:
+        placeholder: 'Vyhľadávanie medzi sudcami'
+
       name:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
@@ -142,9 +145,13 @@ sk:
 
       hearings_count:
         title: 'Počet pojednávaní'
+        suffix:
+          <<: *hearing
 
       decrees_count:
         title: 'Počet rozhodnutí'
+        suffix:
+          <<: *decree
 
     hearing:
       type:
@@ -171,6 +178,9 @@ sk:
 
       date:
         title: 'Dátum'
+
+      historical:
+        value: 'Zobraziť minulé pojednávania'
 
     decree:
       court:
@@ -202,3 +212,76 @@ sk:
       legislations:
         title: 'Ustanovenia'
         placeholder: 'Použité ustanovanie'
+
+      legislations:
+        title: 'Ustanovanie'
+        placeholder: 'Číslo §, zákona alebo rok'
+
+      q:
+        placeholder: 'Vyhľadávanie v rozhodnutiach'
+
+    court:
+      q:
+        placeholder: 'Vyhľadávanie v súdoch'
+
+      type:
+        title: 'Typ'
+
+      judges:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'
+
+      municipality:
+        title: 'Obec'
+        placeholder: 'Meno obce'
+
+      hearings_count:
+        title: 'Počet pojednávaní'
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: 'Počet rozhodnutí'
+        suffix:
+          <<: *decree
+
+      judges_count:
+        title: 'Počet sudcov'
+        suffix:
+          <<: *judge
+
+      expenses:
+        title: 'Výdavky'
+        suffix: '%{count} €'
+
+    proceeding:
+      q:
+        placeholder: 'Vyhľadávanie v konaniach'
+
+      file_number:
+        title: 'IČS'
+        placeholder: 'Identifikačné číslo spisu'
+
+      courts:
+        title: 'Súdy'
+        placeholder: 'Meno súdu'
+
+      judges:
+        title: 'Sudcovia'
+        placeholder: 'Meno sudcu'
+
+      hearings:
+        title: 'Počet pojednávaní'
+        suffix:
+          <<: *hearing
+
+      decrees:
+        title: 'Počet rozhodnutí'
+        suffix:
+          <<: *decree
+
+      judges_count:
+        title: 'Počet sudcov'
+        suffix:
+          <<: *judge
+
