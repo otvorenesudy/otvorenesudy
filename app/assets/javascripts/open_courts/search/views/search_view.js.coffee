@@ -70,7 +70,7 @@ $(document).ready ->
 
           for entity, value of @model.facets
             @.updateList(entity)
-            @.listCollapse(entity, visible: 10)
+            @.listCollapse(entity, visible: Config.facets.max_visible)
 
           @.fixes()
 

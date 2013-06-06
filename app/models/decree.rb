@@ -57,6 +57,7 @@ class Decree < ActiveRecord::Base
     analyze :legislation_area,       as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea,    as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,           as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
+    analyze :legislation_titles,     as: lambda { |d| d.legislation_titles.map(&:value) if d.legislation_titles }
   end
 
   facets do
@@ -69,6 +70,7 @@ class Decree < ActiveRecord::Base
     facet :court,                 type: :terms
     facet :date,                  type: :date,  interval: :month
     facet :legislations,          type: :terms
+    facet :legislation_titles,    type: :terms
   end
 
   def has_future_date?
@@ -77,6 +79,10 @@ class Decree < ActiveRecord::Base
 
   def had_future_date?
     date > created_at.to_date
+  end
+
+  def legislation_titles
+    legislations.find_all { |e| e.title }.map(&:title)
   end
 
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html

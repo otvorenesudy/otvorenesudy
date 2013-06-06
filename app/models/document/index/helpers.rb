@@ -25,6 +25,10 @@ module Document
         "#{name}_suggest"
       end
 
+      def missing_facet_name
+        "_missing"
+      end
+
       def has_field?(field)
         @mappings ? @mappings[field].present? : false
       end
