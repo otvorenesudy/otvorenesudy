@@ -109,6 +109,11 @@ rake process:judge_designations:nrsr_sk
 rake process:judge_designations:2013_president
 ```
 
+* Process legislation titles:
+```
+rake process:legislation_titles
+```
+
 ## Contributing
 
 1. Fork it
