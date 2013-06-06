@@ -1,7 +1,10 @@
 $(document).ready ->
+  window.defined = (value) ->
+    typeof(value) != 'undefined'
+
   window.fixes = ->
     $('a[rel="popover"]').popover()
-    $('a[rel="tooltip"]').tooltip()
+    $('a[rel="tooltip"],a[data-toggle="tooltip"]').tooltip()
 
     $('.tablesorter-wrapper').removeAttr('style')
 

@@ -101,9 +101,12 @@ class SearchController < ApplicationController
   def format_facet(values)
     values.each do |facet|
       facet[:count] = number_with_delimiter(facet[:count])
-      facet[:label] = facet[:title] = facet[:label].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
+      facet[:label] = facet[:label].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
 
-      facet[:label] = "#{facet[:label].first(30)}..." if facet[:label].length > 30
+      if facet[:label].length > 30
+        facet[:title] = facet[:label]
+        facet[:label] = "#{facet[:label].first(30)}&hellip;"
+      end
     end
   end
 end

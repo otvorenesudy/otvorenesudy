@@ -72,6 +72,9 @@ $(document).ready ->
             @.updateList(entity)
             @.listCollapse(entity, visible: 10)
 
+          @.fixes()
+
+
       updateQuery: (value) ->
         @queryInput.val(value)
 
