@@ -4,16 +4,19 @@ class CreateLegislations < ActiveRecord::Migration
       t.string  :value,             null: false, limit: 510
       t.string  :value_unprocessed, null: false, limit: 510
 
+      t.references :legislation_name
+
       t.integer :number
       t.integer :year
       t.string  :name
       t.string  :section
       t.string  :paragraph
       t.string  :letter
-      
+
       t.timestamps
     end
-    
+
     add_index :legislations, :value, unique: true
+    add_index :legislations, :legislation_name_id
   end
 end
