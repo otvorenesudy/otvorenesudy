@@ -1,6 +1,6 @@
 <li data-value="<%= value %>"> 
   <i class="icon-plus add"></i>
-  <% if (defined(title)) { %>
+  <% if (typeof(title) != 'undefined') { %>
    <a href="" title="<%= title %>">
   <% } else { %>
     <a href="#">
