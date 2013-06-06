@@ -6,6 +6,8 @@
 # rake process:judge_designations:nrsr_sk
 # rake process:judge_statistical_summaries:2011
 
+# TODO: refactor
+
 namespace :process do
   namespace :court_expenses do
     desc "Process court expenses from 2010"
@@ -68,11 +70,18 @@ namespace :process do
       processor.process('data/judge_statistical_summaries_2011.csv')
     end
 
-    desc "process court statistical summaries from 2012"
+    desc "Process court statistical summaries from 2012"
     task :'2012' => :environment do
       processor = JusticeGovSk::Processor::JudgeStatisticalSummaries.new
 
       processor.process('data/judge_statistical_summaries_2012.csv')
     end
+  end
+
+  desc "Process legislation paragraph names"
+  task legislation_titles: :environment do
+    processor = JusticeGovSk::Processor::LegislationTitles.new
+
+    processor.process('data/legislation_titles.csv')
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527211651) do
+ActiveRecord::Schema.define(:version => 20130606174658) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -405,7 +405,6 @@ ActiveRecord::Schema.define(:version => 20130527211651) do
   create_table "judge_related_people", :force => true do |t|
     t.integer  "judge_property_declaration_id", :null => false
     t.string   "name",                          :null => false
-    t.string   "name_unprocessed",              :null => false
     t.string   "institution"
     t.string   "function"
     t.datetime "created_at",                    :null => false
@@ -529,6 +528,21 @@ ActiveRecord::Schema.define(:version => 20130527211651) do
 
   add_index "legislation_subareas", ["legislation_area_id"], :name => "index_legislation_subareas_on_legislation_area_id"
   add_index "legislation_subareas", ["value"], :name => "index_legislation_subareas_on_value"
+
+  create_table "legislation_titles", :force => true do |t|
+    t.string   "letter"
+    t.string   "paragraph",  :null => false
+    t.string   "section"
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "legislation_titles", ["letter"], :name => "index_legislation_titles_on_letter"
+  add_index "legislation_titles", ["paragraph", "letter", "value"], :name => "index_legislation_titles_on_paragraph_and_letter_and_value", :unique => true
+  add_index "legislation_titles", ["paragraph", "letter"], :name => "index_legislation_titles_on_paragraph_and_letter", :unique => true
+  add_index "legislation_titles", ["paragraph"], :name => "index_legislation_titles_on_paragraph"
+  add_index "legislation_titles", ["value"], :name => "index_legislation_titles_on_value"
 
   create_table "legislation_usages", :force => true do |t|
     t.integer  "legislation_id", :null => false
