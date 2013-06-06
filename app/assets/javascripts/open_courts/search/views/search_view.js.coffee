@@ -96,7 +96,7 @@ $(document).ready ->
         for value in @model.get name
           label = @model.label(name, value)
 
-          @.prependListItem(list, label: label, title: @model.title(name, value), value: value, facet: @model.facet(name, value))
+          @.prependListItem(list, label: label, title: @model.title(name, value), value: value, count: @model.facet(name, value))
           @.selectListItem(list, value)
 
         list.html(@template.empty_list_message) if @.listEmpty(list)
@@ -115,7 +115,7 @@ $(document).ready ->
           for value in values
             label = @model.label(name, value)
 
-            @.addListItem(list, label: label, title: @model.title(name, value), value: value, facet: @model.facet(name, value)) unless @.listHasItem(list, value)
+            @.addListItem(list, label: label, title: @model.title(name, value), value: value, count: @model.facet(name, value)) unless @.listHasItem(list, value)
 
 
       fixes: ->
