@@ -1,5 +1,5 @@
 class LegislationTitle < ActiveRecord::Base
-  attr_accessible :letter, :paragraph, :section, :value
+  attr_accessible :paragraph, :value
 
   has_many :legislations
 

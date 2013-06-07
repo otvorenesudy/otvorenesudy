@@ -14,6 +14,6 @@ class Legislation < ActiveRecord::Base
   has_many :decrees, through: :usages
 
   def title
-    LegislationTitle.find_by_paragraph_and_letter(paragraph, letter)
+    LegislationTitle.find_by_paragraph(paragraph)
   end
 end

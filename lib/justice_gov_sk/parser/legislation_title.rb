@@ -11,16 +11,12 @@ module JusticeGovSk
         legislation[1]
       end
 
-      def letter
-        legislation[2] unless legislation[2].blank?
-      end
-
       def value
         @data[1].strip.squeeze(' ')
       end
 
       def legislation
-        return *@data[0].strip.match(/\A§\s*(?<paragraph>\d+)(?<letter>[a-z]*)\z/)
+        return *@data[0].strip.match(/\A§\s*(?<paragraph>\d+[a-z]*)\z/)
       end
     end
   end

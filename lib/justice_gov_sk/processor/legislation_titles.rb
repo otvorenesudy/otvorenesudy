@@ -9,10 +9,9 @@ module JusticeGovSk
         super(filepath, options) do |record|
           @parser.parse(record)
 
-          @name = legislation_title_by_paragraph_and_letter_and_value_factory.find_or_create(@parser.value, @parser.paragraph, @parser.letter)
+          @name = legislation_title_by_paragraph_and_value_factory.find_or_create(@parser.paragraph, @parser.value)
 
           @name.paragraph = @parser.paragraph
-          @name.letter    = @parser.letter
           @name.value     = @parser.value
 
           persist(@name)

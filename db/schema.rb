@@ -530,17 +530,13 @@ ActiveRecord::Schema.define(:version => 20130606174658) do
   add_index "legislation_subareas", ["value"], :name => "index_legislation_subareas_on_value"
 
   create_table "legislation_titles", :force => true do |t|
-    t.string   "letter"
     t.string   "paragraph",  :null => false
-    t.string   "section"
     t.string   "value",      :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "legislation_titles", ["letter"], :name => "index_legislation_titles_on_letter"
-  add_index "legislation_titles", ["paragraph", "letter", "value"], :name => "index_legislation_titles_on_paragraph_and_letter_and_value", :unique => true
-  add_index "legislation_titles", ["paragraph", "letter"], :name => "index_legislation_titles_on_paragraph_and_letter", :unique => true
+  add_index "legislation_titles", ["paragraph", "value"], :name => "index_legislation_titles_on_paragraph_and_value", :unique => true
   add_index "legislation_titles", ["paragraph"], :name => "index_legislation_titles_on_paragraph"
   add_index "legislation_titles", ["value"], :name => "index_legislation_titles_on_value"
 
