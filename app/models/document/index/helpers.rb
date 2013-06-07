@@ -26,7 +26,7 @@ module Document
       end
 
       def missing_facet_name
-        "_missing"
+        "missing"
       end
 
       def has_field?(field)

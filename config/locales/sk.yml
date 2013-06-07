@@ -130,25 +130,25 @@ sk:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       activity:
         title: 'Aktivita'
 
         active: 'Aktívny'
         inactive: 'Neaktívny'
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       positions:
         title: 'Pozícia sudcu'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       courts:
         title: 'Súd'
         placeholder: 'Názov súdu'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       hearings_count:
         title: 'Počet pojednávaní'
@@ -168,30 +168,30 @@ sk:
         title: 'Súd'
         placeholder: 'Názov súdu'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       form:
         title: 'Forma'
         placeholder: 'Forma pojednávania'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       section:
         title: 'Úsek'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       subject:
         title: 'Predmet'
         placeholder: 'Predment pojednávania'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       date:
         title: 'Dátum'
@@ -204,36 +204,36 @@ sk:
         title: 'Súd'
         placeholder: 'Názov súdu'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'  
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       form:
         title: 'Forma'
         placeholder: 'Forma rozhodnutia'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       natures:
         title: 'Povaha'
         placeholder: 'Povaha rozhodnutia'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       legislation_area:
         title: 'Oblasť právnej úpravy'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       legislation_subarea:
         title: 'Podoblasť právnej úpravy'
         placeholder: 'Podoblasť právnej úpravy'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       date:
         title: 'Dátum'
@@ -242,13 +242,13 @@ sk:
         title: 'Ustanovenie'
         placeholder: 'Číslo §, zákona alebo rok'
 
-        _missing: 'neuvedené'
+        missing: 'neuvedené'
 
       legislation_titles:
         title: 'Zaradenie ustanovenia'
         placeholder: 'Zaradenie ustanovania'
 
-        _missing: 'neuvedené'
+        missing: 'neuvedené'
 
       q:
         placeholder: 'Vyhľadávanie v rozhodnutiach'
@@ -260,19 +260,19 @@ sk:
       type:
         title: 'Typ'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
 
-        _missing: 'neuvedený'
+        missing: 'neuvedený'
 
       municipality:
         title: 'Obec'
         placeholder: 'Meno obce'
 
-        _missing: 'neuvedená'
+        missing: 'neuvedená'
 
       hearings_count:
         title: 'Počet pojednávaní'
