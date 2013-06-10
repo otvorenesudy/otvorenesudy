@@ -359,5 +359,7 @@ footer {
 // sections
 
 section.profile {
-  // TODO
+  li a[target="_blank"] {
+    color: $textColor;
+  }
 }
