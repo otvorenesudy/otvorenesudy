@@ -158,7 +158,7 @@ a.icon {
 
 // popovers and tooltips
 
-a[rel="popover"], a[rel="tooltip"] {
+a[data-toggle="popover"], a[data-toggle="tooltip"] {
   border-bottom: 1px dotted $grayLight;
 
   color: $textColor;
@@ -175,13 +175,13 @@ a[rel="popover"], a[rel="tooltip"] {
 }
 
 h1, h2, strong {
-  a[rel="popover"], a[rel="tooltip"] {
+  a[data-toggle="popover"], a[data-toggle="tooltip"] {
     border-bottom-style: dashed;
   }
 }
 
 .well {
-  a[rel="popover"], a[rel="tooltip"] {
+  a[data-toggle="popover"], a[data-toggle="tooltip"] {
     border-bottom-color: $gray;
   }
 }
