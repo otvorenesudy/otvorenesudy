@@ -44,6 +44,7 @@ module JusticeGovSk
           @decree.file_number = @parser.file_number(@document)
           @decree.date        = @parser.date(@document)
           @decree.ecli        = @parser.ecli(@document)
+          @decree.summary     = @parser.summary(@document)
           
           supply_proceeding_for @decree
           

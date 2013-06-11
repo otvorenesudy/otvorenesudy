@@ -43,7 +43,7 @@ module JusticeGovSk
       end
 
       def note(value)
-        normalize_punctuation(value.gsub(/\A-/, '')) unless value.blank?
+        normalize_punctuation(value.gsub(/\A\s*\-+/, '')) unless value.blank?
       end
     end
   end

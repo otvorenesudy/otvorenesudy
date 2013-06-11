@@ -15,6 +15,5 @@ class CreateLegislations < ActiveRecord::Migration
     end
 
     add_index :legislations, :value, unique: true
-    add_index :legislations, :legislation_title_id
   end
 end

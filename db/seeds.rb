@@ -4,6 +4,7 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # sources
+
 source        = Source.new
 source.module = "JusticeGovSk"
 source.name   = "Portál ministerstva spravodlivosti Slovenskej republiky"
@@ -13,13 +14,13 @@ source.save!
 source        = Source.new
 source.module = "SudnaradaGovSk"
 source.name   = "Portál súdnej rady Slovenskej republiky"
-source.uri    = "http://mps.sudnarada.gov.sk"
+source.uri    = "http://www.sudnarada.gov.sk"
 source.save!
 
 source        = Source.new
 source.module = "NrsrSk"
 source.name   = "Národná rada Slovenskej republiky"
-source.uri    = "http://nrsr.sk"
+source.uri    = "http://www.nrsr.sk"
 source.save!
 
 seeds        = Source.new

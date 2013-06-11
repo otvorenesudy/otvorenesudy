@@ -26,7 +26,7 @@ module JusticeGovSk
       private
       
       def accusation(value)
-        normalize_punctuation(value.strip.gsub(/^-?\s*/, ''))
+        normalize_punctuation(value.strip.gsub(/\A\s*\-+/, ''))
       end
     end
   end

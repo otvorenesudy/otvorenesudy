@@ -26,7 +26,7 @@ module JusticeGovSk
           div.text.strip
         end
       end
-
+      
       def court(document)
         find_value_by_label 'court', document, 'Súd' do |div|
           normalize_court_name(div.search('a').first.text)
@@ -93,6 +93,12 @@ module JusticeGovSk
         end
         
         map
+      end
+      
+      def summary(document)
+        find_value_by_label 'summary', document, 'Sumár' do |div|
+          div.text.strip
+        end
       end
       
       protected

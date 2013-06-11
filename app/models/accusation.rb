@@ -1,5 +1,6 @@
 class Accusation < ActiveRecord::Base
-  attr_accessible :value
+  attr_accessible :value,
+                  :value_unprocessed
   
   belongs_to :defendant
              

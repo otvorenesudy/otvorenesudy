@@ -14,6 +14,7 @@ class CreateDecrees < ActiveRecord::Migration
       
       t.date   :date
       t.string :ecli
+      t.text   :summary
 
       t.references :legislation_area
       t.references :legislation_subarea

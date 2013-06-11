@@ -10,7 +10,7 @@ class Decree < ActiveRecord::Base
                   :file_number,
                   :date,
                   :ecli,
-                  :text
+                  :summary
 
   scope :at_court, lambda { |court| where court_id: court }
 
@@ -36,6 +36,10 @@ class Decree < ActiveRecord::Base
   has_many :legislation_usages, dependent: :destroy
 
   has_many :legislations, through: :legislation_usages
+  
+  has_many :paragraph_explainations, through: :legislations
+  
+  has_many :paragraphs, through: :paragraph_explainations
 
   has_many :pages, class_name: :DecreePage, dependent: :destroy
 
@@ -57,7 +61,6 @@ class Decree < ActiveRecord::Base
     analyze :legislation_area,       as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea,    as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,           as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
-    analyze :legislation_titles,     as: lambda { |d| d.legislation_titles.map(&:value) if d.legislation_titles }
   end
 
   facets do
@@ -70,7 +73,6 @@ class Decree < ActiveRecord::Base
     facet :court,                 type: :terms
     facet :date,                  type: :date,  interval: :month
     facet :legislations,          type: :terms
-    facet :legislation_titles,    type: :terms
   end
 
   def has_future_date?
@@ -79,10 +81,6 @@ class Decree < ActiveRecord::Base
 
   def had_future_date?
     date > created_at.to_date
-  end
-
-  def legislation_titles
-    legislations.find_all { |e| e.title }.map(&:title)
   end
 
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html
