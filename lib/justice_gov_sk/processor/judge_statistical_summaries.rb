@@ -32,7 +32,7 @@ module JusticeGovSk
         @summary.court  = @court
         @summary.judge  = @judge
         @summary.year   = @parser.year
-        @summary.uri    = @filename
+        @summary.uri    = @filepath
         @summary.source = JusticeGovSk.source
 
         @summary.update_attributes(@parser.summary)

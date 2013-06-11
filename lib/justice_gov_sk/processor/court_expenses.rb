@@ -16,7 +16,7 @@ module JusticeGovSk
           @expense.court  = @court
           @expense.year   = @parser.year
           @expense.value  = @parser.value
-          @expense.uri    = @filename
+          @expense.uri    = @filepath
           @expense.source = JusticeGovSk.source
 
           persist(@expense)

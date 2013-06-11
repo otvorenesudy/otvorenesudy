@@ -37,7 +37,7 @@ module NrsrSk
           @designation.date   = date
           @designation.type   = @designation_type
           @designation.source = options[:source] || NrsrSk.source
-          @designation.uri    = @filename
+          @designation.uri    = @filepath
 
           persist(@designation)
         end

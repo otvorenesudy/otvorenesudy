@@ -15,9 +15,10 @@ module Core
 
         lines = 0
 
-        @filename = File.basename(filepath)
+        @filepath = filepath
+        @filename = File.basename(@filepath)
 
-        ::CSV.foreach(filepath, settings) do |line|
+        ::CSV.foreach(@filepath, settings) do |line|
           yield line if block_given?
 
           lines += 1
@@ -25,7 +26,6 @@ module Core
 
         puts "done (#{lines} lines read)"
       end
-
     end
   end
 end

@@ -21,7 +21,7 @@ module JusticeGovSk
 
         @summary.court  = @court
         @summary.year   = @parser.year
-        @summary.uri    = @filename
+        @summary.uri    = @filepath
         @summary.source = JusticeGovSk.source
 
         persist(@summary)
