@@ -8,12 +8,11 @@ class Legislation < ActiveRecord::Base
                   :section,
                   :letter
 
-  has_many :usages, class_name: :LegislationUsage,
-                    foreign_key: :legislation_usage_id
+  has_many :usages, class_name: :LegislationUsage
 
   has_many :decrees, through: :usages
 
-  def title
-    LegislationTitle.find_by_paragraph(paragraph)
-  end
+  has_many :paragraph_explainations, dependent: :destroy, as: :explainable
+  
+  has_many :paragraphs, through: :explainations
 end

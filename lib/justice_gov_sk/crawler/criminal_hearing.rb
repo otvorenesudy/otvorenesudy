@@ -24,8 +24,9 @@ module JusticeGovSk
           map.each do |name, values|
             defendant = defendant_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
             
-            defendant.hearing = @hearing
-            defendant.name    = name
+            defendant.hearing          = @hearing
+            defendant.name             = name[:normalized]
+            defendant.name_unprocessed = name[:unprocessed]
             
             @persistor.persist(defendant)
             
@@ -43,8 +44,9 @@ module JusticeGovSk
           values.each do |value|
             accusation = accusation_by_defendant_id_and_value_factory.find_or_create(defendant.id, value)
               
-            accusation.defendant = defendant
-            accusation.value     = value
+            accusation.defendant         = defendant
+            accusation.value             = value[:normalized]
+            accusation.value_unprocessed = value[:unprocessed]
               
             @persistor.persist(accusation)
           end         

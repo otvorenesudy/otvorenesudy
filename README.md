@@ -61,6 +61,11 @@ rake crawl:courts
 rake crawl:judges
 ```
 
+3. Process known paragraph descriptions:
+```
+rake process:paragraphs
+```
+
 ### Hearings and decrees from justice.gov.sk
 
 1. Start Resque workers:
@@ -84,34 +89,32 @@ rake crawl:judge_property_declarations
 ```
 Note that currect support is only for property declarations of 2011.
 
-### Partially preprocessed data from various sources
-* Court statistical summaries from justice.gov.sk:
+### Partially preprocessed statistical summaries from justice.gov.sk
+
+* Court statistical summaries:
 ```
 rake process:court_statistical_summaries:2012
 ```
 
-* Court expenses:
+* Judge statistical summaries:
+```
+rake process:judge_statistical_summaries:2011
+rake process:judge_statistical_summaries:2012
+```
+
+### Partially preprocessed data from various sources
+
+* Court expenses from justice.gov.sk:
 ```
 rake process:court_expenses:2010
 rake process:court_expenses:2011
 rake process:court_expenses:2012
 ```
 
-* Judge statistical summaries from justice.gov.sk:
-```
-rake process:judge_statistical_summaries:2011
-rake process:judge_statistical_summaries:2012
-```
-
-* Process judge designations:
+* Process judge designations from nrsr.sk and prezident.sk:
 ```
 rake process:judge_designations:nrsr_sk
-rake process:judge_designations:2013_president
-```
-
-* Process legislation titles:
-```
-rake process:legislation_titles
+rake process:judge_designations:prezident_sk
 ```
 
 ## Contributing

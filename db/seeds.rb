@@ -12,15 +12,21 @@ source.uri    = "http://www.justice.gov.sk"
 source.save!
 
 source        = Source.new
-source.module = "SudnaradaGovSk"
-source.name   = "Portál súdnej rady Slovenskej republiky"
-source.uri    = "http://www.sudnarada.gov.sk"
-source.save!
-
-source        = Source.new
 source.module = "NrsrSk"
 source.name   = "Národná rada Slovenskej republiky"
 source.uri    = "http://www.nrsr.sk"
+source.save!
+
+source        = Source.new
+source.module = "PrezidentSk"
+source.name   = "Prezident Slovenskej republiky"
+source.uri    = "http://www.prezident.sk"
+source.save!
+
+source        = Source.new
+source.module = "SudnaradaGovSk"
+source.name   = "Portál súdnej rady Slovenskej republiky"
+source.uri    = "http://www.sudnarada.gov.sk"
 source.save!
 
 seeds        = Source.new

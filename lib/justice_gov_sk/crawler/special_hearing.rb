@@ -12,11 +12,7 @@ module JusticeGovSk
           
           chair_judge
           
-          supply @hearing, :defendant, { parse: :name,
-            defaults: { hearing_id: @hearing.id },
-            factory: { args: [:hearing_id, :name] },
-            association: :has_many
-          }
+          defendant
           
           @hearing
         end
@@ -38,6 +34,20 @@ module JusticeGovSk
             
             judging(judge, similarity, name, true)
           end
+        end
+      end
+      
+      def defendant
+        name = @parser.defendant(@document)
+        
+        unless name.nil?
+          defendant = defendant_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
+          
+          defendant.hearing          = @hearing
+          defendant.name             = name[:normalized]
+          defendant.name_unprocessed = name[:unprocessed]
+          
+          @persistor.persist(defendant)
         end
       end
     end

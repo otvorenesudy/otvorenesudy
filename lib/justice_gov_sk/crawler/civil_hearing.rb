@@ -27,8 +27,9 @@ module JusticeGovSk
           names.each do |name|
             proposer = proposer_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
             
-            proposer.hearing = @hearing
-            proposer.name    = name
+            proposer.hearing          = @hearing
+            proposer.name             = name[:normalized]
+            proposer.name_unprocessed = name[:unprocessed]
             
             @persistor.persist(proposer)
           end
@@ -44,8 +45,9 @@ module JusticeGovSk
           names.each do |name|
             opponent = opponent_by_hearing_id_and_name_factory.find_or_create(@hearing.id, name)
             
-            opponent.hearing = @hearing
-            opponent.name    = name
+            opponent.hearing          = @hearing
+            opponent.name             = name[:normalized]
+            opponent.name_unprocessed = name[:unprocessed]
             
             @persistor.persist(opponent)
           end

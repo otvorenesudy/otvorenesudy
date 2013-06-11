@@ -36,7 +36,7 @@ module NrsrSk
           @designation.judge  = judge
           @designation.date   = date
           @designation.type   = @designation_type
-          @designation.source = NrsrSk.source
+          @designation.source = options[:source] || NrsrSk.source
           @designation.uri    = @filename
 
           persist(@designation)

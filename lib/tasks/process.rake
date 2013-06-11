@@ -1,14 +1,23 @@
 # Usage:
 #
+# rake process:paragraphs
+#
 # rake process:court_expenses:2010
 # rake process:court_statistical_summaries:2011
 #
 # rake process:judge_designations:nrsr_sk
 # rake process:judge_statistical_summaries:2011
 
-# TODO: refactor
+# TODO: refactor, use year as task param, process all years by default
 
 namespace :process do
+  desc "Process know paragraph descriptions"
+  task paragraphs: :environment do
+    processor = JusticeGovSk::Processor::Paragraphs.new
+
+    processor.process('data/paragraphs.csv')
+  end
+
   namespace :court_expenses do
     desc "Process court expenses from 2010"
     task :'2010' => :environment do
@@ -43,7 +52,7 @@ namespace :process do
   end
 
   namespace :judge_designations do
-    desc "Process judge designations from Nrsr.sk"
+    desc "Process judge designations"
     task :nrsr_sk => :environment do
       processor = NrsrSk::Processor::JudgeDesignations.new
 
@@ -52,13 +61,13 @@ namespace :process do
       processor.process('data/judge_designations_nrsr.csv', options)
     end
 
-    desc "Process judge designations from 2013 by president"
-    task :'2013_president' => :environment do
+    desc "Process judge designations"
+    task :prezident_sk => :environment do
       processor = NrsrSk::Processor::JudgeDesignations.new
 
-      options = { separator: "\t" }
+      options = { separator: "\t", source: Source.find_by_module(:PrezidentSk) }
 
-      processor.process('data/judge_designations_2013_president.csv', options)
+      processor.process('data/judge_designations_prezident_sk.csv', options)
     end
   end
 
@@ -76,12 +85,5 @@ namespace :process do
 
       processor.process('data/judge_statistical_summaries_2012.csv')
     end
-  end
-
-  desc "Process legislation paragraph names"
-  task legislation_titles: :environment do
-    processor = JusticeGovSk::Processor::LegislationTitles.new
-
-    processor.process('data/legislation_titles.csv')
   end
 end
