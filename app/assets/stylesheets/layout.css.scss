@@ -318,8 +318,10 @@ header {
 // footer
 
 footer {
-  margin-top: 40px;
-  padding: 30px 0px;
+  margin-top: 80px;
+  padding: 50px 0px;
+  
+  border-top: 1px solid darken($grayLighter, 12.5%);
 
   background: $grayLighter;
   color: $gray;
@@ -350,6 +352,10 @@ footer {
   }
   
   .copyright {
+    margin-bottom: 10px;
+    
+    font-size: $fontSizeSmall;
+    
     a {
       color: darken($grayLight, 12.5%);
     }
