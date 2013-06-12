@@ -23,7 +23,7 @@ class SearchController < ApplicationController
 
   protected
 
-  helper_method :search_type,
+  helper_method :prepare_search,
                 :search_path,
                 :suggest_path
 
