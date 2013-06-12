@@ -32,7 +32,9 @@ module SearchHelper
   def order_tag(params, order, options)
     options.merge! class: 'btn'
 
-    options[:class] << ' active' if order == params[:order]
+    param = params[:order] ? params[:order] : :desc
+
+    options[:class] << ' active' if order == param
 
     link_to search_path(params.merge(order: order)), options do
       icon_tag order == :asc ? :'chevron-up' : :'chevron-down'

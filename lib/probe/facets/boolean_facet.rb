@@ -17,7 +17,7 @@ class Probe::Facets
     end
 
     def terms=(value)
-      super(value)
+      @terms = value
 
       @facet.terms = facet_value if @terms == true
     end

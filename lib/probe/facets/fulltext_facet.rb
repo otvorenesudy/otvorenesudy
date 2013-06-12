@@ -10,6 +10,10 @@ class Probe::Facets
       super name, field, options
     end
 
+    def terms=(value)
+      @terms = value
+    end
+
     def build_query
       build_query_from(@field, @terms, query_options)
     end

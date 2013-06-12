@@ -3,6 +3,10 @@
     <div class="pull-right">
       <%= search_sort_select_tag(@sort_fields, @facets.params) %>
     </div>
+
+    <% form_params(@facets.params.except(:sort)) do |name, value| %>
+      <%= hidden_field_tag name, value %>
+    <% end %>
   </div>
 
   <div class="span1">

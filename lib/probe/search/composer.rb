@@ -16,10 +16,12 @@ module Probe::Search
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
+
+      @page     = extract_page_param(@params) if @params[:page]
+      @order    = extract_order_param(@params) if @params[:order]
+      @sort     = extract_sort_param(@params, @sort_fields) if @params[:sort]
       @per_page = options[:per_page] ? options[:per_page].to_i : Probe::Configuration.per_page
-      @page     = extract_page_param(@params)
-      @order    = extract_order_param(@params)
-      @sort     = extract_sort_param(@params, @sort_fields)
+
 
       @facets.extract_facets_params(@params)
       @facets.add_search_params(@page, @sort, @order)
@@ -101,9 +103,11 @@ module Probe::Search
     end
 
     def search_sort
+      @sort ||= @sort_fields.first
+
       field = @sort == :'_score' ? @sort : not_analyzed_field(@sort)
 
-      @index.sort { |s| s.by field, @order || :asc }
+      @index.sort { |s| s.by field, @order || :desc }
     end
 
     def search_highlights
@@ -113,6 +117,8 @@ module Probe::Search
     end
 
     def search_pagination
+      @page ||= 1
+
       @index.size @per_page
       @index.from(@per_page * (@page - 1)) if @page
     end

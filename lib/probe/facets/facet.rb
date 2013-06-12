@@ -45,6 +45,10 @@ class Probe::Facets
       @params ||= {}
     end
 
+    def terms=(value)
+      @terms = Array.wrap(value)
+    end
+
     def populate(results, selected)
       results = yield results if block_given?
 
@@ -67,12 +71,16 @@ class Probe::Facets
       @results = results.uniq
     end
 
-    def parse_terms(values)
-      values = [values] unless values.respond_to? :each
+    def parse_terms(terms)
+      if block_given?
+        if terms.respond_to? :each
+          terms = terms.map { |value| yield value }
+        else
+          terms = yield(terms)
+        end
+      end
 
-      values = values.map { |value| yield value } if block_given?
-
-      values
+      terms
     end
 
     alias :highlighted?   :highlight
@@ -124,17 +132,17 @@ class Probe::Facets
     end
 
     def create_result_params(value)
-      params.merge @name => [value]
+      params.merge @name => value
     end
 
     def create_result_add_params(value)
-      values = params[@name] ? params[@name] + [value] : [value]
+      values = params[@name] ? Array.wrap(params[@name]) + [value] : value
 
       params.merge @name => values
     end
 
     def create_result_remove_params(value)
-      values = params[@name] ? params[@name] - [value] : [value]
+      values = params[@name] ? Array.wrap(params[@name]) - [value] : value
 
       params.merge @name => values
     end
