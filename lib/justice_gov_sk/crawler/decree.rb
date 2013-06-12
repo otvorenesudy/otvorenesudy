@@ -161,9 +161,12 @@ module JusticeGovSk
               legislation.section   = identifiers[:section]
               legislation.letter    = identifiers[:letter]
               
+              legislation.paragraph_explainations = []
+              
               @persistor.persist(legislation)
               
               legislation_usage(legislation)
+              paragraph_explaination(legislation)
             end
           end
         end
@@ -199,6 +202,21 @@ module JusticeGovSk
         legislation_usage.decree      = @decree
         
         @persistor.persist(legislation_usage)
+      end
+      
+      def paragraph_explaination(legislation)
+        paragraph = paragraph_by_number_factory.find(legislation.paragraph)
+        
+        if paragraph
+          paragraph_explaination = paragraph_explaination_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, legislation.id, :Legislation)
+          
+          paragraph_explaination.paragraph   = paragraph
+          paragraph_explaination.explainable = legislation
+          
+          @persistor.persist(paragraph_explaination)
+        else
+          puts "No known paragraph found."
+        end
       end
     end
   end
