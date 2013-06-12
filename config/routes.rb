@@ -21,8 +21,8 @@ OpenCourts::Application.routes.draw do
      get :curriculum, on: :member
 
     collection do
-      get  :search
-      post :suggest
+      get :search
+      get :suggest
     end
   end
 
@@ -32,8 +32,8 @@ OpenCourts::Application.routes.draw do
     end
 
     collection do
-      get  :search
-      post :suggest
+      get :search
+      get :suggest
     end
   end
 
@@ -60,8 +60,8 @@ OpenCourts::Application.routes.draw do
 
   resources :proceedings do
     collection do
-      get  :search
-      post :suggest
+      get :search
+      get :suggest
     end
   end
 
