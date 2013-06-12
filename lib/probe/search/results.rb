@@ -99,7 +99,7 @@ module Probe::Search
         @facets.highlights.each do |facet|
           field = facet.field
 
-          field = [field] unless field.respond_to? :each
+          field = Array.wrap(field)
 
           field.each do |f|
             highlight[f] = result.highlight ? result.highlight[facet.analyzed_field_name] : []
