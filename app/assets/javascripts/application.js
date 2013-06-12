@@ -11,23 +11,23 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_setup
+//= require browser
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require jquery.spin
 //= require inflection
 //= require bootstrap
+//= require boostrap_ext
 //= require underscore
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
-//= require namespace
-//= require open_courts/search/search
 //= require gmaps4rails/gmaps4rails.base
 //= require gmaps4rails/gmaps4rails.googlemaps
 //= require jquery-tablesorter
+//= require lib/lib
 //= require tables
-//= require scroll_to
+//= require search
 //= require hash
 //= require fixes
 //= require_tree ./document_viewer

@@ -1,3 +1,5 @@
+#= require lib/output
+
 window.Logger =
   prefix: ->
     @constructor.name
@@ -12,9 +14,7 @@ window.Logger =
     Output.puts "#{@.prefix()} > #{msg}"
 
   warn: (msg) ->
-    @.log "[ WARNING ] #{msg}"
+    Output.warn "#{@.prefix()} [WARNING] #{msg}"
 
   err: (msg) ->
-    @.log "[ ERROR ] #{msg}"
-
-
+    Output.error "#{@.prefix()} [ERROR] #{msg}"
