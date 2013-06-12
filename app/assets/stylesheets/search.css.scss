@@ -9,7 +9,9 @@
 
   #search-results {
     .spinner {
-      margin: 40px;
+      position: relative;
+      top: 100px;
+      margin: auto;
     }
 
     ol {
@@ -66,7 +68,7 @@
     }
   }
 
-  .facet-content {
+  .facet-content, .facet-fold {
     position: relative;
 
     left: -20px;
@@ -79,7 +81,7 @@
     li {
       position: relative;
 
-      .facet {
+      .facet-label {
         background-color: $grayLighter;
         color: $gray;
         text-shadow: none;
@@ -94,7 +96,7 @@
           display: block;
 
           position: absolute;
-          top: 3px;
+          top: 1px;
           left: -17px;
           width: 20px;
 
@@ -109,7 +111,7 @@
 
       .remove {
         position: absolute;
-        top: 3px;
+        top: 1px;
         left: -17px;
         width: 20px;
 
