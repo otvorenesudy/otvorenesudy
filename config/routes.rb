@@ -13,25 +13,31 @@ OpenCourts::Application.routes.draw do
     collection do
       get :search
       get :map
+      get :suggest
     end
   end
 
   resources :judges do
-    get :search, on: :collection
-    get :curriculum, on: :member
+     get :curriculum, on: :member
+
+    collection do
+      get  :search
+      post :suggest
+    end
   end
 
   resources :hearings do
-    get :search, on: :collection
-
     member do
       get :resource
+    end
+
+    collection do
+      get  :search
+      post :suggest
     end
   end
 
   resources :decrees do
-    get :search, on: :collection
-
     member do
       get :resource
       get :document
@@ -45,10 +51,18 @@ OpenCourts::Application.routes.draw do
         get :image
       end
     end
+
+    collection do
+      get  :search
+      get  :suggest
+    end
   end
 
   resources :proceedings do
-    get :search, on: :collection
+    collection do
+      get  :search
+      post :suggest
+    end
   end
 
   match '/404', to: 'errors#show'
