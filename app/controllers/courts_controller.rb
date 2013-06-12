@@ -1,4 +1,4 @@
-class CourtsController < ApplicationController
+class CourtsController < SearchController
   include CourtsHelper
 
   def index

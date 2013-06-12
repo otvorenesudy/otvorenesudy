@@ -1,6 +1,6 @@
-module Document
-  module Index
-    module Helpers
+module Probe
+  module Helpers
+    module Index
       def analyzed_field(field)
         return field.map { |f| "#{f}.analyzed".to_sym } if field.is_a? Array
 
@@ -13,24 +13,12 @@ module Document
         "#{field}.untouched".to_sym
       end
 
-      def selected_facet_name(name)
-        "#{name}_selected".to_sym
-      end
-
-      def selected_facet_name?(name)
-        name.to_s =~ /_selected/
-      end
-
-      def suggested_facet_name(name)
-        "#{name}_suggest"
-      end
-
-      def missing_facet_name
-        "missing"
-      end
-
       def has_field?(field)
         @mappings ? @mappings[field].present? : false
+      end
+
+      def has_sort_field?(field)
+       @sort_fields ? @sort_fields.include?(field) : false
       end
 
       def has_facet?(name)
@@ -39,7 +27,7 @@ module Document
 
       def create_facet(type, name, field, options)
         # TODO: core/injector
-        "Document::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
+        "Probe::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
       end
     end
   end

@@ -1,5 +1,5 @@
-module Document::Facets
-  class MultiTermsFacet < Document::Facets::TermsFacet
+class Probe::Facets
+  class MultiTermsFacet < Probe::Facets::TermsFacet
     attr_reader :multi
 
     def initialize(name, field, options)

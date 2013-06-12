@@ -1,9 +1,9 @@
 # TODO: refactor to Nested facet, create facet groups
 
-module Document::Facets
-  class BooleanFacet < Document::Facets::Facet
+class Probe::Facets
+  class BooleanFacet < Probe::Facets::Facet
     def initialize(name, field, options)
-      super(name, field, options.merge!(abstract: true))
+      super name, field, options
 
       @facet       = create_facet(options[:facet], name, field, options)
       @facet_value = options[:value]
@@ -22,17 +22,19 @@ module Document::Facets
       @facet.terms = facet_value if @terms == true
     end
 
-    def terms?
+    def active?
       @facet.terms.present?
     end
 
-    def parse(value)
-      value == 'true' ? true : false
+    def parse_terms(value)
+      value == true || value == 'true' ? true : false
     end
 
     def build_filter
       @facet.build_filter
     end
+
+    alias :value :terms
 
     private
 

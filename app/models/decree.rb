@@ -2,9 +2,9 @@ class Decree < ActiveRecord::Base
   include Resource::URI
   include Resource::Storage
 
-  include Document::Indexable
-  include Document::Searchable
-  include Document::Suggestable
+  include Probe::Index
+  include Probe::Search
+  include Probe::Suggest
 
   attr_accessible :case_number,
                   :file_number,
@@ -58,6 +58,8 @@ class Decree < ActiveRecord::Base
     analyze :legislation_subarea,    as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,           as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
     analyze :legislation_titles,     as: lambda { |d| d.legislation_titles.map(&:value) if d.legislation_titles }
+
+    sort_by :date
   end
 
   facets do

@@ -1,11 +1,11 @@
-module Document::Facets
-  class FulltextFacet < Document::Facets::Facet
-    include Document::Search::Query
+class Probe::Facets
+  class FulltextFacet < Probe::Facets::Facet
+    include Probe::Search::Query
 
     attr_accessor :query_options
 
     def initialize(name, field, options)
-      super name, field, options.merge!(abstract: true)
+      super name, field, options
     end
 
     def build_query
@@ -16,7 +16,7 @@ module Document::Facets
       [build_query_filter_from(@field, @terms, query_options)]
     end
 
-    def parse(value)
+    def parse_terms(value)
       value.respond_to?(:join) ? value.join(' ') : value.to_s
     end
 

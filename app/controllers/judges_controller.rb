@@ -1,4 +1,4 @@
-class JudgesController < ApplicationController
+class JudgesController < SearchController
   def index
     @judges = Judge.order(:last, :middle, :first).page(params[:page])
   end

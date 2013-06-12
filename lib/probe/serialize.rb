@@ -1,5 +1,5 @@
-module Document
-  module Serializable
+module Probe
+  module Serialize
     def to_indexed_json
       result = {}
 

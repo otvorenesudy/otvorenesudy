@@ -1,6 +1,6 @@
-module Document
-  class Configuration < Settingslogic
-    source File.join(Rails.root, 'config', 'elasticsearch.yml')
+module Probe
+  class Config < Settingslogic
+    source File.join(Rails.root, 'config', 'probe.yml')
 
     namespace Rails.env
 

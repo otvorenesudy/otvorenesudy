@@ -1,22 +1,22 @@
-module Document
-  module Indexable
+module Probe
+  module Index
     extend ActiveSupport::Concern
 
     included do
       include Tire::Model::Search
       include Tire::Model::Callbacks
 
-      configure
+      settings
     end
 
     module ClassMethods
-      include Document::Index::Helpers
+      include Probe::Helpers::Index
 
       def config
-        Document::Configuration
+        Probe::Config
       end
 
-      def configure(params = {})
+      def settings(params = {})
         settings = config.index
 
         settings.deep_merge!(params)
@@ -25,12 +25,12 @@ module Document
       end
 
       def mapping
-        @mapping      ||= {}
-        @dependencies ||= {}
-
         unless block_given?
           return @mapping
         else
+          @mapping      = Hash.new
+          @sort_fields  = Array.new
+
           yield
 
           tire.mapping do
@@ -60,13 +60,11 @@ module Document
       end
 
       def facets
-        @facets ||= {}
+        @facet_definitions ||= []
 
-        if block_given?
-          yield
-        else
-          @facets
-        end
+        yield if block_given?
+
+        @facets ||= Probe::Facets.new(@facet_definitions)
       end
 
       private
@@ -100,8 +98,11 @@ module Document
 
         options.merge! base: self
 
-        # TODO: use core injector
-        @facets[name] = create_facet(type, name, field, options)
+        @facet_definitions << create_facet(type, name, field, options)
+      end
+
+      def sort_by(*args)
+        @sort_fields = *args
       end
     end
   end

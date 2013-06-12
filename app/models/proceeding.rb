@@ -1,9 +1,9 @@
 class Proceeding < ActiveRecord::Base
   attr_accessible :file_number
 
-  include Document::Indexable
-  include Document::Searchable
-  include Document::Suggestable
+  include Probe::Index
+  include Probe::Search
+  include Probe::Suggest
 
   has_many :hearings
   has_many :decrees

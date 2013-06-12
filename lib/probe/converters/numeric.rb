@@ -1,4 +1,4 @@
-module Document::Converters
+module Probe::Converters
   class Numeric
     def self.to_elastic(value)
       case value

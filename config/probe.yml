@@ -1,5 +1,6 @@
 defaults: &defaults
   indices: [hearings, decrees, judges, decree_pages, courts, proceedings]
+  per_page: 20
   index:
     number_of_shards: 1
     number_of_replicas: 1
