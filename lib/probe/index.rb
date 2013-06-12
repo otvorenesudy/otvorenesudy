@@ -13,7 +13,7 @@ module Probe
       include Probe::Helpers::Index
 
       def config
-        Probe::Config
+        Probe::Configuration
       end
 
       def settings(params = {})
