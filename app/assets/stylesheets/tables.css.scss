@@ -9,7 +9,7 @@
     padding-right: 18px + 8px;
     cursor: pointer;
     
-    a[rel="tooltip"] {
+    a[data-toggle="tooltip"] {
       position: relative;
       display: inline-block;
       float: left;

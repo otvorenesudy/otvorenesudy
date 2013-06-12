@@ -3,9 +3,8 @@ $(document).ready ->
     typeof(value) != 'undefined'
 
   window.fixes = ->
-    # TODO refactor tooltip helper, use only new markup: data-toggle
-    $('a[rel="popover"]').popover()
-    $('a[rel="tooltip"],a[data-toggle="tooltip"]').tooltip()
+    $('a[data-toggle="popover"]').popover()
+    $('a[data-toggle="tooltip"]').tooltip()
 
     $('.tablesorter-wrapper').removeAttr('style')
 

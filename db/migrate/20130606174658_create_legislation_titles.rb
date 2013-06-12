@@ -7,8 +7,9 @@ class CreateLegislationTitles < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :legislation_titles, [:paragraph, :value], unique: true
+
     add_index :legislation_titles, :paragraph
     add_index :legislation_titles, :value
-    add_index :legislation_titles, [:paragraph, :value], unique: true
   end
 end

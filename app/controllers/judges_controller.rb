@@ -1,4 +1,8 @@
-class JudgesController < SearchController
+# encoding: utf-8
+
+class JudgesController < ApplicationController
+  include FileHelper
+  
   def index
     @judges = Judge.order(:last, :middle, :first).page(params[:page])
   end
@@ -24,6 +28,6 @@ class JudgesController < SearchController
   def curriculum
     @judge = Judge.find(params[:id])
 
-    send_file @judge.curriculum_path, type: 'application/pdf', disposition: 'inline'
+    send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
   end
 end

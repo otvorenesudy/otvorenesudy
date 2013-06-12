@@ -115,11 +115,7 @@ class Judge < ActiveRecord::Base
     "#{query} site:(#{sites.join(' OR ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
   end
 
-  def curriculum
-    return curriculum_path if File.exists?(curriculum_path)
-  end
-
-  storage :curriculum, JusticeGovSk::Storage::JudgeCurriculum, extension: :pdf do |judge|
-    "#{judge.name}"
+  storage :curriculum, JusticeGovSk::Storage::JudgeCurriculum do |judge|
+    "#{judge.name}.pdf"
   end
 end

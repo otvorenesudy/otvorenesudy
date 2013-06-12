@@ -17,9 +17,7 @@ module Resource::Storage
 
       define_method "#{name}_entry" do
         if block_given?
-          path = yield self
-
-          "#{path}.#{options[:extension]}" if options[:extension]
+          yield self
         else
           JusticeGovSk::URL.url_to_path(uri, options[:extension])
         end

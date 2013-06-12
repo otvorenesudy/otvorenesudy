@@ -158,7 +158,7 @@ a.icon {
 
 // popovers and tooltips
 
-a[rel="popover"], a[rel="tooltip"] {
+a[data-toggle="popover"], a[data-toggle="tooltip"] {
   border-bottom: 1px dotted $grayLight;
 
   color: $textColor;
@@ -175,13 +175,13 @@ a[rel="popover"], a[rel="tooltip"] {
 }
 
 h1, h2, strong {
-  a[rel="popover"], a[rel="tooltip"] {
+  a[data-toggle="popover"], a[data-toggle="tooltip"] {
     border-bottom-style: dashed;
   }
 }
 
 .well {
-  a[rel="popover"], a[rel="tooltip"] {
+  a[data-toggle="popover"], a[data-toggle="tooltip"] {
     border-bottom-color: $gray;
   }
 }
@@ -318,8 +318,10 @@ header {
 // footer
 
 footer {
-  margin-top: 40px;
-  padding: 30px 0px;
+  margin-top: 80px;
+  padding: 50px 0px;
+  
+  border-top: 1px solid darken($grayLighter, 12.5%);
 
   background: $grayLighter;
   color: $gray;
@@ -350,6 +352,10 @@ footer {
   }
   
   .copyright {
+    margin-bottom: 10px;
+    
+    font-size: $fontSizeSmall;
+    
     a {
       color: darken($grayLight, 12.5%);
     }
@@ -359,5 +365,7 @@ footer {
 // sections
 
 section.profile {
-  // TODO
+  li a[target="_blank"] {
+    color: $textColor;
+  }
 }

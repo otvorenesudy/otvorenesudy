@@ -67,18 +67,15 @@ module TagHelper
   end
 
   def popover_tag(body, content, options = {})
-    options.merge! rel: :popover, title: options.delete(:title)
-    options.merge! data placement: options.delete(:placement) || :top, trigger: options.delete(:trigger) || :click
-    options.merge! data content: content, html: true
+    options.merge! data toggle: :popover, content: content, html: true, placement: options.delete(:placement) || :top, trigger: options.delete(:trigger) || :click
 
     link_to body, '#', options
   end
 
   def tooltip_tag(body, title, options = {})
-    options.merge! rel: :tooltip, title: title
-    options.merge! data placement: options.delete(:placement) || :top, trigger: options.delete(:trigger) || :hover
+    options.merge! data toggle: :tooltip, placement: options.delete(:placement) || :top, trigger: options.delete(:trigger) || :hover
 
-    link_to body, '#', options
+    link_to body, '#', options.merge(title: title)
   end
 
   def sortable_table_tag(options = {}, &block)
