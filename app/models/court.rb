@@ -92,15 +92,15 @@ class Court < ActiveRecord::Base
   end
 
   def chair
-    judges.active.chair.first
+    @chair ||= judges.active.chair.first
   end
 
   def vicechair
-    judges.active.vicechair.first
+    @vicechair ||= judges.active.vicechair.first
   end
 
   def expenses_total
-    expenses.map { |expense| expense.value.to_i }.inject(:+)
+    @expenses_total ||= expenses.map { |expense| expense.value.to_i }.inject(:+)
   end
 
   def to_context_query

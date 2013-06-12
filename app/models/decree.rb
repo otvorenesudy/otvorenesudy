@@ -44,23 +44,23 @@ class Decree < ActiveRecord::Base
   has_many :pages, class_name: :DecreePage, dependent: :destroy
 
   def text
-    pages.pluck(:text).join
+    @text ||= pages.pluck(:text).join
   end
 
   mapping do
-    analyze :id,                     type: :integer
+    analyze :id,                  type: :integer
     analyze :case_number
     analyze :file_number
-    analyze :date,                   type: :date
+    analyze :date,                type: :date
     analyze :ecli
-    analyze :text,                   as: lambda { |d| d.text }
-    analyze :court,                  as: lambda { |d| d.court.name if d.court }
-    analyze :judges,                 as: lambda { |d| d.judges.pluck(:name) }
-    analyze :form,                   as: lambda { |d| d.form.value if d.form }
-    analyze :natures,                as: lambda { |d| d.natures.pluck(:value) if d.natures }
-    analyze :legislation_area,       as: lambda { |d| d.legislation_area.value if d.legislation_area }
-    analyze :legislation_subarea,    as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
-    analyze :legislations,           as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
+    analyze :text,                as: lambda { |d| d.text }
+    analyze :court,               as: lambda { |d| d.court.name if d.court }
+    analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
+    analyze :form,                as: lambda { |d| d.form.value if d.form }
+    analyze :natures,             as: lambda { |d| d.natures.pluck(:value) if d.natures }
+    analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
+    analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
+    analyze :legislations,        as: lambda { |d| d.legislations.pluck(:value) if d.legislations }
   end
 
   facets do

@@ -13,10 +13,10 @@ class Proceeding < ActiveRecord::Base
     analyze :file_number
     analyze :decrees,       type: :integer, as: lambda { |p| p.decrees.count }
     analyze :hearings,      type: :integer, as: lambda { |p| p.hearings.count }
-    analyze :judges,                        as: lambda { |p| p.judges.map(&:name) }
-    analyze :judges_count,  type: :integer, as: lambda { |p| p.judges.count }
     analyze :courts,                        as: lambda { |p| p.courts.map(&:name) }
     analyze :courts_count,  type: :integer, as: lambda { |p| p.courts.count }
+    analyze :judges,                        as: lambda { |p| p.judges.map(&:name) }
+    analyze :judges_count,  type: :integer, as: lambda { |p| p.judges.count }
   end
 
   facets do
@@ -28,11 +28,15 @@ class Proceeding < ActiveRecord::Base
     facet :judges_count, type: :range, ranges: [1..2, 2..5]
   end
 
-  def judges
-    (hearings.map(&:judges).concat(decrees.map(&:judges))).flatten.uniq
+  def events
+    @events ||= (hearings + decrees).sort { |a, b| a.date <=> b.date }
   end
 
   def courts
-    (hearings.map(&:court).concat(decrees.map(&:court))).flatten.uniq
+    @courts ||= events.map(&:court).uniq
+  end
+
+  def judges
+    @judges ||= events.map(&:judges).flatten.uniq
   end
 end

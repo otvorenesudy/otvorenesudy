@@ -91,17 +91,17 @@ class Judge < ActiveRecord::Base
   alias :active_at? :active_at
 
   def listed
-    uri == JusticeGovSk::Request::JudgeList.url
+    @listed ||= uri == JusticeGovSk::Request::JudgeList.url
   end
 
   alias :listed? :listed
 
   def probably_superior_court_officer
-    source == Source.of(JusticeGovSk) && !listed?
+    @probably_officer ||= source == Source.of(JusticeGovSk) && !listed?
   end
 
   def probably_woman
-    last.end_with? 'ová'
+    @probably_woman ||= last.end_with? 'ová'
   end
 
   alias :probably_superior_court_officer? :probably_superior_court_officer
