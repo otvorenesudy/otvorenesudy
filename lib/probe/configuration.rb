@@ -1,5 +1,5 @@
 module Probe
-  class Config < Settingslogic
+  class Configuration < Settingslogic
     source File.join(Rails.root, 'config', 'probe.yml')
 
     namespace Rails.env
