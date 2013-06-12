@@ -118,7 +118,7 @@ sk:
   search:
     sort:
       date:   'Dátum'
-      _score: 'Relevancia'
+      score:  'Relevancia'
 
   facets:
     types:
