@@ -1,18 +1,18 @@
 <% provide :title, "Vyhľadávanie medzi sudcami" %>
 <% provide :header, render(partial: 'search/header') %>
 
-<% render 'search/initialization.js', type: Judge %>
+<% render 'search/initialization.js' %>
 
 <section id="search-view">
    <div class="row">
-    <div class="span6">
+     <div class="span6">
       <%= render 'facets/fulltext_facet', facet: @facets[:q] %>
     </div>
   </div>
 
   <div class="row">
     <div id="search-panel" class="span4">
-      <%= render 'facets/facets', exclude: [:q] %>
+      <%= render 'facets/facets' %>
     </div>
 
     <div class="span8">

@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-class JudgesController < ApplicationController
+class JudgesController < SearchController
   include FileHelper
-  
+
   def index
     @judges = Judge.order(:last, :middle, :first).page(params[:page])
   end
