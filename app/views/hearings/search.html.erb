@@ -1,21 +1,25 @@
 <% provide :title, "Vyhľadávanie v súdnych pojednávaniach" %>
 <% provide :header, render(partial: 'search/header') %>
 
-<% render 'search/initialization.js', type: Hearing %>
+<%= render 'search/initialization.js' %>
 
 <section id="search-view">
   <div class="row">
     <div id="search-panel" class="span4">
-      <%= render "facets/facets", type: Hearing %>
+      <%= render 'facets/facets' %>
     </div>
 
     <div class="span8">
       <div class="row">
-        <div id="search-info" class="span8"></div>
+        <div id="search-info" class="span8">
+          <%= render 'search/info' %>
+        </div>
       </div>
 
       <div class="row">
-        <div id="search-results" class="span8"></div>
+        <div id="search-results" class="span8">
+          <%= render 'search/results' %>
+        </div>
       </div>
     </div>
   </div>

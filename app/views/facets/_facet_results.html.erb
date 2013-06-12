@@ -1,0 +1,23 @@
+<ul class="unstyled" id="<%= facet.id %>-list">
+  <% facet.results.first(11).each do |result| %>
+    <%= render 'facets/facet_result', facet: facet, result: result %>
+  <% end %>
+
+  <% folded_results = facet.results[11..-1] %>
+
+  <% if folded_results && folded_results.any? %>
+
+    <div id="<%= facet.id %>-fold" class="facet-fold collapse out">
+      <ul class="unstyled">
+      <% folded_results.each do |result| %>
+          <%= render 'facets/facet_result', facet: facet, result: result %>
+        <% end %>
+      </ul>
+    </div>
+
+    <%= collapse_fold_link :'collapse-alt', 'Zobraziť menej', :'data-target' => "##{facet.id}-fold", class: 'hidden muted' %>
+    <%= collapse_unfold_link :'expand-alt', 'Zobraziť viac', :'data-target' => "##{facet.id}-fold", class: 'muted'  %>
+  <% end %>
+</ul>
+
+

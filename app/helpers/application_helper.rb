@@ -4,7 +4,7 @@ module ApplicationHelper
   def default_title
     'Otvorené súdy'
   end
-  
+
   def title(*values)
     (values << default_title).map { |value| html_escape value }.join(' &middot; ').html_safe
   end
@@ -12,10 +12,10 @@ module ApplicationHelper
   def obtain(value)
     return default_title if value.blank?
     return title(value) unless value.end_with? default_title
-    
+
     value
   end
-  
+
   def canonical_url
     "http://#{request.host}#{request.fullpath}"
   end

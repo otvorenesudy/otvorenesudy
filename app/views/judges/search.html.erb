@@ -4,23 +4,35 @@
 <% render 'search/initialization.js', type: Judge %>
 
 <section id="search-view">
+   <div class="row">
+    <div class="span6">
+      <%= render 'facets/fulltext_facet', facet: @facets[:q] %>
+    </div>
+  </div>
+
   <div class="row">
     <div id="search-panel" class="span4">
-      <%= render 'facets/facets', type: Judge %> <!-- TODO try @model -->
+      <%= render 'facets/facets', exclude: [:q] %>
     </div>
 
     <div class="span8">
       <div class="row">
-        <div id="search-info" class="span8"></div>
+        <div id="search-info" class="span8">
+          <%= render 'search/info' %>
+        </div>
       </div>
 
       <div class="row">
-        <div id="search-results" class="span8"></div>
+        <div id="search-results" class="span8">
+          <%= render 'search/results' %>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div id="search-pagination" class="span12"></div>
+    <div id="search-pagination" class="span12">
+      <%= render 'search/pagination' %>
+    </div>
   </div>
 </section>

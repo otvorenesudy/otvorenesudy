@@ -115,12 +115,21 @@ sk:
     few: "%{count} výsledky"
     other: "%{count} výsledkov"
 
+  search:
+    sort:
+      date:   'Dátum'
+      _score: 'Relevancia'
+
   facets:
     types:
       range:
         less:    'menej ako %{count}'
         more:    'viac ako %{count}'
         between: '%{lower} až %{upper}'
+
+      date:
+        format:
+          month: '%B, %Y'
 
     judge:
       q:

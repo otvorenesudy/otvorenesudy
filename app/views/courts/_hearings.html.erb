@@ -1,5 +1,5 @@
 <% if hearings.any? %>
-  <%= render 'hearings/results', hearings: hearings %>
+  <%= render 'hearings/results', results: hearings %>
   <hr/>
   <%= link_to_hearings_search "Viac pojednávaní", params: query  %>
 <% else %>

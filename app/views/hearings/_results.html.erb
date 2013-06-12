@@ -1,5 +1,5 @@
 <ol class="unstyled">
-  <% hearings.each do |hearing| %>
+  <% results.each do |hearing| %>
     <li>
       <h4>
         <%= link_to "#{hearing_type hearing.type} #{hearing.file_number}", hearing_path(hearing.id) %>

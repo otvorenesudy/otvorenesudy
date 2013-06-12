@@ -1,6 +1,12 @@
-<label class="checkbox">
-  <input type="checkbox" data-id="<%= facet.name %>" name="<%= facet.name %>" value="true" />
-  <%= translation[:value] %>
-</label>
+<% translation ||= t facet.key %>
 
+<%= form_for search_path, method: :get do %>
+  <%= content_tag :label, class: :checkbox do %>
+    <%= check_box_tag facet.name, !facet.value, facet.value, id: facet.id %>
+    <%= translation[:value] %>
 
+    <% form_facet_params(facet) do |name, value| %>
+      <%= hidden_field_tag name, value %>
+    <% end %>
+  <% end %>
+<% end %>

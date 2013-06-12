@@ -7,10 +7,10 @@
     </h4>
 
     <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless facet.collapsed?}" if facet.collapsible? %>">
-    <% if translation[:placeholder] %>
-      <%= facet_input facet, placeholder: translation[:placeholder] %>
-    <% end %>
+      <% if translation[:placeholder] %>
+        <%= facet_input facet, facet.params, placeholder: translation[:placeholder] %>
+      <% end %>
 
-    <%= facet_list id: "#{facet.id}-list", :'data-id' => facet.name %>
+      <%= render 'facets/facet_results', facet: facet %>
   </div>
 </div>
