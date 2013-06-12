@@ -71,8 +71,8 @@ class Decree < ActiveRecord::Base
     facet :form,                  type: :terms
     facet :court,                 type: :terms
     facet :date,                  type: :date,  interval: :month
-    facet :legislations,          type: :terms
     facet :legislation_titles,    type: :terms
+    facet :legislations,          type: :multi_terms, multi: [:paragraph, :number, :year]
   end
 
   def has_future_date?

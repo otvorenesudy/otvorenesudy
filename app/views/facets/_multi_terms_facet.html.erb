@@ -20,6 +20,6 @@
       <% end %>
     </div>
 
-    <%= facet_list id: "#{facet.id}-list", :'data-id' => facet.name %>
+    <%= render 'facets/facet_results', facet: facet %>
   </div>
 </div>

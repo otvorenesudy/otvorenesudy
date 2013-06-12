@@ -37,8 +37,8 @@ $(document).ready ->
 
       @.log "Applying suggest to #{facets.length} facets."
 
-      for input in $(facets).find('input')
-        @.suggest(input, $(input).attr('data-id'), $(input).attr('data-suggest-path'))
+      for facet in facets
+        @.suggest($(facet).find('input'))
 
     registerSelect: ->
       $(@el).find('form select').on 'change', ->
@@ -66,17 +66,23 @@ $(document).ready ->
     focusSearchView: ->
       scrollTo($(@el).position().top)
 
-    suggest: (input, name, path) ->
+    suggest: (input) ->
+      name = $(input).attr('data-id')
+      path = $(input).attr('data-suggest-path')
+
       @.log "Setting up suggesting for #{name} with path #{path}"
 
       $(input).on 'keyup', ->
-        term = $(this).val()
+        terms = []
+
+        for i in $(input)
+          terms.push($(i).val())
 
         $.ajax
           url: path
           type: 'GET'
           data:
             name: name
-            term: term
+            term: terms.join(' ')
           success: (html) ->
-            $(input).parent().find('ul').html(html)
+            $(input).closest('.facet-content').find('ul').html(html)

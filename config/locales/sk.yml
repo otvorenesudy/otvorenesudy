@@ -249,7 +249,13 @@ sk:
 
       legislations:
         title: 'Ustanovenie'
-        placeholder: 'Číslo §, zákona alebo rok'
+
+        paragraph:
+          placeholder: '§'
+        number:
+          placeholder: 'Číslo'
+        year:
+          placeholder: 'Rok'
 
         missing: 'neuvedené'
 

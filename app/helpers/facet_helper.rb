@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 module FacetHelper
-  def facet_input(facet, params, options)
+  def facet_input(facet, options)
     options.merge! :'data-id' => facet.name
-    options.merge! :'data-suggest-path' => suggest_path(params)
+    options.merge! :'data-suggest-path' => suggest_path(facet.params.except(facet.name))
 
     tag :input, options.merge(name: :input, type: :text)
   end
@@ -47,12 +47,14 @@ module FacetHelper
     content_tag :ul, nil, options.merge(id: options[:id], :'data-id' => options[:'data-id'], class: :unstyled)
   end
 
+  # TODO: refactor
   def link_to_facet(facet, result, options = {})
     case facet.type
-    when :terms   then link_to_terms_facet facet, result, options
-    when :range   then link_to_range_facet facet, result, options
-    when :date    then link_to_date_facet facet, result, options
-    else               link_to result.value, search_path(result.params)
+    when :terms       then link_to_terms_facet facet, result, options
+    when :multi_terms then link_to_terms_facet facet, result, options
+    when :range       then link_to_range_facet facet, result, options
+    when :date        then link_to_date_facet facet, result, options
+    else                   link_to result.value, search_path(result.params)
     end
   end
 
@@ -61,7 +63,14 @@ module FacetHelper
 
     value = t path unless missing_translation? path
 
-    link_to format_facet_value(value), search_path(result.params), options
+    facet_value = format_facet_value(value)
+
+    if facet_value != value
+      # TODO: use bs tooltips?
+      options.merge! title: value
+    end
+
+    link_to facet_value, search_path(result.params), options
   end
 
   def link_to_terms_facet(facet, result, options)
