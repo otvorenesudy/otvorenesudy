@@ -14,14 +14,20 @@ module FacetHelper
     tag :input, options.merge(name: :input, type: :text)
   end
 
-  def form_facet_params(facet, &block)
-    facet.params.except(facet.name).each_pair do |name, value|
+  def form_params(params, &block)
+    params.each_pair do |name, value|
+      next if value.nil?
+
       if value.respond_to? :each
         value.each { |v| yield "#{name}[]", v }
       else
         yield name, value
       end
     end
+  end
+
+  def form_facet_params(facet, &block)
+    form_params(facet.params.except(facet.name), &block)
   end
 
   def multi_facet_prepend_input(facet, options)
