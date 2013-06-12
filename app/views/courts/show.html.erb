@@ -69,15 +69,15 @@
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render 'decrees', decrees: @decrees, query: { court: [@court.name] } %>
+            <%= render 'decrees', decrees: @decrees, query: { court: @court.name } %>
           </div>
 
           <div id="upcoming-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @upcoming_hearings, query: { court: [@court.name] } %>
+            <%= render 'hearings', hearings: @upcoming_hearings, query: { court: @court.name } %>
           </div>
 
           <div id="past-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @past_hearings, query: { court: [@court.name], historical: 'true' } %>
+            <%= render 'hearings', hearings: @past_hearings, query: { court: @court.name, historical: true } %>
           </div>
 
           <div id="media" class="tab-pane">
