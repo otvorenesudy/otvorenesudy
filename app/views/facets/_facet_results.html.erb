@@ -15,8 +15,7 @@
       </ul>
     </div>
 
-    <%= collapse_fold_link :'collapse-alt', 'Zobraziť menej', :'data-target' => "##{facet.id}-fold", class: 'hidden muted' %>
-    <%= collapse_unfold_link :'expand-alt', 'Zobraziť viac', :'data-target' => "##{facet.id}-fold", class: 'muted'  %>
+    <%= collapse_facet_link facet %>
   <% end %>
 </ul>
 

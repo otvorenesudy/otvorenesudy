@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module FacetHelper
   def facet_input(facet, params, options)
     options.merge! :'data-id' => facet.name
@@ -84,6 +86,13 @@ module FacetHelper
 
   def link_to_remove_facet(facet, result, options = {})
     icon_link_to :remove, nil, search_path(result.remove_params), class: :remove
+  end
+
+  def collapse_facet_link(facet)
+    target = "##{facet.id}-fold"
+
+    collapse_link(:fold, :'collapse-alt', 'Zobrazit menej', :'data-target' => target, class: 'hidden muted') +
+    collapse_link(:unfold, :'expand-alt', 'Zobraziť viac', :'data-target' => target, class: :muted)
   end
 
   private

@@ -1,7 +1,5 @@
-<% exclude ||= [] %>
-
 <% @facets.each do |facet| %>
-  <% if facet.visible && !exclude.include?(facet.name) %>
+  <% if facet.visible? %>
     <%= render "facets/#{facet.type}_facet", facet: facet, translation: t(facet.key) %>
   <% end %>
 <% end %>

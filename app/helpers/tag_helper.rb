@@ -113,16 +113,10 @@ module TagHelper
     icon_link_to :'external-link', body, url, options.merge(target: :_blank, join: :append)
   end
 
-  def collapse_fold_link(type, title, options)
-    options.merge! :'data-toggle' => :collapse, :'data-collapse' => :fold
+  def collapse_link(type, icon, title, options)
+    options.merge! :'data-toggle' => :collapse, :'data-collapse' => type
 
-    icon_link_to type, title, '#', options
-  end
-
-  def collapse_unfold_link(type, title, options)
-    options.merge! :'data-toggle' => :collapse, :'data-collapse' => :unfold
-
-    icon_link_to type, title, '#', options
+    icon_link_to icon, title, '#', options
   end
 
   private
