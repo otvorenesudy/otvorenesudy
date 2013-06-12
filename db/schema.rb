@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527211651) do
+ActiveRecord::Schema.define(:version => 20130611161353) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id", :null => false
@@ -573,6 +573,27 @@ ActiveRecord::Schema.define(:version => 20130527211651) do
 
   add_index "opponents", ["hearing_id", "name"], :name => "index_opponents_on_hearing_id_and_name", :unique => true
   add_index "opponents", ["name"], :name => "index_opponents_on_name"
+
+  create_table "paragraph_explainations", :force => true do |t|
+    t.integer  "paragraph_id",     :null => false
+    t.integer  "explainable_id",   :null => false
+    t.string   "explainable_type", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "paragraph_explainations", ["explainable_id", "explainable_type", "paragraph_id"], :name => "index_paragraph_explainations_on_unique_values_reversed", :unique => true
+  add_index "paragraph_explainations", ["paragraph_id", "explainable_id", "explainable_type"], :name => "index_paragraph_explainations_on_unique_values", :unique => true
+
+  create_table "paragraphs", :force => true do |t|
+    t.string   "number",      :null => false
+    t.string   "description", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "paragraphs", ["description"], :name => "index_paragraphs_on_description"
+  add_index "paragraphs", ["number"], :name => "index_paragraphs_on_number", :unique => true
 
   create_table "proceedings", :force => true do |t|
     t.string   "file_number"
