@@ -5,6 +5,8 @@ class Probe::Facets
     attr_accessor :query_options
 
     def initialize(name, field, options)
+      options[:visible] = false if options[:visible].nil?
+
       super name, field, options
     end
 
