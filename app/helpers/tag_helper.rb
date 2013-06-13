@@ -12,7 +12,7 @@ module TagHelper
     label = options.delete(:label)
 
     return icon if label.blank?
-    
+
     label = label.to_s.html_safe
     join  = options.delete(:join)
     wrap  = options.delete(:wrap)
@@ -25,13 +25,13 @@ module TagHelper
 
   def icon_link_to(type, body, url, options = {})
     options[:class] = Array.wrap(options[:class]) << :icon
-    
+
     link_to icon_tag(type, label: body, join: options.delete(:join), wrap: options.delete(:wrap)), url, options
   end
 
   def icon_mail_to(type, body, url = nil, options = {})
     options[:class] = Array.wrap(options[:class]) << :icon
-    
+
     url = body if url.blank?
 
     mail_to url, icon_tag(type, label: body, join: options.delete(:join)), options
@@ -50,19 +50,19 @@ module TagHelper
 
     content_tag :li, body, options.merge(class: classes.blank? ? nil : classes)
   end
-  
+
 
   def navbar_link_tag(type, body, url, options = {})
     navbar_li_tag icon_link_to(type, body, url), url, options
   end
-  
+
   def navbar_dropdown_tag(type, body, url, options = {}, &block)
     caret = options.delete(:caret)
     body  = icon_tag(caret, label: body, join: :append, wrap: true) if caret
     link  = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown, wrap: !caret)
     list  = content_tag :ul, capture(&block), class: :'dropdown-menu'
     body  = (link << list).html_safe
-    
+
     navbar_li_tag body, url, options.merge(class: :dropdown)
   end
 
@@ -95,19 +95,26 @@ module TagHelper
 
     link_to body.concat(count).html_safe, url, options
   end
-  
-  def close_link(url = nil)
-    link_to icon_tag(:remove), url || '#', class: :close
-  end
-  
-  alias :close_link_to :close_link
 
   def tab_link_to_with_count(body, url, count, options = {})
     link_to_with_count body, url, count, options.merge(:'data-toggle' => :tab)
   end
 
+  def close_link(url = nil)
+    link_to icon_tag(:remove), url || '#', class: :close
+  end
+
+  alias :close_link_to :close_link
+
   def external_link_to(body, url, options = {})
     icon_link_to :'external-link', body, url, options.merge(target: :_blank, join: :append)
+  end
+
+  # TODO get a closer look at this
+  def collapse_link(type, icon, title, options)
+    options.merge! :'data-toggle' => :collapse, :'data-collapse' => type
+
+    icon_link_to icon, title, '#', options
   end
 
   private

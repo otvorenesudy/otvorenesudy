@@ -115,12 +115,21 @@ sk:
     few: "%{count} výsledky"
     other: "%{count} výsledkov"
 
+  search:
+    sort:
+      date:   'Dátum'
+      score:  'Relevancia'
+
   facets:
     types:
       range:
         less:    'menej ako %{count}'
         more:    'viac ako %{count}'
         between: '%{lower} až %{upper}'
+
+      date:
+        format:
+          month: '%B, %Y'
 
     judge:
       q:
@@ -240,7 +249,13 @@ sk:
 
       legislations:
         title: 'Ustanovenie'
-        placeholder: 'Číslo §, zákona alebo rok'
+
+        paragraph:
+          placeholder: '§'
+        number:
+          placeholder: 'Číslo'
+        year:
+          placeholder: 'Rok'
 
         missing: 'neuvedené'
 

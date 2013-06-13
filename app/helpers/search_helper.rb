@@ -1,35 +1,6 @@
 module SearchHelper
-  def facet_input(facet, options)
-    options.merge! :'data-id' => facet.name
-
-    tag :input, options.merge(name: :input, type: :text)
-  end
-
-  def multi_facet_prepend_input(facet, options)
-    options.merge! :'data-id' => facet.name
-
-    content_tag :div, class: 'input-prepend' do
-      content_tag(:span, options[:prepend], class: 'add-on') +
-      facet_input(facet, options.merge(class: 'input-mini'))
-    end
-  end
-
-  def multi_facet_input(facet, options)
-    facet_input facet, options.merge(class: 'input-mini')
-  end
-
-  def facet_list(options)
-    content_tag :ul, nil, options.merge(id: options[:id], :'data-id' => "#{options[:'data-id']}-list", class: :unstyled)
-  end
-
   def link_to_search(type, body, options)
-    url = "#{url_for(controller: type, action: :search)}#"
-
-    params = options[:params]
-
-    params.each { |field, values| params[field] = [values] unless values.is_a? Array }
-
-    url << params.map { |field, values| "#{field}:#{values.join(';').gsub(/\s/,'+')}" }.join('&')
+    url = url_for options[:params].merge!(controller: type, action: :search)
 
     link_to body, url, options.except(:params)
   end
@@ -40,5 +11,37 @@ module SearchHelper
 
   def link_to_decrees_search(body, options)
     link_to_search(:decrees, body, options)
+  end
+
+  def link_to_judges_search(body, options)
+    link_to_search(:judges, body, options)
+  end
+
+  def link_to_courts_search(body, options)
+    link_to_search(:courts, body, options)
+  end
+
+  def search_sort_select_tag(values, params, options = {})
+    values = values.map { |value| [sort_option_title(value), value] }
+
+    select_tag :sort, options_for_select(values, params[:sort])
+  end
+
+  def order_tag(params, order, options)
+    options.merge! class: 'btn'
+
+    param = params[:order] ? params[:order] : :desc
+
+    options[:class] << ' active' if order == param
+
+    link_to search_path(params.merge order: order), options do
+      icon_tag order == :asc ? :'chevron-up' : :'chevron-down'
+    end
+  end
+
+  private
+
+  def sort_option_title(value)
+    t "search.sort.#{value.to_s.gsub(/\A_/, '')}"
   end
 end

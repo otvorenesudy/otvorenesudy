@@ -1,115 +1,42 @@
 class SearchController < ApplicationController
-  include ActionView::Helpers::NumberHelper
-  include ActionView::Helpers::TextHelper
+  def search
+    prepare_search
 
-  include TextHelper
+    @results = @model.search_by(params.freeze)
+
+    @count       = @results.total_count
+    @page        = @results.page
+    @facets      = @results.facets
+    @sort_fields = @results.sort_fields
+  end
 
   def suggest
-    @entity = params[:entity].to_sym
-    @term   = params[:term]
+    prepare_search
 
-    @model, @query = parse_search_query
+    name = params[:name]
+    term = params[:term]
 
-    if @model && @model.has_facet?(@entity)
-      render json: {
-        data: format_facet(@model.suggest(@entity, @term, @query))
-      }
-    else
-      render status: 422,
-      json: {
-        error: "#{params[:entity]} is not valid suggestable entity!"
-      }
-    end
+    @results = @model.suggest(name, term, params)
+
+    render partial: "facets/facet_results", locals: { facet: @results.facets[name] }
   end
 
-  def search
-    @model, @query = parse_search_query
+  protected
 
-    if @model && @query
-      @query[:options] ||= Hash.new
+  helper_method :prepare_search,
+                :search_path,
+                :suggest_path
 
-      @query[:options].merge! global_facets: true
-
-      @search, @results = @model.search_by(@query)
-
-      @type       = @model.name.downcase.to_sym
-      @count      = @results.total_count
-      @page       = @search[:results]
-      @highlights = @search[:highlights]
-
-      render json: {
-        facets:     format_facets(@search[:facets]),
-        info:       render_to_string(partial: 'info'),
-        results:    render_to_string(partial: 'results'),
-        pagination: render_to_string(partial: 'pagination')
-      }
-    else
-      render json: {
-        error: 'Invalid query.',
-        html:  render_to_string(partial: 'error')
-      }
-    end
+  def prepare_search
+    @type  = params[:controller].singularize.to_sym
+    @model = @type.to_s.camelcase.constantize
   end
 
-  private
-  
-  helper_method :parse_search_query,
-                :format_facets
-
-  def parse_search_query
-    models = Document::Configuration.models
-
-    query          = Hash.new
-    query[:filter] = Hash.new
-    query[:query]  = Hash.new
-
-    begin
-      raise unless models.include?(params[:_type].to_sym)
-
-      model = params[:_type].camelize.constantize
-      data  = params[:data] || Hash.new
-
-      data.symbolize_keys.each do |key, value|
-        next unless model.has_facet?(key) || [:page, :per_page, :q, :sort, :order].include?(key)
-
-        case key
-        when :page
-          query[:page] = value
-        when :sort
-          query[:sort] = value.to_sym
-        when :order
-          query[:order] = value.to_sym
-        else
-          facet = model.facets[key]
-
-          query[:filter].merge!(key => facet.parse(value))
-        end
-      end
-
-      return model, query
-
-    rescue Exception => e
-      raise e
-      nil
-    end
+  def search_path(params = {})
+    url_for(params.merge action: :search)
   end
 
-  def format_facets(facets)
-    # TODO: use better way to formatting facets count and etc?
-    facets.each do |key, values|
-      format_facet(values)
-    end
-  end
-
-  def format_facet(values)
-    values.each do |facet|
-      facet[:count] = number_with_delimiter(facet[:count])
-      facet[:label] = facet[:label].gsub(/\d+/) { |m| number_with_delimiter(m.to_i) }
-
-      if facet[:label].length > 30
-        facet[:title] = facet[:label]
-        facet[:label] = join_and_truncate facet[:label], limit: 30
-      end
-    end
+  def suggest_path(params = {})
+    url_for(params.merge action: :suggest)
   end
 end

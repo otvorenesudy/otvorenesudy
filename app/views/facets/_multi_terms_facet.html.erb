@@ -1,4 +1,4 @@
-<div id="<%= facet.id %>" data-id="<%= facet.name %>" class="facet">
+<div id="<%= facet.id %>" class="facet" data-id="<%= facet.name %>">
   <h4>
     <%= translation[:title] if translation[:title] %>
     <% if facet.collapsible? %>
@@ -7,19 +7,16 @@
   </h4>
 
   <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless facet.collapsed?}" if facet.collapsible? %>">
-
     <div class="form-inline">
       <% facet.multi.each do |key| %>
-
         <% if translation[key][:prepend] %>
           <%= multi_facet_prepend_input facet, prepend: translation[key][:prepend], placeholder: translation[key][:placeholder] %>
         <% else %>
           <%= multi_facet_input facet, placeholder: translation[key][:placeholder] %>
         <% end %>
-
       <% end %>
     </div>
 
-    <%= facet_list id: "#{facet.id}-list", :'data-id' => facet.name %>
+    <%= render 'facets/facet_results', facet: facet %>
   </div>
 </div>

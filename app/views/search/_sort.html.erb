@@ -1,0 +1,20 @@
+<%= form_for search_path, method: :get do %>
+  <div class="span5">
+    <div class="pull-right">
+      <%= search_sort_select_tag(@sort_fields, @facets.params) %>
+    </div>
+
+    <% form_params(@facets.params.except(:sort)) do |name, value| %>
+      <%= hidden_field_tag name, value %>
+    <% end %>
+  </div>
+
+  <div class="span1">
+    <div class="pull-right">
+      <div id="order" class="btn-group" data-toggle="buttons-radio">
+        <%= order_tag @facets.params, :asc,  icon: :'chevron-up' %>
+        <%= order_tag @facets.params, :desc, icon: :'chevron-down' %>
+      </div>
+    </div>
+  </div>
+<% end %>

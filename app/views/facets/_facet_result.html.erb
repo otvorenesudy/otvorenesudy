@@ -1,0 +1,6 @@
+<li<%= ' class="selected"' if result.selected? %>>
+  <%= link_to_add_facet facet, result %>
+  <%= link_to_facet facet, result  %>
+  <span class="label facet-label"><%= result.count %></span>
+  <%= link_to_remove_facet facet, result if result.selected? %>
+</li>

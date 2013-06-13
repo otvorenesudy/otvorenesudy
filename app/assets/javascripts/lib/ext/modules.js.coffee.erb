@@ -1,0 +1,40 @@
+<% 
+namespaces = {
+  "window"   => {
+    :none    => 'Module'
+  },
+  "Backbone" => {
+    "View"   => "View",
+    "Model"  => "Model",
+    "Router" => "Router"
+  }
+}
+%>
+
+<% namespaces.each do |namespace, classes| %>
+ <% classes.each do |key, value| %>
+ <% superklass, klass = "#{namespace}.#{key}", "#{namespace}.#{value}" %>
+
+  <% unless key.eql? :none %>
+  class <%= klass %> extends <%= superklass %>
+  <% else %>
+  class <%= klass %>
+  <% end %>
+    @_reserved:
+      ['included', 'extended']
+
+    @extend: (module) ->
+      for name, fn of module when name not in <%= klass %>._reserved
+        @[name] = fn
+
+      module.extended?.apply(@)
+      this
+
+    @include: (module) ->
+      for name, fn of module when name not in <%= klass %>._reserved
+        @::[name] = fn
+
+      module.included?.apply(@)
+      this
+   <% end%>
+<% end %>
