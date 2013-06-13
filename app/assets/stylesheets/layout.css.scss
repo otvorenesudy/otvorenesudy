@@ -74,6 +74,12 @@ div.nav {
   width: $gridGutterWidth;
 }
 
+.well {
+  p:last-child {
+    margin-bottom: 0px;
+  }
+}
+
 // tables
 
 table {

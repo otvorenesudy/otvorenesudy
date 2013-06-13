@@ -34,7 +34,7 @@ module SearchHelper
 
     options[:class] << ' active' if order == param
 
-    link_to search_path(params.merge order: order), options do
+    link_to(search_path(params.merge order: order), options) do
       icon_tag order == :asc ? :'chevron-up' : :'chevron-down'
     end
   end

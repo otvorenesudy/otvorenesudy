@@ -11,6 +11,10 @@ module DecreesHelper
   def decree_headline(decree)
     join_and_truncate decree_identifiers(decree), separator: ' &ndash; ', tooltip: true
   end
+  
+  def decree_natures(decree)
+    join_and_truncate decree.natures.order(:value).pluck(:value).join(', '), tooltip: true
+  end
 
   def decree_date(date)
     time_tag date, format: :long
@@ -66,6 +70,6 @@ module DecreesHelper
   private
   
   def decree_identifiers(decree)
-    [decree.form, decree.legislation_subarea].reject(&:blank?).map(&:value) << decree.natures.order(:value).pluck(:value).join(', ')
+    [decree.form, decree.legislation_subarea].reject(&:blank?).map(&:value)
   end
 end

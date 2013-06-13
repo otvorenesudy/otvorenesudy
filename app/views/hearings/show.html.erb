@@ -56,6 +56,10 @@
       <% if @hearing.note %>
         <p>Poznámka &ndash; <%= @hearing.note %>.</p>
       <% end %>
+
+      <p>
+        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
+      </p>
     </div>
 
     <%-# All hearing types -%>
@@ -71,14 +75,6 @@
           <span class="pull-right"><%= @hearing.file_number %></span>
         </p>
       </div>      
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span12">
-      <p>
-        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
-      </p>
     </div>
   </div>
 </section>

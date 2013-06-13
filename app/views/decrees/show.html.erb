@@ -6,6 +6,10 @@
   <div class="page-header">
     <h1>
       <%= decree_headline @decree %>
+      <% if @decree.natures.any? %>
+        <br/>
+        <%= decree_natures @decree %>
+      <% end %>
       <br/>
       <small>
         Rozhodnutie bolo vynesené dňa &ndash;
@@ -42,6 +46,14 @@
           <% end %>
         </ul>
       <% end %>
+      <p>
+        <%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
+      </p>
+      <% if File.readable? @decree.document_path %>
+        <p>
+          Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %>
+        </p>
+      <% end %>
     </div>
 
     <div class="span4">
@@ -59,19 +71,6 @@
           <span class="pull-right"><%= @decree.file_number %></span>
         </p>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span12">
-      <p>
-        <%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
-      </p>
-      <% if File.readable? @decree.document_path %>
-        <p>
-          Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %>
-        </p>
-      <% end %>
     </div>
   </div>
 </section>
