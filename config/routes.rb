@@ -12,32 +12,38 @@ OpenCourts::Application.routes.draw do
   resources :courts do
     collection do
       get :search
-      get :map
       get :suggest
+      
+      get :map
     end
   end
 
   resources :judges do
-     get :curriculum, on: :member
-
     collection do
       get :search
       get :suggest
     end
+
+    get :curriculum, on: :member
   end
 
   resources :hearings do
-    member do
-      get :resource
-    end
-
     collection do
       get :search
       get :suggest
+    end
+
+    member do
+      get :resource
     end
   end
 
   resources :decrees do
+    collection do
+      get  :search
+      get  :suggest
+    end
+
     member do
       get :resource
       get :document
@@ -50,11 +56,6 @@ OpenCourts::Application.routes.draw do
         get :text
         get :image
       end
-    end
-
-    collection do
-      get  :search
-      get  :suggest
     end
   end
 
