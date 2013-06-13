@@ -2,33 +2,33 @@ sk:
   exception:
     show:
       not_found:
-        title: "Stránka nebola nájdená"
-        description: "Stránka, ktorú ste hľadali neexistuje."
+        title: 'Stránka nebola nájdená'
+        description: 'Stránka, ktorú ste hľadali neexistuje.'
       internal_server_error:
-        title: "Kritická chyba"
-        description: "Je nám ľúto, ale niečo sa pokazilo pri spracovaní vašej požiadavky."
+        title: 'Kritická chyba'
+        description: 'Je nám ľúto, ale niečo sa pokazilo pri spracovaní vašej požiadavky.'
       bad_request:
-        title: "Chybná požiadavka"
-        description: "Server nerozumel vašej požiadavke. Mohla byť poškodená."
+        title: 'Chybná požiadavka'
+        description: 'Server nerozumel vašej požiadavke. Mohla byť poškodená.'
 
   views:
     pagination:
-      first: "Prvá strana"
-      last: "Posledná strana"
-      previous: <i class="icon-angle-left"></i>
-      next: <i class="icon-angle-right"></i>
-      truncate: "&hellip;"
+      first: 'Prvá strana'
+      last: 'Posledná strana'
+      previous: '<i class="icon-angle-left"></i>'
+      next: '<i class="icon-angle-right"></i>'
+      truncate: '&hellip;'
 
   # TODO
   helpers:
     page_entries_info:
       one_page:
         display_entries:
-          zero: "No %{entry_name} found"
-          one: "Displaying <strong>1</strong> %{entry_name}"
-          other: "Displaying <strong>all %{count}</strong> %{entry_name}"
+          zero: 'No %{entry_name} found'
+          one: 'Displaying <strong>1</strong> %{entry_name}'
+          other: 'Displaying <strong>all %{count}</strong> %{entry_name}'
       more_pages:
-        display_entries: "Displaying %{entry_name} <strong>%{first}&nbsp;-&nbsp;%{last}</strong> of <strong>%{total}</strong> in total"
+        display_entries: 'Displaying %{entry_name} <strong>%{first}&nbsp;-&nbsp;%{last}</strong> of <strong>%{total}</strong> in total'
 
   number:
     format:
@@ -53,78 +53,78 @@ sk:
       short: '%-d. %-m. o %-H:%M'
 
   days:
-    one: "1 deň"
-    few: "%{count} dni"
-    other: "%{count} dní"
+    one: '1 deň'
+    few: '%{count} dni'
+    other: '%{count} dní'
 
   months:
-    one: "1 mesiac"
-    few: "%{count} mesiace"
-    other: "%{count} mesiacov"
+    one: '1 mesiac'
+    few: '%{count} mesiace'
+    other: '%{count} mesiacov'
 
   years:
-    one: "1 rok"
-    few: "%{count} roky"
-    other: "%{count} rokov"
+    one: '1 rok'
+    few: '%{count} roky'
+    other: '%{count} rokov'
 
   court: &court
-    zero: "žiadne súdy"
-    one: "1 súd"
-    few: "%{count} súdy"
-    other: "%{count} súdov"
+    zero: 'žiadne súdy'
+    one: '1 súd'
+    few: '%{count} súdy'
+    other: '%{count} súdov'
 
   judge: &judge
-    zero: "žiadny sudcovia"
-    one: "1 sudca"
-    few: "%{count} sudcovia"
-    other: "%{count} sudcov"
+    zero: 'žiadny sudcovia'
+    one: '1 sudca'
+    few: '%{count} sudcovia'
+    other: '%{count} sudcov'
 
   hearing: &hearing
-    zero: "žiadne pojednávania"
-    one: "1 pojednávanie"
-    few: "%{count} pojednávania"
-    other: "%{count} pojednávaní"
+    zero: 'žiadne pojednávania'
+    one: '1 pojednávanie'
+    few: '%{count} pojednávania'
+    other: '%{count} pojednávaní'
 
   decree: &decree
-    zero: "žiadne rozhodnutia"
-    one: "1 rozhodnutie"
-    few: "%{count} rozhodnutia"
-    other: "%{count} rozhodnutí"
+    zero: 'žiadne rozhodnutia'
+    one: '1 rozhodnutie'
+    few: '%{count} rozhodnutia'
+    other: '%{count} rozhodnutí'
 
   proceeding: &proceeding
-    zero: "žiadne konania"
-    one: "1 konanie"
-    few: "%{count} konania"
-    other: "%{count} konaní"
+    zero: 'žiadne konania'
+    one: '1 konanie'
+    few: '%{count} konania'
+    other: '%{count} konaní'
 
   document: &document
-    zero: "žiadne dokumenty"
-    one: "1 dokument"
-    few: "%{count} dokumenty"
-    other: "%{count} dokumentov"  
+    zero: 'žiadne dokumenty'
+    one: '1 dokument'
+    few: '%{count} dokumenty'
+    other: '%{count} dokumentov'  
 
-  page:
-    zero: "žiadne strany"
-    one: "1 strana"
-    few: "%{count} strany"
-    other: "%{count} strán"
+  page: &page
+    zero: 'žiadne strany'
+    one: '1 strana'
+    few: '%{count} strany'
+    other: '%{count} strán'
 
-  result:
-    zero: "žiadne výsledky"
-    one: "1 výsledok"
-    few: "%{count} výsledky"
-    other: "%{count} výsledkov"
+  result: &result
+    zero: 'žiadne výsledky'
+    one: '1 výsledok'
+    few: '%{count} výsledky'
+    other: '%{count} výsledkov'
 
   search:
     sort:
-      date:   'Dátum'
-      score:  'Relevancia'
+      date: 'Dátum'
+      score: 'Relevancia'
 
   facets:
     types:
       range:
-        less:    'menej ako %{count}'
-        more:    'viac ako %{count}'
+        less: 'menej ako %{count}'
+        more: 'viac ako %{count}'
         between: '%{lower} až %{upper}'
 
       date:
@@ -138,25 +138,21 @@ sk:
       name:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
-
         missing: 'neuvedený'
 
       activity:
         title: 'Aktivita'
-
         active: 'Aktívny'
         inactive: 'Neaktívny'
         missing: 'neuvedená'
 
       positions:
         title: 'Pozícia sudcu'
-
         missing: 'neuvedená'
 
       courts:
         title: 'Súd'
         placeholder: 'Názov súdu'
-
         missing: 'neuvedený'
 
       hearings_count:
@@ -176,30 +172,25 @@ sk:
       court:
         title: 'Súd'
         placeholder: 'Názov súdu'
-
         missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
-
         missing: 'neuvedený'
 
       form:
         title: 'Forma'
         placeholder: 'Forma pojednávania'
-
         missing: 'neuvedená'
 
       section:
         title: 'Úsek'
-
         missing: 'neuvedený'
 
       subject:
         title: 'Predmet'
         placeholder: 'Predment pojednávania'
-
         missing: 'neuvedený'
 
       date:
@@ -212,36 +203,30 @@ sk:
       court:
         title: 'Súd'
         placeholder: 'Názov súdu'
-
         missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'  
-
         missing: 'neuvedený'
 
       form:
         title: 'Forma'
         placeholder: 'Forma rozhodnutia'
-
         missing: 'neuvedená'
 
       natures:
         title: 'Povaha'
         placeholder: 'Povaha rozhodnutia'
-
         missing: 'neuvedená'
 
       legislation_area:
         title: 'Oblasť právnej úpravy'
-
         missing: 'neuvedená'
 
       legislation_subarea:
         title: 'Podoblasť právnej úpravy'
         placeholder: 'Podoblasť právnej úpravy'
-
         missing: 'neuvedená'
 
       date:
@@ -249,20 +234,20 @@ sk:
 
       legislations:
         title: 'Ustanovenie'
+        missing: 'neuvedené'
 
         paragraph:
           placeholder: '§'
+
         number:
           placeholder: 'Číslo'
+
         year:
           placeholder: 'Rok'
-
-        missing: 'neuvedené'
 
       legislation_titles:
         title: 'Zaradenie ustanovenia'
         placeholder: 'Zaradenie ustanovania'
-
         missing: 'neuvedené'
 
       q:
@@ -274,19 +259,16 @@ sk:
 
       type:
         title: 'Typ'
-
         missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
-
         missing: 'neuvedený'
 
       municipality:
         title: 'Obec'
         placeholder: 'Meno obce'
-
         missing: 'neuvedená'
 
       hearings_count:
@@ -338,4 +320,3 @@ sk:
         title: 'Počet sudcov'
         suffix:
           <<: *judge
-
