@@ -43,13 +43,34 @@ module JusticeGovSk
           
           values.each do |value|
             accusation = accusation_by_defendant_id_and_value_factory.find_or_create(defendant.id, value)
-              
+            
             accusation.defendant         = defendant
             accusation.value             = value[:normalized]
             accusation.value_unprocessed = value[:unprocessed]
-              
+            
+            accusation.paragraph_explainations = []
+            
             @persistor.persist(accusation)
+            
+            @parser.scan_paragraphs(accusation.value).each do |number|
+              paragraph_explaination(number, accusation)
+            end
           end         
+        end
+        
+        def paragraph_explaination(number, accusation)
+          paragraph = paragraph_by_number_factory.find(number)
+          
+          if paragraph
+            paragraph_explaination = paragraph_explaination_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, accusation.id, :Accusation)
+            
+            paragraph_explaination.paragraph   = paragraph
+            paragraph_explaination.explainable = accusation
+            
+            @persistor.persist(paragraph_explaination)
+          else
+            puts "No known paragraph found."
+          end
         end
       end
     end

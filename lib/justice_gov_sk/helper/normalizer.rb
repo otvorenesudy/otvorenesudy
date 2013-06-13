@@ -40,7 +40,7 @@ module JusticeGovSk
         value.gsub!(/n\/T|n\.T\./i, "nad Topľou")
         value.gsub!(/n\/H/i, "nad Hronom")
 
-        value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
+        value.gsub!(/MS\s*SR/, "Ministerstvo spravodlivosti Slovenskej republiky")
         value.gsub!(/Najvyšší\s*súd(\s*SR)?|NS\s*SR/i, "Najvyšší súd Slovenskej republiky")
         value.gsub!(/ŠTS\s*v\s*Pezinku/i, "Špecializovaný trestný súd")
 
@@ -50,15 +50,15 @@ module JusticeGovSk
 
         key = value.ascii.downcase
 
-        value.utf8.split(/\s+/.map { |part|
-          if !part.match(/\A(I|V)+\z/).nil?
-            part
-          elsif !part.match(/\A(v|nad|súd|okolie)\z/i).nil?
-            part.downcase
+        value.utf8.split(/\s+/).map { |word|
+          if !word.match(/\A(I|V)+\z/).nil?
+            word
+          elsif !word.match(/\A(v|nad|súd|okolie)\z/i).nil?
+            word.downcase
           else
-            part.titlecase
+            word.titlecase
           end
-        }.join ' ')
+        }.join ' '
       end
 
       public
@@ -70,7 +70,7 @@ module JusticeGovSk
       end
 
       def normalize_person_name(value, options = {})
-        partition_person_name(value, options)[:altogether]
+        partition_person_name(value, options)[:value]
       end
 
       def partition_person_name(value, options = {})
@@ -157,7 +157,7 @@ module JusticeGovSk
 
         {
           unprocessed: copy.strip,
-          altogether:  value,
+          value:       value,
           prefix:      prefixes.empty? ? nil : prefixes.join(' '),
           first:       names.count >= 2 ? names.first.to_s : nil,
           middle:      names.count >= 3 ? names[1..-2].join(' ') : nil,
@@ -287,6 +287,95 @@ module JusticeGovSk
 
         "#{date} #{time}"
       end
+      
+      def normalize_legislation(value)
+        partition_legislation(value)[:value]
+      end
+      
+      def partition_legislation(value)
+        map    = { unprocessed: value.clone.strip } 
+        parts  = value.utf8.strip.split(/\,/).map { |part| part.strip }
+        values = ['']
+        
+        if parts.first
+          index = parts.first.index('/')
+          
+          if index
+            type_and_number = parts.first[0..index - 1].strip
+            year_and_name   = parts.first[index + 1..-1].strip
+    
+            type   = normalize_punctuation type_and_number.gsub(/\s*\d+\z/, '').strip.upcase_first
+            number = type_and_number.match(/\d+\z/) { |m| m[0] }
+            year   = year_and_name.match(/\A\d+/) { |m| m[0] }
+            name   = year_and_name.gsub(/\A\d+\s*/, '')
+            
+            name.gsub!(/zbierky(\s+z[Áá]konov)?/i, 'Zbierky zákonov')
+            name.gsub!(/\.\-/i, '.')
+            name.gsub!(/\.\s+/i, '.')
+            
+            name = name.split(/s+/).map { |word|
+              word.downcase_first! if word.match(/o|ktor[Ýý]m/i)
+              
+              word.gsub!(/obchodn[Ýý]/i, 'Obchodný')
+              word.gsub!(/spr[Áá]vny/i, 'Správny')
+              word.gsub!(/z[Áá]konn[Íí]k/i, 'Zákonník')
+              
+              word.gsub!(/pr[Áá]ce/i, 'práce')
+              word.gsub!(/smerniva/i, 'smernica')
+              
+              word.gsub!(/\./, '. ')
+              
+              word.gsub!(/[Čč]l[\-\.]/i, 'článok')
+              word.gsub!(/ods[\-\.]/i, 'odsek')
+              word.gsub!(/p[Íí]sm[\-\.]/i, 'písmeno')
+              
+              word.gsub!(/ob[Čč]\./i, 'Občiansky')
+              word.gsub!(/tr\./i, 'Trestný')
+              word.gsub!(/z[Áá]k\./i, 'Zákon')
+
+              word.gsub!(/por\./i, 'poriadok')
+              word.gsub!(/rod\./i, 'rodine')
+
+              word.gsub!(/o(\.\s*)*s(\.\s*)*p(\.\s*)*/i, 'Občiansky súdny poriadok')
+              word.gsub!(/o(\.\s*)*z(\.\s*)*/i, 'Občiansky zákonník')
+              word.gsub!(/o(\.\s*)*b(\.\s*)*(l(\.\s*)*)?z(\.\s*)*/i, 'Obchodný zákonník')
+              word.gsub!(/z(\.\s*)*r(\.\s*)*/i, 'Zákon o rodine')
+
+              word.gsub!(/z\.\s*[Čč][\-\.]?/i, 'zákon č.')
+              word.gsub!(/z\.\s*[bz]\.?/i, 'Zbierky zákonov')
+              
+              word
+            }.join ' '
+            
+            name = normalize_punctuation name
+          end
+
+          values.first << "#{map[:type] = type} " unless type.blank?
+          values.first << "#{number.blank? ? '?' : map[:number] = number}/#{year.blank? ? '?' : map[:year] = year}"
+          values.first << " #{map[:name] = name}" unless name.blank?
+        end
+        
+        if parts.second
+          paragraph = parts.second.match(/\d+[a-z]*/i) { |m| m[0] }
+          values << "§ #{map[:paragraph] = paragraph}" unless paragraph.blank?
+        end
+         
+        if parts.third
+          section = parts.third.match(/\d+/) { |m| m[0] }
+          values << "Odsek #{map[:section] = section}" unless section.blank?
+        end
+        
+        if parts.fourth
+          letter = parts.fourth.match(/\s+(?<letter>[a-z]+)\s*\z/i) { |m| m[:letter].chars.to_a.join ' ' }
+          values << "Písmeno #{map[:letter] = letter}" unless letter.blank?
+        end
+        
+        map.merge value: values.join(', ')
+      end
+      
+      def scan_paragraphs(value)
+        value.scan(/§+\s*\d+[a-z]*/i).map { |p| p.sub(/§\s*/, '§ ') }
+      end
 
       def normalize_punctuation(value)
         value.gsub!(/\,\-/, '')
@@ -303,9 +392,9 @@ module JusticeGovSk
 
         value.gsub!(/\s*§+\s*/, ' § ')
         
-        value.gsub!(/\s*(€|eur)+\s*/i, ' € ')
-        value.gsub!(/\s*(sk)+\s*/i, ' Sk ')
-        value.gsub!(/\s*(k[Čč])+\s*/i, ' Kč ')
+        value.gsub!(/(\A|(?<n>\d+)|\s+)(€|eur)+\s*/i, '\k<n> € ')
+        value.gsub!(/(\A|(?<n>\d+)|\s+)(sk)+\s*/i, '\k<n> Sk ')
+        value.gsub!(/(\A|(?<n>\d+)|\s+)(k[Čč])+\s*/i, '\k<n> Kč ')
         
         value.gsub!(/\s*\/+\s*/, ' / ')
         value.gsub!(/(\s*\/+\s*\d)|(\d\s*\/+\s*)/) { |s| s.gsub(/\s*\/+\s*/, '/') }

@@ -542,6 +542,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   create_table "legislations", :force => true do |t|
     t.string   "value",             :limit => 510, :null => false
     t.string   "value_unprocessed", :limit => 510, :null => false
+    t.string   "type"
     t.integer  "number"
     t.integer  "year"
     t.string   "name"

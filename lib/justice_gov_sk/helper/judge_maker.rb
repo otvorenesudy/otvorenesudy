@@ -41,7 +41,7 @@ module JusticeGovSk
         judge.uri    = uri
         judge.source = source
         
-        judge.name             = name[:altogether]
+        judge.name             = name[:value]
         judge.name_unprocessed = name[:unprocessed]
         
         judge.prefix   = name[:prefix]

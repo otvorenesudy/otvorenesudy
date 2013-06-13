@@ -28,7 +28,7 @@ module SudnaradaGovSk
           judges_map = match_judges_by(judge_name, unaccet: true)
 
           if judge_name != (parsed_judge_name = @parser.judge(@document))
-            puts "Notice: supplied judge name #{judge_name[:altogether]} does not match parsed judge name #{parsed_judge_name[:altogether]}."
+            puts "Notice: supplied judge name #{judge_name[:value]} does not match parsed judge name #{parsed_judge_name[:value]}."
           end
           
           most_similar_judges = judges_map[judges_map.keys.sort.last]
@@ -131,10 +131,10 @@ module SudnaradaGovSk
           puts "Processing #{pluralize list.count, 'related person'}."
           
           list.each do |data|
-            person = judge_related_person_by_judge_property_declaration_id_and_name_factory.find_or_create(@declaration.id, data[:name][:altogether])
+            person = judge_related_person_by_judge_property_declaration_id_and_name_factory.find_or_create(@declaration.id, data[:name][:value])
             
             person.property_declaration = @declaration
-            person.name                 = data[:name][:altogether]
+            person.name                 = data[:name][:value]
             person.name_unprocessed     = data[:name][:unprocessed]
             person.institution          = data[:institution]
             person.function             = data[:function]

@@ -5,7 +5,7 @@ module JusticeGovSk
       include Core::Pluralize
       
       def match_judges_by(name, options = {})
-        name     = name.is_a?(Hash) ? name[:altogether] : name.to_s
+        name     = name.is_a?(Hash) ? name[:value] : name.to_s
         limit    = options[:similar] != nil && options[:similar] == false ? 1.0 : 0.55
         function = options[:unaccent] ? :unaccent : nil
         

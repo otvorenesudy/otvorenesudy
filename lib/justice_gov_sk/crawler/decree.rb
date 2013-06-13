@@ -144,22 +144,21 @@ module JusticeGovSk
           puts "Processing #{pluralize list.count, 'legislation'}."
           
           list.each do |item|
-            identifiers = @parser.legislation(item)
+            map = @parser.legislation(item)
             
             unless identifiers.empty?
-              value = identifiers[:value]
+              legislation = legislation_by_value_factory.find_or_create(map[:value])
               
-              legislation = legislation_by_value_factory.find_or_create(value)
+              legislation.value             = map[:value]
+              legislation.value_unprocessed = map[:unprocessed]
               
-              legislation.value             = value
-              legislation.value_unprocessed = item
-              
-              legislation.number    = identifiers[:number] 
-              legislation.year      = identifiers[:year]
-              legislation.name      = identifiers[:name]
-              legislation.paragraph = identifiers[:paragraph]
-              legislation.section   = identifiers[:section]
-              legislation.letter    = identifiers[:letter]
+              legislation.type      = map[:type]
+              legislation.number    = map[:number]
+              legislation.year      = map[:year]
+              legislation.name      = map[:name]
+              legislation.paragraph = map[:paragraph]
+              legislation.section   = map[:section]
+              legislation.letter    = map[:letter]
               
               legislation.paragraph_explainations = []
               

@@ -4,6 +4,7 @@ class CreateLegislations < ActiveRecord::Migration
       t.string  :value,             null: false, limit: 510
       t.string  :value_unprocessed, null: false, limit: 510
 
+      t.string  :type
       t.integer :number
       t.integer :year
       t.string  :name
