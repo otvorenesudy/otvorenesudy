@@ -22,7 +22,7 @@ class JudgesController < SearchController
     @search         = Bing::Search.new
     @search.query   = @judge.to_context_query
     @search.exclude = /www\.webnoviny\.sk\/.*\?from=.*\z/
-    @results        = @search.perform[0..10]
+    @results        = @search.perform[0..9]
   end
 
   def curriculum
