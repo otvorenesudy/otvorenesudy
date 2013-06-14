@@ -7,14 +7,28 @@
       <%= tooltip_tag @proceeding.file_number, "Identifikačné číslo súdnych spisov", placement: :right %>
       <br/>
       <small>
-        Evidujeme <%= number_with_translation(@hearings.count, key: :hearing) %>
-        a <%= number_with_translation(@decrees.count, key: :decree) %>
+        Súdne konanie
+        <% if @proceeding.single_hearing? %>
+          <%= @events.first.historical ? "začalo" : "začne" %>
+          dňa &ndash; <%= proceeding_date @events.first.date %>
+        <% elsif @proceeding.single_decree?  %>
+          bolo ukončené dňa &ndash; <%= proceeding_date @events.first.date %>
+        <% else %>
+          <% unless @proceeding.probably_closed? %>
+            trvá odo dňa &ndash; <%= proceeding_date @events.first.date %>
+          <% else %>
+            trvalo odo dňa &ndash; <%= proceeding_date @events.first.date, format: :normal %>
+            do dňa &ndash; <%= proceeding_date @events.last.date, format: :normal %>
+          <% end %>
+        <% end %>
       </small>
     </h1>
   </div>
   
   <div class="row">
     <div class="span8">
+        Evidujeme <%= number_with_translation(@hearings.count, key: :hearing) %>
+        a <%= number_with_translation(@decrees.count, key: :decree) %>
       <!-- TODO -->
     </div>
   </div>
@@ -23,11 +37,9 @@
 <section id="proceeding-timeline">
   <div class="row">
     <div class="span12">
-      <div class="pull-right">
-        <% @events.each do |event| %>
-          <%= render event.class.name.downcase, event.class.name.downcase => event %>
-        <% end %>
-      </div>
+      <% @events.each do |event| %>
+        <%= render event.class.name.downcase, event.class.name.downcase => event %>
+      <% end %>
     </div>
   </div>
 </section>
@@ -35,9 +47,10 @@
 <section id="proceeding-resource">
   <div class="row">
     <div class="span12">
-      <div class="pull-right">
-        <!-- TODO -->
-      </div>
+      <small class="muted">
+        Informácie o udalostiach súdneho konania boli získané z dokumentov zverejnených na portáli
+        <%= external_link_to 'Ministerstva spravodlivosti Slovenskej republiky', JusticeGovSk::Request::JudgeList.url, class: :muted %>
+      </small>
     </div>
   </div>
 </section>

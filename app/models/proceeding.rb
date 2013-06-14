@@ -41,4 +41,16 @@ class Proceeding < ActiveRecord::Base
   def judges
     @judges ||= events.map(&:judges).flatten.uniq
   end
+  
+  def single_hearing?
+    events.count == 1 && hearings.count == 1
+  end
+  
+  def single_decree?
+    events.count == 1 && decrees.count == 1
+  end
+  
+  def probably_closed?
+    events.last.is_a? Decree
+  end
 end

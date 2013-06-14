@@ -90,7 +90,7 @@
             <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count %>
           </li>
           <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.count %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#past-hearings', @past_hearings.count %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#past-hearings', @historical_hearings.count %></li>
           <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count %></li>
         </ul>
 
@@ -104,7 +104,7 @@
           </div>
 
           <div id="past-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @past_hearings, query: { judges: @judge.name, historical: true } %>
+            <%= render 'hearings', hearings: @historical_hearings, query: { judges: @judge.name, historical: true } %>
           </div>
 
           <div id="media" class="tab-pane">

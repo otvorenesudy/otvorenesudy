@@ -16,8 +16,8 @@ module DecreesHelper
     join_and_truncate decree.natures.order(:value).pluck(:value).join(', '), tooltip: true
   end
 
-  def decree_date(date)
-    time_tag date, format: :long
+  def decree_date(date, options = {})
+    time_tag date, { format: :long }.merge(options)
   end
 
   def decree_as_attachments(decree)
@@ -55,13 +55,12 @@ module DecreesHelper
 
   def external_link_to_legislation(legislation, options = {})
     if legislation.year && legislation.number
-      hash =  "p#{legislation.paragraph}"
-      hash << "-#{legislation.section}" if legislation.section
-      hash << "-#{legislation.letter}"  if legislation.letter
-
-      url = "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}##{hash}"
+      url =  "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}#"
+      url << 'p' << legislation.paragraph if legislation.paragraph
+      url << '-' << legislation.section   if legislation.section
+      url << '-' << legislation.letter    if legislation.letter
     else
-      url = "http://www.zakonypreludi.sk/main/search.aspx?text=#{legislation.value}"
+      url = 'http://www.zakonypreludi.sk/main/search.aspx?text=' + legislation.value
     end
 
     external_link_to legislation.value, url, options

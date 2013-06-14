@@ -20,10 +20,10 @@ module HearingsHelper
     end  
   end
   
-  def hearing_date(date)
-    date = date.to_date if date.hour == 0
+  def hearing_date(date, options = {})
+    date = date.to_date if date.respond_to?(:hour) && date.hour == 0
     
-    time_tag date, format: :long 
+    time_tag date, { format: :long }.merge(options)
   end
   
   def link_to_hearing(hearing, body, options = {})

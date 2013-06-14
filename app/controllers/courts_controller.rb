@@ -22,9 +22,9 @@ class CourtsController < SearchController
 
     @expenses = @court.expenses.order(:year)
 
-    @past_hearings     = @court.hearings.past.limit(10)
-    @upcoming_hearings = @court.hearings.upcoming.limit(10)
-    @decrees           = @court.decrees.limit(10)
+    @historical_hearings = @court.hearings.past.limit(10)
+    @upcoming_hearings   = @court.hearings.upcoming.limit(10)
+    @decrees             = @court.decrees.limit(10)
 
     @search       = Bing::Search.new
     @search.query = @court.to_context_query

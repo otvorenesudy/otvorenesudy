@@ -73,6 +73,12 @@ class Hearing < ActiveRecord::Base
     facet :historical, type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
   end
 
+  def historical
+    date.past?
+  end
+
+  alias :historical? :historical
+
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
     File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
   end

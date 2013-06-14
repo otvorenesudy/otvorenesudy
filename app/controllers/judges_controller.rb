@@ -13,9 +13,9 @@ class JudgesController < SearchController
     @employments  = @judge.employments
     @designations = @judge.designations.order('date desc')
 
-    @past_hearings     = @judge.hearings.past.limit(10)
-    @upcoming_hearings = @judge.hearings.upcoming.limit(10)
-    @decrees           = @judge.decrees.limit(10)
+    @historical_hearings = @judge.hearings.past.limit(10)
+    @upcoming_hearings   = @judge.hearings.upcoming.limit(10)
+    @decrees             = @judge.decrees.limit(10)
 
     @related_persons = @judge.related_persons
 

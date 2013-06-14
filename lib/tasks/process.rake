@@ -41,7 +41,7 @@ namespace :process do
     end
   end
 
-  desc "process court statistical summaries"
+  desc "Process court statistical summaries"
   namespace :court_statistical_summaries do
     desc "process court statistical summaries from 2012"
     task :'2012' => :environment do

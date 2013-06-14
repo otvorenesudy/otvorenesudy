@@ -48,7 +48,6 @@ class Court < ActiveRecord::Base
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
-
   mapping do
     map :id
     
