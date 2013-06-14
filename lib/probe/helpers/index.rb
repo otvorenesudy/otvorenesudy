@@ -26,7 +26,7 @@ module Probe
       end
 
       def create_facet(type, name, field, options)
-        # TODO: core/injector
+        # TODO: core/injector, rm TODO, should not depend on core
         "Probe::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
       end
     end

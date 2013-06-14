@@ -3,7 +3,6 @@ module Probe
     extend ActiveSupport::Concern
 
     module ClassMethods
-
       def search_by(params = {})
         options = Hash.new
 

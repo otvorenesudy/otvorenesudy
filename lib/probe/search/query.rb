@@ -31,14 +31,13 @@ module Probe::Search
 
     def analyze_query(value)
       value = value.dup
-
       exact = value.scan(/"[^"]+"/)
 
       exact.each { |e| value.gsub!(e, '') }
 
       q = escape_query(value.strip).split(/\s+/).map { |e| "*#{e}*" }.join(' ')
 
-      q.present? || exact.present? ? "#{q} #{exact.join(' ')}" : "*"
+      q.present? || exact.present? ? "#{q} #{exact.join ' '}" : '*'
     end
 
     def build_query_options(fields, options)

@@ -12,12 +12,12 @@ module Probe
     module ClassMethods
       include Probe::Helpers::Index
 
-      def config
+      def configuration
         Probe::Configuration
       end
 
       def settings(params = {})
-        settings = config.index
+        settings = configuration.index
 
         settings.deep_merge!(params)
 
@@ -70,30 +70,26 @@ module Probe
       private
 
       def map(field, options = {})
-        @mapping[field] = {}
-
+        @mapping[field]           = {}
         @mapping[field][:type]    = :mapped
         @mapping[field][:options] = options
       end
 
       def analyze(field, options = {})
-        @mapping[field] = {}
-
+        @mapping[field]           = {}
         @mapping[field][:type]    = :analyzed
         @mapping[field][:options] = options
       end
 
       def nested(field, options = {}, &block)
-        @mapping[field] = {}
-
+        @mapping[field]           = {}
         @mapping[field][:type]    = :nested
         @mapping[field][:options] = options
         @mapping[field][:block]   = block
       end
 
       def facet(name, options = {})
-        type = options[:type]
-
+        type  = options[:type]
         field = options[:field] || name
 
         options.merge! base: self

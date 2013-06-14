@@ -15,7 +15,7 @@ class Probe::Facets
 
     def build_filter
       terms.map do |value|
-        { range: { not_analyzed_field(@field) => build_range_for(value) } }
+        { range: { not_analyzed_field(@field) => build_range_for(value) }}
       end
     end
 
@@ -48,7 +48,7 @@ class Probe::Facets
     end
 
     def populate_facets(results)
-      results['ranges'].map do |range|
+      results['ranges'].map { |range|
         next unless range['count'] > 0
 
         value = format_range(range['from'], range['to'])
@@ -58,7 +58,7 @@ class Probe::Facets
         remove_params = create_result_remove_params(value)
 
         Result.new(value, range['count'], params, add_params, remove_params)
-      end.compact
+      }.compact
     end
 
     def format_range(from, to)

@@ -13,7 +13,7 @@ class Probe::Facets
         if value == missing_facet_name
           { missing: { field: not_analyzed_field(@field) }}
         else
-          { term: { not_analyzed_field(@field) => value } }
+          { term: { not_analyzed_field(@field) => value }}
         end
       end
     end

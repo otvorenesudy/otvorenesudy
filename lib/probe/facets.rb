@@ -44,8 +44,9 @@ module Probe
     end
 
     def build_selective_filter(type, options)
-      included = options[:include]  || @facets.values
-      excluded = options[:exclude]  || []
+      # TODO what's going on in here?
+      included = options[:include] || @facets.values
+      excluded = options[:exclude] || []
 
       filter = map do |facet|
         if included.include?(facet) && !excluded.include?(facet)
@@ -85,6 +86,7 @@ module Probe
     end
 
     private
+    
     def refresh!
       each { |facet| facet.refresh! }
     end

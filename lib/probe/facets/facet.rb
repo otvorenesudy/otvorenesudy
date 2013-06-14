@@ -26,11 +26,11 @@ class Probe::Facets
       @alias       = options[:as]
       @size        = options[:size] || 10
 
-      @highlight   = options[:highlight].nil? ? false : options[:highlight]
-      @visible     = options[:visible].nil? ? true : options[:visible]
-      @collapsible = options[:collapsible].nil? ? true : options[:collapsible]
-      @collapsed   = options[:collapsed].nil? ? false : options[:collapsed]
-      @countless   = options[:countless].nil? ? false : options[:countless]
+      @highlight   = options[:highlight].nil?   ? false : options[:highlight]
+      @visible     = options[:visible].nil?     ? true  : options[:visible]
+      @collapsible = options[:collapsible].nil? ? true  : options[:collapsible]
+      @collapsed   = options[:collapsed].nil?   ? false : options[:collapsed]
+      @countless   = options[:countless].nil?   ? false : options[:countless]
     end
 
     def id
@@ -51,7 +51,6 @@ class Probe::Facets
 
     def populate(results, selected)
       results = yield results if block_given?
-
       results = populate_facets(results)
 
       if selected
@@ -106,7 +105,7 @@ class Probe::Facets
     end
 
     def missing_facet_name
-      "missing"
+      'missing'
     end
 
     def analyzed_field_name

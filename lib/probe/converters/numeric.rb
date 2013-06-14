@@ -9,11 +9,9 @@ module Probe::Converters
     end
 
     def self.to_elastic_range(value)
-      range = Hash.new
-
+      range       = Hash.new
       range[:gte] = value.min if value.min > -Float::INFINITY
       range[:lt]  = value.max if value.max <  Float::INFINITY
-
       range
     end
   end

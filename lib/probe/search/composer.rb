@@ -16,12 +16,10 @@ module Probe::Search
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
-
       @page     = extract_page_param(@params) if @params[:page]
       @order    = extract_order_param(@params) if @params[:order]
       @sort     = extract_sort_param(@params, @sort_fields) if @params[:sort]
       @per_page = options[:per_page] ? options[:per_page].to_i : Probe::Configuration.per_page
-
 
       @facets.extract_facets_params(@params)
       @facets.add_search_params(@page, @sort, @order)
@@ -84,16 +82,14 @@ module Probe::Search
       @facets.each do |facet|
         next unless facet.buildable?
 
-        options = Hash.new
-
+        options                 = Hash.new
         options[:global_facets] = true
         options[:facet_filter]  = build_facet_filter(facet)
 
         facet.build(@index, facet.name, options)
 
         if facet.active?
-          options = Hash.new
-
+          options                 = Hash.new
           options[:global_facets] = false
           options[:facet_filter]  = build_search_filter
 
@@ -119,7 +115,7 @@ module Probe::Search
     def search_pagination
       @page ||= 1
 
-      @index.size @per_page
+      @index.size(@per_page)
       @index.from(@per_page * (@page - 1)) if @page
     end
   end

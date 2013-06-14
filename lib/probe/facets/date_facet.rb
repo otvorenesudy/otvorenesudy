@@ -19,7 +19,7 @@ class Probe::Facets
     private
 
     def populate_facets(results)
-      results['entries'].map do |entry|
+      results['entries'].map { |entry|
         value = format_date(entry['time'])
 
         params        = create_result_params(value)
@@ -27,7 +27,7 @@ class Probe::Facets
         remove_params = create_result_remove_params(value)
 
         Result.new(value, entry['count'], params, add_params, remove_params, @interval)
-      end.reverse!
+      }.reverse!
     end
 
     def format_date(value)

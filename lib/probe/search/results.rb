@@ -65,7 +65,6 @@ module Probe::Search
       @total_entries ||= @results.total_entries
     end
 
-    # TODO: Kaminari suport
     alias :limit_value  :per_page
     alias :total_count  :total_entries
     alias :num_pages    :total_pages
@@ -97,9 +96,7 @@ module Probe::Search
         highlight = Hash.new
 
         @facets.highlights.each do |facet|
-          field = facet.field
-
-          field = Array.wrap(field)
+          field = Array.wrap(facet.field)
 
           field.each do |f|
             highlight[f] = result.highlight ? result.highlight[facet.analyzed_field_name] : []

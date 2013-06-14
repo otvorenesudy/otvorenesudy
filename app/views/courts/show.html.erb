@@ -48,11 +48,11 @@
             <a href="#contact" data-toggle="tab">Kontakt</a>
           </li>
           <li><a href="#offices" data-toggle="tab">Pracoviská</a></li>
-          <li><%= tab_link_to_with_count 'Sudcovia', "#judges", @judges.count%></li>
+          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.count%></li>
           <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count %></li>
           <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.count %></li>
           <li><%= tab_link_to_with_count 'Minulé pojednávania', '#past-hearings', @past_hearings.count %></li>
-          <li><%= tab_link_to_with_count "V médiách", "#media", @results.count %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count %></li>
         </ul>
 
         <div class="tab-content">
