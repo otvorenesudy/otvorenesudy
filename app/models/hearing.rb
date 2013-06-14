@@ -42,7 +42,8 @@ class Hearing < ActiveRecord::Base
   has_many :defendants, dependent: :destroy
 
   mapping do
-    map     :id
+    map :id
+    
     analyze :case_number
     analyze :file_number
     analyze :date,              type: :date

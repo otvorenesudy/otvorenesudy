@@ -59,13 +59,14 @@ class Judge < ActiveRecord::Base
   validates :name, presence: true
 
   mapping do
-    map     :id
+    map :id
+    
     analyze :name
-    analyze :activity,                  as: lambda { |j| j.active ? :active : :inactive }
-    analyze :positions,                 as: lambda { |j| j.positions.pluck(:value) }
-    analyze :courts,                    as: lambda { |j| j.courts.pluck(:name) }
-    analyze :hearings,  type: :integer, as: lambda { |j| j.hearings.count }
-    analyze :decrees,   type: :integer, as: lambda { |j| j.decrees.count }
+    analyze :activity,                       as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
+    analyze :positions,                      as: lambda { |j| j.positions.pluck(:value) }
+    analyze :courts,                         as: lambda { |j| j.courts.pluck(:name) }
+    analyze :hearings_count, type: :integer, as: lambda { |j| j.hearings.count }
+    analyze :decrees_count,  type: :integer, as: lambda { |j| j.decrees.count }
   end
 
   facets do
@@ -73,8 +74,8 @@ class Judge < ActiveRecord::Base
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms
-    facet :hearings_count, type: :range, field: :hearings, ranges: [10..50, 50..100, 100..1000]
-    facet :decrees_count,  type: :range, field: :decrees,  ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..1000]
+    facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
   end
 
   def active

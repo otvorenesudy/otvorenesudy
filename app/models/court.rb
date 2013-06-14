@@ -50,17 +50,18 @@ class Court < ActiveRecord::Base
 
 
   mapping do
-    map     :id
+    map :id
+    
     analyze :name
     analyze :street
     analyze :media_person
-    analyze :type,                            as: lambda { |c| c.type.value }
-    analyze :judges,                          as: lambda { |c| c.judges.pluck(:name) }
-    analyze :judges_count,    type: :integer, as: lambda { |c| c.judges.count }
-    analyze :hearings,        type: :integer, as: lambda { |c| c.hearings.count }
-    analyze :decrees,         type: :integer, as: lambda { |c| c.decrees.count }
-    analyze :municipality,                    as: lambda { |c| c.municipality.name }
-    analyze :expenses,        type: :integer, as: lambda { |c| c.expenses.pluck(:value).inject(:+) }
+    analyze :type,                           as: lambda { |c| c.type.value }
+    analyze :judges,                         as: lambda { |c| c.judges.pluck(:name) }
+    analyze :judges_count,   type: :integer, as: lambda { |c| c.judges.count }
+    analyze :hearings_count, type: :integer, as: lambda { |c| c.hearings.count }
+    analyze :decrees_count,  type: :integer, as: lambda { |c| c.decrees.count }
+    analyze :municipality,                   as: lambda { |c| c.municipality.name }
+    analyze :expenses,       type: :integer, as: lambda { |c| c.expenses.pluck(:value).inject(:+) }
   end
 
   facets do
@@ -68,8 +69,8 @@ class Court < ActiveRecord::Base
     facet :type,           type: :terms
     facet :municipality,   type: :terms
     facet :judges,         type: :terms
-    facet :hearings_count, type: :range, field: :hearings, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :decrees_count,  type: :range, field: :decrees, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
     facet :judges_count,   type: :range, ranges: [5..10, 10..20, 20..50, 50..100]
     facet :expenses,       type: :range, ranges: [1000..10_000, 10_000..20_000, 20_000..50_000, 50_000..100_000]
   end

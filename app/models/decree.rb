@@ -48,6 +48,8 @@ class Decree < ActiveRecord::Base
   end
 
   mapping do
+    map :id
+    
     analyze :id,                  type: :integer
     analyze :case_number
     analyze :file_number
