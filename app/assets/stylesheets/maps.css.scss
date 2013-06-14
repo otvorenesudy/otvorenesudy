@@ -35,14 +35,5 @@
 }
 
 .map {
-  height: $gridRowWidth / 2;
-}
-
-.map.global {
   height: 10 * $gridRowWidth / 16;
-}
-
-.map.thumbnail {
-  width: 300px;
-  height: 200px;
 }
