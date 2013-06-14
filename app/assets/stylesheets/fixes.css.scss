@@ -49,9 +49,11 @@ input[type="color"],
 
 a:hover, a:active,
 a[data-toggle="tab"]:focus,
-input:hover, input:active,
+.btn:active, .btn:hover, .btn:focus,
+button:hover, button:active, button:focus,
+input:hover, input:active, input:focus,
 select:hover, select:active, select:focus,
-textarea:hover, textarea:active {
+textarea:hover, textarea:active, textarea:focus {
   outline: 0;
 }
 
