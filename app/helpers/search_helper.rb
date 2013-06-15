@@ -42,6 +42,6 @@ module SearchHelper
   private
 
   def sort_option_title(value)
-    t "search.sort.#{value.to_s.gsub(/\A_/, '')}"
+    t "search.sort.#{@model.to_s.underscore}.#{value.to_s.gsub(/\A_/, '')}"
   end
 end

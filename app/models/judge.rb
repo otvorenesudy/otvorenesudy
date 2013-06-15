@@ -60,17 +60,19 @@ class Judge < ActiveRecord::Base
 
   mapping do
     map :id
-    
+
     analyze :name
     analyze :activity,                       as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
     analyze :positions,                      as: lambda { |j| j.positions.pluck(:value) }
     analyze :courts,                         as: lambda { |j| j.courts.pluck(:name) }
     analyze :hearings_count, type: :integer, as: lambda { |j| j.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |j| j.decrees.count }
+
+    sort_by :hearings_count, :decrees_count
   end
 
   facets do
-    facet :q,              field: [:name, :courts], type: :fulltext, highlight: true
+    facet :q,              field: [:name, :courts, :positions], type: :fulltext, highlight: true
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms

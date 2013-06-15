@@ -36,9 +36,9 @@ class Decree < ActiveRecord::Base
   has_many :legislation_usages, dependent: :destroy
 
   has_many :legislations, through: :legislation_usages
-  
+
   has_many :paragraph_explainations, through: :legislations
-  
+
   has_many :paragraphs, through: :paragraph_explainations
 
   has_many :pages, class_name: :DecreePage, dependent: :destroy
@@ -49,7 +49,7 @@ class Decree < ActiveRecord::Base
 
   mapping do
     map :id
-    
+
     analyze :id,                  type: :integer
     analyze :case_number
     analyze :file_number
@@ -68,7 +68,7 @@ class Decree < ActiveRecord::Base
   end
 
   facets do
-    facet :q,                     field: :text, type: :fulltext, highlight: true
+    facet :q,                     type: :fulltext, field: :text
     facet :judges,                type: :terms
     facet :legislation_area,      type: :terms, size: LegislationArea.count
     facet :legislation_subarea,   type: :terms, size: LegislationSubarea.count
