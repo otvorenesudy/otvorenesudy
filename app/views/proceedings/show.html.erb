@@ -27,18 +27,18 @@
   
   <div class="row">
     <div class="span8">
-        Evidujeme <%= number_with_translation(@hearings.count, key: :hearing) %>
-        a <%= number_with_translation(@decrees.count, key: :decree) %>
+        <%= number_with_translation(@hearings.count, key: :hearing) %>
+        <%= number_with_translation(@decrees.count, key: :decree) %>
       <!-- TODO -->
     </div>
   </div>
 </section>
 
-<section id="proceeding-timeline">
+<section id="proceeding-timeline" class="timeline">
   <div class="row">
     <div class="span12">
       <% @events.each do |event| %>
-        <%= render event.class.name.downcase, event.class.name.downcase => event %>
+        <%= render event.class.name.downcase, event.class.name.downcase.to_sym => event %>
       <% end %>
     </div>
   </div>
