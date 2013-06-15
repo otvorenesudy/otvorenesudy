@@ -1,6 +1,3 @@
-<!-- TODO this line is BAD! do not declare variables in here! -->
-<% translation ||= t facet.key %>
-
 <%= form_for search_path, method: :get do %>
   <%= content_tag :label, class: :checkbox do %>
     <%= check_box_tag facet.name, !facet.value, facet.value, id: facet.id %>

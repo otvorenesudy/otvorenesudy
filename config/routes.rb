@@ -8,12 +8,13 @@ OpenCourts::Application.routes.draw do
 
   match '/search',          to: 'search#search'
   match '/suggest/:entity', to: 'search#suggest'
+  match '/search/collapse', to: 'search#collapse'
 
   resources :courts do
     collection do
       get :search
       get :suggest
-      
+
       get :map
     end
   end

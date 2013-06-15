@@ -3,8 +3,13 @@ module Probe::Search
     private
 
     def build_query_from(field, terms, options = {})
-      fields = analyzed_field(field)
       values = analyze_query(terms)
+
+      if field == :all
+        fields = :_all
+      else
+        fields = analyzed_field(field)
+      end
 
       query_options = build_query_options(fields, options)
 

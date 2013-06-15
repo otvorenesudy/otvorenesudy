@@ -17,6 +17,7 @@ module Probe
 
         search = Search::Composer.new(self, options)
 
+        # TODO: use facet validator to validate facet results
         search.compose do
           filter = build_facet_filter(facet) || { and: [] }
 

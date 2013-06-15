@@ -6,8 +6,10 @@
 <section id="search-view">
    <div class="row">
      <div class="span6">
-      <%= render 'facets/fulltext_facet', facet: @facets[:q] %>
+      <%= render 'facets/fulltext_facet', facet: @facets[:q], translation: t(@facets[:q].key) %>
     </div>
+
+    <%= render 'search/sort' %>
   </div>
 
   <div class="row">

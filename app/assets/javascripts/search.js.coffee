@@ -5,13 +5,14 @@ $(document).ready ->
     @include Initializer
     @include Logger
 
-    constructor: (el, options) ->
+    constructor: (model, el, options) ->
       @.log 'Initializing search ...'
 
+      @model   = model
       @el      = $(el)
       @results = options.results
 
-      @.focusSearchView()
+      #@.focusSearchView()
 
       @.setup(options) if options?
 
@@ -27,6 +28,7 @@ $(document).ready ->
       @.registerSuggest()
       @.registerSelect()
       @.registerSearch()
+      @.registerCollapse()
 
     registerSubmit: ->
       $(@el).find('form button.submit, form input[type="checkbox"]').click ->
@@ -65,6 +67,16 @@ $(document).ready ->
 
     focusSearchView: ->
       scrollTo($(@el).position().top)
+
+    registerCollapse: ->
+      model = @model
+
+      $('.facet [data-toggle="collapse"]').click ->
+        name      = $(this).closest('.facet').attr('data-id')
+        collapsed = $($(this).attr('data-target')).hasClass('in')
+
+        # TODO: use config or anything else for the path
+        $.get '/search/collapse', { model: model, name: name, collapsed: collapsed }
 
     suggest: (input) ->
       name = $(input).attr('data-id')

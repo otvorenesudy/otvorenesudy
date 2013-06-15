@@ -119,8 +119,25 @@ sk:
 
   search:
     sort:
-      date: 'Dátum'
-      score: 'Relevancia'
+      common: &sort
+        date: 'Dátum'
+        score: 'Relevancia'
+        hearings_count: 'Počet pojednávaní'
+        decrees_count: 'Počet rozhodnutí'
+        judges_count: 'Počet sudcov'
+        expenses: 'Výdavky'
+
+      court:
+        <<: *sort
+
+      decree:
+        <<: *sort
+
+      judge:
+        <<: *sort
+
+      hearing:
+        <<: *sort
 
   facets:
     types:
@@ -134,6 +151,7 @@ sk:
           month: '%B, %Y'
 
     judge:
+      # TODO: create better placeholders for fulltext facets
       q:
         placeholder: 'Vyhľadávanie medzi sudcami'
 
@@ -169,6 +187,9 @@ sk:
           <<: *decree
 
     hearing:
+      q:
+        placeholder: 'Vyhľadávanie v pojednávaniach'
+
       type:
         title: 'Typ pojednávania'
 
@@ -186,6 +207,21 @@ sk:
         title: 'Forma'
         placeholder: 'Forma pojednávania'
         missing: 'neuvedená'
+
+      proposers:
+        title: 'Navrhovatelia'
+        placeholder: 'Meno navrhovateľa'
+        missing: 'neuvedené'
+
+      opponents:
+        title: 'Odporcovia'
+        placeholder: 'Meno odporcu'
+        missing: 'neuvedené'
+
+      defendants:
+        title: 'Obžalovaný'
+        placeholder: 'Meno obz'
+        missing: 'neuvedené'
 
       section:
         title: 'Úsek'
@@ -258,7 +294,7 @@ sk:
 
     court:
       q:
-        placeholder: 'Vyhľadávanie v súdoch'
+        placeholder: 'Meno súdu alebo sídlo'
 
       type:
         title: 'Typ'

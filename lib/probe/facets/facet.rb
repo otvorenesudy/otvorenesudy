@@ -9,14 +9,8 @@ class Probe::Facets
                   :size,
                   :terms,
                   :results,
-                  :params
-
-    attr_accessor :highlight,
-                  :visible,
-                  :collapsible,
-                  :sortable,
-                  :collapsed,
-                  :countless
+                  :params,
+                  :highlight
 
     def initialize(name, field, options)
       @base        = options[:base]
@@ -25,12 +19,7 @@ class Probe::Facets
       @type        = options[:type]
       @alias       = options[:as]
       @size        = options[:size] || 10
-
-      @highlight   = options[:highlight].nil?   ? false : options[:highlight]
-      @visible     = options[:visible].nil?     ? true  : options[:visible]
-      @collapsible = options[:collapsible].nil? ? true  : options[:collapsible]
-      @collapsed   = options[:collapsed].nil?   ? false : options[:collapsed]
-      @countless   = options[:countless].nil?   ? false : options[:countless]
+      @highlight   = options[:highlight].nil? ? false : options[:highlight]
     end
 
     def id
@@ -83,10 +72,6 @@ class Probe::Facets
     end
 
     alias :highlighted?   :highlight
-    alias :visible?       :visible
-    alias :collapsible?   :collapsible
-    alias :collapsed?     :collapsed
-    alias :countless?     :countless
 
     def active?
       @terms.present?

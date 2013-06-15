@@ -43,7 +43,7 @@ class Hearing < ActiveRecord::Base
 
   mapping do
     map :id
-    
+
     analyze :case_number
     analyze :file_number
     analyze :date,              type: :date
@@ -59,17 +59,22 @@ class Hearing < ActiveRecord::Base
     analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
     analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
+
+    sort_by :date
   end
 
   facets do
-    facet :type,      type: :terms, collapsible: false
-    facet :court,     type: :terms
-    facet :subject,   type: :terms
-    facet :judges,    type: :terms
-    facet :date,      type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
-    facet :form,      type: :terms
-    facet :section,   type: :terms
-
+    facet :q,          type: :fulltext, field: :all
+    facet :type,       type: :terms, collapsible: false
+    facet :court,      type: :terms
+    facet :subject,    type: :terms
+    facet :judges,     type: :terms
+    facet :date,       type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
+    facet :form,       type: :terms
+    facet :proposers,  type: :terms
+    facet :opponents,  type: :terms
+    facet :defendants, type: :terms
+    facet :section,    type: :terms
     facet :historical, type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
   end
 

@@ -78,7 +78,4 @@ gem 'capistrano-resque', '~> 0.1.0'
 group :development, :test do
   gem 'rspec-rails',      '~> 2.0'
   gem 'database_cleaner', '~> 0.9.1'
-
-  gem 'jasminerice'
-  gem 'guard-jasmine'
 end
