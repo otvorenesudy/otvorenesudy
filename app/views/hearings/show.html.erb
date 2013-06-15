@@ -142,26 +142,26 @@
 
 <%-# All hearing types -%>
 
-<% if @hearing.judgings.any? %>
+<% if @judges.any? %>
   <section id="hearing-judges">
     <h2>Sudcovia</h2>
 
     <%-# Special hearings only -%>
 
-    <% if @hearing.judgings.chaired.any? %>    
+    <% if @judges.chaired.any? %>    
       <div class="row">
         <div class="span12">
-          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map(&:judge) %>.
+          Funkciu predsedu senátu zastáva <%= links_to_judges @judges.chaired %>.
         </div>
       </div>
     <% end %>
 
     <%-# Civil and Criminal hearings only -%>
 
-    <% if @hearing.judgings.normal.any? %>
+    <% if @judges.normal.any? %>
       <div class="row">
         <div class="span12">
-          <%= links_to_judges @hearing.judgings.normal.map(&:judge) %>
+          <%= links_to_judges @judges.normal %>
         </div>
       </div>
     <% end %>
