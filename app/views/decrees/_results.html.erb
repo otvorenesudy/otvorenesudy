@@ -17,7 +17,7 @@
           <% end %>
           <% if decree.judges.any? %>
             <br/>
-            Sudcovia &ndash; <%= links_to_judges decree.judges.order(:name) %>
+            Sudcovia &ndash; <%= links_to_judges decree.judges %>
           <% end %>
 
 <!-- TODO consider adding other attributes such as:

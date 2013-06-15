@@ -24,8 +24,8 @@ class Judge < ActiveRecord::Base
   scope :chair,     joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
 
-  scope :normal,  where('judgings.judge_chair = false')
-  scope :chaired, where('judgings.judge_chair = true')
+  scope :normal,  where('judgings.judge_chair = false').order(:name)
+  scope :chaired, where('judgings.judge_chair = true').order(:name)
 
   max_paginates_per 100
       paginates_per 25
