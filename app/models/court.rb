@@ -100,7 +100,7 @@ class Court < ActiveRecord::Base
   end
 
   def expenses_total
-    @expenses_total ||= expenses.map { |expense| expense.value.to_i }.inject(:+)
+    @expenses_total ||= expenses.sum :value
   end
 
   def to_context_query

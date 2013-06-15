@@ -31,16 +31,45 @@ class Proceeding < ActiveRecord::Base
   end
 
   def events
-    @events ||= (hearings + decrees).sort { |a, b| a.date <=> b.date }
+    @events ||= (hearings + decrees).sort_by(&:date)
   end
 
   def courts
-    @courts ||= events.map(&:court).uniq
+    Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
   end
 
   def judges
-    @judges ||= events.map(&:judges).flatten.uniq
+    # TODO refactor into AR relation
+    
+    return @judges if @judges
+    
+    @judges = events.flat_map(&:judges).uniq
+    @judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
+    @judges
   end
+  
+  def proposers
+    # TODO rm
+    #@proposers ||= hearings.flat_map(&:proposers).uniq(&:name).sort_by(&:name)
+    
+    through_hearings_to Proposer
+  end
+  
+  def opponents
+    through_hearings_to Opponent
+  end
+  
+  def defendants
+    through_hearings_to Defendant
+  end
+
+  private
+  
+  def through_hearings_to(model)
+    model.select('distinct name').joins(:hearing).where(:'hearings.proceeding_id' => id)
+  end
+
+  public
   
   def single_hearing?
     events.count == 1 && hearings.count == 1
