@@ -3,7 +3,7 @@ namespace :es do
   # TODO: find out why index increses by multiple update
 
   task prepare: :environment do
-    INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Document::Configuration.indices
+    INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Probe::Configuration.indices
   end
 
   task update: :environment do
