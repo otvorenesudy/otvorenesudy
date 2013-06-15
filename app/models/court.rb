@@ -48,9 +48,10 @@ class Court < ActiveRecord::Base
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
+
   mapping do
     map :id
-    
+
     analyze :name
     analyze :street
     analyze :media_person
@@ -61,10 +62,12 @@ class Court < ActiveRecord::Base
     analyze :decrees_count,  type: :integer, as: lambda { |c| c.decrees.count }
     analyze :municipality,                   as: lambda { |c| c.municipality.name }
     analyze :expenses,       type: :integer, as: lambda { |c| c.expenses.pluck(:value).inject(:+) }
+
+    sort_by :hearings_count, :decrees_count, :judges_count, :expenses
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:name, :street, :judges, :municipality]
+    facet :q,              type: :fulltext, field: [:name, :street, :judges, :municipality, :media_person, :type]
     facet :type,           type: :terms
     facet :municipality,   type: :terms
     facet :judges,         type: :terms

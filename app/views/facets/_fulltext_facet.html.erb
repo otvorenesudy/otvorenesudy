@@ -1,6 +1,3 @@
-<!-- TODO this line is BAD! do not declare variables in here! -->
-<% translation ||= t(facet.key) %>
-
 <%= form_tag search_path, method: :get do %>
   <% content_tag :div, class: 'input-append' do %>
     <%= text_field_tag facet.name, facet.terms, class: 'input-large', placeholder: translation[:placeholder] %>

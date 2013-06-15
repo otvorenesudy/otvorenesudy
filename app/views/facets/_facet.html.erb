@@ -1,16 +1,16 @@
 <div id="<%= facet.id %>" class="facet" data-id="<%= facet.name %>">
   <h4>
     <%= translation[:title] if translation[:title] %>
-    <% if facet.collapsible? %>
+    <% if @collapsible_facet_names.include? facet.name %>
       <i class="icon-circle" data-toggle="collapse" data-target="#<%= facet.id %>-content"></i>
     <% end %>
   </h4>
 
-  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless facet.collapsed?}" if facet.collapsible? %>">
+  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless @collapsed_facet_names.include? facet.name}" if @collapsible_facet_names.include? facet.name %>">
     <% if translation[:placeholder] %>
       <%= facet_input facet, placeholder: translation[:placeholder] %>
     <% end %>
 
-    <%= render 'facets/facet_results', facet: facet %>
+    <%= render 'facets/facet_results', facet: facet, visible: facet.results.first(11), other: facet.results[11..-1] || [] %>
   </div>
 </div>

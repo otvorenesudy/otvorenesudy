@@ -1,21 +1,18 @@
 <ul id="<%= facet.id %>-list" class="unstyled">
-  <% facet.results.first(11).each do |result| %>
+  <% visible.each do |result| %>
     <%= render 'facets/facet_result', facet: facet, result: result %>
   <% end %>
-
-  <!-- TODO this line is BAD! do not declare variables in here! -->
-  <% folded_results = facet.results[11..-1] %>
-
-  <!-- TODO this next line is ALSO BAD! -->
-  <% if folded_results && folded_results.any? %>
-    <div id="<%= facet.id %>-fold" class="facet-fold collapse out">
-      <ul class="unstyled">
-      <% folded_results.each do |result| %>
-          <%= render 'facets/facet_result', facet: facet, result: result %>
-        <% end %>
-      </ul>
-    </div>
-
-    <%= collapse_facet_link facet %>
-  <% end %>
 </ul>
+
+<% if other.any? %>
+  <div id="<%= facet.id %>-fold" class="facet-fold collapse out">
+    <ul class="unstyled">
+      <% other.each do |result| %>
+        <%= render 'facets/facet_result', facet: facet, result: result %>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= collapse_facet_link facet %>
+<% end %>
+

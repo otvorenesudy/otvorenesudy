@@ -11,7 +11,7 @@ class Probe::Facets
     def build_filter
       terms.map do |value|
         if value == missing_facet_name
-          { missing: { field: not_analyzed_field(@field) }}
+          { missing: { field: not_analyzed_field(@field), existence: true }}
         else
           { term: { not_analyzed_field(@field) => value }}
         end

@@ -2,6 +2,8 @@ module Probe::Search
   class Results
     include Enumerable
 
+    include Probe::Helpers::Index
+
     attr_reader :records,
                 :facets,
                 :highlights,
@@ -99,7 +101,9 @@ module Probe::Search
           field = Array.wrap(facet.field)
 
           field.each do |f|
-            highlight[f] = result.highlight ? result.highlight[facet.analyzed_field_name] : []
+            analyzed_field = analyzed_field(f)
+
+            highlight[f] = result.highlight ? result.highlight[analyzed_field] : []
           end
         end
 
