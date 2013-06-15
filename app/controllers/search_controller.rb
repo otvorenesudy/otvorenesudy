@@ -76,11 +76,7 @@ class SearchController < ApplicationController
   end
 
   def collapsed_session_key(model)
-    if model.is_a? Class
-      key = "#{model.to_s.singularize.underscore}"
-    else
-      key = "#{model.to_s.singularize.underscore}"
-    end
+    key = "#{model.to_s.singularize.underscore}"
 
     (key << "_collapsed_facet_names").to_sym
   end
