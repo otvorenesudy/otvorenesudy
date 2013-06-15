@@ -211,19 +211,16 @@ sk:
       proposers:
         title: 'Navrhovatelia'
         placeholder: 'Meno navrhovateľa'
-
         missing: 'neuvedené'
 
       opponents:
         title: 'Odporcovia'
         placeholder: 'Meno odporcu'
-
         missing: 'neuvedené'
 
       defendants:
         title: 'Obžalovaný'
         placeholder: 'Meno obz'
-
         missing: 'neuvedené'
 
       section:
