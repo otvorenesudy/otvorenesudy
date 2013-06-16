@@ -27,7 +27,7 @@ module JusticeGovSk
       
       def defendant(document)
         find_value_by_label 'defendant', document, 'Obžalovaný/á', verbose: :false do |div|
-          { normalized: normalize_punctuation(div.text), unprocessed: div.text.strip }
+          { normalized: normalize_participant(div.text), unprocessed: div.text.strip }
         end
       end
     end
