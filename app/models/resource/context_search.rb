@@ -6,8 +6,7 @@ module Resource::ContextSearch
       define_method :context_query do
         return @context_query if @context_query  
         
-        query, options = yield self
-        
+        query   = yield self
         options = self.class.context_options if options.blank?
         
         query << " site:(#{options[:whitelist].join ' OR '})"                unless options[:whitelist].blank?
