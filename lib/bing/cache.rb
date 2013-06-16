@@ -8,7 +8,7 @@ module Bing
       $redis.set(key, value)
     end
 
-    def self.del(key)
+    def self.delete(key)
       $redis.del(key)
     end
   end

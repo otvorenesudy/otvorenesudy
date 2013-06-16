@@ -2,6 +2,7 @@
 
 class Court < ActiveRecord::Base
   include Resource::URI
+  include Resource::ContextSearch
   include Resource::Storage
 
   include Probe::Index
@@ -48,7 +49,6 @@ class Court < ActiveRecord::Base
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
-
   mapping do
     map :id
 
@@ -67,7 +67,7 @@ class Court < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:name, :street, :judges, :municipality, :media_person, :type]
+    facet :q,              type: :fulltext, field: [:type, :name, :street, :municipality, :judges, :media_person]
     facet :type,           type: :terms
     facet :municipality,   type: :terms
     facet :judges,         type: :terms
@@ -106,13 +106,7 @@ class Court < ActiveRecord::Base
     @expenses_total ||= expenses.sum :value
   end
 
-  def to_context_query
-    query     = "\"#{self.name}\""
-    sites     = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
-    blacklist = %w(http://www.sme.sk/diskusie/ http://blog.sme.sk)
-
-    "#{query} site:(#{sites.join(' or ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
-  end
+  context_query { |court| "\"#{court.name}\"" }
 
   storage :resource, JusticeGovSk::Storage::CourtPage, extension: :html
 end

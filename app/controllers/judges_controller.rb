@@ -19,10 +19,7 @@ class JudgesController < SearchController
 
     @related_persons = @judge.related_persons
 
-    @search         = Bing::Search.new
-    @search.query   = @judge.to_context_query
-    @search.exclude = /www\.webnoviny\.sk\/.*\?from=.*\z/
-    @results        = @search.perform[0..9]
+    @results = @judge.context_search[0..9]
   end
 
   def curriculum

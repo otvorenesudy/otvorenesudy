@@ -23,9 +23,9 @@ module Resource::Similarity
       ORDER BY s DESC;
       SQL
 
-      ActiveRecord::Base.connection.exec_query("SELECT set_limit(#{limit});")
+      ActiveRecord::Base.connection.exec_query "SELECT set_limit(#{limit});"
 
-      values = ActiveRecord::Base.connection.exec_query(sanitize_sql_array([sql, value, value]))
+      values = ActiveRecord::Base.connection.exec_query(sanitize_sql_array [sql, value, value])
       result = Hash.new
 
       values.to_hash.each do |hash| 

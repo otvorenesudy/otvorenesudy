@@ -26,8 +26,6 @@ class CourtsController < SearchController
     @upcoming_hearings   = @court.hearings.upcoming.limit(10)
     @decrees             = @court.decrees.limit(10)
 
-    @search       = Bing::Search.new
-    @search.query = @court.to_context_query
-    @results      = @search.perform[0..9]
+    @results = @court.context_search[0..9]
   end
 end
