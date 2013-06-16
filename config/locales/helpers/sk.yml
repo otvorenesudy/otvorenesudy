@@ -1,0 +1,39 @@
+sk:
+  number:
+    format:
+      delimiter: ' '
+      separator: ','
+
+    currency:
+      format:
+        format: '%n %u'
+        unit: '€'
+
+  date:
+    formats:
+      default: '%-d. %-m. %Y'
+      short: '%-d. %-m.'
+      normal: '%-d. %B %Y'
+      long: '%A %-d. %B %Y'
+
+  time:
+    formats:
+      default: '%-d. %-m. %Y o %-H:%M'
+      short: '%-d. %-m. o %-H:%M'
+      normal: '%-d. %B %Y o %-H:%M'
+      long: '%A %-d. %B %Y o %-H:%M'
+
+  days:
+    one: '1 deň'
+    few: '%{count} dni'
+    other: '%{count} dní'
+
+  months:
+    one: '1 mesiac'
+    few: '%{count} mesiace'
+    other: '%{count} mesiacov'
+
+  years:
+    one: '1 rok'
+    few: '%{count} roky'
+    other: '%{count} rokov'

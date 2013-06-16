@@ -27,10 +27,17 @@
   
   <div class="row">
     <div class="span8">
+      <% if @judges.any? %>
+        <p>
+          Pre súdne konanie <%= 'zatiaľ ' unless @proceeding.probably_closed? %>evidujeme 
+          <%= number_with_translation(@hearings.count, key: :hearing) %> a
+          <%= number_with_translation(@decrees.count, key: :decree) %>.
+        </p>
+      <% end %>
+      <% if @judges.any? %>
+        <p><%= t(:judge, count: @judges.count).upcase_first %> &ndash; <%= links_to_judges @judges %>.</p>
+      <% end %>
       
-      
-        <%= number_with_translation(@hearings.count, key: :hearing) %>
-        <%= number_with_translation(@decrees.count, key: :decree) %>
       <!-- TODO -->
     </div>
   </div>

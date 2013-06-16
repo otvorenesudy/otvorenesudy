@@ -21,7 +21,7 @@
             Neaktívn<%= @judge.probably_woman ? 'a' : 'y' %>
           <% end %>
           <% if employment.judge_position %>
-            <%= @judge.probably_woman ? 'pracovníčka' : 'pracovník' if employment.judge_position.value.start_with? 'poverená' %>
+            <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.value =~ /\Apoveren[ýá]/ %>
             <%= employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
@@ -34,7 +34,7 @@
           <%= link_to_court employment.court %>,
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
           <%= number_with_translation(Hearing.during_employment(employment).count, key: :hearing) %> a
-          <%= number_with_translation(Decree.during_employment(employment).count,  key: :decree) %>.
+          <%= number_with_translation(Decree.during_employment(employment).count, key: :decree) %>.
           <% if employment.note %>
             <br/>
             <span class="gutter centered muted"><%= icon_tag :pushpin %></span>

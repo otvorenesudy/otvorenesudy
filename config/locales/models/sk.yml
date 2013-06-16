@@ -1,0 +1,61 @@
+sk:
+  court: &court
+    one: 'súd'
+    other: 'súdy'
+
+  judge: &judge
+    one: 'sudca'
+    other: 'sudcovia'
+
+  hearing: &hearing
+    one: 'pojednávanie'
+    other: 'pojednávania'
+
+  decree: &decree
+    one: 'rozhodnutie'
+    other: 'rozhodnutia'
+
+  proceeding: &proceeding
+    one: 'konanie'
+    other: 'konania'
+
+  proposer: &proposer
+    one: 'navrhovateľ'
+    other: 'navrhovatelia'
+
+  opponent: &opponent
+    one: 'odporca'
+    other: 'odporcovia'
+
+  defendant: &defendant
+    one: 'obžalovaný'
+    other: 'obžalovaní'
+
+  document: &document
+    one: 'dokument'
+    other: 'dokumenty'
+
+  page: &page
+    one: 'stránka'
+    other: 'stránky'
+
+  result: &result
+    one: 'výsledok'
+    other: 'výsledky'
+
+  activerecord:
+    models:
+      court:
+        <<: *court
+
+      judge:
+        <<: *judge
+
+      hearing:
+        <<: *hearing
+        
+      decree:
+        <<: *decree
+
+      proceeding:
+        <<: *proceeding

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module FacetHelper
+module FacetsHelper
   def facet_input(facet, options)
     options.merge! :'data-id' => facet.name
     options.merge! :'data-suggest-path' => suggest_path(facet.params.except(facet.name))
@@ -115,7 +115,7 @@ module FacetHelper
   def format_facet_value(value)
     value.gsub!(/\d+/) { |m| number_with_delimiter(m.to_i) }
 
-    join_and_truncate value, limit: 30
+    truncate(value, limit: 30, separator: ' ', omission: '&hellip;').html_safe
   end
 
   def missing_translation?(key)

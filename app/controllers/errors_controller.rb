@@ -10,7 +10,7 @@ class ErrorsController < ApplicationController
     @status = exception_wrapper.status_code
     @trace  = exception_wrapper.full_trace
 
-    I18n.with_options scope: [:exception, :show, rescue_response] do |i18n|
+    I18n.with_options scope: [:exceptions, rescue_response] do |i18n|
       key = class_name.underscore
 
       @error       = i18n.t "#{key}.title",       default: i18n.t(:title,       default: class_name)
