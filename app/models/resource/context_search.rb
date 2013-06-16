@@ -26,9 +26,9 @@ module Resource::ContextSearch
   end
   
   def context_search(options = {})
-    search       ||= Bing::Search.new
-    search.query   = options[:query]   || context_query
-    search.exclude = options[:exclude] || self.class.context_options[:exclude]
-    search.perform
+    @context_search       ||= Bing::Search.new
+    @context_search.query   = options[:query]   || context_query
+    @context_search.exclude = options[:exclude] || self.class.context_options[:exclude]
+    @context_search.perform
   end
 end
