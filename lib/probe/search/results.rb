@@ -4,7 +4,8 @@ module Probe::Search
 
     include Probe::Helpers::Index
 
-    attr_reader :records,
+    attr_reader :model,
+                :records,
                 :facets,
                 :highlights,
                 :sort_fields,
@@ -16,7 +17,8 @@ module Probe::Search
                 :next_page,
                 :per_page,
                 :total_pages,
-                :total_entries
+                :total_entries,
+                :time
 
     def initialize(model, facets, sort_fields, response)
       @model       = model
@@ -66,12 +68,29 @@ module Probe::Search
     def total_entries
       @total_entries ||= @results.total_entries
     end
+    
+    def time
+      @time ||= @results.time
+    end
 
+    alias :model_name   :model
     alias :limit_value  :per_page
     alias :total_count  :total_entries
     alias :num_pages    :total_pages
     alias :offset_value :offset
     alias :page         :current_page
+
+    def first_page?
+      page == 1
+    end
+
+    def last_page?
+      page == total_pages
+    end
+
+    def empty?
+      records.empty?
+    end
 
     def each(&block)
       records.each_with_index do |record, i|

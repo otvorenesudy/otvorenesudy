@@ -1,3 +1,9 @@
-<div class="pull-right muted">
-  <%= @count.zero? ? "Nenájdené" : "Celkovo najdených" %> <%= translate_with_count(@count, @type) %>.
-</div>
+<p class="pull-right muted">
+  <% unless @count.zero? %>
+    <%= @results.offset + 1 %> &ndash; <%= [@results.offset + @results.per_page, @count].min %>
+    z celkovo <%= translate_with_count(@count, :result) %>
+  <% else %>
+    Nenájdené <%= translate_with_count(@count, :result) %>
+  <% end %>
+  (<%= @results.time %> ms)
+</p>

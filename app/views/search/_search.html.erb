@@ -1,7 +1,7 @@
 <% render 'search/initialization.js' %>
 
 <section id="search-view">
-  <div class="row">
+  <div id="search-controls" class="row">
     <div class="span6">
       <%= render 'facets/fulltext_facet', facet: @facets[:q], translation: t(@facets[:q].key) %>
     </div>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="row">
-    <div id="search-panel" class="span4">
+    <div id="search-facets" class="span4">
       <%= render 'facets/facets' %>
     </div>
 

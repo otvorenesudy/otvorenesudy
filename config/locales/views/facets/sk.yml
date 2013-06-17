@@ -61,7 +61,7 @@ sk:
 
     court:
       q:
-        placeholder: 'Meno súdu alebo sídlo'
+        placeholder: 'Názov alebo sídlo súdu, meno sudcu alebo pracovníka'
 
       type:
         title: 'Typ'
@@ -97,9 +97,8 @@ sk:
         suffix: '%{count} €'
 
     judge:
-      # TODO: create better placeholders for fulltext facets
       q:
-        placeholder: 'Vyhľadávanie medzi sudcami'
+        placeholder: 'Meno alebo pozícia sudcu, názov súdu'
 
       name:
         title: 'Sudca'
@@ -222,7 +221,7 @@ sk:
         missing: 'neuvedené'
 
         paragraph:
-          prefix: '§'
+          placeholder: '§'
 
         number:
           placeholder: 'Číslo'
