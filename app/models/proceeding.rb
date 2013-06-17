@@ -19,6 +19,8 @@ class Proceeding < ActiveRecord::Base
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
+    
+    sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do

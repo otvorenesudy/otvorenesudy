@@ -1,6 +1,6 @@
 module TranslationHelper
   def translate_with_count(count, key)
-    translate "numbers.#{key}", count: count < 5 ? count : number_with_delimiter(count)
+    translate "counts.#{key}", count: count < 5 ? count : number_with_delimiter(count)
   end
   
   def translate_without_count(count, key)

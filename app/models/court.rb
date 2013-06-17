@@ -63,7 +63,7 @@ class Court < ActiveRecord::Base
     analyze :municipality,                   as: lambda { |c| c.municipality.name }
     analyze :expenses,       type: :integer, as: lambda { |c| c.expenses.pluck(:value).inject(:+) }
 
-    sort_by :hearings_count, :decrees_count, :judges_count, :expenses
+    sort_by :_score, :hearings_count, :decrees_count, :judges_count
   end
 
   facets do

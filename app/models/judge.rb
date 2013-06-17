@@ -70,7 +70,7 @@ class Judge < ActiveRecord::Base
     analyze :hearings_count, type: :integer, as: lambda { |j| j.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |j| j.decrees.count }
 
-    sort_by :hearings_count, :decrees_count
+    sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do

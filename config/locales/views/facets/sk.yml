@@ -1,5 +1,5 @@
 sk:
-  numbers:
+  counts:
     court: &court
       zero: 'žiadne súdy'
       one: '1 súd'
@@ -249,10 +249,12 @@ sk:
       courts:
         title: 'Súdy'
         placeholder: 'Meno súdu'
+        missing: 'neuvedené'
 
       judges:
         title: 'Sudcovia'
         placeholder: 'Meno sudcu'
+        missing: 'neuvedení'
 
       judges_count:
         title: 'Počet sudcov'
