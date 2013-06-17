@@ -1,46 +1,68 @@
 sk:
   court: &court
+    zero: 'súdy'
     one: 'súd'
+    few: 'súdy'
     other: 'súdy'
 
   judge: &judge
+    zero: 'sudcovia'
     one: 'sudca'
+    few: 'sudcovia'
     other: 'sudcovia'
 
   hearing: &hearing
+    zero: 'pojednávania'
     one: 'pojednávanie'
+    few: 'pojednávania'
     other: 'pojednávania'
 
   decree: &decree
+    zero: 'rozhodnutia'
     one: 'rozhodnutie'
+    few: 'rozhodnutia'
     other: 'rozhodnutia'
 
   proceeding: &proceeding
+    zero: 'konania'
     one: 'konanie'
+    few: 'konania'
     other: 'konania'
 
   proposer: &proposer
+    zero: 'navrhovatelia'
     one: 'navrhovateľ'
+    few: 'navrhovatelia'
     other: 'navrhovatelia'
 
   opponent: &opponent
+    zero: 'odporcovia'
     one: 'odporca'
+    few: 'odporcovia'
     other: 'odporcovia'
 
   defendant: &defendant
+    zero: 'obžalovaní'
     one: 'obžalovaný'
+    few: 'obžalovaní'
     other: 'obžalovaní'
 
   document: &document
+    zero: 'dokumenty'
     one: 'dokument'
+    few: 'dokumenty'
     other: 'dokumenty'
 
   page: &page
+    zero: 'stránky'
     one: 'stránka'
+    few: 'stránky'
     other: 'stránky'
 
   result: &result
+    zero: 'výsledky'
     one: 'výsledok'
+    few: 'výsledky'
     other: 'výsledky'
 
   activerecord:
