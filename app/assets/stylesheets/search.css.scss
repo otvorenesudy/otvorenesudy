@@ -1,8 +1,6 @@
 @import 'mixins';
 @import 'variables';
 
-// TODO fix icon links (add / remove) in facets, add both width and height to anchors and icons
-
 .search-controls {
   form {
     margin-bottom: 10px;
@@ -70,86 +68,104 @@
 
 .facet {
   & + .facet {
-    margin-top: 10px;
+    margin: 20px 0px;
   }
 
   h4 {
-    margin-top: 10px;
+    margin: 0px;
 
+    &.collapsible {
+      cursor: pointer;
+    }
+    
     i {
-      display: inline-block;
-      position: relative;
-      float: right;
-
       width: 20px;
       height: 20px;
       line-height: 20px;
 
-      color: darken($grayLighter, 2.5%);
-      cursor: pointer;
+      color: $grayLighter;
 
       text-decoration: none;
       text-align: center;
 
       &:focus, &:hover {
-        color: $grayLight;
+        color: darken($grayLighter, 12.5%);
+      }
+      
+      &:before {
+        cursor: pointer;
       }
     }
   }
 
-  .facet-content, .facet-fold {
+  .facet-content {
     position: relative;
 
     left: -20px;
     padding-left: 20px;
 
     input[type="text"], .add-on {
-      margin-top: 5px;
+      width: 175px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
-
+    
+    input.multi {
+      display: block;
+      float: left;
+      
+      width: 42px;
+      margin-right: 10px;
+    }
+    
+    a[data-collapse="fold"] {
+      display: none;
+    }
+    
+    ul {
+      margin: 0px;
+    }
+    
     li {
       position: relative;
 
-      .facet-label {
+      .label {
         background-color: $grayLighter;
         color: $gray;
         text-shadow: none;
+      }
+
+      .add, .remove {
+        position: absolute;
+        left: -20px;
+
+        color: $grayLight;
+
+        text-align: center;
+        text-decoration: none;
+
+        &:hover {
+          color: $linkColorHover;
+        }
+      }
+
+      .add, .remove,
+      .add i, .remove i {
+        display: inline-block;
+        
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        top: 0px;
+        bottom: 0px;
       }
 
       .add {
         display: none;
       }
 
-      &:not(.selected):hover {
-        .add {
-          display: block;
-
-          position: absolute;
-          top: 1px;
-          left: -17px;
-          width: 20px;
-
-          cursor: pointer;
-          color: $grayLight;
-
-          &:hover {
-            color: $linkColorHover;
-          }
-        }
-      }
-
-      .remove {
-        position: absolute;
-        top: 1px;
-        left: -17px;
-        width: 20px;
-
-        cursor: pointer;
-        color: $grayLight;
-
-        &:hover {
-          color: $linkColorHover;
-        }
+      &:not(.selected):hover .add {
+        display: inline-block;
       }
     }
   }

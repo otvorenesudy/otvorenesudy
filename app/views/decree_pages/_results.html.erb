@@ -7,7 +7,7 @@
 
   <dl class="unstyled">
     <% @highlights.each do |number, texts| %>
-      <dt><%= icon_tag :file, label: "Strana #{number}", join: :append, class: :muted %></dt>
+      <dt><%= icon_tag :'file-alt', label: "Strana #{number}", join: :append, class: :muted %></dt>
       <% texts.each do |text| %>
         <dd><%= link_to_decree_page @decree, number, strip_and_highlight(text), query: params[:q] %></dd>
       <% end %>

@@ -16,7 +16,7 @@ module FacetsHelper
     options.merge! :'data-id' => facet.name
 
     prefix = options.delete(:prefix)
-    input  = facet_suggest_input facet, options.merge(class: 'input-mini')
+    input  = facet_suggest_input facet, options.merge(class: :multi)
 
     return input unless prefix
 
@@ -36,8 +36,8 @@ module FacetsHelper
   def link_to_collapse_facet_results(facet)
     target = "##{facet.id}-fold"
 
-    icon_link_to_collapse(:'collapse-top', 'Zobrazit menej', action: :fold, target: target, join: :append, class: 'hidden muted') +
-    icon_link_to_collapse(:collapse, 'Zobraziť viac', action: :unfold, target: target, join: :append, class: :muted)
+    icon_link_to_collapse(:collapse, 'Zobraziť viac', action: :unfold, target: target, join: :append, class: :muted) +
+    icon_link_to_collapse(:'collapse-top', 'Zobrazit menej', action: :fold, target: target, join: :append, class: :muted)
   end
 
   # TODO: refactor
@@ -71,10 +71,11 @@ module FacetsHelper
 
   private
 
-  def format_facet_value(value)
-    value.gsub!(/\d+/) { |m| number_with_delimiter(m.to_i) }
+  def format_facet_value(result, value)
+    # TODO enable only on values of specific facets
+    #value.gsub!(/\d+/) { |m| number_with_delimiter(m.to_i) }
 
-    truncate(value, limit: 30, separator: ' ', omission: '&hellip;').html_safe
+    truncate(value, length: 30 - result.count.to_s.size, separator: ' ', omission: '&hellip;').html_safe
   end
 
   def translate_range_facet_value(facet, result)
@@ -109,7 +110,7 @@ module FacetsHelper
   def link_to_facet_value(facet, result, value, options = {})
     path  = "#{facet.key}.#{value}"
     value = translate path unless missing_translation? path
-    body  = format_facet_value(value)
+    body  = format_facet_value(result, value)
 
     options.merge! title: value if body != value
 

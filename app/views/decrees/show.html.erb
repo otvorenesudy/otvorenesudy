@@ -96,7 +96,7 @@
         pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
         <% if File.readable? @decree.resource_path %>
           <br/>
-          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_decree_resource @decree, icon_tag(:file, label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
+          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_decree_resource @decree, icon_tag(:'file-alt', label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
         <% end %>
       </small>
     </div>

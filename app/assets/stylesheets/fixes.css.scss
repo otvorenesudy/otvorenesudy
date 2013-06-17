@@ -65,28 +65,31 @@ textarea:hover, textarea:active, textarea:focus {
 
 // alert links
 
-.alert a {
-  &.close, &.close i {
-    display: inline-block;
-    
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    top: 0px;
-    bottom: 0px;
-    
-    right: -25px;
-    
-    font-size: $baseFontSize;
-    font-weight: normal;
-    
-    text-align: center;
+.alert a.close,
+.alert a.close i {
+  display: inline-block;
+  
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  top: 0px;
+  bottom: 0px;
+  
+  right: -25px;
+  
+  font-size: $baseFontSize;
+  font-weight: normal;
+  
+  text-align: center;
+  text-decoration: none;
+  
+  &:hover, &:focus {
     text-decoration: none;
-    
-    &:hover, &:focus {
-      text-decoration: none;
-    }
   }
+}
+
+.alert a.close i:before {
+  cursor: pointer;
 }
 
 .alert-error a {
