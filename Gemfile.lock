@@ -65,7 +65,7 @@ GEM
       multi_json (~> 1.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
-    font-awesome-rails (3.1.1.2)
+    font-awesome-rails (3.2.0.0)
       railties (>= 3.2, < 5.0)
     garelic (0.2.1)
     gmaps4rails (1.5.6)
@@ -252,7 +252,7 @@ DEPENDENCIES
   docsplit (~> 0.6.4)
   execjs
   factory_girl
-  font-awesome-rails (~> 3.1.1.2)
+  font-awesome-rails (~> 3.2.0.0)
   garelic
   gmaps4rails (~> 1.5.6)
   htmlentities
