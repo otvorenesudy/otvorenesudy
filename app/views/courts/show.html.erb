@@ -14,10 +14,10 @@
       <p>
         <span class="gutter centered muted"><%= icon_tag :user %></span>
         Na súde <%= @judges.any? ? 'pracuje' : 'nepracujú' %>
-        <%= number_with_translation(@judges.count, key: :judge) %>.
+        <%= translate_with_count(@judges.count, :judge) %>.
         Pre súd <%= 'zatiaľ ne' if @court.hearings.none? %>evidujeme
-        <%= number_with_translation(@court.hearings.count, key: :hearing) %>
-        a&nbsp;<%= number_with_translation(@court.decrees.count, key: :decree) %>.
+        <%= translate_with_count(@court.hearings.count, :hearing) %>
+        a&nbsp;<%= translate_with_count(@court.decrees.count, :decree) %>.
       </p>
       <% if @expenses.any? %>
         <p>

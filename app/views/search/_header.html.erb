@@ -4,11 +4,11 @@
       <h1>
         Otvorené vyhľadávanie
         <small>
-          <%= number_with_translation(Court.count,   key: :court) %>,
-          <%= number_with_translation(Judge.count,   key: :judge) %>,
-          <%= number_with_translation(Hearing.count, key: :hearing) %>,
-          <%= number_with_translation(Decree.count,  key: :decree) %> a
-          <%= number_with_translation(Proceeding.count,  key: :proceeding) %>
+          <%= translate_with_count Court.count,      :court %>,
+          <%= translate_with_count Judge.count,      :judge %>,
+          <%= translate_with_count Hearing.count,    :hearing %>,
+          <%= translate_with_count Decree.count,     :decree %> a
+          <%= translate_with_count Proceeding.count, :proceeding %>
         </small>
       </h1>
     </div>

@@ -118,10 +118,6 @@ module FacetsHelper
     truncate(value, limit: 30, separator: ' ', omission: '&hellip;').html_safe
   end
 
-  def missing_translation?(key)
-    t(key, default: "__missing__") == "__missing__"
-  end
-
   def translate_range_facet(facet, result)
     range   = result.range
     options = Hash.new

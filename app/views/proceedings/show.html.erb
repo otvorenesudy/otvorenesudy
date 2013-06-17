@@ -1,4 +1,4 @@
-<% provide :title, "IČS #{@proceeding.file_number} &middot; Súdne konanie".html_safe %>
+<% provide :title, title("IČS #{@proceeding.file_number}", "Súdne konanie") %>
 
 <section id="proceeding-profile" class="profile">
   <div class="page-header">
@@ -27,15 +27,16 @@
   
   <div class="row">
     <div class="span8">
-      <% if @judges.any? %>
-        <p>
-          Pre súdne konanie <%= 'zatiaľ ' unless @proceeding.probably_closed? %>evidujeme 
-          <%= number_with_translation(@hearings.count, key: :hearing) %> a
-          <%= number_with_translation(@decrees.count, key: :decree) %>.
-        </p>
+      <p>
+        Pre súdne konanie <%= 'zatiaľ ' unless @proceeding.probably_closed? %>evidujeme 
+        <%= translate_with_count(@hearings.count, :hearing) %> a
+        <%= translate_with_count(@decrees.count, :decree) %>.
+      </p>
+      <% if @courts.any? %>
+        <p><%= translate_with_count(@judges.count, :court).upcase_first %> &ndash; <%= links_to_judges @judges %>.</p>
       <% end %>
-      <% if @judges.any? %>
-        <p><%= t(:judge, count: @judges.count).upcase_first %> &ndash; <%= links_to_judges @judges %>.</p>
+      <% if @defendants.any? %>
+        <p><%= translate_without_count(@defendants.count, :defendant).upcase_first %> &ndash; <%= links_to_judges @judges %>.</p>
       <% end %>
       
       <!-- TODO -->
