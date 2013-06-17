@@ -5,10 +5,10 @@
 <section id="decree-profile" class="profile">
   <div class="page-header">
     <h1>
-      <%= decree_headline @decree %>
+      <%= decree_headline @decree, tooltip: true %>
       <% if @decree.natures.any? %>
         <br/>
-        <%= decree_natures @decree %>
+        <%= decree_natures @decree, tooltip: true %>
       <% end %>
       <br/>
       <small>

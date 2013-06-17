@@ -8,12 +8,12 @@ module DecreesHelper
     "#{identifiers}#{options[:separator]}Súdne rozhodnutie".html_safe
   end
 
-  def decree_headline(decree)
-    join_and_truncate decree_identifiers(decree), separator: ' &ndash; ', tooltip: true
+  def decree_headline(decree, options = {})
+    join_and_truncate decree_identifiers(decree), { separator: ' &ndash; ' }.merge(options)
   end
   
-  def decree_natures(decree)
-    join_and_truncate decree.natures.order(:value).pluck(:value).join(', '), tooltip: true
+  def decree_natures(decree, options = {})
+    join_and_truncate decree.natures.order(:value).pluck(:value), { separator: ', ' }.merge(options)
   end
 
   def decree_date(date, options = {})

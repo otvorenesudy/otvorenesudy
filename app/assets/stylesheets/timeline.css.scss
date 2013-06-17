@@ -2,4 +2,14 @@
 @import 'mixins';
 
 .timeline {
+  
+  // TODO
+  ol {
+    li:nth-child(odd) {
+    }
+
+    li:nth-child(even) {
+      text-align: right;
+    }
+  }
 }

@@ -8,8 +8,8 @@ module HearingsHelper
     "#{identifiers}#{options[:separator]}#{hearing_type hearing.type}".html_safe
   end
   
-  def hearing_headline(hearing)
-    join_and_truncate hearing_identifiers(hearing), separator: ' &ndash; ', tooltip: true
+  def hearing_headline(hearing, options = {})
+    join_and_truncate hearing_identifiers(hearing), { separator: ' &ndash; ' }.merge(options)
   end
   
   def hearing_type(type)
