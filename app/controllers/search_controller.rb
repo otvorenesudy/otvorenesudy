@@ -29,7 +29,7 @@ class SearchController < ApplicationController
     collapsed = params[:collapsed] == 'true' ? true : false
 
     if Probe::Configuration.indices.include? model.pluralize
-      key = collapsed_session_key(model)
+      key = collapsed_facets_key(model)
 
       if collapsed
         session[key] += [name]
@@ -47,7 +47,7 @@ class SearchController < ApplicationController
                 :prepare_facets,
                 :prepare_collapsible_facets,
                 :prepare_collapsed_facets,
-                :collapsed_session_key,
+                :collapsed_facets_key,
                 :search_path,
                 :suggest_path
 
@@ -66,31 +66,22 @@ class SearchController < ApplicationController
   end
 
   def prepare_collapsed_facets
-    session_key = collapsed_session_key @model
+    session_key = collapsed_facets_key @model
 
-    unless session[session_key]
-      session[session_key] = @facets.map(&:name)[-3..-1]
-    end
+    session[session_key] ||= @facets.map(&:name)[-3..-1]
 
     @collapsed_facet_names = session[session_key]
   end
 
-  def collapsed_session_key(model)
-    if model.is_a? Class
-      key = "#{model.to_s.singularize.underscore}"
-    else
-      key = "#{model.to_s.singularize.underscore}"
-    end
-
-    (key << "_collapsed_facet_names").to_sym
+  def collapsed_facets_key(model)
+    "#{model.to_s.underscore}.collapsed_facet_names".to_sym
   end
 
   def search_path(params = {})
-    url_for(params.merge action: :search)
+    url_for params.merge action: :search
   end
 
   def suggest_path(params = {})
-    url_for(params.merge action: :suggest)
+    url_for params.merge action: :suggest
   end
-
 end
