@@ -1,13 +1,11 @@
 <%= form_tag search_path, method: :get do %>
   <% content_tag :div, class: 'input-append' do %>
-    <%= text_field_tag facet.name, facet.terms, class: 'input-large', placeholder: translation[:placeholder] %>
+    <%= text_field_tag facet.name, facet.terms, class: 'span5', placeholder: translation[:placeholder] %>
 
-    <% form_facet_params(facet) do |name, value| %>
+    <% facet_form_params(facet) do |name, value| %>
       <%= hidden_field_tag name, value %>
     <% end %>
 
-    <%= content_tag :button, class: 'btn submit', type: :button do %>
-       <%= icon_tag 'search' %>
-    <% end %>
+    <button type="button" class="btn submit"><%= icon_tag 'search' %></button>
   <% end %>
 <% end %>

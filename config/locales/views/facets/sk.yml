@@ -222,7 +222,7 @@ sk:
         missing: 'neuvedené'
 
         paragraph:
-          placeholder: '§'
+          prefix: '§'
 
         number:
           placeholder: 'Číslo'

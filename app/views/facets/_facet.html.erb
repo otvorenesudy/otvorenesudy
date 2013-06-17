@@ -8,7 +8,7 @@
 
   <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless @collapsed_facet_names.include? facet.name}" if @collapsible_facet_names.include? facet.name %>">
     <% if translation[:placeholder] %>
-      <%= facet_input facet, placeholder: translation[:placeholder] %>
+      <%= facet_suggest_input facet, placeholder: translation[:placeholder] %>
     <% end %>
 
     <%= render 'facets/facet_results', facet: facet, visible: facet.results.first(11), other: facet.results[11..-1] || [] %>

@@ -3,7 +3,7 @@
     <%= check_box_tag facet.name, !facet.value, facet.value, id: facet.id %>
     <%= translation[:value] %>
 
-    <% form_facet_params(facet) do |name, value| %>
+    <% facet_form_params(facet) do |name, value| %>
       <%= hidden_field_tag name, value %>
     <% end %>
   <% end %>

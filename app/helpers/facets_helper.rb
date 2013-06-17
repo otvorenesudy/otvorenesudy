@@ -1,98 +1,28 @@
 # encoding: utf-8
 
 module FacetsHelper
-  def facet_input(facet, options)
-    options.merge! :'data-id' => facet.name
-    options.merge! :'data-suggest-path' => suggest_path(facet.params.except(facet.name))
-
-    tag :input, options.merge(name: :input, type: :text)
-  end
-
-  def fulltext_facet_input(facet, options)
-    options.merge! :'data-id' => facet.name
-
-    tag :input, options.merge(name: :input, type: :text)
-  end
-
-  def form_params(params, &block)
-    params.each_pair do |name, value|
-      next if value.nil?
-
-      if value.respond_to? :each
-        value.each { |v| yield "#{name}[]", v }
-      else
-        yield name, value
-      end
-    end
-  end
-
-  def form_facet_params(facet, &block)
+  def facet_form_params(facet, &block)
     form_params(facet.params.except(facet.name), &block)
   end
 
-  def multi_facet_prepend_input(facet, options)
+  def facet_suggest_input(facet, options = {})
+    options.merge! :'data-id' => facet.name
+    options.merge! :'data-suggest-path' => suggest_path(facet.params.except facet.name)
+
+    tag :input, options.merge(type: :text, name: facet.name)
+  end
+
+  def facet_multi_input(facet, options = {})
     options.merge! :'data-id' => facet.name
 
+    prefix = options.delete(:prefix)
+    input  = facet_suggest_input facet, options.merge(class: 'input-mini')
+
+    return input unless prefix
+
     content_tag :div, class: 'input-prepend' do
-      content_tag(:span, options[:prepend], class: 'add-on') +
-      facet_input(facet, options.merge(class: 'input-mini'))
+      content_tag(:span, prefix, class: 'add-on') + input
     end
-  end
-
-  def multi_facet_input(facet, options)
-    facet_input facet, options.merge(class: 'input-mini')
-  end
-
-  def facet_list(options)
-    content_tag :ul, nil, options.merge(id: options[:id], :'data-id' => options[:'data-id'], class: :unstyled)
-  end
-
-  # TODO: refactor
-  def link_to_facet(facet, result, options = {})
-    case facet.type
-    when :terms       then link_to_terms_facet facet, result, options
-    when :multi_terms then link_to_terms_facet facet, result, options
-    when :range       then link_to_range_facet facet, result, options
-    when :date        then link_to_date_facet facet, result, options
-    else                   link_to result.value, search_path(result.params)
-    end
-  end
-
-  def link_to_facet_value(facet, result, value, options)
-    path  = "#{facet.key}.#{value}"
-
-    value = t path unless missing_translation? path
-
-    facet_value = format_facet_value(value)
-
-    if facet_value != value
-      # TODO: use bs tooltips?
-      options.merge! title: value
-    end
-
-    link_to facet_value, search_path(result.params), options
-  end
-
-  def link_to_terms_facet(facet, result, options)
-    link_to_facet_value(facet, result, result.value, options)
-  end
-
-  def link_to_date_facet(facet, result, options)
-    value = result.value
-
-    key = "#{facet.key}.format.#{facet.interval}"
-
-    key = "facets.types.date.format.#{facet.interval}" if missing_translation? key
-
-    value = l value.begin, format: t(key)
-
-    link_to_facet_value facet, result, value, options
-  end
-
-  def link_to_range_facet(facet, result, options)
-    value = translate_range_facet(facet, result)
-
-    link_to_facet_value facet, result, value, options
   end
 
   def link_to_add_facet(facet, result, options = {})
@@ -103,11 +33,40 @@ module FacetsHelper
     icon_link_to :remove, nil, search_path(result.remove_params), class: :remove
   end
 
-  def collapse_facet_link(facet)
+  def link_to_collapse_facet_results(facet)
     target = "##{facet.id}-fold"
 
-    collapse_link(:fold, :'collapse-alt', 'Zobrazit menej', :'data-target' => target, class: 'hidden muted') +
-    collapse_link(:unfold, :'expand-alt', 'Zobraziť viac', :'data-target' => target, class: :muted)
+    icon_link_to_collapse(:'collapse-top', 'Zobrazit menej', action: :fold, target: target, join: :append, class: 'hidden muted') +
+    icon_link_to_collapse(:collapse, 'Zobraziť viac', action: :unfold, target: target, join: :append, class: :muted)
+  end
+
+  # TODO: refactor
+  def link_to_facet(facet, result, options = {})
+    case facet.type
+    when :terms       then link_to_terms_facet facet, result, options
+    when :multi_terms then link_to_terms_facet facet, result, options
+    when :range       then link_to_range_facet facet, result, options
+    when :date        then link_to_date_facet  facet, result, options
+    else
+      link_to result.value, search_path(result.params)
+    end
+  end
+
+  def link_to_terms_facet(facet, result, options = {})
+    link_to_facet_value facet, result, result.value, options
+  end
+
+  def link_to_date_facet(facet, result, options = {})
+    value = result.value
+    key   = "#{facet.key}.format.#{facet.interval}"
+    key   = "facets.types.date.format.#{facet.interval}" if missing_translation? key
+    value = localize value.begin, format: translate(key)
+
+    link_to_facet_value facet, result, value, options
+  end
+
+  def link_to_range_facet(facet, result, options = {})
+    link_to_facet_value facet, result, translate_range_facet_value(facet, result), options
   end
 
   private
@@ -118,7 +77,7 @@ module FacetsHelper
     truncate(value, limit: 30, separator: ' ', omission: '&hellip;').html_safe
   end
 
-  def translate_range_facet(facet, result)
+  def translate_range_facet_value(facet, result)
     range   = result.range
     options = Hash.new
 
@@ -135,21 +94,25 @@ module FacetsHelper
       options[:upper] = range.end.to_i
     end
 
+    path = "#{facet.key}.#{entry}"
+    path = "facets.types.range.#{entry}" if missing_translation?(path)
+
+    result = translate path, options
+
+    suffix = "#{facet.key}.suffix"
     count  = options[:count] || options[:upper]
 
-    path   = "#{facet.key}.#{entry}"
-    suffix = "#{facet.key}.suffix"
-
-    if missing_translation?(path)
-      path = "facets.types.range.#{entry}"
-    end
-
-    result = t path, options
-
-    unless missing_translation?(suffix)
-      result.sub!(/\d+\z/, t(suffix, count: count))
-    end
-
+    result.sub!(/\d+\z/, t(suffix, count: count)) unless missing_translation?(suffix)
     result
+  end
+
+  def link_to_facet_value(facet, result, value, options = {})
+    path  = "#{facet.key}.#{value}"
+    value = translate path unless missing_translation? path
+    body  = format_facet_value(value)
+
+    options.merge! title: value if body != value
+
+    link_to body, search_path(result.params), options
   end
 end
