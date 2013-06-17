@@ -1,4 +1,4 @@
-<ol class="unstyled">
+<ol class="search-results" start="<%= offset + 1 %>">
   <% results.each do |hearing| %>
     <li>
       <h4>
@@ -10,15 +10,19 @@
         </small>
       </h4>
 
-      <div class="row">
-        <div class="span6">
-          <% if hearing.court %>
-            Súd &ndash; <%= link_to_court hearing.court %>
-          <% end %>
-          <% if hearing.judges.normal.any? %>
-            <br/>
-            Sudcovia &ndash; <%= links_to_judges hearing.judges.normal %>
-          <% end %>
+      <div class="search-result-content">
+        <div class="search-result-identifiers pull-right">
+            <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %><br/>
+            <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
+        </div>
+        
+        <% if hearing.court %>
+          Súd &ndash; <%= link_to_court hearing.court %>
+        <% end %>
+        <% if hearing.judges.normal.any? %>
+          <br/>
+          <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges hearing.judges.normal %>
+        <% end %>
 
 <!-- TODO consider adding other attributes such as:
 
@@ -32,31 +36,21 @@
           <% end %>
 
 -->
-
-          <% if hearing.proposers.any? %>
-            <br/>
-            Navrhovatelia &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
-          <% end %>
-          <% if hearing.opponents.any? %>
-            <br/>
-            Odporcovia &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
-          <% end %>
-          <% if hearing.defendants.any? %>
-            <br/>
-            Obžalovaní &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
-          <% end %>
-        </div>
-
-        <div class="span2">
-          <span class="pull-right">
-            <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %>
-          </span>
+        <% if hearing.proposers.any? %>
           <br/>
-          <span class="pull-right">
-            <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
-          </span>
-        </div>
-      </div>
+          <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+        <% end %>
+        <% if hearing.opponents.any? %>
+          <br/>
+          <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+        <% end %>
+        <% if hearing.defendants.any? %>
+          <br/>
+          <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+        <% end %>
+
+        <div class="clearfix"></div>
+      </div>        
     </li>
   <% end %>
 </ol>

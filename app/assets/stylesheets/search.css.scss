@@ -3,10 +3,7 @@
 
 // TODO fix icon links (add / remove) in facets, add both width and height to anchors and icons
 
-#search-view {
-}
-
-#search-controls {
+.search-controls {
   form {
     margin-bottom: 10px;
   }
@@ -20,17 +17,35 @@
   }
 }
 
-#search-results {
-  .spinner {
-    position: relative;
-    top: 40px;
-    margin: auto;
+.search-message {
+  color: $grayLight;
+  text-align: right;
+}
+
+.search-results {
+  margin: 0px 0px 0px 20px;
+
+  li {
+    color: $grayLight;
+    
+    &:hover, &:focus {
+      background: lighten($grayLighter, 5%);
+    }
+  }
+  
+  h4, .search-result-content, blockquote {
+    color: $textColor;
+  }
+  
+  .search-result-identifiers {
+    text-align: right;
   }
 
-  ol {
-    margin: 0px;
-
-    li blockquote em {
+  blockquote {
+    margin-top: 10px;
+    margin-bottom: 0px; 
+  
+    em {
       padding: 0px 4px;
 
       @include border-radius(2px);
@@ -38,17 +53,19 @@
       background: $infoBackground;
       color: $infoText;
     }
-
-    li + li {
-      margin: 20px 0px;
-      padding-top: 10px;
-      border-top: 1px solid $grayLighter;
-    }
-
-    li:last-child {
-      margin-bottom: 0px;
-    }
   }
+
+  li {
+    padding: 10px 10px 20px 10px;
+  }
+
+  li + li {
+    border-top: 1px dashed darken($grayLighter, 12.5%);
+  }
+}
+
+.tabbable .search-results {
+  margin-left: 40px;
 }
 
 .facet {
@@ -136,4 +153,10 @@
       }
     }
   }
+}
+
+.spinner {
+  position: relative;
+  top: 40px;
+  margin: auto;
 }

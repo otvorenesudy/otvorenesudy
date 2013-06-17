@@ -1,36 +1,21 @@
 <% render 'search/initialization.js' %>
 
 <section id="search-view">
-  <div id="search-controls" class="row">
-    <div class="span6">
-      <%= render 'facets/fulltext_facet', facet: @facets[:q], translation: t(@facets[:q].key) %>
-    </div>
-
-    <%= render 'search/sort' %>
-  </div>
+  <%= render 'search/controls' %>
 
   <div class="row">
-    <div id="search-facets" class="span4">
+    <div class="span3">
       <%= render 'facets/facets' %>
     </div>
 
-    <div class="span8">
-      <div class="row">
-        <div id="search-info" class="span8">
-          <%= render 'search/message' %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div id="search-results" class="span8">
-          <%= render 'search/results' %>
-        </div>
-      </div>
+    <div class="span9">
+      <%= render 'search/message' %>
+      <%= render 'search/results' %>
     </div>
   </div>
 
   <div class="row">
-    <div id="search-pagination" class="span12">
+    <div class="span12">
       <%= render 'search/pagination' %>
     </div>
   </div>
