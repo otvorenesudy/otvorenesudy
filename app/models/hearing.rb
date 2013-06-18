@@ -21,8 +21,8 @@ class Hearing < ActiveRecord::Base
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgings).merge(Judging.of_judge(employment.judge)) }
 
-  scope :past,     lambda { where('date <  ?', Time.now) }
-  scope :upcoming, lambda { where('date >= ?', Time.now) }
+  scope :historical, lambda { where('date <  ?', Time.now) }
+  scope :upcoming,   lambda { where('date >= ?', Time.now) }
 
   belongs_to :proceeding
 
@@ -64,18 +64,17 @@ class Hearing < ActiveRecord::Base
   end
 
   facets do
-    facet :q,         type: :fulltext, field: :all
-    facet :type,      type: :terms, collapsible: false
-    facet :court,     type: :terms
-    facet :subject,   type: :terms
-    facet :judges,    type: :terms
-    facet :date,      type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
-    facet :form,      type: :terms
-    facet :proposers, type: :terms
-    facet :opponents, type: :terms
+    facet :q,          type: :fulltext, field: :all
+    facet :type,       type: :terms, collapsible: false
+    facet :court,      type: :terms
+    facet :subject,    type: :terms
+    facet :judges,     type: :terms
+    facet :date,       type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
+    facet :form,       type: :terms
+    facet :proposers,  type: :terms
+    facet :opponents,  type: :terms
     facet :defendants, type: :terms
-    facet :section,   type: :terms
-
+    facet :section,    type: :terms
     facet :historical, type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
   end
 

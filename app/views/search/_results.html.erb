@@ -1,2 +1,3 @@
 <div class="spinner"></div>
-<%= render "#{@type.to_s.pluralize}/results", results:  @results %>
+
+<%= render "#{@type.to_s.pluralize}/results", results:  @results, offset: @results.offset %>

@@ -13,16 +13,13 @@ class JudgesController < SearchController
     @employments  = @judge.employments
     @designations = @judge.designations.order('date desc')
 
-    @historical_hearings = @judge.hearings.past.limit(10)
-    @upcoming_hearings   = @judge.hearings.upcoming.limit(10)
-    @decrees             = @judge.decrees.limit(10)
+    @historical_hearings = @judge.hearings.historical.order('date desc').limit(10)
+    @upcoming_hearings   = @judge.hearings.upcoming.order('date desc').limit(10)
+    @decrees             = @judge.decrees.order('date desc').limit(10)
 
     @related_persons = @judge.related_persons
 
-    @search         = Bing::Search.new
-    @search.query   = @judge.to_context_query
-    @search.exclude = /www\.webnoviny\.sk\/.*\?from=.*\z/
-    @results        = @search.perform[0..9]
+    @results = @judge.context_search[0..9]
   end
 
   def curriculum

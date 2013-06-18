@@ -29,6 +29,12 @@ module TagHelper
     link_to icon_tag(type, label: body, join: options.delete(:join), wrap: options.delete(:wrap)), url, options
   end
 
+  def icon_link_to_collapse(type, body, options = {})
+    options.merge! data toggle: :collapse, collapse: options.delete(:action), target: options.delete(:target)
+    
+    icon_link_to type, body, '#', options
+  end
+
   def icon_mail_to(type, body, url = nil, options = {})
     options[:class] = Array.wrap(options[:class]) << :icon
 
@@ -50,7 +56,6 @@ module TagHelper
 
     content_tag :li, body, options.merge(class: classes.blank? ? nil : classes)
   end
-
 
   def navbar_link_tag(type, body, url, options = {})
     navbar_li_tag icon_link_to(type, body, url), url, options
@@ -108,13 +113,6 @@ module TagHelper
 
   def external_link_to(body, url, options = {})
     icon_link_to :'external-link', body, url, options.merge(target: :_blank, join: :append)
-  end
-
-  # TODO get a closer look at this
-  def collapse_link(type, icon, title, options)
-    options.merge! :'data-toggle' => :collapse, :'data-collapse' => type
-
-    icon_link_to icon, title, '#', options
   end
 
   private

@@ -1,0 +1,22 @@
+<% render 'search/initialization.js' %>
+
+<section id="search-view">
+  <%= render 'search/controls' %>
+
+  <div class="row">
+    <div class="span3">
+      <%= render 'facets/facets' %>
+    </div>
+
+    <div class="span9">
+      <%= render 'search/message' %>
+      <%= render 'search/results' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <%= render 'search/pagination' %>
+    </div>
+  </div>
+</section>

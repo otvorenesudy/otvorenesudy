@@ -1,36 +1,26 @@
 module SearchHelper
-  def link_to_search(type, body, options)
-    url = url_for options[:params].merge!(controller: type, action: :search)
+  def form_params(params, &block)
+    params.each_pair do |name, value|
+      next if value.nil?
 
-    link_to body, url, options.except(:params)
+      if value.respond_to? :each
+        value.each { |v| yield "#{name}[]", v }
+      else
+        yield name, value
+      end
+    end
   end
 
-  def link_to_hearings_search(body, options)
-    link_to_search(:hearings, body, options)
-  end
-
-  def link_to_decrees_search(body, options)
-    link_to_search(:decrees, body, options)
-  end
-
-  def link_to_judges_search(body, options)
-    link_to_search(:judges, body, options)
-  end
-
-  def link_to_courts_search(body, options)
-    link_to_search(:courts, body, options)
-  end
-
-  def search_sort_select_tag(values, params, options = {})
-    values = values.map { |value| [sort_option_title(value), value] }
+  def search_sort_tag(params, values, options = {})
+    values = values.map { |value| [t("search.sort.#{@model.to_s.underscore}.#{value.to_s.gsub(/\A_/, '')}"), value] }
 
     select_tag :sort, options_for_select(values, params[:sort])
   end
 
-  def order_tag(params, order, options)
+  def search_order_tag(params, order, options = {})
     options.merge! class: 'btn'
 
-    param = params[:order] ? params[:order] : :desc
+    param = params[:order] || :desc
 
     options[:class] << ' active' if order == param
 
@@ -38,10 +28,26 @@ module SearchHelper
       icon_tag order == :asc ? :'chevron-up' : :'chevron-down'
     end
   end
+  
+  def link_to_search(type, body, options = {})
+    url = url_for options[:params].merge!(controller: type, action: :search)
 
-  private
+    link_to body, url, options.except(:params)
+  end
 
-  def sort_option_title(value)
-    t "search.sort.#{@model.to_s.underscore}.#{value.to_s.gsub(/\A_/, '')}"
+  def link_to_hearings_search(body, options = {})
+    link_to_search(:hearings, body, options)
+  end
+
+  def link_to_decrees_search(body, options = {})
+    link_to_search(:decrees, body, options)
+  end
+
+  def link_to_judges_search(body, options = {})
+    link_to_search(:judges, body, options)
+  end
+
+  def link_to_courts_search(body, options = {})
+    link_to_search(:courts, body, options)
   end
 end

@@ -11,7 +11,7 @@ module Bing
       begin
         parse(data)
       rescue JSON::ParserError
-        Bing::Cache.del(url)
+        Bing::Cache.delete(url)
 
         return
       end

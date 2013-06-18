@@ -1,0 +1,271 @@
+sk:
+  counts:
+    court: &court
+      zero: 'žiadne súdy'
+      one: '1 súd'
+      few: '%{count} súdy'
+      other: '%{count} súdov'
+  
+    judge: &judge
+      zero: 'žiadny sudcovia'
+      one: '1 sudca'
+      few: '%{count} sudcovia'
+      other: '%{count} sudcov'
+  
+    hearing: &hearing
+      zero: 'žiadne pojednávania'
+      one: '1 pojednávanie'
+      few: '%{count} pojednávania'
+      other: '%{count} pojednávaní'
+  
+    decree: &decree
+      zero: 'žiadne rozhodnutia'
+      one: '1 rozhodnutie'
+      few: '%{count} rozhodnutia'
+      other: '%{count} rozhodnutí'
+  
+    proceeding: &proceeding
+      zero: 'žiadne konania'
+      one: '1 konanie'
+      few: '%{count} konania'
+      other: '%{count} konaní'
+  
+    document: &document
+      zero: 'žiadne dokumenty'
+      one: '1 dokument'
+      few: '%{count} dokumenty'
+      other: '%{count} dokumentov'  
+  
+    page: &page
+      zero: 'žiadne strany'
+      one: '1 strana'
+      few: '%{count} strany'
+      other: '%{count} strán'
+  
+    result: &result
+      zero: 'žiadne výsledky'
+      one: '1 výsledok'
+      few: '%{count} výsledky'
+      other: '%{count} výsledkov'
+    
+  facets:
+    types:
+      range:
+        less: 'menej ako %{count}'
+        more: 'viac ako %{count}'
+        between: '%{lower} až %{upper}'
+
+      date:
+        format:
+          month: '%B, %Y'
+
+    court:
+      q:
+        placeholder: 'Názov alebo sídlo súdu, meno sudcu alebo pracovníka'
+
+      type:
+        title: 'Typ'
+        missing: 'neuvedený'
+
+      judges:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'
+        missing: 'neuvedený'
+
+      judges_count:
+        title: 'Počet sudcov'
+        suffix:
+          <<: *judge
+
+      hearings_count:
+        title: 'Počet pojednávaní'
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: 'Počet rozhodnutí'
+        suffix:
+          <<: *decree
+
+      municipality:
+        title: 'Obec'
+        placeholder: 'Meno obce'
+        missing: 'neuvedená'
+
+      expenses:
+        title: 'Výdavky'
+        suffix: '%{count} €'
+
+    judge:
+      q:
+        placeholder: 'Meno alebo pozícia sudcu, názov súdu'
+
+      name:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'
+        missing: 'neuvedený'
+
+      activity:
+        title: 'Aktivita'
+        active: 'Aktívny'
+        inactive: 'Neaktívny'
+        unknown: 'Neznáma'
+        missing: 'neuvedená'
+
+      positions:
+        title: 'Pozícia sudcu'
+        missing: 'neuvedená'
+
+      courts:
+        title: 'Súd'
+        placeholder: 'Názov súdu'
+        missing: 'neuvedený'
+
+      hearings_count:
+        title: 'Počet pojednávaní'
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: 'Počet rozhodnutí'
+        suffix:
+          <<: *decree
+
+    hearing:
+      q:
+        placeholder: 'Vyhľadávanie v pojednávaniach'
+
+      type:
+        title: 'Typ pojednávania'
+
+      court:
+        title: 'Súd'
+        placeholder: 'Názov súdu'
+        missing: 'neuvedený'
+
+      judges:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'
+        missing: 'neuvedený'
+
+      form:
+        title: 'Forma'
+        placeholder: 'Forma pojednávania'
+        missing: 'neuvedená'
+
+      subject:
+        title: 'Predmet'
+        placeholder: 'Predment pojednávania'
+        missing: 'neuvedený'
+
+      section:
+        title: 'Úsek'
+        missing: 'neuvedený'
+
+      proposers:
+        title: 'Navrhovatelia'
+        placeholder: 'Meno navrhovateľa'
+        missing: 'neuvedené'
+
+      opponents:
+        title: 'Odporcovia'
+        placeholder: 'Meno odporcu'
+        missing: 'neuvedené'
+
+      defendants:
+        title: 'Obžalovaný'
+        placeholder: 'Meno obžalovaného'
+        missing: 'neuvedené'
+
+      date:
+        title: 'Dátum'
+
+      historical:
+        value: 'Zobraziť minulé pojednávania'
+
+    decree:
+      q:
+        placeholder: 'Vyhľadávanie v rozhodnutiach'
+
+      court:
+        title: 'Súd'
+        placeholder: 'Názov súdu'
+        missing: 'neuvedený'
+
+      judges:
+        title: 'Sudca'
+        placeholder: 'Meno sudcu'  
+        missing: 'neuvedený'
+
+      form:
+        title: 'Forma'
+        placeholder: 'Forma rozhodnutia'
+        missing: 'neuvedená'
+
+      natures:
+        title: 'Povaha'
+        placeholder: 'Povaha rozhodnutia'
+        missing: 'neuvedená'
+
+      legislation_area:
+        title: 'Oblasť právnej úpravy'
+        missing: 'neuvedená'
+
+      legislation_subarea:
+        title: 'Podoblasť právnej úpravy'
+        placeholder: 'Podoblasť právnej úpravy'
+        missing: 'neuvedená'
+
+      legislations:
+        title: 'Ustanovenie'
+        missing: 'neuvedené'
+
+        paragraph:
+          placeholder: '§'
+
+        number:
+          placeholder: 'Číslo'
+
+        year:
+          placeholder: 'Rok'
+
+      legislation_titles:
+        title: 'Zaradenie ustanovenia'
+        placeholder: 'Zaradenie ustanovania'
+        missing: 'neuvedené'
+
+      date:
+        title: 'Dátum'
+
+    proceeding:
+      q:
+        placeholder: 'Vyhľadávanie v konaniach'
+
+      file_number:
+        title: 'IČS'
+        placeholder: 'Identifikačné číslo spisu'
+
+      courts:
+        title: 'Súdy'
+        placeholder: 'Meno súdu'
+        missing: 'neuvedené'
+
+      judges:
+        title: 'Sudcovia'
+        placeholder: 'Meno sudcu'
+        missing: 'neuvedení'
+
+      judges_count:
+        title: 'Počet sudcov'
+        suffix:
+          <<: *judge
+
+      hearings_count:
+        title: 'Počet pojednávaní'
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: 'Počet rozhodnutí'
+        suffix:
+          <<: *decree

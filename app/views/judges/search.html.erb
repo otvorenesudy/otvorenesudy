@@ -1,40 +1,4 @@
 <% provide :title, "Vyhľadávanie medzi sudcami" %>
 <% provide :header, render(partial: 'search/header') %>
 
-<% render 'search/initialization.js' %>
-
-<section id="search-view">
-   <div class="row">
-     <div class="span6">
-      <%= render 'facets/fulltext_facet', facet: @facets[:q], translation: t(@facets[:q].key) %>
-    </div>
-
-    <%= render 'search/sort' %>
-  </div>
-
-  <div class="row">
-    <div id="search-panel" class="span4">
-      <%= render 'facets/facets' %>
-    </div>
-
-    <div class="span8">
-      <div class="row">
-        <div id="search-info" class="span8">
-          <%= render 'search/info' %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div id="search-results" class="span8">
-          <%= render 'search/results' %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div id="search-pagination" class="span12">
-      <%= render 'search/pagination' %>
-    </div>
-  </div>
-</section>
+<%= render 'search/search' %>

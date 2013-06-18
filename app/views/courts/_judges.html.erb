@@ -4,7 +4,7 @@
   <div class="span12">
     <p>
       <% if @court.chair %>
-        <%= judge_at_court_position(@court.chair, @court).upcase_first %> súdu je <%= link_to_judge @court.chair %><%= @court.vicechair ? ' a'.html_safe : '.' %>
+        <%= judge_at_court_position(@court.chair, @court).upcase_first %> súdu je <%= link_to_judge @court.chair %><%= @court.vicechair ? ' a' : '.' %>
       <% end %>
       <% if @court.vicechair %>
         <% unless @court.chair %>

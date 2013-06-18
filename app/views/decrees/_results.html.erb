@@ -1,45 +1,38 @@
-<ol class="unstyled">
+<ol class="search-results" start="<%= offset + 1 %>">
   <% results.each do |decree, highlight| %>
     <li>
       <h4>
-        <%= link_to_decree decree, "Rozhodnutie #{decree.file_number}", params: { q: @query ? @query[:q] : nil } %>
+        <%= link_to decree_path_with_params(decree, q: @query ? @query[:q] : nil) do %>
+          <%= decree_headline decree, limit: 67 %>
+          <% if decree.natures.any? %>
+            <br/>
+            <%= decree_natures decree, limit: 67 %>
+          <% end %>
+        <% end %>
         <br/>
         <small>
-          Rozhodnutie bolo vydané dňa &ndash;
+          Rozhodnutie bolo vynesené dňa &ndash;
           <%= decree_date decree.date %>
         </small>
       </h4>
 
-      <div class="row">
-        <div class="span6">
-          <% if decree.court %>
-            Súd &ndash; <%= link_to_court decree.court %>
-          <% end %>
-          <% if decree.judgements.any? %>
-            <br/>
-            Sudcovia &ndash; <%= links_to_judges decree.judgements.map(&:judge) %>
-          <% end %>
-
-<!-- TODO consider adding other attributes such as:
-
-          <% if decree.form %>
-            <br/>
-            Forma úkonu &ndash; <%= decree.form.value %>.
-          <% end %>
-
--->
-
+      <div class="search-result-content">
+        <div class="search-result-identifiers pull-right">
+          <%= tooltip_tag decree.case_number, "Spisová značka", placement: :right %><br/>
+          <%= tooltip_tag decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
         </div>
-
-        <div class="span2">
-          <span class="pull-right">
-            <%= tooltip_tag decree.case_number, "Spisová značka", placement: :right %>
-          </span>
+        
+        <% if decree.court %>
+          Súd &ndash; <%= link_to_court decree.court %>
+        <% end %>
+        <% if decree.judges.any? %>
           <br/>
-          <span class="pull-right">
-            <%= tooltip_tag decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
-          </span>
-        </div>
+          <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
+        <% end %>
+
+<!-- TODO consider adding other attributes -->
+
+        <div class="clearfix"></div>
       </div>
 
       <% if highlight %>

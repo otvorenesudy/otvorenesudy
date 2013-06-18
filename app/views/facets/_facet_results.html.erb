@@ -5,14 +5,11 @@
 </ul>
 
 <% if other.any? %>
-  <div id="<%= facet.id %>-fold" class="facet-fold collapse out">
-    <ul class="unstyled">
-      <% other.each do |result| %>
-        <%= render 'facets/facet_result', facet: facet, result: result %>
-      <% end %>
-    </ul>
-  </div>
+  <ul id="<%= facet.id %>-fold" class="unstyled collapse out">
+    <% other.each do |result| %>
+      <%= render 'facets/facet_result', facet: facet, result: result %>
+    <% end %>
+  </ul>
 
-  <%= collapse_facet_link facet %>
+  <%= link_to_collapse_facet_results facet %>
 <% end %>
-

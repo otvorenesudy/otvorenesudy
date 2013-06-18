@@ -26,7 +26,6 @@
     <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>" />
     <%= stylesheet_link_tag 'application' %>
     <%= csrf_meta_tags %>
-    <%= Garelic.monitoring 'UA-38636233-1' %>
   </head>
   <body>
     <%= render 'layouts/header' %>
@@ -39,5 +38,6 @@
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
+    <%= Garelic.monitoring 'UA-38636233-1' %>
   </body>
 </html>

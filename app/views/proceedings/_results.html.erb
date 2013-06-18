@@ -1,5 +1,5 @@
-<ol class="unstyled">
-  <% proceedings.each_with_index do |proceeding, i| %>
+<ol class="search-results" start="<%= offset + 1 %>">
+  <% results.each do |proceeding, i| %>
     <li>
       <h4>
         <%= link_to_proceeding proceeding, proceeding.file_number %>
@@ -7,6 +7,14 @@
         <small>
         </small>
       </h4>
+
+      <div class="search-result-content">
+        
+        
+        <!-- TODO add attributes -->
+        TODO
+        
+      </div>
     </li>
   <% end %>
 </ol>

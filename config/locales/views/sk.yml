@@ -1,0 +1,44 @@
+sk:
+  views:
+    pagination:
+      first: 'Prvá strana'
+      last: 'Posledná strana'
+      previous: '<i class="icon-angle-left"></i>'
+      next: '<i class="icon-angle-right"></i>'
+      truncate: '&hellip;'
+
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: 'Žiadny %{entry_name}'
+          one: '1 %{entry_name}'
+          other: 'Zobrazených všetkých %{count}'
+
+      more_pages:
+        display_entries: 'Zobrazených %{first} &ndash; %{last} z celkovo %{total}'
+
+  search:
+    sort:
+      common: &sort
+        date: 'Dátum'
+        score: 'Relevancia'
+        hearings_count: 'Počet pojednávaní'
+        decrees_count: 'Počet rozhodnutí'
+        judges_count: 'Počet sudcov'
+        expenses: 'Výdavky'
+
+      court:
+        <<: *sort
+
+      judge:
+        <<: *sort
+
+      hearing:
+        <<: *sort
+
+      decree:
+        <<: *sort
+
+      proceeding:
+        <<: *sort

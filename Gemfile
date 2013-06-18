@@ -11,7 +11,7 @@ gem 'tire'
 
 # styles
 gem 'bootstrap-sass',     '~> 2.2.2.0'
-gem 'font-awesome-rails', '~> 3.1.1.2'
+gem 'font-awesome-rails', '~> 3.2.0.0'
 
 # scripts
 gem 'coffee-script'

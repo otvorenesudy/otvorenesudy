@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="span6">
+    <div class="search-controls pull-left">
+      <%= render 'facets/fulltext_facet', facet: @facets[:q], translation: t(@facets[:q].key) %>
+    </div>
+  </div>
+  
+  <div class="span5">
+    <div class="search-controls pull-right">
+      <%= form_for search_path, method: :get do %>
+        <%= search_sort_tag(@facets.params, @sort_fields) %>
+        <% form_params(@facets.params.except :sort) do |name, value| %>
+          <%= hidden_field_tag name, value %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="span1">
+    <div class="search-controls pull-right">
+      <div id="order" class="btn-group" data-toggle="buttons-radio">
+        <%= search_order_tag @facets.params, :asc %>
+        <%= search_order_tag @facets.params, :desc %>
+      </div>
+    </div>
+  </div>
+</div>

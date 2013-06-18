@@ -67,6 +67,12 @@ module CourtsHelper
   def link_to_court(court, options = {})
     link_to court.name, court_path(court.id), options
   end
+
+  def links_to_courts(courts, options = {})
+    separator = options.delete(:separator) || ', '
+
+    courts.map { |court| link_to_court(court, options) }.join(separator).html_safe
+  end
   
   def link_to_court_by_judge_employment(employment, options = {})
     options = judge_options employment.judge, options.merge(adjust_by_activity_at: employment.court)

@@ -7,5 +7,5 @@
   </dl>
 
   <!-- TODO rm -->
-  <p class="muted"><%= @search.query %></p>
+  <p class="muted"><%= (@court || @judge).context_query %></p>
 <% end %>

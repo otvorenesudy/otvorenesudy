@@ -2,12 +2,12 @@
   <div class="alert alert-info">
     <%= close_link_to @decree %>
     <%= icon_tag :legal %> Pre hľadaný výraz <strong>&bdquo;<%= html_escape params[:q] %>&ldquo;</strong>
-    sme našli <strong><%= number_with_translation(@highlights.count, key: :result) %></strong>.
+    sme našli <strong><%= translate_with_count(@highlights.count, :result) %></strong>.
   </div>
 
   <dl class="unstyled">
     <% @highlights.each do |number, texts| %>
-      <dt><%= icon_tag :file, label: "Strana #{number}", join: :append, class: :muted %></dt>
+      <dt><%= icon_tag :'file-alt', label: "Strana #{number}", join: :append, class: :muted %></dt>
       <% texts.each do |text| %>
         <dd><%= link_to_decree_page @decree, number, strip_and_highlight(text), query: params[:q] %></dd>
       <% end %>

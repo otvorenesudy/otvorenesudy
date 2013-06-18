@@ -9,7 +9,7 @@
     <div class="justified">
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
-          <strong><%= judge_at_court_position(court.chair, court).upcase_first %></strong> súdu je <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? ' a'.html_safe : '.' %>
+          <strong><%= judge_at_court_position(court.chair, court).upcase_first %></strong> súdu je <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? ' a' : '.' %>
         <% end %>
         <% if court.vicechair %>
           <% unless court.chair %>
@@ -21,11 +21,11 @@
         <% end %>
       <% end %>
       <% if court.judges.any? %>
-        Na súde pracuje <strong><%= number_with_translation(court.judges.count, key: :judge) %></strong>.
+        Na súde pracuje <strong><%= translate_with_count(court.judges.count, :judge) %></strong>.
       <% end %>
       Pre súd <%= 'zatiaľ ne' if court.hearings.none? %>evidujeme
-      <strong><%= number_with_translation(court.hearings.count, key: :hearing) %></strong>
-      a&nbsp;<strong><%= number_with_translation(court.decrees.count, key: :decree) %></strong>.
+      <strong><%= translate_with_count(court.hearings.count, :hearing) %></strong>
+      a&nbsp;<strong><%= translate_with_count(court.decrees.count, :decree) %></strong>.
     </div>
   </div>
   <div class="span4">

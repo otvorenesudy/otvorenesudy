@@ -1,22 +1,22 @@
 <div id="<%= facet.id %>" class="facet" data-id="<%= facet.name %>">
-  <h4>
-    <%= translation[:title] if translation[:title] %>
-    <% if @collapsible_facet_names.include? facet.name %>
-      <i class="icon-circle" data-toggle="collapse" data-target="#<%= facet.id %>-content"></i>
-    <% end %>
-  </h4>
+  <% if @collapsible_facet_names.include? facet.name %>
+    <h4 class="collapsible" data-toggle="collapse" data-target="#<%= facet.id %>-content">
+      <%= translation[:title] if translation[:title] %>
+      <%= icon_tag :circle %>
+    </h4>
+  <% else %>
+    <h4>
+      <%= translation[:title] if translation[:title] %>
+    </h4>
+  <% end %>
 
   <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless @collapsed_facet_names.include? facet.name }" if @collapsible_facet_names.include? facet.name %>">
-    <div class="form-inline">
-      <% facet.multi.each do |key| %>
-        <% if translation[key][:prepend] %>
-          <%= multi_facet_prepend_input facet, prepend: translation[key][:prepend], placeholder: translation[key][:placeholder] %>
-        <% else %>
-          <%= multi_facet_input facet, placeholder: translation[key][:placeholder] %>
-        <% end %>
-      <% end %>
-    </div>
+    <% facet.multi.each do |key| %>
+      <%= facet_multi_input facet, prefix: translation[key][:prefix], placeholder: translation[key][:placeholder] %>
+    <% end %>
+    
+    <div class="clearfix"></div>
 
-    <%= render 'facets/facet_results', facet: facet, visible: facet.results.first(11), other: facet.results[11..-1] %>
+    <%= render 'facets/facet_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
   </div>
 </div>

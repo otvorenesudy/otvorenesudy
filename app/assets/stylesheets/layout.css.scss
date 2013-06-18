@@ -141,6 +141,10 @@ a.icon {
   &:hover, &:focus {
     text-decoration: none;
     
+    i:before {
+      cursor: pointer;
+    }
+    
     span {
       text-decoration: underline;
     }

@@ -2,6 +2,7 @@
 
 class Judge < ActiveRecord::Base
   include Resource::URI
+  include Resource::ContextSearch
   include Resource::Similarity
   include Resource::Storage
 
@@ -24,7 +25,8 @@ class Judge < ActiveRecord::Base
   scope :chair,     joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
 
-  scope :chaired, joins(:judgings).merge(Judging.chaired)
+  scope :normal,  where('judgings.judge_chair = false').order(:name)
+  scope :chaired, where('judgings.judge_chair = true').order(:name)
 
   max_paginates_per 100
       paginates_per 25
@@ -68,7 +70,7 @@ class Judge < ActiveRecord::Base
     analyze :hearings_count, type: :integer, as: lambda { |j| j.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |j| j.decrees.count }
 
-    sort_by :hearings_count, :decrees_count
+    sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do
@@ -110,15 +112,9 @@ class Judge < ActiveRecord::Base
   alias :probably_superior_court_officer? :probably_superior_court_officer
   alias :probably_woman?                  :probably_woman
 
-  def to_context_query
-    query     = "sud \"#{self.first} #{self.middle} #{self.last}\""
-    sites     = %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk)
-    blacklist = %w(http://www.sme.sk/diskusie/ blog.sme.sk)
+  context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
+  
+  context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
 
-    "#{query} site:(#{sites.join(' OR ')}) #{blacklist.map { |e| "-site:#{e}" }.join(' ')}"
-  end
-
-  storage :curriculum, JusticeGovSk::Storage::JudgeCurriculum do |judge|
-    "#{judge.name}.pdf"
-  end
+  storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum) { |judge| "#{judge.name}.pdf" }
 end

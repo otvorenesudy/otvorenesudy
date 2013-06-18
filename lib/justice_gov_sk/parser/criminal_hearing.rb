@@ -10,7 +10,7 @@ module JusticeGovSk
 
           divs.each do |div|
             if div[:class] == 'popiska'
-              name = { normalized: normalize_punctuation(div.text), unprocessed: div.text.strip }
+              name = { normalized: normalize_participant(div.text), unprocessed: div.text.strip }
               map[name] = []
             elsif div[:class] == 'hodnota'
               value = accusation(div.text)

@@ -3,7 +3,7 @@
 <section id="hearing-profile" class="profile">
   <div class="page-header">
     <h1>
-      <%= hearing_headline @hearing %>
+      <%= hearing_headline @hearing, limit: 47, tooltip: true %>
       <br/>
       <small>
         Pojednávanie <%= @hearing.historical ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -22,13 +22,13 @@
       <% if @hearing.section || @hearing.special_type %>
         <p>
           <% if @hearing.section %>
-            Úsek &ndash; <%= @hearing.section.value %>.
+            Úsek &ndash; <%= @hearing.section.value %>
           <% end %>
 
           <%-# Civil hearings only -%>
 
           <% if @hearing.special_type %>
-            Typ &ndash; <%= @hearing.special_type %>.
+            Typ &ndash; <%= @hearing.special_type %>
           <% end %>
         </p>
       <% end %>
@@ -36,29 +36,29 @@
       <%-# All hearing types -%>
 
       <% if @hearing.form %>
-        <p>Forma úkonu &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %>.</p>
+        <p>Forma úkonu &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
       <% end %>
       <% if @hearing.subject %>
-        <p>Predmet &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %>.</p>
+        <p>Predmet &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
       <% end %>
 
       <%-# Special hearings only -%>
 
       <% if @hearing.commencement_date? %>  
-        <p>Dátum započatia &ndash; <%= hearing_date @hearing.commencement_date %>.</p>
+        <p>Dátum započatia &ndash; <%= hearing_date @hearing.commencement_date %></p>
       <% end %>
       <% unless @hearing.selfjudge.nil? %>
-        <p>Samosudca &ndash; <%= @hearing.selfjudge ? 'áno' : 'nie' %>.</p>
+        <p>Samosudca &ndash; <%= @hearing.selfjudge ? 'áno' : 'nie' %></p>
       <% end %>
 
       <%-# All hearing types -%>
 
       <% if @hearing.note %>
-        <p>Poznámka &ndash; <%= @hearing.note %>.</p>
+        <p>Poznámka &ndash; <%= @hearing.note %><%= '.' unless @hearing.note.end_with? '.' %></p>
       <% end %>
 
       <p>
-        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný).
+        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)
       </p>
     </div>
 
@@ -142,26 +142,26 @@
 
 <%-# All hearing types -%>
 
-<% if @hearing.judgings.any? %>
+<% if @judges.any? %>
   <section id="hearing-judges">
     <h2>Sudcovia</h2>
 
     <%-# Special hearings only -%>
 
-    <% if @hearing.judgings.chaired.any? %>    
+    <% if @judges.chaired.any? %>    
       <div class="row">
         <div class="span12">
-          Funkciu predsedu senátu zastáva <%= links_to_judges @hearing.judgings.chaired.map(&:judge) %>.
+          Funkciu predsedu senátu zastáva <%= links_to_judges @judges.chaired %>.
         </div>
       </div>
     <% end %>
 
     <%-# Civil and Criminal hearings only -%>
 
-    <% if @hearing.judgings.normal.any? %>
+    <% if @judges.normal.any? %>
       <div class="row">
         <div class="span12">
-          <%= links_to_judges @hearing.judgings.normal.map(&:judge) %>
+          <%= links_to_judges @judges.normal %>
         </div>
       </div>
     <% end %>
@@ -179,7 +179,7 @@
         pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
         <% if File.readable? @hearing.resource_path %>
           <br/>
-          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_hearing_resource @hearing, icon_tag(:file, label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
+          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_hearing_resource @hearing, icon_tag(:'file-alt', label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
         <% end %>
       </small>
     </div>

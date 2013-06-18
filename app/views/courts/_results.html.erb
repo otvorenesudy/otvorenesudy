@@ -1,12 +1,34 @@
-<ol class="unstyled">
+<ol class="search-results" start="<%= offset + 1 %>">
   <% results.each do |court, highlight| %>
     <li>
       <h4>
         <%= link_to_court court %>
         <br/>
-        <small>
-        </small>
+        <small><%= court.address %></small>
       </h4>
+      
+      <div class="search-result-content">
+        <% if court.chair || court.vicechair %>
+          <% if court.chair %>
+            <%= judge_at_court_position(court.chair, court).upcase_first %> súdu je <%= link_to_judge court.chair %><%= court.vicechair ? ' a' : '.' %>
+          <% end %>
+          <% if court.vicechair %>
+            <% unless court.chair %>
+              <%= judge_at_court_position(court.vicechair, court).upcase_first %> súdu
+            <% else %>
+              <%= judge_at_court_position(court.vicechair, court) %>
+            <% end %>
+            je <%= link_to_judge court.vicechair %>.
+          <% end %>
+          <br/>
+        <% end %>
+        <% if court.judges.any? %>
+          Na súde pracuje <%= translate_with_count(court.judges.count, :judge) %>.
+        <% end %>
+        Pre súd <%= 'zatiaľ ne' if court.hearings.none? %>evidujeme
+        <%= translate_with_count(court.hearings.count, :hearing) %>
+        a&nbsp;<%= translate_with_count(court.decrees.count, :decree) %>.
+      </div>
     </li>
   <% end %>
 </ol>

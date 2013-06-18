@@ -56,7 +56,9 @@ module JudgesHelper
     options = employment.active ? {} : { class: :muted }
 
     if employment.judge_position
-      tooltip_tag employment.judge_position.value, employment.active ? 'Aktívny' : 'Neaktívny', options
+      value = truncate employment.judge_position.value, length: 30, separator: ' ', omission: '&hellip;'
+      
+      tooltip_tag value.html_safe, employment.active ? 'Aktívny' : 'Neaktívny', options
     else
       if employment.judge.probably_superior_court_officer?
         content_tag :span, options.clone do

@@ -1,28 +1,18 @@
-<ol class="unstyled">
+<ol class="search-results" start="<%= offset + 1 %>">
   <% results.each do |judge, i| %>
-    <li class="<%= "muted" unless judge.active? %>">
+    <li>
       <h4>
         <%= link_to_judge judge %>
         <br/>
         <small>
         </small>
       </h4>
-
-      <div class="row">
-        <div class="span6">
-        </div>
-
-        <div class="span2">
-          <span class="pull-right">
-            <%= tooltip_tag 'Pojednávania', 'Počet pojednávaní', placement: :left %>: 
-            <%= number_with_delimiter judge.hearings.count %>
-          </span>
-          <br/>
-          <span class="pull-right">
-            <%= tooltip_tag 'Rozhodnutia', 'Počet rozhodnutí', placement: :left %>:
-            <%= number_with_delimiter judge.decrees.count %>
-          </span>
-        </div>
+      
+      <div class="search-result-content">
+        
+        <!-- TODO add attributes -->
+        TODO
+        
       </div>
     </li>
   <% end %>
