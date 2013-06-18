@@ -3,7 +3,7 @@ module SearchHelper
     params.each_pair do |name, value|
       next if value.nil?
 
-      if value.respond_to? :each
+      if value.is_a? Array
         value.each { |v| yield "#{name}[]", v }
       else
         yield name, value
@@ -28,7 +28,7 @@ module SearchHelper
       icon_tag order == :asc ? :'chevron-up' : :'chevron-down'
     end
   end
-  
+
   def link_to_search(type, body, options = {})
     url = url_for options[:params].merge!(controller: type, action: :search)
 
