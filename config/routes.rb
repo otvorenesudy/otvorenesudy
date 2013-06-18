@@ -25,7 +25,10 @@ OpenCourts::Application.routes.draw do
       get :suggest
     end
 
-    get :curriculum, on: :member
+    member do
+      get :curriculum
+      get :cover_letter
+    end
   end
 
   resources :hearings do

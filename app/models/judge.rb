@@ -113,8 +113,9 @@ class Judge < ActiveRecord::Base
   alias :probably_woman?                  :probably_woman
 
   context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
-  
+
   context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
 
   storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum) { |judge| "#{judge.name}.pdf" }
+  storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end

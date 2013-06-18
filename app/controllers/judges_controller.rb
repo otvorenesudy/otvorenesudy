@@ -27,4 +27,10 @@ class JudgesController < SearchController
 
     send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
   end
+
+  def cover_letter
+    @judge = Judge.find(params[:id])
+
+    send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
+  end
 end

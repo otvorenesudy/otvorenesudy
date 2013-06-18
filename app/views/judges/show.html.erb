@@ -63,6 +63,16 @@
         </p>
       <% end %>
 
+      <%  if File.readable? @judge.cover_letter_path %>
+        <p>
+          <span class="gutter centered muted">
+            <%= icon_tag :'file-alt' %>
+          </span>
+
+          <%= link_to "Motivačný list", cover_letter_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
+        </p>
+      <% end %>
+
       <% if @related_persons.any? %>
         <p>
           <span class="gutter centered muted">
