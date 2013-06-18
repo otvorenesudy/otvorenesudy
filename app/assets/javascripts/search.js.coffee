@@ -10,7 +10,7 @@ $(document).ready ->
 
       @model   = model
       @el      = $(el)
-      @results = options.results
+      @results = $(options.results)
 
       #@.focusSearchView()
 
@@ -40,7 +40,8 @@ $(document).ready ->
       @.log "Applying suggest to #{facets.length} facets."
 
       for facet in facets
-        @.suggest($(facet).find('input'))
+        input = $(facet).find('input').first()
+        @.suggest(input) if input.length > 0
 
     registerSelect: ->
       $(@el).find('form select').on 'change', ->
@@ -54,7 +55,7 @@ $(document).ready ->
       $(@results).find('a').click (e) -> e.preventDefault()
       $(@results).find('a').addClass('disabled')
 
-      $(@results).find('ol').fadeTo('slow', 0.25)
+      $(@results).fadeTo('slow', 0.25)
       $(@results).find('.spinner').spin
         lines: 12
         color: "#999"

@@ -1,7 +1,7 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
     $(document).ready(function() {
-      window.search = new Search("<%= @model.to_s.underscore.singularize %>", "#search-view", { results: "#search-results" })
+      window.search = new Search("<%= @model.to_s.underscore.singularize %>", "#search-view", { results: ".search-results" })
     })
   </script>
 <% end %>

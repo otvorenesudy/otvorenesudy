@@ -20,7 +20,10 @@ class SearchController < ApplicationController
 
     @results = @model.suggest(name, term, params)
 
-    render partial: "facets/facet_results", locals: { facet: @results.facets[name] }
+    facet   = @results.facets[name]
+    results = facet.results
+
+    render partial: "facets/facet_results", locals: { facet: facet, visible: results.first(11), other: results[11..-1] || [] }
   end
 
   def collapse
