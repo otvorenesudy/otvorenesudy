@@ -10,6 +10,7 @@ module Probe
         options[:params]      = params
         options[:facets]      = @facets
         options[:sort_fields] = @sort_fields
+        options[:per_page]    = @_default_per_page
 
         search = Composer.new(self, options)
 

@@ -22,7 +22,7 @@ module Probe::Search
       @per_page = options[:per_page] ? options[:per_page].to_i : Probe::Configuration.per_page
 
       @facets.extract_facets_params(@params)
-      @facets.add_search_params(@page, @sort, @order)
+      @facets.add_search_params(sort: @sort, order: @order)
     end
 
     def compose(&block)

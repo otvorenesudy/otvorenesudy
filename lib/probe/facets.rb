@@ -31,8 +31,8 @@ module Probe
       each { |facet| facet.params = @params }
     end
 
-    def add_search_params(page, sort, order)
-      @params.merge! page: page, sort: sort, order: order
+    def add_search_params(options)
+      @params.merge! options
     end
 
     def build_query
@@ -86,7 +86,7 @@ module Probe
     end
 
     private
-    
+
     def refresh!
       each { |facet| facet.refresh! }
     end
