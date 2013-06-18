@@ -22,13 +22,20 @@
 
 .search-results {
   margin: 0px 0px 0px 20px;
-
+  border-left: 1px dashed darken($grayLighter, 12.5%);
+  
   li {
+    padding: 10px 10px 20px 10px;
+
     color: $grayLight;
     
     &:hover, &:focus {
       background: lighten($grayLighter, 5%);
     }
+  }
+
+  li + li {
+    border-top: 1px dashed darken($grayLighter, 12.5%);
   }
   
   h4, .search-result-content, blockquote {
@@ -52,18 +59,11 @@
       color: $infoText;
     }
   }
-
-  li {
-    padding: 10px 10px 20px 10px;
-  }
-
-  li + li {
-    border-top: 1px dashed darken($grayLighter, 12.5%);
-  }
 }
 
 .tabbable .search-results {
   margin-left: 40px;
+  border: none;
 }
 
 .facet {
