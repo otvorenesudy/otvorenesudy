@@ -58,17 +58,15 @@
           <span class="gutter centered muted">
             <%= icon_tag :'file-alt' %>
           </span>
-
           <%= link_to "Životopis sudcu", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
-      <%  if File.readable? @judge.cover_letter_path %>
+      <% if File.readable? @judge.cover_letter_path %>
         <p>
           <span class="gutter centered muted">
             <%= icon_tag :'file-alt' %>
           </span>
-
           <%= link_to "Motivačný list", cover_letter_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
