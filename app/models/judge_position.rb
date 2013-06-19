@@ -11,4 +11,10 @@ class JudgePosition < ActiveRecord::Base
   has_many :judges, through: :employments
 
   validates :value, presence: true
+  
+  def charged
+    @charged ||= value.utf8 =~ /\Apoveren[ýá]/i
+  end
+  
+  alias :charged? :charged
 end

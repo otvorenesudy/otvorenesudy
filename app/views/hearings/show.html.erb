@@ -57,9 +57,7 @@
         <p>Poznámka &ndash; <%= @hearing.note %><%= '.' unless @hearing.note.end_with? '.' %></p>
       <% end %>
 
-      <p>
-        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)
-      </p>
+      <p><%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
     </div>
 
     <%-# All hearing types -%>

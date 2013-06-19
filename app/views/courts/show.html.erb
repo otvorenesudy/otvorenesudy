@@ -19,6 +19,7 @@
         <%= translate_with_count(@court.hearings.count, :hearing) %>
         a&nbsp;<%= translate_with_count(@court.decrees.count, :decree) %>.
       </p>
+
       <% if @expenses.any? %>
         <p>
           <span class="gutter centered muted"><%= icon_tag :money %></span>
@@ -42,7 +43,6 @@
   <div class="row">
     <div class="span12">
       <div class="tabbable">
-
         <ul class="nav nav-tabs">
           <li class="active">
             <a href="#contact" data-toggle="tab">Kontakt</a>
@@ -84,7 +84,6 @@
             <%= render 'media', results: @results %>
           </div>
         </div>
-
       </div>
     </div>
   </div>
