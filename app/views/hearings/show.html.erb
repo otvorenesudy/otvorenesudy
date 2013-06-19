@@ -72,7 +72,14 @@
           <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
           <span class="pull-right"><%= @hearing.file_number %></span>
         </p>
-      </div>      
+      </div>
+      
+      <% if @hearing.proceeding %>
+        <div class="centered">
+        Zobraziť v rámci <%= link_to_proceeding @hearing.proceeding, "súdneho konania" %>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </section>
