@@ -218,6 +218,7 @@ sk:
 
       legislations:
         title: 'Ustanovenie'
+        placeholder: '§ číslo rok'
         missing: 'neuvedené'
 
         paragraph:
@@ -228,11 +229,6 @@ sk:
 
         year:
           placeholder: 'Rok'
-
-      legislation_titles:
-        title: 'Zaradenie ustanovenia'
-        placeholder: 'Zaradenie ustanovania'
-        missing: 'neuvedené'
 
       date:
         title: 'Dátum'

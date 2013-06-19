@@ -75,8 +75,8 @@ class Decree < ActiveRecord::Base
     facet :natures,             type: :terms, size: DecreeNature.count
     facet :form,                type: :terms
     facet :court,               type: :terms
-    facet :date,                type: :date,  interval: :month
-    facet :legislations,        type: :multi_terms, multi: [:paragraph, :number, :year]
+    facet :date,                type: :date, interval: :month
+    facet :legislations,        type: :terms
   end
 
   def has_future_date?

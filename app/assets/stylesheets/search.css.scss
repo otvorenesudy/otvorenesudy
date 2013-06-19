@@ -3,7 +3,7 @@
 
 .search-controls {
   form {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   
   input, select {
@@ -12,10 +12,24 @@
   
   select {
     margin-right: $gridGutterWidth;
+  }  
+}
+
+.search-reset {
+  color: $textColor;
+  
+  &:hover, &:focus {
+    color: inherit;
+  }
+  
+  i {
+    color: $red;
   }
 }
 
 .search-message {
+  margin-bottom: 20px;
+
   color: $grayLight;
   text-align: right;
 }
@@ -101,19 +115,19 @@
       }
     }
   }
-
+  
   .facet-content {
     position: relative;
 
     left: -20px;
     padding-left: 20px;
-
+   
     input[type="text"], .add-on {
       width: 175px;
       margin-top: 10px;
-      margin-bottom: 10px;
     }
-    
+
+/* TODO rm    
     input.multi {
       display: block;
       float: left;
@@ -121,12 +135,12 @@
       width: 42px;
       margin-right: 10px;
     }
-    
-    a[data-collapse="fold"] {
-      display: none;
-    }
-    
+*/    
     ul {
+      &:first-child {
+        margin-top: 10px;
+      }
+      
       margin: 0px;
     }
     
@@ -171,6 +185,10 @@
       &:not(.selected):hover .add {
         display: inline-block;
       }
+    }
+    
+    a[data-collapse="fold"] {
+      display: none;
     }
   }
 }

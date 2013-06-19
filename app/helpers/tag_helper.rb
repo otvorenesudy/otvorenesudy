@@ -23,7 +23,7 @@ module TagHelper
     body.join.html_safe
   end
 
-  def icon_link_to(type, body, url, options = {})
+  def icon_link_to(type, body, url = nil, options = {})
     options[:class] = Array.wrap(options[:class]) << :icon
 
     link_to icon_tag(type, label: body, join: options.delete(:join), wrap: options.delete(:wrap)), url, options

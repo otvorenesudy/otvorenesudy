@@ -47,13 +47,12 @@ input[type="color"],
 
 // outlines
 
-a:hover, a:active,
-a[data-toggle="tab"]:focus,
+a:active, a:hover, a:focus,
 .btn:active, .btn:hover, .btn:focus,
-button:hover, button:active, button:focus,
-input:hover, input:active, input:focus,
-select:hover, select:active, select:focus,
-textarea:hover, textarea:active, textarea:focus {
+button:active, button:hover, button:focus,
+input:active, input:hover, input:focus,
+select:active, select:hover, select:focus,
+textarea:active, textarea:hover, textarea:focus {
   outline: 0;
 }
 
