@@ -76,6 +76,7 @@ class Decree < ActiveRecord::Base
     facet :form,                type: :terms
     facet :court,               type: :terms
     facet :date,                type: :date,  interval: :month
+    # TODO: use terms facet
     facet :legislations,        type: :multi_terms, multi: [:paragraph, :number, :year]
   end
 
