@@ -4,11 +4,12 @@ module Probe
 
     module ClassMethods
       include Probe::Helpers::Index
+      include Probe::Facets::Matcher
 
       def suggest(name, term, params, options = {})
         facet = facets[name]
 
-        return unless facet.respond_to? :build_suggest_query
+        return unless facet.suggestable?
 
         options[:name]        = index.name
         options[:params]      = params
@@ -18,7 +19,7 @@ module Probe
         search = Search::Composer.new(self, options)
 
         # TODO: use facet validator to validate facet results
-        search.compose do
+        results = search.compose do
           filter = build_facet_filter(facet) || { and: [] }
 
           filter[:and] << facet.build_suggest_query(term)
@@ -39,6 +40,10 @@ module Probe
             facet.build(@index, facet.selected_name, facet_options)
           end
         end
+
+        match_query_facets(term, results.facets)
+
+        results
       end
     end
   end

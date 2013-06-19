@@ -81,6 +81,10 @@ class Probe::Facets
       respond_to? :build
     end
 
+    def suggestable?
+      respond_to? :build_suggest_query
+    end
+
     def selected_name
       "#{@name}_selected"
     end
