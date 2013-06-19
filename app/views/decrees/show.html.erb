@@ -48,13 +48,11 @@
           <% end %>
         </ul>
       <% end %>
-      <p>
-        <%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)
-      </p>
+
+      <p><%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+
       <% if File.readable? @decree.document_path %>
-        <p>
-          Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %>
-        </p>
+        <p>Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %></p>
       <% end %>
     </div>
 

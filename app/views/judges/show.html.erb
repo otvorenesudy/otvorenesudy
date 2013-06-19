@@ -21,13 +21,13 @@
             Neaktívn<%= @judge.probably_woman ? 'a' : 'y' %>
           <% end %>
           <% if employment.judge_position %>
-            <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.value =~ /\Apoveren[ýá]/ %>
+            <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.charged? %>
             <%= employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
               <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
             <% else %>
-              <%= employment.active == nil ? 'N' : 'n' %>eznámy pracovník
+              <%= employment.active == nil ? 'N' : 'n' %>eznám<%= @judge.probably_woman ? 'a pracovníčka' : 'y pracovník' %>
             <% end %>
           <% end %>
           na súde 
@@ -58,17 +58,15 @@
           <span class="gutter centered muted">
             <%= icon_tag :'file-alt' %>
           </span>
-
           <%= link_to "Životopis sudcu", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
-      <%  if File.readable? @judge.cover_letter_path %>
+      <% if File.readable? @judge.cover_letter_path %>
         <p>
           <span class="gutter centered muted">
             <%= icon_tag :'file-alt' %>
           </span>
-
           <%= link_to "Motivačný list", cover_letter_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
@@ -94,7 +92,6 @@
   <div class="row">
     <div class="span12">
       <div class="tabbable">
-
         <ul class="nav nav-tabs">
           <li class="active">
             <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count %>
@@ -121,7 +118,6 @@
             <%= render 'media', results: @results %>
           </div>
         </div>
-
       </div>
     </div>
   </div>

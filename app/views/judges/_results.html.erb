@@ -3,16 +3,32 @@
     <li>
       <h4>
         <%= link_to_judge judge %>
-        <br/>
-        <small>
-        </small>
+        <%= judge_activity_tag judge.active?, placement: :right %>
       </h4>
       
       <div class="search-result-content">
-        
-        <!-- TODO add attributes -->
-        TODO
-        
+        <% judge.employments.each do |employment| %>
+          <p<%= ' class="muted"'.html_safe unless judge.active? %>>
+            <% if employment.judge_position %>
+              <% if employment.judge_position.charged? %>
+                <%= (judge.probably_woman ? 'Pracovníčka' : 'Pracovník') %> 
+                <%= truncate employment.judge_position.value, length: 55, separator: ' ', omission: '' %>
+              <% else %>
+                <%= employment.judge_position.value.upcase_first %>
+              <% end %>
+            <% else %>
+              <% if judge.probably_superior_court_officer? %>
+                Pravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
+              <% else %>
+                Neznám<%= judge.probably_woman ? 'a pracovníčka' : 'y pracovník' %>
+              <% end %>
+            <% end %>
+            na súde <%= link_to_court_by_judge_employment employment %>,
+            <%= 'ne' if Hearing.during_employment(employment).none? %>evidujeme
+            <%= translate_with_count(Hearing.during_employment(employment).count, :hearing) %>
+            a <%= translate_with_count(Decree.during_employment(employment).count, :decree) %>.
+          </p>
+        <% end %>
       </div>
     </li>
   <% end %>

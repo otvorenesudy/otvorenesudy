@@ -42,30 +42,25 @@ module JudgesHelper
     
     return icon_tag unless options[:tooltip]
     
-    case status
-    when true
-      tooltip_tag icon_tag, activity, placement: :left, class: :'muted undecorated'
-    when false
-      tooltip_tag icon_tag, activity, placement: :left, class: :'muted undecorated'
-    else
-      tooltip_tag icon_tag, activity, placement: :left, class: :'muted undecorated'
-    end
+    options[:placement] ||= :left
+    
+    tooltip_tag icon_tag, activity, options.merge(class: :'muted undecorated')
   end
 
-  def judge_position(employment)
-    options = employment.active ? {} : { class: :muted }
-
+  def judge_position(employment, options = {})
+    classes = employment.active ? {} : { class: :muted }
+    
     if employment.judge_position
       value = truncate employment.judge_position.value, length: 30, separator: ' ', omission: '&hellip;'
       
-      tooltip_tag value.html_safe, employment.active ? 'Aktívny' : 'Neaktívny', options
+      tooltip_tag value.html_safe, employment.active ? 'Aktívny' : 'Neaktívny', options.merge(classes)
     else
       if employment.judge.probably_superior_court_officer?
-        content_tag :span, options.clone do
+        content_tag :span, classes do
           ('pravdepodobne ' + tooltip_tag('VSÚ', 'Vyšší súdny úradník', options)).html_safe
         end
       else
-        content_tag :span, 'neznáma', options
+        content_tag :span, 'neznáma', classes
       end
     end
   end
@@ -78,12 +73,12 @@ module JudgesHelper
     judge_at_court_employment(judge, court).judge_position.value
   end
 
-  def judge_hearings_count_by_employment(employment, options = {})
-    content_tag :span, number_with_delimiter(Hearing.during_employment(employment).count), employment.active ? {} : { class: :muted }
+  def judge_hearings_count_by_employment(employment)
+    judge_documents_count_by_employment Hearing, employment
   end
 
-  def judge_decrees_count_by_employment(employment, options = {})
-    content_tag :span, number_with_delimiter(Decree.during_employment(employment).count), employment.active ? {} : { class: :muted }
+  def judge_decrees_count_by_employment(employment)
+    judge_documents_count_by_employment Decree, employment
   end
 
   def judge_designation_date_tag(designation)
@@ -125,6 +120,15 @@ module JudgesHelper
   end
 
   private
+  
+  def judge_documents_count_by_employment(model, employment)
+    count = model.during_employment(employment).count
+    value = number_with_delimiter(count)
+    
+    return value if employment.active?
+
+    content_tag :span, value, class: :muted
+  end
 
   def judge_options(judge, options)
     options.merge! judge.active ? {} : { class: :muted } if options.delete :adjust_by_activity

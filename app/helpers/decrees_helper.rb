@@ -35,6 +35,7 @@ module DecreesHelper
     }
   end
 
+  # TODO rm??
   def decree_path_with_params(decree, params)
     return decree_path decree if params.blank?
     

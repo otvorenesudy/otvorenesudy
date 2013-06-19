@@ -2,7 +2,7 @@
   <% results.each do |hearing| %>
     <li>
       <h4>
-        <%= link_to "#{hearing_type hearing.type} #{hearing.file_number}", hearing_path(hearing.id) %>
+        <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
         <br/>
         <small>
           Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -18,35 +18,23 @@
         
         <% if hearing.court %>
           Súd &ndash; <%= link_to_court hearing.court %>
+          <br/>
         <% end %>
         <% if hearing.judges.normal.any? %>
-          <br/>
           <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges hearing.judges.normal %>
-        <% end %>
-
-<!-- TODO consider adding other attributes such as:
-
-          <% if hearing.form %>
-            <br/>
-            Forma úkonu &ndash; <%= hearing.form.value %>.
-          <% end %>
-          <% if hearing.subject %>
-            <br/>
-            Predmet &ndash; <%= hearing.subject.value %>.
-          <% end %>
-
--->
-        <% if hearing.proposers.any? %>
           <br/>
+        <% end %>
+        <% if hearing.proposers.any? %>
           <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+          <br/>
         <% end %>
         <% if hearing.opponents.any? %>
-          <br/>
           <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+          <br/>
         <% end %>
         <% if hearing.defendants.any? %>
-          <br/>
           <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+          <br/>
         <% end %>
 
         <div class="clearfix"></div>

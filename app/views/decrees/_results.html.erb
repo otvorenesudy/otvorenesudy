@@ -2,7 +2,7 @@
   <% results.each do |decree, highlight| %>
     <li>
       <h4>
-        <%= link_to decree_path_with_params(decree, q: @query ? @query[:q] : nil) do %>
+        <%= link_to decree_path(decree) do %>
           <%= decree_headline decree, limit: 67 %>
           <% if decree.natures.any? %>
             <br/>
@@ -21,16 +21,15 @@
           <%= tooltip_tag decree.case_number, "Spisová značka", placement: :right %><br/>
           <%= tooltip_tag decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
         </div>
-        
+
         <% if decree.court %>
           Súd &ndash; <%= link_to_court decree.court %>
+          <br/>
         <% end %>
         <% if decree.judges.any? %>
-          <br/>
           <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
+          <br/>
         <% end %>
-
-<!-- TODO consider adding other attributes -->
 
         <div class="clearfix"></div>
       </div>

@@ -173,7 +173,7 @@ sk:
         missing: 'neuvedené'
 
       defendants:
-        title: 'Obžalovaný'
+        title: 'Obžalovaní'
         placeholder: 'Meno obžalovaného'
         missing: 'neuvedené'
 

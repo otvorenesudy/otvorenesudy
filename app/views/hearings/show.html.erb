@@ -57,9 +57,7 @@
         <p>Poznámka &ndash; <%= @hearing.note %><%= '.' unless @hearing.note.end_with? '.' %></p>
       <% end %>
 
-      <p>
-        <%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)
-      </p>
+      <p><%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
     </div>
 
     <%-# All hearing types -%>
@@ -74,7 +72,14 @@
           <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
           <span class="pull-right"><%= @hearing.file_number %></span>
         </p>
-      </div>      
+      </div>
+      
+      <% if @hearing.proceeding %>
+        <div class="centered">
+        Zobraziť v rámci <%= link_to_proceeding @hearing.proceeding, "súdneho konania" %>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </section>

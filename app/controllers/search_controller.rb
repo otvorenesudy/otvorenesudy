@@ -23,7 +23,7 @@ class SearchController < ApplicationController
     facet   = @results.facets[name]
     results = facet.results
 
-    render partial: "facets/facet_results", locals: { facet: facet, visible: results.first(11), other: results[11..-1] || [] }
+    render partial: "facets/facet_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
   end
 
   def collapse
