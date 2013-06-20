@@ -88,23 +88,11 @@ module TagHelper
   end
 
   def sortable_th_tag(title = nil, options = {}, &block)
-    options.merge! :'data-sorter' => options[:sorter] || :text
+    options.merge! :'data-sorter' => options.delete(:sorter) || :text
 
     return content_tag :th, options, &block if block_given?
 
     content_tag :th, title, options
-  end
-
-  def sortable_th_tag_with_number(title = nil, options = {}, &block)
-    options.merge! sorter: :digit
-
-    sortable_th_tag(title, options, &block)
-  end
-
-  def sortable_td_tag(title, value, options = {})
-    options.merge! :'data-value' => value
-
-    content_tag :td, title, options
   end
 
   def link_to_with_count(body, url, count, options = {})

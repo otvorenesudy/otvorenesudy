@@ -3,9 +3,9 @@
     <tr>
       <%= sortable_th_tag "Súd",    class: 'span6' %>
       <%= sortable_th_tag "Adresa", class: 'span6' %>
-      <%= sortable_th_tag_with_number { tooltip_tag "Sudcovia",     "Počet zamestnaných sudcov" } %>
-      <%= sortable_th_tag_with_number { tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" } %>
-      <%= sortable_th_tag_with_number { tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí"  } %>
+      <%= sortable_th_tag tooltip_tag("Sudcovia",     "Počet zamestnaných sudcov"), sorter: :digit %>
+      <%= sortable_th_tag tooltip_tag("Pojednávania", "Počet súdnych pojednávaní"), sorter: :digit %>
+      <%= sortable_th_tag tooltip_tag("Rozhodnutia",  "Počet súdnych rozhodnutí"),  sorter: :digit %>
     </tr>
   </thead>
   <tbody>

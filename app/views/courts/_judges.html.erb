@@ -31,8 +31,8 @@
           <th class="span2">Tituly</th>
           <th class="span7">Meno</th>
           <th data-sorter="false" class="span3">Pozícia</th>
-          <%= sortable_th_tag_with_number { tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" } %>
-          <%= sortable_th_tag_with_number { tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" } %>
+          <%= sortable_th_tag tooltip_tag("Pojednávania", "Počet súdnych pojednávaní"), sorter: :digit %>
+          <%= sortable_th_tag tooltip_tag("Rozhodnutia",  "Počet súdnych rozhodnutí"),  sorter: :digit %>
         </tr>
       </thead>
       <tbody>
@@ -52,12 +52,12 @@
                 <p><%= judge_position employment %></p>
               <% end %>
             </td>
-            <td class="number">
+            <td class="number" data-value="<%= judge.hearings.count %>">
               <% judge.employments.at_court(@court).each do |employment| %>
                 <p><%= judge_hearings_count_by_employment employment %></p>
               <% end %>
             </td>
-            <td class="number">
+            <td class="number" data-value="<%= judge.decrees.count %>">
               <% judge.employments.at_court(@court).each do |employment| %>
                 <p><%= judge_decrees_count_by_employment employment %></p>
               <% end %>
