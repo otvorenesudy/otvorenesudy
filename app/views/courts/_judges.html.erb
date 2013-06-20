@@ -44,7 +44,7 @@
             <td>
               <%= judge_titles judge, adjust_by_activity_at: @court %>
             </td>
-            <td data-value="<%= judge_name judge, '%l %m %f, %a' %>">
+            <td data-value="<%= judge.name '%l %m %f, %a' %>">
               <%= link_to_judge judge, adjust_by_activity_at: @court, format: '%f %m %l, %a' %>
             </td>
             <td>

@@ -81,6 +81,28 @@ class Judge < ActiveRecord::Base
     facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..1000]
     facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
   end
+  
+  def name(format = nil)
+    return super() if format.nil? || format == '%p %f %m %l %a, %s'
+
+    @name         ||= {}
+    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+  end
+  
+  private
+  
+  def name_parts
+    @name_parts ||= {
+      '%p' => prefix,
+      '%f' => first,
+      '%m' => middle,
+      '%l' => last,
+      '%s' => suffix,
+      '%a' => addition
+    }
+  end
+
+  public
 
   def active
     return true  if employments.active.any?
