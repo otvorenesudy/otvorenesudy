@@ -36,7 +36,7 @@ module JusticeGovSk
       end
 
       def prepare_judge(uri, source, name)
-        judge = judge_by_name_unprocessed_factory.find_or_create(name[:unprocessed])
+        judge = judge_by_name_factory.find_or_create(name[:value])
         
         judge.uri    = uri
         judge.source = source
