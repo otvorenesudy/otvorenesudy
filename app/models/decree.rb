@@ -16,6 +16,9 @@ class Decree < ActiveRecord::Base
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge)) }
 
+  max_paginates_per 100
+      paginates_per 25
+
   belongs_to :proceeding
 
   belongs_to :court

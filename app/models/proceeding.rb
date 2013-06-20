@@ -5,6 +5,9 @@ class Proceeding < ActiveRecord::Base
   include Probe::Search
   include Probe::Suggest
 
+  max_paginates_per 100
+      paginates_per 25
+
   has_many :hearings
   has_many :decrees
 
