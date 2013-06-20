@@ -6,7 +6,6 @@ module JusticeGovSk
       def normalize_court_name(value)
         value = value.utf8
         
-        value.strip!
         value.gsub!(/[\-\,]/, '')
         
         value.gsub!(/1/, ' I ')
@@ -18,12 +17,12 @@ module JusticeGovSk
         value.gsub!(/lll|III/i, ' III ')
         value.gsub!(/okolie/i, ' okolie ')
         
-        value.squeeze!(' ')
-
         value.gsub!(/Kraj.\s*súd/, 'Krajský súd')
         
         value.gsub!(/B\.?\s*Bystrica/, 'Banská Bystrica')
         value.gsub!(/D\.\s*Kubín/, 'Dolný Kubín')
+
+        value = " #{value} ".utf8
 
         value.gsub!(/\s+v\s+BA/, ' Bratislava')
         value.gsub!(/\s+v\s+ZA/, ' Žilina')
@@ -36,6 +35,9 @@ module JusticeGovSk
         value.gsub!(/\s+v\s+Trenčíne?/i, ' Trenčín')
         value.gsub!(/\s+v\s+Trnav(a|e)/i, ' Trnava')
         value.gsub!(/\s+v\s+Žilin(a|e)/i, ' Žilina')
+
+        value.squeeze!(' ')
+        value.strip!
 
         value.gsub!(/n\/B/i, 'nad Bebravou')
         value.gsub!(/n\/V/i, 'nad Váhom')
