@@ -1,25 +1,33 @@
 defaults: &defaults
-  indices: [hearings, decrees, judges, decree_pages, courts, proceedings]
+  indices: [courts, judges, hearings, decrees, decree_pages, proceedings]
+
   per_page: 20
+
   index:
     number_of_shards: 1
     number_of_replicas: 1
+
     analysis:
       analyzer:
         text_analyzer:
           type: custom
           tokenizer: standard
           filter: [lowercase, asciifolding]
+
         normalizer:
           type: custom
           tokenizer: keyword
           filter: [lowercase, asciifolding]
+
   suggest:
     separator: ':'
+
     matcher:
       name: suggest_matcher
+
       params:
         separator: ':'
+
       script: "
           values = term.split(params['separator']);
 
