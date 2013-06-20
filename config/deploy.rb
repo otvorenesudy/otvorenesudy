@@ -54,12 +54,12 @@ namespace :db do
 
   desc "Migrate Production Database"
   task :create, roles: :db do
-    run "cd #{current_path}; rake db:create RAILS_ENV=production"
+    run "cd #{current_path}; rake db:create RAILS_ENV=#{rails_env}"
   end
 
   desc "Migrate Production Database during release"
   task :create_release, roles: :db do
-    run "cd #{release_path}; rake db:create RAILS_ENV=production"
+    run "cd #{release_path}; rake db:create RAILS_ENV=#{rails_env}"
   end
 
   desc "Setup db during deployment of release for this environment"
