@@ -225,7 +225,7 @@ module JusticeGovSk
         value = normalize_punctuation(value)
         value = value.utf8
         
-        value.split(/s+/).map { |word|
+        value.split(/\s+/).map { |word|
           word = word.utf8
           
           word.gsub!(/ob[vž]\./i, '')
@@ -237,11 +237,11 @@ module JusticeGovSk
           elsif suffix = person_name_suffix_map[key]
             word = suffix
           else
-            word.titlecase! if word == word.upcase
+            word = word.titlecase if word == word.upcase
           end
           
           word
-        }.join ' '
+        }.reject(&:blank?).join ' '
       end
 
       def normalize_zipcode(value)
@@ -418,7 +418,7 @@ module JusticeGovSk
         
         value.gsub!(/,\s*\z/, '')
         value.gsub!(/\,\-/, '')
-        value.gsub!(/\d*(\.|\,)*\d+/) { |n| n.gsub(/\./, ' ') }
+        value.gsub!(/(\A|\s+)\d*(\.|\,)*\d+(\s+|\z)/) { |n| n.gsub(/\./, ' ') }
 
         value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
         value.gsub!(/\s*(?<c>[\.\,\;\:\?\!])+\s*/, '\k<c> ')

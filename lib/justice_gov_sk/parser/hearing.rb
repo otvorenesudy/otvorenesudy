@@ -23,13 +23,13 @@ module JusticeGovSk
       
       def room(document) 
         find_value_by_label 'room', document, 'Miestnosť' do |div|
-          div.text.strip
+          normalize_punctuation(div.text)
         end
       end
 
       def note(document) 
         find_value_by_label 'note', document, 'Poznámka' do |div|
-          div.text.strip.squeeze(' ')
+          normalize_punctuation(div.text)
         end
       end
             

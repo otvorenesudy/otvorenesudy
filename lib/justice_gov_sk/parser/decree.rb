@@ -65,7 +65,7 @@ module JusticeGovSk
       
       def summary(document)
         find_value_by_label 'summary', document, 'Sumár' do |div|
-          div.text.strip
+          normalize_punctuation(div.text)
         end
       end
       
