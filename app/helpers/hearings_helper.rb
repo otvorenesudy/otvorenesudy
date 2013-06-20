@@ -27,7 +27,7 @@ module HearingsHelper
   end
   
   def link_to_hearing(hearing, body, options = {})
-    link_to body, hearing_path(hearing.id), options
+    link_to body, hearing_path(hearing), options
   end
   
   def link_to_hearing_resource(hearing, body, options = {})

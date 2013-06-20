@@ -35,6 +35,10 @@
         line-height: inherit;
         
         text-align: center;
+        
+        &:before {
+          cursor: pointer;
+        }
       }
     }
   }

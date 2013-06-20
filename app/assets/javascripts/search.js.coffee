@@ -55,8 +55,8 @@ $(document).ready ->
       $(@results).find('a').click (e) -> e.preventDefault()
       $(@results).find('a').addClass('disabled')
 
-      $(@results).fadeTo('slow', 0.25)
-      $(@results).find('.spinner').spin
+      $(@results).fadeTo('slow', 0.2)
+      $(@el).find('.spinner').spin
         lines: 12
         color: "#999"
         length: 10

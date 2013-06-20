@@ -35,15 +35,8 @@ module DecreesHelper
     }
   end
 
-  # TODO rm??
-  def decree_path_with_params(decree, params)
-    return decree_path decree if params.blank?
-    
-    "#{decree_path decree}?#{params.map { |k, v| "#{k}=#{v}" if v }.join '&'}"
-  end
-
   def link_to_decree(decree, body, options = {})
-    link_to body, decree_path_with_params(decree, options.delete(:params)), options
+    link_to body, decree_path(decree), options
   end
 
   def link_to_decree_resource(decree, body, options = {})

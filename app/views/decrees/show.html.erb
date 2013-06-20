@@ -71,6 +71,12 @@
           <span class="pull-right"><%= @decree.file_number %></span>
         </p>
       </div>
+      
+      <% if @decree.proceeding %>
+        <div class="centered">
+          Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @decree.proceeding, join: :append %>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>

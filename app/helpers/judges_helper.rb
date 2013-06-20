@@ -1,25 +1,9 @@
 # encoding: utf-8
 
 module JudgesHelper
-  def judge_name(judge, format = nil)
-    return judge.name if format.nil? || format == '%p %f %m %l %a, %s'
-
-    parts = {
-      '%p' => judge.prefix,
-      '%f' => judge.first,
-      '%m' => judge.middle,
-      '%l' => judge.last,
-      '%s' => judge.suffix,
-      '%a' => judge.addition
-    }
-
-    format.gsub(/\%[pfmlsa]/, parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
-  end
-
   def judge_titles(judge, options = {})
     content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_options(judge, options)
   end
-
   
   def judge_activity(status)
     return 'Aktívny'   if status == true
@@ -90,7 +74,7 @@ module JudgesHelper
   end
   
   def link_to_judge(judge, options = {})
-    link_to judge_name(judge, options.delete(:format)), judge_path(judge.id), judge_options(judge, options)
+    link_to judge.name(options.delete(:format)), judge_path(judge), judge_options(judge, options)
   end
 
   def links_to_judges(judges, options = {})

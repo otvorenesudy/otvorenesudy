@@ -218,12 +218,7 @@ sk:
 
       legislations:
         title: 'Ustanovenie'
-        missing: 'neuvedené'
-        placeholder: '§, číslo alebo rok'
-
-      legislation_titles:
-        title: 'Zaradenie ustanovenia'
-        placeholder: 'Zaradenie ustanovania'
+        placeholder: '§ číslo rok'
         missing: 'neuvedené'
 
       date:
@@ -232,10 +227,6 @@ sk:
     proceeding:
       q:
         placeholder: 'Vyhľadávanie v konaniach'
-
-      file_number:
-        title: 'IČS'
-        placeholder: 'Identifikačné číslo spisu'
 
       courts:
         title: 'Súdy'

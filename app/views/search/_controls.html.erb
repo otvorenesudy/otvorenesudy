@@ -25,3 +25,15 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="span4">
+    <% unless (@facets.params.keys - ['sort', 'order']).empty? %>
+      <%= icon_link_to :remove, "Zrušiť všetky obmedzenia", nil, join: :append, class: :'search-reset' %>
+    <% end %>
+  </div>
+  
+  <div class="offset4 span4">
+    <%= render 'search/message' %>
+  </div>
+</div>

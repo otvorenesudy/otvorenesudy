@@ -79,15 +79,22 @@ class Court < ActiveRecord::Base
   def address(format = nil)
     format ||= '%s, %z %m'
 
-    parts = {
+    @address         ||= {}
+    @address[format] ||= format.gsub(/\%[szmc]/, address_parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+  end
+
+  private
+  
+  def address_parts
+    @address_parts ||= {
       '%s' => street,
       '%z' => municipality.zipcode,
       '%m' => municipality.name,
       '%c' => 'Slovenská republika'
     }
-
-    format.gsub(/\%[szmc]/, parts)
   end
+  
+  public
 
   def coordinates
     @coordinates ||= { latitude: latitude, longitude: longitude }

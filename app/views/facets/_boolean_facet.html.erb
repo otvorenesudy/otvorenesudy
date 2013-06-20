@@ -1,10 +1,3 @@
-<%= form_for search_path, method: :get do %>
-  <label class="checkbox">
-    <%= check_box_tag facet.name, !facet.value, facet.value, id: facet.id %>
-    <%= translation[:value] %>
-
-    <% facet_form_params(facet) do |name, value| %>
-      <%= hidden_field_tag name, value %>
-    <% end %>
-  </label>
-<% end %>
+<div id="<%= facet.id %>" class="facet">
+  <%= icon_link_to facet.value ? :check : :'check-empty', translation[:value], search_path(params.merge facet.name => facet.value ? nil : true), join: :append %>
+</div>
