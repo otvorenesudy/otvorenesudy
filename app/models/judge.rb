@@ -128,7 +128,7 @@ class Judge < ActiveRecord::Base
   end
 
   def probably_woman
-    @probably_woman ||= last.end_with? 'ová'
+    @probably_woman ||= [middle, last].reject(&:nil?).map { |v| v.end_with? 'ová' }.include? true
   end
 
   alias :probably_superior_court_officer? :probably_superior_court_officer
