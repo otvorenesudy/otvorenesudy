@@ -124,23 +124,14 @@
    
     input[type="text"], .add-on {
       width: 175px;
+      margin: 10px 0px 0px 0px;
+    }
+
+    .facet-results {
       margin-top: 10px;
     }
 
-/* TODO rm    
-    input.multi {
-      display: block;
-      float: left;
-      
-      width: 42px;
-      margin-right: 10px;
-    }
-*/    
     ul {
-      &:first-child {
-        margin-top: 10px;
-      }
-      
       margin: 0px;
     }
     
