@@ -91,6 +91,7 @@ sk:
         title: 'Obec'
         placeholder: 'Meno obce'
         missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne obce.'
 
       expenses:
         title: 'Výdavky'
@@ -120,6 +121,7 @@ sk:
         title: 'Súd'
         placeholder: 'Názov súdu'
         missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne súdy.'
 
       hearings_count:
         title: 'Počet pojednávaní'
@@ -142,21 +144,25 @@ sk:
         title: 'Súd'
         placeholder: 'Názov súdu'
         missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne súdy.'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
         missing: 'neuvedený'
+        not_found: 'Nenájdeny žiadny sudcovia.'
 
       form:
         title: 'Forma'
         placeholder: 'Forma pojednávania'
         missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne formy.'
 
       subject:
         title: 'Predmet'
         placeholder: 'Predment pojednávania'
         missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne predmety.'
 
       section:
         title: 'Úsek'
@@ -166,16 +172,19 @@ sk:
         title: 'Navrhovatelia'
         placeholder: 'Meno navrhovateľa'
         missing: 'neuvedené'
+        not_found: 'Nenájdení žiadni navhhovatelia.'
 
       opponents:
         title: 'Odporcovia'
         placeholder: 'Meno odporcu'
         missing: 'neuvedené'
+        not_found: 'Nenájdení žiadni odporcovia.'
 
       defendants:
         title: 'Obžalovaní'
         placeholder: 'Meno obžalovaného'
         missing: 'neuvedené'
+        not_found: 'Nenájdení žiadni obžalovaní.'
 
       date:
         title: 'Dátum'
@@ -191,35 +200,42 @@ sk:
         title: 'Súd'
         placeholder: 'Názov súdu'
         missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne súdy.'
 
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'  
         missing: 'neuvedený'
+        not_found: 'Nenájdený žiadny sudcovia.'
 
       form:
         title: 'Forma'
         placeholder: 'Forma rozhodnutia'
         missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne formy.'
 
       natures:
         title: 'Povaha'
         placeholder: 'Povaha rozhodnutia'
         missing: 'neuvedená'
+        not_found: ''
 
       legislation_area:
         title: 'Oblasť právnej úpravy'
         missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne oblasti.'
 
       legislation_subarea:
         title: 'Podoblasť právnej úpravy'
         placeholder: 'Podoblasť právnej úpravy'
         missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne podoblasti.'
 
       legislations:
         title: 'Ustanovenie'
         placeholder: '§ číslo rok'
         missing: 'neuvedené'
+        not_found: 'Nenájdené žiadne ustanovania.'
 
       date:
         title: 'Dátum'
@@ -232,11 +248,13 @@ sk:
         title: 'Súdy'
         placeholder: 'Meno súdu'
         missing: 'neuvedené'
+        not_found: 'Nenájdené žiadne súdy.'
 
       judges:
         title: 'Sudcovia'
         placeholder: 'Meno sudcu'
         missing: 'neuvedení'
+        not_found: 'Nenájdený žiadny sudcovia.'
 
       judges_count:
         title: 'Počet sudcov'
