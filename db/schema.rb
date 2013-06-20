@@ -14,10 +14,11 @@
 ActiveRecord::Schema.define(:version => 20130611161353) do
 
   create_table "accusations", :force => true do |t|
-    t.integer  "defendant_id", :null => false
-    t.string   "value"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "defendant_id",                     :null => false
+    t.string   "value",             :limit => 510, :null => false
+    t.string   "value_unprocessed", :limit => 510, :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
@@ -178,6 +179,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
     t.string   "file_number"
     t.date     "date"
     t.string   "ecli"
+    t.text     "summary"
     t.integer  "legislation_area_id"
     t.integer  "legislation_subarea_id"
     t.datetime "created_at",             :null => false
@@ -193,14 +195,16 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
 
   create_table "defendants", :force => true do |t|
-    t.integer  "hearing_id", :null => false
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "hearing_id",       :null => false
+    t.string   "name",             :null => false
+    t.string   "name_unprocessed", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "defendants", ["hearing_id", "name"], :name => "index_defendants_on_hearing_id_and_name", :unique => true
   add_index "defendants", ["name"], :name => "index_defendants_on_name"
+  add_index "defendants", ["name_unprocessed"], :name => "index_defendants_on_name_unprocessed"
 
   create_table "employments", :force => true do |t|
     t.integer  "court_id",          :null => false
@@ -405,6 +409,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   create_table "judge_related_people", :force => true do |t|
     t.integer  "judge_property_declaration_id", :null => false
     t.string   "name",                          :null => false
+    t.string   "name_unprocessed",              :null => false
     t.string   "institution"
     t.string   "function"
     t.datetime "created_at",                    :null => false
@@ -566,14 +571,16 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   add_index "municipalities", ["zipcode"], :name => "index_municipalities_on_zipcode"
 
   create_table "opponents", :force => true do |t|
-    t.integer  "hearing_id", :null => false
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "hearing_id",       :null => false
+    t.string   "name",             :null => false
+    t.string   "name_unprocessed", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "opponents", ["hearing_id", "name"], :name => "index_opponents_on_hearing_id_and_name", :unique => true
   add_index "opponents", ["name"], :name => "index_opponents_on_name"
+  add_index "opponents", ["name_unprocessed"], :name => "index_opponents_on_name_unprocessed"
 
   create_table "paragraph_explainations", :force => true do |t|
     t.integer  "paragraph_id",     :null => false
@@ -605,14 +612,16 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   add_index "proceedings", ["file_number"], :name => "index_proceedings_on_file_number", :unique => true
 
   create_table "proposers", :force => true do |t|
-    t.integer  "hearing_id", :null => false
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "hearing_id",       :null => false
+    t.string   "name",             :null => false
+    t.string   "name_unprocessed", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "proposers", ["hearing_id", "name"], :name => "index_proposers_on_hearing_id_and_name", :unique => true
   add_index "proposers", ["name"], :name => "index_proposers_on_name"
+  add_index "proposers", ["name_unprocessed"], :name => "index_proposers_on_name_unprocessed"
 
   create_table "sources", :force => true do |t|
     t.string   "module",     :null => false
@@ -687,9 +696,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_id_and_type"
-  add_index "statistical_tables", ["statistical_summary_id"], :name => "index_statistical_tables_on_statistical_summary_id"
-  add_index "statistical_tables", ["statistical_summary_type"], :name => "index_statistical_tables_on_statistical_summary_type"
+  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_type", :unique => true
   add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
 
 end
