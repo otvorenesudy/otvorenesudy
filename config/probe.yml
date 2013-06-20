@@ -10,7 +10,29 @@ defaults: &defaults
           type: custom
           tokenizer: standard
           filter: [lowercase, asciifolding]
+        normalizer:
+          type: custom
+          tokenizer: keyword
+          filter: [lowercase, asciifolding]
+  suggest:
+    separator: ':'
+    matcher:
+      name: suggest_matcher
+      params:
+        separator: ':'
+      script: "
+          values = term.split(params['separator']);
 
+          foreach(q : params['query'])
+          {
+            if (!values[1].contains(q))
+            {
+              return null;
+            }
+          }
+
+          return values[0];
+        "
 development:
   <<: *defaults
 

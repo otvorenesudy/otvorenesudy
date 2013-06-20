@@ -82,15 +82,11 @@ class Probe::Facets
     end
 
     def suggestable?
-      respond_to? :build_suggest_query
+      respond_to? :build_suggest_facet
     end
 
     def selected_name
       "#{@name}_selected"
-    end
-
-    def suggest_name
-      "#{@name}_suggest"
     end
 
     def missing_facet_name
@@ -105,8 +101,13 @@ class Probe::Facets
       not_analyzed_field(@field)
     end
 
+    def suggested_field_name
+      suggested_field(@field)
+    end
+
     def refresh!
-      @terms = []
+      @terms  = []
+      @script = nil
     end
 
     private
