@@ -272,24 +272,27 @@ module JusticeGovSk
         value.split(/\,|\;/).map { |part| part.strip }.join ', '
       end
 
-        # TODO impl   
       def normalize_phone(value)
-        value.strip
-  #        value.strip!
-  #        
-  #        value.split(/\,|\;/).map do |part|
-  #          if part.match(/[a-zA-Z]/).nil?
-  #            part.gsub!(/\s+/, '')
-  #            
-  #            unless part.match(/\//).nil?
-  #              
-  #            else
-  #              
-  #            end
-  #          else
-  #            part
-  #          end
-  #        end.join ', '
+        value = value.gsub(/(\d+\s*)+/) { |part|
+          part.gsub!(/\s/, '')
+          
+          case part.size
+          when  7 then "#{part[0   ]} #{part[1..3]} #{part[4..6]} "
+          when  8 then "#{part[0..1]} #{part[2..4]} #{part[5..7]} "
+          when 10 then "#{part[0..3]} #{part[4..6]} #{part[7..9]} "
+          else
+            part + ' '
+          end
+        }
+
+        value.gsub!(/\s*\/+\s*/, '/')
+        value.gsub!(/\s*\-+\s*/, ' - ')
+        value.gsub!(/\s*([\,\;])+\s*/, ', ')
+        
+        value.gsub!(/fax\s*\.\s*/i, ' fax ')
+        value.gsub!(/kl(apka)?\s*\.\s*/i, ' klapka ')
+        
+        value.strip.squeeze(' ')
       end
 
       def normalize_hours(value)
