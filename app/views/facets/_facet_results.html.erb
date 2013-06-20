@@ -1,15 +1,17 @@
-<ul id="<%= facet.id %>-list" class="unstyled">
-  <% visible.each do |result| %>
-    <%= render 'facets/facet_result', facet: facet, result: result %>
-  <% end %>
-</ul>
-
-<% if other.any? %>
-  <ul id="<%= facet.id %>-fold" class="unstyled collapse out">
-    <% other.each do |result| %>
+<div class="facet-results">
+  <ul id="<%= facet.id %>-list" class="unstyled">
+    <% visible.each do |result| %>
       <%= render 'facets/facet_result', facet: facet, result: result %>
     <% end %>
   </ul>
 
-  <%= link_to_collapse_facet_results facet %>
-<% end %>
+  <% if other.any? %>
+    <ul id="<%= facet.id %>-fold" class="unstyled collapse out">
+      <% other.each do |result| %>
+        <%= render 'facets/facet_result', facet: facet, result: result %>
+      <% end %>
+    </ul>
+
+    <%= link_to_collapse_facet_results facet %>
+  <% end %>
+</div>
