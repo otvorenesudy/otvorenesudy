@@ -33,19 +33,19 @@
         <%= translate_with_count(@decrees.count, :decree) %>.
       </p>
       <% if @courts.any? %>
-        <p><%= translate_without_count(@courts.count, :court).upcase_first %> &ndash; <%= links_to_courts @courts %>.</p>
+        <p><%= translate_without_count(@courts.count, :court).upcase_first %> &ndash; <%= links_to_courts @courts %></p>
       <% end %>
       <% if @judges.any? %>
-        <p><%= translate_without_count(@judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges @judges %>.</p>
+        <p><%= translate_without_count(@judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges @judges %></p>
       <% end %>
       <% if @proposers.any? %>
-        <p><%= translate_without_count(@proposers.count, :proposer).upcase_first %> &ndash; <%= @proposers.pluck(:name).join ', ' %>.</p>
+        <p><%= translate_without_count(@proposers.count, :proposer).upcase_first %> &ndash; <%= @proposers.pluck(:name).join ', ' %></p>
       <% end %>
       <% if @opponents.any? %>
-        <p><%= translate_without_count(@opponents.count, :opponent).upcase_first %> &ndash; <%= @opponents.pluck(:name).join ', ' %>.</p>
+        <p><%= translate_without_count(@opponents.count, :opponent).upcase_first %> &ndash; <%= @opponents.pluck(:name).join ', ' %></p>
       <% end %>
       <% if @defendants.any? %>
-        <p><%= translate_without_count(@defendants.count, :defendant).upcase_first %> &ndash; <%= @defendants.pluck(:name).join ', ' %>.</p>
+        <p><%= translate_without_count(@defendants.count, :defendant).upcase_first %> &ndash; <%= @defendants.pluck(:name).join ', ' %></p>
       <% end %>
     </div>
   </div>
