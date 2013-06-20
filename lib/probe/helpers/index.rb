@@ -13,6 +13,22 @@ module Probe
         "#{field}.untouched".to_sym
       end
 
+      def suggested_field(field)
+        return field.map { |f| "#{f}.suggested".to_sym } if field.is_a? Array
+
+        "#{field}.suggested".to_sym
+      end
+
+      def format_suggested_field(values)
+        values = Array.wrap(values)
+
+        values.map do |value|
+          value = value.to_s
+
+          "#{value}#{Probe::Configuration.suggest.separator}#{value.ascii.downcase}"
+        end
+      end
+
       def has_field?(field)
         @mappings ? @mappings[field].present? : false
       end

@@ -50,12 +50,11 @@ class Decree < ActiveRecord::Base
   mapping do
     map :id
 
-    analyze :id,                  type: :integer
     analyze :case_number
     analyze :file_number
     analyze :date,                type: :date
     analyze :ecli
-    analyze :text,                as: lambda { |d| d.text }
+    analyze :text,                as: lambda { |d| d.text }, suggest: false
     analyze :court,               as: lambda { |d| d.court.name if d.court }
     analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
     analyze :form,                as: lambda { |d| d.form.value if d.form }
@@ -75,7 +74,7 @@ class Decree < ActiveRecord::Base
     facet :natures,             type: :terms, size: DecreeNature.count
     facet :form,                type: :terms
     facet :court,               type: :terms
-    facet :date,                type: :date, interval: :month
+    facet :date,                type: :date,  interval: :month
     facet :legislations,        type: :terms
   end
 

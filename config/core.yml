@@ -1,17 +1,17 @@
 defaults: &defaults
   # Storage configuration
   storage:
-    
+
     # Cache root path
     cache:
       root: 'tmp/cache'
-  
+
   # Console output configuration 
   output:
 
     # Colored output
     colors: true
-    
+
     # Verbose output
     verbose: true
 
@@ -20,7 +20,15 @@ development:
 
 test:
   <<: *defaults  
-  
+
+  # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
+  output:
+    colors: false
+    verbose: false
+
+staging:
+  <<: *defaults
+
   # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
   output:
     colors: false
@@ -28,7 +36,7 @@ test:
 
 production:
   <<: *defaults
-  
+
   # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
   output:
     colors: false

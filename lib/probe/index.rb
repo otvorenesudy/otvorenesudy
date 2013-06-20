@@ -37,22 +37,35 @@ module Probe
             @mapping.each do |field, value|
               options  = value[:options]
 
-              type     = options[:type]     || :string
-              analyzer = options[:analyzer] || 'text_analyzer'
+              type       = options[:type]       || :string
+              analyzer   = options[:analyzer]   || :text_analyzer
+              as         = options[:as]         || lambda { |obj| obj.send(field) }
+              suggest    = options[:suggest].nil? ? true : options[:suggest]
+              suggester  = options[:suggester]  || method(:format_suggested_field)
 
               case value[:type]
               when :mapped
-                indexes field, options.merge!(index: :not_analyzed)
+                indexes field, options.merge(index: :not_analyzed)
               when :analyzed
-                indexes field, options.deep_merge!(
+                indexes field, options.deep_merge(
                   type:   :multi_field,
                   fields: {
-                    analyzed:  { type: type,  analyzer: analyzer },
-                    untouched: { type: type,  index: :not_analyzed }
+                    analyzed:   { type: type,  analyzer: analyzer },
+                    untouched:  { type: type,  index: :not_analyzed }
                   }
                 )
-              when :nested
-                indexes field, type: :nested, &value[:block]
+              end
+
+              if suggest
+                indexes suggested_field(field), options.deep_merge(
+                  type:  :string,
+                  index: :not_analyzed,
+                  as: lambda { |obj|
+                    value = as.call(obj)
+
+                    suggester.call(value)
+                  }
+                )
               end
             end
           end
@@ -72,7 +85,7 @@ module Probe
       def map(field, options = {})
         @mapping[field]           = {}
         @mapping[field][:type]    = :mapped
-        @mapping[field][:options] = options
+        @mapping[field][:options] = options.merge! suggest: false
       end
 
       def analyze(field, options = {})

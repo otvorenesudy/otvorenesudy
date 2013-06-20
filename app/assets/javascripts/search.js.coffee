@@ -98,4 +98,4 @@ $(document).ready ->
             name: name
             term: terms.join(' ')
           success: (html) ->
-            $(input).closest('.facet-content').find('ul').html(html)
+            $(input).closest('.facet-content').find('.facet-results').html(html)

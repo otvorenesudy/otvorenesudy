@@ -2,9 +2,19 @@ class Probe::Facets
   class TermsFacet < Probe::Facets::Facet
     include Probe::Search::Query
 
+    attr_accessor :script
+
     def build(index, name, options)
       index.facet name, options do |f|
-        f.terms not_analyzed_field(@field), size: @size
+        facet_options = Hash.new
+
+        facet_options[:size] = @size
+
+        if block_given?
+          yield f, facet_options
+        else
+          f.terms not_analyzed_field(@field), facet_options
+        end
       end
     end
 
@@ -20,6 +30,18 @@ class Probe::Facets
 
     def build_suggest_query(term)
       build_query_filter_from(@field, term, operator: :and)
+    end
+
+    def build_suggest_facet(index, options)
+      build(index, name, options) do |f, facet_options|
+        facet_options[:script] = @script.build if @script
+
+        f.terms suggested_field_name, facet_options
+      end
+    end
+
+    def add_facet_script(script)
+      @script = script
     end
 
     private

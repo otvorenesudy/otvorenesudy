@@ -16,10 +16,14 @@ module Probe
         options[:facets]      = @facets
         options[:sort_fields] = @sort_fields
 
+        script = Facets::Script.new(Probe::Configuration.suggest.matcher)
+        script.add_match_param(:query, term)
+
         search = Search::Composer.new(self, options)
 
-        # TODO: use facet validator to validate facet results
-        results = search.compose do
+        search.compose do
+          facet.add_facet_script(script)
+
           filter = build_facet_filter(facet) || { and: [] }
 
           filter[:and] << facet.build_suggest_query(term)
@@ -29,7 +33,7 @@ module Probe
             facet_filter:  filter
           }
 
-          facet.build(@index, facet.name, facet_options)
+          facet.build_suggest_facet(@index, facet_options)
 
           if facet.active?
             facet_options = {
@@ -40,10 +44,6 @@ module Probe
             facet.build(@index, facet.selected_name, facet_options)
           end
         end
-
-        match_query_facets(term, results.facets)
-
-        results
       end
     end
   end

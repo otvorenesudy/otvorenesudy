@@ -31,8 +31,8 @@
           <th class="span2">Tituly</th>
           <th class="span7">Meno</th>
           <th data-sorter="false" class="span3">Pozícia</th>
-          <th data-sorter="false"><%= tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" %></th>
-          <th data-sorter="false"><%= tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" %></th>
+          <%= sortable_th_tag_with_number { tooltip_tag "Pojednávania", "Počet súdnych pojednávaní" } %>
+          <%= sortable_th_tag_with_number { tooltip_tag "Rozhodnutia",  "Počet súdnych rozhodnutí" } %>
         </tr>
       </thead>
       <tbody>
