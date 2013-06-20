@@ -237,10 +237,6 @@ sk:
       q:
         placeholder: 'Vyhľadávanie v konaniach'
 
-      file_number:
-        title: 'IČS'
-        placeholder: 'Identifikačné číslo spisu'
-
       courts:
         title: 'Súdy'
         placeholder: 'Meno súdu'
