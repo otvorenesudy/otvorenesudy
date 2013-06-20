@@ -11,7 +11,7 @@ module Core
           if content.is_a?(Nokogiri::XML::Node) || content.is_a?(Mechanize::Page)
             options[:message] = "already parsed"
 
-            content = content.to_s
+            content = content.body
           else
             content = content.encode Encoding::UTF_8, encoding(content)
           end
