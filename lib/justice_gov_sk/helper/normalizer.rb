@@ -17,45 +17,48 @@ module JusticeGovSk
         value.gsub!(/III/, ' III ')
         
         value.squeeze!(' ')
+
+        value.gsub!(/Kraj.\s*súd/, 'Krajský súd')
         
-        value.gsub!(/KS|Kraj.\s*súd/, "Krajský súd")
-        value.gsub!(/OS/, "Okresný súd")
-        
-        value.gsub!(/BA/, "Bratislava")
-        value.gsub!(/KE/, "Košice")
-        value.gsub!(/ZA/, "Žilina")
-        
-        value.gsub!(/BB|B\.Bystrica/, "Banská Bystrica")
-        value.gsub!(/D\.\s*Kubín/, "Dolný Kubín")
+        value.gsub!(/B\.Bystrica/, 'Banská Bystrica')
+        value.gsub!(/D\.\s*Kubín/, 'Dolný Kubín')
 
-        value.gsub!(/v\s+Bansk(á|ej)\s+Bystric(a|i)/i, "Banská Bystrica")
-        value.gsub!(/v\s+Bratislav(a|e)/i, "Bratislava")
-        value.gsub!(/v\s+Košic(a|iach)/i, "Košice") 
-        value.gsub!(/v\s+Nitr(a|e)/i, "Nitra")
-        value.gsub!(/v\s+Prešove?/i, "Prešov")
-        value.gsub!(/v\s+Trenčíne?/i, "Trenčín")
-        value.gsub!(/v\s+Trnav(a|e)/i, "Trnava")
-        value.gsub!(/v\s+Žilin(a|e)/i, "Žilina")
+        value.gsub!(/v\s+Bansk(á|ej)\s+Bystric(a|i)/i, 'Banská Bystrica')
+        value.gsub!(/v\s+Bratislav(a|e)/i, 'Bratislava')
+        value.gsub!(/v\s+Košic(a|iach)/i, 'Košice') 
+        value.gsub!(/v\s+Nitr(a|e)/i, 'Nitra')
+        value.gsub!(/v\s+Prešove?/i, 'Prešov')
+        value.gsub!(/v\s+Trenčíne?/i, 'Trenčín')
+        value.gsub!(/v\s+Trnav(a|e)/i, 'Trnava')
+        value.gsub!(/v\s+Žilin(a|e)/i, 'Žilina')
 
-        value.gsub!(/n\/B/i, "nad Bebravou")
-        value.gsub!(/n\/V/i, "nad Váhom")
-        value.gsub!(/n\/T|n\.T\./i, "nad Topľou")
-        value.gsub!(/n\/H/i, "nad Hronom")
+        value.gsub!(/n\/B/i, 'nad Bebravou')
+        value.gsub!(/n\/V/i, 'nad Váhom')
+        value.gsub!(/n\/T|n\.T\./i, 'nad Topľou')
+        value.gsub!(/n\/H/i, 'nad Hronom')
 
-        value.gsub!(/MS\s*SR/, "Ministerstvo spravodlivosti Slovenskej republiky")
-        value.gsub!(/Najvyšší\s*súd(\s*SR)?|NS\s*SR/i, "Najvyšší súd Slovenskej republiky")
-        value.gsub!(/ŠTS\s*v\s*Pezinku/i, "Špecializovaný trestný súd")
+        value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
+        value.gsub!(/NS\s*SR/, 'Najvyšší súd Slovenskej republiky')
 
-        value.gsub!(/SR/, "Slovenskej republiky")
+        value.gsub!(/Najvyšší\s*súd(\s*SR)?/i, 'Najvyšší súd Slovenskej republiky')
+        value.gsub!(/ŠTS(\s*v\s*Pezinku)?/i, 'Špecializovaný trestný súd')
         
         value.gsub!(/\./, '')
 
-        key = value.ascii.downcase
-
         value.utf8.split(/\s+/).map { |word|
-          if !word.match(/\A(I|V)+\z/).nil?
+          case word
+          when 'KS' then 'Krajský súd'
+          when 'OS' then 'Okresný súd'
+          when 'BA' then 'Bratislava'
+          when 'KE' then 'Košice'
+          when 'ZA' then 'Žilina'
+          when 'BB' then 'Banská Bystrica'
+
+          when /\A(I|V)+\z/
             word
-          elsif !word.match(/\A(v|nad|súd|okolie)\z/i).nil?
+          when /\ASR\z/i
+            'Slovenskej republiky'
+          when /\A(v|nad|súd|okolie|republiky)\z/i
             word.downcase
           else
             word.titlecase
@@ -68,7 +71,7 @@ module JusticeGovSk
       def normalize_municipality_name(value)
         value.strip!
 
-        value == "Bratislava 33" ? "Bratislava III" : value
+        value == 'Bratislava 33' ? 'Bratislava III' : value
       end
 
       def normalize_person_name(value, options = {})
@@ -108,15 +111,15 @@ module JusticeGovSk
           else
             part = part.utf8.strip
   
-            if part.match(/\./)
-              if part.match(/rod\./i)
+            if part =~ /\./
+              if part =~ /rod\./i
                 flags << :born
-              elsif part.match(/(ml|st)\./)
+              elsif part =~ /(ml|st)\./
                 flags << :relative
                 additions << part
               end
             else
-              if part == part.upcase
+              if part.upcase == part
                 uppercase << part.split(/\-/).map(&:titlecase).join(' - ')
               else
                 mixedcase << part.split(/\-/).map(&:titlecase).join(' - ')
@@ -140,7 +143,7 @@ module JusticeGovSk
 
         if flags.include? :born
           names << names.last
-          names[-2] = "rod."
+          names[-2] = 'rod.'
         end
 
         value = nil
@@ -150,8 +153,8 @@ module JusticeGovSk
         value = value + ', ' + suffixes.join(' ') unless suffixes.empty?
 
         if flags.include? :representantive
-          municipality ||= "Trenčíne" unless representantive.match(/(TN|Trenčín(e)?)/).nil?
-          municipality ||= "Trnave"   unless representantive.match(/(TT|Trnav(a|e){1})/).nil?
+          municipality ||= 'Trenčíne' unless representantive.match(/(TN|Trenčín(e)?)/).nil?
+          municipality ||= 'Trnave'   unless representantive.match(/(TT|Trnav(a|e){1})/).nil?
 
           role  = "Hovorca krajského súdu v #{municipality}"
           value = value.blank? ? role : "#{value}, #{role.downcase_first}"
