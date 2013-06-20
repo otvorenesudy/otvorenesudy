@@ -14,39 +14,43 @@ module JusticeGovSk
         value.gsub!(/3/, ' III ')
         value.gsub!(/4/, ' IV ')
         value.gsub!(/5/, ' V ')
-        value.gsub!(/III/, ' III ')
+
+        value.gsub!(/lll|III/i, ' III ')
+        value.gsub!(/okolie/i, ' okolie ')
         
         value.squeeze!(' ')
 
         value.gsub!(/Kraj.\s*súd/, 'Krajský súd')
         
-        value.gsub!(/B\.Bystrica/, 'Banská Bystrica')
+        value.gsub!(/B\.?\s*Bystrica/, 'Banská Bystrica')
         value.gsub!(/D\.\s*Kubín/, 'Dolný Kubín')
 
-        value.gsub!(/v\s+Bansk(á|ej)\s+Bystric(a|i)/i, 'Banská Bystrica')
-        value.gsub!(/v\s+Bratislav(a|e)/i, 'Bratislava')
-        value.gsub!(/v\s+Košic(a|iach)/i, 'Košice') 
-        value.gsub!(/v\s+Nitr(a|e)/i, 'Nitra')
-        value.gsub!(/v\s+Prešove?/i, 'Prešov')
-        value.gsub!(/v\s+Trenčíne?/i, 'Trenčín')
-        value.gsub!(/v\s+Trnav(a|e)/i, 'Trnava')
-        value.gsub!(/v\s+Žilin(a|e)/i, 'Žilina')
+        value.gsub!(/\s+v\s+BA/, ' Bratislava')
+        value.gsub!(/\s+v\s+ZA/, ' Žilina')
+
+        value.gsub!(/\s+v\s+Bansk(á|ej)\s+Bystric(a|i)/i, ' Banská Bystrica')
+        value.gsub!(/\s+v\s+Bratislav(a|e)/i, ' Bratislava')
+        value.gsub!(/\s+v\s+Košic(a|iach)/i, ' Košice') 
+        value.gsub!(/\s+v\s+Nitr(a|e)/i, ' Nitra')
+        value.gsub!(/\s+v\s+Prešove?/i, ' Prešov')
+        value.gsub!(/\s+v\s+Trenčíne?/i, ' Trenčín')
+        value.gsub!(/\s+v\s+Trnav(a|e)/i, ' Trnava')
+        value.gsub!(/\s+v\s+Žilin(a|e)/i, ' Žilina')
 
         value.gsub!(/n\/B/i, 'nad Bebravou')
         value.gsub!(/n\/V/i, 'nad Váhom')
         value.gsub!(/n\/T|n\.T\./i, 'nad Topľou')
         value.gsub!(/n\/H/i, 'nad Hronom')
 
-        value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
-        value.gsub!(/NS\s*SR/, 'Najvyšší súd Slovenskej republiky')
-
         value.gsub!(/Najvyšší\s*súd(\s*SR)?/i, 'Najvyšší súd Slovenskej republiky')
         value.gsub!(/ŠTS(\s*v\s*Pezinku)?/i, 'Špecializovaný trestný súd')
+        value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
+        value.gsub!(/NS\s*SR/, 'Najvyšší súd Slovenskej republiky')
         
         value.gsub!(/\./, '')
 
         value.utf8.split(/\s+/).map { |word|
-          case word
+          case word.utf8
           when 'KS' then 'Krajský súd'
           when 'OS' then 'Okresný súd'
           when 'BA' then 'Bratislava'
@@ -58,7 +62,7 @@ module JusticeGovSk
             word
           when /\ASR\z/i
             'Slovenskej republiky'
-          when /\A(v|nad|súd|okolie|republiky)\z/i
+          when /\A(a|v|nad|pre|súd|okolie|trestný|republiky)\z/i
             word.downcase
           else
             word.titlecase
