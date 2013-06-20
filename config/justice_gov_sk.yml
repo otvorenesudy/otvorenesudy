@@ -1,23 +1,23 @@
 defaults: &defaults
   # Storage configuration
   storage:
-    
+
     # Storage root path
     root: 'storage'
-  
+
   # Resources configuration
   resource:
-    
+
     # List of resources updateable by crawlers
     updateable: [Court, Judge, Hearing, Decree]
-  
+
   # Extractor configuration
   extractor:
-    
+
     image:
       # Perform image extraction on specified resources if possible
       perform: [Decree]
-      
+
       # Override existing image extractions for specified resources
       override: [Decree]
 
@@ -30,7 +30,7 @@ defaults: &defaults
 
 development:
   <<: *defaults 
-  
+
   # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
   extractor:
     image:
@@ -42,14 +42,21 @@ development:
 
 test:
   <<: *defaults
-  
+
   # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
   resource:
     updateable: [Court, Judge]
-      
+
+staging:
+  <<: *defaults
+
+  # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
+  resource:
+    updateable: [Court, Judge]
+
 production:
   <<: *defaults
-  
+
   # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
   resource:
     updateable: [Court, Judge]
