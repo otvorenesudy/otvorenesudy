@@ -16,5 +16,7 @@ class ErrorsController < ApplicationController
       @error       = i18n.t "#{key}.title",       default: i18n.t(:title,       default: class_name)
       @description = i18n.t "#{key}.description", default: i18n.t(:description, default: @message)
     end
+
+    render 'show', status: @status
   end
 end
