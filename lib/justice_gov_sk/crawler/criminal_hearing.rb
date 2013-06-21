@@ -1,3 +1,5 @@
+# encoding: utf-8 
+
 module JusticeGovSk
   class Crawler
     class CriminalHearing < JusticeGovSk::Crawler::Hearing

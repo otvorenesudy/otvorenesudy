@@ -9,7 +9,7 @@ module JusticeGovSk
         super(filepath, options) do |record|
           @parser.parse(record)
 
-          @paragraph = paragraph_by_number_factory.find_or_create(@parser.number)
+          @paragraph = paragraph_by_legislation_and_number_factory.find_or_create(@parser.legislation, @parser.number)
 
           @paragraph.legislation = @parser.legislation
           @paragraph.number      = @parser.number
