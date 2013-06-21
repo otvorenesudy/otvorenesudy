@@ -60,22 +60,9 @@ $(document).ready ->
 
     headerTemplate: '{content} <span>{icon}</span>'
     widgets: ['uitheme']
-    
+
     sortLocaleCompare: true
-    textExtraction: (node, table, column) ->
-      columns = $(table).find("tr:nth(1) td").length
-      row     = $(node).closest('tr').index()
-      result  = ""
-
-      while column < columns
-        cell = $(table).find("tbody tr:nth(#{row}) td:nth(#{column})")
-
-        value = $.trim(cell.attr('data-value') or cell.text())
-
-        result += "#{value}," if value?
-        column++
-
-      result
+    textExtraction: (node, table, column) -> $.trim($(node).attr('data-value') or $(node).text())
 
   $('table').bind 'sortEnd', ->
     fixes()
