@@ -34,6 +34,8 @@ namespace :fixtures do
       puts "Courts: #{Court.count}"
       puts "Judges: #{Judge.count}"
       puts
+      puts "Paragraphs: #{Paragraph.count}"
+      puts
       puts "Hearings civil:    #{CivilHearing.count}"
       puts "Hearings criminal: #{CriminalHearing.count}"
       puts "Hearings special:  #{SpecialHearing.count}"
