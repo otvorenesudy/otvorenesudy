@@ -8,9 +8,7 @@ module JusticeGovSk
       end
 
       def court
-        court = @data[0].gsub('-', '').squeeze(' ').strip
-
-        court_name_map[court.ascii.downcase] || court
+        normalize_court_name(@data[0])
       end
 
       def year
