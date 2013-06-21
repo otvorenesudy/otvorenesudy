@@ -24,6 +24,9 @@ class Hearing < ActiveRecord::Base
   scope :historical, lambda { where('date <  ?', Time.now) }
   scope :upcoming,   lambda { where('date >= ?', Time.now) }
 
+  max_paginates_per 100
+      paginates_per 25
+
   belongs_to :proceeding
 
   belongs_to :court

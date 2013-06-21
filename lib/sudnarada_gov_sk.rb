@@ -1,6 +1,4 @@
-require 'justice_gov_sk/helper/judge_maker'
-require 'justice_gov_sk/helper/judge_matcher'
-require 'justice_gov_sk/helper/normalizer'
+require 'justice_gov_sk'
 
 require 'sudnarada_gov_sk/configuration'
 require 'sudnarada_gov_sk/url'

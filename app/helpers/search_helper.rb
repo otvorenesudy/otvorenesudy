@@ -14,7 +14,7 @@ module SearchHelper
   def search_sort_tag(params, values, options = {})
     values = values.map { |value| [t("search.sort.#{@model.to_s.underscore}.#{value.to_s.gsub(/\A_/, '')}"), value] }
 
-    select_tag :sort, options_for_select(values, params[:sort])
+    select_tag :sort, options_for_select(values, params[:sort]), class: :span2
   end
 
   def search_order_tag(params, order, options = {})

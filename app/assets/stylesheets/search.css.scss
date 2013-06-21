@@ -3,7 +3,7 @@
 
 .search-controls {
   form {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   
   input, select {
@@ -17,6 +17,8 @@
 
 .search-reset {
   color: $textColor;
+  
+  font-weight: bold;
   
   &:hover, &:focus {
     color: inherit;

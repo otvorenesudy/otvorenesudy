@@ -6,7 +6,6 @@ module JusticeGovSk
       def normalize_court_name(value)
         value = value.utf8
         
-        value.strip!
         value.gsub!(/[\-\,]/, '')
         
         value.gsub!(/1/, ' I ')
@@ -14,48 +13,58 @@ module JusticeGovSk
         value.gsub!(/3/, ' III ')
         value.gsub!(/4/, ' IV ')
         value.gsub!(/5/, ' V ')
-        value.gsub!(/III/, ' III ')
+
+        value.gsub!(/lll|III/i, ' III ')
+        value.gsub!(/okolie/i, ' okolie ')
         
+        value.gsub!(/Kraj.\s*súd/, 'Krajský súd')
+        
+        value.gsub!(/B\.?\s*Bystrica/, 'Banská Bystrica')
+        value.gsub!(/D\.\s*Kubín/, 'Dolný Kubín')
+
+        value = " #{value} ".utf8
+
+        value.gsub!(/\s+v\s+BA/, ' Bratislava')
+        value.gsub!(/\s+v\s+ZA/, ' Žilina')
+
+        value.gsub!(/\s+v\s+Bansk(á|ej)\s+Bystric(a|i)/i, ' Banská Bystrica')
+        value.gsub!(/\s+v\s+Bratislav(a|e)/i, ' Bratislava')
+        value.gsub!(/\s+v\s+Košic(a|iach)/i, ' Košice') 
+        value.gsub!(/\s+v\s+Nitr(a|e)/i, ' Nitra')
+        value.gsub!(/\s+v\s+Prešove?/i, ' Prešov')
+        value.gsub!(/\s+v\s+Trenčíne?/i, ' Trenčín')
+        value.gsub!(/\s+v\s+Trnav(a|e)/i, ' Trnava')
+        value.gsub!(/\s+v\s+Žilin(a|e)/i, ' Žilina')
+
         value.squeeze!(' ')
-        
-        value.gsub!(/KS|Kraj.\s*súd/, "Krajský súd")
-        value.gsub!(/OS/, "Okresný súd")
-        
-        value.gsub!(/BA/, "Bratislava")
-        value.gsub!(/KE/, "Košice")
-        value.gsub!(/ZA/, "Žilina")
-        
-        value.gsub!(/BB|B\.Bystrica/, "Banská Bystrica")
-        value.gsub!(/D\.\s*Kubín/, "Dolný Kubín")
+        value.strip!
 
-        value.gsub!(/v\s+Bansk(á|ej)\s+Bystric(a|i)/i, "Banská Bystrica")
-        value.gsub!(/v\s+Bratislav(a|e)/i, "Bratislava")
-        value.gsub!(/v\s+Košic(a|iach)/i, "Košice") 
-        value.gsub!(/v\s+Nitr(a|e)/i, "Nitra")
-        value.gsub!(/v\s+Prešove?/i, "Prešov")
-        value.gsub!(/v\s+Trenčíne?/i, "Trenčín")
-        value.gsub!(/v\s+Trnav(a|e)/i, "Trnava")
-        value.gsub!(/v\s+Žilin(a|e)/i, "Žilina")
+        value.gsub!(/n\/B/i, 'nad Bebravou')
+        value.gsub!(/n\/V/i, 'nad Váhom')
+        value.gsub!(/n\/T|n\.T\./i, 'nad Topľou')
+        value.gsub!(/n\/H/i, 'nad Hronom')
 
-        value.gsub!(/n\/B/i, "nad Bebravou")
-        value.gsub!(/n\/V/i, "nad Váhom")
-        value.gsub!(/n\/T|n\.T\./i, "nad Topľou")
-        value.gsub!(/n\/H/i, "nad Hronom")
-
-        value.gsub!(/MS\s*SR/, "Ministerstvo spravodlivosti Slovenskej republiky")
-        value.gsub!(/Najvyšší\s*súd(\s*SR)?|NS\s*SR/i, "Najvyšší súd Slovenskej republiky")
-        value.gsub!(/ŠTS\s*v\s*Pezinku/i, "Špecializovaný trestný súd")
-
-        value.gsub!(/SR/, "Slovenskej republiky")
+        value.gsub!(/Najvyšší\s*súd(\s*SR)?/i, 'Najvyšší súd Slovenskej republiky')
+        value.gsub!(/ŠTS(\s*v\s*Pezinku)?/i, 'Špecializovaný trestný súd')
+        value.gsub!(/MS\s*SR/, 'Ministerstvo spravodlivosti Slovenskej republiky')
+        value.gsub!(/NS\s*SR/, 'Najvyšší súd Slovenskej republiky')
         
         value.gsub!(/\./, '')
 
-        key = value.ascii.downcase
-
         value.utf8.split(/\s+/).map { |word|
-          if !word.match(/\A(I|V)+\z/).nil?
+          case word.utf8
+          when 'KS' then 'Krajský súd'
+          when 'OS' then 'Okresný súd'
+          when 'BA' then 'Bratislava'
+          when 'KE' then 'Košice'
+          when 'ZA' then 'Žilina'
+          when 'BB' then 'Banská Bystrica'
+
+          when /\A(I|V)+\z/
             word
-          elsif !word.match(/\A(v|nad|súd|okolie)\z/i).nil?
+          when /\ASR\z/i
+            'Slovenskej republiky'
+          when /\A(a|v|nad|pre|súd|okolie|trestný|republiky)\z/i
             word.downcase
           else
             word.titlecase
@@ -68,7 +77,7 @@ module JusticeGovSk
       def normalize_municipality_name(value)
         value.strip!
 
-        value == "Bratislava 33" ? "Bratislava III" : value
+        value == 'Bratislava 33' ? 'Bratislava III' : value
       end
 
       def normalize_person_name(value, options = {})
@@ -108,15 +117,15 @@ module JusticeGovSk
           else
             part = part.utf8.strip
   
-            if part.match(/\./)
-              if part.match(/rod\./i)
+            if part =~ /\./
+              if part =~ /rod\./i
                 flags << :born
-              elsif part.match(/(ml|st)\./)
+              elsif part =~ /(ml|st)\./
                 flags << :relative
                 additions << part
               end
             else
-              if part == part.upcase
+              if part.upcase == part
                 uppercase << part.split(/\-/).map(&:titlecase).join(' - ')
               else
                 mixedcase << part.split(/\-/).map(&:titlecase).join(' - ')
@@ -140,7 +149,7 @@ module JusticeGovSk
 
         if flags.include? :born
           names << names.last
-          names[-2] = "rod."
+          names[-2] = 'rod.'
         end
 
         value = nil
@@ -150,8 +159,8 @@ module JusticeGovSk
         value = value + ', ' + suffixes.join(' ') unless suffixes.empty?
 
         if flags.include? :representantive
-          municipality ||= "Trenčíne" unless representantive.match(/(TN|Trenčín(e)?)/).nil?
-          municipality ||= "Trnave"   unless representantive.match(/(TT|Trnav(a|e){1})/).nil?
+          municipality ||= 'Trenčíne' unless representantive.match(/(TN|Trenčín(e)?)/).nil?
+          municipality ||= 'Trnave'   unless representantive.match(/(TT|Trnav(a|e){1})/).nil?
 
           role  = "Hovorca krajského súdu v #{municipality}"
           value = value.blank? ? role : "#{value}, #{role.downcase_first}"
@@ -216,7 +225,7 @@ module JusticeGovSk
         value = normalize_punctuation(value)
         value = value.utf8
         
-        value.split(/s+/).map { |word|
+        value.split(/\s+/).map { |word|
           word = word.utf8
           
           word.gsub!(/ob[vž]\./i, '')
@@ -228,11 +237,11 @@ module JusticeGovSk
           elsif suffix = person_name_suffix_map[key]
             word = suffix
           else
-            word.titlecase! if word == word.upcase
+            word = word.titlecase if word == word.upcase
           end
           
           word
-        }.join ' '
+        }.reject(&:blank?).join ' '
       end
 
       def normalize_zipcode(value)
@@ -263,24 +272,27 @@ module JusticeGovSk
         value.split(/\,|\;/).map { |part| part.strip }.join ', '
       end
 
-        # TODO impl   
       def normalize_phone(value)
-        value.strip
-  #        value.strip!
-  #        
-  #        value.split(/\,|\;/).map do |part|
-  #          if part.match(/[a-zA-Z]/).nil?
-  #            part.gsub!(/\s+/, '')
-  #            
-  #            unless part.match(/\//).nil?
-  #              
-  #            else
-  #              
-  #            end
-  #          else
-  #            part
-  #          end
-  #        end.join ', '
+        value = value.gsub(/(\d+\s*)+/) { |part|
+          part.gsub!(/\s/, '')
+          
+          case part.size
+          when  7 then "#{part[0   ]} #{part[1..3]} #{part[4..6]} "
+          when  8 then "#{part[0..1]} #{part[2..4]} #{part[5..7]} "
+          when 10 then "#{part[0..3]} #{part[4..6]} #{part[7..9]} "
+          else
+            part + ' '
+          end
+        }
+
+        value.gsub!(/\s*\/+\s*/, '/')
+        value.gsub!(/\s*\-+\s*/, ' - ')
+        value.gsub!(/\s*([\,\;])+\s*/, ', ')
+        
+        value.gsub!(/fax\s*\.\s*/i, ' fax ')
+        value.gsub!(/kl(apka)?\s*\.\s*/i, ' klapka ')
+        
+        value.strip.squeeze(' ')
       end
 
       def normalize_hours(value)
@@ -338,7 +350,7 @@ module JusticeGovSk
             name.gsub!(/\.\-/i, '.')
             name.gsub!(/\.\s+/i, '.')
             
-            name = name.split(/s+/).map { |word|
+            name = name.split(/\s+/).map { |word|
               word = word.utf8
               
               word.downcase_first! if word.match(/o|ktorým/i)
@@ -409,7 +421,7 @@ module JusticeGovSk
         
         value.gsub!(/,\s*\z/, '')
         value.gsub!(/\,\-/, '')
-        value.gsub!(/\d*(\.|\,)*\d+/) { |n| n.gsub(/\./, ' ') }
+        value.gsub!(/(\A|\s+)\d*(\.|\,)*\d+(\s+|\z)/) { |n| n.gsub(/\./, ' ') }
 
         value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
         value.gsub!(/\s*(?<c>[\.\,\;\:\?\!])+\s*/, '\k<c> ')
@@ -418,7 +430,7 @@ module JusticeGovSk
         
         value.gsub!(/(\-\s*){3,}/, '--')
         value.gsub!(/\s*\-\-\s*/, ' – ')
-        value.gsub!(/\s*\-\s*/, '-')
+        value.gsub!(/\s*\-\s*/, ' - ')
 
         value.gsub!(/\s*§+\s*/, ' § ')
         

@@ -150,7 +150,7 @@ sk:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
         missing: 'neuvedený'
-        not_found: 'Nenájdeny žiadny sudcovia.'
+        not_found: 'Nenájdení žiadni sudcovia.'
 
       form:
         title: 'Forma'
@@ -206,7 +206,7 @@ sk:
         title: 'Sudca'
         placeholder: 'Meno sudcu'  
         missing: 'neuvedený'
-        not_found: 'Nenájdený žiadny sudcovia.'
+        not_found: 'Nenájdení žiadni sudcovia.'
 
       form:
         title: 'Forma'
@@ -218,7 +218,7 @@ sk:
         title: 'Povaha'
         placeholder: 'Povaha rozhodnutia'
         missing: 'neuvedená'
-        not_found: ''
+        not_found: 'Nenájdené žiadne povahy.'
 
       legislation_area:
         title: 'Oblasť právnej úpravy'
@@ -254,7 +254,7 @@ sk:
         title: 'Sudcovia'
         placeholder: 'Meno sudcu'
         missing: 'neuvedení'
-        not_found: 'Nenájdený žiadny sudcovia.'
+        not_found: 'Nenájdení žiadni sudcovia.'
 
       judges_count:
         title: 'Počet sudcov'

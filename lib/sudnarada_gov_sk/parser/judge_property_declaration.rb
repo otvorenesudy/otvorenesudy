@@ -88,7 +88,7 @@ module SudnaradaGovSk
       def normalize_value(value)
         value.strip!
         
-        value if value != '-'
+        value unless value =~ /\A(\-|\'\')\z/
       end
       
       def normalize_name(value)
@@ -101,8 +101,8 @@ module SudnaradaGovSk
       def normalize_related_person_name(value)
         value = value.utf8
         
-        value.gsub!(/[:space:]/, ' ')
-        value.gsub!(/Okresný\s+Súd\s+Bratislava\s+Vyšší\s+Súdny\s+Úradník\s+I/i, '')
+        value.gsub!(/[[:space:]]/, ' ')
+        value.gsub!(/Okresný\s+súd\s+Bratislava\s+(I\s+)?vyšší\s+súdny\s+úradník/i, '')
         value.gsub!(/Manžel/i, '')
         value.gsub!(/Švagrina/i, '')
       end
@@ -116,6 +116,16 @@ module SudnaradaGovSk
         value.gsub!(/Ún?VV/i, 'ÚVV')
         value.gsub!(/ÚZVJS/i, 'ÚZVJS')
         
+        value.gsub!(/financií/i, 'financií')
+        value.gsub!(/justičnej/i, 'justičnej')
+        value.gsub!(/obvinených/i, 'obvinených')
+        value.gsub!(/odsúdených/i, 'odsúdených')
+        value.gsub!(/pokladňa/i, 'pokladňa')
+        value.gsub!(/prokuratúra/i, 'prokuratúra')
+        value.gsub!(/spravodlivosti/i, 'spravodlivosti')
+        value.gsub!(/stráže/i, 'stráže')
+        value.gsub!(/väzenskej/i, 'väzenskej')
+        
         value
       end
       
@@ -124,10 +134,11 @@ module SudnaradaGovSk
 
         value = value.utf8
 
-        value.gsub!(/súdkyňa/, 'sudkyňa')        
+        value.gsub!(/súdkyňa/, 'sudkyňa')
+        value.gsub!(/asistenka/, 'asistentka')        
         value.gsub!(/probačnýa\s*mediač\.+\s*prac\.+/i, 'probačný a mediačný pracovník')
-        value.gsub!(/administr\.+/i, 'administratívny')
-        value.gsub!(/VSÚ/i, 'vyšší súdny úradník')
+        value.gsub!(/administr\./i, 'administratívny ')
+        value.gsub!(/VS(Ú|U)/i, 'vyšší súdny úradník')
         value.gsub!(/\-bez\s*zaradenia\-MD/i, 'bez zaradenia')
 
         value = normalize_punctuation(value)

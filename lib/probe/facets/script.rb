@@ -12,7 +12,7 @@ class Probe::Facets
 
     def add_match_param(name, value)
       # TODO: create sanitize method
-      add_script_params(name => value.gsub(/["']/, "").ascii.downcase.split(/[[:space:]]/))
+      add_script_params(name => value.gsub(/["']/, '').ascii.downcase.split(/[[:space:]]/))
     end
 
     def build

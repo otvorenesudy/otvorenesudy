@@ -86,7 +86,7 @@ class Judge < ActiveRecord::Base
     return super() if format.nil? || format == '%p %f %m %l %a, %s'
 
     @name         ||= {}
-    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
   end
   
   private
@@ -128,7 +128,7 @@ class Judge < ActiveRecord::Base
   end
 
   def probably_woman
-    @probably_woman ||= last.end_with? 'ová'
+    @probably_woman ||= [middle, last].reject(&:nil?).map { |v| v.end_with? 'ová' }.include? true
   end
 
   alias :probably_superior_court_officer? :probably_superior_court_officer

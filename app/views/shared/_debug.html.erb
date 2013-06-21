@@ -25,6 +25,8 @@
       <% end %>
 
       <%= debug(instance) %>
+      
+      <%= debug(instance.context_query) if instance.respond_to? :context_query %>
     <% end %>
 
     <%= debug(params) %>

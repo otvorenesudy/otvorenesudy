@@ -54,7 +54,7 @@
       <%-# All hearing types -%>
 
       <% if @hearing.note %>
-        <p>Poznámka &ndash; <%= @hearing.note %><%= '.' unless @hearing.note.end_with? '.' %></p>
+        <p>Poznámka &ndash; <%= @hearing.note %></p>
       <% end %>
 
       <p><%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
@@ -132,7 +132,13 @@
               <% if defendant.accusations.any? %>
                 <ul>
                   <% defendant.accusations.each do |accusation| %>
-                    <li><%= accusation.value %></li>
+                    <li>
+                      <%= accusation.value %>
+                      <% if accusation.paragraphs.any? %>
+                        <br/>
+                        <%= accusation.paragraphs.pluck(:description).join ', ' %>
+                      <% end %>
+                    </li>
                   <% end %>
                 </ul>
               <% end %>

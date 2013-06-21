@@ -2,10 +2,7 @@
 
 module DecreesHelper
   def decree_title(decree)
-    options     = { separator: ' &middot; ', tooltip: false }
-    identifiers = join_and_truncate decree_identifiers(decree), options.dup
-    
-    "#{identifiers}#{options[:separator]}Súdne rozhodnutie".html_safe
+    title(*decree_identifiers(decree) << 'Súdne rozhodnutie')
   end
 
   def decree_headline(decree, options = {})
@@ -57,7 +54,7 @@ module DecreesHelper
       url = 'http://www.zakonypreludi.sk/main/search.aspx?text=' + legislation.value
     end
 
-    external_link_to legislation.value, url, options
+    external_link_to legislation.value(options.delete(:format)), url, options
   end
     
   private

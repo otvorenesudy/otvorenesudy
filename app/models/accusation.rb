@@ -6,7 +6,7 @@ class Accusation < ActiveRecord::Base
   
   has_many :paragraph_explainations, dependent: :destroy, as: :explainable
   
-  has_many :paragraphs, through: :explainations
+  has_many :paragraphs, through: :paragraph_explainations
              
   validates :value, presence: true
 end
