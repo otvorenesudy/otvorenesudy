@@ -8,7 +8,7 @@ module JusticeGovSk
       end
 
       def number
-        return *@data[0].strip.match(/\A§\s*(?<paragraph>\d+[a-z]*)\z/)
+        @data[0].strip.match(/\A§\s*(?<paragraph>\d+[a-z]*)\z/)[0].gsub(/§\s*/, '')
       end
 
       def description
