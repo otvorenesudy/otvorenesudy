@@ -350,7 +350,7 @@ module JusticeGovSk
             name.gsub!(/\.\-/i, '.')
             name.gsub!(/\.\s+/i, '.')
             
-            name = name.split(/s+/).map { |word|
+            name = name.split(/\s+/).map { |word|
               word = word.utf8
               
               word.downcase_first! if word.match(/o|ktorým/i)
