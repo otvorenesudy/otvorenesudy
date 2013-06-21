@@ -73,11 +73,7 @@
         <ul>
           <% @legislations.each do |legislation| %>
             <li>
-              <%= external_link_to_legislation legislation %>
-              <% if legislation.paragraphs.any? %>
-                <br/>
-                <%= legislation.paragraphs.pluck(:description).join ', ' %>
-              <% end %>
+              <%= external_link_to_legislation legislation, format: '%t %u/%y %n § %p %d Odsek %s Písmeno %l' %>
             </li>
           <% end %>
         </ul>
