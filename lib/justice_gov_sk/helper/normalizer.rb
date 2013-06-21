@@ -421,7 +421,7 @@ module JusticeGovSk
         
         value.gsub!(/,\s*\z/, '')
         value.gsub!(/\,\-/, '')
-        value.gsub!(/(\A|\s+)\d*(\.|\,)*\d+(\s+|\z)/) { |n| n.gsub(/\./, ' ') }
+        value.gsub!(/(\A|\s+)(\d*(\.|\,)\d+)+(\s+|\z)/) { |n| n.gsub(/\./, ' ') }
 
         value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
         value.gsub!(/\s*(?<c>[\.\,\;\:\?\!])+\s*/, '\k<c> ')
