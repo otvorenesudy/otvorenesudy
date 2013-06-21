@@ -83,7 +83,7 @@ class Court < ActiveRecord::Base
     format ||= '%s, %z %m'
 
     @address         ||= {}
-    @address[format] ||= format.gsub(/\%[szmc]/, address_parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+    @address[format] ||= format.gsub(/\%[szmc]/, address_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
   end
 
   private

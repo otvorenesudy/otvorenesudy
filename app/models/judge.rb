@@ -86,7 +86,7 @@ class Judge < ActiveRecord::Base
     return super() if format.nil? || format == '%p %f %m %l %a, %s'
 
     @name         ||= {}
-    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').squeeze(' ')
+    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
   end
   
   private

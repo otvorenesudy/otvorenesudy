@@ -57,7 +57,7 @@ module DecreesHelper
       url = 'http://www.zakonypreludi.sk/main/search.aspx?text=' + legislation.value
     end
 
-    external_link_to legislation.value, url, options
+    external_link_to legislation.value(options.delete(:format)), url, options
   end
     
   private
