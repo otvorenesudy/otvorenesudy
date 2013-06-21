@@ -430,7 +430,7 @@ module JusticeGovSk
         
         value.gsub!(/(\-\s*){3,}/, '--')
         value.gsub!(/\s*\-\-\s*/, ' – ')
-        value.gsub!(/\s*\-\s*/, '-')
+        value.gsub!(/\s*\-\s*/, ' - ')
 
         value.gsub!(/\s*§+\s*/, ' § ')
         
