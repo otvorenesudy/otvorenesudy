@@ -11,6 +11,7 @@ module JusticeGovSk
 
           @paragraph = paragraph_by_number_factory.find_or_create(@parser.number)
 
+          @paragraph.legislation = @parser.legislation
           @paragraph.number      = @parser.number
           @paragraph.description = @parser.description
 

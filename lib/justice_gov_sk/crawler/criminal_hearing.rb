@@ -53,14 +53,14 @@ module JusticeGovSk
             @persistor.persist(accusation)
             
             @parser.scan_paragraphs(accusation.value).each do |number|
-              paragraph_explaination(number, accusation)
+              paragraph_explaination(number, accusation) if accusation.value.utf8 =~ /č\s*\.\s*300\//i
             end
           end         
         end
       end
 
       def paragraph_explaination(number, accusation)
-        paragraph = paragraph_by_number_factory.find(number)
+        paragraph = paragraph_by_legislation_and_number_factory.find(300, number)
         
         if paragraph
           paragraph_explaination = paragraph_explaination_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, accusation.id, :Accusation)

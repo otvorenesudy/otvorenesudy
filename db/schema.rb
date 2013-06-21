@@ -594,14 +594,14 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   add_index "paragraph_explainations", ["paragraph_id", "explainable_id", "explainable_type"], :name => "index_paragraph_explainations_on_unique_values", :unique => true
 
   create_table "paragraphs", :force => true do |t|
+    t.integer  "legislation", :null => false
     t.string   "number",      :null => false
     t.string   "description", :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "paragraphs", ["description"], :name => "index_paragraphs_on_description"
-  add_index "paragraphs", ["number"], :name => "index_paragraphs_on_number", :unique => true
+  add_index "paragraphs", ["legislation", "number"], :name => "index_paragraphs_on_legislation_and_number", :unique => true
 
   create_table "proceedings", :force => true do |t|
     t.string   "file_number"

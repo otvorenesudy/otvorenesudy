@@ -204,7 +204,7 @@ module JusticeGovSk
       end
       
       def paragraph_explaination(legislation)
-        paragraph = paragraph_by_number_factory.find(legislation.paragraph)
+        paragraph = paragraph_by_legislation_and_number_factory.find(legislation.number, legislation.paragraph)
         
         if paragraph
           paragraph_explaination = paragraph_explaination_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, legislation.id, :Legislation)

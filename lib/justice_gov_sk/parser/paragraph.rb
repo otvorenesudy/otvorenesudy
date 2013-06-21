@@ -7,12 +7,16 @@ module JusticeGovSk
         @data = data
       end
 
+      def legislation
+        @data[0].strip
+      end
+
       def number
-        @data[0].strip.match(/\A§\s*(?<paragraph>\d+[a-z]*)\z/)[0].gsub(/§\s*/, '')
+        @data[1].strip.match(/\A§*\s*(?<paragraph>\d+[a-z]*)\z/)[0].gsub(/§*\s*/, '')
       end
 
       def description
-        @data[1].strip.squeeze(' ')
+        @data[2].strip.squeeze(' ')
       end
     end
   end
