@@ -413,7 +413,7 @@ module JusticeGovSk
       end
       
       def scan_paragraphs(value)
-        value.scan(/§+\s*\d+[a-z]*/i).map { |p| p.sub(/§\s*/, '§ ') }
+        value.scan(/§+\s*\d+[a-z]*/i).map { |p| p.sub(/§\s*/, '') }
       end
 
       def normalize_punctuation(value)
