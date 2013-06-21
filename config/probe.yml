@@ -12,12 +12,12 @@ defaults: &defaults
         text_analyzer:
           type: custom
           tokenizer: standard
-          filter: [lowercase, asciifolding]
+          filter: [asciifolding, lowercase, trim]
 
         normalizer:
           type: custom
           tokenizer: keyword
-          filter: [lowercase, asciifolding]
+          filter: [asciifolding, lowercase, trim]
 
   suggest:
     separator: ':'

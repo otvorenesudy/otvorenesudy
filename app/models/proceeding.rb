@@ -15,9 +15,9 @@ class Proceeding < ActiveRecord::Base
     map :id
     
     analyze :file_number
-    analyze :courts,                         as: lambda { |p| p.courts.map(&:name) }
+    analyze :courts,                         as: lambda { |p| p.courts.map(&:name) if p.courts }
     analyze :courts_count,   type: :integer, as: lambda { |p| p.courts.count }
-    analyze :judges,                         as: lambda { |p| p.judges.map(&:name) }
+    analyze :judges,                         as: lambda { |p| p.judges.map(&:name) if p.judges }
     analyze :judges_count,   type: :integer, as: lambda { |p| p.judges.count }
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }

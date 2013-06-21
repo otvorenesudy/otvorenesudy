@@ -43,6 +43,8 @@ class Hearing < ActiveRecord::Base
   has_many :proposers,  dependent: :destroy
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
+  
+  has_many :accusations, through: :defendants
 
   mapping do
     map :id
@@ -62,6 +64,7 @@ class Hearing < ActiveRecord::Base
     analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
     analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
+    analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } if h.accusations }
 
     sort_by :date
   end

@@ -133,11 +133,10 @@
                 <ul>
                   <% defendant.accusations.each do |accusation| %>
                     <li>
-                      <%= accusation.value %>
                       <% if accusation.paragraphs.any? %>
-                        <br/>
-                        <%= accusation.paragraphs.pluck(:description).join ', ' %>
+                        <%= accusation.paragraphs.pluck(:description).join ', ' %>,
                       <% end %>
+                      <%= accusation.value %>
                     </li>
                   <% end %>
                 </ul>

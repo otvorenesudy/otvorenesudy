@@ -16,7 +16,7 @@ namespace :fixtures do
       Rake::Task['fixtures:db:decrees'].invoke
     end
 
-    desc "Seeds database with neccessary data"
+    desc "Seeds database with necessary data"
     task seed: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
