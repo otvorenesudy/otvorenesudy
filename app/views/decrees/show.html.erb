@@ -48,6 +48,9 @@
           <% end %>
         </ul>
       <% end %>
+      <% if @decree.summary %>
+        <p>Sumár &ndash; <%= @decree.summary %></p>
+      <% end %>
 
       <p><%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
 
