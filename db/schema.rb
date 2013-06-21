@@ -550,7 +550,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
     t.string   "type"
     t.integer  "number"
     t.integer  "year"
-    t.string   "name"
+    t.string   "name",              :limit => 510
     t.string   "section"
     t.string   "paragraph"
     t.string   "letter"
