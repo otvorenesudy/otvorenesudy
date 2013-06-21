@@ -1,6 +1,14 @@
 class DecreePagesController < ApplicationController
   include ActionView::Helpers::TextHelper
-  
+
+  def search
+    @decree = Decree.find(params[:decree_id])
+
+    @results, @highlights = DecreePage.search_pages(@decree.id, params[:q])
+
+    render json: { results: render_to_string(partial: 'results') }
+  end
+
   def text
     @page = DecreePage.find_by_decree_id_and_number(params[:decree_id], params[:id])
 
@@ -14,13 +22,5 @@ class DecreePagesController < ApplicationController
     path = File.join Rails.root, 'app', 'assets', 'documents', 'unprocessed.png' unless File.exists? path
 
     send_file path, type: 'image/png', disposition: 'inline'
-  end
-
-  def search
-    @decree = Decree.find(params[:decree_id])
-
-    @results, @highlights = DecreePage.search_pages(@decree.id, params[:q])
-
-    render json: { results: render_to_string(partial: 'results') }
   end
 end
