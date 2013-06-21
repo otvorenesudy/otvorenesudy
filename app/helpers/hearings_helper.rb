@@ -2,10 +2,7 @@
 
 module HearingsHelper
   def hearing_title(hearing)
-    options     = { separator: ' &middot; ', tooltip: false }
-    identifiers = join_and_truncate hearing_identifiers(hearing), options.dup
-    
-    "#{identifiers}#{options[:separator]}#{hearing_type hearing.type}".html_safe
+    title(*hearing_identifiers(hearing) << hearing_type(hearing.type))
   end
   
   def hearing_headline(hearing, options = {})

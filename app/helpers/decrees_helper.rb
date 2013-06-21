@@ -2,10 +2,7 @@
 
 module DecreesHelper
   def decree_title(decree)
-    options     = { separator: ' &middot; ', tooltip: false }
-    identifiers = join_and_truncate decree_identifiers(decree), options.dup
-    
-    "#{identifiers}#{options[:separator]}Súdne rozhodnutie".html_safe
+    title(*decree_identifiers(decree) << 'Súdne rozhodnutie')
   end
 
   def decree_headline(decree, options = {})
