@@ -146,7 +146,7 @@ module JusticeGovSk
           list.each do |item|
             map = @parser.legislation(item)
             
-            unless identifiers.empty?
+            unless map.empty?
               legislation = legislation_by_value_factory.find_or_create(map[:value])
               
               legislation.value             = map[:value]

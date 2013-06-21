@@ -17,7 +17,10 @@ class Legislation < ActiveRecord::Base
 
   has_many :paragraph_explainations, dependent: :destroy, as: :explainable
   
-  has_many :paragraphs, through: :explainations
+  has_many :paragraphs, through: :paragraph_explainations
+
+  def self.inheritance_column
+  end
   
   def value(format = nil)
     return super() if format.nil? || format == '%t %u/%y %n § %p Odsek %s Písmeno %l'
