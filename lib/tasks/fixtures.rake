@@ -12,18 +12,36 @@ namespace :fixtures do
     task setup: :environment do
       Rake::Task['fixtures:db:rebuild'].invoke
       Rake::Task['fixtures:db:seed'].invoke
+      Rake::Task['fixtures:db:hearings'].invoke
+      Rake::Task['fixtures:db:decrees'].invoke
     end
-        
-    desc "Crawls small amount of production data"
+
+    desc "Seeds database with neccessary data"
     task seed: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
-
+      
+      Rake::Task['process:paragraphs'].invoke
+    end
+    
+    desc "Crawls small amount hearings"
+    task hearings: :environment do
       Rake::Task['crawl:hearings:civil'].invoke    1, 20
       Rake::Task['crawl:hearings:criminal'].invoke 1, 20
       Rake::Task['crawl:hearings:special'].invoke  1, 20
+    end
 
-      DecreeForm.order(:code).all.each do |form|
+    desc "Crawls small amount of decrees"
+    task :decrees, [:reverse] => :environment do |_, args|
+      args.with_defaults reverse: false
+      
+      codes = DecreeForm.order(:code).all
+      
+      raise "No decree form codes found." if codes.empty?
+      
+      codes.reverse! if args[:reverse]
+      
+      codes.each do |form|
         Rake::Task['crawl:decrees'].reenable
         Rake::Task['crawl:decrees'].invoke form.code, 1, 4
       end
