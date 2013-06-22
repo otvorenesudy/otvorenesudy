@@ -92,7 +92,7 @@ module JudgesHelper
   end
 
   def link_to_related_person(person, options = {})
-    return link_to_judge(person, options) if person.known_judge?
+    return link_to_judge(person.to_judge, options) if person.known_judge?
 
     person.name
   end
