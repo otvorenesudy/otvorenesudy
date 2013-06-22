@@ -43,6 +43,8 @@ class Probe::Facets
       if selected
         selected = populate_facets(selected).find_all { |e| @terms.include? e.value }
 
+        selected.each { |e| e.selected = true }
+
         results.each do |result|
           result.selected = true if active? && @terms.include?(result.value)
 
