@@ -5,7 +5,6 @@ require "capistrano-resque"
 #require "whenever/capistrano"
 
 set :stages,        [:staging, :production]
-set :default_stage, :staging
 require 'capistrano/ext/multistage'
 
 set :application,    "opencourts"
