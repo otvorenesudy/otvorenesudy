@@ -1,5 +1,9 @@
 <% @facets.each do |facet| %>
   <% if @collapsible_facet_names.include? facet.name %>
-    <%= render "facets/#{facet.type}_facet", facet: facet, translation: t(facet.key) %>
+    <% begin %>
+    <%= render facet.name, facet: facet, translation: t(facet.key) %>
+    <% rescue %>
+      <%= render "facets/#{facet.type}_facet", facet: facet, translation: t(facet.key) %>
+    <% end %>
   <% end %>
 <% end %>

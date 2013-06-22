@@ -14,7 +14,7 @@
     <% facet.multi.each do |key| %>
       <%= facet_multi_input facet, prefix: translation[key][:prefix], placeholder: translation[key][:placeholder] %>
     <% end %>
-    
+
     <div class="clearfix"></div>
 
     <%= render 'facets/facet_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>

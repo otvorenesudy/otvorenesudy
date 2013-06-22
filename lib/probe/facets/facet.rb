@@ -117,7 +117,9 @@ class Probe::Facets
     end
 
     def create_result_params(value)
-      params.merge @name => value
+      #params.merge @name => value
+      # TODO: refactor facets to user only add params
+      create_result_add_params(value)
     end
 
     def create_result_add_params(value)
