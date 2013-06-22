@@ -55,6 +55,8 @@ class Decree < ActiveRecord::Base
   mapping do
     map :id
 
+    # TODO: analyze only string fields (no date, and so on)
+
     analyze :case_number
     analyze :file_number
     analyze :date,                type: :date

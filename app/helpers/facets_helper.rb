@@ -40,18 +40,6 @@ module FacetsHelper
     icon_link_to_collapse(:'collapse-top', 'Zobrazit menej', action: :fold, target: target, join: :append, class: :muted)
   end
 
-  # TODO: refactor
-  def link_to_facet(facet, result, options = {})
-    case facet.type
-    when :terms       then link_to_terms_facet facet, result, options
-    when :multi_terms then link_to_terms_facet facet, result, options
-    when :range       then link_to_range_facet facet, result, options
-    when :date        then link_to_date_facet  facet, result, options
-    else
-      link_to result.value, search_path(result.params)
-    end
-  end
-
   def link_to_terms_facet(facet, result, options = {})
     link_to_facet_value facet, result, result.value, options
   end
@@ -71,10 +59,11 @@ module FacetsHelper
 
   private
 
-  def format_facet_value(result, value)
-    # TODO enable only on values of specific facets
-    #value.gsub!(/\d+/) { |m| number_with_delimiter(m.to_i) }
+  def format_facet_number(number)
+    number_with_delimiter(number)
+  end
 
+  def format_facet_value(result, value)
     truncate(value, length: 30 - result.count.to_s.size, separator: ' ', omission: '&hellip;').html_safe
   end
 
@@ -95,6 +84,8 @@ module FacetsHelper
       options[:upper] = range.end.to_i
     end
 
+    options.each { |k, v| options[k] = format_facet_number(v) }
+
     path = "#{facet.key}.#{entry}"
     path = "facets.types.range.#{entry}" if missing_translation?(path)
 
@@ -103,7 +94,8 @@ module FacetsHelper
     suffix = "#{facet.key}.suffix"
     count  = options[:count] || options[:upper]
 
-    result.sub!(/\d+\z/, t(suffix, count: count)) unless missing_translation?(suffix)
+    # TODO: fix count deletion from translation
+    result << t(suffix, count: count).gsub(/\d+/, '') unless missing_translation?(suffix)
     result
   end
 
