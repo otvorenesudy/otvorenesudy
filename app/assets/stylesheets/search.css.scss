@@ -4,12 +4,18 @@
 .search-controls {
   form {
     margin-bottom: 20px;
+
+    .remove {
+      position: relative;
+      top: -30px;
+      right: 50px;
+    }
   }
-  
+
   input, select {
     margin-bottom: 0px;
   }
-  
+
   select {
     margin-right: $gridGutterWidth;
   }  
@@ -17,13 +23,13 @@
 
 .search-reset {
   color: $textColor;
-  
+
   font-weight: bold;
-  
+
   &:hover, &:focus {
     color: inherit;
   }
-  
+
   i {
     color: $red;
   }
@@ -39,16 +45,16 @@
 .search-results {
   margin: 0px 0px 0px 20px;
   border-left: 1px dashed darken($grayLighter, 12.5%);
-  
+
   li {
     padding: 10px 10px 20px 10px;
 
     color: $grayLight;
-    
+
     &:hover, &:focus {
       background: lighten($grayLighter, 5%);
     }
-    
+
     p:last-child {
       margin-bottom: 0px;
     }
@@ -57,11 +63,11 @@
   li + li {
     border-top: 1px dashed darken($grayLighter, 12.5%);
   }
-  
+
   h4, .search-result-content, blockquote {
     color: $textColor;
   }
-  
+
   .search-result-identifiers {
     text-align: right;
   }
@@ -69,7 +75,7 @@
   blockquote {
     margin-top: 10px;
     margin-bottom: 0px; 
-  
+
     em {
       padding: 0px 4px;
 
@@ -97,7 +103,7 @@
     &.collapsible {
       cursor: pointer;
     }
-    
+
     i {
       width: 20px;
       height: 20px;
@@ -111,19 +117,19 @@
       &:focus, &:hover {
         color: darken($grayLighter, 12.5%);
       }
-      
+
       &:before {
         cursor: pointer;
       }
     }
   }
-  
+
   .facet-content {
     position: relative;
 
     left: -20px;
     padding-left: 20px;
-   
+
     input[type="text"], .add-on {
       width: 175px;
       margin: 10px 0px 0px 0px;
@@ -136,7 +142,7 @@
     ul {
       margin: 0px;
     }
-    
+
     li {
       position: relative;
 
@@ -163,7 +169,7 @@
       .add, .remove,
       .add i, .remove i {
         display: inline-block;
-        
+
         width: 20px;
         height: 20px;
         line-height: 20px;
@@ -179,7 +185,7 @@
         display: inline-block;
       }
     }
-    
+
     a[data-collapse="fold"] {
       display: none;
     }
