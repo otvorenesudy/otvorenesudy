@@ -53,7 +53,7 @@ module Probe
                 indexes field, options.deep_merge(
                   type:   :multi_field,
                   fields: {
-                    analyzed:   { type: type,  analyzer: analyzer },
+                    analyzed:   { type: :string,  analyzer: analyzer },
                     untouched:  { type: type,  index: :not_analyzed }
                   }
                 )
@@ -107,6 +107,8 @@ module Probe
       def facet(name, options = {})
         type  = options[:type]
         field = options[:field] || name
+
+        field = mapping.keys if field == :all
 
         options.merge! base: self
 

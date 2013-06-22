@@ -5,7 +5,7 @@ module Probe::Search
     private
 
     def build_query_from(field, terms, options = {})
-      values = analyze_query_string(terms)
+      values = sanitize_query_string(terms)
 
       fields = field == :all ? nil : analyzed_field(field)
 
@@ -29,14 +29,7 @@ module Probe::Search
     end
 
     def analyze_query_string(value)
-      value = value.dup
-      exact = value.scan(/"[^"]+"/)
-
-      exact.each { |e| value.gsub!(e, '') }
-
-      q = value.strip.split(/\s+/).map { |e| "*#{e}*" }.join(' ')
-
-      q.present? || exact.present? ? sanitize_query_string("#{q} #{exact.join ' '}") : '*'
+      value.split(/[[:space:]]/).map { |e| "*#{e}*" }.join(' ')
     end
 
     def build_query_options(fields, options = {})

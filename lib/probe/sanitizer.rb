@@ -21,11 +21,15 @@ module Probe
     end
 
     def sanitize_query_string(value)
-      value = value.gsub(/(\+|\-|&&|\||\||!|\(|\)|\{|\}|\[|\]|\^|~|\?|:|\\)/) { |m| "\\#{m}" }
+      value = value.gsub(/(\+|\-|&&|\||\||\(|\)|\{|\}|\[|\]|\^|~|\!|\\)/) { |m| "\\#{m}" }
 
-      value = value.gsub(/(.*)"(.*)/, '\1\"\3') if value.count('"') % 2 == 1
+      value = value.gsub(/(.*)"(.*)/, '\1\"\2') if value.count('"') % 2 == 1
 
       value
+    end
+
+    def sanitize_suggest_string(value)
+      value.gsub(/[\"\'\{\}\[\]\(\)]/, '')
     end
   end
 end

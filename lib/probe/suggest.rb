@@ -24,9 +24,13 @@ module Probe
         search.compose do
           facet.add_facet_script(script)
 
-          filter = build_facet_filter(facet) || { and: [] }
+          filter = build_facet_filter(facet)
 
-          filter[:and] << facet.build_suggest_query(term)
+          if term.present?
+            filter ||= { and: [] }
+
+            filter[:and] << facet.build_suggest_query(term)
+          end
 
           facet_options = {
             global_facets: false,
