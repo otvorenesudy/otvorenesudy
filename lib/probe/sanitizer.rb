@@ -19,5 +19,13 @@ module Probe
     def extract_order_param(params)
       params[:order] == 'asc' ? :asc : :desc
     end
+
+    def sanitize_query_string(value)
+      value = value.gsub(/(\+|\-|&&|\||\||!|\(|\)|\{|\}|\[|\]|\^|~|\?|:|\\)/) { |m| "\\#{m}" }
+
+      value = value.gsub(/(.*)"(.*)/, '\1\"\3') if value.count('"') % 2 == 1
+
+      value
+    end
   end
 end

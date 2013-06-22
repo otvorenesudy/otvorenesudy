@@ -9,8 +9,7 @@ class Probe::Facets
                   :size,
                   :terms,
                   :results,
-                  :params,
-                  :highlight
+                  :params
 
     def initialize(name, field, options)
       @base        = options[:base]
@@ -19,7 +18,6 @@ class Probe::Facets
       @type        = options[:type]
       @alias       = options[:as]
       @size        = options[:size] || 10
-      @highlight   = options[:highlight].nil? ? false : options[:highlight]
     end
 
     def id
@@ -70,8 +68,6 @@ class Probe::Facets
 
       terms
     end
-
-    alias :highlighted?   :highlight
 
     def active?
       @terms.present?

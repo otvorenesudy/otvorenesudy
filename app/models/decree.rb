@@ -60,7 +60,7 @@ class Decree < ActiveRecord::Base
     analyze :date,                type: :date
     analyze :ecli
     analyze :summary
-    analyze :text,                as: lambda { |d| d.text }, suggest: false
+    analyze :text,                as: lambda { |d| d.text }, suggest: false, highlight: true
     analyze :court,               as: lambda { |d| d.court.name if d.court }
     analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
     analyze :form,                as: lambda { |d| d.form.value if d.form }
