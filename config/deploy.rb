@@ -1,4 +1,3 @@
-require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 require 'resque'
 require 'rvm/capistrano'
@@ -7,6 +6,7 @@ require "capistrano-resque"
 
 set :stages,        [:staging, :production]
 set :default_stage, :staging
+require 'capistrano/ext/multistage'
 
 set :application,    "opencourts"
 set :scm,            :git
