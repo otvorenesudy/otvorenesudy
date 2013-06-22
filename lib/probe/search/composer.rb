@@ -8,11 +8,12 @@ module Probe::Search
     include Probe::Search::Filter
 
     def initialize(model, options)
-      @model       = model
-      @name        = options[:name]
-      @facets      = options[:facets]
-      @params      = options[:params]
-      @sort_fields = options[:sort_fields]
+      @model            = model
+      @name             = options[:name]
+      @facets           = options[:facets]
+      @params           = options[:params]
+      @sort_fields      = options[:sort_fields]
+      @highlight_fields = options[:highlight_fields]
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
@@ -43,7 +44,7 @@ module Probe::Search
         puts JSON.pretty_generate(index.to_hash) # TODO: rm
       end
 
-      Results.new(@model, @facets, @sort_fields, @results)
+      Results.new(@model, @facets, @sort_fields, @highlight_fields, @results)
     end
 
     private
@@ -107,9 +108,7 @@ module Probe::Search
     end
 
     def search_highlights
-      options = @facets.highlights.map { |facet| facet.analyzed_field_name }.flatten
-
-      @index.highlight(*options.flatten)
+      @index.highlight(*@highlight_fields.map { |f| analyzed_field(f) }) if @highlight_fields.any?
     end
 
     def search_pagination

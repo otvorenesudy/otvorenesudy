@@ -1,15 +1,13 @@
 module Probe::Search
   module Query
+    include Probe::Sanitizer
+
     private
 
     def build_query_from(field, terms, options = {})
-      values = analyze_query(terms)
+      values = analyze_query_string(terms)
 
-      if field == :all
-        fields = :_all
-      else
-        fields = analyzed_field(field)
-      end
+      fields = field == :all ? nil : analyzed_field(field)
 
       query_options = build_query_options(fields, options)
 
@@ -30,27 +28,26 @@ module Probe::Search
       end
     end
 
-    def escape_query(value)
-      value.gsub(/"/, '\"')
-    end
-
-    def analyze_query(value)
+    def analyze_query_string(value)
       value = value.dup
       exact = value.scan(/"[^"]+"/)
 
       exact.each { |e| value.gsub!(e, '') }
 
-      q = escape_query(value.strip).split(/\s+/).map { |e| "*#{e}*" }.join(' ')
+      q = value.strip.split(/\s+/).map { |e| "*#{e}*" }.join(' ')
 
-      q.present? || exact.present? ? "#{q} #{exact.join ' '}" : '*'
+      q.present? || exact.present? ? sanitize_query_string("#{q} #{exact.join ' '}") : '*'
     end
 
     def build_query_options(fields, options)
-      {
-        fields:           fields.is_a?(Array) ? fields : [fields],
+      opt = {
         default_operator: options[:operator] || :or,
         analyze_wildcard: options[:analyze_wildcard] || true
       }
+
+      opt[:fields] = Array.wrap(fields) if fields
+
+      opt
     end
   end
 end

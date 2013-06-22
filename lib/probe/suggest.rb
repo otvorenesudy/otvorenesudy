@@ -4,7 +4,7 @@ module Probe
 
     module ClassMethods
       include Probe::Helpers::Index
-      include Probe::Facets::Matcher
+      include Probe::Sanitizer
 
       def suggest(name, term, params, options = {})
         facet = facets[name]

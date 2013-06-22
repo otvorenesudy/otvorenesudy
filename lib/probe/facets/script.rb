@@ -1,5 +1,7 @@
 class Probe::Facets
   class Script
+    include Probe::Sanitizer
+
     def initialize(options)
       @name   = options[:name]
       @script = options[:script]
@@ -11,8 +13,7 @@ class Probe::Facets
     end
 
     def add_match_param(name, value)
-      # TODO: create sanitize method
-      add_script_params(name => value.gsub(/["']/, '').ascii.downcase.split(/[[:space:]]/))
+      add_script_params(name => sanitize_query_string(value).gsub(/["']/, '').ascii.downcase.split(/[[:space:]]/))
     end
 
     def build

@@ -28,8 +28,9 @@ module Probe
         unless block_given?
           return @mapping
         else
-          @mapping      = Hash.new
-          @sort_fields  = Array.new
+          @mapping          = Hash.new
+          @sort_fields      = Array.new
+          @highlight_fields = Array.new
 
           yield
 
@@ -42,6 +43,8 @@ module Probe
               as         = options[:as]         || lambda { |obj| obj.send(field) }
               suggest    = options[:suggest].nil? ? true : options[:suggest]
               suggester  = options[:suggester]  || method(:format_suggested_field)
+
+              @highlight_fields << field if options[:highlight]
 
               case value[:type]
               when :mapped

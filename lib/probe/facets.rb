@@ -69,10 +69,6 @@ module Probe
       map { |facet| facet.results }
     end
 
-    def highlights
-      find_all(&:highlighted?)
-    end
-
     def each(&block)
       @facets.each_value { |facet| yield(facet) }
     end
