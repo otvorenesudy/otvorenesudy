@@ -125,7 +125,11 @@ class Probe::Facets
     end
 
     def create_result_add_params(value)
-      values = params[@name] ? Array.wrap(params[@name]) + [value] : value
+      values = Array.wrap(params[@name])
+
+      return params if values.include? value
+
+      values = params[@name] ? values + [value] : value
 
       params.merge @name => values
     end
