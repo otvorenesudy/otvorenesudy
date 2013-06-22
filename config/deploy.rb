@@ -5,9 +5,7 @@ require 'rvm/capistrano'
 require "capistrano-resque"
 #require "whenever/capistrano"
 
-set :domain, "37.205.9.136"
-
-set :stages,        [:staging]
+set :stages,        [:staging, :production]
 set :default_stage, :staging
 
 set :application,    "opencourts"
@@ -21,15 +19,6 @@ set :use_sudo, false
 set :ssh_options,           { :forward_agent => true }
 set :deploy_via,            :remote_cache
 set :git_enable_submodules, 1
-
-# db
-role :db, domain, primary: true
-
-# Resque
-role :resque_worker,    domain
-role :resque_scheduler, domain
-
-set :workers, {}
 
 # Whenever
 #set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
