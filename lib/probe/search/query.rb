@@ -39,15 +39,15 @@ module Probe::Search
       q.present? || exact.present? ? sanitize_query_string("#{q} #{exact.join ' '}") : '*'
     end
 
-    def build_query_options(fields, options)
-      opt = {
+    def build_query_options(fields, options = {})
+      other = {
         default_operator: options[:operator] || :or,
         analyze_wildcard: options[:analyze_wildcard] || true
       }
 
-      opt[:fields] = Array.wrap(fields) if fields
+      other[:fields] = Array.wrap(fields) if fields
 
-      opt
+      other
     end
   end
 end
