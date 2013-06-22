@@ -9,10 +9,10 @@ class JudgeRelatedPerson < ActiveRecord::Base
   validates :name, presence: true
   
   def known_judge?
-    !to_judge.nil?
+    @known ||= !to_judge.nil?
   end
   
   def to_judge
-    Judge.find_by_name(name)
+    @judge ||= Judge.find_by_name(name)
   end
 end
