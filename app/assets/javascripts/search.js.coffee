@@ -85,17 +85,19 @@ $(document).ready ->
 
       @.log "Setting up suggesting for #{name} with path #{path}"
 
-      $(input).on 'keyup', ->
-        terms = []
+      $(input).autocomplete
+        minLength: 0
+        source: (request, response) ->
+          terms = []
 
-        for i in $(input)
-          terms.push($(i).val())
+          for i in $(input)
+            terms.push($(i).val())
 
-        $.ajax
-          url: path
-          type: 'GET'
-          data:
-            name: name
-            term: terms.join(' ')
-          success: (html) ->
-            $(input).closest('.facet-content').find('.facet-results').html(html)
+          $.ajax
+            url: path
+            type: 'GET'
+            data:
+              name: name
+              term: terms.join(' ')
+            success: (html) ->
+              $(input).closest('.facet-content').find('.facet-results').html(html)
