@@ -13,7 +13,7 @@
 //= require jquery
 //= require browser
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.autocomplete
 //= require jquery.spin
 //= require inflection
 //= require bootstrap
