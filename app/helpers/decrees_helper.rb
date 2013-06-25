@@ -8,7 +8,7 @@ module DecreesHelper
   def decree_headline(decree, options = {})
     join_and_truncate decree_identifiers(decree), { separator: ' &ndash; ' }.merge(options)
   end
-  
+
   def decree_natures(decree, options = {})
     join_and_truncate decree.natures.order(:value).pluck(:value), { separator: ', ' }.merge(options)
   end
@@ -33,7 +33,7 @@ module DecreesHelper
   end
 
   def link_to_decree(decree, body, options = {})
-    link_to body, decree_path(decree), options
+    link_to body, decree_path(decree, options[:params]), options
   end
 
   def link_to_decree_resource(decree, body, options = {})
@@ -56,9 +56,9 @@ module DecreesHelper
 
     external_link_to legislation.value(options.delete(:format)), url, options
   end
-    
+
   private
-  
+
   def decree_identifiers(decree)
     [decree.form, decree.legislation_subarea].reject(&:blank?).map(&:value)
   end
