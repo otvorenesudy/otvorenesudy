@@ -29,8 +29,6 @@ defaults: &defaults
           filter: [asciifolding, lowercase, trim, sk_stopwords]
 
   suggest:
-    separator: ':'
-
     matcher:
       name: suggest_matcher
 
