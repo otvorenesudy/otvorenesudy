@@ -146,6 +146,10 @@ sk:
         missing: 'neuvedený'
         not_found: 'Nenájdené žiadne súdy.'
 
+      court_type:
+        title: 'Typ súdu'
+        missing: 'Názov súdu'
+
       judges:
         title: 'Sudca'
         placeholder: 'Meno sudcu'
@@ -168,23 +172,11 @@ sk:
         title: 'Úsek'
         missing: 'neuvedený'
 
-      proposers:
-        title: 'Navrhovatelia'
-        placeholder: 'Meno navrhovateľa'
+      participants:
+        title: 'Účastníci'
+        placeholder: 'Meno účastníka'
         missing: 'neuvedené'
-        not_found: 'Nenájdení žiadni navhhovatelia.'
-
-      opponents:
-        title: 'Odporcovia'
-        placeholder: 'Meno odporcu'
-        missing: 'neuvedené'
-        not_found: 'Nenájdení žiadni odporcovia.'
-
-      defendants:
-        title: 'Obžalovaní'
-        placeholder: 'Meno obžalovaného'
-        missing: 'neuvedené'
-        not_found: 'Nenájdení žiadni obžalovaní.'
+        not_found: 'Nenájdení žiadni účastníci.'
 
       date:
         title: 'Dátum'
@@ -202,9 +194,13 @@ sk:
         missing: 'neuvedený'
         not_found: 'Nenájdené žiadne súdy.'
 
+      court_type:
+        title: 'Typ súdu'
+        missing: 'Názov súdu'
+
       judges:
         title: 'Sudca'
-        placeholder: 'Meno sudcu'  
+        placeholder: 'Meno sudcu'
         missing: 'neuvedený'
         not_found: 'Nenájdení žiadni sudcovia.'
 

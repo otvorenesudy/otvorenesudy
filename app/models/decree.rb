@@ -64,6 +64,7 @@ class Decree < ActiveRecord::Base
     analyze :summary
     analyze :text,                as: lambda { |d| d.text }, suggest: false, highlight: true
     analyze :court,               as: lambda { |d| d.court.name if d.court }
+    analyze :court_type,          as: lambda { |d| d.court.type.value if d.court }
     analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
     analyze :form,                as: lambda { |d| d.form.value if d.form }
     analyze :natures,             as: lambda { |d| d.natures.pluck(:value) }
@@ -81,6 +82,7 @@ class Decree < ActiveRecord::Base
     facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
     facet :natures,             type: :terms, size: DecreeNature.count
     facet :form,                type: :terms
+    facet :court_type,   type: :terms
     facet :court,               type: :terms
     facet :date,                type: :date,  interval: :month
     facet :legislations,        type: :terms

@@ -24,9 +24,6 @@ class Hearing < ActiveRecord::Base
   scope :historical, lambda { where('date <  ?', Time.now) }
   scope :upcoming,   lambda { where('date >= ?', Time.now) }
 
-  max_paginates_per 100
-      paginates_per 25
-
   belongs_to :proceeding
 
   belongs_to :court
@@ -43,8 +40,11 @@ class Hearing < ActiveRecord::Base
   has_many :proposers,  dependent: :destroy
   has_many :opponents,  dependent: :destroy
   has_many :defendants, dependent: :destroy
-  
+
   has_many :accusations, through: :defendants
+
+  max_paginates_per 100
+      paginates_per 25
 
   mapping do
     map :id
@@ -57,6 +57,7 @@ class Hearing < ActiveRecord::Base
     analyze :commencement_date, type: :date
     analyze :type,              as: lambda { |h| h.type.value if h.type }
     analyze :court,             as: lambda { |h| h.court.name if h.court }
+    analyze :court_type,        as: lambda { |d| d.court.type.value if d.court }
     analyze :judges,            as: lambda { |h| h.judges.pluck(:name) }
     analyze :form,              as: lambda { |h| h.form.value if h.form }
     analyze :section,           as: lambda { |h| h.section.value if h.section }
@@ -64,28 +65,32 @@ class Hearing < ActiveRecord::Base
     analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
     analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
+    analyze :participants,      as: lambda { |h| h.participants.map(&:name) }
     analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } if h.accusations }
 
     sort_by :date
   end
 
   facets do
-    facet :q,          type: :fulltext, field: :all
-    facet :type,       type: :terms, collapsible: false
-    facet :court,      type: :terms
-    facet :subject,    type: :terms
-    facet :judges,     type: :terms
-    facet :date,       type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
-    facet :form,       type: :terms
-    facet :proposers,  type: :terms
-    facet :opponents,  type: :terms
-    facet :defendants, type: :terms
-    facet :section,    type: :terms
-    facet :historical, type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
+    facet :q,            type: :fulltext, field: :all
+    facet :type,         type: :terms, collapsible: false
+    facet :court_type,   type: :terms
+    facet :court,        type: :terms
+    facet :subject,      type: :terms
+    facet :judges,       type: :terms
+    facet :date,         type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
+    facet :form,         type: :terms
+    facet :participants, type: :terms
+    facet :section,      type: :terms
+    facet :historical,   type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
   end
 
   def historical
     date.past?
+  end
+
+  def participants
+    proposers + defendants + opponents
   end
 
   alias :historical? :historical
