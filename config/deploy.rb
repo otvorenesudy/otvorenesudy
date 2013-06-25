@@ -103,10 +103,14 @@ namespace :deploy do
   end
 
   desc "Move in database.yml for this environment"
-  task :move_in_database_yml, :roles => :app do
-    # TODO: use shared configuration
-    #run "cp #{deploy_to}/shared/config/database.yml #{current_path}/config/"
+  task :move_in_database_yml, roles: :app do
     run "cp #{release_path}/config/database.yml{.example,}"
+  end
+
+  desc "Move in sensitive configuration"
+  task :move_in_sensitive_configuration, roles: :app do
+    run "cp #{shared_path}/bing.yml #{release_path}/config/bing.yml"
+    run "cp #{shared_path}/resque.yml #{release_path}/config/resque.yml"
   end
 
   after 'deploy',             'deploy:cleanup'
