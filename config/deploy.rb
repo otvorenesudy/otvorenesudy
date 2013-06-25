@@ -107,15 +107,15 @@ namespace :deploy do
     run "cp #{release_path}/config/database.yml{.example,}"
   end
 
-  desc "Move in sensitive configuration"
-  task :move_in_sensitive_configuration, roles: :app do
+  desc "Move in configuration files"
+  task :move_in_configuration, roles: :app do
     run "cp #{shared_path}/bing.yml #{release_path}/config/bing.yml"
     run "cp #{shared_path}/resque.yml #{release_path}/config/resque.yml"
   end
 
   after 'deploy',             'deploy:cleanup'
   after 'deploy:update_code', 'rvm:trust_rvmrc'
-  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'db:create_release'#, 'deploy:migrate'
+  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release'#, 'deploy:migrate'
   after 'deploy:restart',     'resque:restart'
 
   after 'deploy:update_code' do
