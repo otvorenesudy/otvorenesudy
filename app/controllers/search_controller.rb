@@ -71,7 +71,7 @@ class SearchController < ApplicationController
   def prepare_collapsed_facets
     session_key = collapsed_facets_key @model
 
-    session[session_key] ||= @facets.map(&:name)[-3..-1]
+    session[session_key] ||= @facets.map(&:name)[-2..-1]
 
     @collapsed_facet_names = session[session_key]
   end
