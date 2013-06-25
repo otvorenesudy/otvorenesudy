@@ -182,7 +182,7 @@ sk:
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
         missing: 'neuvedený'
-        not_found: 'Nenájdení žiadni navrhovatelia'
+        not_found: 'Nenájdení žiadni navrhovatelia.'
 
       date:
         title: 'Dátum'
