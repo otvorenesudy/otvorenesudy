@@ -78,6 +78,8 @@ class Decree < ActiveRecord::Base
   facets do
     facet :q,                   type: :fulltext, field: :all
     facet :judges,              type: :terms
+    facet :case_number,         type: :terms
+    facet :file_number,         type: :terms
     facet :legislation_area,    type: :terms, size: LegislationArea.count
     facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
     facet :natures,             type: :terms, size: DecreeNature.count
