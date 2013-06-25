@@ -29,25 +29,25 @@ defaults: &defaults
           filter: [asciifolding, lowercase, trim, sk_stopwords]
 
   suggest:
-    matcher:
-      name: suggest_matcher
+    name: suggest_matcher
+    separator: ':'
 
-      params:
-        separator: ':'
+    params:
+      separator: ':'
 
-      script: "
-          values = term.split(params['separator']);
+    script: "
+        values = term.split(params['separator']);
 
-          foreach(q : params['query'])
+        foreach(q : params['query'])
+        {
+          if (!values[1].contains(q))
           {
-            if (!values[1].contains(q))
-            {
-              return null;
-            }
+            return null;
           }
+        }
 
-          return values[0];
-        "
+        return values[0];
+      "
 development:
   <<: *defaults
 

@@ -16,7 +16,8 @@ module Probe
         options[:facets]      = @facets
         options[:sort_fields] = @sort_fields
 
-        script = Facets::Script.new(Probe::Configuration.suggest.matcher)
+        script = Facets::Script.new(Probe::Configuration.suggest)
+
         script.add_match_param(:query, term)
 
         search = Search::Composer.new(self, options)

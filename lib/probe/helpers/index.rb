@@ -25,7 +25,7 @@ module Probe
         values.map do |value|
           value = value.to_s
 
-          "#{value}#{Probe::Configuration.suggest.matcher.params.separator}#{value.ascii.downcase}"
+          "#{value}#{Probe::Configuration.suggest.separator}#{value.ascii.downcase}"
         end
       end
 
