@@ -118,6 +118,8 @@ module Probe
       def sort_by(*args)
         @sort_fields = *args
       end
+
+      # TODO: add per_page method
     end
   end
 end

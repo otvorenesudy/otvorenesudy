@@ -1,0 +1,15 @@
+defaults: &defaults
+  auth:
+    password: ''
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

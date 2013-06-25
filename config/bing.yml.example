@@ -1,0 +1,15 @@
+defaults: &defaults
+  api:
+    key: ''
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
