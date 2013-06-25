@@ -80,6 +80,7 @@ class Hearing < ActiveRecord::Base
     facet :judges,       type: :terms
     facet :date,         type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
     facet :form,         type: :terms
+    facet :proposers,    type: :terms
     facet :participants, type: :terms
     facet :section,      type: :terms
     facet :historical,   type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
@@ -90,7 +91,7 @@ class Hearing < ActiveRecord::Base
   end
 
   def participants
-    proposers + defendants + opponents
+    @participants ||= defendants + opponents
   end
 
   alias :historical? :historical

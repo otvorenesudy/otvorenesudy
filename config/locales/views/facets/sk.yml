@@ -178,6 +178,12 @@ sk:
         missing: 'neuvedené'
         not_found: 'Nenájdení žiadni účastníci.'
 
+      proposers: 
+        title: 'Navrhovatelia'
+        placeholder: 'Navrhovateľ'
+        missing: 'neuvedený'
+        not_found: 'Nenájdení žiadni navrhovatelia'
+
       date:
         title: 'Dátum'
 
