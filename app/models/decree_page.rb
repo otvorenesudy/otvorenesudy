@@ -20,7 +20,6 @@ class DecreePage < ActiveRecord::Base
   end
 
   def self.search_pages(decree_id, text, options = {})
-    text         = analyze_query(text)
     search_field = analyzed_field(:text)
     highlights   = {}
 
