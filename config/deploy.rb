@@ -68,17 +68,24 @@ namespace :rvm do
   end
 end
 
-# Elasticsearch
-namespace :es do
-  desc "Drop elasticsearch indices"
+# Probe (Elasticsearch)
+namespace :probe do
+  desc "Drop Probe indices"
   task :drop do
-    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake es:drop"
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:drop"
   end
 
-  desc "Update elasticsearch indices"
+  desc "Update Probe indices"
   task :update, roles: :db do
-    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake es:update"
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update"
   end
+
+  desc "Enqueue async update of Probe indices"
+  task :update, roles: :db do
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update:async"
+  end
+
+  # TODO: add reload and reload:async
 end
 
 # If you are using Passenger mod_rails uncomment this
