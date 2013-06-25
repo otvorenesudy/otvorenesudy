@@ -18,6 +18,7 @@ require 'probe/facets'
 require 'probe/search'
 require 'probe/serialize'
 require 'probe/suggest'
+require 'probe/updater'
 
 module Probe
 end
