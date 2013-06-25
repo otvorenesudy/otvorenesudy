@@ -80,6 +80,8 @@ class Hearing < ActiveRecord::Base
     facet :judges,       type: :terms
     facet :date,         type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
     facet :form,         type: :terms
+    facet :file_number,  type: :terms
+    facet :case_number,  type: :terms
     facet :proposers,    type: :terms
     facet :participants, type: :terms
     facet :section,      type: :terms

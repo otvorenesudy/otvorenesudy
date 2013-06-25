@@ -184,6 +184,18 @@ sk:
         missing: 'neuvedený'
         not_found: 'Nenájdení žiadni navrhovatelia.'
 
+      case_number:
+        title: 'Spisová značka'
+        placeholder: 'Spisová značka'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne spisové značky.'
+
+      file_number:
+        title: 'IČS'
+        placeholder: 'Identifikačné číslo spisu'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne spisové značky.'
+
       date:
         title: 'Dátum'
 
