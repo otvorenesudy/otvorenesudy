@@ -19,3 +19,5 @@ tags
 
 Gemfile.lock
 
+/config/bing.yml
+/config/resque.yml
