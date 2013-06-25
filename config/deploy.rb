@@ -81,7 +81,7 @@ namespace :probe do
   end
 
   desc "Enqueue async update of Probe indices"
-  task :update, roles: :db do
+  task :update_async, roles: :db do
     run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update:async"
   end
 
