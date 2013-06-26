@@ -3,12 +3,24 @@
 
 .search-controls {
   form {
+    position: relative;
     margin-bottom: 20px;
 
     .remove {
-      position: relative;
-      top: -30px;
-      right: 50px;
+      display: block;
+      position: absolute;
+
+      width: 12px;
+      height: 20px;
+      margin: 2px;
+      padding: 2px 4px;
+      
+      top: 1px;
+      right: 39px;
+
+      background: $white;
+
+      text-align: center;
     }
   }
 
