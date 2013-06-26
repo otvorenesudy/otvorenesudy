@@ -10,6 +10,6 @@
   </div>
 
   <% if facet.active? %>
-    <%= icon_link_to :remove, nil, search_path(facet.params.except(facet.name)), class: 'pull-right muted remove' %>
+    <%= icon_link_to :remove, nil, search_path(facet.params.except facet.name), class: 'remove muted' %>
   <% end %>
 <% end %>

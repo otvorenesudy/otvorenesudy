@@ -57,7 +57,7 @@ class Hearing < ActiveRecord::Base
     analyze :commencement_date, type: :date
     analyze :type,              as: lambda { |h| h.type.value if h.type }
     analyze :court,             as: lambda { |h| h.court.name if h.court }
-    analyze :court_type,        as: lambda { |d| d.court.type.value if d.court }
+    analyze :court_type,        as: lambda { |h| h.court.type.value if h.court }
     analyze :judges,            as: lambda { |h| h.judges.pluck(:name) }
     analyze :form,              as: lambda { |h| h.form.value if h.form }
     analyze :section,           as: lambda { |h| h.section.value if h.section }
@@ -65,7 +65,7 @@ class Hearing < ActiveRecord::Base
     analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
     analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
-    analyze :participants,      as: lambda { |h| h.participants.map(&:name) }
+    analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
     analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } if h.accusations }
 
     sort_by :date
@@ -80,8 +80,8 @@ class Hearing < ActiveRecord::Base
     facet :judges,       type: :terms
     facet :date,         type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
     facet :form,         type: :terms
-    facet :file_number,  type: :terms
     facet :case_number,  type: :terms
+    facet :file_number,  type: :terms
     facet :proposers,    type: :terms
     facet :participants, type: :terms
     facet :section,      type: :terms
@@ -90,10 +90,6 @@ class Hearing < ActiveRecord::Base
 
   def historical
     date.past?
-  end
-
-  def participants
-    @participants ||= defendants + opponents
   end
 
   alias :historical? :historical

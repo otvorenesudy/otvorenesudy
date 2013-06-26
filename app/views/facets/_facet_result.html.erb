@@ -1,8 +1,6 @@
 <li<%= ' class="selected"'.html_safe if result.selected? %>>
   <%= link_to_add_facet facet, result %>
   <%= link_to_remove_facet facet, result if result.selected? %>
-
-  <%= link.call(facet, result) %>
-
+  <%= link.call facet, result %>
   <span class="label"><%= number_with_delimiter(result.count) %></span>
 </li>

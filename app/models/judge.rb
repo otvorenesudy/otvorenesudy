@@ -28,9 +28,6 @@ class Judge < ActiveRecord::Base
   scope :normal,  where('judgings.judge_chair = false').order(:name)
   scope :chaired, where('judgings.judge_chair = true').order(:name)
 
-  max_paginates_per 100
-      paginates_per 25
-
   belongs_to :source
 
   has_many :designations, class_name: :JudgeDesignation, dependent: :destroy
@@ -59,6 +56,9 @@ class Judge < ActiveRecord::Base
                                    dependent: :destroy
 
   validates :name, presence: true
+
+  max_paginates_per 100
+      paginates_per 25
 
   mapping do
     map :id

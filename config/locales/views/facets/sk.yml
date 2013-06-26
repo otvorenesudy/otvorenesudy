@@ -172,17 +172,17 @@ sk:
         title: 'Úsek'
         missing: 'neuvedený'
 
-      participants:
-        title: 'Účastníci'
-        placeholder: 'Meno účastníka'
-        missing: 'neuvedené'
-        not_found: 'Nenájdení žiadni účastníci.'
-
       proposers: 
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
         missing: 'neuvedený'
         not_found: 'Nenájdení žiadni navrhovatelia.'
+
+      participants:
+        title: 'Účastníci'
+        placeholder: 'Meno účastníka'
+        missing: 'neuvedené'
+        not_found: 'Nenájdení žiadni účastníci.'
 
       case_number:
         title: 'Spisová značka'
@@ -194,7 +194,7 @@ sk:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
         missing: 'neuvedená'
-        not_found: 'Nenájdené žiadne spisové značky.'
+        not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       date:
         title: 'Dátum'
@@ -221,18 +221,6 @@ sk:
         placeholder: 'Meno sudcu'
         missing: 'neuvedený'
         not_found: 'Nenájdení žiadni sudcovia.'
-
-      case_number:
-        title: 'Spisová značka'
-        placeholder: 'Spisová značka'
-        missing: 'neuvedená'
-        not_found: 'Nenájdené žiadne spisové značky.'
-
-      file_number:
-        title: 'IČS'
-        placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
-        not_found: 'Nenájdené žiadne spisové značky.'
 
       form:
         title: 'Forma'
@@ -262,6 +250,18 @@ sk:
         placeholder: '§ číslo rok'
         missing: 'neuvedené'
         not_found: 'Nenájdené žiadne ustanovania.'
+
+      case_number:
+        title: 'Spisová značka'
+        placeholder: 'Spisová značka'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne spisové značky.'
+
+      file_number:
+        title: 'IČS'
+        placeholder: 'Identifikačné číslo spisu'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       date:
         title: 'Dátum'
@@ -296,3 +296,15 @@ sk:
         title: 'Počet rozhodnutí'
         suffix:
           <<: *decree
+
+      case_numbers:
+        title: 'Spisová značka'
+        placeholder: 'Spisová značka'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne spisové značky.'
+
+      file_number:
+        title: 'IČS'
+        placeholder: 'Identifikačné číslo spisu'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne identifikačné čísla.'
