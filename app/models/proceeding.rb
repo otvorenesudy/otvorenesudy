@@ -5,15 +5,16 @@ class Proceeding < ActiveRecord::Base
   include Probe::Search
   include Probe::Suggest
 
-  max_paginates_per 100
-      paginates_per 25
-
   has_many :hearings
   has_many :decrees
+
+  max_paginates_per 100
+      paginates_per 25
 
   mapping do
     map :id
     
+    analyze :case_numbers
     analyze :file_number
     analyze :courts,                         as: lambda { |p| p.courts.map(&:name) if p.courts }
     analyze :courts_count,   type: :integer, as: lambda { |p| p.courts.count }
@@ -27,12 +28,18 @@ class Proceeding < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:file_number, :judges, :courts]
+    facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :judges, :courts]
     facet :courts,         type: :terms
     facet :judges,         type: :terms
+    facet :file_number,    type: :terms
+    facet :case_numbers,   type: :terms
     facet :decrees_count,  type: :range, ranges: [1..2, 2..5, 5..10]
     facet :hearings_count, type: :range, ranges: [1..5, 5..7, 7..15]
     facet :judges_count,   type: :range, ranges: [1..2, 2..5]
+  end
+  
+  def case_numbers
+    @case_numbers ||= events.map(&:case_number).uniq
   end
 
   def events
@@ -54,9 +61,6 @@ class Proceeding < ActiveRecord::Base
   end
   
   def proposers
-    # TODO rm
-    #@proposers ||= hearings.flat_map(&:proposers).uniq(&:name).sort_by(&:name)
-    
     through_hearings_to Proposer
   end
   
@@ -67,7 +71,7 @@ class Proceeding < ActiveRecord::Base
   def defendants
     through_hearings_to Defendant
   end
-
+  
   private
   
   def through_hearings_to(model)

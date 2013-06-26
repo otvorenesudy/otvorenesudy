@@ -18,9 +18,6 @@ class Decree < ActiveRecord::Base
 
   scope :during_employment, lambda { |employment| where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge)) }
 
-  max_paginates_per 100
-      paginates_per 25
-
   belongs_to :proceeding
 
   belongs_to :court
@@ -52,10 +49,13 @@ class Decree < ActiveRecord::Base
     @text ||= pages.pluck(:text).join
   end
 
+  max_paginates_per 100
+      paginates_per 25
+
   mapping do
     map :id
 
-    # TODO: analyze only string fields (no date, and so on)
+    # TODO analyze only string fields (no date, and so on); but do the same in all other models 
 
     analyze :case_number
     analyze :file_number
@@ -84,7 +84,7 @@ class Decree < ActiveRecord::Base
     facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
     facet :natures,             type: :terms, size: DecreeNature.count
     facet :form,                type: :terms
-    facet :court_type,   type: :terms
+    facet :court_type,          type: :terms
     facet :court,               type: :terms
     facet :date,                type: :date,  interval: :month
     facet :legislations,        type: :terms

@@ -1,23 +1,23 @@
 .project
 .project.backup
 .bundle
+.tags
 .sass-cache/
 
+config/bing.yml
 config/database.yml
+config/resque.yml
 
 db/*.sqlite3
 log/*.log
 
-/storage
-/storage/*
+storage
+storage/*
+
+tags
 
 tmp
 tmp/*
 
-tags
-.tags
-
 Gemfile.lock
 
-/config/bing.yml
-/config/resque.yml
