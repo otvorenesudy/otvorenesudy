@@ -65,7 +65,7 @@ class Hearing < ActiveRecord::Base
     analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
     analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
-    analyze :participants,      as: lambda { |h| h.participants.map(&:name) }
+    analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
     analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } if h.accusations }
 
     sort_by :date
@@ -93,11 +93,6 @@ class Hearing < ActiveRecord::Base
   end
 
   alias :historical? :historical
-
-  # TODO really necessary?
-  def participants
-    @participants ||= defendants + opponents
-  end
 
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
     File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
