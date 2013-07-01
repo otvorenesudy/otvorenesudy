@@ -10,7 +10,7 @@ module JusticeGovSk
       def court
         court = @data[0].strip
 
-        court_name_map[court.ascii.downcase] || court
+        normalize_court_name(court)
       end
 
       private

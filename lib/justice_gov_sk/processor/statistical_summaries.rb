@@ -13,7 +13,7 @@ module JusticeGovSk
         @table = statistical_table_by_statistical_table_name_id_and_statistical_summary_id_and_statistical_summary_type_factory.find_or_create(@table_name.id, @summary.id, @summary.class.name)
 
         @table.name = @table_name
-        @summary.tables << @table # TODO: is there a better way?
+        @summary.tables << @table unless @summary.tables.include? @table # TODO: is there a better way?
 
         persist(@table)
 
