@@ -69,7 +69,6 @@ group :assets do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
-  gem 'factory_girl'
 end
 
 # resque for capistrano
@@ -78,4 +77,9 @@ gem 'capistrano-resque', '~> 0.1.0'
 group :development, :test do
   gem 'rspec-rails',      '~> 2.0'
   gem 'database_cleaner', '~> 0.9.1'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'guard-rspec'
 end
+
+gem 'postgres-copy'
