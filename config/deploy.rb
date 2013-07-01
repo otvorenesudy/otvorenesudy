@@ -84,8 +84,6 @@ namespace :probe do
   task :update_async, roles: :db do
     run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update:async"
   end
-
-  # TODO: add reload and reload:async
 end
 
 # If you are using Passenger mod_rails uncomment this

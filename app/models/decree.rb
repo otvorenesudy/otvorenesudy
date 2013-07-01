@@ -60,7 +60,7 @@ class Decree < ActiveRecord::Base
     analyze :date,                type: :date
     analyze :ecli
     analyze :summary
-    analyze :text,                as: lambda { |d| d.text }, suggest: false, highlight: true
+    analyze :text,                as: lambda { |d| d.text }, suggest: false
     analyze :court,               as: lambda { |d| d.court.name if d.court }
     analyze :court_type,          as: lambda { |d| d.court.type.value if d.court }
     analyze :judges,              as: lambda { |d| d.judges.pluck(:name) }
@@ -68,7 +68,7 @@ class Decree < ActiveRecord::Base
     analyze :natures,             as: lambda { |d| d.natures.pluck(:value) }
     analyze :legislation_area,    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
-    analyze :legislations,        as: lambda { |d| d.legislations.map { |l| l.value '%t %u/%y %n § %p %d Odsek %s Písmeno %l' } if d.legislations }
+    analyze :legislations,        as: lambda { |d| d.legislations.map { |l| l.value '%y/%u/%p' } }
 
     sort_by :date
   end

@@ -87,7 +87,7 @@ class Court < ActiveRecord::Base
   end
 
   private
-  
+
   def address_parts
     @address_parts ||= {
       '%s' => street,
@@ -96,7 +96,7 @@ class Court < ActiveRecord::Base
       '%c' => 'Slovenská republika'
     }
   end
-  
+
   public
 
   def coordinates

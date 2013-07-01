@@ -3,7 +3,7 @@ module Resource::URI
 
   included do
     attr_accessible :uri
-    
+
     belongs_to :source 
   end
 end

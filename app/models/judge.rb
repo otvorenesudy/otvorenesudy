@@ -74,23 +74,23 @@ class Judge < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              field: [:name, :courts, :positions], type: :fulltext, highlight: true
+    facet :q,              type: :fulltext, field: [:name, :courts, :positions]
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms
     facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..1000]
     facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
   end
-  
+
   def name(format = nil)
     return super() if format.nil? || format == '%p %f %m %l %a, %s'
 
     @name         ||= {}
     @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
   end
-  
+
   private
-  
+
   def name_parts
     @name_parts ||= {
       '%p' => prefix,
