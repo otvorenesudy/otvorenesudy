@@ -57,6 +57,10 @@ module Probe
       { type => filter }
     end
 
+    def highlights
+      map { |facet| facet.highlights if facet.respond_to? :highlights }.flatten
+    end
+
     def populate(results)
       results.each do |name, values|
         facet = @facets[name]

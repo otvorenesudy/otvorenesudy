@@ -2,10 +2,13 @@ class Probe::Facets
   class FulltextFacet < Probe::Facets::Facet
     include Probe::Search::Query
 
-    attr_accessor :query_options
+    attr_accessor :highlights,
+                  :query_options
 
     def initialize(name, field, options)
       super name, field, options
+
+      @highlights = options[:highlights] ? options[:highlights] : @field
     end
 
     def terms=(value)

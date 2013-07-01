@@ -14,7 +14,7 @@ namespace :probe do
     Rake::Task['probe:prepare'].invoke
 
     constantize_indices(INDICES).each do |model|
-      puts  "Sync index update: #{model}"
+      puts "Sync index update: #{model}"
 
       Probe::Updater.update(model)
     end
@@ -33,18 +33,8 @@ namespace :probe do
   task drop: :environment do
     Rake::Task['probe:prepare'].invoke
 
-    ENV['INDICES'] = INDICES.join(',')
+    ENV['INDICES'] = constantize_indices(INDICES).map { |model| model.index_name }.join(',')
 
     Rake::Task['tire:index:drop'].invoke
-  end
-
-  task reload: :environment do
-    Rake::Task['probe:drop'].invoke
-    Rake::Task['probe:update'].invoke
-  end
-
-  task :'reload:async' => :environment do
-    Rake::Task['probe:drop'].invoke
-    Rake::Task['probe:update:async'].invoke
   end
 end

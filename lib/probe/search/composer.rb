@@ -13,14 +13,13 @@ module Probe::Search
       @facets           = options[:facets]
       @params           = options[:params]
       @sort_fields      = options[:sort_fields]
-      @highlight_fields = options[:highlight_fields]
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
       @page     = extract_page_param(@params) if @params[:page]
       @order    = extract_order_param(@params) if @params[:order]
       @sort     = extract_sort_param(@params, @sort_fields) if @params[:sort]
-      @per_page = options[:per_page] ? options[:per_page].to_i : Probe::Configuration.per_page
+      @per_page = options[:per_page] || Probe::Configuration.per_page
 
       @facets.extract_facets_params(@params)
       @facets.add_search_params(sort: @sort, order: @order)
@@ -44,7 +43,7 @@ module Probe::Search
         puts JSON.pretty_generate(index.to_hash) # TODO: rm
       end
 
-      Results.new(@model, @facets, @sort_fields, @highlight_fields, @results)
+      Results.new(@model, @facets, @sort_fields, @results)
     end
 
     private
@@ -108,7 +107,9 @@ module Probe::Search
     end
 
     def search_highlights
-      @index.highlight(*@highlight_fields.map { |f| analyzed_field(f) }) if @highlight_fields.any?
+      fields = @facets.highlights
+
+      @index.highlight(*fields.map { |f| analyzed_field(f) }) if fields.any?
     end
 
     def search_pagination

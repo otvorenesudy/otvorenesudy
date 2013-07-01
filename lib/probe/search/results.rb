@@ -20,12 +20,11 @@ module Probe::Search
                 :total_entries,
                 :time
 
-    def initialize(model, facets, sort_fields, highlight_fields, response)
+    def initialize(model, facets, sort_fields, response)
       @model            = model
       @facets           = facets
       @response         = response
       @sort_fields      = sort_fields
-      @highlight_fields = highlight_fields
 
       @results  = @response.results
     end
@@ -117,10 +116,10 @@ module Probe::Search
       @results.map do |result|
         highlight = Hash.new
 
-        @highlight_fields.each do |field|
-          field = Array.wrap(field)
+        @facets.highlights.each do |field|
+          fields = Array.wrap(field)
 
-          field.each do |f|
+          fields.each do |f|
             analyzed_field = analyzed_field(f)
 
             highlight[f] = result.highlight ? result.highlight[analyzed_field] : []

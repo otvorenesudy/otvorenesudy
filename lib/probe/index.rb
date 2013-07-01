@@ -6,11 +6,15 @@ module Probe
       include Tire::Model::Search
       include Tire::Model::Callbacks
 
+      after_save :update_index
+
       settings
     end
 
     module ClassMethods
       include Probe::Helpers::Index
+
+      attr_reader :sort_fields, :per_page
 
       def configuration
         Probe::Configuration
@@ -22,15 +26,24 @@ module Probe
         settings.deep_merge!(params)
 
         tire.settings.deep_merge!(settings)
+
+        index_name "#{index.name}_#{Rails.env}" unless Rails.env.production?
+      end
+
+      def reload_index
+        drop_index
+
+        create_elasticsearch_index
+
+        update_index
       end
 
       def mapping
         unless block_given?
           return @mapping
         else
-          @mapping          = Hash.new
-          @sort_fields      = Array.new
-          @highlight_fields = Array.new
+          @mapping     = Hash.new
+          @sort_fields = Array.new
 
           yield
 
@@ -43,8 +56,6 @@ module Probe
               as         = options[:as]         || lambda { |obj| obj.send(field) }
               suggest    = options[:suggest].nil? ? true : options[:suggest]
               suggester  = options[:suggester]  || method(:format_suggested_field)
-
-              @highlight_fields << field if options[:highlight]
 
               case value[:type]
               when :mapped
@@ -119,7 +130,17 @@ module Probe
         @sort_fields = *args
       end
 
-      # TODO: add per_page method
+      def per_page
+        @_default_per_page || Probe::Configuration.per_page
+      end
+
+      def drop_index
+        index.delete
+      end
+
+      def update_index
+        Probe::Updater.update(self)
+      end
     end
   end
 end
