@@ -7,8 +7,8 @@ class CreateStatisticalTables < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :statistical_tables, [:statistical_summary_id, :statistical_summary_type],
-               unique: true, name: 'index_statistical_tables_on_summary_by_type'
+    add_index :statistical_tables, [:statistical_table_name_id, :statistical_summary_id, :statistical_summary_type],
+      unique: true, name: 'index_statistical_tables_on_summary_by_table_and_type'
 
     add_index :statistical_tables, :statistical_table_name_id
   end
