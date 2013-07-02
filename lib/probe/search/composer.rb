@@ -11,8 +11,8 @@ module Probe::Search
       @model            = model
       @name             = options[:name]
       @facets           = options[:facets]
-      @params           = options[:params]
-      @sort_fields      = options[:sort_fields]
+      @params           = options[:params]      || {}
+      @sort_fields      = options[:sort_fields] || []
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
@@ -27,23 +27,33 @@ module Probe::Search
 
     def compose(&block)
       @results = Tire.search @name do |index|
-        @index = index
-
-        if block_given?
-          block.arity > 0 ? yield(@index, @facets, @params) : instance_eval(&block)
-        else
-          search_query
-          search_filter
-          search_facets
-          search_sort
-          search_highlights
-          search_pagination
-        end
-
-        puts JSON.pretty_generate(index.to_hash) # TODO: rm
+        compose_search(index, &block)
       end
 
       Results.new(@model, @facets, @sort_fields, @results)
+    end
+
+    def compose_search(index, &block)
+      @index = index
+
+      if block_given?
+        block.arity > 0 ? yield(@index, @facets, @params) : instance_eval(&block)
+      else
+        search_query
+        search_filter
+        search_facets
+        search_sort
+        search_highlights
+        search_pagination
+      end
+
+      puts JSON.pretty_generate(index.to_hash) # TODO: rm
+    end
+
+    def compose_filtered_query(index)
+      return build_filtered_query(index) unless index.respond_to? :query
+
+      index.query { |query| build_filtered_query(query) }
     end
 
     private
@@ -51,11 +61,39 @@ module Probe::Search
     def search_query
       queries = @facets.build_query
 
+      return unless queries.any?
+
+      @index.query do |query|
+        build_search_query(query, queries)
+      end
+    end
+
+    def search_filter
+      filter = build_search_filter
+
+      @index.filter(*filter.first) if filter
+    end
+
+    def build_search_query(query, queries)
       if queries.any?
-        @index.query do |query|
-          query.boolean do |boolean|
-            queries.each { |q| boolean.must(&q) }
-          end
+        query.boolean do |boolean|
+          queries.each { |q| boolean.must(&q) }
+        end
+      end
+
+    end
+
+    def build_filtered_query(query)
+      queries = @facets.build_query
+      filter  = build_search_filter
+
+      return query.all if queries.empty? && filter.nil?
+
+      build_search_query(query, queries) if queries.any?
+
+      if filter
+        query.filtered do |filtered|
+          filtered.filter(*filter.first)
         end
       end
     end
@@ -70,12 +108,6 @@ module Probe::Search
       filter = @facets.build_selective_filter :and, exclude: [facet]
 
       filter if filter[:and].any?
-    end
-
-    def search_filter
-      filter = build_search_filter
-
-      @index.filter(*filter.first) if filter
     end
 
     def search_facets
