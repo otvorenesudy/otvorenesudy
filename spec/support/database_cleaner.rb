@@ -11,10 +11,12 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
+    Rake::Task['probe:update']
   end
 
   config.before(:each, :js => true) do
     DatabaseCleaner.strategy = :truncation
+    Rake::Task['probe:update']
   end
 
   config.before(:all) do

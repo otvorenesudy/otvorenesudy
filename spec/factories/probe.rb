@@ -1,11 +1,8 @@
 FactoryGirl.define do
   factory :source do
-    uri  :factory_girl
-    name :factory_girl
-
-    before :create do |source|
-      source.module = :factory_girl
-    end
+    sequence(:uri)    { |n| "factory_girl_uri_#{n}" }
+    sequence(:name)   { |n| "factory_girl_name_#{n}" }
+    sequence(:module) { |n| "factory_girl_module_#{n}" }
   end
 
   factory :employment do
@@ -20,21 +17,50 @@ FactoryGirl.define do
     trait :unknown do
       active nil
     end
+
+    court { |e| e.association(:court) }
+    judge { |e| e.association(:judge) }
+  end
+
+  factory :court_type do
+    sequence(:value) { |n| "Court type #{n}" }
+  end
+
+  factory :municipality do
+    sequence(:name) { |n| "Municipality #{n}" }
+
+    zipcode '0000'
+  end
+
+  factory :court do
+    sequence(:name) { |n| "Court #{n}" }
+    sequence(:uri)  { |n| "court_uri_#{n}" }
+
+    street       'Street'
+
+    type { create :court_type }
+    source
+    municipality
   end
 
   factory :judge do
-    name 'JUDr. Peter Retep, PhD.'
+    sequence(:name) { |n| "JUDr. Peter Retep #{n}" }
 
-    name_unprocessed 'JUDr. Peter Retep'
-    prefix           'JUDr.'
-    first            'Peter'
-    middle           ''
-    last             'Retep'
-    suffix           'PhD.'
-    addition         ''
+    sequence(:name_unprocessed) { |n| "JUDr. Peter Retep #{n}" }
 
-    uri :factory_girl_judge
+    prefix   'JUDr.'
+    first    'Peter'
+    middle   ''
+    last     'Retep'
+    suffix   'PhD.'
+    addition ''
 
-    source { create :source }
+    sequence(:uri) { |n| "factory_girl_judge_#{n}" }
+
+    source
+
+    after(:create) do |judge|
+      create :employment, :active, court: create(:court), judge: judge
+    end
   end
 end
