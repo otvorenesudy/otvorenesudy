@@ -39,10 +39,6 @@ module Resource::Formatable
       @remove  = options[:remove]
       @squeeze = options[:squeeze] == false ? nil : options[:squeeze] || ' '
       @strip   = options[:strip]
-
-      puts "D #{@default}"
-      puts "D #{@directives}"
-      puts "D #{@regexp}"
     end
     
     def format(pattern, data)
@@ -61,13 +57,9 @@ module Resource::Formatable
     def initialize(data)
       @data  = data
       @cache = {}
-      
-      puts "C new : #{data}"
     end
     
     def get(formatter, pattern)
-      puts "C #{pattern} -> #{@cache[pattern]}"
-      
       @cache[pattern] ||= formatter.format pattern, @data
     end
   end
