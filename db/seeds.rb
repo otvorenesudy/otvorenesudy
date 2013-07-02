@@ -38,28 +38,28 @@ seeds.save!
 # courts
 
 # http://portal.concourt.sk/pages/viewpage.action?pageId=1278049
-court              = Court.new
-court.uri          = "http://portal.concourt.sk"
-court.source       = seeds
-court.type         = CourtType.constitutional
-court.municipality = Municipality.create name: "Košice", zipcode: "042 65"
-court.name         = "Ústavný súd Slovenskej republiky"
-court.street       = "Hlavná 110"
-court.latitude     = 48.725868
-court.longitude    = 21.25517
-court.save!
-court.registry_center                 = CourtOffice.new
-court.registry_center.court           = court
-court.registry_center.type            = CourtOfficeType.registry_center
-court.registry_center.email           = nil
-court.registry_center.phone           = "+421-55-7207211, +421-55-6227633"
-court.registry_center.hours_monday    = "7:30 - 12:00, 13:00 - 16:00"
-court.registry_center.hours_tuesday   = "7:30 - 12:00, 13:00 - 16:00"
-court.registry_center.hours_wednesday = "7:30 - 12:00, 13:00 - 16:00"
-court.registry_center.hours_thursday  = "7:30 - 12:00, 13:00 - 16:00"
-court.registry_center.hours_friday    = "7:30 - 12:00, 13:00 - 13:30"
-court.registry_center.save!
-court.save!
+#court              = Court.new
+#court.uri          = "http://portal.concourt.sk"
+#court.source       = seeds
+#court.type         = CourtType.constitutional
+#court.municipality = Municipality.create name: "Košice", zipcode: "042 65"
+#court.name         = "Ústavný súd Slovenskej republiky"
+#court.street       = "Hlavná 110"
+#court.latitude     = 48.725868
+#court.longitude    = 21.25517
+#court.save!
+#court.registry_center                 = CourtOffice.new
+#court.registry_center.court           = court
+#court.registry_center.type            = CourtOfficeType.registry_center
+#court.registry_center.email           = nil
+#court.registry_center.phone           = "+421-55-7207211, +421-55-6227633"
+#court.registry_center.hours_monday    = "7:30 - 12:00, 13:00 - 16:00"
+#court.registry_center.hours_tuesday   = "7:30 - 12:00, 13:00 - 16:00"
+#court.registry_center.hours_wednesday = "7:30 - 12:00, 13:00 - 16:00"
+#court.registry_center.hours_thursday  = "7:30 - 12:00, 13:00 - 16:00"
+#court.registry_center.hours_friday    = "7:30 - 12:00, 13:00 - 13:30"
+#court.registry_center.save!
+#court.save!
 
 # http://www.nsud.sk/kontakt/
 court              = Court.new
