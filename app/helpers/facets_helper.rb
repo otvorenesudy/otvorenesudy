@@ -7,7 +7,7 @@ module FacetsHelper
 
   def facet_suggest_input(facet, options = {})
     options.merge! :'data-id' => facet.name
-    options.merge! :'data-suggest-path' => suggest_path(facet.params.except facet.name)
+    options.merge! :'data-suggest-path' => suggest_path(facet.params)
 
     tag :input, options.merge(type: :text, name: facet.name)
   end
