@@ -94,6 +94,10 @@ module Probe
         @facets ||= Probe::Facets.new(@facet_definitions)
       end
 
+      def per_page
+        @_default_per_page || Probe::Configuration.per_page
+      end
+
       private
 
       def map(field, options = {})
@@ -128,10 +132,6 @@ module Probe
 
       def sort_by(*args)
         @sort_fields = *args
-      end
-
-      def per_page
-        @_default_per_page || Probe::Configuration.per_page
       end
 
       def drop_index
