@@ -8,7 +8,7 @@ module Resource::Formatable
     
     def formatable(attribute, options = {})
       define_method attribute do |pattern = nil|
-        return super() if defined?(super) && (pattern.nil? || pattern == options[:default])
+        return super() if defined?(super) == true && (pattern.nil? || pattern == options[:default])
         
         formatter = (self.class.formatters[attribute] ||= Formatter.new data = yield(self), options)
         cache     = (formatted[attribute] ||= Cache.new data || yield(self))
