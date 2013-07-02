@@ -4,9 +4,7 @@ class Hearing < ActiveRecord::Base
   include Resource::URI
   include Resource::Storage
 
-  include Probe::Index
-  include Probe::Search
-  include Probe::Suggest
+  include Probe
 
   attr_accessible :case_number,
                   :file_number,

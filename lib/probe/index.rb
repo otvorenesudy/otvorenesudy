@@ -2,19 +2,14 @@ module Probe
   module Index
     extend ActiveSupport::Concern
 
-    included do
-      include Tire::Model::Search
-      include Tire::Model::Callbacks
-
-      after_save :update_index
-
-      settings
-    end
-
     module ClassMethods
       include Probe::Helpers::Index
 
       attr_reader :sort_fields, :per_page
+
+      def setup
+        settings
+      end
 
       def configuration
         Probe::Configuration
@@ -28,14 +23,8 @@ module Probe
         tire.settings.deep_merge!(settings)
 
         index_name "#{index.name}_#{Rails.env}" unless Rails.env.production?
-      end
 
-      def reload_index
-        drop_index
-
-        create_elasticsearch_index
-
-        update_index
+        tire.settings
       end
 
       def mapping
@@ -132,14 +121,6 @@ module Probe
 
       def sort_by(*args)
         @sort_fields = *args
-      end
-
-      def drop_index
-        index.delete
-      end
-
-      def update_index
-        Probe::Updater.update(self)
       end
     end
   end

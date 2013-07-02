@@ -1,9 +1,7 @@
 class Proceeding < ActiveRecord::Base
   attr_accessible :file_number
 
-  include Probe::Index
-  include Probe::Search
-  include Probe::Suggest
+  include Probe
 
   has_many :hearings
   has_many :decrees
@@ -13,7 +11,7 @@ class Proceeding < ActiveRecord::Base
 
   mapping do
     map :id
-    
+
     analyze :case_numbers
     analyze :file_number
     analyze :courts,                         as: lambda { |p| p.courts.map(&:name) if p.courts }
@@ -23,7 +21,7 @@ class Proceeding < ActiveRecord::Base
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
-    
+
     sort_by :_score, :hearings_count, :decrees_count
   end
 
@@ -37,7 +35,7 @@ class Proceeding < ActiveRecord::Base
     facet :hearings_count, type: :range, ranges: [1..5, 5..7, 7..15]
     facet :judges_count,   type: :range, ranges: [1..2, 2..5]
   end
-  
+
   def case_numbers
     @case_numbers ||= events.map(&:case_number).uniq
   end
@@ -52,42 +50,42 @@ class Proceeding < ActiveRecord::Base
 
   def judges
     # TODO refactor into AR relation
-    
+
     return @judges if @judges
-    
+
     @judges = events.flat_map(&:judges).uniq
     @judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
     @judges
   end
-  
+
   def proposers
     through_hearings_to Proposer
   end
-  
+
   def opponents
     through_hearings_to Opponent
   end
-  
+
   def defendants
     through_hearings_to Defendant
   end
-  
+
   private
-  
+
   def through_hearings_to(model)
     model.select('distinct name').joins(:hearing).where(:'hearings.proceeding_id' => id)
   end
 
   public
-  
+
   def single_hearing?
     events.count == 1 && hearings.count == 1
   end
-  
+
   def single_decree?
     events.count == 1 && decrees.count == 1
   end
-  
+
   def probably_closed?
     events.last.is_a? Decree
   end

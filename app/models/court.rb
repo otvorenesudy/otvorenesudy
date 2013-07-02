@@ -5,9 +5,7 @@ class Court < ActiveRecord::Base
   include Resource::ContextSearch
   include Resource::Storage
 
-  include Probe::Index
-  include Probe::Search
-  include Probe::Suggest
+  include Probe
 
   attr_accessible :name,
                   :street,

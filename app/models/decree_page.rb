@@ -1,6 +1,5 @@
 class DecreePage < ActiveRecord::Base
-  include Probe::Index
-  include Probe::Search
+  include Probe
   extend  Probe::Search::Query
 
   attr_accessible :number,
