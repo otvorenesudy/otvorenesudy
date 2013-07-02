@@ -23,7 +23,7 @@ module DecreesHelper
       number: 1,
       pages: decree.pages.by_number.map { |page|
         { 
-          number:  page.number,
+          number: page.number,
           scanUrl: image_decree_page_path(decree, page.number),
           textUrl: text_decree_page_path(decree, page.number),
           comments: []

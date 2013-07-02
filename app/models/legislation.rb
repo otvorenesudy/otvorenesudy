@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Legislation < ActiveRecord::Base
+  include Resource::Formatable
+
   attr_accessible :value,
                   :value_unprocessed,
                   :type,
@@ -22,25 +24,14 @@ class Legislation < ActiveRecord::Base
   def self.inheritance_column
   end
   
-  def value(format = nil)
-    return super() if format.nil? || format == '%t %u/%y %n § %p Odsek %s Písmeno %l'
-
-    @value         ||= {}
-    @value[format] ||= format.gsub(/\%[tuynpdsl]/, value_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
-  end
-  
-  private
-  
-  def value_parts
-    @name_parts ||= {
-      '%t' => type,
-      '%u' => number || '?',
-      '%y' => year || '?',
-      '%n' => name,
-      '%p' => paragraph,
-      '%d' => paragraphs.pluck(:description).join(', '),
-      '%s' => section,
-      '%l' => letter
-    }
+  formatable :value, default: '%t %u/%y %n § %p %s %l' do |legislation|
+    { '%t' => legislation.type,
+      '%u' => legislation.number || '?',
+      '%y' => legislation.year || '?',
+      '%n' => legislation.name,
+      '%p' => legislation.paragraph,
+      '%d' => legislation.paragraphs.pluck(:description).join(', '),
+      '%s' => legislation.section ? 'Odsek ' + legislation.section : nil,
+      '%l' => legislation.letter ? 'Písmeno ' + legislation.letter : nil }
   end
 end
