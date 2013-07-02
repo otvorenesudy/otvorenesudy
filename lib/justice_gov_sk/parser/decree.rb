@@ -41,7 +41,7 @@ module JusticeGovSk
         
       def natures(document)
         find_value_by_label 'nature', document, 'Povaha rozhodnutia', verbose: false do |div|
-          div.text.strip.split(/\n/).map! { |s| s.strip }
+          div.search('span').map { |span| span.text.strip.split(/\n/).map { |s| s.strip }}.flatten
         end
       end
 
