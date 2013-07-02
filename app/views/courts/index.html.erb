@@ -11,17 +11,23 @@
 
 <div class="clearfix"></div>
 
-<section id="constitutional-court">
-  <%= render 'featured_court', court: @constitutional %>
-</section>
+<% if @constitutional %>
+  <section id="constitutional-court">
+    <%= render 'featured_court', court: @constitutional %>
+  </section>
+<% end %>
 
-<section id="supreme-court">
-  <%= render 'featured_court', court: @supreme %>
-</section>
+<% if @supreme %>
+  <section id="supreme-court">
+    <%= render 'featured_court', court: @supreme %>
+  </section>
+<% end %>
 
-<section id="specialized-court">
-  <%= render 'featured_court', court: @specialized %>
-</section>
+<% if @specialized %>
+  <section id="specialized-court">
+    <%= render 'featured_court', court: @specialized %>
+  </section>
+<% end %>
 
 <section id="regional-courts">
   <div class="page-header">
