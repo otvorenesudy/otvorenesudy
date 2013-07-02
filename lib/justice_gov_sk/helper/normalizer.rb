@@ -434,9 +434,9 @@ module JusticeGovSk
 
         value.gsub!(/\s*§+\s*/, ' § ')
         
-        value.gsub!(/(\A|(?<n>\d+)|\s+)(€|eur)+\s*/i, '\k<n> € ')
-        value.gsub!(/(\A|(?<n>\d+)|\s+)(sk)+\s*/i, '\k<n> Sk ')
-        value.gsub!(/(\A|(?<n>\d+)|\s+)(kč)+\s*/i, '\k<n> Kč ')
+        value.gsub!(/(\A|(?<n>\d+)|\s+)(€|eur)+(\s+|\z)/i, '\k<n> € ')
+        value.gsub!(/(\A|(?<n>\d+)|\s+)(sk)+(\s+|\z)/i, '\k<n> Sk ')
+        value.gsub!(/(\A|(?<n>\d+)|\s+)(kč)+(\s+|\z)/i, '\k<n> Kč ')
         
         value.gsub!(/\s*\/+\s*/, ' / ')
         value.gsub!(/(\s*\/+\s*\d)|(\d\s*\/+\s*)/) { |s| s.gsub(/\s*\/+\s*/, '/') }
