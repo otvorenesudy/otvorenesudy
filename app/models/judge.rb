@@ -3,6 +3,7 @@
 class Judge < ActiveRecord::Base
   include Resource::URI
   include Resource::ContextSearch
+  include Resource::Formatable
   include Resource::Similarity
   include Resource::Storage
 
@@ -82,28 +83,14 @@ class Judge < ActiveRecord::Base
     facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
   end
 
-  # TODO refactor out into a module
-  def name(format = nil)
-    return super() if format.nil? || format == '%p %f %m %l %a, %s'
-
-    @name         ||= {}
-    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/\A\*s(\W)|(\W)\s*\z/, '').strip.squeeze(' ')
+  formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|
+    { '%p' => judge.prefix,
+      '%f' => judge.first,
+      '%m' => judge.middle,
+      '%l' => judge.last,
+      '%s' => judge.suffix,
+      '%a' => judge.addition }
   end
-
-  private
-
-  def name_parts
-    @name_parts ||= {
-      '%p' => prefix,
-      '%f' => first,
-      '%m' => middle,
-      '%l' => last,
-      '%s' => suffix,
-      '%a' => addition
-    }
-  end
-
-  public
 
   def active
     return true  if employments.active.any?

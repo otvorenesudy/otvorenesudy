@@ -3,6 +3,7 @@
 class Court < ActiveRecord::Base
   include Resource::URI
   include Resource::ContextSearch
+  include Resource::Formatable
   include Resource::Storage
 
   include Probe::Index
@@ -79,26 +80,12 @@ class Court < ActiveRecord::Base
     facet :expenses,       type: :range, ranges: [1000..10_000, 10_000..20_000, 20_000..50_000, 50_000..100_000]
   end
 
-  # TODO refactor out into a module
-  def address(format = nil)
-    format ||= '%s, %z %m'
-
-    @address         ||= {}
-    @address[format] ||= format.gsub(/\%[szmc]/, address_parts).gsub(/\A\*s(\W)|(\W)\s*\z/, '').strip.squeeze(' ')
+  formatable :address, default: '%s, %z %m', remove: /\,\s*\z/ do |court|
+    { '%s' => court.street,
+      '%z' => court.municipality.zipcode,
+      '%m' => court.municipality.name,
+      '%c' => 'Slovenská republika' }
   end
-
-  private
-
-  def address_parts
-    @address_parts ||= {
-      '%s' => street,
-      '%z' => municipality.zipcode,
-      '%m' => municipality.name,
-      '%c' => 'Slovenská republika'
-    }
-  end
-
-  public
 
   def coordinates
     @coordinates ||= { latitude: latitude, longitude: longitude }
