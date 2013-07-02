@@ -29,7 +29,7 @@ module JusticeGovSk
 
       def note(document) 
         find_value_by_label 'note', document, 'Poznámka' do |div|
-          normalize_punctuation(div.text)
+          normalize_punctuation(div.text.gsub(/\A\s*\-+/, ''))
         end
       end
             
