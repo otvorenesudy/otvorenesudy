@@ -51,31 +51,31 @@ module Probe
             @mapping.each do |field, value|
               options  = value[:options]
 
-              type       = options[:type]       || :string
-              analyzer   = options[:analyzer]   || :text_analyzer
-              as         = options[:as]         || lambda { |obj| obj.send(field) }
+              type       = options[:type] || :string
+              analyzer   = options[:analyzer] || :text_analyzer
+              as         = options[:as] || lambda { |o| o.send(field) }
               suggest    = options[:suggest].nil? ? true : options[:suggest]
-              suggester  = options[:suggester]  || method(:format_suggested_field)
+              suggester  = options[:suggester] || method(:format_suggested_field)
 
               case value[:type]
               when :mapped
                 indexes field, options.merge(index: :not_analyzed)
               when :analyzed
                 indexes field, options.deep_merge(
-                  type:   :multi_field,
+                  type: :multi_field,
                   fields: {
-                    analyzed:   { type: :string,  analyzer: analyzer },
-                    untouched:  { type: type,  index: :not_analyzed }
+                    analyzed: { type: :string, analyzer: analyzer },
+                    untouched: { type: type, index: :not_analyzed }
                   }
                 )
               end
 
               if suggest
                 indexes suggested_field(field), options.deep_merge(
-                  type:  :string,
+                  type: :string,
                   index: :not_analyzed,
-                  as: lambda { |obj|
-                    value = as.call(obj)
+                  as: lambda { |o|
+                    value = as.call(o)
 
                     suggester.call(value)
                   }
