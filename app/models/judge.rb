@@ -82,11 +82,12 @@ class Judge < ActiveRecord::Base
     facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
   end
 
+  # TODO refactor out into a module
   def name(format = nil)
     return super() if format.nil? || format == '%p %f %m %l %a, %s'
 
     @name         ||= {}
-    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
+    @name[format] ||= format.gsub(/\%[pfmlsa]/, name_parts).gsub(/\A\*s(\W)|(\W)\s*\z/, '').strip.squeeze(' ')
   end
 
   private

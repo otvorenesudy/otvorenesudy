@@ -73,7 +73,7 @@
         <ul>
           <% @legislations.each do |legislation| %>
             <li>
-              <%= external_link_to_legislation legislation, format: '%t %u/%y %n § %p %d Odsek %s Písmeno %l' %>
+              <%= external_link_to_legislation legislation, format: '%t %u/%y %n § %p %d %s %l' %>
             </li>
           <% end %>
         </ul>

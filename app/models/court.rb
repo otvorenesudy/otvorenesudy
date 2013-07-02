@@ -79,11 +79,12 @@ class Court < ActiveRecord::Base
     facet :expenses,       type: :range, ranges: [1000..10_000, 10_000..20_000, 20_000..50_000, 50_000..100_000]
   end
 
+  # TODO refactor out into a module
   def address(format = nil)
     format ||= '%s, %z %m'
 
     @address         ||= {}
-    @address[format] ||= format.gsub(/\%[szmc]/, address_parts).gsub(/(\W)\s+\z/, '').strip.squeeze(' ')
+    @address[format] ||= format.gsub(/\%[szmc]/, address_parts).gsub(/\A\*s(\W)|(\W)\s*\z/, '').strip.squeeze(' ')
   end
 
   private
