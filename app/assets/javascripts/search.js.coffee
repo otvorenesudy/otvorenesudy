@@ -48,7 +48,7 @@ $(document).ready ->
         $(this).closest('form').submit()
 
     registerSearch: ->
-      $(@el).find('.facet ul li a, form a').click => @.onSearch()
+      $(@el).find('.facet ul li a, form a, .btn-group a').click => @.onSearch()
       $(@el).submit => @.onSearch()
 
     onSearch: ->
