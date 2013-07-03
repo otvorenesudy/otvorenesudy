@@ -7,7 +7,7 @@ module Probe::Search
     def build_query_from(field, terms, options = {})
       values = sanitize_query_string(terms)
 
-      values = analyze_query_string(values) if options[:use_wildcard]
+      values = analyze_query_string(values) if options[:force_wildcard]
 
       fields = field == :all ? nil : analyzed_field(field)
 
