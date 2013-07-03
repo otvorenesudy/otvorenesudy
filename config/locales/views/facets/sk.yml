@@ -99,7 +99,7 @@ sk:
 
     judge:
       q:
-        placeholder: 'Meno alebo pozícia sudcu, názov súdu'
+        placeholder: 'Meno sudcu'
 
       name:
         title: 'Sudca'
