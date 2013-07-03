@@ -334,16 +334,16 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
   add_index "judge_proclaims", ["judge_statement_id", "judge_property_declaration_id"], :name => "index_judge_proclaims_on_unique_values_reversed", :unique => true
 
   create_table "judge_properties", :force => true do |t|
-    t.integer  "judge_property_list_id",               :null => false
+    t.integer  "judge_property_list_id",                            :null => false
     t.integer  "judge_property_acquisition_reason_id"
     t.integer  "judge_property_ownership_form_id"
     t.integer  "judge_property_change_id"
     t.string   "description"
     t.string   "acquisition_date"
-    t.integer  "cost"
+    t.integer  "cost",                                 :limit => 8
     t.string   "share_size"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   add_index "judge_properties", ["judge_property_list_id"], :name => "index_judge_properties_on_judge_property_list_id"
@@ -631,7 +631,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "sources", ["module"], :name => "index_sources_on_module", :unique => true
+  add_index "sources", ["module"], :name => "index_sources_on_module"
   add_index "sources", ["name"], :name => "index_sources_on_name", :unique => true
   add_index "sources", ["uri"], :name => "index_sources_on_uri", :unique => true
 
@@ -696,7 +696,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_type", :unique => true
+  add_index "statistical_tables", ["statistical_table_name_id", "statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_table_and_type", :unique => true
   add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
 
 end
