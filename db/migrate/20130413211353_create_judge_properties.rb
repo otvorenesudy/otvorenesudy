@@ -9,7 +9,7 @@ class CreateJudgeProperties < ActiveRecord::Migration
       
       t.string  :description
       t.string  :acquisition_date
-      t.integer :cost
+      t.integer :cost,             limit: 8
       t.string  :share_size
       
       t.timestamps

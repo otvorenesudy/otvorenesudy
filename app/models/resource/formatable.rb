@@ -38,7 +38,7 @@ module Resource::Formatable
       
       @remove  = options[:remove]
       @squeeze = options[:squeeze] == false ? nil : options[:squeeze] || ' '
-      @strip   = options[:strip]
+      @strip   = options[:strip] == nil ? true : options[:strip]
     end
     
     def format(pattern, data)

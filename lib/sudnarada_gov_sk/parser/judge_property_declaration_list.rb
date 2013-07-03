@@ -7,9 +7,8 @@ module SudnaradaGovSk
           
           rows.each do |row|
             data = row.search('td')
-            a    = data.search('a').first
             
-            if a
+            data.search('a').each do |a|
               url   = "#{SudnaradaGovSk::URL.base}#{a[:href].ascii}"
               court = data[1].text
               judge = data[0].text
