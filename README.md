@@ -87,7 +87,7 @@ Crawl judge property declarations:
 ```
 rake crawl:judge_property_declarations
 ```
-Note that currect support is only for property declarations of 2011.
+Note that currect support is only for property declarations of 2011 and 2012.
 
 ### Partially preprocessed statistical summaries from justice.gov.sk
 
