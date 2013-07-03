@@ -73,7 +73,7 @@ class Judge < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:name, :courts, :positions]
+    facet :q,              type: :fulltext, field: [:name], force_wildcard: true
     facet :activity,       type: :terms
     facet :positions,      type: :terms
     facet :courts,         type: :terms
