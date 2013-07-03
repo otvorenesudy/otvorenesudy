@@ -1,0 +1,24 @@
+<% if results.any? %>
+<!-- TODO rm
+  <dl>
+    <% results.each do |result| %>
+      <dt><%= external_link_to strip_and_highlight(result[:title], omission: false), result[:url] %></dt>
+      <dd><%= strip_and_highlight result[:description], left: false %></dd>
+    <% end %>
+  </dl>
+-->
+
+  <ol class="search-results" start="<%= offset + 1 %>">
+    <% results.each do |result| %>
+      <li>
+        <h4>
+          <%= external_link_to strip_and_highlight(result[:title], omission: false), result[:url] %>
+        </h4>
+
+        <div class="search-result-content">
+          <%= strip_and_highlight result[:description], left: false %>
+        </div>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

@@ -11,7 +11,7 @@
     <div class="span12">
       <% @employments.each do |employment| %>
         <p>
-          <span class="gutter centered muted">
+          <span class="gutter centered">
             <%= judge_activity_tag employment.active, tooltip: !employment.active.nil? %>
           </span>
           <% case employment.active %>
@@ -37,7 +37,7 @@
           <%= translate_with_count(Decree.during_employment(employment).count, :decree) %>.
           <% if employment.note %>
             <br/>
-            <span class="gutter centered muted"><%= icon_tag :pushpin %></span>
+            <span class="gutter centered"><%= icon_tag :pushpin %></span>
             Poznámka: <%= employment.note %>
           <% end %>
         </p>
@@ -45,7 +45,7 @@
 
       <% @designations.each do |designation| %>
         <p>
-          <span class="gutter centered muted">
+          <span class="gutter centered">
             <%= judge_designation_date_tag designation %>
           </span>
           Sudca bol vymenovaný do funkcie pred
@@ -55,8 +55,8 @@
 
       <% if File.readable? @judge.curriculum_path %>
         <p>
-          <span class="gutter centered muted">
-            <%= icon_tag :'file-alt' %>
+          <span class="gutter centered">
+            <%= icon_tag :'file-text-alt' %>
           </span>
           <%= link_to "Životopis sudcu", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
@@ -64,22 +64,22 @@
 
       <% if File.readable? @judge.cover_letter_path %>
         <p>
-          <span class="gutter centered muted">
-            <%= icon_tag :'file-alt' %>
+          <span class="gutter centered">
+            <%= icon_tag :'file-text-alt' %>
           </span>
           <%= link_to "Motivačný list", cover_letter_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
-      <% if @related_persons.any? %>
+      <% @property_declarations.select { |declaration| declaration.related_persons.any? }.each do |declaration| %>
         <p>
-          <span class="gutter centered muted">
+          <span class="gutter centered">
             <%= icon_tag :user %>
           </span>
-          Blízke osoby uvedené v majetkových priznaniach sudcu:
+          Blízke osoby uvedené v majetkovom priznaní sudcu za rok <%= declaration.year %>:
         </p>
         <ul>
-          <% @related_persons.each do |person| %>
+          <% declaration.related_persons.each do |person| %>
             <li><%= "#{person.function} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %></li>
           <% end %>
         </ul>
@@ -96,8 +96,8 @@
           <li class="active">
             <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count %>
           </li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.count %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#past-hearings', @historical_hearings.count %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @judge.hearings.upcoming.count %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @judge.hearings.historical.count %></li>
           <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count %></li>
         </ul>
 
@@ -110,7 +110,7 @@
             <%= render 'hearings', hearings: @upcoming_hearings, query: { judges: @judge.name } %>
           </div>
 
-          <div id="past-hearings" class="tab-pane">
+          <div id="historical-hearings" class="tab-pane">
             <%= render 'hearings', hearings: @historical_hearings, query: { judges: @judge.name, historical: true } %>
           </div>
 

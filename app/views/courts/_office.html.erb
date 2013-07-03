@@ -1,6 +1,22 @@
-<h2><%= name %></h2>
-
 <div class="row">
+  <div class="span12">
+    <h2><%= name %></h2>
+  </div>
+
+  <div class="span8">
+    <% if office.phone? %>
+      <p><%= icon_tag :phone %> Tel. číslo: <%= court_phone office %></p>
+    <% end %>
+
+    <% if office.email? %>
+      <p><%= icon_tag :'envelope-alt' %> E-mail: <%= court_email office %></p>
+    <% end %>
+
+    <% if office.note? %>
+      <p><%= icon_tag :'paper-clip' %> Poznámka: <%= office.note %></p>
+    <% end %>
+  </div>
+
   <div class="span4">
     <table class="table table-condensed table-bordered table-striped">
       <thead>
@@ -31,19 +47,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="offset1 span7">
-    <% if office.phone? %>
-      <p><%= icon_tag :phone %> Tel. číslo: <%= court_phone office %></p>
-    <% end %>
-
-    <% if office.email? %>
-      <p><%= icon_tag :envelope %> E-mail: <%= court_email office %></p>
-    <% end %>
-
-    <% if office.note? %>
-      <p><%= icon_tag :'paper-clip' %> Poznámka: <%= office.note %></p>
-    <% end %>
   </div>
 </div>
