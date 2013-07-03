@@ -1,3 +1,9 @@
 <!-- TODO rm <div class="spinner"></div> -->
 
-<%= render "#{@type.to_s.pluralize}/results", results:  @results, offset: @results.offset %>
+<% if @results.any? %>
+  <%= render "#{@type.to_s.pluralize}/results", results:  @results, offset: @results.offset %>
+<% else %>
+  <div class="alert alert-info">
+    <%= icon_tag :'search' %> Nastaveným obmedzeniam nevyhovujú <strong>žiadne výsledky</strong>.
+  </div>
+<% end %>
