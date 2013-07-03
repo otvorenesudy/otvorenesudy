@@ -291,7 +291,9 @@ module JusticeGovSk
         
         value.gsub!(/fax\s*\.\s*/i, ' fax ')
         value.gsub!(/kl(apka)?\s*\.\s*/i, ' klapka ')
-        
+
+        value.gsub!(/\s*@\s*/, '@')
+
         value.strip.squeeze(' ')
       end
 
