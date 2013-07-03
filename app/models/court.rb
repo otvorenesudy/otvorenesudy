@@ -6,9 +6,7 @@ class Court < ActiveRecord::Base
   include Resource::Formatable
   include Resource::Storage
 
-  include Probe::Index
-  include Probe::Search
-  include Probe::Suggest
+  include Probe
 
   attr_accessible :name,
                   :street,

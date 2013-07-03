@@ -21,4 +21,17 @@ require 'probe/suggest'
 require 'probe/updater'
 
 module Probe
+  extend ActiveSupport::Concern
+
+  included do
+    include Probe::Index
+    include Probe::Search
+    include Probe::Suggest
+    include Probe::Percolate
+
+    include Tire::Model::Search
+    include Tire::Model::Callbacks
+
+    setup
+  end
 end

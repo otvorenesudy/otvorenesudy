@@ -7,9 +7,7 @@ class Judge < ActiveRecord::Base
   include Resource::Similarity
   include Resource::Storage
 
-  include Probe::Index
-  include Probe::Search
-  include Probe::Suggest
+  include Probe
 
   attr_accessible :name,
                   :name_unprocessed,

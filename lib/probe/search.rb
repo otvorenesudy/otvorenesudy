@@ -4,17 +4,24 @@ module Probe
 
     module ClassMethods
       def search_by(params = {})
-        options = Hash.new
+        options = search_options
 
-        options[:name]             = index_name
-        options[:params]           = params
-        options[:facets]           = facets
-        options[:sort_fields]      = sort_fields
-        options[:per_page]         = per_page
+        options.merge! params: params
 
         search = Composer.new(self, options)
 
         search.compose
+      end
+
+      def search_options
+        options = Hash.new
+
+        options[:name]       = index_name
+        options[:facets]     = facets
+        options[:sort_field] = sort_fields
+        options[:per_page]   = per_page
+
+        options
       end
     end
   end
