@@ -8,7 +8,8 @@ class Probe::Facets
     def initialize(name, field, options)
       super name, field, options
 
-      @highlights = options[:highlights] ? options[:highlights] : @field
+      @highlights   = options[:highlights] ? options[:highlights] : @field
+      @use_wildcard = options[:use_wildcard]
     end
 
     def terms=(value)
@@ -30,7 +31,7 @@ class Probe::Facets
     private
 
     def query_options
-      @query_options ||= { operator: :or, analyze_wildcard: true }
+      @query_options ||= { operator: :or, analyze_wildcard: true, use_wildcard: @use_wildcard }
     end
   end
 end
