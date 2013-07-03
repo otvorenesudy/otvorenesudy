@@ -24,7 +24,7 @@ class Legislation < ActiveRecord::Base
   def self.inheritance_column
   end
   
-  formatable :value, default: '%t %u/%y %n § %p %s %l' do |legislation|
+  formatable :value, default: '%t %u/%y %n § %p %s %l', remove: /\/\s*\z/ do |legislation|
     { '%t' => legislation.type,
       '%u' => legislation.number || '?',
       '%y' => legislation.year || '?',
