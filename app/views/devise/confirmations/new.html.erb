@@ -1,0 +1,23 @@
+<section id="confirmation">
+  <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), html: { class: 'form-horizontal', method: :post }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <legend>Preposlanie inštrukcii pre potvrdenie</legend>
+
+    <div class="control-group">
+      <%= f.label :email, class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.email_field :email, :autofocus => true %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <button class="btn" type="submit">Preposlať inštrukcie</button>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<%= render "devise/shared/links" %>
