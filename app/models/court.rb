@@ -69,7 +69,7 @@ class Court < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:type, :name, :street, :municipality, :judges, :media_person]
+    facet :q,              type: :fulltext, field: [:type, :name, :street, :municipality]
     facet :type,           type: :terms
     facet :municipality,   type: :terms
     facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]

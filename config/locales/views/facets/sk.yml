@@ -61,7 +61,7 @@ sk:
 
     court:
       q:
-        placeholder: 'Názov alebo sídlo súdu, meno sudcu alebo pracovníka'
+        placeholder: 'Názov alebo sídlo súdu'
 
       type:
         title: 'Typ'
