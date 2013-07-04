@@ -175,6 +175,10 @@ a[data-toggle="popover"], a[data-toggle="tooltip"] {
   cursor: help;
   text-decoration: none;
 
+  i:before {
+    cursor: help;
+  }
+
   &.muted {
     color: $grayLight;
   }

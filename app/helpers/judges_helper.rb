@@ -24,7 +24,7 @@ module JudgesHelper
     icon_tag = judge_activity_icon_tag(status)
     activity = judge_activity(status)
     
-    return icon_tag unless options[:tooltip]
+    return icon_tag unless options.delete(:tooltip)
     
     options[:placement] ||= :left
     

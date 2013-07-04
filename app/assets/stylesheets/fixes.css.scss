@@ -3,6 +3,11 @@
 
 // popovers and tooltips
 
+.popover,
+.tooltip {
+  cursor: default;
+}
+
 .popover-inner {
   text-align: left;
 }
