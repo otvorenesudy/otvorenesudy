@@ -4,7 +4,7 @@ module CourtsHelper
   end
 
   def court_phone(court, separator = ', ')
-    court.phone.split(/,\s+/).join(separator).html_safe
+    court.phone.split(/,\s+/).map { |phone| phone.gsub(/\d\s+\d/) { |s| s[0] + '&nbsp;' + s[2] }}.join(separator).html_safe
   end
   
   def court_map(court, options = {})

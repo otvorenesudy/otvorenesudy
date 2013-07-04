@@ -5,15 +5,39 @@
 
   <div class="span8">
     <% if office.phone? %>
-      <p><%= icon_tag :phone %> Tel. číslo: <%= court_phone office %></p>
+      <div class="row">
+        <div class="span2">
+          <span class="gutter centered"><%= icon_tag :phone %></span>
+          Tel. číslo:
+        </div>
+        <div class="span6">
+          <%= court_phone office %>
+        </div>
+      </div>
     <% end %>
 
     <% if office.email? %>
-      <p><%= icon_tag :'envelope-alt' %> E-mail: <%= court_email office %></p>
+      <div class="row">
+        <div class="span2">
+          <span class="gutter centered"><%= icon_tag :'envelope-alt' %></span>
+          E-mail:
+        </div>
+        <div class="span6">
+          <%= court_email office %>
+        </div>
+      </div>
     <% end %>
 
     <% if office.note? %>
-      <p><%= icon_tag :'paper-clip' %> Poznámka: <%= office.note %></p>
+      <div class="row">
+        <div class="span2">
+          <span class="gutter centered"><%= icon_tag :pushpin %></span>
+          Poznámka:
+        </div>
+        <div class="span6">
+          <%= office.note %>
+        </div>
+      </div>
     <% end %>
   </div>
 
