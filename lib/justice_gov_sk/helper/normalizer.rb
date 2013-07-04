@@ -425,14 +425,17 @@ module JusticeGovSk
         value.gsub!(/\,\-/, '')
         value.gsub!(/(\A|\s+)(\d*(\.|\,)\d+)+(\s+|\z)/) { |n| n.gsub(/\./, ' ') }
 
-        value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
-        value.gsub!(/\s*(?<c>[\.\;\:\?\!])+\s*/, '\k<c> ')
-        value.gsub!(/(\A|[^\s^\d]+\d*)\s*\,/) { |s| s.gsub(/\s*\,+/, ', ') }
-        value.gsub!(/\,+\s*(\d+(\s+|\z)|\d*[^\s^\d]+|\z)/) { |s| s.gsub(/\,+\s*/, ', ') }
-
         value.gsub!(/(\-\s*){3,}/, '--')
         value.gsub!(/\s*\-\-\s*/, ' – ')
         value.gsub!(/\s*\-\s*/, ' - ')
+
+        value.gsub!(/\s*(\.\s*\.+\s*|(…\s*)+)+\s*/, '… ')
+        value.gsub!(/\s*(?<c>[\.\;\?\!])+\s*/, '\k<c> ')
+        value.gsub!(/(\A|[^\:^\,^\s^\d]+\d*)\s*[\,\:]/) { |s| s.gsub(/\s*(?<c>[\,\:])+/, '\k<c> ') }
+        value.gsub!(/[\,\:]+\s*(\d*[^\:^\,^\s^\d]+|\z)/) { |s| s.gsub(/(?<c>[\,\:])+\s*/, '\k<c> ') }
+
+        value.gsub!(/\s+\,/, ',')
+        value.gsub!(/\s\:[^\s]/) { |s| ' : ' + s[2] }
 
         value.gsub!(/\s*§+\s*/, ' § ')
 
