@@ -93,6 +93,7 @@ Note that currect support is only for property declarations of 2011 and 2012.
 
 * Court statistical summaries:
 ```
+rake process:court_statistical_summaries:2011
 rake process:court_statistical_summaries:2012
 ```
 

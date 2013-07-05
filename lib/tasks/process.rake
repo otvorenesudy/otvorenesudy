@@ -44,6 +44,13 @@ namespace :process do
   desc "Process court statistical summaries"
   namespace :court_statistical_summaries do
     desc "process court statistical summaries from 2012"
+    task :'2011' => :environment do
+      processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
+
+      processor.process('data/court_statistical_summaries_2011.csv')
+    end
+
+    desc "process court statistical summaries from 2012"
     task :'2012' => :environment do
       processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
 
