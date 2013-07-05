@@ -696,7 +696,7 @@ ActiveRecord::Schema.define(:version => 20130611161353) do
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "statistical_tables", ["statistical_table_name_id", "statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_table_and_type", :unique => true
+  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type", "statistical_table_name_id"], :name => "index_statistical_tables_on_summary_and_name", :unique => true
   add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
 
 end
