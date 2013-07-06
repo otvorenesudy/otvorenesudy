@@ -1,1 +1,5 @@
-<%= render 'facets/facet_results', facet: facet, visible: visible, other: other, link: method(:link_to_terms_facet)  %>
+<% if other.count == 1 && other.first.missing? %>
+  <%= render 'facets/facet_results', facet: facet, visible: visible + other, other: [], link: method(:link_to_terms_facet)  %>
+<% else %>
+  <%= render 'facets/facet_results', facet: facet, visible: visible, other: other, link: method(:link_to_terms_facet)  %>
+<% end %>

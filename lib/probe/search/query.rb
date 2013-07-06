@@ -35,10 +35,10 @@ module Probe::Search
 
       return { query: { match_all: {}}} if queries.empty? && filter.nil?
 
-      query[:bool]     = { must: queries } if queries.any?
-      query[:filtered] = { filter: filter } if filter
+      query.merge! filter: filter if filter
+      query.merge! query: { bool: { must: queries }} if queries.any?
 
-      { query: query }
+      { query: { filtered: query }}
     end
 
     def analyze_query_string(value)
