@@ -40,6 +40,12 @@
       <% if @decree.natures.any? %>
         <p>Povaha rozhodnutia &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search(nature.value, params: { natures: nature.value }) }.join(', ').html_safe %></p>
       <% end %>
+
+      <p><%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+
+      <% if File.readable? @decree.document_path %>
+        <p>Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %></p>
+      <% end %>
     </div>
 
     <div class="span4">
@@ -59,12 +65,16 @@
       </div>
       
       <% if @decree.proceeding %>
-        <div class="centered">
+        <p class="centered">
           Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @decree.proceeding, join: :append %>
-        </div>
+        </p>
       <% end %>
+      
+      <%= render 'shared/social' %>
     </div>
   </div>
+  
+  <hr/>
   
   <div class="row">
     <div class="span12">
@@ -80,12 +90,6 @@
       <% end %>
       <% if @decree.summary %>
         <p>Sumár &ndash; <%= @decree.summary %></p>
-      <% end %>
-
-      <p><%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
-
-      <% if File.readable? @decree.document_path %>
-        <p>Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %></p>
       <% end %>
     </div>
   </div>

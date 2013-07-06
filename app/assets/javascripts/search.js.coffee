@@ -55,7 +55,7 @@ $(document).ready ->
       $(@results).find('a').click (e) -> e.preventDefault()
       $(@results).find('a').addClass('disabled')
 
-      $(@results).fadeTo('slow', 0)
+      $(@results).fadeTo('slow', 0.25)
 
 # TODO rm but leave settings somewhere for future reference
 #      $(@el).find('.spinner').spin

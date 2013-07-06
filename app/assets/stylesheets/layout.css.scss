@@ -19,7 +19,7 @@ section + section {
   padding-top: 40px;
 }
 
-nav, table {
+address, nav, table {
   &:last-child {
     margin-bottom: 0px;
   }
@@ -174,6 +174,10 @@ a[data-toggle="popover"], a[data-toggle="tooltip"] {
   color: $textColor;
   cursor: help;
   text-decoration: none;
+
+  i:before {
+    cursor: help;
+  }
 
   &.muted {
     color: $grayLight;

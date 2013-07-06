@@ -20,11 +20,10 @@ class CourtsController < SearchController
 
     @judges = @court.judges.order(:last, :middle, :first)
 
-    @expenses = @court.expenses.order(:year)
+    @hearings = @court.hearings.order('date desc').limit(10)
+    @decrees  = @court.decrees.order('date desc').limit(10)
 
-    @historical_hearings = @court.hearings.historical.order('date desc').limit(10)
-    @upcoming_hearings   = @court.hearings.upcoming.order('date desc').limit(10)
-    @decrees             = @court.decrees.order('date desc').limit(10)
+    @expenses = @court.expenses.order(:year)
 
     @results = @court.context_search[0..9]
   end

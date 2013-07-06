@@ -22,13 +22,13 @@
       <% if @hearing.section || @hearing.special_type %>
         <p>
           <% if @hearing.section %>
-            Úsek &ndash; <%= @hearing.section.value %>
+            Úsek &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
           <% end %>
 
           <%-# Civil hearings only -%>
 
           <% if @hearing.special_type %>
-            Typ &ndash; <%= @hearing.special_type %>
+            <%= @hearing.section ? 't' : 'T' %>yp &ndash; <%= @hearing.special_type %>
           <% end %>
         </p>
       <% end %>
@@ -75,10 +75,12 @@
       </div>
 
       <% if @hearing.proceeding %>
-        <div class="centered">
+        <p class="centered">
           Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @hearing.proceeding, join: :append %>
-        </div>
+        </p>
       <% end %>
+      
+      <%= render 'shared/social' %>
     </div>
   </div>
 </section>

@@ -24,11 +24,11 @@ module JudgesHelper
     icon_tag = judge_activity_icon_tag(status)
     activity = judge_activity(status)
     
-    return icon_tag unless options[:tooltip]
+    return icon_tag unless options.delete(:tooltip)
     
     options[:placement] ||= :left
     
-    tooltip_tag icon_tag, activity, options.merge(class: :'muted undecorated')
+    tooltip_tag icon_tag, activity, options.merge(class: :undecorated)
   end
 
   def judge_position(employment, options = {})
@@ -66,7 +66,7 @@ module JudgesHelper
   end
 
   def judge_designation_date_tag(designation)
-    tooltip_tag icon_tag(:calendar), localize(designation.date, format: :long), placement: :left, class: :'muted undecorated'
+    tooltip_tag icon_tag(:calendar), localize(designation.date, format: :long), placement: :left, class: :undecorated
   end
 
   def judge_designation_date_distance(designation)

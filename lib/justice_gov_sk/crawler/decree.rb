@@ -21,9 +21,12 @@ module JusticeGovSk
         raise "No decree form code" unless @form_code
 
         super do
-          uri = JusticeGovSk::Request.uri(request)
+          uri  = JusticeGovSk::Request.uri(request)
+          ecli = @parser.ecli(@document)
           
-          @decree = decree_by_uri_factory.find_or_create(uri)
+          return nil if ecli.blank?
+          
+          @decree = decree_by_ecli_factory.find_or_create(ecli)
           
           next @decree unless crawlable?(@decree)
           
@@ -43,7 +46,7 @@ module JusticeGovSk
           @decree.case_number = @parser.case_number(@document)
           @decree.file_number = @parser.file_number(@document)
           @decree.date        = @parser.date(@document)
-          @decree.ecli        = @parser.ecli(@document)
+          @decree.ecli        = ecli
           @decree.summary     = @parser.summary(@document)
           
           supply_proceeding_for @decree

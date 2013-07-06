@@ -13,7 +13,7 @@ class CreateDecrees < ActiveRecord::Migration
       t.string :file_number
       
       t.date   :date
-      t.string :ecli
+      t.string :ecli,    null: false
       t.text   :summary
 
       t.references :legislation_area
@@ -32,5 +32,7 @@ class CreateDecrees < ActiveRecord::Migration
     
     add_index :decrees, :case_number
     add_index :decrees, :file_number
+    
+    add_index :decrees, :ecli, unique: true
   end
 end

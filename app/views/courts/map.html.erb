@@ -10,22 +10,12 @@
   </div>
   
   <div class="row">
-    <div class="span10">
-      <div class="well well-small">
+    <div class="span12">
+      <p>
         <%= icon_tag :'map-marker' %>
         Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde.
-      </div>
-    </div>
+      </p>
 
-    <div class="span2">
-      <div class="well well-small centered">
-        <%= icon_link_to :'list-alt', "Zoznam súdov", courts_path %>
-      </div>
-    </div>
-  </div>
-  
-  <div class="row">
-    <div class="span12">
       <%= courts_map @groups %>
     </div>
   </div>

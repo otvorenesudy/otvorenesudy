@@ -33,6 +33,8 @@ class Court < ActiveRecord::Base
 
   belongs_to :municipality
 
+  has_many :offices, class_name: :CourtOffice, dependent: :destroy
+
   belongs_to :information_center,       class_name: :CourtOffice, dependent: :destroy
   belongs_to :registry_center,          class_name: :CourtOffice, dependent: :destroy
   belongs_to :business_registry_center, class_name: :CourtOffice, dependent: :destroy
@@ -63,7 +65,7 @@ class Court < ActiveRecord::Base
     analyze :hearings_count, type: :integer, as: lambda { |c| c.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |c| c.decrees.count }
     analyze :municipality,                   as: lambda { |c| c.municipality.name }
-    analyze :expenses,       type: :integer, as: lambda { |c| c.expenses.pluck(:value).inject(:+) }
+    analyze :expenses,       type: :integer, as: lambda { |c| c.expenses_total }
 
     sort_by :_score, :hearings_count, :decrees_count, :judges_count
   end

@@ -1,8 +1,0 @@
-<% if results.any? %>
-  <dl>
-    <% results.each do |result| %>
-      <dt><%= external_link_to strip_and_highlight(result[:title], omission: false), result[:url] %></dt>
-      <dd><%= strip_and_highlight result[:description], left: false %></dd>
-    <% end %>
-  </dl>
-<% end %>

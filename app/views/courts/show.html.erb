@@ -11,29 +11,35 @@
 
   <div class="row">
     <div class="span12">
+      <%= render 'shared/social', classes: 'social-vertical pull-right' %>
+      
       <p>
-        <span class="gutter centered muted"><%= icon_tag :user %></span>
+        <span class="gutter centered"><%= icon_tag :user %></span>
         Na súde <%= @judges.any? ? 'pracuje' : 'nepracujú' %>
         <%= translate_with_count(@judges.count, :judge) %>.
         Pre súd <%= 'zatiaľ ne' if @court.hearings.none? %>evidujeme
         <%= translate_with_count(@court.hearings.count, :hearing) %>
         a&nbsp;<%= translate_with_count(@court.decrees.count, :decree) %>.
       </p>
-
+      
       <% if @expenses.any? %>
         <p>
-          <span class="gutter centered muted"><%= icon_tag :money %></span>
+          <span class="gutter centered"><%= icon_tag :euro %></span>
+          Celkovo <%= rank Indicator::CourtExpenses.rank @court %> najviac pokutovaný súd zo <%= Indicator::CourtExpenses.courts.count %> súdov.
+        </p>
+        <p>
+          <span class="gutter centered"><%= icon_tag :euro %></span>
           Pokuty od Ústavného súdu Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
           boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
-          <% unless @court.expenses_total.zero? %>
-            <ul>
-              <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
-                <li>za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
-              <% end %>
-            </ul>
-          <% end %>
         </p>
+        <% unless @court.expenses_total.zero? %>
+          <ul>
+            <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
+              <li>za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -47,11 +53,12 @@
           <li class="active">
             <a href="#contact" data-toggle="tab">Kontakt</a>
           </li>
+<!-- TODO rm         
           <li><a href="#offices" data-toggle="tab">Pracoviská</a></li>
+-->
           <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.count%></li>
-          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count %></li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.count %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#past-hearings', @historical_hearings.count %></li>
+          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count %></li>
+          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @court.hearings.count %></li>
           <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count %></li>
         </ul>
 
@@ -59,11 +66,11 @@
           <div id="contact" class="tab-pane active">
             <%= render 'contact' %>
           </div>
-
+<!-- TODO rm
           <div id="offices" class="tab-pane">
             <%= render 'offices' %>
           </div>
-
+-->
           <div id="judges" class="tab-pane">
             <%= render 'judges', judges: @judges %>
           </div>
@@ -72,12 +79,8 @@
             <%= render 'decrees', decrees: @decrees, query: { court: @court.name } %>
           </div>
 
-          <div id="upcoming-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @upcoming_hearings, query: { court: @court.name } %>
-          </div>
-
-          <div id="past-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @historical_hearings, query: { court: @court.name, historical: true } %>
+          <div id="hearings" class="tab-pane">
+            <%= render 'hearings', hearings: @hearings, query: { court: @court.name } %>
           </div>
 
           <div id="media" class="tab-pane">
