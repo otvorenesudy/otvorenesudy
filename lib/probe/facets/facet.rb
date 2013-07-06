@@ -12,12 +12,11 @@ class Probe::Facets
                   :params
 
     def initialize(name, field, options)
-      @base        = options[:base]
-      @name        = name
-      @field       = field
-      @type        = options[:type]
-      @alias       = options[:as]
-      @size        = options[:size] || 10
+      @base   = options[:base]
+      @name   = name
+      @field  = field
+      @type   = options[:type]
+      @size   = options[:size] || 10
     end
 
     def id
@@ -99,10 +98,6 @@ class Probe::Facets
       not_analyzed_field(@field)
     end
 
-    def suggested_field_name
-      suggested_field(@field)
-    end
-
     def refresh!
       @terms  = []
       @script = nil
@@ -119,7 +114,6 @@ class Probe::Facets
     end
 
     def create_result_params(value)
-      #params.merge @name => value
       # TODO: refactor facets to user only add params
       create_result_add_params(value)
     end
