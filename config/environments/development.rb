@@ -11,7 +11,7 @@ OpenCourts::Application.configure do
 
   # Do not show custom error reports in development
   config.consider_all_requests_local = true
-  
+
   # Disable caching
   config.action_controller.perform_caching = false
 
@@ -41,4 +41,7 @@ OpenCourts::Application.configure do
   config.i18n.default_locale    = :sk
   config.i18n.available_locales = :sk
   config.i18n.locale            = :sk
+
+  # default url
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

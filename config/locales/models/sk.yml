@@ -66,6 +66,13 @@ sk:
     other: 'výsledky'
 
   activerecord:
+    attributes:
+      user:
+        email: 'Email'
+        password: 'Heslo'
+        password_confirmation: 'Potvrdenie hesla'
+        current_password: 'Aktuálne heslo'
+
     models:
       court:
         <<: *court
@@ -75,7 +82,7 @@ sk:
 
       hearing:
         <<: *hearing
-        
+
       decree:
         <<: *decree
 

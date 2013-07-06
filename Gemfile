@@ -57,6 +57,9 @@ gem 'resque'
 # analytics
 gem 'garelic'
 
+# authentification
+gem 'devise'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -64,15 +67,15 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier',     '>= 1.0.3'
   gem 'therubyracer', '~> 0.10.2'
+end
 
+group :development do
   # deployment
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
+  gem 'capistrano-resque', '~> 0.1.0'
 end
-
-# resque for capistrano
-gem 'capistrano-resque', '~> 0.1.0'
 
 group :development, :test do
   gem 'rspec-rails',      '~> 2.0'
@@ -81,5 +84,3 @@ group :development, :test do
   gem 'capybara'
   gem 'guard-rspec'
 end
-
-gem 'postgres-copy'

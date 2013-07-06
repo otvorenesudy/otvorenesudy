@@ -19,6 +19,18 @@
           <%= navbar_link_tag :paste, "Konania", search_proceedings_path %>
         </ul>
       </nav>
+
+      <ul class="nav pull-right">
+        <% if user_signed_in? %>
+          <%= navbar_dropdown_tag :user, current_user.email, '#' do %>
+            <li><%= icon_link_to :edit, 'Upraviť profil', edit_user_registration_path %></li>
+            <li><%= icon_link_to :'power-off', 'Odhlásiť', destroy_user_session_path, method: :delete %></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to "Prihlásiť", new_user_session_path %></li>
+          <li><%= link_to "Registrovať", new_user_registration_path %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

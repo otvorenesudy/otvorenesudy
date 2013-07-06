@@ -33,7 +33,7 @@ shared_examples_for Probe::Search::Percolator do
     it 'should not match document' do
       percolator.unregister('tralala')
 
-      record.percolate.should be_empty
+      record.percolate.should eql([])
     end
   end
 end

@@ -1,0 +1,16 @@
+defaults: &defaults
+  mailer:
+    username: -
+    password: -
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,0 +1,5 @@
+<p>Vitajte, <%= @email %>!</p>
+
+<p>Pre potvrdenie Vášho účtu prosím kliknite na dole uvedený odkaz:</p>
+
+<p><%= link_to 'Potvdiť môj účet', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
