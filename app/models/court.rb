@@ -65,7 +65,7 @@ class Court < ActiveRecord::Base
     analyze :hearings_count, type: :integer, as: lambda { |c| c.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |c| c.decrees.count }
     analyze :municipality,                   as: lambda { |c| c.municipality.name }
-    analyze :expenses,       type: :integer, as: lambda { |c| c.expenses.pluck(:value).inject(:+) }
+    analyze :expenses,       type: :integer, as: lambda { |c| c.expenses_total }
 
     sort_by :_score, :hearings_count, :decrees_count, :judges_count
   end

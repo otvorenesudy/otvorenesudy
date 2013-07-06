@@ -19,8 +19,13 @@
         <%= translate_with_count(@court.hearings.count, :hearing) %>
         a&nbsp;<%= translate_with_count(@court.decrees.count, :decree) %>.
       </p>
-
+      
       <% if @expenses.any? %>
+        <p>
+          <span class="gutter centered"><%= icon_tag :euro %></span>
+          Celkovo <%= rank Indicator::CourtExpenses.rank @court %> najviac pokutovaný súd zo <%= Indicator::CourtExpenses.courts.count %> súdov.
+        </p>
+
         <p>
           <span class="gutter centered"><%= icon_tag :euro %></span>
           Pokuty od Ústavného súdu Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch
