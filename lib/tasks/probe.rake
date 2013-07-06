@@ -1,7 +1,4 @@
 namespace :probe do
-
-  # TODO: find out why index increses by multiple update
-
   def constantize_indices(indices)
     indices.map { |index| index.singularize.camelize.constantize }
   end
@@ -33,8 +30,10 @@ namespace :probe do
   task drop: :environment do
     Rake::Task['probe:prepare'].invoke
 
-    ENV['INDICES'] = constantize_indices(INDICES).map { |model| model.index_name }.join(',')
+    constantize_indices(INDICES).each do |model|
+      puts "Deleting index: #{model}"
 
-    Rake::Task['tire:index:drop'].invoke
+      model.delete_index
+    end
   end
 end
