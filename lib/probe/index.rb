@@ -9,10 +9,20 @@ module Probe
 
       def setup
         settings
+
+        index_name "#{index_name}_#{Rails.env}" unless Rails.env.production?
       end
 
       def configuration
         Probe::Configuration
+      end
+
+      def index(name = nil)
+        name ? Tire::Index.new(name) : tire.index
+      end
+
+      def index_alias(name = nil)
+        Tire::Alias.new(name: name || index_name)
       end
 
       def settings(params = {})
@@ -22,14 +32,40 @@ module Probe
 
         tire.settings.deep_merge!(settings)
 
-        index_name "#{index.name}_#{Rails.env}" unless Rails.env.production?
-
         tire.settings
+      end
+
+      def create_index(name = nil)
+        index = index(name)
+
+        index.create(mappings: tire.mapping_to_hash, settings: tire.settings) unless index.exists?
+
+        index
+      end
+
+      def delete_index(name = nil)
+        index(name).delete
+      end
+
+      def update_index
+        Updater.update(self)
+      end
+
+      # TODO: use when elasticsearch support percolating against index alias
+      def alias_index_as(bulk_index)
+        delete_index
+
+        index = index_alias
+
+        index.indices.clear
+        index.index(bulk_index.name)
+
+        index.save
       end
 
       def mapping
         unless block_given?
-          return @mapping
+          return tire.mapping
         else
           @mapping     = Hash.new
           @sort_fields = Array.new
@@ -40,11 +76,8 @@ module Probe
             @mapping.each do |field, value|
               options  = value[:options]
 
-              type       = options[:type] || :string
-              analyzer   = options[:analyzer] || :text_analyzer
-              as         = options[:as] || lambda { |o| o.send(field) }
-              suggest    = options[:suggest].nil? ? true : options[:suggest]
-              suggester  = options[:suggester] || method(:format_suggested_field)
+              type     = options[:type] || :string
+              analyzer = options[:analyzer] || :text_analyzer
 
               case value[:type]
               when :mapped
@@ -53,20 +86,8 @@ module Probe
                 indexes field, options.deep_merge(
                   type: :multi_field,
                   fields: {
-                    analyzed: { type: :string, analyzer: analyzer },
+                    analyzed: { type: :string, analyzer: analyzer, include_in_all: true },
                     untouched: { type: type, index: :not_analyzed }
-                  }
-                )
-              end
-
-              if suggest
-                indexes suggested_field(field), options.deep_merge(
-                  type: :string,
-                  index: :not_analyzed,
-                  as: lambda { |o|
-                    value = as.call(o)
-
-                    suggester.call(value)
                   }
                 )
               end
@@ -85,6 +106,16 @@ module Probe
 
       def per_page
         @_default_per_page || Probe::Configuration.per_page
+      end
+
+      def bulk_name
+        "#{index_name}_#{Time.now.strftime("%Y%m%d%H%M")}"
+      end
+
+      def bulk(options = {})
+        # TODO: requeries Kaminari. Drop or leave dependence?
+        # TODO: rewrite with LIMIT & OFFSET?
+        page(options[:page]).per(options[:per_page])
       end
 
       private

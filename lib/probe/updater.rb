@@ -1,9 +1,13 @@
 module Probe
   class Updater
     def self.update(model)
-      model.find_each do |record|
-        record.update_index
-      end
+      model.delete_index
+      model.create_index
+
+      model.index.import(model, method: :bulk)
+      model.index.refresh
+
+      #model.alias_index_as(bulk_index)
     end
 
     def self.async_update(model)
