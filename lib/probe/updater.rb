@@ -7,7 +7,7 @@ module Probe
       model.index.import(model, method: :bulk)
       model.index.refresh
 
-      #model.alias_index_as(bulk_index)
+      #model.alias_index_as(bulk_index) # TODO rm or wat? (always add todo to commented code) 
     end
 
     def self.async_update(model)

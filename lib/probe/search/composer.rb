@@ -8,11 +8,11 @@ module Probe::Search
     include Probe::Search::Filter
 
     def initialize(model, options)
-      @model            = model
-      @name             = options[:name]
-      @facets           = options[:facets]
-      @params           = options[:params]      || {}
-      @sort_fields      = options[:sort_fields] || []
+      @model       = model
+      @name        = options[:name]
+      @facets      = options[:facets]
+      @params      = options[:params]      || {}
+      @sort_fields = options[:sort_fields] || []
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
@@ -61,10 +61,8 @@ module Probe::Search
 
       if queries.any?
         @index.query do |query|
-          query.boolean do |bool|
-            queries.each do |q|
-              bool.must(&q)
-            end
+          query.boolean do |b|
+            queries.each { |q| b.must(&q) }
           end
         end
       end

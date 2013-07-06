@@ -44,17 +44,17 @@ defaults: &defaults
       script: '
         import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
 
-        analyze = def (str) {
-          size   = str.length();
+        analyze = def (s) {
+          size   = s.length();
           result = new char[size];
 
-          ASCIIFoldingFilter.foldToASCII(str.toCharArray(), 0, result, 0, size);
+          ASCIIFoldingFilter.foldToASCII(s.toCharArray(), 0, result, 0, size);
 
           return new String(result).toLowerCase();
         };
 
-        tokenize = def (str) {
-          return str.split("\\s+");
+        tokenize = def (s) {
+          return s.split("\\s+");
         };
 
         value   = analyze(term);

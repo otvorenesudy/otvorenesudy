@@ -12,11 +12,11 @@ class Probe::Facets
                   :params
 
     def initialize(name, field, options)
-      @base   = options[:base]
-      @name   = name
-      @field  = field
-      @type   = options[:type]
-      @size   = options[:size] || 10
+      @base  = options[:base]
+      @name  = name
+      @field = field
+      @type  = options[:type]
+      @size  = options[:size] || 10
     end
 
     def id
