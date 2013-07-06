@@ -1,12 +1,13 @@
-<section id="new-password">
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), html: { method: :post,  class: 'form-horizontal' }) do |f| %>
-    <%= devise_error_messages! %>
+<section id="user-password">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post,  class: :'form-horizontal' }) do |f| %>
+    <%= user_error_messages %>
+    
     <%= f.hidden_field :reset_password_token %>
 
     <legend>Zabudli ste heslo?</legend>
 
     <div class="control-group">
-      <%= f.label :email, class: 'control-label' %>
+      <%= f.label :email, class: :'control-label' %>
 
       <div class="controls">
         <%= f.email_field :email, autofocus: true %>

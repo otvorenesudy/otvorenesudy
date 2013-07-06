@@ -1,12 +1,13 @@
-<section id="edit-password">
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), html: { class: 'form-horizontal', method: :put }) do |f| %>
-    <%= devise_error_messages! %>
+<section id="user-password">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: :'form-horizontal' }) do |f| %>
+    <%= user_error_messages %>
+
     <%= f.hidden_field :reset_password_token %>
 
     <legend>Zmena hesla</legend>
 
     <div class="control-group">
-      <%= f.label :password, 'Nové heslo', class: 'control-label' %>
+      <%= f.label :password, 'Nové heslo', class: :'control-label' %>
 
       <div class="controls">
         <%= f.password_field :password, autofocus: true %>
@@ -14,7 +15,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :password_confirmation, 'Potvrdenie nového hesla', class: 'control-label' %>
+      <%= f.label :password_confirmation, 'Potvrdenie nového hesla', class: :'control-label' %>
 
       <div class="controls">
         <%= f.password_field :password_confirmation %>

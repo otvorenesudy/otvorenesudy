@@ -1,22 +1,23 @@
-<section id="edit-registration">
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { method: :put,  class: 'form-horizontal' }) do |f| %>
-    <%= devise_error_messages! %>
+<section id="user-registration">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: :'form-horizontal' }) do |f| %>
+    <%= user_error_messages %>
+
     <legend>Upravte svoj profil</legend>
 
     <div class="control-group">
-      <%= f.label :email, class: 'control-label' %>
+      <%= f.label :email, class: :'control-label' %>
 
       <div class="controls">
         <%= f.email_field :email, autofocus: true %>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Zatiaľ neoverený email: <%= resource.unconfirmed_email %></div>
+          <div>Zatiaľ neoverený e-mail: <%= resource.unconfirmed_email %></div>
         <% end %>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label :password, class: 'control-label' %>
+      <%= f.label :password, class: :'control-label' %>
 
       <div class="controls">
         <%= f.password_field :password, placeholder: 'Prázdne, ak nechcete zmeniť.' %>
@@ -24,7 +25,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :password_confirmation, class: 'control-label' %>
+      <%= f.label :password_confirmation, class: :'control-label' %>
 
       <div class="controls">
         <%= f.password_field :password_confirmation, placeholder: 'Prázdne, ak nechcete zmeniť.' %>
@@ -32,7 +33,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :current_password, class: 'control-label' %>
+      <%= f.label :current_password, class: :'control-label' %>
 
       <div class="controls">
         <%= f.password_field :current_password, placeholder: 'Vyplňte, pre potvrdenie zmien.' %>
@@ -50,7 +51,7 @@
 <section id="delete-account">
   <legend>Zrušiť účet</legend>
   <p>
-    <%= button_to "Zrušiť účet", registration_path(resource_name), :data => { :confirm => "Ste si istý?" }, :method => :delete %>
+    <%= button_to "Zrušiť účet", registration_path(resource_name), data: { confirm: "Ste si istý?" }, method: :delete %>
   </p>
 </section>
 
