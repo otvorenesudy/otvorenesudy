@@ -1,4 +1,6 @@
 module Probe::Search
+  # TODO: wait for elasticsearch to use aliases when percolating
+
   class Percolator
     def initialize(model, options)
       @model   = model
@@ -10,9 +12,7 @@ module Probe::Search
 
       composer = Probe::Search::Composer.new(@model, @options)
 
-      @model.index.register_percolator_query(id) do |query|
-        composer.compose_filtered_query(query)
-      end
+      @model.index.register_percolator_query(id, composer.compose_filtered_query)
 
       refresh_precolator
     end
