@@ -18,8 +18,7 @@ FactoryGirl.define do
       active nil
     end
 
-    court { |e| e.association(:court) }
-    judge { |e| e.association(:judge) }
+    court
   end
 
   factory :court_type do
@@ -36,11 +35,12 @@ FactoryGirl.define do
     sequence(:name) { |n| "Court #{n}" }
     sequence(:uri)  { |n| "court_uri_#{n}" }
 
-    street       'Street'
+    street 'Street'
 
-    type { create :court_type }
     source
     municipality
+
+    type { create :court_type }
   end
 
   factory :judge do
@@ -59,8 +59,8 @@ FactoryGirl.define do
 
     source
 
-    after(:create) do |judge|
-      create :employment, :active, court: create(:court), judge: judge
+    after :create do |judge|
+      create :employment, :active, judge: judge
     end
   end
 end

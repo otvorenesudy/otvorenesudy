@@ -5,7 +5,14 @@ shared_examples_for Probe::Search::Percolator do
   let!(:percolator) { Probe::Search::Percolator.new(model, options) }
 
   before :each do
-    record.update_index
+    record.save
+
+    model.delete_index
+    model.update_index
+  end
+
+  after :all do
+    model.delete_index
   end
 
   context 'when percolating a document' do

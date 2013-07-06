@@ -5,42 +5,67 @@ shared_examples_for Probe::Search::Composer do
   let!(:options) { model.search_options }
 
   before :each do
-    record.update_index
+    record.save
+
+    model.delete_index
+    model.update_index
+  end
+
+  after :all do
+    model.delete_index
   end
 
   context 'when searching by fulltext' do
     it 'should search index by query' do
       options[:params] = { q: query }
 
-      search = composer.new(model, options)
+      options[:facets] = Probe::Facets.new([
+        Probe::Facets::FulltextFacet.new(:q, highlight_field, force_wildcard: false)
+      ])
 
+      search  = composer.new(model, options)
       results = search.compose
 
-      results.records.size.should eql(1)
       results.records.first.should eql(record)
-      results.highlights.first.values.to_s.should include("<em>#{query}</em>")
+      results.records.size.should eql(1)
+      results.highlights.first[highlight_field].join.should include("<em>#{query}</em>")
     end
 
     it 'should wildcardize query' do
       options[:params] = { q: "*#{query.first}*" }
 
-      search = composer.new(model, options)
+      options[:facets] = Probe::Facets.new([
+        Probe::Facets::FulltextFacet.new(:q, highlight_field, force_wildcard: false)
+      ])
 
+      search  = composer.new(model, options)
       results = search.compose
 
-      results.highlights.each do |highlight|
-        highlight.values.to_s.should match(/\<em\>.*#{query.first}.*\<\/em\>/)
-      end
+      highlight = results.highlights.first
+
+      highlight[highlight_field].join.should match(/\<em\>.*#{query.first}.*\<\/em\>/)
     end
+  end
 
-    it 'should search by exact query' do
-      options[:params] = { q: "\"#{exact_query}\"" }
+  context 'when searching by filter' do
+    it 'should search index by one value' do
+      name, value = filter.first
 
-      search = composer.new(model, options)
+      options[:params] = { name => value }
 
+      options[:facets] = Probe::Facets.new(model.facets[name])
+
+      search  = composer.new(model, options)
       results = search.compose
 
-      results.records.size.should eql(1)
+      results.facets[name].results.each do |result|
+        add_params    = Array.wrap(value) + [result.value]
+        remove_params = Array.wrap(value) - [result.value]
+
+        result.params[name].should eql(add_params.uniq)
+        result.add_params[name].should eql(add_params.uniq)
+        result.remove_params[name].should eql(remove_params.uniq)
+      end
     end
   end
 end
