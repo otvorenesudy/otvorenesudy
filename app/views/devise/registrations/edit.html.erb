@@ -1,58 +1,40 @@
-<section id="user-registration">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: :'form-horizontal' }) do |f| %>
-    <%= user_error_messages %>
+<% provide :title, "Nastavenia" %>
 
-    <legend>Upravte svoj profil</legend>
-
-    <div class="control-group">
-      <%= f.label :email, class: :'control-label' %>
-
-      <div class="controls">
-        <%= f.email_field :email, autofocus: true %>
-
+<section id="user-settings" class="user">
+  <div class="row">
+    <div class="offset2 span8">
+      <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f| %>
+        <legend><%= yield :title %></legend>
+        <p>
+          <%= f.label :email, class: :'control-label' %>
+          <%= f.email_field :email, autofocus: true, class: :span8 %>
+        </p>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Zatiaľ neoverený e-mail: <%= resource.unconfirmed_email %></div>
+          <p>Zatiaľ neoverený e-mail: <%= resource.unconfirmed_email %></p>
         <% end %>
-      </div>
+        <p>
+          <%= f.label :password %>
+          <%= f.password_field :password, placeholder: 'Prázdne, ak nechcete zmeniť.', class: :span8 %>
+        </p>
+        <p>
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, placeholder: 'Prázdne, ak nechcete zmeniť.', class: :span8 %>
+        </p>
+        <p>
+          <%= f.label :current_password %>  
+          <%= f.password_field :current_password, placeholder: 'Vyplňte, pre potvrdenie zmien.', class: :span8 %>
+        </p>
+        <button type="submit" class="btn btn-inverse btn-large">Poslať inštrukcie</button>
+      <% end %>
     </div>
-
-    <div class="control-group">
-      <%= f.label :password, class: :'control-label' %>
-
-      <div class="controls">
-        <%= f.password_field :password, placeholder: 'Prázdne, ak nechcete zmeniť.' %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :password_confirmation, class: :'control-label' %>
-
-      <div class="controls">
-        <%= f.password_field :password_confirmation, placeholder: 'Prázdne, ak nechcete zmeniť.' %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :current_password, class: :'control-label' %>
-
-      <div class="controls">
-        <%= f.password_field :current_password, placeholder: 'Vyplňte, pre potvrdenie zmien.' %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn" type="submit">Poslať inštrukcie</button>
-      </div>
-    </div>
-  <% end %>
+  </div>
 </section>
 
-<section id="delete-account">
-  <legend>Zrušiť účet</legend>
-  <p>
-    <%= button_to "Zrušiť účet", registration_path(resource_name), data: { confirm: "Ste si istý?" }, method: :delete %>
-  </p>
+<section id="user-unregistration" class="user">
+  <div class="row">
+    <div class="offset2 span8">
+      <legend>Zrušenie účtu</legend>
+      <%= button_to "Zrušiť účet", registration_path(resource_name), data: { confirm: "Ste si istý?" }, method: :delete, class: :'btn btn-danger btn-large' %>
+    </div>
+  </div>
 </section>
-
-<%= render "devise/shared/links" %>
