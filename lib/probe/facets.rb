@@ -7,6 +7,8 @@ module Probe
     def initialize(facets)
       @facets = Hash.new.with_indifferent_access
 
+      facets = Array.wrap(facets)
+
       facets.each do |facet|
         @facets[facet.name] = facet
       end
@@ -39,22 +41,26 @@ module Probe
       map { |facet| facet.build_query if facet.respond_to?(:build_query) && facet.active? }
     end
 
+    def build_query_filter
+      map { |facet| facet.build_query_filter if facet.respond_to?(:build_query_filter) && facet.active? }
+    end
+
     def build_filter(type)
-      { type => map { |facet| { or: facet.build_filter } if facet.active?  }}
+      filter = map { |facet| { or: facet.build_filter } if facet.respond_to?(:build_filter) && facet.active?  }
+
+      { type => filter } if filter.any?
     end
 
     def build_selective_filter(type, options)
-      # TODO what's going on in here?
-      included = options[:include] || @facets.values
-      excluded = options[:exclude] || []
+      excluded = Array.wrap(options[:exclude]) || []
 
       filter = map do |facet|
-        if included.include?(facet) && !excluded.include?(facet)
-          { or: facet.build_filter } if facet.active?
+        unless excluded.include?(facet)
+          { or: facet.build_filter } if facet.respond_to?(:build_filter) && facet.active?
         end
       end
 
-      { type => filter }
+      { type => filter } if filter.any?
     end
 
     def highlights

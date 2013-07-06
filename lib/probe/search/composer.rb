@@ -47,13 +47,11 @@ module Probe::Search
         search_pagination
       end
 
-      puts JSON.pretty_generate(index.to_hash) # TODO: rm
+      puts JSON.pretty_generate(index.to_hash) if index.respond_to? :to_hash # TODO: rm
     end
 
-    def compose_filtered_query(index)
-      return build_filtered_query(index) unless index.respond_to? :query
-
-      index.query { |query| build_filtered_query(query) }
+    def compose_filtered_query
+      build_filtered_query_from(@facets.build_query_filter, @facets.build_filter(:and))
     end
 
     private
@@ -61,10 +59,14 @@ module Probe::Search
     def search_query
       queries = @facets.build_query
 
-      return unless queries.any?
-
-      @index.query do |query|
-        build_search_query(query, queries)
+      if queries.any?
+        @index.query do |query|
+          query.boolean do |bool|
+            queries.each do |q|
+              bool.must(&q)
+            end
+          end
+        end
       end
     end
 
@@ -74,40 +76,17 @@ module Probe::Search
       @index.filter(*filter.first) if filter
     end
 
-    def build_search_query(query, queries)
-      if queries.any?
-        query.boolean do |boolean|
-          queries.each { |q| boolean.must(&q) }
-        end
-      end
-
-    end
-
-    def build_filtered_query(query)
-      queries = @facets.build_query
-      filter  = build_search_filter
-
-      return query.all if queries.empty? && filter.nil?
-
-      build_search_query(query, queries) if queries.any?
-
-      if filter
-        query.filtered do |filtered|
-          filtered.filter(*filter.first)
-        end
-      end
-    end
-
     def build_search_filter
-      filter = @facets.build_filter :and
-
-      filter if filter[:and].any?
+      @facets.build_filter :and
     end
 
-    def build_facet_filter(facet)
-      filter = @facets.build_selective_filter :and, exclude: [facet]
+    def build_facet_filter(options = {})
+      queries = @facets.build_query_filter
+      filter  = @facets.build_selective_filter :and, exclude: options[:exclude]
 
-      filter if filter[:and].any?
+      queries += Array.wrap(options[:queries])
+
+      build_filtered_query_from(queries, filter)
     end
 
     def search_facets
@@ -116,14 +95,14 @@ module Probe::Search
 
         options                 = Hash.new
         options[:global_facets] = true
-        options[:facet_filter]  = build_facet_filter(facet)
+        options[:facet_filter]  = build_facet_filter(exclude: facet)
 
         facet.build(@index, facet.name, options)
 
         if facet.active?
           options                 = Hash.new
           options[:global_facets] = false
-          options[:facet_filter]  = build_search_filter
+          options[:facet_filter]  = build_facet_filter
 
           facet.build(@index, facet.selected_name, options)
         end

@@ -22,12 +22,23 @@ module Probe::Search
 
     def build_query_filter_from(field, terms, options = {})
       build_query_from(field, terms, options) do |fields, values, query_options|
-        filter = { query: { query_string: { query: values }}}
+        filter = { query_string: { query: values }}
 
-        filter[:query][:query_string].merge! query_options
+        filter[:query_string].merge! query_options
 
         filter
       end
+    end
+
+    def build_filtered_query_from(queries, filter)
+      query = Hash.new
+
+      return { query: { match_all: {}}} if queries.empty? && filter.nil?
+
+      query[:bool]     = { must: queries } if queries.any?
+      query[:filtered] = { filter: filter } if filter
+
+      { query: query }
     end
 
     def analyze_query_string(value)
