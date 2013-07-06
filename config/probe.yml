@@ -38,23 +38,36 @@ defaults: &defaults
           tokenizer: keyword
           filter: [asciifolding, lowercase, trim, stop_sk]
 
-  suggest:
-    name: suggest_matcher
-    separator: ':'
+  script:
+    suggest:
+      name: suggest_matcher
+      script: '
+        import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
 
-    params:
-      separator: ':'
+        analyze = def (str) {
+          size   = str.length();
+          result = new char[size];
 
-    script: "
-      values = term.split(params['separator']);
+          ASCIIFoldingFilter.foldToASCII(str.toCharArray(), 0, result, 0, size);
 
-      foreach(q: params['query']) {
-        if (!values[1].contains(q)) {
-          return null;
+          return new String(result).toLowerCase();
+        };
+
+        tokenize = def (str) {
+          return str.split("\\s+");
+        };
+
+        value   = analyze(term);
+        queries = tokenize(analyze(query));
+
+        foreach(q : queries) {
+          if (!value.contains(q)) {
+            return null;
+          }
         }
-      }
 
-      return values[0];"
+        return term;
+        '
 
 development:
   <<: *defaults
