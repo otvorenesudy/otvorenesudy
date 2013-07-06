@@ -67,5 +67,13 @@ class Probe::Facets
 
       values
     end
+
+    class Result < Facet::Result
+      def missing
+        value == 'missing'
+      end
+
+      alias :missing? :missing
+    end
   end
 end

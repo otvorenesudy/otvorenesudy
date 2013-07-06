@@ -139,10 +139,6 @@ class Probe::Facets
         selected
       end
 
-      def missing?
-        value.nil? || value == missing_facet_name
-      end
-
       def eql?(result)
         value.eql? result.value
       end
