@@ -34,9 +34,9 @@ class Probe::Facets
 
     def build_suggest_facet(index, options)
       build(index, name, options) do |f, facet_options|
-        facet_options[:script] = @script.build if @script
+        facet_options.merge! @script.build if @script
 
-        f.terms suggested_field_name, facet_options
+        f.terms not_analyzed_field(@field), facet_options
       end
     end
 

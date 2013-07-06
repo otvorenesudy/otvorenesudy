@@ -16,22 +16,21 @@ module Probe
         options[:facets]      = @facets
         options[:sort_fields] = @sort_fields
 
-        script = Facets::Script.new(Probe::Configuration.suggest)
+        script = Facets::Script.new(Probe::Configuration.script.suggest)
 
-        script.add_match_param(:query, term)
+        script.add_script_params(query: term)
 
         search = Search::Composer.new(self, options)
 
         search.compose do
           facet.add_facet_script(script)
 
-          filter = build_facet_filter(facet)
+          filter_options = Hash.new
 
-          if term.present?
-            filter ||= { and: [] }
+          filter_options[:exclude] = facet
+          filter_options[:queries] = facet.build_suggest_query(term) if term.present?
 
-            filter[:and] << facet.build_suggest_query(term)
-          end
+          filter = build_facet_filter(filter_options)
 
           facet_options = {
             global_facets: false,
@@ -43,7 +42,7 @@ module Probe
           if facet.active?
             facet_options = {
               global_facets: false,
-              facet_filter:  build_search_filter
+              facet_filter:  build_facet_filter
             }
 
             facet.build(@index, facet.selected_name, facet_options)

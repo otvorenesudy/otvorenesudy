@@ -12,18 +12,14 @@ class Probe::Facets
       @params.deep_merge! params
     end
 
-    def add_match_param(name, value)
-      add_script_params(name => sanitize_suggest_string(value).ascii.downcase.split(/[[:space:]]/))
-    end
-
     def build
-      build_params + build_script
+      { script: build_script, params: build_params }
     end
 
     private
 
     def build_params
-      "params = #{@params.to_json};"
+      @params
     end
 
     def build_script
