@@ -3,12 +3,13 @@ class Probe::Facets
     include Probe::Search::Query
 
     attr_accessor :highlights,
+                  :force_wildcard,
                   :query_options
 
     def initialize(name, field, options)
       super name, field, options
 
-      @highlights   = options[:highlights] ? options[:highlights] : @field
+      @highlights     = options[:highlights] ? options[:highlights] : @field
       @force_wildcard = options[:force_wildcard]
     end
 
@@ -20,8 +21,8 @@ class Probe::Facets
       build_query_from(@field, @terms, query_options)
     end
 
-    def build_filter
-      [build_query_filter_from(@field, @terms, query_options)]
+    def build_query_filter
+      build_query_filter_from(@field, @terms, query_options)
     end
 
     def parse_terms(value)
