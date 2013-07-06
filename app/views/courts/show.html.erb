@@ -11,6 +11,8 @@
 
   <div class="row">
     <div class="span12">
+      <%= render 'shared/social', classes: 'social-vertical pull-right' %>
+      
       <p>
         <span class="gutter centered"><%= icon_tag :user %></span>
         Na súde <%= @judges.any? ? 'pracuje' : 'nepracujú' %>
@@ -25,20 +27,19 @@
           <span class="gutter centered"><%= icon_tag :euro %></span>
           Celkovo <%= rank Indicator::CourtExpenses.rank @court %> najviac pokutovaný súd zo <%= Indicator::CourtExpenses.courts.count %> súdov.
         </p>
-
         <p>
           <span class="gutter centered"><%= icon_tag :euro %></span>
           Pokuty od Ústavného súdu Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
           boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
-          <% unless @court.expenses_total.zero? %>
-            <ul>
-              <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
-                <li>za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
-              <% end %>
-            </ul>
-          <% end %>
         </p>
+        <% unless @court.expenses_total.zero? %>
+          <ul>
+            <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
+              <li>za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
     </div>
   </div>
