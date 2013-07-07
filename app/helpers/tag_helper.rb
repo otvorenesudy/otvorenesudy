@@ -64,7 +64,7 @@ module TagHelper
   def navbar_dropdown_tag(type, body, url, options = {}, &block)
     caret = options.delete(:caret)
     body  = icon_tag(caret, label: body, join: :append, wrap: true) if caret
-    link  = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown, wrap: !caret)
+    link  = icon_link_to(type, body, url, class: :'dropdown-toggle', :'data-toggle' => :dropdown, join: options.delete(:join), wrap: !caret)
     list  = content_tag :ul, capture(&block), class: :'dropdown-menu'
     body  = (link << list).html_safe
 

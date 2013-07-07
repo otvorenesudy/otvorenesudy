@@ -19,4 +19,20 @@ module ApplicationHelper
   def canonical_url
     "http://#{request.host}#{request.fullpath}"
   end
+
+  def flash
+    return @flash if @flash
+
+    @flash = super
+
+    if defined?(resource) && (messages = resource.errors.full_messages.uniq).any? 
+      @flash.now[:error] = Array.wrap @flash.now[:error]
+      
+      messages.each do |message|
+        @flash.now[:error] << (message.end_with?('.') ? message : message + '.')
+      end
+    end
+
+    @flash
+  end
 end

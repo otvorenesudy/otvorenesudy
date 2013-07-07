@@ -13,12 +13,14 @@
  *
  *= require assets
  *= require errors
+ *= require carousels
  *= require tables
  *= require maps
  *= require documents
- *= require timeline
+ *= require timelines
  *= require search
  *= require social
+ *= require users
  *
  *= require fixes
  */

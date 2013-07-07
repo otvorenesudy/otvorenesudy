@@ -1,6 +1,4 @@
 OpenCourts::Application.routes.draw do
-  devise_for :users
-
   root to: 'static_pages#home'
 
   match '/about',   to: 'static_pages#about'
@@ -71,6 +69,8 @@ OpenCourts::Application.routes.draw do
       get :suggest
     end
   end
+
+  devise_for :users
 
   match '/404', to: 'errors#show'
   match '/422', to: 'errors#show'

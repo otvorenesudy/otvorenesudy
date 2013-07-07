@@ -1,23 +1,22 @@
-<section id="confirmation">
-  <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), html: { class: 'form-horizontal', method: :post }) do |f| %>
-    <%= devise_error_messages! %>
-
-    <legend>Preposlanie inštrukcii pre potvrdenie</legend>
-
-    <div class="control-group">
-      <%= f.label :email, class: 'control-label' %>
-
-      <div class="controls">
-        <%= f.email_field :email, :autofocus => true %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn" type="submit">Preposlať inštrukcie</button>
-      </div>
-    </div>
-  <% end %>
-</section>
+<% provide :title, "Potvrdenie registrácie" %>
 
 <%= render "devise/shared/links" %>
+
+<section id="user-password" class="user">
+  <div class="row">
+    <div class="offset2 span8">
+      <%= form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post } do |f| %>
+        <legend><%= yield :title %></legend>
+        <p>
+          <strong>Nedostali ste inštrukcie pre potvrdenie registrácie?</strong>
+        </p>
+        <hr/>
+        <p>
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, class: :span8 %>
+        </p>
+        <button type="submit" class="btn btn-inverse btn-large">Preposlať inštrukcie</button>
+      <% end %>
+    </div>
+  </div>
+</section>

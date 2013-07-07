@@ -1,37 +1,23 @@
-<section id="new-session">
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
-    <legend>Prihlásenie</legend>
-
-    <div class="control-group">
-      <%= f.label :email, class: 'control-label', placeholder: 'email' %>
-
-      <div class="controls">
-        <%= f.email_field :email, :autofocus => true %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :password, class: 'control-label', placeholder: 'Heslo' %>
-
-      <div class="controls">
-        <%= f.password_field :password %>
-      </div>
-    </div>
-
-    <% if devise_mapping.rememberable? -%>
-      <div class="control-group">
-        <div class="controls">
-          <%= f.check_box :remember_me %> Zapamätaj si ma
-        </div>
-      </div>
-    <% end -%>
-
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn" type="submit">Prihlásiť</button>
-      </div>
-    </div>
-  <% end %>
-</section>
+<% provide :title, "Prihlásenie" %>
 
 <%= render "devise/shared/links" %>
+
+<section id="user-session" class="user">
+  <div class="row">
+    <div class="offset2 span8">
+      <%= form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
+        <legend><%= yield :title %></legend>
+        <p>
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, class: :span8 %>
+        </p>
+        <p>
+          <%= f.label :password %>
+          <%= f.password_field :password, class: :span8 %>
+        </p>
+        <%= f.hidden_field :remember_me, value: 1 if devise_mapping.rememberable? %>
+        <button type="submit" class="btn btn-inverse btn-large">Prihlásiť</button>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,9 +1,13 @@
-<% unless flash.blank? %>
+<% if flash.any? %>
   <section id="flash">
-    <% flash.each do |type, message| %>
-      <div class="alert alert-<%= type %>">
-        <%= message %>
+    <div class="row">
+      <div class="<%= request.fullpath =~ /^\/users/ ? :'offset2 span8' : :span12 %>">
+        <% flash.each do |type, messages| %>
+          <% Array.wrap(messages).each do |message| %>
+            <div class="alert alert-<%= type %>"><%= message %></div>
+          <% end %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </section>
 <% end %>

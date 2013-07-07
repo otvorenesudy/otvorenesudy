@@ -1,24 +1,23 @@
-<section id="new-password">
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), html: { method: :post,  class: 'form-horizontal' }) do |f| %>
-    <%= devise_error_messages! %>
-    <%= f.hidden_field :reset_password_token %>
-
-    <legend>Zabudli ste heslo?</legend>
-
-    <div class="control-group">
-      <%= f.label :email, class: 'control-label' %>
-
-      <div class="controls">
-        <%= f.email_field :email, autofocus: true %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn" type="submit">Poslať inštrukcie</button>
-      </div>
-    </div>
-  <% end %>
-</section>
+<% provide :title, "Obnovenie hesla" %>
 
 <%= render "devise/shared/links" %>
+
+<section id="user-password" class="user">
+  <div class="row">
+    <div class="offset2 span8">
+      <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f| %>
+        <legend><%= yield :title %></legend>
+        <p>
+          <strong>Zabudli ste heslo?</strong>
+        </p>
+        <hr/>
+        <p>
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, class: :span8 %>
+        </p>
+        <%= f.hidden_field :reset_password_token %>
+        <button type="submit" class="btn btn-inverse btn-large">Poslať inštrukcie</button>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -23,7 +23,7 @@ module Probe::Search
 
     def initialize(model, params, facets, sort_fields, response)
       @model       = model
-      @params      =
+      @params      = params
       @facets      = facets
       @response    = response
       @sort_fields = sort_fields

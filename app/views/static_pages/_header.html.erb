@@ -1,3 +1,4 @@
+<!-- TODO ???
 <header class="jumbotron masthead">
   <div class="pattern">
     <div class="container">
@@ -9,3 +10,33 @@
     </div>
   </div>
 </header>
+-->
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.carousel').carousel()
+    })
+  </script>
+<% end %>
+
+<div id="carousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="<%= asset_path 'hackcamp-coding.jpg' %>" alt="" />
+      <div class="carousel-content">
+        <h1>rake crawl:courts --trace</h1>
+        <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+      </div>
+    </div>
+    <div class="item">
+      <img src="<%= asset_path 'hackcamp-supervising.jpg' %>" alt="" />
+      <div class="carousel-content">
+        <h1>Kontrola sťahovania dát</h1>
+        <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control left" href="#carousel" data-slide="prev"><%= icon_tag :'angle-left' %></a>
+  <a class="carousel-control right" href="#carousel" data-slide="next"><%= icon_tag :'angle-right' %></a>
+</div>

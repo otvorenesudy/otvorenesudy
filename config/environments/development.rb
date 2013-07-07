@@ -10,7 +10,7 @@ OpenCourts::Application.configure do
   config.whiny_nils = true
 
   # Do not show custom error reports in development
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = false
 
   # Disable caching
   config.action_controller.perform_caching = false

@@ -1,32 +1,23 @@
-<section id="edit-password">
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), html: { class: 'form-horizontal', method: :put }) do |f| %>
-    <%= devise_error_messages! %>
-    <%= f.hidden_field :reset_password_token %>
-
-    <legend>Zmena hesla</legend>
-
-    <div class="control-group">
-      <%= f.label :password, 'Nové heslo', class: 'control-label' %>
-
-      <div class="controls">
-        <%= f.password_field :password, autofocus: true %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :password_confirmation, 'Potvrdenie nového hesla', class: 'control-label' %>
-
-      <div class="controls">
-        <%= f.password_field :password_confirmation %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn" type="submit">Zmeniť heslo</button>
-      </div>
-    </div>
-  <% end %>
-</section>
+<% provide :title, "Zmena hesla" %>
 
 <%= render "devise/shared/links" %>
+
+<section id="user-password" class="user">
+  <div class="row">
+    <div class="offset2 span8">
+      <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put } do |f| %>
+        <legend><%= yield :title %></legend>
+        <p>
+          <%= f.label :password, 'Nové heslo' %>
+          <%= f.password_field :password, autofocus: true, class: :span8 %>
+        </p>
+        <p>
+          <%= f.label :password_confirmation, 'Potvrdenie nového hesla' %>
+          <%= f.password_field :password_confirmation, class: :span8 %>
+        </p>
+        <%= f.hidden_field :reset_password_token %>
+        <button type="submit" class="btn btn-inverse btn-large">Zmeniť heslo</button>
+      <% end %>
+    </div>
+  </div>
+</section>
