@@ -1,26 +1,10 @@
-<!-- TODO ???
-<header class="jumbotron masthead">
-  <div class="pattern">
-    <div class="container">
-      <h1>
-        <small>Máme pre Vás</small>
-        <%= number_with_delimiter @count %>
-        <small>súdnych dokumentov</small>
-      </h1>
-    </div>
-  </div>
-</header>
--->
-
 <% content_for :scripts do %>
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('.carousel').carousel()
-    })
+    $(document).ready(function() { $('.carousel').carousel() })
   </script>
 <% end %>
 
-<div id="carousel" class="carousel slide">
+<header class="jumbotron carousel slide">
   <div class="carousel-inner">
     <div class="item active">
       <img src="<%= asset_path 'hackcamp-coding.jpg' %>" alt="" />
@@ -37,6 +21,20 @@
       </div>
     </div>
   </div>
-  <a class="carousel-control left" href="#carousel" data-slide="prev"><%= icon_tag :'angle-left' %></a>
-  <a class="carousel-control right" href="#carousel" data-slide="next"><%= icon_tag :'angle-right' %></a>
-</div>
+  <a class="carousel-control left" href="header" data-slide="prev"><%= icon_tag :'angle-left' %></a>
+  <a class="carousel-control right" href="header" data-slide="next"><%= icon_tag :'angle-right' %></a>
+</header>
+
+<!-- TODO ??
+<header class="jumbotron masthead">
+  <div class="pattern">
+    <div class="container">
+      <h1>
+        <small>Máme pre Vás</small>
+        <%= number_with_delimiter @count %>
+        <small>súdnych dokumentov</small>
+      </h1>
+    </div>
+  </div>
+</header>
+-->

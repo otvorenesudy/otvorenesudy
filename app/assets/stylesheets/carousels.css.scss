@@ -9,8 +9,6 @@ $carouselMinHeight: 360px;
 $carouselMaxHeight: 1080px;
 
 .carousel {
-  background: $red; // TODO rm
-  
   display: block;
   position: relative;
   width: 100%;
@@ -22,11 +20,12 @@ $carouselMaxHeight: 1080px;
   max-height: $carouselMaxHeight;
 
   overflow: hidden;
+
+  background: none;
+  text-align: left;
   
   .carousel-inner, .item {
     height: 100%;
-    
-    background: $green; // TODO rm
   }
   
   img {
@@ -60,14 +59,12 @@ $carouselMaxHeight: 1080px;
   &.right {
     right: 0px;
   }
-  
-  background: $blue; // TODO rm
 }
 
 .carousel-content {
   position: absolute;
   width: 100%;
-  padding: 40px 80px;
+  padding: 40px 0px;
   
   left: 0px;
   bottom: 0px;
@@ -79,8 +76,7 @@ $carouselMaxHeight: 1080px;
   }
   
   h1, p {
-    margin: 0px;
-    line-height: 1.25;
+    margin: 0px 80px;
     
     color: $white;
     
