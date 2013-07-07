@@ -8,11 +8,14 @@
 // general
 
 html {
+  height: 100%;
   overflow-y: scroll;
 }
 
 body {
-  margin-top: 40px;
+  min-width: 940px;
+  height: 100%;
+  margin-top: $navbarHeight;
 }
 
 section + section {
@@ -261,6 +264,8 @@ h1, h2, strong {
 
 // search
 
+// TODO rm??
+/*
 div.search {
   display: block;
   position: relative;
@@ -300,6 +305,7 @@ div.search {
     }
   }
 }
+*/
 
 // header
 
@@ -314,7 +320,7 @@ header {
   text-align: center;
 
   .pattern {
-    padding: 92px 0px;
+    padding: 91px 0px;
   }
 
   h1 {

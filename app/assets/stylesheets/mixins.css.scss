@@ -32,3 +32,8 @@
      -moz-background-clip: padding;
           background-clip: padding-box;
 }
+
+@mixin opacity($opacity) {
+  opacity: $opacity / 100;
+  filter: alpha(opacity=$opacity);
+}

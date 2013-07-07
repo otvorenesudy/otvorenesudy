@@ -1,0 +1,89 @@
+@import 'variables';
+@import 'mixins';
+
+// carousel image ratio should be
+// $bodyMinWidth : $carouselMaxHeight = 47 : 54
+
+$carouselHeight: 100%;
+$carouselMinHeight: 360px;
+$carouselMaxHeight: 1080px;
+
+.carousel {
+  background: $red; // TODO rm
+  
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: -$navbarHeight 0px 0px 0px;
+  border-bottom: 1px solid $navbarInverseBorder;
+
+  height: $carouselHeight;
+  min-height: $carouselMinHeight;
+  max-height: $carouselMaxHeight;
+
+  overflow: hidden;
+  
+  .carousel-inner, .item {
+    height: 100%;
+    
+    background: $green; // TODO rm
+  }
+  
+  img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    max-width: 100%;
+  }
+}
+
+.carousel-control {
+  font-size: 80px;
+  line-height: $carouselMaxHeight;
+  height: $carouselMaxHeight;
+  top: 50%;
+  margin: (-$carouselMaxHeight + $navbarHeight) / 2 0px;
+  padding: 0px 10px;
+  border: 0;
+  
+  @include border-radius(0px);
+
+  background: transparent;
+  color: #000;
+
+  text-shadow: 0px 1px 1px rgba(#000, .4);
+  
+  &.left {
+    left: 0px;
+  }
+  
+  &.right {
+    right: 0px;
+  }
+  
+  background: $blue; // TODO rm
+}
+
+.carousel-content {
+  position: absolute;
+  width: 100%;
+  padding: 40px 80px;
+  
+  left: 0px;
+  bottom: 0px;
+  
+  background-color: rgba(#000, .8);
+
+  h1 {
+    font-weight: bold;
+  }
+  
+  h1, p {
+    margin: 0px;
+    line-height: 1.25;
+    
+    color: $white;
+    
+    text-shadow: 0px 1px 1px rgba(#000, .4);
+  }
+}
