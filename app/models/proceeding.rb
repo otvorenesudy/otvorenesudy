@@ -12,7 +12,7 @@ class Proceeding < ActiveRecord::Base
   mapping do
     map :id
 
-    analyze :case_numbers
+    analyze :case_numbers,                   as: lambda { |p| p.case_numbers }
     analyze :file_number
     analyze :courts,                         as: lambda { |p| p.courts.map(&:name) if p.courts }
     analyze :courts_count,   type: :integer, as: lambda { |p| p.courts.count }
