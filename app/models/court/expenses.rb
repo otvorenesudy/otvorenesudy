@@ -1,4 +1,4 @@
-module Indicator::CourtExpenses
+module Court::Expenses
   extend self
 
   def courts
@@ -12,6 +12,6 @@ module Indicator::CourtExpenses
   private
 
   def ranking
-    @ranking ||= Indicator::Ranking.new(courts) { |court| court.expenses_total }
+    @ranking ||= Resource::Ranking.new(courts) { |court| court.expenses_total }
   end
 end

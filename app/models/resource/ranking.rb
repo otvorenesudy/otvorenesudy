@@ -1,4 +1,4 @@
-class Indicator::Ranking
+class Resource::Ranking
   def initialize(objects, &block)
     @groups = build_groups objects, &block
   end
