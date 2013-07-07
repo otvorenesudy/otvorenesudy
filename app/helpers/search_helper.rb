@@ -35,19 +35,19 @@ module SearchHelper
     link_to body, url, options.except(:params)
   end
 
-  def link_to_hearings_search(body, options = {})
-    link_to_search(:hearings, body, options)
-  end
-
-  def link_to_decrees_search(body, options = {})
-    link_to_search(:decrees, body, options)
+  def link_to_courts_search(body, options = {})
+    link_to_search(:courts, body, options)
   end
 
   def link_to_judges_search(body, options = {})
     link_to_search(:judges, body, options)
   end
 
-  def link_to_courts_search(body, options = {})
-    link_to_search(:courts, body, options)
+  def link_to_hearings_search(body, options = {})
+    link_to_search(:hearings, body, options)
+  end
+
+  def link_to_decrees_search(body, options = {})
+    link_to_search(:decrees, body, options)
   end
 end
