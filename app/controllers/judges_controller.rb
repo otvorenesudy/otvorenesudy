@@ -18,6 +18,7 @@ class JudgesController < SearchController
     @decrees             = @judge.decrees.order('date desc').limit(10)
 
     @property_declarations = @judge.property_declarations.order('year desc')
+    @statistical_summaries = @judge.statistical_summaries.order('year desc')
 
     @results = @judge.context_search[0..9]
   end

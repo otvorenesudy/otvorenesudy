@@ -120,6 +120,18 @@ class Judge < ActiveRecord::Base
   alias :probably_superior_court_officer? :probably_superior_court_officer
   alias :probably_woman?                  :probably_woman
 
+  def released_constitutional_decrees_total
+    @released_constitutional_decrees_total ||= statistical_summaries.sum :released_constitutional_decrees
+  end
+
+  def delayed_constitutional_decrees_total
+    @delayed_constitutional_decrees_total ||= statistical_summaries.sum :delayed_constitutional_decrees
+  end
+  
+  def substantiation_notes
+    @substantiation_notes ||= statistical_summaries.pluck(:substantiation_notes).uniq
+  end
+
   context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
 
   context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/

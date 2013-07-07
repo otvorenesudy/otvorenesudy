@@ -86,6 +86,29 @@
           <% end %>
         </ul>
       <% end %>
+      
+      <% if @statistical_summaries.any? %>
+        <p>
+          <span class="gutter centered">
+            <%= icon_tag :legal %>
+          </span>
+          Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané <%= @judge.released_constitutional_decrees_total %> a prieťahy pred pridelením veci <%= @judge.delayed_constitutional_decrees_total %>.
+        </p>
+
+        <% if @judge.substantiation_notes.any? %>        
+          <p>
+            <span class="gutter centered">
+              <%= icon_tag :pushpin %>
+            </span>
+            Poznámky k dátam získaným zo štatistických výkazov sudcov:
+          </p>
+          <ul>
+            <% @judge.substantiation_notes.each do |note| %>
+              <li><%= note %></li>
+            <% end %>
+          </ul>
+        <% end %>        
+      <% end %>
     </div>
   </div>
 </section>
