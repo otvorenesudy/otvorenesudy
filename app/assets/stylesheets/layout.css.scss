@@ -22,7 +22,7 @@ section + section {
   padding-top: 40px;
 }
 
-address, nav, table {
+address, nav, p, table {
   &:last-child {
     margin-bottom: 0px;
   }
@@ -92,14 +92,6 @@ table {
 
   .number {
     text-align: right;
-  }
-
-  address {
-    margin: 0px;
-  }
-  
-  p:last-child {
-    margin-bottom: 0px;
   }
 }
 

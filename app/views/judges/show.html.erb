@@ -95,18 +95,21 @@
           Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané <%= @judge.released_constitutional_decrees_total %> a prieťahy pred pridelením veci <%= @judge.delayed_constitutional_decrees_total %>.
         </p>
 
-        <% if @judge.substantiation_notes.any? %>        
+        <% if @judge.substantiation_notes.any? %>
           <p>
             <span class="gutter centered">
               <%= icon_tag :pushpin %>
             </span>
-            Poznámky k dátam získaným zo štatistických výkazov sudcov:
+            <a href="#" data-target="#substantiation-notes" data-toggle="collapse">Zobraziť poznámky</a>            
+            k dátam získaných zo štatistických výkazov sudcov.
           </p>
-          <ul>
-            <% @judge.substantiation_notes.each do |note| %>
-              <li><%= note %></li>
-            <% end %>
-          </ul>
+          <div id="substantiation-notes" class="collapse out">
+            <ul>
+              <% @judge.substantiation_notes.each do |note| %>
+                <li><%= note %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>        
       <% end %>
     </div>

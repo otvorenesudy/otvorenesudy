@@ -3,7 +3,7 @@
     <li>
       <h4>
         <%= link_to_judge judge %>
-        <%= judge_activity_tag judge.active?, placement: :right %>
+        <span class="muted"><%= judge_activity_tag judge.active?, placement: :right %></span>
       </h4>
       
       <div class="search-result-content">
