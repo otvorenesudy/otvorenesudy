@@ -27,7 +27,7 @@ module ApplicationHelper
 
     if defined?(resource) && (messages = resource.errors.full_messages.uniq).any? 
       @flash.now[:error] = Array.wrap @flash.now[:error]
-      
+
       messages.each do |message|
         @flash.now[:error] << (message.end_with?('.') ? message : message + '.')
       end

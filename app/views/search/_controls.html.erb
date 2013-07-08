@@ -4,7 +4,7 @@
       <%= render 'facets/fulltext_facet', facet: @facets[:q], translation: t(@facets[:q].key) %>
     </div>
   </div>
-  
+
   <div class="span5">
     <div class="search-controls pull-right">
       <%= form_for search_path, method: :get do %>
@@ -15,7 +15,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <div class="span1">
     <div class="search-controls pull-right">
       <div id="order" class="btn-group" data-toggle="buttons-radio">
@@ -32,8 +32,9 @@
       <%= icon_link_to :remove, "Zrušiť všetky obmedzenia", nil, join: :append, class: :'search-reset' %>
     <% end %>
   </div>
-  
+
   <div class="offset4 span4">
     <%= render 'search/message' %>
   </div>
 </div>
+
