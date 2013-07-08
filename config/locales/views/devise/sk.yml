@@ -18,13 +18,13 @@ sk:
 
     mailer:
       confirmation_instructions:
-        subject: 'Inštrukcie na potvrdenie účtu'
+        subject: '[Otvorené Súdy] Potvrdenie registrácie'
 
       reset_password_instructions:
-        subject: 'Inštrukcie na obnovu hesla'
+        subject: '[Otvorené Súdy] Obnovenie hesla'
 
       unlock_instructions:
-        subject: 'Inštrukcie na odomknutie účtu'
+        subject: '[Otvorené Súdy] Odomknutie účtu'
 
     omniauth_callbacks:
       failure: 'Nebolo Vás možné autentifikovať z %{kind} účtu z dôvodu &bdquo;%{reason}&ldquo;.'
