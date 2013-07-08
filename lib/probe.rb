@@ -18,7 +18,7 @@ require 'probe/facets'
 require 'probe/search'
 require 'probe/serialize'
 require 'probe/suggest'
-require 'probe/updater'
+require 'probe/bulk'
 
 module Probe
   extend ActiveSupport::Concern

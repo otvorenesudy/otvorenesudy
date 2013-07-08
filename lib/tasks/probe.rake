@@ -7,23 +7,36 @@ namespace :probe do
     INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Probe::Configuration.indices
   end
 
+  desc 'Updates the current index'
   task update: :environment do
     Rake::Task['probe:prepare'].invoke
 
     constantize_indices(INDICES).each do |model|
-      puts "Sync index update: #{model}"
+      puts "Index update: #{model}"
 
-      Probe::Updater.update(model)
+      Probe::Bulk.update(model)
     end
   end
 
-  task :'update:async' => :environment do
+  desc 'Imports the entire index (drops and creates index from scratch)'
+  task :'import' => :environment do
     Rake::Task['probe:prepare'].invoke
 
     constantize_indices(INDICES).each do |model|
-      puts "Scheduling async index update: #{model}"
+      puts "Sync index import: #{model}"
 
-      Probe::Updater.async_update(model)
+      Probe::Bulk.import(model)
+    end
+  end
+
+  desc 'Asynchronious import'
+  task :'import:async' => :environment do
+    Rake::Task['probe:prepare'].invoke
+
+    constantize_indices(INDICES).each do |model|
+      puts "Scheduling async index import: #{model}"
+
+      Probe::Bulk.async_import(model)
     end
   end
 
