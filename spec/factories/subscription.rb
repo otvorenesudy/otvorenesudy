@@ -1,6 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :user do
+  factory :subscription do
+    user
+    query
+    period
   end
 end

@@ -65,6 +65,11 @@ sk:
     few: 'výsledky'
     other: 'výsledky'
 
+  period:
+    daily: 'Denne'
+    weekly: 'Týždenne'
+    monthly: 'Mesačne'
+
   activerecord:
     attributes:
       user:

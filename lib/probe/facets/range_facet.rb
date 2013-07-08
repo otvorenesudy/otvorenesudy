@@ -21,6 +21,8 @@ class Probe::Facets
 
     def parse_terms(values)
       super(values) do |value|
+        return value if value.is_a? Range
+
         lower, upper = value.split('..')
 
         @converter.to_elastic(lower)..@converter.to_elastic(upper)

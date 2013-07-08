@@ -1,19 +1,22 @@
+
 class SearchController < ApplicationController
   def search
-    prepare_search
+    prepare
 
-    @results = @model.search_by(params.freeze)
+    @results = @model.search(params.freeze)
 
     @count       = @results.total_count
     @page        = @results.page
     @facets      = @results.facets
     @sort_fields = @results.sort_fields
 
+    prepare_subscription
+
     prepare_facets
   end
 
   def suggest
-    prepare_search
+    prepare
 
     name = params[:name]
     term = params[:term]
@@ -46,15 +49,16 @@ class SearchController < ApplicationController
 
   protected
 
-  helper_method :prepare_search,
+  helper_method :prepare,
                 :prepare_facets,
                 :prepare_collapsible_facets,
                 :prepare_collapsed_facets,
+                :prepare_subscription,
                 :collapsed_facets_key,
                 :search_path,
                 :suggest_path
 
-  def prepare_search
+  def prepare
     @type  = params[:controller].singularize.to_sym
     @model = @type.to_s.camelcase.constantize
   end
@@ -71,9 +75,26 @@ class SearchController < ApplicationController
   def prepare_collapsed_facets
     session_key = collapsed_facets_key @model
 
-    session[session_key] ||= @facets.map(&:name)[-2..-1]
+    session[session_key] ||= []
 
     @collapsed_facet_names = session[session_key]
+  end
+
+  def prepare_subscription
+    if user_signed_in? && @model.respond_to?(:subscribe)
+      query = Query.by_digest_and_model(@facets.params, @model)
+
+      if query
+        @subscription = Subscription.find_by_user_id_and_query_id(current_user.id, query.id)
+      end
+
+      unless @subscription
+        @subscription = Subscription.new
+
+        @subscription.period = Period.first
+        @subscription.query  = query || Query.new
+      end
+    end
   end
 
   def collapsed_facets_key(model)

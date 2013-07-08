@@ -1,0 +1,3 @@
+<%= render "#{@type.to_s.pluralize}_results" %>
+
+<%= link_to "Ďalšie #{t @type, count: :other}", url_for(@query.value.merge(controller: @type.to_s.pluralize, action: :search, order: :desc, sort: :date, host: ActionMailer::Base.default_url_options[:host])) %>

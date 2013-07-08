@@ -3,7 +3,7 @@ module Probe
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def search_by(params = {})
+      def search(params = {})
         options = search_options
 
         options.merge! params: params

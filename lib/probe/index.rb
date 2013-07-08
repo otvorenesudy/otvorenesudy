@@ -10,7 +10,10 @@ module Probe
       def setup
         settings
 
-        index_name "#{index_name}_#{Rails.env}" unless Rails.env.production?
+        after_save :update_index
+        after_destroy :update_index
+
+        index_name "#{index_name}_#{Rails.env}"
       end
 
       def configuration
@@ -47,8 +50,19 @@ module Probe
         index(name).delete
       end
 
+      def import_index
+        Probe::Bulk.import(self)
+      end
+
       def update_index
-        Updater.update(self)
+        find_each { |record| record.update_index }
+      end
+
+      def reload_index
+        delete_index
+        create_index
+
+        import_index
       end
 
       # TODO: use when elasticsearch support percolating against index alias

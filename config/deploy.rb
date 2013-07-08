@@ -23,7 +23,7 @@ set :git_enable_submodules, 1
 #set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
 
 # Resque
-set :workers, { :probe_update => 4 }
+set :workers, { :probe => 4 }
 
 default_run_options[:pty] = true
 
@@ -76,13 +76,13 @@ namespace :probe do
   end
 
   desc "Update Probe indices"
-  task :update, roles: :db do
-    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update"
+  task :import, roles: :db do
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:import"
   end
 
   desc "Enqueue async update of Probe indices"
-  task :update_async, roles: :db do
-    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update:async"
+  task :import_async, roles: :db do
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:import:async"
   end
 end
 

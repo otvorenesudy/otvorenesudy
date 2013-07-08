@@ -5,6 +5,8 @@ class Hearing < ActiveRecord::Base
   include Resource::Storage
 
   include Probe
+  include Resource::Subscribable
+
 
   attr_accessible :case_number,
                   :file_number,
