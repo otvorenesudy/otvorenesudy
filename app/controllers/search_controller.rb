@@ -82,7 +82,7 @@ class SearchController < ApplicationController
 
   def prepare_subscription
     if user_signed_in? && @model.respond_to?(:subscribe)
-      query = Query.by_digest_and_model(@facets.params, @model)
+      query = Query.by_model_and_value(@facets.params, @model)
 
       if query
         @subscription = Subscription.find_by_user_id_and_query_id(current_user.id, query.id)

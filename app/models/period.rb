@@ -1,16 +1,15 @@
 class Period < ActiveRecord::Base
-  attr_accessible :name, :value
+  attr_accessible :name,
+                  :value
+
+  scope :of, lambda { |name| where(name: name) }
+
+  has_many :subscriptions, dependent: :destroy
 
   validates :name,  presence: true
   validates :value, presence: true
 
-  has_many :subscriptions, dependent: :destroy
-
-  def self.for(name)
-    find_by_name(name)
-  end
-
   def include?(time)
-    ((Time.now - value)..Time.now).cover? time
+    ((Time.now - value) .. Time.now).cover? time
   end
 end

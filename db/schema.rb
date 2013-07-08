@@ -640,8 +640,8 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "queries", ["digest"], :name => "index_queries_on_digest", :unique => true
-  add_index "queries", ["model"], :name => "index_queries_on_model"
+  add_index "queries", ["digest", "model"], :name => "index_queries_on_digest_and_model", :unique => true
+  add_index "queries", ["model", "digest"], :name => "index_queries_on_model_and_digest", :unique => true
 
   create_table "sources", :force => true do |t|
     t.string   "module",     :null => false
@@ -716,7 +716,7 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_type", :unique => true
+  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type", "statistical_table_name_id"], :name => "index_statistical_tables_on_summary_and_name", :unique => true
   add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
 
   create_table "subscriptions", :force => true do |t|

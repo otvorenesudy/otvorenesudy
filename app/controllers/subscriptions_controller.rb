@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
     if subscription.save
       flash[:notice] = 'Odoberanie bolo úspešne zaregistrované.'
     else
-      flash[:error] = 'Nastala chyba. Odoberanie bolo nebolo úspešne zaregistrované.'
+      flash[:error] = 'Nastala chyba. Odoberanie nebolo zaregistrované.'
     end
 
     redirect_to :back
@@ -18,14 +18,12 @@ class SubscriptionsController < ApplicationController
   def update
     subscription = Subscription.find(params[:id])
 
-    # TODO: allow only period update
-    subscription.period = Period.find(params[:subscription][:period_id])
-
+    subscription.period = Period.find(params[:subscription][:period_id]) # TODO: allow only period update
 
     if subscription.save
       flash[:notice] = 'Odoberanie bolo úspešne aktualizované.'
     else
-      flash[:error] = 'Nastala chyba. Odoberanie nebolo úspešne aktualizované.'
+      flash[:error] = 'Nastala chyba. Odoberanie nebolo aktualizované.'
     end
 
     redirect_to :back

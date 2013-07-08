@@ -1,5 +1,9 @@
 class Subscription < ActiveRecord::Base
-  attr_accessible :period_id, :query, :query_attributes
+  attr_accessible :period,
+                  :query,
+                  :query_attributes
+
+  scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
 
   belongs_to :user
   belongs_to :query
@@ -7,22 +11,18 @@ class Subscription < ActiveRecord::Base
 
   accepts_nested_attributes_for :query
 
-  scope :by_period, lambda { |name| joins(:period).where('periods.name' => name) }
-
   after_save :register
 
-  def notify
-    SubscriptionMailer.results(self).deliver if results.any?
+  def results
+    @results ||= query.model.constantize.search(query.value).records.find_all { |e, _| period.include? e.created_at }
   end
 
   def register
     query.model.constantize.subscribe(query.id, query.value)
   end
 
-  def results
-    return @results if @results
-
-    @results = query.model.constantize.search(query.value).records.find_all { |e, _| period.include? e.created_at }
+  def notify
+    SubscriptionMailer.results(self).deliver if results.any?
   end
 
   protected

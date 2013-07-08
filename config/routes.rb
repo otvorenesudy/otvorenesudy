@@ -8,8 +8,6 @@ OpenCourts::Application.routes.draw do
 
   match '/search/collapse', to: 'search#collapse'
 
-  resources :subscriptions
-
   resources :courts do
     collection do
       get :search
@@ -71,6 +69,8 @@ OpenCourts::Application.routes.draw do
   end
 
   devise_for :users
+
+  resources :subscriptions
 
   match '/404', to: 'errors#show'
   match '/422', to: 'errors#show'
