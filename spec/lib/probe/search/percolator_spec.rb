@@ -7,8 +7,7 @@ shared_examples_for Probe::Search::Percolator do
   before :each do
     record.save
 
-    model.delete_index
-    model.update_index
+    model.reload_index
   end
 
   after :all do

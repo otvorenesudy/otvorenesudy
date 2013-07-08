@@ -5,10 +5,9 @@ shared_examples_for Probe::Search::Composer do
   let!(:options) { model.search_options }
 
   before :each do
-    record.save
+    record.save!
 
-    model.delete_index
-    model.update_index
+    model.reload_index
   end
 
   after :all do
