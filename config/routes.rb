@@ -6,9 +6,9 @@ OpenCourts::Application.routes.draw do
   match '/home',    to: 'static_pages#home'
   match '/stats',   to: 'static_pages#stats'
 
-  match '/search',          to: 'search#search'
-  match '/suggest/:entity', to: 'search#suggest'
   match '/search/collapse', to: 'search#collapse'
+
+  resources :subscriptions
 
   resources :courts do
     collection do
@@ -33,8 +33,8 @@ OpenCourts::Application.routes.draw do
 
   resources :hearings do
     collection do
-      get :search
-      get :suggest
+      get  :search
+      get  :suggest
     end
 
     member do

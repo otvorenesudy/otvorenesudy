@@ -1,0 +1,33 @@
+<% if user_signed_in? && @model.respond_to?(:subscribe) %>
+
+<%= icon_link_to_collapse(:collapse, "Odoberať e-mailom", target: '#subscription-form') %>
+
+<%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: 'subscription-form', class: 'collapse' } do |f| %>
+
+  <%= f.fields_for :query do |q| %>
+    <%= q.hidden_field :model, value: @model.to_s %>
+    <%= q.hidden_field :value, value: @facets.params.to_json %>
+  <% end %>
+
+  <p>Frekvencia:</p>
+  <%= Period.find_each do |period| %>
+    <label class="radio">
+      <%= f.radio_button :period_id, period.id, checked: @subscription.period == period %>
+      <%= t("period.#{period.name}") %>
+    </label>
+  <% end %>
+
+  <% unless @subscription.new_record? %>
+    <p>
+      <button type="type" class="submit">Aktualizovať</button>
+    </p>
+
+    <p>
+      <%= link_to "Zrušiť", @subscription, method: :delete, :confirm => "Naozaj si želáte zrušiť odoberanie?" %>
+    </p>
+
+  <% else %>
+    <button type="type" class="submit">Zaregistrovať</button>
+  <% end %>
+<% end %>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703182132) do
+ActiveRecord::Schema.define(:version => 20130706180818) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -603,6 +603,15 @@ ActiveRecord::Schema.define(:version => 20130703182132) do
 
   add_index "paragraphs", ["legislation", "number"], :name => "index_paragraphs_on_legislation_and_number", :unique => true
 
+  create_table "periods", :force => true do |t|
+    t.string   "name",       :null => false
+    t.integer  "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "periods", ["name"], :name => "index_periods_on_name", :unique => true
+
   create_table "proceedings", :force => true do |t|
     t.string   "file_number"
     t.datetime "created_at",  :null => false
@@ -622,6 +631,17 @@ ActiveRecord::Schema.define(:version => 20130703182132) do
   add_index "proposers", ["hearing_id", "name"], :name => "index_proposers_on_hearing_id_and_name", :unique => true
   add_index "proposers", ["name"], :name => "index_proposers_on_name"
   add_index "proposers", ["name_unprocessed"], :name => "index_proposers_on_name_unprocessed"
+
+  create_table "queries", :force => true do |t|
+    t.string   "model",      :null => false
+    t.string   "digest",     :null => false
+    t.text     "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "queries", ["digest"], :name => "index_queries_on_digest", :unique => true
+  add_index "queries", ["model"], :name => "index_queries_on_model"
 
   create_table "sources", :force => true do |t|
     t.string   "module",     :null => false
@@ -696,8 +716,21 @@ ActiveRecord::Schema.define(:version => 20130703182132) do
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type", "statistical_table_name_id"], :name => "index_statistical_tables_on_summary_and_name", :unique => true
+  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_type", :unique => true
   add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "query_id",   :null => false
+    t.integer  "period_id",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "subscriptions", ["period_id"], :name => "index_subscriptions_on_period_id"
+  add_index "subscriptions", ["query_id"], :name => "index_subscriptions_on_query_id"
+  add_index "subscriptions", ["user_id", "query_id", "period_id"], :name => "index_subscriptions_on_user_id_and_query_id_and_period_id", :unique => true
+  add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
