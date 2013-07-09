@@ -12,4 +12,7 @@ class User < ActiveRecord::Base
                   :remember_me
 
   validates :email, presence: true, uniqueness: true
+
+  has_many :subscriptions
+  has_many :queries, through: :subscriptions
 end

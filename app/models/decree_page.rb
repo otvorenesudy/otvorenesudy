@@ -1,6 +1,6 @@
 class DecreePage < ActiveRecord::Base
   include Probe
-  extend  Probe::Search::Query
+  extend Probe::Search::Query
 
   attr_accessible :number,
                   :text
@@ -22,7 +22,7 @@ class DecreePage < ActiveRecord::Base
     search_field = analyzed_field(:text)
     highlights   = {}
 
-    results = search do
+    results = tire.search do
       query do
         boolean do
           must { term :decree_id, decree_id }
