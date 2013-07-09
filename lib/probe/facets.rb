@@ -34,7 +34,8 @@ module Probe
     end
 
     def add_search_params(options)
-      @params.merge! options
+      @params.merge! sort: options[:sort] if options[:sort]
+      @params.merge! order: options[:order] if options[:order]
     end
 
     def build_query

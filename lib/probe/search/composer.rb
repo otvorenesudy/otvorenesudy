@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Probe::Search
   class Composer
     attr_accessor :results
