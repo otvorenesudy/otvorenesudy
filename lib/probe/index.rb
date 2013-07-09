@@ -157,8 +157,6 @@ module Probe
         type  = options[:type]
         field = options[:field] || name
 
-        field = mapping.keys if field == :all
-
         options.merge! base: self
 
         @facet_definitions << create_facet(type, name, field, options)

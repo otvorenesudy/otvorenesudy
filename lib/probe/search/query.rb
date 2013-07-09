@@ -9,12 +9,10 @@ module Probe::Search
 
       values = analyze_query_string(values) if options[:force_wildcard]
 
-      fields = field == :all ? nil : analyzed_field(field)
-
-      query_options = build_query_options(fields, options)
+      query_options = build_query_options(analyzed_field(field), options)
 
       if block_given?
-        yield(fields, values, query_options)
+        yield(field, values, query_options)
       else
         Proc.new { string values, query_options }
       end

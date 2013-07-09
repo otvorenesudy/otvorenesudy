@@ -73,7 +73,7 @@ class Decree < ActiveRecord::Base
   end
 
   facets do
-    facet :q,                   type: :fulltext, field: :all
+    facet :q,                   type: :fulltext, field: :all, highlights: :text
     facet :judges,              type: :terms
     facet :case_number,         type: :terms
     facet :file_number,         type: :terms

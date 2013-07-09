@@ -1,13 +1,21 @@
 module Probe
   module Helpers
     module Index
+      def wrap_field(field)
+        field == :all ? :* : field.to_sym
+      end
+
       def analyzed_field(field)
+        field = wrap_field(field)
+
         return field.map { |f| "#{f}.analyzed".to_sym } if field.is_a? Array
 
         "#{field}.analyzed".to_sym
       end
 
       def not_analyzed_field(field)
+        field = wrap_field(field)
+
         return field.map { |f| "#{field}.untouched".to_sym } if field.is_a? Array
 
         "#{field}.untouched".to_sym
