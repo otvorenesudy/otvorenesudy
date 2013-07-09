@@ -1,6 +1,6 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
-    $(function() {
+    $(document).ready(function() {
       var dv = DV.DocumentViewer.init({
       container: $('.document'),
       attachments: <%== [decree_as_attachments(decree)].to_json %>,
@@ -10,7 +10,7 @@
       zoom: true,
       commentList: false,
       search: {
-        query: "<%= params[:q] || '' %>",
+        query: "<%= params[:q] ? escape_javascript(params[:q].html_safe) : '' %>",
           callback: function(q, callback) {
             searchDecreePages(<%= decree.id %>, q, callback)
           }
