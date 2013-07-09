@@ -7,7 +7,7 @@ class DV.DocumentControlView extends Backbone.View
     "click ._dv_pin_annotations":    "toggleAnnotations"
     "change ._dv_search input":      "onSearch"
     "click  ._dv_search a":          "onSearch"
-    "click  ._dv_search_results a":  "onClickSearchResult"
+    "click  ._dv_search_results a":  "onClickSearchResult" # TODO: find out why this bind dont work
 
   initialize: (options) ->
     @dv = options.dv
