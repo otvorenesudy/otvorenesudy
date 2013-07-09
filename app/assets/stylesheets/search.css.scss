@@ -33,6 +33,7 @@
   }  
 }
 
+.search-subscribe,
 .search-reset {
   color: $textColor;
 
@@ -41,10 +42,18 @@
   &:hover, &:focus {
     color: inherit;
   }
+}
 
-  i {
-    color: $red;
-  }
+.search-subscribe i {
+  color: $green;
+}
+
+.search-reset i {
+  color: $red;
+}
+
+.search-separator {
+  margin: 0px 6px;
 }
 
 .search-message {

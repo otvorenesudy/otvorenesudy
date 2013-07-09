@@ -27,14 +27,19 @@
 </div>
 
 <div class="row">
-  <div class="span4">
+  <div class="span8">
+    <% if @model.respond_to? :subscribe %>
+      <%= render 'search/subscribe' %>
+    <% end %>
     <% unless (@facets.params.keys - ['sort', 'order']).empty? %>
+      <% if @model.respond_to? :subscribe %>
+        <span class="search-separator">&middot;</span>
+      <% end %>
       <%= icon_link_to :remove, "Zrušiť všetky obmedzenia", nil, join: :append, class: :'search-reset' %>
     <% end %>
   </div>
 
-  <div class="offset4 span4">
+  <div class="span4">
     <%= render 'search/message' %>
   </div>
 </div>
-

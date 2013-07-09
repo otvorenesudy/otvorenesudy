@@ -7,7 +7,7 @@ namespace :probe do
     INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Probe::Configuration.indices
   end
 
-  desc 'Updates the current index'
+  desc "Updates the entire index"
   task update: :environment do
     Rake::Task['probe:prepare'].invoke
 
@@ -18,7 +18,7 @@ namespace :probe do
     end
   end
 
-  desc 'Imports the entire index (drops and creates index from scratch)'
+  desc "Imports the entire index (drops and creates index from scratch)"
   task :'import' => :environment do
     Rake::Task['probe:prepare'].invoke
 
@@ -29,7 +29,7 @@ namespace :probe do
     end
   end
 
-  desc 'Asynchronious import'
+  desc "Imports the entire index asynchronously (drops and creates index from scratch)"
   task :'import:async' => :environment do
     Rake::Task['probe:prepare'].invoke
 
@@ -40,6 +40,7 @@ namespace :probe do
     end
   end
 
+  desc "Drops the entire index"
   task drop: :environment do
     Rake::Task['probe:prepare'].invoke
 

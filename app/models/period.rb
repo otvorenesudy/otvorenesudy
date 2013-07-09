@@ -1,16 +1,21 @@
 class Period < ActiveRecord::Base
-  attr_accessible :name, :value
+  include Resource::Enumerable
+  
+  attr_accessible :name,
+                  :value
+
+  scope :of, lambda { |name| where(name: name) }
+
+  has_many :subscriptions, dependent: :destroy
 
   validates :name,  presence: true
   validates :value, presence: true
 
-  has_many :subscriptions, dependent: :destroy
-
-  def self.for(name)
-    find_by_name(name)
-  end
+  value :daily,   1.day.to_i
+  value :weekly,  1.week.to_i
+  value :monthly, 1.month.to_i
 
   def include?(time)
-    ((Time.now - value)..Time.now).cover? time
+    ((Time.now - value) .. Time.now).cover? time
   end
 end

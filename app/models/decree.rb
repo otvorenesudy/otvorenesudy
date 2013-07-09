@@ -3,9 +3,9 @@
 class Decree < ActiveRecord::Base
   include Resource::URI
   include Resource::Storage
+  include Resource::Subscribable
 
   include Probe
-  include Resource::Subscribable
 
   attr_accessible :case_number,
                   :file_number,

@@ -2,7 +2,7 @@ module Resource::Subscribable
   extend ActiveSupport::Concern
 
   def subscriptions
-    percolate.map { |q| Query.find(q).subscriptions }.flatten
+    percolate.flat_map { |q| Query.find(q).subscriptions }
   end
 
   module ClassMethods
