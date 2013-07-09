@@ -16,13 +16,11 @@ class Query < ActiveRecord::Base
   before_validation :compute_digest
 
   validates :digest, presence: true
-  validates :value,  presence: true
+  #validates :value,  presence: true
   validates :model,  presence: true, inclusion: { in: %w(Decree Hearing) }
 
   def value
-    attribute = read_attribute(:value)
-
-    JSON.parse(attribute) if attribute
+    JSON.parse(read_attribute(:value))
   end
 
   def value=(value)
@@ -36,10 +34,14 @@ class Query < ActiveRecord::Base
   def self.wrap(value)
     value.is_a?(String) ? value : value.to_json
   end
-  
+
+  def wrap(value)
+    self.class.wrap(value)
+  end
+
   private
 
   def compute_digest
-    digest ||= ::Query.digest wrap(value)
+    self.digest ||= ::Query.digest wrap(value)
   end
 end

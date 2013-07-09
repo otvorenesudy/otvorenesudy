@@ -24,14 +24,17 @@
       <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: @model.to_s %>
-          <%= q.hidden_field :value, value: @facets.params.to_json %>
+          <%= q.hidden_field :value, value: @facets.params %>
         <% end %>
 
+        <%= f.fields_for :period do |p| %>
         <% Period.values.each do |_, period| %>
           <label class="radio inline">
-            <%= f.radio_button :period_id, period.id, checked: @subscription.period == period %>
+            <%= p.hidden_field :id %>
+            <%= p.radio_button :name, period.id, checked: @subscription.period == period %>
             <%= t "period.#{period.name}" %>
           </label>
+        <% end %>
         <% end %>
       <% end %>
     <% else %>
