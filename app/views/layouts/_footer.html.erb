@@ -5,11 +5,11 @@
         <h4>Otvorené Súdy <%= icon_tag :legal %></h4>
         <nav class="nav-collapse collapse">
           <ul class="nav pull-left">
-            <li><%= link_to "O projekte", about_path %></li>
+            <li><%= link_to "O projekte", static_page_path(:about) %></li>
             <li><%= link_to "Často kladené otázky", nil %></li>
             <li><%= link_to "Ako môžem pomôcť?", nil %></li>
             <li><%= link_to "Zdrojové kódy", nil %></li>
-            <li><%= link_to "Kontakt", contact_path %></li>
+            <li><%= link_to "Kontakt", static_page_path(:contact) %></li>
           </ul>
         </nav>
       </div>
@@ -24,17 +24,17 @@
           </ul>
         </nav>
       </div>
-      
+
       <div class="span3">
         <h4>Transparentnosť <%= icon_tag :ok %></h4>
         <nav class="nav-collapse collapse">
           <ul class="nav pull-left">
-            <li><%= link_to "Našli ste chybu?", contact_path %></li>
-            <li><%= link_to "Bezpečnosť", contact_path %></li>
+            <li><%= link_to "Našli ste chybu?", static_page_path(:contact) %></li>
+            <li><%= link_to "Bezpečnosť", static_page_path(:contact) %></li>
           </ul>
         </nav>
       </div>
-      
+
       <div class="span3">
         <h4>Dáta <%= icon_tag :hdd %></h4>
         <nav class="nav-collapse collapse">
@@ -46,7 +46,7 @@
         </nav>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="span12">
         <div class="copyright muted">
