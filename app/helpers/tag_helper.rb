@@ -105,8 +105,8 @@ module TagHelper
     link_to_with_count body, url, count, options.merge(:'data-toggle' => :tab)
   end
 
-  def close_link(url = nil)
-    link_to icon_tag(:remove), url || '#', class: :close
+  def close_link(url = nil, options = {})
+    link_to icon_tag(:remove), url || '#', options.merge(class: :close)
   end
 
   alias :close_link_to :close_link

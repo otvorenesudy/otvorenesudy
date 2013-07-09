@@ -13,6 +13,6 @@ class SubscriptionMailer < ActionMailer::Base
     @type    = @query.model.underscore.to_sym
     @results = @subscription.results
 
-    mail(to: @user.email, subject: "Nové #{t @type, count: :other} pre Váš odber")
+    mail(to: @user.email, subject: "[Otvorené Súdy] Nové #{t @type, count: :other} pre Váš odber")
   end
 end

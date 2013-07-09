@@ -2,15 +2,16 @@ module Resource::Enumerable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def values
-      @values || {}
-    end
+    attr_reader :values
 
     def value(name, value)
-      @values = {} unless @values
+      @values ||= {}
+
+      attributes = { value: value }
+      attributes[:name] = name if self.column_names.include? 'name'
 
       unless @values[name]
-        @values[name] = self.find_or_create_by_value(value)
+        @values[name] = self.where(attributes).first_or_create
         @values[name].save!
       end
 
@@ -21,6 +22,6 @@ module Resource::Enumerable
   end
 
   def name
-    self.class.values.invert[self]
+    read_attribute(:name) || self.class.values.invert[self]
   end
 end

@@ -13,6 +13,10 @@ class Subscription < ActiveRecord::Base
 
   after_save :register
 
+  def period
+    read_attribute(:period) || Period.monthly
+  end
+
   def results
     @results ||= query.model.constantize.search(query.value).records.find_all { |e, _| period.include? e.created_at }
   end

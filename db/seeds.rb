@@ -102,9 +102,3 @@ DecreeForm.create value: "Rozsudok bez odôvodnenia",  code: 'F'
 DecreeForm.create value: "Uznesenie bez odôvodnenia", code: 'C'
 DecreeForm.create value: "Osvedčenie",                code: 'B'
 DecreeForm.create value: "Trestný rozkaz",            code: 'T'
-
-# subscriptions
-
-Period.create name: :daily,   value: 1.day.to_i
-Period.create name: :weekly,  value: 1.week.to_i
-Period.create name: :monthly, value: 1.month.to_i
