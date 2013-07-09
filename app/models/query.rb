@@ -5,7 +5,7 @@ class Query < ActiveRecord::Base
                   :digest,
                   :value
 
-  scope :by_model_and_value, lambda { |model, value| where(digest: digest(query), model: model.to_s) }
+  scope :by_model_and_value, lambda { |model, value| where(digest: ::Query.digest(value), model: model.to_s) }
 
   has_many :subscriptions, dependent: :destroy
 
@@ -13,7 +13,7 @@ class Query < ActiveRecord::Base
 
   alias :subscribers :users
 
-  before_validation :create_digest
+  before_validation :compute_digest
 
   validates :digest, presence: true
   validates :value,  presence: true
@@ -39,7 +39,7 @@ class Query < ActiveRecord::Base
   
   private
 
-  def create_digest
-    self.digest ||= self.class.digest wrap(self.value)
+  def compute_digest
+    digest ||= ::Query.digest wrap(value)
   end
 end
