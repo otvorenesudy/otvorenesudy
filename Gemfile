@@ -63,6 +63,10 @@ gem 'devise'
 # exception notification
 gem 'airbrake'
 
+# markup rendering
+gem 'redcarpet', require: 'redcarpet/compat'
+gem 'markdown-rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
