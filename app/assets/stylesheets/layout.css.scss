@@ -254,6 +254,28 @@ h1, h2, strong {
   }
 }
 
+.nav-tabs {
+  border-color: #ccc;
+}
+
+.nav-tabs > li > a {
+  margin-bottom: 1px;
+  
+  border-color: $grayLighter $grayLighter $white;
+}
+
+.nav-tabs > li > a:hover {
+  border-color: $grayLighter;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {
+  margin-bottom: 0px;
+  padding-bottom: 9px;
+  
+  border-color: #ccc #ccc $white;
+}
+
 // search
 
 // TODO rm??
