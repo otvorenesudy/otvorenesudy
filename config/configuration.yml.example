@@ -1,7 +1,16 @@
 defaults: &defaults
+  airbrake:
+    key: TODO
+  
+  bing:
+    key: TODO
+  
   mailer:
-    username: -
-    password: -
+    username: TODO
+    password: TODO
+
+  resque:
+    password: TODO
 
 development:
   <<: *defaults
