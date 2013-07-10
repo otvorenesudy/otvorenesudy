@@ -16,7 +16,7 @@ class Query < ActiveRecord::Base
   before_validation :compute_digest
 
   validates :digest, presence: true
-  #validates :value,  presence: true
+  #validates :value,  presence: true # TODO ??
   validates :model,  presence: true, inclusion: { in: %w(Decree Hearing) }
 
   def value
@@ -24,7 +24,7 @@ class Query < ActiveRecord::Base
   end
 
   def value=(value)
-    write_attribute(:value, wrap(value))
+    write_attribute(:value, ::Query.wrap(value))
   end
 
   def self.digest(value)
@@ -37,13 +37,9 @@ class Query < ActiveRecord::Base
     value.except(:page, :per_page, :order, :sort).to_json
   end
 
-  def wrap(value)
-    self.class.wrap(value)
-  end
-
   private
 
   def compute_digest
-    self.digest ||= ::Query.digest wrap(value)
+    self.digest ||= ::Query.digest ::Query.wrap(value)
   end
 end

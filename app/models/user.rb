@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  attr_accessible :email,
+                  :password,
+                  :password_confirmation,
+                  :remember_me
+
   devise :confirmable,
          :database_authenticatable,
          :recoverable,
@@ -6,13 +11,9 @@ class User < ActiveRecord::Base
          :rememberable,
          :validatable
 
-  attr_accessible :email,
-                  :password,
-                  :password_confirmation,
-                  :remember_me
+  has_many :subscriptions
+
+  has_many :queries, through: :subscriptions
 
   validates :email, presence: true, uniqueness: true
-
-  has_many :subscriptions
-  has_many :queries, through: :subscriptions
 end

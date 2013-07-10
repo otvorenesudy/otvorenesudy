@@ -28,13 +28,13 @@
         <% end %>
 
         <%= f.fields_for :period do |p| %>
-        <% Period.values.each do |_, period| %>
-          <label class="radio inline">
-            <%= p.hidden_field :id %>
-            <%= p.radio_button :name, period.id, checked: @subscription.period == period %>
-            <%= t "period.#{period.name}" %>
-          </label>
-        <% end %>
+          <% Period.values.each do |_, period| %>
+            <label class="radio inline">
+              <%= p.hidden_field :id %><!-- TODO this generates wierd html, fix! -->
+              <%= p.radio_button :name, period.id, checked: @subscription.period == period %>
+              <%= t "period.#{period.name}" %>
+            </label>
+          <% end %>
         <% end %>
       <% end %>
     <% else %>

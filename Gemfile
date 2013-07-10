@@ -60,10 +60,10 @@ gem 'garelic'
 # authentification
 gem 'devise'
 
-# exception notification
+# exceptions
 gem 'airbrake'
 
-# markup rendering
+# markup
 gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
