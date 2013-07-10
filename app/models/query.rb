@@ -20,7 +20,7 @@ class Query < ActiveRecord::Base
   validates :model,  presence: true, inclusion: { in: %w(Decree Hearing) }
 
   def value
-    JSON.parse(read_attribute(:value))
+    JSON.parse(read_attribute(:value), symbolize_names: true)
   end
 
   def value=(value)
@@ -32,7 +32,9 @@ class Query < ActiveRecord::Base
   end
 
   def self.wrap(value)
-    value.is_a?(String) ? value : value.to_json
+    value = JSON.parse(value, symbolize_names: true) if value.is_a? String
+
+    value.except(:page, :per_page, :order, :sort).to_json
   end
 
   def wrap(value)

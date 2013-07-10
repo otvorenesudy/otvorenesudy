@@ -24,7 +24,7 @@
       <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: @model.to_s %>
-          <%= q.hidden_field :value, value: @facets.params %>
+          <%= q.hidden_field :value, value: @facets.params.to_json %>
         <% end %>
 
         <%= f.fields_for :period do |p| %>
