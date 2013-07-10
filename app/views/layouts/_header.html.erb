@@ -5,7 +5,8 @@
         <ul class="nav pull-left">
           <%= navbar_logo_tag "Otvorené Súdy" %>
           <li class="divider-vertical"></li>
-          <%= navbar_dropdown_tag :building, "Súdy", courts_path, caret: :'caret-down' do %>
+<!-- TODO rm
+          <%= navbar_dropdown_tag :building, "", courts_path, caret: :'caret-down' do %>
             <li><%= icon_link_to :search, "Vyhľadávanie", search_courts_path %></li>
             <li><%= icon_link_to :reorder, "Zoznam", courts_path %></li>
             <li><%= icon_link_to :'map-marker', "Mapa", map_courts_path %></li>
@@ -14,6 +15,9 @@
             <li><%= icon_link_to :search, "Vyhľadávanie", search_judges_path %></li>
             <li><%= icon_link_to :reorder, "Zoznam", judges_path %></li>
           <% end %>
+-->
+          <%= navbar_link_tag :building, "Súdy", search_courts_path %>
+          <%= navbar_link_tag :user, "Sudcovia", search_judges_path %>
           <%= navbar_link_tag :comments, "Pojednávania", search_hearings_path %>
           <%= navbar_link_tag :legal, "Rozhodnutia", search_decrees_path %>
           <%= navbar_link_tag :paste, "Konania", search_proceedings_path %>
