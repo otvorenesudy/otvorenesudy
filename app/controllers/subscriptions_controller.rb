@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class SubscriptionsController < ApplicationController
+  before_filter :authenticate_user!
+
   def create
     attributes = params[:subscription]
 
@@ -8,7 +10,8 @@ class SubscriptionsController < ApplicationController
 
     @subscription = Subscription.new(attributes)
 
-    @subscription.user = current_user
+    @subscription.user   = current_user
+    @subscription.period = @period
 
     if @subscription.save
       flash[:notice] = 'Odoberanie bolo úspešne zaregistrované.'
