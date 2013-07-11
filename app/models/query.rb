@@ -37,9 +37,13 @@ class Query < ActiveRecord::Base
     value.except(:page, :per_page, :order, :sort).to_json
   end
 
+  def wrap(value)
+    self.class.wrap(value)
+  end
+
   private
 
   def compute_digest
-    self.digest ||= ::Query.digest ::Query.wrap(value)
+    self.digest ||= ::Query.digest(::Query.wrap(value))
   end
 end
