@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
   end
 
   def show
-    @slug = params[:slug]
+    @slug  = params[:slug]
+    @title = t("static_pages.#{@slug}", default: 'missing')
   end
 end

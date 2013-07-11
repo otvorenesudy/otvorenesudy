@@ -1,8 +1,8 @@
 <%= provide :title, t("static_pages.#{@slug}") %>
 <section class="markdown" id="<%= @slug %>">
   <div class="row">
-   <div class="span10 offset1">
-     <%= render(@slug).html_safe %>
+    <div class="span10 offset1">
+      <%= render(@slug).html_safe %>
    </div>
   </div>
 </section>
