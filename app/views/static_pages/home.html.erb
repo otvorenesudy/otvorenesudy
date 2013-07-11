@@ -1,4 +1,5 @@
 <% provide :header, render(partial: 'header') %>
+<% provide :footer, render(partial: 'footer') %>
 
 <!-- TODO ?
   
@@ -19,16 +20,19 @@
       Otvorené súdy.
       <small>Transparentne.</small>
     </h1>
-    <p class="lead">
-      Projekt, ktorý <strong>stransparentní pohľad</strong> na <strong>slovenské súdnictvo</strong>.
-    </p>
-    <h2>
-      Pre koho?
-    </h2>
-    <p class="lead">
-      Pre tých ľudí, ktorí by radi mali <strong>všetky informácie na jednom mieste</strong> a&nbsp;efektívne v&nbsp;nich chceli vyhľadávať.
-      Pre tých, ktorí majú radi dynamické grafy, tabuľky a&nbsp;<strong>prehľadné vizualizácie zaujímavých údajov</strong>.
-    </p>
+    <!-- TODO use this wrapper div? -->
+    <div class="feature-content">
+      <p class="lead">
+        Projekt, ktorý <strong>stransparentní pohľad</strong> na <strong>slovenské súdnictvo</strong>.
+      </p>
+      <h2>
+        Pre koho?
+      </h2>
+      <p class="lead">
+        Pre tých ľudí, ktorí by radi mali <strong>všetky informácie na jednom mieste</strong> a&nbsp;efektívne v&nbsp;nich chceli vyhľadávať.
+        Pre tých, ktorí majú radi dynamické grafy, tabuľky a&nbsp;<strong>prehľadné vizualizácie zaujímavých údajov</strong>.
+      </p>
+    </div>
   </div>
   
   <hr/>

@@ -18,7 +18,7 @@ module CourtsHelper
   
   def courts_map(courts, options = {})
     options = courts_map_defaults.merge options
-    groups  = courts.is_a?(Hash) ? courts : courts_group_by_coordinates(courts)
+    groups  = courts.is_a?(Hash) ? courts : Court::Map.build_groups(courts)
     id      = "map_#{groups.hash.abs}"
     data    = {
       map_options: {
@@ -53,17 +53,6 @@ module CourtsHelper
     map
   end
   
-  def courts_group_by_coordinates(courts)
-    groups = {}
-    
-    courts.each do |court|
-      groups[court.coordinates] ||= []
-      groups[court.coordinates] << court
-    end
-
-    groups
-  end
-  
   def link_to_court(court, options = {})
     link_to court.name, court_path(court), options
   end
@@ -94,14 +83,14 @@ module CourtsHelper
   
   def courts_map_data(groups, options)
     groups.values.map { |group| group.first }.to_gmaps4rails do |court, marker|
-      marker.infowindow render 'map_marker_info.html', courts: groups[court.coordinates]
+      marker.infowindow render 'courts/map_marker_info.html', courts: groups[court.coordinates]
     end
   end
   
   def courts_map_scripts(id, options)
     content_for :scripts do
       content_tag :script, type: :'text/javascript', charset: :'utf-8' do
-        render 'map_marker_info.js', id: id
+        render 'courts/map_marker_info.js', id: id
       end
     end
   end

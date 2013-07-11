@@ -5,7 +5,12 @@
   padding: 0px;
   border: 1px solid $grayLight;
   
-  @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba($grayLight, 0.6));
+  height: 10 * $gridRowWidth / 16;
+  
+  &.jumbotron {
+    border-left: none;
+    border-right: none;
+  }
   
   .view {
     height: inherit;
@@ -32,8 +37,4 @@
       border-top: 1px solid $grayLighter;
     }
   }
-}
-
-.map {
-  height: 10 * $gridRowWidth / 16;
 }

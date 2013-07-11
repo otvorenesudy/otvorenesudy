@@ -11,8 +11,8 @@ class CourtsController < SearchController
   end
 
   def map
-    @courts = Court.order(:name).all
-    @groups = courts_group_by_coordinates(@courts)
+    @courts = Court::Map.courts
+    @groups = Court::Map.groups
   end
 
   def show
