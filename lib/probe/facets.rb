@@ -2,7 +2,8 @@ module Probe
   class Facets
     include Enumerable
 
-    attr_reader :params
+    attr_reader :params,
+                :query_params
 
     def initialize(facets)
       @facets = Hash.new.with_indifferent_access
@@ -34,8 +35,10 @@ module Probe
     end
 
     def add_search_params(options)
-      @params.merge! sort: options[:sort] if options[:sort]
+      @params.merge! sort:  options[:sort] if options[:sort]
       @params.merge! order: options[:order] if options[:order]
+
+      @query_params = @params.except(:page, :per_page, :order, :sort)
     end
 
     def build_query
