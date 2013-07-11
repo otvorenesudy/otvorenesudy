@@ -151,6 +151,38 @@ namespace :fixtures do
     end
   end
   
+  namespace :hearings do
+    desc "Loads remaining stored hearings into database"
+    task :load, [:type] => :environment do |_, args|
+      include Core::Injector
+      include Core::Pluralize
+      include Core::Output
+      
+      type = args[:type] || raise("Hearing type not set.")
+      
+      storage = inject JusticeGovSk::Storage, prefix: type.titlecase, implementation: :Hearing, suffix: :Page
+      crawler = inject JusticeGovSk::Crawler, prefix: type.titlecase, implementation: :Hearing
+      
+      storage.batch do |entries, bucket|
+        puts "Loading #{pluralize entries.size, "#{type} hearing"} from bucket #{bucket}."
+        
+        n = 0
+        
+        entries.each do |entry|
+          uri = JusticeGovSk::URL.path_to_url entry
+          
+          next if Hearing.where(uri: uri).first
+          
+          crawler.crawl uri
+          
+          n += 1
+        end
+        
+        puts "finished (#{pluralize n, 'hearing'} loaded)"
+      end
+    end
+  end
+  
   namespace :decrees do
     desc "Extract missing images of decree documents"
     task :extract_images, [:override] => :environment do |_, args|

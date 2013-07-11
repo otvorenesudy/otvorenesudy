@@ -29,5 +29,16 @@ module JusticeGovSk
       path = "#{path}?#{uri.query}" unless uri.query.nil?
       "#{path}.#{ext || :html}" unless path.blank?
     end
+    
+    def self.path_to_url(path)
+      name = File.basename path, '.html'
+
+      name.gsub!(/civil-hearing/i,    'Pojednavania/PojednavanieDetail')
+      name.gsub!(/criminal-hearing/i, 'Pojednavania/PojednavanieTrestDetail')
+      name.gsub!(/special-hearing/i,  'Pojednavania/PojednavanieSpecDetail')
+      name.gsub!(/decree/i,           'Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
+
+      "#{self.base}/Stranky/#{name}"
+    end
   end
 end
