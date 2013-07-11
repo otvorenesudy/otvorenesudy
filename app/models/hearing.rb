@@ -67,7 +67,10 @@ class Hearing < ActiveRecord::Base
     analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
     analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } if h.accusations }
 
-    sort_by :date
+    analyze :created_at
+    analyze :updated_at
+
+    sort_by :date, :created_at
   end
 
   facets do
