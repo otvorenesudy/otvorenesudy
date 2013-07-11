@@ -24,11 +24,11 @@ class Query < ActiveRecord::Base
   end
 
   def value=(value)
-    write_attribute(:value, ::Query.wrap(value))
+    write_attribute(:value, ::Query.unwrap(value))
   end
 
   def self.digest(value)
-    Digest::SHA1.hexdigest wrap(value)
+    Digest::SHA1.hexdigest(unwrap(value))
   end
 
   def self.wrap(value)
@@ -37,13 +37,15 @@ class Query < ActiveRecord::Base
     value
   end
 
-  def wrap(value)
-    self.class.wrap(value)
+  def self.unwrap(value)
+    value = value.to_json if value.is_a? Hash
+
+    value
   end
 
   private
 
   def compute_digest
-    self.digest ||= ::Query.digest(::Query.wrap(value))
+    self.digest ||= ::Query.digest ::Query.wrap(value)
   end
 end
