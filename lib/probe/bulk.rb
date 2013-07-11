@@ -4,7 +4,7 @@ module Probe
       model.delete_index
       model.create_index
 
-      model.index.import(model, method: :bulk)
+      model.index.import(model, method: :bulk, per_page: 5000)
 
       model.index.refresh
 
