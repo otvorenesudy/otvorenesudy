@@ -34,7 +34,7 @@ class Query < ActiveRecord::Base
   def self.wrap(value)
     value = JSON.parse(value, symbolize_names: true) if value.is_a? String
 
-    value.except(:page, :per_page, :order, :sort).to_json
+    value
   end
 
   def wrap(value)
