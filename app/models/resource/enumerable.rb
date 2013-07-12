@@ -7,8 +7,10 @@ module Resource::Enumerable
     def value(name, value)
       @values ||= {}
 
+      name = name.to_sym
+
       attributes = { value: value }
-      attributes[:name] = name if self.column_names.include? 'name'
+      attributes[:name] = name.to_s if self.column_names.include? 'name'
 
       unless @values[name]
         @values[name] = self.where(attributes).first_or_create

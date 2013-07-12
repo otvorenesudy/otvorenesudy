@@ -31,14 +31,14 @@
 
     <% if user_signed_in? %>
       <% unless @subscription.new_record? %>
-        <button type="type" class="btn btn-inverse" form="subscribe-form-<%= @subscription.id %>">Aktualizovať</button>
+        <button type="type" class="btn btn-primary" form="subscribe-form-<%= @subscription.id %>">Aktualizovať</button>
         <%= link_to "Zrušiť", @subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger' %>
       <% else %>
-        <button type="type" class="btn btn-inverse" form="subscribe-form">Odoberať</button>
+        <button type="type" class="btn btn-primary" form="subscribe-form">Odoberať</button>
       <% end %>
     <% else %>
       <%= link_to "Registrovať", new_registration_path(:user), role: :button, class: :'btn btn-success' %>
-      <%= link_to "Prihlásiť", new_session_path(:user), role: :button, class: :'btn btn-inverse' %>
+      <%= link_to "Prihlásiť", new_session_path(:user), role: :button, class: :'btn btn-primary' %>
     <% end %>
   </div>
 </div>

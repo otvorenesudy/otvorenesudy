@@ -311,7 +311,7 @@ header {
   border-top: 1px solid $navbarInverseBorder;
   border-bottom: 1px solid $navbarInverseBorder;
 
-  @include linear-gradient(45deg, darken($linkColor, 20%), darken($blue, 10%));
+  @include linear-gradient(45deg, darken($linkColorHover, 20%), darken($linkColor, 10%));
 
   color: $white;
 
