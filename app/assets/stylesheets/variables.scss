@@ -9,8 +9,8 @@ $white:                 #fff !default;
 
 
 // Accent colors
-$blue:                  #8975b5 !default; // #049cdb
-$blueDark:              #66419a !default; // #0064cd
+$blue:                  #049cdb !default;
+$blueDark:              #0064cd !default;
 $green:                 #46a546 !default;
 $red:                   #9d261d !default;
 $yellow:                #ffc40d !default;
@@ -214,7 +214,7 @@ $successLinkColorHover:   $successLinkColor !default;
 
 $infoText:                #6a449b !default; // #3a87ad
 $infoBackground:          #e5d9eb !default; // #d9edf7
-$infoBorder:              #d3c8d9 !default; // darken(adjust-hue($infoBackground, -10), 7%)
+$infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
 $infoLinkColor:           $infoText !default;
 $infoLinkColorHover:      $infoLinkColor !default;
 
