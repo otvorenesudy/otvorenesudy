@@ -1,16 +1,22 @@
-<% provide :title, title(@status, @error) %>
+<% provide :title, title(@status, @title) %>
 
 <section id="error-description" class="error">
-  <div class="unicorn centered">
-    <img src="<%= asset_path('unicorn.png') %>" alt="Jednorožec" />
-  </div>
+  <div class="row">
+    <div class="span6">
+      <h1 class="centered">
+        <%= @status %> <%= @title %>
+      </h1>
 
-  <div class="page-header centered">
-    <h1>
-      <span class="text-error">Ups, rozzúrili ste jednorožca!</span>
-      <br/>
-      <small><%= @description %></small>
-    </h1>
+      <p class="centered">
+        A preto sa veľmi rozzúril jednorožec!
+        <br/>
+        <span class="muted"><%= @description %></span>
+      </p>
+    </div>
+
+    <div class="span6">
+      <img class="unicorn" src="<%= asset_path('unicorn.png') %>" alt="Jednorožec" />
+    </div>
   </div>
 </section>
 

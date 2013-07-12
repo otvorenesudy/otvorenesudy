@@ -13,7 +13,7 @@ class ErrorsController < ApplicationController
     I18n.with_options scope: [:exceptions, rescue_response] do |i18n|
       key = class_name.underscore
 
-      @error       = i18n.t "#{key}.title",       default: i18n.t(:title,       default: class_name)
+      @title       = i18n.t "#{key}.title",       default: i18n.t(:title,       default: class_name)
       @description = i18n.t "#{key}.description", default: i18n.t(:description, default: @message)
     end
 
