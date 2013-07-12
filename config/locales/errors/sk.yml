@@ -1,7 +1,7 @@
 sk:
   exceptions:
     not_found:
-      title: 'Stránka nebola nájdená'
+      title: 'Stránka nenájdená'
       description: 'Stránka, ktorú ste hľadali neexistuje.'
     internal_server_error:
       title: 'Kritická chyba'

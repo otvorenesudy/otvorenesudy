@@ -1,8 +1,6 @@
 OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
 
-  match '/search/collapse', to: 'search#collapse'
-
   resources :courts do
     collection do
       get :search
@@ -65,18 +63,20 @@ OpenCourts::Application.routes.draw do
 
   devise_for :users
 
-  resources :subscriptions
-
   resource :users do
     get :subscriptions
   end
+
+  resources :subscriptions
+
+  match '/search/collapse', to: 'search#collapse'
 
   match '/404', to: 'errors#show', as: :not_found_error
   match '/500', to: 'errors#show', as: :internal_server_error
 
   mount Resque::Server.new, at: '/resque'
 
-  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page, constraints: { slug: /(about|contact|faq)/ }
+  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
