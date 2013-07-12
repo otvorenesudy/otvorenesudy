@@ -67,13 +67,16 @@ OpenCourts::Application.routes.draw do
 
   resources :subscriptions
 
-  match '/404', to: 'errors#show'
-  match '/422', to: 'errors#show'
-  match '/500', to: 'errors#show'
+  resource :users do
+    get :subscriptions
+  end
+
+  match '/404', to: 'errors#show', as: :not_found_error
+  match '/500', to: 'errors#show', as: :internal_server_error
 
   mount Resque::Server.new, at: '/resque'
 
-  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
+  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page, constraints: { slug: /(about|contact|faq)/ }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
