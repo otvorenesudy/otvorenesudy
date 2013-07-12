@@ -9,8 +9,8 @@ $white:                 #fff !default;
 
 
 // Accent colors
-$blue:                  #624a9d !default; // #049cdb
-$blueDark:              #0064cd !default;
+$blue:                  #8d54a1 !default; // #049cdb
+$blueDark:              #613b8d !default; // #0064cd
 $green:                 #46a546 !default;
 $red:                   #9d261d !default;
 $yellow:                #ffc40d !default;
@@ -25,8 +25,8 @@ $textColor:             $grayDark !default;
 
 
 // Links
-$linkColor:             #4e2d7c !default; // #08c
-$linkColorHover:        darken($linkColor, 15%) !default;
+$linkColor:             #75479a !default; // #08c
+$linkColorHover:        #583674 !default; // darken($linkColor, 15%)
 
 
 // Typography
@@ -69,11 +69,11 @@ $btnBackground:                     $white !default;
 $btnBackgroundHighlight:            darken($white, 10%) !default;
 $btnBorder:                         #bbb !default;
 
-$btnPrimaryBackground:              $linkColor !default;
-$btnPrimaryBackgroundHighlight:     adjust-hue($btnPrimaryBackground, 20%) !default;
+$btnPrimaryBackground:              #75479a !default; // $linkColor
+$btnPrimaryBackgroundHighlight:     #4e3067 !default; // adjust-hue($btnPrimaryBackground, 20%)
 
-$btnInfoBackground:                 #5bc0de !default; // #5bc0de
-$btnInfoBackgroundHighlight:        #2f96b4 !default; // #2f96b4
+$btnInfoBackground:                 #a67fb9 !default; // #5bc0de
+$btnInfoBackgroundHighlight:        #814b99 !default; // #2f96b4
 
 $btnSuccessBackground:              #62c462 !default;
 $btnSuccessBackgroundHighlight:     #51a351 !default;
@@ -92,7 +92,7 @@ $btnInverseBackgroundHighlight:     $grayDarker !default;
 $formActionsBackground:         #f5f5f5 !default;
 $inputBackground:               $white !default;
 $inputBorder:                   #ccc !default;
-$inputBorderFocus:              $linkColor !default;
+$inputBorderFocus:              #75479a !default; // $linkColor
 $inputBorderRadius:             $baseBorderRadius !default;
 $inputDisabledBackground:       $grayLighter !default;
 $inputHeight:                   $baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
@@ -108,8 +108,8 @@ $dropdownLinkColor:             $grayDark !default;
 $dropdownLinkColorHover:        $white !default;
 $dropdownLinkColorActive:       $dropdownLinkColor !default;
 
-$dropdownLinkBackgroundActive:  $linkColor !default;
-$dropdownLinkBackgroundHover:   $dropdownLinkBackgroundActive !default;
+$dropdownLinkBackgroundActive:  #75479a !default; // $linkColor
+$dropdownLinkBackgroundHover:   #75479a !default; // $dropdownLinkBackgroundActive
 
 
 // Z-index master list
@@ -212,11 +212,11 @@ $successBorder:           darken(adjust-hue($successBackground, -10), 5%) !defau
 $successLinkColor:        $successText !default;
 $successLinkColorHover:   $successLinkColor !default;
 
-$infoText:                #69449a !default; // #3a87ad
-$infoBackground:          #e4d8ea !default; // #d9edf7
-$infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
-$infoLinkColor:           $infoText !default;
-$infoLinkColorHover:      $infoLinkColor !default;
+$infoText:                #78449a !default; // #3a87ad
+$infoBackground:          #e4d9eb !default; // #d9edf7
+$infoBorder:              #d0c8d9 !default; // darken(adjust-hue($infoBackground, -10), 7%)
+$infoLinkColor:           #78449a !default; // $infoText
+$infoLinkColorHover:      #78449a !default; // $infoLinkColor
 
 
 // Tooltips and popovers
