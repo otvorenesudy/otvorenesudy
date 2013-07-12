@@ -4,8 +4,9 @@ class StaticPagesController < ApplicationController
   end
 
   def show
-    @slug  = params[:slug]
-    @title = translate "static_pages.#{@slug}", default: 'missing'
+    @slug     = params[:slug]
+    @template = @slug.gsub(/-/, '_')
+    @title    = translate "static_pages.#{@template}", default: 'missing'
     
     begin
       render

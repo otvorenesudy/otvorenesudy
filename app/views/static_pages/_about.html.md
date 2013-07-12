@@ -1,4 +1,5 @@
-### O projekte
+# O projekte
+
 Dobré fungovanie súdneho systému má zásadný vplyv na kvalitu verejného života a demokracie. Fungujúce a dôveryhodné súdnictvo je predpokladom pre dobré podnikateľské ale aj bežné občianske prostredie na život.
 Slováci so stavom súdnictva nie sú spokojní.  Podľa <a href="http://ec.europa.eu/public_opinion/archives/ebs/ebs_374_en.pdf"> Eurobarometra z jesene 2009 </a> len 29 % Slovákov dôveruje súdom. Zároveň každá dvanásta domácnosť, ktorá prišla do kontaktu so súdnictvom, zaplatila podľa prieskumu <a href="http://www.transparency.sk/sk/kazda-piata-domacnost-zaplati-rocne-aspon-jeden-uplatok/"> Globálneho barometra korupcie </a> z roku 2013 úplatok. 
 
@@ -12,7 +13,6 @@ Projekt Otvorené súdy je príspevkom k zlepšeniu diskusie o slovenskom v súd
 <li> Robí tak adresne – na úrovni jednotlivých sudcov a súdov </li></ol>
 
 Ďalšie informácie o projekte nájdete zodpovedané v **Sekcii často kladených otázok** 
-
 
 Projekt Otvorené súdy vznikol vďaka podpore sekretariátu <a href="http://www.transparency.org"> Transparency International </a> v Berlíne a <a href="http://www.restartslovensko.sk/"> projektu Reštart </a> organizovanému <a href="www.cpf.sk"> Centrom pre filantropiu </a>. 
 

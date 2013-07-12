@@ -50,5 +50,17 @@ sk:
 
   static_pages:
     about: 'O projekte'
-    contact: 'Kontakt'
     faq: 'Často kladené otázky'
+    code: 'Zdrojové kódy'
+    contact: 'Kontakt'
+
+    terms_of_use: 'Podmiensky používania'
+    privacy: 'Ochrana súkromia'
+    copyright: 'Autorské práva'
+
+    feedback: 'Našli ste chybu?'
+    security: 'Bezpečnosť'
+
+    how_it_works: 'Ako to funguje?'
+    data_history: 'História dát'
+    api: 'API'

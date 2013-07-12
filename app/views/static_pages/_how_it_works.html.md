@@ -1,0 +1,1 @@
+# Ako to funguje?
