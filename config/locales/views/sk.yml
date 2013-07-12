@@ -21,16 +21,13 @@ sk:
   search:
     sort:
       common: &sort
-        date: 'Dátum'
         score: 'Relevancia'
-        created_at: 'Dátum pridania'
-        updated_at: 'Dátum aktualizácie'
+        created_at: 'Dátum pridania dokumentu'
+        updated_at: 'Dátum aktualizácie dokumentu'
 
         judges_count: 'Počet sudcov'
         hearings_count: 'Počet pojednávaní'
         decrees_count: 'Počet rozhodnutí'
-
-        expenses: 'Výdavky'
 
       court:
         <<: *sort
@@ -41,8 +38,12 @@ sk:
       hearing:
         <<: *sort
 
+        date: 'Dátum pojednávania'
+
       decree:
         <<: *sort
+
+        date: 'Dátum rozhodnutia'
 
       proceeding:
         <<: *sort

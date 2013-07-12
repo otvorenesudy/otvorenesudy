@@ -94,7 +94,7 @@ sk:
         not_found: 'Nenájdené žiadne obce.'
 
       expenses:
-        title: 'Výdavky'
+        title: 'Pokuty'
         suffix: '%{count} €'
 
     judge:
