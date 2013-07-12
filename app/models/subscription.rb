@@ -1,7 +1,7 @@
 class Subscription < ActiveRecord::Base
-  attr_accessible :period,
-                  :query,
-                  :query_attributes
+  attr_accessible :query,
+                  :query_attributes,
+                  :period
 
   scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
 

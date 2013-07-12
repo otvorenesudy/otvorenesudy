@@ -23,12 +23,14 @@ sk:
       common: &sort
         date: 'Dátum'
         score: 'Relevancia'
-        hearings_count: 'Počet pojednávaní'
-        decrees_count: 'Počet rozhodnutí'
-        judges_count: 'Počet sudcov'
-        expenses: 'Výdavky'
         created_at: 'Dátum pridania'
         updated_at: 'Dátum aktualizácie'
+
+        judges_count: 'Počet sudcov'
+        hearings_count: 'Počet pojednávaní'
+        decrees_count: 'Počet rozhodnutí'
+
+        expenses: 'Výdavky'
 
       court:
         <<: *sort

@@ -16,7 +16,6 @@ class Query < ActiveRecord::Base
   before_validation :compute_digest
 
   validates :digest, presence: true
-  #validates :value,  presence: true # TODO ??
   validates :model,  presence: true, inclusion: { in: %w(Decree Hearing) }
 
   def value
@@ -24,11 +23,11 @@ class Query < ActiveRecord::Base
   end
 
   def value=(value)
-    write_attribute(:value, ::Query.unwrap(value))
+    write_attribute :value, ::Query.unwrap(value)
   end
 
   def self.digest(value)
-    Digest::SHA1.hexdigest(unwrap(value))
+    Digest::SHA1.hexdigest ::Query.unwrap(value)
   end
 
   def self.wrap(value)
