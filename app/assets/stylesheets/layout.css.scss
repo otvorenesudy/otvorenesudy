@@ -95,22 +95,6 @@ table {
   }
 }
 
-// lists
-
-dl {
-  dt {
-    /*font-weight: normal;*/
-  }
-
-  dd + dt {
-    /*margin-top: 20px;*/
-  }
-
-  dd {
-    /*margin-top: 10px;*/
-  }
-}
-
 // icons
 
 [class^="icon-"], [class*=" icon-"] {
@@ -436,6 +420,7 @@ section.profile {
   }
 }
 
+// TODO check, mv into section
 // subscriptions
 ul.subscriptions {
   li {

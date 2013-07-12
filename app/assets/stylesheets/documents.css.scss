@@ -26,9 +26,19 @@
       dt {
         border-bottom: 1px solid $grayLighter;
         
+        font-weight: normal;
+        
         i {
           color: $grayLight;
         }
+      }
+
+      dd + dt {
+        margin-top: 20px;
+      }
+    
+      dd {
+        margin-top: 10px;
       }
     }
     
