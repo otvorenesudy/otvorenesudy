@@ -9,8 +9,8 @@ $white:                 #fff !default;
 
 
 // Accent colors
-$blue:                  #8d54a1 !default; // #049cdb
-$blueDark:              #613b8d !default; // #0064cd
+$blue:                  #8975b5 !default; // #049cdb
+$blueDark:              #66419a !default; // #0064cd
 $green:                 #46a546 !default;
 $red:                   #9d261d !default;
 $yellow:                #ffc40d !default;
@@ -25,8 +25,8 @@ $textColor:             $grayDark !default;
 
 
 // Links
-$linkColor:             #75479a !default; // #08c
-$linkColorHover:        #583674 !default; // darken($linkColor, 15%)
+$linkColor:             #5d459b !default; // #08c
+$linkColorHover:        #463475 !default; // darken($linkColor, 15%)
 
 
 // Typography
@@ -70,10 +70,10 @@ $btnBackgroundHighlight:            darken($white, 10%) !default;
 $btnBorder:                         #bbb !default;
 
 $btnPrimaryBackground:              $linkColor !default;
-$btnPrimaryBackgroundHighlight:     #4e3067 !default; // adjust-hue($btnPrimaryBackground, 20%)
+$btnPrimaryBackgroundHighlight:     #3e2f68 !default; // adjust-hue($btnPrimaryBackground, 20%)
 
-$btnInfoBackground:                 #a67fb9 !default; // #5bc0de
-$btnInfoBackgroundHighlight:        #814b99 !default; // #2f96b4
+$btnInfoBackground:                 #8d6fb1 !default; // #5bc0de
+$btnInfoBackgroundHighlight:        #67439a !default; // #2f96b4
 
 $btnSuccessBackground:              #62c462 !default;
 $btnSuccessBackgroundHighlight:     #51a351 !default;
@@ -212,9 +212,9 @@ $successBorder:           darken(adjust-hue($successBackground, -10), 5%) !defau
 $successLinkColor:        $successText !default;
 $successLinkColorHover:   $successLinkColor !default;
 
-$infoText:                #78449a !default; // #3a87ad
-$infoBackground:          #e4d9eb !default; // #d9edf7
-$infoBorder:              #d0c8d9 !default; // darken(adjust-hue($infoBackground, -10), 7%)
+$infoText:                #6a449b !default; // #3a87ad
+$infoBackground:          #e5d9eb !default; // #d9edf7
+$infoBorder:              #d3c8d9 !default; // darken(adjust-hue($infoBackground, -10), 7%)
 $infoLinkColor:           $infoText !default;
 $infoLinkColorHover:      $infoLinkColor !default;
 
