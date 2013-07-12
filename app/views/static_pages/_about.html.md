@@ -16,6 +16,6 @@ Projekt Otvorené súdy je príspevkom k zlepšeniu diskusie o slovenskom v súd
 
 Projekt Otvorené súdy vznikol vďaka podpore sekretariátu <a href="http://www.transparency.org"> Transparency International </a> v Berlíne a <a href="http://www.restartslovensko.sk/"> projektu Reštart </a> organizovanému <a href="www.cpf.sk"> Centrom pre filantropiu </a>. 
 
-Za hosting projektu ďakujeme <a href="http://www.petitpres.sk"> spoločnosti Petit Press</a>, prevádzkovateľovi portálu <a href="htttp://www.sme.sk"> sme.sk </a>.
+Za hosting projektu ďakujeme <a href="http://www.petitpres.sk"> spoločnosti Petit Press</a>, prevádzkovateľovi portálu <a href="http://www.sme.sk"> sme.sk </a>.
 
 Za pomoc veľmi pekne ďakujeme aj: Pavlovi Nechalovi, Kataríne Batkovej, Chrisovi Wormanovi, Milene Marin a ďalším kolegom.

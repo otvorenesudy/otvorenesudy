@@ -5,7 +5,6 @@ module Probe::Search
     include Probe::Helpers::Index
 
     attr_reader :model,
-                :params,
                 :records,
                 :facets,
                 :highlights,
@@ -21,9 +20,8 @@ module Probe::Search
                 :total_entries,
                 :time
 
-    def initialize(model, params, facets, sort_fields, response)
+    def initialize(model, facets, sort_fields, response)
       @model       = model
-      @params      = params
       @facets      = facets
       @response    = response
       @sort_fields = sort_fields
@@ -37,6 +35,14 @@ module Probe::Search
 
     def facets
       @populated_facets ||= populate_facets
+    end
+
+    def params
+      @facets.params
+    end
+
+    def query_params
+      @facets.query_params
     end
 
     def highlights

@@ -1,12 +1,19 @@
 # encoding: utf-8
 
 class SubscriptionsController < ApplicationController
+  before_filter :authenticate_user!
+
   def create
-    subscription = Subscription.new(params[:subscription])
+    attributes = params[:subscription]
 
-    subscription.user = current_user
+    @period = Period.find(attributes.delete(:period_id))
 
-    if subscription.save
+    @subscription = Subscription.new(attributes)
+
+    @subscription.user   = current_user
+    @subscription.period = @period
+
+    if @subscription.save
       flash[:notice] = 'Odoberanie bolo úspešne zaregistrované.'
     else
       flash[:error] = 'Nastala chyba. Odoberanie nebolo zaregistrované.'
@@ -16,11 +23,11 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    subscription = Subscription.find(params[:id])
+    @subscription = Subscription.find(params[:id])
 
-    subscription.period = Period.find(params[:subscription][:period_id]) # TODO: allow only period update
+    @subscription.period = Period.find(params[:subscription][:period_id])
 
-    if subscription.save
+    if @subscription.save
       flash[:notice] = 'Odoberanie bolo úspešne aktualizované.'
     else
       flash[:error] = 'Nastala chyba. Odoberanie nebolo aktualizované.'
@@ -30,9 +37,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    subscription = Subscription.find(params[:id])
+    @subscription = Subscription.find(params[:id])
 
-    subscription.destroy
+    @subscription.destroy
 
     flash[:notice] = 'Odoberanie bolo úspešne zrušené.'
 

@@ -2,7 +2,7 @@ set :domain, "195.146.144.210"
 
 server domain, :app, :web, :db, primary: true
 
-set :deploy_to, "/home/deploy/projects/#{application}"
+set :deploy_to, "/home/deploy/projects/#{application}_production"
 set :user,      "deploy"
 set :branch,    "master"
 set :rails_env, "production"

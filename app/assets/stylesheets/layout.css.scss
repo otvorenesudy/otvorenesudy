@@ -99,15 +99,15 @@ table {
 
 dl {
   dt {
-    font-weight: normal;
+    /*font-weight: normal;*/
   }
-  
+
   dd + dt {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
   }
-  
+
   dd {
-    margin-top: 10px;
+    /*margin-top: 10px;*/
   }
 }
 
@@ -135,11 +135,11 @@ i.icon-space {
 a.icon {
   &:hover, &:focus {
     text-decoration: none;
-    
+
     i:before {
       cursor: pointer;
     }
-    
+
     span {
       text-decoration: underline;
     }
@@ -239,15 +239,15 @@ h1, h2, strong {
       text-decoration: none;
     }
   }
-  
+
   li > a {
     [class^="icon-"], [class*=" icon-"] {
       display: inline-block;
       width: 18px;
-      
+
       text-align: center;
     }
-    
+
     i.icon-space {
       width: inherit;
     }
@@ -260,7 +260,7 @@ h1, h2, strong {
 
 .nav-tabs > li > a {
   margin-bottom: 1px;
-  
+
   border-color: $grayLighter $grayLighter $white;
 }
 
@@ -272,7 +272,7 @@ h1, h2, strong {
 .nav-tabs > li.active > a:hover {
   margin-bottom: 0px;
   padding-bottom: 9px;
-  
+
   border-color: #ccc #ccc $white;
 }
 
@@ -354,7 +354,7 @@ header {
 footer {
   margin-top: 80px;
   padding: 50px 0px;
-  
+
   border-top: 1px solid darken($grayLighter, 12.5%);
 
   background: $grayLighter;
@@ -384,12 +384,12 @@ footer {
       padding-top: 5px;
     }
   }
-  
+
   .copyright {
     margin-bottom: 10px;
-    
+
     font-size: $fontSizeSmall;
-    
+
     a {
       color: darken($grayLight, 12.5%);
     }
@@ -405,26 +405,26 @@ section.features {
     padding-top: 20px;
     overflow: hidden;
   }
-  
+
   a {
     font-weight: bold;
     text-decoration: none;
   }
-  
+
   // TODO rm img
   img, .feature-icon {
     margin-top: -20px;
     font-size: 200px;
   }
-  
+
   img.pull-left, i.pull-left {
     margin-right: 80px;
   }
-  
+
   img.pull-right i.pull-right {
     margin-left: 80px;
   }
-  
+
   hr {
     margin: 80px 0;
   }
@@ -433,5 +433,16 @@ section.features {
 section.profile {
   li a[target="_blank"] {
     color: $textColor;
+  }
+}
+
+// subscriptions
+ul.subscriptions {
+  li {
+    padding: 10px 10px 10px 10px;
+  }
+
+  li + li {
+    border-top: 1px dashed darken($grayLighter, 12.5%);
   }
 }

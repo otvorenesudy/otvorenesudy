@@ -1,0 +1,57 @@
+<%= provide :title, 'Odoberanie nových rozhodnutí a pojednávaní' %>
+
+<section id="subscriptions">
+  <div class="row">
+    <div class="span11 offset1">
+
+      <div class="page-header">
+        <h2>Vaše notifikácie
+          <small>pre pojednávania a rozhodnutia</small>
+        </h2>
+      </div>
+
+      <ul class="subscriptions unstyled">
+        <% @subscriptions.each_with_index do |subscription, i| %>
+          <li>
+            <%= subscription_title(subscription.query.model) %>
+
+            <div class="row">
+              <div class="span11 offset1">
+                <% if subscription.query.value.any? %>
+                  <dl class="dl-horizontal">
+                    <% subscription.query.value.each do |name, values| %>
+                      <dt>
+                      <%= t "#{subscription.query.model.constantize.facets[name].key}.title" %>
+                      </dt>
+                      <dd>
+                      <%= Array.wrap(values).join(', ') %>
+                      </dd>
+                    <% end %>
+                  </dl>
+                <% else %>
+                  <p>
+                    Bez obmedzení.
+                  </p>
+                <% end %>
+
+                <div class="row">
+                  <div class="span6 offset6">
+                    <%= render 'subscriptions/form', subscription: subscription, query: subscription.query, model: subscription.query.model %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="span5 offset7">
+                    <button type="type" class="btn btn-inverse" form="subscribe-form-<%= subscription.id %>">Aktualizovať</button>
+                    <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger' %>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

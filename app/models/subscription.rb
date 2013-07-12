@@ -1,8 +1,7 @@
 class Subscription < ActiveRecord::Base
   attr_accessible :period,
                   :query,
-                  :query_attributes,
-                  :period_attributes
+                  :query_attributes
 
   scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
 
@@ -11,7 +10,6 @@ class Subscription < ActiveRecord::Base
   belongs_to :period
 
   accepts_nested_attributes_for :query
-  accepts_nested_attributes_for :period
 
   after_save :register
 
@@ -41,7 +39,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def period_attributes=(attributes)
-    self.period = Period.find(attributes[:id])
+  def period_id=(value)
+    self.period_id = Period.find(value).id
   end
 end

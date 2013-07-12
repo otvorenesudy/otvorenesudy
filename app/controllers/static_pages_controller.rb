@@ -4,8 +4,7 @@ class StaticPagesController < ApplicationController
   end
 
   def show
-    @slug = params[:slug]
-    
-    # TODO correctly render 404 instead of 500 on missing partial
+    @slug  = params[:slug]
+    @title = translate "static_pages.#{@slug}", default: 'missing'
   end
 end

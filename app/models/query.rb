@@ -24,17 +24,23 @@ class Query < ActiveRecord::Base
   end
 
   def value=(value)
-    write_attribute(:value, ::Query.wrap(value))
+    write_attribute(:value, ::Query.unwrap(value))
   end
 
   def self.digest(value)
-    Digest::SHA1.hexdigest wrap(value)
+    Digest::SHA1.hexdigest(unwrap(value))
   end
 
   def self.wrap(value)
     value = JSON.parse(value, symbolize_names: true) if value.is_a? String
 
-    value.except(:page, :per_page, :order, :sort).to_json
+    value
+  end
+
+  def self.unwrap(value)
+    value = value.to_json if value.is_a? Hash
+
+    value
   end
 
   private

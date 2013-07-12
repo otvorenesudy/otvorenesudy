@@ -107,10 +107,7 @@ namespace :deploy do
 
   desc "Move in configuration files"
   task :move_in_configuration, roles: :app do
-    run "cp #{shared_path}/bing.yml #{release_path}/config/bing.yml"
-    run "cp #{shared_path}/resque.yml #{release_path}/config/resque.yml"
     run "cp #{shared_path}/configuration.yml #{release_path}/config/configuration.yml"
-    run "cp #{shared_path}/airbrake.rb #{release_path}/config/initializers/airbrake.rb"
   end
 
   after 'deploy',             'deploy:cleanup'

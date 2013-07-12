@@ -31,7 +31,7 @@
     <% if @model.respond_to? :subscribe %>
       <%= render 'search/subscribe' %>
     <% end %>
-    <% unless (@facets.params.keys - ['sort', 'order']).empty? %>
+    <% unless @facets.query_params.empty? %>
       <% if @model.respond_to? :subscribe %>
         <span class="search-separator">&middot;</span>
       <% end %>

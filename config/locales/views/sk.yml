@@ -27,6 +27,8 @@ sk:
         decrees_count: 'Počet rozhodnutí'
         judges_count: 'Počet sudcov'
         expenses: 'Výdavky'
+        created_at: 'Dátum pridania'
+        updated_at: 'Dátum aktualizácie'
 
       court:
         <<: *sort
@@ -46,3 +48,4 @@ sk:
   static_pages:
     about: 'O projekte'
     contact: 'Kontakt'
+    faq: 'Často kladené otázky'

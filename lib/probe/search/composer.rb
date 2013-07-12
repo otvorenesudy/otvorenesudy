@@ -32,7 +32,7 @@ module Probe::Search
         compose_search(index, &block)
       end
 
-      Results.new(@model, @params, @facets, @sort_fields, @results)
+      Results.new(@model, @facets, @sort_fields, @results)
     end
 
     def compose_search(index, &block)
