@@ -1,7 +1,5 @@
 class Subscription < ActiveRecord::Base
-  attr_accessible :query,
-                  :query_attributes,
-                  :period
+  attr_accessible :query_attributes
 
   scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
 
@@ -11,11 +9,10 @@ class Subscription < ActiveRecord::Base
 
   accepts_nested_attributes_for :query
 
-  after_save :register
+  after_save       :register
+  after_initialize :assign_period
 
-  def period
-    read_attribute(:period) || Period.monthly
-  end
+  scope :newest, lambda { order('created_at DESC') }
 
   def results
     @results ||= query.model.constantize.search(query.value).records.find_all { |e, _| period.include? e.created_at }
@@ -39,7 +36,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def period_id=(value)
-    self.period_id = Period.find(value).id
+  def assign_period
+    self.period ||= Period.monthly
   end
 end
