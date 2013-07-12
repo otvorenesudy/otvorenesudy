@@ -31,8 +31,8 @@ staging:
 
   # TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
   output:
-    colors: false
-    verbose: false
+    colors: true
+    verbose: true
 
 production:
   <<: *defaults
