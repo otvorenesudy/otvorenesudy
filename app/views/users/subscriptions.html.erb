@@ -10,48 +10,64 @@
         </h2>
       </div>
 
-      <ul class="subscriptions unstyled">
-        <% @subscriptions.each_with_index do |subscription, i| %>
-          <li>
-            <%= subscription_title(subscription.query.model) %>
+      <% if @subscriptions.any? %>
 
-            <div class="row">
-              <div class="span11 offset1">
-                <% if subscription.query.value.any? %>
-                  <dl class="dl-horizontal">
-                    <% subscription.query.value.each do |name, values| %>
-                      <dt>
-                      <%= t "#{subscription.query.model.constantize.facets[name].key}.title" %>
-                      </dt>
-                      <dd>
-                      <%= Array.wrap(values).join(', ') %>
-                      </dd>
-                    <% end %>
-                  </dl>
-                <% else %>
-                  <p>
-                    Bez obmedzení.
-                  </p>
-                <% end %>
+        <ul class="subscriptions unstyled">
+          <% @subscriptions.each_with_index do |subscription, i| %>
+            <li>
+              <%= subscription_title(subscription.query.model) %>
 
-                <div class="row">
-                  <div class="span6 offset6">
-                    <%= render 'subscriptions/form', subscription: subscription, query: subscription.query, model: subscription.query.model %>
-                  </div>
-                </div>
+              <div class="row">
+                <div class="span11 offset1">
+                  <% if subscription.query.value.any? %>
+                    <dl class="dl-horizontal">
+                      <% subscription.query.value.each do |name, values| %>
+                        <dt>
+                        <%= t "#{subscription.query.model.constantize.facets[name].key}.title" %>
+                        </dt>
+                        <dd>
+                        <%= Array.wrap(values).join(', ') %>
+                        </dd>
+                      <% end %>
+                    </dl>
+                  <% else %>
+                    <p>
+                      Bez obmedzení.
+                    </p>
+                  <% end %>
 
-                <div class="row">
-                  <div class="span5 offset7">
-                    <button type="type" class="btn btn-primary" form="subscribe-form-<%= subscription.id %>">Aktualizovať</button>
-                    <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger' %>
+                  <%= form_for subscription, method: subscription.new_record? ? :post : :put, html: { id: "subscription-form-#{subscription.id}" } do |f| %>
+                    <div class="row">
+                      <div class="span6 offset6">
+                        <%= f.fields_for :query do |q| %>
+                          <%= q.hidden_field :model, value: subscription.query.model.to_s %>
+                          <%= q.hidden_field :value, value: subscription.query.value.to_json %>
+                        <% end %>
 
+                        <% Period.values.each do |_, period| %>
+                          <label class="radio inline">
+                            <%= f.radio_button :period_id, period.id, id: "period-#{period.name}", name: :period_id, checked: subscription.period == period %>
+                            <%= t "period.#{period.name}" %>
+                          </label>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <div class="row">
+                    <div class="span5 offset7">
+                      <button type="submit" class="submit btn btn-primary" form="subscription-form-<%= subscription.id %>">Aktualizovať</button>
+                      <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger' %>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </li>
           <% end %>
-        </li>
-      </ul>
+        </ul>
+      <% else %>
+        <p>Nemáte žiadne notifikácie.</p>
+      <% end %>
     </div>
   </div>
 </section>

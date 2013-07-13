@@ -82,7 +82,7 @@ class SearchController < ApplicationController
 
   def prepare_subscription
     if user_signed_in? && @model.respond_to?(:subscribe)
-      query = Query.by_model_and_value(@model, @facets.params).first
+      query = Query.by_model_and_value(@model, @facets.query_params).first
 
       if query
         @subscription = Subscription.find_by_user_id_and_query_id(current_user.id, query.id)
@@ -91,8 +91,7 @@ class SearchController < ApplicationController
       unless @subscription
         @subscription = Subscription.new
 
-        @subscription.period = Period.first
-        @subscription.query  = query || Query.new
+        @subscription.query = query || Query.new
       end
     end
   end
