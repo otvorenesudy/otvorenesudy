@@ -25,7 +25,11 @@ class Probe::Facets
 
         lower, upper = value.split('..')
 
-        @converter.to_elastic(lower)..@converter.to_elastic(upper)
+        result = @converter.to_elastic(lower)..@converter.to_elastic(upper)
+
+        result = yield result if block_given?
+
+        result
       end
     end
 

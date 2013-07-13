@@ -9,7 +9,7 @@ module Probe::Converters
     end
 
     def self.to_elastic_range(value)
-      { gte: value.min, lt: value.max }
+      { gte: value.min.to_time, lt: value.max.to_time.end_of_day }
     end
   end
 end
