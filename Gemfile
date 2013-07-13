@@ -89,5 +89,6 @@ group :development, :test do
   gem 'database_cleaner', '~> 0.9.1'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'guard-rspec'
 end
