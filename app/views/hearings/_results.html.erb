@@ -1,44 +1,42 @@
-<ol class="search-results" start="<%= offset + 1 %>">
-  <% results.each do |hearing| %>
-    <li>
-      <h4>
-        <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+<%= search_list_tag results, offset: offset do |hearing| %>
+  <li>
+    <h4>
+      <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+      <br/>
+      <small>
+        Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
+        <%= hearing_date hearing.date %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <div class="search-result-identifiers pull-right">
+          <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %><br/>
+          <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
+      </div>
+      
+      <% if hearing.court %>
+        Súd &ndash; <%= link_to_court hearing.court %>
         <br/>
-        <small>
-          Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
-          <%= hearing_date hearing.date %>
-        </small>
-      </h4>
+      <% end %>
+      <% if hearing.judges.normal.any? %>
+        <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges hearing.judges.normal %>
+        <br/>
+      <% end %>
+      <% if hearing.proposers.any? %>
+        <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+        <br/>
+      <% end %>
+      <% if hearing.opponents.any? %>
+        <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+        <br/>
+      <% end %>
+      <% if hearing.defendants.any? %>
+        <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+        <br/>
+      <% end %>
 
-      <div class="search-result-content">
-        <div class="search-result-identifiers pull-right">
-            <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %><br/>
-            <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
-        </div>
-        
-        <% if hearing.court %>
-          Súd &ndash; <%= link_to_court hearing.court %>
-          <br/>
-        <% end %>
-        <% if hearing.judges.normal.any? %>
-          <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges hearing.judges.normal %>
-          <br/>
-        <% end %>
-        <% if hearing.proposers.any? %>
-          <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
-          <br/>
-        <% end %>
-        <% if hearing.opponents.any? %>
-          <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
-          <br/>
-        <% end %>
-        <% if hearing.defendants.any? %>
-          <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
-          <br/>
-        <% end %>
-
-        <div class="clearfix"></div>
-      </div>        
-    </li>
-  <% end %>
-</ol>
+      <div class="clearfix"></div>
+    </div>        
+  </li>
+<% end %>

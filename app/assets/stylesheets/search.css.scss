@@ -64,7 +64,7 @@
 }
 
 .search-results {
-  margin: 0px 0px 0px 20px;
+  margin: 0px 0px 0px -20px;
   border-left: 1px dashed darken($grayLighter, 12.5%);
 
   li {
@@ -108,12 +108,18 @@
   }
 }
 
+.search-results-far {
+  list-style: none;
+}
+
 .tabbable .search-results {
   margin-left: 40px;
   border: none;
 }
 
 .facet {
+  padding-right: 40px;
+  
   & + .facet {
     margin: 20px 0px;
   }
