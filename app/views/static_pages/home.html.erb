@@ -1,7 +1,8 @@
 <% provide :header, render(partial: 'header') %>
 
 <!-- TODO ?
-<% #provide :footer, render(partial: 'footer') %>
+<% #provide :footer, render(partial: 'footer')
+%>
 -->
 
 <!-- TODO ?
@@ -16,58 +17,73 @@
   -->
 
 
+
+
+
 <section class="features">
-  <div class="feature">
-    <i class="feature-icon icon-circle pull-left"></i>
-    <h1>
-      Otvorené súdy.
-      <small>Transparentne.</small>
-    </h1>
-    <!-- TODO use this wrapper div? -->
-    <div class="feature-content">
+  <div class="row">
+    <div class="span3">
+      <i class="feature-icon icon-circle"></i>
+    </div>
+
+    <div class="span9">
+      <h1>
+        Otvorené súdy
+        <small>Transparentný pohľad</small>
+      </h1>
       <p class="lead">
         Projekt, ktorý <strong>stransparentní pohľad</strong> na <strong>slovenské súdnictvo</strong>.
       </p>
-      <h2>
-        Pre koho?
-      </h2>
+
+      <h2>Pre koho?</h2>
       <p class="lead">
-        Pre tých ľudí, ktorí by radi mali <strong>všetky informácie na jednom mieste</strong> a&nbsp;efektívne v&nbsp;nich chceli vyhľadávať.
-        Pre tých, ktorí majú radi dynamické grafy, tabuľky a&nbsp;<strong>prehľadné vizualizácie zaujímavých údajov</strong>.
+        Pre ľudí, ktorí majú radi <strong>všetky dôležité informácie</strong> na jednom mieste a&nbsp;chcú v nich <strong>efektívne vyhľadávať</strong>.
       </p>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="row">
+    <div class="span9">
+      <h1>
+        Otvorený zdrojový kód
+        <small>Ruby&nbsp;on&nbsp;Rails</small>
+      </h1>
+      <p class="lead">
+        Zdrojové kódy projektu <a href="https://github.com/otvorenesudy">Otvorené súdy</a>
+        sú voľne dostupné na Internete službou <a href="https://github.com/" target="_blank">GitHub</i></a>.
+      </p>
+    </div>
+
+    <div class="span3">
+      <%= icon_tag :github %>
     </div>
   </div>
   
   <hr/>
-  
-  <div class="feature">
-    <i class="feature-icon icon-github pull-right"></i>
-    <h1>
-      Otvorený zdrojový kód.
-      <small>Ruby&nbsp;on&nbsp;Rails.</small>
-    </h1>
-    <p class="lead">
-      Zdrojové kódy projektu <a href="https://github.com/otvorenesudy">Otvorené súdy</a>
-      sú voľne dostupné na Internete službou <a href="https://github.com/" target="_blank">GitHub</i></a>.
-    </p>
-  </div>
-  
-  <hr/>
-  
-  <div class="feature">
-    <i class="feature-icon icon-hdd pull-left"></i>
-    <h1>
-      Otvorené dáta.
-      <small>Súdne&nbsp;dokumenty.</small>
-    </h1>
-    <p class="lead">
-      Máme stiahnuté, spracované a&nbsp;normalizované všetky <strong>súdne rozhodnutia a&nbsp;pojednávania</strong>, ktoré boli zverejnené na stránke
-      <a href="http://justice.gov.sk" target="_blank">Ministerstva spravodlivosti</a> Slovenskej republiky.
-    </p>
+
+  <div class="row">
+    <div class="span3">
+      <%= icon_tag :hdd %>
+    </div>
+
+    <div class="span9">
+      <h1>
+        Otvorené dáta
+        <small>Súdne&nbsp;dokumenty</small>
+      </h1>
+      <p class="lead">
+        Ponúkame všetky <strong>súdne rozhodnutia a&nbsp;pojednávania</strong>, ktoré boli zverejnené na stránke
+        <a href="http://justice.gov.sk" target="_blank">Ministerstva spravodlivosti</a> Slovenskej republiky.
+      </p>
+    </div>
   </div>
 </section>
 
 <section class="logos">
+  <hr/>
+  
   <div class="row">
     <div class="span6">
       <a class="logo-transparency" href="http://transparency.sk" target="_blank">
@@ -81,4 +97,6 @@
       </a>
     </div>
   </div>
+  
+  <hr/>
 </section>

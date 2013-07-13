@@ -12,9 +12,9 @@ module JusticeGovSk
           judge_name = @parser.judge
           judges_map = match_judges_by(judge_name)
 
-          _, matched_judges = judges_map.first
+          matched_similarity, matched_judges = judges_map.first
 
-          next if matched_judges.blank? || matched_judges.count > 1
+          next if matched_similarity != 1.0 || matched_judges.blank? || matched_judges.count > 1
 
           @judge = matched_judges.first
           @court = court_by_name_factory.find @parser.court
