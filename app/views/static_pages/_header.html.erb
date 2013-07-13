@@ -4,6 +4,7 @@
   </script>
 <% end %>
 
+<!-- TODO ??
 <header class="jumbotron carousel slide">
   <div class="carousel-inner">
     <div class="item active">
@@ -24,6 +25,7 @@
   <a class="carousel-control left" href="header" data-slide="prev"><%= icon_tag :'angle-left' %></a>
   <a class="carousel-control right" href="header" data-slide="next"><%= icon_tag :'angle-right' %></a>
 </header>
+-->
 
 <!-- TODO ??
 <header class="jumbotron masthead">
@@ -38,3 +40,25 @@
   </div>
 </header>
 -->
+
+
+<!-- TODO enable search field here! -->
+
+<div class="search">
+  <div class="container">
+    <div class="row">
+      <div class="offset4 span4">
+        <%= form_tag nil, method: :get, class: :'form-search' do %>
+          <div class="input-append">
+            <%= search_field_tag :search, params[:search], class: :'search-query', disabled: true %>
+            <%= button_tag icon_tag(:search), name: nil, class: :btn %>
+          </div>
+        <% end %>
+      </div>
+      <div class="span4">
+        <%= link_to "Rozšírené vyhľadávanie", search_decrees_path %>
+      </div>
+    </div>
+  </div>
+</div>
+

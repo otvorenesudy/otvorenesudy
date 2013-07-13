@@ -263,7 +263,7 @@ h1, h2, strong {
 // search
 
 // TODO rm??
-/*
+
 div.search {
   display: block;
   position: relative;
@@ -303,7 +303,6 @@ div.search {
     }
   }
 }
-*/
 
 // header
 
@@ -395,22 +394,13 @@ section.features {
     text-decoration: none;
   }
 
-  // TODO rm img
-  img, .feature-icon {
-    margin-top: -20px;
-    font-size: 200px;
-  }
-
-  img.pull-left, i.pull-left {
-    margin-right: 80px;
-  }
-
-  img.pull-right i.pull-right {
-    margin-left: 80px;
+  img, i {
+    margin-top: -10px;
+    font-size: 160px;
   }
 
   hr {
-    margin: 80px 0;
+    margin: 80px 0px;
   }
 }
 
