@@ -24,8 +24,8 @@ OpenCourts::Application.routes.draw do
 
   resources :hearings do
     collection do
-      get  :search
-      get  :suggest
+      get :search
+      get :suggest
     end
 
     member do

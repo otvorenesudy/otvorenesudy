@@ -7,11 +7,11 @@ shared_examples_for Probe::Search::Percolator do
   before :each do
     record.save
 
-    model.reload_index
+    ProbeHelper.reload
   end
 
   after :all do
-    model.delete_index
+    ProbeHelper.delete
   end
 
   context 'when percolating a document' do

@@ -3,6 +3,6 @@ class UsersController < ApplicationController
 
   def subscriptions
     @user          = current_user
-    @subscriptions = @user.subscriptions
+    @subscriptions = @user.subscriptions.newest
   end
 end

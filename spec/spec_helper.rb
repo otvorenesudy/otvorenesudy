@@ -35,8 +35,15 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
+  # Factory suggar
   config.include FactoryGirl::Syntax::Methods
+
+  # Capybara
+  config.include Capybara::DSL
 end
+
+include Warden::Test::Helpers
+Warden.test_mode!
 
 FIXTURES = "#{::Rails.root}/spec/fixtures"
 

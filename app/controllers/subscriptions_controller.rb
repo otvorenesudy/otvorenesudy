@@ -4,11 +4,9 @@ class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    attributes = params[:subscription]
+    @period = Period.find(params[:period_id])
 
-    @period = Period.find(attributes.delete(:period_id))
-
-    @subscription = Subscription.new(attributes)
+    @subscription = Subscription.new(params[:subscription])
 
     @subscription.user   = current_user
     @subscription.period = @period
@@ -25,7 +23,7 @@ class SubscriptionsController < ApplicationController
   def update
     @subscription = Subscription.find(params[:id])
 
-    @subscription.period = Period.find(params[:subscription][:period_id])
+    @subscription.period = Period.find(params[:period_id])
 
     if @subscription.save
       flash[:notice] = 'Odoberanie bolo úspešne aktualizované.'

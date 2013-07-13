@@ -112,7 +112,7 @@ namespace :deploy do
 
   after 'deploy',             'deploy:cleanup'
   after 'deploy:update_code', 'rvm:trust_rvmrc'
-  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release'#, 'deploy:migrate'
+  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release', 'deploy:migrate'
   after 'deploy:restart',     'resque:restart'
 
   after 'deploy:update_code' do

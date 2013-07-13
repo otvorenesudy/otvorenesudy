@@ -334,7 +334,7 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
   add_index "judge_proclaims", ["judge_statement_id", "judge_property_declaration_id"], :name => "index_judge_proclaims_on_unique_values_reversed", :unique => true
 
   create_table "judge_properties", :force => true do |t|
-    t.integer  "judge_property_list_id",                            :null => false
+,    t.integer  "judge_property_list_id",               :null => false
     t.integer  "judge_property_acquisition_reason_id"
     t.integer  "judge_property_ownership_form_id"
     t.integer  "judge_property_change_id"
@@ -716,7 +716,7 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.datetime "updated_at",                :null => false
   end
 
-  add_index "statistical_tables", ["statistical_table_name_id", "statistical_summary_id", "statistical_summary_type"], :name => "index_statistical_tables_on_summary_by_table_and_type", :unique => true
+  add_index "statistical_tables", ["statistical_summary_id", "statistical_summary_type", "statistical_table_name_id"], :name => "index_statistical_tables_on_summary_and_name", :unique => true
   add_index "statistical_tables", ["statistical_table_name_id"], :name => "index_statistical_tables_on_statistical_table_name_id"
 
   create_table "subscriptions", :force => true do |t|
