@@ -105,11 +105,17 @@ module TagHelper
     link_to_with_count body, url, count, options.merge(:'data-toggle' => :tab)
   end
 
-  def close_link(url = nil, options = {})
+  def close_link_to(url = nil, options = {})
     link_to icon_tag(:remove), url || '#', options.merge(class: :close)
   end
 
-  alias :close_link_to :close_link
+  def close_link_to_alert(options = {})
+    close_link_to nil, options.merge(:'data-dismiss' => :alert)
+  end
+
+  def close_link_to_modal(options = {})
+    close_link_to nil, options.merge(:'data-dismiss' => :modal)
+  end
 
   def external_link_to(body, url, options = {})
     icon_link_to :'external-link', body, url, options.merge(target: :_blank, join: :append)
