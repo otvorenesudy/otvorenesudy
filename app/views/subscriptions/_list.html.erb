@@ -24,7 +24,7 @@
       <%= form_for subscription, method: subscription.new_record? ? :post : :put, html: { id: "subscription-form-#{subscription.id}", class: :'subscription-controls form-inline' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: subscription.query.model.to_s %>
-          <%= q.hidden_field :value, value: subscription.query.value.to_json %>
+          <%= q.hidden_field :value, value: Query.unwrap(subscription.query.value) %>
         <% end %>
 
         <% Period.values.each do |_, period| %>
@@ -33,7 +33,7 @@
             <%= t "period.#{period.name}" %>
           </label>
         <% end %>
-        
+
         <div class="pull-right">
           <button type="submit" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>">Aktualizovať</button>
           <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger btn-small' %>
