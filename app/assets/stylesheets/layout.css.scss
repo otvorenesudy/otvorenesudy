@@ -22,7 +22,7 @@ section + section {
   padding-top: 40px;
 }
 
-address, nav, p, table {
+address, form, nav, p, dl, ol, ul, table {
   &:last-child {
     margin-bottom: 0px;
   }
@@ -420,14 +420,30 @@ section.profile {
   }
 }
 
-// TODO check, mv into section
-// subscriptions
-ul.subscriptions {
-  li {
-    padding: 10px 10px 10px 10px;
+section.subscriptions {
+  .subscription-list {
+    margin: 0px;
+    
+    list-style: none;
+    
+    & > li + li {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px dashed darken($grayLighter, 12.5%);
+    }
   }
+  
+  .subscription-controls {
+    margin-top: 10px;
 
-  li + li {
-    border-top: 1px dashed darken($grayLighter, 12.5%);
+    label {
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+
+    input[type="radio"] {
+      margin-top: 3px;
+      margin-bottom: 1px;
+    }
   }
 }

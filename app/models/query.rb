@@ -5,6 +5,8 @@ class Query < ActiveRecord::Base
                   :digest,
                   :value
 
+  scope :by_model, lambda { |model| where(model: model.to_s) }
+
   scope :by_model_and_value, lambda { |model, value| where(digest: ::Query.digest(value), model: model.to_s) }
 
   has_many :subscriptions, dependent: :destroy

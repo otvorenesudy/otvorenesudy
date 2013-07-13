@@ -1,0 +1,44 @@
+<ol class="subscription-list" start="<%= offset + 1 %>">
+  <% subscriptions.each_with_index do |subscription, i| %>
+    <li>
+      <h4>
+        Vyhľadávanie <%= t subscription.query.model.underscore.to_sym, count: :other %>
+        <small>Registrované dňa <%= time_tag subscription.created_at, format: :default %></small>
+      </h4>
+
+      <% if subscription.query.value.any? %>
+        <ul class="unstyled">
+          <% subscription.query.value.each do |name, values| %>
+            <li>
+              <%= t "#{model.facets[name].key}.title" %> &ndash;
+              <%= Array.wrap(values).join(', ') %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>
+          Nenastavené žiadne obmedzenia.
+        </p>
+      <% end %>
+
+      <%= form_for subscription, method: subscription.new_record? ? :post : :put, html: { id: "subscription-form-#{subscription.id}", class: :'subscription-controls form-inline' } do |f| %>
+        <%= f.fields_for :query do |q| %>
+          <%= q.hidden_field :model, value: subscription.query.model.to_s %>
+          <%= q.hidden_field :value, value: subscription.query.value.to_json %>
+        <% end %>
+
+        <% Period.values.each do |_, period| %>
+          <label class="radio inline">
+            <%= f.radio_button :period_id, period.id, id: "period-#{period.name}", name: :period_id, checked: subscription.period == period %>
+            <%= t "period.#{period.name}" %>
+          </label>
+        <% end %>
+        
+        <div class="pull-right">
+          <button type="submit" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>">Aktualizovať</button>
+          <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger btn-small' %>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ol>

@@ -1,0 +1,9 @@
+<% if subscriptions.any? %>
+  <div class="page-header">
+    <h2 class="centered">
+      Notifikácie pre nové rozhodnutia
+    </h2>
+  </div>
+
+  <%= render 'subscriptions/list', model: Decree, subscriptions: subscriptions, offset: 0 %>
+<% end %>

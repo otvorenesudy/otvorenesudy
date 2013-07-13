@@ -1,5 +1,3 @@
-<!-- TODO mv from search to subscriptions/users -->
-
 <%= icon_link_to :'info-sign', "Odoberať notifikácie", '#subscribe', class: :'search-subscribe', join: :append, :'data-toggle' => :modal %>
 
 <div id="subscribe" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscribe-label" aria-hidden="true">
@@ -21,7 +19,7 @@
         ktoré vyhovujú aktuálnym nastaveniam vyhľadávania.
       </p>
 
-      <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form' } do |f| %>
+      <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form', class: :'form-inline' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: @model.to_s %>
           <%= q.hidden_field :value, value: @facets.query_params.to_json %>

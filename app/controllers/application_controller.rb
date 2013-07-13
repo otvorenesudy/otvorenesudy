@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def after_sign_in_path_for(resource)
-    # TODO change to subscription managment
-    stored_location_for(resource) || edit_user_registration_path
+    stored_location_for(resource) || subscriptions_users_path
   end
       
   def after_sign_out_path_for(resource)
