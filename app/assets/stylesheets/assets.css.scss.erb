@@ -1,3 +1,22 @@
 .pattern {
-  background: url(<%= asset_path 'pattern.png' %>) repeat scroll center center transparent;
+  background-image: url(<%= asset_path 'patterns/cube.png' %>), url(<%= asset_path 'night.png' %>);
+  background-attachment: scroll;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: repeat;
+}
+
+.logo-restart,
+.logo-transparency {
+  display: block;
+
+  text-align: center;
+} 
+
+.logo-restart {
+  margin: 17px 0px;
+}
+
+.logo-transparency {
+  margin: 37.5px 0px;
 }
