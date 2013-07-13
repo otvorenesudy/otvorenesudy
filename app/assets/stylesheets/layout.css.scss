@@ -264,42 +264,39 @@ h1, h2, strong {
 
 // TODO rm??
 
-div.search {
+.search {
   display: block;
   position: relative;
   margin: 0px;
-  padding: 40px;
-
-  background: $grayLighter;
 
   .form-search {
     margin: 0px auto;
     padding: 0px;
-
-    .input-append {
-      display: block;
-      margin: 0px auto;
-      text-align: center;
-
-      button i.icon-search {
-        height: auto;
-        line-height: auto;
-      }
-    }
   }
 
-  a {
-    display: inline-block;
-    margin-left: -$gridGutterWidth;
-    height: 30px;
-    line-height: 30px;
-    font-size: 14px;
+  .search-query {
+    width: 320px;
 
-    color: $grayLight;
+    color: $white;
 
-    &:hover, &:focus {
-      color: $gray;
-      text-decoration: none;
+    background: rgba(#000, 0.45);
+  }
+
+  .search-query, .search-query:hover, .search-query:focus,
+  .search-submit, .search-submit:hover, .search-submit:focus {
+    border-color: $grayLight;
+
+    @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 4px rgba($white, 0.25));
+  }
+
+  .input-append {
+    display: block;
+    margin: 0px auto;
+    text-align: center;
+
+    i {
+      height: auto;
+      line-height: auto;
     }
   }
 }
