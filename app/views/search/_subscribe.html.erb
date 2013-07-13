@@ -22,7 +22,7 @@
       <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form', class: :'form-inline' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: @model.to_s %>
-          <%= q.hidden_field :value, value: @facets.query_params.to_json %>
+          <%= q.hidden_field :value, value: Query.unwrap(@facets.query_params) %>
         <% end %>
 
         <% Period.values.each do |_, period| %>

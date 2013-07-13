@@ -39,7 +39,13 @@ class Query < ActiveRecord::Base
   end
 
   def self.unwrap(value)
-    value = value.to_json if value.is_a? Hash
+    if value.is_a? Hash
+      value.each do |k, v|
+        value[k] = v.to_s
+      end
+
+      value = value.to_json
+    end
 
     value
   end
