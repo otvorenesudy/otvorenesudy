@@ -6,7 +6,7 @@ FactoryGirl.define do
   factory :hearing do
     source
 
-    sequence(:uri) { |n| "factory_girl_hearing_uri_#{n}" }
+    uri
 
     case_number 'case_number'
     file_number 'file_number'

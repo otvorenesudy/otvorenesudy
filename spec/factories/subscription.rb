@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :subscription do
     user
     query
-    period
+
+    period { create :period, :monthly }
   end
 end
