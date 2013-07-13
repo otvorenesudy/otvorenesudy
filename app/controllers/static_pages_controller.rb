@@ -4,10 +4,13 @@ class StaticPagesController < ApplicationController
   end
 
   def show
-    @slug     = params[:slug]
-    @template = @slug.gsub(/-/, '_')
-    @title    = translate "static_pages.#{@template}", default: 'missing'
+    @slug = params[:slug]
     
+    name = @slug.gsub(/-/, '_')
+    
+    @title    = translate "static_pages.#{name}", default: 'missing'
+    @template = "static_pages/content/#{name}"
+
     begin
       render
     rescue ActionView::Template::Error => e
