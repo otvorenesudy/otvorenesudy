@@ -31,7 +31,8 @@ class CreateJudgeStatisticalSummaries < ActiveRecord::Migration
     add_index :judge_statistical_summaries, :uri
     add_index :judge_statistical_summaries, :source_id
 
-    add_index :judge_statistical_summaries, [:court_id, :judge_id, :year], unique: true
+    add_index :judge_statistical_summaries, [:court_id, :judge_id, :year],
+      unique: true, name: 'index_judge_statistical_summaries_on_court_and_judge_and_year'
 
     add_index :judge_statistical_summaries, :court_id
     add_index :judge_statistical_summaries, :judge_id

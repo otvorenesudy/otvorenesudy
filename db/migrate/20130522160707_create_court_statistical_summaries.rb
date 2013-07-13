@@ -14,7 +14,8 @@ class CreateCourtStatisticalSummaries < ActiveRecord::Migration
     add_index :court_statistical_summaries, :uri
     add_index :court_statistical_summaries, :source_id
 
-    add_index :court_statistical_summaries, [:court_id, :year], unique: true
+    add_index :court_statistical_summaries, [:court_id, :year],
+      name: 'index_court_statistical_summaries_on_court_and_year', unique: true
 
     add_index :court_statistical_summaries, :court_id
 
