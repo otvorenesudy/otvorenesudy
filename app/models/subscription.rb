@@ -1,6 +1,8 @@
 class Subscription < ActiveRecord::Base
   attr_accessible :query_attributes
 
+  scope :latest, lambda { order('created_at desc') }
+
   scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
 
   belongs_to :user
@@ -11,8 +13,6 @@ class Subscription < ActiveRecord::Base
 
   after_save       :register
   after_initialize :assign_period
-
-  scope :newest, lambda { order('created_at DESC') }
 
   def results
     @results ||= query.model.constantize.search(query.value).records.find_all { |e, _| period.include? e.created_at }
