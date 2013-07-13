@@ -8,17 +8,15 @@
   </dl>
 -->
 
-  <ol class="search-results" start="<%= offset + 1 %>">
-    <% results.each do |result| %>
-      <li>
-        <h4>
-          <%= external_link_to strip_and_highlight(result[:title], omission: false), result[:url] %>
-        </h4>
+  <%= search_list_tag results, offset: offset do |result| %>
+    <li>
+      <h4>
+        <%= external_link_to strip_and_highlight(result[:title], omission: false), result[:url] %>
+      </h4>
 
-        <div class="search-result-content">
-          <%= strip_and_highlight result[:description], left: false %>
-        </div>
-      </li>
-    <% end %>
-  </ol>
+      <div class="search-result-content">
+        <%= strip_and_highlight result[:description], left: false %>
+      </div>
+    </li>
+  <% end %>
 <% end %>

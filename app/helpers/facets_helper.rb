@@ -64,7 +64,7 @@ module FacetsHelper
   end
 
   def format_facet_value(result, value)
-    truncate(value, length: 30 - result.count.to_s.size, separator: ' ', omission: '&hellip;').html_safe
+    truncate(value, length: 37 - (3 + result.count.to_s.size), separator: ' ', omission: '&hellip;').html_safe
   end
 
   def translate_range_facet_value(facet, result)

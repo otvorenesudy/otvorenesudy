@@ -1,20 +1,18 @@
-<ol class="search-results" start="<%= offset + 1 %>">
-  <% results.each do |proceeding, i| %>
-    <li>
-      <h4>
-        <%= link_to_proceeding proceeding, proceeding.file_number %>
-        <br/>
-        <small>
-        </small>
-      </h4>
+<%= search_list_tag results, offset: offset do |proceeding| %>
+  <li>
+    <h4>
+      <%= link_to_proceeding proceeding, proceeding.file_number %>
+      <br/>
+      <small>
+      </small>
+    </h4>
 
-      <div class="search-result-content">
-        
-        
-        <!-- TODO add attributes -->
-        TODO
-        
-      </div>
-    </li>
-  <% end %>
-</ol>
+    <div class="search-result-content">
+      
+      
+      <!-- TODO add attributes -->
+      TODO
+      
+    </div>
+  </li>
+<% end %>

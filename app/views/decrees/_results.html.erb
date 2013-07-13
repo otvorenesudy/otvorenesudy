@@ -1,46 +1,44 @@
-<ol class="search-results" start="<%= offset + 1 %>">
-  <% results.each do |decree, highlight| %>
-    <li>
-      <h4>
-        <%= link_to decree_path(decree, nil, params: { q: params[:q] }) do %>
-          <%= decree_headline decree, limit: 67 %>
-          <% if decree.natures.any? %>
-            <br/>
-            <%= decree_natures decree, limit: 67 %>
-          <% end %>
-        <% end %>
-        <br/>
-        <small>
-          Rozhodnutie bolo vynesené dňa &ndash;
-          <%= decree_date decree.date %>
-        </small>
-      </h4>
-
-      <div class="search-result-content">
-        <div class="search-result-identifiers pull-right">
-          <%= tooltip_tag decree.case_number, "Spisová značka", placement: :right %><br/>
-          <%= tooltip_tag decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
-        </div>
-
-        <% if decree.court %>
-          Súd &ndash; <%= link_to_court decree.court %>
+<%= search_list_tag results, offset: offset do |decree, highlight| %>
+  <li>
+    <h4>
+      <%= link_to decree_path(decree, nil, params: { q: params[:q] }) do %>
+        <%= decree_headline decree, limit: 67 %>
+        <% if decree.natures.any? %>
           <br/>
-        <% end %>
-        <% if decree.judges.any? %>
-          <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
-          <br/>
-        <% end %>
-
-        <div class="clearfix"></div>
-      </div>
-
-      <% if highlight %>
-        <% highlight[:text].each do |text|  %>
-          <blockquote>
-            <%= strip_and_highlight text %>
-          </blockquote>
+          <%= decree_natures decree, limit: 67 %>
         <% end %>
       <% end %>
-    </li>
-  <% end %>
-</ol>
+      <br/>
+      <small>
+        Rozhodnutie bolo vynesené dňa &ndash;
+        <%= decree_date decree.date %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <div class="search-result-identifiers pull-right">
+        <%= tooltip_tag decree.case_number, "Spisová značka", placement: :right %><br/>
+        <%= tooltip_tag decree.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
+      </div>
+
+      <% if decree.court %>
+        Súd &ndash; <%= link_to_court decree.court %>
+        <br/>
+      <% end %>
+      <% if decree.judges.any? %>
+        <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
+        <br/>
+      <% end %>
+
+      <div class="clearfix"></div>
+    </div>
+
+    <% if highlight %>
+      <% highlight[:text].each do |text|  %>
+        <blockquote>
+          <%= strip_and_highlight text %>
+        </blockquote>
+      <% end %>
+    <% end %>
+  </li>
+<% end %>
