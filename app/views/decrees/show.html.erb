@@ -1,6 +1,6 @@
 <% provide :title, decree_title(@decree) %>
 
-<% render 'document_viewer_initialization.js', decree: @decree %>
+<% render 'document_viewer_initialization', decree: @decree, formats: [:js] %>
 
 <section id="decree-profile" class="profile">
   <div class="page-header">
@@ -63,19 +63,19 @@
           <span class="pull-right"><%= @decree.file_number %></span>
         </p>
       </div>
-      
+
       <% if @decree.proceeding %>
         <p class="centered">
           Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @decree.proceeding, join: :append %>
         </p>
       <% end %>
-      
+
       <%= render 'shared/social' %>
     </div>
   </div>
-  
+
   <hr/>
-  
+
   <div class="row">
     <div class="span12">
       <% if @legislations.any? %>
