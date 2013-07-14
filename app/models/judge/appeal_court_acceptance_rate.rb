@@ -10,8 +10,6 @@ module Judge::AppealCourtAcceptanceRate
     # TODO: equation (accepted_2011 + accepted_2012)/(all_2011 + all_2012)
     tables.each do |table|
       table.rows.each do |row|
-        puts  row.cells.pluck(:value).inspect
-        puts  row.cells.pluck(:value).map(&:to_i).sum
         sum = row.cells.pluck(:value).map(&:to_i).sum
 
         if row.name.value == "sv_Pocet1"
