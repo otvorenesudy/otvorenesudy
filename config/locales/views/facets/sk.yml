@@ -34,7 +34,7 @@ sk:
       zero: 'žiadne dokumenty'
       one: '1 dokument'
       few: '%{count} dokumenty'
-      other: '%{count} dokumentov'  
+      other: '%{count} dokumentov'
 
     page: &page
       zero: 'žiadne strany'
@@ -200,6 +200,7 @@ sk:
         title: 'Dátum'
 
       historical:
+        title: 'Zobraziť minulé pojednávania'
         value: 'Zobraziť minulé pojednávania'
 
     decree:
