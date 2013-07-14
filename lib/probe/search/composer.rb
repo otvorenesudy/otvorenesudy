@@ -49,7 +49,9 @@ module Probe::Search
         search_pagination
       end
 
-      puts JSON.pretty_generate(index.to_hash) if index.respond_to? :to_hash # TODO: rm
+      if Rails.env.development? && index.respond_to?(:to_hash)
+        puts JSON.pretty_generate(index.to_hash)
+      end
     end
 
     def compose_filtered_query
