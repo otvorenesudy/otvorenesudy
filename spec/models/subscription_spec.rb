@@ -1,43 +1,56 @@
 require 'spec_helper'
 
 describe Subscription do
-  context 'when delivering notification' do
-    let(:model) { Hearing }
-    let(:document) { create :hearing }
-    let(:subscription) { build :subscription }
-
+  describe '#notify' do
     before :each do
-      document.save!
-
-      model.reload_index
-
       MailerHelper.reset_email
     end
 
-    after :each do
-      model.delete_index
+    after :all do
+      delete_indices
     end
 
     it 'should deliver subscription to query with new documents' do
+      document     = create :decree
+      subscription = create :subscription, :weekly, :with_empty_query
+
       document.created_at = Time.now
 
       document.save!
 
+      reload_indices
+
       subscription.notify
 
-      subscription.results.should include(document)
-      MailerHelper.last_email.to.should eql(subscription.user.email)
+      subscription.results.should       eql([document])
+      MailerHelper.last_email.to.should eql([subscription.user.email])
     end
 
     it 'should not deliver subscription when no results found' do
-      document.created_at = 2.weeks.ago
+      document     = create :decree
+      subscription = create :subscription, :weekly, :with_empty_query
 
+      document.created_at = 2.weeks.ago
       document.save!
+
+      reload_indices
 
       subscription.notify
 
-      subscription.results.should be_empty
+      subscription.results.should    be_empty
       MailerHelper.last_email.should be_nil
+    end
+
+    it 'should deliver mail for subscription with complex query' do
+      document     = create :hearing
+      subscription = create :subscription, :weekly, :with_query_for_hearing
+
+      reload_indices
+
+      subscription.notify
+
+      subscription.results.should       eql([document])
+      MailerHelper.last_email.to.should eql([subscription.user.email])
     end
   end
 end
