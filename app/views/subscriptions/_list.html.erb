@@ -35,8 +35,8 @@
         <% end %>
 
         <div class="pull-right">
-          <button type="submit" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>">Aktualizovať</button>
-          <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger btn-small' %>
+          <button type="submit" id="edit_subscription" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>">Aktualizovať</button>
+          <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", id: :delete_subscription, class: :'btn btn-danger btn-small' %>
         </div>
       <% end %>
     </li>

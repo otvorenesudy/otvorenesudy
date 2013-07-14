@@ -42,7 +42,7 @@
     <% if user_signed_in? %>
       <% unless @subscription.new_record? %>
         <button type="submit" id="edit_subscription" class="btn btn-primary" form="subscribe-form">Aktualizovať</button>
-        <%= link_to "Zrušiť", @subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", class: :'btn btn-danger' %>
+        <%= link_to "Zrušiť", @subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", id: :delete_subscription, class: :'btn btn-danger' %>
       <% else %>
         <button type="submit" id="new_subscription" class="btn btn-primary" form="subscribe-form">Odoberať</button>
       <% end %>
