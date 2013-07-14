@@ -1,5 +1,13 @@
 module Judge::AppealCourtAcceptanceRate
   def appeal_court_acceptance_rate
+    @appeal_court_acceptance_rate ||= compute_appeal_court_acceptance_rate
+  end
+
+  alias :appeal_court_acceptance_rate? :appeal_court_acceptance_rate
+
+  private
+
+  def compute_appeal_court_acceptance_rate
     tables = statistical_tables.by_name("O")
 
     accepted = 0
@@ -22,6 +30,4 @@ module Judge::AppealCourtAcceptanceRate
 
     accepted / all.to_f
   end
-
-  alias :appeal_court_acceptance_rate? :appeal_court_acceptance_rate
 end
