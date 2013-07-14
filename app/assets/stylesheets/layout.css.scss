@@ -410,16 +410,16 @@ section.profile {
 section.subscriptions {
   .subscription-list {
     margin: 0px;
-    
+
     list-style: none;
-    
+
     & > li + li {
       margin-top: 20px;
       padding-top: 10px;
       border-top: 1px dashed darken($grayLighter, 12.5%);
     }
   }
-  
+
   .subscription-controls {
     margin-top: 10px;
 

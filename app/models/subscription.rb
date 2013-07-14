@@ -16,7 +16,9 @@ class Subscription < ActiveRecord::Base
   after_initialize :assign_period
 
   def results
-    @results ||= query.model.constantize.search(query.value).records.find_all { |e, _| period.include? e.created_at }
+    params = query.value.merge sort: :created_at, order: :desc
+
+    @results ||= query.model.constantize.search(params).records.find_all { |e, _| period.include? e.created_at }
   end
 
   def register

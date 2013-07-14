@@ -1,3 +1,34 @@
-<%= render "#{@type.to_s.pluralize}_results" %>
+<%= render 'header' %>
 
-<%= link_to "Ďalšie #{t @type, count: :other}", url_for(@query.value.merge(controller: @type.to_s.pluralize, action: :search, order: :desc, sort: :date, host: ActionMailer::Base.default_url_options[:host])) %>
+<div class="section">
+  <h4>Pre Váš odber sme zaregistrovali nové <%= translate_without_count(:other, @type) %>:</h4>
+  <% if @subscription.query.value.any? %>
+    <ul class="unstyled">
+      <% @subscription.query.value.each do |name, values| %>
+        <li>
+          <%= t "#{@model.facets[name].key}.title" %> &ndash;
+          <%= Array.wrap(values).join(', ') %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>
+      Nenastavené žiadne obmedzenia.
+    </p>
+  <% end %>
+</div>
+
+<div class="section">
+  <h4>Nové <%= translate_without_count(:other, @type) %>:</h4>
+  <%= render "#{@type.to_s.pluralize}_results" %>
+  <hr />
+  <%= link_to "Zobrazit daľsie #{translate_without_count(:other, @type)}", search_url(@type, @params) %>
+  &middot;
+  <%= link_to "Zrušiť odoberianie", subscriptions_users_url %>
+</div>
+
+<div class="section">
+  S pozdravom,
+  <br />
+  tím projektu <%= link_to 'Otvorené súdy', root_url %>
+</div>

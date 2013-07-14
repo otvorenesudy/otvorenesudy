@@ -1,0 +1,37 @@
+<%= search_list_tag @results , offset: 0, per_page: @results.count do |hearing| %>
+  <li>
+    <h4>
+      <%= link_to hearing_headline(hearing, limit: 67), hearing_url(hearing) %>
+      <br/>
+      <small>
+        Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
+        <%= hearing_date hearing.date %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <% if hearing.court %>
+        Súd &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
+        <br/>
+      <% end %>
+      <% if hearing.judges.normal.any? %>
+        <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= hearing.judges.normal.map { |judge| link_to judge.name, judge_url(judge) }.join(', ').html_safe %>
+        <br/>
+      <% end %>
+      <% if hearing.proposers.any? %>
+        <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+        <br/>
+      <% end %>
+      <% if hearing.opponents.any? %>
+        <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+        <br/>
+      <% end %>
+      <% if hearing.defendants.any? %>
+        <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+        <br/>
+      <% end %>
+
+      <div class="clearfix"></div>
+    </div>
+  </li>
+<% end %>
