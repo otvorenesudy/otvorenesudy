@@ -12,12 +12,15 @@ FactoryGirl.define do
       active nil
     end
 
+    judge
     court
   end
 
   factory :judge do
-    sequence(:name) { |n| "JUDr. Peter Retep #{n}" }
+    uri
+    source
 
+    sequence(:name)             { |n| "JUDr. Peter Retep #{n}" }
     sequence(:name_unprocessed) { |n| "JUDr. Peter Retep #{n}" }
 
     prefix   'JUDr.'
@@ -27,12 +30,10 @@ FactoryGirl.define do
     suffix   'PhD.'
     addition ''
 
-    sequence(:uri) { |n| "factory_girl_judge_#{n}" }
-
-    source
-
-    after :create do |judge|
-      create :employment, :active, judge: judge
+    trait :with_employments do
+      after :create do |judge|
+        (Random.rand(10) + 1).times.map { create :employment, :active, judge: judge }
+      end
     end
   end
 end

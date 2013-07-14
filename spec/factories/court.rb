@@ -11,14 +11,21 @@ FactoryGirl.define do
 
 
   factory :court do
+    uri
+    source
+
     sequence(:name) { |n| "Court #{n}" }
-    sequence(:uri)  { |n| "court_uri_#{n}" }
 
     street 'Street'
 
-    source
     municipality
 
     type { create :court_type }
+
+    trait :with_employment do
+      after :create do |court|
+        (Random.rand(10) + 1).times.map { create :employment, :active, court: court }
+      end
+    end
   end
 end

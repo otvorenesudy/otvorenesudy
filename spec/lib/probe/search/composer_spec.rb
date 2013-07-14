@@ -25,8 +25,6 @@ shared_examples_for Probe::Search::Composer do
       search  = composer.new(model, options)
       results = search.compose
 
-      results.records.size.should eql(records.count)
-
       highlights = results.highlights
 
       query_highlights = query.split(/\s/).map { |e| "<em>#{e}</em>" }
@@ -69,6 +67,8 @@ shared_examples_for Probe::Search::Composer do
 
       facet = results.facets[name]
 
+      facet.terms.should  eql(values)
+
       facet.results.each do |result|
         add_params    = Array.wrap(values) + [result.value]
         remove_params = Array.wrap(values) - [result.value]
@@ -77,9 +77,6 @@ shared_examples_for Probe::Search::Composer do
         result.add_params.should    eql(name.to_s => add_params.uniq)
         result.remove_params.should eql(name.to_s => remove_params.uniq)
       end
-
-      facet.terms.should         eql(values)
-      facet.results.count.should eql(records.count)
     end
   end
 
@@ -111,18 +108,6 @@ shared_examples_for Probe::Search::Composer do
       other_results = search.compose
 
       other_results.records.should eql(results.records)
-    end
-  end
-
-  context 'when suggesting facets' do
-    it 'should suggest correct values for term' do
-      results = model.suggest(suggest, suggest_term, {})
-
-      results.facets[suggest].results.each do |result|
-        suggest_term.split(/\s/).each do |term|
-          result.value.should include(term)
-        end
-      end
     end
   end
 end
