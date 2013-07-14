@@ -1,4 +1,4 @@
-class MailerHelper
+module MailerHelper
   def self.last_email
     ActionMailer::Base.deliveries.last
   end
