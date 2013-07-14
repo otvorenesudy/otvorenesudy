@@ -6,4 +6,6 @@ class StatisticalTable < ActiveRecord::Base
 
   has_many :columns, class_name: :StatisticalTableColumn, dependent: :destroy
   has_many :rows,    class_name: :StatisticalTableRow,    dependent: :destroy
+
+  scope :by_name, lambda { |name| where(statistical_table_name_id: StatisticalTableName.find_by_value(name).id) }
 end
