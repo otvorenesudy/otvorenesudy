@@ -7,11 +7,11 @@ shared_examples_for Probe::Search::Composer do
   before :each do
     record.save!
 
-    ProbeHelper.reload
+    reload_indices
   end
 
-  after :all do
-    ProbeHelper.delete
+  after :each do
+    delete_indices
   end
 
   context 'when searching by fulltext' do
@@ -25,9 +25,17 @@ shared_examples_for Probe::Search::Composer do
       search  = composer.new(model, options)
       results = search.compose
 
-      results.records.first.should eql(record)
-      results.records.size.should eql(1)
-      results.highlights.first[highlight_field].join.should include("<em>#{query}</em>")
+      results.records.size.should eql(records.count)
+
+      highlights = results.highlights
+
+      query_highlights = query.split(/\s/).map { |e| "<em>#{e}</em>" }
+
+      highlights.each do |highlight|
+        highlight = highlight[highlight_field].join(' ').split(/\s/)
+
+        (highlight& query_highlights).size.should_not be_zero
+      end
     end
 
     it 'should wildcardize query' do
@@ -47,23 +55,73 @@ shared_examples_for Probe::Search::Composer do
   end
 
   context 'when searching by filter' do
-    it 'should search index by one value' do
-      name, value = filter.first
+    # TODO: write some examples for range and date filters
 
-      options[:params] = { name => value }
+    it 'should search index by filter' do
+      name, values = filter.first
+
+      options[:params] = { name => values }
 
       options[:facets] = Probe::Facets.new(model.facets[name])
 
       search  = composer.new(model, options)
       results = search.compose
 
-      results.facets[name].results.each do |result|
-        add_params    = Array.wrap(value) + [result.value]
-        remove_params = Array.wrap(value) - [result.value]
+      facet = results.facets[name]
 
-        result.params[name].should eql(add_params.uniq)
-        result.add_params[name].should eql(add_params.uniq)
-        result.remove_params[name].should eql(remove_params.uniq)
+      facet.results.each do |result|
+        add_params    = Array.wrap(values) + [result.value]
+        remove_params = Array.wrap(values) - [result.value]
+
+        result.params.should        eql(name.to_s => add_params.uniq)
+        result.add_params.should    eql(name.to_s => add_params.uniq)
+        result.remove_params.should eql(name.to_s => remove_params.uniq)
+      end
+
+      facet.terms.should         eql(values)
+      facet.results.count.should eql(records.count)
+    end
+  end
+
+  context 'when sorting results' do
+    it 'should sort results by field in descending order' do
+      options[:facets]      = Probe::Facets.new([])
+      options[:params]      = { sort: sort_field, order: :desc }
+      options[:sort_fields] = [sort_field]
+
+      search   = composer.new(model, options)
+      response = search.compose
+
+      results = response.results.results
+
+      sorted_results = results.sort_by { |e| e.send(sort_field) }.reverse
+
+      results.should eql(sorted_results)
+    end
+
+    it 'should allow only sorting by specific field' do
+      options[:facets]      = Probe::Facets.new([])
+      options[:sort_fields] = [sort_field]
+
+      results = composer.new(model, options).compose
+
+      options[:params] = { sort: :blabla }
+
+      search        = composer.new(model, options)
+      other_results = search.compose
+
+      other_results.records.should eql(results.records)
+    end
+  end
+
+  context 'when suggesting facets' do
+    it 'should suggest correct values for term' do
+      results = model.suggest(suggest, suggest_term, {})
+
+      results.facets[suggest].results.each do |result|
+        suggest_term.split(/\s/).each do |term|
+          result.value.should include(term)
+        end
       end
     end
   end
