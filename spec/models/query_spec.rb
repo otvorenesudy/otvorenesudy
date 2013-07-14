@@ -1,5 +1,21 @@
 require 'spec_helper'
 
 describe Query do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#value' do
+    it 'should create valid query for empty hash' do
+      query = build :query, :empty
+
+      query.should be_valid
+      query.value.should eql({})
+    end
+
+    it 'should create valid query from hash with ranges' do
+      query = build :query
+
+      query.value = { range: 1..100 }
+
+      query.should       be_valid
+      query.value.should eql({ range: '1..100' })
+    end
+  end
 end
