@@ -1,72 +1,171 @@
 # encoding: utf-8
+
 require 'spec_helper'
 
 describe 'SubscriptionRegistrations' do
   let!(:user) { create :user }
 
   before :each do
-    login_as user, scope: :user
+    reload_indices
   end
 
   after :all do
-    ProbeHelper.delete
+    delete_indices
   end
 
   context 'when searching' do
-    after :each do
-      page.should have_content('Odoberanie bolo úspešne zaregistrované.')
+    describe '#new' do
+      before :each do
+        login_as user
+      end
+
+      after :each do
+        page.should have_content('Odoberanie notifikácií bolo úspešne zaregistrované.')
+
+        logout user
+      end
+
+      it 'should register notification for empty query' do
+        visit search_decrees_path
+
+        within '#subscribe' do
+          click_button 'new_subscription'
+        end
+
+        subscription = user.subscriptions.first
+
+        subscription.period.should      eql(Period.monthly)
+        subscription.query.value.should eql({})
+        subscription.query.model.should eql('Decree')
+      end
+
+      it 'should register weekly notification for empty query' do
+        visit search_decrees_path
+
+        within '#subscribe' do
+          choose 'period-weekly'
+          click_button 'new_subscription'
+        end
+
+        subscription = user.subscriptions.first
+
+        subscription.period.name.should eql('weekly')
+        subscription.query.value.should eql({})
+        subscription.query.model.should eql('Decree')
+
+        page.should have_content('Odoberanie notifikácií bolo úspešne zaregistrované.')
+      end
+
+      it 'should register query from selection' do
+        decree = create :decree, date: Date.parse('1991-02-06')
+
+        reload_indices
+
+        visit search_decrees_path
+
+        within '#search-view #decree-court' do
+          click_link decree.court.name
+        end
+
+        within '#search-view #decree-date ul' do
+          find('a.add:first').click
+        end
+
+        within '#subscribe' do
+          choose 'period-daily'
+          click_button 'new_subscription'
+        end
+
+        subscription = user.subscriptions.first
+
+        subscription.period.name.should eql('daily')
+        subscription.query.model.should eql('Decree')
+        subscription.query.value.should eql({ court: decree.court.name, date: '1991-02-01..1991-02-28' })
+      end
     end
 
-    it 'should register notification for empty query' do
-      visit search_decrees_path
-
-      within '#subscribe' do
-        click_button 'new_subscription'
+    describe '#update' do
+      after :each do
+        page.should have_content('Odoberanie notifikácií bolo úspešne aktualizované.')
       end
 
-      subscription = user.subscriptions.first
+      it 'should update existing query' do
+        subscription = create :subscription, :monthly, :with_empty_query
 
-      subscription.period.should      eql(Period.find_by_name(:monthly))
-      subscription.query.value.should eql({})
-      subscription.query.model.should eql('Decree')
+        login_as subscription.user
+
+        visit search_decrees_path
+
+        within '#subscribe' do
+          #find('#period-monthly')['checked'].should_not be_nil
+
+          choose 'period-weekly'
+          click_button 'edit_subscription'
+        end
+
+        subscription.reload
+
+        subscription.period.name.should eql('weekly')
+        subscription.query.value.should eql({})
+      end
     end
 
-    it 'should register weekly notification for empty query' do
-      visit search_decrees_path
+    describe '#destoy' do
+      it 'should destroy existing query' do
+        subscription = create :subscription, :monthly, :with_empty_query
 
-      within '#subscribe' do
-        choose 'period-weekly'
-        click_button 'new_subscription'
+        login_as subscription.user
+
+        visit search_decrees_path
+
+        within '#subscribe' do
+          click_link 'delete_subscription'
+        end
+
+        page.should have_content('Odoberanie notifikácií bolo úspešne zrušené.')
+        Subscription.exists?(subscription.id).should be_false
       end
+    end
+  end
 
-      subscription = user.subscriptions.first
+  context 'when browsing registered notifications' do
+    describe '#update' do
+      it 'should update subscription with empty query' do
+        subscription = create :subscription, :weekly, :with_empty_query
 
-      subscription.period.name.should eql('weekly')
-      subscription.query.value.should eql({})
-      subscription.query.model.should eql('Decree')
+        login_as subscription.user
+
+        visit subscriptions_users_path
+
+        within "#subscription-form-#{subscription.id}" do
+          choose 'period-daily'
+          click_button 'edit_subscription'
+        end
+
+        subscription.reload
+
+        subscription.period.name.should eql('daily')
+        subscription.query.value.should eql({})
+
+        page.should have_content('Odoberanie notifikácií bolo úspešne aktualizované.')
+      end
     end
 
-    it 'should register query' do
-      decree = create :decree
+    describe '#destroy' do
+      it 'should destroy subscription with empty query' do
+        subscription = create :subscription, :daily, :with_empty_query
 
-      ProbeHelper.reload
+        login_as subscription.user
 
-      visit search_decrees_path
+        visit subscriptions_users_path
 
-      within '#search-view #decree-court' do
-        click_link decree.court.name
+        within "#subscription-form-#{subscription.id}" do
+          click_link 'delete_subscription'
+        end
+
+        page.should have_content('Odoberanie notifikácií bolo úspešne zrušené.')
+        Subscription.exists?(subscription.id).should be_false
       end
-
-      within '#subscribe' do
-        choose 'period-daily'
-        click_button 'new_subscription'
-      end
-
-      subscription = user.subscriptions.first
-
-      subscription.period.name.should eql('daily')
-      subscription.query.value.should eql({ court: decree.court.name })
-      subscription.query.model.should eql('Decree')
     end
   end
 end
