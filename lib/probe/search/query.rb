@@ -50,7 +50,7 @@ module Probe::Search
 
       q = sanitize_query_string(value.gsub(/"/, '').strip)
 
-      q = q.split(/\s+/).map { |e| "*#{e}*" }.join(' ') if options
+      q = q.split(/\s+/).map { |e| "*#{e}*" }.join(' ') if options[:force_wildcard]
 
       q.present? || exact.present? ? "#{q} #{exact.join(' ')}" : "*"
     end
