@@ -18,6 +18,9 @@ OpenCourts::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
+  # Default url for ActionMailer
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
@@ -42,6 +45,4 @@ OpenCourts::Application.configure do
   config.i18n.available_locales = :sk
   config.i18n.locale            = :sk
 
-  # default url
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 end
