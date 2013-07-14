@@ -2,7 +2,11 @@ module Probe
   module Helpers
     module Index
       def wrap_field(field)
-        field == :all ? :* : field.to_sym
+        return :* if field.eql? :all
+
+        return field.map { |f| f.to_sym } if field.is_a? Array
+
+        return field
       end
 
       def analyzed_field(field)

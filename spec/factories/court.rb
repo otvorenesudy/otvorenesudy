@@ -22,7 +22,7 @@ FactoryGirl.define do
 
     type { create :court_type }
 
-    trait :with_employment do
+    trait :with_employments do
       after :create do |court|
         (Random.rand(10) + 1).times.map { create :employment, :active, court: court }
       end
