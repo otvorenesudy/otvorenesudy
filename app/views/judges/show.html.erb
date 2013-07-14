@@ -10,7 +10,7 @@
   <div class="row">
     <div class="span12">
       <%= render 'shared/social', classes: 'social-vertical pull-right' %>
-      
+
       <% @employments.each do |employment| %>
         <p>
           <span class="gutter centered">
@@ -86,7 +86,7 @@
           <% end %>
         </ul>
       <% end %>
-      
+
       <% if @statistical_summaries.any? %>
         <p>
           <span class="gutter centered">
@@ -110,6 +110,16 @@
             </ul>
           </div>
         <% end %>        
+
+        <% if @judge.appeal_court_acceptance_rate? %>
+          <p>
+            <span class="gutter centered">
+              <%= icon_tag :'thumbs-up' %>
+            </span>
+            Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v 
+            <%= number_to_percentage @judge.appeal_court_acceptance_rate, precision: 2 %>.
+          </p>
+        <% end %>
       <% end %>
     </div>
   </div>

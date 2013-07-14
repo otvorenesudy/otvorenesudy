@@ -9,6 +9,8 @@ class Judge < ActiveRecord::Base
 
   include Probe
 
+  include Judge::AppealCourtAcceptanceRate
+
   attr_accessible :name,
                   :name_unprocessed,
                   :prefix,
@@ -53,6 +55,8 @@ class Judge < ActiveRecord::Base
 
   has_many :statistical_summaries, class_name: :JudgeStatisticalSummary,
                                    dependent: :destroy
+  has_many :statistical_tables, through: :statistical_summaries,
+                                source: :tables
 
   validates :name, presence: true
 
@@ -127,7 +131,7 @@ class Judge < ActiveRecord::Base
   def delayed_constitutional_decrees_total
     @delayed_constitutional_decrees_total ||= statistical_summaries.sum :delayed_constitutional_decrees
   end
-  
+
   def substantiation_notes
     @substantiation_notes ||= statistical_summaries.pluck(:substantiation_notes).uniq
   end
