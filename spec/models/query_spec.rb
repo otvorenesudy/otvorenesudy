@@ -17,5 +17,14 @@ describe Query do
       query.should       be_valid
       query.value.should eql({ range: '1..100' })
     end
+
+    it 'should create valid query from hash with arrays' do
+      query = build :query
+
+      query.value = { array: ['1', '2'] }
+
+      query.should       be_valid
+      query.value.should eql({ array: ['1', '2']})
+    end
   end
 end

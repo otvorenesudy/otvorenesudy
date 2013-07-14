@@ -41,7 +41,7 @@ class Query < ActiveRecord::Base
   def self.unwrap(value)
     if value.is_a? Hash
       value.each do |k, v|
-        value[k] = v.to_s
+        value[k] = v.is_a?(Range) ? v.to_s : v
       end
 
       value = value.to_json
