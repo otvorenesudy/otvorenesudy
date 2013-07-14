@@ -3,15 +3,29 @@ FactoryGirl.define do
     sequence(:value) { |n| "Hearing Type #{n}" }
   end
 
+  factory :judging do
+    judge_chair            false
+    judge_name_similarity  1.0
+    judge_name_unprocessed 'unprocessed'
+
+    judge
+  end
+
   factory :hearing do
+    uri
     source
 
-    uri
+    court
 
-    case_number 'case_number'
-    file_number 'file_number'
-    date         Time.now
+    date { Time.now }
+
+    sequence(:case_number) { |n| "Case Number #{n}" }
+    sequence(:file_number) { |n| "File Number #{n}" }
 
     type { create :hearing_type }
+
+    after :create do |hearing|
+      3.times.map { create :judging, hearing: hearing }
+    end
   end
 end
