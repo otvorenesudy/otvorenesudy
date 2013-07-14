@@ -13,13 +13,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
 
-    # Dirty reload for enumerable Period
-    Object.constants.map {|c| c.to_s.constantize }.each do |c| 
-      if c.respond_to?(:included_modules) && c.included_modules.include?(Resource::Enumerable)
-        Object.send(:remove_const, c.to_s)
-        load "#{c.to_s.singularize.underscore}.rb"
-      end
-    end
+    EnumerableHelper.reload
   end
 
   config.after(:each) do
