@@ -20,12 +20,8 @@ describe Hearing do
   describe '#percolate' do
     it_behaves_like Probe::Search::Percolator do
       let(:model)   { Hearing }
-      let(:record)  { create :hearing }
+      let(:record)  { create :hearing, date: 2.years.from_now }
       let(:query)   {{ judges: record.judges.pluck(:name) }}
-
-      before :each do
-        Hearing.facets[:historical].terms = true
-      end
     end
   end
 end

@@ -11,7 +11,7 @@ describe Judge do
       let(:query) { record.first }
       let(:highlight_field) { :name }
       let(:filter) {{ courts: record.courts.pluck(:name) }}
-      let(:sort_field) { :name }
+      let(:sort_field) { :type }
       let(:suggest) { :courts }
       let(:suggest_term) { record.courts.first.name.first(3) }
     end
