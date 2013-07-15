@@ -14,6 +14,10 @@ class JudgeStatisticalSummary < ActiveRecord::Base
                   :substantiation_notes,
                   :court_chair_actions
 
+  scope :by_court_type, lambda { |type| joins(:court).where('courts.court_type_id = ?', type.id) }
+
+  scope :by_year, lambda { order(:year) }
+
   belongs_to :court
 
   belongs_to :judge
@@ -25,7 +29,4 @@ class JudgeStatisticalSummary < ActiveRecord::Base
 
   # TODO: validate presence of date and author
   validates :year,   presence: true
-
-  scope :by_court_type, lambda { |type| joins(:court).where(:'courts.court_type_id' => type.id) }
-  scope :by_year, lambda { order(:year) }
 end
