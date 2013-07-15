@@ -6,6 +6,8 @@ module Resource::Formatable
       @formatters ||= {}
     end
     
+    protected
+    
     def formatable(attribute, options = {})
       define_method attribute do |pattern = nil|
         return super() if defined?(super) == true && (pattern.nil? || pattern == options[:default])
@@ -23,6 +25,8 @@ module Resource::Formatable
   def formatted
     @formatted ||= {}
   end
+  
+  public
 
   class Formatter
     attr_reader :default,
