@@ -117,7 +117,7 @@
               <%= icon_tag :'thumbs-up' %>
             </span>
             Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v 
-            <%= tooltip_tag(number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1), "Pre #{@judge.statistical_summaries.first.court.type.value.downcase} súd/y, na ktorých pôsobí.", placement: :right) %>.
+            <%= tooltip_tag(number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1), "V #{@judge.statistical_summaries.first.court.type.value.downcase}ých súdov.", placement: :right) %>.
           </p>
         <% end %>
 
@@ -127,7 +127,7 @@
               <%= icon_tag :check %>
             </span>
 
-            Sudca mal na <%= @judge.unresolved_issues_counts.map { |year, count| "konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.join(" a ").html_safe  %> nevybavených prípadov ako na jeho začiatku.
+            Sudca mal na <%= @judge.unresolved_issues_counts.map { |year, count| "konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe  %> nevybavených prípadov ako na jeho začiatku.
           </p>
         <% end %>
       <% end %>
