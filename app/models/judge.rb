@@ -4,9 +4,9 @@ class Judge < ActiveRecord::Base
   include Resource::URI
   include Resource::ContextSearch
   include Resource::Formatable
+  include Resource::Indicator
   include Resource::Similarity
   include Resource::Storage
-  include Resource::Indicator
 
   include Probe
 
@@ -54,13 +54,17 @@ class Judge < ActiveRecord::Base
 
   has_many :statistical_summaries, class_name: :JudgeStatisticalSummary,
                                    dependent: :destroy
+
   has_many :statistical_tables, through: :statistical_summaries,
                                 source: :tables
 
   validates :name, presence: true
 
-  register_indicator Judge::AppealCourtAcceptanceRate
-  register_indicator Judge::UnresolvedIssuesCounts
+  include Judge::ConstitutionalDecrees
+  include Judge::SubstantiationNotes
+
+  indicate Judge::AppealCourtAcceptanceRate
+  indicate Judge::UnresolvedIssuesCounts
 
   max_paginates_per 100
       paginates_per 25
@@ -125,18 +129,6 @@ class Judge < ActiveRecord::Base
 
   alias :probably_superior_court_officer? :probably_superior_court_officer
   alias :probably_woman?                  :probably_woman
-
-  def released_constitutional_decrees_total
-    @released_constitutional_decrees_total ||= statistical_summaries.sum :released_constitutional_decrees
-  end
-
-  def delayed_constitutional_decrees_total
-    @delayed_constitutional_decrees_total ||= statistical_summaries.sum :delayed_constitutional_decrees
-  end
-
-  def substantiation_notes
-    @substantiation_notes ||= statistical_summaries.pluck(:substantiation_notes).uniq
-  end
 
   context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
 
