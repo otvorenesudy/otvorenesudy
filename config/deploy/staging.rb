@@ -1,4 +1,4 @@
-set :domain, "195.146.144.210"
+set :domain, "37.205.9.136"
 
 server domain, :app, :web, :db, primary: true
 

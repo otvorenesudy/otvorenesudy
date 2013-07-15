@@ -1,3 +1,5 @@
+# TODO: #224
+
 module Judge::UnresolvedIssuesCounts
   def unresolved_issues_counts
     result = Hash.new
@@ -6,7 +8,7 @@ module Judge::UnresolvedIssuesCounts
     return unless tables.any?
 
     tables.each do |table|
-      next unless table.rows[4] # TODO: weird, some values from SVS dont contain this
+      next unless table.rows[4] # TODO: resolve why the field is missing
 
       beginning_of_year = table.rows[4].cells[0].value.to_i
       end_of_year       = 0
