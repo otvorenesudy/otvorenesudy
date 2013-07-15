@@ -45,8 +45,9 @@ sudo apt-get install tesseract-ocr
 ### Tests
 Run tests by `rspec` to check if the setup is complete.
 Be sure to add PostgreSQL Trigram extension to the test database `RAILS_ENV=test` and then setup database by running `rake db:setup RAILS_ENV=test`.
+Tests do not assume any data in database, since `FactoryGirl` is used for creating model instances.
 
-To quicky setup a small database with real production data for test or development purposes run `rake fixtures:db:setup` command.
+To quicky setup a small database with real production data for development purposes run `rake fixtures:db:setup` command.
 
 ## Data
 1. Setup database:
