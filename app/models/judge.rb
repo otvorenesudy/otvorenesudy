@@ -65,6 +65,7 @@ class Judge < ActiveRecord::Base
 
   indicate Judge::AppealCourtAcceptanceRate
   indicate Judge::UnresolvedIssuesCounts
+  indicate Judge::UnfinishedIssuesCounts
 
   max_paginates_per 100
       paginates_per 25
