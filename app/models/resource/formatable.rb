@@ -3,7 +3,7 @@ module Resource::Formatable
 
   module ClassMethods
     def formatters
-      @formatters ||= {}
+      @formatters ||= Hash.new
     end
     
     protected

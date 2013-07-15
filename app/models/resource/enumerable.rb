@@ -2,7 +2,9 @@ module Resource::Enumerable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    attr_reader :values
+    def values
+      @values ||= Hash.new
+    end
 
     def load_values!
       values.inject({}) do |data, (name, instance)|
@@ -20,8 +22,7 @@ module Resource::Enumerable
     def value(name, value)
       name = name.to_sym
 
-      @values       ||= {}
-      @values[name] ||= load_value(name, value)
+      values[name] ||= load_value(name, value)
 
       define_singleton_method name do
         @values[name]
