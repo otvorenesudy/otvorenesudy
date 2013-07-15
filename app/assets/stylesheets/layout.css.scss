@@ -280,6 +280,26 @@ h1, h2, strong {
     color: $white;
 
     background: rgba(#000, 0.45);
+    
+    // TODO
+    @include placeholder(#000);
+    
+    &::-moz-placeholder { color: $grayLight;}
+    &::-ms-input-placeholder { color:#000;}
+    &::-webkit-input-placeholder { color:#000;}
+    
+  }
+  
+  .search-query, .search-submit {
+    padding: 6px 20px;
+  }
+  
+  .input-append .search-query {
+    @include border-radius(20px 0px 0px 20px);
+  }
+  
+  .input-append .search-submit {
+    @include border-radius(0px 20px 20px 0px);
   }
 
   .search-query, .search-query:hover, .search-query:focus,

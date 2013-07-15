@@ -4,7 +4,6 @@
   </script>
 <% end %>
 
-<!-- TODO ??
 <header class="jumbotron carousel slide">
   <div class="carousel-inner">
     <div class="item active">
@@ -25,9 +24,8 @@
   <a class="carousel-control left" href="header" data-slide="prev"><%= icon_tag :'angle-left' %></a>
   <a class="carousel-control right" href="header" data-slide="next"><%= icon_tag :'angle-right' %></a>
 </header>
--->
 
-<!-- TODO ??
+<!--
 <header class="jumbotron masthead">
   <div class="pattern">
     <div class="container">
@@ -42,16 +40,21 @@
 -->
 
 
-<!-- TODO enable search field here! -->
-
 <header class="jumbotron search">
   <div class="pattern">
     <div class="container">
+<!--
+      <h1>
+        <small>Vyhľadávajte v</small>
+        <%= number_with_delimiter @count %>
+        <small>súdnych dokumentoch</small>
+      </h1>
+-->
       <div class="row">
         <div class="offset2 span8">
           <%= form_tag search_decrees_path, method: :get, class: :'form-search' do %>
             <div class="input-append">
-              <%= search_field_tag :search, params[:q], name: :q, placeholder: 'Vyhľadávanie v rozhodnutiach', class: :'search-query' %>
+              <%= search_field_tag :search, params[:q], name: :q, placeholder: 'Vyhľadať v súdnom rozhodnutí&hellip;'.html_safe, class: :'search-query' %>
               <%= button_tag icon_tag(:search), name: nil, class: :'search-submit btn btn-inverse' %>
             </div>
           <% end %>
