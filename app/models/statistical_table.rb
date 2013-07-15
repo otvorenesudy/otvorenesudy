@@ -1,5 +1,5 @@
 class StatisticalTable < ActiveRecord::Base
-  scope :by_name, lambda { |name| where(statistical_table_name_id: StatisticalTableName.find_by_value(name).id) }
+  scope :by_name, lambda { |name| joins(:name).where('value = ?', name) }
 
   belongs_to :statistical_summary, foreign_key: :statistical_summary_id, polymorphic: true
 
