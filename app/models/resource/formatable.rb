@@ -3,8 +3,10 @@ module Resource::Formatable
 
   module ClassMethods
     def formatters
-      @formatters ||= {}
+      @formatters ||= Hash.new
     end
+    
+    protected
     
     def formatable(attribute, options = {})
       define_method attribute do |pattern = nil|
@@ -23,6 +25,8 @@ module Resource::Formatable
   def formatted
     @formatted ||= {}
   end
+  
+  public
 
   class Formatter
     attr_reader :default,
