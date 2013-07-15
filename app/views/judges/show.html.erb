@@ -140,6 +140,16 @@
             Sudca mal na <%= @judge.unfinished_issues_counts.map { |year, count| "konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe  %> reštančných prípadov ako na jeho začiatku.
           </p>
         <% end %>
+
+        <% if @judge.unfinished_issues_rate? %>
+          <p>
+            <span class="gutter centered">
+              <%= icon_tag :'thumbs-down' %>
+            </span>
+
+            Podiel reštančných vecí na konci roka na celkovom počte nevybavených vecí je <%= tooltip_tag number_to_percentage(@judge.unfinished_issues_rate * 100, precision: 1), "Zo ročného štatistického výkazu za roky #{@judge.statistical_summaries.map(&:year).to_sentence}", placement: :right  %>
+          </p>
+        <% end %>
       <% end %>
     </div>
   </div>
