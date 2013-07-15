@@ -6,15 +6,15 @@ module Resource::Indicator
       @indicators ||= Hash.new
     end
 
-    def invalidate_indicators
+    def invalidate_indicators!
       indicators.each do |_, values|
         values.clear
       end
     end
 
-    private
+    protected
 
-    def register_indicator(indicator, options = {})
+    def indicate(indicator, options = {})
       name      = options[:method] || indicator.name.split(/::/).last.underscore.to_sym
       attribute = options[:attribute] || :id
 
