@@ -1,0 +1,10 @@
+class Probe.Config
+  @appName:     "<%= Rails.application.class.parent_name %>"
+  @environment: "<%= Rails.env %>"
+  @debug:       <%= !Rails.env.production?  %>
+  @path:   '/search'
+  @method: 'GET'
+  @model:
+    defaults: {}
+  @view:
+    el: '#search-view'

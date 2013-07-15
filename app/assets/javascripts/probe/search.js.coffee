@@ -1,0 +1,9 @@
+#= require underscore
+#= require backbone
+#= require backbone_rails_sync
+#= require backbone_datalink
+#= require ./namespace
+#= require_tree ./lib
+#= require_tree ./models
+#= require_tree ./routers
+#= require_tree ./views
