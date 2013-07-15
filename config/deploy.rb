@@ -24,7 +24,7 @@ set :git_enable_submodules, 1
 #set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
 
 # Resque
-set :workers, { probe: 4 }
+set :workers, { probe: 2, listers: 6, crawlers: 4 }
 
 default_run_options[:pty] = true
 
