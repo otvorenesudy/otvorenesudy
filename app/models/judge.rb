@@ -6,10 +6,9 @@ class Judge < ActiveRecord::Base
   include Resource::Formatable
   include Resource::Similarity
   include Resource::Storage
+  include Resource::Indicator
 
   include Probe
-
-  include Judge::AppealCourtAcceptanceRate
 
   attr_accessible :name,
                   :name_unprocessed,
@@ -59,6 +58,9 @@ class Judge < ActiveRecord::Base
                                 source: :tables
 
   validates :name, presence: true
+
+  register_indicator Judge::AppealCourtAcceptanceRate
+  register_indicator Judge::UnresolvedIssuesCounts
 
   max_paginates_per 100
       paginates_per 25
