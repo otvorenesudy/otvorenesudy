@@ -21,15 +21,15 @@
   
       <% if hearing.proposers.any? %>
         <br/>
-        Navrhovatelia &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+        Navrhovatelia &ndash; <%= hearing.proposers.pluck(:name).to_sentence %>
       <% end %>
       <% if hearing.opponents.any? %>
         <br/>
-        Odporcovia &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+        Odporcovia &ndash; <%= hearing.opponents.pluck(:name).to_sentence %>
       <% end %>
       <% if hearing.defendants.any? %>
         <br/>
-        Obžalovaní &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+        Obžalovaní &ndash; <%= hearing.defendants.pluck(:name).to_sentence %>
       <% end %>
     </div>
   

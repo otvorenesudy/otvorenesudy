@@ -1,0 +1,29 @@
+<%= search_list_tag @results, offset: 0, per_page: @results.count do |decree, highlight| %>
+  <li>
+    <h4>
+      <%= link_to decree_url(decree, nil) do %>
+        <%= decree_headline decree, limit: 80 %>
+        <% if decree.natures.any? %>
+          <br/>
+          <%= decree_natures decree, limit: 80 %>
+        <% end %>
+      <% end %>
+      <br/>
+      <small>
+        Rozhodnutie bolo vynesené dňa &ndash;
+        <%= decree_date decree.date %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <% if decree.court %>
+        Súd &ndash; <%= link_to decree.court.name, court_url(decree.court) %>
+      <br/>
+      <% end %>
+      <% if decree.judges.any? %>
+        <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
+        <br/>
+      <% end %>
+    </div>
+  </li>
+<% end %>

@@ -1,0 +1,80 @@
+@import 'variables';
+@import 'mixins';
+@import 'bootstrap';
+
+// general
+
+address, p, dl, ol, ul, table {
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+a {
+  color: $linkColor !important;
+}
+
+// header
+
+.header {
+  @extend header;
+
+  margin: 40px 0px;
+
+  text-align: center;
+
+  h1 {
+    margin: 20px;
+    
+    small {
+      display: block;
+      margin-top: 20px;
+      
+      font-size: $fontSizeLarge;
+
+      color: $grayLight !important;
+    }
+  }
+}
+
+// footer
+
+.footer {
+  margin: 40px 0px;
+}
+
+// sections
+
+.section {
+  @extend section;
+  
+  ul, p {
+    margin-top: 20px !important;
+    margin-left: 50px !important;
+  }
+}
+
+.section + section {
+  padding-top: 40px;
+}
+
+.search-results {
+  margin: 0px 0px 20px 40px !important;
+
+  li {
+    margin-left: 0px;
+    padding: 10px 10px 20px 10px;
+    
+    border-bottom: 1px dashed darken($grayLighter, 12.5%);
+
+    color: $grayLight;
+
+    p:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  h4, .search-result-content, blockquote {
+    color: $textColor;
+  }
+}

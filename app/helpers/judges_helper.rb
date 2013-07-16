@@ -78,9 +78,7 @@ module JudgesHelper
   end
 
   def links_to_judges(judges, options = {})
-    separator = options.delete(:separator) || ', '
-
-    judges.map { |judge| link_to_judge(judge, options) }.join(separator).html_safe
+    judges.map { |judge| link_to_judge(judge, options) }.to_sentence.html_safe
   end
 
   def link_to_institution(institution, options = {})
@@ -98,9 +96,7 @@ module JudgesHelper
   end
 
   def links_to_related_persons(persons, options = {})
-    separator = options.delete(:separator) || ', '
-
-    persons.map { |person| link_to_related_person(person, options) }.join(separator).html_safe
+    persons.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
   end
 
   private

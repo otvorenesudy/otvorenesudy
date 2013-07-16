@@ -42,7 +42,7 @@ module SearchHelper
   end
 
   def link_to_search(type, body, options = {})
-    url = url_for options[:params].merge!(controller: type, action: :search)
+    url = url_for options[:params].merge(controller: type.to_s.pluralize, action: :search)
 
     link_to body, url, options.except(:params)
   end

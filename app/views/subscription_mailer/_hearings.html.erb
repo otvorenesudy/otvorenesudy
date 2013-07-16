@@ -1,7 +1,7 @@
-<%= search_list_tag results, offset: offset do |hearing| %>
+<%= search_list_tag @results, offset: 0, per_page: @results.count do |hearing| %>
   <li>
     <h4>
-      <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+      <%= link_to hearing_headline(hearing, limit: 80), hearing_url(hearing) %>
       <br/>
       <small>
         Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -10,13 +10,8 @@
     </h4>
 
     <div class="search-result-content">
-      <div class="search-result-identifiers pull-right">
-          <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %><br/>
-          <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
-      </div>
-      
       <% if hearing.court %>
-        Súd &ndash; <%= link_to_court hearing.court %>
+        Súd &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>
@@ -35,8 +30,6 @@
         <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).to_sentence %>
         <br/>
       <% end %>
-
-      <div class="clearfix"></div>
-    </div>        
+    </div>
   </li>
 <% end %>

@@ -141,11 +141,11 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count %>
+            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count, track_data('judge-decrees') %>
           </li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @judge.hearings.upcoming.count %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @judge.hearings.historical.count %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @judge.hearings.upcoming.count, track_data('judge-upcoming-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @judge.hearings.historical.count, track_data('judge-historical-hearings') %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count, track_data('judge-media') %></li>
         </ul>
 
         <div class="tab-content">

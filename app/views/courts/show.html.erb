@@ -51,15 +51,15 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#contact" data-toggle="tab">Kontakt</a>
+            <a href="#contact" data-toggle="tab" data-track="court-contact">Kontakt</a>
           </li>
 <!-- TODO rm         
           <li><a href="#offices" data-toggle="tab">Pracoviská</a></li>
 -->
-          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.count%></li>
-          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count %></li>
-          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @court.hearings.count %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count %></li>
+          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.count, track_data('court-judges') %></li>
+          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count, track_data('court-decrees') %></li>
+          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @court.hearings.count, track_data('court-hearings') %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count, track_data('court-media') %></li>
         </ul>
 
         <div class="tab-content">

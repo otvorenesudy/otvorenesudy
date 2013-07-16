@@ -1,13 +1,14 @@
 <%= render 'header' %>
 
 <div class="section">
-  <h4>Pre Váš odber sme zaregistrovali nové <%= translate_without_count(:other, @type) %>:</h4>
+  <h4>Nastavenie vyhľadávania:</h4>
+  
   <% if @subscription.query.value.any? %>
     <ul class="unstyled">
       <% @subscription.query.value.each do |name, values| %>
         <li>
           <%= t "#{@model.facets[name].key}.title" %> &ndash;
-          <%= Array.wrap(values).join(', ') %>
+          <%= Array.wrap(values).join ', ' %>
         </li>
       <% end %>
     </ul>
@@ -20,15 +21,14 @@
 
 <div class="section">
   <h4>Nové <%= translate_without_count(:other, @type) %>:</h4>
-  <%= render "#{@type.to_s.pluralize}_results" %>
-  <hr />
-  <%= link_to "Zobrazit daľsie #{translate_without_count(:other, @type)}", search_url(@type, @params) %>
-  &middot;
-  <%= link_to "Zrušiť odoberianie", subscriptions_users_url %>
+  
+  <%= render "#{@type.to_s.pluralize}" %>
+
+  <p>  
+    <%= link_to_search @type, "Zobraziť daľšie #{translate_without_count(:other, @type)}", params: @params %>
+    &middot;
+    <%= link_to "Zrušiť odoberanie notifikácií", subscriptions_users_url %>
+  </p>
 </div>
 
-<div class="section">
-  S pozdravom,
-  <br />
-  tím projektu <%= link_to 'Otvorené súdy', root_url %>
-</div>
+<%= render 'footer' %>
