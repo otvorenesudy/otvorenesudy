@@ -107,6 +107,13 @@
           </p>
         <% end %>
 
+        <% if @judge.unfinished_issues_rate? %>
+          <p>
+            <span class="gutter centered"><%= icon_tag :'thumbs-down' %></span>
+            Podiel reštančných vecí na konci roka na celkovom počte nevybavených vecí je <%= tooltip_tag number_to_percentage(@judge.unfinished_issues_rate * 100, precision: 1), "Z ročného štatistického výkazu za roky #{@judge.statistical_summaries.map(&:year).to_sentence}", placement: :right %>
+          </p>
+        <% end %>
+
         <% if @judge.substantiation_notes.any? %>
           <p>
             <span class="gutter centered"><%= icon_tag :pushpin %></span>
