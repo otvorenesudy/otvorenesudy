@@ -12,7 +12,7 @@ Projekt Otvorené súdy je príspevkom k zlepšeniu diskusie o slovenskom v súd
 <li> Tieto dáta prepája a umožňuje porovnávanie </li>
 <li> Robí tak adresne – na úrovni jednotlivých sudcov a súdov </li></ol>
 
-Ďalšie informácie o projekte nájdete zodpovedané v **Sekcii často kladených otázok** 
+Ďalšie informácie o projekte nájdete zodpovedané v sekcii <a href="http://otvorenesudy.sk/faq">Často kladených otázok.</a> 
 
 Projekt Otvorené súdy vznikol vďaka podpore sekretariátu <a href="http://www.transparency.org"> Transparency International </a> v Berlíne a <a href="http://www.restartslovensko.sk/"> projektu Reštart </a> organizovanému <a href="www.cpf.sk"> Centrom pre filantropiu </a>. 
 
