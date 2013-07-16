@@ -4,5 +4,5 @@
 Bajkalská 25  
 827 18 Bratislava   
 tel./fax: +421 2 5341 7207  
-e-mail: admin@otvorenesudy.sk  
+e-mail: kontakt@otvorenesudy.sk  
 
