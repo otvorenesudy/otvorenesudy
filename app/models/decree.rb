@@ -69,9 +69,6 @@ class Decree < ActiveRecord::Base
     analyze :legislation_subarea, as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,        as: lambda { |d| d.legislations.map { |l| l.value '%u/%y/%p' } }
 
-    analyze :created_at
-    analyze :updated_at
-
     sort_by :date, :created_at
   end
 

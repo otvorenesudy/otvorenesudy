@@ -59,12 +59,10 @@ class Probe::Facets
     end
 
     def parse_terms(terms)
+      terms = Array.wrap(terms)
+
       if block_given?
-        if terms.respond_to? :each
-          terms = terms.map { |value| yield value }
-        else
-          terms = yield(terms)
-        end
+        terms = terms.map { |value| yield value }
       end
 
       terms
