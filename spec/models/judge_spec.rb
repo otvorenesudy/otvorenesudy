@@ -7,13 +7,12 @@ describe Judge do
   describe '#search' do
     it_behaves_like Probe::Search::Composer do
       let(:model) { Judge }
-
       let!(:records) { @records ||= 10.times.map { create :judge, :with_employments }}
       let(:record) { records.first }
       let(:query) { record.first }
       let(:highlight_field) { :name }
       let(:filter) {{ courts: record.courts.pluck(:name) }}
-      let(:sort_field) { :courts }
+      let(:sort_field) { :name }
     end
   end
 

@@ -48,26 +48,22 @@ shared_examples_for Probe::Search::Composer do
 
       highlight = results.highlights.first
 
-      highlight[highlight_field].join.should match(/\<em\>.*#{query.first}.*\<\/em\>/)
+      highlight[highlight_field].join(' ').should match(/\<em\>.*#{query.first}.*\<\/em\>/)
     end
   end
 
   context 'when searching by filter' do
-    # TODO: write some examples for range and date filters
-
     it 'should search index by filter' do
       name, values = filter.first
 
       options[:params] = { name => values }
-
-      options[:facets] = Probe::Facets.new(model.facets[name])
 
       search  = composer.new(model, options)
       results = search.compose
 
       facet = results.facets[name]
 
-      facet.terms.should  eql(values)
+      facet.terms.should eql(values)
 
       facet.results.each do |result|
         add_params    = Array.wrap(values) + [result.value]
@@ -77,6 +73,29 @@ shared_examples_for Probe::Search::Composer do
         result.add_params.should    eql(name.to_s => add_params.uniq)
         result.remove_params.should eql(name.to_s => remove_params.uniq)
       end
+
+      # TODO: check elasticsearch records for value
+      results.results.each do |result|
+        (Array.wrap(values) & Array.wrap(result.send(name))).size.should_not be_zero
+      end
+    end
+
+    it 'should search index correct by created_at date filter' do
+      date = Date.today.beginning_of_month..Date.today.end_of_month
+      record.created_at = Date.today.end_of_month.midnight - 1
+
+      record.save!
+
+      options[:params] = { created_at: date }
+
+      search  = composer.new(model, options)
+      results = search.compose
+
+      facet = results.facets[:created_at]
+
+      facet.terms.should eql([date])
+
+      results.records.should include(record)
     end
   end
 
@@ -96,7 +115,7 @@ shared_examples_for Probe::Search::Composer do
       results.should eql(sorted_results)
     end
 
-    it 'should allow only sorting by specific field' do
+    it 'should allow only sorting by defined fields' do
       options[:facets]      = Probe::Facets.new([])
       options[:sort_fields] = [sort_field]
 

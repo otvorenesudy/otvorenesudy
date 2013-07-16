@@ -86,6 +86,9 @@ module Probe
 
           yield
 
+          analyze :created_at, type: :date
+          analyze :updated_at, type: :date
+
           tire.mapping do
             @mapping.each do |field, value|
               options  = value[:options]
@@ -100,7 +103,7 @@ module Probe
                 indexes field, options.deep_merge(
                   type: :multi_field,
                   fields: {
-                    analyzed: { type: :string, analyzer: analyzer, include_in_all: true },
+                    analyzed:  { type: :string, analyzer: analyzer, include_in_all: true },
                     untouched: { type: type, index: :not_analyzed }
                   }
                 )
@@ -114,6 +117,9 @@ module Probe
         @facet_definitions ||= []
 
         yield if block_given?
+
+        facet :created_at, type: :abstract, facet: :date, interval: :month
+        facet :updated_at, type: :abstract, facet: :date, interval: :month
 
         @facets ||= Probe::Facets.new(@facet_definitions)
       end
