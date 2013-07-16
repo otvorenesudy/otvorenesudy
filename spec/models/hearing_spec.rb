@@ -7,12 +7,11 @@ describe Hearing do
   describe '#search' do
     it_behaves_like Probe::Search::Composer do
       let(:model) { Hearing }
-
       let!(:records) { @records ||= 10.times.map { create :hearing } }
       let(:record) { records.first }
       let(:query) { record.judges[0].first }
       let(:highlight_field) { :judges }
-      let(:filter) {{ judges: [record.judges.pluck(:name)], historical: false }}
+      let(:filter) {{ judges: [record.judges.pluck(:name).first, records[1].judges.pluck(:name).second], historical: false }}
       let(:sort_field) { :file_number }
     end
   end

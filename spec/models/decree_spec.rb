@@ -7,12 +7,11 @@ describe Decree do
   describe '#search' do
     it_behaves_like Probe::Search::Composer do
       let(:model) { Decree }
-
       let!(:records) { @records ||= 10.times.map { create :decree } }
       let(:record) { records.first }
       let(:query) { record.judges[0].first }
       let(:highlight_field) { :judges }
-      let(:filter) {{ judges: [record.judges.pluck(:name)] }}
+      let(:filter) {{ judges: [record.judges.pluck(:name).first, records.second.judges.pluck(:name).second] }}
       let(:sort_field) { :ecli }
     end
   end

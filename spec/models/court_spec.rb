@@ -7,12 +7,11 @@ describe Court do
   describe '#search' do
     it_behaves_like Probe::Search::Composer do
       let(:model) { Court }
-
       let!(:records) { @records ||= 10.times.map { create :court, :with_employments } }
       let(:record) { records.first }
       let(:query) { record.name.split(/\s/).first }
       let(:highlight_field) { :name }
-      let(:filter) {{ municipality: [record.municipality.name] }}
+      let(:filter) {{ municipality: [record.municipality.name, records.second.municipality.name] }}
       let(:sort_field) { :municipality }
     end
   end
