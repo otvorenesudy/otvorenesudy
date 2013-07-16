@@ -19,15 +19,15 @@
         <br/>
       <% end %>
       <% if hearing.proposers.any? %>
-        <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).join ', ' %>
+        <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).to_sentence %>
         <br/>
       <% end %>
       <% if hearing.opponents.any? %>
-        <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).join ', ' %>
+        <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).to_sentence %>
         <br/>
       <% end %>
       <% if hearing.defendants.any? %>
-        <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
+        <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).to_sentence %>
         <br/>
       <% end %>
     </div>

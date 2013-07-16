@@ -58,9 +58,7 @@ module CourtsHelper
   end
 
   def links_to_courts(courts, options = {})
-    separator = options.delete(:separator) || ', '
-
-    courts.map { |court| link_to_court(court, options) }.join(separator).html_safe
+    courts.map { |court| link_to_court(court, options) }.to_sentence.html_safe
   end
   
   def link_to_court_by_judge_employment(employment, options = {})

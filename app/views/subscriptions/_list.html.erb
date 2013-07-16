@@ -11,7 +11,7 @@
           <% subscription.query.value.each do |name, values| %>
             <li>
               <%= t "#{model.facets[name].key}.title" %> &ndash;
-              <%= Array.wrap(values).join(', ') %>
+              <%= Array.wrap(values).join ', ' %>
             </li>
           <% end %>
         </ul>
