@@ -49,6 +49,7 @@ $(document).ready ->
 
     registerSearch: ->
       $(@el).find('.facet ul li a, form a, .btn-group a').click => @.onSearch()
+      $(@el).find('form input').change => @.onSearch()
       $(@el).submit => @.onSearch()
 
     onSearch: ->
