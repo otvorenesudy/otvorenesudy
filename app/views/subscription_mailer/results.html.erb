@@ -22,7 +22,7 @@
 <div class="section">
   <h4>Nové <%= translate_without_count(:other, @type) %>:</h4>
   
-  <%= render "#{@type.to_s.pluralize}_results" %>
+  <%= render "#{@type.to_s.pluralize}" %>
 
   <p>  
     <%= link_to_search @type, "Zobrazit daľsie #{translate_without_count(:other, @type)}", params: @params %>
