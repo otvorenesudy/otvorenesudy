@@ -14,6 +14,10 @@ class JudgeStatisticalSummary < ActiveRecord::Base
                   :substantiation_notes,
                   :court_chair_actions
 
+  scope :by_court_type, lambda { |type| joins(:court).where(:'courts.court_type_id' => type.id) }
+  scope :by_year, lambda { order(:year) }
+
+
   belongs_to :court
   delegate :type, to: :court, prefix: true # TODO: creates delegation to court.type by court_type
 
@@ -26,9 +30,6 @@ class JudgeStatisticalSummary < ActiveRecord::Base
 
   # TODO: validate presence of date and author
   validates :year,   presence: true
-
-  scope :by_court_type, lambda { |type| joins(:court).where(:'courts.court_type_id' => type.id) }
-  scope :by_year, lambda { order(:year) }
 
   scope :by_prominent_court_type, lambda {
     types = joins(:court).group('courts.court_type_id').order(:count_all).count

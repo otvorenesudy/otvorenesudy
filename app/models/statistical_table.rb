@@ -1,4 +1,6 @@
 class StatisticalTable < ActiveRecord::Base
+  scope :by_name, lambda { |name| joins(:name).where('value = ?', name) }
+
   belongs_to :statistical_summary, foreign_key: :statistical_summary_id, polymorphic: true
 
   # TODO: fix, make it more pretty
@@ -10,6 +12,4 @@ class StatisticalTable < ActiveRecord::Base
 
   has_many :columns, class_name: :StatisticalTableColumn, dependent: :destroy
   has_many :rows,    class_name: :StatisticalTableRow,    dependent: :destroy
-
-  scope :by_name, lambda { |name| where(statistical_table_name_id: StatisticalTableName.find_by_value(name).id) }
 end

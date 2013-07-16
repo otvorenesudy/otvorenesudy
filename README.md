@@ -14,7 +14,7 @@ Public data project aimed at creating much more user friendly interface to inter
 ```
 git clone git://github.com/otvorenesudy/otvorenesudy-dev.git
 cd otvorenesudy-dev
-git submodule init # initialize submodule, e.g. otvorenesudy-data
+git submodule init   # initialize submodule, e.g. otvorenesudy-data
 git submodule update # or git submodule foreach git pull origin master
 bundle install
 cp config/database.{yml.example,yml}
@@ -47,7 +47,7 @@ sudo apt-get install tesseract-ocr
 ### Tests
 Run tests by `rspec` to check if the setup is complete.
 Be sure to add PostgreSQL Trigram extension to the test database `RAILS_ENV=test` and then setup database by running `rake db:setup RAILS_ENV=test`.
-Tests do not assume any data in database, since `FactoryGirl` is used for creating model instances.
+Tests do not assume any data in the database, since `FactoryGirl` creates sample model instances.
 
 To quicky setup a small database with real production data for development purposes run `rake fixtures:db:setup` command.
 

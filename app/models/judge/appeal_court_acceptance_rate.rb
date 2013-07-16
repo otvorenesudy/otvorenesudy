@@ -14,7 +14,7 @@ module Judge::AppealCourtAcceptanceRate
         table.rows.each do |row|
           sum = row.cells.pluck(:value).map(&:to_i).sum
 
-          if row.name.value == "sv_Pocet1"
+          if row.name.value == 'sv_Pocet1'
             accepted += sum
           end
 
