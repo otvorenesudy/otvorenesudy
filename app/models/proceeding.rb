@@ -7,7 +7,7 @@ class Proceeding < ActiveRecord::Base
   has_many :decrees
 
   max_paginates_per 100
-      paginates_per 25
+      paginates_per 20
 
   mapping do
     map :id
