@@ -117,7 +117,7 @@
               <%= icon_tag :'thumbs-up' %>
             </span>
             Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v 
-            <%= tooltip_tag(number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1), "V #{@judge.statistical_summaries.first.court.type.value.downcase}ch súdoch.", placement: :right) %>.
+            <%= tooltip_tag(number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1), "Vypočítané za #{@judge.statistical_summaries.by_prominent_court_type.map { |s| "rok #{s.year} (#{s.court.name})" }.to_sentence()}.", placement: :right) %>.
           </p>
         <% end %>
 
@@ -147,7 +147,9 @@
               <%= icon_tag :'thumbs-down' %>
             </span>
 
-            Podiel reštančných vecí na konci roka na celkovom počte nevybavených vecí je <%= tooltip_tag number_to_percentage(@judge.unfinished_issues_rate * 100, precision: 1), "Zo ročného štatistického výkazu za roky #{@judge.statistical_summaries.map(&:year).to_sentence}", placement: :right  %>
+            Podiel <%= tooltip_tag "reštančných", "Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.", placement: :bottom %>
+            vecí na celkovom počte nevybavených vecí je
+            <%= @judge.unfinished_issues_rate.map { |year, rate| "na konci roka #{year} &ndash; #{number_to_percentage(rate * 100, precision: 1)}" }.to_sentence.html_safe %>
           </p>
         <% end %>
       <% end %>

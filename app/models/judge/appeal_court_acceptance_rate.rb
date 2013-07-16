@@ -2,8 +2,7 @@
 
 module Judge::AppealCourtAcceptanceRate
   def appeal_court_acceptance_rate
-    type      = statistical_summaries.by_year.first.court.type
-    summaries = statistical_summaries.by_court_type(type)
+    summaries = statistical_summaries.by_prominent_court_type
 
     accepted = 0
     all      = 0

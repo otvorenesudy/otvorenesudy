@@ -3,11 +3,13 @@
 module Judge::UnresolvedIssuesCounts
   def unresolved_issues_counts
     result = Hash.new
-    tables = statistical_tables.by_name('N')
+    summaries = statistical_summaries.by_prominent_court_type
 
-    return unless tables.any?
+    return unless summaries.any?
 
-    tables.each do |table|
+    summaries.each do |summary|
+      table = summary.tables.by_name('N').first
+
       next unless table.rows[4] # TODO: resolve why the field is missing
 
       beginning_of_year = table.rows[4].cells[0].value.to_i
@@ -17,7 +19,7 @@ module Judge::UnresolvedIssuesCounts
         end_of_year += cell.value.to_i
       end
 
-      result[table.summary.year] = end_of_year - beginning_of_year
+      result[summary.year] = end_of_year - beginning_of_year
     end
 
     result

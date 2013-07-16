@@ -3,11 +3,13 @@
 module Judge::UnfinishedIssuesCounts
   def unfinished_issues_counts
     result = Hash.new
-    tables = statistical_tables.by_name('N')
+    summaries = statistical_summaries.by_prominent_court_type
 
-    return unless tables.any?
+    return unless summaries.any?
 
-    tables.each do |table|
+    summaries.each do |summary|
+      table = summary.tables.by_name('N').first
+
       next unless table.rows[5] # TODO: resolve why the field is missing sometimes
 
       beginning_of_year = table.rows[5..7].map { |r| r.cells[0].value.to_i }.inject(:-)
@@ -18,7 +20,7 @@ module Judge::UnfinishedIssuesCounts
         end_of_year -= row.cells.pluck(:value).map(&:to_i).sum
       end
 
-      result[table.summary.year] = end_of_year - beginning_of_year
+      result[summary.year] = end_of_year - beginning_of_year
     end
 
     result
