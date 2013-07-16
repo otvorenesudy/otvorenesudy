@@ -32,10 +32,12 @@ class JudgeStatisticalSummary < ActiveRecord::Base
   }
 
   scope :by_court_type, lambda { |type| joins(:court).where(:'courts.court_type_id' => type.id) }
+
   scope :by_year, lambda { order(:year) }
 
   belongs_to :court
-  delegate :type, to: :court, prefix: true # TODO: creates delegation to court.type by court_type
+
+  delegate :type, to: :court, prefix: true
 
   belongs_to :judge
 
@@ -44,8 +46,8 @@ class JudgeStatisticalSummary < ActiveRecord::Base
   belongs_to :senate_inclusion, class_name: :JudgeSenateInclusion,
                                 foreign_key: :judge_senate_inclusion_id
 
-  # TODO: validate presence of date and author
-  validates :year,   presence: true
+  # TODO: validate presence of date and author, currently missing in preprocessed files
+  validates :year, presence: true
 
   private
 
