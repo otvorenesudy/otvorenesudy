@@ -43,7 +43,7 @@ class Hearing < ActiveRecord::Base
   has_many :accusations, through: :defendants
 
   max_paginates_per 100
-      paginates_per 25
+      paginates_per 20
 
   mapping do
     map :id

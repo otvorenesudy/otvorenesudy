@@ -51,7 +51,7 @@ class Court < ActiveRecord::Base
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
   max_paginates_per 100
-      paginates_per 25
+      paginates_per 20
 
   mapping do
     map :id
