@@ -1,7 +1,7 @@
-<%= search_list_tag @results , offset: 0, per_page: @results.count do |hearing| %>
+<%= search_list_tag @results, offset: 0, per_page: @results.count do |hearing| %>
   <li>
     <h4>
-      <%= link_to hearing_headline(hearing, limit: 67), hearing_url(hearing) %>
+      <%= link_to hearing_headline(hearing, limit: 80), hearing_url(hearing) %>
       <br/>
       <small>
         Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -15,7 +15,7 @@
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>
-        <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= hearing.judges.normal.map { |judge| link_to judge.name, judge_url(judge) }.join(', ').html_safe %>
+        <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges hearing.judges.normal %>
         <br/>
       <% end %>
       <% if hearing.proposers.any? %>
@@ -30,8 +30,6 @@
         <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).join ', ' %>
         <br/>
       <% end %>
-
-      <div class="clearfix"></div>
     </div>
   </li>
 <% end %>

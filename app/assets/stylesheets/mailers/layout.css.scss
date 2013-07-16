@@ -1,0 +1,53 @@
+@import 'variables';
+@import 'mixins';
+@import 'bootstrap';
+
+a {
+  color: $linkColor !important;
+}
+
+// header
+
+.header {
+  @extend header;
+
+  margin: 40px 0px;
+
+  text-align: center;
+
+  h1 {
+    small {
+      display: block;
+      color: $grayLight !important;
+    }
+  }
+}
+
+.section {
+  @extend section;
+}
+
+.section + section {
+  padding-top: 20px;
+}
+
+.search-results {
+  margin: 0px 0px 0px 40px !important;
+
+  li {
+    margin-left: 0px;
+    padding: 10px 10px 20px 10px;
+    
+    border-bottom: 1px dashed darken($grayLighter, 12.5%);
+
+    color: $grayLight;
+
+    p:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  h4, .search-result-content, blockquote {
+    color: $textColor;
+  }
+}
