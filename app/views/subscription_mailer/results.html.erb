@@ -25,9 +25,9 @@
   <%= render "#{@type.to_s.pluralize}" %>
 
   <p>  
-    <%= link_to_search @type, "Zobrazit daľšie #{translate_without_count(:other, @type)}", params: @params %>
+    <%= link_to_search @type, "Zobraziť daľšie #{translate_without_count(:other, @type)}", params: @params %>
     &middot;
-    <%= link_to "Zrušiť odoberianie notifikácií", subscriptions_users_url %>
+    <%= link_to "Zrušiť odoberanie notifikácií", subscriptions_users_url %>
   </p>
 </div>
 
