@@ -18,11 +18,11 @@ module Court::AverageProceedingLengths
       @results = Hash.new
 
       data.each do |e|
-        e = e.symbolize_keys
+        e.symbolize_keys!
 
-        agenda = e[:agenda]
+        agenda = e[:name]
 
-        @results[agenda] = Agenda.new(e[:agenda], e[:agenda_acronym]) unless @results[agenda]
+        @results[agenda] = Agenda.new(agenda, e[:acronym]) unless @results[agenda]
 
         @results[agenda].values << e
       end
