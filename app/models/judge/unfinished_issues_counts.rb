@@ -10,15 +10,8 @@ module Judge::UnfinishedIssuesCounts
     summaries.each do |summary|
       table = summary.tables.by_name('N').first
 
-      next unless table.rows[5] # TODO: resolve why the field is missing sometimes
-
-      beginning_of_year = table.rows[5..7].map { |r| r.cells[0].value.to_i }.inject(:-)
-
-      end_of_year = table.rows[1].cells.pluck(:value).map(&:to_i).sum
-
-      table.rows[2..3].each do |row|
-        end_of_year -= row.cells.pluck(:value).map(&:to_i).sum
-      end
+      beginning_of_year = table.rows[6].cells[0].value.to_i
+      end_of_year       = table.rows[1].cells.pluck(:value).map(&:to_i).sum
 
       result[summary.year] = end_of_year - beginning_of_year
     end

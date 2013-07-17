@@ -10,8 +10,6 @@ module Judge::UnfinishedIssuesRate
     summaries.each do |summary|
       table = summary.tables.by_name('N').first
 
-      next unless table.rows[5]
-
       accepted = table.rows[0].cells.pluck(:value).map(&:to_i).sum
       all      = table.rows[1].cells.pluck(:value).map(&:to_i).sum
 
