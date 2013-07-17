@@ -24,39 +24,58 @@
 
       <% if @expenses.any? %>
         <p>
-          <span class="gutter centered"><%= icon_tag :euro %></span>
+          <span class="gutter centered"><%= icon_tag :legal %></span>
           Celkovo <%= rank Court::Expenses.rank @court %> najviac pokutovaný súd zo <%= Court::Expenses.courts.count %> súdov.
         </p>
         <p>
-          <span class="gutter centered"><%= icon_tag :euro %></span>
-          Pokuty od Ústavného súdu Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch
+          <span class="gutter centered"><%= icon_tag :legal %></span>
+          <% unless @court.expenses_total.zero? %>
+            <a href="#" data-target="#expenses" data-toggle="collapse">Pokuty od Ústavného súdu</a>
+          <% else %>
+            Pokuty od Ústavného súdu
+          <% end %>
+          Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
           boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
         </p>
         <% unless @court.expenses_total.zero? %>
-          <ul>
-            <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
-              <li>za rok <%= expense.year %> &ndash; <%= number_to_currency expense.value, precision: 0 %></li>
-            <% end %>
-          </ul>
+          <div id="expenses" class="collapse out">
+            <ul class="unstyled">
+              <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
+                <li><%= icon_tag :'credit-card' %> Pokuta za rok <%= expense.year %> bola <%= number_to_currency expense.value, precision: 0 %>.</li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
       <% end %>
 
       <% if @court.average_proceeding_lengths? %>
         <p>
-          <span class="gutter centered"><%= icon_tag :euro %></span>
-          Priemerné dĺžky konaní v rámci súdu podľa agiend
-          <%= @court.average_proceeding_lengths.map { |agend| icon_link_to_collapse(:euro, "#{agend.name}", target: "#average-proceeding-lengths-#{agend.acronym}", join: :append) }.to_sentence.html_safe %>.
-          <% @court.average_proceeding_lengths.each do |agend| %>
-            <div id="average-proceeding-lengths-<%= agend.acronym %>" class="collapse">
-              <ul>
-                <% agend.values.each do |value| %>
-                  <li>Priemerná dĺžka za rok <%= value[:year] %> je <%= value[:value] %> mesiaca</li>
-                <% end %>
-              </ul>
+          <span class="gutter centered"><%= icon_tag :time %></span>
+          Priemerné dĺžky trvania konaní v rámci súdu podľa agiend:
+        </p>
+        <ul class="unstyled inline">
+          <% @court.average_proceeding_lengths.each do |agenda| %>
+            <li><a href="#average-proceeding-length-<%= agenda.acronym %>" data-parent="#average-proceeding-lengths" data-toggle="collapse"><%= agenda.name %></a></li>
+          <% end %>
+        </ul>
+        <div id="average-proceeding-lengths">
+          <% @court.average_proceeding_lengths.each do |agenda| %>
+            <div class="accordion-group">
+              <div id="average-proceeding-length-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
+                <p>
+                  <span class="gutter centered"><%= icon_tag :time %></span>
+                  Priemerná dĺžka trvania konania v agende <%= agenda.name %>:
+                </p>
+                <ul class="unstyled">
+                  <% agenda.data.each do |data| %>
+                    <li>Priemerná dĺžka za rok <%= data[:year] %> je <%= number_with_precision data[:value], precision: 1 %> mesiaca.</li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
           <% end %>
-        </p>
+        </div>
       <% end %>
     </div>
   </div>

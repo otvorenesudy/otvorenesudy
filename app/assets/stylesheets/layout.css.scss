@@ -422,6 +422,20 @@ section.features {
 }
 
 section.profile {
+  .accordion-group {
+    margin: 0px;
+    border: none;
+  }
+  
+  .inline li {
+    padding: 0px 5px 0px 0px;
+  }
+  
+  .unstyled {
+    margin-left: 30px;
+    margin-bottom: 10px;
+  }
+  
   li a[target="_blank"] {
     color: $textColor;
   }

@@ -26,7 +26,7 @@
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <%= navbar_dropdown_tag :'caret-down', current_user.email, '#', join: :append do %>
-              <li><%= icon_link_to :tasks, "Notifikácie", subscriptions_users_path %></li>
+              <li><%= icon_link_to :bell, "Notifikácie", subscriptions_users_path %></li>
               <li><%= icon_link_to :cog, "Nastavenia", edit_user_registration_path %></li>
               <li><%= icon_link_to :signout, "Odhlásiť", destroy_user_session_path, method: :delete %></li>
             <% end %>

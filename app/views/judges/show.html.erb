@@ -56,7 +56,7 @@
       <% if File.readable? @judge.curriculum_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= link_to "Životopis sudcu", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= link_to "Životopis", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
@@ -85,50 +85,49 @@
           Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané <%= @judge.released_constitutional_decrees_total %> a prieťahy pred pridelením veci <%= @judge.delayed_constitutional_decrees_total %>.
         </p>
 
-        <% if @judge.substantiation_notes.any? %>
-          <p>
-            <span class="gutter centered">
-              <%= icon_tag :pushpin %>
-            </span>
-            <a href="#" data-target="#substantiation-notes" data-toggle="collapse">Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.
-          </p>
-          <div id="substantiation-notes" class="collapse out">
-            <ul>
-              <% @judge.substantiation_notes.each do |note| %>
-                <li><%= note %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
         <% if @judge.appeal_court_acceptance_rate? %>
           <p>
-            <span class="gutter centered"><%= icon_tag :'thumbs-up' %></span>
-            Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v 
-            <%= tooltip_tag(number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1), "Vypočítané za #{@judge.statistical_summaries.by_prominent_court_type.map { |s| "rok #{s.year} (#{s.court.name})" }.to_sentence}.", placement: :right) %>.
+            <span class="gutter centered"><%= icon_tag :'thumbs-up-alt' %></span>
+            Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v
+            <%= number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1) %>.
+            <%= popover_tag icon_tag(:question), "#{@statistical_summaries.by_prominent_court_type.order('year desc').map { |summary| "#{summary.year}, #{summary.court.name}" }.join '<br/>'}", title: "Vypočítané z pôsobení sudcu", trigger: :hover %>
           </p>
         <% end %>
 
         <% if @judge.unresolved_issues_counts? %>
           <p>
-            <span class="gutter centered"><%= icon_tag :check %></span>
-            Sudca mal na <%= @judge.unresolved_issues_counts.map { |year, count| "konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe  %> nevybavených prípadov ako na jeho začiatku.
+            <span class="gutter centered"><%= icon_tag :inbox %></span>
+            Sudca mal nevybavených prípadov na konci <%= @judge.unresolved_issues_counts.map { |year, count| "roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
           </p>
         <% end %>
 
         <% if @judge.unfinished_issues_counts? %>
           <p>
-            <span class="gutter centered"><%= icon_tag :check %></span>
-            Sudca mal na <%= @judge.unfinished_issues_counts.map { |year, count| "konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe  %> reštančných prípadov ako na jeho začiatku.
+            <span class="gutter centered"><%= icon_tag :inbox %></span>
+            Sudca mal reštančných prípadov na konci <%= @judge.unfinished_issues_counts.map { |year, count| "roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
           </p>
         <% end %>
 
         <% if @judge.unfinished_issues_rate? %>
           <p>
-            <span class="gutter centered"><%= icon_tag :'thumbs-down' %></span>
-            Podiel <%= tooltip_tag 'reštančných', "Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.", placement: :bottom %>
-            vecí na celkovom počte nevybavených vecí je <%= @judge.unfinished_issues_rate.map { |year, rate| "na konci roka #{year} &ndash; #{number_to_percentage(rate * 100, precision: 1)}" }.to_sentence.html_safe %>
+            <span class="gutter centered"><%= icon_tag :'tasks' %></span>
+            Podiel reštančných vecí z celkového počtu nevybavených vecí je <%= @judge.unfinished_issues_rate.map { |year, rate| "#{number_to_percentage(rate * 100, precision: 1)} ku koncu roka #{year}" }.to_sentence.html_safe %>.
+            <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov v&nbsp;prípade maloletých a&nbsp;dlhšie ako 1 rok v&nbsp;ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
           </p>
+        <% end %>
+
+        <% if @judge.substantiation_notes.any? %>
+          <p>
+            <span class="gutter centered"><%= icon_tag :pushpin %></span>
+            <a href="#" data-target="#substantiation-notes" data-toggle="collapse">Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.
+          </p>
+          <div id="substantiation-notes" class="collapse out">
+            <ul class="unstyled">
+              <% @judge.substantiation_notes.each do |year, note| %>
+                <li><%= icon_tag :'file-text-alt' %> Výkaz za rok <%= year %> &ndash; <%= note %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
       <% end %>
     </div>

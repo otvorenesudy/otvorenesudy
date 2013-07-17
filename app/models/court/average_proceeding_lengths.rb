@@ -2,7 +2,7 @@ module Court::AverageProceedingLengths
   extend ActiveSupport::Concern
   
   def average_proceeding_lengths
-    Agendas.new(Loader.data[self.name])
+    @agendas ||= Agendas.new(Loader.data[self.name])
   end
 
   class Loader
@@ -20,11 +20,12 @@ module Court::AverageProceedingLengths
       data.each do |e|
         e.symbolize_keys!
 
-        agenda = e[:name]
+        name    = e[:name]
+        acronym = e[:acronym].to_sym
 
-        @results[agenda] = Agenda.new(agenda, e[:acronym]) unless @results[agenda]
+        @results[name] ||= Agenda.new(name, acronym)
 
-        @results[agenda].values << e
+        @results[name].data << e
       end
     end
 
@@ -34,8 +35,8 @@ module Court::AverageProceedingLengths
   end
 
   class Agenda < Struct.new(:name, :acronym)
-    def values
-      @values ||= Array.new
+    def data
+      @data ||= Array.new
     end
   end
 end
