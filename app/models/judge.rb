@@ -136,6 +136,6 @@ class Judge < ActiveRecord::Base
 
   context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
 
-  storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum) { |judge| "#{judge.name}.pdf" }
+  storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
   storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end

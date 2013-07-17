@@ -1,4 +1,6 @@
 module Court::AverageProceedingLengths
+  extend ActiveSupport::Concern
+  
   def average_proceeding_lengths
     Agends.new(Loader.data[self.name])
   end
