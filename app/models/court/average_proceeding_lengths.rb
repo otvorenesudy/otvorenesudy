@@ -5,7 +5,7 @@ module Court::AverageProceedingLengths
 
   class Loader
     def self.data
-      @data ||= JSON.parse(File.read(File.join(Rails.root, 'data', 'court_average_proceeding_length.json')))
+      @data ||= JSON.parse(File.read(File.join(Rails.root, 'data', 'court_average_proceeding_lengths.json')))
     end
   end
 
