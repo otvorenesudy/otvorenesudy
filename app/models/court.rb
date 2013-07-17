@@ -5,6 +5,7 @@ class Court < ActiveRecord::Base
   include Resource::ContextSearch
   include Resource::Formatable
   include Resource::Storage
+  include Resource::Indicator
 
   include Probe
 
@@ -47,6 +48,8 @@ class Court < ActiveRecord::Base
 
   validates :name,   presence: true
   validates :street, presence: true
+
+  indicate Court::AverageProceedingLengths
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
