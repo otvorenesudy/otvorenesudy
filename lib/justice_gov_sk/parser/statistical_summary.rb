@@ -16,7 +16,7 @@ module JusticeGovSk
       private
 
       def value(data)
-        data && data != 'NULL' ? data.squeeze(' ').strip : nil
+        data ? data.squeeze(' ').strip : nil
       end
 
       def normalize(data)
