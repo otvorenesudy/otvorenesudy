@@ -61,6 +61,7 @@ sk:
 
     court:
       q:
+        title: 'Názov alebo sídlo súdu'
         placeholder: 'Názov alebo sídlo súdu'
 
       type:
@@ -99,12 +100,8 @@ sk:
 
     judge:
       q:
+        title: 'Meno sudcu'
         placeholder: 'Meno sudcu'
-
-      name:
-        title: 'Sudca'
-        placeholder: 'Meno sudcu'
-        missing: 'neuvedený'
 
       activity:
         title: 'Aktivita'
@@ -135,6 +132,7 @@ sk:
 
     hearing:
       q:
+        title: 'Text pojednávania'
         placeholder: 'Vyhľadávanie v pojednávaniach'
 
       type:
@@ -205,6 +203,7 @@ sk:
 
     decree:
       q:
+        title: 'Text rozhodnutia'
         placeholder: 'Vyhľadávanie v rozhodnutiach'
 
       court:
@@ -269,6 +268,7 @@ sk:
 
     proceeding:
       q:
+        title: 'Text konania'
         placeholder: 'Vyhľadávanie v konaniach'
 
       courts:
