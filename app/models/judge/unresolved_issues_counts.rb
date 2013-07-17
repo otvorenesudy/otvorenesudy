@@ -12,9 +12,7 @@ module Judge::UnresolvedIssuesCounts
     summaries.each do |summary|
       table = summary.tables.by_name('N').first
 
-      next unless table.rows[4] # TODO: resolve why the field is missing
-
-      beginning_of_year = table.rows[4].cells[0].value.to_i
+      beginning_of_year = table.rows[5].cells[0].value.to_i
       end_of_year       = 0
 
       table.rows[0].cells.each do |cell|
