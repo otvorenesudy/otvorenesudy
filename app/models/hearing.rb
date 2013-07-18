@@ -65,7 +65,7 @@ class Hearing < ActiveRecord::Base
     analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
     analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
     analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
-    analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } if h.accusations }
+    analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } }
 
     sort_by :date, :created_at
   end

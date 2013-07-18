@@ -272,13 +272,17 @@ sk:
         placeholder: 'Vyhľadávanie v konaniach'
 
       courts:
-        title: 'Súdy'
+        title: 'Súd'
         placeholder: 'Meno súdu'
         missing: 'neuvedené'
         not_found: 'Nenájdené žiadne súdy.'
 
+      courts_types:
+        title: 'Typ súdu'
+        missing: 'Názov súdu'
+
       judges:
-        title: 'Sudcovia'
+        title: 'Sudca'
         placeholder: 'Meno sudcu'
         missing: 'neuvedení'
         not_found: 'Nenájdení žiadni sudcovia.'
@@ -297,6 +301,18 @@ sk:
         title: 'Počet rozhodnutí'
         suffix:
           <<: *decree
+
+      proposers: 
+        title: 'Navrhovatelia'
+        placeholder: 'Navrhovateľ'
+        missing: 'neuvedený'
+        not_found: 'Nenájdení žiadni navrhovatelia.'
+
+      participants:
+        title: 'Účastníci'
+        placeholder: 'Meno účastníka'
+        missing: 'neuvedené'
+        not_found: 'Nenájdení žiadni účastníci.'
 
       case_numbers:
         title: 'Spisová značka'

@@ -14,26 +14,35 @@ class Proceeding < ActiveRecord::Base
 
     analyze :case_numbers,                   as: lambda { |p| p.case_numbers }
     analyze :file_number
-    analyze :courts,                         as: lambda { |p| p.courts.map(&:name) if p.courts }
+    analyze :courts,                         as: lambda { |p| p.courts.map(&:name) }
+    analyze :courts_types,                   as: lambda { |p| p.courts.map { |c| c.type.value } }
     analyze :courts_count,   type: :integer, as: lambda { |p| p.courts.count }
-    analyze :judges,                         as: lambda { |p| p.judges.map(&:name) if p.judges }
+    analyze :judges,                         as: lambda { |p| p.judges.map(&:name) }
     analyze :judges_count,   type: :integer, as: lambda { |p| p.judges.count }
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
 
+    analyze :proposers,                      as: lambda { |p| p.proposers.pluck(:name) }
+    analyze :opponents,                      as: lambda { |p| p.opponents.pluck(:name) }
+    analyze :defendants,                     as: lambda { |p| p.defendants.pluck(:name) }
+    analyze :participants,                   as: lambda { |p| p.opponents.pluck(:name) + p.defendants.pluck(:name) }
+
     sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :judges, :courts]
+    facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :courts, :courts_types, :judges, :proposers, :opponents, :defendants]
+    facet :decrees_count,  type: :range, ranges: [1..2]
+    facet :hearings_count, type: :range, ranges: [1..2, 2..5, 5..10]
+    facet :judges_count,   type: :range, ranges: [1..2, 2..5]
+    facet :courts_types,   type: :terms
     facet :courts,         type: :terms
     facet :judges,         type: :terms
+    facet :proposers,      type: :terms
+    facet :participants,   type: :terms
     facet :file_number,    type: :terms
     facet :case_numbers,   type: :terms
-    facet :decrees_count,  type: :range, ranges: [1..2, 2..5, 5..10]
-    facet :hearings_count, type: :range, ranges: [1..5, 5..7, 7..15]
-    facet :judges_count,   type: :range, ranges: [1..2, 2..5]
   end
 
   def case_numbers
