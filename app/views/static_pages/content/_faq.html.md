@@ -31,15 +31,19 @@ TEXT
 <ol>
 <li>__Odkiaľ pochádzajú použité dáta?__</li>
 
-Väčšina dát použitýh dát je oficiálne zverejňované na rôznych miestach Ministerstvom spravodlivosti alebo Súdnou radou. Tieto informácie boli zozbierané, štandardizované a navzájom prepojené. Dáta o vymenovaní sudcov boli získané prostredníctvom infozákona.
+Portál využíva výhradne dáta zverejnené alebo sprístupnené verejnými inštitúciami. Tieto informácie boli štandardizované a navzájom prepojené. 
 
-Zdroj rozsudkov: http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx  
-Zdroj pojednávaní: http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx  
-Zdroj majetkových priznaní: http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/  
-Zdroj ročných štatistických výkazov sudcov: http://www.justice.gov.sk/rsvs/Default.aspx  
-Zdroj štatistík súdov: http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx  
-
-Mediálne dáta pochádzajú z článkov na vybraných spravodajských portáloch. 
+</ol>
+<ul>
+<li>Súdne pojednávania: http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx  
+<li>Súdne rozhodnutia: http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx  
+<li>Štatistiky o súdoch Ministerstva spravodlivosti: http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx  
+<li>Majetkové priznania sudcov: http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/
+<li>Dátum menovania do funkcie: poskytnuté <a href="http://www.nrsr.sk">NR SR</a> a <a href="http://www.prezident.sk"> Kanceláriou prezidenta SR </a>.
+<li>Ročné štatistické výkazy o činnosti sudcov poskytnutné Ministerstvom spravodlivosti (http://www.justice.gov.sk/rsvs/) 
+</ul>
+<ol>
+Mediálne dáta pochádzajú z článkov na vybraných spravodajských portáloch.  
 
 <li>__Našiel som chybu, čo mám spraviť?__</li>
 
