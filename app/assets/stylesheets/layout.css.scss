@@ -5,6 +5,25 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
+// beta
+
+.beta {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 80px;
+  height: $navbarHeight - 10px + 1px;
+  line-height: 15px;
+  padding: 5px;
+  
+  color: $white;
+  background: $linkColor;
+  
+  text-align: center;
+  
+  z-index: $zindexFixedNavbar + 1;
+}
+
 // general
 
 html {
