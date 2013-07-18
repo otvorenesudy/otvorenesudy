@@ -21,7 +21,7 @@
       <% end %>
       <% if hearing.judges.normal.any? %>
         <% if hearing.judges.normal.exact.any? %>
-          <%= translate_without_count(hearing.judges.normal.count, :judge).upcase_first %>
+          <%= translate_without_count(hearing.judges.normal.exact.count, :judge).upcase_first %>
           &ndash; <%= links_to_judges hearing.judges.normal.exact %>
         <% else %>
           <%= translate_without_count(hearing.judges.normal.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
