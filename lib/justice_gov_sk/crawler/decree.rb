@@ -27,6 +27,8 @@ module JusticeGovSk
           return nil if ecli.blank?
           
           @decree = decree_by_ecli_factory.find_or_create(ecli)
+
+          @decree.ecli = ecli
           
           next @decree unless crawlable?(@decree)
           
@@ -46,7 +48,6 @@ module JusticeGovSk
           @decree.case_number = @parser.case_number(@document)
           @decree.file_number = @parser.file_number(@document)
           @decree.date        = @parser.date(@document)
-          @decree.ecli        = ecli
           @decree.summary     = @parser.summary(@document)
           
           supply_proceeding_for @decree
