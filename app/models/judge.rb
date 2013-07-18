@@ -61,6 +61,8 @@ class Judge < ActiveRecord::Base
   validates :name, presence: true
 
   include Judge::ConstitutionalDecrees
+  include Judge::Incomes
+  include Judge::RelatedPersons
   include Judge::SubstantiationNotes
 
   indicate Judge::AppealCourtAcceptanceRate

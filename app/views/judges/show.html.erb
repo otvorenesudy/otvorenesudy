@@ -67,16 +67,54 @@
         </p>
       <% end %>
 
-      <% @property_declarations.select { |declaration| declaration.related_persons.any? }.each do |declaration| %>
+      <% if @judge.related_persons.any? %>
         <p>
-          <span class="gutter centered"><%= icon_tag :user %></span>
-          Blízke osoby uvedené v majetkovom priznaní sudcu za rok <%= declaration.year %>:
+          <span class="gutter centered"><%= icon_tag :group %></span>
+          Blízke osoby uvedené v majetkových priznaniach sudcu za roky:
+          <%= @judge.related_persons.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
-        <ul>
-          <% declaration.related_persons.each do |person| %>
-            <li><%= "#{person.function} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %></li>
+        <div id="related-persons">
+          <% @judge.related_persons.each do |year, persons| %>
+            <div class="accordion-group">
+              <div id="related-persons-<%= year %>" class="collapse">
+                <p>
+                  <span class="gutter centered"><%= icon_tag :group %></span>
+                  Blízke osoby uvedené v majetkových priznaniach sudcu za rok <%= year %>:
+                </p>
+                <ul class="unstyled">
+                  <% persons.each do |person| %>
+                    <li><%= icon_tag :user %> <%= "#{person.function.upcase_first} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %>.</li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
           <% end %>
-        </ul>
+        </div>
+      <% end %>
+      
+      <% if @judge.incomes.any? %>
+        <p>
+          <span class="gutter centered"><%= icon_tag :euro %></span>
+          Príjmy a iné pôžitky sudcu uvedené v majetkových priznaniach za roky:
+          <%= @judge.incomes.map { |year, _| link_to year, "#income-#{year}", :'data-parent' => :'#incomes', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+        </p>
+        <div id="incomes">
+          <% @judge.incomes.each do |year, incomes| %>
+            <div class="accordion-group">
+              <div id="income-<%= year %>" class="collapse">
+                <p>
+                  <span class="gutter centered"><%= icon_tag :euro %></span>
+                  Príjmy a iné pôžitky sudcu uvedené v majetkovom priznaní sudcu za rok <%= year %>:
+                </p>
+                <ul class="unstyled">
+                  <% incomes.each do |income| %>
+                    <li><%= icon_tag :'credit-card' %> <%= income.description.upcase_first %> &ndash; <%= number_to_currency income.value, precision: 2 %>.</li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+        </div>
       <% end %>
 
       <% if @statistical_summaries.any? %>
@@ -112,7 +150,7 @@
           <p>
             <span class="gutter centered"><%= icon_tag :'tasks' %></span>
             Podiel reštančných vecí z celkového počtu nevybavených vecí je <%= @judge.unfinished_issues_rate.map { |year, rate| "#{number_to_percentage(rate * 100, precision: 1)} ku koncu roka #{year}" }.to_sentence.html_safe %>.
-            <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov v&nbsp;prípade maloletých a&nbsp;dlhšie ako 1 rok v&nbsp;ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
+            <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov<br/>v&nbsp;prípade maloletých a&nbsp;dlhšie ako 1 rok<br/>v&nbsp;ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
           </p>
         <% end %>
 

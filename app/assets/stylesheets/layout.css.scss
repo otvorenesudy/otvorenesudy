@@ -167,6 +167,10 @@ a[data-toggle="popover"], a[data-toggle="tooltip"] {
   }
 }
 
+div.popover {
+  width: auto;
+}
+
 h1, h2, strong {
   a[data-toggle="popover"], a[data-toggle="tooltip"] {
     border-bottom-style: dashed;
