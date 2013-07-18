@@ -58,17 +58,19 @@ namespace :fixtures do
       puts "Hearings criminal: #{CriminalHearing.count}"
       puts "Hearings special:  #{SpecialHearing.count}"
       puts
+      puts "Decrees total:  #{Decree.count}"
       
       DecreeForm.order(:code).all.each do |form|
         puts "Decrees form #{form.code}: #{Decree.where('decree_form_id = ?', form.id).count}"
       end
       
       puts
-      puts "Court expenses:   #{CourtExpense.count}"
-      puts "Court statistics: #{CourtStatisticalSummary.count}"
+      puts "Court expenses:              #{CourtExpense.count}"
+      puts "Court statistical summaries: #{CourtStatisticalSummary.count}"
       puts
-      puts "Judge desigantions: #{JudgeDesignation.count}"
-      puts "Judge statistics:   #{JudgeStatisticalSummary.count}"
+      puts "Judge desigantions:          #{JudgeDesignation.count}"
+      puts "Judge property declarations: #{JudgePropertyDeclaration.count}"
+      puts "Judge statistical summaries: #{JudgeStatisticalSummary.count}"
     end
   end
 
