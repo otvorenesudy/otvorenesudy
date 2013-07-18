@@ -10,7 +10,7 @@ require 'capistrano/ext/multistage'
 
 set :application,    'opencourts'
 set :scm,            :git
-set :repository,     'git@github.com:otvorenesudy/otvorenesudy-dev.git'
+set :repository,     'git@github.com:otvorenesudy/otvorenesudy.git'
 set :scm_passphrase, ''
 set :user,           'deploy'
 

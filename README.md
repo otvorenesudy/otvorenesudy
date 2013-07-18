@@ -12,8 +12,8 @@ Public data project aimed at creating much more user friendly interface to inter
 
 ### Project and Database
 ```
-git clone git://github.com/otvorenesudy/otvorenesudy-dev.git
-cd otvorenesudy-dev
+git clone git://github.com/otvorenesudy/otvorenesudy.git
+cd otvorenesudy
 git submodule init   # initialize submodule, e.g. otvorenesudy-data
 git submodule update # or git submodule foreach git pull origin master
 bundle install
