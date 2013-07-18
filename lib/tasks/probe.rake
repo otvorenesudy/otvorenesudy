@@ -12,7 +12,7 @@ namespace :probe do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Index update: #{model} (#{index})"
+      puts "Index update: #{index}"
 
       Probe::Bulk.update(model)
     end
@@ -23,7 +23,7 @@ namespace :probe do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Sync index import: #{model} (#{index})"
+      puts "Sync index import: #{index}"
 
       Probe::Bulk.import(model)
     end
@@ -34,7 +34,7 @@ namespace :probe do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Scheduling async index import: #{model} (#{index})"
+      puts "Scheduling async index import: #{index}"
 
       Probe::Bulk.async_import(model)
     end
@@ -45,7 +45,7 @@ namespace :probe do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Deleting index: #{model} (#{index})"
+      puts "Deleting index: #{index}"
 
       model.delete_index
     end
