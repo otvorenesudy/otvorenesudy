@@ -1,6 +1,6 @@
 namespace :probe do
-  def constantize_indices(indices)
-    indices.map { |index| index.singularize.camelize.constantize }
+  def indices_to_models(indices)
+    Hash[indices.map { |index| [index, index.singularize.camelize.constantize] }]
   end
 
   task prepare: :environment do
@@ -11,8 +11,8 @@ namespace :probe do
   task update: :environment do
     Rake::Task['probe:prepare'].invoke
 
-    constantize_indices(INDICES).each do |model|
-      puts "Index update: #{model}"
+    indices_to_models(INDICES).each do |index, model|
+      puts "Index update: #{model} (#{index})"
 
       Probe::Bulk.update(model)
     end
@@ -22,8 +22,8 @@ namespace :probe do
   task :'import' => :environment do
     Rake::Task['probe:prepare'].invoke
 
-    constantize_indices(INDICES).each do |model|
-      puts "Sync index import: #{model}"
+    indices_to_models(INDICES).each do |index, model|
+      puts "Sync index import: #{model} (#{index})"
 
       Probe::Bulk.import(model)
     end
@@ -33,8 +33,8 @@ namespace :probe do
   task :'import:async' => :environment do
     Rake::Task['probe:prepare'].invoke
 
-    constantize_indices(INDICES).each do |model|
-      puts "Scheduling async index import: #{model}"
+    indices_to_models(INDICES).each do |index, model|
+      puts "Scheduling async index import: #{model} (#{index})"
 
       Probe::Bulk.async_import(model)
     end
@@ -44,8 +44,8 @@ namespace :probe do
   task drop: :environment do
     Rake::Task['probe:prepare'].invoke
 
-    constantize_indices(INDICES).each do |model|
-      puts "Deleting index: #{model}"
+    indices_to_models(INDICES).each do |index, model|
+      puts "Deleting index: #{model} (#{index})"
 
       model.delete_index
     end
