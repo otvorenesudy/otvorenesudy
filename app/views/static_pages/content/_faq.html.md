@@ -46,7 +46,11 @@ Použité dáta  boli štandardizované a navzájom prepojené.
 <li>Ročné štatistické výkazy o činnosti sudcov poskytnutné Ministerstvom spravodlivosti (http://www.justice.gov.sk/rsvs/) 
 </ul>
 <ol>
-Mediálne dáta pochádzajú z článkov na vybraných spravodajských portáloch.  
+Mediálne dáta pochádzajú z článkov na vybraných spravodajských portáloch.
+
+<li> ___Ako často sú dáta aktualizované__ </li>
+
+TEXT
 
 <li>__Našiel som chybu, čo mám spraviť?__</li>
 
