@@ -31,7 +31,10 @@ TEXT
 <ol>
 <li>__Odkiaľ pochádzajú použité dáta?__</li>
 
-Portál využíva výhradne dáta zverejnené alebo sprístupnené verejnými inštitúciami. Tieto informácie boli štandardizované a navzájom prepojené. 
+Portál využíva výhradne dáta zverejnené alebo sprístupnené verejnými inštitúciami.  
+
+Za ich vecnú správnosť autori nenesú zodpovednosť.  
+Použité dáta  boli štandardizované a navzájom prepojené. 
 
 </ol>
 <ul>
