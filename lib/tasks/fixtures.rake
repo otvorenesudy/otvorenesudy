@@ -171,14 +171,12 @@ namespace :fixtures do
         entries.each do |entry|
           uri = JusticeGovSk::URL.path_to_url entry
           
-          next if Hearing.where(uri: uri).first
-          
           crawler.crawl uri
           
           n += 1
         end
         
-        puts "finished (#{pluralize n, 'hearing'} loaded)"
+        puts "finished (#{pluralize n, 'hearing'})"
       end
     end
   end

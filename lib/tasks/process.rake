@@ -8,8 +8,6 @@
 # rake process:judge_designations:nrsr_sk
 # rake process:judge_statistical_summaries:2011
 
-# TODO: refactor, use year as task param, process all years by default
-
 namespace :process do
   desc "Process know paragraph descriptions"
   task paragraphs: :environment do
