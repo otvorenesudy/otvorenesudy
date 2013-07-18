@@ -25,8 +25,11 @@ class Judge < ActiveRecord::Base
   scope :chair,     joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
 
-  scope :normal,  where('judgings.judge_chair = false').order(:name)
-  scope :chaired, where('judgings.judge_chair = true').order(:name)
+  scope :normal,  where('judge_chair = false')
+  scope :chaired, where('judge_chair = true')
+
+  scope :exact,   where('judge_name_similarity = 1.0')
+  scope :inexact, where('judge_name_similarity < 1.0')
 
   belongs_to :source
 

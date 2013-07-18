@@ -24,7 +24,14 @@
         <p>Rozhodnuté bolo na súde <%= link_to_court @court %></p>
       <% end %>
       <% if @judges.any? %>
-        <p>Rozhodutie vydal sudca <%= links_to_judges @judges %></p>
+        <p>
+          Rozhodutie vydal sudca
+          <% if @judges.exact.any? %>
+            <%= links_to_judges @judges.exact %>
+          <% else %>
+            <%= judge_processed_names @judges.inexact %>
+          <% end %>
+        </p>
       <% end %>
       <% if @decree.legislation_area %>
         <p>

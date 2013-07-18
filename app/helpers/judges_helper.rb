@@ -73,6 +73,12 @@ module JudgesHelper
     tooltip_tag distance_of_time_in_words_to_now(designation.date), localize(designation.date, format: :long)
   end
   
+  def judge_processed_names(relation)
+    relation.pluck(:judge_name_unprocessed).map { |name|
+      Resource::Normalizer.normalize_person_name(name)
+    }.uniq.to_sentence
+  end
+  
   def link_to_judge(judge, options = {})
     link_to judge.name(options.delete(:format)), judge_path(judge), judge_options(judge, options)
   end

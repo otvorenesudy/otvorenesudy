@@ -20,7 +20,13 @@
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>
-        <%= translate_without_count(hearing.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges hearing.judges.normal %>
+        <% if hearing.judges.normal.exact.any? %>
+          <%= translate_without_count(hearing.judges.normal.count, :judge).upcase_first %>
+          &ndash; <%= links_to_judges hearing.judges.normal.exact %>
+        <% else %>
+          <%= translate_without_count(hearing.judges.normal.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
+          &ndash; <%= judge_processed_names hearing.judges.normal.inexact %>
+        <% end %>
         <br/>
       <% end %>
       <% if hearing.proposers.any? %>

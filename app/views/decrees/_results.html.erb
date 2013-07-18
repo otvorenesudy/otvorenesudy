@@ -26,7 +26,13 @@
         <br/>
       <% end %>
       <% if decree.judges.any? %>
-        <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
+        <% if decree.judges.exact.any? %>
+          <%= translate_without_count(decree.judges.exact.count, :judge).upcase_first %>
+          &ndash; <%= links_to_judges decree.judges.exact %>
+        <% else %>
+          <%= translate_without_count(decree.judges.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
+          &ndash; <%= judge_processed_names decree.judges.inexact %>
+        <% end %>
         <br/>
       <% end %>
 

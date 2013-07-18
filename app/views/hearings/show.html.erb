@@ -162,7 +162,12 @@
     <% if @judges.chaired.any? %>    
       <div class="row">
         <div class="span12">
-          Funkciu predsedu senátu zastáva <%= links_to_judges @judges.chaired %>.
+          Funkciu predsedu senátu zastáva
+          <% if @judges.chaired.exact.any? %>
+            <%= links_to_judges @judges.chaired.exact %>.
+          <% else %>
+            <%= judge_processed_names @judges.chaired.inexact %>.
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -172,7 +177,11 @@
     <% if @judges.normal.any? %>
       <div class="row">
         <div class="span12">
-          <%= links_to_judges @judges.normal %>
+          <% if @judges.normal.exact.any? %>
+            <%= links_to_judges @judges.normal.exact %>
+          <% else %>
+            <%= judge_processed_names @judges.normal.inexact %>.
+          <% end %>
         </div>
       </div>
     <% end %>
