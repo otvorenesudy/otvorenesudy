@@ -247,7 +247,7 @@ sk:
 
       legislations:
         title: 'Ustanovenie'
-        placeholder: 'číslo rok §'
+        placeholder: 'Číslo rok §'
         missing: 'neuvedené'
         not_found: 'Nenájdené žiadne ustanovania.'
 
