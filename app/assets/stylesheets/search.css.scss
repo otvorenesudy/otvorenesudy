@@ -63,9 +63,17 @@
   text-align: right;
 }
 
+.search-alert {
+  margin: 0px 0px 0px -20px;
+}
+
 .search-results {
   margin: 0px 0px 0px -20px;
   border-left: 1px dashed darken($grayLighter, 12.5%);
+
+  .alert {
+    margin: 0px;
+  }
 
   li {
     padding: 10px 10px 20px 10px;
