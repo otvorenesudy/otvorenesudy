@@ -50,7 +50,7 @@ class Proceeding < ActiveRecord::Base
   end
 
   def events
-    @events ||= (hearings + decrees).sort_by(&:date)
+    @events ||= (hearings + decrees).sort_by { |event| event.date.to_datetime }
   end
 
   def courts
