@@ -19,8 +19,8 @@ module JusticeGovSk
         
         crawler = JusticeGovSk.build_crawler @type, @options
         
-        super(request) do |url|
-          JusticeGovSk.run_crawler crawler, url, @options
+        super(request) do |uri|
+          JusticeGovSk.run_crawler crawler, uri, @options
         end
       end
     end

@@ -22,8 +22,8 @@ module JusticeGovSk
       downloader = inject JusticeGovSk::Downloader, implementation: type
       
       run_lister lister, request, options do
-        lister.crawl(request, offset, limit) do |url|
-          call lambda { downloader.download url }, options
+        lister.crawl(request, offset, limit) do |uri|
+          call lambda { downloader.download uri }, options
         end
       end
     end  
