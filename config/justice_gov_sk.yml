@@ -61,6 +61,17 @@ staging:
 production:
   <<: *defaults
 
+  # TODO rm
+  extractor:
+
+    image:
+      perform: []
+      override: []
+
+    text:
+      perform: [Decree]
+      override: [Decree]
+
   # TODO settingslogic shit
   resource:
     updateable: [Court, Judge]
