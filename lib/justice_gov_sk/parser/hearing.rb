@@ -50,7 +50,7 @@ module JusticeGovSk
           names = []
           
           divs.each_with_index do |div, i|
-            if div[:class] == 'popiska' && div.text.blank? && [:class] == 'hodnota'
+            if div[:class] == 'popiska' && div.text.blank? && divs[i + 1][:class] == 'hodnota'
               names << partition_person_name(divs[i + 1].text) if divs[i + 1].text =~ /[[:alnum:]]/
             end
           end
