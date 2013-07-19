@@ -17,7 +17,7 @@
   <div class="row">
     <div class="span8">
       <% if @court %>
-        <p>Pojednávanie sa <%= @hearing.historical ? "konalo" : "bude konať" %> na súde <%= link_to_court @court %><%= ", v miestnosti #{@hearing.room}" if @hearing.room %>.</p>
+        <p><%= hearing_type @hearing.type %> sa <%= @hearing.historical ? "konalo" : "bude konať" %> na súde <%= link_to_court @court %><%= ", v miestnosti #{@hearing.room}" if @hearing.room %>.</p>
       <% end %>
       <% if @hearing.section || @hearing.special_type %>
         <p>
