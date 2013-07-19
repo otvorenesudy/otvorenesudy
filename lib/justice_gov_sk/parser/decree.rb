@@ -35,7 +35,9 @@ module JusticeGovSk
         
       def judge(document)
         find_value_by_label 'judge', document, 'Meno a priezvisko sudcu, VSÚ', verbose: false do |div|
-          partition_person_name(div.search('a').first.text)
+          value = div.search('a').first.text
+          
+          partition_person_name(value) unless value.utf8 =~ /(n\s+)?neobsadené/i
         end
       end
         
