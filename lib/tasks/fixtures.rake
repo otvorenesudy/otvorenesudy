@@ -216,16 +216,21 @@ namespace :fixtures do
     end
     
     desc "Extract missing images of decree documents"
-    task :extract_images, [:override] => :environment do |_, args|
+    task :extract_images, [:filter, :override] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
       
-      args.with_defaults override: false
+      args.with_defaults filter: '', override: false
       
       document_storage = JusticeGovSk::Storage::DecreeDocument.instance
       image_storage    = JusticeGovSk::Storage::DecreeImage.instance
       
       document_storage.batch do |entries, bucket|
+        unless bucket.start_with? args[:filter] 
+          puts "Bucket #{bucket} matches skip filter, moving on next bucket."
+          next
+        end 
+        
         print "Running image extraction for bucket #{bucket}, "
         print "#{pluralize entries.size, 'document'}, "
         puts  "#{args[:override] ? 'overriding' : 'skipping'} already extracted."
