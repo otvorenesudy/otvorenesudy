@@ -155,12 +155,12 @@ namespace :fixtures do
   
   namespace :hearings do
     desc "Loads remaining stored hearings into database"
-    task :load, [:type] => :environment do |_, args|
+    task :load, [:hearing_type] => :environment do |_, args|
       include Core::Injector
       include Core::Pluralize
       include Core::Output
       
-      type = args[:type] || raise("Hearing type not set.")
+      type = args[:hearing_type] || raise("Hearing type not set.")
       
       storage = inject JusticeGovSk::Storage, prefix: type.titlecase, implementation: :Hearing, suffix: :Page
       crawler = inject JusticeGovSk::Crawler, prefix: type.titlecase, implementation: :Hearing
@@ -184,6 +184,37 @@ namespace :fixtures do
   end
   
   namespace :decrees do
+    desc "Loads remaining stored decrees into database"
+    task :load, [:decree_form_code, :offset, :limit] => :environment do |_, args|
+      args.with_defaults safe: false
+
+      options = args.dup
+
+      offset = options[:offset].blank? ? 1 : options[:offset].to_i
+      limit  = options[:limit].blank? ? nil : options[:limit].to_i
+
+      request, lister = JusticeGovSk.build_request_and_lister Decree, options
+      
+      crawler = JusticeGovSk.build_crawler Decree, options
+      storage = JusticeGovSk::Storage::DecreePage.instance
+      
+      JusticeGovSk.run_lister lister, request, options do
+        lister.crawl(request, offset, limit) do |uri|
+          unless storage.contains? JusticeGovSk::URL.url_to_path(uri, :html)
+            puts "Decree page not downloaded, crawling skipped."
+            next
+          end
+
+          if Decree.where(uri: uri).first
+            puts "Decree already exists in database, crawling skipped."
+            next
+          end
+          
+          JusticeGovSk.run_crawler crawler, uri, options
+        end
+      end
+    end
+    
     desc "Extract missing images of decree documents"
     task :extract_images, [:override] => :environment do |_, args|
       include Core::Pluralize
