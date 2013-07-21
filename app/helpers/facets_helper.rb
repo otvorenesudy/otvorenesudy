@@ -93,7 +93,7 @@ module FacetsHelper
     count  = options[:count] || options[:upper]
 
     if entry == :less && count <= 1
-      t(suffix, count: 0)
+      translate(suffix, count: 0)
     else
       options.each { |k, v| options[k] = format_facet_number(v) }
 
