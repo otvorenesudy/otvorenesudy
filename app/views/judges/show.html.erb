@@ -67,14 +67,14 @@
         </p>
       <% end %>
 
-      <% if @judge.related_persons.any? %>
+      <% if @judge.related_persons_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :group %></span>
           Blízke osoby uvedené v majetkových priznaniach sudcu za roky:
-          <%= @judge.related_persons.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+          <%= @judge.related_persons_by_year.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
         <div id="related-persons">
-          <% @judge.related_persons.each do |year, persons| %>
+          <% @judge.related_persons_by_year.each do |year, persons| %>
             <div class="accordion-group">
               <div id="related-persons-<%= year %>" class="collapse">
                 <p>
@@ -92,14 +92,14 @@
         </div>
       <% end %>
       
-      <% if @judge.incomes.any? %>
+      <% if @judge.incomes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :euro %></span>
           Príjmy a iné pôžitky sudcu uvedené v majetkových priznaniach za roky:
-          <%= @judge.incomes.map { |year, _| link_to year, "#income-#{year}", :'data-parent' => :'#incomes', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+          <%= @judge.incomes_by_year.map { |year, _| link_to year, "#income-#{year}", :'data-parent' => :'#incomes', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
         <div id="incomes">
-          <% @judge.incomes.each do |year, incomes| %>
+          <% @judge.incomes_by_year.each do |year, incomes| %>
             <div class="accordion-group">
               <div id="income-<%= year %>" class="collapse">
                 <p>
@@ -154,14 +154,14 @@
           </p>
         <% end %>
 
-        <% if @judge.substantiation_notes.any? %>
+        <% if @judge.substantiation_notes_by_year.any? %>
           <p>
             <span class="gutter centered"><%= icon_tag :pushpin %></span>
             <a href="#" data-target="#substantiation-notes" data-toggle="collapse">Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.
           </p>
           <div id="substantiation-notes" class="collapse out">
             <ul class="unstyled">
-              <% @judge.substantiation_notes.each do |year, note| %>
+              <% @judge.substantiation_notes_by_year.each do |year, note| %>
                 <li><%= icon_tag :'file-text-alt' %> Výkaz za rok <%= year %> &ndash; <%= note %></li>
               <% end %>
             </ul>
