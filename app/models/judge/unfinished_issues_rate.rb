@@ -21,7 +21,7 @@ module Judge::UnfinishedIssuesRate
 
       result[summary.year] = all / accepted.to_f
 
-      result[summary.year] = 0.0 if results[summary.year].nan?
+      result[summary.year] = 0.0 if result[summary.year].nan?
     end
 
     result
