@@ -98,7 +98,7 @@ module FacetsHelper
       options.each { |k, v| options[k] = format_facet_number(v) }
 
       # TODO: fix count deletion from translation
-      result << t(suffix, count: count.to_i).gsub(/\d+/, '') unless missing_translation?(suffix)
+      result << translate(suffix, count: count).gsub(/\d+/, '') unless missing_translation?(suffix)
       result
     end
   end
