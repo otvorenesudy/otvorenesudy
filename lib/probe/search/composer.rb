@@ -95,16 +95,18 @@ module Probe::Search
       @facets.each do |facet|
         next unless facet.buildable?
 
-        options                 = Hash.new
-        options[:global_facets] = true
-        options[:facet_filter]  = build_facet_filter(exclude: facet)
+        options = Hash.new
+
+        options[:global]       = true
+        options[:facet_filter] = build_facet_filter(exclude: facet)
 
         facet.build(@index, facet.name, options)
 
         if facet.active?
-          options                 = Hash.new
-          options[:global_facets] = false
-          options[:facet_filter]  = build_facet_filter
+          options = Hash.new
+
+          options[:global]       = false
+          options[:facet_filter] = build_facet_filter
 
           facet.build(@index, facet.selected_name, options)
         end

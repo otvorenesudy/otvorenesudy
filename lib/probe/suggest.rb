@@ -33,7 +33,7 @@ module Probe
           filter = build_facet_filter(filter_options)
 
           facet_options = {
-            global_facets: false,
+            global: true,
             facet_filter:  filter
           }
 
@@ -41,7 +41,7 @@ module Probe
 
           if facet.active?
             facet_options = {
-              global_facets: false,
+              global: true,
               facet_filter:  build_facet_filter
             }
 
