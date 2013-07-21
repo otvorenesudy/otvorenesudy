@@ -361,12 +361,16 @@ header {
   }
 
   h1 {
-    line-height: 60px;
-    font-size: 60px;
+    line-height: $baseFontSize * 4.5;
+    font-size: $baseFontSize * 4;
 
     small {
       display: block;
       margin: 10px 0px;
+      
+      line-height: $baseFontSize * 2.3;
+      font-size: $baseFontSize * 1.8;
+      
       color: $white;
     }
   }
