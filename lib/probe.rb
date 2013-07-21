@@ -30,7 +30,6 @@ module Probe
     include Probe::Percolate
 
     include Tire::Model::Search
-    include Tire::Model::Callbacks
 
     setup
   end
