@@ -43,7 +43,7 @@ class Probe::Facets
       ranges << { to: @ranges.first.begin }
 
       @ranges.each do |range|
-        ranges << { from: range.begin, to: range.end }
+        ranges << { from: range.begin, to: range.end + 1 }
       end
 
       ranges << { from: @ranges.last.end }
@@ -69,7 +69,7 @@ class Probe::Facets
       case
       when from.nil? then -Float::INFINITY..to.to_i
       when to.nil?   then from.to_i..Float::INFINITY
-      else                from.to_i..to.to_i
+      else                from.to_i..(to.to_i - 1)
       end
     end
 
