@@ -38,6 +38,7 @@ module Court::AverageProceedingLengths
         @results[name] ||= Agenda.new name, acronym
 
         @results[name].data << e
+        @results[name].data.sort! { |a, b| b[:year] <=> a[:year] }
       end
     end
 
