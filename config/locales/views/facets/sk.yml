@@ -267,6 +267,11 @@ sk:
       date:
         title: 'Dátum'
 
+      pages_count:
+        title: 'Počet strán'
+        suffix:
+          <<: *page
+
     proceeding:
       q:
         title: 'Text konania'
