@@ -33,7 +33,7 @@ class Proceeding < ActiveRecord::Base
 
   facets do
     facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :courts, :courts_types, :judges, :proposers, :opponents, :defendants]
-    facet :decrees_count,  type: :range, ranges: [1..2]
+    facet :decrees_count,  type: :range, ranges: [1..1, 2..3]
     facet :hearings_count, type: :range, ranges: [1..2, 2..5, 5..10]
     facet :judges_count,   type: :range, ranges: [1..2, 2..5]
     facet :courts_types,   type: :terms

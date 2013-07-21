@@ -10,6 +10,10 @@ class Probe::Facets
       false
     end
 
+    def abstract?
+      true
+    end
+
     def respond_to?(*args)
       @facet.respond_to?(*args)
     end

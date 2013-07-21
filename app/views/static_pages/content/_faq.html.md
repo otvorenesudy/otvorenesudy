@@ -69,9 +69,9 @@ Tie sú náročnejšie na opravu – dáta mohli byť chybné pred tým ako sme 
 
 ## O sudcoch:
 <ol>
-<li>__Ozaj máme takmer 1800 sudcov?__</li>
+<li>__Ozaj máme takmer 2 2000 sudcov?__</li>
 
-Áno, na Slovensku máme čosi cez 1 500 sudcov. Povedať presný aktuálny počet nevieme – jednak pre zlé zdrojové dáta ale aj preto že sudcovia môžu mať prerušený výkon funkcie.
+Áno aj nie. Na Slovensku máme čosi cez 1 500 sudcov. Povedať presný aktuálny počet nevieme – jednak pre zlé zdrojové dáta ale aj preto že sudcovia môžu mať prerušený výkon funkcie.
 
 <li>__Kto sú tí zvyšní? Kto sú VSÚ?__</li>
 VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať aj vybrané súdne rozhodnutia. Celkovo je na Slovensku vyše 1 000.
