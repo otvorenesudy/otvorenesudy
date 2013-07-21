@@ -2,7 +2,7 @@
 
 module Judge::UnresolvedIssuesCounts
   extend ActiveSupport::Concern
-  
+
   def unresolved_issues_counts
     result    = Hash.new
     summaries = statistical_summaries.by_prominent_court_type

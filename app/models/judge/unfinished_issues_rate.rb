@@ -2,7 +2,7 @@
 
 module Judge::UnfinishedIssuesRate
   extend ActiveSupport::Concern
-  
+
   def unfinished_issues_rate
     result    = Hash.new
     summaries = statistical_summaries.by_prominent_court_type
@@ -20,6 +20,8 @@ module Judge::UnfinishedIssuesRate
       end
 
       result[summary.year] = all / accepted.to_f
+
+      result[summary.year] = 0.0 if results[summary.year].nan?
     end
 
     result

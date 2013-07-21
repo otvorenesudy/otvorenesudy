@@ -10,8 +10,8 @@ module Probe
       def setup
         settings
 
-        after_save    :update_index
-        after_destroy :update_index
+        #after_save    :update_index
+        #after_destroy :update_index
 
         index_name "#{index_name}_#{Rails.env}"
       end
