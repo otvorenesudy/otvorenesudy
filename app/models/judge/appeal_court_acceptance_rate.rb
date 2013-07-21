@@ -1,8 +1,6 @@
 # TODO: 221
 
 module Judge::AppealCourtAcceptanceRate
-  extend ActiveSupport::Concern
-  
   def appeal_court_acceptance_rate
     summaries = statistical_summaries.by_prominent_court_type
 
@@ -25,6 +23,8 @@ module Judge::AppealCourtAcceptanceRate
       end
     end
 
-    accepted / all.to_f
+    result = accepted / all.to_f
+
+    result.nan? ? 0 : result
   end
 end
