@@ -91,7 +91,7 @@ module Probe
 
           tire.mapping do
             @mapping.each do |field, value|
-              options  = value[:options]
+              options  = value[:options] || Hash.new
 
               type     = options[:type] || :string
               analyzer = options[:analyzer] || :text_analyzer
