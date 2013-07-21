@@ -1,6 +1,6 @@
-## Často kladené otázky
+# Často kladené otázky
 
-### O projekte
+## O projekte
 <ol>
 <li>__Čo je cieľom projektu?__ </li>
 
@@ -26,7 +26,7 @@ Za hosting projektu ďakujeme <a href="http://www.petitpres.sk"> spoločnosti Pe
 TEXT
 </ol>
 
-### Dáta
+## Dáta
 
 <ol>
 <li>__Odkiaľ pochádzajú použité dáta?__</li>
@@ -67,7 +67,7 @@ Informácie o súdnych konaniach by mali byť úplnejšie – Otvorené súdy by
 Tie sú náročnejšie na opravu – dáta mohli byť chybné pred tým ako sme ich získali, alebo sme niečo pokazili my.  Snažíme sa, aby chýb bolo najmenej a do budúcna plánujeme pracovať na elegantnom riešení opravy chýb.
 </ol>
 
-###O sudcoch:
+## O sudcoch:
 <ol>
 <li>__Ozaj máme takmer 1800 sudcov?__</li>
 
@@ -84,7 +84,7 @@ O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisk
 </ol>
 
 
-### O súdoch
+## O súdoch
 <ol>
 
 <li>__Nevidím Ústavný súd? Prečo?__</li>

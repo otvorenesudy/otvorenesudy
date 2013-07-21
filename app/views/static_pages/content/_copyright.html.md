@@ -1,16 +1,16 @@
-#AUTORSKÉ PRÁVA 
+# Autorské práva
 
-#### © 2013 Transparency International Slovensko, Samuel Molnár, Pavol Zbell 
+## © 2013 Transparency International Slovensko, Samuel Molnár, Pavol Zbell 
  
 __Autori konceptu:__ Transparency International Slovensko, Samuel Molnár, Pavol Zbell
 __Programovanie, spracovanie dokumentov:__ Samuel Molnár, Pavol Zbell
 __Zdrojový kód: [Otvorené súdy@ Github] (https://github.com/otvorenesudy "Github")__
 
-#### Toto dielo je licencované pod [Educational Community Lincese 1.0 ] (http://www.opensource.org/licenses/ecl1.php "Educational Community License")
+## Toto dielo je licencované pod [Educational Community Lincese 1.0 ] (http://www.opensource.org/licenses/ecl1.php "Educational Community License")
  
 Toto dielo, vrátane softvéru, zdrojového kódu, dokumentov, alebo iných súvisiacich položiek, poskytujú držitelia autorských práv podľa podmienok uvedených v Educational Community License. Nadobudnutím, používaním a / alebo kopírovaním tohto diela, prejavujete súhlas s tým, že ste si prečítali a pochopili podmienky licencie a bude konať v súlade s nimi. 
  
-#### Podmienky Educational Community License: 
+## Podmienky Educational Community License: 
  
 Povolenie na použitie, kopírovanie, upravovanie, zlučovanie, publikovanie, distribuovanie a sublicencovanie tohto pôvodného diela a jeho dokumentácie, s modifikáciou alebo bez nej, na akýkoľvek účel, bez poplatku pre držiteľa autorských práv, je týmto udelené za predpokladu, že uvediete nasledovné položky vo všetkých ďalších zhotoveninách diela, ich častiach, úpravách alebo derivátoch, ktoré vytvoríte: 
  

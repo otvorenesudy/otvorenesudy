@@ -1,4 +1,4 @@
-## Kontakt
+# Kontakt
 
 <a href="http://www.transparency.sk/"Transparency>Transparency International Slovensko</a>  
 Bajkalská 25  
