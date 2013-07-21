@@ -2,12 +2,24 @@ module Court::AverageProceedingLengths
   extend ActiveSupport::Concern
   
   def average_proceeding_lengths
-    @agendas ||= Agendas.new(Loader.data[self.name])
+    return @agendas if @agendas
+    
+    data = Loader.load(self.name)
+    
+    @agendas = data ? Agendas.new(data) : nil
   end
 
-  class Loader
-    def self.data
-      @data ||= JSON.parse(File.read(File.join(Rails.root, 'data', 'court_average_proceeding_lengths.json')))
+  module Loader
+    extend self
+    
+    def load(name)
+      data[name]
+    end
+
+    private
+
+    def data
+      @data ||= JSON.parse File.read(File.join Rails.root, 'data', 'court_average_proceeding_lengths.json')
     end
   end
 
@@ -23,7 +35,7 @@ module Court::AverageProceedingLengths
         name    = e[:name]
         acronym = e[:acronym].to_sym
 
-        @results[name] ||= Agenda.new(name, acronym)
+        @results[name] ||= Agenda.new name, acronym
 
         @results[name].data << e
       end
@@ -34,7 +46,7 @@ module Court::AverageProceedingLengths
     end
   end
 
-  class Agenda < Struct.new(:name, :acronym)
+  class Agenda < Struct.new :name, :acronym
     def data
       @data ||= Array.new
     end
