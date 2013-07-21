@@ -76,6 +76,10 @@ class Probe::Facets
       respond_to? :build
     end
 
+    def abstract?
+      false
+    end
+
     def suggestable?
       respond_to? :build_suggest_facet
     end
