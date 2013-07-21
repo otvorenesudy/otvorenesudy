@@ -28,6 +28,7 @@ module Probe
     include Probe::Search
     include Probe::Suggest
     include Probe::Percolate
+    include Probe::Serialize
 
     include Tire::Model::Search
 

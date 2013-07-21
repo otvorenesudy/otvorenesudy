@@ -128,6 +128,10 @@ module Probe
         @_default_per_page || Probe::Configuration.per_page
       end
 
+      def total
+        search.total_entries
+      end
+
       def bulk_name
         "#{index_name}_#{Time.now.strftime("%Y%m%d%H%M")}"
       end
@@ -143,7 +147,6 @@ module Probe
       def map(field, options = {})
         @mapping[field]           = {}
         @mapping[field][:type]    = :mapped
-        @mapping[field][:options] = options.merge! suggest: false
       end
 
       def analyze(field, options = {})
