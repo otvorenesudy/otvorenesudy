@@ -2,10 +2,15 @@
 @import 'mixins';
 
 .map {
+  margin-bottom: 10px;
   padding: 0px;
   border: 1px solid $grayLight;
   
   height: 10 * $gridRowWidth / 16;
+  
+  &:last-child {
+    margin-bottom: 0px;
+  }
   
   &.jumbotron {
     border-left: none;

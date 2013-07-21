@@ -61,5 +61,10 @@
     <h2>Mapa <%= icon_tag :'map-marker' %></h2>
 
     <%= court_map @court, info: true, zoom: 16 %>
+
+    <p>
+      <%= link_to "Zobraziť na mape", map_courts_path %>
+      aj s ostatnými súdmi Slovenskej Republiky.
+    </p>
   </div>
 </div>
