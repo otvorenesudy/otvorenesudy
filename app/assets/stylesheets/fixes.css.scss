@@ -67,6 +67,12 @@ textarea:active, textarea:hover, textarea:focus {
   color: $grayLight;
 }
 
+// modals
+
+.modal-header a.close i:before {
+  cursor: pointer;
+}
+
 // alert links
 
 .alert a.close,
