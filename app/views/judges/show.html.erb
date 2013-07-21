@@ -56,14 +56,14 @@
       <% if File.readable? @judge.curriculum_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= link_to "Životopis", curriculum_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= external_link_to "Životopis", curriculum_judge_path(@judge), icon: false %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
       <% if File.readable? @judge.cover_letter_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= link_to "Motivačný list", cover_letter_judge_path(@judge), target: :_blank %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge), icon: false %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 

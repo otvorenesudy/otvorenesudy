@@ -37,11 +37,11 @@ module DecreesHelper
   end
 
   def link_to_decree_resource(decree, body, options = {})
-    link_to body, "#{decree_path decree}/resource", { target: :_blank }.merge(options)
+    external_link_to body, "#{decree_path decree}/resource", { icon: false }.merge(options)
   end
 
   def link_to_decree_document(decree, body, options = {})
-    link_to body, "#{decree_path decree}/document", { target: :_blank }.merge(options)
+    external_link_to body, "#{decree_path decree}/document", { icon: false }.merge(options)
   end
 
   def external_link_to_legislation(legislation, options = {})
