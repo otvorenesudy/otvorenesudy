@@ -1,13 +1,13 @@
 class StaticPagesController < ApplicationController
   def home
-    @count = Hearing.count + Decree.count
+    @count = Hearing.total + Decree.total
   end
 
   def show
     @slug = params[:slug]
-    
+
     name = @slug.gsub(/-/, '_')
-    
+
     @title    = translate "static_pages.#{name}", default: 'missing'
     @template = "static_pages/content/#{name}"
 

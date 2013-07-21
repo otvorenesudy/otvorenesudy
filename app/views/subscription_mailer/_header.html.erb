@@ -2,11 +2,11 @@
   <h1>
     <%= link_to "Otvorené Súdy", root_url %>
     <small>
-      <%= translate_with_count Court.count,      :court %>,
-      <%= translate_with_count Judge.count,      :judge %>,
-      <%= translate_with_count Hearing.count,    :hearing %>,
-      <%= translate_with_count Decree.count,     :decree %> a
-      <%= translate_with_count Proceeding.count, :proceeding %>
+      <%= translate_with_count Court.total,      :court %>,
+      <%= translate_with_count Judge.total,      :judge %>,
+      <%= translate_with_count Hearing.total,    :hearing %>,
+      <%= translate_with_count Decree.total,     :decree %> a
+      <%= translate_with_count Proceeding.total, :proceeding %>
     </small>
   </h1>
 </div>

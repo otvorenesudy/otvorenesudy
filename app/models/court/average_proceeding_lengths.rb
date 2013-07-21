@@ -1,17 +1,17 @@
 module Court::AverageProceedingLengths
   extend ActiveSupport::Concern
-  
+
   def average_proceeding_lengths
     return @agendas if @agendas
-    
+
     data = Loader.load(self.name)
-    
+
     @agendas = data ? Agendas.new(data) : nil
   end
 
   module Loader
     extend self
-    
+
     def load(name)
       data[name]
     end
