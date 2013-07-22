@@ -465,6 +465,20 @@ section.features {
   }
 }
 
+section.page {
+  h1 {
+    @extend .page-header;
+  }
+  
+  p {
+    text-align: justify;
+  }
+  
+  .img-polaroid {
+    width: 610px;
+  }
+}
+
 section.profile {
   .accordion-group {
     margin: 0px;

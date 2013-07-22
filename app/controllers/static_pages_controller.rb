@@ -1,8 +1,6 @@
-class StaticPagesController < ApplicationController
-  def home
-    @count = Hearing.total + Decree.total
-  end
+# encoding: utf-8
 
+class StaticPagesController < ApplicationController
   def show
     @slug = params[:slug]
 

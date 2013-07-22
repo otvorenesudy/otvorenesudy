@@ -1,4 +1,3 @@
-
 class SearchController < ApplicationController
   def search
     prepare
