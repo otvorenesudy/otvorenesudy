@@ -138,19 +138,6 @@ class Judge < ActiveRecord::Base
     @probably_woman ||= [middle, last].reject(&:nil?).map { |v| v.end_with? 'ová' }.include? true
   end
 
-  #TODO: check for correctness
-  def self.at_least_one_related_person_rate
-    @at_least_one_related_person_rate ||= Judge.joins(:related_persons).group('judge_property_declarations.judge_id').count.size / JudgePropertyDeclaration.group(:judge_id).count.size.to_f
-  end
-
-  def self.average_appeal_court_acceptance_rate
-    @average_appeal_court_acceptance_rate ||= Judge.all.map(&:appeal_court_acceptance_rate).compact.sum / Judge.all.find_all(&:appeal_court_acceptance_rate?).count
-  end
-
-  def self.with_most_related_persons
-    find by_related_persons.count.first[0]
-  end
-
   alias :probably_superior_court_officer? :probably_superior_court_officer
   alias :probably_woman?                  :probably_woman
 
