@@ -2,10 +2,10 @@
 
 module Judge::UnfinishedIssuesCounts
   extend ActiveSupport::Concern
-  
+
   def unfinished_issues_counts
     result    = Hash.new
-    summaries = statistical_summaries.by_prominent_court_type
+    summaries = statistical_summaries.by_prominent_court_type(self)
 
     return unless summaries.any?
 

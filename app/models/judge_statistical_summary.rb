@@ -14,13 +14,13 @@ class JudgeStatisticalSummary < ActiveRecord::Base
                   :substantiation_notes,
                   :court_chair_actions
 
-  scope :by_prominent_court_type, lambda {
-    types = joins(:court).group('courts.court_type_id').order(:count_all).count
+  scope :by_prominent_court_type, lambda { |judge|
+    types = where(judge_id: judge.id).joins(:court).group('courts.court_type_id').order(:count_all).count
 
     return unless types.any?
 
     if types.values.uniq.size == 1
-      summaries = where(year: self.order(:year).last.year)
+      summaries = scoped.where(year: self.order(:year).last.year, judge_id: judge.id)
       max       = summaries.map(&:assigned_issues_count).max
 
       type = summaries.find { |s| s.assigned_issues_count == max }.court_type
@@ -48,8 +48,6 @@ class JudgeStatisticalSummary < ActiveRecord::Base
 
   # TODO: validate presence of date and author, currently missing in preprocessed files
   validates :year, presence: true
-
-  private
 
   def assigned_issues_count
     tables.by_name('P').map { |table| table.rows[0].cells.pluck(:value).map(&:to_i).sum }.sum

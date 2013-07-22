@@ -48,6 +48,12 @@ sk:
       few: '%{count} výsledky'
       other: '%{count} výsledkov'
 
+    person: &person
+      zero: 'žiadna osoba'
+      one: '1 osoba'
+      few: '%{count} osoby'
+      other: '%{count} osôb'
+
   facets:
     types:
       range:
@@ -130,6 +136,11 @@ sk:
         title: 'Počet rozhodnutí'
         suffix:
           <<: *decree
+
+      related_persons_count:
+        title: 'Počet blízkych osôb'
+        suffix:
+          <<: *person
 
     hearing:
       q:
@@ -266,6 +277,11 @@ sk:
 
       date:
         title: 'Dátum'
+
+      pages_count:
+        title: 'Počet strán'
+        suffix:
+          <<: *page
 
     proceeding:
       q:

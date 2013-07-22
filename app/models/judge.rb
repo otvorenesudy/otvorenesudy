@@ -80,22 +80,24 @@ class Judge < ActiveRecord::Base
     map :id
 
     analyze :name
-    analyze :activity,                       as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
-    analyze :positions,                      as: lambda { |j| j.positions.pluck(:value) }
-    analyze :courts,                         as: lambda { |j| j.courts.pluck(:name) }
-    analyze :hearings_count, type: :integer, as: lambda { |j| j.hearings.count }
-    analyze :decrees_count,  type: :integer, as: lambda { |j| j.decrees.count }
+    analyze :activity,                              as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
+    analyze :positions,                             as: lambda { |j| j.positions.pluck(:value) }
+    analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
+    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.count }
+    analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.count }
+    analyze :related_persons_count, type: :integer, as: lambda { |j| j.related_persons.count }
 
     sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:name], force_wildcard: true
-    facet :activity,       type: :terms
-    facet :positions,      type: :terms
-    facet :courts,         type: :terms
-    facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..1000]
-    facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :q,                     type: :fulltext, field: [:name], force_wildcard: true
+    facet :activity,              type: :terms
+    facet :positions,             type: :terms
+    facet :courts,                type: :terms
+    facet :hearings_count,        type: :range, ranges: [10..50, 50..100, 100..1000]
+    facet :decrees_count,         type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :related_persons_count, type: :range, ranges: [1..2, 2..5]
   end
 
   formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|
