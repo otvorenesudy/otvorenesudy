@@ -1,10 +1,6 @@
 <% provide :header, render(partial: 'header') %>
 
 
-<% 
-provide :footer, render(partial: 'footer')
-%>
-
 
 <!-- TODO ?
   
@@ -83,17 +79,18 @@ provide :footer, render(partial: 'footer')
   <hr/>
   
   <div class="row">
-    <div class="span6">
+    <div class="offset3 span6">
       <a class="logo-transparency" href="http://transparency.sk" target="_blank">
         <img src="<%= asset_path 'logos/transparency-colored-280.png' %>" />
       </a>
     </div>
-
+<!--
     <div class="span6">
       <a class="logo-restart" href="http://restartslovensko.sk/" target="_blank">
         <img src="<%= asset_path 'logos/restart-colored-280.png' %>" />
       </a>
     </div>
+-->
   </div>
   
   <hr/>
