@@ -1,5 +1,5 @@
 <% provide :title, "Vyhľadávanie medzi súdmi" %>
-<% provide :headline, "Celkovo [X%] sudcov má v súdnictve aspoň jedného príbuzného?<br/>Rekordérom je [ABX] s [C] blízkymi.".html_safe %>
+<% provide :headline, "Celkovo #{number_to_percentage Judge.at_least_one_related_person_rate * 100, precision: 0} sudcov má v súdnictve aspoň jedného príbuzného.<br/>Rekordérom je #{Judge.with_most_related_persons.name} s #{Judge.with_most_related_persons.related_persons.group("name").count.size} blízkymi osobami.".html_safe %>
 <% provide :header, render(partial: 'search/header') %>
 
 <%= render 'search/search' %>
