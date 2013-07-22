@@ -128,10 +128,6 @@ module Probe
         @_default_per_page || Probe::Configuration.per_page
       end
 
-      def total
-        search.total_entries
-      end
-
       def bulk_name
         "#{index_name}_#{Time.now.strftime("%Y%m%d%H%M")}"
       end
@@ -140,6 +136,10 @@ module Probe
         # TODO: requeries Kaminari. Drop or leave dependence?
         # TODO: rewrite with LIMIT & OFFSET?
         page(options[:page]).per(options[:per_page])
+      end
+
+      def total
+        (tire.search { query { all } }).total
       end
 
       private
