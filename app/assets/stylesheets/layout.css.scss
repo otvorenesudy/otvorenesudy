@@ -520,6 +520,10 @@ section.page {
   
   p {
     text-align: justify;
+    
+    &.centered {
+      text-align: center;
+    }
   }
   
   .img-polaroid {
