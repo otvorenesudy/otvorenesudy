@@ -92,3 +92,22 @@ O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisk
 <li>__Nevidím Ústavný súd? Prečo?__</li>
 
 Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o svojej agende samostatne, budeme sa snažiť tieto dáta na stránku získať.
+
+</ol>
+
+## O rozhodnutiach
+<ol> 
+
+<li>__Aké rozhodnutia sú na stránke?__</li>
+
+Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali týmto konečným rozhodnutiam.
+
+Úplne presne vysvetlené v <a href="http://www.zakonypreludi.sk/zz/2004-757#p82a"> zákone o súdoch.<a/>
+
+<li> __Neviem nájsť rozhodnutie, ktoré existuje. Prečo?__ </li>
+
+Može ísť o jeden z nasledujúcich prípadov:
+
+* Je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných dní po nadobudnutí ich právoplatnosti.  
+* Šlo o rozhodnutie, v ktorom bola vylúčená verejnosť.
+* Niečo sa na portáli pokazilo :( Dajte nám prosím vedieť na admin@otvorenesudy.sk
