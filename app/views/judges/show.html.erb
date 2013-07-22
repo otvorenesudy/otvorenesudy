@@ -91,7 +91,7 @@
           <% end %>
         </div>
       <% end %>
-      
+
       <% if @judge.incomes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :euro %></span>
@@ -128,7 +128,7 @@
             <span class="gutter centered"><%= icon_tag :'thumbs-up-alt' %></span>
             Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v
             <%= number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1) %>.
-            <%= popover_tag icon_tag(:question), "#{@statistical_summaries.by_prominent_court_type.order('year desc').map { |summary| "#{summary.year}, #{summary.court.name}" }.join '<br/>'}", title: "Vypočítané z pôsobení sudcu", trigger: :hover %>
+            <%= popover_tag icon_tag(:question), "#{@statistical_summaries.by_prominent_court_type(@judge).order('year desc').map { |summary| "#{summary.year}, #{summary.court.name}" }.join '<br/>'}", title: "Vypočítané z pôsobení sudcu", trigger: :hover %>
           </p>
         <% end %>
 

@@ -5,7 +5,7 @@ module Judge::UnfinishedIssuesRate
 
   def unfinished_issues_rate
     result    = Hash.new
-    summaries = statistical_summaries.by_prominent_court_type
+    summaries = statistical_summaries.by_prominent_court_type(self)
 
     return unless summaries.any?
 
