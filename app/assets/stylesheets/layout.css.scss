@@ -405,7 +405,7 @@ header {
 
   h1 {
     margin: 0px;
-    padding: 80px 0px;
+    padding: 60px 0px;
     line-height: $baseFontSize * 3.5;
     font-size: $baseFontSize * 2.8;
     font-weight: normal;
@@ -414,12 +414,16 @@ header {
 
     small {
       display: block;
-      margin: 20px 0px;
+      margin: 10px 0px;
       
       line-height: $baseFontSize * 2.4;
       font-size: $baseFontSize * 1.8;
       
       color: $white;
+
+      &.total {
+        margin-top: 40px;
+      }
     }
   }
 }
