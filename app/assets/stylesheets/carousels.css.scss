@@ -21,7 +21,6 @@ $carouselMaxHeight: 1080px;
 
   overflow: hidden;
 
-  background: none;
   text-align: left;
   
   .carousel-inner, .item {
@@ -58,6 +57,10 @@ $carouselMaxHeight: 1080px;
   
   &.right {
     right: 0px;
+  }
+  
+  i:before {
+    cursor: pointer;
   }
 }
 

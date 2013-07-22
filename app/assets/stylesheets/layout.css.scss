@@ -304,12 +304,12 @@ h1, h2, strong {
 
 // search
 
-// TODO rm??
-
 .search {
+  position: absolute;
   display: block;
-  position: relative;
   margin: 0px;
+  
+  z-index: $zindexDropdown - 10;
 
   .form-search {
     margin: 0px auto;
@@ -375,8 +375,12 @@ header {
 
   text-align: center;
 
-  .pattern {
-    padding: 91px 0px;
+  &.jumbotron {
+    height: 100%;
+  }
+
+  .container {
+    padding: 80px 0px;
   }
 
   h1 {

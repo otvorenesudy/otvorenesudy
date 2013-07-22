@@ -4,25 +4,46 @@
   </script>
 <% end %>
 
-<header class="jumbotron carousel slide">
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="<%= asset_path 'hackcamp-coding.jpg' %>" alt="" />
-      <div class="carousel-content">
-        <h1>rake crawl:courts --trace</h1>
-        <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
-      </div>
-    </div>
-    <div class="item">
-      <img src="<%= asset_path 'hackcamp-supervising.jpg' %>" alt="" />
-      <div class="carousel-content">
-        <h1>Kontrola sťahovania dát</h1>
-        <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+<header class="jumbotron">
+  <div class="search">
+    <div class="container">
+      <h1>
+        <small>Vyhľadávajte v</small>
+        <%= number_with_delimiter Decree.total %>
+        <small>súdnych rozhodnutiach</small>
+      </h1>
+  
+      <div class="row">
+        <div class="offset2 span8">
+          <%= form_tag search_decrees_path, method: :get, class: :'form-search' do %>
+            <div class="input-append">
+              <%= search_field_tag :search, params[:q], name: :q, placeholder: 'Vyhľadať v súdnom rozhodnutí&hellip;'.html_safe, class: :'search-query' %>
+              <%= button_tag icon_tag(:search), name: nil, class: :'search-submit btn btn-inverse' %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-  <a class="carousel-control left" href="header" data-slide="prev"><%= icon_tag :'angle-left' %></a>
-  <a class="carousel-control right" href="header" data-slide="next"><%= icon_tag :'angle-right' %></a>
+
+  <div id="carousel" class="carousel slide">
+    <div class="carousel-inner pattern">
+      <div class="item active">
+        <div class="carousel-content">
+          <h1>rake crawl:courts --trace</h1>
+          <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="carousel-content">
+          <h1>Kontrola sťahovania dát</h1>
+          <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control left" href="#carousel" data-slide="prev"><%= icon_tag :'angle-left' %></a>
+    <a class="carousel-control right" href="#carousel" data-slide="next"><%= icon_tag :'angle-right' %></a>
+  </div>
 </header>
 
 <!--
