@@ -1,6 +1,14 @@
 # TODO: 221
 
 module Judge::AppealCourtAcceptanceRate
+  extend ActiveSupport::Concern
+  
+  module ClassMethods
+    def average_appeal_court_acceptance_rate
+      @average_appeal_court_acceptance_rate ||= Judge.all.map(&:appeal_court_acceptance_rate).compact.sum / Judge.all.find_all(&:appeal_court_acceptance_rate?).count
+    end
+  end
+  
   def appeal_court_acceptance_rate
     summaries = statistical_summaries.by_prominent_court_type(self)
 

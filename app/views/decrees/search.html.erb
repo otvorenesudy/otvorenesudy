@@ -1,5 +1,5 @@
 <% provide :title, "Vyhľadávanie v súdnych rozhodnutiach" %>
-<% provide :headline, "V priemere #{number_to_percentage Judge.average_appeal_court_acceptance_rate * 100, precision: 0} súdnych rozhodnutí je potvrdených odvolacím súdom.".html_safe %>
+<% provide :headline, render(partial: 'headline') %>
 <% provide :header, render(partial: 'search/header') %>
 
 <%= render 'search/search' %>
