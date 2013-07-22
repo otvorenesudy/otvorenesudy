@@ -1,5 +1,5 @@
 <% provide :title, "Vyhľadávanie medzi súdmi" %>
-<% provide :headline, "Celkovo [X%] sudcov má v súdnictve aspoň jedného príbuzného?<br/>Rekordérom je [ABX] s [C] blízkymi.".html_safe %>
+<% provide :headline, render(partial: 'headline') %>
 <% provide :header, render(partial: 'search/header') %>
 
 <%= render 'search/search' %>

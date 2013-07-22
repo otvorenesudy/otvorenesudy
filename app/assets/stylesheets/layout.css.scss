@@ -366,8 +366,7 @@ h1, h2, strong {
 
   .search-query, .search-query:hover, .search-query:focus,
   .search-submit, .search-submit:hover, .search-submit:focus {
-    //border-color: $white;
-    border-color:   #7D5DA7;
+    border-color: $btnInfoBackground;
 
     @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 20px $purple);
   }
