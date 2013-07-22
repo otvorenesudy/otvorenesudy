@@ -84,9 +84,9 @@ class Decree < ActiveRecord::Base
     facet :court,               type: :terms
     facet :date,                type: :date,  interval: :month
     facet :legislations,        type: :terms
-    facet :pages_count,         type: :range, ranges: [1..2, 2..5, 5..7, 7..10, 10..20]
     facet :file_number,         type: :terms
     facet :case_number,         type: :terms
+    facet :pages_count,         type: :range, ranges: [1..1, 2..2, 2..5, 6..10]
   end
 
   def has_future_date?
