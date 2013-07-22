@@ -7,7 +7,7 @@
 
 source        = Source.new
 source.module = "JusticeGovSk"
-source.name   = "Portál ministerstva spravodlivosti Slovenskej republiky"
+source.name   = "Ministerstvo spravodlivosti Slovenskej republiky"
 source.uri    = "http://www.justice.gov.sk"
 source.save!
 
@@ -25,7 +25,7 @@ source.save!
 
 source        = Source.new
 source.module = "SudnaradaGovSk"
-source.name   = "Portál súdnej rady Slovenskej republiky"
+source.name   = "Súdna rada Slovenskej republiky"
 source.uri    = "http://www.sudnarada.gov.sk"
 source.save!
 

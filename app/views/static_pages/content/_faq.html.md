@@ -1,116 +1,174 @@
-# Často kladené otázky
+## Často kladené otázky
 
-## O projekte
-<ol>
-<li>__Čo je cieľom projektu?__ </li>
+# O projekte
 
-Cieľom projektu Otvorené súdy je na základe dát zvýšiť tlak na kvalitu slovenského súdnictva. Stránka na základe verejne dostupných dát  sprehľadňuje činnost súdov a sudcov a umožňuje ich porovnanie.
+#### Čo je cieľom projektu? 
 
-Dlhodobým cieľom <a href="www.transparency.sk">Transparency International Slovensko </a> je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sudcov.
+Cieľom projektu Otvorené súdy je na základe verejne dostupných dát zvýšiť tlak
+na kvalitu slovenského súdnictva. Stránka pomocou týchto dát sprehľadňuje
+činnost súdov a sudcov a umožňuje ich porovnanie.
 
-<li>__Čo môžem na portáli robiť?__</li>
+Dlhodobým cieľom <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>
+je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by
+umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sudcov.
 
-Stránka poskytuje informácie o činnosti <a href="otvorenesudy.sk/courts/search"> súdov</a>, <a href="otvorenesudy.sk/judges/search"> profily sudcov</a>, <a href="otvorenesudy.sk/hearings/search"> historické aj budúce pojednávania</a> a <a href="otvorenesudy.sk/decrees/search">viac ako pol milióna súdnych rozhodnutí.</a> 
+#### Čo môžem na portáli robiť?
 
-<li>__Kto sú autori projektu?__ </li>
+Stránka poskytuje informácie o činnosti
+<%= link_to "súdov", search_courts_path %>,
+profily <%= link_to "sudcov", search_judges_path %>,
+historické aj budúce <%= link_to "pojednávania", search_hearings_path %> a
+viac ako pol milióna <%= link_to "súdnych rozhodnutí", search_decrees_path %>.
 
-Autormi projektu sú <a href="wwww.transparency.sk">Transparency International Slovensko</a> Samuel Molnár a Pavol Zbell.
+#### Kto sú autori projektu? 
 
-<li>__Kto to platí?__</li>
+Autormi projektu sú
+<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %>,
+<%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %> a 
+<%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>.
 
-Projekt Otvorené súdy vznikol vďaka podpore sekretariátu <a href="http://www.transparency.org"> Transparency International </a> v Berlíne a <a href="http://www.restartslovensko.sk/"> projektu Reštart </a> organizovanému <a href="www.cpf.sk"> Centrom pre filantropiu. </a> 
-Za hosting projektu ďakujeme <a href="http://www.petitpres.sk"> spoločnosti Petit Press</a>, prevádzkovateľovi portálu <a href="http://www.sme.sk"> sme.sk </a>.
+#### Kto to platí?
 
-<li>__Ako môžem pomôcť?__</li>
+Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
+<%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
+v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk', icon: false %>
+organizovanému <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>.
 
-Používajte stránku, dajte o nej vedieť známym, ktorých by mohla zaujímať. Sledujte novinky na <a href="www.facebook.com/otvorenesudy">Facebooku</a>. Ak môžete, prosím, zvážte <a href="http://transparency.darujme.sk/238/"> finančnú podporu</a>.
-</ol>
+Za hosting projektu ďakujeme spoločnosti
+<%= external_link_to "Petit Press", 'http://petitpress.sk', icon: false %>
+prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk', icon: false %>.
 
-## Dáta
+#### Ako môžem pomôcť?
 
-<ol>
-<li>__Odkiaľ pochádzajú použité dáta?__</li>
+Používajte stránku, dajte o nej vedieť známym, ktorých by mohla zaujímať.
+Sledujte novinky na sociálnych sieťach
+<%= external_link_to "Facebook", 'https://facebook.com/otvorenesudy', icon: false %> a
+<%= external_link_to "Twitter", 'https://twitter.com/otvorenesudy', icon: false %>,
+a ak ste programátor tak určite aj na sieti
+<%= external_link_to "GitHub", 'https://github.com/otvorenesudy', icon: false %>.
 
-Portál využíva výhradne dáta zverejnené alebo sprístupnené verejnými inštitúciami.  
+Ak môžete, prosím, zvážte
+<%= external_link_to "finančnú podporu", 'http://transparency.darujme.sk/238/', icon: false %>
+projektu.
 
-Za ich vecnú správnosť autori nenesú zodpovednosť.  
-Použité dáta  boli štandardizované a navzájom prepojené. 
+# O dátach
 
-</ol>
-<ul>
-<li>Súdne pojednávania: http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx  
-<li>Súdne rozhodnutia: http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx  
-<li>Štatistiky o súdoch Ministerstva spravodlivosti: http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx  
-<li>Majetkové priznania sudcov: http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/
-<li>Dátum menovania do funkcie: poskytnuté <a href="http://www.nrsr.sk">NR SR</a> a <a href="http://www.prezident.sk"> Kanceláriou prezidenta SR </a>.
-<li>Ročné štatistické výkazy o činnosti sudcov poskytnutné Ministerstvom spravodlivosti (http://www.justice.gov.sk/rsvs/) 
-</ul>
-<ol>
-Mediálne dáta pochádzajú z článkov na spravodajských portáloch: sme.sk, sme.sk, tyzden.sk,  webnoviny.sk,  tvnoviny.sk,  pravda.sk,  etrend.sk,  aktualne.sk.
+#### Odkiaľ pochádzajú použité dáta?
 
-<li> ___Ako často sú dáta aktualizované__ </li>
+Portál využíva výhradne dáta zverejnené alebo sprístupnené
+nesledujúcimi verejnými inštitúciami:  
 
-Za bežnej prevádzky plánujeme aktualizovať denne dáta o pojednávaniach. Dáta o o rozhodnutich by sme radi aktualizovali najmenej raz za 7 dní.
+<hr/>
 
-<li>__Našiel som chybu, čo mám spraviť?__</li>
+- <%= external_link_to "Ministerstvo spravodlivosti Slovenskej republiky", 'http://www.justice.gov.sk', icon: false %>
 
-Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom na admin@otvorenesudysk. Väčšinu nedátových chýb by sme mali vedieť jednoducho odstrániť.
+  - <%= external_link_to "Súdy", 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx', icon: false %>
+  - <%= external_link_to "Sudcovia", 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx', icon: false %>
+  - <%= external_link_to "Súdne pojednávania", 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx', icon: false %>
+  - <%= external_link_to "Súdne rozhodnutia", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx ', icon: false %>
+  - <%= external_link_to "Štatistiky o súdoch", 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx', icon: false %>
+  - <%= external_link_to "Ročné štatistické výkazy o činnosti sudcov", 'http://www.justice.gov.sk/rsvs', icon: false %>
 
-<li>__Sú dáta úplné?__</li>
+<hr/>
 
-Dobrá otázka. Úplné v zmysle vernej, lepšej a použiteľnejšej kópie, by mali byť súdne rozhodnutia.
+- <%= external_link_to "Súdna rada Slovenskej republiky", 'http://www.sudnarada.gov.sk', icon: false %>
 
-Informácie o súdnych konaniach by mali byť úplnejšie – Otvorené súdy by mali poskytovať viac dát ako stránka ministerstva spravodlivosti.
+  - <%= external_link_to "Majetkové priznania sudcov", 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/', icon: false %>
 
-<li>__A čo dátové chyby?__</li>
+<hr/>
 
-Tie sú náročnejšie na opravu – dáta mohli byť chybné pred tým ako sme ich získali, alebo sme niečo pokazili my.  Snažíme sa, aby chýb bolo najmenej a do budúcna plánujeme pracovať na elegantnom riešení opravy chýb.
-</ol>
+- <%= external_link_to "Národná rada Slovenskej republiky", 'http://www.nrsr.sk', icon: false %> a <%= external_link_to "Kancelária prezidenta Slovenskej republiky", 'http://www.prezident.sk', icon: false %>
 
-## O sudcoch:
-<ol>
-<li>__Ozaj máme vyše 2 2000 sudcov?__</li>
+  - Dátumy menovania sudcov do funkcie
 
-Nie. Na Slovensku máme čosi cez  1 500 činných sudcov, ich presný aktuálny počet nevieme povedať – jednak pre zlé zdrojové dáta, ale aj preto že sudcovia môžu mať prerušený výkon funkcie.  
+<hr/>
 
-<li>__Kto sú tí zvyšní? Kto sú VSÚ?__</li>
+Za vecnú správnosť dát autori nenesú zodpovednosť. Použité dáta boli
+normalizované a navzájom prepojené.
 
-VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať aj vybrané súdne rozhodnutia. Celkovo je na Slovensku vyše 1 000.
+Mediálne dáta pochádzajú z článkov na spravodajských portáloch:
+sme.sk, tyzden.sk, webnoviny.sk, tvnoviny.sk, pravda.sk, etrend.sk, aktualne.sk.
 
-Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov, boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli v zozname sudcov. Následne boli označení ako "pravdepodobne VSÚ".
+#### Ako často sú dáta aktualizované? 
 
+Za bežnej prevádzky plánujeme aktualizovať dáta o súdnych pojednávaniach denne.
+Dáta o súdnych rozhodnutich by sme radi aktualizovali najmenej raz za 7 dní.
 
-<li>__Sudcovia nemajú uvedené predošlé pôsobisko.__</li>
-O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisko. Ak budeme mať kapacitu, radi vymyslíme spôsob ako mapovať činnosť aj na predchádzajúcich pôsobiskách.
+#### Našiel som chybu, čo mám spraviť?
 
-<li>__Nie všetci sudcovia majú životopis a motivačný list.__</li>
-Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po roku 2012 majú tieto údaje.
+Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom
+na <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>. Ak ste našli
+<%= link_to "chybu v dátach", static_page_path(:feedback), icon: false %>
+prípadne <%= link_to "bezpečnostnú chybu", static_page_path(:security), icon: false %>,
+postupujte podobne.
 
-</ol>
+#### Sú dáta úplné?
 
+Dobrá otázka. Úplné v zmysle vernej, lepšej a použiteľnejšej kópie, by mali
+byť informácie o súdoch, sudcoch a súdnych rozhodnutiach.
 
-## O súdoch
-<ol>
+Informácie o súdnych pojednávaniach by mali byť úplnejšie &ndash; Otvorené
+Súdy by mali poskytovať viac dát ako stránka ministerstva spravodlivosti.
 
-<li>__Nevidím Ústavný súd? Prečo?__</li>
+#### A čo dátové chyby?
+
+Tie sú náročnejšie na opravu &ndash; dáta mohli byť chybné pred tým ako sme
+ich získali, alebo sme niečo pokazili my. Snažíme sa, aby chýb bolo najmenej
+a do budúcna plánujeme pracovať na elegantnom riešení opravy chýb.
+
+# O súdoch
+
+#### Nevidím Ústavný súd? Prečo?
 
 Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o svojej agende samostatne, budeme sa snažiť tieto dáta na stránku získať.
 
-</ol>
+# O sudcoch
 
-## O rozhodnutiach
-<ol> 
+#### Naozaj máme vyše 2000 sudcov?
 
-<li>__Aké rozhodnutia sú na stránke?__</li>
+Nie. Na Slovensku máme čosi cez 1 500 činných sudcov, ich presný aktuálny
+počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto že
+sudcovia môžu mať prerušený výkon funkcie.  
 
-Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali týmto konečným rozhodnutiam.
+#### Kto sú tí zvyšní? Kto sú VSÚ?
 
-Úplne presne vysvetlené v <a href="http://www.zakonypreludi.sk/zz/2004-757#p82a"> zákone o súdoch.<a/>
+VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať
+aj vybrané súdne rozhodnutia. Celkovo je na Slovensku vyše 1 000.
 
-<li> __Neviem nájsť rozhodnutie, ktoré existuje. Prečo?__ </li>
+Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov,
+boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli
+v zozname sudcov ministerstva spravodlivosti. Následne boli označení ako
+„pravdepodobne VSÚ“.
+
+__Sudcovia nemajú uvedené predošlé pôsobisko.__
+O tomto vieme. Sudcovia majú uvedené len aktuálne, prípadne posledné pôsobisko.
+Ak budeme mať kapacitu, radi vymyslíme spôsob ako mapovať činnosť aj na
+predchádzajúcich pôsobiskách.
+
+__Nie všetci sudcovia majú životopis a motivačný list.__
+Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po roku
+2012 majú tieto zverejnené údaje.
+
+# O rozhodnutiach
+
+#### Aké rozhodnutia sú na stránke?
+
+Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia
+vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali
+týmto konečným rozhodnutiam.
+
+Úplne presne vysvetlené v
+<%= external_link_to "zákone o súdoch", 'http://www.zakonypreludi.sk/zz/2004-757#p82a', icon: false %>.
+
+#### Neviem nájsť rozhodnutie, ktoré existuje. Prečo?
 
 Može ísť o jeden z nasledujúcich prípadov:
 
-* Je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných dní po nadobudnutí ich právoplatnosti.  
-* Šlo o rozhodnutie, v ktorom bola vylúčená verejnosť.
-* Niečo sa na portáli pokazilo :( Dajte nám prosím vedieť na admin@otvorenesudy.sk
+- je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných
+  dní po nadobudnutí ich právoplatnosti,  
+
+- šlo o rozhodnutie, v ktorom bola vylúčená verejnosť,
+
+- ešte sme ho nestihli stiahnuť a spracovať,
+
+- niečo sa na portáli pokazilo <%= icon_tag :frown %>
