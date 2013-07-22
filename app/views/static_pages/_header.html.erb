@@ -1,7 +1,6 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
-  // TODO
-    //$(document).ready(function() { $('.carousel').carousel() })
+    $(document).ready(function() { $('.carousel').carousel({interval: 8000}) })
   </script>
 <% end %>
 
@@ -60,43 +59,3 @@
     <a class="carousel-control right" href="#carousel" data-slide="next"><%= icon_tag :'angle-right' %></a>
   </div>
 </header>
-
-<!--
-<header class="jumbotron masthead">
-  <div class="pattern">
-    <div class="container">
-      <h1>
-        <small>Máme pre Vás</small>
-        <%= number_with_delimiter @count %>
-        <small>súdnych dokumentov</small>
-      </h1>
-    </div>
-  </div>
-</header>
--->
-
-<!--
-<header class="jumbotron search">
-  <div class="pattern">
-    <div class="container">
-
-      <h1>
-        <small>Vyhľadávajte v</small>
-        <%= number_with_delimiter @count %>
-        <small>súdnych dokumentoch</small>
-      </h1>
-
-      <div class="row">
-        <div class="offset2 span8">
-          <%= form_tag search_decrees_path, method: :get, class: :'form-search' do %>
-            <div class="input-append">
-              <%= search_field_tag :search, params[:q], name: :q, placeholder: 'Vyhľadať v súdnom rozhodnutí&hellip;'.html_safe, class: :'search-query' %>
-              <%= button_tag icon_tag(:search), name: nil, class: :'search-submit btn btn-inverse' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
--->
