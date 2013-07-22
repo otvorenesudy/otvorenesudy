@@ -135,14 +135,14 @@
         <% if @judge.unresolved_issues_counts? %>
           <p>
             <span class="gutter centered"><%= icon_tag :inbox %></span>
-            Sudca mal nevybavených prípadov na konci <%= @judge.unresolved_issues_counts.map { |year, count| "roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
+            Nevybavených prípadov mal sudca <%= @judge.unresolved_issues_counts.map { |year, count| "na konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
           </p>
         <% end %>
 
         <% if @judge.unfinished_issues_counts? %>
           <p>
             <span class="gutter centered"><%= icon_tag :inbox %></span>
-            Sudca mal reštančných prípadov na konci <%= @judge.unfinished_issues_counts.map { |year, count| "roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
+            Reštančných prípadov mal sudca na konci <%= @judge.unfinished_issues_counts.map { |year, count| "na konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
           </p>
         <% end %>
 
