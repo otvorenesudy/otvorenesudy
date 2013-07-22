@@ -10,11 +10,13 @@
         <br/>
         <%= decree_natures @decree, limit: 45, tooltip: true %>
       <% end %>
-      <br/>
-      <small>
-        Rozhodnutie bolo vynesené dňa &ndash;
-        <%= decree_date @decree.date %>
-      </small>
+      <% if @decree.date %>
+        <br/>
+        <small>
+          Rozhodnutie bolo vynesené dňa &ndash;
+          <%= decree_date @decree.date %>
+        </small>
+      <% end %>
     </h1>
   </div>
 
