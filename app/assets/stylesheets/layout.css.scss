@@ -310,19 +310,21 @@ h1, h2, strong {
   width: 100%;
   margin: 0px;
   
-  top: 25%;
+  top: $navbarHeight;
   
   z-index: $zindexDropdown - 10;
 
-  .container {
-    background-color: rgba(#000, .4);
-    
-    @include border-radius(20px);
+  h1 {
+    font-weight: normal;
   }
 
   .form-search {
     margin: 0px auto;
-    padding: 0px;
+    padding: 40px;
+    
+    background-color: rgba(#000, .2);
+    
+    //@include border-radius(20px);
   }
 
   .search-query {
@@ -330,34 +332,44 @@ h1, h2, strong {
 
     color: $white;
 
-    background: rgba(#000, 0.45);
+    background: rgba(#000, .4);
     
     // TODO
-    @include placeholder(#000);
+    //@include placeholder(#000);
     
-    &::-moz-placeholder { color: $grayLight;}
-    &::-ms-input-placeholder { color:#000;}
-    &::-webkit-input-placeholder { color:#000;}
+    //&::-moz-placeholder { color: $grayLight;}
+    //&::-ms-input-placeholder { color:#000;}
+    //&::-webkit-input-placeholder { color:#000;}
     
   }
   
   .search-query, .search-submit {
     padding: 6px 20px;
   }
-  
+
+/* TODO rm  
   .input-append .search-query {
     @include border-radius(20px 0px 0px 20px);
+    
+    @include border-radius(0px);
   }
   
   .input-append .search-submit {
     @include border-radius(0px 20px 20px 0px);
   }
+*/
+  
+  .input-append .search-query,
+  .input-append .search-submit {
+    @include border-radius(0px);
+  }
 
   .search-query, .search-query:hover, .search-query:focus,
   .search-submit, .search-submit:hover, .search-submit:focus {
-    border-color: $grayLight;
+    //border-color: $white;
+    border-color:   #7D5DA7;
 
-    @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 4px rgba($white, 0.25));
+    @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 20px $purple);
   }
 
   .input-append {
@@ -385,17 +397,19 @@ header {
   text-align: center;
 
   &.jumbotron {
-    height: 100%;
+    height: $jumbotronHeight;
+    min-height: $jumbotronMinHeight;
+    max-height: $jumbotronMaxHeight;
     margin: -$navbarHeight 0px 0px 0px;
   }
 
-  .container {
-    padding: 80px 0px;
-  }
-
   h1 {
-    line-height: $baseFontSize * 4.5;
+    margin: 0px;
+    padding: 80px 0px;
+    line-height: $baseFontSize * 4.8;
     font-size: $baseFontSize * 4;
+
+    text-shadow: 0px 0px 20px $purple;
 
     small {
       display: block;
@@ -459,7 +473,7 @@ footer {
 // sections
 
 section.features {
-  margin: 80px 0px;
+  margin: 120px 0px;
 
   .feature {
     padding-top: 20px;

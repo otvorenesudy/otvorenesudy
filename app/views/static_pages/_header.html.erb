@@ -8,19 +8,17 @@
 <header class="jumbotron">
   <div class="search">
     <div class="container">
-<!--      
       <h1>
-        <small>Vyhľadávajte v</small>
-        <%= number_with_delimiter Decree.total %>
-        <small>súdnych rozhodnutiach</small>
+        Viac transparentnosti do<br/>
+        slovenského súdnictva
       </h1>
--->  
+
       <div class="row">
         <div class="offset2 span8">
           <%= form_tag search_decrees_path, method: :get, class: :'form-search' do %>
             <div class="input-append">
               <%= search_field_tag :search, params[:q], name: :q, placeholder: 'Vyhľadať v súdnom rozhodnutí&hellip;'.html_safe, class: :'search-query' %>
-              <%= button_tag icon_tag(:search), name: nil, class: :'search-submit btn btn-inverse' %>
+              <%= button_tag icon_tag(:search), name: nil, class: :'search-submit btn btn-info' %>
             </div>
           <% end %>
         </div>
@@ -43,7 +41,7 @@
         <div class="carousel-content">
           <h1>
             Trestné konanie na okresných súdoch<br/>
-            trvá priemerne štyri a pol mesiaca?
+            trvá priemerne štyri a pol mesiaca.
             <small>&mdash; Štatistická ročenka MSSR 2012</small>
           </h1>
         </div>
@@ -51,8 +49,8 @@
       <div class="item">
         <div class="carousel-content">
           <h1>
-            Za chybné konania zaplatili okresné a krajské súdy<br/>
-            sťažovateľom od roku 2006 už šesť miliónov eur?
+            Už šesť miliónov eur zaplatili od roku 2006<br/>
+            okresné a krajské súdy sťažovateľom za chybné konania.
             <small>&mdash; nálezy Ústavného súdu</small>
           </h1>
         </div>
