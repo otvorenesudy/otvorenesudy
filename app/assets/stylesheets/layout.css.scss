@@ -302,19 +302,66 @@ h1, h2, strong {
   border-color: #ccc #ccc $white;
 }
 
+// header
+
+header {
+  border-top: 1px solid $navbarInverseBorder;
+  border-bottom: 1px solid $navbarInverseBorder;
+
+  @include linear-gradient(45deg, darken($linkColorHover, 20%), darken($linkColor, 10%));
+
+  color: $white;
+
+  text-align: center;
+
+  &.jumbotron {
+    height: $jumbotronHeight;
+    min-height: $jumbotronMinHeight;
+    max-height: $jumbotronMaxHeight;
+    margin: -$navbarHeight 0px 0px 0px;
+  }
+
+  h1 {
+    margin: 0px;
+    padding: 60px 0px;
+    line-height: $baseFontSize * 3.5;
+    font-size: $baseFontSize * 2.8;
+    font-weight: normal;
+
+    text-shadow: 0px 0px 20px $purple;
+
+    small {
+      display: block;
+      margin: 10px 0px;
+      
+      line-height: $baseFontSize * 2.4;
+      font-size: $baseFontSize * 1.8;
+      
+      color: $white;
+
+      &.total {
+        margin-top: 40px;
+      }
+    }
+  }
+}
+
 // search
 
 .search {
   display: block;
-  position: absolute;
+  position: relative;
   width: 100%;
   margin: 0px;
   
-  top: $navbarHeight;
+  //$navbarHeight
+  top: 50%;
+  margin-top: $navbarHeight - 347px;
   
   z-index: $zindexDropdown - 10;
 
   h1 {
+    padding: 0px 0px 60px 0px;
     line-height: $baseFontSize * 4.8;
     font-size: $baseFontSize * 4;
   }
@@ -380,50 +427,6 @@ h1, h2, strong {
     i {
       height: auto;
       line-height: auto;
-    }
-  }
-}
-
-// header
-
-header {
-  border-top: 1px solid $navbarInverseBorder;
-  border-bottom: 1px solid $navbarInverseBorder;
-
-  @include linear-gradient(45deg, darken($linkColorHover, 20%), darken($linkColor, 10%));
-
-  color: $white;
-
-  text-align: center;
-
-  &.jumbotron {
-    height: $jumbotronHeight;
-    min-height: $jumbotronMinHeight;
-    max-height: $jumbotronMaxHeight;
-    margin: -$navbarHeight 0px 0px 0px;
-  }
-
-  h1 {
-    margin: 0px;
-    padding: 60px 0px;
-    line-height: $baseFontSize * 3.5;
-    font-size: $baseFontSize * 2.8;
-    font-weight: normal;
-
-    text-shadow: 0px 0px 20px $purple;
-
-    small {
-      display: block;
-      margin: 10px 0px;
-      
-      line-height: $baseFontSize * 2.4;
-      font-size: $baseFontSize * 1.8;
-      
-      color: $white;
-
-      &.total {
-        margin-top: 40px;
-      }
     }
   }
 }
