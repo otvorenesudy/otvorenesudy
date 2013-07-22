@@ -26,8 +26,10 @@ module Probe
         if facet
           terms = facet.parse_terms(value)
 
-          facet.terms         = terms
-          @params[facet.name] = terms
+          if terms.present?
+            facet.terms         = terms
+            @params[facet.name] = terms
+          end
         end
       end
 

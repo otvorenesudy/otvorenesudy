@@ -87,7 +87,7 @@ class Judge < ActiveRecord::Base
     analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
     analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.count }
     analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.count }
-    analyze :related_persons_count, type: :integer, as: lambda { |j| j.related_persons.group(:name).count }
+    analyze :related_persons_count, type: :integer, as: lambda { |j| j.related_persons.group(:name).count.size }
 
     sort_by :_score, :hearings_count, :decrees_count
   end
