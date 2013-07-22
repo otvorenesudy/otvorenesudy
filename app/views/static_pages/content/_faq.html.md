@@ -69,14 +69,16 @@ Tie sú náročnejšie na opravu – dáta mohli byť chybné pred tým ako sme 
 
 ## O sudcoch:
 <ol>
-<li>__Ozaj máme takmer 2 2000 sudcov?__</li>
+<li>__Ozaj máme vyše 2 2000 sudcov?__</li>
 
-Áno aj nie. Na Slovensku máme čosi cez 1 500 sudcov. Povedať presný aktuálny počet nevieme – jednak pre zlé zdrojové dáta ale aj preto že sudcovia môžu mať prerušený výkon funkcie.
+Nie. Na Slovensku máme čosi cez  1 500 činných sudcov, ich presný aktuálny počet nevieme povedať – jednak pre zlé zdrojové dáta, ale aj preto že sudcovia môžu mať prerušený výkon funkcie.  
 
 <li>__Kto sú tí zvyšní? Kto sú VSÚ?__</li>
+
 VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať aj vybrané súdne rozhodnutia. Celkovo je na Slovensku vyše 1 000.
 
-Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov, boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli v zozname sudcov. 
+Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov, boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli v zozname sudcov. Následne boli označení ako "pravdepodobne VSÚ".
+
 
 <li>__Sudcovia nemajú uvedené predošlé pôsobisko.__</li>
 O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisko. Ak budeme mať kapacitu, radi vymyslíme spôsob ako mapovať činnosť aj na predchádzajúcich pôsobiskách.
