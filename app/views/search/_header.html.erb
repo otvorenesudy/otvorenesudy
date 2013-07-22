@@ -2,13 +2,9 @@
   <div class="pattern">
     <div class="container">
       <h1>
-        Otvorené vyhľadávanie
+        <!-- TODO fix -->
         <small>
-          <%= translate_with_count Court.total,      :court %>,
-          <%= translate_with_count Judge.total,      :judge %>,
-          <%= translate_with_count Hearing.total,    :hearing %>,<br/>
-          <%= translate_with_count Decree.total,     :decree %> a
-          <%= translate_with_count Proceeding.total, :proceeding %>
+          <%= yield :headline %>
         </small>
       </h1>
     </div>

@@ -12,7 +12,8 @@ $carouselMaxHeight: 1080px;
   display: block;
   position: relative;
   width: 100%;
-  margin: -$navbarHeight 0px 0px 0px;
+  top: 0px;
+  margin: 0px;
   border-bottom: 1px solid $navbarInverseBorder;
 
   height: $carouselHeight;
@@ -72,17 +73,23 @@ $carouselMaxHeight: 1080px;
   left: 0px;
   bottom: 0px;
   
-  background-color: rgba(#000, .8);
+  background-color: rgba(#000, .4);
 
   h1 {
+    margin: 0px 60px;
+    line-height: $baseFontSize * 3.5;
+    font-size: $baseFontSize * 3;
     font-weight: normal;
-  }
-  
-  h1, p {
-    margin: 0px 80px;
-    
+
     color: $white;
     
     text-shadow: 0px 1px 1px rgba(#000, .4);
+    
+    small {
+      margin-bottom: 0px;
+      line-height: 100%;
+      
+      text-align: right;
+    }
   }
 }

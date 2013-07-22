@@ -1,18 +1,20 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
-    $(document).ready(function() { $('.carousel').carousel() })
+  // TODO
+    //$(document).ready(function() { $('.carousel').carousel() })
   </script>
 <% end %>
 
 <header class="jumbotron">
   <div class="search">
     <div class="container">
+<!--      
       <h1>
         <small>Vyhľadávajte v</small>
         <%= number_with_delimiter Decree.total %>
         <small>súdnych rozhodnutiach</small>
       </h1>
-  
+-->  
       <div class="row">
         <div class="offset2 span8">
           <%= form_tag search_decrees_path, method: :get, class: :'form-search' do %>
@@ -30,14 +32,29 @@
     <div class="carousel-inner pattern">
       <div class="item active">
         <div class="carousel-content">
-          <h1>rake crawl:courts --trace</h1>
-          <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+          <h1>
+            Súdom na Slovensku<br/>
+            nedôveruje až 67% ľudí
+            <small>&mdash; Inštitút pre verejné otázky, jún 2012</small>
+          </h1>
         </div>
       </div>
       <div class="item">
         <div class="carousel-content">
-          <h1>Kontrola sťahovania dát</h1>
-          <p class="lead">Reštart Hackcamp v&nbsp;Žiline.</p>
+          <h1>
+            Trestné konanie na okresných súdoch<br/>
+            trvá priemerne štyri a pol mesiaca?
+            <small>&mdash; Štatistická ročenka MSSR 2012</small>
+          </h1>
+        </div>
+      </div>
+      <div class="item">
+        <div class="carousel-content">
+          <h1>
+            Za chybné konania zaplatili okresné a krajské súdy<br/>
+            sťažovateľom od roku 2006 už šesť miliónov eur?
+            <small>&mdash; nálezy Ústavného súdu</small>
+          </h1>
         </div>
       </div>
     </div>

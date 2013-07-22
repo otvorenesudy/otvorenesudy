@@ -305,11 +305,20 @@ h1, h2, strong {
 // search
 
 .search {
-  position: absolute;
   display: block;
+  position: absolute;
+  width: 100%;
   margin: 0px;
   
+  top: 25%;
+  
   z-index: $zindexDropdown - 10;
+
+  .container {
+    background-color: rgba(#000, .4);
+    
+    @include border-radius(20px);
+  }
 
   .form-search {
     margin: 0px auto;
@@ -377,6 +386,7 @@ header {
 
   &.jumbotron {
     height: 100%;
+    margin: -$navbarHeight 0px 0px 0px;
   }
 
   .container {
