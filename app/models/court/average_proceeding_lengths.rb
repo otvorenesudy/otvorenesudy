@@ -31,16 +31,16 @@ module Court::AverageProceedingLengths
     end
 
     def courts
-      Court.by_type CourtType.district
+      @courts ||= Court.by_type CourtType.district
     end
 
     private
 
     def ranking
-      @raking ||= create_ranking
+      @raking ||= build_ranking
     end
 
-    def create_ranking
+    def build_ranking
       results = Hash.new
 
       [:T, :C, :Cb, :P].each do |acronym|

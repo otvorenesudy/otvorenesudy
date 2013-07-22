@@ -65,14 +65,14 @@
               <div id="average-proceeding-length-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
                 <p>
                   <span class="gutter centered"><%= icon_tag :time %></span>
-                  Priemerná dĺžka trvania konania v agende <%= agenda.name %>:
+                  Celkovo <%= rank Court::AverageProceedingLengths::Ranking.rank(@court, agenda.acronym) %>
+                  najrýchlejší súd z <%= Court::AverageProceedingLengths::Ranking.courts.count %>
+                  okresných súdov v rámci agendy <%= agenda.name %>:
                 </p>
                 <ul class="unstyled">
                   <% agenda.data.each do |data| %>
                     <li>Priemerná dĺžka za rok <%= data[:year] %> je <%= number_with_precision data[:value], precision: 1 %> mesiaca.</li>
                   <% end %>
-
-                  <li>Celkovo <%= rank Court::AverageProceedingLengths::Ranking.rank(@court, agenda.acronym) %> najrýchlejší súd v rámci tejto agendy.</li>
                 </ul>
               </div>
             </div>
