@@ -315,7 +315,8 @@ h1, h2, strong {
   z-index: $zindexDropdown - 10;
 
   h1 {
-    font-weight: normal;
+    line-height: $baseFontSize * 4.8;
+    font-size: $baseFontSize * 4;
   }
 
   .form-search {
@@ -405,16 +406,17 @@ header {
   h1 {
     margin: 0px;
     padding: 80px 0px;
-    line-height: $baseFontSize * 4.8;
-    font-size: $baseFontSize * 4;
+    line-height: $baseFontSize * 3.5;
+    font-size: $baseFontSize * 2.8;
+    font-weight: normal;
 
     text-shadow: 0px 0px 20px $purple;
 
     small {
       display: block;
-      margin: 10px 0px;
+      margin: 20px 0px;
       
-      line-height: $baseFontSize * 2.3;
+      line-height: $baseFontSize * 2.4;
       font-size: $baseFontSize * 1.8;
       
       color: $white;
