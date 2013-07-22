@@ -56,7 +56,7 @@ class Decree < ActiveRecord::Base
 
     analyze :case_number
     analyze :file_number
-    analyze :date,                type: :date,    null_value: 'nil'
+    analyze :date,                type: :date
     analyze :ecli
     analyze :summary
     analyze :text,                                as: lambda { |d| d.text }

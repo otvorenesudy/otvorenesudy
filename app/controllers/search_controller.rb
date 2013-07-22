@@ -100,7 +100,7 @@ class SearchController < ApplicationController
   end
 
   def search_path(params = {})
-    url_for params.merge action: :search
+    "#{url_for(params.merge action: :search)}#search-navigation"
   end
 
   def suggest_path(params = {})
