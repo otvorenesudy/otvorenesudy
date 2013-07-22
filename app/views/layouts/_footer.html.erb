@@ -3,7 +3,7 @@
     <div class="row">
       <div class="span3">
         <h4>Otvorené Súdy <%= icon_tag :legal %></h4>
-        <nav class="nav-collapse collapse">
+        <nav>
           <ul class="nav pull-left">
             <li><%= link_to "O projekte", static_page_path(:about) %></li>
             <li><%= link_to "Často kladené otázky", static_page_path(:faq) %></li>
@@ -15,7 +15,7 @@
 
       <div class="span3">
         <h4>Prehlásenia <%= icon_tag :'file-text-alt' %></h4>
-        <nav class="nav-collapse collapse">
+        <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Podmienky používania", static_page_path(:'terms-of-use') %></li>
             <li><%= link_to "Ochrana súkromia", static_page_path(:privacy) %></li>
@@ -26,7 +26,7 @@
 
       <div class="span3">
         <h4>Transparentnosť <%= icon_tag :ok %></h4>
-        <nav class="nav-collapse collapse">
+        <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Našli ste chybu?", static_page_path(:feedback) %></li>
             <li><%= external_link_to "Zdrojové kódy", 'https://github.com/otvorenesudy', icon: false %></li>
@@ -37,7 +37,7 @@
 
       <div class="span3">
         <h4>Dáta <%= icon_tag :hdd %></h4>
-        <nav class="nav-collapse collapse">
+        <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Ako to funguje?", static_page_path(:'how-it-works') %></li>
             <li><%= link_to "História dát", static_page_path(:'data-history') %></li>
@@ -49,14 +49,26 @@
 
     <div class="row">
       <div class="span12">
-        <div class="note muted">
+        <nav>
+          <ul class="social inline">
+            <li><%= external_link_to nil, 'https://facebook.com/otvorenesudy', icon: :facebook %></li>
+            <li><%= external_link_to nil, 'https://twitter.com/otvorenesudy', icon: :twitter %></li>
+            <li><%= external_link_to nil, 'https://github.com/otvorenesudy', icon: :github %></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span12">
+        <div class="note centered muted">
           Projekt využíva výhradne dáta verejných inštitúcií. Za ich vecnú správnosť autori nenesú zodpovednosť.
           <br/>
           Projekt vznikol za podpory <%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
           v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk/', icon: false %>
           <%= external_link_to "Centra pre filantropiu", 'http://cpf.sk', icon: false %>.
         </div>
-        <div class="note muted">
+        <div class="note centered muted">
           Copyright <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %>
           a <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %> v&nbsp;spolupráci
           s <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>

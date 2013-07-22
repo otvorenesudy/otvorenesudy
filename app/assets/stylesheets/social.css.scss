@@ -2,32 +2,30 @@
 @import 'mixins';
 
 .social {
-  .addthis_toolbox {
-    font-size: 0px;
-    text-align: center;
+  font-size: 0px;
+  text-align: center;
+  
+  a {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
     
-    a {
-      display: inline-block;
-      margin: 5px;
-      padding: 5px;
+    i {
+      display: block;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-size: $fontSizeLarge;
       
-      i {
-        display: block;
-        width: 20px;
-        height: 20px;
-        font-size: $fontSizeLarge;
-        line-height: 20px;
-        
-        &:before {
-          cursor: pointer;
-        }
+      &:before {
+        cursor: pointer;
       }
+    }
 
-      text-decoration: none;
-      
-      &:hover, &:focus {
-        @include opacity(100);
-      }
+    text-decoration: none;
+    
+    &:hover, &:focus {
+      @include opacity(100);
     }
   }
 }

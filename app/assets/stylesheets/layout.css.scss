@@ -445,7 +445,7 @@ footer {
   }
 
   ul.nav {
-    margin: 10px 0px 60px 0px;
+    margin: 10px 0px 50px 0px;
 
     li > a {
       display: inline-block;
@@ -458,6 +458,10 @@ footer {
     li + li {
       padding-top: 5px;
     }
+  }
+  
+  ul.social {
+    margin: 10px 0px 70px 0px;
   }
 
   .note {
@@ -474,7 +478,7 @@ footer {
 // sections
 
 section.features {
-  margin: 240px 0px;
+  margin: 160px 0px;
 
   .feature {
     padding-top: 20px;
