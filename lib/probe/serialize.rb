@@ -9,8 +9,6 @@ module Probe
         else
           result[field] = self.send(field)
         end
-
-        return if !result[field] && options[:type] == :multi_field && options[:fields][:untouched][:type] != :string
       end
 
       result.to_json
