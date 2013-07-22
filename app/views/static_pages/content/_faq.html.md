@@ -69,14 +69,16 @@ Tie sú náročnejšie na opravu – dáta mohli byť chybné pred tým ako sme 
 
 ## O sudcoch:
 <ol>
-<li>__Ozaj máme takmer 2 2000 sudcov?__</li>
+<li>__Ozaj máme vyše 2 2000 sudcov?__</li>
 
-Áno aj nie. Na Slovensku máme čosi cez 1 500 sudcov. Povedať presný aktuálny počet nevieme – jednak pre zlé zdrojové dáta ale aj preto že sudcovia môžu mať prerušený výkon funkcie.
+Nie. Na Slovensku máme čosi cez  1 500 činných sudcov, ich presný aktuálny počet nevieme povedať – jednak pre zlé zdrojové dáta, ale aj preto že sudcovia môžu mať prerušený výkon funkcie.  
 
 <li>__Kto sú tí zvyšní? Kto sú VSÚ?__</li>
+
 VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať aj vybrané súdne rozhodnutia. Celkovo je na Slovensku vyše 1 000.
 
-Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov, boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli v zozname sudcov. 
+Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov, boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli v zozname sudcov. Následne boli označení ako "pravdepodobne VSÚ".
+
 
 <li>__Sudcovia nemajú uvedené predošlé pôsobisko.__</li>
 O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisko. Ak budeme mať kapacitu, radi vymyslíme spôsob ako mapovať činnosť aj na predchádzajúcich pôsobiskách.
@@ -90,3 +92,22 @@ O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisk
 <li>__Nevidím Ústavný súd? Prečo?__</li>
 
 Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o svojej agende samostatne, budeme sa snažiť tieto dáta na stránku získať.
+
+</ol>
+
+## O rozhodnutiach
+<ol> 
+
+<li>__Aké rozhodnutia sú na stránke?__</li>
+
+Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali týmto konečným rozhodnutiam.
+
+Úplne presne vysvetlené v <a href="http://www.zakonypreludi.sk/zz/2004-757#p82a"> zákone o súdoch.<a/>
+
+<li> __Neviem nájsť rozhodnutie, ktoré existuje. Prečo?__ </li>
+
+Može ísť o jeden z nasledujúcich prípadov:
+
+* Je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných dní po nadobudnutí ich právoplatnosti.  
+* Šlo o rozhodnutie, v ktorom bola vylúčená verejnosť.
+* Niečo sa na portáli pokazilo :( Dajte nám prosím vedieť na admin@otvorenesudy.sk
