@@ -60,6 +60,7 @@ class Decree < ActiveRecord::Base
     analyze :ecli
     analyze :summary
     analyze :text,                                as: lambda { |d| d.text }
+    analyze :pages_count,         type: :integer, as: lambda { |d| d.pages.count }
     analyze :court,                               as: lambda { |d| d.court.name if d.court }
     analyze :court_type,                          as: lambda { |d| d.court.type.value if d.court }
     analyze :judges,                              as: lambda { |d| d.judges.pluck(:name) }
@@ -68,7 +69,6 @@ class Decree < ActiveRecord::Base
     analyze :legislation_area,                    as: lambda { |d| d.legislation_area.value if d.legislation_area }
     analyze :legislation_subarea,                 as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,                        as: lambda { |d| d.legislations.map { |l| l.value '%u/%y/%p' } }
-    analyze :pages_count,         type: :integer, as: lambda { |d| d.pages.count }
 
     sort_by :date, :created_at
   end
@@ -84,7 +84,7 @@ class Decree < ActiveRecord::Base
     facet :court,               type: :terms
     facet :date,                type: :date,  interval: :month
     facet :legislations,        type: :terms
-    facet :pages_count,         type: :range, ranges: [1..2, 2..5, 5..7,7..10,10..20]
+    facet :pages_count,         type: :range, ranges: [1..2, 2..5, 5..7, 7..10, 10..20]
     facet :file_number,         type: :terms
     facet :case_number,         type: :terms
   end

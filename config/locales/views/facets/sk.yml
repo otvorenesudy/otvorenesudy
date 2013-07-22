@@ -12,6 +12,12 @@ sk:
       few: '%{count} sudcovia'
       other: '%{count} sudcov'
 
+    person: &person
+      zero: 'žiadna osoba'
+      one: '1 osoba'
+      few: '%{count} osoby'
+      other: '%{count} osôb'
+
     hearing: &hearing
       zero: 'žiadne pojednávania'
       one: '1 pojednávanie'
@@ -47,12 +53,6 @@ sk:
       one: '1 výsledok'
       few: '%{count} výsledky'
       other: '%{count} výsledkov'
-
-    person: &person
-      zero: 'žiadna osoba'
-      one: '1 osoba'
-      few: '%{count} osoby'
-      other: '%{count} osôb'
 
   facets:
     types:
@@ -218,6 +218,11 @@ sk:
         title: 'Text rozhodnutia'
         placeholder: 'Vyhľadávanie v rozhodnutiach'
 
+      pages_count:
+        title: 'Počet strán'
+        suffix:
+          <<: *page
+
       court:
         title: 'Súd'
         placeholder: 'Názov súdu'
@@ -277,11 +282,6 @@ sk:
 
       date:
         title: 'Dátum'
-
-      pages_count:
-        title: 'Počet strán'
-        suffix:
-          <<: *page
 
     proceeding:
       q:

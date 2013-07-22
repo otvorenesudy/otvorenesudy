@@ -13,8 +13,9 @@ class DecreePage < ActiveRecord::Base
   validates :text,   presence: true
 
   mapping do
-    map     :decree_id
-    map     :number
+    map :decree_id
+    map :number
+
     analyze :text
   end
 
