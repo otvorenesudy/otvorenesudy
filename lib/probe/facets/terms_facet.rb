@@ -29,7 +29,7 @@ class Probe::Facets
     end
 
     def build_suggest_query(term)
-      build_query_filter_from(@field, analyze_query_string(term, force_wildcard: true), operator: :and)
+      build_query_filter_from(@field, "#{term}*", operator: :and)
     end
 
     def build_suggest_facet(index, options)
