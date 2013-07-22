@@ -1,5 +1,11 @@
 # Ochrana súkromia
 
+Vaše údaje, e-mail a nastavenia notifikácií o nových výsledkoch vyhľadávania,
+neposkytujeme za žiadnych okolností tretím stranám. Uvedené údaje používame
+výlučne na účely projektu Otvorené Súdy a na zaznamenávanie používateľských
+štatistík. V prípade nespokojnsti si Váš účet môžete kedykoľvek zrušiť v
+sekcii Nastavenia. 
+
 Súbory cookie nám pomáhajú poskytovať a zabezpečiť registráciu a prihlásenie
 používateľov. Používame ich aj na na ochranu Vašich osobných údajov po prihlásení.
 
