@@ -6,6 +6,7 @@ class Probe::Facets
       @name   = options[:name]
       @script = options[:script]
       @params = options[:params] || Hash.new
+      @lang   = options[:lang]
     end
 
     def add_script_params(params)
@@ -13,7 +14,7 @@ class Probe::Facets
     end
 
     def build
-      { script: build_script, params: build_params }
+      { script: build_script, params: build_params, lang: @lang }
     end
 
     private
@@ -23,7 +24,7 @@ class Probe::Facets
     end
 
     def build_script
-      @script
+      @script || @name
     end
   end
 end

@@ -41,34 +41,8 @@ defaults: &defaults
 
   script:
     suggest:
-      name: suggest_matcher
-      script: '
-        import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
-
-        analyze = def (s) {
-          size   = s.length();
-          result = new char[size];
-
-          ASCIIFoldingFilter.foldToASCII(s.toCharArray(), 0, result, 0, size);
-
-          return new String(result).toLowerCase();
-        };
-
-        tokenize = def (s) {
-          return s.split("\\s+");
-        };
-
-        value   = analyze(term);
-        queries = tokenize(analyze(query));
-
-        foreach(q : queries) {
-          if (!value.contains(q)) {
-            return null;
-          }
-        }
-
-        return term;
-        '
+      name: facet_matcher
+      lang: native
 
 development:
   <<: *defaults
