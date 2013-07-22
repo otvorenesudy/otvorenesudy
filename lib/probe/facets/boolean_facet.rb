@@ -19,7 +19,7 @@ class Probe::Facets
     def terms=(value)
       @terms = value
 
-      @facet.terms = facet_value if @terms == true
+      @facet.terms = facet_value
     end
 
     def active?
