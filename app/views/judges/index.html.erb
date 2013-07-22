@@ -16,12 +16,13 @@
   </div>
 </section>
 
-<section id="judges-resource">
+<section id="judges-resources" class="resources">
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o sudcoch boli získané z portálu
-        <%= external_link_to 'Ministerstva spravodlivosti Slovenskej republiky', JusticeGovSk::Request::JudgeList.url, class: :muted %>
+        Informácie o sudcoch boli získané z portálu <%= external_link_to 'Ministerstva spravodlivosti Slovenskej republiky', JusticeGovSk::Request::JudgeList.url, class: :muted %>
+        <br/>
+        Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcov.
       </small>
     </div>
   </div>
