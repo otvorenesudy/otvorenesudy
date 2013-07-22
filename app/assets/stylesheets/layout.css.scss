@@ -473,7 +473,7 @@ footer {
 // sections
 
 section.features {
-  margin: 120px 0px;
+  margin: 240px 0px;
 
   .feature {
     padding-top: 20px;
@@ -490,6 +490,19 @@ section.features {
     font-size: 160px;
   }
 
+  hr {
+    margin: 80px 0px;
+  }
+}
+
+section.logos {
+  margin: 80px 0px;
+  padding-top: 0px;
+  
+  h1 {
+    font-weight: normal;
+  }
+  
   hr {
     margin: 80px 0px;
   }
