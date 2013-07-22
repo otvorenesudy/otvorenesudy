@@ -4,10 +4,6 @@
 // carousel image ratio should be
 // $bodyMinWidth : $carouselMaxHeight = 47 : 54
 
-$carouselHeight: 100%;
-$carouselMinHeight: 360px;
-$carouselMaxHeight: 1080px;
-
 .carousel {
   display: block;
   position: relative;
@@ -48,9 +44,11 @@ $carouselMaxHeight: 1080px;
   @include border-radius(0px);
 
   background: transparent;
-  color: #000;
+  color: rgba(#000, .4);
 
   text-shadow: 0px 1px 1px rgba(#000, .4);
+  
+  z-index: $zindexDropdown - 10;
   
   &.left {
     left: 0px;
@@ -73,17 +71,14 @@ $carouselMaxHeight: 1080px;
   left: 0px;
   bottom: 0px;
   
-  background-color: rgba(#000, .4);
+  background-color: rgba(#000, .2);
 
-  h1 {
+  h1, h2 {
     margin: 0px 60px;
-    line-height: $baseFontSize * 3.5;
-    font-size: $baseFontSize * 3;
+    padding: 0px;
     font-weight: normal;
 
     color: $white;
-    
-    text-shadow: 0px 1px 1px rgba(#000, .4);
     
     small {
       margin-bottom: 0px;
@@ -91,5 +86,10 @@ $carouselMaxHeight: 1080px;
       
       text-align: right;
     }
+  }
+  
+  h1 {
+    line-height: $baseFontSize * 3.5;
+    font-size: $baseFontSize * 2.8;
   }
 }

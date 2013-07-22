@@ -263,3 +263,13 @@ $fluidGridGutterWidth1200:     percentage($gridGutterWidth1200 / $gridRowWidth12
 // 768px-979px
 $fluidGridColumnWidth768:      percentage($gridColumnWidth768 / $gridRowWidth768) !default;
 $fluidGridGutterWidth768:      percentage($gridGutterWidth768 / $gridRowWidth768) !default;
+
+// Custom variables
+
+$jumbotronHeight:    100%;
+$jumbotronMinHeight: 600px;
+$jumbotronMaxHeight: 1080px;
+
+$carouselHeight:    $jumbotronHeight;
+$carouselMinHeight: $jumbotronMinHeight;
+$carouselMaxHeight: $jumbotronMaxHeight;
