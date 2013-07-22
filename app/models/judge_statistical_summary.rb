@@ -20,7 +20,7 @@ class JudgeStatisticalSummary < ActiveRecord::Base
     return unless types.any?
 
     if types.values.uniq.size == 1
-      summaries = scoped.where(year: self.order(:year).last.year, judge_id: judge.id)
+      summaries = where(year: self.where(judge_id: judge.id).order(:year).last.year, judge_id: judge.id)
       max       = summaries.map(&:assigned_issues_count).max
 
       type = summaries.find { |s| s.assigned_issues_count == max }.court_type
