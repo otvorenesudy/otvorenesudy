@@ -85,18 +85,18 @@ module FacetsHelper
       entry = range.begin.to_i == range.end.to_i ? :exact : :between
     end
 
+    options.each { |k, v| options[k] = format_facet_number(v) }
+
     path = "#{facet.key}.#{entry}"
     path = "facets.types.range.#{entry}" if missing_translation?(path)
 
     result = translate path, options
     suffix = "#{facet.key}.suffix"
-    count  = options[:count] || options[:upper]
+    count  = (options[:count] || options[:upper]).to_i
 
     if entry == :less && count <= 1
       translate(suffix, count: 0)
     else
-      options.each { |k, v| options[k] = format_facet_number(v) }
-
       # TODO: fix count deletion from translation
       result << translate(suffix, count: count).gsub(/\d+/, '') unless missing_translation?(suffix)
       result

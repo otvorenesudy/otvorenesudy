@@ -23,11 +23,40 @@ module Court::AverageProceedingLengths
     end
   end
 
+  module Ranking
+    extend self
+
+    def rank(court, acronym)
+      ranking[acronym.to_sym].ascending[court]
+    end
+
+    def courts
+      Court.by_type CourtType.district
+    end
+
+    private
+
+    def ranking
+      @raking ||= create_ranking
+    end
+
+    def create_ranking
+      results = Hash.new
+
+      [:T, :C, :Cb, :P].each do |acronym|
+        results[acronym] = Resource::Ranking.new(courts) { |court| court.average_proceeding_lengths.by_acronym(acronym).data.map { |e| e[:value].to_f }.sum }
+      end
+
+      results
+    end
+  end
+
   class Agendas
     include Enumerable
 
     def initialize(data)
-      @results = Hash.new
+      @agendas  = Hash.new
+      @acronyms = Hash.new
 
       data.each do |e|
         e.symbolize_keys!
@@ -35,15 +64,21 @@ module Court::AverageProceedingLengths
         name    = e[:name]
         acronym = e[:acronym].to_sym
 
-        @results[name] ||= Agenda.new name, acronym
+        @agendas[name] ||= Agenda.new name, acronym
 
-        @results[name].data << e
-        @results[name].data.sort! { |a, b| b[:year] <=> a[:year] }
+        @agendas[name].data << e
+        @agendas[name].data.sort! { |a, b| b[:year] <=> a[:year] }
+
+        @acronyms[acronym] = name
       end
     end
 
     def each
-      @results.values.each { |agenda| yield agenda }
+      @agendas.values.each { |agenda| yield agenda }
+    end
+
+    def by_acronym(acronym)
+      @agendas[@acronyms[acronym.to_sym]]
     end
   end
 

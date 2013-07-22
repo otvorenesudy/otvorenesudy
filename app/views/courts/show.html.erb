@@ -71,6 +71,8 @@
                   <% agenda.data.each do |data| %>
                     <li>Priemerná dĺžka za rok <%= data[:year] %> je <%= number_with_precision data[:value], precision: 1 %> mesiaca.</li>
                   <% end %>
+
+                  <li>Celkovo <%= rank Court::AverageProceedingLengths::Ranking.rank(@court, agenda.acronym) %> najrýchlejší súd v rámci tejto agendy.</li>
                 </ul>
               </div>
             </div>

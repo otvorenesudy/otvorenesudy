@@ -4,9 +4,13 @@ class DecreePagesController < ApplicationController
   def search
     @decree = Decree.find(params[:decree_id])
 
-    @results, @highlights = DecreePage.search_pages(@decree.id, params[:q])
+    if params[:q].present?
+      @results, @highlights = DecreePage.search_pages(@decree.id, params[:q])
 
-    render json: { results: render_to_string(partial: 'results') }
+      render json: { results: render_to_string(partial: 'results') }
+    else
+      render nothing: true
+    end
   end
 
   def text
