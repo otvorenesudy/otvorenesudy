@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module IndicatorHelper
+module RankingHelper
   def rank(value)
     return number_with_delimiter(value) << '.' unless value.is_a? Range
     
