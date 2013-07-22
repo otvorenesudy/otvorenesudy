@@ -26,7 +26,7 @@ class Probe::Facets
     end
 
     def parse_terms(value)
-      value.respond_to?(:join) ? value.join(' ') : value.to_s
+      value.respond_to?(:join) ? value.join(' ') : value.to_s if value.present?
     end
 
     private
