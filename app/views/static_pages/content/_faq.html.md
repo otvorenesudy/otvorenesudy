@@ -4,13 +4,13 @@
 <ol>
 <li>__Čo je cieľom projektu?__ </li>
 
-Cieľom projektu Otvorené súdy je na základe zlepšiť zodpovednosť za rozhodovanie a fungovanie súdnictva. Stránka na základe verejne dostupných dát  sprehľadňuje činnost súdov a sudcov a umožňuje ich porovnanie.
+Cieľom projektu Otvorené súdy je na základe dát zvýšiť tlak na kvalitu slovenského súdnictva. Stránka na základe verejne dostupných dát  sprehľadňuje činnost súdov a sudcov a umožňuje ich porovnanie.
 
-Dlhodobým cieľom Transparency International Slovensko je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by umožňovali merať kvalitu a zmeny kvality v súdnictvena úrovni súdov a sudcov.
+Dlhodobým cieľom <a href="www.transparency.sk">Transparency International Slovensko </a> je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sudcov.
 
-<li>__Čo môžem na portáli spraviť?__</li>
+<li>__Čo môžem na portáli robiť?__</li>
 
-TEXT
+Stránka poskytuje informácie o činnosti <a href="otvorenesudy.sk/courts/search"> súdov</a>, <a href="otvorenesudy.sk/judges/search"> profily sudcov</a>, <a href="otvorenesudy.sk/hearings/search"> historické aj budúce pojednávania</a> a <a href="otvorenesudy.sk/decrees/search">viac ako pol milióna súdnych rozhodnutí.</a> 
 
 <li>__Kto sú autori projektu?__ </li>
 
@@ -23,7 +23,7 @@ Za hosting projektu ďakujeme <a href="http://www.petitpres.sk"> spoločnosti Pe
 
 <li>__Ako môžem pomôcť?__</li>
 
-TEXT
+Používajte stránku, dajte o nej vedieť známym, ktorých by mohla zaujímať. Sledujte novinky na <a href="www.facebook.com/otvorenesudy">Facebooku</a>. Ak môžete, prosím, zvážte <a href="http://transparency.darujme.sk/238/"> finančnú podporu</a>.
 </ol>
 
 ## Dáta
@@ -46,15 +46,15 @@ Použité dáta  boli štandardizované a navzájom prepojené.
 <li>Ročné štatistické výkazy o činnosti sudcov poskytnutné Ministerstvom spravodlivosti (http://www.justice.gov.sk/rsvs/) 
 </ul>
 <ol>
-Mediálne dáta pochádzajú z článkov na vybraných spravodajských portáloch.
+Mediálne dáta pochádzajú z článkov na spravodajských portáloch: sme.sk, sme.sk, tyzden.sk,  webnoviny.sk,  tvnoviny.sk,  pravda.sk,  etrend.sk,  aktualne.sk.
 
 <li> ___Ako často sú dáta aktualizované__ </li>
 
-TEXT
+Za bežnej prevádzky plánujeme aktualizovať denne dáta o pojednávaniach. Dáta o o rozhodnutich by sme radi aktualizovali najmenej raz za 7 dní.
 
 <li>__Našiel som chybu, čo mám spraviť?__</li>
 
-Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom na XXX. Väčšinu nedátových chýb by sme mali vedieť jednoducho odstrániť?
+Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom na admin@otvorenesudysk. Väčšinu nedátových chýb by sme mali vedieť jednoducho odstrániť.
 
 <li>__Sú dáta úplné?__</li>
 
@@ -82,6 +82,9 @@ Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov
 
 <li>__Sudcovia nemajú uvedené predošlé pôsobisko.__</li>
 O tomto vieme. Sudcovia majú uvedené len aktuálne, príp. posledné pôsobisko. Ak budeme mať kapacitu, radi vymyslíme spôsob ako mapovať činnosť aj na predchádzajúcich pôsobiskách.
+
+<li>__Nie všetci sudcovia majú životopis a motivačný list.__</li>
+Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po roku 2012 majú tieto údaje.
 
 </ol>
 
