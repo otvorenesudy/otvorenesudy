@@ -51,6 +51,7 @@ $(document).ready ->
       $(@el).find('.facet ul li a, form a, .btn-group a').click => @.onSearch()
       $(@el).find('form input').change => @.onSearch()
       $(@el).submit => @.onSearch()
+      $(@el).find('.search-reset').click => @.onSearch()
 
     onSearch: ->
       $(@results).find('a').click (e) -> e.preventDefault()
