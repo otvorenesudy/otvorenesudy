@@ -17,7 +17,7 @@
 <section class="features">
   <div class="row">
     <div class="span3">
-      <i class="feature-icon icon-circle"></i>
+      <img class="feature-icon" src="<%= asset_path 'features-logo.png' %>" />
     </div>
 
     <div class="span9">
@@ -39,25 +39,6 @@
   <hr/>
 
   <div class="row">
-    <div class="span9">
-      <h1>
-        Otvorený zdrojový kód
-        <small>Ruby&nbsp;on&nbsp;Rails</small>
-      </h1>
-      <p class="lead">
-        Zdrojové kódy projektu <a href="https://github.com/otvorenesudy">Otvorené súdy</a>
-        sú voľne dostupné na Internete službou <a href="https://github.com/" target="_blank">GitHub</a>.
-      </p>
-    </div>
-
-    <div class="span3">
-      <%= icon_tag :github %>
-    </div>
-  </div>
-  
-  <hr/>
-
-  <div class="row">
     <div class="span3">
       <%= icon_tag :hdd %>
     </div>
@@ -73,9 +54,32 @@
       </p>
     </div>
   </div>
+
+  <hr/>
+
+  <div class="row">
+    <div class="span3">
+      <%= icon_tag :github %>
+    </div>
+
+    <div class="span9">
+      <h1>
+        Otvorený zdrojový kód
+        <small>Ruby&nbsp;on&nbsp;Rails</small>
+      </h1>
+      <p class="lead">
+        Zdrojové kódy projektu <a href="https://github.com/otvorenesudy">Otvorené súdy</a>
+        sú voľne dostupné na Internete službou <a href="https://github.com/" target="_blank">GitHub</a>.
+      </p>
+    </div>
+  </div>
 </section>
 
 <section class="logos">
+  <h1 class="centered muted">
+    <small>Projekt podporili</small>
+  </h1>
+
   <hr/>
   
   <div class="row">
