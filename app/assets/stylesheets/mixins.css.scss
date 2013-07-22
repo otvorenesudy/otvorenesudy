@@ -44,6 +44,20 @@
       &::-ms-input-placeholder { color: $color; }
 }
 
+@mixin selection($background, $color) {
+  ::selection {
+    background: $background;
+    color: $color;
+    text-shadow: none;
+  }
+
+  ::-moz-selection {
+    background: $background;
+    color: $color;
+    text-shadow: none;
+  }
+}
+
 @mixin transition($transition) {
   -webkit-transition: $transition;
      -moz-transition: $transition;

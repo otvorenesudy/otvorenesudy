@@ -54,6 +54,8 @@ body {
   margin-top: $navbarHeight;
 }
 
+@include selection($linkColor, $white); 
+
 section + section {
   padding-top: 40px;
 }
