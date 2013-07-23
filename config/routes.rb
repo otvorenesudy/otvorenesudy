@@ -54,13 +54,12 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-# TODO enable
-#  resources :proceedings do
-#    collection do
-#      get :search
-#      get :suggest
-#    end
-#  end
+  resources :proceedings do
+    collection do
+      get :search
+      get :suggest
+    end
+  end
 
   devise_for :users
 
