@@ -74,3 +74,5 @@ module OpenCourts
     config.assets.version = '1.0'
   end
 end
+
+require Rails.root.join 'config', 'version.rb'
