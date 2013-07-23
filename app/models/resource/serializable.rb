@@ -1,4 +1,4 @@
-module Resource::Serialization
+module Resource::Serializable
   extend ActiveSupport::Concern
 
   module ClassMethods

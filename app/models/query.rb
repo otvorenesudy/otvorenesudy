@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 class Query < ActiveRecord::Base
-  include Resource::Serialization
+  include Resource::Serializable
 
   attr_accessible :model,
                   :digest,
