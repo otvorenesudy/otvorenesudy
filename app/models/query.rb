@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
 class Query < ActiveRecord::Base
+  include Resource::Serialization
+
   attr_accessible :model,
                   :digest,
                   :value
@@ -39,15 +41,7 @@ class Query < ActiveRecord::Base
   end
 
   def self.unwrap(value)
-    if value.is_a? Hash
-      value.each do |k, v|
-        value[k] = v.is_a?(Range) ? v.to_s : v
-      end
-
-      value = value.to_json
-    end
-
-    value
+    value.is_a?(String) ? value : serialize_as_json(value)
   end
 
   private

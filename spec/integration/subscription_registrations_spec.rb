@@ -80,7 +80,32 @@ describe 'SubscriptionRegistrations' do
 
         subscription.period.name.should eql('daily')
         subscription.query.model.should eql('Decree')
-        subscription.query.value.should eql({ court: decree.court.name, date: '1991-02-01..1991-02-28' })
+        subscription.query.value.should eql({ court: [decree.court.name], date: ['1991-02-01..1991-02-28'] })
+      end
+
+      it 'should register query from date array selection' do
+        decrees = 2.times.map { |n| create :decree, date: Date.parse("1991-0#{n + 1}-01") }
+
+        reload_indices
+
+        visit search_decrees_path
+
+        2.times do |n|
+          within "#search-view #decree-date ul li:nth-child(#{n + 1})" do
+            find('a.add:first').click
+          end
+        end
+
+        within '#subscribe' do
+          choose 'period-weekly'
+          click_button 'new_subscription'
+        end
+
+        subscription = user.subscriptions.first
+
+        subscription.period.name.should eql('weekly')
+        subscription.query.model.should eql('Decree')
+        subscription.query.value.should eql({ date: ['1991-02-01..1991-02-28', '1991-01-01..1991-01-31']})
       end
     end
 
@@ -97,7 +122,7 @@ describe 'SubscriptionRegistrations' do
         visit search_decrees_path
 
         within '#subscribe' do
-          #find('#period-monthly')['checked'].should_not be_nil
+          # find('#period-monthly')['checked'].should_not be_nil
 
           choose 'period-weekly'
           click_button 'edit_subscription'
