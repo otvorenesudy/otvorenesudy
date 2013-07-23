@@ -34,9 +34,9 @@
           <% end %>
           na súde 
           <%= link_to_court employment.court %>,
-          <%= 'zatiaľ ne' if Hearing.during_employment(employment).none? %>evidujeme
-          <%= translate_with_count(Hearing.during_employment(employment).count, :hearing) %> a
-          <%= translate_with_count(Decree.during_employment(employment).count, :decree) %>.
+          <%= 'zatiaľ ne' if Hearing.during_employment(employment).size.zero? %>evidujeme
+          <%= translate_with_count(Hearing.during_employment(employment).size, :hearing) %> a
+          <%= translate_with_count(Decree.during_employment(employment).size, :decree) %>.
           <% if employment.note %>
             <br/>
             <span class="gutter centered"><%= icon_tag :pushpin %></span>
@@ -178,11 +178,11 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.count, track_data('judge-decrees') %>
+            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data('judge-decrees') %>
           </li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @judge.hearings.upcoming.count, track_data('judge-upcoming-hearings') %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @judge.hearings.historical.count, track_data('judge-historical-hearings') %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count, track_data('judge-media') %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @judge.hearings.upcoming.size, track_data('judge-upcoming-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @judge.hearings.historical.size, track_data('judge-historical-hearings') %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('judge-media') %></li>
         </ul>
 
         <div class="tab-content">

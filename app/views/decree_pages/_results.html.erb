@@ -2,7 +2,7 @@
   <div class="alert alert-info">
     <%= close_link_to @decree %>
     <%= icon_tag :search %> Pre hľadaný výraz <strong>&bdquo;<%= html_escape params[:q] %>&ldquo;</strong>
-    sme našli <strong><%= translate_with_count(@highlights.count, :result) %></strong>.
+    sme našli <strong><%= translate_with_count(@highlights.size, :result) %></strong>.
   </div>
 
   <dl class="unstyled">

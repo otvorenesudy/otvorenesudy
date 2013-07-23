@@ -89,11 +89,11 @@ class Proceeding < ActiveRecord::Base
   public
 
   def single_hearing?
-    events.count == 1 && hearings.count == 1
+    events.size == 1 && hearings.size == 1
   end
 
   def single_decree?
-    events.count == 1 && decrees.count == 1
+    events.size == 1 && decrees.size == 1
   end
 
   def probably_closed?

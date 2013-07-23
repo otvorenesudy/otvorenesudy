@@ -16,10 +16,10 @@
       <p>
         <span class="gutter centered"><%= icon_tag :user %></span>
         Na súde <%= @judges.any? ? 'pracuje' : 'nepracujú' %>
-        <%= translate_with_count(@judges.count, :judge) %>.
-        Pre súd <%= 'zatiaľ ne' if @court.hearings.none? %>evidujeme
-        <%= translate_with_count(@court.hearings.count, :hearing) %>
-        a&nbsp;<%= translate_with_count(@court.decrees.count, :decree) %>.
+        <%= translate_with_count(@judges.size, :judge) %>.
+        Pre súd <%= 'zatiaľ ne' if @court.hearings.size.zero? %>evidujeme
+        <%= translate_with_count(@court.hearings.size, :hearing) %>
+        a&nbsp;<%= translate_with_count(@court.decrees.size, :decree) %>.
       </p>
 
       <% if @expenses.any? %>
@@ -66,7 +66,7 @@
                 <p>
                   <span class="gutter centered"><%= icon_tag :time %></span>
                   Celkovo <%= rank Court::AverageProceedingLengths::Ranking.rank(@court, agenda.acronym) %>
-                  najrýchlejší súd z <%= Court::AverageProceedingLengths::Ranking.courts.count %>
+                  najrýchlejší súd z <%= Court::AverageProceedingLengths::Ranking.courts.size %>
                   okresných súdov v rámci agendy <%= agenda.name %>:
                 </p>
                 <ul class="unstyled">
@@ -91,10 +91,10 @@
           <li class="active">
             <a href="#contact" data-toggle="tab" data-track="court-contact">Kontakt</a>
           </li>
-          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.count, track_data('court-judges') %></li>
-          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count, track_data('court-decrees') %></li>
-          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @court.hearings.count, track_data('court-hearings') %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.count, track_data('court-media') %></li>
+          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.size, track_data('court-judges') %></li>
+          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.size, track_data('court-decrees') %></li>
+          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @court.hearings.size, track_data('court-hearings') %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('court-media') %></li>
         </ul>
 
         <div class="tab-content">

@@ -21,7 +21,7 @@
       <br/>
       <% end %>
       <% if decree.judges.any? %>
-        <%= translate_without_count(decree.judges.count, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
+        <%= translate_without_count(decree.judges.size, :judge).upcase_first %> &ndash; <%= links_to_judges decree.judges %>
         <br/>
       <% end %>
     </div>

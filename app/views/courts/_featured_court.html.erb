@@ -21,11 +21,11 @@
         <% end %>
       <% end %>
       <% if court.judges.any? %>
-        Na súde pracuje <strong><%= translate_with_count(court.judges.count, :judge) %></strong>.
+        Na súde pracuje <strong><%= translate_with_count(court.judges.size, :judge) %></strong>.
       <% end %>
-      Pre súd <%= 'zatiaľ ne' if court.hearings.none? %>evidujeme
-      <strong><%= translate_with_count(court.hearings.count, :hearing) %></strong>
-      a&nbsp;<strong><%= translate_with_count(court.decrees.count, :decree) %></strong>.
+      Pre súd <%= 'zatiaľ ne' if court.hearings.size.zero? %>evidujeme
+      <strong><%= translate_with_count(court.hearings.size, :hearing) %></strong>
+      a&nbsp;<strong><%= translate_with_count(court.decrees.size, :decree) %></strong>.
     </div>
   </div>
   <div class="span4">

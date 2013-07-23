@@ -17,14 +17,14 @@
         <td>
           <%= court.address %>
         </td>
-        <td class="number" data-value="<%= court.judges.count %>">
-          <%= number_with_delimiter court.judges.count %>
+        <td class="number" data-value="<%= court.judges.size %>">
+          <%= number_with_delimiter court.judges.size %>
         </td>
-        <td class="number" data-value="<%= court.hearings.count %>">
-          <%= number_with_delimiter court.hearings.count %>
+        <td class="number" data-value="<%= court.hearings.size %>">
+          <%= number_with_delimiter court.hearings.size %>
         </td>
-        <td class="number" data-value="<%= court.decrees.count %>">
-          <%= number_with_delimiter court.decrees.count %>
+        <td class="number" data-value="<%= court.decrees.size %>">
+          <%= number_with_delimiter court.decrees.size %>
         </td>
       </tr>
     <% end %>

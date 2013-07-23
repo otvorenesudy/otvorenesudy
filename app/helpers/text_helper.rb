@@ -8,7 +8,7 @@ module TextHelper
     tooltip   = options.delete(:tooltip)
     
     parts  = Array.wrap(text)
-    limit += (parts.count - 1) * @entities.decode(separator).size
+    limit += (parts.size - 1) * @entities.decode(separator).size
     
     packed = parts.map { |part| part.squeeze(' ').strip }.join separator
     result = truncate packed, length: limit, separator: ' ', omission: ''

@@ -23,9 +23,9 @@
             <% end %>
           <% end %>
           na súde <%= link_to_court_by_judge_employment employment %>,
-          <%= 'ne' if Hearing.during_employment(employment).none? %>evidujeme
-          <%= translate_with_count(Hearing.during_employment(employment).count, :hearing) %>
-          a <%= translate_with_count(Decree.during_employment(employment).count, :decree) %>.
+          <%= 'ne' if Hearing.during_employment(employment).size.zero? %>evidujeme
+          <%= translate_with_count(Hearing.during_employment(employment).size, :hearing) %>
+          a <%= translate_with_count(Decree.during_employment(employment).size, :decree) %>.
         </p>
       <% end %>
     </div>

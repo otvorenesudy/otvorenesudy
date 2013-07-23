@@ -23,7 +23,7 @@
       <% end %>
       <% if hearing.judges.normal.any? %>
         <% if hearing.judges.normal.exact.any? %>
-          <%= translate_without_count(hearing.judges.normal.exact.count, :judge).upcase_first %>
+          <%= translate_without_count(hearing.judges.normal.exact.size, :judge).upcase_first %>
           &ndash; <%= links_to_judges hearing.judges.normal.exact %>
         <% else %>
           <%= translate_without_count(hearing.judges.normal.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
@@ -32,15 +32,15 @@
         <br/>
       <% end %>
       <% if hearing.proposers.any? %>
-        <%= translate_without_count(hearing.proposers.count, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).to_sentence %>
+        <%= translate_without_count(hearing.proposers.size, :proposer).upcase_first %> &ndash; <%= hearing.proposers.pluck(:name).to_sentence %>
         <br/>
       <% end %>
       <% if hearing.opponents.any? %>
-        <%= translate_without_count(hearing.opponents.count, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).to_sentence %>
+        <%= translate_without_count(hearing.opponents.size, :opponent).upcase_first %> &ndash; <%= hearing.opponents.pluck(:name).to_sentence %>
         <br/>
       <% end %>
       <% if hearing.defendants.any? %>
-        <%= translate_without_count(hearing.defendants.count, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).to_sentence %>
+        <%= translate_without_count(hearing.defendants.size, :defendant).upcase_first %> &ndash; <%= hearing.defendants.pluck(:name).to_sentence %>
         <br/>
       <% end %>
 
