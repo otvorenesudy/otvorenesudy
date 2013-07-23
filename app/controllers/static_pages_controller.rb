@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
     begin
       render
     rescue ActionView::Template::Error => e
-      if e.original_exception.is_a? ActionView::MissingTemplate
+      if e.original_exception.is_a? ActionView::MissingTemplate # TODO: resolved ArgumentError when slug is not a valid identifier
         raise ActionController::RoutingError.new nil
       end
 
