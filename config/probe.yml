@@ -54,17 +54,11 @@ defaults: &defaults
           return new String(result).toLowerCase();
         };
 
-        tokenize = def (s) {
-          return s.split("\\s+");
-        };
+        value = analyze(term);
+        query = analyze(query);
 
-        value   = analyze(term);
-        queries = tokenize(analyze(query));
-
-        foreach(q : queries) {
-          if (!value.contains(q)) {
+        if (!value.contains(query)) {
             return null;
-          }
         }
 
         return term;
