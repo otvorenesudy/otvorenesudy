@@ -22,10 +22,14 @@ class SearchController < ApplicationController
 
     @results = @model.suggest(name, term, params)
 
-    facet   = @results.facets[name]
-    results = facet.results
+    if @results
+      facet   = @results.facets[name]
+      results = facet.results
 
-    render partial: "facets/#{facet.type}_facet_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
+      render partial: "facets/#{facet.type}_facet_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
+    else
+      render nothing: true
+    end
   end
 
   def collapse
@@ -35,6 +39,8 @@ class SearchController < ApplicationController
 
     if Probe::Configuration.indices.include? model.pluralize
       key = collapsed_facets_key(model)
+
+      session[key] ||= []
 
       if collapsed
         session[key] += [name]

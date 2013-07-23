@@ -12,8 +12,6 @@ $(document).ready ->
       @el      = $(el)
       @results = $(options.results)
 
-      #@.focusSearchView()
-
       @.setup(options) if options?
 
       @.registerEvents()
@@ -48,7 +46,7 @@ $(document).ready ->
         $(this).closest('form').submit()
 
     registerSearch: ->
-      $(@el).find('.facet ul li a, form a, .btn-group a').click => @.onSearch()
+      $(@el).find('.facet ul li a, form a, .btn-group a:not(.active)').click (e) => @.onSearch()
       $(@el).find('form input').change => @.onSearch()
       $(@el).submit => @.onSearch()
       $(@el).find('.search-reset').click => @.onSearch()

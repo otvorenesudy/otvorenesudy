@@ -1,6 +1,7 @@
 class DecreePage < ActiveRecord::Base
   include Probe
   extend Probe::Search::Query
+  extend Probe::Sanitizer
 
   attr_accessible :number,
                   :text
@@ -22,6 +23,7 @@ class DecreePage < ActiveRecord::Base
   def self.search_pages(decree_id, text, options = {})
     search_field = analyzed_field(:text)
     highlights   = {}
+    text         = sanitize_query_string(text)
 
     results = tire.search do
       query do
