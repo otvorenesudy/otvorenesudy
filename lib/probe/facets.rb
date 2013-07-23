@@ -26,7 +26,7 @@ module Probe
         if facet
           terms = facet.parse_terms(value)
 
-          if terms.present?
+          unless terms.nil?
             facet.terms         = terms
             @params[facet.name] = terms
           end
