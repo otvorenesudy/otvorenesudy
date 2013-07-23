@@ -2,7 +2,7 @@ require 'bundler/capistrano'
 require 'resque'
 require 'rvm/capistrano'
 require 'capistrano-resque'
-#require 'whenever/capistrano'
+require 'whenever/capistrano'
 
 set :stages, [:staging, :production]
 
@@ -21,7 +21,7 @@ set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
 
 # Whenever
-#set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
+set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
 
 # Resque
 set :workers, { probe: 6 }

@@ -68,6 +68,9 @@ gem 'airbrake'
 gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
+# scheduling
+gem 'whenever', require: false
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
