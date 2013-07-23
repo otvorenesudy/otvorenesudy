@@ -428,6 +428,11 @@ footer {
       text-decoration: underline;
     }
   }
+  
+  hr {
+    border-top-color: darken($grayLighter, 12.5%);
+    margin: 20px 10px;
+  }
 
   ul.nav {
     margin: 10px 0px 50px 0px;
@@ -446,7 +451,7 @@ footer {
   }
   
   ul.social {
-    margin: 10px 0px 70px 0px;
+    margin: 10px 0px;
   }
 
   .note {
@@ -456,6 +461,10 @@ footer {
 
     a {
       color: darken($grayLight, 12.5%);
+    }
+    
+    &:first-child {
+      margin-top: 40px;
     }
   }
 }
