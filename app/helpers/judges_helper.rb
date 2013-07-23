@@ -74,9 +74,7 @@ module JudgesHelper
   end
   
   def judge_processed_names(relation)
-    relation.pluck(:judge_name_unprocessed).map { |name|
-      Resource::Normalizer.normalize_person_name(name)
-    }.uniq.to_sentence
+    Judge::Names.from_unprocessed(relation).sort.to_sentence
   end
   
   def link_to_judge(judge, options = {})

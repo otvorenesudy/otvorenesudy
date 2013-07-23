@@ -57,7 +57,7 @@ class Hearing < ActiveRecord::Base
     analyze :type,              as: lambda { |h| h.type.value if h.type }
     analyze :court,             as: lambda { |h| h.court.name if h.court }
     analyze :court_type,        as: lambda { |h| h.court.type.value if h.court }
-    analyze :judges,            as: lambda { |h| h.judges.pluck(:name) }
+    analyze :judges,            as: lambda { |h| Judge::Names.from h.judgings }
     analyze :form,              as: lambda { |h| h.form.value if h.form }
     analyze :section,           as: lambda { |h| h.section.value if h.section }
     analyze :subject,           as: lambda { |h| h.subject.value if h.subject }
