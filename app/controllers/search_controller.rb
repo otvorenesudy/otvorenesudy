@@ -40,6 +40,8 @@ class SearchController < ApplicationController
     if Probe::Configuration.indices.include? model.pluralize
       key = collapsed_facets_key(model)
 
+      session[key] ||= []
+
       if collapsed
         session[key] += [name]
       else
