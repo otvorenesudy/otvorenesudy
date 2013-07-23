@@ -57,8 +57,8 @@
       <div class="item">
         <div class="carousel-content">
           <h1>
-            Vyhľadávanie v <%= number_to_human Decree.total, precision: 1, significant: false, strip_insignificant_zeros: true %> rozhodnutiach<br/>
-            a <%= number_to_human Hearing.total, precision: 1, significant: false, strip_insignificant_zeros: true %> pojednávaniach
+            Vyhľadávanie v <%= number_to_human(Decree.total, precision: 0, significant: false).downcase %> rozhodnutiach<br/>
+            a <%= number_to_human(Hearing.total, precision: 0, significant: false).downcase %> pojednávaniach
             <small>&mdash; Otvorené Súdy</small>
           </h1>
         </div>
