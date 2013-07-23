@@ -30,6 +30,15 @@
       <div class="item active">
         <div class="carousel-content">
           <h1>
+            Vyhľadávajte v <%= number_to_human Decree.total, precision: 1, significant: false, strip_insignificant_zeros: true %> rozhodnutiach<br/>
+            a <%= number_to_human Hearing.total, precision: 1, significant: false, strip_insignificant_zeros: true %> pojednávaniach
+            <small>&mdash; Otvorené Súdy</small>
+          </h1>
+        </div>
+      </div>
+      <div class="item">
+        <div class="carousel-content">
+          <h1>
             Súdom na Slovensku<br/>
             nedôveruje až 67% ľudí
             <small>&mdash; Inštitút pre verejné otázky, jún 2012</small>
