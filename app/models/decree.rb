@@ -47,6 +47,10 @@ class Decree < ActiveRecord::Base
   def text
     @text ||= pages.pluck(:text).join
   end
+  
+  def judge_names
+    @judge_names ||= Judge::Names.of judges
+  end
 
   max_paginates_per 100
       paginates_per 20
@@ -63,7 +67,7 @@ class Decree < ActiveRecord::Base
     analyze :pages_count,         type: :integer, as: lambda { |d| d.pages.count }
     analyze :court,                               as: lambda { |d| d.court.name if d.court }
     analyze :court_type,                          as: lambda { |d| d.court.type.value if d.court }
-    analyze :judges,                              as: lambda { |d| Judge::Names.from h.judgements }
+    analyze :judges,                              as: lambda { |d| d.judge_names }
     analyze :form,                                as: lambda { |d| d.form.value if d.form }
     analyze :natures,                             as: lambda { |d| d.natures.pluck(:value) }
     analyze :legislation_area,                    as: lambda { |d| d.legislation_area.value if d.legislation_area }

@@ -41,6 +41,10 @@ class Hearing < ActiveRecord::Base
   has_many :defendants, dependent: :destroy
 
   has_many :accusations, through: :defendants
+  
+  def judge_names
+    @judge_names ||= Judge::Names.of judges
+  end
 
   max_paginates_per 100
       paginates_per 20
@@ -57,7 +61,7 @@ class Hearing < ActiveRecord::Base
     analyze :type,              as: lambda { |h| h.type.value if h.type }
     analyze :court,             as: lambda { |h| h.court.name if h.court }
     analyze :court_type,        as: lambda { |h| h.court.type.value if h.court }
-    analyze :judges,            as: lambda { |h| Judge::Names.from h.judgings }
+    analyze :judges,            as: lambda { |h| h.judge_names }
     analyze :form,              as: lambda { |h| h.form.value if h.form }
     analyze :section,           as: lambda { |h| h.section.value if h.section }
     analyze :subject,           as: lambda { |h| h.subject.value if h.subject }
