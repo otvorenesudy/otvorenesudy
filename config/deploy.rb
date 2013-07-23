@@ -76,14 +76,24 @@ namespace :probe do
     run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:drop"
   end
 
-  desc "Update Probe indices"
+  desc "Import Probe indices"
   task :import, roles: :db do
     run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:import"
   end
 
-  desc "Enqueue async update of Probe indices"
+  desc "Enqueue async import of Probe indices"
   task :import_async, roles: :db do
     run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:import:async"
+  end
+
+  desc "Update Probe indices"
+  task :update, roles: :db do
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update"
+  end
+
+  desc "Enqueue async update of Probe indices"
+  task :update_async, roles: :db do
+    run "cd #{current_path}; RAILS_ENV=#{rails_env} rake probe:update:async"
   end
 end
 

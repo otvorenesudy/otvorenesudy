@@ -18,6 +18,10 @@ module Probe
     def self.update(model)
       model.update_index
     end
+
+    def self.async_update(model)
+      Resque.enqueue(AsyncUpdate, model.to_s)
+    end
   end
 
   class AsyncImport
@@ -25,6 +29,14 @@ module Probe
 
     def self.perform(model)
       Probe::Bulk.import(model.constantize)
+    end
+  end
+
+  class AsyncUpdate
+    @queue = :probe
+
+    def self.perform(model)
+      Probe::Bulk.update(model.constantize)
     end
   end
 end
