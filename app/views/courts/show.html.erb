@@ -91,9 +91,6 @@
           <li class="active">
             <a href="#contact" data-toggle="tab" data-track="court-contact">Kontakt</a>
           </li>
-          <!-- TODO rm         
-          <li><a href="#offices" data-toggle="tab">Pracoviská</a></li>
-          -->
           <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.count, track_data('court-judges') %></li>
           <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @court.decrees.count, track_data('court-decrees') %></li>
           <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @court.hearings.count, track_data('court-hearings') %></li>
@@ -104,11 +101,7 @@
           <div id="contact" class="tab-pane active">
             <%= render 'contact' %>
           </div>
-          <!-- TODO rm
-          <div id="offices" class="tab-pane">
-            <%= render 'offices' %>
-          </div>
-          -->
+
           <div id="judges" class="tab-pane">
             <%= render 'judges', judges: @judges %>
           </div>

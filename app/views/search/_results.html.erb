@@ -1,5 +1,3 @@
-<!-- TODO rm <div class="spinner"></div> -->
-
 <% if @results.any? %>
   <%= render "#{@type.to_s.pluralize}/results", results:  @results, offset: @results.offset %>
 <% else %>

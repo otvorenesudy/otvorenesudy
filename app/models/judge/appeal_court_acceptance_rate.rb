@@ -1,5 +1,3 @@
-# TODO: 221
-
 module Judge::AppealCourtAcceptanceRate
   extend ActiveSupport::Concern
   

@@ -1,5 +1,3 @@
-# TODO: #224
-
 module Judge::UnresolvedIssuesCounts
   extend ActiveSupport::Concern
 

@@ -10,6 +10,7 @@ module Probe
       def setup
         settings
 
+        # TODO rm?
         #after_save    :update_index
         #after_destroy :update_index
 

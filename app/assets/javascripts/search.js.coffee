@@ -59,17 +59,6 @@ $(document).ready ->
 
       $(@results).fadeTo('slow', 0.25)
 
-# TODO rm but leave settings somewhere for future reference
-#      $(@el).find('.spinner').spin
-#        lines: 12
-#        color: "#999"
-#        length: 10
-#        radius: 12
-#        corners: 1
-#        hwaccel: true
-#        zIndex: 900
-#        className: "inner"
-
     focusSearchView: ->
       scrollTo($(@el).position().top)
 

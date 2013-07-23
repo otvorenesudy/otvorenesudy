@@ -38,13 +38,6 @@
   filter: alpha(opacity=$opacity);
 }
 
-// TODO rm?
-@mixin placeholder($color) {
-  &::-webkit-input-placeholder { color: $color; }
-           &::-moz-placeholder { color: $color; }
-      &::-ms-input-placeholder { color: $color; }
-}
-
 @mixin selection($background, $color) {
   ::selection {
     background: $background;

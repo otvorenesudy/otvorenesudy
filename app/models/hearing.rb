@@ -77,7 +77,7 @@ class Hearing < ActiveRecord::Base
     facet :court,        type: :terms
     facet :subject,      type: :terms
     facet :judges,       type: :terms
-    facet :date,         type: :date, interval: :month # TODO ? using default alias for interval from DateFacet
+    facet :date,         type: :date, interval: :month
     facet :form,         type: :terms
     facet :proposers,    type: :terms
     facet :participants, type: :terms

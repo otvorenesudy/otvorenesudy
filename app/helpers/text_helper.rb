@@ -17,7 +17,7 @@ module TextHelper
     
     if packed.length > limit
       if tooltip
-        index   = result.rindex(separator) || 0 # TODO improve index matching
+        index   = result.rindex(separator) || 0
         title   = packed[index..-1].gsub(/^\s*#{separator.strip}\s*/, '')
         title   = html_escape @entities.decode(title)
         result += tooltip_tag omission.html_safe, title, { placement: :right }.merge(options)

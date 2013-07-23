@@ -1,5 +1,3 @@
-# TODO: #249
-
 module Judge::UnfinishedIssuesRate
   extend ActiveSupport::Concern
 

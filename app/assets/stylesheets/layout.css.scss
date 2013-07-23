@@ -354,7 +354,7 @@ header {
   width: 100%;
   margin: 0px;
   
-  //$navbarHeight
+  //$navbarHeight // TODO solve
   top: 50%;
   margin-top: $navbarHeight - 347px;
   
@@ -371,8 +371,6 @@ header {
     padding: 40px;
     
     background-color: rgba(#000, .2);
-    
-    //@include border-radius(20px);
   }
 
   .search-query {
@@ -381,31 +379,11 @@ header {
     color: $white;
 
     background: rgba(#000, .4);
-    
-    // TODO
-    //@include placeholder(#000);
-    
-    //&::-moz-placeholder { color: $grayLight;}
-    //&::-ms-input-placeholder { color:#000;}
-    //&::-webkit-input-placeholder { color:#000;}
-    
   }
   
   .search-query, .search-submit {
     padding: 6px 20px;
   }
-
-/* TODO rm  
-  .input-append .search-query {
-    @include border-radius(20px 0px 0px 20px);
-    
-    @include border-radius(0px);
-  }
-  
-  .input-append .search-submit {
-    @include border-radius(0px 20px 20px 0px);
-  }
-*/
   
   .input-append .search-query,
   .input-append .search-submit {
