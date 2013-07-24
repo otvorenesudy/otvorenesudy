@@ -6,6 +6,8 @@ class Hearing < ActiveRecord::Base
   include Resource::Subscribable
 
   include Probe
+  
+  include Judge::Matched
 
   attr_accessible :case_number,
                   :file_number,
