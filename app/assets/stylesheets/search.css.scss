@@ -175,11 +175,12 @@
     }
 
     ul {
-      margin: 0px;
+      margin: 0px 0px 0px -20px;
     }
 
     li {
       position: relative;
+      padding-left: 20px;
 
       .label {
         background-color: $grayLighter;
@@ -189,7 +190,7 @@
 
       .add, .remove {
         position: absolute;
-        left: -20px;
+        left: 0px;
 
         color: $grayLight;
 
