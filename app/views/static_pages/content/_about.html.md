@@ -26,8 +26,12 @@ je príspevkom k zlepšeniu diskusie o slovenskom súdnictve troma spôsobmi:
 
 <hr/>
 
-Ďalšie informácie o projekte nájdete zodpovedané v sekcii
-<%= external_link_to "Často kladených otázok", static_page_path(:faq), icon: false %>.
+Autormi projektu sú
+<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %> a
+<%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %>
+(členovia výskumnej skupiny <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk', icon: false %> na
+<%= external_link_to "Fakulte informatiky a informačných technológií", 'http://fiit.stuba.sk', icon: false %>) a
+<%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>.
 
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 <%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
@@ -40,3 +44,8 @@ prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk', ico
 
 Za pomoc veľmi pekne ďakujeme aj Pavlovi Nechalovi, Kataríne Batkovej,
 Chrisovi Wormanovi, Milene Marin a ďalším kolegom.
+
+<hr/>
+
+Ďalšie informácie o projekte nájdete zodpovedané v sekcii
+<%= external_link_to "Často kladených otázok", static_page_path(:faq), icon: false %>.

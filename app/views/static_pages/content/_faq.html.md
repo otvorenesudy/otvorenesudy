@@ -23,8 +23,10 @@ viac ako pol milióna <%= link_to "súdnych rozhodnutí", search_decrees_path %>
 #### Kto sú autori projektu? 
 
 Autormi projektu sú
-<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %>,
-<%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %> a 
+<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %> a
+<%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %>
+(členovia výskumnej skupiny <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk', icon: false %> na
+<%= external_link_to "Fakulte informatiky a informačných technológií", 'http://fiit.stuba.sk', icon: false %>) a
 <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>.
 
 #### Kto to platí?
