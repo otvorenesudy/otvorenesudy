@@ -38,6 +38,7 @@ zdrojov. Predovšetkým ide o nasledovné zdroje:
   - <%= external_link_to "Súdne rozhodnutia", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx ', icon: false %>
   - <%= external_link_to "Štatistiky o súdoch", 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx', icon: false %>
   - <%= external_link_to "Ročné štatistické výkazy o činnosti sudcov", 'http://www.justice.gov.sk/rsvs', icon: false %>
+  - <%= external_link_to "Životopisy a motivačné listy sudcov", 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx', icon: false %>
 
 <hr/>
 
