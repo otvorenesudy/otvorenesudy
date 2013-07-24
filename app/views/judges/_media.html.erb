@@ -1,4 +1,9 @@
 <% if results.any? %>
+  <p>
+    Odkazy sú vyhľadávané automaticky na základe mena a pôsobiska sudcu.
+    Sudcu sa týkať nemusia.
+  </p>
+  
   <%= render 'shared/context_search_results', results: results, offset: 0 %>
 <% else %>
   O sudcovi neboli nájdené žiadne zmienky v médiách.
