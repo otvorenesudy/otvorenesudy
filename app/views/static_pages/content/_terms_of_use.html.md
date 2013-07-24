@@ -9,11 +9,11 @@ portálu je nezisková organizácia Transparency International Slovensko
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 <%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
 v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk', icon: false %>
-organizovanému <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>. 
+organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>. 
 
 ## Základné pravidlá
 
-Portál umožňuje vyhľadávať , čítať a preberať zverejnené informácie o súdoch,
+Portál umožňuje vyhľadávať, čítať a preberať zverejnené informácie o súdoch,
 sudcoch, súdnych pojednávaniach a rozhodnutiach. Výhodou registrácie je 
 možnosť odoberať upozornenia o nových dátach podľa zvolených filtrov
 vyhľadávania.

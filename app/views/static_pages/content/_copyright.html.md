@@ -16,7 +16,7 @@ Toto dielo, vrátane softvéru, zdrojového kódu, dokumentov, alebo iných
 súvisiacich položiek, poskytujú držitelia autorských práv podľa podmienok
 uvedených v Educational Community License. Nadobudnutím, používaním a / alebo
 kopírovaním tohto diela, prejavujete súhlas s tým, že ste si prečítali a
-pochopili podmienky licencie a bude konať v súlade s nimi. 
+pochopili podmienky licencie a budete konať v súlade s nimi. 
  
 <hr/>
 

@@ -32,10 +32,10 @@ Autormi projektu sú
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 <%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
 v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk', icon: false %>
-organizovanému <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>.
+organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>.
 
 Za hosting projektu ďakujeme spoločnosti
-<%= external_link_to "Petit Press", 'http://petitpress.sk', icon: false %>
+<%= external_link_to "Petit Press", 'http://petitpress.sk', icon: false %>,
 prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk', icon: false %>.
 
 #### Ako môžem pomôcť?
@@ -56,7 +56,7 @@ projektu.
 #### Odkiaľ pochádzajú použité dáta?
 
 Portál využíva výhradne dáta zverejnené alebo sprístupnené
-nesledujúcimi verejnými inštitúciami:  
+nasledujúcimi verejnými inštitúciami:  
 
 <hr/>
 
@@ -128,13 +128,13 @@ Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o 
 #### Naozaj máme vyše 2000 sudcov?
 
 Nie. Na Slovensku máme čosi cez 1 500 činných sudcov, ich presný aktuálny
-počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto že
-sudcovia môžu mať prerušený výkon funkcie.  
+počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto,
+že sudcovia môžu mať prerušený výkon funkcie.  
 
 #### Kto sú tí zvyšní? Kto sú VSÚ?
 
 VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať
-aj vybrané súdne rozhodnutia. Celkovo je na Slovensku vyše 1 000.
+aj vybrané súdne rozhodnutia. Celkovo ich je na Slovensku vyše 1 000.
 
 Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov,
 boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli
@@ -148,7 +148,7 @@ predchádzajúcich pôsobiskách.
 
 __Nie všetci sudcovia majú životopis a motivačný list.__
 Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po roku
-2012 majú tieto zverejnené údaje.
+2012, majú tieto zverejnené údaje.
 
 # O rozhodnutiach
 
