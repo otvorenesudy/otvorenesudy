@@ -41,7 +41,7 @@ class Hearing < ActiveRecord::Base
   has_many :defendants, dependent: :destroy
 
   has_many :accusations, through: :defendants
-  
+
   def judge_names
     @judge_names ||= Judge::Names.of judges
   end
@@ -89,6 +89,7 @@ class Hearing < ActiveRecord::Base
     facet :file_number,  type: :terms
     facet :case_number,  type: :terms
     facet :historical,   type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
+    facet :exact_date,   type: :abstract, field: :date, facet: :date, interval: :month
   end
 
   def historical

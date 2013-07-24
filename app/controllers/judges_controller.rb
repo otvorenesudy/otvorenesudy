@@ -13,9 +13,9 @@ class JudgesController < SearchController
     @employments  = @judge.employments
     @designations = @judge.designations.order('date desc')
 
-    @historical_hearings = @judge.hearings.historical.order('date desc').limit(10)
-    @upcoming_hearings   = @judge.hearings.upcoming.order('date desc').limit(10)
-    @decrees             = @judge.decrees.order('date desc').limit(10)
+    @historical_hearings = Hearing.search judges: @judge.name, exact_date: Hearing.order(:date).first.date..Time.now, sort: :date
+    @upcoming_hearings   = Hearing.search judges: @judge.name, exact_date: Time.now..Hearing.order(:date).last.date, sort: :date
+    @decrees             = Decree.search  judges: @judge.name, sort: :date
 
     @property_declarations = @judge.property_declarations.order('year desc')
     @statistical_summaries = @judge.statistical_summaries.order('year desc')

@@ -104,7 +104,7 @@
           </p>
         <% end %>
       <% end %>
-      
+
       <% if @judge.incomes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :euro %></span>
@@ -154,7 +154,7 @@
           <% end %>
         </div>
       <% end %>
-      
+
       <% if @judge.substantiation_notes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :pushpin %></span>
@@ -178,10 +178,10 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data('judge-decrees') %>
+            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.total_count, track_data('judge-decrees') %>
           </li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @judge.hearings.upcoming.size, track_data('judge-upcoming-hearings') %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @judge.hearings.historical.size, track_data('judge-historical-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.total_count, track_data('judge-upcoming-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @historical_hearings.total_count, track_data('judge-historical-hearings') %></li>
           <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('judge-media') %></li>
         </ul>
 
