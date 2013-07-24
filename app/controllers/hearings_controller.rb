@@ -11,6 +11,9 @@ class HearingsController < SearchController
     @proposers  = @hearing.proposers.order(:name)
     @opponents  = @hearing.opponents.order(:name)
     @defendants = @hearing.defendants.order(:name)
+    
+    flash.now[:error]  = render_to_string(partial: 'has_future_date').html_safe if @hearing.has_future_date?
+    flash.now[:notice] = render_to_string(partial: 'had_future_date').html_safe if @hearing.had_future_date?
   end
 
   def resource

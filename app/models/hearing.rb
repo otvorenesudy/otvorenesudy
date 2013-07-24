@@ -97,6 +97,14 @@ class Hearing < ActiveRecord::Base
     date.past?
   end
 
+  def has_future_date?
+    date - 2.years > Time.now.to_datetime
+  end
+
+  def had_future_date?
+    date - 2.years > created_at
+  end
+
   alias :historical? :historical
 
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
