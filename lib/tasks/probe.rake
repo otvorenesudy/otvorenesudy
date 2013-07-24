@@ -18,6 +18,17 @@ namespace :probe do
     end
   end
 
+  desc "Updates the entire index asynchronously"
+  task :'update:async' => :environment do
+    Rake::Task['probe:prepare'].invoke
+
+    indices_to_models(INDICES).each do |index, model|
+      puts "Scheduling async index update: #{index}"
+
+      Probe::Bulk.async_update(model)
+    end
+  end
+
   desc "Imports the entire index (drops and creates index from scratch)"
   task :'import' => :environment do
     Rake::Task['probe:prepare'].invoke
