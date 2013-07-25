@@ -83,8 +83,8 @@ class Judge < ActiveRecord::Base
     analyze :activity,                              as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
     analyze :positions,                             as: lambda { |j| j.positions.pluck(:value) }
     analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
-    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.count } # TODO: use only exact judges
-    analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.count }
+    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.exact.size }
+    analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.exact.size }
     analyze :related_people_count,  type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
 
     sort_by :_score, :hearings_count, :decrees_count
