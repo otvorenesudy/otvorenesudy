@@ -1,10 +1,12 @@
 defaults: &defaults
+  secret_token: TODO
+
   airbrake:
     key: TODO
-  
+
   bing:
     key: TODO
-  
+
   mailer:
     username: TODO
     password: TODO
