@@ -106,7 +106,7 @@ module JudgesHelper
   private
 
   def judge_documents_count_by_employment(model, employment)
-    count = model.during_employment(employment).size
+    count = model.during_employment(employment).exact.size
     value = number_with_delimiter(count)
 
     return value if employment.active?

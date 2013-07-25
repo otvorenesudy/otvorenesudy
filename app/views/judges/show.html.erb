@@ -34,9 +34,9 @@
           <% end %>
           na súde 
           <%= link_to_court employment.court %>,
-          <%= 'zatiaľ ne' if Hearing.during_employment(employment).size.zero? %>evidujeme
-          <%= translate_with_count(Hearing.during_employment(employment).size, :hearing) %> a
-          <%= translate_with_count(Decree.during_employment(employment).size, :decree) %>.
+          <%= 'zatiaľ ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
+          <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %> a
+          <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
           <% if employment.note %>
             <br/>
             <span class="gutter centered"><%= icon_tag :pushpin %></span>
