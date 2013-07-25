@@ -28,6 +28,9 @@ class Judge < ActiveRecord::Base
   scope :normal,  where('judge_chair = false')
   scope :chaired, where('judge_chair = true')
 
+  scope :listed, where(uri: JusticeGovSk::Request::JudgeList.url)
+  scope :probably_superior_court_officer, where('source_id = ? and uri != ?', Source.of(JusticeGovSk), JusticeGovSk::Request::JudgeList.url)
+
   scope :with_related_people, lambda { joins(:related_people) }
 
   belongs_to :source
