@@ -44,6 +44,7 @@ sk:
         <<: *sort
 
         date: 'Dátum rozhodnutia'
+        pages_count: 'Počet strán rozhodnutia'
 
       proceeding:
         <<: *sort
