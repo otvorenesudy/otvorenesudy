@@ -7,7 +7,7 @@ namespace :fixtures do
       Rake::Task['db:migrate'].invoke
       Rake::Task['db:seed'].invoke
     end
-    
+
     desc "Setups small database with production data (drops existing database)"
     task setup: :environment do
       Rake::Task['fixtures:db:rebuild'].invoke
@@ -20,10 +20,10 @@ namespace :fixtures do
     task seed: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
-      
+
       Rake::Task['process:paragraphs'].invoke
     end
-    
+
     desc "Crawls small amount hearings"
     task hearings: :environment do
       Rake::Task['crawl:hearings:civil'].invoke    1, 20
@@ -34,19 +34,19 @@ namespace :fixtures do
     desc "Crawls small amount of decrees"
     task :decrees, [:reverse] => :environment do |_, args|
       args.with_defaults reverse: false
-      
+
       codes = DecreeForm.order(:code).all
-      
+
       raise "No decree form codes found." if codes.empty?
-      
+
       codes.reverse! if args[:reverse]
-      
+
       codes.each do |form|
         Rake::Task['crawl:decrees'].reenable
         Rake::Task['crawl:decrees'].invoke form.code, 1, 4
       end
     end
-    
+
     desc "Prints basic statistics about the database"
     task stat: :environment do
       puts "Courts: #{Court.count}"
@@ -60,11 +60,11 @@ namespace :fixtures do
       puts "Hearings special:  #{SpecialHearing.count}"
       puts
       puts "Decrees total:  #{Decree.count}"
-      
+
       DecreeForm.order(:code).all.each do |form|
         puts "Decrees form #{form.code}: #{Decree.where('decree_form_id = ?', form.id).count}"
       end
-      
+
       puts
       puts "Court expenses:              #{CourtExpense.count}"
       puts "Court statistical summaries: #{CourtStatisticalSummary.count}"
@@ -80,28 +80,28 @@ namespace :fixtures do
     task :judge_property_declarations, [:path] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
-      
+
       path = args[:path] || 'tmp'
-      
+
       FileUtils.mkpath path
-      
+
       f  = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
       fi = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
       fp = File.open File.join(path, 'judge-property-declarations-persons.csv'), 'w'
       fs = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
-      
+
       data  = [:uri, :judge_name]
       data += [:court_name, :year]
       data += [:category]
       data += [:description]
       data += [:cost, :share_size, :acquisition_date]
       data += [:acquisition_reason, :ownership_form, :change]
-      
+
       f.write(data.join("\t") + "\n")
-      
+
       Judge.order(:name).all.each do |judge|
         print "Exporting declaration properties for judge #{judge.name} ... "
-        
+
         judge.property_declarations.each do |declaration|
           declaration.lists.each do |list|
             list.items.each do |property|
@@ -113,7 +113,7 @@ namespace :fixtures do
               data << (property.acquisition_reason.nil? ? '' : property.acquisition_reason.value)
               data << (property.ownership_form.nil?     ? '' : property.ownership_form.value)
               data << (property.change.nil?             ? '' : property.change.value)
-              
+
               f.write(data.join("\t") + "\n")
             end
           end
@@ -122,68 +122,68 @@ namespace :fixtures do
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
             data += [income.description, income.value]            
-            
+
             fi.write(data.join("\t") + "\n") 
           end
 
-          declaration.related_persons.each do |person|
+          declaration.related_people.each do |person|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
             data += [person.name, person.institution, person.function]            
-            
+
             fp.write(data.join("\t") + "\n") 
           end
-          
+
           declaration.statements.each do |statement|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
             data += [statement.value]            
-            
+
             fs.write(data.join("\t") + "\n") 
           end
         end
-        
+
         puts "done"
       end
-      
+
       f.close
-      
+
       fi.close
       fp.close
       fs.close
     end
   end
-  
+
   namespace :hearings do
     desc "Loads remaining stored hearings into database"
     task :load, [:hearing_type] => :environment do |_, args|
       include Core::Injector
       include Core::Pluralize
       include Core::Output
-      
+
       type = args[:hearing_type] || raise("Hearing type not set.")
-      
+
       storage = inject JusticeGovSk::Storage, prefix: type.titlecase, implementation: :Hearing, suffix: :Page
       crawler = inject JusticeGovSk::Crawler, prefix: type.titlecase, implementation: :Hearing
-      
+
       storage.batch do |entries, bucket|
         puts "Loading #{pluralize entries.size, "#{type} hearing"} from bucket #{bucket}."
-        
+
         n = 0
-        
+
         entries.each do |entry|
           uri = JusticeGovSk::URL.path_to_url entry
-          
+
           crawler.crawl uri
-          
+
           n += 1
         end
-        
+
         puts "finished (#{pluralize n, 'hearing'})"
       end
     end
   end
-  
+
   namespace :decrees do
     desc "Loads remaining stored decrees into database"
     task :load, [:decree_form_code, :offset, :limit] => :environment do |_, args|
@@ -195,10 +195,10 @@ namespace :fixtures do
       limit  = options[:limit].blank? ? nil : options[:limit].to_i
 
       request, lister = JusticeGovSk.build_request_and_lister Decree, options
-      
+
       crawler = JusticeGovSk.build_crawler Decree, options
       storage = JusticeGovSk::Storage::DecreePage.instance
-      
+
       JusticeGovSk.run_lister lister, request, options do
         lister.crawl(request, offset, limit) do |uri|
           unless storage.contains? JusticeGovSk::URL.url_to_path(uri, :html)
@@ -210,44 +210,44 @@ namespace :fixtures do
             puts "Decree already exists in database, crawling skipped."
             next
           end
-          
+
           JusticeGovSk.run_crawler crawler, uri, options
         end
       end
     end
-    
+
     desc "Extract missing images of decree documents"
     task :extract_images, [:filter, :override] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
-      
+
       args.with_defaults filter: '', override: false
-      
+
       document_storage = JusticeGovSk::Storage::DecreeDocument.instance
       image_storage    = JusticeGovSk::Storage::DecreeImage.instance
-      
+
       document_storage.batch do |entries, bucket|
         unless bucket.start_with? args[:filter] 
           puts "Bucket #{bucket} matches skip filter, moving on next bucket."
           next
         end 
-        
+
         print "Running image extraction for bucket #{bucket}, "
         print "#{pluralize entries.size, 'document'}, "
         puts  "#{args[:override] ? 'overriding' : 'skipping'} already extracted."
-        
+
         n = 0
-        
+
         entries.each do |entry|
           next unless args[:override] || !image_storage.contains?(entry)
-         
+
           options = { output: image_storage.path(entry) }
-          
+
           JusticeGovSk::Extractor::Image.extract document_storage.path(entry), options
-          
+
           n += 1
         end
-        
+
         puts "finished (#{pluralize n, 'document'} extracted)"
       end
     end
