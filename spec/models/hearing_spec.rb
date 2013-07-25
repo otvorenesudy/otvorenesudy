@@ -5,7 +5,7 @@ require 'lib/probe/suggest_spec'
 
 describe Hearing do
   describe '#search' do
-    it_behaves_like Probe::Search::Composer do
+    it_behaves_like Probe::Search do
       let(:model) { Hearing }
       let!(:records) { @records ||= 10.times.map { create :hearing } }
       let(:record) { records.first }
@@ -17,7 +17,7 @@ describe Hearing do
   end
 
   describe '#percolate' do
-    it_behaves_like Probe::Search::Percolator do
+    it_behaves_like Probe::Percolate do
       let(:model)   { Hearing }
       let!(:record) { create :hearing, date: 2.years.from_now }
       let(:query)   {{ judges: record.judges.pluck(:name) }}

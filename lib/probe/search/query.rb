@@ -9,30 +9,20 @@ module Probe::Search
 
       query_options = build_query_options(analyzed_field(field), options)
 
-      if block_given?
-        yield(field, values, query_options)
-      else
-        Proc.new { string values, query_options }
-      end
-    end
+      query = { query_string: { query: values }}
 
-    def build_query_filter_from(field, terms, options = {})
-      build_query_from(field, terms, options) do |fields, values, query_options|
-        filter = { query_string: { query: values }}
+      query[:query_string].merge! query_options
 
-        filter[:query_string].merge! query_options
-
-        filter
-      end
+      query
     end
 
     def build_filtered_query_from(queries, filter)
       query = Hash.new
 
-      return { query: { match_all: {}}} if queries.empty? && filter.nil?
+      return { query: { match_all: {}} } if queries.nil? && filter.nil?
 
       query.merge! filter: filter if filter
-      query.merge! query: { bool: { must: queries }} if queries.any?
+      query.merge! query: { bool: queries } if queries
 
       { query: { filtered: query }}
     end
@@ -50,14 +40,14 @@ module Probe::Search
 
       q = sanitize_query_string(value.gsub(/"/, '').strip)
 
-      q = q.split(/\s+/).map { |e| "*#{e}*" }.join(' ') if options[:force_wildcard]
+      q = q.split(/\s+/).map { |e| "#{e}*" }.join(' ') if options[:force_wildcard]
 
       q.present? || exact.present? ? "#{q} #{exact.join(' ')}" : "*"
     end
 
     def build_query_options(fields, options = {})
       other = {
-        default_operator: options[:operator] || :or,
+        default_operator: options[:default_operator] || :or,
         analyze_wildcard: options[:analyze_wildcard] || true
       }
 

@@ -21,10 +21,6 @@ class Probe::Facets
       build_query_from(@field, @terms, query_options)
     end
 
-    def build_query_filter
-      build_query_filter_from(@field, @terms, query_options)
-    end
-
     def parse_terms(value)
       value.respond_to?(:join) ? value.join(' ') : value.to_s if value.present?
     end
@@ -32,7 +28,7 @@ class Probe::Facets
     private
 
     def query_options
-      @query_options ||= { operator: :or, analyze_wildcard: true, force_wildcard: @force_wildcard }
+      @query_options ||= { default_operator: :or, analyze_wildcard: true, force_wildcard: @force_wildcard }
     end
   end
 end

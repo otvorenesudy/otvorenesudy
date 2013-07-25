@@ -35,6 +35,12 @@ class Probe::Facets
       @terms = Array.wrap(value)
     end
 
+    def prepare_build(options)
+      facet_options = Hash.new
+
+      facet_options.merge! global: options[:global], facet_filter: options[:facet_filter]
+    end
+
     def populate(results, selected)
       results = yield results if block_given?
       results = populate_facets(results)

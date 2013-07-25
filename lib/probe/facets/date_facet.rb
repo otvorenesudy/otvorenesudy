@@ -10,10 +10,15 @@ class Probe::Facets
       @interval = options[:interval]
     end
 
-    def build(index, name, options)
-      index.facet name, options do |f|
-        f.date not_analyzed_field(@field), interval: @interval
-      end
+    def build(name, options)
+      options = prepare_build(options)
+
+      options.merge! date_histogram: {
+        field: not_analyzed_field(@field),
+        interval: @interval
+      }
+
+      { name => options }
     end
 
     private

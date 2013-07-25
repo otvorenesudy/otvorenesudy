@@ -7,10 +7,15 @@ class Probe::Facets
       @converter = options[:converter] || converter_for(@ranges.first.begin.class)
     end
 
-    def build(index, name, options)
-      index.facet name, options do |f|
-        f.range not_analyzed_field(@field), build_facet_ranges
-      end
+    def build(name, options)
+      options = prepare_build(options)
+
+      options.merge! range: {
+        field:  not_analyzed_field(@field),
+        ranges: build_facet_ranges
+      }
+
+      { name => options }
     end
 
     def build_filter

@@ -28,9 +28,11 @@ module Probe::Search
     end
 
     def compose(&block)
-      @results = Tire.search @name do |index|
-        compose_search(index, &block)
-      end
+      index = Hash.new
+
+      compose_search(index, &block)
+
+      @results = Tire.search @name, @index
 
       Results.new(@model, @facets, @sort_fields, @results)
     end
@@ -52,65 +54,57 @@ module Probe::Search
       if Rails.env.development? && index.respond_to?(:to_hash)
         puts JSON.pretty_generate(index.to_hash)
       end
+
+      @index
     end
 
     def compose_filtered_query
-      build_filtered_query_from(@facets.build_query_filter, @facets.build_filter(:and))
+      build_filtered_query_from(@facets.build_query, @facets.build_filter(:and))
     end
 
     private
 
     def search_query
-      queries = @facets.build_query
+      queries = @facets.build_query :must
 
-      if queries.any?
-        @index.query do |query|
-          query.boolean do |b|
-            queries.each { |q| b.must(&q) }
-          end
-        end
-      end
+      @index.merge! query: { bool: queries } if queries
     end
 
     def search_filter
       filter = build_search_filter
 
-      @index.filter(*filter.first) if filter
+      @index.merge! filter: filter if filter
     end
 
     def build_search_filter
       @facets.build_filter :and
     end
 
-    def build_facet_filter(options = {})
-      queries = @facets.build_query_filter
-      filter  = @facets.build_selective_filter :and, exclude: options[:exclude]
+    def build_facet_filter(facet, options = {})
+      queries = @facets.build_query(:must)
+      filter  = @facets.build_facet_filter(:and, facet)
 
-      queries += Array.wrap(options[:queries])
+      queries += Array.wrap(options[:query]) if options[:query]
 
       build_filtered_query_from(queries, filter)
     end
 
     def search_facets
+      facets = Hash.new
+
       @facets.each do |facet|
         next unless facet.buildable?
 
         options = Hash.new
 
         options[:global]       = true
-        options[:facet_filter] = build_facet_filter(exclude: facet)
+        options[:facet_filter] = build_facet_filter(facet)
 
-        facet.build(@index, facet.name, options)
-
-        if facet.active?
-          options = Hash.new
-
-          options[:global]       = false
-          options[:facet_filter] = build_facet_filter
-
-          facet.build(@index, facet.selected_name, options)
-        end
+        facets.merge! facet.build(facet.name, options)
+        facets.merge! facet.build(facet.selected_name, global: false) if facet.active?
       end
+
+      @index.merge! facets: facets
     end
 
     def search_sort
@@ -118,20 +112,22 @@ module Probe::Search
 
       field = @sort == :'_score' ? @sort : not_analyzed_field(@sort)
 
-      @index.sort { |s| s.by field, @order || :desc }
+      @index.merge! sort: [{ field => @order || :desc }]
     end
 
     def search_highlights
-      fields = @facets.highlights
+      fields = @facets.highlights.inject(Hash.new) { |hash, field| hash[field] = Hash.new }
 
       @index.highlight(*fields.map { |f| analyzed_field(f) }) if fields.any?
+
+      @index.merge! highlight: { fields: fields } if fields.any?
     end
 
     def search_pagination
       @page ||= 1
 
-      @index.size(@per_page)
-      @index.from(@per_page * (@page - 1)) if @page
+      @index.merge! size: @per_page
+      @index.merge! from: @per_page * (@page - 1) if @page
     end
   end
 end

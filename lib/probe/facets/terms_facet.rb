@@ -4,18 +4,17 @@ class Probe::Facets
 
     attr_accessor :script
 
-    def build(index, name, options)
-      index.facet name, options do |f|
-        facet_options = Hash.new
+    def build(name, options)
+      options = prepare_build(options)
 
-        facet_options[:size] = @size
+      options.merge! terms: {
+        field: not_analyzed_field(@field),
+        size: @size
+      }
 
-        if block_given?
-          yield f, facet_options
-        else
-          f.terms not_analyzed_field(@field), facet_options
-        end
-      end
+      yield options[:terms] if block_given?
+
+      { name => options }
     end
 
     def build_filter
@@ -29,14 +28,12 @@ class Probe::Facets
     end
 
     def build_suggest_query(term)
-      build_query_filter_from(@field, "#{term}*", operator: :and)
+      build_query_filter_from(@field, "#{term}*", default_operator: :and)
     end
 
     def build_suggest_facet(index, options)
       build(index, name, options) do |f, facet_options|
         facet_options.merge! @script.build if @script
-
-        f.terms not_analyzed_field(@field), facet_options
       end
     end
 

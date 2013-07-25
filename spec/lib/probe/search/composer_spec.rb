@@ -1,132 +1,39 @@
 require 'probe_spec_helper'
 
-shared_examples_for Probe::Search::Composer do
-  let(:composer) { Probe::Search::Composer }
-  let!(:options) { model.search_options }
+describe Probe::Search::Composer do
+  let(:params)  { Hash.new.with_indifferent_access }
+  let(:options) { { name: 'example' } }
 
-  before :each do
-    record.save!
+  it 'should compose query from facets' do
+    facets = Probe::Facets.new([
+      Probe::Facets::FulltextFacet.new(:q, :all, Hash.new),
+      Probe::Facets::TermsFacet.new(:term, :term, Hash.new)
+    ])
 
-    reload_indices
-  end
+    params[:q]    = 'q'
+    params[:term] = 'attribute'
 
-  after :each do
-    delete_indices
-  end
+    options.merge! facets: facets, params: params
 
-  context 'when searching by fulltext' do
-    it 'should search index by query' do
-      options[:params] = { q: query }
+    search = Probe::Search::Composer.new(nil, options)
 
-      options[:facets] = Probe::Facets.new([
-        Probe::Facets::FulltextFacet.new(:q, highlight_field, force_wildcard: false)
-      ])
+    query = search.compose_search(Hash.new)
 
-      search  = composer.new(model, options)
-      results = search.compose
+    query[:query][:bool][:must].first.should eql(facets[:q].build_query)
+    query[:filter][:and].first[:or].should   eql(facets[:term].build_filter)
 
-      highlights = results.highlights
+    query[:facets].each do |name, options|
+      facet = facets[name.to_s.gsub(/_selected\z/, '').to_sym]
 
-      query_highlights = query.split(/\s/).map { |e| "<em>#{e}</em>" }
+      if name =~ /_selected\z/
+        options[:facet_filter].should be_nil
 
-      highlights.each do |highlight|
-        highlight = highlight[highlight_field].join(' ').split(/\s/)
+        facet.build(facet.selected_name, global: false).should eql(name => options)
+      else
+        options[:facet_filter].should_not be_nil if facet.params.any?
 
-        (highlight& query_highlights).size.should_not be_zero
+        facet.build(name, global: true, facet_filter: options[:facet_filter]).should eql(name => options)
       end
-    end
-
-    it 'should wildcardize query' do
-      options[:params] = { q: "*#{query.first}*" }
-
-      options[:facets] = Probe::Facets.new([
-        Probe::Facets::FulltextFacet.new(:q, highlight_field, force_wildcard: false)
-      ])
-
-      search  = composer.new(model, options)
-      results = search.compose
-
-      highlight = results.highlights.first
-
-      highlight[highlight_field].join(' ').should match(/\<em\>.*#{query.first}.*\<\/em\>/)
-    end
-  end
-
-  context 'when searching by filter' do
-    it 'should search index by filter' do
-      name, values = filter.first
-
-      options[:params] = { name => values }
-
-      search  = composer.new(model, options)
-      results = search.compose
-
-      facet = results.facets[name]
-
-      facet.terms.should eql(values)
-
-      facet.results.each do |result|
-        add_params    = Array.wrap(values) + [result.value]
-        remove_params = Array.wrap(values) - [result.value]
-
-        result.params.should        eql(name.to_s => add_params.uniq)
-        result.add_params.should    eql(name.to_s => add_params.uniq)
-        result.remove_params.should eql(name.to_s => remove_params.uniq)
-      end
-
-      # TODO: check elasticsearch records for value
-      results.results.each do |result|
-        (Array.wrap(values) & Array.wrap(result.send(name))).size.should_not be_zero
-      end
-    end
-
-    it 'should search index correct by created_at date filter' do
-      date = Date.today.beginning_of_month..Date.today.end_of_month
-      record.created_at = Date.today.end_of_month.midnight - 1
-
-      record.save!
-
-      options[:params] = { created_at: date }
-
-      search  = composer.new(model, options)
-      results = search.compose
-
-      facet = results.facets[:created_at]
-
-      facet.terms.should eql([date])
-
-      results.records.should include(record)
-    end
-  end
-
-  context 'when sorting results' do
-    it 'should sort results by field in descending order' do
-      options[:facets]      = Probe::Facets.new([])
-      options[:params]      = { sort: sort_field, order: :desc }
-      options[:sort_fields] = [sort_field]
-
-      search   = composer.new(model, options)
-      response = search.compose
-
-      results = response.results.results
-
-      sorted_results = results.sort_by { |e| e.send(sort_field) }.reverse
-
-      results.should eql(sorted_results)
-    end
-
-    it 'should allow only sorting by defined fields' do
-      options[:facets]      = Probe::Facets.new([])
-      options[:sort_fields] = [sort_field]
-
-      results = composer.new(model, options).compose
-
-      options[:params] = { sort: :blabla }
-
-      search        = composer.new(model, options)
-      other_results = search.compose
-
-      other_results.records.should eql(results.records)
     end
   end
 end
