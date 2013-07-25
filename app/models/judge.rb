@@ -100,7 +100,7 @@ class Judge < ActiveRecord::Base
     facet :courts,               type: :terms
     facet :hearings_count,       type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
     facet :decrees_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..4]
+    facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..5]
   end
 
   formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|
