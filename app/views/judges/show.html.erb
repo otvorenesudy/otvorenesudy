@@ -130,14 +130,14 @@
         </div>
       <% end %>
 
-      <% if @judge.related_persons_by_year.any? %>
+      <% if @judge.related_people_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :group %></span>
           Blízke osoby uvedené v majetkových priznaniach sudcu za roky:
-          <%= @judge.related_persons_by_year.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
         <div id="related-persons">
-          <% @judge.related_persons_by_year.each do |year, persons| %>
+          <% @judge.related_people_by_year.each do |year, persons| %>
             <div class="accordion-group">
               <div id="related-persons-<%= year %>" class="collapse">
                 <p>

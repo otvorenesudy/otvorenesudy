@@ -28,7 +28,7 @@ class Judge < ActiveRecord::Base
   scope :normal,  where('judge_chair = false')
   scope :chaired, where('judge_chair = true')
 
-  scope :by_related_persons, lambda { joins(:related_persons).group('judge_property_declarations.judge_id').order('count_all desc') }
+  scope :with_related_people, lambda { joins(:related_people) }
 
   belongs_to :source
 
@@ -51,7 +51,7 @@ class Judge < ActiveRecord::Base
   has_many :property_declarations, class_name: :JudgePropertyDeclaration,
                                    dependent: :destroy
 
-  has_many :related_persons, class_name: :JudgeRelatedPerson,
+  has_many :related_people, class_name: :JudgeRelatedPerson,
                              through: :property_declarations
 
   has_many :statistical_summaries, class_name: :JudgeStatisticalSummary,
@@ -65,7 +65,7 @@ class Judge < ActiveRecord::Base
   include Judge::ConstitutionalDecrees
   include Judge::Incomes
   include Judge::Matched
-  include Judge::RelatedPersons
+  include Judge::RelatedPeople
   include Judge::SubstantiationNotes
 
   indicate Judge::AppealCourtAcceptanceRate
@@ -83,21 +83,21 @@ class Judge < ActiveRecord::Base
     analyze :activity,                              as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
     analyze :positions,                             as: lambda { |j| j.positions.pluck(:value) }
     analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
-    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.count }
+    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.count } # TODO: use only exact judges
     analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.count }
-    analyze :related_persons_count, type: :integer, as: lambda { |j| j.related_persons.group(:name).count.size }
+    analyze :related_people_count,  type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
 
     sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do
-    facet :q,                     type: :fulltext, field: [:name], force_wildcard: true
-    facet :activity,              type: :terms
-    facet :positions,             type: :terms
-    facet :courts,                type: :terms
-    facet :hearings_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :decrees_count,         type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :related_persons_count, type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
+    facet :q,                    type: :fulltext, field: [:name], force_wildcard: true
+    facet :activity,             type: :terms
+    facet :positions,            type: :terms
+    facet :courts,               type: :terms
+    facet :hearings_count,       type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :decrees_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..4]
   end
 
   formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|

@@ -4,39 +4,39 @@ module JudgesHelper
   def judge_titles(judge, options = {})
     content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_options(judge, options)
   end
-  
+
   def judge_activity(status)
     return 'Aktívny'   if status == true
     return 'Neaktívny' if status == false
     return 'Neznámy'   if status == nil
     raise
   end
-  
+
   def judge_activity_icon_tag(status)
     return icon_tag(:'ok-sign')      if status == true
     return icon_tag(:'circle-blank') if status == false
     return icon_tag(:question)       if status == nil
     raise
   end
-  
+
   def judge_activity_tag(status, options = {})
     options  = { tooltip: true }.merge options
     icon_tag = judge_activity_icon_tag(status)
     activity = judge_activity(status)
-    
+
     return icon_tag unless options.delete(:tooltip)
-    
+
     options[:placement] ||= :left
-    
+
     tooltip_tag icon_tag, activity, options.merge(class: :undecorated)
   end
 
   def judge_position(employment, options = {})
     classes = employment.active ? {} : { class: :muted }
-    
+
     if employment.judge_position
       value = truncate employment.judge_position.value, length: 30, separator: ' ', omission: '&hellip;'
-      
+
       tooltip_tag value.html_safe, employment.active ? 'Aktívny' : 'Neaktívny', options.merge(classes)
     else
       if employment.judge.probably_superior_court_officer?
@@ -72,11 +72,11 @@ module JudgesHelper
   def judge_designation_date_distance(designation)
     tooltip_tag distance_of_time_in_words_to_now(designation.date), localize(designation.date, format: :long)
   end
-  
+
   def judge_processed_names(relation)
     Judge::Names.from_unprocessed(relation).sort.to_sentence
   end
-  
+
   def link_to_judge(judge, options = {})
     link_to judge.name(options.delete(:format)), judge_path(judge), judge_options(judge, options)
   end
@@ -87,9 +87,9 @@ module JudgesHelper
 
   def link_to_institution(institution, options = {})
     court = Court.where(name: institution).first
-    
+
     return link_to_court(court, options) if court  
-    
+
     institution
   end
 
@@ -99,16 +99,16 @@ module JudgesHelper
     person.name
   end
 
-  def links_to_related_persons(persons, options = {})
+  def links_to_related_people(persons, options = {})
     persons.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
   end
 
   private
-  
+
   def judge_documents_count_by_employment(model, employment)
     count = model.during_employment(employment).size
     value = number_with_delimiter(count)
-    
+
     return value if employment.active?
 
     content_tag :span, value, class: :muted

@@ -137,7 +137,7 @@ sk:
         suffix:
           <<: *decree
 
-      related_persons_count:
+      related_people_count:
         title: 'Počet blízkych osôb'
         suffix:
           <<: *person
