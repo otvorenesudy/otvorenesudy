@@ -155,6 +155,13 @@
         </div>
       <% end %>
 
+      <% if @judge.employments.at_court_by_type(CourtType.supreme).any? || @judge.employments.at_court_by_type(CourtType.regional).any? %>
+        <p>    
+          <span class="gutter centered"><%= icon_tag :pushpin %></span>
+          Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov.
+        </p>
+      <% end %>
+
       <% if @judge.substantiation_notes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :pushpin %></span>
