@@ -6,6 +6,8 @@ class Hearing < ActiveRecord::Base
   include Resource::Subscribable
 
   include Probe
+  
+  include Judge::Matched
 
   attr_accessible :case_number,
                   :file_number,
@@ -94,6 +96,14 @@ class Hearing < ActiveRecord::Base
 
   def historical
     date.past?
+  end
+
+  def has_future_date?
+    date - 2.years > Time.now.to_datetime
+  end
+
+  def had_future_date?
+    date - 2.years > created_at
   end
 
   alias :historical? :historical

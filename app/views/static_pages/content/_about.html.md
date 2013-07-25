@@ -16,7 +16,7 @@ Zároveň diskusie o fungovaní a kvalite súdnictva trpia dvoma neduhmi. Po prv
 často sú paušalizujúce („sudcovia sú skorumpovaní“) bez jasného pomenovania
 vinníkov alebo problémov. Po druhé &ndash; množstvo diskusií sa vedie v rámci
 zbytočne úzkej skupiny odborníkov z právnych profesií. Projekt Otvorené Súdy
-je príspevkom k zlepšeniu diskusie o slovenskom v súdnictve troma spôsobmi:
+je príspevkom k zlepšeniu diskusie o slovenskom súdnictve troma spôsobmi:
 
 <hr/>
 
@@ -26,17 +26,26 @@ je príspevkom k zlepšeniu diskusie o slovenskom v súdnictve troma spôsobmi:
 
 <hr/>
 
-Ďalšie informácie o projekte nájdete zodpovedané v sekcii
-<%= external_link_to "Často kladených otázok", static_page_path(:faq), icon: false %>.
+Autormi projektu sú
+<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %> a
+<%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %>
+(členovia výskumnej skupiny <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk', icon: false %> na
+<%= external_link_to "Fakulte informatiky a informačných technológií", 'http://fiit.stuba.sk', icon: false %>) a
+<%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>.
 
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 <%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
 v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk', icon: false %>
-organizovanému <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>.
+organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk', icon: false %>.
 
 Za hosting projektu ďakujeme spoločnosti
-<%= external_link_to "Petit Press", 'http://petitpress.sk', icon: false %>
+<%= external_link_to "Petit Press", 'http://petitpress.sk', icon: false %>,
 prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk', icon: false %>.
 
 Za pomoc veľmi pekne ďakujeme aj Pavlovi Nechalovi, Kataríne Batkovej,
 Chrisovi Wormanovi, Milene Marin a ďalším kolegom.
+
+<hr/>
+
+Ďalšie informácie o projekte nájdete zodpovedané v sekcii
+<%= external_link_to "Často kladených otázok", static_page_path(:faq), icon: false %>.

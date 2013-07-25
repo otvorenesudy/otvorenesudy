@@ -28,9 +28,6 @@ class Judge < ActiveRecord::Base
   scope :normal,  where('judge_chair = false')
   scope :chaired, where('judge_chair = true')
 
-  scope :exact,   where('judge_name_similarity = 1.0')
-  scope :inexact, where('judge_name_similarity < 1.0')
-
   scope :by_related_persons, lambda { joins(:related_persons).group('judge_property_declarations.judge_id').order('count_all desc') }
 
   belongs_to :source
@@ -67,6 +64,7 @@ class Judge < ActiveRecord::Base
 
   include Judge::ConstitutionalDecrees
   include Judge::Incomes
+  include Judge::Matched
   include Judge::RelatedPersons
   include Judge::SubstantiationNotes
 
