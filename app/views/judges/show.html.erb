@@ -24,7 +24,7 @@
           <% end %>
           <% if employment.judge_position %>
             <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.charged? %>
-            <%= employment.judge_position.value %>
+            <%= @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
               <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
