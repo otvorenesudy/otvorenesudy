@@ -99,8 +99,8 @@ module JudgesHelper
     person.name
   end
 
-  def links_to_related_people(persons, options = {})
-    persons.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
+  def links_to_related_people(people, options = {})
+    people.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
   end
 
   private

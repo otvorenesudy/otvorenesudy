@@ -87,7 +87,7 @@ namespace :fixtures do
 
       f  = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
       fi = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
-      fp = File.open File.join(path, 'judge-property-declarations-persons.csv'), 'w'
+      fp = File.open File.join(path, 'judge-property-declarations-people.csv'), 'w'
       fs = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
 
       data  = [:uri, :judge_name]

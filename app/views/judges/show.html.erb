@@ -134,18 +134,18 @@
         <p>
           <span class="gutter centered"><%= icon_tag :group %></span>
           Blízke osoby uvedené v majetkových priznaniach sudcu za roky:
-          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-people-#{year}", :'data-parent' => :'#related-people', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
-        <div id="related-persons">
-          <% @judge.related_people_by_year.each do |year, persons| %>
+        <div id="related-people">
+          <% @judge.related_people_by_year.each do |year, people| %>
             <div class="accordion-group">
-              <div id="related-persons-<%= year %>" class="collapse">
+              <div id="related-people-<%= year %>" class="collapse">
                 <p>
                   <span class="gutter centered"><%= icon_tag :group %></span>
                   Blízke osoby uvedené v majetkových priznaniach sudcu za rok <%= year %>:
                 </p>
                 <ul class="unstyled">
-                  <% persons.each do |person| %>
+                  <% people.each do |person| %>
                     <li><%= icon_tag :user %> <%= "#{person.function.upcase_first} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %>.</li>
                   <% end %>
                 </ul>
