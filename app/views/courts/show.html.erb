@@ -92,8 +92,8 @@
             <a href="#contact" data-toggle="tab" data-track="court-contact">Kontakt</a>
           </li>
           <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.size, track_data('court-judges') %></li>
-          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.total_count, track_data('court-decrees') %></li>
-          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @hearings.total_count, track_data('court-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data('court-decrees') %></li>
+          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @hearings.size, track_data('court-hearings') %></li>
           <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('court-media') %></li>
         </ul>
 
@@ -107,11 +107,11 @@
           </div>
 
           <div id="decrees" class="tab-pane">
-            <%= render 'decrees', decrees: @decrees, query: { court: @court.name } %>
+            <%= render 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
           </div>
 
           <div id="hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @hearings, query: { court: @court.name } %>
+            <%= render 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
           </div>
 
           <div id="media" class="tab-pane">

@@ -178,24 +178,24 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.total_count, track_data('judge-decrees') %>
+            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data('judge-decrees') %>
           </li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.total_count, track_data('judge-upcoming-hearings') %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @historical_hearings.total_count, track_data('judge-historical-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.size, track_data('judge-upcoming-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @historical_hearings.size, track_data('judge-historical-hearings') %></li>
           <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('judge-media') %></li>
         </ul>
 
         <div class="tab-content">
           <div id="decrees" class="tab-pane active">
-            <%= render 'decrees', decrees: @decrees, query: { judges: @judge.name } %>
+            <%= render 'decrees', decrees: @decrees.limit(10), query: { judges: @judge.name } %>
           </div>
 
           <div id="upcoming-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @upcoming_hearings, query: { judges: @judge.name } %>
+            <%= render 'hearings', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name } %>
           </div>
 
           <div id="historical-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @historical_hearings, query: { judges: @judge.name, historical: true } %>
+            <%= render 'hearings', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true } %>
           </div>
 
           <div id="media" class="tab-pane">

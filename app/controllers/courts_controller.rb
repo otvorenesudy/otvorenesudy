@@ -23,8 +23,8 @@ class CourtsController < SearchController
     @hearings = @court.hearings.order('date desc').limit(10)
     @decrees  = @court.decrees.order('date desc').limit(10)
 
-    @hearings = Hearing.search court: @court.name, sort: :date
-    @decrees  = Decree.search  court: @court.name, sort: :date
+    @hearings = @court.hearings.order('date desc')
+    @decrees  = @court.decrees.order('date desc')
 
     @expenses = @court.expenses.order(:year)
 
