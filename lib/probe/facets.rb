@@ -28,7 +28,7 @@ module Probe
 
           unless terms.nil?
             facet.terms         = terms
-            @params[facet.name] = terms
+            @params[facet.name] = terms # TODO: parse_terms wraps values in array, solve one element arrays in params
           end
         end
       end
