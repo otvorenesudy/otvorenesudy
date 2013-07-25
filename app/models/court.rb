@@ -102,6 +102,14 @@ class Court < ActiveRecord::Base
     @vicechair ||= judges.active.vicechair.first
   end
 
+  def listed_judges
+    @real_judges ||= judges.listed
+  end
+  
+  def probably_superior_officers
+    @superior_officers ||= judges.probably_superior_court_officer
+  end
+
   def expenses_total
     @expenses_total ||= expenses.sum :value
   end

@@ -1,6 +1,7 @@
 Celkovo 20% sudcov má v súdnictve<br/>
-aspoň jedného príbuzného. Rekordérom je<br/>
-<%= Judge.with_most_related_people.pluck(:name).to_sentence %> so <%= Judge.with_most_related_people.first.related_people.group(:name).count.size %> blízkymi osobami.
+aspoň jedného príbuzného. Rekordérom
+<%= Judge.with_most_related_people.size == 1 ? 'je' : 'sú' %><br/>
+<%= Judge.with_most_related_people.pluck(:name).to_sentence %>.
 
 <small class="total">
   Otvorené Súdy &mdash; vyhľadávate medzi <%= number_with_delimiter Court.total %> súdmi

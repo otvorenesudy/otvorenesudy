@@ -12,6 +12,12 @@ sk:
       few: '%{count} sudcovia'
       other: '%{count} sudcov'
 
+    officer: &officer
+      zero: 'žiadny vyšší súdni úradníci'
+      one: '1 vyšší súdny úradník'
+      few: '%{count} vyšší súdni úradníci'
+      other: '%{count} vyšších súdnych úradníkov'
+
     person: &person
       zero: 'žiadna osoba'
       one: '1 osoba'

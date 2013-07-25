@@ -24,7 +24,7 @@
           <% end %>
           <% if employment.judge_position %>
             <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.charged? %>
-            <%= employment.judge_position.value %>
+            <%= @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
               <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
@@ -34,9 +34,9 @@
           <% end %>
           na súde 
           <%= link_to_court employment.court %>,
-          <%= 'zatiaľ ne' if Hearing.during_employment(employment).size.zero? %>evidujeme
-          <%= translate_with_count(Hearing.during_employment(employment).size, :hearing) %> a
-          <%= translate_with_count(Decree.during_employment(employment).size, :decree) %>.
+          <%= 'zatiaľ ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
+          <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %> a
+          <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
           <% if employment.note %>
             <br/>
             <span class="gutter centered"><%= icon_tag :pushpin %></span>
@@ -134,18 +134,18 @@
         <p>
           <span class="gutter centered"><%= icon_tag :group %></span>
           Blízke osoby uvedené v majetkových priznaniach sudcu za roky:
-          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-people-#{year}", :'data-parent' => :'#related-people', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
-        <div id="related-persons">
-          <% @judge.related_people_by_year.each do |year, persons| %>
+        <div id="related-people">
+          <% @judge.related_people_by_year.each do |year, people| %>
             <div class="accordion-group">
-              <div id="related-persons-<%= year %>" class="collapse">
+              <div id="related-people-<%= year %>" class="collapse">
                 <p>
                   <span class="gutter centered"><%= icon_tag :group %></span>
                   Blízke osoby uvedené v majetkových priznaniach sudcu za rok <%= year %>:
                 </p>
                 <ul class="unstyled">
-                  <% persons.each do |person| %>
+                  <% people.each do |person| %>
                     <li><%= icon_tag :user %> <%= "#{person.function.upcase_first} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %>.</li>
                   <% end %>
                 </ul>
@@ -153,6 +153,13 @@
             </div>
           <% end %>
         </div>
+      <% end %>
+
+      <% if @judge.employments.at_court_by_type(CourtType.supreme).any? || @judge.employments.at_court_by_type(CourtType.regional).any? %>
+        <p>    
+          <span class="gutter centered"><%= icon_tag :pushpin %></span>
+          Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov.
+        </p>
       <% end %>
 
       <% if @judge.substantiation_notes_by_year.any? %>

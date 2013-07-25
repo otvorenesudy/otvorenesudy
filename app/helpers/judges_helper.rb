@@ -99,14 +99,14 @@ module JudgesHelper
     person.name
   end
 
-  def links_to_related_people(persons, options = {})
-    persons.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
+  def links_to_related_people(people, options = {})
+    people.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
   end
 
   private
 
   def judge_documents_count_by_employment(model, employment)
-    count = model.during_employment(employment).size
+    count = model.during_employment(employment).exact.size
     value = number_with_delimiter(count)
 
     return value if employment.active?

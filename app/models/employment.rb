@@ -8,7 +8,8 @@ class Employment < ActiveRecord::Base
   scope :inactive, where('employments.active = false')
   scope :unknown,  where('employments.active IS NULL')
   
-  scope :at_court, lambda { |court| where court_id: court }
+  scope :at_court,         lambda { |court| where(court_id: court) }
+  scope :at_court_by_type, lambda { |type| joins(:court).merge(Court.by_type type) }
   
   belongs_to :court
   belongs_to :judge
