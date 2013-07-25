@@ -6,7 +6,7 @@ class Decree < ActiveRecord::Base
   include Resource::Subscribable
 
   include Probe
-  
+
   include Judge::Matched
 
   attr_accessible :case_number,
@@ -49,7 +49,7 @@ class Decree < ActiveRecord::Base
   def text
     @text ||= pages.pluck(:text).join
   end
-  
+
   def judge_names
     @judge_names ||= Judge::Names.of judges
   end
@@ -76,7 +76,7 @@ class Decree < ActiveRecord::Base
     analyze :legislation_subarea,                 as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,                        as: lambda { |d| d.legislations.map { |l| l.value '%u/%y/%p' } }
 
-    sort_by :date, :created_at
+    sort_by :date, :created_at, :pages_count
   end
 
   facets do
