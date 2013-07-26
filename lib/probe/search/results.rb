@@ -84,6 +84,7 @@ module Probe::Search
     alias :model_name   :model
     alias :limit_value  :per_page
     alias :total_count  :total_entries
+    alias :total        :total_entries
     alias :num_pages    :total_pages
     alias :offset_value :offset
     alias :page         :current_page

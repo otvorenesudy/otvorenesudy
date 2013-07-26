@@ -1,12 +1,12 @@
 module Probe
   class Bulk
     def self.import(model)
-      model.delete_index
-      model.create_index
+      model.probe.delete
+      model.probe.create
 
-      model.index.import(model, method: :bulk, per_page: 5000)
+      model.probe.import(model, method: :paginate, per_page: 5000)
 
-      model.index.refresh
+      model.probe.index.refresh
 
       # model.alias_index_as(bulk_index) # TODO: use when percolating alias indices works in elasticsearch
     end

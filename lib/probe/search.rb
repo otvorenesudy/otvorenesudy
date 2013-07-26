@@ -16,10 +16,10 @@ module Probe
       def search_options
         options = Hash.new
 
-        options[:name]        = index_name
-        options[:facets]      = facets
-        options[:sort_fields] = sort_fields
-        options[:per_page]    = per_page
+        options[:name]        = probe.index.name
+        options[:facets]      = probe.facets
+        options[:sort_fields] = probe.sort_fields
+        options[:per_page]    = probe.per_page
 
         options
       end
