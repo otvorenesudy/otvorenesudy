@@ -19,9 +19,11 @@ class Probe::Facets
     end
 
     def build_filter
-      terms.map do |value|
+      filter = terms.map do |value|
         { range: { not_analyzed_field(@field) => build_range_for(value) }}
       end
+
+      { filter_type => filter }
     end
 
     def parse_terms(values)
@@ -51,7 +53,7 @@ class Probe::Facets
         ranges << { from: range.begin, to: range.end + 1 }
       end
 
-      ranges << { from: @ranges.last.end }
+      ranges << { from: @ranges.last.end + 1 }
 
       ranges
     end
@@ -73,7 +75,7 @@ class Probe::Facets
     def format_range(from, to)
       case
       when from.nil? then -Float::INFINITY..(to.to_i - 1)
-      when to.nil?   then from.to_i..Float::INFINITY
+      when to.nil?   then (from.to_i - 1)..Float::INFINITY
       else                from.to_i..(to.to_i - 1)
       end
     end

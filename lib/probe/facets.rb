@@ -43,14 +43,16 @@ module Probe
       @query_params = @params.except(:page, :per_page, :order, :sort)
     end
 
-    def build_query(type)
-      queries = map { |facet| facet.build_query if facet.respond_to?(:build_query) && facet.active? }
+    def build_query
+      queries = map { |facet| facet.build_query if facet.respond_to?(:build_query) && facet.active? }.compact
 
-      { must: queries } if queries.any?
+      if queries.any?
+        queries.group_by { |q| q.keys.first }.each { |type, values| values.map { |v| v[type] } }
+      end
     end
 
     def build_filter(type)
-      filter = map { |facet| { or: facet.build_filter } if facet.respond_to?(:build_filter) && facet.active?  }
+      filter = map { |facet| facet.build_filter if facet.respond_to?(:build_filter) && facet.active?  }
 
       { type => filter } if filter.any?
     end

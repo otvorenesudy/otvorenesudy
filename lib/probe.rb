@@ -30,8 +30,6 @@ module Probe
     include Probe::Percolate
     include Probe::Serialize
 
-    include Tire::Model::Search
-
-    setup
+    probe.setup
   end
 end

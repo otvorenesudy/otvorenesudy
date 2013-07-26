@@ -76,28 +76,30 @@ class Judge < ActiveRecord::Base
   max_paginates_per 100
       paginates_per 20
 
-  mapping do
-    map :id
+  probe do
+    mapping do
+      map :id
 
-    analyze :name
-    analyze :activity,                              as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
-    analyze :positions,                             as: lambda { |j| j.positions.pluck(:value) }
-    analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
-    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.exact.size }
-    analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.exact.size }
-    analyze :related_people_count,  type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
+      analyze :name
+      analyze :activity,                              as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
+      analyze :positions,                             as: lambda { |j| j.positions.pluck(:value) }
+      analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
+      analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.exact.size }
+      analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.exact.size }
+      analyze :related_people_count,  type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
 
-    sort_by :_score, :hearings_count, :decrees_count
-  end
+      sort_by :_score, :hearings_count, :decrees_count
+    end
 
-  facets do
-    facet :q,                    type: :fulltext, field: [:name], force_wildcard: true
-    facet :activity,             type: :terms
-    facet :positions,            type: :terms
-    facet :courts,               type: :terms
-    facet :hearings_count,       type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :decrees_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..4]
+    facets do
+      facet :q,                    type: :fulltext, field: [:name], force_wildcard: true
+      facet :activity,             type: :terms
+      facet :positions,            type: :terms
+      facet :courts,               type: :terms
+      facet :hearings_count,       type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+      facet :decrees_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+      facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..4]
+    end
   end
 
   formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|

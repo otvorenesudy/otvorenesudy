@@ -106,6 +106,10 @@ class Probe::Facets
       not_analyzed_field(@field)
     end
 
+    def filter_type
+      :or
+    end
+
     def refresh!
       @terms  = []
       @script = nil

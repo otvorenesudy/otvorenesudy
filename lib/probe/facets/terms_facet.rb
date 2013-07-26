@@ -2,14 +2,15 @@ class Probe::Facets
   class TermsFacet < Probe::Facets::Facet
     include Probe::Search::Query
 
-    attr_accessor :script
+    attr_accessor :suggest_term,
+                  :script
 
     def build(name, options)
       options = prepare_build(options)
 
       options.merge! terms: {
-        field: not_analyzed_field(@field),
-        size: @size
+        field: not_analyzed_field(field),
+        size:  size
       }
 
       yield options[:terms] if block_given?
@@ -18,27 +19,25 @@ class Probe::Facets
     end
 
     def build_filter
-      terms.map do |value|
+      filter = terms.map do |value|
         if value == missing_facet_name
-          { missing: { field: not_analyzed_field(@field), existence: true }}
+          { missing: { field: not_analyzed_field(field), existence: true }}
         else
-          { term: { not_analyzed_field(@field) => value }}
+          { term: { not_analyzed_field(field) => value }}
         end
       end
+
+      { filter_type => filter }
     end
 
-    def build_suggest_query(term)
-      build_query_filter_from(@field, "#{term}*", default_operator: :and)
+    def build_query
+      build_query_from(field, "#{suggest_term}*", default_operator: :and) if suggest_term.present?
     end
 
     def build_suggest_facet(index, options)
       build(index, name, options) do |f, facet_options|
-        facet_options.merge! @script.build if @script
+        facet_options.merge! script.build if script
       end
-    end
-
-    def add_facet_script(script)
-      @script = script
     end
 
     private
