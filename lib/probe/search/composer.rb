@@ -64,8 +64,12 @@ module Probe::Search
 
     private
 
+    def match_all
+      @index.merge! build_match_all_query
+    end
+
     def search_query
-      queries = @facets.build_query :must
+      queries = @facets.build_query
 
       @index.merge! query: { bool: queries } if queries
     end
@@ -81,10 +85,8 @@ module Probe::Search
     end
 
     def build_facet_filter(facet, options = {})
-      queries = @facets.build_query(:must)
+      queries = @facets.build_query
       filter  = @facets.build_facet_filter(:and, facet)
-
-      queries += Array.wrap(options[:query]) if options[:query]
 
       build_filtered_query_from(queries, filter)
     end

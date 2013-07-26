@@ -25,9 +25,8 @@ module Probe
             script = Facets::Script.new(Probe::Configuration.script.suggest)
 
             script.add_script_params(query: term)
-            facet.add_facet_script(script)
 
-            filter_options[:query] = facet.build_suggest_query(term)
+            facet.script = script
           end
 
           filter_options[:exclude] = facet

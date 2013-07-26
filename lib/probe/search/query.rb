@@ -4,6 +4,10 @@ module Probe::Search
 
     private
 
+    def build_match_all_query
+      { query: { match_all: {} } }
+    end
+
     def build_query_from(field, terms, options = {})
       values = analyze_query_string(terms, force_wildcard: options[:force_wildcard])
 
@@ -19,7 +23,7 @@ module Probe::Search
     def build_filtered_query_from(queries, filter)
       query = Hash.new
 
-      return { query: { match_all: {}} } if queries.nil? && filter.nil?
+      return build_match_all_query if queries.nil? && filter.nil?
 
       query.merge! filter: filter if filter
       query.merge! query: { bool: queries } if queries

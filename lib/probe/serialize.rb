@@ -1,9 +1,9 @@
 module Probe
   module Serialize
-    def to_indexed_json
-      result = {}
+    def to_indexed_hash
+      result = Hash.new
 
-      self.class.mapping.each do |field, options|
+      self.class.probe.mapping.each do |field, options|
         if options[:as]
           result[field] = options[:as].call(self)
         else
@@ -11,7 +11,11 @@ module Probe
         end
       end
 
-      result.to_json
+      result
+    end
+
+    def to_indexed_json
+      to_indexed_hash.to_json
     end
   end
 end
