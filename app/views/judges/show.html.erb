@@ -11,6 +11,13 @@
     <div class="span12">
       <%= render 'shared/social', classes: 'social-vertical pull-right' %>
 
+      <% if @judge.employments.at_court_by_type(CourtType.supreme).any? || @judge.employments.at_court_by_type(CourtType.regional).any? %>
+        <p class="text-error">
+          <span class="gutter centered"><%= icon_tag :'warning-sign' %></span>
+          Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov.
+        </p>
+      <% end %>
+
       <% @employments.each do |employment| %>
         <p>
           <span class="gutter centered">
@@ -153,13 +160,6 @@
             </div>
           <% end %>
         </div>
-      <% end %>
-
-      <% if @judge.employments.at_court_by_type(CourtType.supreme).any? || @judge.employments.at_court_by_type(CourtType.regional).any? %>
-        <p>    
-          <span class="gutter centered"><%= icon_tag :pushpin %></span>
-          Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov.
-        </p>
       <% end %>
 
       <% if @judge.substantiation_notes_by_year.any? %>
