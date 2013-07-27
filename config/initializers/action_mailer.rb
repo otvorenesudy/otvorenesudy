@@ -1,4 +1,4 @@
-unless Rails.env.test?
+if Rails.env.staging? || Rails.env.production?
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",

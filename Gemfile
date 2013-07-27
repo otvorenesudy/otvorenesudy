@@ -86,6 +86,9 @@ group :development do
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
   gem 'capistrano-resque', '~> 0.1.0'
+
+  # mailer
+  gem 'letter_opener'
 end
 
 group :development, :test do
