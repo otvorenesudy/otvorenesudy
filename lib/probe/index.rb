@@ -2,6 +2,10 @@ module Probe
   module Index
     extend ActiveSupport::Concern
 
+    included do
+      probe.setup
+    end
+
     def probe
       @probe ||= Record.new(self)
     end
@@ -47,6 +51,7 @@ module Probe
     end
 
     class Mapper
+      include Probe::Index::Alias
       include Probe::Helpers::Index
 
       attr_reader :base,
@@ -67,7 +72,7 @@ module Probe
       end
 
       def setup
-        if defined?(ActiveRecord) && base < ActiveRecord::Base
+        if base < ActiveRecord::Base
           base.after_save    { probe.update }
           base.after_destroy { probe.update }
         end
@@ -77,14 +82,6 @@ module Probe
 
       def configuration
         Probe::Configuration
-      end
-
-      def index(index = nil)
-        index ? Tire::Index.new(index) : @index ||= Tire::Index.new(name)
-      end
-
-      def index_alias(name = nil)
-        Tire::Alias.new(name: name || index.name)
       end
 
       def settings(params = {})
@@ -107,8 +104,14 @@ module Probe
         index(name).delete
       end
 
-      def import(collection = nil, options = {})
-        collection ? index.import(collection, options) : Probe::Bulk.import(base)
+      def exists?(name = nil)
+        index(name).exists?
+      end
+
+      def import(name = nil, collection = base)
+        index(name).import(collection, method: :paginate, per_page: 5000)
+
+        refresh
       end
 
       def update(collection = base)
@@ -117,62 +120,52 @@ module Probe
         collection.respond_to?(:each) ? collection.each(&block) : collection.find_each(&block)
       end
 
-      def reload
-        delete
-        create
+      def reload(name = nil)
+        delete(name)
+        create(name)
+
         import
+      end
+
+      def refresh(name = nil)
+        index(name).refresh
       end
 
       def store(record)
         index.store(record)
       end
 
-      # TODO: use when elasticsearch support percolating against index alias
-      def alias_as(bulk_index)
-        delete
-
-        index = index_alias
-
-        index.indices.clear
-        index.index(bulk_index.name)
-
-        index.save
-      end
-
       def mapping(options = {}, &block)
-        unless block_given?
-          return @mapping ||= Hash.new
-        else
-          @sort_fields         = Array.new
-          @mapping_definitions = Hash.new
+        return @mapping ||= Hash.new unless block_given?
 
-          mapping_options.merge! options
+        @mapping_definitions = Hash.new
 
-          update_mapping(&block)
+        mapping_options.merge! options
 
-          block.arity == 0 ? instance_eval(&block) : block.call(self)
+        update_mapping(&block)
 
-          @mapping_definitions.each do |field, value|
-            options  = value[:options] || Hash.new
+        block.arity > 0 ? block.call(self) : instance_eval(&block)
 
-            type     = options[:type]     || :string
-            analyzer = options[:analyzer] || Configuration.default_analyzer
+        @mapping_definitions.each do |field, value|
+          options  = value[:options] || Hash.new
 
-            case value[:type]
-            when :map
-              mapping.merge! field => options.merge(type: type, index: :not_analyzed)
-            when :analyze
-              analyzed  = { type: :string, analyzer: analyzer }
-              untouched = { type: type, index: :not_analyzed }
+          type     = options[:type]     || :string
+          analyzer = options[:analyzer] || Configuration.default_analyzer
 
-              mapping.merge! field => options.deep_merge(
-                type: :multi_field,
-                fields: {
-                  analyzed:  analyzed,
-                  untouched: untouched
-                }
-              )
-            end
+          case value[:type]
+          when :map
+            mapping.merge! field => options.merge(type: type, index: :not_analyzed)
+          when :analyze
+            analyzed  = { type: :string, analyzer: analyzer }
+            untouched = { type: type, index: :not_analyzed }
+
+            mapping.merge! field => options.deep_merge(
+              type: :multi_field,
+              fields: {
+                analyzed:  analyzed,
+                untouched: untouched
+              }
+            )
           end
         end
       end
@@ -185,8 +178,6 @@ module Probe
 
           index.put_mapping(*mapping_to_hash.first)
         end
-
-        @mapping_block
       end
 
       def mapping_options
@@ -197,39 +188,34 @@ module Probe
          { type.to_sym => mapping_options.merge({ properties: mapping }) }
       end
 
-      def facets
-        @facet_definitions ||= []
+      def facets(&block)
+        return @facets ||= Probe::Facets.new unless block_given?
 
-        yield if block_given?
-
-        facet :created_at, type: :abstract, facet: :date, interval: :month
-        facet :updated_at, type: :abstract, facet: :date, interval: :month
-
-        @facets ||= Probe::Facets.new(@facet_definitions)
+        block.arity > 0 ? block.call(self) : instance_eval(&block)
       end
 
       def per_page
         base.respond_to?(:default_per_page) ? base.default_per_page : Probe::Configuration.per_page
       end
 
-      def bulk_name
-        "#{index_name}_#{Time.now.strftime("%Y%m%d%H%M")}"
-      end
-
       def total
         base.search { match_all }.total
       end
 
-      def paginate(model, options = {})
+      def paginate(collection, options = {})
         options[:page]     ||= 1
         options[:per_page] ||= 1000
 
         options[:page] -= 1
 
-        model.offset(options[:per_page] * options[:page]).limit(options[:per_page])
+        collection.offset(options[:per_page] * options[:page]).limit(options[:per_page])
       end
 
       private
+
+      def index(index = nil)
+        index ? Tire::Index.new(index) : @index ||= Tire::Index.new(name)
+      end
 
       def map(field, options = {})
         @mapping_definitions[field] = Hash.new
@@ -249,11 +235,13 @@ module Probe
 
         options.merge! base: base
 
-        @facet_definitions << create_facet(type, name, field, options)
+        facets << create_facet(type, name, field, options)
       end
 
       def sort_by(*args)
-        @sort_fields = *args
+        @sort_fields ||= Array.new
+
+        @sort_fields += args
       end
 
       def define_proxy
@@ -261,11 +249,19 @@ module Probe
 
         @proxy_methods.each do |method|
           unless base.respond_to? method
-            base.class_eval <<-def
-              def self.#{method}(*args, &block)
-                probe.send(#{method.inspect}, *args, &block)
+            if method == :paginate
+              base.class_eval do
+                def self.paginate(options)
+                  probe.paginate(self, options)
+                end
               end
-            def
+            else
+              base.class_eval <<-def
+                def self.#{method}(*args, &block)
+                  probe.send(#{method.inspect}, *args, &block)
+                end
+              def
+            end
           end
         end
       end
