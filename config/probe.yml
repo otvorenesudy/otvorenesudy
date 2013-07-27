@@ -1,6 +1,7 @@
 defaults: &defaults
   indices: [courts, judges, hearings, decrees, decree_pages, proceedings]
 
+  default_analyzer: text_analyzer
   per_page: 20
 
   index:
@@ -8,6 +9,12 @@ defaults: &defaults
     number_of_replicas: 1
 
     analysis:
+      analyzer:
+        text_analyzer:
+          type: custom
+          tokenizer: standard
+          filter: [asciifolding, lowercase, trim]
+
       # TODO: resolve stopwords only query (category: open problem)
       #filter:
         #stop_sk:
@@ -28,16 +35,6 @@ defaults: &defaults
           #tvojími, už, v, vám, váš, vaše, vo, viac, však, všetok, vy, z, za,
           #zo, že]
 
-      analyzer:
-        text_analyzer:
-          type: custom
-          tokenizer: standard
-          filter: [asciifolding, lowercase, trim]
-
-        normalizer:
-          type: custom
-          tokenizer: keyword
-          filter: [asciifolding, lowercase, trim]
 
   script:
     suggest:
