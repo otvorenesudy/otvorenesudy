@@ -430,8 +430,9 @@ footer {
   }
   
   hr {
+    margin: 10px 0px;
     border-top-color: darken($grayLighter, 12.5%);
-    margin: 20px 10px;
+    border-bottom-color: $white;
   }
 
   ul.nav {
@@ -464,7 +465,7 @@ footer {
     }
     
     &:first-child {
-      margin-top: 40px;
+      margin-top: 50px;
     }
   }
 }

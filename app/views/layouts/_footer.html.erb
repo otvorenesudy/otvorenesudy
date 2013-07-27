@@ -3,6 +3,25 @@
     <div class="row">
       <div class="span3">
         <h4>Otvorené Súdy <%= icon_tag :legal %></h4>
+      </div>
+
+      <div class="span3">
+        <h4>Prehlásenia <%= icon_tag :'file-text-alt' %></h4>
+      </div>
+
+      <div class="span3">
+        <h4>Transparentnosť <%= icon_tag :ok %></h4>
+      </div>
+
+      <div class="span3">
+        <h4>Dáta <%= icon_tag :hdd %></h4>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="span3">
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "O projekte", static_page_path(:about) %></li>
@@ -14,7 +33,6 @@
       </div>
 
       <div class="span3">
-        <h4>Prehlásenia <%= icon_tag :'file-text-alt' %></h4>
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Podmienky používania", static_page_path(:'terms-of-use') %></li>
@@ -25,7 +43,6 @@
       </div>
 
       <div class="span3">
-        <h4>Transparentnosť <%= icon_tag :ok %></h4>
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Našli ste chybu?", static_page_path(:feedback) %></li>
@@ -36,7 +53,6 @@
       </div>
 
       <div class="span3">
-        <h4>Dáta <%= icon_tag :hdd %></h4>
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Ako to funguje?", static_page_path(:'how-it-works') %></li>
