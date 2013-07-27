@@ -5,7 +5,7 @@ module Probe
     attr_reader :params,
                 :query_params
 
-    def initialize(facets)
+    def initialize(facets = nil)
       @facets = Hash.new.with_indifferent_access
 
       facets = Array.wrap(facets)
@@ -47,7 +47,9 @@ module Probe
       queries = map { |facet| facet.build_query if facet.respond_to?(:build_query) && facet.active? }.compact
 
       if queries.any?
-        queries.group_by { |q| q.keys.first }.each { |type, values| values.map { |v| v[type] } }
+        queries.group_by { |q| q.keys.first }.each do |type, values|
+          values.map! { |v| v[type] }.flatten!
+        end
       end
     end
 
@@ -93,6 +95,10 @@ module Probe
 
     def [](name)
       @facets[name]
+    end
+
+    def <<(facet)
+      @facets[facet.name] = facet
     end
 
     private
