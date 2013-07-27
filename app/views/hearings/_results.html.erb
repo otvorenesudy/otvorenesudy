@@ -13,8 +13,8 @@
 
     <div class="search-result-content">
       <div class="search-result-identifiers pull-right">
-          <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %><br/>
-          <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
+          <%= tooltip_tag hearing.case_number || '?', "Spisová značka", placement: :right %><br/>
+          <%= tooltip_tag hearing.file_number || '?', "Identifikačné číslo súdneho spisu", placement: :right %>
       </div>
       
       <% if hearing.court %>

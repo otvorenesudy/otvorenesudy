@@ -61,15 +61,15 @@
       <div class="well well-small">
         <p>
           <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
-          <span class="pull-right"><%= @decree.ecli %></span>
+          <span class="pull-right"><%= @decree.ecli || "neuvedený" %></span>
         </p>
         <p>
           <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-          <span class="pull-right"><%= @decree.case_number %></span>
+          <span class="pull-right"><%= @decree.case_number || "neuvedená" %></span>
         </p>
         <p>
           <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
-          <span class="pull-right"><%= @decree.file_number %></span>
+          <span class="pull-right"><%= @decree.file_number || "neuvedené" %></span>
         </p>
       </div>
 <!--

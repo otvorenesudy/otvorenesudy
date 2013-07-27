@@ -68,11 +68,11 @@
       <div class="well well-small">
         <p>
           <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-          <span class="pull-right"><%= @hearing.case_number %></span>
+          <span class="pull-right"><%= @hearing.case_number || "neuvedená" %></span>
         </p>
         <p>
           <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
-          <span class="pull-right"><%= @hearing.file_number %></span>
+          <span class="pull-right"><%= @hearing.file_number || "neuvedené" %></span>
         </p>
       </div>
 <!--
