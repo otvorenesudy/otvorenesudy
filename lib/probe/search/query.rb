@@ -46,7 +46,7 @@ module Probe::Search
 
       q = q.split(/\s+/).map { |e| "#{e}*" }.join(' ') if options[:force_wildcard]
 
-      q.present? || exact.present? ? "#{q} #{exact.join(' ')}" : "*"
+      q.present? || exact.present? ? "#{q} #{exact.join(' ')}".strip : "*"
     end
 
     def build_query_options(fields, options = {})

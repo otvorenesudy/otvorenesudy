@@ -29,7 +29,5 @@ module Probe
     include Probe::Suggest
     include Probe::Percolate
     include Probe::Serialize
-
-    probe.setup
   end
 end

@@ -9,8 +9,8 @@ module Probe::Search
     include Probe::Search::Query
     include Probe::Search::Filter
 
-    def initialize(model, options)
-      @model       = model
+    def initialize(base, options)
+      @base        = base
       @name        = options[:name]
       @facets      = options[:facets]
       @params      = options[:params]      || {}
@@ -34,7 +34,7 @@ module Probe::Search
 
       @results = Tire.search @name, @index
 
-      Results.new(@model, @facets, @sort_fields, @results)
+      Results.new(@base, @facets, @sort_fields, @results)
     end
 
     def compose_search(index, &block)
@@ -59,7 +59,7 @@ module Probe::Search
     end
 
     def compose_filtered_query
-      build_filtered_query_from(@facets.build_query, @facets.build_filter(:and))
+      @index.merge! build_filtered_query_from(@facets.build_query, @facets.build_filter(:and))
     end
 
     private

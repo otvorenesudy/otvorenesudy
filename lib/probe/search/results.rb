@@ -20,8 +20,8 @@ module Probe::Search
                 :total_entries,
                 :time
 
-    def initialize(model, facets, sort_fields, response)
-      @model       = model
+    def initialize(base, facets, sort_fields, response)
+      @base        = base
       @facets      = facets
       @response    = response
       @sort_fields = sort_fields
@@ -111,7 +111,7 @@ module Probe::Search
 
     def fetch_records
       @results.map do |result|
-        @model.find(result.id)
+        @base.find(result.id)
       end
     end
 
