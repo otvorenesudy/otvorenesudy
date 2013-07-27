@@ -2,14 +2,6 @@ module Probe
   module Index
     extend ActiveSupport::Concern
 
-    included do
-      unless respond_to? :paginate
-        def self.paginate(options = {})
-          probe.paginate(self, options)
-        end
-      end
-    end
-
     def probe
       @probe ||= Record.new(self)
     end
@@ -33,16 +25,20 @@ module Probe
         @record = record
       end
 
+      def mapper
+        record.class.probe
+      end
+
       def id
         record.id
       end
 
       def type
-        record.class.probe.type
+        mapper.type
       end
 
       def update
-        record.class.probe.store(self)
+        mapper.store(self)
       end
 
       def to_indexed_json
@@ -62,7 +58,8 @@ module Probe
       def initialize(base)
         @base = base
         @type = @base.respond_to?(:table_name) ? @base.table_name : @base.to_s.underscore
-        @type = @type.singularize.to_sym
+
+        @type = @type.to_sym
       end
 
       def name
@@ -70,9 +67,9 @@ module Probe
       end
 
       def setup
-        if base < ActiveRecord::Base
-          base.after_save    :update_record
-          base.after_destroy :update_record
+        if defined?(ActiveRecord) && base < ActiveRecord::Base
+          base.after_save    { probe.update }
+          base.after_destroy { probe.update }
         end
 
         define_proxy
@@ -151,13 +148,15 @@ module Probe
 
           mapping_options.merge! options
 
-          update_mapping(&block).call
+          update_mapping(&block)
+
+          block.arity == 0 ? instance_eval(&block) : block.call(self)
 
           @mapping_definitions.each do |field, value|
             options  = value[:options] || Hash.new
 
-            type     = options[:type] || :string
-            analyzer = options[:analyzer] || :text_analyzer
+            type     = options[:type]     || :string
+            analyzer = options[:analyzer] || Configuration.default_analyzer
 
             case value[:type]
             when :map
@@ -180,13 +179,7 @@ module Probe
 
       def update_mapping(&block)
         if block_given?
-          @mapping_block = lambda do
-            block.call
-
-            map     :id,         type: :long
-            analyze :created_at, type: :date
-            analyze :updated_at, type: :date
-          end
+          @mapping_block = block
         else
           mapping(&@mapping_block)
 
@@ -238,7 +231,6 @@ module Probe
 
       private
 
-
       def map(field, options = {})
         @mapping_definitions[field] = Hash.new
 
@@ -265,7 +257,9 @@ module Probe
       end
 
       def define_proxy
-        public_methods(false).each do |method|
+        @proxy_methods ||= [:settings, :mapping, :facets, :configuration, :total, :paginate, :sort_by]
+
+        @proxy_methods.each do |method|
           unless base.respond_to? method
             base.class_eval <<-def
               def self.#{method}(*args, &block)
