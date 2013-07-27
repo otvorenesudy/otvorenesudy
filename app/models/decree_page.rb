@@ -14,11 +14,13 @@ class DecreePage < ActiveRecord::Base
   validates :number, presence: true
   validates :text,   presence: true
 
-  mapping do
-    map :decree_id
-    map :number
+  probe do
+    mapping do
+      map :decree_id
+      map :number
 
-    analyze :text
+      analyze :text
+    end
   end
 
   def self.search_pages(decree_id, text, options = {})
