@@ -1,13 +1,16 @@
 require 'probe_spec_helper'
 
 describe Probe::Index do
-  let!(:collection) { 10.times.map { build :record } }
-
-  before :each do
-    Record.class_eval { include Probe::Index }
+  after :each do
+    Record.probe.delete
   end
 
   context 'when creating index' do
+    before :all do
+      Record.class_eval { include Probe::Index }
+    end
+
+
     it 'should create index with simple mapping' do
       Record.class_eval do
         probe do
@@ -34,6 +37,7 @@ describe Probe::Index do
          }
         }
       })
+      Record.probe.create.should be_true
     end
 
     it 'should create index settings' do
@@ -45,6 +49,7 @@ describe Probe::Index do
         end
       end
 
+      Record.probe.create.should   be_true
       Record.probe.settings.should eql(Probe::Configuration.index.deep_merge!(options))
     end
 
@@ -59,17 +64,74 @@ describe Probe::Index do
         title: { type: :string, index: :not_analyzed }
       })
 
+      Record.probe.create
+
       fields << :text
 
-      Record.probe.index.should_receive(:put_mapping).and_return(true)
-
-      Record.probe.update_mapping
-
+      Record.probe.update_mapping.should be_true
       Record.probe.mapping.should eql({
         id:    { type: :string, index: :not_analyzed },
         title: { type: :string, index: :not_analyzed },
         text:  { type: :string, index: :not_analyzed }
       })
+    end
+
+    it 'should delete index' do
+      Record.probe.create
+      Record.probe.exists?.should be_true
+
+      Record.probe.delete
+      Record.probe.exists?.should be_false
+    end
+  end
+
+  context 'when defining facets' do
+    it 'should define facets' do
+      Record.class_eval do
+        probe do
+          facets do
+            facet :terms, type: :terms
+            facet :range, type: :range, ranges: [1..2]
+          end
+        end
+      end
+
+      Record.probe.facets.map(&:name).should eql([:terms, :range])
+    end
+  end
+
+  context 'when populating index' do
+    let!(:collection) { 10.times.map { build :record } }
+
+    before :all do
+      Record.class_eval { include Probe }
+
+      Record.probe.mapping do
+        map     :id,     type: :long
+        map     :number, type: :integer
+        analyze :title
+        analyze :text
+      end
+    end
+
+    before :each do
+      Record.probe.create
+
+      Record.collection = collection
+    end
+
+    it 'should import entire collection' do
+      Record.probe.import
+
+      Record.probe.total.should eql(collection.size)
+    end
+
+    it 'should update entire collection' do
+      Record.probe.import
+
+      Record.probe.update
+
+      Record.probe.total.should eql(collection.size)
     end
   end
 end

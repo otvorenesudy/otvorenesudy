@@ -2,7 +2,42 @@ require 'probe_spec_helper'
 
 describe Probe::Search::Composer do
   let(:params)  { Hash.new.with_indifferent_access }
-  let(:options) { { name: 'example' } }
+  let(:options) { Hash.new }
+
+  before :each do
+    Record.class_eval { include Probe }
+
+    options.merge! name: Record.probe.name, facets: Probe::Facets.new
+  end
+
+  it 'should compose match_all query' do
+    search = Probe::Search::Composer.new(Record, options)
+
+    query = search.compose_search(Hash.new) { match_all }
+
+    query.should eql({ query: { match_all: {} } })
+  end
+
+  it 'should compose filtered query' do
+    facets = Probe::Facets.new([
+      Probe::Facets::FulltextFacet.new(:q, :all, Hash.new),
+      Probe::Facets::TermsFacet.new(:term, :term, Hash.new)
+    ])
+
+    params[:q]    = 'q'
+    params[:term] = 'attribute'
+
+    options.merge! facets: facets, params: params
+
+    search = Probe::Search::Composer.new(Record, options)
+
+    query = search.compose_search(Hash.new) { compose_filtered_query }
+
+    query = query[:query][:filtered]
+
+    query[:query][:bool].should       eql(facets[:q].build_query)
+    query[:filter][:and].first.should eql(facets[:term].build_filter)
+  end
 
   it 'should compose query from facets' do
     facets = Probe::Facets.new([
@@ -15,12 +50,12 @@ describe Probe::Search::Composer do
 
     options.merge! facets: facets, params: params
 
-    search = Probe::Search::Composer.new(nil, options)
+    search = Probe::Search::Composer.new(Record, options)
 
     query = search.compose_search(Hash.new)
 
-    query[:query][:bool][:must].first.should eql(facets[:q].build_query)
-    query[:filter][:and].first[:or].should   eql(facets[:term].build_filter)
+    query[:query][:bool].should       eql(facets[:q].build_query)
+    query[:filter][:and].first.should eql(facets[:term].build_filter)
 
     query[:facets].each do |name, options|
       facet = facets[name.to_s.gsub(/_selected\z/, '').to_sym]
