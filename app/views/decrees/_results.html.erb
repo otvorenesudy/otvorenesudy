@@ -17,6 +17,13 @@
       <% end %>
     </h4>
 
+    <% if decree.has_future_date? %>
+      <div class="alert alert-warning">
+        <%= icon_tag :'warning-sign' %>
+        Rozhodnutie má budúci dátum vynesenia, ide o chybu v pôvodných dátach.
+      </div>
+    <% end %>
+
     <div class="search-result-content">
       <div class="search-result-identifiers pull-right">
         <%= tooltip_tag decree.case_number || '?', "Spisová značka", placement: :right %><br/>
