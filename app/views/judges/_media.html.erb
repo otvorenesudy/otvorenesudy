@@ -1,8 +1,9 @@
 <% if results.any? %>
-  <p>
+  <div class="alert alert-warning">
+    <strong><%= icon_tag :pushpin, label: 'Poznámka.' %></strong>
     Odkazy sú vyhľadávané automaticky na základe mena a pôsobiska sudcu.
     Sudcu sa týkať nemusia.
-  </p>
+  </div>
   
   <%= render 'shared/context_search_results', results: results, offset: 0 %>
 <% else %>
