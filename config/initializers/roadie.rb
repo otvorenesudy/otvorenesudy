@@ -3,7 +3,7 @@ OpenCourts::Application.config.roadie.after_inlining = lambda do |document|
   hostname = "#{options[:host]}#{":#{options[:port]}" if options[:port]}"
 
   document.css('a').each do |link|
-    unless link['href'].match(/\Ahttp:\/\/#{hostname}/) && link['href'] != '#'
+    unless link['href'].match(/\A(http:\/\/#{hostname}|#)/)
       link['href'] = "http://#{hostname}#{link['href']}"
     end
   end
