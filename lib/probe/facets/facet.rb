@@ -58,14 +58,18 @@ class Probe::Facets
       @results = results.uniq
     end
 
-    def parse_terms(terms)
-      terms = Array.wrap(terms)
+    def parse_terms(values)
+      values = Array.wrap(values)
 
-      if block_given?
-        terms = terms.map { |value| yield value }
+      values = values.map do |value|
+        if block_given?
+          yield value
+        else
+          value.to_s
+        end
       end
 
-      terms
+      values
     end
 
     def active?
