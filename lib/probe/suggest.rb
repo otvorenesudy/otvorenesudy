@@ -1,15 +1,10 @@
 module Probe
   module Suggest
-    extend ActiveSupport::Concern
-
-    module ClassMethods
-      include Probe::Helpers::Index
-      include Probe::Sanitizer
-
+    module Mapper
       def suggest(name, term, params, options = {})
         facet = facets[name]
 
-        return unless facet && facet.suggestable?
+        return unless facet.suggestable?
 
         options[:name]        = index.name
         options[:params]      = params

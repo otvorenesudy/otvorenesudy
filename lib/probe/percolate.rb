@@ -1,12 +1,12 @@
 module Probe
   module Percolate
-    extend ActiveSupport::Concern
-
-    def percolate
-      self.class.percolator.percolate(self)
+    module Record
+      def percolate
+        self.class.percolator.percolate(self)
+      end
     end
 
-    module ClassMethods
+    module Mapper
       attr_reader :percolator
 
       def percolator

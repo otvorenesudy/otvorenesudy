@@ -23,6 +23,9 @@ module Probe
     end
 
     class Record
+      include Probe::Percolate::Record
+      include Probe::Serialize::Record
+
       attr_reader :record
 
       def initialize(record)
@@ -44,15 +47,15 @@ module Probe
       def update
         mapper.store(self)
       end
-
-      def to_indexed_json
-        record.to_indexed_json
-      end
     end
 
     class Mapper
       include Probe::Index::Alias
       include Probe::Helpers::Index
+
+      include Probe::Search::Mapper
+      include Probe::Suggest::Mapper
+      include Probe::Percolate::Mapper
 
       attr_reader :base,
                   :name,
@@ -194,12 +197,14 @@ module Probe
         block.arity > 0 ? block.call(self) : instance_eval(&block)
       end
 
-      def per_page
-        base.respond_to?(:default_per_page) ? base.default_per_page : Probe::Configuration.per_page
+      def sort_by(*args)
+        @sort_fields ||= Array.new
+
+        @sort_fields += args
       end
 
-      def total
-        base.search { match_all }.total
+      def per_page
+        base.respond_to?(:default_per_page) ? base.default_per_page : Probe::Configuration.per_page
       end
 
       def paginate(collection, options = {})
@@ -236,12 +241,6 @@ module Probe
         options.merge! base: base
 
         facets << create_facet(type, name, field, options)
-      end
-
-      def sort_by(*args)
-        @sort_fields ||= Array.new
-
-        @sort_fields += args
       end
 
       def define_proxy

@@ -9,12 +9,13 @@ module Probe::Search
     include Probe::Search::Query
     include Probe::Search::Filter
 
-    def initialize(base, options)
-      @base        = base
-      @name        = options[:name]
-      @facets      = options[:facets]
-      @params      = options[:params]      || {}
-      @sort_fields = options[:sort_fields] || []
+    def initialize(probe, params)
+      @probe       = probe
+      @base        = probe.base
+      @name        = probe.name
+      @facets      = probe.facets
+      @sort_fields = probe.sort_by || []
+      @params      = params || {}
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
@@ -34,7 +35,7 @@ module Probe::Search
 
       @results = Tire.search @name, @index
 
-      Results.new(@base, @facets, @sort_fields, @results)
+      Results.new(@probe, @results)
     end
 
     def compose_search(index, &block)

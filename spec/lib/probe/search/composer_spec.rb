@@ -11,7 +11,7 @@ describe Probe::Search::Composer do
   end
 
   it 'should compose match_all query' do
-    search = Probe::Search::Composer.new(Record, options)
+    search = Probe::Search::Composer.new(Record.probe, Hash.new)
 
     query = search.compose_search(Hash.new) { match_all }
 
@@ -19,17 +19,15 @@ describe Probe::Search::Composer do
   end
 
   it 'should compose filtered query' do
-    facets = Probe::Facets.new([
-      Probe::Facets::FulltextFacet.new(:q, :all, Hash.new),
-      Probe::Facets::TermsFacet.new(:term, :term, Hash.new)
-    ])
+    Record.probe.facets do
+      facet :q,    type: :fulltext
+      facet :term, type: :terms
+    end
 
     params[:q]    = 'q'
     params[:term] = 'attribute'
 
-    options.merge! facets: facets, params: params
-
-    search = Probe::Search::Composer.new(Record, options)
+    search = Probe::Search::Composer.new(Record.probe, params)
 
     query = search.compose_search(Hash.new) { compose_filtered_query }
 
@@ -40,17 +38,15 @@ describe Probe::Search::Composer do
   end
 
   it 'should compose query from facets' do
-    facets = Probe::Facets.new([
-      Probe::Facets::FulltextFacet.new(:q, :all, Hash.new),
-      Probe::Facets::TermsFacet.new(:term, :term, Hash.new)
-    ])
+    Record.probe.facets do
+      facet :q,    type: :fulltext
+      facet :term, type: :terms
+    end
 
     params[:q]    = 'q'
     params[:term] = 'attribute'
 
-    options.merge! facets: facets, params: params
-
-    search = Probe::Search::Composer.new(Record, options)
+    search = Probe::Search::Composer.new(Record.probe, params)
 
     query = search.compose_search(Hash.new)
 

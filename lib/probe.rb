@@ -25,7 +25,6 @@ module Probe
 
   included do
     include Probe::Index
-    include Probe::Search
     include Probe::Suggest
     include Probe::Percolate
     include Probe::Serialize
