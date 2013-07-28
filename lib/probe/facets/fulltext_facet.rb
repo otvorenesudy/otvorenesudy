@@ -18,7 +18,7 @@ class Probe::Facets
     end
 
     def build_query
-      { must: [build_query_from(@field, @terms, query_options)] }
+      { must: build_query_from(@field, @terms, query_options) }
     end
 
     def parse_terms(value)

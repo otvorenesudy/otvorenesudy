@@ -23,14 +23,16 @@ class Probe::Facets
         { range: { not_analyzed_field(@field) => build_range_for(value) }}
       end
 
-      { filter_type => filter }
+      { or: filter }
     end
 
     def parse_terms(values)
       super(values) do |value|
+        return nil unless value.to_s.match(/\A[0-9\-]+\.\.[0-9\-]+\z/)
+
         return value if value.is_a? Range
 
-        lower, upper = value.split('..')
+        lower, upper = value.to_s.split('..')
 
         result = @converter.to_elastic(lower)..@converter.to_elastic(upper)
         result = yield result if block_given?

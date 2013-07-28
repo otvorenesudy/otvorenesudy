@@ -65,13 +65,19 @@ class Probe::Facets
     end
 
     def parse_terms(terms)
+      return unless terms.present?
+
       terms = Array.wrap(terms)
 
-      if block_given?
-        terms = terms.map { |value| yield value }
+      terms = terms.map do |value|
+        if block_given?
+          yield value
+        else
+          value.to_s
+        end
       end
 
-      terms
+      terms.compact
     end
 
     def active?
@@ -106,13 +112,9 @@ class Probe::Facets
       not_analyzed_field(@field)
     end
 
-    def filter_type
-      :or
-    end
-
     def refresh!
-      @terms  = []
-      @script = nil
+      @terms   = []
+      @results = []
     end
 
     private
@@ -126,7 +128,7 @@ class Probe::Facets
     end
 
     def create_result_params(value)
-      # TODO: refactor facets to user only add params
+      # TODO: refactor facets to use only add params
       create_result_add_params(value)
     end
 

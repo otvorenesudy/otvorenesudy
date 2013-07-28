@@ -2,7 +2,7 @@ class Probe::Facets
   class TermsFacet < Probe::Facets::Facet
     include Probe::Search::Query
 
-    attr_accessor :suggest_term,
+    attr_accessor :query,
                   :script
 
     def build(name, options)
@@ -18,6 +18,12 @@ class Probe::Facets
       { name => options }
     end
 
+    def build_suggest_facet(index, options)
+      build(index, name, options) do |f, facet_options|
+        facet_options.merge! script.build if script
+      end
+    end
+
     def build_filter
       filter = terms.map do |value|
         if value == missing_facet_name
@@ -27,17 +33,19 @@ class Probe::Facets
         end
       end
 
-      { filter_type => filter }
+      { or: filter }
     end
 
     def build_query
-      build_query_from(field, "#{suggest_term}*", default_operator: :and) if suggest_term.present?
+      if query.present?
+        { must: build_query_from(field, "#{query}*", default_operator: :and) }
+      end
     end
 
-    def build_suggest_facet(index, options)
-      build(index, name, options) do |f, facet_options|
-        facet_options.merge! script.build if script
-      end
+    def refresh!
+      super
+
+      @script = nil
     end
 
     private
