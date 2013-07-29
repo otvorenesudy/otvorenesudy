@@ -43,8 +43,9 @@ Za hosting projektu ďakujeme spoločnosti
 <%= external_link_to "Petit Press", 'http://petitpress.sk', icon: false %>,
 prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk', icon: false %>.
 
-Za pomoc veľmi pekne ďakujeme aj Pavlovi Nechalovi, Kataríne Batkovej,
-Chrisovi Wormanovi, Milene Marin a ďalším kolegom.
+Za pomoc veľmi pekne ďakujeme aj
+<%= external_link_to "Pavlovi Nechalovi", 'http://advocate.sk/', icon: false %>,
+Kataríne Batkovej, Chrisovi Wormanovi, Milene Marin a ďalším kolegom.
 
 <hr/>
 
