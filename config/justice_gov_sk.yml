@@ -65,7 +65,7 @@ production:
   extractor:
 
     image:
-      perform: []
+      perform: [Decree]
       override: []
 
     text:
