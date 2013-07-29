@@ -32,7 +32,8 @@
       <% if @expenses.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>
-          Celkovo <%= rank Court::Expenses.rank @court %> najviac pokutovaný súd zo <%= Court::Expenses.courts.count %> súdov.
+          Celkovo <%= rank_with_order Court::Expenses.rank_with_order(@court), asc: 'najmenej', desc: 'najviac' %>
+          pokutovaný súd zo <%= Court::Expenses.courts(@court.type).count %> súdov.
         </p>
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>
@@ -72,8 +73,8 @@
               <div id="average-proceeding-length-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
                 <p>
                   <span class="gutter centered"><%= icon_tag :time %></span>
-                  Celkovo <%= rank Court::AverageProceedingLengths::Ranking.rank(@court, agenda.acronym) %>
-                  najrýchlejší súd z <%= Court::AverageProceedingLengths::Ranking.courts.size %>
+                  Celkovo <%= rank_with_order Court::AverageProceedingLengths::Ranking.rank_with_order(@court, agenda.acronym), asc: 'najrýchlejší', desc: 'najpomalší' %>
+                  súd z <%= Court::AverageProceedingLengths::Ranking.courts.size %>
                   okresných súdov v rámci agendy <%= agenda.name %>:
                 </p>
                 <ul class="unstyled">

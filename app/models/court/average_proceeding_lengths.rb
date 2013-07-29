@@ -26,14 +26,18 @@ module Court::AverageProceedingLengths
   module Ranking
     extend self
 
-    def rank(court, acronym)
-      ranking[acronym.to_sym].ascending[court]
-    end
-
     def courts
       @courts ||= Court.by_type CourtType.district
     end
 
+    def rank(court, acronym)
+      ranking[acronym.to_sym].descending[court]
+    end
+
+    def rank_with_order(court, acronym)
+      ranking[acronym.to_sym].rank_with_order(court)
+    end
+    
     private
 
     def ranking

@@ -1,6 +1,7 @@
 class Resource::Ranking
   def initialize(objects, &block)
     @groups = build_groups objects, &block
+    @total  = objects.size
   end
 
   def ascending
@@ -10,6 +11,15 @@ class Resource::Ranking
   def descending
     @descending ||= Ordering.new(@groups) { |groups| groups.sort.reverse }
   end
+  
+  def rank_with_order(object)
+    rank  = descending[object]
+    value = rank.is_a?(Range) ? (rank.min + rank.max) / 2.0 : rank
+    
+    return { rank: rank, order: :desc } if (@total / 2.0) - value >= 0
+    
+    { rank: ascending[object], order: :asc }
+  end
 
   class Ordering
     def initialize(groups)
@@ -18,6 +28,10 @@ class Resource::Ranking
     
     def [] object
       @ranks[object]
+    end
+    
+    def each(&block)
+      @ranks.each(&block)
     end
 
     private
