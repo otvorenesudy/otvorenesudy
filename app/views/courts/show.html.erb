@@ -33,7 +33,8 @@
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>
           Celkovo <%= rank_with_order Court::Expenses.rank_with_order(@court), asc: 'najmenej', desc: 'najviac' %>
-          pokutovaný súd zo <%= Court::Expenses.courts(@court.type).count %> súdov.
+          pokutovaný súd z <%= Court::Expenses.courts(@court.type).count %>
+          <%= @court.type == CourtType.regional ? 'krajských' : 'okresných' %> súdov.
         </p>
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>
