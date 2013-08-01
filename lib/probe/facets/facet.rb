@@ -1,6 +1,6 @@
 class Probe::Facets
   class Facet
-    include Probe::Helpers::Index
+    include Probe::Helpers
 
     attr_accessor :base,
                   :name,
@@ -102,14 +102,6 @@ class Probe::Facets
 
     def missing_facet_name
       'missing'
-    end
-
-    def analyzed_field_name
-      analyzed_field(@field)
-    end
-
-    def not_analyzed_field_name
-      not_analyzed_field(@field)
     end
 
     def refresh!

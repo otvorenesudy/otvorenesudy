@@ -9,8 +9,8 @@ class Probe::Facets
       options = prepare_build(options)
 
       options.merge! terms: {
-        field: not_analyzed_field(field),
-        size:  size
+        field: untouched_field,
+        size: size
       }
 
       yield options[:terms] if block_given?
@@ -27,9 +27,9 @@ class Probe::Facets
     def build_filter
       filter = terms.map do |value|
         if value == missing_facet_name
-          { missing: { field: not_analyzed_field(field), existence: true }}
+          { missing: { field: untouched_field, existence: true }}
         else
-          { term: { not_analyzed_field(field) => value }}
+          { term: { untouched_field => value }}
         end
       end
 
@@ -49,6 +49,10 @@ class Probe::Facets
     end
 
     private
+
+    def untouched_field
+      "#{field}.untouched".to_sym
+    end
 
     def populate_facets(results)
       values = results['terms'].map do |term|

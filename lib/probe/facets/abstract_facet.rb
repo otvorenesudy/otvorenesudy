@@ -1,6 +1,6 @@
 class Probe::Facets
   class AbstractFacet
-    include Probe::Helpers::Index
+    include Probe::Helpers
 
     def initialize(name, field, options)
       @facet = create_facet(options[:facet], name, field, options)

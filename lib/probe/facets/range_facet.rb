@@ -11,7 +11,7 @@ class Probe::Facets
       options = prepare_build(options)
 
       options.merge! range: {
-        field:  not_analyzed_field(@field),
+        field: field,
         ranges: build_facet_ranges
       }
 
@@ -20,7 +20,7 @@ class Probe::Facets
 
     def build_filter
       filter = terms.map do |value|
-        { range: { not_analyzed_field(@field) => build_range_for(value) }}
+        { range: { field => build_range_for(value) }}
       end
 
       { or: filter }

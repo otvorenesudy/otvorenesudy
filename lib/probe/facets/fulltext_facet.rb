@@ -18,7 +18,7 @@ class Probe::Facets
     end
 
     def build_query
-      { must: build_query_from(@field, @terms, query_options) }
+      { must: build_query_from(field, terms, query_options) }
     end
 
     def parse_terms(value)
@@ -28,7 +28,7 @@ class Probe::Facets
     private
 
     def query_options
-      @query_options ||= { default_operator: :or, analyze_wildcard: true, force_wildcard: @force_wildcard }
+      @query_options ||= { default_operator: :or, analyze_wildcard: true, force_wildcard: force_wildcard }
     end
   end
 end

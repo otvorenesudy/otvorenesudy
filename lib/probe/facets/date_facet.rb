@@ -14,8 +14,8 @@ class Probe::Facets
       options = prepare_build(options)
 
       options.merge! date_histogram: {
-        field: not_analyzed_field(@field),
-        interval: @interval
+        field: field,
+        interval: interval
       }
 
       { name => options }
@@ -31,7 +31,7 @@ class Probe::Facets
         add_params    = create_result_add_params(value)
         remove_params = create_result_remove_params(value)
 
-        Result.new(value, entry['count'], params, add_params, remove_params, @interval)
+        Result.new(value, entry['count'], params, add_params, remove_params, interval)
       }.reverse!
     end
 
