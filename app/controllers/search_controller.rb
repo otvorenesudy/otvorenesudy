@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def search
     prepare
 
-    @results = @model.search(params.freeze)
+    @results = @model.probe.search(params.freeze)
 
     @count       = @results.total_count
     @page        = @results.page
@@ -20,7 +20,7 @@ class SearchController < ApplicationController
     name = params[:name]
     term = params[:term]
 
-    @results = @model.suggest(name, term, params)
+    @results = @model.probe.suggest(name, term, params)
 
     if @results
       facet   = @results.facets[name]
