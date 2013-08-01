@@ -209,7 +209,7 @@ sk:
       file_number:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
+        missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       date:
@@ -283,7 +283,7 @@ sk:
       file_number:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
+        missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       date:
@@ -351,5 +351,5 @@ sk:
       file_number:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
+        missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'
