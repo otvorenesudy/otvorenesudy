@@ -37,7 +37,7 @@ describe Probe::Facets::TermsFacet do
         query_string: {
           query: 'a*',
           default_operator: :and,
-          fields: [facet.analyzed_field_name],
+          fields: [facet.field],
           analyze_wildcard: true
           }
        }
@@ -49,7 +49,7 @@ describe Probe::Facets::TermsFacet do
     it 'should create filter from simple params' do
       facet.terms = facet.parse_terms('a')
 
-      facet.build_filter.should eql(or: [{ term: { facet.not_analyzed_field_name => 'a' } }])
+      facet.build_filter.should eql(or: [{ term: { facet.untouhced_field_name => 'a' } }])
     end
 
     it 'should build more complex filter' do
@@ -61,10 +61,16 @@ describe Probe::Facets::TermsFacet do
       type.should eql(:or)
 
       filter.each_with_index do |f, i|
-        f.should eql(term: { facet.not_analyzed_field_name => params[i] })
+        f.should eql(term: { facet.untouched_field_name => params[i] })
       end
 
       filter.count.should eql(params.count)
+    end
+  end
+
+  context 'when building facet' do
+    it 'should build facet' do
+      facet.build('name').should eql({ name: { terms: { field: facet.field }}})
     end
   end
 

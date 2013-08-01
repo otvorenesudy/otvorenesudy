@@ -6,8 +6,6 @@ describe Probe::Search::Composer do
 
   before :each do
     Record.class_eval { include Probe }
-
-    options.merge! name: Record.probe.name, facets: Probe::Facets.new
   end
 
   it 'should compose match_all query' do
@@ -24,6 +22,8 @@ describe Probe::Search::Composer do
       facet :term, type: :terms
     end
 
+    facets = Record.probe.facets
+
     params[:q]    = 'q'
     params[:term] = 'attribute'
 
@@ -33,8 +33,8 @@ describe Probe::Search::Composer do
 
     query = query[:query][:filtered]
 
-    query[:query][:bool].should       eql(facets[:q].build_query)
-    query[:filter][:and].first.should eql(facets[:term].build_filter)
+    query[:filter][:and].first.should  eql(facets[:term].build_filter)
+    query[:query][:bool][:must].should eql([facets[:q].build_query[:must]])
   end
 
   it 'should compose query from facets' do
@@ -43,6 +43,8 @@ describe Probe::Search::Composer do
       facet :term, type: :terms
     end
 
+    facets = Record.probe.facets
+
     params[:q]    = 'q'
     params[:term] = 'attribute'
 
@@ -50,8 +52,8 @@ describe Probe::Search::Composer do
 
     query = search.compose_search(Hash.new)
 
-    query[:query][:bool].should       eql(facets[:q].build_query)
-    query[:filter][:and].first.should eql(facets[:term].build_filter)
+    query[:filter][:and].first.should  eql(facets[:term].build_filter)
+    query[:query][:bool][:must].should eql([facets[:q].build_query[:must]])
 
     query[:facets].each do |name, options|
       facet = facets[name.to_s.gsub(/_selected\z/, '').to_sym]

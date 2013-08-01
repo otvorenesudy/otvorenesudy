@@ -7,7 +7,7 @@ describe Probe::Index do
 
   context 'when creating index' do
     before :all do
-      Record.class_eval { include Probe::Index }
+      Record.class_eval { include Probe }
     end
 
 
@@ -17,7 +17,7 @@ describe Probe::Index do
           mapping do
             map     :id,     type: :long
             map     :number, type: :integer
-            analyze :title
+            analyze :title,  boost: 10.0
             analyze :text
           end
         end
@@ -27,12 +27,12 @@ describe Probe::Index do
         id:     { type: :long, index: :not_analyzed },
         number: { type: :integer, index: :not_analyzed },
         title:  { type: :multi_field, fields: {
-          analyzed: { type: :string, analyzer: Probe::Configuration.default_analyzer },
+          title: { type: :string, analyzer: Probe::Configuration.default_analyzer, boost: 10.0 },
           untouched: { type: :string, index: :not_analyzed }
           }
         },
         text:  { type: :multi_field, fields: {
-          analyzed: { type: :string, analyzer: Probe::Configuration.default_analyzer },
+          text: { type: :string, analyzer: Probe::Configuration.default_analyzer },
           untouched: { type: :string, index: :not_analyzed }
          }
         }
