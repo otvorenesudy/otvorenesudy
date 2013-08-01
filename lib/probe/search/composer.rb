@@ -5,7 +5,7 @@ module Probe::Search
     attr_accessor :results
 
     include Probe::Sanitizer
-    include Probe::Helpers::Index
+    include Probe::Helpers
     include Probe::Search::Query
     include Probe::Search::Filter
 
@@ -15,6 +15,7 @@ module Probe::Search
       @name        = probe.name
       @facets      = probe.facets
       @sort_fields = probe.sort_by || []
+      @per_page    = probe.per_page || Configuration.per_page
       @params      = params || {}
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
@@ -22,7 +23,6 @@ module Probe::Search
       @page     = extract_page_param(@params) if @params[:page]
       @order    = extract_order_param(@params) if @params[:order]
       @sort     = extract_sort_param(@params, @sort_fields) if @params[:sort]
-      @per_page = options[:per_page] || Probe::Configuration.per_page
 
       @facets.extract_facets_params(@params)
       @facets.add_search_params(sort: @sort, order: @order)
@@ -111,17 +111,13 @@ module Probe::Search
     end
 
     def search_sort
-      @sort ||= @sort_fields.first
-
-      field = @sort == :'_score' ? @sort : not_analyzed_field(@sort)
+      field ||= @sort_fields.first
 
       @index.merge! sort: [{ field => @order || :desc }]
     end
 
     def search_highlights
       fields = @facets.highlights.inject(Hash.new) { |hash, field| hash[field] = Hash.new }
-
-      @index.highlight(*fields.map { |f| analyzed_field(f) }) if fields.any?
 
       @index.merge! highlight: { fields: fields } if fields.any?
     end

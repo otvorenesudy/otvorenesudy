@@ -1,3 +1,4 @@
+require 'probe/sanitizer'
 require 'probe/converters/date'
 require 'probe/converters/numeric'
 require 'probe/facets/facet'
@@ -6,27 +7,32 @@ require 'probe/facets/range_facet'
 require 'probe/facets/date_facet'
 require 'probe/facets/fulltext_facet'
 require 'probe/facets/boolean_facet'
-require 'probe/facets/multi_terms_facet'
-require 'probe/helpers/index'
+require 'probe/index/alias'
+require 'probe/index/configuration'
+require 'probe/index/facets'
+require 'probe/index/mapping'
+require 'probe/index/pagination'
+require 'probe/index/sort'
 require 'probe/search/filter'
 require 'probe/search/query'
 require 'probe/search/results'
 require 'probe/search/composer'
 require 'probe/configuration'
+require 'probe/helpers'
 require 'probe/index'
+require 'probe/record'
 require 'probe/facets'
-require 'probe/search'
-require 'probe/serialize'
-require 'probe/suggest'
-require 'probe/bulk'
 
 module Probe
   extend ActiveSupport::Concern
 
   included do
-    include Probe::Index
-    include Probe::Suggest
-    include Probe::Percolate
-    include Probe::Serialize
+    include Probe::Proxy
+  end
+
+  def self.config(&block)
+    block.call(Probe::Configuration) if block_given?
+
+    Probe::Configuration
   end
 end

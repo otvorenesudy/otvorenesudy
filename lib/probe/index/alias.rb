@@ -1,4 +1,4 @@
-module Probe::Index
+class Probe::Index
   module Alias
     module Mapper
       # TODO: use when elasticsearch support percolating against index alias
@@ -18,7 +18,7 @@ module Probe::Index
         index.save
       end
 
-      def bulk_name
+      def generate_alias_name
         "#{index_name}_#{Time.now.strftime("%Y%m%d%H%M")}"
       end
     end

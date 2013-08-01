@@ -21,8 +21,6 @@ module Probe
     end
 
     def sanitize_query_string(value)
-      value = value.gsub(/(\+|\-|&&|\||\||\(|\)|\{|\}|\[|\]|\^|~|\!|\\|\/)/) { |m| "\\#{m}" }
-
       value
     end
 

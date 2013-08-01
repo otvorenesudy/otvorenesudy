@@ -2,7 +2,7 @@ module Probe::Search
   class Results
     include Enumerable
 
-    include Probe::Helpers::Index
+    include Probe::Helpers
 
     attr_reader :model,
                 :records,
@@ -20,11 +20,12 @@ module Probe::Search
                 :total_entries,
                 :time
 
-    def initialize(base, facets, sort_fields, response)
-      @base        = base
-      @facets      = facets
+    def initialize(probe, response)
+      @probe       = probe
+      @base        = @probe.base
+      @facets      = @probe.facets
+      @sort_fields = @probe.sort_fields
       @response    = response
-      @sort_fields = sort_fields
 
       @results  = @response.results
     end
@@ -129,9 +130,7 @@ module Probe::Search
           fields = Array.wrap(field)
 
           fields.each do |f|
-            analyzed_field = analyzed_field(f)
-
-            highlight[f] = result.highlight ? result.highlight[analyzed_field] : []
+            highlight[f] = result.highlight ? result.highlight[field] : []
           end
         end
 

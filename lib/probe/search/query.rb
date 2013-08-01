@@ -11,7 +11,7 @@ module Probe::Search
     def build_query_from(field, terms, options = {})
       values = analyze_query_string(terms, force_wildcard: options[:force_wildcard])
 
-      query_options = build_query_options(analyzed_field(field), options)
+      query_options = build_query_options(field, options)
 
       query = { query_string: { query: values }}
 
