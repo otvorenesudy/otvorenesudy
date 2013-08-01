@@ -38,21 +38,11 @@ module Probe::Search
     end
 
     def analyze_query_string(value, options = {})
-      value = value.dup
+      value = sanitize_query_string(value.dup)
 
-      exact = value.scan(/"[^"]+"/)
+      value += "*" if options[:force_wildcard]
 
-      exact.map do |e|
-        value.gsub!(e, '')
-
-        sanitize_query_string(e)
-      end
-
-      q = sanitize_query_string(value.gsub(/"/, '').strip)
-
-      q = q.split(/\s+/).map { |e| "*#{e}*" }.join(' ') if options[:force_wildcard]
-
-      q.present? || exact.present? ? "#{q} #{exact.join(' ')}" : "*"
+      value
     end
 
     def build_query_options(fields, options = {})
