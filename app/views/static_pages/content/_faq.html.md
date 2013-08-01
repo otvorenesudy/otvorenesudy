@@ -6,7 +6,7 @@
 
 Cieľom projektu Otvorené súdy je na základe verejne dostupných dát zvýšiť tlak
 na kvalitu slovenského súdnictva. Stránka pomocou týchto dát sprehľadňuje
-činnost súdov a sudcov a umožňuje ich porovnanie.
+činnosť súdov a sudcov a umožňuje ich porovnanie.
 
 Dlhodobým cieľom <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>
 je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by
@@ -17,8 +17,19 @@ umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sud
 Stránka poskytuje informácie o činnosti
 <%= link_to "súdov", search_courts_path %>,
 profily <%= link_to "sudcov", search_judges_path %>,
-historické aj budúce <%= link_to "pojednávania", search_hearings_path %> a
+minulé aj budúce <%= link_to "pojednávania", search_hearings_path %> a
 viac ako pol milióna <%= link_to "súdnych rozhodnutí", search_decrees_path %>.
+
+#### Viete mi poskytnúť právne poradenstvo?
+
+Právna poradňa nie je súčasťou tohto projektu. V prípade, že právnu radu
+hľadáte, môžete sa obrátiť na
+<%= external_link_to "Centrum právnej pomoci", 'http://www.legalaid.sk', icon: false %>.
+Úlohou centra je však pomoc materiálne znevýhodneným, ktorí si inú právnu pomoc
+dovoliť nemôžu, no s jednoduchými vecami Vám môžu poradiť. Tiež si môžete
+priamo vyhľadať advokáta na stránke
+<%= external_link_to "Slovenskej advokátskej komory", 'https://www.sak.sk/blox/cms/sk/sak/adv/vyhladanie', icon: false %>,
+na ktorého sa obrátite.
 
 #### Kto sú autori projektu? 
 
@@ -92,6 +103,8 @@ normalizované a navzájom prepojené.
 
 Mediálne dáta pochádzajú z článkov na spravodajských portáloch:
 sme.sk, tyzden.sk, webnoviny.sk, tvnoviny.sk, pravda.sk, etrend.sk, aktualne.sk.
+Odkazy na tieto články sú vyhľadávané automaticky na základe názvu súdu alebo
+mena a pôsobiska sudcu. Súdu ani sudcu sa týkať nemusia.
 
 #### Ako často sú dáta aktualizované? 
 
@@ -130,7 +143,7 @@ Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o 
 
 #### Naozaj máme vyše 2000 sudcov?
 
-Nie. Na Slovensku máme čosi cez 1 500 činných sudcov, ich presný aktuálny
+Nie. Na Slovensku máme približne 1 400 činných sudcov, ich presný aktuálny
 počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto,
 že sudcovia môžu mať prerušený výkon funkcie.  
 
