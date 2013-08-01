@@ -32,7 +32,7 @@ class Probe::Facets
     private
 
     def query_options
-      @query_options ||= { operator: :or, analyze_wildcard: true, force_wildcard: @force_wildcard }
+      @query_options ||= { operator: :and, analyze_wildcard: true, force_wildcard: @force_wildcard }
     end
   end
 end
