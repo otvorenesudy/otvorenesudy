@@ -4,11 +4,11 @@
       <h1>
         <%= yield :title %>
         <small>
-          <%= translate_with_count Court.total,      :court %>,
-          <%= translate_with_count Judge.total,      :judge %>,
-          <%= translate_with_count Hearing.total,    :hearing %>,<br/>
-          <%= translate_with_count Decree.total,     :decree %> a
-          <%= translate_with_count Proceeding.total, :proceeding %>
+          <%= translate_with_count Court.probe.total,      :court %>,
+          <%= translate_with_count Judge.probe.total,      :judge %>,
+          <%= translate_with_count Hearing.probe.total,    :hearing %>,<br/>
+          <%= translate_with_count Decree.probe.total,     :decree %> a
+          <%= translate_with_count Proceeding.probe.total, :proceeding %>
         </small>
       </h1>
     </div>

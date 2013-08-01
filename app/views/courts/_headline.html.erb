@@ -3,5 +3,5 @@ aspoň jedného príbuzného. Rekordérom je<br/>
 <%= Judge.with_most_related_people.pluck(:name).to_sentence %> so <%= Judge.with_most_related_people.first.related_people.group(:name).count.size %> blízkymi osobami.
 
 <small class="total">
-  Otvorené Súdy &mdash; vyhľadávate medzi <%= number_with_delimiter Court.total %> súdmi
+  Otvorené Súdy &mdash; vyhľadávate medzi <%= number_with_delimiter @results.total %> súdmi
 </small>
