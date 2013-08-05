@@ -23,7 +23,7 @@ class Probe::Facets
       super(values) do |value|
         return value if value.is_a? Range
 
-        lower, upper = value.split('..')
+        lower, upper = value.to_s.split('..')
 
         result = @converter.to_elastic(lower)..@converter.to_elastic(upper)
         result = yield result if block_given?
