@@ -172,7 +172,8 @@ Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po r
 
 Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia
 vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali
-týmto konečným rozhodnutiam.
+týmto konečným rozhodnutiam. Dáta sú aktualizované z databázy Ministerstva
+spravodlivosti v týždenných intervaloch.
 
 Úplne presne vysvetlené v
 <%= external_link_to "zákone o súdoch", 'http://www.zakonypreludi.sk/zz/2004-757#p82a', icon: false %>.
@@ -182,7 +183,8 @@ týmto konečným rozhodnutiam.
 Može ísť o jeden z nasledujúcich prípadov:
 
 - je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných
-  dní po nadobudnutí ich právoplatnosti,  
+  dní po nadobudnutí ich právoplatnosti. Rozhodnutia na našej stránke sú navyše
+  aktualizované v týždenných intervaloch,  
 
 - šlo o rozhodnutie, v ktorom bola vylúčená verejnosť,
 
