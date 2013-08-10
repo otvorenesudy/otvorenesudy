@@ -1,15 +1,11 @@
 module Probe
   module SpecHelper
     def self.reload_indices
-      indices.each(&:reload_index)
-
-      sleep 1
+      indices.each { |model| model.probe.reload }
     end
 
     def self.delete_indices
-      indices.each(&:delete_index)
-
-      sleep 1
+      indices.each { |model| model.probe.delete }
     end
 
     class << self
@@ -29,9 +25,7 @@ module Probe
     private
 
     def self.indices
-      Probe::Configuration.indices.map do |index|
-        index.to_s.singularize.camelcase.constantize
-      end
+      Probe::Configuration.models
     end
   end
 end
