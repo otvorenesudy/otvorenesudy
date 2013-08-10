@@ -10,7 +10,6 @@ describe Probe::Index do
       Record.class_eval { include Probe }
     end
 
-
     it 'should create index with simple mapping' do
       Record.class_eval do
         probe do

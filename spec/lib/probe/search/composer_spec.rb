@@ -52,7 +52,7 @@ describe Probe::Search::Composer do
 
     query = search.compose_search(Hash.new)
 
-    query[:filter][:and].first.should  eql(facets[:term].build_filter)
+    query[:filter][:and].should        eql([facets[:term].build_filter])
     query[:query][:bool][:must].should eql([facets[:q].build_query[:must]])
 
     query[:facets].each do |name, options|

@@ -19,7 +19,7 @@ describe Probe::Facets::TermsFacet do
     end
 
     it 'should correctly handle hash values as params' do
-      facet.parse_terms(a: :b).should eql(['{:a => :b}'])
+      facet.parse_terms(a: :b).should eql(['{:a=>:b}'])
     end
   end
 
@@ -49,7 +49,7 @@ describe Probe::Facets::TermsFacet do
     it 'should create filter from simple params' do
       facet.terms = facet.parse_terms('a')
 
-      facet.build_filter.should eql(or: [{ term: { facet.untouhced_field_name => 'a' } }])
+      facet.build_filter.should eql(or: [{ term: { facet.send(:untouched_field) => 'a' } }])
     end
 
     it 'should build more complex filter' do
@@ -61,7 +61,7 @@ describe Probe::Facets::TermsFacet do
       type.should eql(:or)
 
       filter.each_with_index do |f, i|
-        f.should eql(term: { facet.untouched_field_name => params[i] })
+        f.should eql(term: { facet.send(:untouched_field) => params[i] })
       end
 
       filter.count.should eql(params.count)
@@ -70,7 +70,7 @@ describe Probe::Facets::TermsFacet do
 
   context 'when building facet' do
     it 'should build facet' do
-      facet.build('name').should eql({ name: { terms: { field: facet.field }}})
+      facet.build(:name).should eql({ name: { terms: { field: facet.send(:untouched_field), size: facet.size }}})
     end
   end
 

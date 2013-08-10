@@ -29,7 +29,7 @@ describe Probe::Facets::FulltextFacet do
       facet.build_query.should eql(must: {
         query_string: {
           query: 'blabla',
-          fields: [:'*.analyzed'],
+          fields: [:*],
           default_operator: :or,
           analyze_wildcard: true
         }
@@ -44,7 +44,7 @@ describe Probe::Facets::FulltextFacet do
       facet.build_query.should eql(must: {
         query_string: {
           query: 'blabla* b*',
-          fields: [:"*.analyzed"],
+          fields: [:*],
           default_operator: :or,
           analyze_wildcard: true
         }
