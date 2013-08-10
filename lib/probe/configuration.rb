@@ -1,11 +1,11 @@
 module Probe
   class Configuration < Settingslogic
-    source File.join(Rails.root, 'config', 'probe.yml')
+    source Rails.root.join('config', 'probe.yml')
 
     namespace Rails.env
 
     def self.models
-      @models ||= indices.map { |e| e.singularize.to_sym }
+      @models ||= indices.map { |e| e.constantize }
     end
   end
 end
