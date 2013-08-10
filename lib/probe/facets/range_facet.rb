@@ -7,7 +7,7 @@ class Probe::Facets
       @converter = options[:converter] || converter_for(@ranges.first.begin.class)
     end
 
-    def build(name, options)
+    def build(name, options = {})
       options = prepare_build(options)
 
       options.merge! range: {
@@ -28,14 +28,15 @@ class Probe::Facets
 
     def parse_terms(values)
       super(values) do |value|
-        return nil unless value.to_s.match(/\A[0-9\-]+\.\.[0-9\-]+\z/)
+        next nil unless value.to_s.match(/\A[0-9\-]+\.\.[0-9\-]+\z/)
 
-        return value if value.is_a? Range
+        next value if value.is_a? Range
 
         lower, upper = value.to_s.split('..')
 
         result = @converter.to_elastic(lower)..@converter.to_elastic(upper)
         result = yield result if block_given?
+
         result
       end
     end
@@ -49,13 +50,13 @@ class Probe::Facets
     def build_facet_ranges
       ranges = []
 
-      ranges << { to: @ranges.first.begin + 1 }
+      ranges << { to: @ranges.first.begin }
 
       @ranges.each do |range|
         ranges << { from: range.begin, to: range.end + 1 }
       end
 
-      ranges << { from: @ranges.last.end + 1 }
+      ranges << { from: @ranges.last.end }
 
       ranges
     end
@@ -76,8 +77,8 @@ class Probe::Facets
 
     def format_range(from, to)
       case
-      when from.nil? then -Float::INFINITY..(to.to_i - 1)
-      when to.nil?   then (from.to_i - 1)..Float::INFINITY
+      when from.nil? then -Float::INFINITY..to.to_i
+      when to.nil?   then from.to_i..Float::INFINITY
       else                from.to_i..(to.to_i - 1)
       end
     end

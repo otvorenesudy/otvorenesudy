@@ -5,7 +5,7 @@ class Probe::Facets
     attr_accessor :query,
                   :script
 
-    def build(name, options)
+    def build(name, options = {})
       options = prepare_build(options)
 
       options.merge! terms: {

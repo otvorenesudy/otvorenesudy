@@ -9,7 +9,7 @@ module Probe
     end
 
     def create_facet(type, name, field, options)
-      "Probe::Facets::#{type.to_s.camelcase}Facet".constantize.new(name,field, options)
+      "Probe::Facets::#{type.to_s.camelcase}Facet".constantize.new(name, wrap_field(field), options)
     end
   end
 end

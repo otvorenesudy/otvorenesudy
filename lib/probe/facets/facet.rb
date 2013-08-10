@@ -14,7 +14,7 @@ class Probe::Facets
     def initialize(name, field, options)
       @base  = options[:base]
       @name  = name
-      @field = field
+      @field = wrap_field(field)
       @type  = options[:type]
       @size  = options[:size] || 10
     end
@@ -36,9 +36,7 @@ class Probe::Facets
     end
 
     def prepare_build(options)
-      facet_options = Hash.new
-
-      facet_options.merge! global: options[:global], facet_filter: options[:facet_filter]
+      options.slice(:global, :facet_filter)
     end
 
     def populate(results, selected)
@@ -75,9 +73,9 @@ class Probe::Facets
         else
           value.to_s
         end
-      end
+      end.compact
 
-      terms.compact
+      terms if terms.any?
     end
 
     def active?

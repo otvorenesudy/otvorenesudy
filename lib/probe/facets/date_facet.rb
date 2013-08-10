@@ -10,7 +10,7 @@ class Probe::Facets
       @interval = options[:interval]
     end
 
-    def build(name, options)
+    def build(name, options = {})
       options = prepare_build(options)
 
       options.merge! date_histogram: {
