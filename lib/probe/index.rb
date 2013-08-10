@@ -9,8 +9,7 @@ module Probe
     include Probe::Index::Pagination
     include Probe::Index::Sort
 
-    attr_reader :base,
-                :type
+    attr_reader :base, :type
 
     def initialize(base)
       @base = base
@@ -25,12 +24,12 @@ module Probe
       search.compose(&block)
     end
 
-    def total
-      search { match_all }.total
-    end
-
     def percolator
       @percolator ||= Search::Percolator.new(self, search_options)
+    end
+
+    def percolate(record)
+      percolator.percolate(record)
     end
 
     def suggest(name, term, params, options = {})
@@ -38,8 +37,6 @@ module Probe
 
       @suggester.suggest(name, term, params, options)
     end
-
-    private
 
     def index(index = nil)
       index ? Tire::Index.new(index) : @index ||= Tire::Index.new(name)
