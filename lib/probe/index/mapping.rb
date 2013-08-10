@@ -20,17 +20,18 @@ class Probe::Index
 
         case value[:type]
         when :map
-          mapping.merge! field => options.merge(type: type, index: :not_analyzed, as: as)
+          mapping.merge! field => options.merge(type: type, index: :not_analyzed)
         when :analyze
           mapping.merge! field => {
             type: :multi_field,
             fields: {
               field =>  options.merge!(type: :string, analyzer: analyzer),
               untouched: { type: type, index: :not_analyzed }
-            },
-            as: as
+            }
           }
         end
+
+        mapping[field].merge! as: as if as
       end
     end
 
