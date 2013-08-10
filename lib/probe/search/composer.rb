@@ -60,6 +60,8 @@ module Probe::Search
     end
 
     def compose_filtered_query
+      @index ||= Hash.new
+
       @index.merge! build_filtered_query_from(@facets.build_query, @facets.build_filter(:and))
     end
 
