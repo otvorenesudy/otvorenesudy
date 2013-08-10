@@ -40,7 +40,7 @@ class Probe::Facets
     def build_facet_ranges
       ranges = []
 
-      ranges << { to: @ranges.first.begin + 1 }
+      ranges << { to: @ranges.first.begin }
 
       @ranges.each do |range|
         ranges << { from: range.begin, to: range.end + 1 }
@@ -67,7 +67,7 @@ class Probe::Facets
 
     def format_range(from, to)
       case
-      when from.nil? then -Float::INFINITY..(to.to_i - 1)
+      when from.nil? then -Float::INFINITY..to.to_i
       when to.nil?   then from.to_i..Float::INFINITY
       else                from.to_i..(to.to_i - 1)
       end
