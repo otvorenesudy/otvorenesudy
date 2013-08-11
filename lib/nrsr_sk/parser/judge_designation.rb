@@ -8,7 +8,7 @@ module NrsrSk
       end
 
       def judge
-        @data[0].strip.squeeze
+        @data[0].strip.squeeze(' ')
       end
 
       def date
@@ -17,7 +17,7 @@ module NrsrSk
 
       def designation_type
         if @data[2] && @data[2] != 'n/a'
-          type = @data[2].strip.squeeze.upcase_first
+          type = @data[2].strip.squeeze(' ').upcase_first
           
           return "Bez časového obmedzenia funkcie" if type =~ /bez\s+obmedzenia/i
           
