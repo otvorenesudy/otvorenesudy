@@ -12,5 +12,6 @@ role :db, domain, primary: true
 # Resque
 role :resque_worker,    domain
 role :resque_scheduler, domain
+set :workers, { probe: 6 }
 
 set :rvm_ruby_string, "1.9.3@#{application}"
