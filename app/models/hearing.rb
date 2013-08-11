@@ -95,15 +95,15 @@ class Hearing < ActiveRecord::Base
   end
 
   def historical
-    date.past?
+    date.past? unless date.nil?
   end
 
   def has_future_date?
-    date - 2.years > Time.now.to_datetime
+    date - 2.years > Time.now.to_datetime unless date.nil?
   end
 
   def had_future_date?
-    date - 2.years > created_at
+    date - 2.years > created_at unless date.nil?
   end
 
   alias :historical? :historical
