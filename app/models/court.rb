@@ -25,7 +25,7 @@ class Court < ActiveRecord::Base
 
   has_many :employments, dependent: :destroy
 
-  has_many :judges, through: :employments
+  has_many :judges, uniq: true, through: :employments
 
   has_many :hearings, dependent: :destroy
   has_many :decrees,  dependent: :destroy
@@ -100,14 +100,6 @@ class Court < ActiveRecord::Base
 
   def vicechair
     @vicechair ||= judges.active.vicechair.first
-  end
-
-  def listed_judges
-    @real_judges ||= judges.listed
-  end
-  
-  def probably_superior_officers
-    @superior_officers ||= judges.probably_superior_court_officer
   end
 
   def expenses_total

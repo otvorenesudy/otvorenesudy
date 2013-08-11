@@ -1,8 +1,8 @@
 class Judgement < ActiveRecord::Base
-  include Judge::Matched
-
   attr_accessible :judge_name_similarity,
                   :judge_name_unprocessed
+
+  include Judge::Matched
 
   scope :of_judge, lambda { |judge| where judge_id: judge }
 

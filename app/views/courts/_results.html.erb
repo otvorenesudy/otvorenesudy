@@ -21,8 +21,8 @@
         <% end %>
         <br/>
       <% end %>
-      <% if court.listed_judges.any? %>
-        Na súde pracuje <%= translate_with_count(court.listed_judges.size, :judge) %>.
+      <% if court.judges.active.listed.any? %>
+        Na súde pracuje <%= translate_with_count(court.judges.active.listed.size, :judge) %>.
       <% end %>
       Pre súd <%= 'zatiaľ ne' if court.hearings.size.zero? %>evidujeme
       <%= translate_with_count(court.hearings.size, :hearing) %>
