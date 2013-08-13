@@ -28,7 +28,7 @@ module JusticeGovSk
         
         name = @parser.chair_judge(@document)
         
-        unless name.nil?
+        unless name[:value].nil?
           match_judges_by(name) do |similarity, judge|
             judge = make_judge(@hearing.uri, @hearing.source, name, court: @hearing.court) unless judge
             

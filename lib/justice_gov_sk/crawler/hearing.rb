@@ -45,10 +45,12 @@ module JusticeGovSk
           puts "Processing #{pluralize names.count, 'judge'}."
           
           names.each do |name|
-            match_judges_by(name) do |similarity, judge|
-              judge = make_judge(@hearing.uri, @hearing.source, name, court: @hearing.court) unless judge
-              
-              judging(judge, similarity, name, false)
+            unless name[:value].nil?
+              match_judges_by(name) do |similarity, judge|
+                judge = make_judge(@hearing.uri, @hearing.source, name, court: @hearing.court) unless judge
+                
+                judging(judge, similarity, name, false)
+              end
             end
           end
         end
