@@ -183,11 +183,18 @@ spravodlivosti v týždenných intervaloch.
 Može ísť o jeden z nasledujúcich prípadov:
 
 - je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných
-  dní po nadobudnutí ich právoplatnosti. Rozhodnutia na našej stránke sú navyše
-  aktualizované v týždenných intervaloch,  
+  dní po nadobudnutí ich právoplatnosti,  
 
 - šlo o rozhodnutie, v ktorom bola vylúčená verejnosť,
 
-- ešte sme ho nestihli stiahnuť a spracovať,
+- ešte sme ho nestihli stiahnuť a spracovať. Rozhodnutia na našej stránke sú
+  aktualizované v najviac týždenných intervaloch,
 
-- niečo sa na portáli pokazilo <%= icon_tag :frown %>
+- niečo sa pokazilo <%= icon_tag :frown %>
+
+#### Prečo je na stránke menej rozhodnutí než na stránkach ministerstva?
+
+Vysvetlením sú najmä technické príčiny, a teda skutočnosť, že niektoré
+rozhodnutia nebolo možné stiahnuť ani po opakovaných pokusoch. Niektoré
+rozhodnutia zas boli uverejnené viackrát s rovnakým ECLI, resp. niektorým
+tento identifikátor chýba, a preto sa v našej databáze nenachádzajú.
