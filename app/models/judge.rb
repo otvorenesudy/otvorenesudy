@@ -19,8 +19,10 @@ class Judge < ActiveRecord::Base
                   :suffix,
                   :addition
 
-  scope :active,   joins(:employments).merge(Employment.active)
-  scope :inactive, joins(:employments).merge(Employment.inactive)
+  include Judge::Activity
+  include Judge::Matched
+
+  scope :not_active_or_not_listed, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
 
   scope :chair,     joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
@@ -55,7 +57,7 @@ class Judge < ActiveRecord::Base
                                    dependent: :destroy
 
   has_many :related_people, class_name: :JudgeRelatedPerson,
-                             through: :property_declarations
+                            through: :property_declarations
 
   has_many :statistical_summaries, class_name: :JudgeStatisticalSummary,
                                    dependent: :destroy
@@ -67,7 +69,6 @@ class Judge < ActiveRecord::Base
 
   include Judge::ConstitutionalDecrees
   include Judge::Incomes
-  include Judge::Matched
   include Judge::RelatedPeople
   include Judge::SubstantiationNotes
 

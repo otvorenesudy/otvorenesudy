@@ -96,11 +96,11 @@ class Decree < ActiveRecord::Base
   end
 
   def has_future_date?
-    date > Time.now.to_date
+    date > Time.now.to_date unless date.nil?
   end
 
   def had_future_date?
-    date > created_at.to_date
+    date > created_at.to_date unless date.nil?
   end
 
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html
