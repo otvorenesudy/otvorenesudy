@@ -41,5 +41,5 @@ production:
 
   # TODO settingslogic shit
   output:
-    colors: true
-    verbose: true # TODO set to false when production is set up
+    colors: false
+    verbose: false
