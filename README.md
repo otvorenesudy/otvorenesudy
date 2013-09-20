@@ -129,5 +129,6 @@ rake process:judge_designations:prezident_sk
 4. Push to the branch `git push origin new-feature`
 5. Create new Pull Request
 
-## Licence
-TODO
+## License
+
+[Educational Community License 1.0](http://opensource.org/licenses/ecl1.php)
