@@ -4,9 +4,11 @@
     <small>
       <%= translate_with_count Court.total,      :court %>,
       <%= translate_with_count Judge.total,      :judge %>,
-      <%= translate_with_count Hearing.total,    :hearing %>,
-      <%= translate_with_count Decree.total,     :decree %> a
+      <%= translate_with_count Hearing.total,    :hearing %> a
+      <%= translate_with_count Decree.total,     :decree %>
+<!--
       <%= translate_with_count Proceeding.total, :proceeding %>
+-->
     </small>
   </h1>
 </div>
