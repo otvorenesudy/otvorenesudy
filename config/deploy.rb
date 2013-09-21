@@ -24,7 +24,7 @@ set :keep_releases, 1
 
 # Whenever
 # TODO enable when it does not break deployment
-set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
+set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever" if rails_env == 'production'
 
 default_run_options[:pty] = true
 
