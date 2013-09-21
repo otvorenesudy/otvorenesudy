@@ -47,7 +47,7 @@
         <p>Forma rozhodnutia &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %></p>
       <% end %>
       <% if @decree.natures.any? %>
-        <p>Povaha rozhodnutia &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search(nature.value, params: { natures: nature.value }) }.join(', ').html_safe %></p>
+        <p>Povaha rozhodnutia &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
       <% end %>
 
       <p><%= external_link_to 'Pôvodný dokument', @decree.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
@@ -61,15 +61,15 @@
       <div class="well well-small">
         <p>
           <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
-          <span class="pull-right"><%= @decree.ecli || "neuvedený" %></span>
+          <span class="pull-right"><%= @decree.ecli ? link_to_decrees_search(@decree.ecli, params: { q: @decree.ecli }) : "neuvedený" %></span>
         </p>
         <p>
           <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-          <span class="pull-right"><%= @decree.case_number || "neuvedená" %></span>
+          <span class="pull-right"><%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : "neuvedená" %></span>
         </p>
         <p>
           <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
-          <span class="pull-right"><%= @decree.file_number || "neuvedené" %></span>
+          <span class="pull-right"><%= @decree.file_number ? link_to_decrees_search(@decree.file_number, params: { file_number: @decree.file_number }) : "neuvedené" %></span>
         </p>
       </div>
 <!--
