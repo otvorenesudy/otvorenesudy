@@ -92,10 +92,8 @@ namespace :probe do
 end
 
 desc 'Restarts Resque workers'
-task :restart_resque do
+task :kill_resque do
   run "kill -9 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
-  run "cd #{current_path}; RAILS_ENV=#{rails_env} COUNT=4 QUEUE=crawlers rake resque:workers &"
-  run "cd #{current_path}; RAILS_ENV=#{rails_env} COUNT=4 QUEUE=listers rake resque:workers &"
 end
 
 # If you are using Passenger mod_rails uncomment this
