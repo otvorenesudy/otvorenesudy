@@ -1,3 +1,5 @@
+require 'whenever/capistrano'
+
 set :domain, "195.146.144.210"
 
 server domain, :app, :web, :db, primary: true

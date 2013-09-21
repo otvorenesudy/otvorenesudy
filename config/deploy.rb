@@ -2,7 +2,6 @@ require 'bundler/capistrano'
 require 'resque'
 require 'rvm/capistrano'
 require 'capistrano-resque'
-require 'whenever/capistrano'
 
 set :stages, [:staging, :production]
 
