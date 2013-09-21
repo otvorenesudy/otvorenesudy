@@ -96,10 +96,10 @@
           <li class="active">
             <a href="#contact" data-toggle="tab" data-track="court-contact">Kontakt</a>
           </li>
-          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.active.listed.size, track_data('court-judges') %></li>
-          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data('court-decrees') %></li>
-          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @hearings.size, track_data('court-hearings') %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('court-media') %></li>
+          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.active.listed.size, track_data(:'court-judges') %></li>
+          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data(:'court-decrees') %></li>
+          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @hearings.size, track_data(:'court-hearings') %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data(:'court-media') %></li>
         </ul>
 
         <div class="tab-content">
