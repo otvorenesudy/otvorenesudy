@@ -22,10 +22,6 @@ set :git_enable_submodules, 1
 
 set :keep_releases, 1
 
-# Whenever
-# TODO enable when it does not break deployment
-set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever" if rails_env == 'production'
-
 default_run_options[:pty] = true
 
 namespace :db do
@@ -134,7 +130,6 @@ namespace :deploy do
   after 'deploy',             'deploy:cleanup'
   after 'deploy:update_code', 'rvm:trust_rvmrc'
   after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release', 'deploy:migrate'
-  after 'deploy:restart',     'restart_resque' if rails_env == 'production'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"

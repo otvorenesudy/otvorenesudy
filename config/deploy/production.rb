@@ -15,3 +15,8 @@ role :resque_scheduler, domain
 set :workers, { probe: 6 }
 
 set :rvm_ruby_string, "1.9.3@#{application}"
+
+# Whenever
+set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever" if rails_env == 'production'
+
+after 'deploy:restart', 'restart_resque'
