@@ -34,7 +34,7 @@ every :month, options do
 end
 
 every :day, at: '03:00am' do
-  command 'mv -f /data/deploy/opencourts/storage/pages/courts /data/deploy/opencourts/storage/pages/courts-backup'
+  rake 'crawl:courts:backup'
   rake 'crawl:courts'
   rake 'crawl:judges'
 end

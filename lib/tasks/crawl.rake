@@ -17,7 +17,12 @@ namespace :crawl do
     args.with_defaults safe: false
     JusticeGovSk.crawl_resources Court, args
   end
-  
+
+  desc 'Backup courts data from cache'
+  task :'courts:backup' => :environment do
+    `mv -f #{Rails.root.join('storage', 'pages', 'courts')} #{Rails.root.join('storage', 'pages', 'courts-backup')}`
+  end
+
   desc "Crawl judges from justice.gov.sk"
   task :judges, [:offset, :limit] => :environment do |_, args|
     args.with_defaults safe: false
@@ -29,7 +34,7 @@ namespace :crawl do
     args.with_defaults safe: false
     SudnaradaGovSk.crawl_resources JudgePropertyDeclaration, args
   end
-  
+
   namespace :hearings do
     desc "Crawl civil hearings from justice.gov.sk"
     task :civil, [:offset, :limit] => :environment do |_, args|
@@ -55,18 +60,18 @@ namespace :crawl do
     args.with_defaults safe: false
     JusticeGovSk.crawl_resources Decree, args
   end
-  
+
   desc "Crawl specific court from justice.gov.sk"
   task :court, [:url] => :environment do |_, args|
     JusticeGovSk.crawl_resource Court, args[:url], safe: true
   end  
-  
+
   desc "Crawl specific judge property declaration from sudnarada.gov.sk"
   task :judge_property_declaration, [:url, :court_name, :judge_name] => :environment do |_, args|
     args.with_defaults safe: true
     SudnaradaGovSk.crawl_resource JudgePropertyDeclaration, args[:url], args
   end
-  
+
   namespace :hearing do
     desc "Crawl specific civil hearing from justice.gov.sk"
     task :civil, [:url] => :environment do |_, args|
@@ -83,7 +88,7 @@ namespace :crawl do
       JusticeGovSk.crawl_resource SpecialHearing, args[:url], safe: true
     end
   end
-  
+
   desc "Crawl specific decree from justice.gov.sk"
   task :decree, [:url, :decree_form_code] => :environment do |_, args|
     args.with_defaults safe: true
