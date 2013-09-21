@@ -109,7 +109,7 @@ mena a pôsobiska sudcu. Súdu ani sudcu sa týkať nemusia.
 #### Ako často sú dáta aktualizované? 
 
 Za bežnej prevádzky plánujeme aktualizovať dáta o súdnych pojednávaniach denne.
-Dáta o súdnych rozhodnutich by sme radi aktualizovali najmenej raz za 7 dní.
+Dáta o súdnych rozhodnutich by sme radi aktualizovali najmenej raz za týždeň.
 
 #### Našiel som chybu, čo mám spraviť?
 
@@ -141,7 +141,7 @@ Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o 
 
 # O sudcoch
 
-#### Naozaj máme vyše 2000 sudcov?
+#### Naozaj máme vyše 2 000 sudcov?
 
 Nie. Na Slovensku máme približne 1 400 činných sudcov, ich presný aktuálny
 počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto,
