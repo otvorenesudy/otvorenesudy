@@ -93,6 +93,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails',      '~> 2.0'
+  gem 'fuubar'
   gem 'database_cleaner', '~> 0.9.1'
   gem 'factory_girl_rails'
   gem 'capybara'
