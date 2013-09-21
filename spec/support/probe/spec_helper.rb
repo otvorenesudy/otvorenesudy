@@ -2,14 +2,10 @@ module Probe
   module SpecHelper
     def self.reload_indices
       indices.each(&:reload_index)
-
-      sleep 1
     end
 
     def self.delete_indices
       indices.each(&:delete_index)
-
-      sleep 1
     end
 
     class << self
