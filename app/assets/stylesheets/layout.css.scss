@@ -5,13 +5,11 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
-// beta
+// featured in navigation
 
-.beta {
+.beta, .donate {
   position: fixed;
   top: 0px;
-  right: 0px;
-  width: 120px;
   height: $navbarHeight;
   line-height: 15px;
   border-bottom: 1px solid $linkColor;
@@ -23,6 +21,12 @@
   
   z-index: $zindexFixedNavbar + 1;
   
+  a {
+    display: block;
+    
+    color: $white;
+  }
+  
   span {
     display: block;
     top: 0px;
@@ -32,6 +36,7 @@
   
   i {
     position: absolute;
+    top: 0px;
     left: 0px;
     width: $navbarHeight;
     height: $navbarHeight;
@@ -39,6 +44,16 @@
     
     font-size: 20px;
   }
+}
+
+.donate {
+  left: 0px;
+  width: 120px;
+}
+
+.beta {
+  right: 0px;
+  width: 120px;
 }
 
 // general
