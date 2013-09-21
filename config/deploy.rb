@@ -134,7 +134,7 @@ namespace :deploy do
   after 'deploy',             'deploy:cleanup'
   after 'deploy:update_code', 'rvm:trust_rvmrc'
   after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release', 'deploy:migrate'
-  after 'deploy:restart',     'restart_resque'
+  after 'deploy:restart',     'restart_resque' if rails_env == 'production'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
