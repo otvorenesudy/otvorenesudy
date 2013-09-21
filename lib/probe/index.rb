@@ -52,10 +52,14 @@ module Probe
 
       def import_index
         Probe::Bulk.import(self)
+
+        index.refresh
       end
 
       def update_index
         find_each { |record| record.update_index }
+
+        index.refresh
       end
 
       def reload_index
