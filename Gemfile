@@ -69,7 +69,7 @@ gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
 # scheduling
-gem 'whenever', require: false
+gem 'whenever'
 
 # hostname
 gem 'rack-canonical-host'

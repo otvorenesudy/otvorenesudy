@@ -20,12 +20,11 @@ set :ssh_options, { forward_agent: true }
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
 
+set :keep_releases, 1
+
 # Whenever
 # TODO enable when it does not break deployment
-#set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
-
-# Resque
-set :workers, { probe: 6 }
+set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
 
 default_run_options[:pty] = true
 
@@ -97,6 +96,13 @@ namespace :probe do
   end
 end
 
+desc 'Restarts Resque workers'
+task :restart_resque do
+  run "kill -9 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
+  run "cd #{current_path}; RAILS_ENV=#{rails_env} COUNT=4 QUEUE=crawlers rake resque:workers"
+  run "cd #{current_path}; RAILS_ENV=#{rails_env} COUNT=4 QUEUE=listers rake resque:workers"
+end
+
 # If you are using Passenger mod_rails uncomment this
 namespace :deploy do
   task :start do
@@ -128,7 +134,7 @@ namespace :deploy do
   after 'deploy',             'deploy:cleanup'
   after 'deploy:update_code', 'rvm:trust_rvmrc'
   after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release', 'deploy:migrate'
-  #after 'deploy:restart',     'resque:restart'
+  after 'deploy:restart',     'restart_resque'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
