@@ -2,11 +2,13 @@
   <li>
     <h4>
       <%= link_to hearing_headline(hearing, limit: 80), hearing_url(hearing) %>
-      <br/>
-      <small>
-        Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
-        <%= hearing_date hearing.date %>
-      </small>
+      <% if hearing.date %>
+        <br/>
+        <small>
+          Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
+          <%= hearing_date hearing.date %>
+        </small>
+      <% end %>
     </h4>
 
     <div class="search-result-content">
