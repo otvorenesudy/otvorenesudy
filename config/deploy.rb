@@ -23,6 +23,7 @@ set :keep_releases, 1
 
 default_run_options[:pty] = true
 
+# Database (PostgreSQL)
 namespace :db do
   desc "Migrate DB"
   task :create, roles: :db do
@@ -55,14 +56,6 @@ namespace :db do
   end
 end
 
-# Rvm
-namespace :rvm do
-  desc 'Trust rvmrc file'
-  task :trust_rvmrc do
-    run "rvm rvmrc trust #{current_release}"
-  end
-end
-
 # Probe (Elasticsearch)
 namespace :probe do
   desc "Drop Probe indices"
@@ -91,12 +84,27 @@ namespace :probe do
   end
 end
 
-desc 'Restarts Resque workers'
-task :kill_resque do
-  run "kill -9 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
+# Workers (Resque & Redis)
+namespace :workers do
+  desc "Start workers (according to predefined setup)"
+  task :start do
+    setup = { probe: 2, listers: 4, crawlers: 4 }
+    
+    setup.each do |queue, count|
+      1.upto(count) do
+        run "RAILS_ENV=#{rails_env} QUEUE=#{queue} BACKGROUND=yes INTERVAL=5 bundle exec rake resque:work"
+      end
+    end
+  end
+  
+  desc "Stop workers (also flushes Redis)"
+  task :stop do
+    run "kill -9 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
+    run "redis-cli FLUSHALL"
+  end
 end
 
-# If you are using Passenger mod_rails uncomment this
+# General
 namespace :deploy do
   task :start do
   end
