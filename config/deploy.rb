@@ -92,7 +92,7 @@ namespace :workers do
     
     setup.each do |queue, count|
       1.upto(count) do
-        run "RAILS_ENV=#{rails_env} QUEUE=#{queue} BACKGROUND=yes INTERVAL=5 bundle exec rake resque:work"
+        run "cd #{current_path}; RAILS_ENV=#{rails_env} QUEUE=#{queue} BACKGROUND=yes INTERVAL=5 bundle exec rake resque:work"
       end
     end
   end
