@@ -88,7 +88,7 @@ end
 namespace :workers do
   desc "Start workers (according to predefined setup)"
   task :start do
-    setup = { probe: 2, listers: 4, crawlers: 4 }
+    setup = { probe: 0, listers: 4, crawlers: 4 }
     
     setup.each do |queue, count|
       1.upto(count) do
