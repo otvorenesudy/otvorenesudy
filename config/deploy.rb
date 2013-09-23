@@ -99,8 +99,7 @@ namespace :workers do
   
   desc "Stop workers (also flushes Redis)"
   task :stop do
-    run "kill -9 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
-    run "redis-cli FLUSHALL"
+    run "kill -15 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
   end
 end
 
