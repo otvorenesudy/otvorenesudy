@@ -19,7 +19,7 @@
 #
 # Learn more: http://github.com/javan/whenever
 
-options = { at: '12:00am' }
+options = { at: '07:00am' }
 
 every :day, options do
   rake 'subscriptions:run[daily]'
