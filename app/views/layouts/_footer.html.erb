@@ -68,6 +68,24 @@
     <div class="row">
       <div class="span12">
         <nav>
+          <ul class="open inline">
+            <li><%= external_link_to image_tag(asset_path('logos/sme-colored-80.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
+            <li><strong>Open data projekty</strong></li>
+            <li><%= external_link_to "Cena štátu", 'http://cenastatu.sme.sk', track_data(:'sme-cenastatu') %></li>
+            <li><%= external_link_to "Obce", 'http://obce.sme.sk', track_data(:'sme-obce') %></li>
+            <li><%= external_link_to "Školy", 'http://skoly.sme.sk', track_data(:'sme-skoly') %></li>
+            <li><%= external_link_to "Verejné obstarávanie", 'http://tender.sme.sk', track_data(:'sme-tender') %></li>
+            <li><%= external_link_to "Vysoké školy", 'http://vysokeskoly.sme.sk', track_data(:'sme-vysokeskoly') %></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="span12">
+        <nav>
           <ul class="social inline">
             <li><%= external_link_to nil, 'https://facebook.com/otvorenesudy', icon: :facebook %></li>
             <li><%= external_link_to nil, 'https://twitter.com/otvorenesudy', icon: :twitter %></li>
@@ -76,8 +94,6 @@
         </nav>
       </div>
     </div>
-
-    <hr/>
 
     <div class="row">
       <div class="span12">

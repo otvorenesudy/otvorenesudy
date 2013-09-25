@@ -466,8 +466,27 @@ footer {
     }
   }
   
-  ul.social {
+  ul.open {
     margin: 10px 0px;
+    
+    li {
+      display: inline-block;
+      float: left;
+      margin: 2px 20px 2px 0px;
+      padding: 0px;
+    }
+    
+    li + li {
+      padding: 0px;
+    }
+    
+    li:last-child {
+      float: none;
+    }
+  }
+  
+  ul.social {
+    margin: 50px 0px 10px 0px;
   }
 
   .note {
