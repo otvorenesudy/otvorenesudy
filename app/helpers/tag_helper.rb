@@ -120,9 +120,9 @@ module TagHelper
   def external_link_to(body, url, options = {})
     icon = options.delete(:icon)
     
-    return link_to body, url, options.merge(target: :_blank) if icon == false  
+    return link_to body, url, options.merge(target: :_blank) unless icon  
     
-    icon_link_to icon || :'external-link', body, url, options.merge(target: :_blank, join: :append)
+    icon_link_to icon == true ? :'external-link' : icon, body, url, options.merge(target: :_blank, join: :append)
   end
 
   private

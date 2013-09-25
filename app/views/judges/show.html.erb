@@ -63,14 +63,14 @@
       <% if File.readable? @judge.curriculum_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Životopis", curriculum_judge_path(@judge), icon: false %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= external_link_to "Životopis", curriculum_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
       <% if File.readable? @judge.cover_letter_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge), icon: false %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
@@ -218,7 +218,7 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o sudcovi boli získané <%= @judge.listed ? 'zo' : 'z' %> <%= external_link_to @judge.listed ? 'zoznamu' : 'dokumentu', @judge.uri, class: :muted %>,
+        Informácie o sudcovi boli získané <%= @judge.listed ? 'zo' : 'z' %> <%= external_link_to @judge.listed ? 'zoznamu' : 'dokumentu', @judge.uri, class: :muted, icon: true %>,
         ktorého posledná aktualizácia bola vykonaná <%= time_tag @judge.updated_at.to_date, format: :default %>.
         <br/>
         Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcu.

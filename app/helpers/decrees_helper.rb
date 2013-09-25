@@ -37,11 +37,11 @@ module DecreesHelper
   end
 
   def link_to_decree_resource(decree, body, options = {})
-    external_link_to body, "#{decree_path decree}/resource", { icon: false }.merge(options)
+    external_link_to body, "#{decree_path decree}/resource", options
   end
 
   def link_to_decree_document(decree, body, options = {})
-    external_link_to body, "#{decree_path decree}/document", { icon: false }.merge(options)
+    external_link_to body, "#{decree_path decree}/document", options
   end
 
   def external_link_to_legislation(legislation, options = {})
@@ -54,7 +54,7 @@ module DecreesHelper
       url = 'http://www.zakonypreludi.sk/main/search.aspx?text=' + legislation.value
     end
 
-    external_link_to legislation.value(options.delete(:format)), url, options
+    external_link_to legislation.value(options.delete(:format)), url, { icon: true }.merge(options)
   end
 
   private

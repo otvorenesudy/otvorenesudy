@@ -28,7 +28,7 @@ module HearingsHelper
   end
   
   def link_to_hearing_resource(hearing, body, options = {})
-    external_link_to body, "#{hearing_path hearing}/resource", { icon: false }.merge(options)
+    external_link_to body, "#{hearing_path hearing}/resource", options
   end
   
   private

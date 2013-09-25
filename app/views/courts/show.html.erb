@@ -132,7 +132,7 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súde boli získané z <%= external_link_to 'dokumentu', @court.uri, class: :muted %>,
+        Informácie o súde boli získané z <%= external_link_to 'dokumentu', @court.uri, class: :muted, icon: true %>,
         ktorého posledná aktualizácia bola vykonaná <%= time_tag @court.updated_at.to_date, format: :default %>.
       </small>
     </div>
