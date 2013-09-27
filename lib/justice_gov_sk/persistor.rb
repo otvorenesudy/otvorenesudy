@@ -3,11 +3,9 @@ module JusticeGovSk
     include Core::Persistor
     
     def persist(instance)
-      update = instance.respond_to?(:update_index) && !instance.id.nil?
-      
       super
       
-      if update
+      if instance.respond_to? :update_index
         print "Updating index #{identify instance} ... "
         
         instance.update_index
