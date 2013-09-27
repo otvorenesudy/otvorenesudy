@@ -66,7 +66,7 @@ module JusticeGovSk
           
           legislations
 
-          @decree          
+          @decree
         end
       end
       
