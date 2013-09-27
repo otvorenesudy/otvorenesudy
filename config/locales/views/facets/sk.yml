@@ -191,13 +191,13 @@ sk:
       proposers: 
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
-        missing: 'neuvedený'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni navrhovatelia.'
 
       participants:
         title: 'Účastníci'
         placeholder: 'Meno účastníka'
-        missing: 'neuvedené'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni účastníci.'
 
       case_number:
@@ -333,13 +333,13 @@ sk:
       proposers: 
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
-        missing: 'neuvedený'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni navrhovatelia.'
 
       participants:
         title: 'Účastníci'
         placeholder: 'Meno účastníka'
-        missing: 'neuvedené'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni účastníci.'
 
       case_numbers:
