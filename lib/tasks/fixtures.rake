@@ -85,10 +85,10 @@ namespace :fixtures do
 
       FileUtils.mkpath path
 
-      f  = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
-      fi = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
-      fp = File.open File.join(path, 'judge-property-declarations-people.csv'), 'w'
-      fs = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
+      file            = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
+      file_incomes    = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
+      file_people     = File.open File.join(path, 'judge-property-declarations-people.csv'), 'w'
+      file_statements = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
 
       data  = [:uri, :judge_name]
       data += [:court_name, :year]
@@ -97,7 +97,7 @@ namespace :fixtures do
       data += [:cost, :share_size, :acquisition_date]
       data += [:acquisition_reason, :ownership_form, :change]
 
-      f.write(data.join("\t") + "\n")
+      file.write(data.join("\t") + "\n")
 
       Judge.order(:name).all.each do |judge|
         print "Exporting declaration properties for judge #{judge.name} ... "
@@ -114,7 +114,7 @@ namespace :fixtures do
               data << (property.ownership_form.nil?     ? '' : property.ownership_form.value)
               data << (property.change.nil?             ? '' : property.change.value)
 
-              f.write(data.join("\t") + "\n")
+              file.write(data.join("\t") + "\n")
             end
           end
 
@@ -123,7 +123,7 @@ namespace :fixtures do
             data += [declaration.court.name, declaration.year]
             data += [income.description, income.value]            
 
-            fi.write(data.join("\t") + "\n") 
+            file_incomes.write(data.join("\t") + "\n")
           end
 
           declaration.related_people.each do |person|
@@ -131,7 +131,7 @@ namespace :fixtures do
             data += [declaration.court.name, declaration.year]
             data += [person.name, person.institution, person.function]            
 
-            fp.write(data.join("\t") + "\n") 
+            file_people.write(data.join("\t") + "\n")
           end
 
           declaration.statements.each do |statement|
@@ -139,21 +139,20 @@ namespace :fixtures do
             data += [declaration.court.name, declaration.year]
             data += [statement.value]            
 
-            fs.write(data.join("\t") + "\n") 
+            file_statements.write(data.join("\t") + "\n")
           end
         end
 
         puts "done"
       end
 
-      f.close
-
-      fi.close
-      fp.close
-      fs.close
+      file.close
+      file_incomes.close
+      file_people.close
+      file_statements.close
     end
 
-    desc 'Export judge related people with metadata about judge position'
+    desc "Export judge related people with metadata about judge position"
     task judge_related_people: :environment do
       file = File.open Rails.root.join('tmp', 'judge_related_people.csv'), 'w'
 
