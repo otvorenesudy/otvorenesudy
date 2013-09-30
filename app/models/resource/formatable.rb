@@ -24,10 +24,6 @@ module Resource::Formatable
         formatted[attribute] = nil
       end
     end
-
-    def invalidate_formatables
-
-    end
   end
   
   private
