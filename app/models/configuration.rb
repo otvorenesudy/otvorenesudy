@@ -1,5 +1,6 @@
-class Configuration < Settingslogic
-  source File.join(Rails.root, 'config', 'configuration.yml')
+class Configuration
+  include Squire::Base
 
-  namespace Rails.env
+  squire.source    Rails.root.join('config', 'configuration.yml')
+  squire.namespace Rails.env.to_sym, base: :defaults
 end

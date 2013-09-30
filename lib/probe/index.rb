@@ -26,7 +26,7 @@ module Probe
       end
 
       def settings(params = {})
-        settings = configuration.index
+        settings = configuration.index.to_hash
 
         settings.deep_merge!(params)
 
