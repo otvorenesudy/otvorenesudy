@@ -152,6 +152,43 @@ namespace :fixtures do
       fp.close
       fs.close
     end
+
+    desc 'Export judge related people with metadata about judge position'
+    task judge_related_people: :environment do
+      file = File.open Rails.root.join('tmp', 'judge_related_people.csv'), 'w'
+
+      data  = [:judge_id, :judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+      data += [:person_id, :person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+
+      file.write(data.join("\t") + "\n")
+
+      Judge.find_each do |judge|
+        related_people = judge.related_people.where(:'judge_property_declarations.year' => 2012)
+
+        next unless related_people.any?
+
+        converter = lambda do |j|
+          employment = j.employments.first
+          court      = employment.court
+          position   = employment.judge_position
+
+          [j.id, j.name, court.name, court.address, court.latitude, court.longitude, position.try(:value)]
+        end
+
+        related_people.each do |person|
+          person = person.to_judge
+
+          next unless person
+
+          data  = converter.call(judge)
+          data += converter.call(person)
+
+          file.write(data.join("\t") + "\n")
+        end
+      end
+
+      file.close
+    end
   end
 
   namespace :hearings do
