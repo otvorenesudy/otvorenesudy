@@ -42,7 +42,7 @@ class Decree < ActiveRecord::Base
 
   has_many :paragraph_explanations, through: :legislations
 
-  has_many :paragraphs, through: :paragraph_explainations
+  has_many :paragraphs, through: :paragraph_explanations
 
   has_many :pages, class_name: :DecreePage, dependent: :destroy
 

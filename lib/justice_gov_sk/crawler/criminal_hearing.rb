@@ -50,27 +50,27 @@ module JusticeGovSk
             accusation.value             = value[:normalized]
             accusation.value_unprocessed = value[:unprocessed]
             
-            accusation.paragraph_explainations = []
+            accusation.paragraph_explanations = []
             
             @persistor.persist(accusation)
             
             @parser.scan_paragraphs(accusation.value).each do |number|
-              paragraph_explaination(number, accusation) if accusation.value.utf8 =~ /č\s*\.\s*300\//i
+              paragraph_explanation(number, accusation) if accusation.value.utf8 =~ /č\s*\.\s*300\//i
             end
           end         
         end
       end
 
-      def paragraph_explaination(number, accusation)
+      def paragraph_explanation(number, accusation)
         paragraph = paragraph_by_legislation_and_number_factory.find(300, number)
         
         if paragraph
-          paragraph_explaination = paragraph_explaination_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, accusation.id, :Accusation)
+          paragraph_explanation = paragraph_explanation_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, accusation.id, :Accusation)
           
-          paragraph_explaination.paragraph   = paragraph
-          paragraph_explaination.explainable = accusation
+          paragraph_explanation.paragraph   = paragraph
+          paragraph_explanation.explainable = accusation
           
-          @persistor.persist(paragraph_explaination)
+          @persistor.persist(paragraph_explanation)
         else
           puts "No known paragraph found."
         end

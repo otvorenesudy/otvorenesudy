@@ -3,7 +3,7 @@ class Paragraph < ActiveRecord::Base
                   :number,
                   :description
 
-  has_many :explainations, class_name: :ParagraphExplaination
+  has_many :explanations, class_name: :ParagraphExplanation
 
   validates :legislation, presence: true
   validates :number,      presence: true
