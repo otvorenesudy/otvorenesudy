@@ -9,7 +9,6 @@ require 'docsplit'
 require 'mechanize'
 require 'murmurhash3'
 require 'nokogiri'
-require 'settingslogic'
 
 require 'core/configuration'
 require 'core/output'

@@ -50,7 +50,7 @@ gem 'colored',     '~> 1.2'
 gem 'murmurhash3', '>= 0.1.3'
 
 gem 'htmlentities'
-gem 'settingslogic'
+gem 'squire'
 
 # background jobs
 gem 'resque'
