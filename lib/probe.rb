@@ -31,6 +31,7 @@ module Probe
     include Probe::Serialize
 
     include Tire::Model::Search
+    include Tire::Model::Callbacks
 
     setup
   end

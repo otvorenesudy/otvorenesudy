@@ -164,12 +164,12 @@ module JusticeGovSk
               legislation.section   = map[:section]
               legislation.letter    = map[:letter]
               
-              legislation.paragraph_explainations = []
+              legislation.paragraph_explanations = []
               
               @persistor.persist(legislation)
               
               legislation_usage(legislation)
-              paragraph_explaination(legislation)
+              paragraph_explanation(legislation)
             end
           end
         end
@@ -207,16 +207,16 @@ module JusticeGovSk
         @persistor.persist(legislation_usage)
       end
       
-      def paragraph_explaination(legislation)
+      def paragraph_explanation(legislation)
         paragraph = paragraph_by_legislation_and_number_factory.find(legislation.number, legislation.paragraph)
         
         if paragraph
-          paragraph_explaination = paragraph_explaination_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, legislation.id, :Legislation)
+          paragraph_explanation = paragraph_explanation_by_paragraph_id_and_explainable_id_and_explainable_type_factory.find_or_create(paragraph.id, legislation.id, :Legislation)
           
-          paragraph_explaination.paragraph   = paragraph
-          paragraph_explaination.explainable = legislation
+          paragraph_explanation.paragraph   = paragraph
+          paragraph_explanation.explainable = legislation
           
-          @persistor.persist(paragraph_explaination)
+          @persistor.persist(paragraph_explanation)
         else
           puts "No known paragraph found."
         end

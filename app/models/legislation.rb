@@ -17,9 +17,9 @@ class Legislation < ActiveRecord::Base
 
   has_many :decrees, through: :usages
 
-  has_many :paragraph_explainations, dependent: :destroy, as: :explainable
+  has_many :paragraph_explanations, dependent: :destroy, as: :explainable
   
-  has_many :paragraphs, through: :paragraph_explainations
+  has_many :paragraphs, through: :paragraph_explanations
 
   def self.inheritance_column
   end
@@ -33,5 +33,11 @@ class Legislation < ActiveRecord::Base
       '%d' => legislation.paragraphs.pluck(:description).join(', '),
       '%s' => legislation.section ? 'Odsek ' + legislation.section : nil,
       '%l' => legislation.letter ? 'Písmeno ' + legislation.letter : nil }
+  end
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    invalidate_value
   end
 end

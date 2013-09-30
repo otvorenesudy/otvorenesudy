@@ -19,6 +19,10 @@ module Resource::Formatable
 
         cache.get formatter, pattern
       end
+
+      define_method "invalidate_#{attribute}" do
+        formatted[attribute] = nil
+      end
     end
   end
   
