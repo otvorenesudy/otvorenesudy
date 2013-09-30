@@ -40,7 +40,7 @@ class Decree < ActiveRecord::Base
 
   has_many :legislations, through: :legislation_usages
 
-  has_many :paragraph_explainations, through: :legislations
+  has_many :paragraph_explanations, through: :legislations
 
   has_many :paragraphs, through: :paragraph_explainations
 
