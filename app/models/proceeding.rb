@@ -99,4 +99,10 @@ class Proceeding < ActiveRecord::Base
   def probably_closed?
     events.last.is_a? Decree
   end
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    @case_numbers = @events = @court_ids = @judges = nil
+  end
 end

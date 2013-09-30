@@ -14,6 +14,10 @@ module Resource::ContextSearch
         
         @context_query = query  
       end
+
+      define_method :invalidate_context_query do
+        @context_query = nil
+      end
     end
 
     def context_options(options = {})

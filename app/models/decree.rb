@@ -46,14 +46,6 @@ class Decree < ActiveRecord::Base
 
   has_many :pages, class_name: :DecreePage, dependent: :destroy
 
-  def text
-    @text ||= pages.pluck(:text).join
-  end
-
-  def judge_names
-    @judge_names ||= Judge::Names.of judges
-  end
-
   max_paginates_per 100
       paginates_per 20
 
@@ -95,12 +87,28 @@ class Decree < ActiveRecord::Base
     facet :pages_count,         type: :range, ranges: [1..1, 2..2, 2..5, 6..10]
   end
 
+  def text
+    @text ||= pages.pluck(:text).join
+  end
+
+  def judge_names
+    @judge_names ||= Judge::Names.of judges
+  end
+
   def has_future_date?
     date > Time.now.to_date unless date.nil?
   end
 
   def had_future_date?
     date > created_at.to_date unless date.nil?
+  end
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    legislations.each { |legislation| legislation.invalidate_caches }
+
+    @text = @judge_names = nil
   end
 
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html

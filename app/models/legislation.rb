@@ -34,4 +34,10 @@ class Legislation < ActiveRecord::Base
       '%s' => legislation.section ? 'Odsek ' + legislation.section : nil,
       '%l' => legislation.letter ? 'Písmeno ' + legislation.letter : nil }
   end
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    invalidate_value
+  end
 end

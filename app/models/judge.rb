@@ -147,6 +147,17 @@ class Judge < ActiveRecord::Base
 
   context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
 
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    invalidate_context_query
+    invalidate_name
+
+    related_people.each { |person| person.invalidate_caches }
+
+    @listed = @probably_officer = @probably_woman = nil
+  end
+
   storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
   storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end

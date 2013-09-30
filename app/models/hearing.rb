@@ -44,10 +44,6 @@ class Hearing < ActiveRecord::Base
 
   has_many :accusations, through: :defendants
 
-  def judge_names
-    @judge_names ||= Judge::Names.of judges
-  end
-
   max_paginates_per 100
       paginates_per 20
 
@@ -94,6 +90,10 @@ class Hearing < ActiveRecord::Base
     facet :exact_date,   type: :abstract, field: :date, facet: :date, interval: :month
   end
 
+  def judge_names
+    @judge_names ||= Judge::Names.of judges
+  end
+
   def historical
     date.past? unless date.nil?
   end
@@ -107,6 +107,12 @@ class Hearing < ActiveRecord::Base
   end
 
   alias :historical? :historical
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    @judge_names = nil
+  end
 
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
     File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)

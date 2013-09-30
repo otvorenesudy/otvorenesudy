@@ -108,5 +108,14 @@ class Court < ActiveRecord::Base
 
   context_query { |court| "\"#{court.name}\"" }
 
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    invalidate_context_query
+    invalidate_address
+
+    @coordinates = @chair = @vicechair = @expenses_total = nil
+  end
+
   storage :resource, JusticeGovSk::Storage::CourtPage, extension: :html
 end

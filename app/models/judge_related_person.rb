@@ -15,4 +15,10 @@ class JudgeRelatedPerson < ActiveRecord::Base
   def to_judge
     @judge ||= Judge.find_by_name(name)
   end
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    @known = @judge = nil
+  end
 end
