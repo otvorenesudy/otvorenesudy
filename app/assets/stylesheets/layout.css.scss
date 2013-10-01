@@ -9,7 +9,6 @@
 
 .beta, .donate {
   position: fixed;
-  top: 0px;
   height: $navbarHeight;
   line-height: 15px;
   border-bottom: 1px solid $linkColor;
@@ -48,11 +47,13 @@
 
 .donate {
   left: 0px;
+  bottom: 0px;
   width: 120px;
 }
 
 .beta {
   right: 0px;
+  bottom: 0px;
   width: 120px;
 }
 
@@ -278,6 +279,10 @@ h1, h2, strong {
       padding: 0px;
 
       text-decoration: none;
+    }
+
+    img {
+      margin-top: -2px;
     }
   }
 

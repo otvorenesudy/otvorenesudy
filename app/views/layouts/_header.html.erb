@@ -12,7 +12,12 @@
     <div class="container">
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
+          <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
+          <li class="divider-vertical"></li>
+          <li><%= link_to image_tag(asset_path('logos/opencourts-white-20.png'), alt: nil), root_path %></li>
+<!--
           <%= navbar_logo_tag "Otvorené Súdy" %>
+-->
           <li class="divider-vertical"></li>
           <%= navbar_link_tag :building, "Súdy", search_courts_path %>
           <%= navbar_link_tag :user, "Sudcovia", search_judges_path %>
