@@ -3,7 +3,8 @@ of authorship (the "Original Work") whose owner (the "Licensor") has placed
 the following notice immediately following the copyright notice for the
 Original Work:
 
-Copyright (c) <year> <copyright holders>
+Copyright (c) 2013 Samuel Molnár, Pavol Zbell,
+Transparency International Slovakia
 
 Licensed under the Educational Community License version 1.0
 
