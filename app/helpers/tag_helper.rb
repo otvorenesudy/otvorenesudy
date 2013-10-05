@@ -43,11 +43,11 @@ module TagHelper
     mail_to url, icon_tag(type, label: body, join: options.delete(:join)), options
   end
 
-  def navbar_logo_tag(title)
+  def navbar_logo_tag(title, options = {})
     classes = [:capital]
     classes << :active if current_page? root_path
 
-    content_tag :li, link_to(title, root_path, class: :brand), class: classes 
+    content_tag :li, link_to(title || :'', root_path, class: options[:type] || :brand), class: classes
   end
 
   def navbar_li_tag(body, url, options = {})
@@ -119,9 +119,9 @@ module TagHelper
 
   def external_link_to(body, url, options = {})
     icon = options.delete(:icon)
-    
-    return link_to body, url, options.merge(target: :_blank) unless icon  
-    
+
+    return link_to body, url, options.merge(target: :_blank) unless icon
+
     icon_link_to icon == true ? :'external-link' : icon, body, url, options.merge(target: :_blank, join: :append)
   end
 
@@ -129,5 +129,5 @@ module TagHelper
 
   def data(options = {})
     options.inject({}) { |o, (k, v)| o["data-#{k}"] = v; o }
-  end 
+  end
 end
