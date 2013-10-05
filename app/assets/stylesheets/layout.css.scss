@@ -362,6 +362,10 @@ header {
 
       color: $white;
 
+      &.source {
+        line-height: 39px;
+      }
+
       &.total {
         margin-top: 40px;
       }
