@@ -55,13 +55,11 @@ gem 'squire'
 # background jobs
 gem 'resque'
 
-# analytics
-gem 'garelic'
-
 # authentification
 gem 'devise'
 
-# exceptions
+# monitoring
+gem 'garelic'
 gem 'airbrake'
 
 # markup
