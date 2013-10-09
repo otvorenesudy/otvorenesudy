@@ -59,8 +59,9 @@ gem 'resque'
 gem 'devise'
 
 # monitoring
-gem 'garelic'
 gem 'airbrake'
+gem 'garelic'
+gem 'newrelic_rpm'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
