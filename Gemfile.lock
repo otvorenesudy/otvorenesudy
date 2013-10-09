@@ -137,7 +137,7 @@ GEM
       kaminari (>= 0.13.0)
       rails
     libv8 (3.3.10.4)
-    listen (2.0.1)
+    listen (2.0.3)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
