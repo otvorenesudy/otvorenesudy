@@ -89,14 +89,14 @@ namespace :workers do
   desc "Start workers (according to predefined setup)"
   task :start do
     setup = { probe: 0, listers: 4, crawlers: 4 }
-    
+
     setup.each do |queue, count|
       1.upto(count) do
         run "cd #{current_path}; RAILS_ENV=#{rails_env} QUEUE=#{queue} BACKGROUND=yes INTERVAL=5 bundle exec rake resque:work"
       end
     end
   end
-  
+
   desc "Stop workers (also flushes Redis)"
   task :stop do
     run "kill -15 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
@@ -121,18 +121,13 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/storage #{release_path}"
   end
 
-  desc "Move in database.yml for this environment"
-  task :move_in_database_yml, roles: :app do
-    run "cp #{release_path}/config/database.yml{.example,}"
-  end
-
   desc "Move in configuration files"
-  task :move_in_configuration, roles: :app do
-    run "cp #{shared_path}/configuration.yml #{release_path}/config/configuration.yml"
+  task :move_in_configuration_files, roles: :app do
+    run "ln -nfs #{shared_path}/config/*.yml #{release_path}/config"
   end
 
   after 'deploy',             'deploy:cleanup'
-  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release', 'deploy:migrate'
+  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_configuration_files', 'db:create_release', 'deploy:migrate'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
