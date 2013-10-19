@@ -76,7 +76,7 @@ namespace :fixtures do
   end
 
   namespace :export do
-    desc "Export judge property declarations and some other related data into CSVs" 
+    desc "Export judge property declarations and some other related data into CSVs"
     task :judge_property_declarations, [:path] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
@@ -121,7 +121,7 @@ namespace :fixtures do
           declaration.incomes.each do |income|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
-            data += [income.description, income.value]            
+            data += [income.description, income.value]
 
             file_incomes.write(data.join("\t") + "\n")
           end
@@ -129,7 +129,7 @@ namespace :fixtures do
           declaration.related_people.each do |person|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
-            data += [person.name, person.institution, person.function]            
+            data += [person.name, person.institution, person.function]
 
             file_people.write(data.join("\t") + "\n")
           end
@@ -137,7 +137,7 @@ namespace :fixtures do
           declaration.statements.each do |statement|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
-            data += [statement.value]            
+            data += [statement.value]
 
             file_statements.write(data.join("\t") + "\n")
           end
@@ -218,6 +218,30 @@ namespace :fixtures do
         puts "finished (#{pluralize n, 'hearing'})"
       end
     end
+
+    desc "Anonymizes all defendants "
+    task :anonymize, [:hearing_id] => :environment do |_, args|
+      include Core::Identify
+      include Core::Pluralize
+      include Core::Output
+
+      hearing = Hearing.find args[:hearing_id]
+
+      abort "Already anonymized" if hearing.anonymized
+      abort "No defendants" if hearing.defendants.none?
+
+      hearing.defendants.each do |defendant|
+        name = defendant.name.split(/\s/).map { |part| "#{part.chars.first}. " }.join.strip
+
+        puts "#{identify defendant} '#{defendant.name}' -> '#{name}'"
+
+        defendant.name = name
+        defendant.save!
+      end
+
+      hearing.anonymized = true
+      hearing.save!
+    end
   end
 
   namespace :decrees do
@@ -263,10 +287,10 @@ namespace :fixtures do
       image_storage    = JusticeGovSk::Storage::DecreeImage.instance
 
       document_storage.batch do |entries, bucket|
-        unless bucket.start_with? args[:filter] 
+        unless bucket.start_with? args[:filter]
           puts "Bucket #{bucket} matches skip filter, moving on next bucket."
           next
-        end 
+        end
 
         print "Running image extraction for bucket #{bucket}, "
         print "#{pluralize entries.size, 'document'}, "
