@@ -4,7 +4,7 @@
   <div class="page-header">
     <h1>
       <%= hearing_headline @hearing, limit: 45, tooltip: true %>
-      <% if @hearing.date %>      
+      <% if @hearing.date %>
         <br/>
         <small>
           Pojednávanie <%= @hearing.historical ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -46,7 +46,7 @@
 
       <%-# Special hearings only -%>
 
-      <% if @hearing.commencement_date? %>  
+      <% if @hearing.commencement_date? %>
         <p>Dátum započatia &ndash; <%= hearing_date @hearing.commencement_date %></p>
       <% end %>
       <% unless @hearing.selfjudge.nil? %>
@@ -161,7 +161,7 @@
 
     <%-# Special hearings only -%>
 
-    <% if @judges.chaired.any? %>    
+    <% if @judges.chaired.any? %>
       <div class="row">
         <div class="span12">
           Funkciu predsedu senátu zastáva

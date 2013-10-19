@@ -1,8 +1,8 @@
-<% if flash.any? %>
+<% if normalized_flash.any? %>
   <section id="flash">
     <div class="row">
       <div class="<%= request.fullpath =~ /^\/users/ || params[:controller] == 'static_pages' ? :'offset2 span8' : :span12 %>">
-        <% flash.each do |type, messages| %>
+        <% normalized_flash.each do |type, messages| %>
           <% Array.wrap(messages).each do |message| %>
             <div class="alert alert-<%= type %> fade in">
               <%= close_link_to_alert %> <%= message %>
