@@ -6,7 +6,14 @@ module JusticeGovSk
       super
 
       # TODO refactor this fix
-      Hearing.find(instance.id).save! if instance.is_a? Hearing
+      [Court, Judge, Hearing, Decree, Proceeding].each do |model|
+        if instance.is_a? model
+          puts "xxxxx"
+
+          model.find(instance.id).save!
+          break
+        end
+      end
 
       # TODO rm debug
       #if instance.is_a? Hearing
