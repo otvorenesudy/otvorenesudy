@@ -67,7 +67,7 @@ class Probe::Facets
 
     def format_range(from, to)
       case
-      when from.nil? then -Float::INFINITY..to.to_i
+      when from.nil? then -Float::INFINITY..(to.to_i - 1)
       when to.nil?   then from.to_i..Float::INFINITY
       else                from.to_i..(to.to_i - 1)
       end
