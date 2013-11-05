@@ -11,6 +11,13 @@
     <div class="span12">
       <%= render 'shared/social', classes: 'social-vertical pull-right' %>
 
+      <% if @judge.employments.at_court_by_type(CourtType.supreme).any? || @judge.employments.at_court_by_type(CourtType.regional).any? %>
+        <p class="text-error">
+          <span class="gutter centered"><%= icon_tag :'warning-sign' %></span>
+          Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov.
+        </p>
+      <% end %>
+
       <% @employments.each do |employment| %>
         <p>
           <span class="gutter centered">
@@ -24,7 +31,7 @@
           <% end %>
           <% if employment.judge_position %>
             <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.charged? %>
-            <%= employment.judge_position.value %>
+            <%= @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
               <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
@@ -34,9 +41,9 @@
           <% end %>
           na súde 
           <%= link_to_court employment.court %>,
-          <%= 'zatiaľ ne' if Hearing.during_employment(employment).size.zero? %>evidujeme
-          <%= translate_with_count(Hearing.during_employment(employment).size, :hearing) %> a
-          <%= translate_with_count(Decree.during_employment(employment).size, :decree) %>.
+          <%= 'zatiaľ ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
+          <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %> a
+          <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
           <% if employment.note %>
             <br/>
             <span class="gutter centered"><%= icon_tag :pushpin %></span>
@@ -56,14 +63,14 @@
       <% if File.readable? @judge.curriculum_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Životopis", curriculum_judge_path(@judge), icon: false %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= external_link_to "Životopis", curriculum_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
       <% if File.readable? @judge.cover_letter_path %>
         <p>
           <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge), icon: false %>, ktorý bol zverejnený vo výberovom konaní.
+          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
         </p>
       <% end %>
 
@@ -134,18 +141,18 @@
         <p>
           <span class="gutter centered"><%= icon_tag :group %></span>
           Blízke osoby uvedené v majetkových priznaniach sudcu za roky:
-          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-persons-#{year}", :'data-parent' => :'#related-persons', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
+          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-people-#{year}", :'data-parent' => :'#related-people', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
         </p>
-        <div id="related-persons">
-          <% @judge.related_people_by_year.each do |year, persons| %>
+        <div id="related-people">
+          <% @judge.related_people_by_year.each do |year, people| %>
             <div class="accordion-group">
-              <div id="related-persons-<%= year %>" class="collapse">
+              <div id="related-people-<%= year %>" class="collapse">
                 <p>
                   <span class="gutter centered"><%= icon_tag :group %></span>
                   Blízke osoby uvedené v majetkových priznaniach sudcu za rok <%= year %>:
                 </p>
                 <ul class="unstyled">
-                  <% persons.each do |person| %>
+                  <% people.each do |person| %>
                     <li><%= icon_tag :user %> <%= "#{person.function.upcase_first} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %>.</li>
                   <% end %>
                 </ul>
@@ -178,11 +185,11 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data('judge-decrees') %>
+            <%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data(:'judge-decrees') %>
           </li>
-          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.size, track_data('judge-upcoming-hearings') %></li>
-          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @historical_hearings.size, track_data('judge-historical-hearings') %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data('judge-media') %></li>
+          <li><%= tab_link_to_with_count 'Budúce pojednávania', '#upcoming-hearings', @upcoming_hearings.size, track_data(:'judge-upcoming-hearings') %></li>
+          <li><%= tab_link_to_with_count 'Minulé pojednávania', '#historical-hearings', @historical_hearings.size, track_data(:'judge-historical-hearings') %></li>
+          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data(:'judge-media') %></li>
         </ul>
 
         <div class="tab-content">
@@ -211,7 +218,7 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o sudcovi boli získané <%= @judge.listed ? 'zo' : 'z' %> <%= external_link_to @judge.listed ? 'zoznamu' : 'dokumentu', @judge.uri, class: :muted %>,
+        Informácie o sudcovi boli získané <%= @judge.listed ? 'zo' : 'z' %> <%= external_link_to @judge.listed ? 'zoznamu' : 'dokumentu', @judge.uri, class: :muted, icon: true %>,
         ktorého posledná aktualizácia bola vykonaná <%= time_tag @judge.updated_at.to_date, format: :default %>.
         <br/>
         Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcu.

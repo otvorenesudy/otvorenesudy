@@ -1,5 +1,3 @@
-# TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
-
 defaults: &defaults
   # Storage configuration
   storage:
@@ -12,34 +10,23 @@ defaults: &defaults
   output:
 
     # Colored output
-    colors: true
+    colors: false
 
     # Verbose output
-    verbose: true
+    verbose: false
 
 development:
-  <<: *defaults  
+  <<: *defaults
+
+  output:
+    colors: true
+    verbose: true
 
 test:
   <<: *defaults  
 
-  # TODO settingslogic shit
-  output:
-    colors: false
-    verbose: false
-
 staging:
   <<: *defaults
 
-  # TODO settingslogic shit
-  output:
-    colors: true
-    verbose: true
-
 production:
   <<: *defaults
-
-  # TODO settingslogic shit
-  output:
-    colors: true
-    verbose: true # TODO set to false when production is set up

@@ -12,6 +12,12 @@ sk:
       few: '%{count} sudcovia'
       other: '%{count} sudcov'
 
+    officer: &officer
+      zero: 'žiadny vyšší súdni úradníci'
+      one: '1 vyšší súdny úradník'
+      few: '%{count} vyšší súdni úradníci'
+      other: '%{count} vyšších súdnych úradníkov'
+
     person: &person
       zero: 'žiadna osoba'
       one: '1 osoba'
@@ -185,13 +191,13 @@ sk:
       proposers: 
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
-        missing: 'neuvedený'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni navrhovatelia.'
 
       participants:
         title: 'Účastníci'
         placeholder: 'Meno účastníka'
-        missing: 'neuvedené'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni účastníci.'
 
       case_number:
@@ -203,7 +209,7 @@ sk:
       file_number:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
+        missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       date:
@@ -277,7 +283,7 @@ sk:
       file_number:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
+        missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       date:
@@ -327,13 +333,13 @@ sk:
       proposers: 
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
-        missing: 'neuvedený'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni navrhovatelia.'
 
       participants:
         title: 'Účastníci'
         placeholder: 'Meno účastníka'
-        missing: 'neuvedené'
+        missing: 'neuvedení'
         not_found: 'Nenájdení žiadni účastníci.'
 
       case_numbers:
@@ -345,5 +351,5 @@ sk:
       file_number:
         title: 'IČS'
         placeholder: 'Identifikačné číslo spisu'
-        missing: 'neuvedená'
+        missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'

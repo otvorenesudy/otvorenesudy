@@ -11,10 +11,17 @@
       <% end %>
     </h4>
 
+    <% if hearing.has_future_date? %>
+      <div class="alert alert-warning">
+        <%= icon_tag :'warning-sign' %>
+        Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach.
+      </div>
+    <% end %>
+
     <div class="search-result-content">
       <div class="search-result-identifiers pull-right">
-          <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %><br/>
-          <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
+          <%= tooltip_tag hearing.case_number || '?', "Spisová značka", placement: :right %><br/>
+          <%= tooltip_tag hearing.file_number || '?', "Identifikačné číslo súdneho spisu", placement: :right %>
       </div>
       
       <% if hearing.court %>

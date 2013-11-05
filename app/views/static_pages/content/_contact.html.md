@@ -1,6 +1,6 @@
 # Kontakt
 
-#### <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>
+#### <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
 
 Bajkalská 25  
 827 18 Bratislava  

@@ -50,26 +50,28 @@ gem 'colored',     '~> 1.2'
 gem 'murmurhash3', '>= 0.1.3'
 
 gem 'htmlentities'
-gem 'settingslogic'
+gem 'squire', '~> 1.2.6'
 
 # background jobs
 gem 'resque'
 
-# analytics
-gem 'garelic'
-
 # authentification
 gem 'devise'
 
-# exceptions
+# monitoring
 gem 'airbrake'
+gem 'garelic'
+gem 'newrelic_rpm'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
 # scheduling
-gem 'whenever', require: false
+gem 'whenever'
+
+# hostname
+gem 'rack-canonical-host'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -90,6 +92,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails',      '~> 2.0'
+  gem 'fuubar'
   gem 'database_cleaner', '~> 0.9.1'
   gem 'factory_girl_rails'
   gem 'capybara'

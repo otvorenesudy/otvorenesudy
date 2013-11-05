@@ -1,5 +1,3 @@
-# TODO refactor settingslogic shit, because it does not merge hashes, it directly sets values
-
 defaults: &defaults
   # Storage configuration
   storage:
@@ -28,50 +26,29 @@ defaults: &defaults
       perform: [Decree]
 
       # Override existing text extractions for specified resources
-      override: [Decree]
+      override: []
 
 development:
   <<: *defaults 
 
-  # TODO settingslogic shit
   extractor:
-
     image:
       perform: []
-      override: []
-
-    text:
-      perform: [Decree]
-      override: [Decree]
 
 test:
   <<: *defaults
 
-  # TODO settingslogic shit
   resource:
     updateable: [Court, Judge]
 
 staging:
   <<: *defaults
 
-  # TODO settingslogic shit
   resource:
     updateable: [Court, Judge]
 
 production:
   <<: *defaults
 
-  # TODO rm
-  extractor:
-
-    image:
-      perform: []
-      override: []
-
-    text:
-      perform: [Decree]
-      override: [Decree]
-
-  # TODO settingslogic shit
   resource:
     updateable: [Court, Judge]

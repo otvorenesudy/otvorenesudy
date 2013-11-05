@@ -1,3 +1,5 @@
+require 'whenever/capistrano'
+
 set :domain, "195.146.144.210"
 
 server domain, :app, :web, :db, primary: true
@@ -14,3 +16,6 @@ role :resque_worker,    domain
 role :resque_scheduler, domain
 
 set :rvm_ruby_string, "1.9.3@#{application}"
+
+# Whenever
+set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever" if rails_env == 'production'

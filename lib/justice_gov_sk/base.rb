@@ -71,16 +71,18 @@ module JusticeGovSk
         lister.crawl(request, 1, 1) {}
       end
       
-      puts  "Running job builder."
+      puts "Running job builder."
 
-      options = options.to_hash.merge! limit: 1
-      
-      1.upto lister.pages do |page|
-        options.merge!(offset: page)
+      if lister.pages
+        options = options.to_hash.merge! limit: 1
         
-        puts "Enqueing job for page #{page}, using #{pack options}."
-        
-        Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, options)
+        1.upto lister.pages do |page|
+          options.merge!(offset: page)
+          
+          puts "Enqueing job for page #{page}, using #{pack options}."
+          
+          Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, options)
+        end
       end
       
       puts "finished (#{lister.pages} jobs)"

@@ -2,7 +2,7 @@
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
-
+#
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
@@ -16,19 +16,38 @@
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
 # end
-
+#
 # Learn more: http://github.com/javan/whenever
 
-options = { at: '12:00am' }
-
-every :week, options do
-  rake 'subscriptions:run[weekly]'
-end
+options = { at: '07:00am' }
 
 every :day, options do
   rake 'subscriptions:run[daily]'
 end
 
+every :week, options do
+  rake 'subscriptions:run[weekly]'
+end
+
 every :month, options do
   rake 'subscriptions:run[monthly]'
+end
+
+every :day, at: '03:00am' do
+  rake 'crawl:courts:backup'
+  rake 'crawl:courts'
+  rake 'crawl:judges'
+end
+
+every :day, at: '04:00am' do
+  rake 'crawl:hearings:special'
+end
+
+every 2.days do
+  rake 'work:hearings:civil'
+  rake 'work:hearings:criminal'
+end
+
+every 4.days do
+  rake 'work:decrees'
 end

@@ -8,11 +8,13 @@
           <%= decree_natures decree, limit: 80 %>
         <% end %>
       <% end %>
-      <br/>
-      <small>
-        Rozhodnutie bolo vynesené dňa &ndash;
-        <%= decree_date decree.date %>
-      </small>
+      <% if decree.date %>
+        <br/>
+        <small>
+          Rozhodnutie bolo vynesené dňa &ndash;
+          <%= decree_date decree.date %>
+        </small>
+      <% end %>
     </h4>
 
     <div class="search-result-content">

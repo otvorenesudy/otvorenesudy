@@ -44,69 +44,75 @@ class Hearing < ActiveRecord::Base
 
   has_many :accusations, through: :defendants
 
-  def judge_names
-    @judge_names ||= Judge::Names.of judges
-  end
-
   max_paginates_per 100
       paginates_per 20
 
-  probe do
-    mapping do
-      analyze :case_number
-      analyze :file_number
-      analyze :date,              type: :date
-      analyze :room
-      analyze :special_type
-      analyze :commencement_date, type: :date
-      analyze :type,              as: lambda { |h| h.type.value if h.type }
-      analyze :court,             as: lambda { |h| h.court.name if h.court }
-      analyze :court_type,        as: lambda { |h| h.court.type.value if h.court }
-      analyze :judges,            as: lambda { |h| h.judge_names }
-      analyze :form,              as: lambda { |h| h.form.value if h.form }
-      analyze :section,           as: lambda { |h| h.section.value if h.section }
-      analyze :subject,           as: lambda { |h| h.subject.value if h.subject }
-      analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
-      analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
-      analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
-      analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
-      analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } }
-    end
+  mapping do
+    map :id
 
-    facets do
-      facet :q,            type: :fulltext, field: :all
-      facet :type,         type: :terms, collapsible: false
-      facet :court_type,   type: :terms
-      facet :court,        type: :terms
-      facet :subject,      type: :terms
-      facet :judges,       type: :terms
-      facet :date,         type: :date, interval: :month
-      facet :form,         type: :terms
-      facet :proposers,    type: :terms
-      facet :participants, type: :terms
-      facet :section,      type: :terms
-      facet :file_number,  type: :terms
-      facet :case_number,  type: :terms
-      facet :historical,   type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
-      facet :exact_date,   type: :abstract, field: :date, facet: :date, interval: :month
-    end
+    analyze :case_number
+    analyze :file_number
+    analyze :date,              type: :date
+    analyze :room
+    analyze :special_type
+    analyze :commencement_date, type: :date
+    analyze :type,              as: lambda { |h| h.type.value if h.type }
+    analyze :court,             as: lambda { |h| h.court.name if h.court }
+    analyze :court_type,        as: lambda { |h| h.court.type.value if h.court }
+    analyze :judges,            as: lambda { |h| h.judge_names }
+    analyze :form,              as: lambda { |h| h.form.value if h.form }
+    analyze :section,           as: lambda { |h| h.section.value if h.section }
+    analyze :subject,           as: lambda { |h| h.subject.value if h.subject }
+    analyze :proposers,         as: lambda { |h| h.proposers.pluck(:name) }
+    analyze :opponents,         as: lambda { |h| h.opponents.pluck(:name) }
+    analyze :defendants,        as: lambda { |h| h.defendants.pluck(:name) }
+    analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
+    analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } }
 
     sort_by :date, :created_at
   end
 
+  facets do
+    facet :q,            type: :fulltext, field: :all
+    facet :type,         type: :terms, collapsible: false
+    facet :court_type,   type: :terms
+    facet :court,        type: :terms
+    facet :subject,      type: :terms
+    facet :judges,       type: :terms
+    facet :date,         type: :date, interval: :month
+    facet :form,         type: :terms
+    facet :proposers,    type: :terms
+    facet :participants, type: :terms
+    facet :section,      type: :terms
+    facet :file_number,  type: :terms
+    facet :case_number,  type: :terms
+    facet :historical,   type: :boolean, field: :date, facet: :date, value: lambda { |facet| [Time.now..Time.parse('2038-01-19')] if facet.terms == false }
+    facet :exact_date,   type: :abstract, field: :date, facet: :date, interval: :month
+  end
+
+  def judge_names
+    @judge_names ||= Judge::Names.of judges
+  end
+
   def historical
-    date.past?
+    date.past? unless date.nil?
   end
 
   def has_future_date?
-    date - 2.years > Time.now.to_datetime
+    date - 2.years > Time.now.to_datetime unless date.nil?
   end
 
   def had_future_date?
-    date - 2.years > created_at
+    date - 2.years > created_at unless date.nil?
   end
 
   alias :historical? :historical
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    @judge_names = nil
+  end
 
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
     File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)

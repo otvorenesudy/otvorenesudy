@@ -34,7 +34,7 @@ namespace :work do
     args.with_defaults safe: true
     
     if args[:decree_form_code].blank?
-      codes = DecreeForm.all.map { |form| form.code }
+      codes = DecreeForm.order(:code).all.map { |form| form.code }
     else
       codes = [args[:decree_form_code]]
     end 

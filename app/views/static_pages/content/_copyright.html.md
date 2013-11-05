@@ -6,11 +6,11 @@ __Autori konceptu:__ Transparency International Slovensko, Samuel Molnár a Pavo
 
 __Technická realizácia:__ Samuel Molnár a Pavol Zbell
 
-__Zdrojový kód:__ <%= external_link_to "Otvorené Súdy @ GitHub", 'https://github.com/otvorenesudy', icon: false %>
+__Zdrojový kód:__ <%= external_link_to "Otvorené Súdy @ GitHub", 'https://github.com/otvorenesudy' %>
 
 <hr/>
 
-### Toto dielo je licencované pod<br/><%= external_link_to "Educational Community Lincese 1.0", 'http://opensource.org/licenses/ecl1.php', icon: false %>
+### Toto dielo je licencované pod<br/><%= external_link_to "Educational Community Lincese 1.0", 'http://opensource.org/licenses/ecl1.php' %>
  
 Toto dielo, vrátane softvéru, zdrojového kódu, dokumentov, alebo iných
 súvisiacich položiek, poskytujú držitelia autorských práv podľa podmienok

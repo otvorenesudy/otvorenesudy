@@ -8,7 +8,22 @@
   background-repeat: repeat;
 }
 
+.logo {
+  background-image: url(<%= asset_path 'logos/opencourts-gray-light-to-white-20.png' %>);
+  background-clip: content-box;
+  background-color: transparent;
+  background-origin: content-box;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+li.active .logo, .logo:hover, .logo:focus {
+  background-position: bottom;
+}
+
+
 .logo-restart,
+.logo-sme,
 .logo-transparency {
   display: block;
 
@@ -19,17 +34,25 @@
     filter: gray;
 
     -webkit-filter: grayscale(1.0);
-    
+
     @include transition(all .5s ease);
     @include backface-visibility(hidden);
   }
 
   img:hover {
     filter: none;
-    
+
     -webkit-filter: grayscale(0.0);
   }
-} 
+}
+
+.logo-sme img {
+  @include opacity(75);
+
+  &:hover, &:focus {
+    @include opacity(100);
+  }
+}
 
 .logo-restart {
   margin: 17px 0px;

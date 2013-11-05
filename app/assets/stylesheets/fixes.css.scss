@@ -48,6 +48,10 @@ input[type="color"],
   [class*="span"] {
     overflow: hidden;
   }
+  
+  .alert:first-child {
+    margin-top: 0px;
+  }
 }
 
 // outlines

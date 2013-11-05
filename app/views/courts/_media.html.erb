@@ -1,10 +1,11 @@
 <h2>Zmienky v médiách</h2>
 
 <% if results.any? %>
-  <p>
+  <div class="alert alert-warning">
+    <%= icon_tag :'warning-sign' %>
     Odkazy sú vyhľadávané automaticky na základe názvu súdu.
     Súdu sa týkať nemusia.
-  </p>
+  </div>
 
   <%= render 'shared/context_search_results', results: results, offset: 0 %>
 <% else %>

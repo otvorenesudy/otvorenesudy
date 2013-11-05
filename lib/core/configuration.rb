@@ -1,9 +1,8 @@
 module Core
-  class Configuration < Settingslogic
-    source "#{Rails.root}/config/core.yml"
-    
-    namespace Rails.env
-    
-    load!
-  end  
+  class Configuration
+    include Squire::Base
+
+    squire.source    Rails.root.join('config', 'core.yml')
+    squire.namespace Rails.env, base: :defaults
+  end
 end

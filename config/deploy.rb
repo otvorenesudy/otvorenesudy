@@ -2,7 +2,6 @@ require 'bundler/capistrano'
 require 'resque'
 require 'rvm/capistrano'
 require 'capistrano-resque'
-#require 'whenever/capistrano'
 
 set :stages, [:staging, :production]
 
@@ -20,15 +19,11 @@ set :ssh_options, { forward_agent: true }
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
 
-# Whenever
-# TODO enable when it does not break deployment
-#set :whenever_command, "RAILS_ENV=#{rails_env} bundle exec whenever"
-
-# Resque
-set :workers, { probe: 6 }
+set :keep_releases, 1
 
 default_run_options[:pty] = true
 
+# Database (PostgreSQL)
 namespace :db do
   desc "Migrate DB"
   task :create, roles: :db do
@@ -61,14 +56,6 @@ namespace :db do
   end
 end
 
-# Rvm
-namespace :rvm do
-  desc 'Trust rvmrc file'
-  task :trust_rvmrc do
-    run "rvm rvmrc trust #{current_release}"
-  end
-end
-
 # Probe (Elasticsearch)
 namespace :probe do
   desc "Drop Probe indices"
@@ -97,7 +84,26 @@ namespace :probe do
   end
 end
 
-# If you are using Passenger mod_rails uncomment this
+# Workers (Resque & Redis)
+namespace :workers do
+  desc "Start workers (according to predefined setup)"
+  task :start do
+    setup = { probe: 0, listers: 4, crawlers: 4 }
+
+    setup.each do |queue, count|
+      1.upto(count) do
+        run "cd #{current_path}; RAILS_ENV=#{rails_env} QUEUE=#{queue} BACKGROUND=yes INTERVAL=5 bundle exec rake resque:work"
+      end
+    end
+  end
+
+  desc "Stop workers (also flushes Redis)"
+  task :stop do
+    run "kill -15 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
+  end
+end
+
+# General
 namespace :deploy do
   task :start do
   end
@@ -115,20 +121,13 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/storage #{release_path}"
   end
 
-  desc "Move in database.yml for this environment"
-  task :move_in_database_yml, roles: :app do
-    run "cp #{release_path}/config/database.yml{.example,}"
-  end
-
   desc "Move in configuration files"
-  task :move_in_configuration, roles: :app do
-    run "cp #{shared_path}/configuration.yml #{release_path}/config/configuration.yml"
+  task :move_in_configuration_files, roles: :app do
+    run "ln -nfs #{shared_path}/config/*.yml #{release_path}/config"
   end
 
   after 'deploy',             'deploy:cleanup'
-  after 'deploy:update_code', 'rvm:trust_rvmrc'
-  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_database_yml', 'deploy:move_in_configuration', 'db:create_release', 'deploy:migrate'
-  #after 'deploy:restart',     'resque:restart'
+  after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_configuration_files', 'db:create_release', 'deploy:migrate'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"

@@ -25,7 +25,7 @@ class Court < ActiveRecord::Base
 
   has_many :employments, dependent: :destroy
 
-  has_many :judges, through: :employments
+  has_many :judges, uniq: true, through: :employments
 
   has_many :hearings, dependent: :destroy
   has_many :decrees,  dependent: :destroy
@@ -109,6 +109,15 @@ class Court < ActiveRecord::Base
   end
 
   context_query { |court| "\"#{court.name}\"" }
+
+  before_save :invalidate_caches
+
+  def invalidate_caches
+    invalidate_context_query
+    invalidate_address
+
+    @coordinates = @chair = @vicechair = @expenses_total = nil
+  end
 
   storage :resource, JusticeGovSk::Storage::CourtPage, extension: :html
 end

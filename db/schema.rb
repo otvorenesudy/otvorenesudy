@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130706180818) do
+ActiveRecord::Schema.define(:version => 20131019123234) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -123,10 +123,14 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.decimal  "longitude",                   :precision => 12, :scale => 8
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
+    t.integer  "hearings_count"
+    t.integer  "decrees_count"
   end
 
   add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
+  add_index "courts", ["decrees_count"], :name => "index_courts_on_decrees_count"
+  add_index "courts", ["hearings_count"], :name => "index_courts_on_hearings_count"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
   add_index "courts", ["source_id"], :name => "index_courts_on_source_id"
@@ -189,6 +193,7 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
   add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
+  add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli", :unique => true
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
@@ -253,11 +258,11 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
   add_index "hearing_types", ["value"], :name => "index_hearing_types_on_value", :unique => true
 
   create_table "hearings", :force => true do |t|
-    t.string   "uri",                :null => false
-    t.integer  "source_id",          :null => false
+    t.string   "uri",                                   :null => false
+    t.integer  "source_id",                             :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.integer  "hearing_type_id",    :null => false
+    t.integer  "hearing_type_id",                       :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"
     t.integer  "hearing_form_id"
@@ -269,8 +274,9 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.datetime "commencement_date"
     t.boolean  "selfjudge"
     t.text     "note"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "anonymized",         :default => false
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
@@ -334,16 +340,16 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
   add_index "judge_proclaims", ["judge_statement_id", "judge_property_declaration_id"], :name => "index_judge_proclaims_on_unique_values_reversed", :unique => true
 
   create_table "judge_properties", :force => true do |t|
-,    t.integer  "judge_property_list_id",               :null => false
+    t.integer  "judge_property_list_id",               :null => false
     t.integer  "judge_property_acquisition_reason_id"
     t.integer  "judge_property_ownership_form_id"
     t.integer  "judge_property_change_id"
     t.string   "description"
     t.string   "acquisition_date"
-    t.integer  "cost",                                 :limit => 8
+    t.integer  "cost"
     t.string   "share_size"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   add_index "judge_properties", ["judge_property_list_id"], :name => "index_judge_properties_on_judge_property_list_id"
@@ -582,7 +588,7 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
   add_index "opponents", ["name"], :name => "index_opponents_on_name"
   add_index "opponents", ["name_unprocessed"], :name => "index_opponents_on_name_unprocessed"
 
-  create_table "paragraph_explainations", :force => true do |t|
+  create_table "paragraph_explanations", :force => true do |t|
     t.integer  "paragraph_id",     :null => false
     t.integer  "explainable_id",   :null => false
     t.string   "explainable_type", :null => false
@@ -590,8 +596,8 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.datetime "updated_at",       :null => false
   end
 
-  add_index "paragraph_explainations", ["explainable_id", "explainable_type", "paragraph_id"], :name => "index_paragraph_explainations_on_unique_values_reversed", :unique => true
-  add_index "paragraph_explainations", ["paragraph_id", "explainable_id", "explainable_type"], :name => "index_paragraph_explainations_on_unique_values", :unique => true
+  add_index "paragraph_explanations", ["explainable_id", "explainable_type", "paragraph_id"], :name => "index_paragraph_explainations_on_unique_values_reversed", :unique => true
+  add_index "paragraph_explanations", ["paragraph_id", "explainable_id", "explainable_type"], :name => "index_paragraph_explainations_on_unique_values", :unique => true
 
   create_table "paragraphs", :force => true do |t|
     t.integer  "legislation", :null => false
@@ -651,7 +657,7 @@ ActiveRecord::Schema.define(:version => 20130706180818) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "sources", ["module"], :name => "index_sources_on_module"
+  add_index "sources", ["module"], :name => "index_sources_on_module", :unique => true
   add_index "sources", ["name"], :name => "index_sources_on_name", :unique => true
   add_index "sources", ["uri"], :name => "index_sources_on_uri", :unique => true
 

@@ -63,7 +63,7 @@ namespace :process do
 
       options = { separator: "\t" }
 
-      processor.process('data/judge_designations_nrsr.csv', options)
+      processor.process('data/judge_designations_nrsr_sk.csv', options)
     end
 
     desc "Process judge designations"

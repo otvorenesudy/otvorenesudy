@@ -1,11 +1,15 @@
+.idea
 .project
 .project.backup
 .bundle
 .tags
 .sass-cache/
 
+Gemfile.lock.tags
+
 config/configuration.yml
 config/database.yml
+config/newrelic.yml
 
 db/*.sqlite3
 log/*.log
@@ -18,4 +22,3 @@ tags
 tmp
 tmp/*
 
-/Gemfile.lock.tags

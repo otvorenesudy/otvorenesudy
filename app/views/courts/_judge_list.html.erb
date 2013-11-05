@@ -1,0 +1,42 @@
+<%= sortable_table_tag class: 'table table-striped' do %>
+  <thead>
+    <tr>
+      <th class="muted" data-sorter="false"><%= tooltip_tag icon_tag(:adjust), 'Status', placement: :left, class: :undecorated %></th>
+      <th class="span2">Tituly</th>
+      <th class="span7">Meno</th>
+      <th class="span3">Pozícia</th>
+      <%= sortable_th_tag tooltip_tag("Pojednávania", "Počet súdnych pojednávaní"), sorter: :digit %>
+      <%= sortable_th_tag tooltip_tag("Rozhodnutia",  "Počet súdnych rozhodnutí"),  sorter: :digit %>
+    </tr>
+  </thead>
+  <tbody>
+    <% judges.each do |judge| %>
+      <tr>
+        <td class="centered muted">
+          <%= judge_activity_tag judge.active_at?(court) %>
+        </td>
+        <td>
+          <%= judge_titles judge, adjust_by_activity_at: court %>
+        </td>
+        <td data-value="<%= judge.name '%l %m %f, %a' %>">
+          <%= link_to_judge judge, adjust_by_activity_at: court, format: '%f %m %l, %a' %>
+        </td>
+        <td>
+          <% judge.employments.at_court(court).each do |employment| %>
+            <p><%= judge_position employment %></p>
+          <% end %>
+        </td>
+        <td class="number" data-value="<%= judge.hearings.size %>">
+          <% judge.employments.at_court(court).each do |employment| %>
+            <p><%= judge_hearings_count_by_employment employment %></p>
+          <% end %>
+        </td>
+        <td class="number" data-value="<%= judge.decrees.size %>">
+          <% judge.employments.at_court(court).each do |employment| %>
+            <p><%= judge_decrees_count_by_employment employment %></p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

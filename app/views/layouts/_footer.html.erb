@@ -3,18 +3,36 @@
     <div class="row">
       <div class="span3">
         <h4>Otvorené Súdy <%= icon_tag :legal %></h4>
+      </div>
+
+      <div class="span3">
+        <h4>Prehlásenia <%= icon_tag :'file-text-alt' %></h4>
+      </div>
+
+      <div class="span3">
+        <h4>Transparentnosť <%= icon_tag :ok %></h4>
+      </div>
+
+      <div class="span3">
+        <h4>Dáta <%= icon_tag :hdd %></h4>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="span3">
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "O projekte", static_page_path(:about) %></li>
             <li><%= link_to "Často kladené otázky", static_page_path(:faq) %></li>
-            <li><%= external_link_to "Podporte projekt", 'http://transparency.darujme.sk/238/', icon: false %></li>
+            <li><%= external_link_to "Podporte projekt", 'http://transparency.darujme.sk/238' %></li>
             <li><%= link_to "Kontakt", static_page_path(:contact) %></li>
           </ul>
         </nav>
       </div>
 
       <div class="span3">
-        <h4>Prehlásenia <%= icon_tag :'file-text-alt' %></h4>
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Podmienky používania", static_page_path(:'terms-of-use') %></li>
@@ -25,23 +43,39 @@
       </div>
 
       <div class="span3">
-        <h4>Transparentnosť <%= icon_tag :ok %></h4>
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Našli ste chybu?", static_page_path(:feedback) %></li>
             <li><%= link_to "Bezpečnosť", static_page_path(:security) %></li>
-            <li><%= external_link_to "Zdrojové kódy", 'https://github.com/otvorenesudy', icon: false %></li>
+            <li><%= external_link_to "Zdrojové kódy", 'https://github.com/otvorenesudy' %></li>
           </ul>
         </nav>
       </div>
 
       <div class="span3">
-        <h4>Dáta <%= icon_tag :hdd %></h4>
         <nav>
           <ul class="nav pull-left">
             <li><%= link_to "Ako to funguje?", static_page_path(:'how-it-works') %></li>
             <li><%= link_to "História dát", static_page_path(:'data-history') %></li>
             <li><%= link_to "API", static_page_path(:api) %></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="span12">
+        <nav>
+          <ul class="open inline">
+            <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
+            <li><strong>Open data projekty</strong></li>
+            <li><%= external_link_to "Cena štátu", 'http://cenastatu.sme.sk', track_data(:'sme-cenastatu') %></li>
+            <li><%= external_link_to "Obce", 'http://obce.sme.sk', track_data(:'sme-obce') %></li>
+            <li><%= external_link_to "Školy", 'http://skoly.sme.sk', track_data(:'sme-skoly') %></li>
+            <li><%= external_link_to "Verejné obstarávanie", 'http://tender.sme.sk', track_data(:'sme-tender') %></li>
+            <li><%= external_link_to "Vysoké školy", 'http://vysokeskoly.sme.sk', track_data(:'sme-vysokeskoly') %></li>
           </ul>
         </nav>
       </div>
@@ -61,24 +95,23 @@
       </div>
     </div>
 
-    <hr/>
-
     <div class="row">
       <div class="span12">
         <div class="note centered muted">
           Projekt využíva výhradne dáta verejných inštitúcií. Za ich vecnú správnosť autori nenesú zodpovednosť.
         </div>
         <div class="note centered muted">
-          Copyright <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar', icon: false %>
-          a <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell', icon: false %>
-          (členovia <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk', icon: false %> na
-          <%= external_link_to "FIIT", 'http://fiit.stuba.sk', icon: false %>)
-          v spolupráci s <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk', icon: false %>
+          Copyright <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %>
+          a <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
+          (členovia <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
+          <%= external_link_to "FIIT", 'http://fiit.stuba.sk' %>
+          <%= external_link_to "STU", 'http://stuba.sk' %>)
+          v spolupráci s <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
           &copy; 2013
           <br/>
-          Za podpory <%= external_link_to "Transparency International", 'http://transparency.org', icon: false %>
-          v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk/', icon: false %>
-          <%= external_link_to "Centra pre filantropiu", 'http://cpf.sk', icon: false %>.
+          Za podpory <%= external_link_to "Transparency International", 'http://transparency.org' %>
+          v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
+          <%= external_link_to "Centra pre filantropiu", 'http://cpf.sk' %>.
         </div>
       </div>
     </div>

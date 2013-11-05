@@ -76,7 +76,7 @@ namespace :fixtures do
   end
 
   namespace :export do
-    desc "Export judge property declarations and some other related data into CSVs" 
+    desc "Export judge property declarations and some other related data into CSVs"
     task :judge_property_declarations, [:path] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
@@ -85,10 +85,10 @@ namespace :fixtures do
 
       FileUtils.mkpath path
 
-      f  = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
-      fi = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
-      fp = File.open File.join(path, 'judge-property-declarations-persons.csv'), 'w'
-      fs = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
+      file            = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
+      file_incomes    = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
+      file_people     = File.open File.join(path, 'judge-property-declarations-people.csv'), 'w'
+      file_statements = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
 
       data  = [:uri, :judge_name]
       data += [:court_name, :year]
@@ -97,7 +97,7 @@ namespace :fixtures do
       data += [:cost, :share_size, :acquisition_date]
       data += [:acquisition_reason, :ownership_form, :change]
 
-      f.write(data.join("\t") + "\n")
+      file.write(data.join("\t") + "\n")
 
       Judge.order(:name).all.each do |judge|
         print "Exporting declaration properties for judge #{judge.name} ... "
@@ -114,43 +114,79 @@ namespace :fixtures do
               data << (property.ownership_form.nil?     ? '' : property.ownership_form.value)
               data << (property.change.nil?             ? '' : property.change.value)
 
-              f.write(data.join("\t") + "\n")
+              file.write(data.join("\t") + "\n")
             end
           end
 
           declaration.incomes.each do |income|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
-            data += [income.description, income.value]            
+            data += [income.description, income.value]
 
-            fi.write(data.join("\t") + "\n") 
+            file_incomes.write(data.join("\t") + "\n")
           end
 
           declaration.related_people.each do |person|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
-            data += [person.name, person.institution, person.function]            
+            data += [person.name, person.institution, person.function]
 
-            fp.write(data.join("\t") + "\n") 
+            file_people.write(data.join("\t") + "\n")
           end
 
           declaration.statements.each do |statement|
             data  = [declaration.uri, judge.name]
             data += [declaration.court.name, declaration.year]
-            data += [statement.value]            
+            data += [statement.value]
 
-            fs.write(data.join("\t") + "\n") 
+            file_statements.write(data.join("\t") + "\n")
           end
         end
 
         puts "done"
       end
 
-      f.close
+      file.close
+      file_incomes.close
+      file_people.close
+      file_statements.close
+    end
 
-      fi.close
-      fp.close
-      fs.close
+    desc "Export judge related people with metadata about judge position"
+    task judge_related_people: :environment do
+      file = File.open Rails.root.join('tmp', 'judge_related_people.csv'), 'w'
+
+      data  = [:judge_id, :judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+      data += [:person_id, :person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+
+      file.write(data.join("\t") + "\n")
+
+      Judge.find_each do |judge|
+        related_people = judge.related_people.where(:'judge_property_declarations.year' => 2012)
+
+        next unless related_people.any?
+
+        converter = lambda do |j|
+          employment = j.employments.first
+          court      = employment.court
+          position   = employment.judge_position
+
+          [j.id, j.name, court.name, court.address, court.latitude, court.longitude, position.try(:value)]
+        end
+
+        related_people.each do |person|
+          person = person.to_judge
+
+          next unless person
+
+          data  = converter.call(judge)
+          data += converter.call(person)
+
+          file.write(data.join("\t") + "\n")
+        end
+      end
+
+      file.close
     end
   end
 
@@ -181,6 +217,30 @@ namespace :fixtures do
 
         puts "finished (#{pluralize n, 'hearing'})"
       end
+    end
+
+    desc "Anonymizes all defendants "
+    task :anonymize, [:hearing_id] => :environment do |_, args|
+      include Core::Identify
+      include Core::Pluralize
+      include Core::Output
+
+      hearing = Hearing.find args[:hearing_id]
+
+      abort "Already anonymized" if hearing.anonymized
+      abort "No defendants" if hearing.defendants.none?
+
+      hearing.defendants.each do |defendant|
+        name = defendant.name.split(/\s/).map { |part| "#{part.chars.first}. " }.join.strip
+
+        puts "#{identify defendant} '#{defendant.name}' -> '#{name}'"
+
+        defendant.name = name
+        defendant.save!
+      end
+
+      hearing.anonymized = true
+      hearing.save!
     end
   end
 
@@ -227,10 +287,10 @@ namespace :fixtures do
       image_storage    = JusticeGovSk::Storage::DecreeImage.instance
 
       document_storage.batch do |entries, bucket|
-        unless bucket.start_with? args[:filter] 
+        unless bucket.start_with? args[:filter]
           puts "Bucket #{bucket} matches skip filter, moving on next bucket."
           next
-        end 
+        end
 
         print "Running image extraction for bucket #{bucket}, "
         print "#{pluralize entries.size, 'document'}, "

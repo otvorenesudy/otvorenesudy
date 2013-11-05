@@ -4,7 +4,7 @@
   <div class="page-header">
     <h1>
       <%= hearing_headline @hearing, limit: 45, tooltip: true %>
-      <% if @hearing.date %>      
+      <% if @hearing.date %>
         <br/>
         <small>
           Pojednávanie <%= @hearing.historical ? "prebehlo" : "prebehne" %> dňa &ndash;
@@ -46,7 +46,7 @@
 
       <%-# Special hearings only -%>
 
-      <% if @hearing.commencement_date? %>  
+      <% if @hearing.commencement_date? %>
         <p>Dátum započatia &ndash; <%= hearing_date @hearing.commencement_date %></p>
       <% end %>
       <% unless @hearing.selfjudge.nil? %>
@@ -59,7 +59,7 @@
         <p>Poznámka &ndash; <%= @hearing.note %></p>
       <% end %>
 
-      <p><%= external_link_to 'Pôvodný dokument', @hearing.uri %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+      <p><%= external_link_to 'Pôvodný dokument', @hearing.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
     </div>
 
     <%-# All hearing types -%>
@@ -68,11 +68,11 @@
       <div class="well well-small">
         <p>
           <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-          <span class="pull-right"><%= @hearing.case_number %></span>
+          <span class="pull-right"><%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : "neuvedená" %></span>
         </p>
         <p>
           <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
-          <span class="pull-right"><%= @hearing.file_number %></span>
+          <span class="pull-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : "neuvedené" %></span>
         </p>
       </div>
 <!--
@@ -161,7 +161,7 @@
 
     <%-# Special hearings only -%>
 
-    <% if @judges.chaired.any? %>    
+    <% if @judges.chaired.any? %>
       <div class="row">
         <div class="span12">
           Funkciu predsedu senátu zastáva
@@ -194,10 +194,10 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súdnom pojednávaní boli získané z <%= external_link_to 'dokumentu', @hearing.uri, class: :muted %>,
+        Informácie o súdnom pojednávaní boli získané z <%= external_link_to 'dokumentu', @hearing.uri, class: :muted, icon: true %>,
         ktorého posledná aktualizácia bola vykonaná <%= time_tag @hearing.updated_at.to_date, format: :default %>.
         <br/>
-        Odkaz na <%= external_link_to 'pôvodný dokument', @hearing.uri, class: :muted %> už nemusí byť platný,
+        Odkaz na <%= external_link_to 'pôvodný dokument', @hearing.uri, class: :muted, icon: true %> už nemusí byť platný,
         pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
         <% if File.readable? @hearing.resource_path %>
           <br/>
