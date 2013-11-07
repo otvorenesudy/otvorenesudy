@@ -8,8 +8,6 @@ module JusticeGovSk
       # TODO refactor this fix
       [Court, Judge, Hearing, Decree, Proceeding].each do |model|
         if instance.is_a? model
-          puts "xxxxx"
-
           model.find(instance.id).save!
           break
         end
