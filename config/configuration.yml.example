@@ -4,15 +4,18 @@ defaults: &defaults
   airbrake:
     key: TODO
 
-  devise:
+  bing:
     key: TODO
 
-  bing:
+  devise:
     key: TODO
 
   mailer:
     username: TODO
     password: TODO
+
+  newrelic:
+    key: TODO
 
   resque:
     password: TODO
