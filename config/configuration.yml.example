@@ -4,6 +4,9 @@ defaults: &defaults
   airbrake:
     key: TODO
 
+  devise:
+    key: TODO
+
   bing:
     key: TODO
 
