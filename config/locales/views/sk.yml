@@ -52,7 +52,7 @@ sk:
   static_pages:
     about: 'O projekte'
     faq: 'Často kladené otázky'
-    code: 'Zdrojové kódy'
+    code: 'Zdrojový kód'
     contact: 'Kontakt'
 
     terms_of_use: 'Podmiensky používania'
