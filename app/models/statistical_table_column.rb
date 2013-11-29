@@ -1,4 +1,6 @@
 class StatisticalTableColumn < ActiveRecord::Base
+  scope :by_name, lambda { |name| joins(:name).where('value = ?', name) }
+
   belongs_to :table, class_name: :StatisticalTable,
                      foreign_key: :statistical_table_id
 
