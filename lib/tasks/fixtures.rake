@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :fixtures do
   namespace :db do
     desc "Drops, creates, migrates and loads seed data into the database"
@@ -184,6 +186,77 @@ namespace :fixtures do
 
           file.write(data.join("\t") + "\n")
         end
+      end
+
+      file.close
+    end
+
+    desc "Export some statistics from judge statistical summaries"
+    task judge_statistics: :environment do
+      file = File.open Rails.root.join('tmp', 'judge_statistics.csv'), 'w'
+
+      years   = [2012, 2011]
+      keys    = ['rozhodnuté', 'odvolania_potvrdené', 'odvolania_zmenené', 'odvolania_zrušené', 'odvolania_odmietnuté']
+      agendas = ['C', 'Cb', 'P', 'T']
+
+      data = ['sudca']
+
+      years.each do |year|
+        data << "súd_#{year}"
+
+        keys.each do |key|
+          agendas.each do |agenda|
+            data << "#{key}_#{agenda}_#{year}"
+          end
+        end
+      end
+
+      file.write(data.join("\t") + "\n")
+
+      Judge.find_each do |judge|
+        print "Processing #{judge.name} ... "
+
+        summaries = []
+
+        years.each do |year|
+          summaries << judge.statistical_summaries.where(year: year).first
+        end
+
+        if summaries.empty?
+          puts "done (no summaries)"
+        end
+
+        data = [judge.name]
+
+        summaries.each do |summary|
+          if summary.nil?
+            (keys.size * agendas.size).times { data << :missing }
+
+            next
+          end
+
+          data << [summary.court.name]
+
+          table = summary.tables.by_name('R').first
+
+          agendas.each do |agenda|
+            cell = StatisticalTableCell.of(table, agenda,  'sv_Pocet1')
+            data << (cell ? cell.value : :missing)
+          end
+
+          table = summary.tables.by_name('O').first
+
+          ['sv_Pocet1', 'sv_Pocet2', 'sv_Pocet3', 'sv_Pocet4'].each do |row|
+            agendas.each do |agenda|
+              cell = StatisticalTableCell.of(table, agenda, row)
+              data << (cell ? cell.value : :missing)
+            end
+          end
+        end
+
+        file.write(data.join("\t") + "\n")
+
+        puts "done (#{summaries.size} summaries)"
       end
 
       file.close
