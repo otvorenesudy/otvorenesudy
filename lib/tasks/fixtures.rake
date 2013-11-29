@@ -222,7 +222,7 @@ namespace :fixtures do
           summaries << judge.statistical_summaries.where(year: year).first
         end
 
-        if summaries.empty?
+        if summaries.blank?
           puts "done (no summaries)"
         end
 
