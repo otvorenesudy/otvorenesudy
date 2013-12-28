@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class SubscriptionMailer < ActionMailer::Base
-  default from: 'noreply@otvorenesudy.sk', css: 'mailers/layout'
+  default from: 'Otvorené Súdy <noreply@otvorenesudy.sk>', css: 'mailers/layout'
 
   layout 'mailer'
 
