@@ -61,11 +61,9 @@ class Proceeding < ActiveRecord::Base
   def judges
     # TODO refactor into AR relation if possible
 
-    return @judges if @judges
-
-    @judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
-    @judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
-    @judges
+    judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
+    judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
+    judges
   end
 
   def proposers
@@ -103,6 +101,6 @@ class Proceeding < ActiveRecord::Base
   before_save :invalidate_caches
 
   def invalidate_caches
-    @case_numbers = @events = @court_ids = @judge_ids = nil
+    @case_numbers = @events = @court_ids = nil
   end
 end
