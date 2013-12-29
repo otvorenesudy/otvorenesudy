@@ -230,7 +230,7 @@ namespace :fixtures do
 
         summaries.each do |summary|
           if summary.nil?
-            (keys.size * agendas.size).times { data << :missing }
+            (keys.size * agendas.size + 1).times { data << :missing }
 
             next
           end
