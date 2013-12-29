@@ -28,10 +28,10 @@
       <p>
         Tabuľka sudcov, ktorí aktívne pôsobia na súde.
       </p>
-      
+
       <%= render 'judge_list', court: @court, judges: @judges.active.listed %>
     <% end %>
-    
+
     <% if @judges.not_active_or_not_listed.any? %>
       <br/>
 
@@ -39,7 +39,7 @@
         Tabuľka sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí
         boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach.
       </p>
-      
+
       <%= render 'judge_list', court: @court, judges: @judges.not_active_or_not_listed %>
     <% end %>
   </div>
