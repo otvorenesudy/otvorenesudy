@@ -75,13 +75,13 @@
           <span class="pull-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : "neuvedené" %></span>
         </p>
       </div>
-<!--
+
       <% if @hearing.proceeding %>
         <p class="centered">
           Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @hearing.proceeding, join: :append %>
         </p>
       <% end %>
--->
+
       <%= render 'shared/social' %>
     </div>
   </div>
