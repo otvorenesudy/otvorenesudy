@@ -1,7 +1,7 @@
 OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
 
-  resources :courts do
+  resources :courts, only: [:index, :show] do
     collection do
       get :search
       get :suggest
@@ -10,7 +10,7 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :judges do
+  resources :judges, only: [:index, :show] do
     collection do
       get :search
       get :suggest
@@ -22,7 +22,7 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :hearings do
+  resources :hearings, only: [:index, :show] do
     collection do
       get :search
       get :suggest
@@ -33,7 +33,7 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :decrees do
+  resources :decrees, only: [:index, :show] do
     collection do
       get  :search
       get  :suggest
@@ -44,7 +44,7 @@ OpenCourts::Application.routes.draw do
       get :document
     end
 
-    resources :decree_pages, as: :pages, path: :pages do
+    resources :decree_pages, as: :pages, path: :pages, only: [] do
       get :search, on: :collection
 
       member do
@@ -54,7 +54,7 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :proceedings do
+  resources :proceedings, only: [:index, :show] do
     collection do
       get :search
       get :suggest
@@ -63,11 +63,11 @@ OpenCourts::Application.routes.draw do
 
   devise_for :users
 
-  resource :users do
+  resource :users, only: [] do
     get :subscriptions
   end
 
-  resources :subscriptions
+  resources :subscriptions, only: [:create, :update, :destroy]
 
   match '/search/collapse', to: 'search#collapse'
 
