@@ -58,12 +58,20 @@ class Proceeding < ActiveRecord::Base
     Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
   end
 
-  def judges
-    # TODO refactor into AR relation if possible
+  # TODO judges* refactor into AR relations if possible
 
+  def judges
     judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
     judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
     judges
+  end
+
+  def judges_exact
+    judges { |event| event.judges.exact }
+  end
+
+  def judges_inexact
+    judges { |event| event.judges.inexact }
   end
 
   def proposers
