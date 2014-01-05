@@ -292,7 +292,7 @@ namespace :fixtures do
       end
     end
 
-    desc "Anonymizes all defendants "
+    desc "Anonymizes all defendants"
     task :anonymize, [:hearing_id] => :environment do |_, args|
       include Core::Identify
       include Core::Pluralize
