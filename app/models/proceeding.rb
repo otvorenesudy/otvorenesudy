@@ -58,14 +58,20 @@ class Proceeding < ActiveRecord::Base
     Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
   end
 
+  # TODO judges* refactor into AR relations if possible
+
   def judges
-    # TODO refactor into AR relation
+    judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
+    judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
+    judges
+  end
 
-    return @judges if @judges
+  def judges_exact
+    judges { |event| event.judges.exact }
+  end
 
-    @judges = events.flat_map(&:judges).uniq
-    @judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
-    @judges
+  def judges_inexact
+    judges { |event| event.judges.inexact }
   end
 
   def proposers
@@ -103,6 +109,6 @@ class Proceeding < ActiveRecord::Base
   before_save :invalidate_caches
 
   def invalidate_caches
-    @case_numbers = @events = @court_ids = @judges = nil
+    @case_numbers = @events = @court_ids = nil
   end
 end

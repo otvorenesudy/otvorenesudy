@@ -26,12 +26,12 @@
             <p><%= judge_position employment %></p>
           <% end %>
         </td>
-        <td class="number" data-value="<%= judge.hearings.size %>">
+        <td class="number" data-value="<%= judge.hearings.exact.size %>">
           <% judge.employments.at_court(court).each do |employment| %>
             <p><%= judge_hearings_count_by_employment employment %></p>
           <% end %>
         </td>
-        <td class="number" data-value="<%= judge.decrees.size %>">
+        <td class="number" data-value="<%= judge.decrees.exact.size %>">
           <% judge.employments.at_court(court).each do |employment| %>
             <p><%= judge_decrees_count_by_employment employment %></p>
           <% end %>

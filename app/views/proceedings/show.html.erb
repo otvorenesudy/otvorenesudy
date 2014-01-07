@@ -1,10 +1,9 @@
-<% provide :title, title("IČS #{@proceeding.file_number}", "Súdne konanie") %>
+<% provide :title, proceeding_title(@proceeding) %>
 
 <section id="proceeding-profile" class="profile">
   <div class="page-header">
     <h1>
-      Súdne konanie s
-      <%= tooltip_tag "IČS #{@proceeding.file_number}", "Identifikačné číslo súdnych spisov", placement: :right %>
+      <%= proceeding_headline @proceeding, limit: 45, tooltip: true %>
       <br/>
       <small>
         Súdne konanie
@@ -24,11 +23,11 @@
       </small>
     </h1>
   </div>
-  
+
   <div class="row">
     <div class="span8">
       <p>
-        Pre súdne konanie <%= 'zatiaľ ' unless @proceeding.probably_closed? %>evidujeme 
+        Pre súdne konanie <%= 'zatiaľ ' unless @proceeding.probably_closed? %>evidujeme
         <%= translate_with_count(@hearings.size, :hearing) %> a
         <%= translate_with_count(@decrees.size, :decree) %>.
       </p>
