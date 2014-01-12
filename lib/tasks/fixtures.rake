@@ -222,7 +222,7 @@ namespace :fixtures do
           summaries << judge.statistical_summaries.where(year: year).first
         end
 
-        if summaries.empty?
+        if summaries.blank?
           puts "done (no summaries)"
         end
 
@@ -230,7 +230,7 @@ namespace :fixtures do
 
         summaries.each do |summary|
           if summary.nil?
-            (keys.size * agendas.size).times { data << :missing }
+            (keys.size * agendas.size + 1).times { data << :missing }
 
             next
           end
