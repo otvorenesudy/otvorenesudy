@@ -13,20 +13,6 @@ module JusticeGovSk
         end
       end
 
-      # TODO rm debug
-      #if instance.is_a? Hearing
-      #  a = instance
-      #  b = Hearing.find(instance.id)
-      #
-      #  puts "EQL #{a == b}"
-      #  puts "CLS #{a.class} #{b.class}"
-      #  puts a.inspect
-      #  puts b.inspect
-      #
-      #  a.save!
-      #  #b.save!
-      #end
-
       # TODO rm
       #super
       #
@@ -37,8 +23,8 @@ module JusticeGovSk
       #
       #  puts "done (#{identify instance})"
       #end
-      #
-      #instance
+
+      instance
     end
   end
 end
