@@ -298,13 +298,20 @@ namespace :fixtures do
       include Core::Pluralize
       include Core::Output
 
+      include JusticeGovSk::Helper::Normalizer
+
       hearing = Hearing.find args[:hearing_id]
 
       abort "Already anonymized" if hearing.anonymized
       abort "No defendants" if hearing.defendants.none?
 
       hearing.defendants.each do |defendant|
-        name = defendant.name.split(/\s/).map { |part| "#{part.chars.first}. " }.join.strip
+        others = defendant.name.sub!(/\s+a\s+spol\.\z/i, '')
+        parts  = partition_person_name(defendant.name)
+        name   = "#{parts[:prefix]} #{[parts[:first], parts[:middle], parts[:last]].reject(&:blank?).map { |s| "#{s.first}. " }.join.strip}, #{parts[:suffix]}"
+        name   = name.sub(/\,\s*\z/, '')
+        name  += ' a spol.' if others
+        name   = name.strip.squeeze ' '
 
         puts "#{identify defendant} '#{defendant.name}' -> '#{name}'"
 
