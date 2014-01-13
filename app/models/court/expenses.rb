@@ -11,7 +11,7 @@ module Court::Expenses
   def rank(court)
     ranking(court.type).descending[court]
   end
-  
+
   def rank_with_order(court)
     ranking(court.type).rank_with_order(court)
   end

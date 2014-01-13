@@ -4,7 +4,7 @@ class Judging < ActiveRecord::Base
                   :judge_chair
 
   include Judge::Matched
-  
+
   scope :normal,  where('judge_chair = false')
   scope :chaired, where('judge_chair = true')
 

@@ -6,7 +6,7 @@ module SudnaradaGovSk
     include Core::Identify
     include Core::Injector
     include Core::Pluralize
-    
+
     def initialize(options = {})
       @downloader = inject SudnaradaGovSk::Agent
       @parser     = inject SudnaradaGovSk::Parser

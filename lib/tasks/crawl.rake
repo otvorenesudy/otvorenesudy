@@ -1,14 +1,14 @@
 # Usage:
-# 
+#
 # rake crawl:courts
-# 
+#
 # rake crawl:judges
 # rake crawl:judge_property_declarations
-# 
+#
 # rake crawl:hearings:civil
 # rake crawl:hearings:criminal
 # rake crawl:hearings:special
-# 
+#
 # rake crawl:decrees[F]
 
 namespace :crawl do
@@ -64,7 +64,7 @@ namespace :crawl do
   desc "Crawl specific court from justice.gov.sk"
   task :court, [:url] => :environment do |_, args|
     JusticeGovSk.crawl_resource Court, args[:url], safe: true
-  end  
+  end
 
   desc "Crawl specific judge property declaration from sudnarada.gov.sk"
   task :judge_property_declaration, [:url, :court_name, :judge_name] => :environment do |_, args|

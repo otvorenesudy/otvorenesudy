@@ -31,26 +31,26 @@ module JusticeGovSk
 
           @persistor.persist(employment)
         end
-        
+
         judge
       end
 
       def prepare_judge(uri, source, name)
         judge = judge_by_name_factory.find_or_create(name[:value])
-        
+
         judge.uri    = uri
         judge.source = source
-        
+
         judge.name             = name[:value]
         judge.name_unprocessed = name[:unprocessed]
-        
+
         judge.prefix   = name[:prefix]
         judge.first    = name[:first]
         judge.middle   = name[:middle]
         judge.last     = name[:last]
         judge.suffix   = name[:suffix]
         judge.addition = name[:addition]
-        
+
         judge
       end
 

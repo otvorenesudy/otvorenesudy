@@ -14,23 +14,23 @@ module JusticeGovSk
               map[name] = []
             elsif div[:class] == 'hodnota'
               value = accusation(div.text)
-              
-              map[name] << { normalized: value, unprocessed: div.text.strip } unless value.blank? 
+
+              map[name] << { normalized: value, unprocessed: div.text.strip } unless value.blank?
             end
           end
 
-          map   
+          map
         end
       end
-      
+
       private
-      
+
       def accusation(value)
         value.strip!
         value.gsub!(/\A\s*\-+/, '')
         value.gsub!(/[eČč][Íí]slo/i, 'č.')
         value.gsub!(/zbierky(\s+z[Áá]konov)?/i, 'Zbierky zákonov')
-        
+
         normalize_punctuation(value)
       end
     end

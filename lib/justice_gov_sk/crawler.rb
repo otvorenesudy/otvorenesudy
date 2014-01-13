@@ -6,7 +6,7 @@ module JusticeGovSk
     include Core::Identify
     include Core::Injector
     include Core::Pluralize
-    
+
     def initialize(options = {})
       @downloader = inject JusticeGovSk::Downloader
       @parser     = inject JusticeGovSk::Parser

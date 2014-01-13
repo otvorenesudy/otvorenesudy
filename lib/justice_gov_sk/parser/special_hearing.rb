@@ -8,13 +8,13 @@ module JusticeGovSk
           normalize_datetime(div.text)
         end
       end
-      
+
       def selfjudge(document)
         find_value_by_label 'selfjudge', document, 'Samosudca' do |div|
           !div.text.strip.match(/ano|áno/i).nil?
         end
       end
-      
+
       def court(document)
         'Špecializovaný trestný súd'
       end
@@ -24,7 +24,7 @@ module JusticeGovSk
           partition_person_name(div.text)
         end
       end
-      
+
       def defendant(document)
         find_value_by_label 'defendant', document, 'Obžalovaný/á', verbose: false do |div|
           { normalized: normalize_participant(div.text), unprocessed: div.text.strip }

@@ -5,15 +5,15 @@ module Resource::Formatable
     def formatters
       @formatters ||= Hash.new
     end
-    
+
     protected
-    
+
     def formatable(attribute, options = {})
       define_method attribute do |pattern = nil|
         value = read_attribute(attribute)
-        
+
         return value if !value.nil? && (pattern.nil? || pattern == options[:default])
-        
+
         formatter = (self.class.formatters[attribute] ||= Formatter.new data = yield(self), options)
         cache     = (formatted[attribute] ||= Cache.new data || yield(self))
 
@@ -25,13 +25,13 @@ module Resource::Formatable
       end
     end
   end
-  
+
   private
-  
+
   def formatted
     @formatted ||= {}
   end
-  
+
   public
 
   class Formatter
@@ -45,30 +45,30 @@ module Resource::Formatable
       @default    = options[:default] || raise
       @directives = data.keys.map { |key| key[1].to_sym }
       @regexp     = /\%[#{@directives.join}]/
-      
+
       @remove  = options[:remove]
       @squeeze = options[:squeeze] == false ? nil : options[:squeeze] || ' '
       @strip   = options[:strip] == nil ? true : options[:strip]
     end
-    
+
     def format(pattern, data)
       value = (pattern || default).gsub(@regexp, data)
-      
+
       value.gsub! @remove, '' if @remove
       value.squeeze! @squeeze if @squeeze
       value.strip! if @strip
       value
     end
   end
-  
+
   class Cache
     attr_reader :values
-    
+
     def initialize(data)
       @data  = data
       @cache = {}
     end
-    
+
     def get(formatter, pattern)
       @cache[pattern] ||= formatter.format pattern, @data
     end

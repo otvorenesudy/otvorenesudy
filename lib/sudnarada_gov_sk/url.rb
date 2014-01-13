@@ -3,11 +3,11 @@ module SudnaradaGovSk
     def self.base
       'http://mps.sudnarada.gov.sk'
     end
-    
+
     def self.valid?(url)
       url.start_with? self.base
     end
-    
+
     def self.url_to_path(url, ext = nil)
       uri  = URI.parse(url)
       path = uri.path
@@ -18,9 +18,9 @@ module SudnaradaGovSk
       else
         path.gsub!(/\//, '')
       end
-      
+
       path.downcase!
-      
+
       "#{path}.#{ext || :html}" unless path.blank?
     end
   end

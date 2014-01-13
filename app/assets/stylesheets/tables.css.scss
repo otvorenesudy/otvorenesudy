@@ -5,44 +5,44 @@
   th {
     position: relative;
     padding: 8px;
-    
+
     padding-right: 18px + 8px;
     cursor: pointer;
-    
+
     a[data-toggle="tooltip"] {
       position: relative;
       display: inline-block;
       float: left;
     }
-    
+
     span {
       position: relative;
       display: inline-block;
       float: right;
-  
+
       height: $baseFontSize;
       line-height: $baseFontSize;
-  
+
       i {
         position: absolute;
         display: inline-block;
-        
+
         right: -22px;
         top: 3px;
-        
+
         height: inherit;
         width: 20px;
         line-height: inherit;
-        
+
         text-align: center;
-        
+
         &:before {
           cursor: pointer;
         }
       }
     }
   }
-  
+
   th[data-sorter="false"] {
     padding-right: 8px;
     cursor: default;

@@ -26,7 +26,6 @@ module JusticeGovSk
 
         persist(@summary)
       end
-
     end
   end
 end
