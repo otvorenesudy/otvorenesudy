@@ -1,9 +1,9 @@
 module SudnaradaGovSk
   class Request
     include Core::Request
-    
+
     attr_accessor :url
-    
+
     def self.headers
       {
         'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -16,11 +16,11 @@ module SudnaradaGovSk
         'User-Agent'      => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0'
       }
     end
-    
+
     def self.uri(request)
       Core::Request.uri(request)
     end
-    
+
     def self.url
       @url ||= SudnaradaGovSk::URL::base
     end

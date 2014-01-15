@@ -8,11 +8,11 @@ module JusticeGovSk
           div.text.strip
         end
       end
-              
+
       def proposers(document)
         mark  = false
         names = []
-        
+
         participants(document).each do |div|
           if div[:class] == 'popiska'
             mark = true if div.text == 'Navrhovatelia'
@@ -23,14 +23,14 @@ module JusticeGovSk
             names << { normalized: normalize_participant(div.text), unprocessed: div.text.strip }
           end
         end
-        
+
         names
       end
 
       def opponents(document)
         mark  = false
         names = []
-        
+
         participants(document).each do |div|
           if div[:class] == 'popiska'
             mark = true if div.text == 'Odporcovia'
@@ -40,20 +40,20 @@ module JusticeGovSk
             names << { normalized: normalize_participant(div.text), unprocessed: div.text.strip }
           end
         end
-        
+
         names
       end
-      
+
       protected
-      
+
       def clear
         super
-        
+
         @participants = nil
       end
-      
+
       private
-      
+
       def participants(document)
         @participants ||= find_rows_by_group 'participants', document, 'Účastníci', verbose: false
       end

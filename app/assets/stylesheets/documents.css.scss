@@ -10,24 +10,24 @@
       & + .page {
         width: 24px + 2px;
         text-align: left;
-      }      
+      }
     }
   }
-  
+
   .results {
     margin-bottom: 20px;
-    
+
     dl {
       margin-top: 20px;
       padding-bottom: 20px;
-      
+
       border-bottom: 1px solid $grayLighter;
-      
+
       dt {
         border-bottom: 1px solid $grayLighter;
-        
+
         font-weight: normal;
-        
+
         i {
           color: $grayLight;
         }
@@ -36,20 +36,20 @@
       dd + dt {
         margin-top: 20px;
       }
-    
+
       dd {
         margin-top: 10px;
       }
     }
-    
+
     .page {
       display: inline-block;
       min-width: 30px;
       padding-left: 10px;
-      
+
       text-align: right;
     }
-    
+
     a {
       color: $textColor;
 
@@ -57,30 +57,30 @@
         padding: 0px 4px;
 
         @include border-radius(2px);
-        
+
         background: $infoBackground;
         color: $infoText;
       }
-      
+
       &:hover, &:focus {
         color: $textColor;
         text-decoration: underline;
-      } 
+      }
     }
   }
-  
+
   .viewport {
     margin: 15px 0px 20px 0px;
-    
+
     outline: 1px solid $grayLighter;
-    
+
     p {
       margin: 0px 40px 10px 40px;
-      
+
       &:first-child {
         margin-top: 40px;
       }
-      
+
       &:last-child {
         margin-bottom: 40px;
       }

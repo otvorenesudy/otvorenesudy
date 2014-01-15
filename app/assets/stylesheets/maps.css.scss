@@ -5,37 +5,37 @@
   margin-bottom: 10px;
   padding: 0px;
   border: 1px solid $grayLight;
-  
+
   height: 10 * $gridRowWidth / 16;
-  
+
   &:last-child {
     margin-bottom: 0px;
   }
-  
+
   &.jumbotron {
     border-left: none;
     border-right: none;
   }
-  
+
   .view {
     height: inherit;
-    
+
     img {
       max-width: none;
     }
-    
+
     label {
       display: inline;
-      width: auto; 
+      width: auto;
     }
-    
+
     .info {
       [class^="icon-"], [class*=" icon-"] {
         height: inherit;
         line-height: inherit;
       }
     }
-    
+
     .info + .info {
       margin-top: 10px;
       padding-top: 10px;

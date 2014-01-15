@@ -18,11 +18,11 @@
   overflow: hidden;
 
   text-align: left;
-  
+
   .carousel-inner, .item {
     height: 100%;
   }
-  
+
   img {
     position: absolute;
     top: 0px;
@@ -39,24 +39,24 @@
   margin: (-$carouselMaxHeight + $navbarHeight) / 2 0px;
   padding: 0px 10px;
   border: 0;
-  
+
   @include border-radius(0px);
 
   background: transparent;
   color: rgba(#000, .4);
 
   text-shadow: 0px 1px 1px rgba(#000, .4);
-  
+
   z-index: $zindexDropdown - 10;
-  
+
   &.left {
     left: 0px;
   }
-  
+
   &.right {
     right: 0px;
   }
-  
+
   i:before {
     cursor: pointer;
   }
@@ -66,10 +66,10 @@
   position: absolute;
   width: 100%;
   padding: 40px 0px;
-  
+
   left: 0px;
   bottom: 0px;
-  
+
   background-color: rgba(#000, .2);
 
   h1, h2 {
@@ -78,15 +78,15 @@
     font-weight: normal;
 
     color: $white;
-    
+
     small {
       margin-bottom: 0px;
       line-height: 100%;
-      
+
       text-align: right;
     }
   }
-  
+
   h1 {
     line-height: $baseFontSize * 3.5;
     font-size: $baseFontSize * 2.8;

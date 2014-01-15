@@ -3,10 +3,10 @@ class JudgeProperty < ActiveRecord::Base
                   :acquisition_date,
                   :cost,
                   :share_size
-  
+
   belongs_to :list, class_name: :JudgePropertyList,
                     foreign_key: :judge_property_list_id
-  
+
   belongs_to :acquisition_reason, class_name: :JudgePropertyAcquisitionReason,
                                   foreign_key: :judge_property_acquisition_reason_id
 

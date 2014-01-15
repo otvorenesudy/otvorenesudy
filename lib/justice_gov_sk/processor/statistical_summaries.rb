@@ -13,7 +13,7 @@ module JusticeGovSk
         @table = statistical_table_by_statistical_summary_id_and_statistical_summary_type_and_statistical_table_name_id_factory.find_or_create(@summary.id, @summary.class.name, @table_name.id)
 
         @table.statistical_summary_type = @summary.class.name
-        
+
         @table.summary = @summary
         @table.name    = @table_name
 
@@ -53,7 +53,6 @@ module JusticeGovSk
           persist(@cell)
         end
       end
-
     end
   end
 end

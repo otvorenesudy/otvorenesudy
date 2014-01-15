@@ -18,12 +18,12 @@ class Legislation < ActiveRecord::Base
   has_many :decrees, through: :usages
 
   has_many :paragraph_explanations, dependent: :destroy, as: :explainable
-  
+
   has_many :paragraphs, through: :paragraph_explanations
 
   def self.inheritance_column
   end
-  
+
   formatable :value, default: '%t %u/%y %n § %p %s %l', remove: /\/\s*\z/ do |legislation|
     { '%t' => legislation.type,
       '%u' => legislation.number || '?',

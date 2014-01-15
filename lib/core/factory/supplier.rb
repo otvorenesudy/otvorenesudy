@@ -4,7 +4,7 @@ module Core
       def initialize
         @factories = {}
       end
-    
+
       def get(type, find = nil, options = {})
         key     = "#{type}.#{find || 'new'}".intern
         factory = @factories[key]
@@ -15,7 +15,7 @@ module Core
           else
             factory = Factory.new(type)
           end
-          
+
           @factories[key] = factory
         end
 

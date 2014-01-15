@@ -7,11 +7,11 @@ class JudgeRelatedPerson < ActiveRecord::Base
                                     foreign_key: :judge_property_declaration_id
 
   validates :name, presence: true
-  
+
   def known_judge?
     @known ||= !to_judge.nil?
   end
-  
+
   def to_judge
     @judge ||= Judge.find_by_name(name)
   end
