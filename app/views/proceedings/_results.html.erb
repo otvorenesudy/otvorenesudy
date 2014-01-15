@@ -4,7 +4,7 @@
       <%= link_to_proceeding proceeding, proceeding_headline(proceeding, limit: 67) %>
       <br/>
       <small>
-        Súdne konanie
+        Verejné súdne konanie
         <% if proceeding.single_hearing? %>
           <%= proceeding.events.first.historical ? "začalo" : "začne" %>
           dňa &ndash; <%= proceeding_date proceeding.events.first.date %>

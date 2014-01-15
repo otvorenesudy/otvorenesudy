@@ -6,7 +6,7 @@
       <%= proceeding_headline @proceeding, limit: 45, tooltip: true %>
       <br/>
       <small>
-        Súdne konanie
+        Verejné súdne konanie
         <% if @proceeding.single_hearing? %>
           <%= @events.first.historical ? "začalo" : "začne" %>
           dňa &ndash; <%= proceeding_date @events.first.date %>
