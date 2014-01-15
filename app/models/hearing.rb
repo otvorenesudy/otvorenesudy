@@ -98,6 +98,8 @@ class Hearing < ActiveRecord::Base
     date.past? unless date.nil?
   end
 
+  alias :historical? :historical
+
   def has_future_date?
     date - 2.years > Time.now.to_datetime unless date.nil?
   end
@@ -106,7 +108,9 @@ class Hearing < ActiveRecord::Base
     date - 2.years > created_at unless date.nil?
   end
 
-  alias :historical? :historical
+  def unprocessed?
+    court.nil? || judgings.none?
+  end
 
   before_save :invalidate_caches
 

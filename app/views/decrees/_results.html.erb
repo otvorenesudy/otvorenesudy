@@ -17,7 +17,12 @@
       <% end %>
     </h4>
 
-    <% if decree.has_future_date? %>
+    <% if decree.unprocessed? %>
+      <div class="alert alert-error">
+        <%= icon_tag :'warning-sign' %>
+        Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba.
+      </div>
+    <% elsif decree.has_future_date? %>
       <div class="alert alert-warning">
         <%= icon_tag :'warning-sign' %>
         Rozhodnutie má budúci dátum vynesenia, ide o chybu v pôvodných dátach.

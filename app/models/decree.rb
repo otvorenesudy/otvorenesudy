@@ -103,6 +103,10 @@ class Decree < ActiveRecord::Base
     date > created_at.to_date unless date.nil?
   end
 
+  def unprocessed?
+    court.nil? || judgements.none?
+  end
+
   before_save :invalidate_caches
 
   def invalidate_caches
