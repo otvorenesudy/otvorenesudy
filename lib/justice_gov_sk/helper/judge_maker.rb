@@ -27,6 +27,14 @@ module JusticeGovSk
         raise "No position" if options[:require_position] && position.nil?
 
         if court
+          if optionals[:active]
+            judge.employments.active.each do |employment|
+              employment.active = false
+
+              @persistor.persist(employment)
+            end
+          end
+
           employment = prepare_employment(court, judge, position, optionals[:active], optionals[:note])
 
           @persistor.persist(employment)
