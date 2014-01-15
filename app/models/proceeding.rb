@@ -33,17 +33,19 @@ class Proceeding < ActiveRecord::Base
 
   facets do
     facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :courts, :courts_types, :judges, :proposers, :opponents, :defendants]
-    facet :decrees_count,  type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
-    facet :hearings_count, type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
-    facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
-    facet :courts_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
-    facet :courts_types,   type: :terms
+    facet :case_numbers,   type: :terms
     facet :courts,         type: :terms
     facet :judges,         type: :terms
-    facet :proposers,      type: :terms
-    facet :participants,   type: :terms
+    facet :hearings_count, type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
+    facet :decrees_count,  type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
+    facet :courts_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
+    facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
+    facet :courts_types,   type: :terms
     facet :file_number,    type: :terms
-    facet :case_numbers,   type: :terms
+
+    # TODO rm
+    #facet :proposers,      type: :terms
+    #facet :participants,   type: :terms
   end
 
   def case_numbers
