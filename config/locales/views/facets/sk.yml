@@ -188,7 +188,7 @@ sk:
         title: 'Úsek'
         missing: 'neuvedený'
 
-      proposers: 
+      proposers:
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
         missing: 'neuvedení'
@@ -237,7 +237,7 @@ sk:
 
       court_type:
         title: 'Typ súdu'
-        missing: 'Názov súdu'
+        missing: 'neuvedený'
 
       judges:
         title: 'Sudca'
@@ -330,7 +330,7 @@ sk:
         suffix:
           <<: *decree
 
-      proposers: 
+      proposers:
         title: 'Navrhovatelia'
         placeholder: 'Navrhovateľ'
         missing: 'neuvedení'
