@@ -40,18 +40,6 @@
         <% end %>
         <br/>
       <% end %>
-      <% if proceeding.proposers.any? %>
-        <%= translate_without_count(proceeding.proposers.size, :proposer).upcase_first %> &ndash; <%= proceeding.proposers.pluck(:name).to_sentence %>
-        <br/>
-      <% end %>
-      <% if proceeding.opponents.any? %>
-        <%= translate_without_count(proceeding.opponents.size, :opponent).upcase_first %> &ndash; <%= proceeding.opponents.pluck(:name).to_sentence %>
-        <br/>
-      <% end %>
-      <% if proceeding.defendants.any? %>
-        <%= translate_without_count(proceeding.defendants.size, :defendant).upcase_first %> &ndash; <%= proceeding.defendants.pluck(:name).to_sentence %>
-        <br/>
-      <% end %>
 
       <div class="clearfix"></div>
     </div>

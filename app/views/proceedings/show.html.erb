@@ -37,15 +37,6 @@
       <% if @judges.any? %>
         <p><%= translate_without_count(@judges.size, :judge).upcase_first %> &ndash; <%= links_to_judges @judges %></p>
       <% end %>
-      <% if @proposers.any? %>
-        <p><%= translate_without_count(@proposers.size, :proposer).upcase_first %> &ndash; <%= @proposers.pluck(:name).to_sentence %></p>
-      <% end %>
-      <% if @opponents.any? %>
-        <p><%= translate_without_count(@opponents.size, :opponent).upcase_first %> &ndash; <%= @opponents.pluck(:name).to_sentence %></p>
-      <% end %>
-      <% if @defendants.any? %>
-        <p><%= translate_without_count(@defendants.size, :defendant).upcase_first %> &ndash; <%= @defendants.pluck(:name).to_sentence %></p>
-      <% end %>
     </div>
   </div>
 </section>
