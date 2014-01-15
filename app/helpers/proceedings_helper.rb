@@ -20,6 +20,6 @@ module ProceedingsHelper
   private
 
   def proceeding_identifiers(proceeding)
-    ["IČS #{proceeding.file_number}"]
+    proceeding.case_numbers
   end
 end

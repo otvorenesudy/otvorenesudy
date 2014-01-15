@@ -23,6 +23,9 @@
 
     <div class="search-result-content">
       <div class="search-result-identifiers pull-right">
+        <% proceeding.case_numbers.each do |number| %>
+          <%= tooltip_tag number || '?', "Spisová značka", placement: :right %><br/>
+        <% end %>
         <%= tooltip_tag proceeding.file_number || '?', "Identifikačné číslo súdnych spisov", placement: :right %>
       </div>
 
