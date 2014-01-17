@@ -24,7 +24,7 @@ class Proceeding < ActiveRecord::Base
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
     analyze :closed,         type: :boolean, as: lambda { |p| p.probably_closed? }
-    analyze :length,         type: :integer, as: lambda { |p| p.length }
+    # analyze :length,         type: :integer, as: lambda { |p| p.length }
 
     analyze :proposers,                      as: lambda { |p| p.proposers.pluck(:name) }
     analyze :opponents,                      as: lambda { |p| p.opponents.pluck(:name) }
@@ -97,9 +97,9 @@ class Proceeding < ActiveRecord::Base
   end
 
   def length
-    return (events.last.date - events.first.date).to_time.to_i if probably_closed?
+    # return (events.last.date - events.first.date).to_time.to_i if probably_closed?
 
-    (Time.now - events.first.date.to_time).to_i
+    # (Time.now - events.first.date.to_time).to_i
   end
 
   private

@@ -74,7 +74,7 @@ module JudgesHelper
   end
 
   def judge_processed_names(relation)
-    Judge::Names.from_unprocessed(relation).sort.to_sentence
+    # Judge::Names.from_unprocessed(relation).sort.to_sentence
   end
 
   def link_to_judge(judge, options = {})
@@ -88,7 +88,7 @@ module JudgesHelper
   def link_to_institution(institution, options = {})
     court = Court.where(name: institution).first
 
-    return link_to_court(court, options) if court  
+    return link_to_court(court, options) if court
 
     institution
   end
