@@ -23,6 +23,7 @@ class Proceeding < ActiveRecord::Base
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
+    analyze :closed,         type: :boolean, as: lambda { |p| p.probably_closed? }
 
     analyze :proposers,                      as: lambda { |p| p.proposers.pluck(:name) }
     analyze :opponents,                      as: lambda { |p| p.opponents.pluck(:name) }
@@ -43,6 +44,7 @@ class Proceeding < ActiveRecord::Base
     facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :courts_types,   type: :terms
     facet :file_number,    type: :terms
+    facet :closed,         type: :boolean, facet: :terms, value: lambda { |facet| true if facet.terms == true }
 
     # TODO rm
     #facet :proposers,      type: :terms
