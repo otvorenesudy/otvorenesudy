@@ -14,6 +14,7 @@ class Proceeding < ActiveRecord::Base
 
     analyze :case_numbers,                   as: lambda { |p| p.case_numbers }
     analyze :file_number
+    analyze :text,                           as: lambda { |p| p.text }
     analyze :courts,                         as: lambda { |p| p.courts.map(&:name) }
     analyze :courts_types,                   as: lambda { |p| p.courts.map { |c| c.type.value } }
     analyze :courts_count,   type: :integer, as: lambda { |p| p.courts.count }
@@ -32,7 +33,7 @@ class Proceeding < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :courts, :courts_types, :judges, :proposers, :opponents, :defendants]
+    facet :q,              type: :fulltext, field: :all, highlights: :text
     facet :case_numbers,   type: :terms
     facet :courts,         type: :terms
     facet :judges,         type: :terms
@@ -58,6 +59,10 @@ class Proceeding < ActiveRecord::Base
 
   def courts
     Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
+  end
+
+  def text
+    decrees.map(&:text).join(' ') if decrees.any?
   end
 
   # TODO judges* refactor into AR relations if possible

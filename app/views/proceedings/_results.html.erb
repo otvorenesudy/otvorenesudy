@@ -1,4 +1,4 @@
-<%= search_list_tag results, offset: offset do |proceeding| %>
+<%= search_list_tag results, offset: offset do |proceeding, highlight| %>
   <li>
     <h4>
       <%= link_to_proceeding proceeding, proceeding_headline(proceeding, limit: 67) %>
@@ -46,5 +46,13 @@
 
       <div class="clearfix"></div>
     </div>
+
+    <% if highlight %>
+      <% highlight[:text].each do |text|  %>
+        <blockquote>
+          <%= strip_and_highlight text %>
+        </blockquote>
+      <% end %>
+    <% end %>
   </li>
 <% end %>
