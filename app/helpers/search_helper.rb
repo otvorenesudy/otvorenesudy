@@ -10,7 +10,7 @@ module SearchHelper
       end
     end
   end
-  
+
   def search_list_tag(results, options = {}, &block)
     per_page = results.respond_to?(:per_page) ? results.per_page : options.delete(:per_page)
     offset   = options.delete(:offset)
@@ -61,5 +61,9 @@ module SearchHelper
 
   def link_to_decrees_search(body, options = {})
     link_to_search(:decrees, body, options)
+  end
+
+  def link_to_proceedings_search(body, options = {})
+    link_to_search(:proceedings, body, options)
   end
 end
