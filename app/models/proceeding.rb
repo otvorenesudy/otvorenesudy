@@ -14,6 +14,7 @@ class Proceeding < ActiveRecord::Base
 
     analyze :case_numbers,                   as: lambda { |p| p.case_numbers }
     analyze :file_number
+    analyze :eclis,                          as: lambda { |p| p.eclis }
     analyze :text,                           as: lambda { |p| p.text }
     analyze :courts,                         as: lambda { |p| p.courts.map(&:name) }
     analyze :courts_types,                   as: lambda { |p| p.courts.map { |c| c.type.value } }
@@ -55,6 +56,10 @@ class Proceeding < ActiveRecord::Base
 
   def case_numbers
     @case_numbers ||= events.map(&:case_number).uniq
+  end
+
+  def eclis
+    decrees.pluck(:ecli)
   end
 
   def text
