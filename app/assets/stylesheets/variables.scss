@@ -156,7 +156,7 @@ $horizontalComponentOffset: 180px;
 
 // wells
 
-$wellBackground: #f5f5f5 !default;
+$wellBackground: lighten($grayLighter, 5%) !default; // #f5f5f5
 
 
 // navbar
@@ -276,7 +276,7 @@ $gridRowWidth1200:        ($gridColumns * $gridColumnWidth1200) + ($gridGutterWi
 
 // narrow grid
 
-$gridColumnWidth768:      42px !default; 
+$gridColumnWidth768:      42px !default;
 $gridGutterWidth768:      20px !default;
 $gridRowWidth768:         ($gridColumns * $gridColumnWidth768) + ($gridGutterWidth768 * ($gridColumns - 1)) !default;
 

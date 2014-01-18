@@ -14,7 +14,7 @@
       height: 20px;
       margin: 2px;
       padding: 2px 4px;
-      
+
       top: 1px;
       right: 39px;
 
@@ -30,7 +30,7 @@
 
   select {
     margin-right: $gridGutterWidth;
-  }  
+  }
 }
 
 .search-subscribe,
@@ -96,7 +96,7 @@
   h4, .search-result-content, blockquote {
     color: $textColor;
   }
-  
+
   .search-result-content {
     margin-top: 10px;
   }
@@ -107,7 +107,7 @@
 
   blockquote {
     margin-top: 10px;
-    margin-bottom: 0px; 
+    margin-bottom: 0px;
 
     em {
       padding: 0px 4px;
@@ -131,7 +131,7 @@
 
 .facet {
   padding-right: 40px;
-  
+
   & + .facet {
     margin: 20px 0px;
   }

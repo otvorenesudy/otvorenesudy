@@ -2,7 +2,7 @@ class ProceedingsController < SearchController
   def show
     @proceeding = Proceeding.find(params[:id])
 
-    @events   = @proceeding.events
+    @events   = @proceeding.events.reverse
     @courts   = @proceeding.courts.order(:name)
     @judges   = @proceeding.judges.order(:name)
     @hearings = @proceeding.hearings

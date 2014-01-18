@@ -2,16 +2,54 @@
 @import 'mixins';
 
 .timeline {
-
-  // TODO rm
-/*
   ol {
-    li:nth-child(odd) {
-    }
+    padding: 40px 0px;
 
-    li:nth-child(even) {
-      text-align: right;
+    @include linear-gradient(left, darken($grayLighter, 12.5%) 1px, $white 1px);
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1px;
+
+    li {
+      h4 {
+        margin: 0px;
+      }
+
+      padding: 10px;
+      border: 1px solid darken($grayLighter, 12.5%);
+
+      @include border-radius($borderRadiusSmall);
+
+      background: lighten($grayLighter, 5%);
+
+      div:nth-child(odd) {
+        float: left;
+      }
+
+      div:nth-child(even) {
+        float: right;
+      }
     }
   }
-*/
+}
+
+.timeline-day-to-week {
+  margin-top: 10px;
+}
+
+.timeline-week-to-month {
+  margin-top: 20px;
+}
+
+.timeline-month-to-half-year {
+  margin-top: 40px;
+}
+
+.timeline-half-year-to-year {
+  margin-top: 80px;
+}
+
+.timeline-year-and-more {
+  margin-top: 100px;
 }

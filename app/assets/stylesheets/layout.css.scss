@@ -130,6 +130,10 @@ div.nav {
 }
 
 .well {
+  border-color: darken($grayLighter, 12.5%);
+
+  @include box-shadow-none;
+
   p:last-child {
     margin-bottom: 0px;
   }

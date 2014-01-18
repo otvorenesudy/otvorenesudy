@@ -1,47 +1,48 @@
-<li>
+<li class="timeline-<%= timeline_distance(previous, hearing) %>">
   <h4>
-    <%= link_to_hearing hearing, hearing_headline(hearing) %>
-    <br/>
-    <small>
-      Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
-      <%= hearing_date hearing.date %>
-    </small>
-  </h4>
-  
-  <!-- TODO
-  <div class="row">
-    <div class="span6">
-      <% if hearing.court %>
-        Súd &ndash; <%= link_to_court hearing.court %>
-      <% end %>
-      <% if hearing.judgings.normal.any? %>
-        <br/>
-        Sudcovia &ndash; <%= links_to_judges hearing.judgings.normal.map(&:judge) %>
-      <% end %>
-  
-      <% if hearing.proposers.any? %>
-        <br/>
-        Navrhovatelia &ndash; <%= hearing.proposers.pluck(:name).to_sentence %>
-      <% end %>
-      <% if hearing.opponents.any? %>
-        <br/>
-        Odporcovia &ndash; <%= hearing.opponents.pluck(:name).to_sentence %>
-      <% end %>
-      <% if hearing.defendants.any? %>
-        <br/>
-        Obžalovaní &ndash; <%= hearing.defendants.pluck(:name).to_sentence %>
-      <% end %>
-    </div>
-  
-    <div class="span2">
-      <span class="pull-right">
-        <%= tooltip_tag hearing.case_number, "Spisová značka", placement: :right %>
-      </span>
+    <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+    <% if hearing.date %>
       <br/>
-      <span class="pull-right">
-        <%= tooltip_tag hearing.file_number, "Identifikačné číslo súdneho spisu", placement: :right %>
-      </span>
+      <small>
+        <%= hearing_date hearing.date %>
+      </small>
+    <% end %>
+  </h4>
+
+<!-- <%# TODO consider %>
+  <% if hearing.unprocessed? %>
+    <div class="alert alert-error">
+      <%= icon_tag :'warning-sign' %>
+      Pojednávanie je neúplné, pri jeho spracovaní nastala neznáma chyba.
     </div>
+  <% elsif hearing.has_future_date? %>
+    <div class="alert alert-warning">
+      <%= icon_tag :'warning-sign' %>
+      Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach.
+    </div>
+  <% end %>
+
+  <div>
+    <div class="pull-right">
+      <%= tooltip_tag hearing.case_number || '?', "Spisová značka", placement: :right %><br/>
+    </div>
+
+    <% if hearing.court %>
+      Súd &ndash; <%= link_to_court hearing.court %>
+      <br/>
+    <% end %>
+    <% if hearing.judges.normal.any? %>
+      <% if hearing.judges.normal.exact.any? %>
+        <%= translate_without_count(hearing.judges.normal.exact.size, :judge).upcase_first %>
+        &ndash; <%= links_to_judges hearing.judges.normal.exact %>
+      <% else %>
+        <%= translate_without_count(hearing.judges.normal.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
+        &ndash; <%= judge_processed_names hearing.judges.normal.inexact %>
+      <% end %>
+      <br/>
+    <% end %>
+
+    <div class="clearfix"></div>
   </div>
-  -->
+-->
 </li>

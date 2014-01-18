@@ -29,6 +29,10 @@
         <%= tooltip_tag proceeding.file_number || '?', "Identifikačné číslo súdnych spisov", placement: :right %>
       </div>
 
+      Evidujeme
+      <%= translate_with_count(proceeding.hearings.size, :hearing) %> a
+      <%= translate_with_count(proceeding.decrees.size, :decree) %>.
+      <br/>
       <% if proceeding.courts.any? %>
         <%= translate_without_count(proceeding.courts.size, :court).upcase_first %> &ndash; <%= links_to_courts proceeding.courts %>
         <br/>
