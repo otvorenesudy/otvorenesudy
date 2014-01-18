@@ -6,13 +6,14 @@ class Probe::Facets
       super name, field, options
 
       @facet       = create_facet(options[:facet], name, field, options)
+      @default     = options[:default]
       @facet_value = options[:value]
     end
 
     def refresh!
       super
 
-      @terms       = true
+      @terms       = @default.nil? ? true : @default
       @facet.terms = facet_value
     end
 
