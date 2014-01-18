@@ -47,7 +47,7 @@ class Proceeding < ActiveRecord::Base
     facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :courts_types,   type: :terms
     facet :file_number,    type: :terms
-    facet :closed,         type: :boolean, facet: :terms, value: lambda { |facet| true if facet.terms == true }
+    facet :closed,         type: :boolean, facet: :terms, default: false, value: lambda { |facet| true if facet.terms == true }
 
     # TODO rm
     #facet :proposers,      type: :terms
