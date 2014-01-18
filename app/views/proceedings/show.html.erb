@@ -35,7 +35,15 @@
         <p><%= translate_without_count(@courts.size, :court).upcase_first %> &ndash; <%= links_to_courts @courts %></p>
       <% end %>
       <% if @judges.any? %>
-        <p><%= translate_without_count(@judges.size, :judge).upcase_first %> &ndash; <%= links_to_judges @judges %></p>
+        <p>
+          <% if @proceeding.judges_exact.any? %>
+            <%= translate_without_count(@proceeding.judges_exact.size, :judge).upcase_first %>
+            &ndash; <%= links_to_judges @proceeding.judges_exact %>
+          <% else %>
+            <%= translate_without_count(@proceeding.judges_inexact.size, :judge).upcase_first %>
+            &ndash; <%= judge_processed_names @proceeding.judges_inexact %>.
+          <% end %>
+        </p>
       <% end %>
     </div>
   </div>
