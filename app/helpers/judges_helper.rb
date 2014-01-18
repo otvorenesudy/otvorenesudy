@@ -74,7 +74,7 @@ module JudgesHelper
   end
 
   def judge_processed_names(relation)
-    # Judge::Names.from_unprocessed(relation).sort.to_sentence
+    Judge::Names.from_unprocessed(relation).sort.to_sentence
   end
 
   def link_to_judge(judge, options = {})

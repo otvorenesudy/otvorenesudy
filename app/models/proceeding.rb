@@ -23,6 +23,7 @@ class Proceeding < ActiveRecord::Base
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
+
     analyze :closed,         type: :boolean, as: lambda { |p| p.probably_closed? }
     # analyze :length,         type: :integer, as: lambda { |p| p.length }
 
@@ -73,6 +74,7 @@ class Proceeding < ActiveRecord::Base
   def judges
     judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
     judges.define_singleton_method(:order) { |attribute| self.sort_by!(&attribute) }
+    judges.define_singleton_method(:pluck) { |attribute| self.map { |judge| judge.read_attribute(attribute.to_s.sub(/\Ajudge_/, '')) }}
     judges
   end
 
