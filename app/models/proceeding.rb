@@ -14,6 +14,7 @@ class Proceeding < ActiveRecord::Base
 
     analyze :case_numbers,                   as: lambda { |p| p.case_numbers }
     analyze :file_number
+    analyze :text,                           as: lambda { |p| p.text }
     analyze :courts,                         as: lambda { |p| p.courts.map(&:name) }
     analyze :courts_types,                   as: lambda { |p| p.courts.map { |c| c.type.value } }
     analyze :courts_count,   type: :integer, as: lambda { |p| p.courts.count }
@@ -22,6 +23,8 @@ class Proceeding < ActiveRecord::Base
     analyze :events_count,   type: :integer, as: lambda { |p| p.events.count }
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
+    analyze :closed,         type: :boolean, as: lambda { |p| p.probably_closed? }
+    # analyze :length,         type: :integer, as: lambda { |p| p.length }
 
     analyze :proposers,                      as: lambda { |p| p.proposers.pluck(:name) }
     analyze :opponents,                      as: lambda { |p| p.opponents.pluck(:name) }
@@ -32,7 +35,7 @@ class Proceeding < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:case_numbers, :file_number, :courts, :courts_types, :judges, :proposers, :opponents, :defendants]
+    facet :q,              type: :fulltext, field: :all, highlights: :text
     facet :case_numbers,   type: :terms
     facet :courts,         type: :terms
     facet :judges,         type: :terms
@@ -42,6 +45,7 @@ class Proceeding < ActiveRecord::Base
     facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :courts_types,   type: :terms
     facet :file_number,    type: :terms
+    facet :closed,         type: :boolean, facet: :terms, value: lambda { |facet| true if facet.terms == true }
 
     # TODO rm
     #facet :proposers,      type: :terms
@@ -58,6 +62,10 @@ class Proceeding < ActiveRecord::Base
 
   def courts
     Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
+  end
+
+  def text
+    decrees.map(&:text).join(' ') if decrees.any?
   end
 
   # TODO judges* refactor into AR relations if possible
@@ -86,6 +94,12 @@ class Proceeding < ActiveRecord::Base
 
   def defendants
     through_hearings_to Defendant
+  end
+
+  def length
+    # return (events.last.date - events.first.date).to_time.to_i if probably_closed?
+
+    # (Time.now - events.first.date.to_time).to_i
   end
 
   private
