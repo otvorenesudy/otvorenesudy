@@ -355,5 +355,5 @@ sk:
         not_found: 'Nenájdené žiadne identifikačné čísla.'
 
       closed:
-        title: 'Zobraziť ukončené konania'
-        value: 'Zobraziť ukončené konania'
+        title: 'Zobraziť iba ukončené konania'
+        value: 'Zobraziť iba ukončené konania'
