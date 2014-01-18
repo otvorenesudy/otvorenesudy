@@ -20,6 +20,6 @@ module ProceedingsHelper
   private
 
   def proceeding_identifiers(proceeding)
-    proceeding.case_numbers
+    proceeding.case_numbers.clone
   end
 end
