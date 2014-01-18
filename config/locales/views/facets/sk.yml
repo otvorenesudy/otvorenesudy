@@ -353,3 +353,7 @@ sk:
         placeholder: 'Identifikačné číslo spisu'
         missing: 'neuvedené'
         not_found: 'Nenájdené žiadne identifikačné čísla.'
+
+      closed:
+        title: 'Zobraziť ukončené konania'
+        value: 'Zobraziť ukončené konania'
