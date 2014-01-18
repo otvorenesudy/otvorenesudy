@@ -56,16 +56,16 @@ class Proceeding < ActiveRecord::Base
     @case_numbers ||= events.map(&:case_number).uniq
   end
 
+  def text
+    decrees.map(&:text).join("\n") if decrees.any?
+  end
+
   def events
     @events ||= (hearings + decrees).sort_by { |event| event.date.to_datetime }
   end
 
   def courts
     Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
-  end
-
-  def text
-    decrees.map(&:text).join(' ') if decrees.any?
   end
 
   # TODO judges* refactor into AR relations if possible
