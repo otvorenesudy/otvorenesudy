@@ -8,7 +8,7 @@ Public data project aimed at creating much more user friendly interface to inter
 * Rails 3
 * PostgreSQL with trigram extension
 * Redis & Resque
-* ElasticSearch
+* Elasticsearch
 
 ### Project and Database
 ```
@@ -35,7 +35,7 @@ psql -U postgres -d opencourts_$RAILS_ENV -f pg_trgm--1.0.sql
 ```
 Note that you need to set up the Trigram extension for all Rails environments you plan to use separatly.
 
-### ElasticSearch
+### Elasticsearch
 Follow the [offical installation guide](https://github.com/elasticsearch/elasticsearch).
 
 ### PDF processing
