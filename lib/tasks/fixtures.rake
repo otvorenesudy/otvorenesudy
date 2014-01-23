@@ -156,7 +156,7 @@ namespace :fixtures do
 
     desc "Export judge related people with metadata about judge position"
     task judge_related_people: :environment do
-      file = File.open Rails.root.join('tmp', 'judge_related_people.csv'), 'w'
+      file = File.open Rails.root.join('tmp', 'judge-related-people.csv'), 'w'
 
       data  = [:judge_id, :judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
       data += [:person_id, :person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
@@ -193,27 +193,28 @@ namespace :fixtures do
 
     desc "Export some statistics from judge statistical summaries"
     task judge_statistics: :environment do
-      file = File.open Rails.root.join('tmp', 'judge_statistics.csv'), 'w'
+      file = File.open Rails.root.join('tmp', 'judge-statistics.csv'), 'w'
 
       years   = [2012, 2011]
-      keys    = ['rozhodnuté', 'odvolania_potvrdené', 'odvolania_zmenené', 'odvolania_zrušené', 'odvolania_odmietnuté']
+      keys    = ['rozhodnuté', 'rozhodnuté-meritórne', 'odvolania-potvrdené', 'odvolania-zmenené', 'odvolania-zrušené', 'odvolania-odmietnuté']
       agendas = ['C', 'Cb', 'P', 'T']
 
       data = ['sudca']
 
       years.each do |year|
-        data << "súd_#{year}"
+        data << "súd-#{year}"
 
         keys.each do |key|
           agendas.each do |agenda|
-            data << "#{key}_#{agenda}_#{year}"
+            data << "#{key}-#{agenda}-#{year}"
           end
         end
       end
 
       file.write(data.join("\t") + "\n")
 
-      Judge.find_each do |judge|
+      #Judge.find_each do |judge|
+      [Judge.find_by_last('Kasanová')].each do |judge|
         print "Processing #{judge.name} ... "
 
         summaries = []
@@ -239,9 +240,11 @@ namespace :fixtures do
 
           table = summary.tables.by_name('R').first
 
-          agendas.each do |agenda|
-            cell = StatisticalTableCell.of(table, agenda,  'sv_Pocet1')
-            data << (cell ? cell.value : :missing)
+          ['sv_Pocet1', 'sv_Pocet2'].each do |row|
+            agendas.each do |agenda|
+              cell = StatisticalTableCell.of(table, agenda,  row)
+              data << (cell ? cell.value : :missing)
+            end
           end
 
           table = summary.tables.by_name('O').first
