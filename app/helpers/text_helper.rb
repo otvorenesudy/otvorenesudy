@@ -41,6 +41,6 @@ module TextHelper
     value.gsub!(/([^[:alnum:]\>])+\z/, '') if right
     value.gsub!(/\s*[^[:alnum:]]*\s*(\.\s*\.+\s*)+\s*/, '&hellip; ')
 
-    "#{left}#{sanitize value, tags: %w(em) }#{right}".html_safe
+    "#{left}#{sanitize value, tags: %w(em)}#{right}".html_safe
   end
 end

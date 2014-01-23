@@ -7,7 +7,7 @@
       <% if @hearing.date %>
         <br/>
         <small>
-          Pojednávanie <%= @hearing.historical ? "prebehlo" : "prebehne" %> dňa &ndash;
+          Pojednávanie <%= @hearing.historical ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
           <%= hearing_date @hearing.date %>
         </small>
       <% end %>

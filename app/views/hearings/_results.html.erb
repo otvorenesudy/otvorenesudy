@@ -5,7 +5,7 @@
       <% if hearing.date %>
         <br/>
         <small>
-          Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
+          Pojednávanie <%= hearing.date.past? ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
           <%= hearing_date hearing.date %>
         </small>
       <% end %>
