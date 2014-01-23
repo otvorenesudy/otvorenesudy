@@ -49,14 +49,6 @@
 
     <div class="span4">
       <div class="well well-small">
-<!-- <%# TODO consider %>
-        <% @proceeding.eclis.each do |ecli| %>
-          <p>
-            <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
-            <span class="pull-right"><%= ecli ? link_to_proceedings_search(ecli, params: { q: ecli }) : "neuvedený" %></span>
-          </p>
-        <% end %>
--->
         <% @proceeding.case_numbers.each do |number| %>
           <p>
             <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
@@ -67,6 +59,12 @@
           <%= tooltip_tag "IČS", "Identifikačné číslo súdnych spisov", placement: :left %>:
           <span class="pull-right"><%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, params: { file_number: @proceeding.file_number }) : "neuvedené" %></span>
         </p>
+        <% @proceeding.eclis.each do |ecli| %>
+          <p>
+            <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
+            <span class="pull-right"><%= ecli ? link_to_proceedings_search(ecli, params: { q: ecli }) : "neuvedený" %></span>
+          </p>
+        <% end %>
       </div>
 
       <%= render 'shared/social' %>
