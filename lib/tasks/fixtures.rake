@@ -213,8 +213,7 @@ namespace :fixtures do
 
       file.write(data.join("\t") + "\n")
 
-      #Judge.find_each do |judge|
-      [Judge.find_by_last('Kasanová')].each do |judge|
+      Judge.find_each do |judge|
         print "Processing #{judge.name} ... "
 
         summaries = []
