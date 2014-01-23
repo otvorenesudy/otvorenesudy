@@ -76,7 +76,7 @@
   <div class="row">
     <div class="span12">
       <ol class="unstyled">
-        <% ([@events.first] + @events).each_cons(2) do |previous, event| %>
+        <% ([@events.last] + @events.reverse).each_cons(2) do |previous, event| %>
           <%= render event.class.name.downcase, event.class.name.downcase.to_sym => event, previous: previous %>
         <% end %>
       </ol>
