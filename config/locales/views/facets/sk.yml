@@ -357,3 +357,11 @@ sk:
       closed:
         title: 'Zobraziť iba ukončené konania'
         value: 'Zobraziť iba ukončené konania'
+
+      duration:
+        title: 'Dlžka konania'
+        suffix:
+          one: '1 mesiac'
+          few: '%{count} mesiace'
+          other: '%{count} mesiacov'
+

@@ -26,7 +26,7 @@ class Proceeding < ActiveRecord::Base
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
 
     analyze :closed,         type: :boolean, as: lambda { |p| p.probably_closed? }
-    # analyze :length,         type: :integer, as: lambda { |p| p.length }
+    analyze :duration,       type: :integer, as: lambda { |p| p.duration / 1.month }
 
     analyze :proposers,                      as: lambda { |p| p.proposers.pluck(:name) }
     analyze :opponents,                      as: lambda { |p| p.opponents.pluck(:name) }
@@ -47,11 +47,13 @@ class Proceeding < ActiveRecord::Base
     facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :courts_types,   type: :terms
     facet :file_number,    type: :terms
-    facet :closed,         type: :boolean, facet: :terms, default: false, value: lambda { |facet| true if facet.terms == true }
+    facet :duration,       type: :range, ranges: [1..3, 3..6, 6..12, 12..24]
 
     # TODO rm
     #facet :proposers,      type: :terms
     #facet :participants,   type: :terms
+
+    facet :closed,         type: :boolean, facet: :terms, default: false, value: lambda { |facet| true if facet.terms == true }
   end
 
   def case_numbers
@@ -103,10 +105,10 @@ class Proceeding < ActiveRecord::Base
     through_hearings_to Defendant
   end
 
-  def length
-    # return (events.last.date - events.first.date).to_time.to_i if probably_closed?
+  def duration
+    return events.last.date.to_time.to_i - events.first.date.to_time.to_i if probably_closed?
 
-    # (Time.now - events.first.date.to_time).to_i
+    Time.now.to_i - events.first.date.to_time.to_i
   end
 
   private
