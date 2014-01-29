@@ -20,6 +20,6 @@ module ProceedingsHelper
   private
 
   def proceeding_identifiers(proceeding)
-    proceeding.case_numbers.clone
+    proceeding.events.map { |event| "#{event.court.acronym} #{event.case_number}" }.uniq
   end
 end
