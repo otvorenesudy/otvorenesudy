@@ -64,7 +64,12 @@ rake crawl:courts
 rake crawl:judges
 ```
 
-3. Process known paragraph descriptions:
+3. Add court acronyms
+```
+rake process:court_acronyms
+```
+
+4. Process known paragraph descriptions:
 ```
 rake process:paragraphs
 ```
