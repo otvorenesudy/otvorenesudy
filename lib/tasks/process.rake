@@ -16,6 +16,13 @@ namespace :process do
     processor.process('data/paragraphs.csv')
   end
 
+  task "Process court acronyms"
+  task court_acronyms: :environment do
+    processor = JusticeGovSk::Processor::CourtAcronyms.new
+
+    processor.process('data/court_acronyms.csv')
+  end
+
   namespace :court_expenses do
     desc "Process court expenses from 2010"
     task :'2010' => :environment do

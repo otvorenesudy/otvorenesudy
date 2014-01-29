@@ -1,6 +1,6 @@
 module JusticeGovSk
   class Parser
-    class CourtExpense
+    class CourtAcronym
       include JusticeGovSk::Helper::Normalizer
 
       def parse(data)
@@ -11,12 +11,8 @@ module JusticeGovSk
         normalize_court_name(@data[0])
       end
 
-      def year
+      def acronym
         @data[1].squeeze(' ').strip
-      end
-
-      def value
-        @data[2].squeeze(' ').strip
       end
     end
   end

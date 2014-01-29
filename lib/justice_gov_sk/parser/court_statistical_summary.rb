@@ -22,7 +22,6 @@ module JusticeGovSk
 
         return normalize(name), normalize(column), normalize_and_filter(data)
       end
-
     end
   end
 end
