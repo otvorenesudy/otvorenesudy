@@ -64,7 +64,7 @@ rake crawl:courts
 rake crawl:judges
 ```
 
-3. Add court acronyms
+3. Add court acronyms:
 ```
 rake process:court_acronyms
 ```
