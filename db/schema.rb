@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131019123234) do
+ActiveRecord::Schema.define(:version => 20140129205512) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -125,8 +125,10 @@ ActiveRecord::Schema.define(:version => 20131019123234) do
     t.datetime "updated_at",                                                 :null => false
     t.integer  "hearings_count"
     t.integer  "decrees_count"
+    t.string   "acronym"
   end
 
+  add_index "courts", ["acronym"], :name => "index_courts_on_acronym"
   add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
   add_index "courts", ["decrees_count"], :name => "index_courts_on_decrees_count"

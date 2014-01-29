@@ -10,6 +10,7 @@ class Court < ActiveRecord::Base
   include Probe
 
   attr_accessible :name,
+                  :acronym,
                   :street,
                   :phone,
                   :fax,
