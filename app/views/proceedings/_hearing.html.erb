@@ -8,41 +8,4 @@
       </small>
     <% end %>
   </h4>
-
-<!-- <%# TODO consider %>
-  <% if hearing.unprocessed? %>
-    <div class="alert alert-error">
-      <%= icon_tag :'warning-sign' %>
-      Pojednávanie je neúplné, pri jeho spracovaní nastala neznáma chyba.
-    </div>
-  <% elsif hearing.has_future_date? %>
-    <div class="alert alert-warning">
-      <%= icon_tag :'warning-sign' %>
-      Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach.
-    </div>
-  <% end %>
-
-  <div>
-    <div class="pull-right">
-      <%= tooltip_tag hearing.case_number || '?', "Spisová značka", placement: :right %><br/>
-    </div>
-
-    <% if hearing.court %>
-      Súd &ndash; <%= link_to_court hearing.court %>
-      <br/>
-    <% end %>
-    <% if hearing.judges.normal.any? %>
-      <% if hearing.judges.normal.exact.any? %>
-        <%= translate_without_count(hearing.judges.normal.exact.size, :judge).upcase_first %>
-        &ndash; <%= links_to_judges hearing.judges.normal.exact %>
-      <% else %>
-        <%= translate_without_count(hearing.judges.normal.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
-        &ndash; <%= judge_processed_names hearing.judges.normal.inexact %>
-      <% end %>
-      <br/>
-    <% end %>
-
-    <div class="clearfix"></div>
-  </div>
--->
 </li>

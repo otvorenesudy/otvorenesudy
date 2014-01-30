@@ -14,41 +14,4 @@
       </small>
     <% end %>
   </h4>
-
-<!-- <%# TODO consider %>
-  <% if decree.unprocessed? %>
-    <div class="alert alert-error">
-      <%= icon_tag :'warning-sign' %>
-      Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba.
-    </div>
-  <% elsif decree.has_future_date? %>
-    <div class="alert alert-warning">
-      <%= icon_tag :'warning-sign' %>
-      Rozhodnutie má budúci dátum vynesenia, ide o chybu v pôvodných dátach.
-    </div>
-  <% end %>
-
-  <div class="search-result-content">
-    <div class="search-result-identifiers pull-right">
-      <%= tooltip_tag decree.case_number || '?', "Spisová značka", placement: :right %><br/>
-    </div>
-
-    <% if decree.court %>
-      Súd &ndash; <%= link_to_court decree.court %>
-      <br/>
-    <% end %>
-    <% if decree.judges.any? %>
-      <% if decree.judges.exact.any? %>
-        <%= translate_without_count(decree.judges.exact.size, :judge).upcase_first %>
-        &ndash; <%= links_to_judges decree.judges.exact %>
-      <% else %>
-        <%= translate_without_count(decree.judges.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
-        &ndash; <%= judge_processed_names decree.judges.inexact %>
-      <% end %>
-      <br/>
-    <% end %>
-
-    <div class="clearfix"></div>
-  </div>
--->
 </li>
