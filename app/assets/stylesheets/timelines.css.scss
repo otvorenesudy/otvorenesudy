@@ -11,25 +11,21 @@
     background-repeat: no-repeat;
     background-size: 1px;
 
-    li {
-      h4 {
-        margin: 0px;
-      }
-
+    li h4 {
+      position: relative;
+      width: 50%;
+      margin: 0px;
       padding: 10px;
       border: 1px solid darken($grayLighter, 12.5%);
 
       @include border-radius($borderRadiusSmall);
 
       background: lighten($grayLighter, 5%);
+    }
 
-      div:nth-child(odd) {
-        float: left;
-      }
-
-      div:nth-child(even) {
-        float: right;
-      }
+    li:nth-child(even) h4 {
+      left: 50%;
+      margin-left: -20px;
     }
   }
 }
@@ -52,4 +48,8 @@
 
 .timeline-year-and-more {
   margin-top: 100px;
+}
+
+.timeline-unknown {
+  margin-top: 20px;
 }
