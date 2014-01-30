@@ -65,6 +65,12 @@ sk:
     few: 'výsledky'
     other: 'výsledky'
 
+  event: &event
+    zero: 'udalosť'
+    one: 'udalosť'
+    few: 'udalosti'
+    other: 'udalostí'
+
   period:
     daily: 'Denne'
     weekly: 'Týždenne'

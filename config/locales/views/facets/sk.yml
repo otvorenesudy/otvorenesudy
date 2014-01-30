@@ -60,6 +60,12 @@ sk:
       few: '%{count} výsledky'
       other: '%{count} výsledkov'
 
+    event: &event
+      zero: 'žiadne udalosti'
+      one: '1 udalosť'
+      few: '%{count} udalosti'
+      other: '%{count} udalostí'
+
   facets:
     types:
       range:
