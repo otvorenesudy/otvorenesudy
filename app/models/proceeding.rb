@@ -41,13 +41,13 @@ class Proceeding < ActiveRecord::Base
     facet :case_numbers,   type: :terms
     facet :courts,         type: :terms
     facet :judges,         type: :terms
+    facet :duration,       type: :range, ranges: [1..3, 3..6, 6..12, 12..24]
     facet :hearings_count, type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :decrees_count,  type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :courts_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :judges_count,   type: :range, ranges: [1..1, 2..2, 3..5, 6..10]
     facet :courts_types,   type: :terms
     facet :file_number,    type: :terms
-    facet :duration,       type: :range, ranges: [1..3, 3..6, 6..12, 12..24]
 
     # TODO rm
     #facet :proposers,      type: :terms
