@@ -3,13 +3,13 @@
 
 .timeline {
   ol {
-    padding: 40px 0px;
+    padding: 30px 0px 40px 0px;
 
-    @include linear-gradient(left, darken($grayLighter, 12.5%) 1px, $white 1px);
+    @include linear-gradient(left, darken($grayLighter, 12.5%) 100%, $white 100%);
 
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1px;
+    background-repeat: repeat-y;
+    background-size: 2px;
 
     li h4 {
       position: relative;
@@ -30,6 +30,10 @@
   }
 }
 
+.timeline-less-than-day {
+  margin-top: 10px;
+}
+
 .timeline-day-to-week {
   margin-top: 10px;
 }
@@ -46,7 +50,7 @@
   margin-top: 80px;
 }
 
-.timeline-year-and-more {
+.timeline-more-than-year {
   margin-top: 100px;
 }
 
