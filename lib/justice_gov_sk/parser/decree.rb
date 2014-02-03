@@ -8,7 +8,7 @@ module JusticeGovSk
           div.search('a').first.text.strip
         end
       end
-      
+
       def file_number(document)
         find_value_by_label 'file number', document, 'Identifikačné číslo súdneho spisu' do |div|
           div.search('a').first.text.strip
@@ -26,21 +26,21 @@ module JusticeGovSk
           div.text.strip
         end
       end
-      
+
       def court(document)
         find_value_by_label 'court', document, 'Súd' do |div|
           normalize_court_name(div.search('a').first.text)
         end
-      end  
-        
+      end
+
       def judge(document)
         find_value_by_label 'judge', document, 'Meno a priezvisko sudcu, VSÚ', verbose: false do |div|
-          value = div.search('a').first.text
-          
+          value = div.search('a').first.text.gsub(/XXX/, '')
+
           partition_person_name(value) unless value.utf8 =~ /(n\s+)?neobsadené/i
         end
       end
-        
+
       def natures(document)
         find_value_by_label 'nature', document, 'Povaha rozhodnutia', verbose: false do |div|
           div.search('span').map { |span| span.text.strip.split(/\n/).map { |s| s.strip }}.flatten
@@ -50,11 +50,11 @@ module JusticeGovSk
       def legislation_area(document)
         legislation_area_and_subarea(document).split('-').first.strip unless legislation_area_and_subarea(document).blank?
       end
-      
+
       def legislation_subarea(document)
         legislation_area_and_subarea(document).split('-').last.strip unless legislation_area_and_subarea(document).blank?
       end
-        
+
       def legislations(document)
         find_value_by_label 'legislations', document, 'Predpisy odkazované v rozhodnutí', verbose: false do |div|
           div.search('span').map { |span| span.text }
@@ -64,23 +64,23 @@ module JusticeGovSk
       def legislation(value)
         partition_legislation(value)
       end
-      
+
       def summary(document)
         find_value_by_label 'summary', document, 'Sumár' do |div|
           normalize_punctuation(div.text.gsub(/\A\s*\-+/, ''))
         end
       end
-      
+
       protected
-      
+
       def clear
         super
-        
+
         @legislation_area_and_subarea = nil
       end
-      
+
       private
-      
+
       def legislation_area_and_subarea(document)
         @legislation_area_and_subarea ||= find_value_by_label 'legislation area and subarea', document, 'Oblasti právnej úpravy' do |div|
           div.text.strip.squeeze(' ')

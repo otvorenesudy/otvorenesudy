@@ -156,7 +156,7 @@ namespace :fixtures do
 
     desc "Export judge related people with metadata about judge position"
     task judge_related_people: :environment do
-      file = File.open Rails.root.join('tmp', 'judge_related_people.csv'), 'w'
+      file = File.open Rails.root.join('tmp', 'judge-related-people.csv'), 'w'
 
       data  = [:judge_id, :judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
       data += [:person_id, :person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
@@ -193,20 +193,20 @@ namespace :fixtures do
 
     desc "Export some statistics from judge statistical summaries"
     task judge_statistics: :environment do
-      file = File.open Rails.root.join('tmp', 'judge_statistics.csv'), 'w'
+      file = File.open Rails.root.join('tmp', 'judge-statistics.csv'), 'w'
 
       years   = [2012, 2011]
-      keys    = ['rozhodnuté', 'odvolania_potvrdené', 'odvolania_zmenené', 'odvolania_zrušené', 'odvolania_odmietnuté']
+      keys    = ['rozhodnuté', 'rozhodnuté-meritórne', 'odvolania-potvrdené', 'odvolania-zmenené', 'odvolania-zrušené', 'odvolania-odmietnuté']
       agendas = ['C', 'Cb', 'P', 'T']
 
       data = ['sudca']
 
       years.each do |year|
-        data << "súd_#{year}"
+        data << "súd-#{year}"
 
         keys.each do |key|
           agendas.each do |agenda|
-            data << "#{key}_#{agenda}_#{year}"
+            data << "#{key}-#{agenda}-#{year}"
           end
         end
       end
@@ -239,9 +239,11 @@ namespace :fixtures do
 
           table = summary.tables.by_name('R').first
 
-          agendas.each do |agenda|
-            cell = StatisticalTableCell.of(table, agenda,  'sv_Pocet1')
-            data << (cell ? cell.value : :missing)
+          ['sv_Pocet1', 'sv_Pocet2'].each do |row|
+            agendas.each do |agenda|
+              cell = StatisticalTableCell.of(table, agenda,  row)
+              data << (cell ? cell.value : :missing)
+            end
           end
 
           table = summary.tables.by_name('O').first
@@ -292,11 +294,13 @@ namespace :fixtures do
       end
     end
 
-    desc "Anonymizes all defendants "
+    desc "Anonymizes all defendants"
     task :anonymize, [:hearing_id] => :environment do |_, args|
       include Core::Identify
       include Core::Pluralize
       include Core::Output
+
+      include JusticeGovSk::Helper::Normalizer
 
       hearing = Hearing.find args[:hearing_id]
 
@@ -304,7 +308,12 @@ namespace :fixtures do
       abort "No defendants" if hearing.defendants.none?
 
       hearing.defendants.each do |defendant|
-        name = defendant.name.split(/\s/).map { |part| "#{part.chars.first}. " }.join.strip
+        others = defendant.name.sub!(/\s+a\s+spol\.\z/i, '')
+        parts  = partition_person_name(defendant.name)
+        name   = "#{parts[:prefix]} #{[parts[:first], parts[:middle], parts[:last]].reject(&:blank?).map { |s| "#{s.first}. " }.join.strip}, #{parts[:suffix]}"
+        name   = name.sub(/\,\s*\z/, '')
+        name  += ' a spol.' if others
+        name   = name.strip.squeeze ' '
 
         puts "#{identify defendant} '#{defendant.name}' -> '#{name}'"
 

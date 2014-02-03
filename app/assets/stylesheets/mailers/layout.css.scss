@@ -33,11 +33,11 @@ a {
 
   h1 {
     margin: 20px;
-    
+
     small {
       display: block;
       margin-top: 20px;
-      
+
       font-size: $fontSizeLarge;
 
       color: $grayLight !important;
@@ -55,7 +55,7 @@ a {
 
 .section {
   @extend section;
-  
+
   ul, p {
     margin-top: 20px !important;
     margin-left: 50px !important;
@@ -72,7 +72,7 @@ a {
   li {
     margin-left: 0px;
     padding: 10px 10px 20px 10px;
-    
+
     border-bottom: 1px dashed darken($grayLighter, 12.5%);
 
     color: $grayLight;

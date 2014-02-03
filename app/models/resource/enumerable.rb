@@ -28,9 +28,9 @@ module Resource::Enumerable
         @values[name]
       end
     end
-    
+
     private
-    
+
     def load_value(name, value)
       attributes = { value: value }
       attributes[:name] = name.to_s if self.column_names.include? 'name'

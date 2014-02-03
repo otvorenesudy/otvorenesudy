@@ -2,7 +2,7 @@ module SudnaradaGovSk
   class Crawler
     class JudgePropertyDeclarationList < SudnaradaGovSk::Crawler::List
       protected
-      
+
       def process(request)
         crawler = SudnaradaGovSk.build_crawler JudgePropertyDeclaration, @options
 

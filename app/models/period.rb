@@ -1,6 +1,6 @@
 class Period < ActiveRecord::Base
   include Resource::Enumerable
-  
+
   attr_accessible :name,
                   :value
 
