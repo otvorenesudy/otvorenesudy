@@ -95,6 +95,10 @@ class Decree < ActiveRecord::Base
     @judge_names ||= Judge::Names.of judges
   end
 
+  def legislation_area_and_subarea
+    @legislation_area_and_subarea ||= [legislation_area, legislation_subarea].reject(&:nil?)
+  end
+
   def has_future_date?
     date > Time.now.to_date unless date.nil?
   end
@@ -112,7 +116,7 @@ class Decree < ActiveRecord::Base
   def invalidate_caches
     legislations.each { |legislation| legislation.invalidate_caches }
 
-    @text = @judge_names = nil
+    @text = @judge_names = @legislation_area_and_subarea = nil
   end
 
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html

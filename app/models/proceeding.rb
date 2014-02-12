@@ -93,6 +93,12 @@ class Proceeding < ActiveRecord::Base
     judges { |event| event.judges.inexact }
   end
 
+  def legislation_area_and_subarea
+    @legislation_area_and_subarea ||= decrees.order(:date).each_with_object([]) do |decree, _|
+      break decree.legislation_area_and_subarea if decree.legislation_area_and_subarea.any?
+    end
+  end
+
   def proposers
     through_hearings_to Proposer
   end
@@ -134,6 +140,6 @@ class Proceeding < ActiveRecord::Base
   before_save :invalidate_caches
 
   def invalidate_caches
-    @case_numbers = @events = @court_ids = nil
+    @case_numbers = @events = @court_ids = @legislation_area_and_subarea = nil
   end
 end
