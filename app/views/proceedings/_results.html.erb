@@ -1,7 +1,13 @@
 <%= search_list_tag results, offset: offset do |proceeding, highlight| %>
   <li>
     <h4>
-      <%= link_to_proceeding proceeding, proceeding_headline(proceeding, limit: 70) %>
+      <%= link_to proceeding_path(proceeding, nil, params: { q: params[:q] }) do %>
+        <%= proceeding_headline(proceeding, limit: 67) %>
+        <% if proceeding.legislation_area_and_subarea.any? %>
+          <br/>
+          <%= proceeding_subject proceeding, limit: 67 %>
+        <% end %>
+      <% end %>
       <br/>
       <small>
         Verejné súdne konanie

@@ -9,6 +9,10 @@ module ProceedingsHelper
     join_and_truncate proceeding_identifiers(proceeding), { separator: ' &ndash; ' }.merge(options)
   end
 
+  def proceeding_subject(proceeding, options = {})
+    join_and_truncate proceeding.legislation_area_and_subarea.map(&:value), { separator: ' &ndash; ' }.merge(options)
+  end
+
   def proceeding_date(date, options = {})
     time_tag date.to_date, { format: :long }.merge(options)
   end

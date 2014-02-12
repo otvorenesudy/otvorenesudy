@@ -5,6 +5,10 @@
     <h1>
       <%= proceeding_headline @proceeding, limit: 50, tooltip: true %>
       <br/>
+      <% if @proceeding.legislation_area_and_subarea.any? %>
+        <%= proceeding_subject @proceeding, limit: 45, tooltip: true %>
+        <br/>
+      <% end %>
       <small>
         Verejné súdne konanie
         <% if @proceeding.single_hearing? %>
