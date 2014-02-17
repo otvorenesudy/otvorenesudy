@@ -90,6 +90,10 @@ class Hearing < ActiveRecord::Base
     facet :exact_date,   type: :abstract, field: :date, facet: :date, interval: :month
   end
 
+  def time
+    @time ||= date.to_datetime
+  end
+
   def judge_names
     @judge_names ||= Judge::Names.of judges
   end
@@ -115,7 +119,7 @@ class Hearing < ActiveRecord::Base
   before_save :invalidate_caches
 
   def invalidate_caches
-    @judge_names = nil
+    @time = @judge_names = nil
   end
 
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|

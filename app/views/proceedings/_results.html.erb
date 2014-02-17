@@ -20,8 +20,12 @@
           <% unless proceeding.probably_closed? %>
             trvá odo dňa &ndash; <%= proceeding_date proceeding.events.first.date %>
           <% else %>
-            trvalo odo dňa &ndash; <%= proceeding_date proceeding.events.first.date, format: :normal %>
-            do dňa &ndash; <%= proceeding_date proceeding.events.last.date, format: :normal %>
+            <% if proceeding.events.first.date.to_date == proceeding.events.last.date.to_date %>
+              prebehlo dňa &ndash; <%= proceeding_date proceeding.events.first.date, format: :normal %>
+            <% else %>
+              trvalo odo dňa &ndash; <%= proceeding_date proceeding.events.first.date, format: :normal %>
+              do dňa &ndash; <%= proceeding_date proceeding.events.last.date, format: :normal %>
+            <% end %>
           <% end %>
         <% end %>
       </small>

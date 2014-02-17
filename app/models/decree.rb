@@ -91,6 +91,10 @@ class Decree < ActiveRecord::Base
     @text ||= pages.pluck(:text).join
   end
 
+  def time
+    @time ||= date.to_datetime.end_of_day
+  end
+
   def judge_names
     @judge_names ||= Judge::Names.of judges
   end
@@ -116,7 +120,7 @@ class Decree < ActiveRecord::Base
   def invalidate_caches
     legislations.each { |legislation| legislation.invalidate_caches }
 
-    @text = @judge_names = @legislation_area_and_subarea = nil
+    @text = @time = @judge_names = @legislation_area_and_subarea = nil
   end
 
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html
