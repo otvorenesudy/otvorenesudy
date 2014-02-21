@@ -99,3 +99,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'guard-rspec'
 end
+
+group :production do
+  gem 'unicorn'
+end

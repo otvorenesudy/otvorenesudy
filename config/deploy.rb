@@ -105,14 +105,11 @@ end
 
 # General
 namespace :deploy do
-  task :start do
-  end
-
-  task :stop do
-  end
-
-  task :restart, roles: :app, except: { no_release: true } do
-    run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
+  [:start, :stop, :restart, :upgrade].each do |command|
+    desc "#{command.to_s.capitalize} unicorn server"
+    task command, roles: :app, except: { no_release: true } do
+      run "/etc/init.d/unicorn-#{application}-#{rails_env} #{command}"
+    end
   end
 
   desc "Symlink shared"
