@@ -12,19 +12,19 @@
       <small>
         Verejné súdne konanie
         <% if proceeding.single_hearing? %>
-          <%= proceeding.events.first.historical ? "začalo" : "začne" %>
-          dňa &ndash; <%= proceeding_date proceeding.events.first.date %>
+          <%= proceeding.duration_events.first.historical ? "začalo" : "začne" %>
+          dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
         <% elsif proceeding.single_decree?  %>
-          bolo ukončené dňa &ndash; <%= proceeding_date proceeding.events.first.date %>
+          bolo ukončené dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
         <% else %>
           <% unless proceeding.probably_closed? %>
-            trvá odo dňa &ndash; <%= proceeding_date proceeding.events.first.date %>
+            trvá odo dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
           <% else %>
-            <% if proceeding.events.first.date.to_date == proceeding.events.last.date.to_date %>
-              prebehlo dňa &ndash; <%= proceeding_date proceeding.events.first.date, format: :normal %>
+            <% if proceeding.duration_events.first.date.to_date == proceeding.duration_events.last.date.to_date %>
+              prebehlo dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
             <% else %>
-              trvalo odo dňa &ndash; <%= proceeding_date proceeding.events.first.date, format: :normal %>
-              do dňa &ndash; <%= proceeding_date proceeding.events.last.date, format: :normal %>
+              trvalo odo dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
+              do dňa &ndash; <%= proceeding_date proceeding.duration_events.last.date, format: :normal %>
             <% end %>
           <% end %>
         <% end %>
