@@ -120,11 +120,11 @@ class Proceeding < ActiveRecord::Base
     Time.now.to_i - duration_events.first.time.to_i
   end
 
-  private
-
   def duration_events
     @duration_events ||= [events.find { |event| event.time }, events.reverse.find { |event| event.time }]
   end
+
+  private
 
   def through_hearings_to(model)
     model.select('distinct name').joins(:hearing).where(:'hearings.proceeding_id' => id)
