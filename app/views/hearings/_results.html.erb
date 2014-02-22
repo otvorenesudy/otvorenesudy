@@ -2,13 +2,11 @@
   <li>
     <h4>
       <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
-      <% if hearing.date %>
-        <br/>
-        <small>
-          Pojednávanie <%= hearing.date.past? ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
-          <%= hearing_date hearing.date %>
-        </small>
-      <% end %>
+      <br/>
+      <small>
+        Pojednávanie <%= hearing.historical ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
+        <%= hearing.date ? hearing_date(hearing.date) : "neznámy dátum" %>
+      </small>
     </h4>
 
     <% if hearing.unprocessed? %>

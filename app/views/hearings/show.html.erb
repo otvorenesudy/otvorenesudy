@@ -4,13 +4,11 @@
   <div class="page-header">
     <h1>
       <%= hearing_headline @hearing, limit: 45, tooltip: true %>
-      <% if @hearing.date %>
-        <br/>
-        <small>
-          Pojednávanie <%= @hearing.historical ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
-          <%= hearing_date @hearing.date %>
-        </small>
-      <% end %>
+      <br/>
+      <small>
+        Pojednávanie <%= @hearing.historical ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
+        <%= @hearing.date ? hearing_date(@hearing.date) : "neznámy dátum" %>
+      </small>
     </h1>
   </div>
 

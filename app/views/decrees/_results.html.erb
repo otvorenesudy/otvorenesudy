@@ -8,13 +8,11 @@
           <%= decree_natures decree, limit: 67 %>
         <% end %>
       <% end %>
-      <% if decree.date %>
-        <br/>
-        <small>
-          Rozhodnutie bolo vynesené dňa &ndash;
-          <%= decree_date decree.date %>
-        </small>
-      <% end %>
+      <br/>
+      <small>
+        Rozhodnutie bolo vynesené dňa &ndash;
+        <%= decree.date ? decree_date(decree.date) : "neznámy dátum" %>
+      </small>
     </h4>
 
     <% if decree.unprocessed? %>
