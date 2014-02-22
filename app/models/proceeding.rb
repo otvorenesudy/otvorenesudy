@@ -25,7 +25,7 @@ class Proceeding < ActiveRecord::Base
     analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
     analyze :decrees_count,  type: :integer, as: lambda { |p| p.decrees.count }
 
-    analyze :duration,       type: :integer, as: lambda { |p| p.duration / 1.month }
+    analyze :duration,       type: :integer, as: lambda { |p| p.duration / 1.month if p.duration }
     analyze :closed,         type: :boolean, as: lambda { |p| p.probably_closed? }
 
     analyze :proposers,                      as: lambda { |p| p.proposers.pluck(:name) }
@@ -69,7 +69,7 @@ class Proceeding < ActiveRecord::Base
   end
 
   def events
-    @events ||= (hearings + decrees).sort_by { |event| event.time }
+    @events ||= (hearings + decrees).sort_by { |event| event.time ? event.time : event.created_at }
   end
 
   def courts
