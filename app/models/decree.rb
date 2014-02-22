@@ -92,7 +92,7 @@ class Decree < ActiveRecord::Base
   end
 
   def time
-    @time ||= date.to_datetime.end_of_day
+    @time ||= date.to_datetime.end_of_day if date
   end
 
   def judge_names

@@ -91,7 +91,7 @@ class Hearing < ActiveRecord::Base
   end
 
   def time
-    @time ||= date.to_datetime
+    @time ||= date.to_datetime if date
   end
 
   def judge_names
