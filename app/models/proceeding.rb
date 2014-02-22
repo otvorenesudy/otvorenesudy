@@ -112,12 +112,19 @@ class Proceeding < ActiveRecord::Base
   end
 
   def duration
-    return events.last.date.to_time.to_i - events.first.date.to_time.to_i if probably_closed?
+    return duration_events.last.time.to_i - duration_events.first.time.to_i if probably_closed?
 
-    Time.now.to_i - events.first.date.to_time.to_i
+    # TODO this is probably a bug as we are storing Time.now based result to ES but not updating it:
+    # we store proceeding with duration 4 months and then no event occurs in 4 months, status:
+    # ES has it indexed under 4 months duration but on show it renders 8 months
+    Time.now.to_i - duration_events.first.time.to_i
   end
 
   private
+
+  def duration_events
+    @duration_events ||= [events.find { |event| event.time }, events.reverse.find { |event| event.time }]
+  end
 
   def through_hearings_to(model)
     model.select('distinct name').joins(:hearing).where(:'hearings.proceeding_id' => id)
@@ -140,6 +147,6 @@ class Proceeding < ActiveRecord::Base
   before_save :invalidate_caches
 
   def invalidate_caches
-    @case_numbers = @events = @court_ids = @legislation_area_and_subarea = nil
+    @case_numbers = @duration_events = @events = @court_ids = @legislation_area_and_subarea = nil
   end
 end
