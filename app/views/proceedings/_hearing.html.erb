@@ -1,11 +1,9 @@
 <li class="timeline-<%= timeline_distance(previous, hearing) %>">
   <h4>
     <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
-    <% if hearing.date %>
-      <br/>
-      <small>
-        <%= hearing_date hearing.date %>
-      </small>
-    <% end %>
+    <br/>
+    <small>
+      <%= hearing.date ? hearing_date(hearing.date) : "Neznámy dátum" %>
+    </small>
   </h4>
 </li>

@@ -7,11 +7,9 @@
         <%= decree_natures decree, limit: 67 %>
       <% end %>
     <% end %>
-    <% if decree.date %>
-      <br/>
-      <small>
-        <%= decree_date decree.date %>
-      </small>
-    <% end %>
+    <br/>
+    <small>
+      <%= decree.date ? decree_date(decree.date) : "Neznámy dátum" %>
+    </small>
   </h4>
 </li>
