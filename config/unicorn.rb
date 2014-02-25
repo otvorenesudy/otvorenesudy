@@ -1,7 +1,7 @@
 root = File.expand_path "#{File.dirname(__FILE__)}/.."
 
 worker_processes 8
-timeout          15
+timeout          60
 preload_app      true
 listen           "#{root}/shared/.unicorn.sock", backlog: 64
 pid              "#{root}/tmp/pids/unicorn.pid"
