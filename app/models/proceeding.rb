@@ -117,7 +117,7 @@ class Proceeding < ActiveRecord::Base
     # TODO this is probably a bug as we are storing Time.now based result to ES but not updating it:
     # we store proceeding with duration 4 months and then no event occurs in 4 months, status:
     # ES has it indexed under 4 months duration but on show it renders 8 months
-    Time.now.to_i - duration_events.first.time.to_i
+    Time.now.to_i - duration_events.first.time.to_i if duration_events.first
   end
 
   def duration_events
