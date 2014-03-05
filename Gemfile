@@ -42,7 +42,7 @@ gem 'curb',        '>= 0.8.3'
 gem 'mechanize',   '~> 2.5.1'
 gem 'docsplit',    '~> 0.6.4'
 
-gem 'json'
+gem 'json', '1.8.0'
 gem 'nokogiri'
 
 # utilities
