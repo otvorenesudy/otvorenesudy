@@ -398,7 +398,7 @@ namespace :fixtures do
   namespace :proceedings do
     desc 'Extract random finished proceedings with treshold'
     task extract_finished: :environment  do
-      threshold = ENV['THRESHOLD'].try(:to_i) || 1000
+      threshold = ENV['THRESHOLD'] ? ENV['THRESHOLD'].to_i : 1000
       count     = 0
 
       columns = []
