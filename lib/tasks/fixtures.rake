@@ -394,4 +394,66 @@ namespace :fixtures do
       end
     end
   end
+
+  namespace :proceedings do
+    desc 'Extract random finished proceedings with treshold'
+    task extract_finished: :environment  do
+      threshold = ENV['THRESHOLD'].try(:to_i) || 1000
+      count     = 0
+
+      columns = []
+
+      columns << 'Duration'
+      columns << 'Number of courts'
+      columns << 'Number of judges'
+      columns << 'Number of participants'
+      columns << 'Number of events'
+      columns << 'Number of decree pages'
+      columns << 'Last court type'
+      columns << 'Number of hearings forms'
+      columns << 'Number of hearings sections'
+      columns << 'Number of hearings subjects'
+      columns << 'Number of hearings forms'
+      columns << 'Number of decrees forms'
+      columns << 'Number of decrees legislation areas'
+      columns << 'Number of decrees legislation subareas'
+      columns << 'Number of decrees legislations'
+      columns << 'Number of decrees natues'
+      columns << 'Duration of all judges experience'
+
+      puts columns.join("\t")
+
+      Proceeding.order('random()').find_each do |proceeding|
+        break if ++count == threshold
+
+        next unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree]
+
+        data = []
+
+        data << proceeding.duration
+        data << proceeding.courts.compact.count
+        data << proceeding.judges.compact.count
+        data << proceeding.opponents.size + proceeding.defendants.size # TODO (smolnar) proposers as well?
+        data << proceeding.events.compact.size
+        data << proceeding.decrees.map(&:pages).compact.flatten.size
+        data << proceeding.decrees.order('date desc').last.court.type.value # TODO (smolnar) use comparison on court.type for determining the most significant court type
+        data << proceeding.hearings.map(&:form).compact.size
+        data << proceeding.hearings.map(&:section).compact.size
+        data << proceeding.hearings.map(&:subject).compact.size
+        # TODO (smolnar) use type of hearings
+        data << proceeding.decrees.map(&:form).compact.size
+        data << proceeding.decrees.map(&:legislation_area).compact.size
+        data << proceeding.decrees.map(&:legislation_subarea).compact.size
+        data << proceeding.decrees.map(&:legislations).flatten.compact.size
+        data << proceeding.decrees.map(&:natures).flatten.compact.size
+        data << proceeding.judges.map(&:designations).flatten.map(&:duration).sum # sum of all duration of designations for all judges
+
+        # TODO multiple season? how to represent
+        # TODO resolve array of values for form, section, subject and type of hearings
+        # TODO resolve array of values for form, legislation areas, natures of decrees
+
+        puts data.join("\t")
+      end
+    end
+  end
 end
