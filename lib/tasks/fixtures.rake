@@ -397,8 +397,8 @@ namespace :fixtures do
 
   namespace :proceedings do
     desc 'Extract random finished proceedings with treshold'
-    task extract_finished: :environment  do
-      threshold = ENV['THRESHOLD'] ? ENV['THRESHOLD'].to_i : 1000
+    task :extract_finished, [:threshold] => :environment  do |_, args|
+      threshold = args[:threshold] ? args[:threshold].to_i : 1000
       count     = 0
 
       columns = []
@@ -413,12 +413,12 @@ namespace :fixtures do
       columns << 'Number of hearings forms'
       columns << 'Number of hearings sections'
       columns << 'Number of hearings subjects'
-      columns << 'Number of hearings forms'
+      # columns << 'Hearings type'
       columns << 'Number of decrees forms'
       columns << 'Number of decrees legislation areas'
       columns << 'Number of decrees legislation subareas'
       columns << 'Number of decrees legislations'
-      columns << 'Number of decrees natues'
+      columns << 'Number of decrees natures'
       columns << 'Duration of all judges experience'
 
       puts columns.join("\t")
