@@ -424,11 +424,12 @@ namespace :fixtures do
       puts columns.join("\t")
 
       Proceeding.order('random()').find_each do |proceeding|
-        break if ++count == threshold
+        break if count == threshold
 
         next unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree]
 
-        data = []
+        data   = []
+        count += 1
 
         data << proceeding.duration
         data << proceeding.courts.compact.count

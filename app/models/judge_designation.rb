@@ -12,8 +12,8 @@ class JudgeDesignation < ActiveRecord::Base
   def duration
     another = judge.designations.where('date > ?', date).first
 
-    return another.date - date if another
+    return another.date.to_time - date.to_time if another
 
-    (Date.today - date).to_i
+    Time.now - date.to_time
   end
 end
