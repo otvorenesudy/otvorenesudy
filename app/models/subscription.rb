@@ -31,8 +31,6 @@ class Subscription < ActiveRecord::Base
     SubscriptionMailer.results(self).deliver if results.any?
   end
 
-  protected
-
   def query_attributes=(attributes)
     if attributes[:id]
       self.query = ::Query.find(attributes[:id])
@@ -40,6 +38,8 @@ class Subscription < ActiveRecord::Base
       self.query = ::Query.create(attributes)
     end
   end
+
+  protected
 
   def assign_period
     self.period ||= Period.monthly
