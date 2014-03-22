@@ -63,6 +63,7 @@
 }
 
 .carousel-content {
+  display: block;
   position: absolute;
   width: 100%;
   padding: 40px 0px;
@@ -90,5 +91,23 @@
   h1 {
     line-height: $baseFontSize * 3.5;
     font-size: $baseFontSize * 2.8;
+  }
+}
+
+.carousel-banner {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 213px;
+  padding: 0px;
+
+  left: 0px;
+  bottom: 0px;
+
+  a {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 213px;
   }
 }
