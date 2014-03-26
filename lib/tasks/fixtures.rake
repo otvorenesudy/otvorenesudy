@@ -481,7 +481,7 @@ namespace :fixtures do
 
         data << proceeding.id
         data << proceeding.probably_closed?
-        data << proceeding.duration
+        data << proceeding.duration(time)
         data << proceeding.decrees.order('date desc').last.court.type.id # TODO (smolnar) use comparison on court.type for determining the most significant court type
         data << proceeding.judges.map(&:designations).flatten.map { |designation| designation.duration(time) }.sum.round
 
