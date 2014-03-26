@@ -397,61 +397,133 @@ namespace :fixtures do
 
   namespace :proceedings do
     desc 'Extract random finished proceedings with treshold'
-    task :extract_finished, [:threshold] => :environment  do |_, args|
-      threshold = args[:threshold] ? args[:threshold].to_i : 1000
-      count     = 0
+    task :extract, [:limit] => :environment  do |_, args|
+      limit = args[:limit] ? args[:limit].to_i : 1000
+      count = 0
 
       columns = []
 
-      columns << 'Duration'
-      columns << 'Number of courts'
-      columns << 'Number of judges'
-      columns << 'Number of participants'
-      columns << 'Number of events'
-      columns << 'Number of decree pages'
-      columns << 'Last court type'
-      columns << 'Number of hearings forms'
-      columns << 'Number of hearings sections'
-      columns << 'Number of hearings subjects'
-      # columns << 'Hearings type'
-      columns << 'Number of decrees forms'
-      columns << 'Number of decrees legislation areas'
-      columns << 'Number of decrees legislation subareas'
-      columns << 'Number of decrees legislations'
-      columns << 'Number of decrees natures'
-      columns << 'Duration of all judges experience'
+      columns << 'id'
+      columns << 'probably_closed'
+      columns << 'duration'
+      columns << 'last_court_type'
+      columns << 'judges_designations_duration'
+
+      columns << 'courts.ids'
+      columns << 'courts.size'
+      columns << 'judges.ids'
+      columns << 'judges.size'
+
+      columns << 'proposers.ids'
+      columns << 'proposers.size'
+      columns << 'opponents.ids'
+      columns << 'opponents.size'
+      columns << 'defendants.ids'
+      columns << 'defendants.size'
+
+      columns << 'events.ids'
+      columns << 'events.size'
+      columns << 'hearings.ids'
+      columns << 'hearings.size'
+      columns << 'decrees.ids'
+      columns << 'decrees.size'
+      columns << 'decrees.pages.size'
+
+      columns << 'hearings.forms.ids'
+      columns << 'hearings.forms.size'
+      columns << 'hearings.sections.ids'
+      columns << 'hearings.sections.size'
+      columns << 'hearings.subjects.ids'
+      columns << 'hearings.subjects.size'
+      columns << 'hearings.type.ids'
+      columns << 'hearings.type.size'
+
+      columns << 'decrees.forms.ids'
+      columns << 'decrees.forms.size'
+      columns << 'decrees.legislation_areas.ids'
+      columns << 'decrees.legislation_areas.size'
+      columns << 'decrees.legislation_subareas.ids'
+      columns << 'decrees.legislation_subareas.size'
+      columns << 'decrees.legislations.ids'
+      columns << 'decrees.legislations.size'
+      columns << 'decrees.natures.ids'
+      columns << 'decrees.natures.size'
+
+      courts_ids = Court.order(:id).pluck(:id)
+      judges_ids = Judge.order(:id).pluck(:id)
+
+      courts_ids.each { |id| columns << "court.#{id}" }
+      judges_ids.each { |id| columns << "judge.#{id}" }
 
       puts columns.join("\t")
 
       Proceeding.order('random()').find_each do |proceeding|
-        break if count == threshold
+        break if count >= limit
 
+        # select only probably closed proceedings with at least one hearing and one decree
         next unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree]
 
-        data   = []
         count += 1
 
+        data = []
+
+        proceeding_courts_ids = proceeding.courts.map(&:id).uniq.sort
+        proceeding_judges_ids = proceeding.judges.map(&:id).uniq.sort
+
+        proceeding_proposers_ids  = Proposer.joins(:hearing).where(:'hearings.proceeding_id' => proceeding.id).pluck('proposers.id').uniq
+        proceeding_opponents_ids  = Opponent.joins(:hearing).where(:'hearings.proceeding_id' => proceeding.id).pluck('opponents.id').uniq
+        proceeding_defendants_ids = Defendant.joins(:hearing).where(:'hearings.proceeding_id' => proceeding.id).pluck('defendants.id').uniq
+
+        data << proceeding.id
+        data << proceeding.probably_closed?
         data << proceeding.duration
-        data << proceeding.courts.compact.count
-        data << proceeding.judges.compact.count
-        data << proceeding.opponents.size + proceeding.defendants.size # TODO (smolnar) proposers as well?
-        data << proceeding.events.compact.size
-        data << proceeding.decrees.map(&:pages).compact.flatten.size
         data << proceeding.decrees.order('date desc').last.court.type.value # TODO (smolnar) use comparison on court.type for determining the most significant court type
-        data << proceeding.hearings.map(&:form).compact.size
-        data << proceeding.hearings.map(&:section).compact.size
-        data << proceeding.hearings.map(&:subject).compact.size
-        # TODO (smolnar) use type of hearings
-        data << proceeding.decrees.map(&:form).compact.size
-        data << proceeding.decrees.map(&:legislation_area).compact.size
-        data << proceeding.decrees.map(&:legislation_subarea).compact.size
-        data << proceeding.decrees.map(&:legislations).flatten.compact.size
-        data << proceeding.decrees.map(&:natures).flatten.compact.size
-        data << proceeding.judges.map(&:designations).flatten.map(&:duration).sum # sum of all duration of designations for all judges
+        data << proceeding.judges.map(&:designations).flatten.map(&:duration).sum
+
+        data << proceeding_courts_ids.join(',')
+        data << proceeding_courts_ids.size
+        data << proceeding_judges_ids.join(',')
+        data << proceeding_judges_ids.size
+
+        data << proceeding_proposers_ids.join(',')
+        data << proceeding_proposers_ids.size
+        data << proceeding_opponents_ids.join(',')
+        data << proceeding_opponents_ids.size
+        data << proceeding_defendants_ids.join(',')
+        data << proceeding_defendants_ids.size
+
+        data << proceeding.events.map(&:id).uniq.join(',')
+        data << proceeding.events.uniq.size
+        data << proceeding.hearings.pluck('hearings.id').uniq.join(',')
+        data << proceeding.hearings.uniq.size
+        data << proceeding.decrees.pluck('decrees.id').uniq.join(',')
+        data << proceeding.decrees.uniq.size
+        data << proceeding.decrees.map(&:pages).flatten.uniq.size
+
+        data << proceeding.hearings.pluck('hearing_form_id').uniq.join(',')
+        data << proceeding.hearings.pluck('hearing_form_id').uniq.size
+        data << proceeding.hearings.pluck('hearing_section_id').uniq.join(',')
+        data << proceeding.hearings.pluck('hearing_section_id').uniq.size
+        data << proceeding.hearings.pluck('hearing_subject_id').uniq.join(',')
+        data << proceeding.hearings.pluck('hearing_subject_id').uniq.size
+        data << proceeding.hearings.pluck('hearing_type_id').uniq.join(',')
+        data << proceeding.hearings.pluck('hearing_type_id').uniq.size
+
+        data << proceeding.decrees.pluck('decree_form_id').uniq.join(',')
+        data << proceeding.decrees.pluck('decree_form_id').uniq.size
+        data << proceeding.decrees.pluck('legislation_area_id').uniq.join(',')
+        data << proceeding.decrees.pluck('legislation_area_id').uniq.size
+        data << proceeding.decrees.pluck('legislation_subarea_id').uniq.join(',')
+        data << proceeding.decrees.pluck('legislation_subarea_id').uniq.size
+        data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.join(',')
+        data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.size
+        data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.join(',')
+        data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.size
+
+        courts_ids.each { |id| data << (proceeding_courts_ids.include?(id) ? 1 : 0) }
+        judges_ids.each { |id| data << (proceeding_judges_ids.include?(id) ? 1 : 0) }
 
         # TODO multiple season? how to represent
-        # TODO resolve array of values for form, section, subject and type of hearings
-        # TODO resolve array of values for form, legislation areas, natures of decrees
 
         puts data.join("\t")
       end
