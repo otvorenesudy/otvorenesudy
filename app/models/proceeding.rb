@@ -111,14 +111,14 @@ class Proceeding < ActiveRecord::Base
     through_hearings_to Defendant
   end
 
-  def duration
+  def duration(time = Time.now)
     return duration_events.last.time.to_i - duration_events.first.time.to_i if probably_closed?
 
     # TODO this is probably a bug as we are storing Time.now based result to ES but not updating it:
     # we store proceeding with duration 4 months and then no event occurs in 4 months, status:
     # ES has it indexed under 4 months duration but on show it renders 8 months
     # TODO resolve
-    Time.now.to_i - duration_events.first.time.to_i if duration_events.first.try(:time)
+    time.to_i - duration_events.first.time.to_i if duration_events.first.try(:time)
   end
 
   def duration_events

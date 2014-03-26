@@ -9,11 +9,11 @@ class JudgeDesignation < ActiveRecord::Base
 
   validates :date, presence: true
 
-  def duration
-    another = judge.designations.where('date > ?', date).first
+  def duration(time = Time.now)
+    other = judge.designations.where('date > ?', date).order(:date).first
 
-    return another.date.to_time - date.to_time if another
+    return other.date.to_time - date.to_time if other
 
-    Time.now - date.to_time
+    time - date.to_time
   end
 end

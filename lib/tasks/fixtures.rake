@@ -401,6 +401,11 @@ namespace :fixtures do
       limit = args[:limit] ? args[:limit].to_i : 1000
       count = 0
 
+      time = Time.now
+
+      puts "time\ttimestamp"
+      puts "#{time}\t#{time.to_i}"
+
       columns = []
 
       columns << 'id'
@@ -477,8 +482,8 @@ namespace :fixtures do
         data << proceeding.id
         data << proceeding.probably_closed?
         data << proceeding.duration
-        data << proceeding.decrees.order('date desc').last.court.type.value # TODO (smolnar) use comparison on court.type for determining the most significant court type
-        data << proceeding.judges.map(&:designations).flatten.map(&:duration).sum
+        data << proceeding.decrees.order('date desc').last.court.type.id # TODO (smolnar) use comparison on court.type for determining the most significant court type
+        data << proceeding.judges.map(&:designations).flatten.map { |designation| designation.duration(time) }.sum.round
 
         data << proceeding_courts_ids.join(',')
         data << proceeding_courts_ids.size
