@@ -414,44 +414,44 @@ namespace :fixtures do
       columns << 'last_court_type'
       columns << 'judges_designations_duration'
 
-      columns << 'courts.ids'
+      #columns << 'courts.ids'
       columns << 'courts.size'
-      columns << 'judges.ids'
+      #columns << 'judges.ids'
       columns << 'judges.size'
 
-      columns << 'proposers.ids'
+      #columns << 'proposers.ids'
       columns << 'proposers.size'
-      columns << 'opponents.ids'
+      #columns << 'opponents.ids'
       columns << 'opponents.size'
-      columns << 'defendants.ids'
+      #columns << 'defendants.ids'
       columns << 'defendants.size'
 
-      columns << 'events.ids'
+      #columns << 'events.ids'
       columns << 'events.size'
-      columns << 'hearings.ids'
+      #columns << 'hearings.ids'
       columns << 'hearings.size'
-      columns << 'decrees.ids'
+      #columns << 'decrees.ids'
       columns << 'decrees.size'
       columns << 'decrees.pages.size'
 
-      columns << 'hearings.forms.ids'
+      #columns << 'hearings.forms.ids'
       columns << 'hearings.forms.size'
-      columns << 'hearings.sections.ids'
+      #columns << 'hearings.sections.ids'
       columns << 'hearings.sections.size'
-      columns << 'hearings.subjects.ids'
+      #columns << 'hearings.subjects.ids'
       columns << 'hearings.subjects.size'
-      columns << 'hearings.type.ids'
+      #columns << 'hearings.type.ids'
       columns << 'hearings.type.size'
 
-      columns << 'decrees.forms.ids'
+      #columns << 'decrees.forms.ids'
       columns << 'decrees.forms.size'
-      columns << 'decrees.legislation_areas.ids'
+      #columns << 'decrees.legislation_areas.ids'
       columns << 'decrees.legislation_areas.size'
-      columns << 'decrees.legislation_subareas.ids'
+      #columns << 'decrees.legislation_subareas.ids'
       columns << 'decrees.legislation_subareas.size'
-      columns << 'decrees.legislations.ids'
+      #columns << 'decrees.legislations.ids'
       columns << 'decrees.legislations.size'
-      columns << 'decrees.natures.ids'
+      #columns << 'decrees.natures.ids'
       columns << 'decrees.natures.size'
 
       courts_ids = Court.order(:id).pluck(:id)
@@ -481,48 +481,48 @@ namespace :fixtures do
 
         data << proceeding.id
         data << proceeding.probably_closed?
-        data << proceeding.duration(time)
+        data << proceeding.duration(time) / 24.hours
         data << proceeding.decrees.order('date desc').last.court.type.id # TODO (smolnar) use comparison on court.type for determining the most significant court type
-        data << proceeding.judges.map(&:designations).flatten.map { |designation| designation.duration(time) }.sum.round
+        data << proceeding.judges.map(&:designations).flatten.map { |designation| designation.duration(time) }.sum.round / 24.hours
 
-        data << proceeding_courts_ids.join(',')
+        #data << proceeding_courts_ids.join(',')
         data << proceeding_courts_ids.size
-        data << proceeding_judges_ids.join(',')
+        #data << proceeding_judges_ids.join(',')
         data << proceeding_judges_ids.size
 
-        data << proceeding_proposers_ids.join(',')
+        #data << proceeding_proposers_ids.join(',')
         data << proceeding_proposers_ids.size
-        data << proceeding_opponents_ids.join(',')
+        #data << proceeding_opponents_ids.join(',')
         data << proceeding_opponents_ids.size
-        data << proceeding_defendants_ids.join(',')
+        #data << proceeding_defendants_ids.join(',')
         data << proceeding_defendants_ids.size
 
-        data << proceeding.events.map(&:id).uniq.join(',')
+        #data << proceeding.events.map(&:id).uniq.join(',')
         data << proceeding.events.uniq.size
-        data << proceeding.hearings.pluck('hearings.id').uniq.join(',')
+        #data << proceeding.hearings.pluck('hearings.id').uniq.join(',')
         data << proceeding.hearings.uniq.size
-        data << proceeding.decrees.pluck('decrees.id').uniq.join(',')
+        #data << proceeding.decrees.pluck('decrees.id').uniq.join(',')
         data << proceeding.decrees.uniq.size
         data << proceeding.decrees.map(&:pages).flatten.uniq.size
 
-        data << proceeding.hearings.pluck('hearing_form_id').uniq.join(',')
+        #data << proceeding.hearings.pluck('hearing_form_id').uniq.join(',')
         data << proceeding.hearings.pluck('hearing_form_id').uniq.size
-        data << proceeding.hearings.pluck('hearing_section_id').uniq.join(',')
+        #data << proceeding.hearings.pluck('hearing_section_id').uniq.join(',')
         data << proceeding.hearings.pluck('hearing_section_id').uniq.size
-        data << proceeding.hearings.pluck('hearing_subject_id').uniq.join(',')
+        #data << proceeding.hearings.pluck('hearing_subject_id').uniq.join(',')
         data << proceeding.hearings.pluck('hearing_subject_id').uniq.size
-        data << proceeding.hearings.pluck('hearing_type_id').uniq.join(',')
+        #data << proceeding.hearings.pluck('hearing_type_id').uniq.join(',')
         data << proceeding.hearings.pluck('hearing_type_id').uniq.size
 
-        data << proceeding.decrees.pluck('decree_form_id').uniq.join(',')
+        #data << proceeding.decrees.pluck('decree_form_id').uniq.join(',')
         data << proceeding.decrees.pluck('decree_form_id').uniq.size
-        data << proceeding.decrees.pluck('legislation_area_id').uniq.join(',')
+        #data << proceeding.decrees.pluck('legislation_area_id').uniq.join(',')
         data << proceeding.decrees.pluck('legislation_area_id').uniq.size
-        data << proceeding.decrees.pluck('legislation_subarea_id').uniq.join(',')
+        #data << proceeding.decrees.pluck('legislation_subarea_id').uniq.join(',')
         data << proceeding.decrees.pluck('legislation_subarea_id').uniq.size
-        data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.join(',')
+        #data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.join(',')
         data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.size
-        data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.join(',')
+        #data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.join(',')
         data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.size
 
         courts_ids.each { |id| data << (proceeding_courts_ids.include?(id) ? 1 : 0) }
