@@ -466,7 +466,7 @@ namespace :fixtures do
         break if count >= limit
 
         # select only probably closed proceedings with at least one hearing and one decree
-        next unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree]
+        next unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree] && proceeding.duration > 0
 
         count += 1
 
