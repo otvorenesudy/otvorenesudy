@@ -528,8 +528,6 @@ namespace :fixtures do
         courts_ids.each { |id| data << (proceeding_courts_ids.include?(id) ? 1 : 0) }
         judges_ids.each { |id| data << (proceeding_judges_ids.include?(id) ? 1 : 0) }
 
-        # TODO multiple season? how to represent
-
         puts data.join("\t")
       end
     end
