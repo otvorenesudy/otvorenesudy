@@ -6,11 +6,11 @@ Public data project aimed at creating much more user friendly interface to inter
 
 ### Requirements
 
-* Ruby 1.9.3
+* Ruby 2.0
 * Rails 3
-* PostgreSQL with trigram extension
+* PostgreSQL 9.1 with trigram extension
 * Redis & Resque
-* Elasticsearch
+* Elasticsearch 0.9
 
 ### Project and Database
 
