@@ -97,9 +97,9 @@ namespace :workers do
     end
   end
 
-  desc "Stop workers (also flushes Redis)"
+  desc "Stop workers (does not flush Redis)"
   task :stop do
-    run "kill -15 `ps aux | grep resque | grep -v grep | cut -c 10-16`"
+    run "kill -15 `ps aux | grep resque | grep -v grep | cut -c 10-16`" rescue true
   end
 end
 
@@ -123,10 +123,12 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/*.yml #{release_path}/config"
   end
 
-  after 'deploy',             'deploy:cleanup'
+  after 'deploy', 'deploy:cleanup'
   after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:move_in_configuration_files', 'db:create_release', 'deploy:migrate'
 
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
+
+  after 'deploy:upgrade', 'workers:stop', 'workers:start'
 end
