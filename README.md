@@ -6,8 +6,8 @@ Public data project aimed at creating much more user friendly interface to inter
 
 ### Requirements
 
-* Ruby 2
-* Rails 3
+* Ruby 2.1
+* Rails 3.2
 * PostgreSQL 9.1 with trigram extension
 * Redis & Resque
 * Elasticsearch 0.9
