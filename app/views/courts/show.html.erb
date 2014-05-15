@@ -54,24 +54,24 @@
         <% end %>
       <% end %>
 
-      <% if @court.average_proceeding_lengths? %>
+      <% if @court.average_proceeding_durations? %>
         <p>
           <span class="gutter centered"><%= icon_tag :time %></span>
           Priemerné dĺžky trvania konaní v rámci súdu podľa agiend:
         </p>
         <ul class="unstyled inline">
-          <% @court.average_proceeding_lengths.each do |agenda| %>
-            <li><a href="#average-proceeding-length-<%= agenda.acronym %>" data-parent="#average-proceeding-lengths" data-toggle="collapse"><%= agenda.name %></a></li>
+          <% @court.average_proceeding_durations.each do |agenda| %>
+            <li><a href="#average-proceeding-duration-<%= agenda.acronym %>" data-parent="#average-proceeding-durations" data-toggle="collapse"><%= agenda.name %></a></li>
           <% end %>
         </ul>
-        <div id="average-proceeding-lengths">
-          <% @court.average_proceeding_lengths.each do |agenda| %>
+        <div id="average-proceeding-durations">
+          <% @court.average_proceeding_durations.each do |agenda| %>
             <div class="accordion-group">
-              <div id="average-proceeding-length-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
+              <div id="average-proceeding-duration-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
                 <p>
                   <span class="gutter centered"><%= icon_tag :time %></span>
-                  Celkovo <%= rank_with_order Court::AverageProceedingLengths::Ranking.rank_with_order(@court, agenda.acronym), asc: 'najrýchlejší', desc: 'najpomalší' %>
-                  súd z <%= Court::AverageProceedingLengths::Ranking.courts.size %>
+                  Celkovo <%= rank_with_order Court::AverageProceedingDurations::Ranking.rank_with_order(@court, agenda.acronym), asc: 'najrýchlejší', desc: 'najpomalší' %>
+                  súd z <%= Court::AverageProceedingDurations::Ranking.courts.size %>
                   okresných súdov v rámci agendy <%= agenda.name %>:
                 </p>
                 <ul class="unstyled">

@@ -1,7 +1,7 @@
-module Court::AverageProceedingLengths
+module Court::AverageProceedingDurations
   extend ActiveSupport::Concern
 
-  def average_proceeding_lengths
+  def average_proceeding_durations
     return @agendas if @agendas
 
     data = Loader.load(self.name)
@@ -19,7 +19,7 @@ module Court::AverageProceedingLengths
     private
 
     def data
-      @data ||= JSON.parse File.read(File.join Rails.root, 'data', 'court_average_proceeding_lengths.json')
+      @data ||= JSON.parse File.read(File.join Rails.root, 'data', 'court_average_proceeding_durations.json')
     end
   end
 
@@ -37,7 +37,7 @@ module Court::AverageProceedingLengths
     def rank_with_order(court, acronym)
       ranking[acronym.to_sym].rank_with_order(court)
     end
-    
+
     private
 
     def ranking
@@ -48,7 +48,7 @@ module Court::AverageProceedingLengths
       results = Hash.new
 
       [:T, :C, :Cb, :P].each do |acronym|
-        results[acronym] = Resource::Ranking.new(courts) { |court| court.average_proceeding_lengths.by_acronym(acronym).data.map { |e| e[:value].to_f }.sum }
+        results[acronym] = Resource::Ranking.new(courts) { |court| court.average_proceeding_durations.by_acronym(acronym).data.map { |e| e[:value].to_f }.sum }
       end
 
       results

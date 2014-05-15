@@ -50,7 +50,7 @@ class Court < ActiveRecord::Base
   validates :name,   presence: true
   validates :street, presence: true
 
-  indicate Court::AverageProceedingLengths
+  indicate Court::AverageProceedingDurations
 
   acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
 
