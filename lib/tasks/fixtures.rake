@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+require 'csv'
+require 'json'
+
 namespace :fixtures do
   namespace :db do
     desc "Drops, creates, migrates and loads seed data into the database"
@@ -74,6 +77,35 @@ namespace :fixtures do
       puts "Judge desigantions:          #{JudgeDesignation.count}"
       puts "Judge property declarations: #{JudgePropertyDeclaration.count}"
       puts "Judge statistical summaries: #{JudgeStatisticalSummary.count}"
+    end
+  end
+
+  namespace :convert do
+    desc "Converts court proceeding durations CSV to JSON"
+    task :court_proceeding_durations, [:path] => :environment do |_, args|
+      path = args[:path] || raise
+
+      print "Converting #{path} ..."
+
+      data  = {}
+      lines = 0
+
+      CSV.foreach(path, col_sep: "\t", headers: :first_row) do |line|
+        court = data[line[1]] ||= []
+
+        court << {
+          year: line[0],
+          acronym: line[2],
+          name: line[3],
+          value: line[4].to_f
+        }
+
+        lines += 1
+      end
+
+      File.open("#{path}.json", 'w') { |file| file.write JSON.pretty_generate(data) }
+
+      puts "done (#{lines} lines converted)"
     end
   end
 
