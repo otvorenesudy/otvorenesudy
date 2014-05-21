@@ -141,6 +141,7 @@ Court expenses from justice.gov.sk:
 rake process:court_expenses:2010
 rake process:court_expenses:2011
 rake process:court_expenses:2012
+rake process:court_expenses:2013
 ```
 
 Process judge designations from nrsr.sk and prezident.sk:
