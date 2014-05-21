@@ -2,21 +2,21 @@
 <html lang="sk">
   <head>
     <meta charset="utf-8" />
-    <title><%= obtain yield :title %></title>
+    <title><%= resolve_title(yield :title) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Transparentný pohľad na slovenské súdnictvo." />
     <meta name="keywords" content="slovenské súdnictvo, sudcovia, súdne rozhodnutia, súdne pojednávania" />
     <meta name="author" content="Samuel Molnár a Pavol Zbell" />
-    <meta property="og:title" content="<%= obtain yield :title %>" />
+    <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
     <meta property="og:description" content="Transparentný pohľad na súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!" />
     <meta property="og:image" content="<%= asset_path 'icons/icon.png' %>" />
     <meta property="og:url" content="<%= canonical_url %>" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="<%= obtain yield :title %>" />
+    <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
     <meta name="twitter:description" content="Transparentný pohľad na súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!" />
     <meta name="twitter:image" content="<%= asset_path 'icons/icon.png' %>" />
     <meta name="twitter:url" content="<%= canonical_url %>" />
-    <meta itemprop="name" content="<%= obtain yield :title %>" />
+    <meta itemprop="name" content="<%= resolve_title(yield :title) %>" />
     <meta itemprop="description" content="Transparentný pohľad na súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!" />
     <meta itemprop="image" content="<%= asset_path 'icons/icon.png' %>" />
     <link rel="apple-touch-icon" href="<%= asset_path 'icons/touchicon.png' %>" />

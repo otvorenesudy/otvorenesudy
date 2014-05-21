@@ -47,7 +47,7 @@
           <ul class="nav pull-left">
             <li><%= link_to "Našli ste chybu?", static_page_path(:feedback) %></li>
             <li><%= link_to "Bezpečnosť", static_page_path(:security) %></li>
-            <li><%= external_link_to "Zdrojový kód", 'https://github.com/otvorenesudy' %></li>
+            <li><%= external_link_to "Zdrojový kód", url_to_repository %></li>
           </ul>
         </nav>
       </div>
@@ -101,17 +101,20 @@
           Projekt využíva výhradne dáta verejných inštitúcií. Za ich vecnú správnosť autori nenesú zodpovednosť.
         </div>
         <div class="note centered muted">
-          Copyright <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %>
+          <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %>
           a <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
           (členovia <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
           <%= external_link_to "FIIT", 'http://fiit.stuba.sk' %>
           <%= external_link_to "STU", 'http://stuba.sk' %>)
           v spolupráci s <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
-          &copy; 2014
           <br/>
-          Za podpory <%= external_link_to "Transparency International", 'http://transparency.org' %>
+          za podpory <%= external_link_to "Transparency International", 'http://transparency.org' %>
           v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
-          <%= external_link_to "Centra pre filantropiu", 'http://cpf.sk' %>.
+          <%= external_link_to "Centra pre filantropiu", 'http://cpf.sk' %>
+          <br/>
+          Copyright 2014 &middot;
+          <%= link_to Configuration.github.organization, url_to_organization %> &middot;
+          <%= link_to OpenCourts::VERSION::STRING, url_to_repository("releases/tag/v#{OpenCourts::VERSION::STRING}") %>
         </div>
       </div>
     </div>
