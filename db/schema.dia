@@ -10345,13 +10345,13 @@
         <dia:point val="110,75"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="109.95,74.95;125.18,89.45"/>
+        <dia:rectangle val="109.95,74.95;125.565,89.45"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="110,75"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="15.130000000000001"/>
+        <dia:real val="15.515000000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="14.400000000000004"/>
@@ -10564,7 +10564,7 @@
             <dia:string>#organization_name_unprocessed#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#string#</dia:string>
+            <dia:string>#string #</dia:string>
           </dia:attribute>
           <dia:attribute name="value">
             <dia:string>##</dia:string>
@@ -10587,7 +10587,7 @@
             <dia:string>#organization_description#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#string#</dia:string>
+            <dia:string>#text#</dia:string>
           </dia:attribute>
           <dia:attribute name="value">
             <dia:string>##</dia:string>
@@ -10824,19 +10824,19 @@
         <dia:point val="135,75"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="134.95,74.95;150.728,82.25"/>
+        <dia:rectangle val="134.95,74.95;151.203,82.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="135,75"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="15.6775"/>
+        <dia:real val="16.1525"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="7.1999999999999993"/>
       </dia:attribute>
       <dia:attribute name="name">
-        <dia:string>#SelectionProcedureCommisioners#</dia:string>
+        <dia:string>#SelectionProcedureCommissioners#</dia:string>
       </dia:attribute>
       <dia:attribute name="stereotype">
         <dia:string>##</dia:string>
@@ -10948,7 +10948,7 @@
         </dia:composite>
         <dia:composite type="umlattribute">
           <dia:attribute name="name">
-            <dia:string>#judge_id#</dia:string>
+            <dia:string>#selection_procedure_id#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
             <dia:string>#integer#</dia:string>
@@ -10971,7 +10971,7 @@
         </dia:composite>
         <dia:composite type="umlattribute">
           <dia:attribute name="name">
-            <dia:string>#selection_procedure_id#</dia:string>
+            <dia:string>#judge_id#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
             <dia:string>#integer#</dia:string>
@@ -11220,7 +11220,7 @@
         </dia:composite>
         <dia:composite type="umlattribute">
           <dia:attribute name="name">
-            <dia:string>#judge_id#</dia:string>
+            <dia:string>#selection_procedure_id#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
             <dia:string>#integer#</dia:string>
@@ -11243,7 +11243,7 @@
         </dia:composite>
         <dia:composite type="umlattribute">
           <dia:attribute name="name">
-            <dia:string>#selection_procedure_id#</dia:string>
+            <dia:string>#judge_id#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
             <dia:string>#integer#</dia:string>
@@ -11516,17 +11516,17 @@
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="103.9,78.5"/>
+        <dia:point val="103.9,77.7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="103.85,76.1;110.05,79.3"/>
+        <dia:rectangle val="103.85,76.1;110.05,78.5"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="103.9,78.5"/>
-        <dia:point val="107,78.5"/>
+        <dia:point val="103.9,77.7"/>
+        <dia:point val="107,77.7"/>
         <dia:point val="107,76.9"/>
         <dia:point val="110,76.9"/>
       </dia:attribute>
@@ -11545,7 +11545,7 @@
         <dia:color val="#000000"/>
       </dia:attribute>
       <dia:connections>
-        <dia:connection handle="0" to="O57" connection="13"/>
+        <dia:connection handle="0" to="O57" connection="11"/>
         <dia:connection handle="1" to="O55" connection="8"/>
       </dia:connections>
     </dia:object>
@@ -11587,19 +11587,19 @@
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="135,78.5"/>
+        <dia:point val="135,77.7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="125.08,76.1;135.05,79.3"/>
+        <dia:rectangle val="125.465,76.1;135.05,78.5"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="135,78.5"/>
-        <dia:point val="131,78.5"/>
+        <dia:point val="135,77.7"/>
+        <dia:point val="131,77.7"/>
         <dia:point val="131,76.9"/>
-        <dia:point val="125.13,76.9"/>
+        <dia:point val="125.515,76.9"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -11616,7 +11616,7 @@
         <dia:color val="#000000"/>
       </dia:attribute>
       <dia:connections>
-        <dia:connection handle="0" to="O56" connection="12"/>
+        <dia:connection handle="0" to="O56" connection="10"/>
         <dia:connection handle="1" to="O55" connection="9"/>
       </dia:connections>
     </dia:object>
