@@ -26,6 +26,7 @@ namespace :fixtures do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
 
+      Rake::Task['process:court_acronyms'].invoke
       Rake::Task['process:paragraphs'].invoke
     end
 
