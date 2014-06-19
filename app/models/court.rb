@@ -47,6 +47,8 @@ class Court < ActiveRecord::Base
   has_many :statistical_summaries, class_name: :CourtStatisticalSummary,
                                    dependent: :destroy
 
+  has_many :selection_procedures, dependent: :destroy
+
   validates :name,   presence: true
   validates :street, presence: true
 

@@ -5,8 +5,8 @@ module JusticeGovSk
 
       def initialize(options = {})
         super(options)
-        
-        @decree_form_code = options[:decree_form_code] 
+
+        @decree_form_code = options[:decree_form_code]
       end
 
       def self.url

@@ -65,6 +65,9 @@ class Judge < ActiveRecord::Base
   has_many :statistical_tables, through: :statistical_summaries,
                                 source: :tables
 
+  has_many :selection_procedure_commissioners
+  has_many :selection_procedure_candidates
+
   validates :name, presence: true
 
   include Judge::ConstitutionalDecrees
