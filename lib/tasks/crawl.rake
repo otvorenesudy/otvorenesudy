@@ -61,6 +61,14 @@ namespace :crawl do
     JusticeGovSk.crawl_resources Decree, args
   end
 
+  desc 'Crawl selection procedures'
+  task :selection_procedures, [:offset, :limit] => :environment do |_, args|
+    args.with_defaults safe: false
+
+    JusticeGovSk.crawl_resources SelectionProcedure, args
+  end
+
+
   desc "Crawl specific court from justice.gov.sk"
   task :court, [:url] => :environment do |_, args|
     JusticeGovSk.crawl_resource Court, args[:url], safe: true
