@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140129205512) do
+ActiveRecord::Schema.define(:version => 20140605144100) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -123,16 +123,12 @@ ActiveRecord::Schema.define(:version => 20140129205512) do
     t.decimal  "longitude",                   :precision => 12, :scale => 8
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.integer  "hearings_count"
-    t.integer  "decrees_count"
     t.string   "acronym"
   end
 
   add_index "courts", ["acronym"], :name => "index_courts_on_acronym"
   add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
-  add_index "courts", ["decrees_count"], :name => "index_courts_on_decrees_count"
-  add_index "courts", ["hearings_count"], :name => "index_courts_on_hearings_count"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
   add_index "courts", ["source_id"], :name => "index_courts_on_source_id"
@@ -195,7 +191,6 @@ ActiveRecord::Schema.define(:version => 20140129205512) do
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
   add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
-  add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli", :unique => true
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
@@ -650,6 +645,65 @@ ActiveRecord::Schema.define(:version => 20140129205512) do
 
   add_index "queries", ["digest", "model"], :name => "index_queries_on_digest_and_model", :unique => true
   add_index "queries", ["model", "digest"], :name => "index_queries_on_model_and_digest", :unique => true
+
+  create_table "selection_procedure_candidates", :force => true do |t|
+    t.integer  "selection_procedure_id",    :null => false
+    t.integer  "judge_id"
+    t.string   "name",                      :null => false
+    t.string   "name_unprocessed",          :null => false
+    t.text     "accomplished_expectations"
+    t.string   "oral_score"
+    t.string   "oral_result"
+    t.string   "written_score"
+    t.string   "written_result"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "selection_procedure_candidates", ["judge_id"], :name => "index_selection_procedure_candidates_on_judge_id"
+  add_index "selection_procedure_candidates", ["name"], :name => "index_selection_procedure_candidates_on_name"
+  add_index "selection_procedure_candidates", ["name_unprocessed"], :name => "index_selection_procedure_candidates_on_name_unprocessed"
+  add_index "selection_procedure_candidates", ["selection_procedure_id"], :name => "index_selection_procedure_candidates_on_selection_procedure_id"
+
+  create_table "selection_procedure_commissioners", :force => true do |t|
+    t.integer  "selection_procedure_id", :null => false
+    t.integer  "judge_id"
+    t.string   "name",                   :null => false
+    t.string   "name_unprocessed",       :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "selection_procedure_commissioners", ["judge_id"], :name => "index_selection_procedure_commissioners_on_judge_id"
+  add_index "selection_procedure_commissioners", ["name"], :name => "index_selection_procedure_commissioners_on_name"
+  add_index "selection_procedure_commissioners", ["name_unprocessed"], :name => "index_selection_procedure_commissioners_on_name_unprocessed"
+  add_index "selection_procedure_commissioners", ["selection_procedure_id"], :name => "index_commissioners_on_selection_procedure"
+
+  create_table "selection_procedures", :force => true do |t|
+    t.string   "uri",                           :null => false
+    t.integer  "source_id",                     :null => false
+    t.integer  "court_id"
+    t.string   "organization_name",             :null => false
+    t.string   "organization_name_unprocessed", :null => false
+    t.text     "organization_description",      :null => false
+    t.date     "date",                          :null => false
+    t.text     "description"
+    t.string   "place"
+    t.string   "position"
+    t.string   "state"
+    t.string   "workplace"
+    t.datetime "closed_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "selection_procedures", ["closed_at"], :name => "index_selection_procedures_on_closed_at"
+  add_index "selection_procedures", ["court_id"], :name => "index_selection_procedures_on_court_id"
+  add_index "selection_procedures", ["date"], :name => "index_selection_procedures_on_date"
+  add_index "selection_procedures", ["organization_name"], :name => "index_selection_procedures_on_organization_name"
+  add_index "selection_procedures", ["organization_name_unprocessed"], :name => "index_selection_procedures_on_organization_name_unprocessed"
+  add_index "selection_procedures", ["source_id"], :name => "index_selection_procedures_on_source_id"
+  add_index "selection_procedures", ["uri"], :name => "index_selection_procedures_on_uri"
 
   create_table "sources", :force => true do |t|
     t.string   "module",     :null => false

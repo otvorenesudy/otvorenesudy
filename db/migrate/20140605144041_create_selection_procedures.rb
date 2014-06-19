@@ -1,6 +1,6 @@
 class CreateSelectionProcedures < ActiveRecord::Migration
   def change
-    create_table :selection_procedure_commissioners do |t|
+    create_table :selection_procedures do |t|
       t.string     :uri,    null: false
       t.references :source, null: false
 
@@ -23,15 +23,15 @@ class CreateSelectionProcedures < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :selection_procedure_commissioners, :uri, unique: false
-    add_index :selection_procedure_commissioners, :source_id
+    add_index :selection_procedures, :uri, unique: false
+    add_index :selection_procedures, :source_id
 
-    add_index :selection_procedure_commissioners, :court_id
+    add_index :selection_procedures, :court_id
 
-    add_index :selection_procedure_commissioners, :organization_name
-    add_index :selection_procedure_commissioners, :organization_name_unprocessed
+    add_index :selection_procedures, :organization_name
+    add_index :selection_procedures, :organization_name_unprocessed
 
-    add_index :selection_procedure_commissioners, :date
-    add_index :selection_procedure_commissioners, :closed_at
+    add_index :selection_procedures, :date
+    add_index :selection_procedures, :closed_at
   end
 end
