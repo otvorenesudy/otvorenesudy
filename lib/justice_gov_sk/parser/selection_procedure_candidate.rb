@@ -40,19 +40,35 @@ module JusticeGovSk
       end
 
       def application_url(document)
-        document.css('.DetailTable')[0].css('.hodnota')[8].css('a')[0][:href].strip.presence
+        value = document.css('.DetailTable')[0].css('.hodnota')[8].css('a')[0][:href].strip.presence
+
+        return unless value
+
+        "#{JusticeGovSk::URL.base}#{value}"
       end
 
       def curriculum_url(document)
-        document.css('.DetailTable')[0].css('.hodnota')[9].css('a')[0][:href].strip.presence
+        value = document.css('.DetailTable')[0].css('.hodnota')[9].css('a')[0][:href].strip.presence
+
+        return unless value
+
+        "#{JusticeGovSk::URL.base}#{value}"
       end
 
       def motivation_letter_url(document)
-        document.css('.DetailTable')[0].css('.hodnota')[10].css('a')[0][:href].strip.presence
+        value = document.css('.DetailTable')[0].css('.hodnota')[10].css('a')[0][:href].strip.presence
+
+        return unless value
+
+        "#{JusticeGovSk::URL.base}#{value}"
       end
 
       def declaration_url(document)
-        document.css('.DetailTable')[0].css('.hodnota')[11].css('a')[0][:href].strip.presence
+        value = document.css('.DetailTable')[0].css('.hodnota')[11].css('a')[0][:href].strip.presence
+
+        return unless value
+
+        "#{JusticeGovSk::URL.base}#{value}"
       end
     end
   end

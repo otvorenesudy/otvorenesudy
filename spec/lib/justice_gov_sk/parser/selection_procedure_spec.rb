@@ -68,13 +68,13 @@ describe JusticeGovSk::Parser::SelectionProcedure do
 
   describe '#declaration_url' do
     it 'returns url of procedure declaration' do
-      expect(parser.declaration_url(document)).to eql('/Stranky/SuborStiahnut.aspx?Url=%2fVyberoveKonania%2f1+miesto+sudcu+pre+Okresn%c3%bd+s%c3%bad+Ko%c5%a1ice+-+okolie%2fv%c3%bdberov%c3%a9+konanie.pdf')
+      expect(parser.declaration_url(document)).to eql('http://www.justice.gov.sk/Stranky/SuborStiahnut.aspx?Url=%2fVyberoveKonania%2f1+miesto+sudcu+pre+Okresn%c3%bd+s%c3%bad+Ko%c5%a1ice+-+okolie%2fv%c3%bdberov%c3%a9+konanie.pdf')
     end
   end
 
   describe '#report_url' do
     it 'returns url of procedure report' do
-      expect(parser.report_url(document)).to eql('/Stranky/SuborStiahnut.aspx?Url=%2fVyberoveKonania%2fV%c3%bdberov%c3%a9+konanie+-+2+vo%c4%ben%c3%a9+miesta+sudcov+pre+Okresn%c3%bd+s%c3%bad+Michalovce%2fZ%c3%a1pisnica.pdf')
+      expect(parser.report_url(document)).to eql('http://www.justice.gov.sk/Stranky/SuborStiahnut.aspx?Url=%2fVyberoveKonania%2fV%c3%bdberov%c3%a9+konanie+-+2+vo%c4%ben%c3%a9+miesta+sudcov+pre+Okresn%c3%bd+s%c3%bad+Michalovce%2fZ%c3%a1pisnica.pdf')
     end
   end
 
@@ -89,27 +89,32 @@ describe JusticeGovSk::Parser::SelectionProcedure do
   describe '#candidates_urls' do
     it 'returns urls of candidates' do
       expect(parser.candidates_urls(document)).to eql([
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11392',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11397',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11402',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11407',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11412',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11417',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11422',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11427',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11432',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11437',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11442',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11447',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11452',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11457',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11462',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11467',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11472',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11477',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11482',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11487',
-       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11492'
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10517",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10774",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10775",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10776",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10777",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10778",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10779",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10780",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10781",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10782",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10783",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10784",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10785",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10786",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10787",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10793",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10794",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10795",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10796",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10797",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10798",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10799",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10800",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10801",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10802",
+        "http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=10803"
       ])
     end
   end

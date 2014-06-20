@@ -60,25 +60,25 @@ describe JusticeGovSk::Parser::SelectionProcedureCandidate do
 
   describe '#application_url' do
     it 'returns url of candidate application' do
-      expect(parser.application_url(document)).to eql('/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+%c5%bdiados%c5%a5.PDF')
+      expect(parser.application_url(document)).to eql('http://www.justice.gov.sk/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+%c5%bdiados%c5%a5.PDF')
     end
   end
 
   describe '#curriculum_url' do
     it 'returns url of candidate curriculum' do
-      expect(parser.curriculum_url(document)).to eql('/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+%c5%bdivotopis.PDF')
+      expect(parser.curriculum_url(document)).to eql('http://www.justice.gov.sk/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+%c5%bdivotopis.PDF')
     end
   end
 
   describe '#motivation_letter_url' do
     it 'returns url of candidate motivation letter' do
-      expect(parser.motivation_letter_url(document)).to eql('/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+Motova%c4%8dn%c3%bd+list.PDF')
+      expect(parser.motivation_letter_url(document)).to eql('http://www.justice.gov.sk/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+Motova%c4%8dn%c3%bd+list.PDF')
     end
   end
 
   describe '#declaration_url' do
     it 'returns candidate declaration' do
-      expect(parser.declaration_url(document)).to eql('/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+Vyhl%c3%a1senie.PDF')
+      expect(parser.declaration_url(document)).to eql('http://www.justice.gov.sk/Stranky/SuborStiahnut.aspx?Url=%2fUchadzaci%2fGa%c5%a1p%c3%adrov%c3%a1+Zuzana+Mgr.+Spr.+75_2014%2fMgr.+Zuzana+Ga%c5%a1p%c3%adrov%c3%a1+-+Vyhl%c3%a1senie.PDF')
     end
   end
 end

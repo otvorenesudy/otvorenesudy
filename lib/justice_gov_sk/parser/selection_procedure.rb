@@ -42,15 +42,21 @@ module JusticeGovSk
       end
 
       def declaration_url(document)
-        document.css('.DetailTable')[0].css('.hodnota')[6].css('a')[0][:href]
+        value = document.css('.DetailTable')[0].css('.hodnota')[6].css('a')[0][:href]
+
+        "#{JusticeGovSk::URL.base}#{value}"
       end
 
       def report_url(document)
-        document.css('.DetailTable')[0].css('.hodnota')[7].css('a')[0][:href]
+        value = document.css('.DetailTable')[0].css('.hodnota')[7].css('a')[0][:href]
+
+        "#{JusticeGovSk::URL.base}#{value}"
       end
 
       def candidates_urls(document)
-        document.css('.GridTable tr td:nth(5) a').map { |link| link[:href] }
+        document.css('.GridTable tr td:nth(5) a').map do |link|
+          "#{JusticeGovSk::URL.base}#{link[:href]}"
+        end
       end
 
       def commissioners(document)
