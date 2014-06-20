@@ -8,17 +8,17 @@ class CreateSelectionProcedures < ActiveRecord::Migration
 
       t.string :organization_name,             null: false
       t.string :organization_name_unprocessed, null: false
-      t.text   :organization_description,      null: false
+      t.text   :organization_description
 
-      t.date :date, null: false
+      t.date :date
 
       t.text   :description
       t.string :place
-      t.string :position
+      t.string :position, null: false
       t.string :state
       t.string :workplace
 
-      t.datetime :closed_at
+      t.datetime :closed_at, null: false
 
       t.timestamps
     end

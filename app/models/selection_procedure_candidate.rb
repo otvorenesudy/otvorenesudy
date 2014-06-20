@@ -7,6 +7,6 @@ class SelectionProcedureCandidate < ActiveRecord::Base
                   :written_score,
                   :written_result
 
-  belongs_to :selection_procedure
+  belongs_to :procedure, class_name: :SelectionProcedure, foreign_key: :selection_procedure_id
   belongs_to :judge
 end
