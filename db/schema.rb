@@ -647,6 +647,7 @@ ActiveRecord::Schema.define(:version => 20140605144100) do
   add_index "queries", ["model", "digest"], :name => "index_queries_on_model_and_digest", :unique => true
 
   create_table "selection_procedure_candidates", :force => true do |t|
+    t.string   "uri"
     t.integer  "selection_procedure_id",    :null => false
     t.integer  "judge_id"
     t.string   "name",                      :null => false

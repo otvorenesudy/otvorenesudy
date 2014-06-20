@@ -1,6 +1,8 @@
 class CreateSelectionProcedureCandidates < ActiveRecord::Migration
   def change
     create_table :selection_procedure_candidates do |t|
+      t.string :uri
+
       t.references :selection_procedure, null: false
 
       t.references :judge, null: true
@@ -15,6 +17,9 @@ class CreateSelectionProcedureCandidates < ActiveRecord::Migration
 
       t.string :written_score
       t.string :written_result
+
+      t.string :score
+      t.string :position
 
       t.timestamps
     end
