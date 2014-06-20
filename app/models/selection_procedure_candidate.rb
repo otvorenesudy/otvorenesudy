@@ -1,7 +1,7 @@
 class SelectionProcedureCandidate < ActiveRecord::Base
   attr_accessible :name,
                   :name_unprocessed,
-                  :accomplised_expectations,
+                  :accomplished_expectations,
                   :oral_score,
                   :oral_result,
                   :written_score,
