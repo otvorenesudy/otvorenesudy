@@ -1,0 +1,747 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" __expr-val-dir="ltr" lang="sk-sk" dir="ltr">
+	<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="Expires" content="0" /><meta http-equiv="X-UA-Compatible" content="IE=8" /><meta name="author" content="Martin Vozar, Michal Namesny, Peter Kraslan" /><meta name="distribution" content="Slovensko, Slovenská Republika, Slovakia, Slovak Republic" /><meta name="rating" content="general" /><meta name="copyright" content="Copyright (c) 2000 - 2010 Anasoft Apr." /><meta name="description" content="Webový portál ministerstva spravodlivosti SR, MS SR" />
+		
+		<!-- CSS pre Ribbon control -->
+		<link rel="stylesheet" type="text/css" href="/Style%20Library/MSSR/CSS/main.css" media="all" /><link rel="stylesheet" type="text/css" href="/Style%20Library/MSSR/CSS/print.css" media="print" />
+		
+		<script src="/Style Library/MSSR/JavaScript/jquery-1.4.2.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+	        function TopMenuMouseOver(thisObject) {
+	        	if (thisObject.className != 'TopMenuSel')
+	        	{
+		            thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_normal', '_mouseover');
+		            thisObject.className = 'TopMenuHover';
+		        }
+	        }
+	        function TopMenuMouseOut(thisObject) {
+	           	if (thisObject.className != 'TopMenuSel')
+	        	{
+		            thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_mouseover', '_normal');
+		                thisObject.className = '';
+		        }
+	        }
+	        
+	        function LeftTopMenuMouseOver(thisObject) {
+	            if (thisObject.className != 'sel') {
+	                thisObject.className = 'LeftTopMenuHover';
+	                thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_normal', '_mouseover');
+	                document.getElementById('IdPasikNadContentHeadLeftMenu').style.backgroundColor = '#d81920';
+	            }
+	            
+	            
+	        }
+	        function LeftTopMenuMouseOut(thisObject) {
+	            if (thisObject.className != 'sel') {
+	                thisObject.className = '';
+	                thisObject.style.backgroundImage = thisObject.style.backgroundImage.replace('_mouseover', '_normal');
+	                document.getElementById('IdPasikNadContentHeadLeftMenu').style.backgroundColor = '#482760';
+	            }
+	            
+	        }
+	        function Focus(objname, waterMarkText) {
+	            obj = document.getElementById(objname);
+	            if (obj.value == waterMarkText) {
+	                obj.value = "";
+	            }
+	        }
+	        function Blur(objname, waterMarkText) {
+	            obj = document.getElementById(objname);
+	            if (obj.value == "") {
+	                obj.value = waterMarkText;
+	            }
+	        }
+	        
+	        function VerziaPreSlabozrakych()
+	        {
+	        	for(i=0;i<document.styleSheets.length;i++) {
+					void(document.styleSheets.item(i).disabled=true);
+				}
+				el = document.getElementsByTagName('*');
+				for ( i=0; i<el.length; i++) {
+					void(el[i].style.cssText = 'font-size:110%;');
+				}
+	        }
+	    </script>
+		
+		<!-- robots -->
+		
+		<!-- page title - overridden by asp:content on pages or page layouts -->
+		<title>
+	MSSR
+</title>
+		<!-- favicon -->
+		<link rel="shortcut icon" href="/Style Library/MSSR/Images/favicon.ico" type="image/vnd.microsoft.icon" />
+		<!-- page manager interacts with script and the sharepoint object model -->
+		
+		<!-- unified logging service -->
+		
+		<!-- load SharePoint javascript -->
+		<script type="text/javascript">
+// <![CDATA[
+document.write('<script type="text/javascript" src="/_layouts/1051/init.js?rev=%2FU3fG%2BI7T444crJKsMKJsw%3D%3D"></' + 'script>');
+document.write('<script type="text/javascript" src="/ScriptResource.axd?d=XT7Geoj_70gEPvZwRpThegFkCN2e3tWWVLWKKFa3wdKF46Gq1CXGzxQ4Mxg4MStatUro-a80ogIJgE-K9FjwB-Ry27RIz94HC0f_jHsrS6z-y7SOmrs2poXazDAfIaoaikkxpZ8-hXbymOo8wGsG_Z9MGgo1&amp;t=2e2045e2"></' + 'script>');
+document.write('<script type="text/javascript" src="/_layouts/blank.js?rev=QGOYAJlouiWgFRlhHVlMKA%3D%3D"></' + 'script>');
+// ]]>
+</script>
+
+		<!-- javascript to override the active-x message in ie 
+				// See http://blog.drisgill.com/2010/02/removing-name-activex-control-warning.html for more info
+				// Remove if the IM pressence icons are needed in SharePoint
+				
+			<script type="text/javascript">
+				function ProcessImn(){}
+				function ProcessImnMarkers(){}	
+			</script>
+			-->
+		<!-- additional header delegate control -->
+		<!-- _lcid="1033" _version="14.0.7006" _dal="1" -->
+<!-- _LocalBinding -->
+<span id="ctl00_ctl00_ctl21_iprRibbon"><span></span></span>
+
+		<!-- additional header placeholder - overridden by asp:content on pages or page layouts -->
+			
+			
+	<!-- page title - overridden by asp:content on pages or page layouts -->
+	<title>
+	Detail výberového konania
+</title>
+
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	    	
+			var $blokLavy = $('.blokLavy').first();
+			var $blokStredny = $('.blokLavy.blokDlhy').first();
+			var $blokPravy = $('.blokPravy').first().children(".blokDlhy").last();
+			
+			var $blokLavyLast = $blokLavy.children(".blokDlhy").last().children(".mainText").last();
+			var $blokStrednyLast = $blokStredny.children(".mainText").last();
+			var $blokPravyLast = $blokPravy.children(".mainText").last();
+			
+			var height1 = $blokLavyLast.offset().top + $blokLavyLast.height();
+			var height2 = $blokStrednyLast.offset().top + $blokStrednyLast.height();
+			var height3 = $blokPravyLast.offset().top + $blokPravyLast.height();
+			
+			var maxHeight = Math.max(height1, Math.max(height2, height3));
+			
+			$blokLavyLast.css('min-height', maxHeight - $blokLavyLast.offset().top );
+			$blokStrednyLast.css('min-height', maxHeight - $blokStrednyLast.offset().top);
+			$blokPravyLast.css('min-height',maxHeight - $blokPravyLast.offset().top);
+		});    
+	</script>
+	
+	<!-- additional header placeholder - overridden by asp:content on pages or page layouts -->
+		
+
+	<!-- microsoft says these should always be inside the head tag. -->
+   	
+	
+
+
+		<!-- microsoft says these should always be inside the head tag. -->
+		</head>
+
+	<body onload="javascript:_spBodyOnLoadWrapper();">
+
+	<form name="aspnetForm" method="post" action="Detail-vyberoveho-konania.aspx?Ic=3112" id="aspnetForm">
+<input type="hidden" name="MSOWebPartPage_PostbackSource" id="MSOWebPartPage_PostbackSource" value="" />
+<input type="hidden" name="MSOTlPn_SelectedWpId" id="MSOTlPn_SelectedWpId" value="" />
+<input type="hidden" name="MSOTlPn_View" id="MSOTlPn_View" value="0" />
+<input type="hidden" name="MSOTlPn_ShowSettings" id="MSOTlPn_ShowSettings" value="False" />
+<input type="hidden" name="MSOGallery_SelectedLibrary" id="MSOGallery_SelectedLibrary" value="" />
+<input type="hidden" name="MSOGallery_FilterString" id="MSOGallery_FilterString" value="" />
+<input type="hidden" name="MSOTlPn_Button" id="MSOTlPn_Button" value="none" />
+<input type="hidden" name="__REQUESTDIGEST" id="__REQUESTDIGEST" value="0x618FF4782F4A3D0BF581D209F3C5B9ECB3640E0F0C34DDC19778D5C2841373D11CA25FC78FBB1F2DD49FDCF1AF8A54322C4D44A6609BE881492F5BEE542F5DBB,19 Jun 2014 15:19:42 -0000" />
+<input type="hidden" name="MSOSPWebPartManager_DisplayModeName" id="MSOSPWebPartManager_DisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_ExitingDesignMode" id="MSOSPWebPartManager_ExitingDesignMode" value="false" />
+<input type="hidden" name="MSOWebPartPage_Shared" id="MSOWebPartPage_Shared" value="" />
+<input type="hidden" name="MSOLayout_LayoutChanges" id="MSOLayout_LayoutChanges" value="" />
+<input type="hidden" name="MSOLayout_InDesignMode" id="MSOLayout_InDesignMode" value="" />
+<input type="hidden" name="_wpSelected" id="_wpSelected" value="" />
+<input type="hidden" name="_wzSelected" id="_wzSelected" value="" />
+<input type="hidden" name="MSOSPWebPartManager_OldDisplayModeName" id="MSOSPWebPartManager_OldDisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_StartWebPartEditingName" id="MSOSPWebPartManager_StartWebPartEditingName" value="false" />
+<input type="hidden" name="MSOSPWebPartManager_EndWebPartEditing" id="MSOSPWebPartManager_EndWebPartEditing" value="false" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODAyNzE5OTE3D2QWAmYPZBYCZg9kFgICAQ9kFgQCAQ9kFgICHQ9kFgICAQ9kFgJmD2QWAgIBDxYCHhNQcmV2aW91c0NvbnRyb2xNb2RlCymIAU1pY3Jvc29mdC5TaGFyZVBvaW50LldlYkNvbnRyb2xzLlNQQ29udHJvbE1vZGUsIE1pY3Jvc29mdC5TaGFyZVBvaW50LCBWZXJzaW9uPTE0LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTcxZTliY2UxMTFlOTQyOWMBZAIDD2QWDAIGD2QWAgIBD2QWBGYPZBYCAgEPFgIeB1Zpc2libGVoFgJmD2QWBAICD2QWBgIBDxYCHwFoZAIDDxYIHhNDbGllbnRPbkNsaWNrU2NyaXB0BW1qYXZhU2NyaXB0OkNvcmVJbnZva2UoJ1Rha2VPZmZsaW5lVG9DbGllbnRSZWFsJywxLCA1MywgJ2h0dHA6XHUwMDJmXHUwMDJmd3d3Lmp1c3RpY2UuZ292LnNrJywgLTEsIC0xLCAnJywgJycpHhhDbGllbnRPbkNsaWNrTmF2aWdhdGVVcmxkHihDbGllbnRPbkNsaWNrU2NyaXB0Q29udGFpbmluZ1ByZWZpeGVkVXJsZB4MSGlkZGVuU2NyaXB0BSJUYWtlT2ZmbGluZURpc2FibGVkKDEsIDUzLCAtMSwgLTEpZAIFDxYCHwFoZAIDDw8WCh4JQWNjZXNzS2V5BQEvHg9BcnJvd0ltYWdlV2lkdGgCBR4QQXJyb3dJbWFnZUhlaWdodAIDHhFBcnJvd0ltYWdlT2Zmc2V0WGYeEUFycm93SW1hZ2VPZmZzZXRZAusDZGQCAQ9kFgQCBQ9kFgICAQ8QFgIfAWhkFCsBAGQCBw9kFgJmD2QWAmYPFCsAA2RkZGQCCA9kFgICAg8WAh8BaGQCCg9kFgICAg8WAh8BaGQCDA9kFgICAQ9kFgICAg8WAh8BaGQCDg9kFg4CAQ9kFgICAQ9kFgJmD2QWAgIBDw9kFgYeBWNsYXNzBSJtcy1zYnRhYmxlIG1zLXNidGFibGUtZXggczQtc2VhcmNoHgtjZWxscGFkZGluZwUBMB4LY2VsbHNwYWNpbmcFATBkAgcPZBYCAgEPZBYEAgEPFgIeBFRleHQFDE1JTklTVEVSU1RWT2QCAw8WAh8OBclHPGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vUHJlZHN0YXZpdGVsaWEtTVNTUi9Vdm9kLmFzcHgiIGNsYXNzPSIiPlByZWRzdGF2aXRlbGlhIE1TU1I8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PHVsPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9QcmVkc3Rhdml0ZWxpYS1NU1NSL01pbmlzdGVyLmFzcHgiIGNsYXNzPSIiPk1pbmlzdGVyPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL1ByZWRzdGF2aXRlbGlhLU1TU1IvU3RhdG5hLXRham9tbmlja2EuYXNweCIgY2xhc3M9IiI+xaB0w6F0bmEgdGFqb21uw63EjWthPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL1ByZWRzdGF2aXRlbGlhLU1TU1IvVmVkdWNhLXNsdXpvYm5laG8tdXJhZHUuYXNweCIgY2xhc3M9IiI+VmVkw7pjYSBzbHXFvm9ibsOpaG8gw7pyYWR1PC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vS29udGFrdHkvWmFrbGFkbmUta29udGFrdG5lLWluZm9ybWFjaWUuYXNweCIgY2xhc3M9IiI+S29udGFrdHk8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PHVsPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9Lb250YWt0eS9UZWxlZm9ubnktem96bmFtLXphbWVzdG5hbmNvdi5hc3B4IiBjbGFzcz0iIj5UZWxlZsOzbm55IHpvem5hbSB6YW1lc3RuYW5jb3Y8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vS29udGFrdHkvUHJvdGlrb3J1cGNuYS1saW5rYS5hc3B4IiBjbGFzcz0iIj5Qcm90aWtvcnVwxI1uw6EgbGlua2E8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSJjaWFyYSI+Jm5ic3A7PC9saT48bGkgY2xhc3M9IiI+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9Pcmdhbml6YWNuYS1zdHJ1a3R1cmEtTVNTUi9Pcmdhbml6YWNuYS1zdHJ1a3R1cmEtTVMtU1IuYXNweCIgY2xhc3M9IiI+T3JnYW5pemHEjW7DoSDFoXRydWt0w7pyYTwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48dWw+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL09yZ2FuaXphY25hLXN0cnVrdHVyYS1NU1NSL0Rva3VtZW50eS1uYS1zdGlhaG51dGllLmFzcHgiIGNsYXNzPSIiPkRva3VtZW50eSBuYSBzdGlhaG51dGllPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vWmFzdHVwb3ZhbmllLVNSL1V2b2QuYXNweCIgY2xhc3M9IiI+WmFzdHVwb3ZhbmllIFNSPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2Pjx1bD48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vWmFzdHVwb3ZhbmllLVNSL1ZudXRyb3N0YXRuYS11cm92ZW4vVXZvZC5hc3B4IiBjbGFzcz0iIj5WbsO6dHJvxaF0w6F0bmEgw7pyb3ZlxYg8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vWmFzdHVwb3ZhbmllLVNSL1phc3R1cGNhLVNSLXByZWQtRVNMUC9aYWtsYWRuZS1pbmZvcm1hY2llLmFzcHgiIGNsYXNzPSIiPlrDoXN0dXBjYSBTUiBwcmVkIEVTxL1QPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL1phc3R1cG92YW5pZS1TUi9aYXN0dXBjYS1TUi1wcmVkLXN1ZG1pLUVVL1pha2xhZG5lLWluZm9ybWFjaWUuYXNweCIgY2xhc3M9IiI+WsOhc3R1cGNhIFNSIHByZWQgc8O6ZG1pIEXDmjwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48L2xpPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9aYXN0dXBvdmFuaWUtU1IvWmFzdHVwY2EtU1Itdi1FdXJvanVzdC9aYWtsYWRuZS1pbmZvcm1hY2llLmFzcHgiIGNsYXNzPSIiPlrDoXN0dXBjYSBTUiB2IEV1cm9qdXN0PC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vS29taXNpYS1uYS1wb3N1ZHpvdmFuaWUtcG9kbWllbm9rLXYtc3BvdHJlYml0ZWxza3ljaC16bWx1dmFjaC9Vdm9kLmFzcHgiIGNsYXNzPSIiPktvbWlzaWEgbmEgcG9zdWR6b3ZhbmllIHBvZG1pZW5vayAuLi4gPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2Pjx1bD48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vS29taXNpYS1uYS1wb3N1ZHpvdmFuaWUtcG9kbWllbm9rLXYtc3BvdHJlYml0ZWxza3ljaC16bWx1dmFjaC9Pem5hbXktby1zdGF6bm9zdGlhY2gtc3BvdHJlYml0ZWxvdi5hc3B4IiBjbGFzcz0iIj5Pem5hbXkgbyBzxaVhxb5ub3N0aWFjaCBzcG90cmViaXRlxL5vdiBhIHBvZG5ldG9jaCBrb21pc2llPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL0tvbWlzaWEtbmEtcG9zdWR6b3ZhbmllLXBvZG1pZW5vay12LXNwb3RyZWJpdGVsc2t5Y2gtem1sdXZhY2gvUm96c3Vka3ktc3Vkb3YuYXNweCIgY2xhc3M9IiI+Um96aG9kbnV0aWEgc8O6ZG92IHZvIHZlY2lhY2ggb2NocmFueSBzcG90cmViaXRlxL5hPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vVnlib3IgcHJlIHByYXZhIExHVEJJIG9zb2IvVXZvZC5hc3B4IiBjbGFzcz0iIj5Ww71ib3IgcHJlIHByw6F2YSBMR0JUSSBvc8O0YjwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48dWw+PC91bD48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vRWtvbm9taWthLWEtc3ByYXZhLW1hamV0a3UvVXZvZC5hc3B4IiBjbGFzcz0iIj5Fa29ub21pa2EgYSBzcHLDoXZhIG1hamV0a3U8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PHVsPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9Fa29ub21pa2EtYS1zcHJhdmEtbWFqZXRrdS9Sb3pwb2NldC1NUy1TUi5hc3B4IiBjbGFzcz0iIj5Sb3pwb8SNZXQgTVMgU1I8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vRWtvbm9taWthLWEtc3ByYXZhLW1hamV0a3UvWm1sdXZ5LW9iamVkbmF2a3ktYS1mYWt0dXJ5LmFzcHgiIGNsYXNzPSIiPlptbHV2eSwgb2JqZWRuw6F2a3kgYSBmYWt0w7pyeTwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48L2xpPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9Fa29ub21pa2EtYS1zcHJhdmEtbWFqZXRrdS9WZXJlam5lLW9ic3RhcmF2YW5pZS5hc3B4IiBjbGFzcz0iIj5WZXJlam7DqSBvYnN0YXLDoXZhbmllPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL0Vrb25vbWlrYS1hLXNwcmF2YS1tYWpldGt1L05laG51dGVsbnktbWFqZXRvay1NUy1TUi5hc3B4IiBjbGFzcz0iIj5OZWhudXRlxL5uw70gbWFqZXRvayBNUyBTUjwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48L2xpPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9Fa29ub21pa2EtYS1zcHJhdmEtbWFqZXRrdS9ab3puYW0tZGx6bmlrb3YuYXNweCIgY2xhc3M9IiI+Wm96bmFtIGRsxb5uw61rb3Y8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vRWtvbm9taWthLWEtc3ByYXZhLW1hamV0a3UvTmFobGFzb3ZhbmllLXBvZG96cmVuaS16LW5lenJvdm5hdGVsbm9zdGktcHJpLWNlcnBhbmktcHJvc3RyaWVka292LUVVLmFzcHgiIGNsYXNzPSIiPk5haGxhc292YW5pZSBwb2RvenJlbsOtIHogbmV6cm92bmF0ZcS+bm9zdMOtIHByaSDEjWVycGFuw60gcHJvc3RyaWVka292IEXDmjwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48L2xpPjwvdWw+PC9saT48bGkgY2xhc3M9ImNpYXJhIj4mbmJzcDs8L2xpPjxsaSBjbGFzcz0iIj48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL1Z5YmVyb3ZlLWtvbmFuaWEtdi1yZXpvcnRlL1pvem5hbS12eWJlcm92eWNoLWtvbmFuaS5hc3B4IiBjbGFzcz0iIj5Ww71iZXJvdsOpIGtvbmFuaWEgdiByZXpvcnRlPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2Pjx1bD48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vVnliZXJvdmUta29uYW5pYS12LXJlem9ydGUvdnliZXJvdmUta29uYW5pYS1uYS1zdWRvY2guYXNweCIgY2xhc3M9IiI+VnliZXJvdsOpIGtvbmFuaWEgbmEgc8O6ZG9jaDwvYT48ZGl2IHN0eWxlPSdjbGVhcjpib3RoJz48L2Rpdj48L2xpPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9WeWJlcm92ZS1rb25hbmlhLXYtcmV6b3J0ZS9NYXRlLW90YXpreS1rLXZ5YmVyb3ZlbXUta29uYW5pdS1uYS1NUy1TUi5hc3B4IiBjbGFzcz0iIj5Nw6F0ZSBvdMOhemt5IGsgdsO9YmVyb3bDqW11IGtvbmFuaXUgbmEgTVMgU1I/PC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL1Z5YmVyb3ZlLWtvbmFuaWEtdi1yZXpvcnRlL0Nhc3RvLWtsYWRlbmUtb3Rhemt5LmFzcHgiIGNsYXNzPSIiPsSMYXN0byBrbGFkZW7DqSBvdMOhemt5PC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL1Z5YmVyb3ZlLWtvbmFuaWEtdi1yZXpvcnRlL1ByaXByYXZueS0tdnlib3ItcHJlLUplZG5vdG55LXBhdGVudG92eS1zdWQtLmFzcHgiIGNsYXNzPSIiPlByaXByYXZuw70gdsO9Ym9yIHByZSBKZWRub3Ruw70gcGF0ZW50b3bDvSBzw7pkPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0iY2lhcmEiPiZuYnNwOzwvbGk+PGxpIGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vSnVzdGljbmEgcmV2dWUvUmVkYWtjaWEtSnVzdGljbmVqLXJldnVlLmFzcHgiIGNsYXNzPSIiPkp1c3RpxI1uw6EgcmV2dWU8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PHVsPjxsaSBjbGFzcz0iIj48aW1nIHNyYz0iL1N0eWxlJTIwTGlicmFyeS9NU1NSL0ltYWdlcy9TcXVhcmVJY29HcmF5LnBuZyIgIC8+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9KdXN0aWNuYSByZXZ1ZS9LYXRhbG9nLWNpc2VsLmFzcHgiIGNsYXNzPSIiPkthdGFsb2cgxI3DrXNpZWwgSnVzdGnEjW5laiByZXZ1ZSBvZCByLiAyMDAwPC9hPjxkaXYgc3R5bGU9J2NsZWFyOmJvdGgnPjwvZGl2PjwvbGk+PGxpIGNsYXNzPSIiPjxpbWcgc3JjPSIvU3R5bGUlMjBMaWJyYXJ5L01TU1IvSW1hZ2VzL1NxdWFyZUljb0dyYXkucG5nIiAgLz48YSBocmVmPSJodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvTWluaXN0ZXJzdHZvL0p1c3RpY25hIHJldnVlL1V2b2QgY2VueS5hc3B4IiBjbGFzcz0iIj5DZW55IEthcm9sYSBQbGFua2E8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vSnVzdGljbmEgcmV2dWUvTm92w6ktcG9reW55LmFzcHgiIGNsYXNzPSIiPlBva3lueSBwcmUgYXV0b3JvdiA8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vSnVzdGljbmEgcmV2dWUvUmVkYWtjaWEtSnVzdGljbmVqLXJldnVlLmFzcHgiIGNsYXNzPSIiPlJlZGFrY2lhIEp1c3RpxI1uZWogcmV2dWU8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48bGkgY2xhc3M9IiI+PGltZyBzcmM9Ii9TdHlsZSUyMExpYnJhcnkvTVNTUi9JbWFnZXMvU3F1YXJlSWNvR3JheS5wbmciICAvPjxhIGhyZWY9Imh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9NaW5pc3RlcnN0dm8vSnVzdGljbmEgcmV2dWUvQ2VueS1LUC16YS1zdWRuZS1yb3poLmFzcHgiIGNsYXNzPSIiPkNlbnkgS2Fyb2xhIFBsYW5rYSB6YSBzw7pkbmUgcm96aG9kbnV0aWU8L2E+PGRpdiBzdHlsZT0nY2xlYXI6Ym90aCc+PC9kaXY+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSJjaWFyYSI+Jm5ic3A7PC9saT5kAhEPZBYCAgEPFgIfDgWxBDx1bCBpZD0iYnJlYWRjcnVtYiI+CjxsaT48YSBocmVmPSIvIj7DmnZvZG7DoSBzdHLDoW5rYTwvYT48L2xpPgo8bGk+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9Vdm9kLmFzcHgiIHRpdGxlPSJNaW5pc3RlcnN0dm8iPk1pbmlzdGVyc3R2bzwvYT48L2xpPgo8bGk+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9WeWJlcm92ZS1rb25hbmlhLXYtcmV6b3J0ZS9ab3puYW0tdnliZXJvdnljaC1rb25hbmkuYXNweCIgdGl0bGU9IlbDvWJlcm92w6kga29uYW5pYSB2IHJlem9ydGUiPlbDvWJlcm92w6kga28uLi4gcmV6b3J0ZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0iaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9WeWJlcm92ZS1rb25hbmlhLXYtcmV6b3J0ZS9EZXRhaWwtdnliZXJvdmVoby1rb25hbmlhLmFzcHgiIHRpdGxlPSJEZXRhaWwgdsO9YmVyb3bDqWhvIGtvbmFuaWEiPkRldGFpbCB2w71iZS4uLiBrb25hbmlhPC9hPjwvbGk+CjwvdWw+CmQCEw9kFgQCAQ9kFgICAQ8WAh8ACysEAWQCAw9kFhQCAQ8WAh8OBRxPa3Jlc27DvSBzw7pkIEtvxaFpY2Ugb2tvbGllZAIDDxYCHw4FBVN1ZGNhZAIFDxYCHw4FHk9rcmVzbsO9IHPDumQgS2/FoWljZSAtIG9rb2xpZWQCBw8WAh8OBUFPa3Jlc27DvSBzw7pkIEtvxaFpY2UgLSBva29saWUsIMWgdMO6cm92YSDEjS4gMjksIDA0MSA1MSAgS2/FoWljZWQCCQ8WAh8OBQoyMy4wNy4yMDE0ZAILDxYCHw4FHEFrdHXDoWxuZSB2w71iZXJvdsOpIGtvbmFuaWVkAg0PFgIfDgWeAjxhIGhyZWY9Jy9TdHJhbmt5L1N1Ym9yU3RpYWhudXQuYXNweD9Vcmw9JTJmVnliZXJvdmVLb25hbmlhJTJmMSttaWVzdG8rc3VkY3UrcHJlK09rcmVzbiVjMyViZCtzJWMzJWJhZCtLbyVjNSVhMWljZSstK29rb2xpZSUyZnYlYzMlYmRiZXJvdiVjMyVhOStrb25hbmllLnBkZicgdGl0bGU9J3bDvWJlcm92w6kga29uYW5pZS5wZGYnID48aW1nIGFsdD0nVHlwUHJpbG9oeScgc3JjPScvX2xheW91dHMvaW1hZ2VzL3BkZl9pY29uLnBuZyc+PC9pbWc+dsO9YmVyb3bDqSBrb25hbmllLnBkZjwvYT48YnIgLz5kAg8PFgIfDmVkAhEPFgIfAWcWEAIBDxYCHw5kZAIDDxYCHw4FCjA5LjA5LjIwMTRkAgUPFgIfDgVmS3JhanNrw70gc8O6ZCBLb8WhaWNlLCDFoHTDunJvdmEgxI0uIDI5LCAwNDEgNTEgIEtvxaFpY2UsIG1pZXN0bm9zxaUgxI0uIDIwNy8yLiBwb3NjaG9kaWUgLSB6YXNhZGHEjWthZAIHDxYCHw4F9gFWw71iZXJvdsOpIGtvbmFuaWUgc2EgemHEjW5lIHDDrXNvbW5vdSDEjWFzxaVvdSBkxYhhIDkuOS4yMDE0IG8gOC4wMCBob2QuIFbDvWJlcm92w6kga29uYW5pZSB0cnbDoSBzcHJhdmlkbGEgdHJpIGRuaS4gTyBwcmllYmVodSDEj2FsxaHDrWNoIMSNYXN0w60gdsO9YmVyb3bDqWhvIGtvbmFuaWEgYnVkw7ogdWNow6FkemHEjWkgaW5mb3Jtb3ZhbsOtIHYgcHJpZWJlaHUgcHJ2w6lobyBkxYhhIHbDvWJlcm92w6lobyBrb25hbmlhLiBkAgkPFgIfDgUNxaB0w7pyb3ZhIDI5IGQCCw8WAh8OBQ4wNDEmbmJzcDsxMCAgIGQCDQ8WAh8OBQ5Lb8WhaWNlIG9rb2xpZWQCDw8WAh8OBQswNTUvNzI2OTExMWQCEw88KwANAQAPFgQeC18hRGF0YUJvdW5kZx4LXyFJdGVtQ291bnRmZGQCFQ9kFgICAQ9kFgJmDxYCHxACDBYYZg9kFgJmDxUDNWh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9TdWR5L1N1ZFpvem5hbS5hc3B4HC9TdHJhbmt5L1N1ZHkvU3VkWm96bmFtLmFzcHgNSMS+YWTDoW0gc8O6ZGQCAQ9kFgJmDxUDNWh0dHBzOi8vcG9ydGFsLmp1c3RpY2Uuc2svRm9ybXVsYXJlL1N0cmFua3kvVXZvZC5hc3B4EXZ6b3J5IGEgZm9ybXVsYXJlH0jEvmFkw6FtIHZ6b3IgcG9kYW5pYS9mb3JtdWzDoXJkAgIPZBYCZg8VAzpodHRwOi8vd3d3Lmp1c3RpY2UuZ292LnNrL1N0cmFua3kvSW5mb3JtYWNpZS9UaXR1bGthMi5hc3B4Omh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9JbmZvcm1hY2llL1RpdHVsa2EyLmFzcHgbSMS+YWTDoW0gc8O6ZG5lIHJvemhvZG51dGllZAIDD2QWAmYPFQM7aHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L1N1ZGNvdmlhL1N1ZGNhWm96bmFtLmFzcHgiL1N0cmFua3kvU3VkY292aWEvU3VkY2Fab3puYW0uYXNweA5IxL5hZMOhbSBzdWRjdWQCBA9kFgJmDxUDRWh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9Qb2plZG5hdmFuaWEvUG9qZWRuYXZhbmlhLXV2b2QuYXNweCwvU3RyYW5reS9Qb2plZG5hdmFuaWEvUG9qZWRuYXZhbmlhLXV2b2QuYXNweBZIxL5hZMOhbSBwb2plZG7DoXZhbmllZAIFD2QWAmYPFQMcaHR0cDovL2phc3BpLmp1c3RpY2UuZ292LnNrLxxodHRwOi8vamFzcGkuanVzdGljZS5nb3Yuc2svF0jEvmFkw6FtIHrDoWtvbiAoSkFTUEkpZAIGD2QWAmYPFQMcaHR0cDovL2phc3BpLmp1c3RpY2UuZ292LnNrLxxodHRwOi8vamFzcGkuanVzdGljZS5nb3Yuc2svD0jEvmFkw6FtIHpuYWxjYWQCBw9kFgJmDxUDT2h0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9OYXNlLXNsdXpieS9DaXZpbG5lLXByYXZvL01lZGlhdG9yaS9Vdm9kLmFzcHg2L1N0cmFua3kvTmFzZS1zbHV6YnkvQ2l2aWxuZS1wcmF2by9NZWRpYXRvcmkvVXZvZC5hc3B4E0jEvmFkw6FtIG1lZGnDoXRvcmFkAggPZBYCZg8VAydodHRwOi8vd3d3LmxlZ2FsYWlkLnNrL3pvem5hbS1hZHZva2F0b3YnaHR0cDovL3d3dy5sZWdhbGFpZC5zay96b3puYW0tYWR2b2thdG92FFBvdHJlYnVqZW0gcHLDoXZuaWthZAIJD2QWAmYPFQNnaHR0cDovL3d3dy5qdXN0aWNlLmdvdi5zay9TdHJhbmt5L01pbmlzdGVyc3R2by9WeWJlcm92ZS1rb25hbmlhLXYtcmV6b3J0ZS9ab3puYW0tdnliZXJvdnljaC1rb25hbmkuYXNweE4vU3RyYW5reS9NaW5pc3RlcnN0dm8vVnliZXJvdmUta29uYW5pYS12LXJlem9ydGUvWm96bmFtLXZ5YmVyb3Z5Y2gta29uYW5pLmFzcHgZSMS+YWTDoW0gcHLDoWN1IHYgcmV6b3J0ZWQCCg9kFgJmDxUDRGh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9OYXNlLXNsdXpieS9Qb2RhbmllLXN0YXpub3N0aS5hc3B4Ky9TdHJhbmt5L05hc2Utc2x1emJ5L1BvZGFuaWUtc3Rhem5vc3RpLmFzcHgfQ2hjZW0gcG9kYcWlIHBvZG5ldC9zxaVhxb5ub3PFpWQCCw9kFgJmDxUDcmh0dHA6Ly93d3cuanVzdGljZS5nb3Yuc2svU3RyYW5reS9OYXNlLXNsdXpieS9DaXZpbG5lLXByYXZvL0FrdHVhbG5hLXNhZHpiYS16YWtvbm55Y2gtdXJva292LXotb21lc2thbmlhL1V2b2QuYXNweFkvU3RyYW5reS9OYXNlLXNsdXpieS9DaXZpbG5lLXByYXZvL0FrdHVhbG5hLXNhZHpiYS16YWtvbm55Y2gtdXJva292LXotb21lc2thbmlhL1V2b2QuYXNweDFBa3R1w6FsbmEgc2FkemJhIHrDoWtvbm7DvWNoIMO6cm9rb3YgeiBvbWXFoWthbmlhZAIXD2QWAgIBD2QWDAIBDxYCHw4FHk1pbmlzdGVyc3R2byBzcHJhdm9kbGl2b3N0aSBTUmQCAw8WAh8OBRTFvXVwbsOpIG7DoW1lc3RpZSAxM2QCBQ8WAh8OBRk4MTMmbmJzcDsxMSAgICBCcmF0aXNsYXZhZAIHDxYCHw4FDDAyLzU5MzUzIDExMWQCCQ8WAh8OBc0Dc3JjPSJodHRwOi8vbWFwcy5nb29nbGUuY29tL21hcHM/Zj1xJmFtcDtzb3VyY2U9c19xJmFtcDtobD1lbiZhbXA7Z2VvY29kZT0mYW1wO3E9TWluaXN0ZXJzdHZvK3NwcmF2b2RsaXZvc3RpK1Nsb3ZlbnNrZWorUmVwdWJsaWt5KyVDNSVCRHVwbiVDMyVBOStuJUMzJUExbWVzdGllKzEzKzgxMysxMStCcmF0aXNsYXZhJmFtcDthcT0mYW1wO3NsbD00OC4xNDkyNTIsMTcuMTE5ODc1JmFtcDtzc3BuPTAuMDE5MzU2LDAuMDM4NTgxJmFtcDtpZT1VVEY4JmFtcDtocT1NaW5pc3RlcnN0dm8rc3ByYXZvZGxpdm9zdGkrU2xvdmVuc2tlaitSZXB1Ymxpa3krJUM1JUJEdXBuJUMzJUE5K24lQzMlQTFtZXN0aWUrMTMrODEzKzExJmFtcDtobmVhcj1CcmF0aXNsYXZhLCtTbG92YWtpYSZhbXA7bGw9NDguMTQ1Nzg3LDE3LjEwNDgxMiZhbXA7c3BuPTAuMDAzNTc5LDAuMDA0MjcmYW1wO3o9MTYmYW1wO291dHB1dD1lbWJlZCJkAgsPDxYCHgtOYXZpZ2F0ZVVybAW4A2h0dHA6Ly9tYXBzLmdvb2dsZS5jb20vbWFwcz9mPXEmYW1wO3NvdXJjZT1lbWJlZCZhbXA7aGw9ZW4mYW1wO2dlb2NvZGU9JmFtcDtxPU1pbmlzdGVyc3R2bytzcHJhdm9kbGl2b3N0aStTbG92ZW5za2VqK1JlcHVibGlreSslQzUlQkR1cG4lQzMlQTkrbiVDMyVBMW1lc3RpZSsxMys4MTMrMTErQnJhdGlzbGF2YSZhbXA7YXE9JmFtcDtzbGw9NDguMTQ5MjUyLDE3LjExOTg3NSZhbXA7c3Nwbj0wLjAxOTM1NiwwLjAzODU4MSZhbXA7aWU9VVRGOCZhbXA7aHE9TWluaXN0ZXJzdHZvK3NwcmF2b2RsaXZvc3RpK1Nsb3ZlbnNrZWorUmVwdWJsaWt5KyVDNSVCRHVwbiVDMyVBOStuJUMzJUExbWVzdGllKzEzKzgxMysxMSZhbXA7aG5lYXI9QnJhdGlzbGF2YSwrU2xvdmFraWEmYW1wO2xsPTQ4LjE0NTc4NywxNy4xMDQ4MTImYW1wO3Nwbj0wLjAwMzU3OSwwLjAwNDI3JmFtcDt6PTE2ZGQCIQ9kFgICAQ9kFgJmD2QWAgIDD2QWAgIFDw8WBB4GSGVpZ2h0GwAAAAAAAHlAAQAAAB4EXyFTQgKAAWQWAgIBDzwrAAkBAA8WBB4NUGF0aFNlcGFyYXRvcgQIHg1OZXZlckV4cGFuZGVkZ2RkAhIPZBYCAgEPZBYCZg9kFgICAw9kFgICBQ8PFgQfEhsAAAAAAAB5QAEAAAAfEwKAAWQWAgIBDzwrAAkBAA8WBB8UBAgfFWdkZBgCBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAQUdY3RsMDAkY3RsMDAkSWRNcFRvcCRidG5TZWFyY2gFQ2N0bDAwJGN0bDAwJFBsYWNlSG9sZGVyTWFpbiRQbGFjZUhvbGRlck1haW4kY3RsMDEkZ3Zab3puYW1VY2hhZHphY2kPPCsACgEIZmSQqgdPuHza5dTk6KCKPOipIWdDow==" />
+
+
+<script type="text/javascript">
+//<![CDATA[
+var MSOWebPartPageFormName = 'aspnetForm';
+var g_presenceEnabled = false;
+var g_wsaEnabled = false;
+var g_wsaLCID = 1051;
+var g_wsaSiteTemplateId = 'BLANKINTERNET#2';
+var g_wsaListTemplateId = 850;
+var _fV4UI=true;var _spPageContextInfo = {webServerRelativeUrl: "\u002f", webLanguage: 1051, currentLanguage: 1051, webUIVersion:4,pageListId:"{69710dd5-3321-4249-87a6-da2a75966f4f}",pageItemId:542, alertsEnabled:false, siteServerRelativeUrl: "\u002f", allowSilverlightPrompt:'True'};document.onreadystatechange=fnRemoveAllStatus; function fnRemoveAllStatus(){removeAllStatus(true)};var dlc_fvsi = {"DefaultViews":[],"ViewUrls":[],"WebUrl":"\/"};//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+function _spNavigateHierarchy(nodeDiv, dataSourceId, dataPath, url, listInContext, type) {
+    CoreInvoke('ProcessDefaultNavigateHierarchy', nodeDiv, dataSourceId, dataPath, url, listInContext, type, document.forms.aspnetForm, "", "\u002fStranky\u002fMinisterstvo\u002fVyberove-konania-v-rezorte\u002fDetail-vyberoveho-konania.aspx");
+
+}
+//]]>
+</script>
+<script src="/_layouts/blank.js?rev=QGOYAJlouiWgFRlhHVlMKA%3D%3D" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(DeferWebFormInitCallback) == 'function') DeferWebFormInitCallback();//]]>
+</script>
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLphszWDALS1KrTBQLSod+5DQKDxvbnAgLO98JZAv/F9ucCjjbERmn0UpC6OyDU7C2K1fP3krU=" />
+		
+		
+		<!-- handles SharePoint scripts -->
+		<!-- controls the web parts and zones -->
+		<!-- this control is more navigation for mysites, otherwise it is empty -->
+		<!-- -->
+
+
+
+
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-23923340-1']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+
+		<div id="all">
+			<div id="container">
+				<div id="topService">
+					
+           <ul>
+                <li><a href="/Stranky/Informacie/Mapa-stranky.aspx" title="Mapa stránky">Mapa stránky</a></li>
+                <li><a href="javascript:VerziaPreSlabozrakych()" title="Verzia pre slabozrakých">Verzia pre slabozrakých</a></li>
+                <li><a href="/_layouts/listfeed.aspx?List=69710dd5%2D3321%2D4249%2D87a6%2Dda2a75966f4f" title="poskytovanie informácií">RSS</a></li>
+                <li><a href="/" title="Slovenská verzia">Slovensky</a></li>
+                <!--<li><a href="/" title="English version">English</a></li>-->
+            </ul>
+       
+
+       
+
+				</div>
+				<!-- end div id=topService -->
+				<div class="cleaner" style="height: 0px;">
+				</div>
+				<div id="top">
+					
+                <img src="/Style%20Library/MSSR/Images/ZnakSR.png" alt="Logo SR" title="Logo SR" style="margin-left:32px;float:left;" /><a href="/" title="Hlavná stránka" class="topLogo" >Ministerstvo spravodlivosti<br />Slovenskej republiky</a>
+       
+
+       
+        <div style="float:right;width:322px;">
+                <div id="topMenuSearch">
+                    <input name="ctl00$ctl00$IdMpTop$txtSearch" type="text" value="Hľadaj na celej stránke" id="ctl00_ctl00_IdMpTop_txtSearch" onfocus="Focus(this.id,'Hľadaj na celej stránke')" onblur="Blur(this.id,'Hľadaj na celej stránke')" /><input type="image" name="ctl00$ctl00$IdMpTop$btnSearch" id="ctl00_ctl00_IdMpTop_btnSearch" onmouseover="this.src=this.src.replace('-blue', '-red');" onmouseout="this.src=this.src.replace('-red', '-blue');" src="/Style%20Library/MSSR/Images/button/btn-ok-blue.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$IdMpTop$btnSearch&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" border="0" />
+                 </div>
+                 <div style="display:none"><a href="#" class="rozsirene">Rozšírené vyhľadávanie</a></div>
+        <div style="clear:both;"></div>
+        </div>
+</div>
+				<!-- end div id=top -->
+				<div class="cleaner" style="height: 20px;">
+				</div>
+				<div id="topMenu">
+					
+	
+    <ul>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);" style="background-image:url(/Style%20Library/MSSR/Images/ico/ministerstvo_normal.png); background-position:0px 0px; margin-left:1px; width:180px;"><a href="/Stranky/Ministerstvo/Uvod.aspx" title="Ministerstvo" >Ministerstvo</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/sudy_normal.png); background-position:0px 0px; width:232px;"><a href="/Stranky/Sudy/Uvod.aspx" title="Súdy">Súdy a rozhodnutia</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/zakony_normal.png); background-position:0px 0px; width:210px;"><a href="/Stranky/Zakony/Uvod.aspx" title="Zákony">Právne predpisy</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/registre_normal.png); background-position:0px 0px; width:160px;"><a href="/Stranky/Registre/Uvod.aspx" title="Registre">Registre</a></li>
+        <li style="padding:10px 0px 0px 0px;height:auto;"><img src="/Style%20Library/MSSR/Images/TopMenuOddelovac.png" alt="|" title="|" /></li>
+        <li onmouseover="TopMenuMouseOver(this);" onmouseout="TopMenuMouseOut(this);"  style="background-image:url(/Style%20Library/MSSR/Images/ico/nasesluzby_normal.png); background-position:0px 0px; width:170px;"><a href="/Stranky/Nase-sluzby/Uvod.aspx" title="Naše služby" style="padding-right:24px;">Naše služby</a></li>
+    </ul>
+
+
+
+
+
+				</div>
+				<!--<span style="background-color:#000066; height:8px; width:968px; display:block; clear:both;"></span>-->
+				<!-- end div id=topMenu -->
+				<div class="cleaner" style="height: 8px;">
+				</div>
+				<div id="content">
+					
+	<div style="display:none">
+		
+			<table class="s4-wpTopTable" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td valign="top"><div WebPartID="00000000-0000-0000-0000-000000000000" HasPers="true" id="WebPartWPQ1" width="100%" class="noindex" OnlyForMePart="true" allowDelete="false" style="" ><div id="SRSB"> <div>
+			<input name="ctl00$ctl00$PlaceHolderMain$PlaceHolderSearchArea$ctl01$ctl00" type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl00" value="http://www.justice.gov.sk" /><table class="ms-sbtable ms-sbtable-ex s4-search" cellpadding="0" cellspacing="0" border="0">
+				<tr class="ms-sbrow">
+					<td class="ms-sbcell"><input name="ctl00$ctl00$PlaceHolderMain$PlaceHolderSearchArea$ctl01$S2D828D48_InputKeywords" type="text" value="Hľadať na tejto lokalite..." maxlength="200" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords" accesskey="S" title="Hľadať..." class="ms-sbplain" alt="Hľadať..." onkeypress="javascript: return S2D828D48_OSBEK(event);" onfocus="if (document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value =='0') {this.value=''; if (this.className == 's4-searchbox-QueryPrompt') this.className = ''; else this.className = this.className.replace(' s4-searchbox-QueryPrompt',''); document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value=1;}" onblur="if (this.value =='') {this.value='H\u013Eada\u0165 na tejto lokalite...'; if (this.className.indexOf('s4-searchbox-QueryPrompt') == -1) this.className += this.className?' s4-searchbox-QueryPrompt':'s4-searchbox-QueryPrompt'; document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value = '0'} else {document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value='1';}" style="width:170px;" /></td><td class="ms-sbgo ms-sbcell"><a id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_go" title="Hľadať" href="javascript:S2D828D48_Submit()"><img title="Hľadať" onmouseover="this.src='\u002f_layouts\u002fimages\u002fgosearchhover15.png'" onmouseout="this.src='\u002f_layouts\u002fimages\u002fgosearch15.png'" class="srch-gosearchimg" alt="Hľadať" src="/_layouts/images/gosearch15.png" border="0" /></a></td><td class="ms-sbLastcell"></td>
+				</tr>
+			</table><input name="ctl00$ctl00$PlaceHolderMain$PlaceHolderSearchArea$ctl01$ctl04" type="hidden" id="ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04" value="0" />
+		</div></div></div></td>
+	</tr>
+</table>
+		
+					
+		
+	</div>
+
+        <div class="blokLavy">
+	        
+	
+
+
+<div class="blokDlhy">
+    <div class="blokDlhyHead">
+		<div class="headIco"><img src="/Style%20Library/MSSR/Images/ico/ministerstvo_mouseover.png" alt="ico" title="Menu" /></div>
+        <div class="headText">MINISTERSTVO</div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div id="mainTextLiMenuMultiID" class="mainText" style="padding-left:0; padding-right:0;">
+            <ul class="LiMenuMulti">
+                <li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Predstavitelia-MSSR/Uvod.aspx" class="">Predstavitelia MSSR</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Predstavitelia-MSSR/Minister.aspx" class="">Minister</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Predstavitelia-MSSR/Statna-tajomnicka.aspx" class="">Štátna tajomníčka</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Predstavitelia-MSSR/Veduca-sluzobneho-uradu.aspx" class="">Vedúca služobného úradu</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Kontakty/Zakladne-kontaktne-informacie.aspx" class="">Kontakty</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Kontakty/Telefonny-zoznam-zamestnancov.aspx" class="">Telefónny zoznam zamestnancov</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Kontakty/Protikorupcna-linka.aspx" class="">Protikorupčná linka</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Organizacna-struktura-MSSR/Organizacna-struktura-MS-SR.aspx" class="">Organizačná štruktúra</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Organizacna-struktura-MSSR/Dokumenty-na-stiahnutie.aspx" class="">Dokumenty na stiahnutie</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Zastupovanie-SR/Uvod.aspx" class="">Zastupovanie SR</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Zastupovanie-SR/Vnutrostatna-uroven/Uvod.aspx" class="">Vnútroštátna úroveň</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Zastupovanie-SR/Zastupca-SR-pred-ESLP/Zakladne-informacie.aspx" class="">Zástupca SR pred ESĽP</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Zastupovanie-SR/Zastupca-SR-pred-sudmi-EU/Zakladne-informacie.aspx" class="">Zástupca SR pred súdmi EÚ</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Zastupovanie-SR/Zastupca-SR-v-Eurojust/Zakladne-informacie.aspx" class="">Zástupca SR v Eurojust</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Komisia-na-posudzovanie-podmienok-v-spotrebitelskych-zmluvach/Uvod.aspx" class="">Komisia na posudzovanie podmienok ... </a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Komisia-na-posudzovanie-podmienok-v-spotrebitelskych-zmluvach/Oznamy-o-staznostiach-spotrebitelov.aspx" class="">Oznamy o sťažnostiach spotrebiteľov a podnetoch komisie</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Komisia-na-posudzovanie-podmienok-v-spotrebitelskych-zmluvach/Rozsudky-sudov.aspx" class="">Rozhodnutia súdov vo veciach ochrany spotrebiteľa</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vybor pre prava LGTBI osob/Uvod.aspx" class="">Výbor pre práva LGBTI osôb</a><div style='clear:both'></div><ul></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Uvod.aspx" class="">Ekonomika a správa majetku</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Rozpocet-MS-SR.aspx" class="">Rozpočet MS SR</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Zmluvy-objednavky-a-faktury.aspx" class="">Zmluvy, objednávky a faktúry</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Verejne-obstaravanie.aspx" class="">Verejné obstarávanie</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Nehnutelny-majetok-MS-SR.aspx" class="">Nehnuteľný majetok MS SR</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Zoznam-dlznikov.aspx" class="">Zoznam dlžníkov</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Ekonomika-a-sprava-majetku/Nahlasovanie-podozreni-z-nezrovnatelnosti-pri-cerpani-prostriedkov-EU.aspx" class="">Nahlasovanie podozrení z nezrovnateľností pri čerpaní prostriedkov EÚ</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx" class="">Výberové konania v rezorte</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/vyberove-konania-na-sudoch.aspx" class="">Vyberové konania na súdoch</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Mate-otazky-k-vyberovemu-konaniu-na-MS-SR.aspx" class="">Máte otázky k výberovému konaniu na MS SR?</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Casto-kladene-otazky.aspx" class="">Často kladené otázky</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Pripravny--vybor-pre-Jednotny-patentovy-sud-.aspx" class="">Pripravný výbor pre Jednotný patentový súd</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li><li class=""><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Justicna revue/Redakcia-Justicnej-revue.aspx" class="">Justičná revue</a><div style='clear:both'></div><ul><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Justicna revue/Katalog-cisel.aspx" class="">Katalog čísiel Justičnej revue od r. 2000</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Justicna revue/Uvod ceny.aspx" class="">Ceny Karola Planka</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Justicna revue/Nové-pokyny.aspx" class="">Pokyny pre autorov </a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Justicna revue/Redakcia-Justicnej-revue.aspx" class="">Redakcia Justičnej revue</a><div style='clear:both'></div></li><li class=""><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Justicna revue/Ceny-KP-za-sudne-rozh.aspx" class="">Ceny Karola Planka za súdne rozhodnutie</a><div style='clear:both'></div></li></ul></li><li class="ciara">&nbsp;</li>
+            </ul>
+        </div>
+</div>
+
+
+			
+			
+			
+			
+		</div>
+		<!-- end div id=blokDlhy -->
+        <div class="blokDlhy blokLavy blokWidthMid">
+        	
+
+<div class="blokDlhyHead">
+    <div class="headIco"></div>
+    <div class="headText">
+        <ul id="breadcrumb">
+<li><a href="/">Úvodná stránka</a></li>
+<li><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Uvod.aspx" title="Ministerstvo">Ministerstvo</a></li>
+<li><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx" title="Výberové konania v rezorte">Výberové ko... rezorte</a></li>
+<li><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-vyberoveho-konania.aspx" title="Detail výberového konania">Detail výbe... konania</a></li>
+</ul>
+
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+			<a href="javascript:window.print();" title="print" style="float:right; padding:10px 16px 0 10px;"><img src="/Style%20Library/MSSR/Images/ico/printer_normal.gif" alt="print" title="print" 
+							onmouseover="this.src = this.src.replace('_normal', '_mouseover');" onmouseout="this.src = this.src.replace('_mouseover', '_normal');" /></a>
+            <div class="mainText">
+            	<div class="sprava">
+						
+	
+			<div class="article article-body">
+				<div class="article-content">
+					<div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl00_ctl00_label" style='display:none'>Obsah stránky</div><div id="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl00_ctl00__ControlWrapper_RichHtmlField" class="ms-rtestate-field" style="display:inline" aria-labelledby="ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ctl00_ctl00_label">​ <h3 class="ms-rteElement-H3"><div> </div>
+<a title="oznamenie k vk na sudoch" href="/Stranky/aktualitadetail.aspx?announcementID=1545"><div>Oznámenie k výberovým konaniam na súdoch vyhlásených do 31. 12. 2011</div>
+</a><div> </div>
+<div class="ms-rteElement-CIARA"> </div>
+<p class="ms-rteElement-P"> </p></h3></div>
+				</div>
+			</div>
+		
+
+					
+<h1>Detail výberového konania</h1>
+
+<div  class="DetailTable">
+    <div class="popiska">Organizácia:</div>
+    <div class="hodnota">Okresný súd Košice okolie</div>
+    <div class="riadok"></div>
+
+    <div class="popiska">Pozícia:</div>
+    <div class="hodnota">Sudca</div>
+    <div class="riadok"></div>
+
+    <div class="popiska">Útvar/popis:</div>
+    <div class="hodnota">Okresný súd Košice - okolie</div>
+    <div class="riadok"></div>
+
+    <div class="popiska">Miesto výkonu práce:</div>
+    <div class="hodnota">Okresný súd Košice - okolie, Štúrova č. 29, 041 51  Košice</div>
+    <div class="riadok"></div>
+    
+    <div class="popiska">Dátum uzávierky:</div>
+    <div class="hodnota">23.07.2014</div>
+    <div class="riadok"></div>
+    
+    <div class="popiska">Stav:</div>
+    <div class="hodnota">Aktuálne výberové konanie</div>
+    <div class="riadok"></div>
+
+    <div class="popiska">Vyhlásenie konania:</div>   
+    <div class="hodnota"><a href='/Stranky/SuborStiahnut.aspx?Url=%2fVyberoveKonania%2f1+miesto+sudcu+pre+Okresn%c3%bd+s%c3%bad+Ko%c5%a1ice+-+okolie%2fv%c3%bdberov%c3%a9+konanie.pdf' title='výberové konanie.pdf' ><img alt='TypPrilohy' src='/_layouts/images/pdf_icon.png'></img>výberové konanie.pdf</a><br /></div>
+    <div class="riadok"></div>
+
+     <div class="popiska">Zápisnica konania:</div>    
+     <div class="hodnota">
+       <a href="/Stranky/SuborStiahnut.aspx?Url=%2fVyberoveKonania%2fV%c3%bdberov%c3%a9+konanie+-+2+vo%c4%ben%c3%a9+miesta+sudcov+pre+Okresn%c3%bd+s%c3%bad+Michalovce%2fZ%c3%a1pisnica.pdf" title="Zápisnica.pdf"><img alt="TypPrilohy" src="/_layouts/images/pdf_icon.png">Zápisnica.pdf</a>
+     </div>
+     <div class="riadok"></div>
+
+    
+
+        <div class="popiska">Zloženie komisie:</div>
+        <div class="hodnota">JUDr. Soňa Zmeková, JUDr. Roman Greguš, JUDr. Lýdia Gálisová, JUDr. Rudolf Čirč, JUDr. Ondrej Laciak, PhD.</div>
+        <div class="riadok"></div>
+
+        <div class="popiska">Termín konania:</div>
+        <div class="hodnota">09.09.2014</div>
+        <div class="riadok"></div>
+
+        <div class="popiska">Miesto konania:</div>
+        <div class="hodnota">Krajský súd Košice, Štúrova č. 29, 041 51  Košice, miestnosť č. 207/2. poschodie - zasadačka</div>
+        <div class="riadok"></div>
+
+        <div class="popiska">Priebeh konania:</div>
+        <div class="hodnota">Výberové konanie sa začne písomnou časťou dňa 9.9.2014 o 8.00 hod. Výberové konanie trvá spravidla tri dni. O priebehu ďalších častí výberového konania budú uchádzači informovaní v priebehu prvého dňa výberového konania. </div>
+        <div class="riadok"></div>
+
+        <div class="skupina">Kontakt na príslušný súd</div>
+        <div class="riadok ciara"></div>
+        <div class="popiska">Ulica, číslo ulice:</div>
+        <div class="hodnota">Štúrova 29 </div>
+        <div class="riadok"></div>
+        <div class="popiska">PSČ:</div>
+        <div class="hodnota">041&nbsp;10   </div>
+        <div class="riadok"></div>
+        <div class="popiska">Obec:</div>
+        <div class="hodnota">Košice okolie</div>
+        <div class="riadok"></div>
+        <div class="popiska">Tel. číslo:</div>
+        <div class="hodnota">055/7269111</div>
+        <div class="riadok"></div>
+    
+
+    <div class="skupina">Prehľad prihlásených uchádzačov:</div>
+    <div class="riadok ciara"></div>
+
+    <div>
+
+</div>
+</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- end div id=blokDlhy -->
+		
+		<div class="blokPravy">
+			
+	
+
+<div class="blokDlhy">
+    <div class="blokDlhyHead">
+		<div class="headIco"><img src="/Style%20Library/MSSR/Images/ico/hladam_mouseover.png" alt="ico" title="hladam" /></div>
+        <div class="headText" style="padding-top:10px;">PRAKTICKÉ <br />INFORMÁCIE</div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="mainText" style="padding-left:0; padding-right:0;">
+        <ul class="LiMenuSingle">
+               
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx" title="/Stranky/Sudy/SudZoznam.aspx" >Hľadám súd</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="https://portal.justice.sk/Formulare/Stranky/Uvod.aspx" title="vzory a formulare" >Hľadám vzor podania/formulár</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Informacie/Titulka2.aspx" title="http://www.justice.gov.sk/Stranky/Informacie/Titulka2.aspx" >Hľadám súdne rozhodnutie</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx" title="/Stranky/Sudcovia/SudcaZoznam.aspx" >Hľadám sudcu</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx" title="/Stranky/Pojednavania/Pojednavania-uvod.aspx" >Hľadám pojednávanie</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://jaspi.justice.gov.sk/" title="http://jaspi.justice.gov.sk/" >Hľadám zákon (JASPI)</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://jaspi.justice.gov.sk/" title="http://jaspi.justice.gov.sk/" >Hľadám znalca</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Nase-sluzby/Civilne-pravo/Mediatori/Uvod.aspx" title="/Stranky/Nase-sluzby/Civilne-pravo/Mediatori/Uvod.aspx" >Hľadám mediátora</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.legalaid.sk/zoznam-advokatov" title="http://www.legalaid.sk/zoznam-advokatov" >Potrebujem právnika</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx" title="/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx" >Hľadám prácu v rezorte</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Nase-sluzby/Podanie-staznosti.aspx" title="/Stranky/Nase-sluzby/Podanie-staznosti.aspx" >Chcem podať podnet/sťažnosť</a></li>
+                    
+                        <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png" title="ico" alt="ico"  /><a href="http://www.justice.gov.sk/Stranky/Nase-sluzby/Civilne-pravo/Aktualna-sadzba-zakonnych-urokov-z-omeskania/Uvod.aspx" title="/Stranky/Nase-sluzby/Civilne-pravo/Aktualna-sadzba-zakonnych-urokov-z-omeskania/Uvod.aspx" >Aktuálna sadzba zákonných úrokov z omeškania</a></li>
+                    
+            <!--
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Sudy/SudZoznam.aspx" title="Hľadám súd">Hľadám súd</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Sudcovia/SudcaZoznam.aspx" title="Hľadám sudcu">Hľadám sudcu</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Pojednavania/Pojednavania-uvod.aspx" title="Hľadám pojednávanie">Hľadám pojednávanie</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://jaspi.justice.gov.sk" title="Hľadám zákon">Hľadám zákon</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://jaspi.justice.gov.sk" title="Hľadám znalca">Hľadám znalca</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Registre/Zoznamy-vedene-MS-SR/Zoznam-spravcov.aspx" title="Hľadám správcu">Hľadám správcu</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="http://www.legalaid.sk/zoznam-advokatov" title="Potrebujem právnika">Potrebujem právnika</a></li>
+          
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Obchodny-vestnik/Informacie-o-OV.aspx" title="Chcem zverejniť zmluvu v OV">Chcem zverejniť zmluvu v OV</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx" title="Hľadám prácu v rezorte">Hľadám prácu v rezorte</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Ministerstvo/OdkazMinistrovi.aspx" title="Chcem sa opýtať ministerky">Chcem sa opýtať ministerky</a></li>
+            <li><img src="/Style%20Library/MSSR/Images/SquareIcoGray.png"  /><a href="/Stranky/Nase-sluzby/Podanie-staznosti.aspx" title="Chcem podať sťažnosť/podnet">Chcem podať sťažnosť/podnet</a></li>
+            -->
+        </ul>
+    </div>
+
+</div>
+
+
+			
+	
+
+
+        <div class="blokDlhy">
+            <div class="blokDlhyHead">
+				<div class="headIco"><img src="/Style%20Library/MSSR/Images/ico/kontakt_mouseover.png" alt="ico" title="kontakt" /></div>
+                <div class="headText">KONTAKT</div>
+                <div style="clear:both;"></div>
+            </div>
+            
+            <div class="mainText" >
+                <div class="sprava">
+                    <div class="header">
+                        ADRESA</div>
+                    <div class="textInfo">
+                        Ministerstvo spravodlivosti SR<br />
+                        Župné námestie 13<br />
+                        813&nbsp;11    Bratislava<br />
+                        <br />
+                        Ústredňa: <b>02/59353 111</b>
+                        <br />
+                        <br />
+                        <iframe width="200" height="250" frameborder="0" scrolling="no" marginheight="0"
+                            marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Ministerstvo+spravodlivosti+Slovenskej+Republiky+%C5%BDupn%C3%A9+n%C3%A1mestie+13+813+11+Bratislava&amp;aq=&amp;sll=48.149252,17.119875&amp;sspn=0.019356,0.038581&amp;ie=UTF8&amp;hq=Ministerstvo+spravodlivosti+Slovenskej+Republiky+%C5%BDupn%C3%A9+n%C3%A1mestie+13+813+11&amp;hnear=Bratislava,+Slovakia&amp;ll=48.145787,17.104812&amp;spn=0.003579,0.00427&amp;z=16&amp;output=embed" >
+                        </iframe>
+                        <br />
+                        <small><a id="ctl00_ctl00_PlaceHolderMain_plcPravy2_SudKontakt_hlZobrazMapu" href="http://maps.google.com/maps?f=q&amp;amp;source=embed&amp;amp;hl=en&amp;amp;geocode=&amp;amp;q=Ministerstvo+spravodlivosti+Slovenskej+Republiky+%C5%BDupn%C3%A9+n%C3%A1mestie+13+813+11+Bratislava&amp;amp;aq=&amp;amp;sll=48.149252,17.119875&amp;amp;sspn=0.019356,0.038581&amp;amp;ie=UTF8&amp;amp;hq=Ministerstvo+spravodlivosti+Slovenskej+Republiky+%C5%BDupn%C3%A9+n%C3%A1mestie+13+813+11&amp;amp;hnear=Bratislava,+Slovakia&amp;amp;ll=48.145787,17.104812&amp;amp;spn=0.003579,0.00427&amp;amp;z=16" style="text-align: left"></a></small>
+                    </div>
+				</div>
+			</div>
+		</div> <!-- end div class=blokDlhy -->
+
+
+
+
+
+
+			
+			
+			
+<script type="text/javascript">
+	//indexy: 0: ministerstvo, 2: sudy, 4: zakony, 6: registre, 8: nase sluzby
+	//var liSel = document.getElementById('topMenu').children[0].children[0];
+	//liSel.className='TopMenuSel';
+	//liSel.style.backgroundImage = liSel.style.backgroundImage.replace('_normal', '_mouseover');
+</script>
+
+		</div><!-- end div id=blokPravy -->
+
+<!-- The form digest security control used to for security validation on forms -->
+
+	
+
+
+<!-- =====  Hidden Placeholders ============================================================ -->
+
+
+<!-- extra form for some instances -->
+
+
+
+				</div>
+				<div class="cleaner">
+				</div>
+			</div>
+			<!--end div id=container --></div>
+		<!-- end div id=all -->
+		<div class="cleaner">
+		</div>
+		<div id="bottomMenuCleaner">
+		</div>
+		<div style="height: 1px;">
+		</div>
+		<div id="bottomMenu">
+			<ul>
+				<li><a href="/Stranky/Informacie/Kontakty.aspx">Kontakty</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Pre-media.aspx">Pre média</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Kariera.aspx">Kariéra</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Poskytovanie-informacii.aspx">Poskytovanie 
+				informácií</a></li>
+				<li>
+				<img src="/Style%20Library/MSSR/Images/BottomMenuOddelovac.png" alt="|" title="|" /></li>
+				<li><a href="/Stranky/Informacie/Statistiky.aspx">Štatistiky</a></li>
+			</ul>
+			<div class="cleaner" style="height: 64px;">
+			</div>
+			<div id="copyright">
+				<img src="/Style%20Library/MSSR/Images/EuMiniIco.png" title="Eu" alt="EU ico" style="float: left;" />
+				<span style="float: left; padding-left: 12px; color: #fff;">Part<i>of</i> European Union</span>
+				<span style="float: right; color: #fff;">COPYRIGHT 2011 © MINISTERSTVO SPRAVODLIVOSTI SR</span>
+				<span style="float: right; color: #fff; clear:both;">Správca obsahu: Tlačový a komunikačný referát, e-mail: <a href="mailto:tlacove@justice.sk">tlacove@justice.sk</a></span>
+				<span style="float: right; color: #fff; clear:both;">Technický prevádzkovateľ: Odbor prevádzky informačných systémov a odbor implementácie projektov</span>
+			</div>
+		</div>
+		<!-- end div id=bottomMenu -->
+		<!-- The form digest security control used to for security validation on forms -->
+		
+	
+
+		<!-- =====  Hidden Placeholders ============================================================ -->
+		
+		<!-- Handle Search "enter" key and back button -->
+		<input type="text" name="__spDummyText1" style="display: none;" size="1" /><input type="text" name="__spDummyText2" style="display: none;" size="1" /><div id="ctl00_ctl00_panelZone">
+	<div style='display:none' id='hidZone'><menu class="ms-SrvMenuUI">
+		<ie:menuitem id="MSOMenu_Help" iconsrc="/_layouts/images/HelpIcon.gif" onmenuclick="MSOWebPartPage_SetNewWindowLocation(MenuWebPart.getAttribute(&#39;helpLink&#39;), MenuWebPart.getAttribute(&#39;helpMode&#39;))" text="Pomocník" type="option" style="display:none">
+
+		</ie:menuitem>
+	</menu></div>
+</div><input type='hidden' id='_wpcmWpid' name='_wpcmWpid' value='' /><input type='hidden' id='wpcmVal' name='wpcmVal' value=''/>
+
+<script type="text/javascript">
+//<![CDATA[
+var _spFormDigestRefreshInterval = 1440000;window.g_updateFormDigestPageLoaded = new Date(); window.g_updateFormDigestPageLoaded.setDate(window.g_updateFormDigestPageLoaded.getDate() -5);function loadMDN2() { EnsureScript('MDN.js', typeof(loadFilterFn), null); }
+function loadMDN1() { ExecuteOrDelayUntilScriptLoaded(loadMDN2, 'sp.ribbon.js'); }
+_spBodyOnLoadFunctionNames.push('loadMDN1');
+function _spNavigateHierarchyEx(nodeDiv, dataSourceId, dataPath, url, listInContext, type, additionalQString) {
+    SetAdditionalNavigateHierarchyQString(additionalQString);
+    g_originalSPNavigateFunc(nodeDiv, dataSourceId, dataPath, url, listInContext, type);
+}
+
+g_originalSPNavigateFunc = _spNavigateHierarchy;
+_spNavigateHierarchy = _spNavigateHierarchyEx;
+
+function EnsureScripts(scriptInfoList, finalFunction)
+{
+if (scriptInfoList.length == 0)
+{
+finalFunction();
+}
+else
+{
+var scriptInfo = scriptInfoList.shift();
+var rest = function () { EnsureScripts(scriptInfoList, finalFunction); };
+var defd;
+try
+{
+eval('defd = typeof(' + scriptInfo[1] + ');');
+}
+catch (e)
+{
+defd = 'undefined';
+}
+if (scriptInfo[2])
+{
+EnsureScript(scriptInfo[0], defd, null);
+ExecuteOrDelayUntilScriptLoaded(rest, scriptInfo[0]);
+}
+else
+{
+EnsureScript(scriptInfo[0], defd, rest);
+}
+}
+}
+function PublishingRibbonUpdateRibbon()
+{
+var pageManager = SP.Ribbon.PageManager.get_instance();
+if (pageManager)
+{
+pageManager.get_commandDispatcher().executeCommand('appstatechanged', null);
+}
+}var _fV4UI = true;
+function _RegisterWebPartPageCUI()
+{
+    var initInfo = {editable: false,isEditMode: false,allowWebPartAdder: false,listId: "{69710dd5-3321-4249-87a6-da2a75966f4f}",itemId: 542,recycleBinEnabled: true,enableMinorVersioning: false,enableModeration: false,forceCheckout: true,rootFolderUrl: "\u002fStranky",itemPermissions:{High:16,Low:69729}};
+    SP.Ribbon.WebPartComponent.registerWithPageManager(initInfo);
+    var wpcomp = SP.Ribbon.WebPartComponent.get_instance();
+    var hid;
+    hid = document.getElementById("_wpSelected");
+    if (hid != null)
+    {
+        var wpid = hid.value;
+        if (wpid.length > 0)
+        {
+            var zc = document.getElementById(wpid);
+            if (zc != null)
+                wpcomp.selectWebPart(zc, false);
+        }
+    }
+    hid = document.getElementById("_wzSelected");
+    if (hid != null)
+    {
+        var wzid = hid.value;
+        if (wzid.length > 0)
+        {
+            wpcomp.selectWebPartZone(null, wzid);
+        }
+    }
+}
+ExecuteOrDelayUntilScriptLoaded(_RegisterWebPartPageCUI, "sp.ribbon.js"); var __wpmExportWarning='This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.';var __wpmCloseProviderWarning='You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.';var __wpmDeleteWarning='You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.';//]]>
+</script>
+<script type="text/javascript" language="JavaScript" defer="defer">
+<!--
+function SearchEnsureSOD() { EnsureScript('search.js',typeof(GoSearch)); } _spBodyOnLoadFunctionNames.push('SearchEnsureSOD');function S2D828D48_Submit() {if (document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value == '0') { document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').value=''; }SearchEnsureSOD();GoSearch('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04','ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords',null,true,false,null,'ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl00',null,null,'T\u00E1to lokalita','\u002f_layouts\u002fOssSearchResults.aspx', 'T\u00E1to lokalita','Tento zoznam', 'Tento prie\u010Dinok', 'S\u00FAvisiace lokality', '\u002f_layouts\u002fOSSSearchResults.aspx', '', 'Zadajte najmenej jedno vyh\u013Ead\u00E1van\u00E9 slovo.');if (document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_ctl04').value == '0') { document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').value=''; }}
+// -->
+</script><script type="text/javascript" language="JavaScript" >
+// append an onload event handler
+$addHandler(window, 'load', function() {
+  document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords').name = 'InputKeywords';
+});
+function S2D828D48_OSBEK(event1) { 
+if((event1.which == 10) || (event1.which == 13))
+{   
+S2D828D48_Submit();return false;
+}
+}
+{ var searchTextBox = document.getElementById('ctl00_ctl00_PlaceHolderMain_PlaceHolderSearchArea_ctl01_S2D828D48_InputKeywords');if (searchTextBox.className.indexOf('s4-searchbox-QueryPrompt') == -1) searchTextBox.className += searchTextBox.className?' s4-searchbox-QueryPrompt':'s4-searchbox-QueryPrompt'; }// -->
+</script><script type="text/javascript">
+// <![CDATA[
+// ]]>
+</script>
+<script type="text/javascript">RegisterSod("sp.core.js", "\u002f_layouts\u002fsp.core.js?rev=7ByNlH\u00252BvcgRJg\u00252BRCctdC0w\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("sp.res.resx", "\u002f_layouts\u002fScriptResx.ashx?culture=sk\u00252Dsk\u0026name=SP\u00252ERes\u0026rev=ytvOS6pE0mmoKajkzrpZkg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("sp.runtime.js", "\u002f_layouts\u002fsp.runtime.js?rev=IGffcZfunndj0247nOxKVg\u00253D\u00253D");RegisterSodDep("sp.runtime.js", "sp.core.js");RegisterSodDep("sp.runtime.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("sp.ui.dialog.js", "\u002f_layouts\u002fsp.ui.dialog.js?rev=Tpcmo1\u00252FSu6R0yewHowDl5g\u00253D\u00253D");RegisterSodDep("sp.ui.dialog.js", "sp.core.js");RegisterSodDep("sp.ui.dialog.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("sp.js", "\u002f_layouts\u002fsp.js?rev=\u00252B4ZEyA892P3T0504qi0paw\u00253D\u00253D");RegisterSodDep("sp.js", "sp.core.js");RegisterSodDep("sp.js", "sp.runtime.js");RegisterSodDep("sp.js", "sp.ui.dialog.js");RegisterSodDep("sp.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("cui.js", "\u002f_layouts\u002fcui.js?rev=OOyJv78CADNBeet\u00252FvTvniQ\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("core.js", "\u002f_layouts\u002f1051\u002fcore.js?rev=yCkedZl1yCl8ID5y4VNmOA\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("inplview", "\u002f_layouts\u002finplview.js?rev=WB6Gy8a027aeNCq7koVCUg\u00253D\u00253D");RegisterSodDep("inplview", "core.js");RegisterSodDep("inplview", "sp.js");</script>
+<script type="text/javascript">RegisterSod("ribbon", "\u002f_layouts\u002fsp.ribbon.js?rev=F\u00252BUEJ66rbXzSvpf7nN69wQ\u00253D\u00253D");RegisterSodDep("ribbon", "core.js");RegisterSodDep("ribbon", "sp.core.js");RegisterSodDep("ribbon", "sp.js");RegisterSodDep("ribbon", "cui.js");RegisterSodDep("ribbon", "sp.res.resx");RegisterSodDep("ribbon", "sp.runtime.js");RegisterSodDep("ribbon", "inplview");</script>
+<script type="text/javascript">RegisterSod("sp.ui.policy.resources.resx", "\u002f_layouts\u002fScriptResx.ashx?culture=sk\u00252Dsk\u0026name=SP\u00252EUI\u00252EPolicy\u00252EResources\u0026rev=xHXeot\u00252Fy6t\u00252BG\u00252BbkoXviBdw\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("mdn.js", "\u002f_layouts\u002fmdn.js?rev=gwmFFJ2\u00252FfFacqXWAqG\u00252FqKg\u00253D\u00253D");RegisterSodDep("mdn.js", "sp.core.js");RegisterSodDep("mdn.js", "sp.runtime.js");RegisterSodDep("mdn.js", "sp.js");RegisterSodDep("mdn.js", "cui.js");RegisterSodDep("mdn.js", "ribbon");RegisterSodDep("mdn.js", "sp.ui.policy.resources.resx");</script>
+<script type="text/javascript">RegisterSod("sp.publishing.resources.resx", "\u002f_layouts\u002fScriptResx.ashx?culture=sk\u00252Dsk\u0026name=SP\u00252EPublishing\u00252EResources\u0026rev=2DoLqyqw2UwnkN\u00252B3S\u00252BKevg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("sp.ui.pub.ribbon.js", "\u002f_layouts\u002fsp.ui.pub.ribbon.js?rev=RGQSBI9Dm0E345iq\u00252FxUpHg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("msstring.js", "\u002f_layouts\u002f1051\u002fmsstring.js?rev=tFIz7foaW9Jevi\u00252FpRTJbKA\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("browserScript", "\u002f_layouts\u002f1051\u002fnon_ie.js?rev=EVTj1bu32\u00252FMla6SDN\u00252FsNTA\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSod("search.js", "\u002f_layouts\u002fsearch.js?rev=BjP0\u00252BmPXUFhF7kDZmHIaVg\u00253D\u00253D");</script>
+<script type="text/javascript">RegisterSodDep("browserScript", "msstring.js");</script>
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.initialize();
+//]]>
+</script>
+</form>
+		<!-- extra form for some instances -->
+		
+			<!-- warn users of old browsers that they need to upgrade -->
+			
+			<!-- Starter Master Page by Randy Drisgill (http://blog.drisgill.com) - Oct. 7, 2010 -->
+			<!-- Remove this credit if you want, but if you leave it in I will appreciate it! -->
+			
+	</body>
+</html>
