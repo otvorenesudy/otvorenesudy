@@ -28,7 +28,7 @@ module JusticeGovSk
           @procedure.workplace = @parser.workplace(@document)
           @procedure.closed_at = @parser.closed_at(@document)
 
-          @procedure.save!
+          persist(@procedure)
 
           @parser.commissioners(@document).each do |commissioner|
             commission = selection_procedure_commissioner_by_name_and_selection_procedure_id_factory.find_or_create(commissioner[:name], @procedure.id)
@@ -38,11 +38,15 @@ module JusticeGovSk
             commission.judge = judge_by_name_factory.find(commissioner[:name])
             commission.procedure = @procedure
 
-            commission.save!
+            persist(commision)
           end
 
-          @parser.candidates_urls.each do |url|
-            JusticeGovSk.crawl_resource SelectionProcedureCandidate, url, safe: true
+          @parser.candidates_urls(@document).each do |url|
+            candidate = JusticeGovSk.crawl_resource SelectionProcedureCandidate, url, safe: true
+
+            candidate.procedure = @procedure
+
+            persist(candidate)
           end
 
           @procedure
