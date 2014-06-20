@@ -29,7 +29,7 @@ module JusticeGovSk
       path = "#{path}?#{uri.query}" unless uri.query.nil?
       "#{path}.#{ext || :html}" unless path.blank?
     end
-    
+
     def self.path_to_url(path)
       name = File.basename path, '.html'
 
