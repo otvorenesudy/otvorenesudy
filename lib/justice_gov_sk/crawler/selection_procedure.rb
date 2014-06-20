@@ -38,15 +38,11 @@ module JusticeGovSk
             commission.judge = judge_by_name_factory.find(commissioner[:name])
             commission.procedure = @procedure
 
-            @persistor.persist(commision)
+            @persistor.persist(commission)
           end
 
           @parser.candidates_urls(@document).each do |url|
-            candidate = JusticeGovSk.crawl_resource SelectionProcedureCandidate, url, safe: true
-
-            candidate.procedure = @procedure
-
-            @persistor.persist(candidate)
+            JusticeGovSk.crawl_resource SelectionProcedureCandidate, url, safe: true, procedure: @procedure
           end
 
           @procedure

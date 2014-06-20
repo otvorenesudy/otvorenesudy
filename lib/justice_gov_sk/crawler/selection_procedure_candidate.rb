@@ -1,6 +1,12 @@
 module JusticeGovSk
   class Crawler
     class SelectionProcedureCandidate < JusticeGovSk::Crawler
+      def initialize(options)
+        super(options)
+
+        @procedure = options[:procedure]
+      end
+
       protected
 
       def process(request)
