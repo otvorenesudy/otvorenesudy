@@ -85,6 +85,34 @@ describe JusticeGovSk::Parser::SelectionProcedure do
       expect(names).to eql(['JUDr. Soňa Zmeková', 'JUDr. Roman Greguš', 'JUDr. Lýdia Gálisová', 'JUDr. Rudolf Čirč', 'JUDr. Ondrej Laciak, PhD.'])
     end
   end
+
+  describe '#candidates_urls' do
+    it 'returns urls of candidates' do
+      expect(parser.candidates_urls(document)).to eql([
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11392',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11397',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11402',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11407',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11412',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11417',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11422',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11427',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11432',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11437',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11442',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11447',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11452',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11457',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11462',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11467',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11472',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11477',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11482',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11487',
+       '/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania.aspx?Ic=11492'
+      ])
+    end
+  end
 end
 
 describe JusticeGovSk::Parser::SelectionProcedure::CommissionersParser do
