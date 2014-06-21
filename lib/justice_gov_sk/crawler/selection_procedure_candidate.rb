@@ -29,6 +29,8 @@ module JusticeGovSk
           @candidate.position = @parser.position(@document)
           @candidate.judge = judge_by_name_factory.find(@candidate.name)
 
+          # TODO crawl documents for candidate (see parser for urls)
+
           @candidate
         end
       end

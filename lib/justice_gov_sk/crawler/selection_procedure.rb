@@ -45,6 +45,8 @@ module JusticeGovSk
             JusticeGovSk.crawl_resource SelectionProcedureCandidate, url, safe: true, procedure: @procedure
           end
 
+          # TODO crawl all documents (see parser for urls) for selection procedure
+
           @procedure
         end
       end

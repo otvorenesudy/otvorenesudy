@@ -10,12 +10,16 @@ module JusticeGovSk
       end
 
       def page(document)
+        # TODO figure our caching and clear
+
         find_value 'page', document, 'tr.CssPager select:first-child option[selected="selected"]' do |option|
           option.text.to_i
         end
       end
 
       def pages(document)
+        # TODO figure out caching and clear
+
         find_value 'pages', document, 'tr.CssPager select:first-child option:last-child' do |option|
           option.text.to_i
         end
