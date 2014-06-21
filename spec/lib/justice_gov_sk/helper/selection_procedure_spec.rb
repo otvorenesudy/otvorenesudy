@@ -39,5 +39,15 @@ describe JusticeGovSk::Helper::SelectionProcedure do
       expect(unprocessed).to eql(['JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'])
       expect(names).to eql(['JUDr. Nora Vladová'])
     end
+
+    it 'parses commissioners with complex notes' do
+      value = 'JUDr. Janka Gažovičová, JUDr. Tibor Kubík, JUDr. Ondrej Laciak, PhD., JUDr. Jaroslav Chlebovič, JUDr. Ľubomír Hudák - zvolený plénom Okresného súdu Malacky'
+
+      names = subject.parse_commissioners(value).map { |name| name[:name] }
+      unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
+
+      expect(unprocessed).to eql(['JUDr. Janka Gažovičová', 'JUDr. Tibor Kubík', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Jaroslav Chlebovič', 'JUDr. Ľubomír Hudák - zvolený plénom Okresného súdu Malacky'])
+      expect(names).to eql(['JUDr. Janka Gažovičová', 'JUDr. Tibor Kubík', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Jaroslav Chlebovič', 'JUDr. Ľubomír Hudák'])
+    end
   end
 end

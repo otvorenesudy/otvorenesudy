@@ -35,7 +35,7 @@ module JusticeGovSk::Helper::SelectionProcedure
 
     values.map do |name|
       unprocessed = name
-      name        = normalize_person_name(name.gsub(/-\s*\p{Word}+\s*zvolen[ýá] .+\z/i, ''))
+      name        = normalize_person_name(name.gsub(/-.*zvolen[ýá] .+\z/i, ''))
 
       { name: name, unprocessed: unprocessed }
     end
