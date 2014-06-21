@@ -119,39 +119,3 @@ describe JusticeGovSk::Parser::SelectionProcedure do
     end
   end
 end
-
-describe JusticeGovSk::Parser::SelectionProcedure::CommissionersParser do
-  let(:parser) { described_class }
-
-  describe '.parse' do
-    it 'parses commissioners provided as list' do
-      value = '1. JUDr. Tibor Kubík 2. JUDr. Ľuboš Sádovský 3. JUDr. Imrich Volkai 4. JUDr. Ingrid Doležajová 5. posledný člen bude zvolený sudcovskou radou'
-
-      names = parser.parse(value).map { |name| name[:name] }
-      unprocessed = parser.parse(value).map { |name| name[:unprocessed] }
-
-      expect(unprocessed).to eql(['JUDr. Tibor Kubík', 'JUDr. Ľuboš Sádovský', 'JUDr. Imrich Volkai', 'JUDr. Ingrid Doležajová'])
-      expect(names).to eql(['JUDr. Tibor Kubík', 'JUDr. Ľuboš Sádovský', 'JUDr. Imrich Volkai', 'JUDr. Ingrid Doležajová'])
-    end
-
-    it 'parses commissioners provided as comma-separated value' do
-      value = 'JUDr.Daniel Hudák, JUDr.Ondrej Laciak,PhD.,JUDr.Ľuboš Sádovský, JUDr. Jana Bajánková, JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'
-
-      names = parser.parse(value).map { |name| name[:name] }
-      unprocessed = parser.parse(value).map { |name| name[:unprocessed] }
-
-      expect(unprocessed).to eql(['JUDr.Daniel Hudák', 'JUDr.Ondrej Laciak, PhD.', 'JUDr.Ľuboš Sádovský', 'JUDr. Jana Bajánková', 'JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'])
-      expect(names).to eql(['JUDr. Daniel Hudák', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Ľuboš Sádovský', 'JUDr. Jana Bajánková', 'JUDr. Nora Vladová'])
-    end
-
-    it 'parses commissioners with notes' do
-      value = 'JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'
-
-      names = parser.parse(value).map { |name| name[:name] }
-      unprocessed = parser.parse(value).map { |name| name[:unprocessed] }
-
-      expect(unprocessed).to eql(['JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'])
-      expect(names).to eql(['JUDr. Nora Vladová'])
-    end
-  end
-end
