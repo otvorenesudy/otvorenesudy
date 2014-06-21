@@ -61,6 +61,13 @@ OpenCourts::Application.routes.draw do
     end
   end
 
+  resources :selection_procedures, only: [:show] do
+    collection do
+      get :search
+      get :suggest
+    end
+  end
+
   devise_for :users
 
   resource :users, only: [] do
