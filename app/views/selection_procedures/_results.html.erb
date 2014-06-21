@@ -1,0 +1,43 @@
+<%= search_list_tag results, offset: offset do |procedure| %>
+  <li>
+    <h4>
+      <%= link_to selection_procedure_path(procedure) do %>
+        <%= procedure.position %> &ndash; <%= procedure.organization_name %>
+      <% end %>
+      <br/>
+      <small>
+        Rozhodnutie sa <%= procedure.closed_at.future? ? 'uzavrie' : 'uzavrelo' %>
+        <%= time_tag procedure.closed_at.to_date, format: :long %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      Stav &ndash; <%= procedure.state %>
+      <br/>
+
+      Organizácia &ndash; <%= procedure.court ? link_to_court(procedure.court) : procedure.organization_name %>
+      <br/>
+
+      <% unless procedure.commissioners.empty? %>
+        Členovia komisie &ndash;
+        <%= procedure.commissioners.map { |candidate| %>
+          <% candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
+        <% }.to_sentence.html_safe %>
+        <br/>
+      <% end %>
+
+      <% unless procedure.candidates.empty? %>
+        Kandidáti &ndash;
+        <%= procedure.candidates.map { |candidate| %>
+          <% candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
+        <% }.to_sentence.html_safe %>
+        <br/>
+        <% end %>
+
+      <% if procedure.workplace? %>
+        Miesto výkonu práce &ndash; <%= procedure.workplace %>
+        <br/>
+      <% end %>
+    </div>
+  </li>
+<% end %>

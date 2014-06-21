@@ -371,3 +371,54 @@ sk:
         title: 'Zobraziť iba ukončené konania'
         value: 'Zobraziť iba ukončené konania'
 
+    selection_procedure:
+      q:
+        title: 'Text konania'
+        placeholder: 'Vyhľadávanie vo výberových konaniach'
+
+      organization_name:
+        title: 'Organizácia'
+        placeholder: 'Meno organizácie'
+        missing: 'neuvedené'
+        not_found: 'Nenájdené žiadne organizácie.'
+
+      candidates:
+        title: 'Kandidát'
+        placeholder: 'Meno kandidáta'
+        missing: 'neuvedené'
+        not_found: 'Nenájdené žiadni kandidáti.'
+
+      commissioners:
+        title: 'Člen komisie'
+        placeholder: 'Meno člena komisie'
+        missing: 'neuvedené'
+        not_found: 'Nenájdené žiadni členovia.'
+
+      position:
+        title: 'Pozícia'
+        placeholder: 'Pozícia'
+        missing: 'neuvedená'
+        not_found: 'Nenájdené žiadne pozície.'
+
+      state:
+        title: 'Stav'
+        missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne stavy.'
+
+      place:
+        title: 'Miesto konania'
+        placeholder: 'Miesto konania'
+        missing: 'neuvedené'
+        not_found: 'Nenájdené žiadne miesta.'
+
+      workplace:
+        title: 'Miesto výkonu práce'
+        placeholder: 'Miesto výkonu práce'
+        missing: 'neuvedené'
+        not_found: 'Nenájdené žiadne miesta.'
+
+      closed_at:
+        title: 'Dátum uzavierky'
+
+      date:
+        title: 'Dátum konania'

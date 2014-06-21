@@ -49,6 +49,12 @@ sk:
       proceeding:
         <<: *sort
 
+      selection_procedure:
+        <<: *sort
+
+        date: 'Dátum konania'
+        closed_at: 'Dátum uzávierky'
+
   static_pages:
     about: 'O projekte'
     faq: 'Často kladené otázky'
