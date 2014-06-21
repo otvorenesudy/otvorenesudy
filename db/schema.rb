@@ -657,6 +657,8 @@ ActiveRecord::Schema.define(:version => 20140605144100) do
     t.string   "oral_result"
     t.string   "written_score"
     t.string   "written_result"
+    t.string   "score"
+    t.string   "position"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end

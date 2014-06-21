@@ -25,7 +25,8 @@ module JusticeGovSk
           @candidate.oral_result = @parser.oral_result(@document)
           @candidate.written_score = @parser.written_score(@document)
           @candidate.written_result = @parser.written_result(@document)
-
+          @candidate.score = @parser.score(@document)
+          @candidate.position = @parser.position(@document)
           @candidate.judge = judge_by_name_factory.find(@candidate.name)
 
           @candidate
