@@ -20,11 +20,11 @@ class Probe::Facets
     end
 
     def id
-      @id ||= "#{base.to_s.downcase}-#{name}"
+      @id ||= "#{base.to_s.underscore}-#{name}"
     end
 
     def key
-      @key ||= "facets.#{base.to_s.downcase}.#{name}"
+      @key ||= "facets.#{base.to_s.underscore}.#{name}"
     end
 
     def params
