@@ -10,13 +10,13 @@ module JusticeGovSk
       end
 
       def page(document)
-        @page ||= find_value 'page', document, 'tr.CssPager select:first-child option[selected="selected"]' do |option|
+        find_value 'page', document, 'tr.CssPager select:first-child option[selected="selected"]' do |option|
           option.text.to_i
         end
       end
 
       def pages(document)
-        @pages ||= find_value 'pages', document, 'tr.CssPager select:first-child option:last-child' do |option|
+        find_value 'pages', document, 'tr.CssPager select:first-child option:last-child' do |option|
           option.text.to_i
         end
       end
