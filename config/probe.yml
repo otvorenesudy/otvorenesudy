@@ -1,5 +1,5 @@
 defaults: &defaults
-  indices: [courts, judges, hearings, decrees, decree_pages, proceedings]
+  indices: [courts, judges, hearings, decrees, decree_pages, proceedings, selection_procedures]
 
   per_page: 20
 
