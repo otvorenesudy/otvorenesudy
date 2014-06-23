@@ -30,6 +30,16 @@ describe JusticeGovSk::Helper::SelectionProcedure do
       expect(names).to eql(['JUDr. Daniel Hudák', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Ľuboš Sádovský', 'JUDr. Jana Bajánková', 'JUDr. Nora Vladová'])
     end
 
+    it 'parses commissioners provided as comma-separated value with wrong titles' do
+      value = 'doc. JUDr. Milan Ďurica, PhD., JUDr. Marian Török, JUDr. Ing. Ján Gandžala PhD., JUDr. Peter Zachar, JUDr. Ondrej Laciak, Phd.,'
+
+      names = subject.parse_commissioners(value).map { |name| name[:name] }
+      unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
+
+      expect(names).to eql(['doc. JUDr. Milan Ďurica, PhD.', 'JUDr. Marian Török', 'JUDr. Ing. Ján Gandžala, PhD.', 'JUDr. Peter Zachar', 'JUDr. Ondrej Laciak, PhD.'])
+      expect(unprocessed).to eql(['doc. JUDr. Milan Ďurica, PhD.', 'JUDr. Marian Török', 'JUDr. Ing. Ján Gandžala PhD.', 'JUDr. Peter Zachar', 'JUDr. Ondrej Laciak, PhD.'])
+    end
+
     it 'parses commissioners with notes' do
       value = 'JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'
 

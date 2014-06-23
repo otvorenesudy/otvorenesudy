@@ -19,7 +19,7 @@ module JusticeGovSk::Helper::SelectionProcedure
       replacements = ['PhD', 'CSc']
 
       replacements.each do |replacement|
-        value.gsub!(/,\s*#{replacement}/, "-#{replacement}")
+        value.gsub!(/,\s*#{replacement}/i, "-#{replacement}")
       end
 
       values = value.split(/[;,]/)
