@@ -32,9 +32,9 @@ namespace :fixtures do
 
     desc "Crawls small amount hearings"
     task hearings: :environment do
-      Rake::Task['crawl:hearings:civil'].invoke    1, 20
-      Rake::Task['crawl:hearings:criminal'].invoke 1, 20
-      Rake::Task['crawl:hearings:special'].invoke  1, 20
+      Rake::Task['crawl:hearings:civil'].invoke    1, 5
+      Rake::Task['crawl:hearings:criminal'].invoke 1, 5
+      Rake::Task['crawl:hearings:special'].invoke  1, 5
     end
 
     desc "Crawls small amount of decrees"
@@ -49,7 +49,7 @@ namespace :fixtures do
 
       codes.each do |form|
         Rake::Task['crawl:decrees'].reenable
-        Rake::Task['crawl:decrees'].invoke form.code, 1, 4
+        Rake::Task['crawl:decrees'].invoke form.code, 1, 2
       end
     end
 
