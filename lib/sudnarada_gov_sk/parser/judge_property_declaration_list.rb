@@ -9,7 +9,8 @@ module SudnaradaGovSk
             data = row.search('td')
 
             data.search('a').each do |a|
-              url   = "#{SudnaradaGovSk::URL.base}#{a[:href].ascii}"
+              href  = a[:href].ascii.strip.tap { |value| raise 'No URL found' if value.blank? || value == '#' }
+              url   = "#{SudnaradaGovSk::URL.base}#{href}"
               court = data[1].text
               judge = data[0].text
 
