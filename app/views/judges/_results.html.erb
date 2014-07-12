@@ -1,10 +1,10 @@
 <%= search_list_tag results, offset: offset do |judge| %>
   <li>
     <h4>
-      <%= link_to_judge judge %>
+      <%= link_to_judge judge, :'data-searchd-result' => judge.name %>
       <span class="muted"><%= judge_activity_tag judge.active?, placement: :right %></span>
     </h4>
-    
+
     <div class="search-result-content">
       <% judge.employments.each do |employment| %>
         <p<%= ' class="muted"'.html_safe unless judge.active? %>>

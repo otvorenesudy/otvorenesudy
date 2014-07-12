@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |court| %>
   <li>
     <h4>
-      <%= link_to_court court %>
+      <%= link_to_court court, :'data-searchd-result' => court.name %>
       <br/>
       <small><%= court.address %></small>
     </h4>

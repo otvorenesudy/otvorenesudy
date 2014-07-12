@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |procedure| %>
   <li>
     <h4>
-      <%= link_to selection_procedure_path(procedure) do %>
+      <%= link_to selection_procedure_path(procedure), :'data-searchd-result' => "Procedure ##{procedure.id}" do %>
         <%= procedure.position %> &ndash; <%= procedure.organization_name %>
       <% end %>
       <br/>

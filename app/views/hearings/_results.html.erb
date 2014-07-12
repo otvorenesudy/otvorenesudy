@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |hearing| %>
   <li>
     <h4>
-      <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+      <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67), :'data-searchd-result' => "Hearing ##{hearing.id}" %>
       <br/>
       <small>
         Pojednávanie <%= hearing.historical ? "malo prebehnúť" : "prebehne" %> dňa &ndash;

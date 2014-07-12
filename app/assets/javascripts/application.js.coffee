@@ -33,3 +33,4 @@
 #= require_tree ./document_viewer
 #= require decree_pages
 #= require analytics
+#= require searchd
