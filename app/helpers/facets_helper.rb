@@ -110,7 +110,7 @@ module FacetsHelper
 
     options.merge! title: value if body != value
 
-    options.merge!(:'data-searchd-filter' => "#{facet.id}", :'data-searchd-value' => result.value) if result.selected
+    options.merge!(:'data-searchd-filter' => "#{facet.id}", :'data-searchd-filter-value' => result.value) if result.selected
 
     link_to body, search_path(result.params), options
   end
