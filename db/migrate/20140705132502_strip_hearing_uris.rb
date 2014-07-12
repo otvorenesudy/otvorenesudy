@@ -8,7 +8,7 @@ class StripHearingUris < ActiveRecord::Migration
         record.uri.strip!
 
         # TODO resolve non-unique urls after strip
-        record.save! rescue nil
+        record.save
       end
     end
 
