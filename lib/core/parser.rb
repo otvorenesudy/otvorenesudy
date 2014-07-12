@@ -1,7 +1,7 @@
 module Core
   module Parser
     def parse(content, options = {})
-      clear if self.respond_to? :clear
+      clear
 
       print "Parsing content ... "
 
@@ -11,6 +11,11 @@ module Core
       puts "#{document ? 'done' : 'failed'}#{message.blank? ? '' : " (#{message})"}"
 
       document
+    end
+
+    protected
+
+    def clear
     end
   end
 end

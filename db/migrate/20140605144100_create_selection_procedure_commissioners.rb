@@ -12,7 +12,7 @@ class CreateSelectionProcedureCommissioners < ActiveRecord::Migration
     end
 
     add_index :selection_procedure_commissioners, :selection_procedure_id,
-      name: :index_commissioners_on_selection_procedure
+               name: :index_commissioners_on_selection_procedure
 
     add_index :selection_procedure_commissioners, :judge_id
 

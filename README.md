@@ -114,6 +114,8 @@ rake work:decrees
 
 ### Judge property declarations from sudnarada.gov.sk
 
+*Warning! Judge property declarations processing currently fails as sudnarada.gov.sk switched from semi-structured (HTML tables) to unstructured (PDF document) publishing for years 2011, 2012 and 2013.* 
+
 Crawl judge property declarations:
 
 ```

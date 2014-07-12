@@ -5,7 +5,7 @@ module JusticeGovSk
 
       def list(document)
         find_values 'list', document, 'table.GridTable td[align=right] a', verbose: false do |anchors|
-          anchors.map { |a| "#{JusticeGovSk::URL.base}#{a[:href]}" }
+          anchors.map { |a| "#{JusticeGovSk::URL.base}#{a[:href].strip}" }
         end
       end
 
