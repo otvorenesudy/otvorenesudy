@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |decree, highlight| %>
   <li>
     <h4>
-      <%= link_to decree_path(decree, nil, params: { q: params[:q] }, :'data-searchd-result' => "Decree ##{decree.id}") do %>
+      <%= link_to decree_path(decree, nil, params: { q: params[:q] }), :'data-searchd-result' => "Decree ##{decree.id}" do %>
         <%= decree_headline decree, limit: 67 %>
         <% if decree.natures.any? %>
           <br/>
