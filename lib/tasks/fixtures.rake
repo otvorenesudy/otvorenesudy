@@ -98,7 +98,7 @@ namespace :fixtures do
           year: line[0],
           acronym: line[2],
           name: line[3],
-          value: line[4].to_f
+          value: line[4].sub(/\,/, '.')
         }
 
         lines += 1
