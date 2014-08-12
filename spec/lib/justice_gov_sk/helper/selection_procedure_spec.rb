@@ -51,13 +51,35 @@ describe JusticeGovSk::Helper::SelectionProcedure do
     end
 
     it 'parses commissioners with complex notes' do
-      value = 'JUDr. Janka Gažovičová, JUDr. Tibor Kubík, JUDr. Ondrej Laciak, PhD., JUDr. Jaroslav Chlebovič, JUDr. Ľubomír Hudák - zvolený plénom Okresného súdu Malacky'
+      value = 'JUDr. Janka Gažovičová, JUDr. Ľubomír Hudák - zvolený plénom Okresného súdu Malacky, JUDr. Juraj Danko -späťvzatie žiadosti, JUDr. Anna Mýtniková - nezúčastní sa VK, JUDr. Juraj Palko späťvzatie žiadosti, JUDr. Otília Doláková - za sudcovskú radu OS BA I, JUDr. Otília Doláková za sudcovskú radu OS BA I,'
 
       names = subject.parse_commissioners(value).map { |name| name[:name] }
       unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
 
-      expect(unprocessed).to eql(['JUDr. Janka Gažovičová', 'JUDr. Tibor Kubík', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Jaroslav Chlebovič', 'JUDr. Ľubomír Hudák - zvolený plénom Okresného súdu Malacky'])
-      expect(names).to eql(['JUDr. Janka Gažovičová', 'JUDr. Tibor Kubík', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Jaroslav Chlebovič', 'JUDr. Ľubomír Hudák'])
+      expect(unprocessed).to eql(['JUDr. Janka Gažovičová', 'JUDr. Ľubomír Hudák - zvolený plénom Okresného súdu Malacky', 'JUDr. Juraj Danko -späťvzatie žiadosti', 'JUDr. Anna Mýtniková - nezúčastní sa VK', 'JUDr. Juraj Palko späťvzatie žiadosti', 'JUDr. Otília Doláková - za sudcovskú radu OS BA I', 'JUDr. Otília Doláková za sudcovskú radu OS BA I'])
+      expect(names).to eql(['JUDr. Janka Gažovičová', 'JUDr. Ľubomír Hudák', 'JUDr. Juraj Danko', 'JUDr. Anna Mýtniková', 'JUDr. Juraj Palko', 'JUDr. Otília Doláková', 'JUDr. Otília Doláková'])
+    end
+
+    it 'parses commissioners provided as space separated values' do
+      value = 'JUDr. Katarína Slováčeková  JUDr. Ján Hrubala  JUDr. Peter Straka  JUDr. Andrej Bartakovič'
+
+      names = subject.parse_commissioners(value).map { |name| name[:name] }
+      unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
+
+      expect(unprocessed).to eql(['JUDr. Katarína Slováčeková', 'JUDr. Ján Hrubala',  'JUDr. Peter Straka', 'JUDr. Andrej Bartakovič'])
+      expect(names).to eql(['JUDr. Katarína Slováčeková', 'JUDr. Ján Hrubala',  'JUDr. Peter Straka', 'JUDr. Andrej Bartakovič'])
+    end
+
+    it 'parses commissioners provided as dash separated values with base court' do
+      pending 'Not Implemented Yet'
+
+      value = 'JUDr.Soňa Zmeková - MS SR  JUDr. Daniel Hudák - MS SR  Mgr. Miroslav Maďar - NR SR  JUDr. Peter Zachar - Súdna rada SR  JUDr. Ľuboš Baka - OS Levice'
+
+      names = subject.parse_commissioners(value).map { |name| name[:name] }
+      unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
+
+      expect(unprocessed).to eql(['JUDr.Soňa Zmeková - MS SR', 'JUDr. Daniel Hudák - MS SR', 'Mgr. Miroslav Maďar - NR SR', 'JUDr. Peter Zachar - Súdna rada SR', 'JUDr. Ľuboš Baka - OS Levice'])
+      expect(names).to eql(['JUDr.Soňa Zmeková', 'JUDr. Daniel Hudák', 'Mgr. Miroslav Maďar', 'JUDr. Peter Zachar', 'JUDr. Ľuboš Baka'])
     end
   end
 end

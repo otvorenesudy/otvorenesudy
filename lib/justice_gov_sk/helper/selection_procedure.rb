@@ -15,6 +15,8 @@ module JusticeGovSk::Helper::SelectionProcedure
 
         name.strip
       }.compact
+    elsif value.match(/\AJUDr.\s*[\p{Word}.,\s]+\s{2}JUDr./)
+      values = value.split(/\s{2}/)
     else
       replacements = ['PhD', 'CSc']
 
@@ -35,7 +37,7 @@ module JusticeGovSk::Helper::SelectionProcedure
 
     values.map do |name|
       unprocessed = name
-      name        = normalize_person_name(name.gsub(/-.*zvolen[ýá] .+\z/i, ''))
+      name        = normalize_person_name(name.gsub(/(-.*){0,1}(zvolen[ýá]|späťvzatie|nezúčastní|za\s+).+\z/i, ''))
 
       { name: name, unprocessed: unprocessed }
     end
