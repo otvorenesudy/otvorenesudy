@@ -1,14 +1,9 @@
 FactoryGirl.define do
-  factory :court_type do
-    sequence(:value) { |n| "Court type #{n}" }
-  end
-
   factory :municipality do
     sequence(:name) { |n| "Municipality #{n}" }
 
     zipcode '0000'
   end
-
 
   factory :court do
     uri
@@ -20,7 +15,7 @@ FactoryGirl.define do
 
     municipality
 
-    type { create :court_type }
+    type { CourtType.all.sample }
 
     trait :with_employments do
       after :create do |court|

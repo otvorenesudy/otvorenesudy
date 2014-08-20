@@ -19,7 +19,7 @@ FactoryGirl.define do
     sequence(:file_number) { |n| "File Number #{n}" }
     sequence(:case_number) { |n| "Case Number #{n}" }
 
-    court
+    association :court
 
     form { create :decree_form }
     date { Time.now }
