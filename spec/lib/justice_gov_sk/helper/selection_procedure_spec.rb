@@ -28,6 +28,14 @@ describe JusticeGovSk::Helper::SelectionProcedure do
 
       expect(unprocessed).to eql(['JUDr.Daniel Hudák', 'JUDr.Ondrej Laciak, PhD.', 'JUDr.Ľuboš Sádovský', 'JUDr. Jana Bajánková', 'JUDr.Nora Vladová-členka zvolená sudcovskou radou pri Okresnom súde Bratislava II'])
       expect(names).to eql(['JUDr. Daniel Hudák', 'JUDr. Ondrej Laciak, PhD.', 'JUDr. Ľuboš Sádovský', 'JUDr. Jana Bajánková', 'JUDr. Nora Vladová'])
+
+      value = 'JUDr. Ondrej Laciak, PhD., JUDr. Alena Radičová, JUDr. Daniel Hudák, JUDr. Jaroslav Chlebovič, Mgr. Peter Melicher'
+
+      names = subject.parse_commissioners(value).map { |name| name[:name] }
+      unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
+
+      expect(unprocessed).to eql(['JUDr. Ondrej Laciak, PhD.', 'JUDr. Alena Radičová', 'JUDr. Daniel Hudák', 'JUDr. Jaroslav Chlebovič', 'Mgr. Peter Melicher'])
+      expect(names).to eql(['JUDr. Ondrej Laciak, PhD.', 'JUDr. Alena Radičová', 'JUDr. Daniel Hudák', 'JUDr. Jaroslav Chlebovič', 'Mgr. Peter Melicher'])
     end
 
     it 'parses commissioners provided as comma-separated value with wrong titles' do
@@ -80,6 +88,16 @@ describe JusticeGovSk::Helper::SelectionProcedure do
 
       expect(unprocessed).to eql(['JUDr.Soňa Zmeková - MS SR', 'JUDr. Daniel Hudák - MS SR', 'Mgr. Miroslav Maďar - NR SR', 'JUDr. Peter Zachar - Súdna rada SR', 'JUDr. Ľuboš Baka - OS Levice'])
       expect(names).to eql(['JUDr.Soňa Zmeková', 'JUDr. Daniel Hudák', 'Mgr. Miroslav Maďar', 'JUDr. Peter Zachar', 'JUDr. Ľuboš Baka'])
+    end
+
+    it 'parses commissioners provided as completely unstructured data with spaces' do
+      value = 'JUDr. Daniel Hudák       menovaný za MS SR  JUDr. Ľuboš Sádovský      menovaný za MS SR  JUDr. Ondrej Laciak       zvolený za NR SR  '
+
+      names = subject.parse_commissioners(value).map { |name| name[:name] }
+      unprocessed = subject.parse_commissioners(value).map { |name| name[:unprocessed] }
+
+      expect(unprocessed).to eql(['JUDr. Daniel Hudák', 'JUDr. Ľuboš Sádovský', 'JUDr. Ondrej Laciak'])
+      expect(names).to eql(['JUDr. Daniel Hudák', 'JUDr. Ľuboš Sádovský', 'JUDr. Ondrej Laciak'])
     end
   end
 end

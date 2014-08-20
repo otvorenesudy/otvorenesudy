@@ -18,7 +18,7 @@ module JusticeGovSk::Helper::SelectionProcedure
     elsif value.match(/\AJUDr.\s*[\p{Word}.,\s]+\s{2}JUDr./)
       values = value.split(/\s{2}/)
     else
-      replacements = ['PhD', 'CSc']
+      replacements = ['PhD', 'CSc', 'LLM-PhD']
 
       replacements.each do |replacement|
         value.gsub!(/,\s*#{replacement}/i, "-#{replacement}")
@@ -35,11 +35,15 @@ module JusticeGovSk::Helper::SelectionProcedure
       end
     end
 
-    values.map do |name|
+    values.map { |name|
+      next unless name.present?
+
       unprocessed = name
-      name        = normalize_person_name(name.gsub(/(-.*){0,1}(zvolen[ýá]|späťvzatie|nezúčastní|za\s+).+\z/i, ''))
+      name        = normalize_person_name(name.gsub(/(-.*){0,1}(zvolen[ýá]|menovan[ýá]|späťvzatie|nezúčastní|za\s+).+\z/i, ''))
+
+      next unless name.present?
 
       { name: name, unprocessed: unprocessed }
-    end
+    }.compact
   end
 end
