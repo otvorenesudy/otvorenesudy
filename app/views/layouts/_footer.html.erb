@@ -2,19 +2,19 @@
   <div class="container">
     <div class="row">
       <div class="span3">
-        <h4>Otvorené Súdy <%= icon_tag :legal %></h4>
+        <h4><%= t '.open_courts' %> <%= icon_tag :legal %></h4>
       </div>
 
       <div class="span3">
-        <h4>Prehlásenia <%= icon_tag :'file-text-alt' %></h4>
+        <h4><%= t '.statements' %> <%= icon_tag :'file-text-alt' %></h4>
       </div>
 
       <div class="span3">
-        <h4>Transparentnosť <%= icon_tag :ok %></h4>
+        <h4><%= t '.transparency' %> <%= icon_tag :ok %></h4>
       </div>
 
       <div class="span3">
-        <h4>Dáta <%= icon_tag :hdd %></h4>
+        <h4><%= t '.data' %> <%= icon_tag :hdd %></h4>
       </div>
     </div>
 
@@ -24,10 +24,10 @@
       <div class="span3">
         <nav>
           <ul class="nav pull-left">
-            <li><%= link_to "O projekte", static_page_path(:about) %></li>
-            <li><%= link_to "Často kladené otázky", static_page_path(:faq) %></li>
-            <li><%= external_link_to "Podporte projekt", 'http://transparency.darujme.sk/238' %></li>
-            <li><%= link_to "Kontakt", static_page_path(:contact) %></li>
+            <li><%= link_to t('.about'), static_page_path(:about) %></li>
+            <li><%= link_to t('.faq'), static_page_path(:faq) %></li>
+            <li><%= external_link_to t('.support_us'), 'http://transparency.darujme.sk/238' %></li>
+            <li><%= link_to t('.contact'), static_page_path(:contact) %></li>
           </ul>
         </nav>
       </div>
@@ -35,9 +35,9 @@
       <div class="span3">
         <nav>
           <ul class="nav pull-left">
-            <li><%= link_to "Podmienky používania", static_page_path(:'terms-of-use') %></li>
-            <li><%= link_to "Ochrana súkromia", static_page_path(:privacy) %></li>
-            <li><%= link_to "Autorské práva", static_page_path(:copyright) %></li>
+            <li><%= link_to t('.tos'), static_page_path(:'terms-of-use') %></li>
+            <li><%= link_to t('.privacy'), static_page_path(:privacy) %></li>
+            <li><%= link_to t('.copyright'), static_page_path(:copyright) %></li>
           </ul>
         </nav>
       </div>
@@ -45,9 +45,9 @@
       <div class="span3">
         <nav>
           <ul class="nav pull-left">
-            <li><%= link_to "Našli ste chybu?", static_page_path(:feedback) %></li>
-            <li><%= link_to "Bezpečnosť", static_page_path(:security) %></li>
-            <li><%= external_link_to "Zdrojový kód", url_to_repository %></li>
+            <li><%= link_to t('.found_mistake'), static_page_path(:feedback) %></li>
+            <li><%= link_to t('.security'), static_page_path(:security) %></li>
+            <li><%= external_link_to t('.source_code'), url_to_repository %></li>
           </ul>
         </nav>
       </div>
@@ -55,9 +55,9 @@
       <div class="span3">
         <nav>
           <ul class="nav pull-left">
-            <li><%= link_to "Ako to funguje?", static_page_path(:'how-it-works') %></li>
-            <li><%= link_to "História dát", static_page_path(:'data-history') %></li>
-            <li><%= link_to "API", static_page_path(:api) %></li>
+            <li><%= link_to t('.how_it_works'), static_page_path(:'how-it-works') %></li>
+            <li><%= link_to t('.data_history'), static_page_path(:'data-history') %></li>
+            <li><%= link_to t('.api'), static_page_path(:api) %></li>
           </ul>
         </nav>
       </div>
@@ -70,12 +70,12 @@
         <nav>
           <ul class="open inline">
             <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
-            <li><strong>Open data projekty</strong></li>
-            <li><%= external_link_to "Cena štátu", 'http://cenastatu.sme.sk', track_data(:'sme-cenastatu') %></li>
-            <li><%= external_link_to "Obce", 'http://obce.sme.sk', track_data(:'sme-obce') %></li>
-            <li><%= external_link_to "Školy", 'http://skoly.sme.sk', track_data(:'sme-skoly') %></li>
-            <li><%= external_link_to "Verejné obstarávanie", 'http://tender.sme.sk', track_data(:'sme-tender') %></li>
-            <li><%= external_link_to "Vysoké školy", 'http://vysokeskoly.sme.sk', track_data(:'sme-vysokeskoly') %></li>
+            <li><strong><%= t '.open_data_projects' %></strong></li>
+            <li><%= external_link_to t('.price_of_state'), 'http://cenastatu.sme.sk', track_data(:'sme-cenastatu') %></li>
+            <li><%= external_link_to t('.municipalities'), 'http://obce.sme.sk', track_data(:'sme-obce') %></li>
+            <li><%= external_link_to t('.schools'), 'http://skoly.sme.sk', track_data(:'sme-skoly') %></li>
+            <li><%= external_link_to t('.procurements'), 'http://tender.sme.sk', track_data(:'sme-tender') %></li>
+            <li><%= external_link_to t('.universities'), 'http://vysokeskoly.sme.sk', track_data(:'sme-vysokeskoly') %></li>
           </ul>
         </nav>
       </div>
@@ -98,19 +98,19 @@
     <div class="row">
       <div class="span12">
         <div class="note centered muted">
-          Projekt využíva výhradne dáta verejných inštitúcií. Za ich vecnú správnosť autori nenesú zodpovednosť.
+          <%= t '.closing' %>
         </div>
         <div class="note centered muted">
           <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %>
           a <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
-          (členovia <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
+          (<%= t '.members' %> <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> <%= t '.at' %>
           <%= external_link_to "FIIT", 'http://fiit.stuba.sk' %>
           <%= external_link_to "STU", 'http://stuba.sk' %>)
-          v spolupráci s <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
+          <%= t '.in_collaboration_with' %> <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
           <br/>
-          za podpory <%= external_link_to "Transparency International", 'http://transparency.org' %>
-          v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
-          <%= external_link_to "Centra pre filantropiu", 'http://cpf.sk' %>
+          <%= t '.with_support_of' %> <%= external_link_to "Transparency International", 'http://transparency.org' %>
+          <%= t '.and_project' %> <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
+          <%= external_link_to t('.centre_for_philanthropy'), 'http://cpf.sk' %>
           <br/>
           Copyright 2014 &middot;
           <%= link_to Configuration.github.organization, url_to_organization %> &middot;
