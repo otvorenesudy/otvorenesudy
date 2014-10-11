@@ -13,7 +13,7 @@
   </div>
 
   <div class="row">
-    <div class="span8">
+    <div class="span12">
       <p>Stav &ndash; <%= @procedure.state %></p>
       <% if @procedure.position %>
         <p>Pozícia &ndash; <%= @procedure.position %></p>
@@ -27,21 +27,20 @@
       <% if @procedure.workplace %>
         <p>Miesto výkonu práce &ndash; <%= @procedure.workplace %></p>
       <% end %>
-      <% if @procedure.date %>
-        <p>Termín konania &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
-      <% end %>
       <% if @procedure.place %>
         <p>Miesto konania &ndash; <%= @procedure.place %></p>
       <% end %>
-      <p><%= external_link_to 'Pôvodný dokument', @procedure.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
-    </div>
 
-    <% if @procedure.description %>
-      <div class="span4">
-        <h4>Priebeh konania</h4>
+      <% if @procedure.date %>
+        <p>Termín konania &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
+      <% end %>
+      <p><%= external_link_to 'Pôvodný dokument', @procedure.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+
+      <% if @procedure.description %>
+        <hr/>
         <p class="justified"><%= @procedure.description %></p>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </section>
 
