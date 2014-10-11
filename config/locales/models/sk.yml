@@ -47,6 +47,18 @@ sk:
     few: 'obžalovaní'
     other: 'obžalovaní'
 
+  candidate:
+    zero: 'kandidátov'
+    one: 'kandidát'
+    few: 'kandidáti'
+    other: 'kandidátov'
+
+  commissioner:
+    zero: 'členov komisie'
+    one: 'člen komisie'
+    few: 'členovia komisie'
+    other: 'členov komisie'
+
   document: &document
     zero: 'dokumenty'
     one: 'dokument'
