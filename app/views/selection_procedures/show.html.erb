@@ -1,0 +1,119 @@
+<% provide :title, selection_procedure_title(@procedure) %>
+
+<section id="selection-procedure-profile" class="profile">
+  <div class="page-header">
+    <h1>
+      <%= selection_procedure_headline @procedure, limit: 45, tooltip: true %>
+      <br/>
+      <small>
+        Výberové konanie sa <%= @procedure.closed_at.future? ? 'uzavrie' : 'uzavrelo' %> dňa
+        <%= time_tag @procedure.closed_at.to_date, format: :long %>
+      </small>
+    </h1>
+  </div>
+
+  <div class="row">
+    <div class="span8">
+      <p>Stav &ndash; <%= @procedure.state %></p>
+      <% if @procedure.position %>
+        <p>Pozícia &ndash; <%= @procedure.position %></p>
+      <% end %>
+      <p>
+        Organizácia &ndash; <%= @procedure.court ? link_to_court(@procedure.court) : @procedure.organization_name %>
+        <% if @procedure.organization_description %>
+          &ndash; <%= @procedure.organization_description %>
+        <% end %>
+      </p>
+      <% if @procedure.workplace %>
+        <p>Miesto výkonu práce &ndash; <%= @procedure.workplace %></p>
+      <% end %>
+      <% if @procedure.date %>
+        <p>Termín konania &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
+      <% end %>
+      <% if @procedure.place %>
+        <p>Miesto konania &ndash; <%= @procedure.place %></p>
+      <% end %>
+      <p><%= external_link_to 'Pôvodný dokument', @procedure.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+    </div>
+
+    <% if @procedure.description %>
+      <div class="span4">
+        <h4>Priebeh konania</h4>
+        <p class="justified"><%= @procedure.description %></p>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<% if @commissioners.any? %>
+  <section id="selectoin-procedure-commissioners">
+    <h2>Výberová komisia</h2>
+
+    <div class="row">
+      <div class="span12">
+        <%= @commissioners.map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @candidates.any? %>
+  <section id="selectoin-procedure-candidates">
+    <h2>Kandidáti</h2>
+
+    <div class="row">
+      <div class="span12">
+        <%= sortable_table_tag class: 'table table-striped' do %>
+          <thead>
+            <tr>
+              <th class="span4">Meno</th>
+              <th class="span2"><%= tooltip_tag "Predpoklady", "Splnenie predpokladov", placement: :top %></th>
+              <th class="span2" data-sorter="digit">Písomná časť</th>
+              <th class="span2" data-sorter="digit">Ústna časť</th>
+              <th class="span1" data-sorter="digit">Výsledok</th>
+              <th class="span1" data-sorter="digit">Poradie</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @candidates.each do |candidate| %>
+            <tr>
+              <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s([^\s.]*)\z/)[1] %>">
+                <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
+              </td>
+              <td>
+                <%= candidate.accomplished_expectations %>
+              </td>
+              <td class="number" data-value="<%= candidate.written_score %>">
+                <%= tooltip_tag candidate.written_score, candidate.written_result, placement: :top if candidate.written_score %>
+              </td>
+              <td class="number" data-value="<%= candidate.oral_score %>">
+                <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: :top if candidate.oral_score %>
+              </td>
+              <td class="number">
+                <%= candidate.score %>
+              </td>
+              <td class="number">
+                <%= candidate.rank %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<section id="selection-procedure-resource" class="resources">
+  <div class="row">
+    <div class="span12">
+      <small class="muted">
+        Informácie o súdnom rozhodnutí boli získané z <%= external_link_to 'dokumentu', @procedure.uri, class: :muted, icon: true %>,
+        ktorého posledná aktualizácia bola vykonaná <%= time_tag @procedure.updated_at.to_date, format: :default %>.
+        <br/>
+        Odkaz na <%= external_link_to 'pôvodný dokument', @procedure.uri, class: :muted, icon: true %> už nemusí byť platný,
+        pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+      </small>
+    </div>
+  </div>
+</section>

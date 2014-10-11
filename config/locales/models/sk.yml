@@ -51,7 +51,7 @@ sk:
     zero: 'kandidátov'
     one: 'kandidát'
     few: 'kandidáti'
-    other: 'kandidátov'
+    other: 'kandidáti'
 
   commissioner:
     zero: 'členov komisie'
