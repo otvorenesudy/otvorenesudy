@@ -4,7 +4,7 @@ module JusticeGovSk
       include Core::Storage::Binary
 
       def root
-        @root ||= File.join super, 'cover-letters'
+        @root ||= File.join super, 'cover_letters'
       end
     end
   end
