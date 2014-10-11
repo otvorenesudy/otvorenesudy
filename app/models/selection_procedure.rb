@@ -39,14 +39,14 @@ class SelectionProcedure < ActiveRecord::Base
 
   facets do
     facet :q,                 type: :fulltext, field: :all
-    facet :organization_name, type: :terms
-    facet :candidates,        type: :terms
-    facet :commissioners,     type: :terms
     facet :position,          type: :terms
     facet :state,             type: :terms, size: SelectionProcedure.pluck(:state).uniq.count
+    facet :candidates,        type: :terms
+    facet :organization_name, type: :terms
+    facet :commissioners,     type: :terms
+    facet :date,              type: :date, interval: :month
+    facet :closed_at,         type: :date, interval: :month
     facet :place,             type: :terms
     facet :workplace,         type: :terms
-    facet :closed_at,         type: :date, interval: :month
-    facet :date,              type: :date, interval: :month
   end
 end
