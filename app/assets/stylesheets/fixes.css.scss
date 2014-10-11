@@ -48,7 +48,7 @@ input[type="color"],
   [class*="span"] {
     overflow: hidden;
   }
-  
+
   .alert:first-child {
     margin-top: 0px;
   }
@@ -82,21 +82,21 @@ textarea:active, textarea:hover, textarea:focus {
 .alert a.close,
 .alert a.close i {
   display: inline-block;
-  
+
   width: 20px;
   height: 20px;
   line-height: 20px;
   top: 0px;
   bottom: 0px;
-  
+
   right: -25px;
-  
+
   font-size: $baseFontSize;
   font-weight: normal;
-  
+
   text-align: center;
   text-decoration: none;
-  
+
   &:hover, &:focus {
     text-decoration: none;
   }
@@ -108,7 +108,7 @@ textarea:active, textarea:hover, textarea:focus {
 
 .alert-error a {
   color: $errorLinkColor;
-  
+
   &:hover, &:focus {
     color: $errorLinkColorHover;
   }
@@ -116,7 +116,7 @@ textarea:active, textarea:hover, textarea:focus {
 
 .alert-info a {
   color: $infoLinkColor;
-  
+
   &:hover, &:focus {
     color: $infoLinkColorHover;
   }
@@ -125,7 +125,7 @@ textarea:active, textarea:hover, textarea:focus {
 .alert-notice a,
 .alert-warning a {
   color: $warningLinkColor;
-  
+
   &:hover, &:focus {
     color: $warningLinkColorHover;
   }
@@ -133,7 +133,7 @@ textarea:active, textarea:hover, textarea:focus {
 
 .alert-success a {
   color: $successLinkColor;
-  
+
   &:hover, &:focus {
     color: $successLinkColorHover;
   }
