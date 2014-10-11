@@ -7,7 +7,7 @@ class SelectionProcedureCandidate < ActiveRecord::Base
                   :written_score,
                   :written_result,
                   :score,
-                  :position
+                  :rank
 
   belongs_to :procedure, class_name: :SelectionProcedure, foreign_key: :selection_procedure_id
   belongs_to :judge

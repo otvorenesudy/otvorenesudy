@@ -35,7 +35,7 @@ module JusticeGovSk
         document.css('.DetailTable')[0].css('.hodnota')[6].text.strip.presence
       end
 
-      def position(document)
+      def rank(document)
         document.css('.DetailTable')[0].css('.hodnota')[7].text.strip.presence
       end
 
