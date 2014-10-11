@@ -75,28 +75,28 @@
             </tr>
           </thead>
           <tbody>
-          <% @candidates.each do |candidate| %>
-            <tr>
-              <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s([^\s.]*)\z/)[1] %>">
-                <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
-              </td>
-              <td>
-                <%= candidate.accomplished_expectations %>
-              </td>
-              <td class="number" data-value="<%= candidate.written_score %>">
-                <%= tooltip_tag candidate.written_score, candidate.written_result, placement: :top if candidate.written_score %>
-              </td>
-              <td class="number" data-value="<%= candidate.oral_score %>">
-                <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: :top if candidate.oral_score %>
-              </td>
-              <td class="number">
-                <%= candidate.score %>
-              </td>
-              <td class="number">
-                <%= candidate.rank %>
-              </td>
-            </tr>
-          <% end %>
+            <% @candidates.each do |candidate| %>
+              <tr>
+                <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s(([^\s]|\,\s)*)\z/)[1] %>">
+                  <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
+                </td>
+                <td>
+                  <%= candidate.accomplished_expectations %>
+                </td>
+                <td class="number" data-value="<%= candidate.written_score %>">
+                  <%= tooltip_tag candidate.written_score, candidate.written_result, placement: :top if candidate.written_score %>
+                </td>
+                <td class="number" data-value="<%= candidate.oral_score %>">
+                  <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: :top if candidate.oral_score %>
+                </td>
+                <td class="number">
+                  <%= candidate.score %>
+                </td>
+                <td class="number">
+                  <%= candidate.rank %>
+                </td>
+              </tr>
+            <% end %>
           </tbody>
         <% end %>
       </div>
