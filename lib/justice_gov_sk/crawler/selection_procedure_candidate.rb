@@ -26,7 +26,7 @@ module JusticeGovSk
           @candidate.written_score = @parser.written_score(@document)
           @candidate.written_result = @parser.written_result(@document)
           @candidate.score = @parser.score(@document)
-          @candidate.position = @parser.position(@document)
+          @candidate.rank = @parser.rank(@document)
           @candidate.judge = judge_by_name_factory.find(@candidate.name)
 
           # TODO crawl documents for candidate (see parser for urls)

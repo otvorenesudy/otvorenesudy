@@ -666,7 +666,7 @@ ActiveRecord::Schema.define(:version => 20141114014737) do
     t.string   "written_score"
     t.string   "written_result"
     t.string   "score"
-    t.string   "position"
+    t.string   "rank"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end

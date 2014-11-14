@@ -1,6 +1,6 @@
 # Open Courts (Otvorené Súdy in Slovak)
 
-Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of the Slovak Republic.
+Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of Slovak Republic.
 
 ## Requirements
 
@@ -76,6 +76,8 @@ rake db:seed
 
 Note that the seed data are essential for the next steps.
 
+### Courts and judges from justice.gov.sk
+
 Crawl the necessary data, courts and judges from justice.gov.sk:
 
 ```
@@ -110,6 +112,14 @@ rake work:hearings:civil
 rake work:hearings:criminal
 rake work:hearings:special
 rake work:decrees
+```
+
+### Judge selection procedures from justice.gov.sk
+
+Crawl judge selection procedures:
+
+```
+rake crawl:selection_procedures
 ```
 
 ### Judge property declarations from sudnarada.gov.sk

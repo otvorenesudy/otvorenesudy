@@ -25,28 +25,30 @@ class SelectionProcedure < ActiveRecord::Base
     map :id
 
     analyze :organization_name
-    analyze :date,          type: :date
-    analyze :closed_at,     type: :date
+    analyze :date,                type: :date
+    analyze :closed_at,           type: :date
     analyze :place
     analyze :position
     analyze :state
     analyze :workplace
-    analyze :candidates,    as: lambda { |p| p.candidates.pluck(:name) }
-    analyze :commissioners, as: lambda { |p| p.commissioners.pluck(:name) }
+    analyze :candidates,                          as: lambda { |p| p.candidates.pluck(:name) }
+    analyze :candidates_count,    type: :integer, as: lambda { |p| p.candidates.count }
+    analyze :commissioners,                       as: lambda { |p| p.commissioners.pluck(:name) }
+    analyze :commissioners_count, type: :integer, as: lambda { |p| p.commissioners.count }
 
     sort_by :date, :closed_at, :created_at
   end
 
   facets do
     facet :q,                 type: :fulltext, field: :all
-    facet :organization_name, type: :terms
-    facet :candidates,        type: :terms
-    facet :commissioners,     type: :terms
     facet :position,          type: :terms
     facet :state,             type: :terms, size: SelectionProcedure.pluck(:state).uniq.count
+    facet :candidates,        type: :terms
+    facet :organization_name, type: :terms
+    facet :commissioners,     type: :terms
+    facet :date,              type: :date, interval: :month
+    facet :closed_at,         type: :date, interval: :month
     facet :place,             type: :terms
     facet :workplace,         type: :terms
-    facet :closed_at,         type: :date, interval: :month
-    facet :date,              type: :date, interval: :month
   end
 end
