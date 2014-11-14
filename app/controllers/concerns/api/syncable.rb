@@ -13,7 +13,7 @@ module API
       end
 
       if @records.length > 0
-        next_url = next_sync_url(since: @records.last.updated_at.as_json, last_id: @records.last.id)
+        next_url = next_sync_url(since: @records.last.updated_at.as_json, last_id: @records.last.id, api_key: params[:api_key])
         headers['Link'] = "<#{next_url}>; rel='next'" # Hypermedia API
       end
 

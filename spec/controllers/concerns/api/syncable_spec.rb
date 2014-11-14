@@ -31,7 +31,7 @@ shared_examples_for API::Syncable do
     it 'provides hypermedia API' do
       get :sync, api_key: api_key.key, format: :json
 
-      link = url.call(since: records[99].updated_at.as_json, last_id: records[99].id)
+      link = url.call(since: records[99].updated_at.as_json, last_id: records[99].id, api_key: api_key.key)
 
       expect(response.headers['Link']).to eql("<#{link}>; rel='next'")
     end
