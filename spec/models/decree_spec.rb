@@ -16,14 +16,6 @@ describe Decree do
     end
   end
 
-  describe '#percolate' do
-    it_behaves_like Probe::Search::Percolator do
-      let(:model)   { Decree }
-      let!(:record)  { create :decree }
-      let(:query)   {{ judges: record.judges.pluck(:name) }}
-    end
-  end
-
   describe '#suggest' do
     it_behaves_like Probe::Suggest do
       let(:model) { Decree }

@@ -16,14 +16,6 @@ describe Court do
     end
   end
 
-  describe '#percolate' do
-    it_behaves_like Probe::Search::Percolator do
-      let(:model)   { Court }
-      let!(:record)  { create :court }
-      let(:query)   {{ judges: record.judges.pluck(:name) }}
-    end
-  end
-
   describe '#suggest' do
     it_behaves_like Probe::Suggest do
       let(:model)   { Court }
