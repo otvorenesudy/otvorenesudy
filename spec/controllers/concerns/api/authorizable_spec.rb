@@ -4,14 +4,14 @@ shared_examples_for API::Authorizable do
   it 'authorizes access only with valid API key' do
     api_key = create :api_key
 
-    get :sync, api_key: api_key.key
+    get :sync, api_key: api_key.key, format: :json
 
     expect(response.code).to eql('200')
   end
 
   context 'with invalid API key' do
     it 'returns 401' do
-      get :sync
+      get :sync, format: :json
 
       errors = JSON.parse(response.body, symbolize_names: true)[:errors]
 
