@@ -22,4 +22,8 @@ class DecreeSerializer < ActiveModel::Serializer
   def document_url
     scope.document_decree_url(object)
   end
+
+  def date
+    object.date.to_date
+  end
 end
