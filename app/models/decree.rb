@@ -123,6 +123,33 @@ class Decree < ActiveRecord::Base
     @text = @time = @judge_names = @legislation_area_and_subarea = nil
   end
 
+  def proposers
+    return [] unless proceeding
+    return [] unless proceeding.hearings.size > 0
+
+    proposers = proceeding.hearings.map(&:proposers).flatten.uniq
+
+    return proposers
+  end
+
+  def defendants
+    return [] unless proceeding
+    return [] unless proceeding.hearings.size > 0
+
+    defendants = proceeding.hearings.map(&:defendants).flatten.uniq
+
+    return defendants
+  end
+
+  def opponents
+    return [] unless proceeding
+    return [] unless proceeding.hearings.size > 0
+
+    opponents = proceeding.hearings.map(&:proposers).flatten.uniq
+
+    return opponents
+  end
+
   storage :resource, JusticeGovSk::Storage::DecreePage,     extension: :html
   storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
   storage :image,    JusticeGovSk::Storage::DecreeImage,    extension: :pdf
