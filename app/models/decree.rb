@@ -145,7 +145,7 @@ class Decree < ActiveRecord::Base
     return [] unless proceeding
     return [] unless proceeding.hearings.size > 0
 
-    opponents = proceeding.hearings.map(&:proposers).flatten.uniq
+    opponents = proceeding.hearings.map(&:opponents).flatten.uniq
 
     return opponents
   end
