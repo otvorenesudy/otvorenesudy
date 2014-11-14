@@ -8,6 +8,8 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'pojednávanie', 'pojednávania'
   inflect.irregular 'rozhodnutie', 'rozhodnutia'
   inflect.irregular 'konanie', 'konania'
+
+  inflect.acronym 'API'
 end
 
 # ActiveSupport::Inflector.inflections do |inflect|

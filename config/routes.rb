@@ -74,6 +74,12 @@ OpenCourts::Application.routes.draw do
     get :subscriptions
   end
 
+  namespace :api, defaults: { format: :json } do
+    resources :decrees do
+      get :sync, on: :collection
+    end
+  end
+
   resources :subscriptions, only: [:create, :update, :destroy]
 
   match '/search/collapse', to: 'search#collapse'
