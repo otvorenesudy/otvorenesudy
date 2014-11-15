@@ -1,4 +1,4 @@
-module API
+module Api
   module Syncable
     extend ActiveSupport::Concern
 

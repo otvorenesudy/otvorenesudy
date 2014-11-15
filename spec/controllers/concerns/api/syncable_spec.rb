@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-shared_examples_for API::Syncable do
+shared_examples_for Api::Syncable do
   let(:api_key) { create :api_key }
   let(:factory) { repository.name.underscore.to_sym }
   let!(:records) { 101.times.map { FactoryGirl.create factory }.sort_by { |r| [r.updated_at, r.id] }}

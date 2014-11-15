@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-shared_examples_for API::Authorizable do
+shared_examples_for Api::Authorizable do
   it 'authorizes access only with valid API key' do
     api_key = create :api_key
 

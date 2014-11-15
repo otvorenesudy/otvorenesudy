@@ -1,4 +1,4 @@
-class APIKey < ActiveRecord::Base
+class ApiKey < ActiveRecord::Base
   before_create :generate_key
 
   def generate_key

@@ -1,4 +1,4 @@
-module API
+module Api
   module Authorizable
     extend ActiveSupport::Concern
 
@@ -9,7 +9,7 @@ module API
     private
 
     def check_api_key
-      unless APIKey.exists?(key: params[:api_key])
+      unless ApiKey.exists?(key: params[:api_key])
         render status: 401, json: { success: false, errors: ['Invalid API Key'] }
       end
     end
