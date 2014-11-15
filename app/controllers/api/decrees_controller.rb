@@ -1,4 +1,4 @@
-class Api::DecreesController < API::ApplicationController
+class Api::DecreesController < Api::ApplicationController
   include Api::Syncable
 
   def syncable_repository
