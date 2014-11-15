@@ -26,4 +26,31 @@ class DecreeSerializer < ActiveModel::Serializer
   def date
     object.date.to_date
   end
+
+  def proposers
+    return [] unless object.proceeding
+    return [] unless object.proceeding.hearings.size > 0
+
+    proposers = object.proceeding.hearings.map(&:proposers).flatten.uniq
+
+    return proposers
+  end
+
+  def defendants
+    return [] unless object.proceeding
+    return [] unless object.proceeding.hearings.size > 0
+
+    defendants = object.proceeding.hearings.map(&:defendants).flatten.uniq
+
+    return defendants
+  end
+
+  def opponents
+    return [] unless object.proceeding
+    return [] unless object.proceeding.hearings.size > 0
+
+    opponents = object.proceeding.hearings.map(&:opponents).flatten.uniq
+
+    return opponents
+  end
 end
