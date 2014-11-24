@@ -12,6 +12,12 @@ sk:
       few: '%{count} sudcovia'
       other: '%{count} sudcov'
 
+    candidate: &candidate
+      zero: 'žiadny kandidáti'
+      one: '1 kandidát'
+      few: '%{count} kandidáti'
+      other: '%{count} kandidátov'
+
     officer: &officer
       zero: 'žiadny vyšší súdni úradníci'
       one: '1 vyšší súdny úradník'

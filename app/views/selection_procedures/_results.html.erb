@@ -20,7 +20,12 @@
 
       <% if procedure.candidates.any? %>
         <%= translate_without_count(procedure.candidates.size, :candidate).upcase_first %> &ndash;
-        <%= procedure.candidates.map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
+        <% if procedure.candidates.size > 2 %>
+          <%= procedure.candidates.order(:rank, :name).limit(2).map { |person| person.judge ? link_to_judge(person.judge) : person.name }.join(', ').html_safe %>&hellip;
+          (<%= translate_with_count(procedure.candidates.size, :candidate) %>)
+        <% else %>
+          <%= procedure.candidates.order(:rank, :name).map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
+        <% end %>
         <br/>
       <% end %>
     </div>
