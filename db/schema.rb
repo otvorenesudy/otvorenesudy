@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141124173318) do
+ActiveRecord::Schema.define(:version => 20141124231648) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
 
   create_table "court_expenses", :force => true do |t|
-    t.string   "uri",        :null => false
-    t.integer  "source_id",  :null => false
-    t.integer  "court_id",   :null => false
-    t.integer  "year",       :null => false
-    t.integer  "value",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "uri",        :limit => 2048, :null => false
+    t.integer  "source_id",                  :null => false
+    t.integer  "court_id",                   :null => false
+    t.integer  "year",                       :null => false
+    t.integer  "value",                      :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "court_expenses", ["court_id"], :name => "index_court_expenses_on_court_id"
@@ -82,12 +82,12 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "court_proceeding_types", ["value"], :name => "index_court_proceeding_types_on_value", :unique => true
 
   create_table "court_statistical_summaries", :force => true do |t|
-    t.string   "uri",        :null => false
-    t.integer  "source_id",  :null => false
-    t.integer  "court_id",   :null => false
-    t.integer  "year",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "uri",        :limit => 2048, :null => false
+    t.integer  "source_id",                  :null => false
+    t.integer  "court_id",                   :null => false
+    t.integer  "year",                       :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "court_statistical_summaries", ["court_id", "year"], :name => "index_court_statistical_summaries_on_court_and_year", :unique => true
@@ -105,13 +105,13 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "court_types", ["value"], :name => "index_court_types_on_value", :unique => true
 
   create_table "courts", :force => true do |t|
-    t.string   "uri",                                                        :null => false
-    t.integer  "source_id",                                                  :null => false
-    t.integer  "court_type_id",                                              :null => false
+    t.string   "uri",                         :limit => 2048,                                :null => false
+    t.integer  "source_id",                                                                  :null => false
+    t.integer  "court_type_id",                                                              :null => false
     t.integer  "court_jurisdiction_id"
-    t.integer  "municipality_id",                                            :null => false
-    t.string   "name",                                                       :null => false
-    t.string   "street",                                                     :null => false
+    t.integer  "municipality_id",                                                            :null => false
+    t.string   "name",                                                                       :null => false
+    t.string   "street",                                                                     :null => false
     t.string   "phone"
     t.string   "fax"
     t.string   "media_person"
@@ -120,10 +120,10 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
     t.integer  "information_center_id"
     t.integer  "registry_center_id"
     t.integer  "business_registry_center_id"
-    t.decimal  "latitude",                    :precision => 12, :scale => 8
-    t.decimal  "longitude",                   :precision => 12, :scale => 8
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
+    t.decimal  "latitude",                                    :precision => 12, :scale => 8
+    t.decimal  "longitude",                                   :precision => 12, :scale => 8
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
     t.string   "acronym"
   end
 
@@ -173,20 +173,20 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "decree_pages", ["decree_id", "number"], :name => "index_decree_pages_on_decree_id_and_number", :unique => true
 
   create_table "decrees", :force => true do |t|
-    t.string   "uri",                    :null => false
-    t.integer  "source_id",              :null => false
+    t.string   "uri",                    :limit => 2048, :null => false
+    t.integer  "source_id",                              :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
     t.integer  "decree_form_id"
     t.string   "case_number"
     t.string   "file_number"
     t.date     "date"
-    t.string   "ecli",                   :null => false
+    t.string   "ecli",                                   :null => false
     t.text     "summary"
     t.integer  "legislation_area_id"
     t.integer  "legislation_subarea_id"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
@@ -257,11 +257,11 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "hearing_types", ["value"], :name => "index_hearing_types_on_value", :unique => true
 
   create_table "hearings", :force => true do |t|
-    t.string   "uri",                                   :null => false
-    t.integer  "source_id",                             :null => false
+    t.string   "uri",                :limit => 2048,                    :null => false
+    t.integer  "source_id",                                             :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.integer  "hearing_type_id",                       :null => false
+    t.integer  "hearing_type_id",                                       :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"
     t.integer  "hearing_form_id"
@@ -273,9 +273,9 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
     t.datetime "commencement_date"
     t.boolean  "selfjudge"
     t.text     "note"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.boolean  "anonymized",         :default => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+    t.boolean  "anonymized",                         :default => false
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
@@ -294,13 +294,13 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "judge_designation_types", ["value"], :name => "index_judge_designation_types_on_value", :unique => true
 
   create_table "judge_designations", :force => true do |t|
-    t.string   "uri",                       :null => false
-    t.integer  "source_id",                 :null => false
-    t.integer  "judge_id",                  :null => false
+    t.string   "uri",                       :limit => 2048, :null => false
+    t.integer  "source_id",                                 :null => false
+    t.integer  "judge_id",                                  :null => false
     t.integer  "judge_designation_type_id"
-    t.date     "date",                      :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.date     "date",                                      :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   add_index "judge_designations", ["date"], :name => "index_judge_designations_on_date"
@@ -378,13 +378,13 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "judge_property_changes", ["value"], :name => "index_judge_property_changes_on_value", :unique => true
 
   create_table "judge_property_declarations", :force => true do |t|
-    t.string   "uri",        :null => false
-    t.integer  "source_id",  :null => false
-    t.integer  "court_id",   :null => false
-    t.integer  "judge_id",   :null => false
-    t.integer  "year",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "uri",        :limit => 2048, :null => false
+    t.integer  "source_id",                  :null => false
+    t.integer  "court_id",                   :null => false
+    t.integer  "judge_id",                   :null => false
+    t.integer  "year",                       :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "judge_property_declarations", ["court_id"], :name => "index_judge_property_declarations_on_court_id"
@@ -443,13 +443,13 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "judge_statements", ["value"], :name => "index_judge_statements_on_value", :unique => true
 
   create_table "judge_statistical_summaries", :force => true do |t|
-    t.string   "uri",                             :null => false
-    t.integer  "source_id",                       :null => false
-    t.integer  "court_id",                        :null => false
-    t.integer  "judge_id",                        :null => false
+    t.string   "uri",                             :limit => 2048, :null => false
+    t.integer  "source_id",                                       :null => false
+    t.integer  "court_id",                                        :null => false
+    t.integer  "judge_id",                                        :null => false
     t.integer  "judge_senate_inclusion_id"
     t.string   "author"
-    t.integer  "year",                            :null => false
+    t.integer  "year",                                            :null => false
     t.date     "date"
     t.integer  "days_worked"
     t.integer  "days_heard"
@@ -460,8 +460,8 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
     t.text     "educational_activities"
     t.text     "substantiation_notes"
     t.text     "court_chair_actions"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   add_index "judge_statistical_summaries", ["author"], :name => "index_judge_statistical_summaries_on_author"
@@ -487,18 +487,18 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "judgements", ["judge_name_unprocessed"], :name => "index_judgements_on_judge_name_unprocessed"
 
   create_table "judges", :force => true do |t|
-    t.string   "uri",              :null => false
-    t.integer  "source_id",        :null => false
-    t.string   "name",             :null => false
-    t.string   "name_unprocessed", :null => false
+    t.string   "uri",              :limit => 2048, :null => false
+    t.integer  "source_id",                        :null => false
+    t.string   "name",                             :null => false
+    t.string   "name_unprocessed",                 :null => false
     t.string   "prefix"
-    t.string   "first",            :null => false
+    t.string   "first",                            :null => false
     t.string   "middle"
-    t.string   "last",             :null => false
+    t.string   "last",                             :null => false
     t.string   "suffix"
     t.string   "addition"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "judges", ["first", "middle", "last"], :name => "index_judges_on_first_and_middle_and_last"
@@ -651,10 +651,10 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
 
   create_table "selection_procedure_candidates", :force => true do |t|
     t.string   "uri"
-    t.integer  "selection_procedure_id",    :null => false
+    t.integer  "selection_procedure_id",                    :null => false
     t.integer  "judge_id"
-    t.string   "name",                      :null => false
-    t.string   "name_unprocessed",          :null => false
+    t.string   "name",                                      :null => false
+    t.string   "name_unprocessed",                          :null => false
     t.text     "accomplished_expectations"
     t.string   "oral_score"
     t.string   "oral_result"
@@ -662,12 +662,12 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
     t.string   "written_result"
     t.string   "score"
     t.string   "rank"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.string   "application_url"
-    t.string   "curriculum_url"
-    t.string   "declaration_url"
-    t.string   "motivation_letter_url"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.string   "application_url",           :limit => 2048
+    t.string   "curriculum_url",            :limit => 2048
+    t.string   "declaration_url",           :limit => 2048
+    t.string   "motivation_letter_url",     :limit => 2048
   end
 
   add_index "selection_procedure_candidates", ["judge_id"], :name => "index_selection_procedure_candidates_on_judge_id"
@@ -690,23 +690,23 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "selection_procedure_commissioners", ["selection_procedure_id"], :name => "index_commissioners_on_selection_procedure"
 
   create_table "selection_procedures", :force => true do |t|
-    t.string   "uri",                           :null => false
-    t.integer  "source_id",                     :null => false
+    t.string   "uri",                           :limit => 2048, :null => false
+    t.integer  "source_id",                                     :null => false
     t.integer  "court_id"
-    t.string   "organization_name",             :null => false
-    t.string   "organization_name_unprocessed", :null => false
+    t.string   "organization_name",                             :null => false
+    t.string   "organization_name_unprocessed",                 :null => false
     t.text     "organization_description"
     t.date     "date"
     t.text     "description"
     t.string   "place"
-    t.string   "position",                      :null => false
+    t.string   "position",                                      :null => false
     t.string   "state"
     t.string   "workplace"
-    t.datetime "closed_at",                     :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.string   "declaration_url"
-    t.string   "report_url"
+    t.datetime "closed_at",                                     :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.string   "declaration_url",               :limit => 2048
+    t.string   "report_url",                    :limit => 2048
   end
 
   add_index "selection_procedures", ["closed_at"], :name => "index_selection_procedures_on_closed_at"
@@ -718,11 +718,11 @@ ActiveRecord::Schema.define(:version => 20141124173318) do
   add_index "selection_procedures", ["uri"], :name => "index_selection_procedures_on_uri"
 
   create_table "sources", :force => true do |t|
-    t.string   "module",     :null => false
-    t.string   "name",       :null => false
-    t.string   "uri",        :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "module",                     :null => false
+    t.string   "name",                       :null => false
+    t.string   "uri",        :limit => 2048, :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "sources", ["module"], :name => "index_sources_on_module"
