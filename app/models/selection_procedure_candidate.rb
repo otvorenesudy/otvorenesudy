@@ -1,5 +1,9 @@
 class SelectionProcedureCandidate < ActiveRecord::Base
-  attr_accessible :name,
+  attr_accessible :application_url,
+                  :curriculum_url,
+                  :declaration_url,
+                  :motivation_letter_url,
+                  :name,
                   :name_unprocessed,
                   :accomplished_expectations,
                   :oral_score,

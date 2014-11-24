@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141011195736) do
+ActiveRecord::Schema.define(:version => 20141124173318) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -664,6 +664,10 @@ ActiveRecord::Schema.define(:version => 20141011195736) do
     t.string   "rank"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.string   "application_url"
+    t.string   "curriculum_url"
+    t.string   "declaration_url"
+    t.string   "motivation_letter_url"
   end
 
   add_index "selection_procedure_candidates", ["judge_id"], :name => "index_selection_procedure_candidates_on_judge_id"
@@ -701,6 +705,8 @@ ActiveRecord::Schema.define(:version => 20141011195736) do
     t.datetime "closed_at",                     :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.string   "declaration_url"
+    t.string   "report_url"
   end
 
   add_index "selection_procedures", ["closed_at"], :name => "index_selection_procedures_on_closed_at"

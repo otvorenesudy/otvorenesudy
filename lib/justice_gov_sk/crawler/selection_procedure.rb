@@ -17,6 +17,9 @@ module JusticeGovSk
           @procedure.source = JusticeGovSk.source
           @procedure.court  = court_by_name_factory.find(@parser.organization_name(@document))
 
+          @procedure.declaration_url = @parser.declaration_url(@document)
+          @procedure.report_url = @parser.report_url(@document)
+
           @procedure.organization_name = @parser.organization_name(@document)
           @procedure.organization_name_unprocessed = @parser.organization_name_unprocessed(@document)
           @procedure.organization_description = @parser.organization_description(@document)

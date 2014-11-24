@@ -2,7 +2,9 @@ class SelectionProcedure < ActiveRecord::Base
   include Probe
   include Resource::URI
 
-  attr_accessible :organization_name,
+  attr_accessible :declaration_url,
+                  :report_url,
+                  :organization_name,
                   :organization_name_unprocessed,
                   :organization_description,
                   :date,

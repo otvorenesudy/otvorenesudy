@@ -18,6 +18,11 @@ module JusticeGovSk
           @candidate.uri = uri
           @candidate.procedure = @procedure
 
+          @procedure.application_url = @parser.application_url(@document)
+          @procedure.curriculum_url = @parser.curriculum_url(@document)
+          @procedure.declaration_url = @parser.declaration_url(@document)
+          @procedure.motivation_letter_url = @parser.motivation_letter_url(@document)
+
           @candidate.name = @parser.name(@document)
           @candidate.name_unprocessed = @parser.name_unprocessed(@document)
           @candidate.accomplished_expectations = @parser.accomplished_expectations(@document)
