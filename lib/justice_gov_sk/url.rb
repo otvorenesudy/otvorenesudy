@@ -16,11 +16,16 @@ module JusticeGovSk
       path.gsub!(/Stranky\/Pojednavania/i,      '')
       path.gsub!(/Stranky\/Sudne-rozhodnutia/i, '')
 
+      path.gsub!(/Stranky\/Ministerstvo\/Vyberove-konania-v-rezorte/i, '')
+
       path.gsub!(/(?<court>[\-\w]+)\/SudDetail/i, 'court-\k<court>')
       path.gsub!(/PojednavanieDetail/i,           'civil-hearing')
       path.gsub!(/PojednavanieTrestDetail/i,      'criminal-hearing')
       path.gsub!(/PojednavanieSpecDetail/i,       'special-hearing')
       path.gsub!(/Sudne-rozhodnutie-detail/i,     'decree')
+
+      path.gsub!(/Detail-vyberoveho-konania/i,           'selection-procedure')
+      path.gsub!(/Detail-uchadzaca-vyberoveho-konania/i, 'selection-procedure-candidate')
 
       path.gsub!(/\//, '')
 
@@ -37,6 +42,9 @@ module JusticeGovSk
       name.gsub!(/criminal-hearing/i, 'Pojednavania/PojednavanieTrestDetail')
       name.gsub!(/special-hearing/i,  'Pojednavania/PojednavanieSpecDetail')
       name.gsub!(/decree/i,           'Sudne-rozhodnutia/Sudne-rozhodnutie-detail')
+
+      name.gsub!(/selection-procedure/i,           'Ministerstvo/Vyberove-konania-v-rezorte/Detail-vyberoveho-konania')
+      name.gsub!(/selection-procedure-candidate/i, 'Ministerstvo/Vyberove-konania-v-rezorte/Detail-uchadzaca-vyberoveho-konania')
 
       "#{self.base}/Stranky/#{name}"
     end

@@ -48,10 +48,21 @@ module JusticeGovSk
             JusticeGovSk.crawl_resource SelectionProcedureCandidate, url, safe: true, procedure: @procedure
           end
 
-          # TODO crawl all documents (see parser for urls) for selection procedure
+          download_url :declaration_url
+          download_url :report_url
 
           @procedure
         end
+      end
+
+      def download_url(name)
+        return if @procedure.read_attribute(name).blank?
+
+        downloader = inject JusticeGovSk::Downloader, implementation: SelectionProcedure, suffix: :Document
+
+        downloader.uri_to_path = lambda { |_| "#{@procedure.uri.match(/Ic=(\d+)/)[1]}_#{name.to_s.sub(/_url\Z/, '')}.pdf" }
+
+        downloader.download @procedure.read_attribute(name)
       end
     end
   end

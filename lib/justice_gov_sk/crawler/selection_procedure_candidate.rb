@@ -18,10 +18,10 @@ module JusticeGovSk
           @candidate.uri = uri
           @candidate.procedure = @procedure
 
-          @procedure.application_url = @parser.application_url(@document)
-          @procedure.curriculum_url = @parser.curriculum_url(@document)
-          @procedure.declaration_url = @parser.declaration_url(@document)
-          @procedure.motivation_letter_url = @parser.motivation_letter_url(@document)
+          @candidate.application_url = @parser.application_url(@document)
+          @candidate.curriculum_url = @parser.curriculum_url(@document)
+          @candidate.declaration_url = @parser.declaration_url(@document)
+          @candidate.motivation_letter_url = @parser.motivation_letter_url(@document)
 
           @candidate.name = @parser.name(@document)
           @candidate.name_unprocessed = @parser.name_unprocessed(@document)
@@ -34,10 +34,23 @@ module JusticeGovSk
           @candidate.rank = @parser.rank(@document)
           @candidate.judge = judge_by_name_factory.find(@candidate.name)
 
-          # TODO crawl documents for candidate (see parser for urls)
+          download_url :application_url
+          download_url :curriculum_url
+          download_url :declaration_url
+          download_url :motivation_letter_url
 
           @candidate
         end
+      end
+
+      def download_url(name)
+        return if @candidate.read_attribute(name).blank?
+
+        downloader = inject JusticeGovSk::Downloader, implementation: SelectionProcedureCandidate, suffix: :Document
+
+        downloader.uri_to_path = lambda { |_| "#{@candidate.uri.match(/Ic=(\d+)/)[1]}_#{name.to_s.sub(/_url\Z/, '')}.pdf" }
+
+        downloader.download @candidate.read_attribute(name)
       end
     end
   end

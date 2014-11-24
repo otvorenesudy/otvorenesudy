@@ -9,7 +9,7 @@ module JusticeGovSk
     protected
 
     def uri_to_path(uri)
-      JusticeGovSk::URL.url_to_path(uri, :html)
+      super(uri) || JusticeGovSk::URL.url_to_path(uri, :html)
     end
   end
 end
