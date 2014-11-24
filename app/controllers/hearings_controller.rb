@@ -6,7 +6,7 @@ class HearingsController < SearchController
 
     @type   = @hearing.type
     @court  = @hearing.court
-    @judges = @hearing.judges.order(:name)
+    @judges = @hearing.judges.order(:last, :middle, :first)
 
     @proposers  = @hearing.proposers.order(:name)
     @opponents  = @hearing.opponents.order(:name)

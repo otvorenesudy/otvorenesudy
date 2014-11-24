@@ -34,10 +34,10 @@
       <% if hearing.judges.normal.any? %>
         <% if hearing.judges.normal.exact.any? %>
           <%= translate_without_count(hearing.judges.normal.exact.size, :judge).upcase_first %>
-          &ndash; <%= links_to_judges hearing.judges.normal.exact %>
+          &ndash; <%= links_to_judges hearing.judges.normal.exact.order(:last, :middle, :first) %>
         <% else %>
           <%= translate_without_count(hearing.judges.normal.inexact.group(:judge_name_unprocessed).count.size, :judge).upcase_first %>
-          &ndash; <%= judge_processed_names hearing.judges.normal.inexact %>
+          &ndash; <%= judge_processed_names hearing.judges.normal.inexact.order(:last, :middle, :first) %>
         <% end %>
         <br/>
       <% end %>

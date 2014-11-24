@@ -4,7 +4,7 @@ class ProceedingsController < SearchController
 
     @events   = @proceeding.events
     @courts   = @proceeding.courts.order(:name)
-    @judges   = @proceeding.judges.order(:name)
+    @judges   = @proceeding.judges.order(:last, :middle, :first)
     @hearings = @proceeding.hearings
     @decrees  = @proceeding.decrees
 

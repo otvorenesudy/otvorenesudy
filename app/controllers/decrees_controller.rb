@@ -5,7 +5,7 @@ class DecreesController < SearchController
     @decree = Decree.find(params[:id])
 
     @court  = @decree.court
-    @judges = @decree.judges.order(:name)
+    @judges = @decree.judges.order(:last, :middle, :first)
 
     @legislations = @decree.legislations.order(:value)
 
