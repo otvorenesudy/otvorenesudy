@@ -48,7 +48,8 @@ class SelectionProcedure < ActiveRecord::Base
     facet :commissioners,     type: :terms
     facet :date,              type: :date, interval: :month
     facet :closed_at,         type: :date, interval: :month
-    facet :place,             type: :terms
-    facet :workplace,         type: :terms
+    #facet :place,             type: :terms
+    #facet :workplace,         type: :terms
+    facet :candidates_count,  type: :range, ranges: [1..5, 6..10, 11..15, 16..20, 21..25, 26..30, 31..35]
   end
 end

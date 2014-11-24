@@ -13,10 +13,16 @@ sk:
       other: '%{count} sudcov'
 
     candidate: &candidate
-      zero: 'žiadny kandidáti'
-      one: '1 kandidát'
-      few: '%{count} kandidáti'
-      other: '%{count} kandidátov'
+      zero: 'žiadny uchádzači'
+      one: '1 uchádzač'
+      few: '%{count} uchádzači'
+      other: '%{count} uchádzačov'
+
+    commissioner: &commissioner
+      zero: 'žiadny člen komisie'
+      one: '1 člen komisie'
+      few: '%{count} členovia komisie'
+      other: '%{count} členov komisie'
 
     officer: &officer
       zero: 'žiadny vyšší súdni úradníci'
@@ -394,11 +400,21 @@ sk:
         missing: 'neuvedené'
         not_found: 'Nenájdené žiadni kandidáti.'
 
+      candidates_count:
+        title: 'Počet uchádzačov'
+        suffix:
+          <<: *candidate
+
       commissioners:
         title: 'Člen komisie'
         placeholder: 'Meno člena komisie'
         missing: 'neuvedené'
         not_found: 'Nenájdené žiadni členovia.'
+
+      commissioners_count:
+        title: 'Počet členov komisie'
+        suffix:
+          <<: *candidate
 
       position:
         title: 'Pozícia'

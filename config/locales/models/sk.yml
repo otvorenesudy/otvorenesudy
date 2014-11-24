@@ -48,10 +48,10 @@ sk:
     other: 'obžalovaní'
 
   candidate:
-    zero: 'kandidátov'
-    one: 'kandidát'
-    few: 'kandidáti'
-    other: 'kandidáti'
+    zero: 'uchádzačov'
+    one: 'uchádzač'
+    few: 'uchádzači'
+    other: 'uchádzači'
 
   commissioner:
     zero: 'členov komisie'
