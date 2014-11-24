@@ -28,7 +28,7 @@ module HearingsHelper
   end
 
   def link_to_hearing_resource(hearing, body, options = {})
-    external_link_to body, "#{hearing_path hearing}/resource", options
+    external_link_to body, resource_hearing_path(hearing), options
   end
 
   private

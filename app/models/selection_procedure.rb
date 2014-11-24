@@ -1,6 +1,7 @@
 class SelectionProcedure < ActiveRecord::Base
   include Probe
   include Resource::URI
+  include Resource::Storage
 
   attr_accessible :declaration_url,
                   :report_url,
@@ -54,4 +55,7 @@ class SelectionProcedure < ActiveRecord::Base
     #facet :workplace,         type: :terms
     facet :candidates_count,  type: :range, ranges: [1..5, 6..10, 11..15, 16..20, 21..25, 26..30, 31..35]
   end
+
+  storage(:declaration, JusticeGovSk::Storage::SelectionProcedureDocument) { |procedure| "#{procedure.uri.match(/Ic=(\d+)/)[1]}_declaration.pdf" }
+  storage(:report,      JusticeGovSk::Storage::SelectionProcedureDocument) { |procedure| "#{procedure.uri.match(/Ic=(\d+)/)[1]}_report.pdf" }
 end

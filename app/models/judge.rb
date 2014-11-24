@@ -161,6 +161,7 @@ class Judge < ActiveRecord::Base
     @listed = @probably_officer = @probably_woman = nil
   end
 
+  #TODO rm: this info is not in selection procedures
   storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
   storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end

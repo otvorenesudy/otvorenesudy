@@ -4,9 +4,21 @@ class SelectionProceduresController < SearchController
 
     @candidates    = @procedure.candidates.order(:rank, :name)
     @commissioners = @procedure.commissioners.order(:name)
-
-    # TODO
-    # * handle storage documents for selection procedure
-    # * handle storage documents for selection procedure candidate in SelectionProcedureCandidateController
   end
+
+  def declaration
+    @procedure = SelectionProcedure.find(params[:id])
+
+    send_file_in @procedure.declaration_path, name: "Vyhlásenie výberového konania č. #{@procedure.id}"
+  end
+
+  def report
+    @procedure = SelectionProcedure.find(params[:id])
+
+    send_file_in @procedure.report_path, name: "Zápisnica výberového konania č. #{@procedure.id}"
+  end
+
+  protected
+
+  include FileHelper
 end

@@ -66,6 +66,20 @@ OpenCourts::Application.routes.draw do
       get :search
       get :suggest
     end
+
+    member do
+      get :declaration
+      get :report
+    end
+
+    resources :selection_procedure_candidates, as: :candidates, path: :candidates, only: [] do
+      member do
+        get :application
+        get :curriculum
+        get :declaration
+        get :motivation_letter
+      end
+    end
   end
 
   devise_for :users

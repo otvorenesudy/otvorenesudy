@@ -26,7 +26,7 @@ module Resource::Storage
       define_method "#{name}_path" do
         entry = self.send("#{name}_entry")
 
-        self.class.storages[name].path(entry) if entry 
+        self.class.storages[name].path(entry) if entry
       end
     end
   end

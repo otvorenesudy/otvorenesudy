@@ -22,7 +22,7 @@ module DecreesHelper
       name: "Súdne rozhodnutie #{decree.ecli}",
       number: 1,
       pages: decree.pages.by_number.map { |page|
-        { 
+        {
           number: page.number,
           scanUrl: image_decree_page_path(decree, page.number),
           textUrl: text_decree_page_path(decree, page.number),
@@ -37,11 +37,11 @@ module DecreesHelper
   end
 
   def link_to_decree_resource(decree, body, options = {})
-    external_link_to body, "#{decree_path decree}/resource", options
+    external_link_to body, resource_decree_path(decree), options
   end
 
   def link_to_decree_document(decree, body, options = {})
-    external_link_to body, "#{decree_path decree}/document", options
+    external_link_to body, document_decrees_path(decree), options
   end
 
   def external_link_to_legislation(legislation, options = {})

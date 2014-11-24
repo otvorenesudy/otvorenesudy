@@ -23,7 +23,7 @@ class DecreesController < SearchController
   def document
     @decree = Decree.find(params[:id])
 
-    send_file_in @decree.document_path, name: "rozhodnutie-#{@decree.ecli}"
+    send_file_in @decree.document_path, name: "Rozhodnutie-#{@decree.ecli}"
   end
 
   protected
