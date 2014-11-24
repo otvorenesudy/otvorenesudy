@@ -44,15 +44,15 @@ module JusticeGovSk
       end
 
       def declaration_url(document)
-        value = document.css('.DetailTable')[0].css('.hodnota')[6].css('a')[0][:href]
+        value = document.css('.DetailTable')[0].css('.hodnota')[6].css('a').try(:[], 0).try(:[], :href).try(:strip).try(:presence)
 
-        "#{JusticeGovSk::URL.base}#{value}"
+        "#{JusticeGovSk::URL.base}#{value}" if value
       end
 
       def report_url(document)
-        value = document.css('.DetailTable')[0].css('.hodnota')[7].css('a')[0][:href]
+        value = document.css('.DetailTable')[0].css('.hodnota')[7].css('a').try(:[], 0).try(:[], :href).try(:strip).try(:presence)
 
-        "#{JusticeGovSk::URL.base}#{value}"
+        "#{JusticeGovSk::URL.base}#{value}" if value
       end
 
       def candidates_urls(document)
