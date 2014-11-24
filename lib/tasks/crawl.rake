@@ -68,11 +68,6 @@ namespace :crawl do
     JusticeGovSk.crawl_resources SelectionProcedure, args
   end
 
-  desc 'Crawl specific selection procedure'
-  task :selection_procedure, [:url] => :environment do |_, args|
-    JusticeGovSk.crawl_resource SelectionProcedure, args[:url], safe: true
-  end
-
   desc "Crawl specific court from justice.gov.sk"
   task :court, [:url] => :environment do |_, args|
     JusticeGovSk.crawl_resource Court, args[:url], safe: true
@@ -105,5 +100,10 @@ namespace :crawl do
   task :decree, [:url, :decree_form_code] => :environment do |_, args|
     args.with_defaults safe: true
     JusticeGovSk.crawl_resource Decree, args[:url], args
+  end
+
+  desc 'Crawl specific selection procedure'
+  task :selection_procedure, [:url] => :environment do |_, args|
+    JusticeGovSk.crawl_resource SelectionProcedure, args[:url], safe: true
   end
 end
