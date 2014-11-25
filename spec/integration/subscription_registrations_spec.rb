@@ -84,7 +84,7 @@ describe 'SubscriptionRegistrations' do
       end
 
       it 'should register query from date array selection' do
-        decrees = 2.times.map { |n| create :decree, date: Date.parse("1991-0#{n + 1}-01") }
+        2.times.map { |n| create :decree, date: Date.parse("1991-0#{n + 1}-01") }
 
         reload_indices
 
@@ -148,6 +148,7 @@ describe 'SubscriptionRegistrations' do
         end
 
         page.should have_content('Odoberanie notifikácií bolo úspešne zrušené.')
+
         Subscription.exists?(subscription.id).should be_false
       end
     end

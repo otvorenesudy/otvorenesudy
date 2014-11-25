@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
 
     @subscription.destroy
 
-    flash[:notice] = 'Odoberanie notifikácií bolo úspešne zrušené.'
+    flash[:success] = 'Odoberanie notifikácií bolo úspešne zrušené.'
 
     redirect_to :back
   end

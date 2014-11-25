@@ -1,9 +1,11 @@
 RSpec.configure do |config|
-  config.before(:all) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
   config.before(:each) do
+    if example.options[:clean_with]
+      DatabaseCleaner.strategy = example.options[:clean_with]
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
+
     DatabaseCleaner.start
 
     load Rails.root.join('db/seeds.rb')

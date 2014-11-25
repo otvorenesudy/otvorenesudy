@@ -45,16 +45,7 @@ module DecreesHelper
   end
 
   def external_link_to_legislation(legislation, options = {})
-    if legislation.year && legislation.number
-      url =  "http://www.zakonypreludi.sk/zz/#{legislation.year}-#{legislation.number}#"
-      url << 'p' << legislation.paragraph if legislation.paragraph
-      url << '-' << legislation.section   if legislation.section
-      url << '-' << legislation.letter    if legislation.letter
-    else
-      url = 'http://www.zakonypreludi.sk/main/search.aspx?text=' + legislation.value
-    end
-
-    external_link_to legislation.value(options.delete(:format)), url, { icon: true }.merge(options)
+    external_link_to legislation.value(options.delete(:format)), legislation.external_url, { icon: true }.merge(options)
   end
 
   private

@@ -16,14 +16,6 @@ describe Hearing do
     end
   end
 
-  describe '#percolate' do
-    it_behaves_like Probe::Search::Percolator do
-      let(:model)   { Hearing }
-      let!(:record) { create :hearing, date: 2.years.from_now }
-      let(:query)   {{ judges: record.judges.pluck(:name) }}
-    end
-  end
-
   describe '#suggest' do
     it_behaves_like Probe::Suggest do
       let(:model)   { Hearing }
