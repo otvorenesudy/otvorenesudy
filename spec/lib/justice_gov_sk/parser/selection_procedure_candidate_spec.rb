@@ -52,9 +52,9 @@ describe JusticeGovSk::Parser::SelectionProcedureCandidate do
     end
   end
 
-  describe '#position' do
+  describe '#rank' do
     it 'returns position of candidate in procedure' do
-      expect(parser.position(document)).to eql('3')
+      expect(parser.rank(document)).to eql('3')
     end
   end
 
