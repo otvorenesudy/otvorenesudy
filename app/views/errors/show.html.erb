@@ -19,14 +19,3 @@
     </div>
   </div>
 </section>
-
-<% if Rails.env.development? %>
-  <section id="error-trace" class="error">
-    <div class="row">
-      <div class="span12">
-        <%= debug @exception %>
-        <%= trace @trace %>
-      </div>
-    </div>
-  </section>
-<% end %>
