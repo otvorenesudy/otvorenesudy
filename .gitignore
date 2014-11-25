@@ -1,9 +1,15 @@
+.bundle
 .idea
 .project
-.project.backup
-.bundle
+.sass-cache
 .tags
-.sass-cache/
+
+.~lock.*
+*.*~
+
+/storage
+/tags
+/tmp
 
 Gemfile.lock.tags
 
@@ -13,12 +19,4 @@ config/newrelic.yml
 
 db/*.sqlite3
 log/*.log
-
-storage
-storage/*
-
-tags
-
-tmp
-tmp/*
 
