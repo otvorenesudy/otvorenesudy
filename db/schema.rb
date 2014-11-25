@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20141124231648) do
 
   add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
 
+  create_table "api_keys", :force => true do |t|
+    t.string   "key",        :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "api_keys", ["key"], :name => "index_api_keys_on_key", :unique => true
+
   create_table "court_expenses", :force => true do |t|
     t.string   "uri",        :limit => 2048, :null => false
     t.integer  "source_id",                  :null => false
