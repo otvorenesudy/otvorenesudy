@@ -7,25 +7,25 @@ sk:
       other: '%{count} súdov'
 
     judge: &judge
-      zero: 'žiadny sudcovia'
+      zero: 'žiadni sudcovia'
       one: '1 sudca'
       few: '%{count} sudcovia'
       other: '%{count} sudcov'
 
     candidate: &candidate
-      zero: 'žiadny uchádzači'
+      zero: 'žiadni uchádzači'
       one: '1 uchádzač'
       few: '%{count} uchádzači'
       other: '%{count} uchádzačov'
 
     commissioner: &commissioner
-      zero: 'žiadny člen komisie'
+      zero: 'žiadni členovia komisie'
       one: '1 člen komisie'
       few: '%{count} členovia komisie'
       other: '%{count} členov komisie'
 
     officer: &officer
-      zero: 'žiadny vyšší súdni úradníci'
+      zero: 'žiadni vyšší súdni úradníci'
       one: '1 vyšší súdny úradník'
       few: '%{count} vyšší súdni úradníci'
       other: '%{count} vyšších súdnych úradníkov'
