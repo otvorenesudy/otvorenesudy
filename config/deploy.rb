@@ -105,11 +105,17 @@ end
 
 # General
 namespace :deploy do
-  [:start, :stop, :restart, :upgrade].each do |command|
+  [:start, :stop, :upgrade].each do |command|
     desc "#{command.to_s.capitalize} unicorn server"
     task command, roles: :app, except: { no_release: true } do
       run "/etc/init.d/unicorn-#{application}-#{rails_env} #{command}"
     end
+  end
+
+  desc 'Restart Unicorn'
+  task :restart do
+    run "/etc/init.d/unicorn-#{application}-#{rails_env} stop"
+    run "/etc/init.d/unicorn-#{application}-#{rails_env} start"
   end
 
   desc "Symlink shared"
@@ -130,5 +136,5 @@ namespace :deploy do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
 
-  after 'deploy:upgrade', 'workers:stop', 'workers:start'
+  after 'deploy:restart', 'workers:stop', 'workers:start'
 end
