@@ -1,0 +1,19 @@
+sk:
+  users:
+    subscriptions:
+      title: 'Notifikácie pre nové výsledky vyhľadávania'
+      set_notifications_part_1: 'Odoberanie notifikácií si registrujete vo vyhľadávaní'
+      hearings: 'Pojednávaní'
+      or: 'alebo'
+      decrees: 'Rozhodnutí'
+      set_notifications_part_2: 'podľa aktuálnych nastavení vyhľadávania'
+
+  subscriptions:
+    create:
+      subscription_successful: 'Odoberanie notifikácií bolo úspešne zaregistrované.'
+      subscription_error: 'Nastala chyba. Odoberanie notifikácií nebolo zaregistrované.'
+    update:
+      subscription_updated: 'Odoberanie notifikácií bolo úspešne aktualizované.'
+      subscription_update_error: 'Nastala chyba. Odoberanie notifikácií nebolo aktualizované.'
+    destroy:
+      subscription_cancelled: 'Odoberanie notifikácií bolo úspešne zrušené.'

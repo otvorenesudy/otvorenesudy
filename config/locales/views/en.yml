@@ -1,1 +1,17 @@
 en:
+  static_pages:
+    about: 'O projekte'
+    faq: 'Často kladené otázky'
+    code: 'Zdrojový kód'
+    contact: 'Kontakt'
+
+    terms_of_use: 'Podmiensky používania'
+    privacy: 'Ochrana súkromia'
+    copyright: 'Autorské práva'
+
+    feedback: 'Našli ste chybu?'
+    security: 'Bezpečnosť'
+
+    how_it_works: 'Ako to funguje?'
+    data_history: 'História dát'
+    api: 'API'

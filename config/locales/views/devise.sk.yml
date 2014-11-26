@@ -1,5 +1,12 @@
 sk:
   devise:
+    shared:
+      links:
+        login: 'Prihlásenie'
+        signup: 'Registrácia'
+        forgotten_password: 'Zabudli ste heslo?'
+        signup_confirmation: 'Potvrdenie registrácie'
+
     confirmations:
       confirmed: 'Váš účet bol úspešne overený. Teraz ste prihlásený.'
       send_instructions: 'O niekoľko minút Vám bude doručený e-mail s inštrukciami ako potvrdiť registráciu.'
@@ -11,7 +18,7 @@ sk:
       invalid: 'Nesprávny e-mail alebo heslo.'
       invalid_token: 'Nesprávny overovací symbol.'
       locked: 'Váš účet je zamknutý.'
-      not_found_in_database: 'Nesprávny e-mail alebo heslo.' 
+      not_found_in_database: 'Nesprávny e-mail alebo heslo.'
       timeout: 'Vaše sedenie vypršalo. Pre pokračovanie sa prosím znovu prihláste.'
       unauthenticated: 'Pred pokračovaním sa musíte zaregistrovať alebo prihlásiť.'
       unconfirmed: 'Pred pokračovaním musíte potvrdiť registráciu.'
@@ -38,6 +45,10 @@ sk:
       updated_not_active: 'Vaše heslo bolo úspešne zmenené.'
 
     registrations:
+      new:
+        title: 'Registrácia'
+        submit: 'Zaregistrovať sa'
+
       destroyed: 'Dovidenia! Váš účet bol úspešne zrušený. Dúfame, že sa čoskoro opäť uvidíme.'
       signed_up: 'Vitajte! Registrácia bola úspešná.'
       signed_up_but_inactive: 'Registrácia bola úspešná. Nemohli sme vás prihlásiť, pretože Váš účet ešte nebol aktivovaný.'
@@ -46,7 +57,20 @@ sk:
       update_needs_confirmation: 'Váš účet bol úspešne aktualizovaný ale potrebujeme overiť Vašu novú e-mailovú adresu. Prosím skontrolujte si e-mail a otvorením potvrdzovacieho odkazu potvrďte novú e-mailovú adresu.'
       updated: 'Úspešne ste aktualizovali Váš účet.'
 
+      edit:
+        settings: 'Nastavenia'
+        password_placeholder: 'Prázdne, ak nechcete zmeniť.'
+        confirm_placeholder: 'Vyplňte, pre potvrdenie zmien.'
+        submit: 'Uložiť'
+        delete_account: 'Zrušenie účtu'
+        confirm_delete: 'Zrušiť účet'
+        are_you_sure: 'Ste si istý?'
+
     sessions:
+      new:
+        title: 'Prihlásenie'
+        submit: 'Prihlásiť sa'
+
       signed_in: 'Úspešne prihlásený.'
       signed_out: 'Úspešne odhlásený.'
 
@@ -67,3 +91,6 @@ sk:
       one: '%{resource} nebol uložený kvôli chybe:'
       few: '%{resource} nebol uložený kvôli %{count} chybám:'
       other: '%{resource} nebol uložený kvôli %{count} chybám:'
+
+
+
