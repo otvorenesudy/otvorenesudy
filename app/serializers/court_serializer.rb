@@ -1,3 +1,3 @@
 class CourtSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :address
 end
