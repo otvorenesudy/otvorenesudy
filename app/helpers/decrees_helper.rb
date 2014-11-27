@@ -41,7 +41,7 @@ module DecreesHelper
   end
 
   def link_to_decree_document(decree, body, options = {})
-    external_link_to body, document_decrees_path(decree), options
+    external_link_to body, document_decree_path(decree), options
   end
 
   def external_link_to_legislation(legislation, options = {})
