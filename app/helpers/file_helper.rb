@@ -6,6 +6,8 @@ module FileHelper
 
     options[:filename] = "#{name}#{extension}"
 
+    raise ActionController::RoutingError.new('Not Found') if File.readable? path
+
     send_file path, options
   end
 end
