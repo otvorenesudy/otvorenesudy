@@ -8,6 +8,8 @@ interesting public data provided by [Departement of Justice](http://justice.gov.
 
 **Note**: Currently, we only provide API for Decrees.
 
+**Note**: All examples of responses are purely demonstrational and only partially based on real records.
+
 ## Allowed HTTP Requests:
 
 * `GET` - To Get a Resource or List of Resource.
@@ -24,7 +26,7 @@ obtain an API key. API key is a part of every URL as a parameter.
 # Decrees API
 Decrees issued on specific court by one or more judges.
 
-## Decrees Collection [/decrees]
+## Decrees Sync [/decrees/sync?since={since}&last_id={last_id}]
 
 Decree has following attributes:
 
@@ -71,13 +73,21 @@ Decree has following attributes:
 - **updated_at** - date when decree was created in our database 
 - **created_at** - date when decree was updated in our database 
 
-### List all Notes [GET]
+### Sync Decrees [GET]
+
++ Parameters
+   
+    + since (date parsable by Time.parse) ... All decrees since provided date
+    + last_id (string, optional) ... ID of last decree you synced
+
 + Response 200
 
     + Headers
     
             Content-Type: application/json
             Link: "/api/decrees?page=1; rel='next'"
+            
+
     + Body
     
             {
@@ -98,7 +108,8 @@ Decree has following attributes:
                         "updated_at": "2014-11-09T14:35:27+01:00",
                         "court": {
                             "id": 23,
-                            "name": "Okresný súd Humenné"
+                            "name": "Okresný súd Humenné",
+                            "address": "Laborecká č. 17, 066 34 Humenné"
                         },
                         "form": {
                             "code": "N",
@@ -141,4 +152,3 @@ Decree has following attributes:
                     }
                 ]
             }
-            
