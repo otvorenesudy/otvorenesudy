@@ -89,7 +89,7 @@ OpenCourts::Application.routes.draw do
   end
 
   namespace :api, defaults: { format: :json } do
-    resources :decrees do
+    resources :decrees, only: [] do
       get :sync, on: :collection
     end
   end
