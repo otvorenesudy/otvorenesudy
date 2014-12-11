@@ -1,7 +1,5 @@
 <% provide :title, decree_title(@decree) %>
 
-<% render partial: 'document_viewer_initialization', formats: :js, locals: { decree: @decree } %>
-
 <section id="decree-profile" class="profile">
   <div class="page-header">
     <h1>
@@ -103,9 +101,11 @@
 </section>
 
 <section id="decree-document">
+  <h2>Znenie rozhodnutia</h2>
+  <hr/>
   <div class="row">
     <div class="span12">
-      <div class="document"></div>
+      <%= decree_document_viewer(@decree) %>
     </div>
   </div>
 </section>
