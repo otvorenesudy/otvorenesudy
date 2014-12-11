@@ -5,6 +5,8 @@ class Api::ApplicationController < ActionController::Base
 
   respond_to :json
 
+  protected
+
   def serialization_scope
     self
   end

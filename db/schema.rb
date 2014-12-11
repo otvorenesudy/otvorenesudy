@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141124231648) do
+ActiveRecord::Schema.define(:version => 20141201144408) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -24,12 +24,11 @@ ActiveRecord::Schema.define(:version => 20141124231648) do
   add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
 
   create_table "api_keys", :force => true do |t|
-    t.string   "key",        :null => false
+    t.string   "value",      :null => false
     t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
-  add_index "api_keys", ["key"], :name => "index_api_keys_on_key", :unique => true
+  add_index "api_keys", ["value"], :name => "index_api_keys_on_key", :unique => true
 
   create_table "court_expenses", :force => true do |t|
     t.string   "uri",        :limit => 2048, :null => false

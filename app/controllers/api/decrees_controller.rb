@@ -1,6 +1,8 @@
 class Api::DecreesController < Api::ApplicationController
   include Api::Syncable
 
+  protected
+
   def syncable_repository
     Decree
   end

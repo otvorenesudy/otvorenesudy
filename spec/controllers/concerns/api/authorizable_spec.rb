@@ -4,7 +4,7 @@ shared_examples_for Api::Authorizable do
   it 'authorizes access only with valid API key' do
     api_key = create :api_key
 
-    get :sync, api_key: api_key.key, format: :json
+    get :sync, api_key: api_key.value, format: :json
 
     expect(response.code).to eql('200')
   end
