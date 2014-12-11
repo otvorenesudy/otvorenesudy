@@ -25,7 +25,7 @@ namespace :api do
 
       FileUtils.mkdir_p(Rails.root.join('tmp', directory))
 
-      decrees.find_in_batches(batch_size: args[:batch_size].to_i || 10000) do |batch|
+      decrees.find_in_batches(batch_size: args[:batch_size] ? args[:batch_size].to_i : 10000)do |batch|
         File.open(Rails.root.join('tmp', directory, "%03d.json" % index), 'w') do |f|
           f.write(ActiveModel::ArraySerializer.new(batch, each_serializer: DecreeSerializer, root: :decrees, scope: scope).to_json)
         end
