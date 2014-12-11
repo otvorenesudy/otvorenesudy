@@ -7,7 +7,7 @@ shared_examples_for Api::Syncable do
 
   describe 'GET sync' do
     it 'returns records as json' do
-      get :sync, api_key: api_key.key, format: :json
+      get :sync, api_key: api_key.value, format: :json
 
       json = ActiveModel::ArraySerializer.new(
         records.first(100),
@@ -21,7 +21,7 @@ shared_examples_for Api::Syncable do
     end
 
     it 'returns records sorted by updated_at and id' do
-      get :sync, api_key: api_key.key, format: :json
+      get :sync, api_key: api_key.value, format: :json
 
       result = assigns(:records)
 
@@ -29,9 +29,9 @@ shared_examples_for Api::Syncable do
     end
 
     it 'provides hypermedia API' do
-      get :sync, api_key: api_key.key, format: :json
+      get :sync, api_key: api_key.value, format: :json
 
-      link = url.call(since: records[99].updated_at.as_json, last_id: records[99].id, api_key: api_key.key)
+      link = url.call(since: records[99].updated_at.as_json, last_id: records[99].id, api_key: api_key.value)
 
       expect(response.headers['Link']).to eql("<#{link}>; rel='next'")
     end
@@ -42,7 +42,7 @@ shared_examples_for Api::Syncable do
 
         other = 3.times.map { FactoryGirl.create factory, updated_at: date }
 
-        get :sync, since: date.as_json, api_key: api_key.key, format: :json
+        get :sync, since: date.as_json, api_key: api_key.value, format: :json
 
         result = assigns(:records)
 

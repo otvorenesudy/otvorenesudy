@@ -3,8 +3,8 @@ class ApiKey < ActiveRecord::Base
 
   def generate_key
     begin
-      self.key = Generator.generate
-    end while self.class.exists?(key: key)
+      self.value = Generator.generate
+    end while self.class.exists?(value: value)
   end
 
   class Generator
