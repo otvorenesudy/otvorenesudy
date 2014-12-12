@@ -24,7 +24,7 @@ class DecreeSerializer < ActiveModel::Serializer
   end
 
   def date
-    object.date.to_date
+    object.date.try(:to_date)
   end
 
   def proposers
