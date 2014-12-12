@@ -1,0 +1,160 @@
+<p>
+  <span class="gutter centered"><%= icon_tag :legal %></span>
+  Počet rozhodnutí Ústavného súdu voči sudcovi – vydané <%= indicators['S1'] %> a prieťahy pred pridelením veci <%= indicators['S2'] %>.
+</p>
+
+<p>
+  <span class="gutter centered"><%= icon_tag :tasks %></span>
+  <b>Pre sudcu máme výkonnostné dáta za <%= indicators['S3'] %>:</b>
+</p>
+
+<div>
+  <ul class="unstyled">
+    <% if indicators['S3_2011'] %>
+      <li><strong>2011</strong> &ndash; <%= indicators['S3_2011'].map { |court| link_to_court(court) }.to_sentence.html_safe %></li>
+    <% end %>
+
+    <% if indicators['S3_2012'] %>
+      <li><strong>2012</strong> &ndash; <%= indicators['S3_2012'].map { |court| link_to_court(court) }.to_sentence.html_safe %></li>
+    <% end %>
+
+    <% if indicators['S3_2013'] %>
+      <li><strong>2013</strong> &ndash; <%= indicators['S3_2013'].map { |court| link_to_court(court) }.to_sentence.html_safe %></li>
+    <% end %>
+  </ul>
+</div>
+
+<p>
+  <span class="gutter centered"><%= icon_tag :inbox %></span>
+  Sudcovi <%= indicators['S4'] %>
+  <a href="#" data-target="#detailed-assigned-agendas" data-toggle="collapse">Zobraziť podrobnejšie</a>
+</p>
+
+<div id="detailed-assigned-agendas" class="collapse out">
+  <ul class="unstyled">
+    <li>Občianska &ndash; <%= indicators['S4a']  %></li>
+    <li>Obchodná &ndash; <%= indicators['S4b']  %></li>
+    <li>Poručenská &ndash; <%= indicators['S4c']  %></li>
+    <li>Trestná &ndash; <%= indicators['S4d']  %></li>
+  </ul>
+</div>
+
+<p>
+  <span class="gutter centered"><%= icon_tag :inbox %></span>
+  Sudca <%= indicators['S5'] %>
+  <a href="#" data-target="#detailed-decrees-agendas" data-toggle="collapse">Zobraziť podrobnejšie</a>
+</p>
+
+<div id="detailed-decrees-agendas" class="collapse out">
+  <ul class="unstyled">
+    <li>Občianska &ndash; <%= indicators['S5a']  %></li>
+    <li>Obchodná &ndash; <%= indicators['S5b']  %></li>
+    <li>Poručenská &ndash; <%= indicators['S5c']  %></li>
+    <li>Trestná &ndash; <%= indicators['S5d']  %></li>
+  </ul>
+</div>
+
+<p>
+  <span class="gutter centered"><%= icon_tag :time %></span>
+  Sudca v sledovanom období odpracoval <%= indicators['S6'] %> dní a v priemere mu za 10 dní bolo pridelených <%= indicators['S7'] %> prípadov v hlavných agendách.
+</p>
+
+<br />
+
+<h4>Indikátory kvality</h4>
+<hr />
+
+<p>
+  <span class="gutter centered"><%= icon_tag :'thumbs-up-alt' %></span>
+  <%= indicators['S8'] %>
+</p>
+
+<% if indicators['S9'] %>
+  <p>
+    <a href="#" data-target="#additional-quality-indicators" data-toggle="collapse">Zobraziť podrobnejšie</a>
+  </p>
+
+  <div id="additional-quality-indicators" class="collapse out hide-after-show">
+    <div>
+      <ul class="unstyled">
+        <li>Počet rozhodnutí o odvolaniach &ndash; <%= indicators['S8a'] %>
+          <li>Počet potvrdených odvolaní &ndash; <%= indicators['S8b'] %>
+      </ul>
+    </div>
+
+    <p>
+      <span class="gutter centered"><%= icon_tag :'thumbs-down-alt' %></span>
+
+      <%= indicators['S9'] %>
+    </p>
+
+    <p>
+      <span class="gutter centered"><%= icon_tag :'ban-circle' %></span>
+
+      <%= indicators['S10'] %>
+    </p>
+  </div>
+<% end %>
+
+<br />
+
+<h4>Indikátory efektivity</h4>
+<hr />
+
+<p>
+  <span class="gutter centered"><%= icon_tag :tasks %></span>
+  <%= indicators['S11'] %>
+</p>
+
+<% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
+  <p>
+    <a href="#" data-target="#additional-indicators-of-quality" data-toggle="collapse">Zobraziť podrobnejšie</a>
+  </p>
+
+  <div id="additional-indicators-of-quality" class="collapse out hide-after-show">
+    <p>
+      <span class="gutter centered"><%= icon_tag :inbox %></span>
+      <%= indicators['S12'] %>
+    </p>
+
+    <p>
+      <span class="gutter centered"><%= icon_tag :inbox %></span>
+      <%= indicators['S13'] %>
+    </p>
+
+    <p>
+      <span class="gutter centered"><%= icon_tag :inbox %></span>
+      <%= indicators['S14'] %>
+    </p>
+
+    <p>
+      <span class="gutter centered"><%= icon_tag :'bar-chart' %></span>
+      <%= indicators['S15'] %>
+    </p>
+  </div>
+<% end %>
+
+<% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f').any? %>
+  <hr/>
+
+  <p>
+    <span class="gutter centered"><%= icon_tag :pushpin %></span>
+    <a href="#" data-target="#indicators-notes" data-toggle="collapse">Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.
+  </p>
+
+  <div id="indicators-notes" class="collapse out">
+    <ul class="unstyled">
+      <% if indicators.values_at('S16a', 'S16b').any? %>
+        <li><strong>2011</strong> &ndash; <%= indicators.values_at('S16a', 'S16b').compact.to_sentence %></li>
+      <% end %>
+
+      <% if indicators.values_at('S16c', 'S16d').any? %>
+        <li><strong>2012</strong> &ndash; <%= indicators.values_at('S16c', 'S16d').compact.to_sentence %></li>
+      <% end %>
+
+      <% if indicators.values_at('S16e', 'S16f').any? %>
+        <li><strong>2013</strong> &ndash; <%= indicators.values_at('S16e', 'S16f').compact.to_sentence %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
