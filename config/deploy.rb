@@ -135,6 +135,4 @@ namespace :deploy do
   after 'deploy:update_code' do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
-
-  after 'deploy:restart', 'workers:stop', 'workers:start'
 end
