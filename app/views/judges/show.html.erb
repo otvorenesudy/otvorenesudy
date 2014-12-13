@@ -78,7 +78,7 @@
         <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
       <% end %>
 
-      <% if @judge.indicators.numerical %>
+      <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
         <br/>
         <%= render 'chart', judge: @judge, indicators: @judge.indicators.numerical %>
       <% end %>
