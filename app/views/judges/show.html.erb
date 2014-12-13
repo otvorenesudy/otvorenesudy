@@ -74,6 +74,15 @@
         </p>
       <% end %>
 
+      <% if @judge.indicators.statistical %>
+        <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
+      <% end %>
+
+      <% if @judge.indicators.numerical %>
+        <br/>
+        <%= render 'chart', judge: @judge, indicators: @judge.indicators.numerical %>
+      <% end %>
+
       <% if @statistical_summaries.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>

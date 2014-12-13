@@ -1,0 +1,18 @@
+#judge-indicators-chart {
+  .legend {
+    margin-top: 120px;
+
+    li {
+      margin-bottom: 10px;
+      font-size: 14px;
+
+      .color-sample {
+        display: block;
+        float: left;
+        width: 14px;
+        height: 14px;
+        margin-right: 0.5em;
+      }
+    }
+  }
+}

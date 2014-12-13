@@ -6,6 +6,12 @@ $(document).ready ->
     $('a[data-toggle="popover"]').popover()
     $('a[data-toggle="tooltip"]').tooltip()
 
+    $('.collapse.hide-after-show').on 'show', ->
+      id     = $(this).attr('id')
+      button = $("[data-target=\"##{id}\"]")
+
+      button.hide()
+
     $('.tablesorter-wrapper').removeAttr('style')
 
     $('a[href="#"]').click (event) ->
