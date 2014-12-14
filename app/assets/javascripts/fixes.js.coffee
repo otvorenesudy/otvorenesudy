@@ -4,7 +4,7 @@ $(document).ready ->
 
   window.fixes = ->
     $('a[data-toggle="popover"]').popover()
-    $('a[data-toggle="tooltip"]').tooltip()
+    $('a[data-toggle="tooltip"]').tooltip(container: 'body')
 
     $('.collapse.hide-after-show').on 'show', ->
       id     = $(this).attr('id')

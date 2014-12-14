@@ -46,6 +46,7 @@ class Judge
 
       @data.each do |id, values|
         next unless values.numerical
+        next unless values.numerical.to_hash.values.compact != values.numerical.to_hash
 
         values.numerical.each do |key, value|
           average[key] += value if value
@@ -53,7 +54,7 @@ class Judge
       end
 
       average.each do |key, value|
-        average[key] = value / @data.size.to_f
+        average[key] = (value / @data.size.to_f).round(1)
       end
 
       average
