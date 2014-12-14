@@ -61,7 +61,7 @@ class Judge
 
     def self.normalize_statistical_values(values)
       values.each_with_index do |(key, value), index|
-        value.gsub!(/-/, '–')
+        value = value.to_s.gsub(/-/, '–')
 
         value = case value
                 when 'N/A' then nil
