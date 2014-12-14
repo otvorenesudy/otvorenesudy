@@ -58,20 +58,20 @@
     <div>
       <ul class="unstyled">
         <li>Počet rozhodnutí o odvolaniach &ndash; <%= indicators['S8a'] %>
-          <li>Počet potvrdených odvolaní &ndash; <%= indicators['S8b'] %>
+        <li>Počet potvrdených odvolaní &ndash; <%= indicators['S8b'] %>
       </ul>
     </div>
 
     <p>
       <span class="gutter centered"><%= icon_tag :'thumbs-down-alt' %></span>
 
-      <%= indicators['S9'] %>
+      <%= abjuration_rate_indicator(indicators) %>
     </p>
 
     <p>
       <span class="gutter centered"><%= icon_tag :'ban-circle' %></span>
 
-      <%= indicators['S10'] %>
+      <%= cancellation_rate_indicator(indicators) %>
     </p>
   </div>
 <% end %>
@@ -83,7 +83,7 @@
 
 <p>
   <span class="gutter centered"><%= icon_tag :tasks %></span>
-  <%= indicators['S11'] %>
+  <%= average_proceeding_length_indicator(indicators) %>
 </p>
 
 <% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>

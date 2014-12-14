@@ -17,6 +17,15 @@ class window.JudgeChart
       pointStrokeColor: "#fff",
       pointHighlightFill: "#fff",
       pointHighlightStroke: "rgba(151,187,205,1)",
+    }, {
+      label: "Maximálne možné hodnotenie",
+      fillColor: "rgba(255,255,255,0.0)",
+      strokeColor: "rgba(0,20,0, 0.2)",
+      pointColor: "rgba(0,0,0,0.6)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(151,187,205,1)",
+      data: [10, 10, 10, 10, 10, 10, 10, 10]
     }]
 
   options:
