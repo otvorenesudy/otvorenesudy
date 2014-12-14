@@ -69,8 +69,8 @@ class Judge
                 end
 
         if value
-          value = case index
-                  when 4, 5, 6 then value.split(',').map { |name| Court.find_by_name(name.strip) }
+          value = case key
+                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(name.strip) }
                   else value
                   end
         end

@@ -26,37 +26,17 @@
 
 <p>
   <span class="gutter centered"><%= icon_tag :inbox %></span>
-  Sudcovi <%= indicators['S4'] %>
-  <a href="#" data-target="#detailed-assigned-agendas" data-toggle="collapse">Zobraziť podrobnejšie</a>
+  <%= assigned_agendas_indicator(indicators) %>
 </p>
-
-<div id="detailed-assigned-agendas" class="collapse out">
-  <ul class="unstyled">
-    <li>Občianska &ndash; <%= indicators['S4a']  %></li>
-    <li>Obchodná &ndash; <%= indicators['S4b']  %></li>
-    <li>Poručenská &ndash; <%= indicators['S4c']  %></li>
-    <li>Trestná &ndash; <%= indicators['S4d']  %></li>
-  </ul>
-</div>
 
 <p>
   <span class="gutter centered"><%= icon_tag :inbox %></span>
-  Sudca <%= indicators['S5'] %>
-  <a href="#" data-target="#detailed-decrees-agendas" data-toggle="collapse">Zobraziť podrobnejšie</a>
+  <%= decrees_agendas_indicator(indicators) %>
 </p>
-
-<div id="detailed-decrees-agendas" class="collapse out">
-  <ul class="unstyled">
-    <li>Občianska &ndash; <%= indicators['S5a']  %></li>
-    <li>Obchodná &ndash; <%= indicators['S5b']  %></li>
-    <li>Poručenská &ndash; <%= indicators['S5c']  %></li>
-    <li>Trestná &ndash; <%= indicators['S5d']  %></li>
-  </ul>
-</div>
 
 <p>
   <span class="gutter centered"><%= icon_tag :time %></span>
-  Sudca v sledovanom období odpracoval <%= indicators['S6'] %> dní a v priemere mu za 10 dní bolo pridelených <%= indicators['S7'] %> prípadov v hlavných agendách.
+  Sudca v sledovanom období odpracoval <%= indicators['S6'] %> dní a v priemere mu za 100 dní bolo pridelených <%= indicators['S7'] %> prípadov v hlavných agendách.
 </p>
 
 <br />
@@ -135,7 +115,7 @@
 <% end %>
 
 <% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f').any? %>
-  <hr/>
+  <br/>
 
   <p>
     <span class="gutter centered"><%= icon_tag :pushpin %></span>
