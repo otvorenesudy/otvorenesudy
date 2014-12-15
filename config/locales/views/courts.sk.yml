@@ -8,3 +8,13 @@ sk:
     state: 'Slovenská republika'
     to_media: 'Pre médiá'
     with_other_courts: 'aj s ostatnými súdmi Slovenskej Republiky.'
+
+  courts:
+    search:
+      title: 'Vyhľadávanie medzi súdmi'
+
+    headline:
+      headline_html: 'Celkovo 20% sudcov má v súdnictve<br/>aspoň jedného príbuzného.'
+      sub_headline_html: 'Otvorené Súdy &mdash; vyhľadávate medzi %{total_courts} súdmi'
+      record_holds: 'Rekordérom je'
+      record_hold: 'Rekordérmi sú'

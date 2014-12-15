@@ -1,4 +1,4 @@
-en:
+﻿en:
   contact:
     fax: 'Fax:'
     media_person: 'Contact person'
@@ -8,3 +8,13 @@ en:
     state: 'Slovak Republic'
     to_media: 'Contacts for media'
     with_other_courts: 'with other courts in Slovak Republic'
+
+  courts:
+    search:
+      title: 'Search courts'
+
+    headline:
+      headline_html: 'Altogether 20% of judges have at least<br/>one family member in the judiciary.'
+      sub_headline_html: 'Open Courts &mdash; you are searching among %{total_courts} courts'
+      record_holds: 'The record holds'
+      record_hold: 'The record hold'
