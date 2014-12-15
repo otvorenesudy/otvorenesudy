@@ -65,13 +65,15 @@
     <p>
       <span class="gutter centered"><%= icon_tag :'thumbs-down-alt' %></span>
 
-      <%= abjuration_rate_indicator(indicators) %>
+      <%= indicators['S9'] %>
+      <%= tooltip_tag icon_tag(:question), 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.' %>
     </p>
 
     <p>
       <span class="gutter centered"><%= icon_tag :'ban-circle' %></span>
 
-      <%= cancellation_rate_indicator(indicators) %>
+      <%= indicators['S10'] %>
+      <%= tooltip_tag icon_tag(:question), 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.' %>
     </p>
   </div>
 <% end %>
@@ -83,7 +85,8 @@
 
 <p>
   <span class="gutter centered"><%= icon_tag :tasks %></span>
-  <%= average_proceeding_length_indicator(indicators) %>
+  <%= indicators['S11'] %>
+  <%= tooltip_tag icon_tag(:question), 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.' %>
 </p>
 
 <% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
@@ -100,6 +103,8 @@
     <p>
       <span class="gutter centered"><%= icon_tag :inbox %></span>
       <%= indicators['S13'] %>
+
+      <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
     </p>
 
     <p>
@@ -124,7 +129,7 @@
 
   <div id="indicators-notes" class="collapse out">
     <ul class="unstyled">
-      <% indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').compact.each do |value| %>
+      <% indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').compact.sort.each do |value| %>
          <li><%= value %></li>
       <% end %>
     </ul>

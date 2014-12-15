@@ -3,7 +3,7 @@ $(document).ready ->
     typeof(value) != 'undefined'
 
   window.fixes = ->
-    $('a[data-toggle="popover"]').popover()
+    $('a[data-toggle="popover"]').popover(container: 'body')
     $('a[data-toggle="tooltip"]').tooltip(container: 'body')
 
     $('.collapse.hide-after-show').on 'show', ->
@@ -11,6 +11,13 @@ $(document).ready ->
       button = $("[data-target=\"##{id}\"]")
 
       button.hide()
+
+    # TODO fix tooltips and popovers in collapse
+    $('.collapse').on 'shown', ->
+      $(this).css('overflow', 'visible')
+
+    $('.collapse').on 'hide', ->
+      $(this).css('overflow', 'hidden')
 
     $('.tablesorter-wrapper').removeAttr('style')
 
