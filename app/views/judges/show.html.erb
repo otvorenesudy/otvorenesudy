@@ -74,13 +74,15 @@
         </p>
       <% end %>
 
-      <% if @judge.indicators.statistical %>
+      <% if @judge.indicators %>
+        <% if @judge.indicators.statistical %>
         <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
-      <% end %>
+        <% end %>
 
-      <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
+        <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
         <br/>
         <%= render 'chart', judge: @judge, indicators: @judge.indicators.numerical %>
+        <% end %>
       <% end %>
 
       <% if @statistical_summaries.any? %>
