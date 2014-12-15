@@ -1,6 +1,7 @@
 class Judge
   module Indicators
     extend ActiveSupport::Concern
+    extend JusticeGovSk::Helper::Normalizer
 
     def indicators
       Judge::Indicators.for(self)
@@ -71,9 +72,13 @@ class Judge
 
         if value
           value = case key
-                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(name.strip) }
+                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(normalize_court_name(name)) }
                   else value
                   end
+        end
+
+        if value.is_a?(Array)
+          binding.pry if value.compact != value
         end
 
         values[key] = value
