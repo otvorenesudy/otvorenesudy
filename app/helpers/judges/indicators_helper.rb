@@ -16,7 +16,7 @@ module Judges
     end
 
     def decrees_agendas_indicator(indicators, options = {})
-      value = indicators['S5'].gsub(/([^\s]+ agenda|žiadnej agende väčšinovo)/) do |match|
+      value = indicators['S5'].gsub(/([^\s]+ agende|žiadnej agende väčšinovo)/) do |match|
         content = <<-EOF
           Občianska &ndash; #{indicators['S5a']} <br/>
           Obchodná &ndash; #{indicators['S5b']} <br/>
@@ -27,7 +27,7 @@ module Judges
         popover_tag(match, content, title: 'Rozhodované agendy', trigger: :hover)
       end
 
-      "Sudcovi #{value}".html_safe
+      "Sudca #{value}".html_safe
     end
 
     def abjuration_rate_indicator(indicators, options = {})
