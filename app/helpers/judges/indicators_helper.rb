@@ -29,17 +29,5 @@ module Judges
 
       "Sudcovi #{value}".html_safe
     end
-
-    def abjuration_rate_indicator(indicators, options = {})
-      tooltip_tag(indicators['S9'], 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.')
-    end
-
-    def cancellation_rate_indicator(indicators, options = {})
-      tooltip_tag(indicators['S10'], 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.')
-    end
-
-    def average_proceeding_length_indicator(indicators, options = {})
-      tooltip_tag(indicators['S11'], 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.')
-    end
   end
 end
