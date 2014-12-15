@@ -20,6 +20,7 @@ gem 'jquery-rails', '~> 2.2.1'
 gem 'rails-timeago'
 gem 'jquery-tablesorter'
 gem 'execjs'
+gem 'chart-js-rails'
 
 # JS libraries
 gem 'inflection-js-rails'

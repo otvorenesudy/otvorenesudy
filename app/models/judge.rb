@@ -21,6 +21,7 @@ class Judge < ActiveRecord::Base
 
   include Judge::Activity
   include Judge::Matched
+  include Judge::Indicators
 
   scope :not_active_or_not_listed, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
 
