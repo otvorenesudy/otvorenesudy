@@ -1,19 +1,12 @@
-# Našli ste chybu?
+﻿# Did you find an error?
 
-## Chyba na stránke
+## Error on the page
 
-Všetky chyby, ktoré nastanú pravidelne monitorujme. No ani my nie sme neomylní
-a môže sa stať, že nám niečo ušlo. V prípade, že ste chybu našli, neváhajte a
-napíšte nám čo najpresnejší popis ako ku chybe došlo a ako sa prejavila.
-E-mailom nám túto informáciu zašlite dole uvedenú adresu.
+All errors that happen are regularly monitored. We are not perfect though and it is possible that we have missed something. In case you found a mistake, please, do not hesitate and let us know. Please include as accurate description of the discovered error as possible and send it to us via email on the address that can be found below..
 
-## Chyba v dátach
+## Data error
 
-Ak ste našli chybu v dátach, ktoré sú na stránke zverejnené, tak ju
-nahláste na nižšie uvedený e-mail. Chyby v dátach sú vo všoebecnosti
-náročnejšie na opravu &ndash; dáta mohli byť totiž chybné už predtým
-ako sme ich získali a spracovali, no mohlo sa stať, že sme niečo pokazili
-aj my.
+If you found an error in the data that are published on the webpage, please, report it to the email address that can be found below. Data errors are in general corrected with more difficulties &ndash; data may have been defective prior to when we obtained them. Indeed, something may have gone wrong on our side as well.
 
 <hr/>
 
@@ -22,6 +15,4 @@ aj my.
 </p>
 
 <hr/>
-
-Samozrejme sa snažíme, aby chýb bolo čo najmenej a za všetky vaše postrehy
-vám vopred ďakujeme.
+ We are trying to make as little mistakes as possible and we are thankful for any questions and concerns.

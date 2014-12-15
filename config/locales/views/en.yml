@@ -1,17 +1,67 @@
-en:
+﻿en:
   static_pages:
-    about: 'O projekte'
-    faq: 'Často kladené otázky'
-    code: 'Zdrojový kód'
-    contact: 'Kontakt'
+    about: 'About'
+    faq: 'FAQ'
+    code: 'Source code'
+    contact: 'Contact'
 
-    terms_of_use: 'Podmiensky používania'
-    privacy: 'Ochrana súkromia'
-    copyright: 'Autorské práva'
+    terms_of_use: 'Terms of use'
+    privacy: 'Privacy'
+    copyright: 'Copyright'
 
-    feedback: 'Našli ste chybu?'
-    security: 'Bezpečnosť'
+    feedback: 'Did you find a mistake?'
+    security: 'Security'
 
-    how_it_works: 'Ako to funguje?'
-    data_history: 'História dát'
+    how_it_works: 'How does it work?'
+    data_history: 'Data history'
     api: 'API'
+
+  search:
+    header:
+      courts: 'Courts'
+      judges: 'Judges'
+      hearings: 'Hearings'
+      decrees: 'Decisions'
+      proceedings: 'Proceedings'
+
+    controls:
+      remove_all_facets: 'Remove all facets'
+
+    results:
+      no_results_html: '<strong>No results found</strong> for selected options.'
+
+    sort:
+      common: &sort
+        score: 'Relevance'
+        created_at: 'Document created on'
+        updated_at: 'Document updated on'
+
+        judges_count: 'Total number of judges'
+        hearings_count: 'Total number of hearings'
+        decrees_count: 'Total number of decisions'
+
+      court:
+        <<: *sort
+
+      judge:
+        <<: *sort
+
+      hearing:
+        <<: *sort
+
+        date: 'Hearing date'
+
+      decree:
+        <<: *sort
+
+        date: 'Decison date'
+        pages_count: 'Number of pages'
+
+      proceeding:
+        <<: *sort
+
+      selection_procedure:
+        <<: *sort
+
+        date: 'Procedure held on'
+        closed_at: 'Application closed on'

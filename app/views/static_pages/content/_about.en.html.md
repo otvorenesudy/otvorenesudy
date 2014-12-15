@@ -1,55 +1,43 @@
-# O projekte
+﻿# About
 
-Dobré fungovanie súdneho systému má zásadný vplyv na kvalitu verejného života
-a demokracie. Fungujúce a dôveryhodné súdnictvo je predpokladom pre dobré
-podnikateľské ale aj bežné občianske prostredie na život. Slováci so stavom
-súdnictva nie sú spokojní. Podľa <%= external_link_to "Eurobarometra z jesene 2009", 'http://ec.europa.eu/public_opinion/archives/ebs/ebs_374_en.pdf' %> 
-len 29% Slovákov dôveruje súdom. Zároveň každá dvanásta domácnosť, ktorá
-prišla do kontaktu so súdnictvom, zaplatila podľa prieskumu
-<%= external_link_to "Globálneho barometra korupcie z roku 2013", 'http://transparency.sk/sk/kazda-piata-domacnost-zaplati-rocne-aspon-jeden-uplatok' %>
-úplatok. 
+Well-functioning of the judicial system has an important impact on the quality of public life and of democracy. A well-functioning and trustwothy judiciary is a necessary pre-condition for for a good business environment as well as civic life. Slovaks are not satisfied with the current state of judiciary. According to <%= external_link_to "Eurobarometer from the fall of 2009", 'http://ec.europa.eu/public_opinion/archives/ebs/ebs_374_en.pdf' %> 
+only 29% of people in Slovakia trust the courts. At the same time, every twelfth household that has been in touch with judiciary paid a bribe according to
+<%= external_link_to "2013's Global Corruption Barometer", 'http://transparency.sk/sk/kazda-piata-domacnost-zaplati-rocne-aspon-jeden-uplatok' %>.
 
-O činnosti sudcov a súdov pritom veľa nevieme, aj kvôli obmedzeniam v prístupe
-k informáciám, ktoré sú pri poslancoch alebo vláde miernejšie.  
+We do not know much about the work of judges and courts. One of the reasons is restrictions with regard to access to information that are rather softer when it comes to government or parliament.
 
-Zároveň diskusie o fungovaní a kvalite súdnictva trpia dvoma neduhmi. Po prvé,
-často sú paušalizujúce („sudcovia sú skorumpovaní“) bez jasného pomenovania
-vinníkov alebo problémov. Po druhé &ndash; množstvo diskusií sa vedie v rámci
-zbytočne úzkej skupiny odborníkov z právnych profesií. Projekt Otvorené Súdy
-je príspevkom k zlepšeniu diskusie o slovenskom súdnictve troma spôsobmi:
+Simultaneously discussions about the functioning and the quality of judiciary suffer from two major shortcomings. Firstly, they are often over-generalizing ("judges are corrupt") without any clear reference to those responsible or without any identification of problems. Secondly,  &ndash; majority of discussions are held only among unnecessarily restrictive group of legal professionals. Open Courts aim to contribute to the improvement of the discussion about Slovak judiciary in three ways:
 
 <hr/>
 
-1. zlepšuje dostupnosť údajov o činnosti a výkonnosti súdov a sudcov, 
-2. tieto dáta prepája a umožňuje porovnávanie,
-3. robí tak adresne – na úrovni jednotlivých sudcov a súdov.
+1. improvement of accessebility of information about activities and performance of judges and courts, 
+2. the data are interconnected and allow for comparisons,
+3. doing so on the level of particular judges and courts.
 
 <hr/>
 
-Autormi projektu sú
-<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %> a
+Authors of the project are
+<%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %> and
 <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
-(členovia výskumnej skupiny <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
-<%= external_link_to "Fakulte informatiky a informačných technológií", 'http://fiit.stuba.sk' %>
-<%= external_link_to "Slovenskej technickej univerzity v Bratislave", 'http://stuba.sk' %>) a
-<%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>.
+(members of Research group <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> at the
+<%= external_link_to "Faculty of Informatics and Information Technologies", 'http://fiit.stuba.sk' %>
+<%= external_link_to "of the Slovak University of Technologies", 'http://stuba.sk' %>) a
+nd<%= external_link_to "Transparency International Slovakia", 'http://transparency.sk' %>.
 
-Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
+Project Open Courts was created thanks to the support of Secretariat of
 <%= external_link_to "Transparency International", 'http://transparency.org' %>
-v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
-organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk' %>.
-Aktualizácie portálu boli sponzorované Fondom pre Transparentné Slovensko
-v <%= external_link_to "Nadácii Pontis", 'http://nadaciapontis.sk' %>.
+in Berlin and the project <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
+organized by <%= external_link_to "Centre for Philantropy", 'http://cpf.sk' %>.
+Portal updates were funded by Fund for transparent Slovakia
+in <%= external_link_to "Pontis foundation", 'http://nadaciapontis.sk' %>.
 
-Za hosting projektu ďakujeme spoločnosti
+For the hosting of the project we are grateful to
 <%= external_link_to "Petit Press", 'http://petitpress.sk' %>,
-prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk' %>.
-
-Za pomoc veľmi pekne ďakujeme aj
-<%= external_link_to "Pavlovi Nechalovi", 'http://advocate.sk/' %>,
-Kataríne Batkovej, Chrisovi Wormanovi, Milene Marin a ďalším kolegom.
+administrator of the portal <%= external_link_to "sme.sk", 'http://sme.sk' %>. For help and useful comments we are also very thankful to 
+<%= external_link_to "Pavel Nechala", 'http://advocate.sk/' %>,
+Katarína Batková, Chris Worman, Milena Marin and others.
 
 <hr/>
 
-Ďalšie informácie o projekte nájdete zodpovedané v sekcii
-<%= external_link_to "Často kladených otázok", static_page_path(:faq) %>.
+Further information about the project can be found in the 
+<%= external_link_to "FAQ section", static_page_path(:faq) %>.

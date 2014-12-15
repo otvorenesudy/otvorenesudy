@@ -1,11 +1,11 @@
-en:
+﻿en:
   devise:
     shared:
       links:
-        login: 'Prihlásenie'
-        signup: 'Registrácia'
-        forgotten_password: 'Zabudli ste heslo?'
-        signup_confirmation: 'Potvrdenie registrácie'
+        login: 'Log In'
+        signup: 'Sign Up'
+        forgotten_password: 'Forgot password?'
+        signup_confirmation: 'Sign Up Confirmation'
 
     confirmations:
       confirmed: 'Your email address has been successfully confirmed.'
@@ -44,8 +44,8 @@ en:
 
     registrations:
       new:
-        title: 'Registrácia'
-        submit: 'Zaregistrovať sa'
+        title: 'Registration'
+        submit: 'Sign Up'
 
       destroyed: 'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
       signed_up: 'Welcome! You have signed up successfully.'
@@ -56,18 +56,18 @@ en:
       updated: 'Your account has been updated successfully.'
 
       edit:
-        settings: 'Nastavenia'
-        password_placeholder: 'Prázdne, ak nechcete zmeniť.'
-        confirm_placeholder: 'Vyplňte, pre potvrdenie zmien.'
-        submit: 'Uložiť'
-        delete_account: 'Zrušenie účtu'
-        confirm_delete: 'Zrušiť účet'
-        are_you_sure: 'Ste si istý?'
+        settings: 'Settings'
+        password_placeholder: 'Empty, if you do not wnat to change.'
+        confirm_placeholder: 'Fill in to confirm changes.'
+        submit: 'Submit'
+        delete_account: 'Delete account'
+        confirm_delete: 'Delete account'
+        are_you_sure: 'Are you sure?'
 
     sessions:
       new:
-        title: 'Prihlásenie'
-        submit: 'Prihlásiť sa'
+        title: 'Log In'
+        submit: 'Log In'
 
       already_signed_out: 'Signed out successfully.'
       signed_in: 'Signed in successfully.'

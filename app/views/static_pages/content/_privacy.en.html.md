@@ -1,23 +1,15 @@
-# Ochrana súkromia
+﻿# Privacy
 
-Vaše údaje, e-mail a nastavenia notifikácií o nových výsledkoch vyhľadávania,
-neposkytujeme za žiadnych okolností tretím stranám. Uvedené údaje používame
-výlučne na účely projektu Otvorené Súdy a na zaznamenávanie používateľských
-štatistík. V prípade nespokojnosti si Váš účet môžete kedykoľvek zrušiť v
-sekcii Nastavenia. 
+Your contact details, e-mail and notification settings about new search results, we do not offer to any third party at any circumstances. Provided information are used only for the purpose of this project and with regard to recording user-related statistics. In case of discontent you can cancel your account at any point in time in the section Settings.
 
-Súbory cookie nám pomáhajú poskytovať a zabezpečiť registráciu a prihlásenie
-používateľov. Používame ich aj na na ochranu Vašich osobných údajov po prihlásení.
+Cookies help us to provide and secure registration and logging of users. We use them to protect your personal information after logging in.
 
 <hr/>
 
 <div class="alert alert-notice">
-  Používaním našich služieb vyjadrujete súhlas s používaním súborov cookie.
+  By the using of our services you agree to use cookies.
 </div>
 
 <hr/>
 
-Cookie je krátky textový súbor, ktorý do prehliadača odosielajú navštívené webové stránky.
-Webovým stránkam umožňuje zapamätať si informácie o vašej návšteve, napríklad preferovaný
-jazyk a ďalšie nastavenia. Ďalšia návšteva stránok tak môže prebehnúť ľahšie a môže byť
-produktívnejšia. Súbory cookie sú dôležité. Bez nich by bolo prehliadanie webu oveľa zložitejšie.
+Cookie is a short text file, that is sent to the browser by the visited webpages. It allows webpages to remember information about your visit, including language preferences and other settings. Any following visit then can be administered more smoothly and more productive. Cookies are important, without them would be browsing the web much more complicated.

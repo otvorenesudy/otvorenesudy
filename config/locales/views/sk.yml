@@ -19,6 +19,19 @@ sk:
         display_entries: 'Zobrazených %{first} &ndash; %{last} z celkovo %{total}'
 
   search:
+    header:
+      courts: 'Súdy'
+      judges: 'Sudcovia'
+      hearings: 'Pojednávania'
+      decrees: 'Rozhodnutia'
+      proceedings: 'Konania'
+
+    controls:
+      remove_all_facets: 'Zrušiť všetky obmedzenia'
+
+    results:
+      no_results_html: 'Nastaveným obmedzeniam nevyhovujú <strong>žiadne výsledky</strong>.'
+
     sort:
       common: &sort
         score: 'Relevancia'

@@ -1,200 +1,136 @@
-## Frequently asked questions
+﻿## Frequently asked questions
 
-# O projekte
+# About
 
-#### Čo je cieľom projektu? 
+#### What is the objective of the project?
 
-Cieľom projektu Otvorené súdy je na základe verejne dostupných dát zvýšiť tlak
-na kvalitu slovenského súdnictva. Stránka pomocou týchto dát sprehľadňuje
-činnosť súdov a sudcov a umožňuje ich porovnanie.
+The objective is to increase pressure on the quality and efficiency of the Slovak judiciary by utilization of open-data. The portal makes activities and performance of judges and courts more comprehensive and allows for comparisons. A long-term objective of <%= external_link_to "Transparency International Slovakia", 'http://transparency.sk' %>
+is to contribute to the development of qualitative and quantitative indicators that shall allow measure quality and efficicency and their changes in time in the judiciary at the level of judges, as well as courts.
 
-Dlhodobým cieľom <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
-je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by
-umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sudcov.
+#### What can I find at the portal?
 
-#### Čo môžem na portáli robiť?
+The webpage offers information about activities
+<%= link_to "of courts", search_courts_path %>,
+profily <%= link_to "judges", search_judges_path %>,
+past and the future <%= link_to "hearings", search_hearings_path %> and more than a million <%= link_to "judicial decisions", search_decrees_path %>.
 
-Stránka poskytuje informácie o činnosti
-<%= link_to "súdov", search_courts_path %>,
-profily <%= link_to "sudcov", search_judges_path %>,
-minulé aj budúce <%= link_to "pojednávania", search_hearings_path %> a
-viac ako pol milióna <%= link_to "súdnych rozhodnutí", search_decrees_path %>.
+#### Can you offer me a legal advice? Advisory office is not a part of the project. In case you are searching for a legal advice you can contact
+<%= external_link_to "Legal Aid Centre", 'http://www.legalaid.sk' %>.
+The Centre is obliged to help those in socially disadvantageous position that cannot afford any other legal help, but they can help you with simple matters. You can also search for an advocate at the webpage of
+<%= external_link_to "Slovak Bar Association", 'https://www.sak.sk/blox/cms/sk/sak/adv/vyhladanie' %>,
+that you can subsequently contact.
 
-#### Viete mi poskytnúť právne poradenstvo?
-
-Právna poradňa nie je súčasťou tohto projektu. V prípade, že právnu radu
-hľadáte, môžete sa obrátiť na
-<%= external_link_to "Centrum právnej pomoci", 'http://www.legalaid.sk' %>.
-Úlohou centra je však pomoc materiálne znevýhodneným, ktorí si inú právnu pomoc
-dovoliť nemôžu, no s jednoduchými vecami Vám môžu poradiť. Tiež si môžete
-priamo vyhľadať advokáta na stránke
-<%= external_link_to "Slovenskej advokátskej komory", 'https://www.sak.sk/blox/cms/sk/sak/adv/vyhladanie' %>,
-na ktorého sa obrátite.
-
-#### Kto sú autori projektu? 
-
-Autormi projektu sú
+#### Who are the authors of the project? Authors are
 <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %> a
 <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
-(členovia výskumnej skupiny <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
-<%= external_link_to "Fakulte informatiky a informačných technológií", 'http://fiit.stuba.sk' %>
-<%= external_link_to "Slovenskej technickej univerzity v Bratislave", 'http://stuba.sk' %>) a
-<%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>.
+(members of the Research group <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
+<%= external_link_to "at the Faculty of Informatics and Information Technologies", 'http://fiit.stuba.sk' %>
+<%= external_link_to "of the Slovak University of Technology in Bratislava", 'http://stuba.sk' %>) and<%= external_link_to "Transparency International Slovakia", 'http://transparency.sk' %>.
 
-#### Kto to platí?
-
-Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
+#### Who is it paid by? The project Open Courts was created thanks to the support of the Secretariat of
 <%= external_link_to "Transparency International", 'http://transparency.org' %>
-v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
-organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk' %>.
-
-Za hosting projektu ďakujeme spoločnosti
+in Berlin and the project <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
+organized by the<%= external_link_to "Centre for Philantropy", 'http://cpf.sk' %>.For the hosting we are grateful to 
 <%= external_link_to "Petit Press", 'http://petitpress.sk' %>,
-prevádzkovateľovi portálu <%= external_link_to "sme.sk", 'http://sme.sk' %>.
+administrator of the portal <%= external_link_to "sme.sk", 'http://sme.sk' %>.
 
-#### Ako môžem pomôcť?
-
-Používajte stránku, dajte o nej vedieť známym, ktorých by mohla zaujímať.
-Sledujte novinky na sociálnych sieťach
-<%= external_link_to "Facebook", 'https://facebook.com/otvorenesudy' %> a
+#### How can I contribute? Use the webpage. share it with others that may be interested. Follow the news about the project at social networks
+<%= external_link_to "Facebook", 'https://facebook.com/otvorenesudy' %> and
 <%= external_link_to "Twitter", 'https://twitter.com/otvorenesudy' %>,
-a ak ste programátor tak určite aj na sieti
+and if you are an IT developer also on
 <%= external_link_to "GitHub", 'https://github.com/otvorenesudy' %>.
+If you can, please consider
+<%= external_link_to "financial contribution", 'http://transparency.darujme.sk/238/' %>to the project.
 
-Ak môžete, prosím, zvážte
-<%= external_link_to "finančnú podporu", 'http://transparency.darujme.sk/238/' %>
-projektu.
+# Data
 
-# O dátach
+#### Where do the data come from?
 
-#### Odkiaľ pochádzajú použité dáta?
-
-Portál využíva výhradne dáta zverejnené alebo sprístupnené
-nasledujúcimi verejnými inštitúciami:  
+Portal uses only data published or made available by public institutions:  
 
 <hr/>
 
-- <%= external_link_to "Ministerstvo spravodlivosti Slovenskej republiky", 'http://www.justice.gov.sk' %>
+- <%= external_link_to "Ministry of Justice of the SLovak Republic", 'http://www.justice.gov.sk' %>
 
-  - <%= external_link_to "Súdy", 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
-  - <%= external_link_to "Sudcovia", 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
-  - <%= external_link_to "Súdne pojednávania", 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
-  - <%= external_link_to "Súdne rozhodnutia", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
-  - <%= external_link_to "Štatistiky o súdoch", 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx' %>
-  - <%= external_link_to "Ročné štatistické výkazy o činnosti sudcov", 'http://www.justice.gov.sk/rsvs' %>
-  - <%= external_link_to "Životopisy a motivačné listy sudcov", 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
-
-<hr/>
-
-- <%= external_link_to "Súdna rada Slovenskej republiky", 'http://www.sudnarada.gov.sk' %>
-
-  - <%= external_link_to "Majetkové priznania sudcov", 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
+  - <%= external_link_to "Courts", 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
+  - <%= external_link_to "Judges", 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
+  - <%= external_link_to "Hearings", 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
+  - <%= external_link_to "Judicial decisions", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
+  - <%= external_link_to "Statistics about courts", 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx' %>
+  - <%= external_link_to "Annual statistical reports of judges", 'http://www.justice.gov.sk/rsvs' %>
+  - <%= external_link_to "CVs and Letters of motivation of judges", 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
 
 <hr/>
 
-- <%= external_link_to "Národná rada Slovenskej republiky", 'http://www.nrsr.sk' %> a <%= external_link_to "Kancelária prezidenta Slovenskej republiky", 'http://www.prezident.sk' %>
+- <%= external_link_to "Judicial Council of the Slovak Republic", 'http://www.sudnarada.gov.sk' %>
 
-  - Dátumy menovania sudcov do funkcie
+  - <%= external_link_to "Asset declarations of judges", 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
 
 <hr/>
 
-Za vecnú správnosť dát autori nenesú zodpovednosť. Použité dáta boli
-normalizované a navzájom prepojené.
+- <%= external_link_to "National Council of the Slovak Republic", 'http://www.nrsr.sk' %> a <%= external_link_to "The office of the President of the Slovak Republic", 'http://www.prezident.sk' %>
 
-Mediálne dáta pochádzajú z článkov na spravodajských portáloch:
+  - Dates of appointments of judges to their positions
+
+<hr/>Authors are not responsible for factual accuracy of the data. The used data were normalized and interconnected. Media data come from articles on news portals:
 sme.sk, tyzden.sk, webnoviny.sk, tvnoviny.sk, pravda.sk, etrend.sk, aktualne.sk.
-Odkazy na tieto články sú vyhľadávané automaticky na základe názvu súdu alebo
-mena a pôsobiska sudcu. Súdu ani sudcu sa týkať nemusia.
+Hyperlinks to these articles are searched automatically using the name of the court or a judge. They may not inform about any particular court or a judges.
 
-#### Ako často sú dáta aktualizované? 
+#### How often are the data updated?
 
-Za bežnej prevádzky plánujeme aktualizovať dáta o súdnych pojednávaniach denne.
-Dáta o súdnych rozhodnutich by sme radi aktualizovali najmenej raz za týždeň.
+At the times of regular operation we plan to update the data about hearings daily. The data about judicial decisions are planned to be updated at least once a week.
 
-#### Našiel som chybu, čo mám spraviť?
+#### I found a mistake, what shall I do?
 
-Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom
-na <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>. Ak ste našli
-<%= link_to "chybu v dátach", static_page_path(:feedback) %>
-prípadne <%= link_to "bezpečnostnú chybu", static_page_path(:security) %>,
-postupujte podobne.
+Write us an email describing the mistake as accurately as possible to <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>. If you found a
+<%= link_to "error in the data", static_page_path(:feedback) %>possibly <%= link_to "security risk", static_page_path(:security) %>,please follow the same instructions.
 
-#### Sú dáta úplné?
+#### Are the data complete?
 
-Dobrá otázka. Úplné v zmysle vernej, lepšej a použiteľnejšej kópie, by mali
-byť informácie o súdoch, sudcoch a súdnych rozhodnutiach.
+Good question. In terms of reliable, better and more comprehensive copy, the information about courts, judges and judicial decisions shall be complete. Information about hearings shall be more complete than as provided by the Ministry. &ndash; Open Courts shall offer more data than the webpage of Ministry of Justice.
 
-Informácie o súdnych pojednávaniach by mali byť úplnejšie &ndash; Otvorené
-Súdy by mali poskytovať viac dát ako stránka ministerstva spravodlivosti.
+#### What about data errors?
 
-#### A čo dátové chyby?
+These are corrected in a rather more ddifficult way &ndash; the data may have been defective prior obtaining them, or we may have done something wrong. We attempt to minimalize number of any mistakes and we are working on an elegant way to correct defective data.
 
-Tie sú náročnejšie na opravu &ndash; dáta mohli byť chybné pred tým ako sme
-ich získali, alebo sme niečo pokazili my. Snažíme sa, aby chýb bolo najmenej
-a do budúcna plánujeme pracovať na elegantnom riešení opravy chýb.
+# About courts
 
-# O súdoch
+#### I do not see the Constitutional Court. Why?
 
-#### Nevidím Ústavný súd? Prečo?
+Because we do not have data at the moment. The Constitutional Court publishes its data independently from the rest of the courts, but we will try to obtain these information as well.
 
-Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o svojej agende samostatne, budeme sa snažiť tieto dáta na stránku získať.
+# About judges
 
-# O sudcoch
+#### Do we really have more than 2 000 judges?
 
-#### Naozaj máme vyše 2 000 sudcov?
+No. In Slovakia we have approximately 1 400 active judges. It si difficult to say an accurate number of judges due to defective source data as well as because of the fact that some judges may have temporarily interrupted the exercise of the judgeship.
 
-Nie. Na Slovensku máme približne 1 400 činných sudcov, ich presný aktuálny
-počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto,
-že sudcovia môžu mať prerušený výkon funkcie.  
+#### Who is the rest? Who are HCO?
 
-#### Kto sú tí zvyšní? Kto sú VSÚ?
+HCO are "higher court officials"who assist judges and are allowed to issue ceartain types of judicial decisions. All in all there is more than 1 000 of them. However, as the Ministry does not hav any list of higher court officials, they were identified as people issuing judicial decisions, and at the same time were not in the list of judges provided by the Ministry of Justice. Consequently they were labelled as "probably HCO".
 
-VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať
-aj vybrané súdne rozhodnutia. Celkovo ich je na Slovensku vyše 1 000.
+__Judges do not have information about their previous occupations in their profiles.__
+We are aware of that. Judges' profiles include only information about the current, possibly the last occupation. Wll we have the capacity we would like to find the way how to map their activities at previous occupations.
+__Not all of the judges' profiles include their CVs and Letters of motivation.__
+We are aware of that as well. Only judges that applied to a selection procedure after 2012 have these information published.
 
-Keďže Ministerstvo spravodlivosti nemá zoznam vyšších súdnych úradníkov,
-boli identifikovaní ako osoby, ktoré vydali súdne rozhodnutia a zároveň neboli
-v zozname sudcov ministerstva spravodlivosti. Následne boli označení ako
-„pravdepodobne VSÚ“.
+# About judicial decisions
 
-__Sudcovia nemajú uvedené predošlé pôsobisko.__
-O tomto vieme. Sudcovia majú uvedené len aktuálne, prípadne posledné pôsobisko.
-Ak budeme mať kapacitu, radi vymyslíme spôsob ako mapovať činnosť aj na
-predchádzajúcich pôsobiskách.
+#### What decisions can be found at the webpage?
 
-__Nie všetci sudcovia majú životopis a motivačný list.__
-Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po roku
-2012, majú tieto zverejnené údaje.
+All of the lawful decisions issued after 2012 are supposed to be published, including all relevant decisions that preceded these final decisions. Data are updated from the database of the Ministry of Justice weekly. Detailed explanation can be found in
+<%= external_link_to "Act on courts", 'http://www.zakonypreludi.sk/zz/2004-757#p82a' %>.
 
-# O rozhodnutiach
+#### I cannot find decisions that has been issued. Why?
 
-#### Aké rozhodnutia sú na stránke?
+One of the following explanations may apply: - not a sufficient time has passed since the decision has been issued. Decisions must be published in 15 days following the date when they became lawful. 
 
-Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia
-vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali
-týmto konečným rozhodnutiam. Dáta sú aktualizované z databázy Ministerstva
-spravodlivosti v týždenných intervaloch.
+- It is a decision in a case where the public was excluded from its hearings or part of them,
 
-Úplne presne vysvetlené v
-<%= external_link_to "zákone o súdoch", 'http://www.zakonypreludi.sk/zz/2004-757#p82a' %>.
+- we did not manage to download it yet. Decisions are updated weekly,
 
-#### Neviem nájsť rozhodnutie, ktoré existuje. Prečo?
+- something went wrong <%= icon_tag :frown %>
 
-Može ísť o jeden z nasledujúcich prípadov:
+#### Why are there fewer decisions on the portal tahn on the webpage of the Ministry?
 
-- je tesne po jeho vydaní. Rozhodnutia musia byť zverejnené do 15 pracovných
-  dní po nadobudnutí ich právoplatnosti,  
-
-- šlo o rozhodnutie, v ktorom bola vylúčená verejnosť,
-
-- ešte sme ho nestihli stiahnuť a spracovať. Rozhodnutia na našej stránke sú
-  aktualizované v najviac týždenných intervaloch,
-
-- niečo sa pokazilo <%= icon_tag :frown %>
-
-#### Prečo je na stránke menej rozhodnutí než na stránkach ministerstva?
-
-Vysvetlením sú najmä technické príčiny, a teda skutočnosť, že niektoré
-rozhodnutia nebolo možné stiahnuť ani po opakovaných pokusoch. Niektoré
-rozhodnutia zas boli uverejnené viackrát s rovnakým ECLI, resp. niektorým
-tento identifikátor chýba, a preto sa v našej databáze nenachádzajú.
+It can be usually explained as technical difficulties, hence the fact that some of the decisions cannot be downloaded despite repeated efforts. Some of the decisions were, on the other hand, published more than once with the same ECLI, or some of their identificators is missing and therefore they cannot be found in our database.
