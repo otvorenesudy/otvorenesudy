@@ -2,6 +2,6 @@
   <%= render "#{@type.to_s.pluralize}/results", results:  @results, offset: @results.offset %>
 <% else %>
   <div class="alert alert-info search-alert">
-    <%= icon_tag :'search' %> Nastaveným obmedzeniam nevyhovujú <strong>žiadne výsledky</strong>.
+    <%= icon_tag :'search' %> <%= t '.no_results_html' %>
   </div>
 <% end %>
