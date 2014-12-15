@@ -1,0 +1,91 @@
+﻿en:
+  judges:
+    header:
+      open_search: 'Open search'
+      average_salary: 'The average monthly income of a judge at a district court was in 2012 2,500 eur, and at the Supreme Court 3,600 eur.'
+
+    index:
+      title: 'Search among judges'
+      judges: 'Judges'
+      information_origin: 'Information about judges were obtained from the portal of'
+      ministry_of_justice: 'Ministry of Justice'
+      additional_info: 'Additional information were obtained from property declarations and annual statistical reports of judges'
+
+    judges:
+      judge: 'Judge'
+      position: 'Position'
+      court: 'Court'
+      hearings: 'Hearings'
+      hearings_count: 'Total number of hearings'
+      decrees: 'Decisions'
+      decrees_count: 'Total number of decisions'
+
+    show:
+      default_title: 'Open Courts'
+      judge: 'Judge'
+      at_court: 'at the court'
+      note: 'Note'
+      incomplete_data: "Information about judge's activites may be incomplete. Data obtained from the portal of Ministry of Justice do not include information about the composition of senates."
+      nominated_before: 'Judge has served as a judge for'
+      cv: 'CV'
+      published_at_selection: 'that was published in a selection procedure.'
+      motivation_letter: 'Motivation letter'
+      decrees_count: 'Number of decision of the Constitutional court against the judge &ndash; issued %{total_released_decrees} and for unnecessary delays prior to the beginning of a proceeding %{total_delayed_decrees}.'
+      decree_confirmed_in: 'A decision of a judge is in case of an appeal confirmed by an appellate court in'
+      computed_from: "Computed from judge's work at"
+      unresolved_issues_count: 'Number of unresoved cases was %{unresolved_issues_count} than at its beginning'
+      in_end_of_year: 'at the end of year'
+      more: 'more'
+      less: 'less'
+      unfinished_issues_count: 'A judge had %{unfinished_issues_count} cases unresolved for more than a year than at its beginning'
+      unfinished_issues_rate: 'A share of cases unresolved for more than a year of all the unresolved cases was %{unfinished_issues_rate}'
+      by_end_of_year: 'at the end of the year'
+      unresolved_issue_html: 'A case unresolved for more than 6 months<br/>v&nbsp;in cases regarding youth'
+      unresolved_issue: 'A case unresolved for more than a year'
+      income_years: 'Income and other benefits acknowledged in property declarations in years'
+      income_year: 'Income and other benefits acknowledged in property declaration in a year'
+      close_ones_income_years: 'Close persons acknowledged in property declarations in years'
+      close_ones_income_year: 'Close persons acknowledged in property declaration in a year'
+      note_about_data_part1: 'Notes about the data'
+      note_about_data_part2: 'obtained from annual statistical reports of judges.'
+      report_for_year: 'Report from'
+      decrees: 'Decisions'
+      future_hearings: 'Future hearings'
+      past_hearings: 'Past hearings'
+      in_media: 'In media'
+      additional_info: 'The information may have been additionally supplemented by the data from property declarations and annual statistical reports.'
+      court_data_from: 'Information about the judge were obtained'
+      from_long: 'from'
+      from_short: 'from'
+      list: 'the list'
+      document: 'document'
+      last_updated_on: 'which was last updated on'
+
+    media:
+      link_explanation: "Links are searched automatically on the basis of judges' names and the courts where they work. They may not contain information regarding the judge."
+      no_media_coverage: 'There were no media articles found regarding the judge.'
+
+    hearings:
+      more_hearings: 'More hearings'
+      no_hearings: 'No hearings found for the judge'
+
+    decrees:
+      more_decrees: 'More decisions'
+      no_decrees: 'No decisions found for the judges.'
+
+    results:
+      worker_male: 'Works at'
+      worker_female: 'Works at'
+      probably: 'Probably'
+      vsu_short: 'HCO'
+      vsu_long: 'higher court official'
+      unknown_worker_female: 'Unknown position'
+      unknown_worker_male: 'Unknown position'
+      at_court: 'at the court'
+
+    search:
+      title: 'Search among judges'
+
+    headline:
+      headline_html: 'The average monthly income of a judge at a district court was in 2012<br/> 2&nbsp;500 eur,<br/>and at the Supreme Court 3&nbsp;600 eur'
+      sub_headline_html: 'Open Courts &mdash; you are searching among %{total_judges} judges'

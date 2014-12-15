@@ -10,19 +10,23 @@
         <p<%= ' class="muted"'.html_safe unless judge.active? %>>
           <% if employment.judge_position %>
             <% if employment.judge_position.charged? %>
-              <%= (judge.probably_woman ? 'Pracovníčka' : 'Pracovník') %> 
+              <%= (judge.probably_woman ? t('.worker_female') : t('.worker_male')) %>
               <%= truncate employment.judge_position.value, length: 55, separator: ' ', omission: '' %>
             <% else %>
               <%= employment.judge_position.value.upcase_first %>
             <% end %>
           <% else %>
             <% if judge.probably_superior_court_officer? %>
-              Pravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
+              <%= t '.probably' %> <%= tooltip_tag t('.vsu_short'), t('.vsu_long') %>
             <% else %>
-              Neznám<%= judge.probably_woman ? 'a pracovníčka' : 'y pracovník' %>
+              <% if judge.probably_woman %>
+                <%= t '.unknown_worker_female' %>
+              <% else %>
+                <%= t '.unknown_worker_male' %>
+              <% end %>
             <% end %>
           <% end %>
-          na súde <%= link_to_court_by_judge_employment employment %>,
+          <%= t '.at_court' %> <%= link_to_court_by_judge_employment employment %>,
           <%= 'ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
           <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
           a <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.

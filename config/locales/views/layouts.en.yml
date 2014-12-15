@@ -1,5 +1,8 @@
 en:
   layouts:
+    application:
+      default_title: 'Otvorené Súdy'
+
     header:
       donate: 'Donate to the project'
       courts: 'Courts'
