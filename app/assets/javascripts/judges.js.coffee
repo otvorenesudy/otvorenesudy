@@ -1,6 +1,14 @@
 class window.JudgeChart
   data:
-    labels: ['Počet reštančných', 'Vybavenosť', 'Kapacita vybavovať', 'Reštančné z nevybavených', 'Počet nevybavených', 'Frekvencia odvolaní', 'Potvrdené rozhodnutia ', 'Zmenené / zrušené z celku'],
+    labels: ['Počet reštančných',
+             'Vybavenosť',
+             'Kapacita vybavovať',
+             'Reštančné z nevybavených',
+             'Počet nevybavených',
+             'Frekvencia odvolaní',
+             'Potvrdené rozhodnutia ',
+             'Zmenené / zrušené z celku'],
+
     datasets: [{
       label: "Sudca",
       fillColor: "rgba(81,163,81,0.2)",
