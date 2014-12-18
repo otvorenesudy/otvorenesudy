@@ -6,8 +6,8 @@ class window.JudgeChart
              'Reštančné z nevybavených',
              'Počet nevybavených',
              'Frekvencia odvolaní',
-             'Potvrdené rozhodnutia ',
-             'Zmenené / zrušené z celku'],
+             'Potvrdené rozhodnutia',
+             'Zmenené alebo zrušené z celku'],
 
     datasets: [{
       label: "Sudca",
@@ -18,7 +18,7 @@ class window.JudgeChart
       pointHighlightFill: "#fff",
       pointHighlightStroke: "rgba(220,220,220,1)",
     }, {
-      label: "Priemer SR",
+      label: "Priemer",
       fillColor: "rgba(151,187,205,0.2)",
       strokeColor: "rgba(151,187,205,1)",
       pointColor: "rgba(151,187,205,1)",
@@ -26,7 +26,7 @@ class window.JudgeChart
       pointHighlightFill: "#fff",
       pointHighlightStroke: "rgba(151,187,205,1)",
     }, {
-      label: "Maximálne možné hodnotenie",
+      label: "Maximum",
       fillColor: "rgba(255,255,255,0.0)",
       strokeColor: "rgba(0,20,0, 0.2)",
       pointColor: "rgba(0,0,0,0.6)",

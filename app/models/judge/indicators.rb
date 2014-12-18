@@ -17,7 +17,7 @@ class Judge
       @data = Hash.new
       @numerical_average = nil
 
-      CSV.read(Rails.root.join('data', 'judges_statistical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
+      CSV.read(Rails.root.join('data', 'judge_statistical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
         judge = Judge.find_by_name(line[0])
 
         next unless judge
@@ -26,7 +26,7 @@ class Judge
         @data[judge.id].statistical = normalize_statistical_values(line)
       end
 
-      CSV.read(Rails.root.join('data', 'judges_numerical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
+      CSV.read(Rails.root.join('data', 'judge_numerical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
         judge = Judge.find_by_name(line[0])
 
         next unless judge

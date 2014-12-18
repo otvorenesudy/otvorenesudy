@@ -115,7 +115,7 @@
   </div>
 <% end %>
 
-<% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').any? %>
+<% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').reject(&:blank?).any? %>
   <br/>
 
   <p>
