@@ -77,10 +77,6 @@ class Judge
                   end
         end
 
-        if value.is_a?(Array)
-          binding.pry if value.compact != value
-        end
-
         values[key] = value
       end
     end
