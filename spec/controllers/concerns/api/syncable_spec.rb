@@ -7,14 +7,14 @@ shared_examples_for Api::Syncable do
 
   describe 'GET sync' do
     it 'returns records as json' do
-      get :sync, api_key: api_key.value, format: :json
-
       json = ActiveModel::ArraySerializer.new(
         records.first(100),
         each_serializer: "#{repository}Serializer".constantize,
         root: repository.name.underscore.pluralize.to_sym,
         scope: controller
       ).to_json
+
+      get :sync, api_key: api_key.value, format: :json
 
       expect(response.headers['Content-Type']).to eql('application/json; charset=utf-8')
       expect(response.body).to eql(json)

@@ -45,14 +45,14 @@ defaults: &defaults
       script: '
         import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
 
-        analyze = def (s) {
-          size   = s.length();
+        analyze = { string ->
+          size   = string.length();
           result = new char[size];
 
-          ASCIIFoldingFilter.foldToASCII(s.toCharArray(), 0, result, 0, size);
+          ASCIIFoldingFilter.foldToASCII(string.toCharArray(), 0, result, 0, size);
 
-          return new String(result).toLowerCase();
-        };
+          new String(result).toLowerCase();
+        }
 
         value = analyze(term);
         query = analyze(query);
