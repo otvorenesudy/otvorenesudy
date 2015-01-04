@@ -84,7 +84,7 @@ en:
         placeholder: 'Name or address of the court'
 
       type:
-        title: 'Typ'
+        title: 'Type'
         missing: 'missing'
 
       judges:

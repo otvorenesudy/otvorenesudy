@@ -15,39 +15,39 @@
 
       <p>
         <span class="gutter centered"><%= icon_tag :user %></span>
-        Na súde <%= @judges.active.listed.any? ? 'pracuje' : 'nepracujú' %>
+        <%= t '.at_court' %> <%= @judges.active.listed.any? ? t('.work') : t('.dont_work') %>
         <%= translate_with_count(@judges.active.listed.size, :judge) %>.
       </p>
       <p>
         <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-        Pre súd <%= 'zatiaľ ne' if @court.hearings.size.zero? %>evidujeme
+        <%= t '.for_court'%> <%= t('.not_yet') if @court.hearings.size.zero? %><%= t '.register'%>
         <%= translate_with_count(@court.hearings.size, :hearing) %>
-        a&nbsp;<%= translate_with_count(@court.decrees.size, :decree) %>.
+        <%= t '.and'%>&nbsp;<%= translate_with_count(@court.decrees.size, :decree) %>.
       </p>
 
       <% if @expenses.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>
-          Celkovo <%= rank_with_order Court::Expenses.rank_with_order(@court), asc: 'najmenej', desc: 'najviac' %>
-          pokutovaný súd z <%= Court::Expenses.courts(@court.type).count %>
-          <%= @court.type == CourtType.regional ? 'krajských' : 'okresných' %> súdov.
+          <%= t '.overall' %> <%= rank_with_order Court::Expenses.rank_with_order(@court), asc: t('.least'), desc: t('.most') %>
+          <%= t '.charged_from' %> <%= Court::Expenses.courts(@court.type).count %>
+          <%= @court.type == CourtType.regional ? t('.regional') : t('.district') %> <%= t '.courts' %>.
         </p>
         <p>
           <span class="gutter centered"><%= icon_tag :legal %></span>
           <% unless @court.expenses_total.zero? %>
-            <a href="#" data-target="#expenses" data-toggle="collapse">Pokuty od Ústavného súdu</a>
+            <a href="#" data-target="#expenses" data-toggle="collapse"><%= t '.penalties' %></a>
           <% else %>
-            Pokuty od Ústavného súdu
+            <%= t '.penalties' %>
           <% end %>
-          Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch
+          <%= t '.for_bad_decisions' %>
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
-          boli <%= number_to_currency(@court.expenses_total, precision: 0) %>.
+          <%= t '.were' %> <%= number_to_currency(@court.expenses_total, precision: 0) %>.
         </p>
         <% unless @court.expenses_total.zero? %>
           <div id="expenses" class="collapse out">
             <ul class="unstyled">
               <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
-                <li><%= icon_tag :'credit-card' %> Pokuta za rok <%= expense.year %> bola <%= number_to_currency expense.value, precision: 0 %>.</li>
+                <li><%= icon_tag :'credit-card' %> <%= t '.penalty_for_your' %> <%= expense.year %> <%= t '.was' %> <%= number_to_currency expense.value, precision: 0 %>.</li>
               <% end %>
             </ul>
           </div>
@@ -57,7 +57,7 @@
       <% if @court.average_proceeding_durations? %>
         <p>
           <span class="gutter centered"><%= icon_tag :time %></span>
-          Priemerné dĺžky trvania konaní v rámci súdu podľa agiend:
+          <%= t '.average_proceeding_duration' %>:
         </p>
         <ul class="unstyled inline">
           <% @court.average_proceeding_durations.each do |agenda| %>
@@ -70,13 +70,13 @@
               <div id="average-proceeding-duration-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
                 <p>
                   <span class="gutter centered"><%= icon_tag :time %></span>
-                  Celkovo <%= rank_with_order Court::AverageProceedingDurations::Ranking.rank_with_order(@court, agenda.acronym), asc: 'najrýchlejší', desc: 'najpomalší' %>
-                  súd z <%= Court::AverageProceedingDurations::Ranking.courts.size %>
-                  okresných súdov v rámci agendy <%= agenda.name %>:
+                  <%= t '.overall' %> <%= rank_with_order Court::AverageProceedingDurations::Ranking.rank_with_order(@court, agenda.acronym), asc: t('.fastest'), desc: t('.slowest') %>
+                  <%= t '.court_from' %> <%= Court::AverageProceedingDurations::Ranking.courts.size %>
+                  <%= t '.district_courts_agenda' %> <%= agenda.name %>:
                 </p>
                 <ul class="unstyled">
                   <% agenda.data.each do |data| %>
-                    <li>Priemerná dĺžka za rok <%= data[:year] %> je <%= number_with_precision data[:value], precision: 1 %> mesiaca.</li>
+                    <li><%= t '.court_from', year: data[:year], month: number_with_precision(data[:value], precision: 1) %></li>
                   <% end %>
                 </ul>
               </div>
@@ -94,12 +94,12 @@
       <div class="tabbable">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#contact" data-toggle="tab" data-track="court-contact">Kontakt</a>
+            <a href="#contact" data-toggle="tab" data-track="court-contact"><%= t '.contact' %></a>
           </li>
-          <li><%= tab_link_to_with_count 'Sudcovia', '#judges', @judges.active.listed.size, track_data(:'court-judges') %></li>
-          <li><%= tab_link_to_with_count 'Rozhodnutia', '#decrees', @decrees.size, track_data(:'court-decrees') %></li>
-          <li><%= tab_link_to_with_count 'Pojednávania', '#hearings', @hearings.size, track_data(:'court-hearings') %></li>
-          <li><%= tab_link_to_with_count 'V médiách', '#media', @results.size, track_data(:'court-media') %></li>
+          <li><%= tab_link_to_with_count t('.judges'), '#judges', @judges.active.listed.size, track_data(:'court-judges') %></li>
+          <li><%= tab_link_to_with_count t('.decrees'), '#decrees', @decrees.size, track_data(:'court-decrees') %></li>
+          <li><%= tab_link_to_with_count t('.hearings'), '#hearings', @hearings.size, track_data(:'court-hearings') %></li>
+          <li><%= tab_link_to_with_count t('.media'), '#media', @results.size, track_data(:'court-media') %></li>
         </ul>
 
         <div class="tab-content">
@@ -132,8 +132,8 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súde boli získané z <%= external_link_to 'dokumentu', @court.uri, class: :muted, icon: true %>,
-        ktorého posledná aktualizácia bola vykonaná <%= time_tag @court.updated_at.to_date, format: :default %>.
+        <%= t '.data_source' %> <%= external_link_to t('.document'), @court.uri, class: :muted, icon: true %>,
+        <%= t '.last_updated_at' %> <%= time_tag(@court.updated_at.to_date, format: :default) %>.
       </small>
     </div>
   </div>

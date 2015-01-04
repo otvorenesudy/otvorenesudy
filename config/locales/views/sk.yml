@@ -26,6 +26,10 @@ sk:
       decrees: 'Rozhodnutia'
       proceedings: 'Konania'
 
+    message:
+      from_total: 'z celkovo'
+      not_found: 'Nenájdené'
+
     controls:
       remove_all_facets: 'Zrušiť všetky obmedzenia'
 

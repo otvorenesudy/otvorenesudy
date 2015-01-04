@@ -24,6 +24,10 @@
       decrees: 'Decisions'
       proceedings: 'Proceedings'
 
+    message:
+      from_total: 'from total'
+      not_found: 'Not found'
+
     controls:
       remove_all_facets: 'Remove all facets'
 
