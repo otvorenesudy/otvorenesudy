@@ -71,14 +71,21 @@ $(document).ready ->
         $.get '/search/collapse', { model: model, name: name, collapsed: collapsed }
 
     suggest: (input) ->
-      name = $(input).attr('data-id')
-      path = $(input).attr('data-suggest-path')
+      name    = $(input).attr('data-id')
+      path    = $(input).attr('data-suggest-path')
 
       @.log "Setting up suggesting for #{name} with path #{path}"
 
       $(input).autocomplete
         minLength: 0
         source: (request, response) ->
+          results = $(input).closest('.facet-content').find('.facet-results ul')
+
+          $(results).find('a').click (e) -> e.preventDefault()
+          $(results).find('a').addClass('disabled')
+
+          $(results).fadeTo('slow', 0.25)
+
           terms = []
 
           for i in $(input)
@@ -91,4 +98,4 @@ $(document).ready ->
               name: name
               term: terms.join(' ')
             success: (html) ->
-              $(input).closest('.facet-content').find('.facet-results').html(html)
+              setTimeout (-> $(input).closest('.facet-content').find('.facet-results').html(html)), 5000

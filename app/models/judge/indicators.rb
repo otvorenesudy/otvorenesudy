@@ -1,6 +1,7 @@
 class Judge
   module Indicators
     extend ActiveSupport::Concern
+    extend JusticeGovSk::Helper::Normalizer
 
     def indicators
       Judge::Indicators.for(self)
@@ -16,7 +17,7 @@ class Judge
       @data = Hash.new
       @numerical_average = nil
 
-      CSV.read(Rails.root.join('data', 'judges_statistical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
+      CSV.read(Rails.root.join('data', 'judge_statistical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
         judge = Judge.find_by_name(line[0])
 
         next unless judge
@@ -25,7 +26,7 @@ class Judge
         @data[judge.id].statistical = normalize_statistical_values(line)
       end
 
-      CSV.read(Rails.root.join('data', 'judges_numerical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
+      CSV.read(Rails.root.join('data', 'judge_numerical_indicators.csv'), col_sep: "\t", headers: true).each do |line|
         judge = Judge.find_by_name(line[0])
 
         next unless judge
@@ -71,7 +72,7 @@ class Judge
 
         if value
           value = case key
-                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(name.strip) }
+                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(normalize_court_name(name)) }
                   else value
                   end
         end
