@@ -16,9 +16,6 @@ $(document).ready ->
 
       @.registerEvents()
 
-    facets: ->
-      $(@el).find('.facet')
-
     registerEvents: ->
       @.log 'Registering events ...'
 
@@ -33,13 +30,9 @@ $(document).ready ->
         $(this).closest('form').submit()
 
     registerSuggest: ->
-      facets = @.facets()
+      suggest = new Search.Suggest(@el)
 
-      @.log "Applying suggest to #{facets.length} facets."
-
-      for facet in facets
-        input = $(facet).find('input').first()
-        @.suggest(input) if input.length > 0
+      suggest.register()
 
     registerSelect: ->
       $(@el).find('form select').on 'change', ->
@@ -70,7 +63,23 @@ $(document).ready ->
         # TODO: use config or anything else for the path
         $.get '/search/collapse', { model: model, name: name, collapsed: collapsed }
 
-    suggest: (input) ->
+  class window.Search.Suggest extends Module
+    @include Logger
+
+    constructor: (el) ->
+      @el = el
+
+    register: ->
+      facets = $(@el).find('.facet')
+
+      @.log "Applying suggest to #{facets.length} facets."
+
+      for facet in facets
+        input = $(facet).find('input').first()
+
+        @.registerSuggest(input) if input.length > 0
+
+    registerSuggest: (input) ->
       name    = $(input).attr('data-id')
       path    = $(input).attr('data-suggest-path')
 
@@ -95,7 +104,7 @@ $(document).ready ->
             url: path
             type: 'GET'
             data:
-              name: name
+              facet: name
               term: terms.join(' ')
             success: (html) ->
               setTimeout (-> $(input).closest('.facet-content').find('.facet-results').html(html)), 5000
