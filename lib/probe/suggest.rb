@@ -13,7 +13,7 @@ module Probe
 
         options[:name]        = index.name
         options[:params]      = params
-        options[:facets]      = @facets
+        options[:facets]      = facets
         options[:sort_fields] = @sort_fields
 
         search = Search::Composer.new(self, options)
