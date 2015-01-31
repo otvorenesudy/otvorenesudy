@@ -6,11 +6,23 @@
     <canvas class="chart" width="550" height="550"></canvas>
   </div>
 
-  <div class="span4 legend"></div>
+  <div class="span4">
+    <div class="legend"></div>
+
+    <hr/>
+
+    <%= render 'judges/indicators/name_facet', facet: @facets[:name], translation: {} %>
+  </div>
 </div>
 
 <% content_for :scripts do %>
   <script type="text/javascript">
     window.judgeChart = new JudgeChart("<%= escape_javascript(judge.name) %>", <%= escape_javascript(indicators.to_hash.values[2..9].to_json) %>, <%= escape_javascript(Judge::Indicators.numerical_average.values.to_json) %>)
+
+    $(document).ready(function() {
+      var suggest = new Search.Suggest('#judge-indicators-chart')
+
+      suggest.register()
+    })
   </script>
 <% end %>
