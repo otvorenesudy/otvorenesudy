@@ -3,6 +3,12 @@ class Judge
     extend ActiveSupport::Concern
     extend JusticeGovSk::Helper::Normalizer
 
+    included do
+      facets do
+        facet :name, type: :terms, visible: false, view: { facet: 'judges/indicators/name_facet', results: 'judges/indicators/name_facet_results' }
+      end
+    end
+
     def indicators
       Judge::Indicators.for(self)
     end
