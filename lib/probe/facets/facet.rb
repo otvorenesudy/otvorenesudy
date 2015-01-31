@@ -9,14 +9,18 @@ class Probe::Facets
                   :size,
                   :terms,
                   :results,
-                  :params
+                  :params,
+                  :visible,
+                  :view
 
     def initialize(name, field, options)
-      @base  = options[:base]
-      @name  = name
-      @field = field
-      @type  = options[:type]
-      @size  = options[:size] || 10
+      @base    = options[:base]
+      @name    = name
+      @field   = field
+      @type    = options[:type]
+      @size    = options[:size] || 10
+      @visible = options[:visible].nil? ? true : !!options[:visible]
+      @view    = options[:view]
     end
 
     def id
@@ -74,6 +78,10 @@ class Probe::Facets
 
     def active?
       @terms.present?
+    end
+
+    def visible?
+      @visible
     end
 
     def buildable?
