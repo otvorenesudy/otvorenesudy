@@ -6,8 +6,8 @@ module FacetsHelper
   end
 
   def facet_suggest_input(facet, options = {})
-    options.merge! :'data-id' => facet.name
-    options.merge! :'data-suggest-path' => suggest_path(facet.params)
+    options[:'data-id'] ||= facet.name
+    options[:'data-suggest-path'] ||= suggest_path(facet.params)
 
     tag :input, options.merge(type: :text, name: facet.name)
   end
@@ -112,6 +112,6 @@ module FacetsHelper
 
     options.merge!(:'data-searchd-filter' => "#{facet.id}", :'data-searchd-filter-value' => result.value) if result.selected
 
-    link_to body, search_path(result.params), options
+    link_to body, options[:path] ? options[:path].call(result.params) : search_path(result.params) , options
   end
 end

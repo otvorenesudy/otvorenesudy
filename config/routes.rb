@@ -19,6 +19,7 @@ OpenCourts::Application.routes.draw do
     member do
       get :curriculum
       get :cover_letter
+      get :indicators_suggest
     end
   end
 

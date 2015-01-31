@@ -21,6 +21,8 @@ class JudgesController < SearchController
     @statistical_summaries = @judge.statistical_summaries.order('year desc')
 
     @results = @judge.context_search[0..9]
+
+    search_judges_for_indicators
   end
 
   def curriculum
@@ -33,5 +35,17 @@ class JudgesController < SearchController
     @judge = Judge.find(params[:id])
 
     send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
+  end
+
+  def indicators_suggest
+    redirect_to suggest_judges_path(params)
+  end
+
+  private
+
+  def search_judges_for_indicators
+    @indicators_results = Judge.search(params)
+
+    @facets = @indicators_results.facets
   end
 end

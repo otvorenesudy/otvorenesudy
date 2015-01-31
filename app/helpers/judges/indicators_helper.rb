@@ -41,5 +41,21 @@ module Judges
     def average_proceeding_length_indicator(indicators, options = {})
       tooltip_tag(indicators['S11'], 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.')
     end
+
+    def link_to_indicators_terms_facet(facet, result, options = {})
+      path = ->(*args) do
+        judge_path(*([params[:id]] + args))
+      end
+
+      link_to_facet_value(facet, result, result.value, options.merge(path: path))
+    end
+
+    def link_to_add_indicators_facet(facet, result, options = {})
+      icon_link_to :plus, nil, judge_path(params[:id], result.add_params), class: :add
+    end
+
+    def link_to_remove_indicators_facet(facet, result, options = {})
+      icon_link_to :remove, nil, judge_path(params[:id], result.remove_params), class: :remove
+    end
   end
 end

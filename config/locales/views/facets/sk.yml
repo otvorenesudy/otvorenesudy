@@ -134,6 +134,12 @@ sk:
         title: 'Meno sudcu'
         placeholder: 'Meno sudcu'
 
+      name:
+        title: 'Meno sudcu'
+        placeholder: 'Meno sudcu'
+        missing: 'neuvedený'
+        not_found: 'Nenájdení žiadni sudcovia.'
+
       activity:
         title: 'Aktivita'
         active: 'Aktívny'

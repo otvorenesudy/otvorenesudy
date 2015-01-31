@@ -1,0 +1,5 @@
+<li<%= ' class="selected"'.html_safe if result.selected? %>>
+  <%= link_to_add_indicators_facet facet, result %>
+  <%= link_to_remove_indicators_facet facet, result if result.selected? %>
+  <%= link.call facet, result %>
+</li>
