@@ -12,6 +12,8 @@ class Judge
         facet :name, type: :terms, visible: false, view: { facet: 'judges/indicators/name_facet', results: 'judges/indicators/name_facet_results' }
         facet :has_indicators, type: :terms, visible: false
       end
+
+      Judge::Indicators.load!
     end
 
     def indicators
@@ -19,8 +21,6 @@ class Judge
     end
 
     def self.for(judge)
-      load! unless @data
-
       @data[judge.id]
     end
 
