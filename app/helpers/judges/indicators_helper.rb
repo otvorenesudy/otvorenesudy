@@ -45,7 +45,6 @@ module Judges
     def link_to_indicators_terms_facet(facet, result, options = {})
       path = ->(other) do
         other[:id] = params[:id]
-        other[facet.name] = result.value
 
         "#{judge_path(other)}#judge-indicators-chart-headline"
       end
