@@ -4,8 +4,13 @@ class Judge
     extend JusticeGovSk::Helper::Normalizer
 
     included do
+      mapping do
+        analyze :has_indicators, as: lambda { |j| !!j.indicators }
+      end
+
       facets do
         facet :name, type: :terms, visible: false, view: { facet: 'judges/indicators/name_facet', results: 'judges/indicators/name_facet_results' }
+        facet :has_indicators, type: :terms, visible: false
       end
     end
 
