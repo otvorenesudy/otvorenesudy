@@ -43,19 +43,22 @@ module Judges
     end
 
     def link_to_indicators_terms_facet(facet, result, options = {})
-      path = ->(*args) do
-        judge_path(*([params[:id]] + args))
+      path = ->(other) do
+        other[:id] = params[:id]
+        other[facet.name] = result.value
+
+        "#{judge_path(other)}#judge-indicators-chart-headline"
       end
 
       link_to_facet_value(facet, result, result.value, options.merge(path: path))
     end
 
     def link_to_add_indicators_facet(facet, result, options = {})
-      icon_link_to :plus, nil, judge_path(params[:id], result.add_params), class: :add
+      icon_link_to :plus, nil, "#{judge_path(params[:id], result.add_params)}#judge-indicators-chart-headline", class: :add
     end
 
     def link_to_remove_indicators_facet(facet, result, options = {})
-      icon_link_to :remove, nil, judge_path(params[:id], result.remove_params), class: :remove
+      icon_link_to :remove, nil, "#{judge_path(params[:id], result.remove_params)}#judge-indicators-chart-headline", class: :remove
     end
   end
 end

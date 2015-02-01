@@ -44,8 +44,24 @@ class JudgesController < SearchController
   private
 
   def search_judges_for_indicators
-    @indicators_results = Judge.search(params)
+    results = Judge.search(params.merge!(has_indicators: true))
 
-    @facets = @indicators_results.facets
+    @facets = results.facets
+    @judges_for_indicators = Hash.new
+
+
+    if params[:name]
+      color = generate_random_color
+
+      results.each do |result|
+        color = generate_random_color while @judges_for_indicators[color]
+
+        @judges_for_indicators[color] = result
+      end
+    end
+  end
+
+  def generate_random_color(options = {})
+    3.times.map { rand(0..255) }
   end
 end

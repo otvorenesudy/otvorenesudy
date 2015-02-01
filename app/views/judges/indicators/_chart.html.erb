@@ -1,12 +1,12 @@
-<h4>Grafické porovnanie</h4>
+<h4 id="judge-indicators-chart-headline">Grafické porovnanie</h4>
 <hr/>
 
 <div id="judge-indicators-chart" class="row">
-  <div class="span8">
-    <canvas class="chart" width="550" height="550"></canvas>
+  <div class="span9">
+    <canvas class="chart" width="600" height="600"></canvas>
   </div>
 
-  <div class="span4">
+  <div class="span3">
     <div class="legend"></div>
 
     <hr/>
@@ -18,6 +18,12 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
     window.judgeChart = new JudgeChart("<%= escape_javascript(judge.name) %>", <%= escape_javascript(indicators.to_hash.values[2..9].to_json) %>, <%= escape_javascript(Judge::Indicators.numerical_average.values.to_json) %>)
+
+    <% @judges_for_indicators.each do |color, judge| %>
+      judgeChart.addDataset("<%= escape_javascript(judge.name) %>", <%= escape_javascript(judge.indicators.numerical.to_hash.values[2..9].to_json) %>, <%= escape_javascript(color.to_json) %>)
+    <% end %>
+
+    judgeChart.build()
 
     $(document).ready(function() {
       var suggest = new Search.Suggest('#judge-indicators-chart')
