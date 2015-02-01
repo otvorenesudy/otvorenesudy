@@ -20,7 +20,7 @@ class Probe::Facets
       @type    = options[:type]
       @size    = options[:size] || 10
       @visible = options[:visible].nil? ? true : !!options[:visible]
-      @view    = options[:view]
+      @view    = options[:view] || Hash.new
     end
 
     def id
