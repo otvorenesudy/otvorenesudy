@@ -52,6 +52,19 @@ class window.JudgeChart
     @data.datasets[0].data  = judge
     @data.datasets[1].data  = avarage
 
+  build: ->
     @chart = new Chart($('#judge-indicators-chart .chart').get(0).getContext('2d')).Radar(@data, @options)
 
     $('#judge-indicators-chart .legend').append(@chart.generateLegend())
+
+  addDataset: (judge, data, color) ->
+    @data.datasets.push(
+      label: judge,
+      fillColor: "rgba(#{color[0]},#{color[1]},#{color[2]},0.2)",
+      strokeColor: "rgba(#{color[0]},#{color[1]},#{color[2]},1)",
+      pointColor: "rgba(#{color[0]},#{color[1]},#{color[2]},1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(151,187,205,1)",
+      data: data
+    )
