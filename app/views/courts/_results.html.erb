@@ -9,11 +9,11 @@
     <div class="search-result-content">
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
-          <%= judge_at_court_position(court.chair, court).upcase_first %> súdu je <%= link_to_judge court.chair %><%= court.vicechair ? ' a' : '.' %>
+          <%= judge_at_court_position(court.chair, court).upcase_first %> <%= t('.of_court_is')%> <%= link_to_judge court.chair %><%= court.vicechair ? t('.and') : '.' %>
         <% end %>
         <% if court.vicechair %>
           <% unless court.chair %>
-            <%= judge_at_court_position(court.vicechair, court).upcase_first %> súdu
+            <%= judge_at_court_position(court.vicechair, court).upcase_first %> <%= t('.of_court')%>
           <% else %>
             <%= judge_at_court_position(court.vicechair, court) %>
           <% end %>
@@ -22,9 +22,9 @@
         <br/>
       <% end %>
       <% if court.judges.active.listed.any? %>
-        Na súde pracuje <%= translate_with_count(court.judges.active.listed.size, :judge) %>.
+        <%= t('.at_court_work')%> <%= translate_with_count(court.judges.active.listed.size, :judge) %>.
       <% end %>
-      Pre súd <%= 'zatiaľ ne' if court.hearings.size.zero? %>evidujeme
+      <%= t('.for_court')%> <%= t('.not_yet') if court.hearings.size.zero? %><%= t('.register')%>
       <%= translate_with_count(court.hearings.size, :hearing) %>
       a&nbsp;<%= translate_with_count(court.decrees.size, :decree) %>.
     </div>

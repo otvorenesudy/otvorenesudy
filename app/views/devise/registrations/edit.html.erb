@@ -10,7 +10,7 @@
           <%= f.email_field :email, autofocus: true, class: :span8 %>
         </p>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p>Zatiaľ neoverený e-mail: <%= resource.unconfirmed_email %></p>
+          <p><%= t('.email_not_yet_opened')%>: <%= resource.unconfirmed_email %></p>
         <% end %>
         <p>
           <%= f.label :password %>

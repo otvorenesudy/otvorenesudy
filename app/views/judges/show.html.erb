@@ -25,9 +25,9 @@
           </span>
           <% case employment.active %>
           <% when true %>
-            Aktívn<%= @judge.probably_woman ? 'a' : 'y' %>
+            judge_active_gender(true, @judge.probably_woman)
           <% when false %>
-            Neaktívn<%= @judge.probably_woman ? 'a' : 'y' %>
+            judge_active_gender(false, @judge.probably_woman)
           <% end %>
           <% if employment.judge_position %>
             <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.charged? %>
@@ -41,7 +41,7 @@
           <% end %>
           <%= t '.at_court' %>
           <%= link_to_court employment.court %>,
-          <%= 'zatiaľ ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
+          <%= t('.not_yet') if Hearing.during_employment(employment).exact.size.zero? %><%= t('.register')%>
           <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %> a
           <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
           <% if employment.note %>

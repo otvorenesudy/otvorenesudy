@@ -6,8 +6,8 @@
       <%= hearing_headline @hearing, limit: 45, tooltip: true %>
       <br/>
       <small>
-        Pojednávanie <%= @hearing.historical ? "malo prebehnúť" : "prebehne" %> dňa &ndash;
-        <%= @hearing.date ? hearing_date(@hearing.date) : "neznámy dátum" %>
+        <%= t 'hearing' %> <%= @hearing.historical ? t('hearings.supposed_to_happen') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
+        <%= @hearing.date ? hearing_date(@hearing.date) : t('unknown_date') %>
       </small>
     </h1>
   </div>
@@ -17,12 +17,12 @@
   <div class="row">
     <div class="span8">
       <% if @court %>
-        <p><%= hearing_type @hearing.type %> sa <%= @hearing.historical ? "konalo" : "bude konať" %> na súde <%= link_to_court @court %><%= ", v miestnosti #{@hearing.room}" if @hearing.room %>.</p>
+        <p><%= hearing_type @hearing.type %> sa <%= @hearing.historical ? t('.took_place') : t('.will_take_place') %> <%= t '.at_court' %> <%= link_to_court @court %><%= t('.in_room', room: @hearing.room) if @hearing.room %>.</p>
       <% end %>
       <% if @hearing.section || @hearing.special_type %>
         <p>
           <% if @hearing.section %>
-            Úsek &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
+            <%= t '.section' %> &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
           <% end %>
 
           <%-# Civil hearings only -%>
@@ -36,28 +36,28 @@
       <%-# All hearing types -%>
 
       <% if @hearing.form %>
-        <p>Forma úkonu &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
+        <p><%= t '.form' %> &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
       <% end %>
       <% if @hearing.subject %>
-        <p>Predmet &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
+        <p><%= t '.subject' %> &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
       <% end %>
 
       <%-# Special hearings only -%>
 
       <% if @hearing.commencement_date? %>
-        <p>Dátum započatia &ndash; <%= hearing_date @hearing.commencement_date %></p>
+        <p><%= t '.commencement_date' %> &ndash; <%= hearing_date @hearing.commencement_date %></p>
       <% end %>
       <% unless @hearing.selfjudge.nil? %>
-        <p>Samosudca &ndash; <%= @hearing.selfjudge ? 'áno' : 'nie' %></p>
+        <p><%= t '.self_judge' %> &ndash; <%= @hearing.selfjudge ? t('.yes') : t('.no') %></p>
       <% end %>
 
       <%-# All hearing types -%>
 
       <% if @hearing.note %>
-        <p>Poznámka &ndash; <%= @hearing.note %></p>
+        <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
       <% end %>
 
-      <p><%= external_link_to 'Pôvodný dokument', @hearing.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+      <p><%= external_link_to t('.originial_document'), @hearing.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.might_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
     </div>
 
     <%-# All hearing types -%>
@@ -65,18 +65,18 @@
     <div class="span4">
       <div class="well well-small">
         <p>
-          <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-          <span class="pull-right"><%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : "neuvedená" %></span>
+          <%= tooltip_tag t('fr'), t('file_reference'), placement: :left %>:
+          <span class="pull-right"><%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : t('.missing') %></span>
         </p>
         <p>
-          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
-          <span class="pull-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : "neuvedené" %></span>
+          <%= tooltip_tag t('cfi'), t('court_file_id'), placement: :left %>:
+          <span class="pull-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : t('.missing_2') %></span>
         </p>
       </div>
 
       <% if @hearing.proceeding %>
         <p class="centered">
-          Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @hearing.proceeding, join: :append %>
+          <%= t('.show_within') %> <%= icon_link_to :paste, t('.hearing'), @hearing.proceeding, join: :append %>
         </p>
       <% end %>
 
@@ -89,7 +89,7 @@
 
 <% if @proposers.any? %>
   <section id="hearing-proposers">
-    <h2>Navrhovatelia</h2>
+    <h2><%= t('.proposers') %></h2>
 
     <div class="row">
       <div class="span12">
@@ -105,7 +105,7 @@
 
 <% if @opponents.any? %>
   <section id="hearing-opponents">
-    <h2>Odporcovia</h2>
+    <h2><%= t('.opponents') %></h2>
 
     <div class="row">
       <div class="span12">
@@ -123,7 +123,7 @@
 
 <% if @defendants.any? %>
   <section id="hearing-defendants">
-    <h2>Obžalovaní</h2>
+    <h2><%= t('.defendants') %></h2>
 
     <div class="row">
       <div class="span12">
@@ -155,14 +155,14 @@
 
 <% if @judges.any? %>
   <section id="hearing-judges">
-    <h2>Sudcovia</h2>
+    <h2><%= t('.judges') %></h2>
 
     <%-# Special hearings only -%>
 
     <% if @judges.chaired.any? %>
       <div class="row">
         <div class="span12">
-          Funkciu predsedu senátu zastáva
+          <%= t('.chaired_is') %>
           <% if @judges.chaired.exact.any? %>
             <%= links_to_judges @judges.chaired.exact %>.
           <% else %>
@@ -192,15 +192,13 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súdnom pojednávaní vrátane mien fyzických osôb v súlade s § 10, ods. 3, písm. e Zákona č. 122/2013 o ochrane osobných údajov
-        boli získané z <%= external_link_to 'dokumentu', @hearing.uri, class: :muted, icon: true %>,
-        ktorého posledná aktualizácia bola vykonaná <%= time_tag @hearing.updated_at.to_date, format: :default %>.
+        <%= t('.info_source') %> <%= external_link_to t('document'), @hearing.uri, class: :muted, icon: true %>,
+        <%= t 'lastly_updated' %> <%= time_tag @hearing.updated_at.to_date, format: :default %>.
         <br/>
-        Odkaz na <%= external_link_to 'pôvodný dokument', @hearing.uri, class: :muted, icon: true %> už nemusí byť platný,
-        pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+        <%= t('.info_source') %> <%= external_link_to t('originial_document'), @hearing.uri, class: :muted, icon: true %> <%= t '.may_be_invalid'.
         <% if File.readable? @hearing.resource_path %>
           <br/>
-          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_hearing_resource @hearing, icon_tag(:'file-alt', label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
+          <%= t('.thats_why') %> <%= link_to_hearing_resource @hearing, icon_tag(:'file-alt', label: t('.processed_doc'), join: :append), class: :icon %> <%= t('.raw_form') %>.
         <% end %>
       </small>
     </div>

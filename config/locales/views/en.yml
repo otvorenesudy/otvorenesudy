@@ -1,4 +1,15 @@
 ﻿en:
+  and: 'and'
+  court: 'Court'
+  judge: 'Judge'
+  hearing: 'Hearing'
+  unknown_date: 'Date unknown'
+  on_day: 'on'
+  fr: 'SZ'
+  file_reference: 'Spisová značka'
+  cfi: 'IČS'
+  court_file_id: 'Identifikačné číslo súdnych spisov'
+
   static_pages:
     about: 'About'
     faq: 'FAQ'
@@ -69,3 +80,18 @@
 
         date: 'Procedure held on'
         closed_at: 'Application closed on'
+
+    subscribe:
+      subscribe: 'Odoberať notifikácie'
+      search_subscribed: 'Pre aktuálne nastavenie vyhľadávania už odoberáte notifikácie.'
+      subscribe_search: 'Zaregistrujte si odoberanie notifikácií o nových výsledkoch vyhľadávania.'
+      subscribe_explain: 'Systém Vás bude periodicky notifikovať formou e-mailu o nových výsledkoch vyhľadávania, ktoré vyhovujú aktuálnym nastaveniam vyhľadávania.'
+      login_required: 'Pre odoberanie notifikácií o nových výsledkoch vyhľadávania sa musíte prihlásiť.'
+      close: 'Zatvoriť'
+      update: 'Aktualizovať'
+      cancel: 'Zrušiť'
+      cancel_confirm: 'Naozaj si želáte zrušiť odoberanie notifikácií?'
+      subscribe_btn: 'Odoberať'
+      sign_up: 'Registrovať'
+      login: 'Prihlásiť'
+

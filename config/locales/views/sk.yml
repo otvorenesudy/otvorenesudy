@@ -1,4 +1,15 @@
 sk:
+  and: 'a'
+  court: 'Súd'
+  judge: 'Sudca'
+  hearing: 'Pojednávanie'
+  unknown_date: 'Neznámy dátum'
+  on_day: 'dňa'
+  fr: 'SZ'
+  file_reference: 'Spisová značka'
+  cfi: 'IČS'
+  court_file_id: 'Identifikačné číslo súdnych spisov'
+
   views:
     pagination:
       first: 'Prvá strana'

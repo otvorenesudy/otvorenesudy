@@ -1,22 +1,21 @@
-<%= icon_link_to :'info-sign', "Odoberať notifikácie", '#subscribe', class: :'search-subscribe', join: :append, :'data-toggle' => :modal %>
+<%= icon_link_to :'info-sign', t('.subscribe'), '#subscribe', class: :'search-subscribe', join: :append, :'data-toggle' => :modal %>
 
 <div id="subscribe" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscribe-label" aria-hidden="true">
   <div class="modal-header">
     <%= close_link_to_modal :'aria-hidden' => true %>
-    <h3 id="subscribe-label">Odoberať notifikácie</h3>
+    <h3 id="subscribe-label"><%= t '.subscribe' %></h3>
   </div>
   <div class="modal-body">
     <% if user_signed_in? %>
       <p>
         <% unless @subscription.new_record? %>
-          Pre aktuálne nastavenie vyhľadávania už odoberáte notifikácie.
+          <%= t '.search_subscribed' %>
         <% else %>
-          Zaregistrujte si odoberanie notifikácií o nových výsledkoch vyhľadávania.
+          <%= t '.subscribe_search' %>
         <% end %>
       </p>
       <p>
-        Systém Vás bude periodicky notifikovať formou e-mailu o nových výsledkoch vyhľadávania,
-        ktoré vyhovujú aktuálnym nastaveniam vyhľadávania.
+        <%= t '.subscribe_explain' %>
       </p>
 
       <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form', class: :'form-inline' } do |f| %>
@@ -33,22 +32,22 @@
         <% end %>
       <% end %>
     <% else %>
-      Pre odoberanie notifikácií o nových výsledkoch vyhľadávania sa musíte prihlásiť.
+      <%= t '.login_required' %>
     <% end %>
   </div>
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Zatvoriť</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= t '.close' %></button>
 
     <% if user_signed_in? %>
       <% unless @subscription.new_record? %>
-        <button type="submit" id="edit_subscription" class="btn btn-primary" form="subscribe-form">Aktualizovať</button>
-        <%= link_to "Zrušiť", @subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", id: :delete_subscription, class: :'btn btn-danger' %>
+        <button type="submit" id="edit_subscription" class="btn btn-primary" form="subscribe-form"><%= t '.update' %></button>
+        <%= link_to t('.cancel'), @subscription, role: :button, method: :delete, confirm: t('.cancel_confirm'), id: :delete_subscription, class: :'btn btn-danger' %>
       <% else %>
-        <button type="submit" id="new_subscription" class="btn btn-primary" form="subscribe-form">Odoberať</button>
+        <button type="submit" id="new_subscription" class="btn btn-primary" form="subscribe-form"><%= t '.subscribe_btn' %></button>
       <% end %>
     <% else %>
-      <%= link_to "Registrovať", new_registration_path(:user), role: :button, class: :'btn btn-success' %>
-      <%= link_to "Prihlásiť", new_session_path(:user), role: :button, class: :'btn btn-primary' %>
+      <%= link_to t('.sign_up'), new_registration_path(:user), role: :button, class: :'btn btn-success' %>
+      <%= link_to t('.login'), new_session_path(:user), role: :button, class: :'btn btn-primary' %>
     <% end %>
   </div>
 </div>

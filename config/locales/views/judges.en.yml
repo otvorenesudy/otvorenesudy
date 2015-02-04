@@ -1,5 +1,13 @@
 ﻿en:
   judges:
+    active: 'Active'
+    inactive: 'Inactive'
+    unknown: 'Unknown'
+    unknown_2: 'unknown'
+    most_likely: 'Most likely'
+    vsu_acro: 'SCO'
+    vsu: 'Superior court officer'
+
     header:
       open_search: 'Open search'
       average_salary: 'The average monthly income of a judge at a district court was in 2012 2,500 eur, and at the Supreme Court 3,600 eur.'

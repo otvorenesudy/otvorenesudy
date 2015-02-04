@@ -1,7 +1,5 @@
-Od roku 2009 do júla 2013 zaplatili<br/>
-súdy za prieťahy v konaní a chybné<br/>
-rozhodnutia viac než 4 milióny eur
+<%= t '.headline_html' %>
 
 <small class="total">
-  Otvorené Súdy &mdash; vyhľadávate v <%= number_with_delimiter Proceeding.total %> konaniach
+  <%= t '.headline_total_html', total_proceedings: number_with_delimiter(Proceeding.total) %>
 </small>

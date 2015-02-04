@@ -1,5 +1,15 @@
 sk:
   judges:
+    active: 'Aktívny'
+    active_gender: 'Aktívn'
+    inactive: 'Neaktívny'
+    inactive_gender: 'Neaktívn'
+    unknown: 'Neznámy'
+    unknown_2: 'neznáma'
+    most_likely: 'Pravdepodobne'
+    vsu_acro: 'VSÚ'
+    vsu: 'Vyšší súdny úradník'
+
     header:
       open_search: 'Otvorené vyhľadávanie'
       average_salary: 'Priemerný mesačný príjem začínajúceho sudcu na okresnom súde v roku 2012 bol 2500 eur, sudcu na Najvyššom súde 3600 eur.'
@@ -60,6 +70,11 @@ sk:
       list: 'zoznamu'
       document: 'dokumentu'
       last_updated_on: 'ktorého posledná aktualizácia bola vykonaná'
+      not_yet: 'zatiaľ ne'
+      register: 'evidujeme'
+
+    edit:
+      email_not_yet_opened: 'Zatiaľ neoverený e-mail'
 
     media:
       link_explanation: 'Odkazy sú vyhľadávané automaticky na základe mena a pôsobiska sudcu. Sudcu sa týkať nemusia.'
@@ -89,3 +104,26 @@ sk:
     headline:
       headline_html: 'Priemerný mesačný príjem začínajúceho sudcu<br/>na okresnom súde v roku 2012 bol 2&nbsp;500 eur,<br/>sudcu na Najvyššom súde 3&nbsp;600 eur'
       sub_headline_html: 'Otvorené Súdy &mdash; vyhľadávate medzi %{total_judges} sudcami'
+
+    featured_court:
+      of_court_is: 'súdu je'
+      of_court: 'súdu'
+      at_court_work: 'Na súde pracuje'
+      for_court: 'Pre súd'
+      not_yet: 'zatiaľ ne'
+      register: 'evidujeme'
+      slovak_republic: 'Slovenská republika'
+      and: ' a'
+
+    judges:
+      court_leadership: 'Vedenie súdu'
+
+
+    results:
+      of_court_is: 'súdu je'
+      of_court: 'súdu'
+      at_court_work: 'Na súde pracuje'
+      for_court: 'Pre súd'
+      not_yet: 'zatiaľ ne'
+      register: 'evidujeme'
+      and: ' a'
