@@ -115,14 +115,18 @@ module Probe
       end
 
       def facets
-        @facet_definitions ||= []
+        if block_given?
+          @facet_definitions ||= []
 
-        yield if block_given?
+          yield
 
-        facet :created_at, type: :abstract, facet: :date, interval: :month
-        facet :updated_at, type: :abstract, facet: :date, interval: :month
+          facet :created_at, type: :abstract, facet: :date, interval: :month
+          facet :updated_at, type: :abstract, facet: :date, interval: :month
 
-        @facets ||= Probe::Facets.new(@facet_definitions)
+          @facets = Probe::Facets.new(@facet_definitions)
+        end
+
+        @facets
       end
 
       def per_page

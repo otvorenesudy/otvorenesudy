@@ -1,0 +1,16 @@
+<div id="indicators-judge-name" class="facet" data-id="<%= facet.name %>">
+  <h4>
+    Sudcovia
+    <br/>
+    <small>Vyberte daľších sudcov pre porovnanie</small>
+  </h4>
+
+  <div id="<%= facet.id %>-content" class="facet-content">
+    <%= facet_suggest_input facet, placeholder: 'Meno sudcu', :'data-suggest-path' => indicators_suggest_judge_path(params) %>
+
+    <div class="facet-results">
+      <%= render "judges/indicators/name_facet_results", facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+    </div>
+  </div>
+</div>
+

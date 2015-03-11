@@ -49,5 +49,18 @@ shared_examples_for Api::Syncable do
         expect(result.to_a).to eql(other)
       end
     end
+
+    context 'when last request' do
+      it 'does not embed Link header' do
+        date = Time.now + 2.days
+
+        3.times.map { FactoryGirl.create factory, updated_at: date }
+
+        get :sync, api_key: api_key.value
+        get :sync, since: date.as_json, api_key: api_key.value, format: :json
+
+        expect(response.headers['Link']).to be_nil
+      end
+    end
   end
 end

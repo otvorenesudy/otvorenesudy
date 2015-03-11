@@ -3,13 +3,24 @@ class Judge
     extend ActiveSupport::Concern
     extend JusticeGovSk::Helper::Normalizer
 
+    included do
+      mapping do
+        analyze :has_indicators, as: lambda { |j| !!j.indicators }
+      end
+
+      facets do
+        facet :name, type: :terms, visible: false, view: { facet: 'judges/indicators/name_facet', results: 'judges/indicators/name_facet_results' }
+        facet :has_indicators, type: :terms, visible: false
+      end
+
+      Judge::Indicators.load!
+    end
+
     def indicators
       Judge::Indicators.for(self)
     end
 
     def self.for(judge)
-      load! unless @data
-
       @data[judge.id]
     end
 
@@ -63,8 +74,9 @@ class Judge
 
     def self.normalize_statistical_values(values)
       values.each_with_index do |(key, value), index|
-        value = value.to_s.gsub(/-/, '–')
+        next unless value
 
+        value = value.to_s.gsub(/-/, '–')
         value = case value
                 when 'N/A' then nil
                 else value
