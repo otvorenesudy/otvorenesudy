@@ -146,19 +146,19 @@ namespace :fixtures do
          court_types.value as court_type
         from
          hearings
-          -- kategorie pojednavani
+          -- hearings
           join hearing_types
            on hearings.hearing_type_id = hearing_types.id
           join hearing_sections
            on hearings.hearing_section_id = hearing_sections.id
           join hearing_subjects
            on hearings.hearing_subject_id = hearing_subjects.id
-          -- sudcovia
+          -- judges
           join judgings
            on hearings.id = judgings.hearing_id
           join judges
            on judgings.judge_id = judges.id
-          -- decree things
+          -- decrees
           join decrees
            on hearings.proceeding_id = decrees.proceeding_id
           join decree_forms
