@@ -126,6 +126,8 @@ namespace :fixtures do
       query = <<-SQL
         select
          hearings.file_number as file_number,
+         hearings.case_number as case_number,
+         hearings.date as hearing_date,
          hearing_types.value as type,
          hearing_sections.value as section,
          hearing_subjects.value as subject,
@@ -190,7 +192,8 @@ namespace :fixtures do
            on court_types.id = courts.court_type_id
       SQL
 
-      data =  [:file_number, :type]
+      data =  [:file_number, :case_number]
+      data += [:hearing_date, :type]
       data += [:section, :subject]
       data += [:judge, :form]
       data += [:nature, :proposer]
@@ -207,6 +210,8 @@ namespace :fixtures do
 
       records_array.each do |record|
         file_number           = record['file_number'] || ''
+        case_number           = record['case_number'] || ''
+        hearing_date          = record['hearing_date'] || ''
         type                  = record['type'] || ''
         section               = record['section'] || ''
         subject               = record['subject'] || ''
@@ -226,7 +231,8 @@ namespace :fixtures do
         legislation_letter    = record['legislation_letter'] || ''
         legislation_year      = record['legislation_year'] || ''
 
-        data =  [file_number, type]
+        data =  [file_number, case_number]
+        data += [hearing_date, type]
         data += [section, subject]
         data += [judge, form]
         data += [nature, proposer]
