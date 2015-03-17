@@ -60,32 +60,6 @@
         </p>
       <% end %>
 
-      <% if File.readable? @judge.curriculum_path %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Životopis", curriculum_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
-        </p>
-      <% end %>
-
-      <% if File.readable? @judge.cover_letter_path %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
-        </p>
-      <% end %>
-
-      <% if @judge.indicators %>
-        <% if @judge.indicators.statistical %>
-          <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
-        <% end %>
-
-        <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
-          <br/>
-
-          <%= render 'judges/indicators/chart', judge: @judge, indicators: @judge.indicators.numerical %>
-        <% end %>
-      <% end %>
-
       <% if @judge.related_people_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :group %></span>
@@ -111,7 +85,6 @@
         </div>
       <% end %>
 
-      <!--
       <% if @judge.substantiation_notes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :pushpin %></span>
@@ -125,7 +98,32 @@
           </ul>
         </div>
       <% end %>
-      -->
+
+      <% if File.readable? @judge.curriculum_path %>
+        <p>
+          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
+          <%= external_link_to "Životopis", curriculum_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
+        </p>
+      <% end %>
+
+      <% if File.readable? @judge.cover_letter_path %>
+        <p>
+          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
+          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
+        </p>
+      <% end %>
+
+      <% if @judge.indicators %>
+        <% if @judge.indicators.statistical %>
+          <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
+        <% end %>
+
+        <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
+          <br/>
+
+          <%= render 'judges/indicators/chart', judge: @judge, indicators: @judge.indicators.numerical %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </section>
