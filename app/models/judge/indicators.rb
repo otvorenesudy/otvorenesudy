@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 class Judge
   module Indicators
     extend ActiveSupport::Concern
@@ -5,11 +7,26 @@ class Judge
 
     included do
       mapping do
-        analyze :has_indicators, as: lambda { |j| !!j.indicators }
+        analyze :has_indicators, as: lambda { |j| !!j.indicators && !!j.indicators.statistical }
+        analyze :decree_agenda, as: lambda { |j|
+          if j.indicators && j.indicators.statistical
+            indicators = j.indicators.statistical
+
+            map = {
+              'Občianska' => indicators['S5a'].to_i,
+              'Obchodná' => indicators['S5b'].to_i,
+              'Poručenská' => indicators['S5c'].to_i,
+              'Trestná' => indicators['S5d'].to_i
+            }
+
+            map.sort_by { |_, value| value }.last[0]
+          end
+        }
       end
 
       facets do
-        facet :name, type: :terms, visible: false, view: { facet: 'judges/indicators/name_facet', results: 'judges/indicators/name_facet_results' }
+        facet :name, type: :terms, visible: false
+        facet :decree_agenda, type: :terms, visible: false
         facet :has_indicators, type: :terms, visible: false
       end
 

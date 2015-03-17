@@ -3,7 +3,7 @@
 
 <div id="judge-indicators-chart" class="row">
   <div class="span9">
-    <canvas class="chart" width="600" height="600"></canvas>
+    <canvas class="chart" width="600" height="500"></canvas>
   </div>
 
   <div class="span3">
@@ -12,6 +12,24 @@
     <hr/>
 
     <%= render 'judges/indicators/name_facet', facet: @facets[:name], translation: {} %>
+  </div>
+</div>
+
+<%= icon_link_to :tasks, 'Zobraziť pokročilé filtre', '#', :'data-target' => '#judge-indicators-facets', :'data-toggle' => :collapse %>
+
+<div id="judge-indicators-facets" class="row collapse">
+  <hr />
+
+  <div class="span4">
+    <%= render 'judges/indicators/terms_facet', facet: @facets[:positions], translation: t(@facets[:positions].key), options: { label: true } %>
+  </div>
+
+  <div class="span4">
+    <%= render 'judges/indicators/terms_facet', facet: @facets[:decree_agenda], translation: t(@facets[:decree_agenda].key), options: { label: true } %>
+  </div>
+
+  <div class="span4">
+    <%= render 'judges/indicators/terms_facet', facet: @facets[:courts], translation: t(@facets[:courts].key), options: { label: true } %>
   </div>
 </div>
 
@@ -27,6 +45,10 @@
 
     $(document).ready(function() {
       var suggest = new Search.Suggest('#judge-indicators-chart')
+
+      suggest.register()
+
+      var suggest = new Search.Suggest('#judge-indicators-facets')
 
       suggest.register()
     })
