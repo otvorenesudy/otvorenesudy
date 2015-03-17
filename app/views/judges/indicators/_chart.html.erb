@@ -18,7 +18,7 @@
 <%= icon_link_to :tasks, 'Zobraziť pokročilé filtre', '#', :'data-target' => '#judge-indicators-facets', :'data-toggle' => :collapse %>
 
 <div id="judge-indicators-facets" class="row collapse">
-  <hr />
+  <br />
 
   <div class="span4">
     <%= render 'judges/indicators/terms_facet', facet: @facets[:positions], translation: t(@facets[:positions].key), options: { label: true } %>
