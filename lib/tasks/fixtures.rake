@@ -111,6 +111,144 @@ namespace :fixtures do
   end
 
   namespace :export do
+    desc "Export all proceedings along with general information"
+    task :proceedings_info, [:path] => :environment do |_, args|
+      include Core::Output
+
+      separator = '|'
+
+      path = args[:path] || 'tmp'      
+
+      FileUtils.mkpath path
+
+      file = File.open File.join(path, 'proceedings.csv'), 'w'
+
+      query = <<-SQL
+        select
+         hearings.file_number as file_number,
+         hearings.case_number as case_number,
+         hearings.date as hearing_date,
+         hearing_types.value as type,
+         hearing_sections.value as section,
+         hearing_subjects.value as subject,
+         judges.name as judge,
+         decree_forms.value as form,
+         decree_natures.value as nature,
+         legislation_areas.value as legislation_area,
+         legislations.name as legislation_name,
+         legislations.number as legislation_number,
+         legislations.section as legislation_section,
+         legislations.paragraph as legislation_paragraph,
+         legislations.letter as legislation_letter,
+         legislations.year as legislation_year,
+         proposers.name as proposer,
+         defendants.name as defendant,
+         accusations.value as accusation,
+         courts.name as court,
+         court_types.value as court_type
+        from
+         hearings
+          -- hearings
+          join hearing_types
+           on hearings.hearing_type_id = hearing_types.id
+          join hearing_sections
+           on hearings.hearing_section_id = hearing_sections.id
+          join hearing_subjects
+           on hearings.hearing_subject_id = hearing_subjects.id
+          -- judges
+          join judgings
+           on hearings.id = judgings.hearing_id
+          join judges
+           on judgings.judge_id = judges.id
+          -- decrees
+          join decrees
+           on hearings.proceeding_id = decrees.proceeding_id
+          join decree_forms
+           on decrees.decree_form_id = decree_forms.id
+          join decree_naturalizations
+           on decree_naturalizations.decree_id = decrees.id
+          join decree_natures
+           on decree_natures.id = decree_naturalizations.decree_nature_id
+          -- legislations
+          join legislation_areas
+           on legislation_areas.id = decrees.legislation_area_id
+          join legislation_usages
+           on legislation_usages.decree_id = decrees.id
+          join legislations
+           on legislations.id = legislation_usages.legislation_id
+          -- prop opp def acc
+          join proposers
+           on proposers.hearing_id = hearings.id
+          join opponents
+           on opponents.hearing_id = hearings.id
+          join defendants
+           on defendants.hearing_id = hearings.id
+          join accusations
+           on accusations.defendant_id = defendants.id
+          -- courts
+          join courts
+           on hearings.court_id = courts.id
+          join court_types
+           on court_types.id = courts.court_type_id
+      SQL
+
+      data =  [:file_number, :case_number]
+      data += [:hearing_date, :type]
+      data += [:section, :subject]
+      data += [:judge, :form]
+      data += [:nature, :proposer]
+      data += [:accusation, :defendant]
+      data += [:court, :court_type]
+      data += [:legislation_area, :legislation_name, ]
+      data += [:legislation_number, :legislation_section]
+      data += [:legislation_paragraph, :legislation_letter, :legislation_year]
+
+      file.write(data.join(separator) + "\n")
+
+
+      records_array = ActiveRecord::Base.connection.execute(query)
+
+      records_array.each do |record|
+        file_number           = record['file_number'] || ''
+        case_number           = record['case_number'] || ''
+        hearing_date          = record['hearing_date'] || ''
+        type                  = record['type'] || ''
+        section               = record['section'] || ''
+        subject               = record['subject'] || ''
+        judge                 = record['judge'] || ''
+        form                  = record['form'] || ''
+        nature                = record['nature'] || ''
+        proposer              = record['proposer'] || ''
+        defendant             = record['defendant'] || ''
+        accusation            = record['accusation'] || ''
+        court                 = record['court'] || ''
+        court_type            = record['court_type'] || ''
+        legislation_area      = record['legislation_area'] || ''
+        legislation_name      = record['legislation_name'] || ''
+        legislation_number    = record['legislation_number'] || ''
+        legislation_section   = record['legislation_section'] || ''
+        legislation_paragraph = record['legislation_paragraph'] || ''
+        legislation_letter    = record['legislation_letter'] || ''
+        legislation_year      = record['legislation_year'] || ''
+
+        data =  [file_number, case_number]
+        data += [hearing_date, type]
+        data += [section, subject]
+        data += [judge, form]
+        data += [nature, proposer]
+        data += [accusation, defendant]
+        data += [court, court_type]
+        data += [legislation_area, legislation_name, ]
+        data += [legislation_number, legislation_section]
+        data += [legislation_paragraph, legislation_letter, legislation_year]
+
+        file.write(data.join(separator) + "\n")
+      end
+
+
+      file.close
+    end
+
     desc "Export judge property declarations and some other related data into CSVs"
     task :judge_property_declarations, [:path] => :environment do |_, args|
       include Core::Pluralize
