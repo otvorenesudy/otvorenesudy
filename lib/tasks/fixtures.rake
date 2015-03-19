@@ -111,104 +111,97 @@ namespace :fixtures do
   end
 
   namespace :export do
-    desc "Export all proceedings along with general information"
-    task :proceedings_info, [:path] => :environment do |_, args|
+    desc "Export all hearings expanded with additional data"
+    task :expanded_hearings, [:path] => :environment do |_, args|
       include Core::Output
 
-      separator = '|'
+      separator = "\t"
 
-      path = args[:path] || 'tmp'      
+      path = args[:path] || 'tmp'
 
       FileUtils.mkpath path
 
-      file = File.open File.join(path, 'proceedings.csv'), 'w'
+      file = File.open File.join(path, 'expanded_hearings.csv'), 'w'
 
       query = <<-SQL
         select
-         hearings.file_number as file_number,
-         hearings.case_number as case_number,
-         hearings.date as hearing_date,
-         hearing_types.value as type,
-         hearing_sections.value as section,
-         hearing_subjects.value as subject,
-         judges.name as judge,
-         decree_forms.value as form,
-         decree_natures.value as nature,
-         legislation_areas.value as legislation_area,
-         legislations.name as legislation_name,
-         legislations.number as legislation_number,
-         legislations.section as legislation_section,
-         legislations.paragraph as legislation_paragraph,
-         legislations.letter as legislation_letter,
-         legislations.year as legislation_year,
-         proposers.name as proposer,
-         defendants.name as defendant,
-         accusations.value as accusation,
-         courts.name as court,
-         court_types.value as court_type
+          hearings.file_number as file_number,
+          hearings.case_number as case_number,
+          hearings.date as hearing_date,
+          hearing_types.value as type,
+          hearing_sections.value as section,
+          hearing_subjects.value as subject,
+          judges.name as judge,
+          decree_forms.value as form,
+          decree_natures.value as nature,
+          legislation_areas.value as legislation_area,
+          legislations.name as legislation_name,
+          legislations.number as legislation_number,
+          legislations.section as legislation_section,
+          legislations.paragraph as legislation_paragraph,
+          legislations.letter as legislation_letter,
+          legislations.year as legislation_year,
+          proposers.name as proposer,
+          defendants.name as defendant,
+          accusations.value as accusation,
+          courts.name as court,
+          court_types.value as court_type
         from
-         hearings
-          -- hearings
+          hearings
           join hearing_types
-           on hearings.hearing_type_id = hearing_types.id
+          on hearings.hearing_type_id = hearing_types.id
           join hearing_sections
-           on hearings.hearing_section_id = hearing_sections.id
+          on hearings.hearing_section_id = hearing_sections.id
           join hearing_subjects
-           on hearings.hearing_subject_id = hearing_subjects.id
-          -- judges
+          on hearings.hearing_subject_id = hearing_subjects.id
           join judgings
-           on hearings.id = judgings.hearing_id
+          on hearings.id = judgings.hearing_id
           join judges
-           on judgings.judge_id = judges.id
-          -- decrees
+          on judgings.judge_id = judges.id
           join decrees
-           on hearings.proceeding_id = decrees.proceeding_id
+          on hearings.proceeding_id = decrees.proceeding_id
           join decree_forms
-           on decrees.decree_form_id = decree_forms.id
+          on decrees.decree_form_id = decree_forms.id
           join decree_naturalizations
-           on decree_naturalizations.decree_id = decrees.id
+          on decree_naturalizations.decree_id = decrees.id
           join decree_natures
-           on decree_natures.id = decree_naturalizations.decree_nature_id
-          -- legislations
+          on decree_natures.id = decree_naturalizations.decree_nature_id
           join legislation_areas
-           on legislation_areas.id = decrees.legislation_area_id
+          on legislation_areas.id = decrees.legislation_area_id
           join legislation_usages
-           on legislation_usages.decree_id = decrees.id
+          on legislation_usages.decree_id = decrees.id
           join legislations
-           on legislations.id = legislation_usages.legislation_id
-          -- prop opp def acc
+          on legislations.id = legislation_usages.legislation_id
           join proposers
-           on proposers.hearing_id = hearings.id
+          on proposers.hearing_id = hearings.id
           join opponents
-           on opponents.hearing_id = hearings.id
+          on opponents.hearing_id = hearings.id
           join defendants
-           on defendants.hearing_id = hearings.id
+          on defendants.hearing_id = hearings.id
           join accusations
-           on accusations.defendant_id = defendants.id
-          -- courts
+          on accusations.defendant_id = defendants.id
           join courts
-           on hearings.court_id = courts.id
+          on hearings.court_id = courts.id
           join court_types
-           on court_types.id = courts.court_type_id
+          on court_types.id = courts.court_type_id
       SQL
 
-      data =  [:file_number, :case_number]
+      data  = [:file_number, :case_number]
       data += [:hearing_date, :type]
       data += [:section, :subject]
       data += [:judge, :form]
       data += [:nature, :proposer]
       data += [:accusation, :defendant]
       data += [:court, :court_type]
-      data += [:legislation_area, :legislation_name, ]
+      data += [:legislation_area, :legislation_name,]
       data += [:legislation_number, :legislation_section]
       data += [:legislation_paragraph, :legislation_letter, :legislation_year]
 
       file.write(data.join(separator) + "\n")
 
+      records = ActiveRecord::Base.connection.execute(query)
 
-      records_array = ActiveRecord::Base.connection.execute(query)
-
-      records_array.each do |record|
+      records.each do |record|
         file_number           = record['file_number'] || ''
         case_number           = record['case_number'] || ''
         hearing_date          = record['hearing_date'] || ''
@@ -231,20 +224,19 @@ namespace :fixtures do
         legislation_letter    = record['legislation_letter'] || ''
         legislation_year      = record['legislation_year'] || ''
 
-        data =  [file_number, case_number]
+        data  = [file_number, case_number]
         data += [hearing_date, type]
         data += [section, subject]
         data += [judge, form]
         data += [nature, proposer]
         data += [accusation, defendant]
         data += [court, court_type]
-        data += [legislation_area, legislation_name, ]
+        data += [legislation_area, legislation_name,]
         data += [legislation_number, legislation_section]
         data += [legislation_paragraph, legislation_letter, legislation_year]
 
         file.write(data.join(separator) + "\n")
       end
-
 
       file.close
     end
