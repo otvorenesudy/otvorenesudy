@@ -1,36 +1,36 @@
-en:
+﻿en:
   proceedings:
-    public_hearing: 'Verejné súdne konanie'
-    started: 'začalo'
-    will_start: 'začne'
-    in_day: 'dňa'
-    closed_at: 'bolo ukončené dňa'
-    takes_from: 'trvá odo dňa'
-    happened_at: 'prebehlo dňa'
-    took_from: 'trvalo odo dňa'
-    until_day: 'do dňa'
-    and: 'a'
+    public_hearing: 'Public hearing'
+    started: 'started'
+    will_start: 'will start'
+    in_day: 'on'
+    closed_at: 'was closed on'
+    takes_from: 'lasts since'
+    happened_at: 'was held at'
+    took_from: 'lasted since'
+    until_day: 'until'
+    and: 'and'
 
     headline:
-      headline_html: 'Od roku 2009 do júla 2013 zaplatili<br/>súdy za prieťahy v konaní a chybné<br/>rozhodnutia viac než 4 milióny eur'
-      headline_total_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_proceedings} konaniach'
+      headline_html: 'From 2009 to July 2013 courts paid<br/>for unnecessary delays and unlawful decisions<br/>more than 4 million euros.'
+      headline_total_html: 'OpenCourts &mdash; you are searching in %{total_proceedings} proceedings'
 
     show:
-      default_title: 'Súdne konanie'
-      for_proceeding: 'Pre súdne konanie'
-      so_far: 'zatiaľ '
-      register: 'evidujeme'
-      not_present: 'neuvedená'
-      not_present_2: 'neuvedené'
-      not_present_3: 'neuvedený'
-      present: 'Súčasnosť'
-      pleading: 'Podanie na súd'
-      past: 'Minulosť'
-      info_source: 'Informácie o udalostiach súdneho konania boli získané z dokumentov zverejnených na portáli'
-      ministry_of_justice: 'Ministerstva spravodlivosti Slovenskej republiky'
+      default_title: 'Judicial proceeding'
+      for_proceeding: 'For the proceeding we'
+      so_far: 'so far '
+      register: 'register'
+      not_present: 'missing'
+      not_present_2: 'missing'
+      not_present_3: 'missing'
+      present: 'Present'
+      pleading: 'Case filed to the court'
+      past: 'Past'
+      info_source: 'Information about the proceeding were obtained from the documents published at the portal of'
+      ministry_of_justice: 'Ministry of Justice of the Slovak Republic'
 
     search:
-      search_proceedings: 'Vyhľadávanie v súdnych konaniach'
+      search_proceedings: 'Search in proceedings'
 
     result:
-      register: 'Evidujeme'
+      register: 'Register'

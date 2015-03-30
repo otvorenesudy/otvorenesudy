@@ -12,6 +12,18 @@ en:
       few: '%{count} judges'
       other: '%{count} of judges'
 
+    candidate: &candidate
+      zero: 'no candidates'
+      one: '1 candidate'
+      few: '%{count} candidates'
+      other: '%{count} of candidates'
+
+    commissioner: &commissioner
+      zero: 'no cimmissioners'
+      one: '1 commissioner'
+      few: '%{count} commissioners'
+      other: '%{count} of commissioners'
+
     officer: &officer
       zero: 'no higher court officials'
       one: '1 higher court official'
@@ -375,6 +387,7 @@ en:
       q:
         title: 'Text of the procedure'
         placeholder: 'Search in selection procedures'
+
       organization_name:
         title: 'Organization'
         placeholder: 'Name of organization'
@@ -387,11 +400,21 @@ en:
         missing: 'missing'
         not_found: 'No candidates found.'
 
+      candidates_count:
+        title: 'Number of candidates'
+        suffix:
+          <<: *candidate
+
       commissioners:
         title: 'Member of selection committee'
         placeholder: "Committee member's name"
         missing: 'missing'
         not_found: 'No committee members found.'
+
+      commissioners_count:
+        title: 'Number of commissioners'
+        suffix:
+          <<: *candidate
 
       position:
         title: 'Position'

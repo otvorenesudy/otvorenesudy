@@ -27,7 +27,7 @@
             <% end %>
           <% end %>
           <%= t '.at_court' %> <%= link_to_court_by_judge_employment employment %>,
-          <%= 'ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
+          <%= t('not') if Hearing.during_employment(employment).exact.size.zero? %><%= t '.register' %>
           <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
           a <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
         </p>

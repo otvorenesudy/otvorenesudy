@@ -1,6 +1,6 @@
-en:
+﻿en:
   decrees:
     headline:
-      headline_html: 'V priemere 45% súdnych rozhodnutí<br/>je potvrdených vyšším súdom'
-      sub_headline: 'Štatistická ročenka MSSR 2011 a 2012'
-      total_decrees_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_decrees} rozhodnutiach'
+      headline_html: 'On average 45% of judicial decisions<br/>are confirmed by apellate courts'
+      sub_headline: 'Statistical yearbook of the Ministry of Justice 2011 and 2012'
+      total_decrees_html: 'OpenCourts &mdash; you are searching in %{total_decrees} decrees'

@@ -97,6 +97,13 @@ sk:
       unknown_worker_female: 'Neznáma pracovníčka'
       unknown_worker_male: 'Neznámy pracovník'
       at_court: 'na súde'
+      of_court_is: 'súdu je'
+      of_court: 'súdu'
+      at_court_work: 'Na súde pracuje'
+      for_court: 'Pre súd'
+      not_yet: 'zatiaľ ne'
+      register: 'evidujeme'
+      and: ' a'
 
     search:
       title: 'Vyhľadávanie medzi sudcami'
@@ -113,17 +120,4 @@ sk:
       not_yet: 'zatiaľ ne'
       register: 'evidujeme'
       slovak_republic: 'Slovenská republika'
-      and: ' a'
-
-    judges:
-      court_leadership: 'Vedenie súdu'
-
-
-    results:
-      of_court_is: 'súdu je'
-      of_court: 'súdu'
-      at_court_work: 'Na súde pracuje'
-      for_court: 'Pre súd'
-      not_yet: 'zatiaľ ne'
-      register: 'evidujeme'
       and: ' a'
