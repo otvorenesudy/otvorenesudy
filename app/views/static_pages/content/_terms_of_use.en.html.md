@@ -2,14 +2,14 @@
 
 ## Administrators
 
-The portal Otvorenesudy.sk (hereinafter „portal“) is a non-profit investigative webpage aiming to monitor and analysis of information about the judiciary. Administrator of the portal is a non-profit organization Transparency International Slovakia 
-(hereinafter „administrator”) and Samuel Molnár and Pavol Zbell.The project Open Courts was created thanks to the support ofthe Secretariat of
+The portal Otvorenesudy.sk (hereinafter „portal“) is a non-profit investigative webpage aiming to monitor and analyze information about the judiciary. Administrator of the portal is a non-profit organization Transparency International Slovakia 
+(hereinafter „administrator”) and Samuel Molnár and Pavol Zbell. The project Open Courts was created thanks to the support of the Secretariat of
 <%= external_link_to "Transparency International", 'http://transparency.org' %>
-in Berlin and the project <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>organized by <%= external_link_to "Centre for Philantropy", 'http://cpf.sk' %>. 
+in Berlin and the project <%= external_link_to "Reštart", 'http://restartslovensko.sk' %> organized by <%= external_link_to "Centre for Philantropy", 'http://cpf.sk' %>. 
 
 ## Basic rules
 
-Portal allows to earch, read and download published information about courts, judges, hearings and judicial decisions. The advantage of registration is a possibility to receive notifications about new data based on the search filters selected by the user. Registered user is obliged to provide his/her e-mail address upon registration where he/she can be contacted. Administrators pledge to contact any user only in case of need and will not send any spam.
+Portal allows to search, read and download published information about courts, judges, hearings and judicial decisions. The advantage of registration is a possibility to receive notifications about new data based on the search filters selected by the user. Registered user is obliged to provide his/her e-mail address upon registration where he/she can be contacted. Administrators pledge to contact any user only in case of need and will not send any spam.
 
 
 ## Data sources

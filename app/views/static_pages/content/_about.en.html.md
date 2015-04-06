@@ -1,12 +1,12 @@
 ﻿# About
 
-Well-functioning of the judicial system has an important impact on the quality of public life and of democracy. A well-functioning and trustwothy judiciary is a necessary pre-condition for for a good business environment as well as civic life. Slovaks are not satisfied with the current state of judiciary. According to <%= external_link_to "Eurobarometer from the fall of 2009", 'http://ec.europa.eu/public_opinion/archives/ebs/ebs_374_en.pdf' %> 
+Well-functioning of the judicial system has an important impact on the quality of public life and of democracy. A well-functioning and trustwothy judiciary is a necessary pre-condition for a good business environment as well as civic life. Slovaks are not satisfied with the current state of judiciary. According to <%= external_link_to "Eurobarometer from the fall of 2009", 'http://ec.europa.eu/public_opinion/archives/ebs/ebs_374_en.pdf' %> 
 only 29% of people in Slovakia trust the courts. At the same time, every twelfth household that has been in touch with judiciary paid a bribe according to
 <%= external_link_to "2013's Global Corruption Barometer", 'http://transparency.sk/sk/kazda-piata-domacnost-zaplati-rocne-aspon-jeden-uplatok' %>.
 
-We do not know much about the work of judges and courts. One of the reasons is restrictions with regard to access to information that are rather softer when it comes to government or parliament.
+We do not know much about the work of judges and courts. One of the reasons for that is the fact that restrictions regulating access to information with regard to judiciary are stricter than those regulating information from government or parliament.
 
-Simultaneously discussions about the functioning and the quality of judiciary suffer from two major shortcomings. Firstly, they are often over-generalizing ("judges are corrupt") without any clear reference to those responsible or without any identification of problems. Secondly,  &ndash; majority of discussions are held only among unnecessarily restrictive group of legal professionals. Open Courts aim to contribute to the improvement of the discussion about Slovak judiciary in three ways:
+Simultaneously, discussions about the functioning and the quality of judiciary suffer from two major shortcomings. Firstly, they are often over-generalizing ("judges are corrupt") without any clear reference to those responsible or without any identification of problems. Secondly,  &ndash; majority of discussions are held only among unnecessarily restricted group of legal professionals. Open Courts aim to contribute to the improvement of the discussion about Slovak judiciary in three ways:
 
 <hr/>
 

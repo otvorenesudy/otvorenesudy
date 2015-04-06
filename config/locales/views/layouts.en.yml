@@ -1,10 +1,10 @@
 en:
   layouts:
     application:
-      default_title: 'Otvorené Súdy'
+      default_title: 'Open courts'
 
     header:
-      donate: 'Donate to the project'
+      donate_html: 'Donate</br>now'
       courts: 'Courts'
       judges: 'Judges'
       hearings: 'Hearings'

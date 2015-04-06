@@ -11,36 +11,40 @@ is to contribute to the development of qualitative and quantitative indicators t
 
 The webpage offers information about activities
 <%= link_to "of courts", search_courts_path %>,
-profily <%= link_to "judges", search_judges_path %>,
+profiles of <%= link_to "judges", search_judges_path %>,
 past and the future <%= link_to "hearings", search_hearings_path %> and more than a million <%= link_to "judicial decisions", search_decrees_path %>.
 
-#### Can you offer me a legal advice? Advisory office is not a part of the project. In case you are searching for a legal advice you can contact
+#### Can you offer me a legal advice?
+Advisory office is not a part of the project. In case you are searching for a legal advice you can contact
 <%= external_link_to "Legal Aid Centre", 'http://www.legalaid.sk' %>.
 The Centre is obliged to help those in socially disadvantageous position that cannot afford any other legal help, but they can help you with simple matters. You can also search for an advocate at the webpage of
 <%= external_link_to "Slovak Bar Association", 'https://www.sak.sk/blox/cms/sk/sak/adv/vyhladanie' %>,
 that you can subsequently contact.
 
-#### Who are the authors of the project? Authors are
+#### Who are the authors of the project?
+Authors are
 <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %> a
 <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
 (members of the Research group <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> na
 <%= external_link_to "at the Faculty of Informatics and Information Technologies", 'http://fiit.stuba.sk' %>
 <%= external_link_to "of the Slovak University of Technology in Bratislava", 'http://stuba.sk' %>) and<%= external_link_to "Transparency International Slovakia", 'http://transparency.sk' %>.
 
-#### Who is it paid by? The project Open Courts was created thanks to the support of the Secretariat of
+#### Who is it paid by?
+The project Open Courts was created thanks to the support of the Secretariat of
 <%= external_link_to "Transparency International", 'http://transparency.org' %>
 in Berlin and the project <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
 organized by the<%= external_link_to "Centre for Philantropy", 'http://cpf.sk' %>.For the hosting we are grateful to 
 <%= external_link_to "Petit Press", 'http://petitpress.sk' %>,
 administrator of the portal <%= external_link_to "sme.sk", 'http://sme.sk' %>.
 
-#### How can I contribute? Use the webpage. share it with others that may be interested. Follow the news about the project at social networks
+#### How can I contribute?
+Use the webpage. share it with others that may be interested. Follow the news about the project at social networks
 <%= external_link_to "Facebook", 'https://facebook.com/otvorenesudy' %> and
 <%= external_link_to "Twitter", 'https://twitter.com/otvorenesudy' %>,
 and if you are an IT developer also on
 <%= external_link_to "GitHub", 'https://github.com/otvorenesudy' %>.
 If you can, please consider
-<%= external_link_to "financial contribution", 'http://transparency.darujme.sk/238/' %>to the project.
+<%= external_link_to "financial contribution", 'http://transparency.darujme.sk/238/' %> to the project.
 
 # Data
 
@@ -107,7 +111,7 @@ No. In Slovakia we have approximately 1 400 active judges. It si difficult to sa
 
 #### Who is the rest? Who are HCO?
 
-HCO are "higher court officials"who assist judges and are allowed to issue ceartain types of judicial decisions. All in all there is more than 1 000 of them. However, as the Ministry does not hav any list of higher court officials, they were identified as people issuing judicial decisions, and at the same time were not in the list of judges provided by the Ministry of Justice. Consequently they were labelled as "probably HCO".
+HCO are "higher court officials" who assist judges and are allowed to issue ceartain types of judicial decisions. All in all there is more than 1 000 of them. However, as the Ministry does not hav any list of higher court officials, they were identified as people issuing judicial decisions, and at the same time were not in the list of judges provided by the Ministry of Justice. Consequently they were labelled as "probably HCO".
 
 __Judges do not have information about their previous occupations in their profiles.__
 We are aware of that. Judges' profiles include only information about the current, possibly the last occupation. Wll we have the capacity we would like to find the way how to map their activities at previous occupations.
@@ -131,6 +135,6 @@ One of the following explanations may apply: - not a sufficient time has passed 
 
 - something went wrong <%= icon_tag :frown %>
 
-#### Why are there fewer decisions on the portal tahn on the webpage of the Ministry?
+#### Why are there fewer decisions on the portal than on the webpage of the Ministry?
 
 It can be usually explained as technical difficulties, hence the fact that some of the decisions cannot be downloaded despite repeated efforts. Some of the decisions were, on the other hand, published more than once with the same ECLI, or some of their identificators is missing and therefore they cannot be found in our database.

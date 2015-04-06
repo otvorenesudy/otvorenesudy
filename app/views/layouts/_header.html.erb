@@ -1,5 +1,9 @@
 <div class="donate">
-  <%= external_link_to t('.donate'), 'http://transparency.darujme.sk/238', icon: :gift %>
+  <% if I18n.locale == :sk %>
+    <%= external_link_to t('.donate'),'http://transparency.darujme.sk/238', icon: :gift %>
+  <% else %>
+    <%= external_link_to t('.donate_html'),'http://transparency.darujme.sk/761', icon: :gift %>
+  <% end %>
 </div>
 
 <div class="beta">
