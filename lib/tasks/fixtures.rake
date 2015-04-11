@@ -112,7 +112,7 @@ namespace :fixtures do
 
   namespace :export do
     desc "Export all hearings expanded with additional data"
-    task :expanded_hearings, [:path] => :environment do |_, args|
+    task :expanded_hearings, [:path, :limit] => :environment do |_, args|
       include Core::Output
 
       path  = args[:path] || 'tmp'
