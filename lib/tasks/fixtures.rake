@@ -115,9 +115,10 @@ namespace :fixtures do
     task :expanded_hearings, [:path] => :environment do |_, args|
       include Core::Output
 
-      separator = "\t"
+      path  = args[:path] || 'tmp'
+      limit = args[:limit] ? args[:limit].to_i : 1000
 
-      path = args[:path] || 'tmp'
+      separator = "\t"
 
       FileUtils.mkpath path
 
@@ -128,7 +129,7 @@ namespace :fixtures do
           hearings.id as hearing_id,
           hearings.case_number as hearing_case_number,
           hearing_types.id as hearing_type_id,
-          hearing_types.value as hearing_type, 
+          hearing_types.value as hearing_type,
           hearing_sections.id as hearing_section_id,
           hearing_sections.value as hearing_section,
           hearing_subjects.id as hearing_subject_id,
@@ -157,7 +158,7 @@ namespace :fixtures do
           court_types.id as court_type_id,
           court_types.value as court_type
         from
-          hearings 
+          hearings
           -- hearings
           join hearing_types
           on hearings.hearing_type_id = hearing_types.id
@@ -200,6 +201,8 @@ namespace :fixtures do
           on hearings.court_id = courts.id
           join court_types
           on court_types.id = courts.court_type_id
+        limit
+          #{limit}
       SQL
 
       data  = [:hearing_id, :hearing_case_number]
