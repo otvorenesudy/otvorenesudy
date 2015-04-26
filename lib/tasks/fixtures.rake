@@ -281,42 +281,45 @@ namespace :fixtures do
     end
 
     desc "Export decrees expanded with legislations data"
-    task :expanded_decrees, [:path] => :environment do |_, args|
+    task :expanded_decrees, [:path, :limit] => :environment do |_, args|
       include Core::Output
-     
-      separator = "\t"
 
-      path = args[:path] || 'tmp'
+      path  = args[:path] || 'tmp'
+      limit = args[:limit] ? args[:limit].to_i : 1000
+
+      separator = "\t"
 
       FileUtils.mkpath path
 
       file = File.open File.join(path, 'expanded_decrees.csv'), 'w'
 
       query = <<-SQL
-      select
-        decrees.id as decree_id,
-        decrees.case_number as decree_case_number,
-        legislations.id as legislation_id,
-        legislations.type as legislation_type,
-        legislations.year as legislation_year,
-        legislations.name as legislation_name,
-        legislations.paragraph as legislation_paragraph,
-        legislations.section as legislation_section,
-        legislations.letter as legislation_letter,
-        legislations.value as legislation_value,
-        legislation_areas.id as legislation_area_id,
-        legislation_areas.value as legislation_area_value,
-        legislation_subareas.id as legislation_subarea_id,
-        legislation_subareas.value as legislatio_subarea_value
-      from decrees
-        join legislation_usages
-        on legislation_usages.decree_id = decrees.id
-        join legislations
-        on legislations.id = legislation_usages.legislation_id
-        join legislation_areas
-        on legislation_areas.id = decrees.legislation_area_id
-        join legislation_subareas
-        on legislation_subareas.id = decrees.legislation_subarea_id
+        select
+          decrees.id as decree_id,
+          decrees.case_number as decree_case_number,
+          legislations.id as legislation_id,
+          legislations.type as legislation_type,
+          legislations.year as legislation_year,
+          legislations.name as legislation_name,
+          legislations.paragraph as legislation_paragraph,
+          legislations.section as legislation_section,
+          legislations.letter as legislation_letter,
+          legislations.value as legislation_value,
+          legislation_areas.id as legislation_area_id,
+          legislation_areas.value as legislation_area_value,
+          legislation_subareas.id as legislation_subarea_id,
+          legislation_subareas.value as legislatio_subarea_value
+        from decrees
+          join legislation_usages
+          on legislation_usages.decree_id = decrees.id
+          join legislations
+          on legislations.id = legislation_usages.legislation_id
+          join legislation_areas
+          on legislation_areas.id = decrees.legislation_area_id
+          join legislation_subareas
+          on legislation_subareas.id = decrees.legislation_subarea_id
+        limit
+          #{limit}
       SQL
 
       data  = [:decree_id, :decree_case_number, :court_registry]
@@ -326,8 +329,8 @@ namespace :fixtures do
       data += [:legislation_letter, :legislation_value]
       data += [:legislation_area_id, :legislation_area_value]
       data += [:legislation_subarea_id, :legislatio_subarea_value]
-      
-         file.write(data.join(separator) + "\n")
+
+      file.write(data.join(separator) + "\n")
 
       records = ActiveRecord::Base.connection.execute(query)
 
@@ -362,7 +365,6 @@ namespace :fixtures do
 
       file.close
     end
-
 
     desc "Export judge property declarations and some other related data into CSVs"
     task :judge_property_declarations, [:path] => :environment do |_, args|
