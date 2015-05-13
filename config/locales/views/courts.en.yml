@@ -1,4 +1,11 @@
 ﻿en:
+  court_type:
+    constitutional: 'Constitutional'
+    supreme: 'Supreme'
+    specialized: 'Specialized Criminal'
+    regional: 'Regional'
+    district: 'District'
+
   contact:
     fax: 'Fax:'
     media_person: 'Contact person'

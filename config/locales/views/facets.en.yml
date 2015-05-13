@@ -10,7 +10,7 @@ en:
       zero: 'no judges'
       one: '1 judge'
       few: '%{count} judges'
-      other: '%{count} of judges'
+      other: '%{count} judges'
 
     candidate: &candidate
       zero: 'no candidates'

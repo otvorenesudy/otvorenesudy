@@ -10,26 +10,32 @@
         <p<%= ' class="muted"'.html_safe unless judge.active? %>>
           <% if employment.judge_position %>
             <% if employment.judge_position.charged? %>
-              <%= (judge.probably_woman ? t('.worker_female') : t('.worker_male')) %>
+              <%= (judge.probably_woman ? t('results.worker_female') : t('results.worker_male')) %>
               <%= truncate employment.judge_position.value, length: 55, separator: ' ', omission: '' %>
             <% else %>
               <%= employment.judge_position.value.upcase_first %>
             <% end %>
           <% else %>
             <% if judge.probably_superior_court_officer? %>
-              <%= t '.probably' %> <%= tooltip_tag t('.vsu_short'), t('.vsu_long') %>
+              <%= t 'results.probably' %> <%= tooltip_tag t('results.vsu_short'), t('results.vsu_long') %>
             <% else %>
               <% if judge.probably_woman %>
-                <%= t '.unknown_worker_female' %>
+                <%= t 'results.unknown_worker_female' %>
               <% else %>
-                <%= t '.unknown_worker_male' %>
+                <%= t 'results.unknown_worker_male' %>
               <% end %>
             <% end %>
           <% end %>
-          <%= t '.at_court' %> <%= link_to_court_by_judge_employment employment %>,
-          <%= t('not') if Hearing.during_employment(employment).exact.size.zero? %><%= t '.register' %>
+          <%= t 'results.at_court' %> <%= link_to_court_by_judge_employment employment %>,
+
+          <% if Hearing.during_employment(employment).exact.size.zero? %>
+          <%= t 'results.not_register'%>
+          <% else %>
+            <%= t 'results.register' %>
+          <% end %>
           <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
-          a <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
+          <%= t 'and' %>
+          <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
         </p>
       <% end %>
     </div>

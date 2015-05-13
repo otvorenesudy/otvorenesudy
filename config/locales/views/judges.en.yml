@@ -5,8 +5,8 @@
     unknown: 'Unknown'
     unknown_2: 'unknown'
     most_likely: 'Most likely'
-    vsu_acro: 'SCO'
-    vsu: 'Superior court officer'
+    vsu_acro: 'HCO'
+    vsu: 'Higher court officer'
 
     header:
       open_search: 'Open search'
@@ -69,6 +69,9 @@
       document: 'document'
       last_updated_on: 'which was last updated on'
 
+    edit:
+      email_not_yet_opened: 'Email not yet confirmed'
+
     media:
       link_explanation: "Links are searched automatically on the basis of judges' names and the courts where they work. They may not contain information regarding the judge."
       no_media_coverage: 'There were no media articles found regarding the judge.'
@@ -81,6 +84,9 @@
       more_decrees: 'More decisions'
       no_decrees: 'No decisions found for the judges.'
 
+    judges:
+      court_leadership: 'Court presidency'
+
     results:
       worker_male: 'Works at'
       worker_female: 'Works at'
@@ -90,6 +96,13 @@
       unknown_worker_female: 'Unknown position'
       unknown_worker_male: 'Unknown position'
       at_court: 'at the court'
+      of_court_is: 'of the court is'
+      of_court: 'of the court'
+      at_court_work: 'On the court currently works'
+      for_court: 'For the court'
+      not_yet: 'not yet'
+      register: 'we register'
+      and: ' and'
 
     search:
       title: 'Search among judges'
@@ -97,3 +110,13 @@
     headline:
       headline_html: 'The average monthly income of a judge at a district court was in 2012<br/> 2&nbsp;500 eur,<br/>and at the Supreme Court 3&nbsp;600 eur'
       sub_headline_html: 'Open Courts &mdash; you are searching among %{total_judges} judges'
+
+    featured_court:
+      of_court_is: 'of the court is'
+      of_court: 'of the court'
+      at_court_work: 'On the court currently works'
+      for_court: 'For the court'
+      not_yet: 'not yet'
+      register: 'we register'
+      slovak_republic: 'Slovak Republic'
+      and: ' and'

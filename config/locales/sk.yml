@@ -13,6 +13,30 @@ sk:
   custom_validation_errors:
     invalid_chapter_scope: 'Vybrali ste nesprávnu kapitolu.'
 
+  constitutional: 'Ústavný'
+  supreme: 'Najvyšší'
+  specialized: 'Špecializovaný'
+  regional: 'Krajský'
+  district: 'Okresný'
+
+  results:
+    worker_male: 'Pracovník'
+    worker_female: 'Pracovníčka'
+    probably: 'Pravdepodobne'
+    vsu_short: 'VSÚ'
+    vsu_long: 'Vyšší súdny úradník'
+    unknown_worker_female: 'Neznáma pracovníčka'
+    unknown_worker_male: 'Neznámy pracovník'
+    at_court: 'na súde'
+    of_court_is: 'súdu je'
+    of_court: 'súdu'
+    at_court_work: 'Na súde pracuje'
+    for_court: 'Pre súd'
+    not_yet: 'zatiaľ ne'
+    register: 'evidujeme'
+    not_register: 'neevidujeme'
+    and: ' a'
+    is: 'je'
 
   date:
     abbr_day_names:
