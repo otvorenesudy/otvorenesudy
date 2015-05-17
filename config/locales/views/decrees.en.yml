@@ -4,3 +4,63 @@
       headline_html: 'On average 45% of judicial decisions<br/>are confirmed by apellate courts'
       sub_headline: 'Statistical yearbook of the Ministry of Justice 2011 and 2012'
       total_decrees_html: 'OpenCourts &mdash; you are searching in %{total_decrees} decrees'
+
+    show:
+      default_title: 'OpenCourts'
+      made_on: 'Rozhodnutie bolo vynesené dňa'
+      unknown_date: 'date unknown'
+      from_court: 'Rozhodnuté bolo na súde'
+      from_judge: 'Rozhodutie vydal sudca'
+      areas_of_legislation: 'Oblasti právnej úpravy'
+      form: 'Decree form'
+      nature: 'Povaha rozhodnutia'
+      original_document: 'Original document'
+      link: 'Link'
+      may_not: 'may not'
+      see_note: 'Viď poznámku na konci tohto dokumentu'
+      be_valid: 'be valid'
+      download_as: 'Download as'
+      pdf: 'PDF document'
+      missing: 'missing'
+      missing_2: 'missing'
+      missing_3: 'missing'
+      file_number: 'Identifikačné číslo súdneho spisu'
+      show_under: 'Zobraziť v rámci'
+      proceeding: 'proceeding'
+      referenced_decrees: 'Predpisy odkazované v rozhodnutí'
+      summary: 'Summary'
+      document: 'Znenie rozhodnutia'
+      information_source_1: 'Informácie o súdnom rozhodnutí boli získané z'
+      information_source_2: 'ktorého posledná aktualizácia bola vykonaná'
+      document: 'document'
+      link_validity_1: 'Link to'
+      original_document: 'original document'
+      link_validity_2: 'už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.'
+      original_source_1: 'Z toho dôvodu poskytujeme odkaz na pôvodný'
+      processed_document: 'processed document'
+      original_source_2: 'in raw form.'
+
+    search:
+      title: 'Search decrees'
+
+    results:
+      made_on: 'Rozhodnutie bolo vynesené dňa'
+      unknown_date: 'date unknown'
+      incomplete: 'Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba.'
+      error_in_data: 'Rozhodnutie má budúci dátum vynesenia, ide o chybu v pôvodných dátach.'
+      file_number: 'Identifikačné číslo súdneho spisu'
+      court: 'Court'
+
+    unprocessed:
+      attention: 'Attention!'
+      description: 'Rozhodnutie je neúplné. Pri spracovaní rozhodnutia z portálu Ministerstva spravodlivosti nastala neznáma chyba.'
+
+    had_future_date:
+      note: 'Note.'
+      description: 'Rozhodnutie bolo zverejnené na portáli Ministerstva spravodlivosti skôr ako mohlo byť vynesené.'
+
+    has_future_date:
+      attention: 'Attention!'
+      description_1: 'Rozhodnutie má budúci dátum vynesenia, ide o chybu v'
+      original_data: 'original data'
+      description_2: '(odkaz už nemusí byť platný).'

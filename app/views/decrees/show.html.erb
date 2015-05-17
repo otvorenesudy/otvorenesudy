@@ -10,8 +10,8 @@
       <% end %>
       <br/>
       <small>
-        Rozhodnutie bolo vynesené dňa &ndash;
-        <%= @decree.date ? decree_date(@decree.date) : "neznámy dátum" %>
+        <%= t '.made_on' %> &ndash;
+        <%= @decree.date ? decree_date(@decree.date) : t('.unknown_date') %>
       </small>
     </h1>
   </div>
@@ -19,11 +19,11 @@
   <div class="row">
     <div class="span8">
       <% if @court %>
-        <p>Rozhodnuté bolo na súde <%= link_to_court @court %></p>
+        <p><%= t '.from_court' %> <%= link_to_court @court %></p>
       <% end %>
       <% if @judges.any? %>
         <p>
-          Rozhodutie vydal sudca
+          <%= t '.from_judge' %>
           <% if @judges.exact.any? %>
             <%= links_to_judges @judges.exact %>
           <% else %>
@@ -33,45 +33,45 @@
       <% end %>
       <% if @decree.legislation_area %>
         <p>
-          Oblasti právnej úpravy &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
+          <%= t '.areas_of_legislation' %> &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
           <% if @decree.legislation_subarea %>
             &ndash; <%= link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_area: @decree.legislation_area.value, legislation_subarea: @decree.legislation_subarea.value } %>
           <% end %>
         </p>
       <% end %>
       <% if @decree.form %>
-        <p>Forma rozhodnutia &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %></p>
+        <p><%= t '.form' %> &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %></p>
       <% end %>
       <% if @decree.natures.any? %>
-        <p>Povaha rozhodnutia &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
+        <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
       <% end %>
 
-      <p><%= external_link_to 'Pôvodný dokument', @decree.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+      <p><%= external_link_to t('.original_document'), @decree.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.may_not'), t('see_note') %> <%= t '.be_valid' %>)</p>
 
       <% if File.readable? @decree.document_path %>
-        <p>Stiahnuť ako <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: 'PDF dokument', join: :append), class: :icon %></p>
+        <p><%= t '.download_as' %> <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: t('.pdf'), join: :append), class: :icon %></p>
       <% end %>
     </div>
 
     <div class="span4">
       <div class="well well-small">
         <p>
-          <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-          <span class="pull-right"><%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : "neuvedená" %></span>
+          <%= tooltip_tag t('fr'), t('file_reference'), placement: :left %>:
+          <span class="pull-right"><%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : t('.missing') %></span>
         </p>
         <p>
-          <%= tooltip_tag "IČS", "Identifikačné číslo súdneho spisu", placement: :left %>:
-          <span class="pull-right"><%= @decree.file_number ? link_to_decrees_search(@decree.file_number, params: { file_number: @decree.file_number }) : "neuvedené" %></span>
+          <%= tooltip_tag t('cfi'), t('.file_number'), placement: :left %>:
+          <span class="pull-right"><%= @decree.file_number ? link_to_decrees_search(@decree.file_number, params: { file_number: @decree.file_number }) : t('.missing_2') %></span>
         </p>
         <p>
           <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
-          <span class="pull-right"><%= @decree.ecli ? link_to_decrees_search(@decree.ecli, params: { q: @decree.ecli }) : "neuvedený" %></span>
+          <span class="pull-right"><%= @decree.ecli ? link_to_decrees_search(@decree.ecli, params: { q: @decree.ecli }) : t('.missing_3') %></span>
         </p>
       </div>
 
       <% if @decree.proceeding %>
         <p class="centered">
-          Zobraziť v rámci <%= icon_link_to :paste, "súdneho konania", @decree.proceeding, join: :append %>
+          <%= t '.show_under' %> <%= icon_link_to :paste, t('.proceeding'), @decree.proceeding, join: :append %>
         </p>
       <% end %>
 
@@ -84,7 +84,7 @@
   <div class="row">
     <div class="span12">
       <% if @legislations.any? %>
-        <p>Predpisy odkazované v rozhodnutí:</p>
+        <p><%= t '.referenced_decrees' %>:</p>
         <ul>
           <% @legislations.each do |legislation| %>
             <li>
@@ -94,14 +94,14 @@
         </ul>
       <% end %>
       <% if @decree.summary %>
-        <p>Sumár &ndash; <%= @decree.summary %></p>
+        <p><%= t '.summary' %> &ndash; <%= @decree.summary %></p>
       <% end %>
     </div>
   </div>
 </section>
 
 <section id="decree-document">
-  <h2>Znenie rozhodnutia</h2>
+  <h2><%= t '.document' %></h2>
   <hr/>
   <div class="row">
     <div class="span12">
@@ -114,14 +114,13 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súdnom rozhodnutí boli získané z <%= external_link_to 'dokumentu', @decree.uri, class: :muted, icon: true %>,
-        ktorého posledná aktualizácia bola vykonaná <%= time_tag @decree.updated_at.to_date, format: :default %>.
+        <%= t '.information_source_1' %> <%= external_link_to t('.document'), @decree.uri, class: :muted, icon: true %>,
+        <%= t '.information_source_2' %> <%= time_tag @decree.updated_at.to_date, format: :default %>.
         <br/>
-        Odkaz na <%= external_link_to 'pôvodný dokument', @decree.uri, class: :muted, icon: true %> už nemusí byť platný,
-        pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+        <%= t '.link_validity_1' %> <%= external_link_to t('.original_document'), @decree.uri, class: :muted, icon: true %> <%= t '.link_validity_2' %>
         <% if File.readable? @decree.resource_path %>
           <br/>
-          Z toho dôvodu poskytujeme odkaz na pôvodný <%= link_to_decree_resource @decree, icon_tag(:'file-alt', label: 'spracovaný dokument', join: :append), class: :icon %> v surovej forme.
+          <%= t '.original_source_1' %> <%= link_to_decree_resource @decree, icon_tag(:'file-alt', label: t('.processed_document'), join: :append), class: :icon %> <%= t '.original_source_2' %>
         <% end %>
       </small>
     </div>
