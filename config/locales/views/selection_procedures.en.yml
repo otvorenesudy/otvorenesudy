@@ -1,0 +1,49 @@
+en:
+  selection_procedures:
+    headline:
+      headline_html: 'Kandidáti s rodinou v justícii majú 1,5-krát<br/>väčšiu šancu úspešne prejsť výberovým konaním'
+      transparency_international: 'Transparency International Slovakia, May 2014'
+      sub_headline_html: 'OpenCourts &mdash; you are searching in %{total_selection_procedures} selection procedures'
+
+    show:
+      default_title: 'OpenCourts'
+      selection_procedure: 'Selection procedure'
+      will_close: 'will be closed'
+      was_closed: 'was closed'
+      organization: 'Organization'
+      position: 'Position'
+      workplace: 'Miesto výkonu práce'
+      place: 'Miesto konania'
+      date: 'Termín konania'
+      original_document: 'Pôvodný dokument'
+      link: 'link'
+      may_not: 'may not'
+      see_note: 'Viď poznámku na konci tohto dokumentu'
+      be_valid: 'be valid'
+      announcement: 'Vyhlásenie konania'
+      report: 'Zápisnica konania'
+      selection_comittee: 'Selection comittee'
+      candidates: 'Candidates'
+      name: 'Name'
+      written_part: 'Written part'
+      oral_part: 'Oral part'
+      result: 'Result'
+      documents: 'Documents'
+      resume: 'Resume'
+      motivation_letter: 'Motivačný list'
+      statement: 'Vyhlásenie'
+      information_source_1: 'Informácie o súdnom rozhodnutí boli získané z'
+      document: 'document'
+      information_source_2: 'ktorého posledná aktualizácia bola vykonaná'
+      link_validity_1: 'Link to'
+      link_validity_2: 'už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.'
+
+    search:
+      title: 'Search in selection procedures'
+
+    results:
+      selection_procedure: 'Selection procedure'
+      will_close: 'will be closed'
+      was_closed: 'was closed'
+      status: 'Status'
+      organization: 'Organization'
