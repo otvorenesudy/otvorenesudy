@@ -50,3 +50,7 @@
       thats_why: 'For that reason we provide a link to the original'
       processed_doc: 'processed document'
       raw_form: 'in a raw form.'
+      sa: ''
+
+    search:
+      title: 'Search in hearings'

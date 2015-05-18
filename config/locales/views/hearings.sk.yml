@@ -49,3 +49,7 @@ sk:
       thats_why: 'Z toho dôvodu poskytujeme odkaz na pôvodný'
       processed_doc: 'spracovaný dokument'
       raw_form: 'v surovej forme'
+      sa: 'sa'
+
+    search:
+      title: 'Vyhľadávanie v súdnych pojednávaniach'

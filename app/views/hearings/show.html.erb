@@ -17,7 +17,7 @@
   <div class="row">
     <div class="span8">
       <% if @court %>
-        <p><%= hearing_type @hearing.type %> sa <%= @hearing.historical ? t('.took_place') : t('.will_take_place') %> <%= t '.at_court' %> <%= link_to_court @court %><%= t('.in_room', room: @hearing.room) if @hearing.room %>.</p>
+        <p><%= hearing_type @hearing.type %> <%= t '.sa' %> <%= @hearing.historical ? t('.took_place') : t('.will_take_place') %> <%= t '.at_court' %> <%= link_to_court @court %><%= t('.in_room', room: @hearing.room) if @hearing.room %>.</p>
       <% end %>
       <% if @hearing.section || @hearing.special_type %>
         <p>
