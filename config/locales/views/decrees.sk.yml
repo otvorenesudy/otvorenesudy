@@ -64,3 +64,10 @@ sk:
       description_1: 'Rozhodnutie má budúci dátum vynesenia, ide o chybu v'
       original_data: 'pôvodných dátach'
       description_2: '(odkaz už nemusí byť platný).'
+
+  decree_pages:
+    results:
+      for_query: 'Pre hľadaný výraz'
+      were_found: 'sme našli'
+      page: 'Strana %{number}'
+      no_results_html: 'Pre hľadaný výraz sa nenašli <strong>žiadne výsledky</strong>'

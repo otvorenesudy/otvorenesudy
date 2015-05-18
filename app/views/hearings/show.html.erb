@@ -195,7 +195,7 @@
         <%= t('.info_source') %> <%= external_link_to t('document'), @hearing.uri, class: :muted, icon: true %>,
         <%= t 'lastly_updated' %> <%= time_tag @hearing.updated_at.to_date, format: :default %>.
         <br/>
-        <%= t('.info_source') %> <%= external_link_to t('originial_document'), @hearing.uri, class: :muted, icon: true %> <%= t '.may_be_invalid'.
+        <%= t('.info_source') %> <%= external_link_to t('originial_document'), @hearing.uri, class: :muted, icon: true %> <%= t '.may_be_invalid' %>
         <% if File.readable? @hearing.resource_path %>
           <br/>
           <%= t('.thats_why') %> <%= link_to_hearing_resource @hearing, icon_tag(:'file-alt', label: t('.processed_doc'), join: :append), class: :icon %> <%= t('.raw_form') %>.

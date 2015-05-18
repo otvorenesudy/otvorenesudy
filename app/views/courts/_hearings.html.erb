@@ -1,9 +1,9 @@
-<h2>Ohlásené pojednávania</h2>
+<h2><%= t '.headline' %></h2>
 
 <% if hearings.any? %>
   <%= render 'hearings/results', results: hearings, offset: 0 %>
   <hr/>
-  <%= link_to_hearings_search "Viac pojednávaní", params: query  %>
+  <%= link_to_hearings_search t('.more'), params: query  %>
 <% else %>
-  Pre súd neevidujeme žiadne súdne pojednávania. 
+  <%= t '.no_hearings' %>
 <% end %>

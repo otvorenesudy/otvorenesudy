@@ -10,6 +10,8 @@ sk:
   file_reference: 'Spisová značka'
   cfi: 'IČS'
   court_file_id: 'Identifikačné číslo súdnych spisov'
+  unicorn: 'Jednorožec'
+  angry_unicorn: 'A preto sa veľmi rozzúril jednorožec!'
 
   views:
     pagination:

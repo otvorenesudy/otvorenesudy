@@ -27,7 +27,7 @@
       <% end %>
       <%= t('results.for_court')%> <%= t('results.not_yet') if court.hearings.size.zero? %><%= t('results.register')%>
       <%= translate_with_count(court.hearings.size, :hearing) %>
-      a&nbsp;<%= translate_with_count(court.decrees.size, :decree) %>.
+      <%= t 'and' %>&nbsp;<%= translate_with_count(court.decrees.size, :decree) %>.
     </div>
   </li>
 <% end %>

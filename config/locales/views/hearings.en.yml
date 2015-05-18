@@ -14,6 +14,7 @@
       data_error: 'Date of the hearing appears to be far in the future, the problem is in original data.'
 
     show:
+      default_title: 'OpenCourts'
       took_place: 'took place'
       will_take_place: 'will take place'
       at_court: 'at the court'

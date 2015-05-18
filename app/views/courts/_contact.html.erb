@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span8">
     <% if @court.phone || @court.fax %>
-      <h2>Kontakt <%= icon_tag :'phone-sign' %></h2>
+      <h2><%= t '.contact' %> <%= icon_tag :'phone-sign' %></h2>
   
       <% if @court.phone %>
         <div class="row">
@@ -38,7 +38,7 @@
   </div>
 
   <div class="span4">
-    <h2>Adresa <%= icon_tag :envelope %></h2>
+    <h2><%= t '.address' %> <%= icon_tag :envelope %></h2>
 
     <address class="well">
       <strong><%= @court.name %></strong><br/>

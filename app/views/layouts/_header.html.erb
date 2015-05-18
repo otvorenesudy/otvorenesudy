@@ -13,7 +13,7 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container">
+    <div class="container" style="width: 980px">
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
           <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
@@ -40,6 +40,8 @@
             <% end %>
           <% else %>
             <li><%= icon_link_to :signin, t('.sign_in'), new_user_session_path %></li>
+            <li><%= link_to "SK", locale: "sk" %></li>
+            <li><%= link_to "EN", locale: "en" %></li>
           <% end %>
         </ul>
       </nav>

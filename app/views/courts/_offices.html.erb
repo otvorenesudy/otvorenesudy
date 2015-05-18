@@ -1,13 +1,13 @@
 <% if @court.information_center %>
-  <%= render 'office', name: "Informačné centrum", office: @court.information_center %>
+  <%= render 'office', name: t('.information_center'), office: @court.information_center %>
 <% end %>
 
 <% if @court.registry_center %>
   <%= tag :hr if @court.information_center %>
-  <%= render 'office', name: "Podateľňa", office: @court.registry_center %>
+  <%= render 'office', name: t('.registry'), office: @court.registry_center %>
 <% end %>
 
 <% if @court.business_registry_center %>
   <%= tag :hr if @court.information_center || @court.registry_center %>
-  <%= render 'office', name: "Informačné stredisko obchodného registra", office: @court.business_registry_center %>
+  <%= render 'office', name: t('.commercial_register'), office: @court.business_registry_center %>
 <% end %>

@@ -4,7 +4,7 @@ en:
       zero: 'no courts'
       one: '1 court'
       few: '%{count} courts'
-      other: '%{count} of courts'
+      other: '%{count} courts'
 
     judge: &judge
       zero: 'no judges'
@@ -40,19 +40,19 @@ en:
       zero: 'no hearing'
       one: '1 hearing'
       few: '%{count} hearings'
-      other: '%{count} of hearings'
+      other: '%{count} hearings'
 
     decree: &decree
       zero: 'no decision'
       one: '1 decision'
       few: '%{count} decisions'
-      other: '%{count} of decisions'
+      other: '%{count} decisions'
 
     proceeding: &proceeding
       zero: 'no proceedings'
       one: '1 proceeding'
       few: '%{count} proceedings'
-      other: '%{count} of proceedings'
+      other: '%{count} proceedings'
 
     document: &document
       zero: 'no documents'

@@ -12,6 +12,11 @@
       send_instructions: 'You will receive an email with instructions for how to confirm your email address in a few minutes.'
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes.'
 
+      new:
+        title: 'Registration confirmation'
+        no_confirmation: "Haven't received confirmation instructions?"
+        resend_instructions: 'Resend instructions'
+
     failure:
       already_authenticated: 'You are already signed in.'
       inactive: 'Your account is not activated yet.'
@@ -41,6 +46,17 @@
       send_paranoid_instructions: 'If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.'
       updated: 'Your password has been changed successfully. You are now signed in.'
       updated_not_active: 'Your password has been changed successfully.'
+
+      new:
+        title: 'Password reset'
+        forgotten_password: 'Did you forget your password?'
+        send_instructions: 'Send instructions'
+
+      edit:
+        title: 'Change password'
+        new_pass: 'New password'
+        new_pass_confirmation: 'New password confirmation'
+        change_pass: 'Change password'
 
     registrations:
       new:

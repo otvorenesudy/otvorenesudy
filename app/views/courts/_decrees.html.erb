@@ -1,9 +1,9 @@
-<h2>Vynesené rozhodnutia</h2>
+<h2><%= t '.title' %></h2>
 
 <% if decrees.any? %>
   <%= render 'decrees/results', results: decrees, offset: 0 %>
   <hr/>
-  <%= link_to_decrees_search "Viac rozhodnutí", params: query  %>
+  <%= link_to_decrees_search t('.more'), params: query  %>
 <% else %>
-  Pre súd neevidujeme žiadne súdne rozhodnutia.
+  <%= t '.no_decrees' %>
 <% end %>

@@ -9,6 +9,8 @@
   file_reference: 'Case number'
   cfi: 'IČS'
   court_file_id: 'Unique identification number'
+  unicorn: 'Unicorn'
+  angry_unicorn: "And that's why unicorn got pissed!"
 
   static_pages:
     about: 'About'

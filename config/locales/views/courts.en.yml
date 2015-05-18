@@ -23,17 +23,27 @@
       district_courts: 'District Courts'
       courts_map: 'Map of courts'
       regional_courts_count: 'In Slovakia you can find %{regional_courts_count} regional courts.'
-      district_courts_count: 'In SLovakia you can find%{district_courts_count} district courts.'
+      district_courts_count: 'In Slovakia you can find %{district_courts_count} district courts.'
       data_source: 'Information about courts were obtained from the portal of'
       ministry_of_justice: 'Ministry of Justice of the Slovak Republic'
 
+    courts:
+      court: 'Court'
+      address: 'Address'
+      judges: 'Judges'
+      hearings: 'Hearings'
+      decrees: 'Decisions'
+      judges_count: 'Number of employed judges'
+      hearings_count: 'Number of hearings'
+      decrees_count: 'Number of decisions'
+
     show:
       at_court: 'At the court'
-      work: 'works'
+      work: 'work'
       dont_work: 'does not work'
       for_court: 'For the court'
       not_yet: 'Not yet'
-      register: 'register'
+      register: 'we register'
       and: 'and'
       overall: 'Overall'
       least: 'at least'
@@ -59,7 +69,7 @@
       hearings: 'Hearings'
       media: 'In media'
       data_source: 'Information about the court were obtained from'
-      document: 'docuent'
+      document: 'document'
       last_updated_at: 'which was last updated on'
 
     search:
@@ -70,3 +80,60 @@
       sub_headline_html: 'Open Courts &mdash; you are searching among %{total_courts} courts'
       record_holds: 'The record holds'
       record_hold: 'The record is held by'
+
+    office:
+      phone_number: 'Phone'
+      note: 'Note'
+      opening_hours: 'Opening hours'
+      monday: 'Monday'
+      tuesday: 'Tuesday'
+      wednesday: 'Wednesday'
+      thursday: 'Thursday'
+      friday: 'Friday'
+
+    offices:
+      information_center: 'Information center'
+      registry: 'Registry'
+      commercial_register: 'Informačné stredisko obchodného registra'
+
+    contact:
+      contact: 'Contact'
+      address: 'Address'
+
+    judges:
+      court_leadership: 'Court leadership'
+      judges: 'Judges'
+      judges_table: 'Tabuľka sudcov, ktorí aktívne pôsobia na súde.'
+      table_explained: 'Tabuľka sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach.'
+
+    judge_list:
+      title: 'Title'
+      name: 'Name'
+      position: 'Position'
+      hearings: 'Hearings'
+      decrees: 'Decisions'
+      hearings_count: 'Number of hearings'
+      decrees_count: 'Number of decisions'
+
+    decrees:
+      title: 'Vynesené rozhodnutia'
+      more: 'More decrees'
+      no_decrees: 'Pre súd neevidujeme žiadne súdne rozhodnutia.'
+
+    hearings:
+      headline: 'Ohlásené pojednávania'
+
+    media:
+      headline: 'Zmienky v médiách'
+      clarification: 'Odkazy sú vyhľadávané automaticky na základe názvu súdu. Súdu sa týkať nemusia.'
+      no_mentions: 'O súde neboli nájdené žiadne zmienky v médiách.'
+
+    map:
+      title: 'Map of courts in Slovak Republic'
+      in_slovakia: 'In Slovakia there are '
+      courts_in: 'courts in'
+      places: 'different places'
+      hint: 'Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde.'
+
+    map_marker:
+      get_directions: 'Get directions'

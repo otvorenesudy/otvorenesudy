@@ -12,6 +12,11 @@ sk:
       send_instructions: 'O niekoľko minút Vám bude doručený e-mail s inštrukciami ako potvrdiť registráciu.'
       send_paranoid_instructions: 'Ak sa Vaša e-mailová adresa nachádza v našej databáze, bude Vám doručený e-mail s inštrukciami ako potvrdiť registráciu.'
 
+      new:
+        title: 'Potvrdenie registrácie'
+        no_confirmation: 'Nedostali ste inštrukcie pre potvrdenie registrácie?'
+        resend_instructions: 'Preposlať inštrukcie'
+
     failure:
       already_authenticated: 'Už ste prihlásený.'
       inactive: 'Váš účet ešte nebol aktivovaný.'
@@ -43,6 +48,17 @@ sk:
       send_paranoid_instructions: 'Ak sa Vaša e-mailová adresa nachádza v našej databáze, bude Vám doručený e-mail s inštrukciami ako obnoviť heslo.'
       updated: 'Vaše heslo bolo úspešne zmenené. Teraz ste prihlásený.'
       updated_not_active: 'Vaše heslo bolo úspešne zmenené.'
+
+      new:
+        title: 'Obnovenie hesla'
+        forgotten_password: Zabudli ste heslo?'
+        send_instructions: 'Poslať inštrukcie'
+
+      edit:
+        title: 'Zmena hesla'
+        new_pass: 'Nové heslo'
+        new_pass_confirmation: 'Potvrdenie nového hesla'
+        change_pass: 'Zmeniť heslo'
 
     registrations:
       new:
