@@ -1,16 +1,16 @@
-<p>
-  Vitajte na stránkach projektu <%= link_to 'Otvorené Súdy', 'http://otvorenesudy.sk' %>,
+﻿<p>
+ Welcome to the portal <%= link_to 'Open Courts', 'http://otvorenesudy.sk' %>,
 </p>
 <p>
-  pre potvrdenie Vášho účtu prosím kliknite na nasledujúci odkaz:
+  for the confirmation of your account please click on the following link:
   <%= link_to 'potvdiť registráciu', confirmation_url(@resource, confirmation_token: @token) %>.
 </p>
 <p>
-  Registráciu je nutné potvrdiť najneskôr do dvoch dní, inak Vám systém neumožní sa prihlásiť.
+  Registration must be confirmed within 2 days, otherwise the system will not allow you to log in.
 </p>
 <p>
-  V prípade akýchkoľvek otázok nás <%= mail_to 'kontakt@otvorenesudy.sk', 'kontaktujte', encode: :hex %>.
+  In case of any questions <%= mail_to 'kontakt@otvorenesudy.sk', 'please, contact us', encode: :hex %>.
 </p>
 <p>
-  Ďakujeme za registráciu a tešíme sa, že Vás náš projekt oslovil.
+  Thank you for your registration! We are happy the project interests you.
 </p>
