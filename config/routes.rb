@@ -19,6 +19,7 @@ OpenCourts::Application.routes.draw do
     member do
       get :curriculum
       get :cover_letter
+      get :indicators_suggest
     end
   end
 
@@ -97,6 +98,7 @@ OpenCourts::Application.routes.draw do
   resources :subscriptions, only: [:create, :update, :destroy]
 
   match '/search/collapse', to: 'search#collapse'
+  match '/api', to: 'static_pages#api'
 
   match '/404', to: 'errors#show', as: :not_found_error
   match '/500', to: 'errors#show', as: :internal_server_error

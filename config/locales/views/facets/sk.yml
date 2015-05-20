@@ -134,6 +134,12 @@ sk:
         title: 'Meno sudcu'
         placeholder: 'Meno sudcu'
 
+      name:
+        title: 'Meno sudcu'
+        placeholder: 'Meno sudcu'
+        missing: 'neuvedený'
+        not_found: 'Nenájdení žiadni sudcovia.'
+
       activity:
         title: 'Aktivita'
         active: 'Aktívny'
@@ -165,6 +171,11 @@ sk:
         title: 'Počet blízkych osôb'
         suffix:
           <<: *person
+
+      decree_agenda:
+        title: 'Agenda rozhodnutí'
+        missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne agendy'
 
     hearing:
       q:

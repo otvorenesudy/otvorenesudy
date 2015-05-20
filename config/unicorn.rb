@@ -1,6 +1,6 @@
 root = File.expand_path "#{File.dirname(__FILE__)}/.."
 
-worker_processes 12
+worker_processes ENV['RAILS_ENV'].to_sym == :staging ? 2 : 8
 timeout          60
 preload_app      true
 listen           "#{root}/shared/.unicorn.sock", backlog: 64

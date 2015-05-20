@@ -5,7 +5,7 @@
 
 <p>
   <span class="gutter centered"><%= icon_tag :tasks %></span>
-  <b>Pre sudcu máme výkonnostné dáta za <%= indicators['S3'] %>:</b>
+  Pre sudcu máme výkonnostné dáta za <%= indicators['S3'] %>:
 </p>
 
 <div>
@@ -26,37 +26,13 @@
 
 <p>
   <span class="gutter centered"><%= icon_tag :inbox %></span>
-  Sudcovi <%= indicators['S4'] %>
-  <a href="#" data-target="#detailed-assigned-agendas" data-toggle="collapse">Zobraziť podrobnejšie</a>
+  <%= assigned_agendas_indicator(indicators) %>.&nbsp;
+  <%= decrees_agendas_indicator(indicators) %>.
 </p>
-
-<div id="detailed-assigned-agendas" class="collapse out">
-  <ul class="unstyled">
-    <li>Občianska &ndash; <%= indicators['S4a']  %></li>
-    <li>Obchodná &ndash; <%= indicators['S4b']  %></li>
-    <li>Poručenská &ndash; <%= indicators['S4c']  %></li>
-    <li>Trestná &ndash; <%= indicators['S4d']  %></li>
-  </ul>
-</div>
-
-<p>
-  <span class="gutter centered"><%= icon_tag :inbox %></span>
-  Sudca <%= indicators['S5'] %>
-  <a href="#" data-target="#detailed-decrees-agendas" data-toggle="collapse">Zobraziť podrobnejšie</a>
-</p>
-
-<div id="detailed-decrees-agendas" class="collapse out">
-  <ul class="unstyled">
-    <li>Občianska &ndash; <%= indicators['S5a']  %></li>
-    <li>Obchodná &ndash; <%= indicators['S5b']  %></li>
-    <li>Poručenská &ndash; <%= indicators['S5c']  %></li>
-    <li>Trestná &ndash; <%= indicators['S5d']  %></li>
-  </ul>
-</div>
 
 <p>
   <span class="gutter centered"><%= icon_tag :time %></span>
-  Sudca v sledovanom období odpracoval <%= indicators['S6'] %> dní a v priemere mu za 10 dní bolo pridelených <%= indicators['S7'] %> prípadov v hlavných agendách.
+  Sudca v sledovanom období odpracoval <%= indicators['S6'] %> dní a v priemere mu za 100 dní bolo pridelených <%= indicators['S7'] %> prípadov v hlavných agendách.
 </p>
 
 <br />
@@ -78,7 +54,7 @@
     <div>
       <ul class="unstyled">
         <li>Počet rozhodnutí o odvolaniach &ndash; <%= indicators['S8a'] %>
-          <li>Počet potvrdených odvolaní &ndash; <%= indicators['S8b'] %>
+        <li>Počet potvrdených odvolaní &ndash; <%= indicators['S8b'] %>
       </ul>
     </div>
 
@@ -86,12 +62,14 @@
       <span class="gutter centered"><%= icon_tag :'thumbs-down-alt' %></span>
 
       <%= indicators['S9'] %>
+      <%= tooltip_tag icon_tag(:question), 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.' %>
     </p>
 
     <p>
       <span class="gutter centered"><%= icon_tag :'ban-circle' %></span>
 
       <%= indicators['S10'] %>
+      <%= tooltip_tag icon_tag(:question), 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.' %>
     </p>
   </div>
 <% end %>
@@ -104,6 +82,7 @@
 <p>
   <span class="gutter centered"><%= icon_tag :tasks %></span>
   <%= indicators['S11'] %>
+  <%= tooltip_tag icon_tag(:question), 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.' %>
 </p>
 
 <% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
@@ -120,6 +99,8 @@
     <p>
       <span class="gutter centered"><%= icon_tag :inbox %></span>
       <%= indicators['S13'] %>
+
+      <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
     </p>
 
     <p>
@@ -134,8 +115,8 @@
   </div>
 <% end %>
 
-<% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f').any? %>
-  <hr/>
+<% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').reject(&:blank?).any? %>
+  <br/>
 
   <p>
     <span class="gutter centered"><%= icon_tag :pushpin %></span>
@@ -144,16 +125,8 @@
 
   <div id="indicators-notes" class="collapse out">
     <ul class="unstyled">
-      <% if indicators.values_at('S16a', 'S16b').any? %>
-        <li><strong>2011</strong> &ndash; <%= indicators.values_at('S16a', 'S16b').compact.to_sentence %></li>
-      <% end %>
-
-      <% if indicators.values_at('S16c', 'S16d').any? %>
-        <li><strong>2012</strong> &ndash; <%= indicators.values_at('S16c', 'S16d').compact.to_sentence %></li>
-      <% end %>
-
-      <% if indicators.values_at('S16e', 'S16f').any? %>
-        <li><strong>2013</strong> &ndash; <%= indicators.values_at('S16e', 'S16f').compact.to_sentence %></li>
+      <% indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').compact.sort.each do |value| %>
+         <li><%= value %></li>
       <% end %>
     </ul>
   </div>

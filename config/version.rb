@@ -1,8 +1,8 @@
 module OpenCourts
   module VERSION
     MAJOR = 1
-    MINOR = 2
-    PATCH = 0
+    MINOR = 3
+    PATCH = 7
 
     PRE = 'beta'
 

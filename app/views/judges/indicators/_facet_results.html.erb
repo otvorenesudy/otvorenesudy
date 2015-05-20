@@ -1,0 +1,24 @@
+<% link = method(:link_to_indicators_terms_facet) %>
+<% options ||= Hash.new %>
+
+<% options.reverse_merge(label: true) %>
+
+<% if visible.any? %>
+  <ul id="<%= facet.id %>-list" class="unstyled">
+    <% visible.each do |result| %>
+      <%= render 'judges/indicators/facet_result', facet: facet, result: result, link: link, options: options %>
+    <% end %>
+  </ul>
+
+  <% if other.any? %>
+    <ul id="<%= facet.id %>-fold" class="unstyled collapse out">
+      <% other.each do |result| %>
+        <%= render 'judges/indicators/facet_result', facet: facet, result: result, link: link, options: options %>
+      <% end %>
+    </ul>
+
+    <%= link_to_collapse_facet_results facet %>
+  <% end %>
+<% else %>
+  <%= t(facet.key)[:not_found] %>
+<% end %>

@@ -17,16 +17,16 @@ class SearchController < ApplicationController
   def suggest
     prepare
 
-    name = params[:name]
+    name = params[:facet]
     term = params[:term]
 
-    @results = @model.suggest(name, term, params)
+    @results = @model.suggest(name, term, params.except(:facet, :term))
 
     if @results
       facet   = @results.facets[name]
       results = facet.results
 
-      render partial: "facets/#{facet.type}_facet_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
+      render partial: facet.view[:results] || "facets/#{facet.type}_facet_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
     else
       render nothing: true
     end

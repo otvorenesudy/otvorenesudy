@@ -39,7 +39,7 @@
               <%= employment.active == nil ? 'N' : 'n' %>eznám<%= @judge.probably_woman ? 'a pracovníčka' : 'y pracovník' %>
             <% end %>
           <% end %>
-          na súde 
+          na súde
           <%= link_to_court employment.court %>,
           <%= 'zatiaľ ne' if Hearing.during_employment(employment).exact.size.zero? %>evidujeme
           <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %> a
@@ -58,87 +58,6 @@
           Sudca bol vymenovaný do funkcie pred
           <%= judge_designation_date_distance designation %><%= ", #{designation.type.value.sub(/^\D{0,1}/) { |c| c.downcase }}" if designation.type %>.
         </p>
-      <% end %>
-
-      <% if File.readable? @judge.curriculum_path %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Životopis", curriculum_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
-        </p>
-      <% end %>
-
-      <% if File.readable? @judge.cover_letter_path %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
-        </p>
-      <% end %>
-
-      <% if @judge.indicators %>
-        <%= render 'indicators', judge: @judge, indicators: @judge.indicators %>
-      <% end %>
-
-      <% if @statistical_summaries.any? %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :legal %></span>
-          Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané <%= @judge.released_constitutional_decrees_total %> a prieťahy pred pridelením veci <%= @judge.delayed_constitutional_decrees_total %>.
-        </p>
-
-        <% if @judge.appeal_court_acceptance_rate? %>
-          <p>
-            <span class="gutter centered"><%= icon_tag :'thumbs-up-alt' %></span>
-            Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v
-            <%= number_to_percentage(@judge.appeal_court_acceptance_rate * 100, precision: 1) %>.
-            <%= popover_tag icon_tag(:question), "#{@statistical_summaries.by_prominent_court_type(@judge).order('year desc').map { |summary| "#{summary.year}, #{summary.court.name}" }.join '<br/>'}", title: "Vypočítané z pôsobení sudcu", trigger: :hover %>
-          </p>
-        <% end %>
-
-        <% if @judge.unresolved_issues_counts? %>
-          <p>
-            <span class="gutter centered"><%= icon_tag :inbox %></span>
-            Nevybavených prípadov mal sudca <%= @judge.unresolved_issues_counts.map { |year, count| "na konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
-          </p>
-        <% end %>
-
-        <% if @judge.unfinished_issues_counts? %>
-          <p>
-            <span class="gutter centered"><%= icon_tag :inbox %></span>
-            Reštančných prípadov mal sudca <%= @judge.unfinished_issues_counts.map { |year, count| "na konci roka #{year} o #{count.abs} #{count > 0 ? 'viac' : 'menej'}" }.to_sentence.html_safe %> ako na jeho začiatku.
-          </p>
-        <% end %>
-
-        <% if @judge.unfinished_issues_rate? %>
-          <p>
-            <span class="gutter centered"><%= icon_tag :'tasks' %></span>
-            Podiel reštančných vecí z celkového počtu nevybavených vecí je <%= @judge.unfinished_issues_rate.map { |year, rate| "#{number_to_percentage(rate * 100, precision: 1)} ku koncu roka #{year}" }.to_sentence.html_safe %>.
-            <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov<br/>v&nbsp;prípade maloletých a&nbsp;dlhšie ako 1 rok<br/>v&nbsp;ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
-          </p>
-        <% end %>
-      <% end %>
-
-      <% if @judge.incomes_by_year.any? %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :euro %></span>
-          Príjmy a iné pôžitky sudcu uvedené v majetkových priznaniach za roky:
-          <%= @judge.incomes_by_year.map { |year, _| link_to year, "#income-#{year}", :'data-parent' => :'#incomes', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
-        </p>
-        <div id="incomes">
-          <% @judge.incomes_by_year.each do |year, incomes| %>
-            <div class="accordion-group">
-              <div id="income-<%= year %>" class="collapse">
-                <p>
-                  <span class="gutter centered"><%= icon_tag :euro %></span>
-                  Príjmy a iné pôžitky sudcu uvedené v majetkovom priznaní sudcu za rok <%= year %>:
-                </p>
-                <ul class="unstyled">
-                  <% incomes.each do |income| %>
-                    <li><%= icon_tag :'credit-card' %> <%= income.description.upcase_first %> &ndash; <%= number_to_currency income.value, precision: 2 %>.</li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-        </div>
       <% end %>
 
       <% if @judge.related_people_by_year.any? %>
@@ -178,6 +97,32 @@
             <% end %>
           </ul>
         </div>
+      <% end %>
+
+      <% if File.readable? @judge.curriculum_path %>
+        <p>
+          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
+          <%= external_link_to "Životopis", curriculum_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
+        </p>
+      <% end %>
+
+      <% if File.readable? @judge.cover_letter_path %>
+        <p>
+          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
+          <%= external_link_to "Motivačný list", cover_letter_judge_path(@judge) %>, ktorý bol zverejnený vo výberovom konaní.
+        </p>
+      <% end %>
+
+      <% if @judge.indicators %>
+        <% if @judge.indicators.statistical %>
+          <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
+        <% end %>
+
+        <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
+          <br/>
+
+          <%= render 'judges/indicators/chart', judge: @judge, indicators: @judge.indicators.numerical %>
+        <% end %>
       <% end %>
     </div>
   </div>

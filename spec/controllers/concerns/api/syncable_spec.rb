@@ -7,14 +7,14 @@ shared_examples_for Api::Syncable do
 
   describe 'GET sync' do
     it 'returns records as json' do
-      get :sync, api_key: api_key.value, format: :json
-
       json = ActiveModel::ArraySerializer.new(
         records.first(100),
         each_serializer: "#{repository}Serializer".constantize,
         root: repository.name.underscore.pluralize.to_sym,
         scope: controller
       ).to_json
+
+      get :sync, api_key: api_key.value, format: :json
 
       expect(response.headers['Content-Type']).to eql('application/json; charset=utf-8')
       expect(response.body).to eql(json)
@@ -47,6 +47,19 @@ shared_examples_for Api::Syncable do
         result = assigns(:records)
 
         expect(result.to_a).to eql(other)
+      end
+    end
+
+    context 'when last request' do
+      it 'does not embed Link header' do
+        date = Time.now + 2.days
+
+        3.times.map { FactoryGirl.create factory, updated_at: date }
+
+        get :sync, api_key: api_key.value
+        get :sync, since: date.as_json, api_key: api_key.value, format: :json
+
+        expect(response.headers['Link']).to be_nil
       end
     end
   end

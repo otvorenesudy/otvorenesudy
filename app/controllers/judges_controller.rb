@@ -21,6 +21,8 @@ class JudgesController < SearchController
     @statistical_summaries = @judge.statistical_summaries.order('year desc')
 
     @results = @judge.context_search[0..9]
+
+    search_judges_for_indicators
   end
 
   def curriculum
@@ -33,5 +35,33 @@ class JudgesController < SearchController
     @judge = Judge.find(params[:id])
 
     send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
+  end
+
+  def indicators_suggest
+    redirect_to suggest_judges_path(params)
+  end
+
+  private
+
+  def search_judges_for_indicators
+    results = Judge.search(params.merge!(has_indicators: true))
+
+    @facets = results.facets
+    @judges_for_indicators = Hash.new
+
+
+    if params[:name]
+      color = generate_random_color
+
+      results.each do |result|
+        color = generate_random_color while @judges_for_indicators[color]
+
+        @judges_for_indicators[color] = result
+      end
+    end
+  end
+
+  def generate_random_color(options = {})
+    3.times.map { rand(0..255) }
   end
 end
