@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class SubscriptionMailer < ActionMailer::Base
-  default from: 'Otvorené Súdy <noreply@otvorenesudy.sk>', css: 'mailers/layout'
+  default from: "#{t('open_courts')} <noreply@otvorenesudy.sk>", css: 'mailers/layout'
 
   layout 'mailer'
 
@@ -24,6 +24,6 @@ class SubscriptionMailer < ActionMailer::Base
     @model  = @query.model.constantize
     @params = @query.value.merge! order: :desc, sort: :created_at
 
-    mail to: @user.email, subject: "[Otvorené Súdy] Nové súdne #{t @type, count: :other}", content_type: 'text/html'
+    mail to: @user.email, subject: "[#{t('open_courts')}] #{t('.new')} #{t @type, count: :other}", content_type: 'text/html'
   end
 end

@@ -34,7 +34,7 @@
             <%= @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value %>
           <% else %>
             <% if @judge.probably_superior_court_officer? %>
-              <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník" %>
+              <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag t('vsu_short'), t('vsu_long') %>
             <% else %>
               <%= employment.active == nil ? 'N' : 'n' %>eznám<%= @judge.probably_woman ? 'a pracovníčka' : 'y pracovník' %>
             <% end %>

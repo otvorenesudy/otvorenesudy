@@ -13,14 +13,14 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container" style="width: 980px">
+    <div class="container" style="width: 1001px">
       <nav class="nav-collapse collapse">
         <ul class="nav pull-left">
           <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
           <li class="divider-vertical"></li>
           <li><%= navbar_logo_tag nil, type: :logo %></li>
 <!--
-          <%= navbar_logo_tag "Otvorené Súdy" %>
+          <%= navbar_logo_tag t('open_courts') %>
 -->
           <li class="divider-vertical"></li>
           <%= navbar_link_tag :building, t('.courts'), search_courts_path %>
@@ -38,10 +38,15 @@
               <li><%= icon_link_to :cog, t('.settings'), edit_user_registration_path %></li>
               <li><%= icon_link_to :signout, t('.sign_out'), destroy_user_session_path, method: :delete %></li>
             <% end %>
+            <% if I18n.locale == :sk %>
+              <li><%= link_to "EN", locale: :en %></li>
+            <% else %>
+              <li><%= link_to "SK", locale: :sk %></li>
+            <% end %>
           <% else %>
             <li><%= icon_link_to :signin, t('.sign_in'), new_user_session_path %></li>
-            <li><%= link_to "SK", locale: "sk" %></li>
-            <li><%= link_to "EN", locale: "en" %></li>
+            <li><%= link_to "SK", locale: :sk %></li>
+            <li><%= link_to "EN", locale: :en %></li>
           <% end %>
         </ul>
       </nav>

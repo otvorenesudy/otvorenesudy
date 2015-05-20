@@ -1,19 +1,9 @@
-﻿sk:
+﻿en:
   users:
     subscriptions:
       title: 'Notifications for new search results'
-      set_notifications_part_1: 'You can subscripe for notifications in search'
+      set_notifications_part_1: 'You can subscribe for notifications in search'
       hearings: 'Hearings'
       or: 'or'
       decrees: 'Decisions'
       set_notifications_part_2: 'depending on your actual search settings'
-
-  subscriptions:
-    create:
-      subscription_successful: 'You have successfully subcsribed to notifications.'
-      subscription_error: 'Error. Subscription to notifications has failed.'
-    update:
-      subscription_updated: 'Notification subscription has been succesfully updated.'
-      subscription_update_error: 'Error. Notification subscription has not been updated.'
-    destroy:
-      subscription_cancelled: 'Notification subscription has been succesfully cancelled.'

@@ -8,7 +8,6 @@ sk:
     unknown_2: 'neznáma'
     most_likely: 'Pravdepodobne'
     vsu_acro: 'VSÚ'
-    vsu: 'Vyšší súdny úradník'
 
     header:
       open_search: 'Otvorené vyhľadávanie'
@@ -104,3 +103,19 @@ sk:
       register: 'evidujeme'
       slovak_republic: 'Slovenská republika'
       and: ' a'
+
+    indicators:
+      decrees_count_html: 'Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané %{total_released_decrees} a prieťahy pred pridelením veci %{total_delayed_decrees}.'
+      performance_data: 'Pre sudcu máme výkonnostné dáta za'
+      to_judge: 'Sudcovi'
+      show_details: 'Zobraziť podrobnejšie'
+      civil: 'Občianska'
+      business: 'Obchodná'
+      childcare: 'Poručenská'
+      criminal: 'Trestná'
+      judge_results: 'Sudca v sledovanom období odpracoval %{days_worked} dní a v priemere mu za 10 dní bolo pridelených %{cases_assigned} prípadov v hlavných agendách.'
+      quality_indicators: 'Indikátory kvality'
+      apellate_decisions: 'Počet rozhodnutí o odvolaniach'
+      confirmed_decisions: 'Počet potvrdených odvolaní'
+      efficiency_indicators: 'Indikátory efektivity'
+      data_notes_html: 'Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.'

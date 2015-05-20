@@ -53,3 +53,21 @@ sk:
 
     search:
       title: 'Vyhľadávanie v súdnych pojednávaniach'
+
+    anonymized:
+      note: 'Poznámka.'
+      description: 'Pojednávanie bolo anonymizované na základe odôvodnenej žiadosti dotknutej osoby.'
+
+    had_future_date:
+      note: 'Poznámka.'
+      description: 'Pojednávanie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom so vzdialenej budúcnosti.'
+
+    has_future_date:
+      attention: 'Pozor!'
+      description_1: 'Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v'
+      original_data: 'pôvodných dátach'
+      description_2: 'odkaz už nemusí byť platný'
+
+    unprocessed:
+      attention: 'Pozor!'
+      description: 'Pojednávanie je neúplné. Pri spracovaní pojednávania z portálu Ministerstva spravodlivosti nastala neznáma chyba.'

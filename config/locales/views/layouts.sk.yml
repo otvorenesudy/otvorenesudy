@@ -2,6 +2,9 @@ sk:
   layouts:
     application:
       default_title: 'Otvorené Súdy'
+      meta_description: 'Transparentný pohľad na slovenské súdnictvo.'
+      meta_keywords: 'slovenské súdnictvo, sudcovia, súdne rozhodnutia, súdne pojednávania'
+      meta_og_description: 'Transparentný pohľad na súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!'
 
     header:
       donate: 'Podporte projekt'

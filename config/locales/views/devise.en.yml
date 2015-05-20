@@ -73,7 +73,7 @@
 
       edit:
         settings: 'Settings'
-        password_placeholder: 'Empty, if you do not wnat to change.'
+        password_placeholder: 'Empty, if you do not want to change.'
         confirm_placeholder: 'Fill in to confirm changes.'
         submit: 'Submit'
         delete_account: 'Delete account'

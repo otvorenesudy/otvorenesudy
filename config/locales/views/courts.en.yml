@@ -94,7 +94,7 @@
     offices:
       information_center: 'Information center'
       registry: 'Registry'
-      commercial_register: 'Informačné stredisko obchodného registra'
+      commercial_register: 'Information centre of the Business registry'
 
     contact:
       contact: 'Contact'
@@ -103,8 +103,8 @@
     judges:
       court_leadership: 'Court leadership'
       judges: 'Judges'
-      judges_table: 'Tabuľka sudcov, ktorí aktívne pôsobia na súde.'
-      table_explained: 'Tabuľka sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach.'
+      judges_table: 'List of judges currently working at the court.'
+      table_explained: 'List of judges that worked at the court and other officials whose names were found in decisions or hearings.'
 
     judge_list:
       title: 'Title'
@@ -116,24 +116,24 @@
       decrees_count: 'Number of decisions'
 
     decrees:
-      title: 'Vynesené rozhodnutia'
+      title: 'Published decisions'
       more: 'More decrees'
-      no_decrees: 'Pre súd neevidujeme žiadne súdne rozhodnutia.'
+      no_decrees: 'We do not register any decisions for the court.'
 
     hearings:
-      headline: 'Ohlásené pojednávania'
+      headline: 'Announced hearings'
 
     media:
-      headline: 'Zmienky v médiách'
-      clarification: 'Odkazy sú vyhľadávané automaticky na základe názvu súdu. Súdu sa týkať nemusia.'
-      no_mentions: 'O súde neboli nájdené žiadne zmienky v médiách.'
+      headline: 'In media'
+      clarification: 'Links are searched automatically using the name of the court. They may not inform about the court.'
+      no_mentions: 'Information about the court has not been found in the media.'
 
     map:
       title: 'Map of courts in Slovak Republic'
       in_slovakia: 'In Slovakia there are '
       courts_in: 'courts in'
       places: 'different places'
-      hint: 'Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde.'
+      hint: 'By clicking on the map, basic information about the court will appear.'
 
     map_marker:
       get_directions: 'Get directions'

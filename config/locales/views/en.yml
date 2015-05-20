@@ -1,4 +1,5 @@
 ﻿en:
+  open_courts: 'OpenCourts'
   and: 'and'
   court: 'Court'
   judge: 'Judge'
@@ -83,17 +84,4 @@
         date: 'Procedure held on'
         closed_at: 'Application closed on'
 
-    subscribe:
-      subscribe: 'Subscribe'
-      search_subscribed: 'You are already subscribed for the current settings.'
-      subscribe_search: 'Subscribe to receive new search results'
-      subscribe_explain: 'The system will send you notifications via e-mail about new search results according to the current search settings.'
-      login_required: 'For subscribing for notifications, log in is required.'
-      close: 'Close'
-      update: 'Update'
-      cancel: 'Cance'
-      cancel_confirm: 'Do you really want to cancel your subscription for notifications?'
-      subscribe_btn: 'Subscribe'
-      sign_up: 'Sign Up'
-      login: 'Log In'
 

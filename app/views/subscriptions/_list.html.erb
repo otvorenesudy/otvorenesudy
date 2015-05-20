@@ -2,8 +2,8 @@
   <% subscriptions.each_with_index do |subscription, i| %>
     <li>
       <h4>
-        Vyhľadávanie <%= t subscription.query.model.underscore.to_sym, count: :other %>
-        <small>Registrované dňa <%= time_tag subscription.created_at, format: :default %></small>
+        <%= t '.search' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
+        <small><%= t '.registered_at' %> <%= time_tag subscription.created_at, format: :default %></small>
       </h4>
 
       <% if subscription.query.value.any? %>
@@ -17,7 +17,7 @@
         </ul>
       <% else %>
         <p>
-          Nenastavené žiadne obmedzenia.
+          <%= t '.no_filters' %>
         </p>
       <% end %>
 
@@ -35,8 +35,8 @@
         <% end %>
 
         <div class="pull-right">
-          <button type="submit" id="edit_subscription" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>">Aktualizovať</button>
-          <%= link_to "Zrušiť", subscription, role: :button, method: :delete, confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?", id: :delete_subscription, class: :'btn btn-danger btn-small' %>
+          <button type="submit" id="edit_subscription" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>"><%= t '.update' %></button>
+          <%= link_to t('.cancel'), subscription, role: :button, method: :delete, confirm: t('.confirm'), id: :delete_subscription, class: :'btn btn-danger btn-small' %>
         </div>
       <% end %>
     </li>
