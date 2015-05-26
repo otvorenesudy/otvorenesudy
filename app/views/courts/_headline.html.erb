@@ -1,8 +1,7 @@
-Celkovo 20% sudcov má v súdnictve<br/>
-aspoň jedného príbuzného.
-<%= Judge.with_most_related_people.size == 1 ? 'Rekordérom je' : 'Rekordérmi sú' %><br/>
+<%= t '.headline_html' %>
+<%= Judge.with_most_related_people.size == 1 ? t('.record_holds') : t('.record_hold') %><br/>
 <%= Judge.with_most_related_people.pluck(:name).to_sentence %>
 
 <small class="total">
-  Otvorené Súdy &mdash; vyhľadávate medzi <%= number_with_delimiter Court.total %> súdmi
+  <%= t '.sub_headline_html', total_courts: number_with_delimiter(Court.total) %>
 </small>

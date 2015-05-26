@@ -1,13 +1,13 @@
 <% if @highlights.any? %>
   <div class="alert alert-info">
     <%= close_link_to @decree %>
-    <%= icon_tag :search %> Pre hľadaný výraz <strong>&bdquo;<%= html_escape params[:q] %>&ldquo;</strong>
-    sme našli <strong><%= translate_with_count(@highlights.size, :result) %></strong>.
+    <%= icon_tag :search %> <%= t '.for_query' %> <strong>&bdquo;<%= html_escape params[:q] %>&ldquo;</strong>
+    <%= t '.were_found' %> <strong><%= translate_with_count(@highlights.size, :result) %></strong>.
   </div>
 
   <dl class="unstyled">
     <% @highlights.each do |number, texts| %>
-      <dt><%= icon_tag :'file-alt', label: "Strana #{number}", join: :append, class: :muted %></dt>
+      <dt><%= icon_tag :'file-alt', label: t('.page', number: number), join: :append, class: :muted %></dt>
       <% texts.each do |text| %>
         <dd><%= link_to_decree_page @decree, number, strip_and_highlight(text), q: params[:q] %></dd>
       <% end %>
@@ -16,6 +16,6 @@
 <% else %>
   <div class="alert alert-info">
     <%= close_link_to @decree %>
-    <%= icon_tag :search %> Pre hľadaný výraz sa nenašli <strong>žiadne výsledky</strong>.
+    <%= icon_tag :search %> <%= t '.no_results_html' %>.
   </div>
 <% end %>

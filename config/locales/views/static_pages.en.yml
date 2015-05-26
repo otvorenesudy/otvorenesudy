@@ -1,0 +1,52 @@
+﻿en:
+  static_pages:
+    header:
+      fact1: '67% of people in Slovakia do not trust judiciary'
+      source1: 'Institute for Public Affairs, June 2012'
+      fact2: 'Criminal procedures at district courts last on average four and a half month'
+      source2: 'Statistical annual publication of Ministry of Justice 2012'
+      fact3: 'District and regional courts paid in fines for unnecessary delays more than six million eur'
+      source3: 'Constitutional Court'
+      fact4: 'Search in %{decision} decisions and %{hearing} hearings'
+      source4: 'Open Courts'
+      headline: 'More transparency to Slovak judiciary'
+      search: 'Search in judicial decisions&hellip;'
+
+    home:
+      open_courts: 'Open Courts'
+      transparent_view: 'Transparent view'
+      open_courts_detail_html: 'Project that will make <strong>Slovak judiciary more transparent</strong>. For everybody who is interested in <strong>important information</strong> in <strong>one convenient location</strong> and wants to <strong>use them effectively</strong>.'
+      open_data: 'Open data'
+      court_documents_html: 'Court&nbsp;documents'
+      open_data_detail_html: 'You can find  <strong> all judicial decisions and  a&nbsp;hearings</strong>, that were published on the webpage of <a href="http://justice.gov.sk" target="_blank">Ministry of Justice</a> of the Slovak Republic.'
+      open_source: 'Open source code'
+      supporters: 'Project was supported by'
+      open_source_detail_html: 'Source code of the project <a href="https://github.com/otvorenesudy">Otvorené súdy</a> is available at <a href="https://github.com" target="_blank">GitHub</a>.'
+
+    content:
+      security:
+        title: 'Security'
+        description_part_1: 'Although we are doing our best to protect our system and user data, we are not perfect. Let us know if you find any security related problems or you have concerns.'
+        description_part_2: 'We encourage you to share your knowledge about any security related problems found and for helping us to remedy.'
+        contact_us: 'Write us an e-mail to'
+        we_are_thankful: 'We will be thankful.'
+
+      contact:
+        title: 'Contact'
+        address_part_1: 'Bajkalská 25'
+        address_part_2: '827 18 Bratislava'
+
+      how_it_works:
+        work_in_progress: 'The content of this section is being prepared'
+        title: 'How does it work?'
+        description: How does the big data crunching work?
+
+      data_history:
+        work_in_progress: 'The content of this section is being prepared'
+        title: 'Data history'
+        description: 'How fast does the number of documents increase? How many judicial decisions has been published at the Supreme Court in the last month? Answers to these and similar questions will be found in this section.'
+
+      api:
+        work_in_progress: 'The content of this section is being prepared'
+        description: 'Documentation for API that is friendly to IT developers. Until we prepare it, do not hesitate to contact us in case you are interested in the data.'
+        contact_us: 'Contact us'

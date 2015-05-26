@@ -1,7 +1,8 @@
 <%= search_list_tag results, offset: offset do |proceeding, highlight| %>
   <li>
     <h4>
-      <%= link_to proceeding_path(proceeding, nil, params: { q: params[:q] }, :'data-searchd-result' => "Proceeding ##{proceeding.id}") do %>
+      <%#= link_to proceeding_path(proceeding, nil, params: { q: params[:q] }, :'data-searchd-result' => "Proceeding ##{proceeding.id}") do %>
+      <%= link_to proceeding_path(proceeding, params: { q: params[:q] }, :'data-searchd-result' => "Proceeding ##{proceeding.id}") do %>
         <%= proceeding_headline(proceeding, limit: 67) %>
         <% if proceeding.legislation_area_and_subarea.any? %>
           <br/>
@@ -10,21 +11,21 @@
       <% end %>
       <br/>
       <small>
-        Verejné súdne konanie
+        <%= t 'proceedings.public_hearing' %>
         <% if proceeding.single_hearing? %>
-          <%= proceeding.duration_events.first.historical ? "začalo" : "začne" %>
-          dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
+          <%= proceeding.duration_events.first.historical ? t('proceedings.started') : t('proceedings.will_start') %>
+          <%= t 'proceedings.in_day' %> &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
         <% elsif proceeding.single_decree?  %>
-          bolo ukončené dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
+          <%= t 'proceedings.closed_at' %> &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
         <% else %>
           <% unless proceeding.probably_closed? %>
-            trvá odo dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
+            <%= t 'proceedings.takes_from' %> &ndash; <%= proceeding_date proceeding.duration_events.first.date %>
           <% else %>
             <% if proceeding.duration_events.first.date.to_date == proceeding.duration_events.last.date.to_date %>
-              prebehlo dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
+              <%= t 'proceedings.happende_at' %> &ndash; <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
             <% else %>
-              trvalo odo dňa &ndash; <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
-              do dňa &ndash; <%= proceeding_date proceeding.duration_events.last.date, format: :normal %>
+              <%= t 'proceedings.took_from' %> &ndash; <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
+              <%= t 'proceedings.until_day' %> &ndash; <%= proceeding_date proceeding.duration_events.last.date, format: :normal %>
             <% end %>
           <% end %>
         <% end %>
@@ -34,13 +35,13 @@
     <div class="search-result-content">
       <div class="search-result-identifiers pull-right">
         <% proceeding.case_numbers.each do |number| %>
-          <%= tooltip_tag number || '?', "Spisová značka", placement: :right %><br/>
+          <%= tooltip_tag number || '?', t('file_reference'), placement: :right %><br/>
         <% end %>
-        <%= tooltip_tag proceeding.file_number || '?', "Identifikačné číslo súdnych spisov", placement: :right %>
+        <%= tooltip_tag proceeding.file_number || '?', t('court_file_id'), placement: :right %>
       </div>
 
-      Evidujeme
-      <%= translate_with_count(proceeding.hearings.size, :hearing) %> a
+      <%= t '.register' %>
+      <%= translate_with_count(proceeding.hearings.size, :hearing) %> <%= t 'and' %>
       <%= translate_with_count(proceeding.decrees.size, :decree) %>.
       <br/>
       <% if proceeding.courts.any? %>

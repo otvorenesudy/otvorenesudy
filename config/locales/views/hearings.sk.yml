@@ -1,0 +1,73 @@
+sk:
+  hearings:
+    supposed_to_happen: 'malo prebehnúť'
+    will_happen: 'prebehne'
+    happened: 'prebehlo'
+
+    headline:
+      headline_html: 'Každá dvanásta domácnosť zaplatila<br/>úplatok pri kontakte so súdnictvom v roku 2012'
+      sub_headline: 'Svetový barometer korupcie, Transparency International'
+      total_hearings_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_hearings} pojednávaniach'
+
+    results:
+      processing_error: 'Pojednávanie je neúplné, pri jeho spracovaní nastala neznáma chyba.'
+      data_error: 'Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach.'
+
+    show:
+      took_place: 'konalo'
+      will_take_place: 'bude konať'
+      at_court: 'na súde'
+      in_room: ', v miestnosti %{room}'
+      section: 'Úsek'
+      form: 'Forma úkonu'
+      subject: 'Predmet'
+      commencement_date: 'Dátum započatia'
+      self_judge: 'Samosudca'
+      yes: 'áno'
+      no: 'nie'
+      note: 'Poznámka'
+      original_document: 'Pôvodný dokument'
+      link: 'odkaz už'
+      might_not: 'nemusí'
+      see_note: 'Viď poznámku na konci tohto dokumentu'
+      be_valid: 'byť platný'
+      missing: 'neuvedená'
+      missing_2: 'neuvedené'
+      show_within: 'Zobraziť v rámci'
+      hearing: 'súdneho konania'
+      proposers: 'Navrhovatelia'
+      opponents: 'Odporcovia'
+      defendants: 'Obžalovaní'
+      judges: 'Sudcovia'
+      chaired_is: 'Funkciu predsedu senátu zastáva'
+      info_source: 'Informácie o súdnom pojednávaní vrátane mien fyzických osôb v súlade s § 10, ods. 3, písm. e Zákona č. 122/2013 o ochrane osobných údajov boli získané z'
+      document: 'dokumentu'
+      lastly_updated: 'ktorého posledná aktualizácia bola vykonaná'
+      link_to: 'Odkaz na'
+      original_document: 'pôvodný dokument'
+      may_be_invalid: 'už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu'
+      thats_why: 'Z toho dôvodu poskytujeme odkaz na pôvodný'
+      processed_doc: 'spracovaný dokument'
+      raw_form: 'v surovej forme'
+      sa: 'sa'
+
+    search:
+      title: 'Vyhľadávanie v súdnych pojednávaniach'
+
+    anonymized:
+      note: 'Poznámka.'
+      description: 'Pojednávanie bolo anonymizované na základe odôvodnenej žiadosti dotknutej osoby.'
+
+    had_future_date:
+      note: 'Poznámka.'
+      description: 'Pojednávanie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom so vzdialenej budúcnosti.'
+
+    has_future_date:
+      attention: 'Pozor!'
+      description_1: 'Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v'
+      original_data: 'pôvodných dátach'
+      description_2: 'odkaz už nemusí byť platný'
+
+    unprocessed:
+      attention: 'Pozor!'
+      description: 'Pojednávanie je neúplné. Pri spracovaní pojednávania z portálu Ministerstva spravodlivosti nastala neznáma chyba.'

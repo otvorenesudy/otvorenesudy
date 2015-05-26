@@ -1,18 +1,15 @@
 <div class="footer">
   <p>
-    S pozdravom, <br/>
-    tím projektu <%= link_to 'Otvorené Súdy', root_url %>
+    <%= t '.best_regards' %>,<br/>
+    <%= t '.team' %> <%= link_to t('open_courts'), root_url %>
   </p>
   <p class="muted">
-    Projekt Otvorené Súdy podporili Transparency International Berlín
-    a projekt Reštart Centra pre filantropiu.
+    <%= t '.supporters' %>
   </p>
   <p class="muted">
-    Úsilie vyvoriť portál, ktorý by zhŕňal čo najviac informácií o súdoch
-    a sudcoch je finančne náročné. Ak sa Vám projekt páči, prosím prispejte
-    aj Vy na jeho rozvoj a sprístupnenie ďalších dát.
+  <%= t '.support_us' %>
   </p>
   <p class="centered">
-    <%= external_link_to "Podporte projekt Otvorené Súdy", 'http://transparency.darujme.sk/238', class: :'btn btn-large' %>
+    <%= external_link_to t('.support_project'), 'http://transparency.darujme.sk/238', class: :'btn btn-large' %>
   </p>
 </div>

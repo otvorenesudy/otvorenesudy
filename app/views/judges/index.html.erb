@@ -1,9 +1,9 @@
-<% provide :title, "Sudcovia" %>
+<% provide :title, t('.title') %>
 
 <section id="judges">
   <div class="page-header">
     <h1>
-      Sudcovia
+      <%= t '.judges' %>
       <small><%= page_entries_info @judges %></small>
     </h1>
   </div>
@@ -20,9 +20,9 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o sudcoch boli získané z portálu <%= external_link_to 'Ministerstva spravodlivosti Slovenskej republiky', JusticeGovSk::Request::JudgeList.url, class: :muted, icon: true %>
+        <%= t '.information_origin' %> <%= external_link_to t('.ministry_of_justice'), JusticeGovSk::Request::JudgeList.url, class: :muted, icon: true %>
         <br/>
-        Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcov.
+        <%= t '.additional_info' %>
       </small>
     </div>
   </div>

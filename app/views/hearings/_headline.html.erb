@@ -1,10 +1,9 @@
-Každá dvanásta domácnosť zaplatila<br/>
-úplatok pri kontakte so súdnictvom v roku 2012
+<%= t '.headline_html' %>
 
 <small class="source">
-  Svetový barometer korupcie, Transparency International
+  <%= t '.sub_headline' %>
 </small>
 
 <small class="total">
-  Otvorené Súdy &mdash; vyhľadávate v <%= number_with_delimiter Hearing.total %> pojednávaniach
+  <%= t '.total_hearings_html', total_hearings: number_with_delimiter(Hearing.total) %>
 </small>

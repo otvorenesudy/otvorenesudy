@@ -1,0 +1,62 @@
+sk:
+  layouts:
+    application:
+      default_title: 'Otvorené Súdy'
+      meta_description: 'Transparentný pohľad na slovenské súdnictvo.'
+      meta_keywords: 'slovenské súdnictvo, sudcovia, súdne rozhodnutia, súdne pojednávania'
+      meta_og_description: 'Transparentný pohľad na súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!'
+
+    header:
+      donate: 'Podporte projekt'
+      courts: 'Súdy'
+      judges: 'Sudcovia'
+      hearings: 'Pojednávania'
+      decrees: 'Rozhodnutia'
+      proceedings: 'Konania'
+      procedures: 'Výberové konania'
+      sign_in: 'Prihlásiť sa'
+      notifications: 'Notifikácie'
+      settings: 'Nastavenia'
+      sign_out: 'Odhlásiť sa'
+      beta_version: 'Testovacia verzia'
+
+    footer:
+      open_courts: 'Otvorené Súdy'
+      transparency: 'Prehlásenia'
+      statements: 'Transparentnosť'
+      data: 'Dáta'
+
+      about: 'O projekte'
+      faq: 'Často kladené otázky'
+      support_us: 'Podporte projekt'
+      contact: 'Kontakt'
+
+      tos: 'Podmienky používania'
+      privacy: 'Ochrana súkromia'
+      copyright: 'Autorské práva'
+
+      found_mistake: 'Našli ste chybu?'
+      security: 'Bezpečnosť'
+      source_code: 'Zdrojový kód'
+
+      how_it_works: 'Ako to funguje?'
+      data_history: 'História dát'
+      api: 'API'
+
+      open_data_projects: 'Open data projekty'
+      price_of_state: 'Cena štátu'
+      municipalities: 'Obce'
+      schools: 'Školy'
+      procurements: 'Verejné obstarávanie'
+      universities: 'Vysoké školy'
+
+      closing: 'Projekt využíva výhradne dáta verejných inštitúcií. Za ich vecnú správnosť autori nenesú zodpovednosť.'
+
+      members: 'členovia'
+      and: 'a'
+      at: 'na'
+      in_collaboration_with: 'v spolupráci s'
+      with_support_of: 'za podpory'
+      and_project: 'v Berlíne a projektu'
+      centre_for_philanthropy: 'Centra pre filantropiu'
+

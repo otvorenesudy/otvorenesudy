@@ -6,7 +6,7 @@
       <%= selection_procedure_headline @procedure, limit: 45, tooltip: true %>
       <br/>
       <small>
-        Výberové konanie sa <%= @procedure.closed_at.future? ? 'uzavrie' : 'uzavrelo' %> dňa
+        <%= t '.selection_procedure' %> <%= @procedure.closed_at.future? ? t('.will_close') : t('.was_closed')  %> <%= t 'on_day' %>
         <%= time_tag @procedure.closed_at.to_date, format: :long %>
       </small>
     </h1>
@@ -16,31 +16,31 @@
     <div class="span12">
       <p>Stav &ndash; <%= @procedure.state %></p>
       <% if @procedure.position %>
-        <p>Pozícia &ndash; <%= @procedure.position %></p>
+        <p><%= t '.position' %> &ndash; <%= @procedure.position %></p>
       <% end %>
       <p>
-        Organizácia &ndash; <%= @procedure.court ? link_to_court(@procedure.court) : @procedure.organization_name %>
+        <%= t '.organization' %> &ndash; <%= @procedure.court ? link_to_court(@procedure.court) : @procedure.organization_name %>
         <% if @procedure.organization_description %>
           &ndash; <%= @procedure.organization_description %>
         <% end %>
       </p>
       <% if @procedure.workplace %>
-        <p>Miesto výkonu práce &ndash; <%= @procedure.workplace %></p>
+        <p><%= t '.workplace' %> &ndash; <%= @procedure.workplace %></p>
       <% end %>
       <% if @procedure.place %>
-        <p>Miesto konania &ndash; <%= @procedure.place %></p>
+        <p><%= t '.place' %> &ndash; <%= @procedure.place %></p>
       <% end %>
       <% if @procedure.date %>
-        <p>Termín konania &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
+        <p><%= t '.date' %> &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
       <% end %>
 
-      <p><%= external_link_to 'Pôvodný dokument', @procedure.uri, icon: true %> (odkaz už <%= tooltip_tag 'nemusí', 'Viď poznámku na konci tohto dokumentu' %> byť platný)</p>
+      <p><%= external_link_to t('.original_document'), @procedure.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.may_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
 
       <% if File.readable? @procedure.declaration_path %>
-        <p><%= external_link_to icon_tag(:'download-alt', label: 'Vyhlásenie konania', join: :append), declaration_selection_procedure_path(@procedure), class: :icon %></p>
+        <p><%= external_link_to icon_tag(:'download-alt', label: t('.announcement'), join: :append), declaration_selection_procedure_path(@procedure), class: :icon %></p>
       <% end %>
       <% if File.readable? @procedure.report_path %>
-        <p><%= external_link_to icon_tag(:'download-alt', label: 'Zápisnica konania', join: :append), report_selection_procedure_path(@procedure), class: :icon %></p>
+        <p><%= external_link_to icon_tag(:'download-alt', label: t('.report'), join: :append), report_selection_procedure_path(@procedure), class: :icon %></p>
       <% end %>
 
       <% if @procedure.description %>
@@ -53,7 +53,7 @@
 
 <% if @commissioners.any? %>
   <section id="selectoin-procedure-commissioners">
-    <h2>Výberová komisia</h2>
+    <h2><%= t '.selection_comittee' %></h2>
 
     <div class="row">
       <div class="span12">
@@ -65,18 +65,18 @@
 
 <% if @candidates.any? %>
   <section id="selectoin-procedure-candidates">
-    <h2>Kandidáti</h2>
+    <h2><%= t '.candidates' %></h2>
 
     <div class="row">
       <div class="span12">
         <%= sortable_table_tag class: 'table table-striped' do %>
           <thead>
             <tr>
-              <th class="span3">Meno</th>
-              <th class="span2" data-sorter="digit">Písomná časť</th>
-              <th class="span2" data-sorter="digit">Ústna časť</th>
-              <th class="span1" data-sorter="digit">Výsledok</th>
-              <th class="span4" colspan="3" data-sorter="false">Dokumenty</th>
+              <th class="span3"><%= t '.name' %></th>
+              <th class="span2" data-sorter="digit"><%= t '.written_part' %></th>
+              <th class="span2" data-sorter="digit"><%= t '.oral_part' %></th>
+              <th class="span1" data-sorter="digit"><%= t '.result' %></th>
+              <th class="span4" colspan="3" data-sorter="false"><%= t '.documents' %></th>
             </tr>
           </thead>
           <tbody>
@@ -100,13 +100,13 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= external_link_to "Životopis", curriculum_selection_procedure_candidate_path(@procedure, candidate) %>
+                  <%= external_link_to t('.resume'), curriculum_selection_procedure_candidate_path(@procedure, candidate) %>
                 </td>
                 <td>
-                  <%= external_link_to "Motivačný list", motivation_letter_selection_procedure_candidate_path(@procedure, candidate) %>
+                  <%= external_link_to t('.motivation_letter'), motivation_letter_selection_procedure_candidate_path(@procedure, candidate) %>
                 </td>
                 <td>
-                  <%= external_link_to "Vyhlásenie", declaration_selection_procedure_candidate_path(@procedure, candidate) %>
+                  <%= external_link_to t('.statement'), declaration_selection_procedure_candidate_path(@procedure, candidate) %>
                 </td>
               </tr>
             <% end %>
@@ -121,11 +121,10 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súdnom rozhodnutí boli získané z <%= external_link_to 'dokumentu', @procedure.uri, class: :muted, icon: true %>,
-        ktorého posledná aktualizácia bola vykonaná <%= time_tag @procedure.updated_at.to_date, format: :default %>.
+        <%= t '.information_source_1' %> <%= external_link_to t('.document'), @procedure.uri, class: :muted, icon: true %>,
+        <%= t '.information_source_2' %> <%= time_tag @procedure.updated_at.to_date, format: :default %>.
         <br/>
-        Odkaz na <%= external_link_to 'pôvodný dokument', @procedure.uri, class: :muted, icon: true %> už nemusí byť platný,
-        pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.
+        <%= t '.link_validity_1' %> <%= external_link_to t('.original_document'), @procedure.uri, class: :muted, icon: true %> <%= t '.link_validity_2' %>
       </small>
     </div>
   </div>
