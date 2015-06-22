@@ -11,9 +11,9 @@ class SubscriptionsController < ApplicationController
     @subscription.period = @period
 
     if @subscription.save
-      flash[:success] = 'Odoberanie notifikácií bolo úspešne zaregistrované.'
+      flash[:success] = t('.subscription_successful')
     else
-      flash[:error] = 'Nastala chyba. Odoberanie notifikácií nebolo zaregistrované.'
+      flash[:error] = t('.subscription_error')
     end
 
     redirect_to :back
@@ -25,9 +25,9 @@ class SubscriptionsController < ApplicationController
     @subscription.period = Period.find(params[:period_id])
 
     if @subscription.save
-      flash[:success] = 'Odoberanie notifikácií bolo úspešne aktualizované.'
+      flash[:success] = t('.subscription_updated')
     else
-      flash[:error] = 'Nastala chyba. Odoberanie notifikácií nebolo aktualizované.'
+      flash[:error] = t('.subscription_update_error')
     end
 
     redirect_to :back
@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
 
     @subscription.destroy
 
-    flash[:success] = 'Odoberanie notifikácií bolo úspešne zrušené.'
+    flash[:notice] = t('.subscription_cancelled')
 
     redirect_to :back
   end

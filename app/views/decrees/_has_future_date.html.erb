@@ -1,3 +1,3 @@
-<strong><%= icon_tag :'warning-sign', label: 'Pozor!' %></strong>
-Rozhodnutie má budúci dátum vynesenia, ide o chybu v
-<%= external_link_to 'pôvodných dátach', decree.uri, icon: true %> (odkaz už nemusí byť platný).
+<strong><%= icon_tag :'warning-sign', label: t('.attention') %></strong>
+<%= t '.description_1' %>
+<%= external_link_to 'original_data', decree.uri, icon: true %> <%= t '.description_1' %>

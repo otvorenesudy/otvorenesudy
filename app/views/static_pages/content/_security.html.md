@@ -1,12 +1,10 @@
-# Bezpečnosť
+# <%= t '.title' %>
 
-Hoci sa snažíme chrániť náš systém a používateľské dáta, ani my nie sme neomylní.
-Informujte nás prosím, pokiaľ nájdete akékoľvek chyby zabezpečenia, alebo máte obavy.
+<%= t '.description_part_1' %>
 
-Budeme veľmi radi, ak s nami budete zdieľať znalosti o odhalenej bezpečnostnej
-chybe, prípadne nám ju pomôžete odstrániť.
+<%= t '.description_part_2' %>
 
-Napíšte nám na:
+<%= t '.contact_us' %>:
 
 <hr/>
 
@@ -16,4 +14,4 @@ Napíšte nám na:
 
 <hr/>
 
-Určite Vám za to budeme veľmi vdační.
+<%= t '.we_are_thankful' %>

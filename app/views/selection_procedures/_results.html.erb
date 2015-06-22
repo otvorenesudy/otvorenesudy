@@ -6,16 +6,16 @@
       <% end %>
       <br/>
       <small>
-        Výberové konanie sa <%= procedure.closed_at.future? ? 'uzavrie' : 'uzavrelo' %> dňa
+        <%= t '.selection_procedure' %> <%= procedure.closed_at.future? ? t('.will_close') : t('.was_closed')  %> <%= t 'on_day' %>
         <%= time_tag procedure.closed_at.to_date, format: :long %>
       </small>
     </h4>
 
     <div class="search-result-content">
-      Stav &ndash; <%= procedure.state %>
+      <%= t '.status' %> &ndash; <%= procedure.state %>
       <br/>
 
-      Organizácia &ndash; <%= procedure.court ? link_to_court(procedure.court) : procedure.organization_name %>
+      <%= t '.organization' %> &ndash; <%= procedure.court ? link_to_court(procedure.court) : procedure.organization_name %>
       <br/>
 
       <% if procedure.candidates.any? %>

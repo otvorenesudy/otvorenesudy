@@ -1,11 +1,11 @@
-<% provide :title, "Súdy Slovenskej Republiky" %>
+<% provide :title, t('.title') %>
 <% provide :header, render(partial: 'header') %>
 
 <div class="nav centered">
   <ul class="nav nav-pills">
-    <li><%= icon_link_to :'list-alt', "Krajské súdy", '#regional-courts' %></li>
-    <li><%= icon_link_to :'list-alt', "Okresné súdy", '#district-courts' %></li>
-    <li><%= icon_link_to :'map-marker', "Mapa súdov", map_courts_path %></li>
+    <li><%= icon_link_to :'list-alt', t('.regional_courts'), '#regional-courts' %></li>
+    <li><%= icon_link_to :'list-alt', t('.district_courts'), '#district-courts' %></li>
+    <li><%= icon_link_to :'map-marker', t('.courts_map'), map_courts_path %></li>
   </ul>
 </div>
 
@@ -32,8 +32,8 @@
 <section id="regional-courts">
   <div class="page-header">
     <h1>
-      Krajské súdy
-      <small>Na Slovensku je <%= @regional.size %> krajských súdov.</small>
+      <%= t '.regional_courts' %>
+      <small><%= t '.regional_courts_count', regional_courts_count: @regional.size %></small>
     </h1>
   </div>
 
@@ -47,8 +47,8 @@
 <section id="district-courts">
   <div class="page-header">
     <h1>
-      Okresné súdy
-      <small>Na Slovensku je <%= @district.size %> okresných súdov.</small>
+      <%= t '.district_courts' %>
+      <small><%= t '.district_courts_count', district_courts_count: @district.size %></small>
     </h1>
   </div>
 
@@ -63,8 +63,8 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o súdoch boli získané z portálu
-        <%= external_link_to 'Ministerstva spravodlivosti Slovenskej republiky', JusticeGovSk::Request::CourtList.url, class: :muted, icon: true %>
+        <%= t '.data_source' %>
+        <%= external_link_to t('.ministry_of_justice'), JusticeGovSk::Request::CourtList.url, class: :muted, icon: true %>
       </small>
     </div>
   </div>

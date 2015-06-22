@@ -5,7 +5,7 @@
       <% if hearing.date %>
         <br/>
         <small>
-          Pojednávanie <%= hearing.date.past? ? "prebehlo" : "prebehne" %> dňa &ndash;
+          <%= t 'hearing' %> <%= hearing.date.past? ? t('hearings.happened') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
           <%= hearing_date hearing.date %>
         </small>
       <% end %>
@@ -13,7 +13,7 @@
 
     <div class="search-result-content">
       <% if hearing.court %>
-        Súd &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
+        <%= t 'court' %> &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>

@@ -42,6 +42,6 @@ OpenCourts::Application.configure do
 
   # load only specified locales
   config.i18n.default_locale    = :sk
-  config.i18n.available_locales = :sk
+  config.i18n.available_locales = [:sk, :en]
   config.i18n.locale            = :sk
 end

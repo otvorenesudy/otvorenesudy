@@ -2,11 +2,11 @@
   <thead>
     <tr>
       <th class="muted" data-sorter="false"><%= tooltip_tag icon_tag(:adjust), 'Status', placement: :left, class: :undecorated %></th>
-      <th class="span2">Tituly</th>
-      <th class="span7">Meno</th>
-      <th class="span3">Pozícia</th>
-      <%= sortable_th_tag tooltip_tag("Pojednávania", "Počet súdnych pojednávaní"), sorter: :digit %>
-      <%= sortable_th_tag tooltip_tag("Rozhodnutia",  "Počet súdnych rozhodnutí"),  sorter: :digit %>
+      <th class="span2"><%= t '.title' %></th>
+      <th class="span7"><%= t '.name' %></th>
+      <th class="span3"><%= t '.position' %></th>
+      <%= sortable_th_tag tooltip_tag(t('.hearings'), t('.hearings_count')), sorter: :digit %>
+      <%= sortable_th_tag tooltip_tag(t('.decrees'),  t('.decrees_count')),  sorter: :digit %>
     </tr>
   </thead>
   <tbody>

@@ -1,10 +1,10 @@
-Kandidáti s rodinou v justícii majú 1,5-krát<br/>
-väčšiu šancu úspešne prejsť výberovým konaním
+<%= t '.headline_html' %>
 
 <small class="source">
-  Transparency International Slovensko, máj 2014
+  <%= t '.transparency_international' %>
 </small>
 
 <small class="total">
-  Otvorené Súdy &mdash; vyhľadávate v <%= number_with_delimiter SelectionProcedure.total %> výberových konaniach
+  <%= t '.sub_headline_html', total_selection_procedures: number_with_delimiter(SelectionProcedure.total) %>
+  <!-- Otvorené Súdy &mdash; vyhľadávate v <%= number_with_delimiter SelectionProcedure.total %> výberových konaniach -->
 </small>

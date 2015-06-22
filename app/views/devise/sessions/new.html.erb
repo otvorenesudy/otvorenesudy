@@ -1,4 +1,4 @@
-<% provide :title, "Prihlásenie" %>
+<% provide :title, t('.title') %>
 
 <%= render "devise/shared/links" %>
 
@@ -16,7 +16,7 @@
           <%= f.password_field :password, class: :span8 %>
         </p>
         <%= f.hidden_field :remember_me, value: 1 if devise_mapping.rememberable? %>
-        <button type="submit" class="btn btn-primary btn-large">Prihlásiť</button>
+        <button type="submit" class="btn btn-primary btn-large"><%= t '.submit' %></button>
       <% end %>
     </div>
   </div>

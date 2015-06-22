@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def default_title
-    'Otvorené súdy'
+    t '.default_title'
   end
 
   def resolve_title(value)
