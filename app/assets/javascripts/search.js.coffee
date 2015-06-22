@@ -107,4 +107,4 @@ $(document).ready ->
               facet: name
               term: terms.join(' ')
             success: (html) ->
-              setTimeout (-> $(input).closest('.facet-content').find('.facet-results').html(html)), 5000
+              $(input).closest('.facet-content').find('.facet-results').html(html)
