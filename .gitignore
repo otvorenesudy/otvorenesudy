@@ -3,8 +3,6 @@
 .project
 .sass-cache
 .tags
-.ruby-version
-.ruby-gemset
 
 .~lock.*
 *.*~
