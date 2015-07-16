@@ -49,7 +49,6 @@ class JudgesController < SearchController
     @facets = results.facets
     @judges_for_indicators = Hash.new
 
-
     if params[:name]
       color = generate_random_color
 
