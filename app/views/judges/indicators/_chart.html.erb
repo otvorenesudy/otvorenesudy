@@ -23,7 +23,7 @@
   Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobných súdoch a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory.
 </small>
 
-<div id="judge-indicators-facets" class="row collapse">
+<div id="judge-indicators-facets" class="row collapse <%= "in" if params.slice(:positions, :decree_agenda, :indicators_courts).any? %>">
   <br />
 
   <div class="span4">
@@ -35,7 +35,7 @@
   </div>
 
   <div class="span4">
-    <%= render 'judges/indicators/terms_facet', facet: @facets[:courts], translation: t(@facets[:courts].key), options: { label: true } %>
+    <%= render 'judges/indicators/terms_facet', facet: @facets[:indicators_courts], translation: t(@facets[:indicators_courts].key), options: { label: true } %>
   </div>
 </div>
 

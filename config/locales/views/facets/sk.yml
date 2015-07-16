@@ -177,6 +177,12 @@ sk:
         missing: 'neuvedený'
         not_found: 'Nenájdené žiadne agendy'
 
+      indicators_courts:
+        title: 'Súd'
+        placeholder: 'Názov súdu'
+        missing: 'neuvedený'
+        not_found: 'Nenájdené žiadne súdy.'
+
     hearing:
       q:
         title: 'Text pojednávania'
