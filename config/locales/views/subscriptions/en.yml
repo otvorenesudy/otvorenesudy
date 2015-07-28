@@ -1,8 +1,8 @@
 en:
-  subscription_successful: 'You have successfully subcsribed to notifications.'
-  subscription_error: 'Error. Subscription to notifications has failed.'
+  subscription_successful: 'You have successfully subscribed to notifications.'
+  subscription_error: 'Subscription to notifications has failed.'
   subscription_updated: 'Notification subscription has been succesfully updated.'
-  subscription_update_error: 'Error. Notification subscription has not been updated.'
+  subscription_update_error: 'Notification subscription has not been updated.'
   subscription_cancelled: 'Notification subscription has been succesfully cancelled.'
 
   search:
@@ -24,7 +24,7 @@ en:
     results:
       new: 'New court'
       search_settings: 'Search settings'
-      no_filters: 'No filters set.'
+      no_filters: 'No filters specified.'
       new: 'New'
       more: 'Show more'
       cancel_subscription: 'Cancel subscription'
@@ -32,7 +32,7 @@ en:
     footer:
       best_regards: 'Best regards'
       team: 'team'
-      supporters: 'The project Open Courts was financially supported by Transparency International Berlin and the project Reštart of the Centre for philantrophy.'
+      supporters: 'The project Open Courts was financially supported by Transparency International Berlin and the project Reštart of the Centre for Philantrophy.'
       support_us: 'The effort to create a portal collecting as much information as possible about courts and judges is financially difficult. If you like the project, please contribute to its development and publication of additional data.'
       support_project: 'Support Open Courts'
 
@@ -46,7 +46,7 @@ en:
     list:
       search: 'Search'
       registered_at: 'Subscribed on'
-      no_filters: 'No filters set'
+      no_filters: 'No filters specified.'
       update: 'Update'
       cancel: 'Cancel'
       confirm: 'Do you really want to cancel your subscription for notifications?'
