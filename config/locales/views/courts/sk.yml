@@ -1,4 +1,11 @@
 sk:
+  court_type:
+    constitutional: 'Ústavný'
+    supreme: 'Najvyšší'
+    specialized: 'Špecializovaný'
+    regional: 'Krajský'
+    district: 'Okresný'
+
   contact:
     fax: 'Fax:'
     media_person: 'Kontaktná osoba:'

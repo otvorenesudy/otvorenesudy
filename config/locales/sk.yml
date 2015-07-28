@@ -13,12 +13,6 @@ sk:
   custom_validation_errors:
     invalid_chapter_scope: 'Vybrali ste nesprávnu kapitolu.'
 
-  constitutional: 'Ústavný'
-  supreme: 'Najvyšší'
-  specialized: 'Špecializovaný'
-  regional: 'Krajský'
-  district: 'Okresný'
-
   results:
     worker_male: 'Pracovník'
     worker_female: 'Pracovníčka'

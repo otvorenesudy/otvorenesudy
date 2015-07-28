@@ -1,10 +1,4 @@
 en:
-  constitutional: 'Constitutional'
-  supreme: 'Supreme'
-  specialized: 'Specialized'
-  regional: 'Regional'
-  district: 'District'
-
   results:
     worker_male: 'Works at'
     worker_female: 'Works at'
