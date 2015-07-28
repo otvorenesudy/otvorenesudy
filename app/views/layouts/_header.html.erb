@@ -39,14 +39,14 @@
               <li><%= icon_link_to :signout, t('.sign_out'), destroy_user_session_path, method: :delete %></li>
             <% end %>
             <% if I18n.locale == :sk %>
-              <li><%= link_to "EN", locale: :en %></li>
+              <li><%= link_to "EN", l: :en %></li>
             <% else %>
-              <li><%= link_to "SK", locale: :sk %></li>
+              <li><%= link_to "SK", l: :sk %></li>
             <% end %>
           <% else %>
             <li><%= icon_link_to :signin, t('.sign_in'), new_user_session_path %></li>
-            <li><%= link_to "SK", locale: :sk %></li>
-            <li><%= link_to "EN", locale: :en %></li>
+            <li><%= link_to "SK", l: :sk %></li>
+            <li><%= link_to "EN", l: :en %></li>
           <% end %>
         </ul>
       </nav>
