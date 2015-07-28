@@ -43,10 +43,10 @@ en:
       other: '%{count} hearings'
 
     decree: &decree
-      zero: 'no decision'
-      one: '1 decision'
-      few: '%{count} decisions'
-      other: '%{count} decisions'
+      zero: 'no decree'
+      one: '1 decree'
+      few: '%{count} decrees'
+      other: '%{count} decrees'
 
     proceeding: &proceeding
       zero: 'no proceedings'
@@ -115,7 +115,7 @@ en:
           <<: *hearing
 
       decrees_count:
-        title: 'Total number of decisions'
+        title: 'Total number of decrees'
         suffix:
           <<: *decree
 
@@ -157,7 +157,7 @@ en:
           <<: *hearing
 
       decrees_count:
-        title: 'Total number of decisions'
+        title: 'Total number of decrees'
         suffix:
           <<: *decree
 
@@ -239,8 +239,8 @@ en:
 
     decree:
       q:
-        title: 'Text of decision'
-        placeholder: 'Search in decisions'
+        title: 'Text of decree'
+        placeholder: 'Search in decrees'
 
       pages_count:
         title: 'Page count'
@@ -265,13 +265,13 @@ en:
 
       form:
         title: 'Form'
-        placeholder: 'Form of decision'
+        placeholder: 'Form of decree'
         missing: 'missing'
         not_found: 'No forms found.'
 
       natures:
         title: 'Disposition'
-        placeholder: 'Disposition of decision'
+        placeholder: 'Disposition of decree'
         missing: 'missing'
         not_found: 'No dispositions found.'
 
@@ -344,7 +344,7 @@ en:
           <<: *hearing
 
       decrees_count:
-        title: 'Total number of decisions'
+        title: 'Total number of decrees'
         suffix:
           <<: *decree
 

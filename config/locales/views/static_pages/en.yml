@@ -7,10 +7,10 @@
       source2: 'Statistical annual publication of Ministry of Justice 2012'
       fact3: 'District and regional courts paid in fines for unnecessary delays more than six million eur'
       source3: 'Constitutional Court'
-      fact4: 'Search in %{decision} decisions and %{hearing} hearings'
+      fact4: 'Search in %{decree} decrees and %{hearing} hearings'
       source4: 'Open Courts'
       headline: 'More transparency to Slovak judiciary'
-      search: 'Search in judicial decisions&hellip;'
+      search: 'Search in judicial decree&hellip;'
 
     home:
       open_courts: 'Open Courts'
@@ -18,7 +18,7 @@
       open_courts_detail_html: 'Project that will make <strong>Slovak judiciary more transparent</strong>. For everybody who is interested in <strong>important information</strong> in <strong>one convenient location</strong> and wants to <strong>use them effectively</strong>.'
       open_data: 'Open data'
       court_documents_html: 'Court&nbsp;documents'
-      open_data_detail_html: 'You can find  <strong> all judicial decisions and  a&nbsp;hearings</strong>, that were published on the webpage of <a href="http://justice.gov.sk" target="_blank">Ministry of Justice</a> of the Slovak Republic.'
+      open_data_detail_html: 'You can find  <strong> all judicial decrees and  a&nbsp;hearings</strong>, that were published on the webpage of <a href="http://justice.gov.sk" target="_blank">Ministry of Justice</a> of the Slovak Republic.'
       open_source: 'Open source code'
       supporters: 'Project was supported by'
       open_source_detail_html: 'Source code of the project <a href="https://github.com/otvorenesudy">Otvorené súdy</a> is available at <a href="https://github.com" target="_blank">GitHub</a>.'
@@ -44,7 +44,7 @@
       data_history:
         work_in_progress: 'The content of this section is being prepared'
         title: 'Data history'
-        description: 'How fast does the number of documents increase? How many judicial decisions has been published at the Supreme Court in the last month? Answers to these and similar questions will be found in this section.'
+        description: 'How fast does the number of documents increase? How many judicial decrees has been published at the Supreme Court in the last month? Answers to these and similar questions will be found in this section.'
 
       api:
         work_in_progress: 'The content of this section is being prepared'

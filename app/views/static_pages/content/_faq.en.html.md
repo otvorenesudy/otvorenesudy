@@ -12,7 +12,7 @@ is to contribute to the development of qualitative and quantitative indicators t
 The webpage offers information about activities
 <%= link_to "of courts", search_courts_path %>,
 profiles of <%= link_to "judges", search_judges_path %>,
-past and the future <%= link_to "hearings", search_hearings_path %> and more than a million <%= link_to "judicial decisions", search_decrees_path %>.
+past and the future <%= link_to "hearings", search_hearings_path %> and more than a million <%= link_to "judicial decree", search_decrees_path %>.
 
 #### Can you offer me a legal advice?
 Advisory office is not a part of the project. In case you are searching for a legal advice you can contact
@@ -59,7 +59,7 @@ Portal uses only data published or made available by public institutions:
   - <%= external_link_to "Courts", 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
   - <%= external_link_to "Judges", 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
   - <%= external_link_to "Hearings", 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
-  - <%= external_link_to "Judicial decisions", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
+  - <%= external_link_to "Judicial decrees", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
   - <%= external_link_to "Statistics about courts", 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx' %>
   - <%= external_link_to "Annual statistical reports of judges", 'http://www.justice.gov.sk/rsvs' %>
   - <%= external_link_to "CVs and Letters of motivation of judges", 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
@@ -82,7 +82,7 @@ Hyperlinks to these articles are searched automatically using the name of the co
 
 #### How often are the data updated?
 
-At the times of regular operation we plan to update the data about hearings daily. The data about judicial decisions are planned to be updated at least once a week.
+At the times of regular operation we plan to update the data about hearings daily. The data about judicial decrees are planned to be updated at least once a week.
 
 #### I found a mistake, what shall I do?
 
@@ -91,7 +91,7 @@ Write us an email describing the mistake as accurately as possible to <%= mail_t
 
 #### Are the data complete?
 
-Good question. In terms of reliable, better and more comprehensive copy, the information about courts, judges and judicial decisions shall be complete. Information about hearings shall be more complete than as provided by the Ministry. &ndash; Open Courts shall offer more data than the webpage of Ministry of Justice.
+Good question. In terms of reliable, better and more comprehensive copy, the information about courts, judges and judicial decrees shall be complete. Information about hearings shall be more complete than as provided by the Ministry. &ndash; Open Courts shall offer more data than the webpage of Ministry of Justice.
 
 #### What about data errors?
 
@@ -111,30 +111,30 @@ No. In Slovakia we have approximately 1 400 active judges. It si difficult to sa
 
 #### Who is the rest? Who are HCO?
 
-HCO are "higher court officials" who assist judges and are allowed to issue ceartain types of judicial decisions. All in all there is more than 1 000 of them. However, as the Ministry does not hav any list of higher court officials, they were identified as people issuing judicial decisions, and at the same time were not in the list of judges provided by the Ministry of Justice. Consequently they were labelled as "probably HCO".
+HCO are "higher court officials" who assist judges and are allowed to issue ceartain types of judicial decrees. All in all there is more than 1 000 of them. However, as the Ministry does not hav any list of higher court officials, they were identified as people issuing judicial decrees, and at the same time were not in the list of judges provided by the Ministry of Justice. Consequently they were labelled as "probably HCO".
 
 __Judges do not have information about their previous occupations in their profiles.__
 We are aware of that. Judges' profiles include only information about the current, possibly the last occupation. Wll we have the capacity we would like to find the way how to map their activities at previous occupations.
 __Not all of the judges' profiles include their CVs and Letters of motivation.__
 We are aware of that as well. Only judges that applied to a selection procedure after 2012 have these information published.
 
-# About judicial decisions
+# About judicial decrees
 
-#### What decisions can be found at the webpage?
+#### What decrees can be found at the webpage?
 
-All of the lawful decisions issued after 2012 are supposed to be published, including all relevant decisions that preceded these final decisions. Data are updated from the database of the Ministry of Justice weekly. Detailed explanation can be found in
+All of the lawful decrees issued after 2012 are supposed to be published, including all relevant decrees that preceded these final decrees. Data are updated from the database of the Ministry of Justice weekly. Detailed explanation can be found in
 <%= external_link_to "Act on courts", 'http://www.zakonypreludi.sk/zz/2004-757#p82a' %>.
 
-#### I cannot find decisions that has been issued. Why?
+#### I cannot find decrees that has been issued. Why?
 
-One of the following explanations may apply: - not a sufficient time has passed since the decision has been issued. Decisions must be published in 15 days following the date when they became lawful. 
+One of the following explanations may apply: - not a sufficient time has passed since the decree has been issued. Decrees must be published in 15 days following the date when they became lawful. 
 
-- It is a decision in a case where the public was excluded from its hearings or part of them,
+- It is a decree in a case where the public was excluded from its hearings or part of them,
 
-- we did not manage to download it yet. Decisions are updated weekly,
+- we did not manage to download it yet. Decrees are updated weekly,
 
 - something went wrong <%= icon_tag :frown %>
 
-#### Why are there fewer decisions on the portal than on the webpage of the Ministry?
+#### Why are there fewer decrees on the portal than on the webpage of the Ministry?
 
-It can be usually explained as technical difficulties, hence the fact that some of the decisions cannot be downloaded despite repeated efforts. Some of the decisions were, on the other hand, published more than once with the same ECLI, or some of their identificators is missing and therefore they cannot be found in our database.
+It can be usually explained as technical difficulties, hence the fact that some of the decrees cannot be downloaded despite repeated efforts. Some of the decrees were, on the other hand, published more than once with the same ECLI, or some of their identificators is missing and therefore they cannot be found in our database.

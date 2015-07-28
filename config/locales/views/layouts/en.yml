@@ -3,15 +3,15 @@ en:
     application:
       default_title: 'Open courts'
       meta_description: 'Transparent look at the Slovak judiciary'
-      meta_keywords: 'slovak judiciary, judges, decisions, hearings'
-      meta_og_description: 'Transparent look at courts. Which are the fastest, which have paid the most in fines for wrong or delayed decisions? What do judges own? Search in judicial decisions and hearings!'
+      meta_keywords: 'slovak judiciary, judges, decrees, hearings'
+      meta_og_description: 'Transparent look at courts. Which are the fastest, which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!'
 
     header:
       donate_html: 'Donate</br>now'
       courts: 'Courts'
       judges: 'Judges'
       hearings: 'Hearings'
-      decrees: 'Decisions'
+      decrees: 'Decree'
       proceedings: 'Proceedings'
       procedures: 'Selection procedures'
       sign_in: 'Sign In'

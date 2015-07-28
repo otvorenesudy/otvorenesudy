@@ -25,8 +25,8 @@
       court: 'Court'
       hearings: 'Hearings'
       hearings_count: 'Total number of hearings'
-      decrees: 'Decisions'
-      decrees_count: 'Total number of decisions'
+      decrees: 'Decrees'
+      decrees_count: 'Total number of decrees'
 
     show:
       default_title: 'Open Courts'
@@ -38,8 +38,8 @@
       cv: 'CV'
       published_at_selection: 'that was published in a selection procedure.'
       motivation_letter: 'Motivation letter'
-      decrees_count: 'Number of decision of the Constitutional court against the judge &ndash; issued %{total_released_decrees} and for unnecessary delays prior to the beginning of a proceeding %{total_delayed_decrees}.'
-      decree_confirmed_in: 'A decision of a judge is in case of an appeal confirmed by an appellate court in'
+      decrees_count: 'Number of decrees of the Constitutional court against the judge &ndash; issued %{total_released_decrees} and for unnecessary delays prior to the beginning of a proceeding %{total_delayed_decrees}.'
+      decree_confirmed_in: 'A decree of a judge is in case of an appeal confirmed by an appellate court in'
       computed_from: "Computed from judge's work at"
       unresolved_issues_count: 'Number of unresoved cases was %{unresolved_issues_count} than at its beginning'
       in_end_of_year: 'at the end of year'
@@ -57,7 +57,7 @@
       note_about_data_part1: 'Notes about the data'
       note_about_data_part2: 'obtained from annual statistical reports of judges.'
       report_for_year: 'Report from'
-      decrees: 'Decisions'
+      decrees: 'Decrees'
       future_hearings: 'Future hearings'
       past_hearings: 'Past hearings'
       in_media: 'In media'
@@ -81,8 +81,8 @@
       no_hearings: 'No hearings found for the judge'
 
     decrees:
-      more_decrees: 'More decisions'
-      no_decrees: 'No decisions found for the judges.'
+      more_decrees: 'More decrees'
+      no_decrees: 'No decrees found for the judges.'
 
     judges:
       court_leadership: 'Court presidency'
@@ -122,7 +122,7 @@
       and: ' and'
 
     indicators:
-      decrees_count_html: 'The number of Constitutional court decisions against the judges &ndash; issued %{total_released_decrees} and delays prior to case assignment %{total_delayed_decrees}.'
+      decrees_count_html: 'The number of Constitutional court decrees against the judges &ndash; issued %{total_released_decrees} and delays prior to case assignment %{total_delayed_decrees}.'
       performance_data: 'For a judge we have performance data for'
       to_judge: 'To judge'
       show_details: 'Show details'
@@ -132,7 +132,7 @@
       criminal: 'Criminal'
       judge_results: 'The judge in this period worked %{days_worked} days and on average was assigned %{cases_assigned} cases in 10 days in main agendas.'
       quality_indicators: 'Quality indicators'
-      apellate_decisions: 'Number of apellate court decisions'
-      confirmed_decisions: 'Number of confirmed decisions by the apellate court'
+      apellate_decrees: 'Number of apellate court decrees'
+      confirmed_decrees: 'Number of confirmed decrees by the apellate court'
       efficiency_indicators: 'Efficiency indicators'
       data_notes_html: 'Notes to the data</a> obtained from annual statistical reports of judges.'

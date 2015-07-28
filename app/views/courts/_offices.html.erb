@@ -9,5 +9,5 @@
 
 <% if @court.business_registry_center %>
   <%= tag :hr if @court.information_center || @court.registry_center %>
-  <%= render 'office', name: t('.commercial_register'), office: @court.business_registry_center %>
+  <%= render 'office', name: t('.commercial_registery'), office: @court.business_registry_center %>
 <% end %>

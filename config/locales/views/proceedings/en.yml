@@ -12,7 +12,7 @@
     and: 'and'
 
     headline:
-      headline_html: 'From 2009 to July 2013 courts paid<br/>for unnecessary delays and unlawful decisions<br/>more than 4 million euros.'
+      headline_html: 'From 2009 to July 2013 courts paid<br/>for unnecessary delays and unlawful decrees<br/>more than 4 million euros.'
       headline_total_html: 'OpenCourts &mdash; you are searching in %{total_proceedings} proceedings'
 
     show:

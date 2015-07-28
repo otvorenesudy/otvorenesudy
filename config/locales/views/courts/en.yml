@@ -32,10 +32,10 @@
       address: 'Address'
       judges: 'Judges'
       hearings: 'Hearings'
-      decrees: 'Decisions'
+      decrees: 'Decrees'
       judges_count: 'Number of employed judges'
       hearings_count: 'Number of hearings'
-      decrees_count: 'Number of decisions'
+      decrees_count: 'Number of decrees'
 
     show:
       at_court: 'At the court'
@@ -53,7 +53,7 @@
       district: 'district'
       courts: 'courts'
       penalties: 'The fines from the Constitutional Court'
-      for_bad_decisions: 'of the Slovak Republic for either late or unlawful decisions in years'
+      for_bad_decrees: 'of the Slovak Republic for either late or unlawful decrees in years'
       were: 'were'
       penalty_for_your: 'Fines in a year'
       was: 'was'
@@ -65,7 +65,7 @@
       average_length: 'An average length in a year %{year} is %{month} months.'
       contact: 'Contact'
       judges: 'Judges'
-      decrees: 'Decisions'
+      decrees: 'Decrees'
       hearings: 'Hearings'
       media: 'In media'
       data_source: 'Information about the court were obtained from'
@@ -89,7 +89,7 @@
     offices:
       information_center: 'Information center'
       registry: 'Registry'
-      commercial_register: 'Information centre of the Business registry'
+      commercial_registery: 'Information centre of the Business registry'
 
     contact:
       contact: 'Contact'
@@ -99,21 +99,21 @@
       court_leadership: 'Court leadership'
       judges: 'Judges'
       judges_table: 'List of judges currently working at the court.'
-      table_explained: 'List of judges that worked at the court and other officials whose names were found in decisions or hearings.'
+      table_explained: 'List of judges that worked at the court and other officials whose names were found in decrees or hearings.'
 
     judge_list:
       title: 'Title'
       name: 'Name'
       position: 'Position'
       hearings: 'Hearings'
-      decrees: 'Decisions'
+      decrees: 'Decrees'
       hearings_count: 'Number of hearings'
-      decrees_count: 'Number of decisions'
+      decrees_count: 'Number of decrees'
 
     decrees:
-      title: 'Published decisions'
+      title: 'Published decrees'
       more: 'More decrees'
-      no_decrees: 'We do not register any decisions for the court.'
+      no_decrees: 'We do not register any decrees for the court.'
 
     hearings:
       headline: 'Announced hearings'

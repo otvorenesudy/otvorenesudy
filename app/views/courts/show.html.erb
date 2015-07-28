@@ -39,7 +39,7 @@
           <% else %>
             <%= t '.penalties' %>
           <% end %>
-          <%= t '.for_bad_decisions' %>
+          <%= t '.for_bad_decrees' %>
           <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
           <%= t '.were' %> <%= number_to_currency(@court.expenses_total, precision: 0) %>.
         </p>

@@ -53,7 +53,7 @@ sk:
       district: 'okresných'
       courts: 'súdov'
       penalties: 'Pokuty od Ústavného súdu'
-      for_bad_decisions: 'Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch'
+      for_bad_decrees: 'Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch'
       were: 'boli'
       penalty_for_your: 'Pokuta za rok'
       was: 'bola'
@@ -89,7 +89,7 @@ sk:
     offices:
       information_center: 'Informačné centrum'
       registry: 'Podateľňa'
-      commercial_register: 'Informačné stredisko obchodného registra'
+      commercial_registery: 'Informačné stredisko obchodného registra'
 
     contact:
       contact: 'Kontakt'

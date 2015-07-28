@@ -38,7 +38,7 @@ en:
 
   subscriptions:
     decrees:
-      title: 'Notifications for new decisions'
+      title: 'Notifications for new decrees'
 
     hearings:
       title: 'Notifications for new hearings'
