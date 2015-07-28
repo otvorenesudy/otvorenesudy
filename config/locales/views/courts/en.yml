@@ -12,7 +12,7 @@
     map: 'Map'
     phone: 'Phone number:'
     show_on_map: 'Show on map'
-    state: 'Slovak Republic'
+    country: 'Slovak Republic'
     to_media: 'Contacts for media'
     with_other_courts: 'with other courts in Slovak Republic'
 

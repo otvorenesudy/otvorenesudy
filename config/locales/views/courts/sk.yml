@@ -12,7 +12,7 @@ sk:
     map: 'Mapa'
     phone: 'Tel. číslo:'
     show_on_map: 'Zobraziť na mape'
-    state: 'Slovenská republika'
+    country: 'Slovenská republika'
     to_media: 'Pre médiá'
     with_other_courts: 'aj s ostatnými súdmi Slovenskej Republiky.'
 
