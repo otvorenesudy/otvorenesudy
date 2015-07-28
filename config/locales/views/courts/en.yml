@@ -85,11 +85,6 @@
       phone_number: 'Phone'
       note: 'Note'
       opening_hours: 'Opening hours'
-      monday: 'Monday'
-      tuesday: 'Tuesday'
-      wednesday: 'Wednesday'
-      thursday: 'Thursday'
-      friday: 'Friday'
 
     offices:
       information_center: 'Information center'

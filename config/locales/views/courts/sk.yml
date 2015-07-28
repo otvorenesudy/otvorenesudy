@@ -85,11 +85,6 @@ sk:
       phone_number: 'Tel. číslo'
       note: 'Poznámka'
       opening_hours: 'Otváracie hodiny'
-      monday: 'Pondelok'
-      tuesday: 'Utorok'
-      wednesday: 'Streda'
-      thursday: 'Štvrtok'
-      friday: 'Piatok'
 
     offices:
       information_center: 'Informačné centrum'
