@@ -1,4 +1,4 @@
-<% provide :title, "Nastavenia" %>
+<% provide :title, t('.settings') %>
 
 <section id="user-settings" class="user">
   <div class="row">
@@ -10,21 +10,21 @@
           <%= f.email_field :email, autofocus: true, class: :span8 %>
         </p>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p>Zatiaľ neoverený e-mail: <%= resource.unconfirmed_email %></p>
+          <p><%= t('.email_not_yet_opened')%>: <%= resource.unconfirmed_email %></p>
         <% end %>
         <p>
           <%= f.label :password %>
-          <%= f.password_field :password, placeholder: 'Prázdne, ak nechcete zmeniť.', class: :span8 %>
+          <%= f.password_field :password, placeholder: t('.password_placeholder'), class: :span8 %>
         </p>
         <p>
           <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, placeholder: 'Prázdne, ak nechcete zmeniť.', class: :span8 %>
+          <%= f.password_field :password_confirmation, placeholder: t('.password_placeholder'), class: :span8 %>
         </p>
         <p>
-          <%= f.label :current_password %>  
-          <%= f.password_field :current_password, placeholder: 'Vyplňte, pre potvrdenie zmien.', class: :span8 %>
+          <%= f.label :current_password %>
+          <%= f.password_field :current_password, placeholder: t('.confirm_placeholder'), class: :span8 %>
         </p>
-        <button type="submit" class="btn btn-primary btn-large">Uložiť</button>
+        <button type="submit" class="btn btn-primary btn-large"><%= t '.submit' %></button>
       <% end %>
     </div>
   </div>
@@ -33,8 +33,8 @@
 <section id="user-unregistration" class="user">
   <div class="row">
     <div class="offset2 span8">
-      <legend>Zrušenie účtu</legend>
-      <%= button_to "Zrušiť účet", registration_path(resource_name), data: { confirm: "Ste si istý?" }, method: :delete, class: :'btn btn-danger btn-large' %>
+      <legend><%= t '.delete_account' %></legend>
+      <%= button_to t('.confirm_delete'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete, class: :'btn btn-danger btn-large' %>
     </div>
   </div>
 </section>

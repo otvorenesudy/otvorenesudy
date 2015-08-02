@@ -35,7 +35,7 @@
       <% if @model.respond_to? :subscribe %>
         <span class="search-separator">&middot;</span>
       <% end %>
-      <%= icon_link_to :remove, "Zrušiť všetky obmedzenia", search_path, join: :append, class: :'search-reset' %>
+      <%= icon_link_to :remove, t('.remove_all_facets'), search_path, join: :append, class: :'search-reset' %>
     <% end %>
   </div>
 

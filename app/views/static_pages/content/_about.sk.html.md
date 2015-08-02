@@ -38,8 +38,6 @@ Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 <%= external_link_to "Transparency International", 'http://transparency.org' %>
 v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
 organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk' %>.
-Aktualizácie portálu boli sponzorované Fondom pre Transparentné Slovensko
-v <%= external_link_to "Nadácii Pontis", 'http://nadaciapontis.sk' %>.
 
 Za hosting projektu ďakujeme spoločnosti
 <%= external_link_to "Petit Press", 'http://petitpress.sk' %>,

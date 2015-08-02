@@ -1,6 +1,6 @@
 <div class="header">
   <h1>
-    <%= link_to "Otvorené Súdy", root_url %>
+    <%= link_to t('open_courts'), root_url %>
     <small>
       <%= translate_with_count Court.total,      :court %>,
       <%= translate_with_count Judge.total,      :judge %>,

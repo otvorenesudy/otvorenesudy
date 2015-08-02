@@ -8,14 +8,14 @@
       </h1>
 
       <p class="centered">
-        A preto sa veľmi rozzúril jednorožec!
+        <%= t 'angry_unicorn' %>
         <br/>
         <span class="muted"><%= @description %></span>
       </p>
     </div>
 
     <div class="span6">
-      <img class="unicorn" src="<%= asset_path('unicorn.png') %>" alt="Jednorožec" />
+      <img class="unicorn" src="<%= asset_path('unicorn.png') %>" alt="<%= t 'unicorn' %>" />
     </div>
   </div>
 </section>

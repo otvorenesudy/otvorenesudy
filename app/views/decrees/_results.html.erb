@@ -10,31 +10,31 @@
       <% end %>
       <br/>
       <small>
-        Rozhodnutie bolo vynesené dňa &ndash;
-        <%= decree.date ? decree_date(decree.date) : "neznámy dátum" %>
+        <%= t '.made_on' %> &ndash;
+        <%= decree.date ? decree_date(decree.date) : t('.unknown_date') %>
       </small>
     </h4>
 
     <% if decree.unprocessed? %>
       <div class="alert alert-error">
         <%= icon_tag :'warning-sign' %>
-        Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba.
+        <%= t '.incomplete' %>
       </div>
     <% elsif decree.has_future_date? %>
       <div class="alert alert-warning">
         <%= icon_tag :'warning-sign' %>
-        Rozhodnutie má budúci dátum vynesenia, ide o chybu v pôvodných dátach.
+        <%= t '.error_in_data' %>
       </div>
     <% end %>
 
     <div class="search-result-content">
       <div class="search-result-identifiers pull-right">
-        <%= tooltip_tag decree.case_number || '?', "Spisová značka", placement: :right %><br/>
-        <%= tooltip_tag decree.file_number || '?', "Identifikačné číslo súdneho spisu", placement: :right %>
+        <%= tooltip_tag decree.case_number || '?', t('file_reference'), placement: :right %><br/>
+        <%= tooltip_tag decree.file_number || '?', t('.file_number'), placement: :right %>
       </div>
 
       <% if decree.court %>
-        Súd &ndash; <%= link_to_court decree.court %>
+        <%= t '.court' %> &ndash; <%= link_to_court decree.court %>
         <br/>
       <% end %>
       <% if decree.judges.any? %>

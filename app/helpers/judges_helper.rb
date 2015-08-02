@@ -8,10 +8,39 @@ module JudgesHelper
   end
 
   def judge_activity(status)
-    return 'Aktívny'   if status == true
-    return 'Neaktívny' if status == false
-    return 'Neznámy'   if status == nil
+    return I18n.t('judges.active')   if status == true
+    return I18n.t('judges.inactive') if status == false
+    return I18n.t('judges.unknown')   if status == nil
     raise
+  end
+
+  def judge_activity_gender(active, is_woman)
+    if active
+      if I18n.locale == :sk
+        I18n.t('judges.active_gender') + (is_woman ? 'a' : 'y')
+      else
+        I18n.t('judges.active')
+      end
+    else
+      if I18n.locale == :sk
+        I18n.t('judges.inactive_gender') + (is_woman ? 'a' : 'y')
+      else
+        I18n.t('judges.inactive')
+      end
+    end
+  end
+
+  def judge_employment_active(active, is_woman)
+    # if I18n.locale == :sk
+    #   (active == nil ? 'P' : 'p') + (is_woman ? 'pracovníčka' : 'pracovník')
+
+    # @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value
+
+    # if @judge.probably_superior_court_officer?
+    #   employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník"
+    # else
+    #   employment.active == nil ? 'N' : 'n' %>eznám<%= @judge.probably_woman ? 'a pracovníčka' : 'y pracovník'
+    # end
   end
 
   def judge_activity_icon_tag(status)
@@ -39,14 +68,14 @@ module JudgesHelper
     if employment.judge_position
       value = truncate employment.judge_position.value, length: 30, separator: ' ', omission: '&hellip;'
 
-      tooltip_tag value.html_safe, employment.active ? 'Aktívny' : 'Neaktívny', options.merge(classes)
+      tooltip_tag value.html_safe, employment.active ? I18n.t('judges.active') : I18n.t('judges.inactive'), options.merge(classes)
     else
       if employment.judge.probably_superior_court_officer?
         content_tag :span, classes do
-          ('pravdepodobne ' + tooltip_tag('VSÚ', 'Vyšší súdny úradník', options)).html_safe
+          (I18n.t('judges.most_likely') + tooltip_tag(I18n.t('judges.vsu_acro'), I18n.t('judges.vsu'), options)).html_safe
         end
       else
-        content_tag :span, 'neznáma', classes
+        content_tag :span, I18n.t('judges.unknown_2'), classes
       end
     end
   end

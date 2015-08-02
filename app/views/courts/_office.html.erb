@@ -8,7 +8,7 @@
       <div class="row">
         <div class="span2">
           <span class="gutter centered"><%= icon_tag :phone %></span>
-          Tel. číslo:
+          <%= t '.phone_number' %>:
         </div>
         <div class="span6">
           <%= court_phone office %>
@@ -32,7 +32,7 @@
       <div class="row">
         <div class="span2">
           <span class="gutter centered"><%= icon_tag :pushpin %></span>
-          Poznámka:
+          <%= t '.note' %>:
         </div>
         <div class="span6">
           <%= office.note %>
@@ -45,28 +45,28 @@
     <table class="table table-condensed table-bordered table-striped">
       <thead>
         <th colspan="2">
-          Otváracie hodiny <%= icon_tag :time %>
+          <%= t '.opening_hours' %> <%= icon_tag :time %>
         </th>
       </thead>
       <tbody>
         <tr>
-          <td class="span1">Pondelok:</td>
+          <td class="span1"><%= t(:'date.day_names')[1] %>:</td>
           <td class="span2"><%= office.hours_monday %></td>
         </tr>
         <tr>
-          <td class="span1">Utorok:</td>
+          <td class="span1"><%= t(:'date.day_names')[2] %>:</td>
           <td class="span2"><%= office.hours_tuesday %></td>
         </tr>
         <tr>
-          <td class="span1">Streda:</td>
+          <td class="span1"><%= t(:'date.day_names')[3] %>:</td>
           <td class="span2"><%= office.hours_wednesday %></td>
         </tr>
         <tr>
-          <td class="span1">Štvrtok:</td>
+          <td class="span1"><%= t(:'date.day_names')[4] %>:</td>
           <td class="span2"><%= office.hours_thursday %></td>
         </tr>
         <tr>  
-          <td class="span1">Piatok:</td>
+          <td class="span1"><%= t(:'date.day_names')[5] %>:</td>
           <td class="span2"><%= office.hours_friday %></td>
         </tr>
       </tbody>

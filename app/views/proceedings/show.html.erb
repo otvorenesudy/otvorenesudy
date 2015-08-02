@@ -10,21 +10,21 @@
         <br/>
       <% end %>
       <small>
-        Verejné súdne konanie
+        <%= t 'proceedings.public_hearing' %>
         <% if @proceeding.single_hearing? %>
-          <%= @proceeding.duration_events.first.historical ? "začalo" : "začne" %>
-          dňa &ndash; <%= proceeding_date @proceeding.duration_events.first.date %>
+          <%= @proceeding.duration_events.first.historical ? t('proceedings.started') : t('proceedings.will_start') %>
+          <%= t 'proceedings.in_day' %> &ndash; <%= proceeding_date @proceeding.duration_events.first.date %>
         <% elsif @proceeding.single_decree?  %>
-          bolo ukončené dňa &ndash; <%= proceeding_date @proceeding.duration_events.first.date %>
+          <%= t 'proceedings.closed_at' %> &ndash; <%= proceeding_date @proceeding.duration_events.first.date %>
         <% else %>
           <% unless @proceeding.probably_closed? %>
-            trvá odo dňa &ndash; <%= proceeding_date @proceeding.duration_events.first.date %>
+            <%= t 'proceedings.takes_from' %> &ndash; <%= proceeding_date @proceeding.duration_events.first.date %>
           <% else %>
             <% if @proceeding.duration_events.first.date.to_date == @proceeding.duration_events.last.date.to_date %>
-              prebehlo dňa &ndash; <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
+              <%= t 'proceedings.happende_at' %> &ndash; <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
             <% else %>
-              trvalo odo dňa &ndash; <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
-              do dňa &ndash; <%= proceeding_date @proceeding.duration_events.last.date, format: :normal %>
+              <%= t 'proceedings.took_from' %> &ndash; <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
+              <%= t 'proceedings.until_day' %> &ndash; <%= proceeding_date @proceeding.duration_events.last.date, format: :normal %>
             <% end %>
           <% end %>
         <% end %>
@@ -35,8 +35,8 @@
   <div class="row">
     <div class="span8">
       <p>
-        Pre súdne konanie <%= 'zatiaľ ' unless @proceeding.probably_closed? %>evidujeme
-        <%= translate_with_count(@hearings.size, :hearing) %> a
+        <%= t '.for_proceeding' %> <%= t('.so_far') unless @proceeding.probably_closed? %><%= t '.register' %>
+        <%= translate_with_count(@hearings.size, :hearing) %> <%= t 'proceedings.and' %>
         <%= translate_with_count(@decrees.size, :decree) %>.
       </p>
       <% if @courts.any? %>
@@ -59,18 +59,18 @@
       <div class="well well-small">
         <% @proceeding.case_numbers.each do |number| %>
           <p>
-            <%= tooltip_tag "SZ", "Spisová značka", placement: :left %>:
-            <span class="pull-right"><%= number ? link_to_proceedings_search(number, params: { case_number: number }) : "neuvedená" %></span>
+            <%= tooltip_tag t('fr'), t('file_reference'), placement: :left %>:
+            <span class="pull-right"><%= number ? link_to_proceedings_search(number, params: { case_number: number }) : t('.not_present') %></span>
           </p>
         <% end %>
         <p>
-          <%= tooltip_tag "IČS", "Identifikačné číslo súdnych spisov", placement: :left %>:
-          <span class="pull-right"><%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, params: { file_number: @proceeding.file_number }) : "neuvedené" %></span>
+          <%= tooltip_tag t('cfi'), t('court_file_id'), placement: :left %>:
+          <span class="pull-right"><%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, params: { file_number: @proceeding.file_number }) : t('.not_present_2') %></span>
         </p>
         <% @proceeding.eclis.each do |ecli| %>
           <p>
             <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
-            <span class="pull-right"><%= ecli ? link_to_proceedings_search(ecli, params: { q: ecli }) : "neuvedený" %></span>
+            <span class="pull-right"><%= ecli ? link_to_proceedings_search(ecli, params: { q: ecli }) : t('.not_present_3') %></span>
           </p>
         <% end %>
       </div>
@@ -83,19 +83,19 @@
 <section id="proceeding-timeline" class="timeline">
   <div class="row">
     <div class="span12">
-      <p class="centered muted"><em>Súčasnosť</em></p>
+      <p class="centered muted"><em><%= t '.present' %></em></p>
       <ol class="unstyled">
         <% ([@events.last] + @events.reverse).each_cons(2) do |previous, event| %>
           <%= render event.class.name.downcase, event.class.name.downcase.to_sym => event, previous: previous %>
         <% end %>
         <li class="timeline-unknown">
           <h4>
-            Podanie na súd<br/>
-            <small>Neznámy dátum</small>
+            <%= t '.pleading' %><br/>
+            <small><%= t 'unknown_date' %></small>
           </h4>
         </li>
       </ol>
-      <p class="centered muted"><em>Minulosť</em></p>
+      <p class="centered muted"><em><%= t '.past' %></em></p>
     </div>
   </div>
 </section>
@@ -104,8 +104,8 @@
   <div class="row">
     <div class="span12">
       <small class="muted">
-        Informácie o udalostiach súdneho konania boli získané z dokumentov zverejnených na portáli
-        <%= external_link_to 'Ministerstva spravodlivosti Slovenskej republiky', JusticeGovSk::URL.base, class: :muted, icon: true %>
+        <%= t '.info_source' %>
+        <%= external_link_to t('.ministry_of_justice'), JusticeGovSk::URL.base, class: :muted, icon: true %>
       </small>
     </div>
   </div>

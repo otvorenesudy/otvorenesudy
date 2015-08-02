@@ -1,7 +1,7 @@
 <% if hearings.any? %>
   <%= render 'hearings/results', results: hearings, offset: 0 %>
   <hr/>
-  <%= link_to_hearings_search "Viac pojednávaní", params: query  %>
+  <%= link_to_hearings_search t('.more_hearings'), params: query  %>
 <% else %>
-  Pre sudcu neevidujeme žiadne súdne pojednávania.
+  <%= t '.no_hearings' %>
 <% end %>

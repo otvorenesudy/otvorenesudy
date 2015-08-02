@@ -2,7 +2,7 @@
 
 module ProceedingsHelper
   def proceeding_title(proceeding)
-    title(*proceeding_identifiers(proceeding) << 'Súdne konanie')
+    title(*proceeding_identifiers(proceeding))
   end
 
   def proceeding_headline(proceeding, options = {})

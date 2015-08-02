@@ -1,36 +1,36 @@
 <div class="row">
   <div class="span8">
     <% if @court.phone || @court.fax %>
-      <h2>Kontakt <%= icon_tag :'phone-sign' %></h2>
+      <h2><%= t '.contact' %> <%= icon_tag :'phone-sign' %></h2>
   
       <% if @court.phone %>
         <div class="row">
-          <div class="span2">Tel. číslo:</div>
+          <div class="span2"> <%= t('contact.phone') %> </div>
           <div class="span6"><%= @court.phone %></div>
         </div>
       <% end %>
 
       <% if @court.fax %>
         <div class="row">
-          <div class="span2">Fax:</div>
+          <div class="span2"> <%= t('contact.fax') %> </div>
           <div class="span6"><%= @court.fax %></div>
         </div>
       <% end %>
     <% end %>
 
     <% if @court.media_person || @court.media_phone %>
-      <h4>Pre médiá</h4>
+      <h4> <%= t('contact.to_media') %> </h4>
   
       <% if @court.media_person %>
         <div class="row">
-          <div class="span2">Kontaktná osoba:</div>
+          <div class="span2"> <%= t('contact.media_person') %> </div>
           <div class="span6"><%= @court.media_person %></div>
         </div>
       <% end %>
 
       <% if @court.media_phone %>
         <div class="row">
-          <div class="span2">Tel. číslo:</div>
+          <div class="span2"> <%= t('contact.phone') %> </div>
           <div class="span6"><%= @court.media_phone %></div>
         </div>
       <% end %>
@@ -38,13 +38,13 @@
   </div>
 
   <div class="span4">
-    <h2>Adresa <%= icon_tag :envelope %></h2>
+    <h2><%= t '.address' %> <%= icon_tag :envelope %></h2>
 
     <address class="well">
       <strong><%= @court.name %></strong><br/>
       <%= @court.street %><br/>
       <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br/>
-      Slovenská republika
+      <%= t('contact.country') %>
     </address>
   </div>
 </div>
@@ -58,13 +58,13 @@
 
 <div class="row">
   <div class="span12">
-    <h2>Mapa <%= icon_tag :'map-marker' %></h2>
+    <h2> <%= t('contact.map') %> <%= icon_tag :'map-marker' %></h2>
 
     <%= court_map @court, info: true, zoom: 16 %>
 
     <p>
-      <%= link_to "Zobraziť na mape", map_courts_path %>
-      aj s ostatnými súdmi Slovenskej Republiky.
+      <%= link_to t('contact.show_on_map'), map_courts_path %>
+      <%= t('contact.with_other_courts') %>
     </p>
   </div>
 </div>

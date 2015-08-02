@@ -1,11 +1,11 @@
 <p>
   <span class="gutter centered"><%= icon_tag :legal %></span>
-  Počet rozhodnutí Ústavného súdu voči sudcovi – vydané <%= indicators['S1'] %> a prieťahy pred pridelením veci <%= indicators['S2'] %>.
+  <%= t '.decrees_count_html', total_released_decrees: indicators['S1'], total_delayed_decrees: indicators['S2'] %>
 </p>
 
 <p>
   <span class="gutter centered"><%= icon_tag :tasks %></span>
-  Pre sudcu máme výkonnostné dáta za <%= indicators['S3'] %>:
+  <b><%= t '.performance_date' %> <%= indicators['S3'] %>:</b>
 </p>
 
 <div>
@@ -32,12 +32,12 @@
 
 <p>
   <span class="gutter centered"><%= icon_tag :time %></span>
-  Sudca v sledovanom období odpracoval <%= indicators['S6'] %> dní a v priemere mu za 100 dní bolo pridelených <%= indicators['S7'] %> prípadov v hlavných agendách.
+  <%= t '.judge_results', days_worked: indicators['S6'], cases_assigned: indicators['S7'] %>
 </p>
 
 <br />
 
-<h4>Indikátory kvality</h4>
+<h4><%= t '.qaulity_indicators' %></h4>
 <hr />
 
 <p>
@@ -47,14 +47,14 @@
 
 <% if indicators['S9'] %>
   <p>
-    <a href="#" data-target="#additional-quality-indicators" data-toggle="collapse">Zobraziť podrobnejšie</a>
+    <a href="#" data-target="#additional-quality-indicators" data-toggle="collapse"><%= t '.show_details' %></a>
   </p>
 
   <div id="additional-quality-indicators" class="collapse out hide-after-show">
     <div>
       <ul class="unstyled">
-        <li>Počet rozhodnutí o odvolaniach &ndash; <%= indicators['S8a'] %>
-        <li>Počet potvrdených odvolaní &ndash; <%= indicators['S8b'] %>
+        <li><%= t '.apellate_decrees' %> &ndash; <%= indicators['S8a'] %>
+        <li><%= t '.confirmed_decrees' %> &ndash; <%= indicators['S8b'] %>
       </ul>
     </div>
 
@@ -76,7 +76,7 @@
 
 <br />
 
-<h4>Indikátory efektivity</h4>
+<h4><%= t '.efficiency_identifiers' %></h4>
 <hr />
 
 <p>
@@ -87,7 +87,7 @@
 
 <% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
   <p>
-    <a href="#" data-target="#additional-indicators-of-quality" data-toggle="collapse">Zobraziť podrobnejšie</a>
+    <a href="#" data-target="#additional-indicators-of-quality" data-toggle="collapse"><%= t '.show_details' %></a>
   </p>
 
   <div id="additional-indicators-of-quality" class="collapse out hide-after-show">
@@ -120,7 +120,7 @@
 
   <p>
     <span class="gutter centered"><%= icon_tag :pushpin %></span>
-    <a href="#" data-target="#indicators-notes" data-toggle="collapse">Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.
+    <a href="#" data-target="#indicators-notes" data-toggle="collapse"><%= t '.data_notes_html' %>
   </p>
 
   <div id="indicators-notes" class="collapse out">

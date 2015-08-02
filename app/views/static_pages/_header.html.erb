@@ -8,15 +8,14 @@
   <div class="search">
     <div class="container">
       <h1>
-        Viac transparentnosti do<br/>
-        slovenského súdnictva
+        <%= t('.headline') %>
       </h1>
 
       <div class="row">
         <div class="offset2 span8">
           <%= form_tag search_decrees_path, method: :get, class: :'form-search' do %>
             <div class="input-append">
-              <%= search_field_tag :search, params[:q], name: :q, placeholder: 'Vyhľadávať v súdnych rozhodnutiach&hellip;'.html_safe, class: :'search-query' %>
+              <%= search_field_tag :search, params[:q], name: :q, placeholder: t('.search').html_safe, class: :'search-query' %>
               <%= button_tag icon_tag(:search), name: nil, class: :'search-submit btn btn-info' %>
             </div>
           <% end %>
@@ -30,36 +29,32 @@
       <div class="item active">
         <div class="carousel-content">
           <h1>
-            Súdom na Slovensku<br/>
-            nedôveruje až 67% ľudí
-            <small>&mdash; Inštitút pre verejné otázky, jún 2012</small>
+            <%= t('.fact1') %>
+            <small>&mdash; <%= t('.source1') %> </small>
           </h1>
         </div>
       </div>
       <div class="item">
         <div class="carousel-content">
           <h1>
-            Trestné konanie na okresných súdoch<br/>
-            trvá priemerne štyri a pol mesiaca
-            <small>&mdash; Štatistická ročenka MSSR 2012</small>
+            <%= t('.fact2') %>
+            <small>&mdash; <%= t('.source2') %> </small>
           </h1>
         </div>
       </div>
       <div class="item">
         <div class="carousel-content">
           <h1>
-            Už šesť miliónov eur zaplatili okresné a krajské<br/>
-            súdy sťažovateľom za súdne prieťahy od roku 2006
-            <small>&mdash; nálezy Ústavného súdu</small>
+            <%= t('.fact3') %>
+            <small>&mdash; <%= t('.source3') %> </small>
           </h1>
         </div>
       </div>
       <div class="item">
         <div class="carousel-content">
           <h1>
-            Vyhľadávanie v <%= number_to_human(Decree.total, precision: 0, significant: false).downcase %> rozhodnutiach<br/>
-            a <%= number_to_human(Hearing.total, precision: 0, significant: false).downcase %> pojednávaniach
-            <small>&mdash; Otvorené Súdy</small>
+            <%= t('.fact4', decree: number_to_human(Decree.total, precision: 0, significant: false).downcase, hearing: number_to_human(Hearing.total, precision: 0, significant: false).downcase) %>
+            <small>&mdash; <%= t('.source4') %> </small>
           </h1>
         </div>
       </div>

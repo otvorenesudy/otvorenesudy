@@ -1,11 +1,11 @@
-<% provide :title, "Mapa súdov Slovenskej Republiky" %>
+<% provide :title, t('.title') %>
 
 <section id="courts-map">
   <div class="page-header">
     <h1>
       <%= yield :title %>
       <br/>
-      <small>Na Slovensku sídli <%= @courts.size %> súdov na <%= @groups.size %> rôznych miestach.</small>
+      <small><%= t '.in_slovakia' %> <%= @courts.size %> <%= t '.courts_in' %> <%= @groups.size %> <%= t '.places' %>.</small>
     </h1>
   </div>
   
@@ -13,7 +13,7 @@
     <div class="span12">
       <p>
         <%= icon_tag :'map-marker' %>
-        Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde.
+        <%= t '.hint' %>
       </p>
 
       <%= courts_map @groups %>

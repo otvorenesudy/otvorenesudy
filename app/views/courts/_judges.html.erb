@@ -1,4 +1,4 @@
-<h2>Vedenie súdu</h2>
+<h2><%= t('.court_leadership')%></h2>
 
 <div class="row">
   <div class="span12">
@@ -20,13 +20,13 @@
 
 <hr/>
 
-<h2>Sudcovia</h2>
+<h2><%= t('.judges')%></h2>
 
 <div class="row">
   <div class="span12">
     <% if @judges.active.listed.any? %>
       <p>
-        Tabuľka sudcov, ktorí aktívne pôsobia na súde.
+        <%= t('.judges_table')%>
       </p>
 
       <%= render 'judge_list', court: @court, judges: @judges.active.listed %>
@@ -36,8 +36,7 @@
       <br/>
 
       <p>
-        Tabuľka sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí
-        boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach.
+      <%= t '.table_explained' %>
       </p>
 
       <%= render 'judge_list', court: @court, judges: @judges.not_active_or_not_listed %>

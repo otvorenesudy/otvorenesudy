@@ -1,1 +1,87 @@
-en:
+﻿en:
+  open_courts: 'OpenCourts'
+  and: 'and'
+  court: 'Court'
+  judge: 'Judge'
+  hearing: 'Hearing'
+  unknown_date: 'Date unknown'
+  on_day: 'on'
+  fr: 'SZ'
+  file_reference: 'Case number'
+  cfi: 'IČS'
+  court_file_id: 'Unique identification number'
+  unicorn: 'Unicorn'
+  angry_unicorn: "And that's why unicorn got pissed!"
+
+  static_pages:
+    about: 'About'
+    faq: 'FAQ'
+    code: 'Source code'
+    contact: 'Contact'
+
+    terms_of_use: 'Terms of use'
+    privacy: 'Privacy'
+    copyright: 'Copyright'
+
+    feedback: 'Did you find a mistake?'
+    security: 'Security'
+
+    how_it_works: 'How does it work?'
+    data_history: 'Data history'
+    api: 'API'
+
+  search:
+    header:
+      courts: 'Courts'
+      judges: 'Judges'
+      hearings: 'Hearings'
+      decrees: 'Decrees'
+      proceedings: 'Proceedings'
+
+    message:
+      from_total: 'from total'
+      not_found: 'Not found'
+
+    controls:
+      remove_all_facets: 'Remove all facets'
+
+    results:
+      no_results_html: '<strong>No results found</strong> for selected options.'
+
+    sort:
+      common: &sort
+        score: 'Relevance'
+        created_at: 'Document created on'
+        updated_at: 'Document updated on'
+
+        judges_count: 'Total number of judges'
+        hearings_count: 'Total number of hearings'
+        decrees_count: 'Total number of decrees'
+
+      court:
+        <<: *sort
+
+      judge:
+        <<: *sort
+
+      hearing:
+        <<: *sort
+
+        date: 'Hearing date'
+
+      decree:
+        <<: *sort
+
+        date: 'Decison date'
+        pages_count: 'Number of pages'
+
+      proceeding:
+        <<: *sort
+
+      selection_procedure:
+        <<: *sort
+
+        date: 'Procedure held on'
+        closed_at: 'Application closed on'
+
+

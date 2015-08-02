@@ -1,1 +1,113 @@
 en:
+  court: &court
+    zero: 'courts'
+    one: 'court'
+    few: 'courts'
+    other: 'courts'
+
+  judge: &judge
+    zero: 'judges'
+    one: 'judge'
+    few: 'judges'
+    other: 'judges'
+
+  hearing: &hearing
+    zero: 'hearings'
+    one: 'hearing'
+    few: 'hearings'
+    other: 'hearings'
+
+  decree: &decree
+    zero: 'decrees'
+    one: 'decree'
+    few: 'decrees'
+    other: 'decrees'
+
+  proceeding: &proceeding
+    zero: 'proceedings'
+    one: 'proceeding'
+    few: 'proceedings'
+    other: 'proceedings'
+
+  proposer: &proposer
+    zero: 'proposers'
+    one: 'proposer'
+    few: 'proposers'
+    other: 'proposers'
+
+  opponent: &opponent
+    zero: 'opponents'
+    one: 'opponent'
+    few: 'opponents'
+    other: 'opponents'
+
+  defendant: &defendant
+    zero: 'defendants'
+    one: 'defendant'
+    few: 'defendants'
+    other: 'defendants'
+
+  candidate:
+    zero: 'candidates'
+    one: 'candidate'
+    few: 'candidates'
+    other: 'candidates'
+
+  commissioner:
+    zero: 'commissioners'
+    one: 'commissioner'
+    few: 'commissioners'
+    other: 'commissioners'
+
+  document: &document
+    zero: 'documents'
+    one: 'document'
+    few: 'documents'
+    other: 'documents'
+
+  page: &page
+    zero: 'pages'
+    one: 'page'
+    few: 'pages'
+    other: 'pages'
+
+  result: &result
+    zero: 'results'
+    one: 'result'
+    few: 'results'
+    other: 'results'
+
+  event: &event
+    zero: 'events'
+    one: 'event'
+    few: 'events'
+    other: 'events'
+
+  period:
+    daily: 'Daily'
+    weekly: 'Weekly'
+    monthly: 'Monthly'
+
+  activerecord:
+    attributes:
+      user:
+        email: 'E-mail'
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+        current_password: 'Current password'
+
+    models:
+      court:
+        <<: *court
+
+      judge:
+        <<: *judge
+
+      hearing:
+        <<: *hearing
+
+      decree:
+        <<: *decree
+
+      proceeding:
+        <<: *proceeding

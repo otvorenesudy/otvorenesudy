@@ -1,0 +1,52 @@
+en:
+  subscription_successful: 'You have successfully subscribed to notifications.'
+  subscription_error: 'Subscription to notifications has failed.'
+  subscription_updated: 'Notification subscription has been succesfully updated.'
+  subscription_update_error: 'Notification subscription has not been updated.'
+  subscription_cancelled: 'Notification subscription has been succesfully cancelled.'
+
+  search:
+    subscribe:
+      subscribe: 'Subscribe'
+      search_subscribed: 'You are already subscribed for the current settings.'
+      subscribe_search: 'Subscribe to receive new search results'
+      subscribe_explain: 'The system will send you notifications via e-mail about new search results according to the current search settings.'
+      login_required: 'For subscribing for notifications, log in is required.'
+      close: 'Close'
+      update: 'Update'
+      cancel: 'Cancel'
+      cancel_confirm: 'Do you really want to cancel your subscription for notifications?'
+      subscribe_btn: 'Subscribe'
+      sign_up: 'Sign Up'
+      login: 'Log In'
+
+  subscription_mailer:
+    results:
+      new: 'New court'
+      search_settings: 'Search settings'
+      no_filters: 'No filters specified.'
+      new: 'New'
+      more: 'Show more'
+      cancel_subscription: 'Cancel subscription'
+
+    footer:
+      best_regards: 'Best regards'
+      team: 'team'
+      supporters: 'The project Open Courts was financially supported by Transparency International Berlin and the project Reštart of the Centre for Philantrophy.'
+      support_us: 'The effort to create a portal collecting as much information as possible about courts and judges is financially difficult. If you like the project, please contribute to its development and publication of additional data.'
+      support_project: 'Support Open Courts'
+
+  subscriptions:
+    decrees:
+      title: 'Notifications for new decrees'
+
+    hearings:
+      title: 'Notifications for new hearings'
+
+    list:
+      search: 'Search'
+      registered_at: 'Subscribed on'
+      no_filters: 'No filters specified.'
+      update: 'Update'
+      cancel: 'Cancel'
+      confirm: 'Do you really want to cancel your subscription for notifications?'

@@ -1,10 +1,9 @@
-V priemere 45% súdnych rozhodnutí<br/>
-je potvrdených vyšším súdom
+<%= t '.headline_html' %>
 
 <small class="source">
-  Štatistická ročenka MSSR 2011 a 2012
+  <%= t '.sub_headline' %>
 </small>
 
 <small class="total">
-  Otvorené Súdy &mdash; vyhľadávate v <%= number_with_delimiter Decree.total %> rozhodnutiach
+   <%= t '.total_decrees_html', total_decrees: number_with_delimiter(Decree.total) %>
 </small>

@@ -1,3 +1,2 @@
-<strong><%= icon_tag :'warning-sign', label: 'Pozor!' %></strong>
-Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v
-<%= external_link_to 'pôvodných dátach', hearing.uri, icon: true %> (odkaz už nemusí byť platný).
+<strong><%= icon_tag :'warning-sign', label: t('.attention') %></strong>
+<%= t '.description_1' %> <%= external_link_to t('.original_data'), hearing.uri, icon: true %> (<%= t '.description_2' %>).

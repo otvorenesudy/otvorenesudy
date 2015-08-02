@@ -1,4 +1,4 @@
-<% provide :title, "Registrácia" %>
+<% provide :title, t('.title') %>
 
 <%= render "devise/shared/links" %>
 
@@ -19,7 +19,7 @@
           <%= f.label :password_confirmation %>
           <%= f.password_field :password_confirmation, class: :span8 %>
         </p>
-        <button type="submit" class="btn btn-primary btn-large">Registrovať</button>
+        <button type="submit" class="btn btn-primary btn-large"><%= t '.submit' %></button>
       <% end %>
     </div>
   </div>

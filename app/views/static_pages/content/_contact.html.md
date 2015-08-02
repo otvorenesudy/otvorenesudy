@@ -1,9 +1,9 @@
-# Kontakt
+# <%= t '.title' %>
 
 #### <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
 
-Bajkalská 25  
-827 18 Bratislava  
+<%= t '.address_part_1' %>   
+<%= t '.address_part_2' %>
 
 tel., fax: +421 253 417 207  
 
