@@ -26,7 +26,11 @@
           <ul class="nav pull-left">
             <li><%= link_to t('.about'), static_page_path(:about) %></li>
             <li><%= link_to t('.faq'), static_page_path(:faq) %></li>
+            <% if I18n.locale == :sk %>
             <li><%= external_link_to t('.support_us'), 'http://transparency.darujme.sk/238' %></li>
+            <% else %>
+            <li><%= external_link_to t('.support_us'), 'http://transparency.darujme.sk/761' %></li>
+            <% end %>
             <li><%= link_to t('.contact'), static_page_path(:contact) %></li>
           </ul>
         </nav>
