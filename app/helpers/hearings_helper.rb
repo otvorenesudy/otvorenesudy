@@ -11,7 +11,6 @@ module HearingsHelper
 
   def hearing_type(type)
     if type == HearingType.special
-      "Pojednávanie Špecializovaného trestného súdu"
       t '.special'
     else
       "#{type.value.to_s.upcase_first} #{t('.hearing')}"
