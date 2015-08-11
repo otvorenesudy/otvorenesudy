@@ -14,7 +14,7 @@
       data_error: 'Date of the hearing appears to be far in the future, the problem is in original data.'
 
     show:
-      special: 'Pojednávanie Špecializovaného trestného súdu'
+      special: 'Hearing of the Specialized criminal court'
       hearing: 'court hearing'
       default_title: 'OpenCourts'
       took_place: 'took place'
