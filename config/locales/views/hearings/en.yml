@@ -1,6 +1,6 @@
 ﻿en:
   hearings:
-    supposed_to_happen: 'was supposed to be held on'
+    supposed_to_happen: 'was supposed to be held'
     will_happen: 'will be held on'
     happened: 'was held on'
 
@@ -14,6 +14,8 @@
       data_error: 'Date of the hearing appears to be far in the future, the problem is in original data.'
 
     show:
+      special: 'Hearing of the Specialized criminal court'
+      hearing: 'court hearing'
       default_title: 'OpenCourts'
       took_place: 'took place'
       will_take_place: 'will take place'

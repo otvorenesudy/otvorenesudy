@@ -108,7 +108,7 @@
       title: 'Search among judges'
 
     headline:
-      headline_html: 'The average monthly income of a judge at a district court was in 2012<br/> 2&nbsp;500 eur,<br/>and at the Supreme Court 3&nbsp;600 eur'
+      headline_html: 'The average monthly income of a judge at a district court in 2012 was 2&nbsp;500 eur and<br/>3&nbsp;600 eur at the Supreme Court'
       sub_headline_html: 'Open Courts &mdash; you are searching among %{total_judges} judges'
 
     featured_court:

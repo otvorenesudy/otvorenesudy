@@ -14,6 +14,8 @@ sk:
       data_error: 'Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach.'
 
     show:
+      special: 'Pojednávanie Špecializovaného trestného súdu'
+      hearing: 'pojednávanie'
       took_place: 'konalo'
       will_take_place: 'bude konať'
       at_court: 'na súde'

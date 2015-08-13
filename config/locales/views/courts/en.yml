@@ -39,7 +39,7 @@
 
     show:
       at_court: 'At the court'
-      work: 'work'
+      work: 'there are currently working'
       dont_work: 'does not work'
       for_court: 'For the court'
       not_yet: 'Not yet'
@@ -79,7 +79,7 @@
       headline_html: 'Altogether 20% of judges have at least<br/>one family member in the judiciary.'
       sub_headline_html: 'Open Courts &mdash; you are searching among %{total_courts} courts'
       record_holds: 'The record holds'
-      record_hold: 'The record is held by'
+      record_hold: 'The record holds'
 
     office:
       phone_number: 'Phone'
