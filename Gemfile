@@ -90,7 +90,7 @@ group :development do
   # deployment
   gem 'capistrano'
   gem 'capistrano-ext'
-  gem 'rvm-capistrano'
+  gem 'rvm-capistrano', require: false
   gem 'capistrano-resque', '~> 0.1.0'
 end
 
