@@ -1,5 +1,5 @@
-﻿en:
-  open_courts: 'OpenCourts'
+en:
+  open_courts: 'Open Courts'
   and: 'and'
   court: 'Court'
   judge: 'Judge'
@@ -11,7 +11,7 @@
   cfi: 'IČS'
   court_file_id: 'Unique identification number'
   unicorn: 'Unicorn'
-  angry_unicorn: "And that's why unicorn got pissed!"
+  angry_unicorn: "And that's why the unicorn got pissed!"
 
   static_pages:
     about: 'About'
@@ -83,5 +83,3 @@
 
         date: 'Procedure held on'
         closed_at: 'Application closed on'
-
-

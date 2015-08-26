@@ -166,6 +166,17 @@ en:
         suffix:
           <<: *person
 
+      decree_agenda:
+        title: 'Decree agenda'
+        missing: 'missing'
+        not_found: 'No agendas found.'
+
+      indicators_courts:
+        title: 'Court'
+        placeholder: 'Court name'
+        missing: 'missing'
+        not_found: 'No courts found.'
+
     hearing:
       q:
         title: 'Text of the hearing'

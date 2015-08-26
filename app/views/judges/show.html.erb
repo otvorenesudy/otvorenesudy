@@ -23,26 +23,13 @@
           <span class="gutter centered">
             <%= judge_activity_tag employment.active, tooltip: !employment.active.nil? %>
           </span>
-          <% case employment.active %>
-          <% when true %>
-            judge_active_gender(true, @judge.probably_woman)
-          <% when false %>
-            judge_active_gender(false, @judge.probably_woman)
-          <% end %>
-          <% if employment.judge_position %>
-            <%= (employment.active == nil ? 'P' : 'p') + (@judge.probably_woman ? 'racovníčka' : 'racovník') if employment.judge_position.charged? %>
-            <%= @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value %>
-          <% else %>
-            <% if @judge.probably_superior_court_officer? %>
-              <%= employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag t('vsu_short'), t('vsu_long') %>
-            <% else %>
-              <%= employment.active == nil ? 'N' : 'n' %>eznám<%= @judge.probably_woman ? 'a pracovníčka' : 'y pracovník' %>
-            <% end %>
-          <% end %>
+          <%= judge_activity_gender(employment.active, @judge.probably_woman) %>
+          <%= judge_activity_position(employment, @judge) %>
           <%= t '.at_court' %>
           <%= link_to_court employment.court %>,
-          <%= t('.not_yet') if Hearing.during_employment(employment).exact.size.zero? %><%= t('.register')%>
-          <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %> a
+          <%= Hearing.during_employment(employment).exact.size.zero? ? t('.not_yet_register') : t('.register') %>
+          <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
+          <%= t('.and') %>
           <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
           <% if employment.note %>
             <br/>
@@ -88,7 +75,7 @@
       <% if @judge.substantiation_notes_by_year.any? %>
         <p>
           <span class="gutter centered"><%= icon_tag :pushpin %></span>
-          <a href="#" data-target="#substantiation-notes" data-toggle="collapse"><%= t '.note_about_data_part_1' %></a> <%= t '.note_about_data_part_2' %>
+          <a href="#" data-target="#substantiation-notes" data-toggle="collapse"><%= t '.note_about_data_part1' %></a> <%= t '.note_about_data_part2' %>
         </p>
         <div id="substantiation-notes" class="collapse out">
           <ul class="unstyled">

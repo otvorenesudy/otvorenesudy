@@ -10,10 +10,11 @@ module JudgesHelper
   def judge_activity(status)
     return I18n.t('judges.active')   if status == true
     return I18n.t('judges.inactive') if status == false
-    return I18n.t('judges.unknown')   if status == nil
+    return I18n.t('judges.unknown')  if status == nil
     raise
   end
 
+  #TODO refactor
   def judge_activity_gender(active, is_woman)
     if active
       if I18n.locale == :sk
@@ -30,17 +31,37 @@ module JudgesHelper
     end
   end
 
-  def judge_employment_active(active, is_woman)
-    # if I18n.locale == :sk
-    #   (active == nil ? 'P' : 'p') + (is_woman ? 'pracovníčka' : 'pracovník')
-
-    # @judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value
-
-    # if @judge.probably_superior_court_officer?
-    #   employment.active == nil ? 'P' : 'p' %>ravdepodobne <%= tooltip_tag "VSÚ", "Vyšší súdny úradník"
-    # else
-    #   employment.active == nil ? 'N' : 'n' %>eznám<%= @judge.probably_woman ? 'a pracovníčka' : 'y pracovník'
-    # end
+  #TODO refactor
+  def judge_activity_position(employment, judge)
+    if employment.judge_position
+      if employment.judge_position.charged?
+        if I18n.locale == :sk
+          (employment.active == nil ? 'P' : 'p') + (judge.probably_woman ? 'racovníčka' : 'racovník')
+        else
+          (employment.active == nil ? 'E' : 'e') + 'mployee'
+        end
+      else
+        if I18n.locale == :sk
+          judge.probably_woman? && employment.judge_position.value == 'sudca' ? 'sudkyňa' : employment.judge_position.value
+        else
+          'judge'
+        end
+      end
+    else
+      if judge.probably_superior_court_officer?
+        if I18n.locale == :sk
+          (employment.active == nil ? 'P' : 'p') + 'ravdepodobne ' + tooltip_tag(I18n.t('vsu_short'), I18n.t('vsu_long')).html_safe
+        else
+          (employment.active == nil ? 'P' : 'p') + 'robably ' + tooltip_tag(I18n.t('vsu_short'), I18n.t('vsu_long')).html_safe
+        end
+      else
+        if I18n.locale == :sk
+          (employment.active == nil ? 'N' : 'n') + 'eznám' + (judge.probably_woman ? 'a pracovníčka' : 'y pracovník')
+        else
+          (employment.active == nil ? 'U' : 'u') + 'nknown' + (judge.probably_woman ? ' employee' : ' employee')
+        end
+      end
+    end
   end
 
   def judge_activity_icon_tag(status)

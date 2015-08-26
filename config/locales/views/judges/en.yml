@@ -1,4 +1,4 @@
-﻿en:
+en:
   judges:
     active: 'Active'
     inactive: 'Inactive'
@@ -68,6 +68,9 @@
       list: 'the list'
       document: 'document'
       last_updated_on: 'which was last updated on'
+      not_yet_register: 'we register'
+      register: 'we register'
+      and: 'and'
 
     edit:
       email_not_yet_opened: 'Email not yet confirmed'
@@ -122,6 +125,8 @@
       and: ' and'
 
     indicators:
+      quality_indicators: 'Quality indicators'
+      efficiency_identifiers: 'Efficiency identifiers'
       decrees_count_html: 'The number of Constitutional court decrees against the judges &ndash; issued %{total_released_decrees} and delays prior to case assignment %{total_delayed_decrees}.'
       performance_data: 'For a judge we have performance data for'
       to_judge: 'To judge'

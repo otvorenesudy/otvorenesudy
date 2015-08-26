@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def default_title
-    t '.default_title'
+    t 'layouts.application.default_title'
   end
 
   def resolve_title(value)

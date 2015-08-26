@@ -175,7 +175,7 @@ sk:
       decree_agenda:
         title: 'Agenda rozhodnutí'
         missing: 'neuvedený'
-        not_found: 'Nenájdené žiadne agendy'
+        not_found: 'Nenájdené žiadne agendy.'
 
       indicators_courts:
         title: 'Súd'

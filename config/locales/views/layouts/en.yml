@@ -1,7 +1,7 @@
 en:
   layouts:
     application:
-      default_title: 'Open courts'
+      default_title: 'Open Courts'
       meta_description: 'Transparent look at the Slovak judiciary'
       meta_keywords: 'slovak judiciary, judges, decrees, hearings'
       meta_og_description: 'Transparent look at courts. Which are the fastest, which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!'
@@ -58,4 +58,3 @@ en:
       with_support_of: 'With support of'
       and_project: 'in Berlin and the project'
       centre_for_philanthropy: 'of Centre for Philantrophy'
-
