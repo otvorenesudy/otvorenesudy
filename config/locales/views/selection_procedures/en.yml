@@ -6,7 +6,6 @@ en:
       sub_headline_html: 'OpenCourts &mdash; you are searching in %{total_selection_procedures} selection procedures'
 
     show:
-      default_title: 'OpenCourts'
       selection_procedure: 'Selection procedure'
       will_close: 'will be closed'
       was_closed: 'was closed'

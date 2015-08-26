@@ -1,4 +1,4 @@
-﻿en:
+en:
   decrees:
     headline:
       headline_html: 'On average 45% of judicial decrees<br/>are confirmed by apellate courts'
@@ -6,7 +6,6 @@
       total_decrees_html: 'OpenCourts &mdash; you are searching in %{total_decrees} decrees'
 
     show:
-      default_title: 'OpenCourts'
       made_on: 'The decree was published on'
       unknown_date: 'date unknown'
       from_court: 'The decree took place at the court'

@@ -1,4 +1,4 @@
-﻿en:
+en:
   hearings:
     supposed_to_happen: 'was supposed to be held'
     will_happen: 'will be held on'
@@ -12,11 +12,12 @@
     results:
       processing_error: 'Hearing information is incomplete, there was an unknown problem.'
       data_error: 'Date of the hearing appears to be far in the future, the problem is in original data.'
+      hearing: 'Hearing'
+      court: 'Court'
 
     show:
       special: 'Hearing of the Specialized criminal court'
       hearing: 'court hearing'
-      default_title: 'OpenCourts'
       took_place: 'took place'
       will_take_place: 'will take place'
       at_court: 'at the court'
@@ -74,7 +75,3 @@
     unprocessed:
       attention: 'Attention!'
       description: 'Information about the hearing is incomplete. While collecting the data from the portal of Ministry of Justice an unknown mistake occurred.'
-
-
-
-

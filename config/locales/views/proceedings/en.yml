@@ -1,4 +1,4 @@
-﻿en:
+en:
   proceedings:
     public_hearing: 'Public hearing'
     started: 'started'
@@ -16,7 +16,6 @@
       headline_total_html: 'OpenCourts &mdash; you are searching in %{total_proceedings} proceedings'
 
     show:
-      default_title: 'Judicial proceeding'
       for_proceeding: 'For the proceeding we'
       so_far: 'so far '
       register: 'register'

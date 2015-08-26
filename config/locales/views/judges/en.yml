@@ -29,7 +29,6 @@ en:
       decrees_count: 'Total number of decrees'
 
     show:
-      default_title: 'Open Courts'
       judge: 'Judge'
       at_court: 'at the court'
       note: 'Note'

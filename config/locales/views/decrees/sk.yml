@@ -6,7 +6,6 @@ sk:
       total_decrees_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_decrees} rozhodnutiach'
 
     show:
-      default_title: 'OpenCourts'
       made_on: 'Rozhodnutie bolo vynesené dňa'
       unknown_date: 'neznámy dátum'
       from_court: 'Rozhodnuté bolo na súde'

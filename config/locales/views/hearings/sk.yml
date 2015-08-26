@@ -12,6 +12,8 @@ sk:
     results:
       processing_error: 'Pojednávanie je neúplné, pri jeho spracovaní nastala neznáma chyba.'
       data_error: 'Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach.'
+      hearing: 'Pojednávanie'
+      court: 'Súd'
 
     show:
       special: 'Pojednávanie Špecializovaného trestného súdu'

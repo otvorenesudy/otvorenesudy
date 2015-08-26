@@ -4,7 +4,7 @@
       <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67), :'data-searchd-result' => "Hearing ##{hearing.id}" %>
       <br/>
       <small>
-        <%= t 'hearing' %> <%= hearing.historical ? t('hearings.supposed_to_happen') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
+        <%= t '.hearing' %> <%= hearing.historical ? t('hearings.supposed_to_happen') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
         <%= hearing.date ? hearing_date(hearing.date) : t('unknown_date') %>
       </small>
     </h4>
@@ -28,7 +28,7 @@
       </div>
 
       <% if hearing.court %>
-        <%= t 'court' %> &ndash; <%= link_to_court hearing.court %>
+        <%= t '.court' %> &ndash; <%= link_to_court hearing.court %>
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>

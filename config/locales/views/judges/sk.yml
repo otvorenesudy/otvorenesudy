@@ -30,7 +30,6 @@ sk:
       decrees_count: 'Počet súdnych rozhodnutí'
 
     show:
-      default_title: 'Otvorené Súdy'
       judge: 'Sudca'
       at_court: 'na súde'
       note: 'Poznámka'

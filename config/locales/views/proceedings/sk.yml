@@ -16,7 +16,6 @@ sk:
       headline_total_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_proceedings} konaniach'
 
     show:
-      default_title: 'Súdne konanie'
       for_proceeding: 'Pre súdne konanie'
       so_far: 'zatiaľ '
       register: 'evidujeme'
