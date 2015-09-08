@@ -21,7 +21,7 @@ defaults: &defaults
   newrelic:
     key: TODO
 
-  resque:
+  sidekiq:
     password: TODO
 
 development:

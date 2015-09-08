@@ -106,6 +106,10 @@ OpenCourts::Application.routes.draw do
 
   mount Resque::Server.new, at: '/resque'
 
+  # Sidekiq
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
+
   match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
 
   # The priority is based upon order of creation:
