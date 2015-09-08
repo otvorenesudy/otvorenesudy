@@ -1,12 +1,13 @@
 module JusticeGovSk
   module Job
     class ListCrawler
-      extend JusticeGovSk::Helper::UpdateController::Resource
+      include Sidekiq::Worker
+      include JusticeGovSk::Helper::UpdateController::Resource
 
-      @queue = :listers
+      sidekiq_options queue: :listers
 
       # supported types: CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.perform(type, options = {})
+      def perform(type, options = {})
         type = type.to_s.constantize
 
         options.symbolize_keys!
@@ -19,7 +20,8 @@ module JusticeGovSk
         JusticeGovSk.run_lister lister, request, options do
           lister.crawl(request, options[:offset], options[:limit]) do |url|
             next unless crawlable? type, url
-            Resque.enqueue(JusticeGovSk::Job::ResourceCrawler, type.name, url, options)
+
+            JusticeGovSk::Job::ResourceCrawler.perform_async(type.name, url, options)
           end
         end
       end

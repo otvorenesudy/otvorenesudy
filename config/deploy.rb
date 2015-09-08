@@ -1,7 +1,7 @@
 require 'bundler/capistrano'
-require 'resque'
+require 'sidekiq'
 require 'rvm/capistrano'
-require 'capistrano-resque'
+require 'capistrano/sidekiq'
 
 set :stages, [:staging, :production]
 
@@ -84,22 +84,15 @@ namespace :probe do
   end
 end
 
-# Workers (Resque & Redis)
 namespace :workers do
-  desc "Start workers (according to predefined setup)"
+  desc "Start workers"
   task :start do
-    setup = { probe: 0, listers: 4, crawlers: 4 }
-
-    setup.each do |queue, count|
-      1.upto(count) do
-        run "cd #{current_path}; RAILS_ENV=#{rails_env} QUEUE=#{queue} BACKGROUND=yes INTERVAL=5 bundle exec rake resque:work"
-      end
-    end
+    run 'sidekiq -C config/sidekiq.yml'
   end
 
-  desc "Stop workers (does not flush Redis)"
+  desc "Stop workers"
   task :stop do
-    run "kill -15 `ps aux | grep resque | grep -v grep | cut -c 10-16`" rescue true
+    run 'sidekiqctl stop tmp/pids/sidekiq.pid 30'
   end
 end
 

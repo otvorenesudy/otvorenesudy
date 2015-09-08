@@ -54,7 +54,8 @@ gem 'htmlentities'
 gem 'squire', '~> 1.2.6'
 
 # background jobs
-gem 'resque'
+gem 'sinatra', require: nil
+gem 'sidekiq'
 
 # authentification
 gem 'devise'
@@ -91,7 +92,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano', require: false
-  gem 'capistrano-resque', '~> 0.1.0'
+  gem 'capistrano-sidekiq'
 end
 
 group :development, :test do

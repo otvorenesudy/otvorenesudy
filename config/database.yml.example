@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: opencourts_development
-  pool: 5
+  pool: 50
   username: opencourts
   password: opencourts
 

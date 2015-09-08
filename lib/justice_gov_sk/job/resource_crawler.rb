@@ -1,10 +1,12 @@
 module JusticeGovSk
   module Job
     class ResourceCrawler
-      @queue = :crawlers
+      include Sidekiq::Worker
+
+      sidekiq_options queue: :crawlers
 
       # supported types: CivilHearing, SpecialHearing, CriminalHearing, Decree
-      def self.perform(type, url, options = {})
+      def perform(type, url, options = {})
         type = type.to_s.constantize
 
         options.symbolize_keys!
