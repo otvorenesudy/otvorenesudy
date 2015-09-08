@@ -60,7 +60,7 @@
       average_proceeding_duration: 'An average duration of proceedings at the court according to different agendas were'
       fastest: 'fastest'
       slowest: 'slowest'
-      court_from: 'court out of '
+      average_agenda_by_year: 'Average length for year %{year} is %{value} months.'
       district_courts_agenda: 'district courts in agenda'
       average_length: 'An average length in a year %{year} is %{month} months.'
       contact: 'Contact'

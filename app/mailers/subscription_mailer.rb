@@ -24,6 +24,6 @@ class SubscriptionMailer < ActionMailer::Base
     @model  = @query.model.constantize
     @params = @query.value.merge! order: :desc, sort: :created_at
 
-    mail to: @user.email, subject: "[#{I18n.t('open_courts')}] #{I18n.t('.new')} #{t @type, count: :other}", content_type: 'text/html'
+    mail to: @user.email, subject: "[#{I18n.t('open_courts')}] #{I18n.t('mailers.subscription.new')} #{t @type, count: :other}", content_type: 'text/html'
   end
 end

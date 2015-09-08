@@ -1,0 +1,4 @@
+sk:
+  mailers:
+    subscription:
+      new: 'New'

@@ -5,7 +5,7 @@
       <% if hearing.date %>
         <br/>
         <small>
-          <%= t 'hearing' %> <%= hearing.date.past? ? t('hearings.happened') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
+          <%= t 'hearing', count: 1 %> <%= hearing.date.past? ? t('hearings.happened') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
           <%= hearing_date hearing.date %>
         </small>
       <% end %>

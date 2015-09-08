@@ -76,7 +76,7 @@
                 </p>
                 <ul class="unstyled">
                   <% agenda.data.each do |data| %>
-                    <li><%= t '.court_from', year: data[:year], month: number_with_precision(data[:value], precision: 1) %></li>
+                    <li><%= t '.average_agenda_by_year', year: data[:year], value: number_with_precision(data[:value], precision: 1) %></li>
                   <% end %>
                 </ul>
               </div>

@@ -46,7 +46,7 @@
         <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
       <% end %>
 
-      <p><%= external_link_to t('.original_document'), @decree.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.may_not'), t('see_note') %> <%= t '.be_valid' %>)</p>
+      <p><%= external_link_to t('.original_document'), @decree.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.may_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
 
       <% if File.readable? @decree.document_path %>
         <p><%= t '.download_as' %> <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: t('.pdf'), join: :append), class: :icon %></p>

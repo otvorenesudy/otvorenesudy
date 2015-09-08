@@ -9,7 +9,7 @@
       source3: 'Constitutional Court'
       fact4: 'Search in %{decree} decrees and %{hearing} hearings'
       source4: 'Open Courts'
-      headline: 'More transparency to Slovak judiciary'
+      headline: 'Bringing more transparency to Slovak judiciary'
       search: 'Search in judicial decree&hellip;'
 
     home:

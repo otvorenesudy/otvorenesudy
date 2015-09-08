@@ -2,7 +2,7 @@
 
 <div class="section">
   <h4><%= t '.search_settings' %>:</h4>
-  
+
   <% if @subscription.query.value.any? %>
     <ul class="unstyled">
       <% @subscription.query.value.each do |name, values| %>
@@ -21,10 +21,10 @@
 
 <div class="section">
   <h4><%= t '.new' %> <%= translate_without_count(:other, @type) %>:</h4>
-  
+
   <%= render "#{@type.to_s.pluralize}" %>
 
-  <p>  
+  <p>
     <%= link_to_search @type, "#{t('.more')} #{translate_without_count(:other, @type)}", params: @params %>
     &middot;
     <%= link_to t('.cancel_subscription'), subscriptions_users_url %>

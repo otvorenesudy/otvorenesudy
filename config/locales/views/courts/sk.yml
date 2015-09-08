@@ -60,7 +60,7 @@ sk:
       average_proceeding_duration: 'Priemerné dĺžky trvania konaní v rámci súdu podľa agiend'
       fastest: 'najrýchlejší'
       slowest: 'najpomalší'
-      court_from: 'súd z '
+      average_agenda_by_year: 'Priemerná dĺžka za rok %{year} je %{value} mesiaca.'
       district_courts_agenda: 'okresných súdov v rámci agendy'
       average_length: 'Priemerná dĺžka za rok %{year} je %{month} mesiaca.'
       contact: 'Kontakt'
