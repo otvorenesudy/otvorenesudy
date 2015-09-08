@@ -6,5 +6,5 @@ staging:
 production:
   :concurrency: 25
 :queues:
-  - listers
-  - crawlers
+  - [listers,15]
+  - [crawlers,10]
