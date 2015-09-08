@@ -5,7 +5,7 @@
       <% if hearing.date %>
         <br/>
         <small>
-          <%= t 'hearing', count: 1 %> <%= hearing.date.past? ? t('hearings.happened') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
+          <%= t('hearing', count: 1).capitalize %> <%= hearing.date.past? ? t('hearings.happened') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
           <%= hearing_date hearing.date %>
         </small>
       <% end %>
@@ -13,7 +13,7 @@
 
     <div class="search-result-content">
       <% if hearing.court %>
-        <%= t 'court', count: 1 %> &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
+        <%= t('court', count: 1).capitalize %> &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>
