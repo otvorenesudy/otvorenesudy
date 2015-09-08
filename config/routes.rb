@@ -104,8 +104,6 @@ OpenCourts::Application.routes.draw do
   match '/404', to: 'errors#show', as: :not_found_error
   match '/500', to: 'errors#show', as: :internal_server_error
 
-  mount Resque::Server.new, at: '/resque'
-
   # Sidekiq
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'
