@@ -12,7 +12,7 @@ module Probe
     end
 
     def self.async_import(model)
-      Resque.enqueue(AsyncImport, model.to_s)
+      AsyncImport.perform_async(model.to_s)
     end
 
     def self.update(model)
@@ -20,22 +20,26 @@ module Probe
     end
 
     def self.async_update(model)
-      Resque.enqueue(AsyncUpdate, model.to_s)
+      AsyncUpdate.perform_async(model.to_s)
     end
   end
 
   class AsyncImport
-    @queue = :probe
+    include Sidekiq::Worker
 
-    def self.perform(model)
+    sidekiq_options queue: :probe
+
+    def perform(model)
       Probe::Bulk.import(model.constantize)
     end
   end
 
   class AsyncUpdate
-    @queue = :probe
+    include Sidekiq::Worker
 
-    def self.perform(model)
+    sidekiq_options queue: :probe
+
+    def perform(model)
       Probe::Bulk.update(model.constantize)
     end
   end
