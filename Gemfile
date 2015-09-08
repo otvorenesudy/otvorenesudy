@@ -54,7 +54,8 @@ gem 'htmlentities'
 gem 'squire', '~> 1.2.6'
 
 # background jobs
-gem 'resque'
+gem 'sinatra'
+gem 'sidekiq'
 
 # authentification
 gem 'devise'

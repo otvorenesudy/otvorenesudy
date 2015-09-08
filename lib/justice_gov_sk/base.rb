@@ -81,7 +81,7 @@ module JusticeGovSk
 
           puts "Enqueing job for page #{page}, using #{pack options}."
 
-          Resque.enqueue(JusticeGovSk::Job::ListCrawler, type.name, options)
+          JusticeGovSk::Job::ListCrawler.perform_async(type.name, options)
         end
       end
 
