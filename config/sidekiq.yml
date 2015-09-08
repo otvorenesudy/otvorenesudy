@@ -1,0 +1,10 @@
+---
+:concurrency: 25
+:pidfile: tmp/pids/sidekiq.pid
+staging:
+  :concurrency: 0
+production:
+  :concurrency: 25
+:queues:
+  - listers
+  - crawlers
