@@ -9,8 +9,4 @@ set :rails_env, "staging"
 
 role :db, domain, primary: true
 
-# Resque
-role :resque_worker,    domain
-role :resque_scheduler, domain
-
 set :rvm_ruby_string, "2.1.0@#{application}"
