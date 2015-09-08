@@ -92,7 +92,6 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano', require: false
-  gem 'capistrano-resque', '~> 0.1.0'
 end
 
 group :development, :test do
