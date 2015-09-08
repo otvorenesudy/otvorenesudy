@@ -54,7 +54,7 @@ gem 'htmlentities'
 gem 'squire', '~> 1.2.6'
 
 # background jobs
-gem 'sinatra'
+gem 'sinatra', require: nil
 gem 'sidekiq'
 
 # authentification
