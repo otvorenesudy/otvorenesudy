@@ -92,6 +92,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano', require: false
+  gem 'capistrano-sidekiq'
 end
 
 group :development, :test do
