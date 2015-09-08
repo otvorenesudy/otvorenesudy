@@ -13,7 +13,7 @@
 
     <div class="search-result-content">
       <% if hearing.court %>
-        <%= t 'court' %> &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
+        <%= t 'court', count: 1 %> &ndash; <%= link_to hearing.court.name, court_url(hearing.court) %>
         <br/>
       <% end %>
       <% if hearing.judges.normal.any? %>
