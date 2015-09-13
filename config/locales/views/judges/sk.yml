@@ -106,7 +106,7 @@ sk:
 
     indicators:
       quality_indicators: 'Indikátory kvality'
-      efficiency_identifiers: 'Identifikátory výkonnosti'
+      efficiency_indictors: 'Indikátory výkonnosti'
       decrees_count_html: 'Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané %{total_released_decrees} a prieťahy pred pridelením veci %{total_delayed_decrees}.'
       performance_data: 'Pre sudcu máme výkonnostné dáta za'
       to_judge: 'Sudcovi'
@@ -121,3 +121,13 @@ sk:
       confirmed_decrees: 'Počet potvrdených odvolaní'
       efficiency_indicators: 'Indikátory efektivity'
       data_notes_html: 'Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.'
+      inaccurate: 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.'
+      computed_as_ratio: 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.'
+      unresolved_issue_note: 'Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.'
+      unresolved_issue: 'Reštančná vec'
+      name_facet_title: 'Sudcovia'
+      name_facet_subtitle: 'Vyberte daľších sudcov pre porovnanie'
+      name_facet_placeholder: 'Meno sudcu'
+      show_advanced_filters: 'Zobraziť pokročilé filtre'
+      chart_headline: 'Grafické porovnanie'
+      chart_note: 'Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobných súdoch a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory.'
