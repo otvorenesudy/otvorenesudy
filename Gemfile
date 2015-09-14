@@ -56,6 +56,7 @@ gem 'squire', '~> 1.2.6'
 # background jobs
 gem 'sinatra', require: nil
 gem 'sidekiq'
+gem 'sidekiq-limit_fetch'
 
 # authentification
 gem 'devise'

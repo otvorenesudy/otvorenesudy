@@ -8,3 +8,6 @@ production:
 :queues:
   - [listers,1]
   - [crawlers,2]
+:limits:
+  listers: 4
+  crawlers: 6
