@@ -122,7 +122,7 @@ sk:
       efficiency_indicators: 'Indikátory efektivity'
       data_notes_html: 'Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.'
       inaccurate: 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.'
-      computed_as_ratio: 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.'
+      computed_as_ratio: 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami v poslednom roku. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.'
       unresolved_issue_note: 'Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.'
       unresolved_issue: 'Reštančná vec'
       name_facet_title: 'Sudcovia'
