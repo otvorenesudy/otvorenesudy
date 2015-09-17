@@ -125,7 +125,7 @@ en:
 
     indicators:
       quality_indicators: 'Quality indicators'
-      efficiency_identifiers: 'Efficiency identifiers'
+      efficiency_indicators: 'Efficiency indicators'
       decrees_count_html: 'The number of Constitutional court decrees against the judges &ndash; issued %{total_released_decrees} and delays prior to case assignment %{total_delayed_decrees}.'
       performance_data: 'For a judge we have performance data for'
       to_judge: 'To judge'
@@ -140,3 +140,13 @@ en:
       confirmed_decrees: 'Number of confirmed decrees by the apellate court'
       efficiency_indicators: 'Efficiency indicators'
       data_notes_html: 'Notes to the data</a> obtained from annual statistical reports of judges.'
+      inaccurate: 'Indicator is not exact. Appellate courts hear do not hear cases necessarily in the same year as it is decided at a district court. The more data we have, the more exact the indicator is.'
+      computed_as_ratio: 'Indicator is calculated as a ratio between undecided cases at the end of the year and decided cases in the previous year. The lower the number is, the more capable the judge is to solve incoming cases.'
+      unresolved_issue_note: 'A case unresolved for more than 6 months in childcare cases and for more than 1 year in other cases.'
+      unresolved_issue: 'Restant case'
+      name_facet_title: 'Judges'
+      name_facet_subtitle: 'Select judges for comparison'
+      name_facet_placeholder: 'Judge name'
+      show_advanced_filters: 'Show advanced filters'
+      chart_headline: 'Chart comparison'
+      chart_note: 'The tool is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases.'

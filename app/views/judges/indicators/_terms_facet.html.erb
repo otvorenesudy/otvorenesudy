@@ -7,7 +7,7 @@
     <% end %>
 
     <div class="facet-results">
-      <%= render "judges/indicators/terms_facet_results", facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [], options: options %>
+      <%= render 'judges/indicators/terms_facet_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [], options: options %>
     </div>
   </div>
 </div>

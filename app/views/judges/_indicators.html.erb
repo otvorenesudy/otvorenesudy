@@ -62,27 +62,27 @@
       <span class="gutter centered"><%= icon_tag :'thumbs-down-alt' %></span>
 
       <%= indicators['S9'] %>
-      <%= tooltip_tag icon_tag(:question), 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.' %>
+      <%= tooltip_tag icon_tag(:question), t('.inaccurate') %>
     </p>
 
     <p>
       <span class="gutter centered"><%= icon_tag :'ban-circle' %></span>
 
       <%= indicators['S10'] %>
-      <%= tooltip_tag icon_tag(:question), 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.' %>
+      <%= tooltip_tag icon_tag(:question), t('.inaccurate') %>
     </p>
   </div>
 <% end %>
 
 <br />
 
-<h4><%= t '.efficiency_identifiers' %></h4>
+<h4><%= t '.efficiency_indicators' %></h4>
 <hr />
 
 <p>
   <span class="gutter centered"><%= icon_tag :tasks %></span>
   <%= indicators['S11'] %>
-  <%= tooltip_tag icon_tag(:question), 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami počas roka 2013. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.' %>
+  <%= tooltip_tag icon_tag(:question), t('.computed_as_ratio') %>
 </p>
 
 <% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
@@ -100,7 +100,7 @@
       <span class="gutter centered"><%= icon_tag :inbox %></span>
       <%= indicators['S13'] %>
 
-      <%= popover_tag icon_tag(:question), "Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.", title: "Reštančná vec", trigger: :hover %>
+      <%= popover_tag icon_tag(:question), t('.unresolved_issue_note'), title: t('.unresolved_issue'), trigger: :hover %>
     </p>
 
     <p>
