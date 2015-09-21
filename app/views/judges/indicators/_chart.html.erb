@@ -1,4 +1,4 @@
-<h4 id="judge-indicators-chart-headline">Grafické porovnanie</h4>
+<h4 id="judge-indicators-chart-headline"><%= t 'judges.indicators.chart_headline' %></h4>
 <hr/>
 
 <div id="judge-indicators-chart" class="row">
@@ -15,15 +15,15 @@
   </div>
 </div>
 
-<%= icon_link_to :tasks, 'Zobraziť pokročilé filtre', '#', :'data-target' => '#judge-indicators-facets', :'data-toggle' => :collapse %>
+<%= icon_link_to :tasks, t('judges.indicators.show_advanced_filters'), '#', :'data-target' => '#judge-indicators-facets', :'data-toggle' => :collapse %>
 
 <br/>
 
 <small class="muted">
-  Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobných súdoch a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory.
+  <%= t 'judges.indicators.chart_note' %>
 </small>
 
-<div id="judge-indicators-facets" class="row collapse <%= "in" if params.slice(:name, :positions, :decree_agenda, :indicators_courts).any? %>">
+<div id="judge-indicators-facets" class="row collapse <%= 'in' if params.slice(:name, :positions, :decree_agenda, :indicators_courts).any? %>">
   <br />
 
   <div class="span4">
