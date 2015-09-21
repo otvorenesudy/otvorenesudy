@@ -4,10 +4,14 @@
 staging:
   :concurrency: 0
 production:
-  :concurrency: 10
+  :concurrency: 12
 :queues:
-  - [listers,1]
-  - [crawlers,2]
+  - [decree-listers,   2]
+  - [hearing-listers,  1]
+  - [decree-crawlers,  2]
+  - [hearing-crawlers, 1]
 :limits:
-  listers: 4
-  crawlers: 6
+  decree-listers:   2
+  hearing-listers:  2
+  decree-crawlers:  4
+  hearing-crawlers: 4
