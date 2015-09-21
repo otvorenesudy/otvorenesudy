@@ -1,7 +1,7 @@
 module JusticeGovSk
   module Job
     class ListCrawler
-      include Sidekiq::Worker
+      include JusticeGovSk::Worker
       include JusticeGovSk::Helper::UpdateController::Resource
 
       sidekiq_options queue: :listers

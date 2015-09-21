@@ -1,7 +1,7 @@
 module JusticeGovSk
   module Job
     class ResourceCrawler
-      include Sidekiq::Worker
+      include JusticeGovSk::Worker
 
       sidekiq_options queue: :crawlers
 
