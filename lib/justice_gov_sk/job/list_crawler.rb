@@ -8,6 +8,9 @@ module JusticeGovSk
 
       # supported types: CivilHearing, SpecialHearing, CriminalHearing, Decree
       def perform(type, options = {})
+        require 'objspace'
+        ObjectSpace.trace_object_allocations_start
+
         type = type.to_s.constantize
 
         options.symbolize_keys!

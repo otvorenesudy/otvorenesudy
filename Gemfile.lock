@@ -216,6 +216,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
+    msgpack (0.6.2)
     multi_json (1.11.2)
     murmurhash3 (0.1.4)
     nenv (0.2.0)
@@ -286,6 +287,10 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
+    rbtrace (0.4.7)
+      ffi (>= 1.0.6)
+      msgpack (>= 0.4.3)
+      trollop (>= 1.16.2)
     rdiscount (1.6.8)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -372,6 +377,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (2.1.2)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -439,6 +445,7 @@ DEPENDENCIES
   rails-backbone
   rails-i18n
   rails-timeago
+  rbtrace
   redcarpet
   roadie
   rspec-rails (~> 2.0)

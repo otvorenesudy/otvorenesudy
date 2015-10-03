@@ -65,6 +65,7 @@ gem 'devise'
 gem 'airbrake'
 gem 'garelic'
 gem 'newrelic_rpm'
+gem 'rbtrace'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
