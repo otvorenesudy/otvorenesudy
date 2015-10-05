@@ -34,7 +34,9 @@ namespace :work do
     args.with_defaults safe: true
 
     if args[:decree_form_code].blank?
-      codes = DecreeForm.order(:code).all.map { |form| form.code }
+      other = DecreeForm.find_by_code('P')
+
+      codes = ([other] + DecreeForm.where('id != ?', other.id).order(:id).all).map { |form| form.code }
     else
       codes = [args[:decree_form_code]]
     end
