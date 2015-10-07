@@ -337,8 +337,6 @@ GEM
       json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
       redis-namespace (~> 1.5, >= 1.5.2)
-    sidekiq-limit_fetch (2.4.2)
-      sidekiq (>= 2.6.5, < 4.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -446,7 +444,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   selenium-webdriver
   sidekiq (~> 3.5.0)
-  sidekiq-limit_fetch
   sinatra
   spinjs-rails
   squire (~> 1.2.6)
