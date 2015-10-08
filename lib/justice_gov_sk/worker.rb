@@ -19,7 +19,7 @@ module JusticeGovSk
 
         item.merge!(queue: queue)
 
-        Sidekiq::Client.new(pool).push(item.except(:queue).stringify_keys)
+        Sidekiq::Client.new(pool).push(item.stringify_keys)
       end
     end
   end
