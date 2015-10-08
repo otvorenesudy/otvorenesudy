@@ -31,7 +31,16 @@ namespace :workers do
   task :start do
     on roles(:app) do
       within current_path do
-        run 'sidekiq -C config/sidekiq.yml'
+        with rails_env: fetch(:rails_env) do
+          log = 'log/sidekiq.log'
+
+          execute :bundle, 'exec sidekiq -c 10 -q limited-decree-listers  -d -P tmp/pids/sidekiq.pid.1', '-L', log
+          execute :bundle, 'exec sidekiq -c 10 -q limited-decree-crawlers -d -P tmp/pids/sidekiq.pid.2', '-L', log
+          execute :bundle, 'exec sidekiq -c  1 -q decree-listers          -d -P tmp/pids/sidekiq.pid.3', '-L', log
+          execute :bundle, 'exec sidekiq -c  1 -q decree-crawlers         -d -P tmp/pids/sidekiq.pid.4', '-L', log
+          execute :bundle, 'exec sidekiq -c  5 -q hearing-listers         -d -P tmp/pids/sidekiq.pid.5', '-L', log
+          execute :bundle, 'exec sidekiq -c  5 -q hearing-crawlers        -d -P tmp/pids/sidekiq.pid.6', '-L', log
+        end
       end
     end
   end
@@ -40,7 +49,11 @@ namespace :workers do
   task :stop do
     on roles(:app) do
       within current_path do
-        run 'sidekiqctl stop tmp/pids/sidekiq.pid 30'
+        Dir['tmp/pids/sidekiq.pid.*'].each do |pid|
+          execute "cd #{current_path}"
+
+          execute :bundle, 'bundle exec sidekiqctl quiet', pid
+        end
       end
     end
   end

@@ -36,7 +36,7 @@ namespace :work do
 
     codes = (privileged + DecreeForm.where('id != ?', privileged.map(&:id)).order(:id).all).map { |form| form.code }
 
-    args.to_hash.merge!(queue: :daily) if args[:maximum_number_of_pages]
+    args.to_hash.merge!(queue: :limited) if args[:maximum_number_of_pages]
 
     codes.each do |code|
       args.to_hash.merge! decree_form_code: code
