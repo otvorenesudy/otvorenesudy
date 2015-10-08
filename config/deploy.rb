@@ -7,6 +7,7 @@ set :user, 'deploy'
 set :application, 'opencourts'
 set :scm,         :git
 set :repo_url,    'git@github.com:otvorenesudy/otvorenesudy.git'
+set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 # RVM
 set :rvm_type,         :user

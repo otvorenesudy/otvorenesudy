@@ -96,6 +96,7 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
   gem 'capistrano-sidekiq'
+  gem 'capistrano-git-submodule-strategy', '~> 0.1'
 end
 
 group :development, :test do
