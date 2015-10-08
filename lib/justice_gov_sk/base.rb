@@ -76,7 +76,9 @@ module JusticeGovSk
       if lister.pages
         options = options.to_hash.merge! limit: 1
 
-        1.upto lister.pages do |page|
+        max = options[:maximum_number_of_pages] ? options[:maximum_number_of_pages].to_i : lister.pages
+
+        1.upto(max) do |page|
           options.merge!(offset: page)
 
           puts "Enqueing job for page #{page}, using #{pack options}."

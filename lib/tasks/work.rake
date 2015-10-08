@@ -30,16 +30,13 @@ namespace :work do
   end
 
   desc "Start Resque jobs for crawling decrees from justice.gov.sk"
-  task :decrees, [:decree_form_code] => :environment do |_, args|
+  task :decrees, [:maximum_number_of_pages] => :environment do |_, args|
     args.with_defaults safe: true
+    privileged = [DecreeForm.find_by_code('P')]
 
-    if args[:decree_form_code].blank?
-      other = DecreeForm.find_by_code('P')
+    codes = (privileged + DecreeForm.where('id != ?', privileged.map(&:id)).order(:id).all).map { |form| form.code }
 
-      codes = ([other] + DecreeForm.where('id != ?', other.id).order(:id).all).map { |form| form.code }
-    else
-      codes = [args[:decree_form_code]]
-    end
+    args.to_hash.merge!(queue: :daily) if args[:maximum_number_of_pages]
 
     codes.each do |code|
       args.to_hash.merge! decree_form_code: code
