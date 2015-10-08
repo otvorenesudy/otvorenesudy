@@ -45,7 +45,7 @@ GEM
     airbrake (4.3.1)
       builder
       multi_json
-    ansi (1.4.3)
+    ansi (1.5.0)
     arel (3.0.3)
     atomic (1.1.15)
     bcrypt (3.1.7)
@@ -228,6 +228,7 @@ GEM
       activesupport (>= 3.1)
       arel
     polyglot (0.3.5)
+    power_assert (0.2.2)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -337,6 +338,8 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    test-unit (3.0.8)
+      power_assert
     thor (0.19.1)
     thread_safe (0.2.0)
       atomic (>= 1.1.7, < 2)
@@ -435,6 +438,7 @@ DEPENDENCIES
   sinatra
   spinjs-rails
   squire (~> 1.2.6)
+  test-unit (~> 3.0)
   tire
   uglifier (>= 1.0.3)
   unicorn

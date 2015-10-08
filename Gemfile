@@ -111,3 +111,5 @@ end
 group :production do
   gem 'unicorn'
 end
+
+gem 'test-unit', '~> 3.0'
