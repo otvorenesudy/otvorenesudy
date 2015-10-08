@@ -43,7 +43,7 @@ gem 'curb',        '>= 0.8.3'
 gem 'mechanize',   '~> 2.5.1'
 gem 'docsplit',    '~> 0.6.4'
 
-gem 'json', '1.8.0'
+gem 'json', '1.8.2'
 gem 'nokogiri'
 
 # utilities
@@ -90,10 +90,11 @@ end
 
 group :development do
   # deployment
-  gem 'capistrano'
-  gem 'capistrano-ext'
-  gem 'rvm-capistrano', require: false
-  gem 'capistrano-sidekiq'
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-unicorn'
 end
 
 group :development, :test do
