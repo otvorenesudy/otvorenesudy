@@ -22,9 +22,7 @@ set :whenever_identifier, ->{ "#{fetch(:application)}-#{fetch(:stage)}" }
 set :keep_releases, 1
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
-set :ssh_options, {
-  forward_agent: true
-}
+set :ssh_options, { forward_agent: true }
 set :use_sudo, false
 
 namespace :workers do
