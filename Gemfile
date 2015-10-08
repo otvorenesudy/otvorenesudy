@@ -89,12 +89,13 @@ group :assets do
 end
 
 group :development do
-  # deployment
+  # Deployment
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
+  gem 'capistrano-sidekiq'
 end
 
 group :development, :test do
