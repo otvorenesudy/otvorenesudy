@@ -1,9 +1,9 @@
-root = File.expand_path "#{File.dirname(__FILE__)}/.."
+root = File.expand_path "#{File.dirname(__FILE__)}/../.."
 
-worker_processes ENV['RAILS_ENV'].to_sym == :staging ? 2 : 8
+worker_processes 1
 timeout          60
 preload_app      true
-listen           "#{root}/shared/.unicorn.sock", backlog: 64
+listen           "#{root}/tmp/.unicorn.sock", backlog: 64
 pid              "#{root}/tmp/pids/unicorn.pid"
 stderr_path      "#{root}/log/unicorn.log"
 stdout_path      "#{root}/log/unicorn.log"
