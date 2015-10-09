@@ -52,10 +52,10 @@ every 2.days do
   rake 'work:hearings:criminal'
 end
 
-# every 1.day do
-#   rake 'work:decrees[15]'
-#end
+every 2.days do
+   rake 'work:decrees[15]'
+end
 
-#every 2.weeks do
-#  rake 'work:decrees'
-#end
+every 2.weeks do
+  rake 'work:decrees'
+end
