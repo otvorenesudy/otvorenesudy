@@ -91,7 +91,7 @@ namespace :deploy do
   end
 
   task :restart do
-    invoke 'unicorn:restart'
+    invoke 'unicorn:legacy_restart'
   end
 end
 
