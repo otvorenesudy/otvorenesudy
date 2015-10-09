@@ -102,7 +102,8 @@ module JusticeGovSk
       puts "Running job builder."
 
       if lister.pages
-        options = options.to_hash.merge!(offset: 1, limit: options[:limit] || lister.pages)
+        limit = options[:limit] || lister.pages
+        options = options.to_hash.merge!(offset: 1, limit: limit.to_i)
 
         puts "Enqueing job for pages #{options[:offset]} to #{options[:limit]}, using #{pack options}."
 
