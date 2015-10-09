@@ -89,5 +89,27 @@ module JusticeGovSk
 
       puts "finished (#{lister.pages} jobs)"
     end
+
+    def run_sequential_workers(type, options = {})
+      request, lister = build_request_and_lister type, options
+
+      run_lister lister, request, options do
+        puts "Running list crawler to obtain page count."
+
+        lister.crawl(request, 1, 1) {}
+      end
+
+      puts "Running job builder."
+
+      if lister.pages
+        options = options.to_hash.merge!(offset: 1, limit: options[:limit] || lister.pages)
+
+        puts "Enqueing job for pages #{options[:offset]} to #{options[:limit]}, using #{pack options}."
+
+        JusticeGovSk::Job::ListCrawler.perform_async(type.name, options)
+      end
+
+      puts "finished (#{lister.pages} jobs)"
+    end
   end
 end

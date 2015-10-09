@@ -20,19 +20,9 @@ module JusticeGovSk
             end
           end
 
-          form, fields = form_and_fields(page, form_name)
-
           # Set page
           if request.page
-            if page_field_name = fields.find { |f| f.match(/\A.+cmbAGVPager\z/) }
-              form.field_with(name: page_field_name).value = request.page
-              postback_fields(form, page_field_name, '')
-
-              print "... "
-
-              page  = form.submit
-              @sum += page.content.length
-            end
+            page = set_page(request, page)
           end
 
           page
@@ -40,6 +30,22 @@ module JusticeGovSk
       end
 
       protected
+
+      def set_page(request, page)
+        form, fields = form_and_fields(page, form_name)
+
+        if page_field_name = fields.find { |f| f.match(/\A.+cmbAGVPager\z/) }
+          form.field_with(name: page_field_name).value = request.page
+          postback_fields(form, page_field_name, '')
+
+          print "... "
+
+          page = form.submit
+          @sum += page.content.length
+        end
+
+        page
+      end
 
       def form_name
         'aspnetForm'
