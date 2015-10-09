@@ -76,9 +76,7 @@ module JusticeGovSk
       if lister.pages
         options = options.to_hash.merge! limit: 1
 
-        max = options[:maximum_number_of_pages] ? options[:maximum_number_of_pages].to_i : lister.pages
-
-        1.upto(max) do |page|
+        1.upto(lister.pages) do |page|
           options.merge!(offset: page)
 
           puts "Enqueing job for page #{page}, using #{pack options}."
@@ -102,12 +100,14 @@ module JusticeGovSk
       puts "Running job builder."
 
       if lister.pages
-        limit = options[:limit] || lister.pages
-        options = options.to_hash.merge!(offset: 1, limit: limit.to_i)
+        args = options.clone
 
-        puts "Enqueing job for pages #{options[:offset]} to #{options[:limit]}, using #{pack options}."
+        args[:offset] ||= 1
+        args[:limit] ||= lister.pages
 
-        JusticeGovSk::Job::ListCrawler.perform_async(type.name, options)
+        puts "Enqueing job for pages #{args[:offset]} to #{args[:limit]}, using #{pack args}."
+
+        JusticeGovSk::Job::ListCrawler.perform_async(type.name, args)
       end
 
       puts "finished (#{lister.pages} jobs)"

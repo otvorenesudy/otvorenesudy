@@ -36,15 +36,16 @@ namespace :work do
 
     codes = (privileged + DecreeForm.where('id != ?', privileged.map(&:id)).order(:id).all).map { |form| form.code }
 
-    if args[:limit]
-      args.to_hash.merge!(queue: :limited)
-
-      args[:limit] = args[:limit].to_i
-    end
-
     codes.each do |code|
-      args.to_hash.merge!(offset: 1, decree_form_code: code)
-      JusticeGovSk.run_sequential_workers(Decree, args)
+      options = args.to_h
+
+      if args[:limit]
+        options.merge!(queue: :limited, limit: options[:limit].to_i)
+      end
+
+      options.merge!(offset: 1, decree_form_code: code)
+
+      JusticeGovSk.run_sequential_workers(Decree, options)
     end
   end
 end
