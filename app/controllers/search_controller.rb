@@ -4,6 +4,8 @@ class SearchController < ApplicationController
 
     @results = @model.search(params.freeze)
 
+    @results.associations = associations
+
     @count       = @results.total_count
     @page        = @results.page
     @facets      = @results.facets
@@ -62,6 +64,10 @@ class SearchController < ApplicationController
                 :collapsed_facets_key,
                 :search_path,
                 :suggest_path
+
+  def associations
+    nil
+  end
 
   def prepare
     @type  = params[:controller].singularize.to_sym
