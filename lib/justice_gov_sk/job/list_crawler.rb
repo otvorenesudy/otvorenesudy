@@ -25,11 +25,13 @@ module JusticeGovSk
               JusticeGovSk::Job::ResourceCrawler.perform_async(type.name, url, options.merge(queue: nil))
             end
           rescue Exception => e
+            raise e unless options[:limit] > 1
+
             scope = { request: { params: [type, options] } }
 
             Rollbar.scope(scope).error(e, use_exception_level_filters: true)
 
-            JusticeGovSk::Job::ListCrawler.perform_async(type, options.merge(offset: request.page))
+            JusticeGovSk::Job::ListCrawler.perform_async(type.name, options.merge(offset: request.page))
           end
         end
       end
