@@ -21,7 +21,7 @@ module JusticeGovSk
           lister.crawl(request, options[:offset], options[:limit]) do |url|
             next unless crawlable? type, url
 
-            JusticeGovSk::Job::ResourceCrawler.perform_async(type.name, url, options)
+            JusticeGovSk::Job::ResourceCrawler.perform_async(type.name, url, options.merge(queue: nil))
           end
         end
       end
