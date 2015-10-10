@@ -24,7 +24,7 @@ module JusticeGovSk
       end
 
       def place(document)
-        document.css('.DetailTable')[0].css('.hodnota')[11].try(:text).to_s.strip.squeeze(' ').presence
+        document.css('.DetailTable')[0].css('.hodnota')[12].try(:text).to_s.strip.squeeze(' ').presence
       end
 
       def state(document)
@@ -32,7 +32,7 @@ module JusticeGovSk
       end
 
       def date(document)
-        Time.parse(document.css('.DetailTable')[0].css('.hodnota')[10].text) rescue nil
+        Time.parse(document.css('.DetailTable')[0].css('.hodnota')[11].text) rescue nil
       end
 
       def closed_at(document)
@@ -40,7 +40,7 @@ module JusticeGovSk
       end
 
       def description(document)
-        document.css('.DetailTable')[0].css('.hodnota')[12].try(:text).to_s.strip.presence
+        document.css('.DetailTable')[0].css('.hodnota')[13].try(:text).to_s.strip.presence
       end
 
       def declaration_url(document)
@@ -62,9 +62,9 @@ module JusticeGovSk
       end
 
       def commissioners(document)
-        value = document.css('.DetailTable')[0].css('.hodnota')[9].try(:text).to_s
+        value = document.css('.DetailTable')[0].css('.hodnota')[10].try(:text)
 
-        parse_commissioners(value)
+        value ? parse_commissioners(value) : []
       end
     end
   end
