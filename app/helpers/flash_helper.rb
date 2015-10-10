@@ -16,7 +16,7 @@ module FlashHelper
   end
 
   def initialize_flash_as_arrays
-    flash.now[:error]  = []
-    flash.now[:notice] = []
+    flash.now[:error]  = Array.wrap(flash.now[:error])
+    flash.now[:notice] = Array.wrap(flash.now[:notice])
   end
 end
