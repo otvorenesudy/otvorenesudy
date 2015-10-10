@@ -100,7 +100,7 @@ module JusticeGovSk
 
       JusticeGovSk::Job::ListCrawler.perform_async(type.name, args)
 
-      puts "finished (#{lister.pages} jobs)"
+      puts "finished"
     end
   end
 end
