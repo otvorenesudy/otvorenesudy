@@ -1,14 +1,14 @@
 # Open Courts (Otvorené Súdy in Slovak)
 
-Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of Slovak Republic.
+Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of Slovak Republic
 
 ## Requirements
 
-* Ruby 2.1
+* Ruby 2.2
 * Rails 3.2
 * PostgreSQL 9.1 with trigram extension
-* Redis & Resque
-* Elasticsearch 0.9
+* Elasticsearch 1.4
+* Redis 3.0
 
 ### PostgreSQL Trigram Extension
 
@@ -20,50 +20,23 @@ RAILS_ENV=development
 psql -U postgres -d opencourts_$RAILS_ENV -f pg_trgm--1.0.sql
 ```
 
-Note that you need to set up the Trigram extension for all Rails environments you plan to use separately.
-
-### Elasticsearch
-
-Follow the [offical installation guide](https://github.com/elasticsearch/elasticsearch).
-
-### PDF Processing
-
-```
-sudo apt-get install graphicsmagick
-sudo apt-get install tesseract-ocr
-```
+Note that you need to set up the Trigram extension for all Rails environments you plan to use separately
 
 ## Installation
 
-Clone and install.
-
 ```
-git clone git://github.com/otvorenesudy/otvorenesudy.git
+git clone --recursive git://github.com/otvorenesudy/otvorenesudy.git
 cd otvorenesudy
-git submodule init   # initialize submodule, e.g. otvorenesudy-data
-git submodule update # or git submodule foreach git pull origin master
 bundle install
 ```
 
-Copy and edit configuration files.
+## Configuration
 
 ```
 cp config/configuration.{yml.example,yml}
 cp config/database.{yml.example,yml}
 cp config/newrelic.{yml.example,yml}
 ```
-
-Create database.
-
-```
-RAILS_ENV=development rake db:create
-```
-
-## Testing
-
-Run specs with `bundle exec rspec`.
-
-Setup small database with real production data for development purposes with `rake fixtures:db:setup`.
 
 ## Data
 
@@ -74,7 +47,7 @@ rake db:create
 rake db:seed
 ```
 
-Note that the seed data are essential for the next steps.
+Note that the seed data are essential for the next steps
 
 ### Courts and judges from justice.gov.sk
 
@@ -124,7 +97,7 @@ rake crawl:selection_procedures
 
 ### Judge property declarations from sudnarada.gov.sk
 
-*Warning! Judge property declarations processing currently fails as sudnarada.gov.sk switched from semi-structured (HTML tables) to unstructured (PDF document) publishing for years 2011, 2012 and 2013.* 
+*Warning! Judge property declarations processing currently fails as sudnarada.gov.sk switched from semi-structured (HTML tables) to unstructured (PDF document) publishing for years 2011, 2012 and 2013* 
 
 Crawl judge property declarations:
 
@@ -132,7 +105,7 @@ Crawl judge property declarations:
 rake crawl:judge_property_declarations
 ```
 
-Note that current support is only for property declarations of 2011 and 2012.
+Note that current support is only for property declarations of 2011 and 2012
 
 ### Partially preprocessed statistical summaries from justice.gov.sk
 
@@ -167,6 +140,10 @@ Process judge designations from nrsr.sk and prezident.sk:
 rake process:judge_designations:nrsr_sk
 rake process:judge_designations:prezident_sk
 ```
+
+## Testing
+
+Run specs with `bundle exec rspec`
 
 ## Contributing
 
