@@ -13,6 +13,7 @@ describe Hearing do
       let(:highlight_field) { :judges }
       let(:filter) {{ judges: [record.judges.pluck(:name).first, records[1].judges.pluck(:name).second], historical: false }}
       let(:sort_field) { :file_number }
+      let(:associations) { [:judges, :court] }
     end
   end
 

@@ -13,6 +13,7 @@ describe Decree do
       let(:highlight_field) { :judges }
       let(:filter) {{ judges: [record.judges.pluck(:name).first, records.second.judges.pluck(:name).second] }}
       let(:sort_field) { :ecli }
+      let(:associations) { [:judges, :court] }
     end
   end
 

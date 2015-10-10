@@ -126,7 +126,27 @@ shared_examples_for Probe::Search::Composer do
       search        = composer.new(model, options)
       other_results = search.compose
 
-      other_results.records.should eql(results.records)
+      other_results.records.should eq(results.records)
+    end
+  end
+
+  context 'when providing associations' do
+    it 'includes associations succesfully' do
+      options[:facets] = Probe::Facets.new([])
+
+      search = composer.new(model, options)
+      results = search.compose
+
+      results.associations = associations
+
+      expect(associations.size).not_to be_zero
+      expect(results.records.size).not_to be_zero
+
+      results.records.each do |record|
+        associations.each do |association|
+          expect(record.association(association)).to be_loaded
+        end
+      end
     end
   end
 end
