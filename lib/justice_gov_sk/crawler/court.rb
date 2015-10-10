@@ -74,11 +74,13 @@ module JusticeGovSk
           office.phone = phone
           office.note  = note
 
-          office.hours_monday    = hours[:monday]
-          office.hours_tuesday   = hours[:tuesday]
-          office.hours_wednesday = hours[:wednesday]
-          office.hours_thursday  = hours[:thursday]
-          office.hours_friday    = hours[:friday]
+          if hours
+            office.hours_monday    = hours[:monday]
+            office.hours_tuesday   = hours[:tuesday]
+            office.hours_wednesday = hours[:wednesday]
+            office.hours_thursday  = hours[:thursday]
+            office.hours_friday    = hours[:friday]
+          end
 
           return @persistor.persist(office)
         end
