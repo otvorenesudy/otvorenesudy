@@ -63,7 +63,7 @@ gem 'sidekiq-limit_fetch'
 gem 'devise'
 
 # monitoring
-gem 'airbrake'
+gem 'rollbar', '~> 2.2.1'
 gem 'garelic'
 gem 'newrelic_rpm'
 
