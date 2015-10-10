@@ -40,7 +40,7 @@ cp config/newrelic.{yml.example,yml}
 
 ## Data
 
-Setup database:
+*Following commands across this section should be executed subsequently in general*
 
 ```
 rake db:create
@@ -49,57 +49,53 @@ rake db:seed
 
 Note that the seed data are essential for the next steps
 
-### Courts and judges from justice.gov.sk
+### Courts and judges
 
-Crawl the necessary data, courts and judges from justice.gov.sk:
+Crawl courts and judges from justice.gov.sk:
 
 ```
 rake crawl:courts
 rake crawl:judges
 ```
 
-Add court acronyms:
+Process court acronyms from other source:
 
 ```
 rake process:court_acronyms
 ```
 
-Process known paragraph descriptions:
+Process paragraph descriptions from other source:
 
 ```
 rake process:paragraphs
 ```
 
-### Hearings and decrees from justice.gov.sk
+### Hearings and decrees
 
-Start Resque workers:
-
-```
-rake resque:workers QUEUE=* COUNT=4
-```
-
-Crawl and process hearings and decrees using Resque workers in any order:
+Crawl and process hearings and decrees from justice.gov.sk:
 
 ```
-rake work:hearings:civil
-rake work:hearings:criminal
-rake work:hearings:special
-rake work:decrees
+rake crawl:hearings:civil
+rake crawl:hearings:criminal
+rake crawl:hearings:special
+rake crawl:decrees
 ```
 
-### Judge selection procedures from justice.gov.sk
+Note to see `rake work` tasks to crawl via Sidekiq jobs
 
-Crawl judge selection procedures:
+### Judge selection procedures
+
+Crawl judge selection procedures from justice.gov.sk:
 
 ```
 rake crawl:selection_procedures
 ```
 
-### Judge property declarations from sudnarada.gov.sk
+### Judge property declarations
 
-*Warning! Judge property declarations processing currently fails as sudnarada.gov.sk switched from semi-structured (HTML tables) to unstructured (PDF document) publishing for years 2011, 2012 and 2013* 
+*Judge property declarations processing currently fails as sudnarada.gov.sk switched from semi-structured (HTML tables) to unstructured (PDF document) publishing* 
 
-Crawl judge property declarations:
+Crawl judge property declarations from sudnarada.gov.sk:
 
 ```
 rake crawl:judge_property_declarations
@@ -107,16 +103,16 @@ rake crawl:judge_property_declarations
 
 Note that current support is only for property declarations of 2011 and 2012
 
-### Partially preprocessed statistical summaries from justice.gov.sk
+### Partially preprocessed statistical summaries
 
-Court statistical summaries:
+Process court statistical summaries from justice.gov.sk:
 
 ```
 rake process:court_statistical_summaries:2011
 rake process:court_statistical_summaries:2012
 ```
 
-Judge statistical summaries:
+Process judge statistical summaries from justice.gov.sk:
 
 ```
 rake process:judge_statistical_summaries:2011
@@ -125,7 +121,7 @@ rake process:judge_statistical_summaries:2012
 
 ### Partially preprocessed data from various sources
 
-Court expenses from justice.gov.sk:
+Process court expenses from justice.gov.sk:
 
 ```
 rake process:court_expenses:2010
