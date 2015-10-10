@@ -20,7 +20,7 @@ RAILS_ENV=development
 psql -U postgres -d opencourts_$RAILS_ENV -f pg_trgm--1.0.sql
 ```
 
-Note that you need to set up the Trigram extension for all Rails environments you plan to use separately
+Note that you need to set up the Trigram extension for all Rails environments you plan to use
 
 ## Installation
 
@@ -81,7 +81,7 @@ rake crawl:hearings:special
 rake crawl:decrees
 ```
 
-Note to see `rake work` tasks to crawl via Sidekiq jobs
+Note to see `rake work` tasks to crawl via background jobs
 
 ### Judge selection procedures
 

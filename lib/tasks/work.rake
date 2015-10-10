@@ -1,7 +1,3 @@
-# Requires:
-#
-# rake resque:workers QUEUE=* COUNT=4
-#
 # Usage:
 #
 # rake work:hearings:civil
