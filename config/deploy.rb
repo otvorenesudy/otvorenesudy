@@ -20,11 +20,6 @@ set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 
 # Whenever
 set :whenever_identifier, ->{ "#{fetch(:application)}-#{fetch(:stage)}" }
 
-# Rollbar deploy tracking
-set :rollbar_token, Configuration.rollbar.access_token
-set :rollbar_env, -> { fetch :stage }
-set :rollbar_role, -> { :app }
-
 set :keep_releases, 1
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
@@ -39,11 +34,10 @@ namespace :workers do
         with rails_env: fetch(:rails_env) do
           log = 'log/sidekiq.log'
 
-          # execute :bundle, 'exec sidekiq -c  2 -q limited-decree-listers  -d -P tmp/pids/sidekiq.pid.1', '-L', log
-          execute :bundle, 'exec sidekiq -c  2 -q decree-listers          -d -P tmp/pids/sidekiq.pid.2', '-L', log
-          execute :bundle, 'exec sidekiq -c 10 -q decree-crawlers         -d -P tmp/pids/sidekiq.pid.3', '-L', log
-          execute :bundle, 'exec sidekiq -c  5 -q hearing-listers         -d -P tmp/pids/sidekiq.pid.4', '-L', log
-          execute :bundle, 'exec sidekiq -c  5 -q hearing-crawlers        -d -P tmp/pids/sidekiq.pid.5', '-L', log
+          execute :bundle, 'exec sidekiq -c  2 -q decree-listers          -d -P tmp/pids/sidekiq.pid.1', '-L', log
+          execute :bundle, 'exec sidekiq -c 10 -q decree-crawlers         -d -P tmp/pids/sidekiq.pid.2', '-L', log
+          execute :bundle, 'exec sidekiq -c  5 -q hearing-listers         -d -P tmp/pids/sidekiq.pid.3', '-L', log
+          execute :bundle, 'exec sidekiq -c  5 -q hearing-crawlers        -d -P tmp/pids/sidekiq.pid.4', '-L', log
         end
       end
     end
@@ -53,7 +47,7 @@ namespace :workers do
   task :stop do
     on roles(:app) do
       within current_path do
-        (1..5).each do |n|
+        (1..4).each do |n|
           pid = "tmp/pids/sidekiq.pid.#{n}"
 
           execute :bundle, 'exec sidekiqctl stop', pid, 10
