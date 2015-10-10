@@ -6,11 +6,11 @@ gem 'rails', '3.2.22'
 gem 'pg'
 gem 'pg_search'
 
-# search engine
+# search
 gem 'tire'
 
 # styles
-gem 'bootstrap-sass',     '~> 2.2.2.0'
+gem 'bootstrap-sass', '~> 2.2.2.0'
 gem 'font-awesome-rails', '~> 3.2.0.0'
 gem 'roadie'
 
@@ -21,39 +21,33 @@ gem 'rails-timeago'
 gem 'jquery-tablesorter'
 gem 'execjs'
 gem 'chart-js-rails'
-
-# JS libraries
 gem 'inflection-js-rails'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'spinjs-rails'
 gem 'rails-backbone'
+gem 'gmaps4rails', '~> 1.5.6'
 
 # pagination
-gem 'kaminari',           '~> 0.14.1'
+gem 'kaminari', '~> 0.14.1'
 gem 'kaminari-bootstrap', '~> 0.1.3'
-
-# maps
-gem 'gmaps4rails', '~> 1.5.6'
 
 # localization
 gem 'rails-i18n'
 
 # crawlers
-gem 'curb',        '>= 0.8.3'
-gem 'mechanize',   '~> 2.5.1'
-gem 'docsplit',    '~> 0.6.4'
-
+gem 'curb', '>= 0.8.3'
+gem 'mechanize', '~> 2.5.1'
+gem 'docsplit', '~> 0.6.4'
 gem 'json', '1.8.2'
 gem 'nokogiri'
 
 # utilities
-gem 'colored',     '~> 1.2'
-gem 'murmurhash3', '>= 0.1.3'
-
-gem 'htmlentities'
 gem 'squire', '~> 1.2.6'
+gem 'colored', '~> 1.2'
+gem 'murmurhash3', '>= 0.1.3'
+gem 'htmlentities'
 
-# background jobs
+# jobs
 gem 'sinatra', require: nil
 gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'celluloid', '~> 0.17.2'
@@ -77,11 +71,9 @@ gem 'whenever'
 # hostname
 gem 'rack-canonical-host'
 
-# Serialization
+# serialization
 gem 'active_model_serializers'
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -89,7 +81,7 @@ group :assets do
 end
 
 group :development do
-  # Deployment
+  # deployment
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
@@ -97,6 +89,9 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
+
+  # other
+  gem 'bump', github: 'pavolzbell/bump'
 end
 
 group :development, :test do

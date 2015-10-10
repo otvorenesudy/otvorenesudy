@@ -9,6 +9,12 @@ GIT
       redis (~> 3.2, >= 3.2.1)
       redis-namespace (~> 1.5, >= 1.5.2)
 
+GIT
+  remote: git://github.com/pavolzbell/bump.git
+  revision: 5a607237540812c4fcd75c72082b11f6c9880e42
+  specs:
+    bump (0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -384,6 +390,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bootstrap-sass (~> 2.2.2.0)
+  bump!
   capistrano (~> 3.4.0)
   capistrano-bundler
   capistrano-git-submodule-strategy (~> 0.1)
