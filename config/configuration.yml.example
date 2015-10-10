@@ -1,8 +1,8 @@
 defaults: &defaults
   secret_token: TODO
 
-  airbrake:
-    key: TODO
+  rollbar:
+    access_token: TODO
 
   bing:
     key: TODO

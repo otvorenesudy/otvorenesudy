@@ -20,6 +20,11 @@ set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 
 # Whenever
 set :whenever_identifier, ->{ "#{fetch(:application)}-#{fetch(:stage)}" }
 
+# Rollbar deploy tracking
+set :rollbar_token, Configuration.rollbar.access_token
+set :rollbar_env, -> { fetch :stage }
+set :rollbar_role, -> { :app }
+
 set :keep_releases, 1
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
