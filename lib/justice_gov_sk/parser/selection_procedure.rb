@@ -3,6 +3,16 @@ module JusticeGovSk
     class SelectionProcedure < JusticeGovSk::Parser
       include JusticeGovSk::Helper::SelectionProcedure
 
+      def parse(content, options = {})
+        document = super content, options
+
+        if document && document.css('.DetailTable')[0].css('.popiska')[8].text.strip != 'Zvukový záznam konania:'
+          document.css('.DetailTable')[0].css('.hodnota')[8].add_previous_sibling '<div class="hodnota"></div>' * 2
+        end
+
+        document
+      end
+
       def organization_name_unprocessed(document)
         document.css('.DetailTable')[0].css('.hodnota')[0].text.strip
       end
