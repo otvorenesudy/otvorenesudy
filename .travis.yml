@@ -1,0 +1,22 @@
+sudo: false
+language: ruby
+bundler_args: --without development
+
+before_install:
+  - gem install bundler
+
+before_script:
+  - psql -c 'create database opencourts_test;' -U postgres
+  - "cp config/configuration.yml.example config/configuration.yml"
+    "cp config/database.yml.example config/database.yml"
+  - bundle exec rake db:schema:load
+  - bundle exec rake db:seed
+
+script:
+  - bundle exec rspec spec
+
+addons:
+  postgresql: '9.1'
+
+services:
+  - elasticsearch
