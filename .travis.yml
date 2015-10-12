@@ -10,7 +10,6 @@ before_script:
   - "cp config/configuration.yml.example config/configuration.yml"
   - "cp config/database.yml.example config/database.yml"
   - bundle exec rake db:schema:load
-  - bundle exec rake db:seed
 
 script:
   - bundle exec rspec spec
