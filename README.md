@@ -1,5 +1,7 @@
 # Open Courts (Otvorené Súdy in Slovak)
 
+[![Build Status](https://travis-ci.org/otvorenesudy/otvorenesudy.svg?branch=beta)](https://travis-ci.org/otvorenesudy/otvorenesudy)
+
 Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of Slovak Republic.
 
 ## Requirements
