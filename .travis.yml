@@ -1,9 +1,10 @@
-sudo: false
+sudo: required
 language: ruby
 bundler_args: --without development
 
 before_install:
   - gem install bundler
+  - curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.deb && sudo dpkg -i --force-confnew elasticsearch-1.7.2.deb
 
 before_script:
   - psql -c 'create database opencourts_test;' -U postgres
@@ -16,6 +17,3 @@ script:
 
 addons:
   postgresql: '9.1'
-
-services:
-  - elasticsearch
