@@ -11,7 +11,7 @@ module JusticeGovSk
       def client_push(item)
         pool = Thread.current[:sidekiq_via_pool] || get_sidekiq_options['pool'] || Sidekiq.redis_pool
 
-        type = item['args'].first.underscore.split(/_/).last
+        type = item['args'].first.to_s.underscore.split(/_/).last
         queue = "#{type.underscore}-#{sidekiq_options_hash['queue']}"
         patch = item['args'].last[:queue]
 

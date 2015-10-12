@@ -1,6 +1,8 @@
 # Open Courts (Otvorené Súdy in Slovak)
 
-Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of Slovak Republic
+[![Build Status](https://travis-ci.org/otvorenesudy/otvorenesudy.svg?branch=beta)](https://travis-ci.org/otvorenesudy/otvorenesudy)
+
+Public data project aimed at creating much more user friendly interface to interesting public data provided by [Departement of Justice](http://www.justice.gov.sk) and [The Judical Council](http://www.sudnarada.sk) of Slovak Republic.
 
 ## Requirements
 
@@ -8,7 +10,7 @@ Public data project aimed at creating much more user friendly interface to inter
 * Rails 3.2
 * PostgreSQL 9.1 with trigram extension
 * Elasticsearch 1.7.2
-* Redis 3.0
+* Redis 3.4
 
 ### PostgreSQL Trigram Extension
 
