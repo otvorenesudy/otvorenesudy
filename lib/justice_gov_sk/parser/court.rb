@@ -82,9 +82,7 @@ module JusticeGovSk
           friday:    office_daily_hours(name + ' friday hours',    document, group, 7)
         }
 
-        hours.values.each { |value| return hours unless value.nil? }
-
-        nil
+        hours unless hours.values.include? nil
       end
 
       def office_note(type, document)
