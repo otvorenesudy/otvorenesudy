@@ -1,11 +1,16 @@
-sudo: required
+sudo: false
 language: ruby
+rvm: 2.2.2
 bundler_args: --without development
 
 before_install:
   - gem install bundler
-  - curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.deb && sudo dpkg -i --force-confnew elasticsearch-1.7.2.deb
-  - sudo service elasticsearch start
+
+  # Elastic
+  - curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.tar.gz
+  - tar xzf elasticsearch-1.7.2.tar.gz
+  - "echo \"script.engine.groovy.inline.aggs: on\" >> elasticsearch-1.7.2/config/elasticsearch.yml"
+  - elasticsearch-1.7.2/bin/elasticsearch -d
 
 before_script:
   - psql -c 'create database opencourts_test;' -U postgres
