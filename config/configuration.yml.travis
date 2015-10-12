@@ -1,0 +1,37 @@
+defaults: &defaults
+  secret_token: a360fde360feec9b825bcc144adda14824a55bdcb162caf2cb551f750125ada4625c8f65fbe2cd51b868250502ee003f35648c3bdb1c69376e48919fbfb5d366
+
+  rollbar:
+    access_token: TODO
+
+  bing:
+    key: TODO
+
+  devise:
+    key: TODO
+
+  github:
+    organization: TODO
+    repository: TODO
+
+  mailer:
+    username: TODO
+    password: TODO
+
+  newrelic:
+    key: TODO
+
+  sidekiq:
+    password: TODO
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
