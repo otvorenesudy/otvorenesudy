@@ -7,7 +7,7 @@ Public data project aimed at creating much more user friendly interface to inter
 * Ruby 2.2
 * Rails 3.2
 * PostgreSQL 9.1 with trigram extension
-* Elasticsearch 1.4
+* Elasticsearch 1.7.2
 * Redis 3.0
 
 ### PostgreSQL Trigram Extension
