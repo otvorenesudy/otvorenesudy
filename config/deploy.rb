@@ -34,10 +34,10 @@ namespace :workers do
         with rails_env: fetch(:rails_env) do
           log = 'log/sidekiq.log'
 
-          execute :bundle, 'exec sidekiq -c  2 -q decree-listers          -d -P tmp/pids/sidekiq.pid.1', '-L', log
-          execute :bundle, 'exec sidekiq -c 10 -q decree-crawlers         -d -P tmp/pids/sidekiq.pid.2', '-L', log
-          execute :bundle, 'exec sidekiq -c  5 -q hearing-listers         -d -P tmp/pids/sidekiq.pid.3', '-L', log
-          execute :bundle, 'exec sidekiq -c  5 -q hearing-crawlers        -d -P tmp/pids/sidekiq.pid.4', '-L', log
+          execute :bundle, 'exec sidekiq -c  2 -q decree-listers   -d -P tmp/pids/sidekiq.pid.1', '-L', log
+          execute :bundle, 'exec sidekiq -c 10 -q decree-crawlers  -d -P tmp/pids/sidekiq.pid.2', '-L', log
+          execute :bundle, 'exec sidekiq -c  5 -q hearing-listers  -d -P tmp/pids/sidekiq.pid.3', '-L', log
+          execute :bundle, 'exec sidekiq -c  5 -q hearing-crawlers -d -P tmp/pids/sidekiq.pid.4', '-L', log
         end
       end
     end
@@ -56,6 +56,8 @@ namespace :workers do
     end
   end
 end
+
+# TODO: Probe
 
 namespace :deploy do
   after 'deploy:publishing', 'deploy:restart'
@@ -92,10 +94,8 @@ namespace :deploy do
     invoke 'unicorn:stop'
 
     # Safe timeout for unicorn stopping
-    sleep 5
+    sleep 10
 
     invoke 'unicorn:start'
   end
 end
-
-# TODO: Probe
