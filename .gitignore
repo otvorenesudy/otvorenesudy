@@ -7,16 +7,18 @@
 .~lock.*
 *.*~
 
-/storage
-/tags
-/tmp
-
 Gemfile.lock.tags
 
-config/configuration.yml
-config/database.yml
-config/newrelic.yml
+/storage
+/tags
 
-db/*.sqlite3
-log/*.log
+/db/*.sqlite3
+/log/*
+/tmp/*
 
+!/log/.keep
+!/tmp/.keep
+
+/config/configuration.yml
+/config/database.yml
+/config/newrelic.yml
