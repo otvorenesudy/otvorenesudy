@@ -88,7 +88,7 @@ module Probe::Search
 
       queries += Array.wrap(options[:queries])
 
-      build_filtered_query_from(queries, filter)
+      build_filtered_query_from(queries, filter) if queries.any? || filter
     end
 
     def search_facets
@@ -96,9 +96,10 @@ module Probe::Search
         next unless facet.buildable?
 
         options = Hash.new
+        filter = build_facet_filter(exclude: facet)
 
         options[:global]       = true
-        options[:facet_filter] = build_facet_filter(exclude: facet)
+        options[:facet_filter] = filter if filter
 
         facet.build(@index, facet.name, options)
 
