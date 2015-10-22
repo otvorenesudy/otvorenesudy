@@ -15,6 +15,7 @@ module Probe::Search
       @facets      = options[:facets]
       @params      = options[:params]      || {}
       @sort_fields = options[:sort_fields] || []
+      @fields      = Array.wrap(options[:fields]) + [:id]
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
@@ -46,6 +47,7 @@ module Probe::Search
         search_sort
         search_highlights
         search_pagination
+        search_fields
       end
 
       if Rails.env.development? && index.respond_to?(:to_hash)
@@ -130,6 +132,10 @@ module Probe::Search
 
       @index.size(@per_page)
       @index.from(@per_page * (@page - 1)) if @page
+    end
+
+    def search_fields
+      @index.fields(@fields)
     end
   end
 end
