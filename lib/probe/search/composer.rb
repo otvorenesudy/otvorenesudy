@@ -136,7 +136,7 @@ module Probe::Search
     end
 
     def search_fields
-      @index.fields(@fields)
+      @index.fields(@fields + @sort_fields - [:_score])
     end
   end
 end
