@@ -14,7 +14,7 @@ module Judge::Names
   end
 
   def from_unprocessed(relation)
-    relation.pluck(:judge_name_unprocessed).map { |name|
+    relation.map(&:judge_name_unprocessed).map { |name|
       Resource::Normalizer.normalize_person_name(name)
     }.uniq
   end

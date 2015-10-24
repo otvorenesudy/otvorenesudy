@@ -30,4 +30,10 @@ class DecreesController < SearchController
 
   include FileHelper
   include FlashHelper
+
+  private
+
+  def included_associations
+    [:form, :legislation_area, :legislation_subarea, :natures, :court, :exact_judges, :judgements, :judges, inexact_judgements: [:judge]]
+  end
 end

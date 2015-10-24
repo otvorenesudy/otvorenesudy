@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
     @results = @model.search(params.freeze)
 
-    @results.associations = associations
+    @results.associations = included_associations
 
     @count       = @results.total_count
     @page        = @results.page
@@ -65,7 +65,7 @@ class SearchController < ApplicationController
                 :search_path,
                 :suggest_path
 
-  def associations
+  def included_associations
     nil
   end
 
