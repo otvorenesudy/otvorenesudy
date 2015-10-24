@@ -74,9 +74,13 @@ shared_examples_for Probe::Search::Composer do
         result.remove_params.should eql(name.to_s => remove_params.uniq)
       end
 
+      mapper = model.mapping[name][:as]
+
       # TODO: check elasticsearch records for value
-      results.results.each do |result|
-        (Array.wrap(values) & Array.wrap(result.send(name))).size.should_not be_zero
+      results.records.each do |record|
+        other = Array.wrap(mapper.call(record))
+
+        (Array.wrap(values) & other).size.should_not be_zero
       end
     end
 
