@@ -28,4 +28,10 @@ class HearingsController < SearchController
 
   include FileHelper
   include FlashHelper
+
+  private
+
+  def included_associations
+    [:form, :subject, :judgings, :judges, :opponents, :proposers, :defendants, :court]
+  end
 end
