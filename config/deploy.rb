@@ -26,39 +26,7 @@ set :git_enable_submodules, 1
 set :ssh_options, { forward_agent: true }
 set :use_sudo, false
 
-namespace :workers do
-  desc 'Start workers'
-  task :start do
-    on roles(:app) do
-      within current_path do
-        with rails_env: fetch(:rails_env) do
-          log = 'log/sidekiq.log'
-
-          execute :bundle, 'exec sidekiq -c  2 -q decree-listers   -d -P tmp/pids/sidekiq.pid.1', '-L', log
-          execute :bundle, 'exec sidekiq -c 10 -q decree-crawlers  -d -P tmp/pids/sidekiq.pid.2', '-L', log
-          execute :bundle, 'exec sidekiq -c  5 -q hearing-listers  -d -P tmp/pids/sidekiq.pid.3', '-L', log
-          execute :bundle, 'exec sidekiq -c  5 -q hearing-crawlers -d -P tmp/pids/sidekiq.pid.4', '-L', log
-        end
-      end
-    end
-  end
-
-  desc 'Stop workers'
-  task :stop do
-    on roles(:app) do
-      within current_path do
-        (1..4).each do |n|
-          pid = "tmp/pids/sidekiq.pid.#{n}"
-
-          execute :bundle, 'exec sidekiqctl stop', pid, 10
-        end
-      end
-    end
-  end
-end
-
 # TODO: Probe
-
 namespace :deploy do
   after 'deploy:publishing', 'deploy:restart'
   after 'finishing', 'deploy:cleanup'
