@@ -30,8 +30,11 @@ class Hearing < ActiveRecord::Base
   belongs_to :court
 
   has_many :judgings, dependent: :destroy
+  has_many :inexact_judgings, class_name: :Judging, conditions: Judging.inexact_conditions
 
   has_many :judges, through: :judgings
+  # TODO replace with scope instead of conditions in Rails >= 4
+  has_many :exact_judges, through: :judgings, source: :judge, class_name: :Judge, conditions: Judging.exact_conditions, order: 'judges.last, judges.middle, judges.first'
 
   belongs_to :type,    class_name: :HearingType,    foreign_key: :hearing_type_id
   belongs_to :section, class_name: :HearingSection, foreign_key: :hearing_section_id
