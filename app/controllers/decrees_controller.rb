@@ -33,7 +33,7 @@ class DecreesController < SearchController
 
   private
 
-  def included_associations
+  def search_associations
     # NOTE do not eagerload scoped associations after original associations!
     # e.g. :exact_judges has to go before :judges, otherwise scoped association will
     # not be loaded
