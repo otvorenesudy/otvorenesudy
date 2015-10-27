@@ -43,6 +43,10 @@ class JudgesController < SearchController
 
   private
 
+  def search_associations
+    [employments: [:court, :judge, :judge_position]]
+  end
+
   def search_judges_for_indicators
     results = Judge.search(params.merge!(has_indicators: true))
 
