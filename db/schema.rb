@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151010220257) do
+ActiveRecord::Schema.define(:version => 20151027124327) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(:version => 20151010220257) do
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
+  add_index "decrees", ["updated_at"], :name => "index_decrees_on_updated_at"
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
 
   create_table "defendants", :force => true do |t|
