@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151027124327) do
+ActiveRecord::Schema.define(:version => 20151102145748) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -22,13 +22,6 @@ ActiveRecord::Schema.define(:version => 20151027124327) do
   end
 
   add_index "accusations", ["defendant_id", "value"], :name => "index_accusations_on_defendant_id_and_value", :unique => true
-
-  create_table "api_keys", :force => true do |t|
-    t.string   "value",      :null => false
-    t.datetime "created_at", :null => false
-  end
-
-  add_index "api_keys", ["value"], :name => "index_api_keys_on_key", :unique => true
 
   create_table "court_expenses", :force => true do |t|
     t.string   "uri",        :limit => 2048, :null => false
@@ -292,6 +285,15 @@ ActiveRecord::Schema.define(:version => 20151027124327) do
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["source_id"], :name => "index_hearings_on_source_id"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
+
+  create_table "invites", :force => true do |t|
+    t.string   "email",      :limit => nil, :null => false
+    t.string   "locale",     :limit => nil, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "invites", ["email", "locale"], :name => "index_invites_on_email_and_locale", :unique => true
 
   create_table "judge_designation_types", :force => true do |t|
     t.string   "value",      :null => false
