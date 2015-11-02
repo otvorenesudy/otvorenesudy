@@ -55,3 +55,7 @@ end
 every 3.days do
   rake 'work:decrees'
 end
+
+every :day, at: '1:00am' do
+  rake 'backup:database'
+end
