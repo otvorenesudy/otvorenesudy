@@ -15,7 +15,7 @@ set :rvm_ruby_version, '2.2.2'
 
 # Links
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/configuration.yml')
-set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage')
+set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage', 'backups')
 
 # Whenever
 set :whenever_identifier, ->{ "#{fetch(:application)}-#{fetch(:stage)}" }
