@@ -45,8 +45,3 @@ sk:
         work_in_progress: 'Obsah tejto sekcie sa pripravuje.'
         title: 'História dát'
         description: 'Ako rýchlo rastie počet zverejnených súdnych dokumentov? Koľko súdnych rozhodnutí bolo zverejnených na najvyššom súde za posledný mesiac? Odpovede na tieto a podobné otázky nájdete čoskoro v tejto sekcii.'
-
-      api:
-        work_in_progress: 'Obsah tejto sekcie sa pripravuje.'
-        description: 'Dokumentácia k API, ktoré je priateľské voči programátorom. Kým ho pripravíme, tak nás v prípade záujmu o dáta neváhajte'
-        contact_us: 'kontaktovať'

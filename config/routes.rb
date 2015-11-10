@@ -90,16 +90,9 @@ OpenCourts::Application.routes.draw do
     get :subscriptions
   end
 
-  namespace :api, defaults: { format: :json } do
-    resources :decrees, only: [] do
-      get :sync, on: :collection
-    end
-  end
-
   resources :subscriptions, only: [:create, :update, :destroy]
 
   match '/search/collapse', to: 'search#collapse'
-  match '/api', to: 'static_pages#api'
 
   match '/404', to: 'errors#show', as: :not_found_error
   match '/500', to: 'errors#show', as: :internal_server_error

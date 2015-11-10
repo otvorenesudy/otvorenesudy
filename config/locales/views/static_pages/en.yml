@@ -45,8 +45,3 @@
         work_in_progress: 'The content of this section is being prepared'
         title: 'Data history'
         description: 'How fast does the number of documents increase? How many judicial decrees has been published at the Supreme Court in the last month? Answers to these and similar questions will be found in this section.'
-
-      api:
-        work_in_progress: 'The content of this section is being prepared'
-        description: 'Documentation for API that is friendly to IT developers. Until we prepare it, do not hesitate to contact us in case you are interested in the data.'
-        contact_us: 'Contact us'
