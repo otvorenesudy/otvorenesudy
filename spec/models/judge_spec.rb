@@ -13,6 +13,7 @@ describe Judge do
       let(:highlight_field) { :name }
       let(:filter) {{ courts: record.courts.pluck(:name) }}
       let(:sort_field) { :name }
+      let(:associations) { [:courts, :source] }
     end
   end
 

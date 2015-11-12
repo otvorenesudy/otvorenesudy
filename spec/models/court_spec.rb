@@ -13,6 +13,7 @@ describe Court do
       let(:highlight_field) { :name }
       let(:filter) {{ municipality: [record.municipality.name, records.second.municipality.name] }}
       let(:sort_field) { :municipality }
+      let(:associations) { [:decrees, :municipality] }
     end
   end
 

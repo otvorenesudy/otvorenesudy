@@ -24,8 +24,12 @@ class Decree < ActiveRecord::Base
   belongs_to :court
 
   has_many :judgements, dependent: :destroy
+  # TODO remove conditions in favor of scope in Rails >= 4
+  has_many :inexact_judgements, class_name: :Judgement, conditions: Judgement.inexact_conditions
 
   has_many :judges, through: :judgements
+  # TODO remove conditions in favor of scope in Rails >= 4
+  has_many :exact_judges, through: :judgements, source: :judge, class_name: :Judge, conditions: Judgement.exact_conditions, order: 'judges.last, judges.middle, judges.first'
 
   belongs_to :form, class_name: :DecreeForm, foreign_key: :decree_form_id
 

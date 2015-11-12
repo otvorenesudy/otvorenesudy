@@ -10,7 +10,7 @@ module DecreesHelper
   end
 
   def decree_natures(decree, options = {})
-    join_and_truncate decree.natures.order(:value).pluck(:value), { separator: ', ' }.merge(options)
+    join_and_truncate decree.natures.sort_by(&:value).map(&:value), { separator: ', ' }.merge(options)
   end
 
   def decree_date(date, options = {})
