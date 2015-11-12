@@ -24,7 +24,6 @@ gem 'chart-js-rails'
 gem 'inflection-js-rails'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'spinjs-rails'
-gem 'rails-backbone'
 gem 'gmaps4rails', '~> 1.5.6'
 
 # pagination
@@ -60,6 +59,7 @@ gem 'devise'
 gem 'rollbar', '~> 2.2.1'
 gem 'garelic'
 gem 'newrelic_rpm'
+gem 'gabrake'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'

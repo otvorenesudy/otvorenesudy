@@ -18,13 +18,11 @@
 #= require inflection
 #= require bootstrap
 #= require boostrap_ext
-#= require underscore
-#= require backbone
-#= require backbone_rails_sync
-#= require backbone_datalink
 #= require gmaps4rails/gmaps4rails.base
 #= require gmaps4rails/gmaps4rails.googlemaps
 #= require jquery-tablesorter
+#= require gabrake/analytics
+#= require gabrake
 #= require lib/lib
 #= require tables
 #= require search
