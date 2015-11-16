@@ -30,10 +30,4 @@ class CourtsController < SearchController
 
     @results = @court.context_search[0..9]
   end
-
-  private
-
-  def search_associations
-    [:municipality, :judges, :employments, :hearings, :decrees]
-  end
 end
