@@ -1,7 +1,7 @@
-<%= threshold = 1.minute.ago %>
-<%= last_showed_at = Time.at(session[:popup_showed_at] ||= Time.now.to_i) %>
+<% threshold = 1.minute %>
+<% last_showed_at = session[:popup_showed_at] ? Time.at(session[:popup_showed_at]) : Time.now - threshold - 1.second %>
 
-<% if last_showed_at < threshold  %>
+<% if last_showed_at < threshold.ago  %>
   <%= session[:popup_showed_at] = Time.now.to_i %>
 
   <div class="pop-up modal fade">
