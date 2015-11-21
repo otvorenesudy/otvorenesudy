@@ -57,7 +57,7 @@
         <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
       <% end %>
 
-      <p><%= external_link_to t('.originial_document'), @hearing.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.might_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
+      <p><%= external_link_to t('.original_document'), @hearing.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.might_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
     </div>
 
     <%-# All hearing types -%>
@@ -195,7 +195,7 @@
         <%= t('.info_source') %> <%= external_link_to t('.document'), @hearing.uri, class: :muted, icon: true %>,
         <%= t 'lastly_updated' %> <%= time_tag @hearing.updated_at.to_date, format: :default %>.
         <br/>
-        <%= t('.info_source') %> <%= external_link_to t('originial_document'), @hearing.uri, class: :muted, icon: true %> <%= t '.may_be_invalid' %>
+        <%= t('.info_source') %> <%= external_link_to t('original_document'), @hearing.uri, class: :muted, icon: true %> <%= t '.may_be_invalid' %>
         <% if File.readable? @hearing.resource_path %>
           <br/>
           <%= t('.thats_why') %> <%= link_to_hearing_resource @hearing, icon_tag(:'file-alt', label: t('.processed_doc'), join: :append), class: :icon %> <%= t('.raw_form') %>.
