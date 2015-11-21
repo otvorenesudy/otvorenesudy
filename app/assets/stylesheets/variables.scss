@@ -131,7 +131,8 @@ $zindexTooltip:           1030 !default;
 $zindexFixedNavbar:       1030 !default;
 $zindexModalBackdrop:     1040 !default;
 $zindexModal:             1050 !default;
-
+$popupModalWidth:         800px !default;
+$popupModalMarginLeft:    ceil((-1 * $popupModalWidth / 2));
 
 // Sprite icons path
 

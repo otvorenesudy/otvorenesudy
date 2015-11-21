@@ -39,5 +39,7 @@
     <%= yield :scripts %>
     <%= Garelic.monitoring 'UA-38636233-1' %>
     <script async src="http://cdn.searchd.co/assets/collector.js" onload="initializeSearchD();"></script>
+
+    <%= render 'layouts/popup' %>
   </body>
 </html>
