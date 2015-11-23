@@ -1,38 +1,45 @@
-<div class="pop-up modal fade" tabindex="-1">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h2>Oznámenie</h2>
+<% threshold = 24.hours %>
+<% last_showed_at = session[:popup_showed_at] ? Time.at(session[:popup_showed_at]) : Time.now - threshold - 1.second %>
+
+<% if last_showed_at < threshold.ago  %>
+  <%= session[:popup_showed_at] = Time.now.to_i %>
+
+  <div class="pop-up modal fade" tabindex="-1">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h2>Oznámenie</h2>
+    </div>
+
+    <div class="modal-body">
+      <h3>Prepáčte, portál momentálne nefunguje.</h3>
+
+      <p>
+        Na Otvorených súdoch momentálne chýbajú najnovšie rozsudky aj informácie o pojednávaniach. <br>
+        Od začiatku novembra Ministerstvo spravodlivosti totiž zmenilo spôsob akým zverejňuje dáta.  <br>
+      </p>
+
+      <p>
+        Preprogramovanie portálu nás vyjde na <b>2500 eur</b>.
+      </p>
+
+      <p>
+        Aby sme Vám vedeli aj naďalej prinášať najaktuálnejšie informácie o súdoch. <br>
+        Potrebujeme Vašu podporu!
+      </p>
+
+      <h4>
+        Ak 100 z vás daruje aspoň 25 eur, do konca tohto roka budú súdy opäť otvorené pre všetkých.
+      </h4>
+
+      <%= link_to "Chcem, aby boli súdy opäť otvorené", 'http://transparency.darujme.sk/238', track_data(:'pop-up-button').merge(class: 'btn btn-primary btn-large btn-capitalized', target: :_blank) %>
+
+      <h3>
+        Ďakujeme.
+      </h3>
+    </div>
   </div>
 
-  <div class="modal-body">
-    <h3>Prepáčte, portál momentálne nefunguje.</h3>
-
-    <p>
-      Na Otvorených súdoch momentálne chýbajú najnovšie rozsudky aj informácie o pojednávaniach. <br>
-      Od začiatku novembra Ministerstvo spravodlivosti totiž zmenilo spôsob akým zverejňuje dáta.  <br>
-    </p>
-
-    <p>
-      Preprogramovanie portálu nás vyjde na <b>2500 eur</b>.
-    </p>
-
-    <p>
-      Aby sme Vám vedeli aj naďalej prinášať najaktuálnejšie informácie o súdoch. <br>
-      Potrebujeme Vašu podporu!
-    </p>
-
-    <h4>
-      Ak 100 z vás daruje aspoň 25 eur, do konca tohto roka budú súdy opäť otvorené pre všetkých.
-    </h4>
-
-    <%= link_to "Chcem, aby boli súdy opäť otvorené", 'http://transparency.darujme.sk/238', track_data(:'pop-up-button').merge(class: 'btn btn-primary btn-large btn-capitalized', target: :_blank) %>
-
-    <h3>
-      Ďakujeme.
-    </h3>
-  </div>
-</div>
-
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function() { $('.pop-up').modal({ keyboard: true }).modal('show') })
-</script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() { $('.pop-up').modal({ keyboard: true }).modal('show') })
+  </script>
+<% end %>
