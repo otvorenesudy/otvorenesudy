@@ -59,6 +59,10 @@
   width: $popupModalWidth;
   margin-left: $popupModalMarginLeft;
 
+  .modal-body {
+    max-height: $popupModalBodyHeight;
+  }
+
   text-align: center;
 
   p {
