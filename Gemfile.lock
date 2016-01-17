@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/elhu/whenever.git
+  revision: 10f5db1d715c1225d57fe9ab573f5a9d89c4575d
+  branch: ruby-2.3-compat
+  specs:
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
+
+GIT
   remote: git://github.com/mperham/sidekiq.git
   revision: deca1dcfcf5218a2d6ef0d789e0f871ae7454a69
   specs:
@@ -66,17 +74,17 @@ GEM
       sshkit (~> 1.2)
     capistrano-git-submodule-strategy (0.1.17)
       capistrano (~> 3.1)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
     capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-rvm (0.1.2)
-      capistrano (~> 3.0)
-      sshkit (~> 1.2)
+    capistrano-rbenv (2.0.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     capistrano-sidekiq (0.5.3)
       capistrano
       sidekiq
-    capistrano3-unicorn (0.2.1)
-      capistrano (~> 3.1, >= 3.1.0)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -381,9 +389,6 @@ GEM
       rack (>= 1.0)
     webrobots (0.1.1)
     websocket (1.0.7)
-    whenever (0.9.0)
-      activesupport (>= 2.3.4)
-      chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -397,10 +402,10 @@ DEPENDENCIES
   capistrano (~> 3.4.0)
   capistrano-bundler
   capistrano-git-submodule-strategy (~> 0.1)
+  capistrano-passenger
   capistrano-rails (~> 1.1)
-  capistrano-rvm
+  capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
-  capistrano3-unicorn
   capybara
   celluloid (~> 0.17.2)
   chart-js-rails
@@ -453,7 +458,7 @@ DEPENDENCIES
   tire
   uglifier (>= 1.0.3)
   unicorn
-  whenever
+  whenever!
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

@@ -66,7 +66,7 @@ gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
 # scheduling
-gem 'whenever'
+gem 'whenever', github: 'elhu/whenever', branch: 'ruby-2.3-compat' # Remove after merging this: https://github.com/javan/whenever/pull/603
 
 # hostname
 gem 'rack-canonical-host'
@@ -85,8 +85,8 @@ group :development do
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
-  gem 'capistrano-rvm'
-  gem 'capistrano3-unicorn'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
 
