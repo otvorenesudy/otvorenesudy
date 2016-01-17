@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160115123443) do
+ActiveRecord::Schema.define(:version => 20160117173159) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20160115123443) do
     t.integer  "legislation_subarea_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "pdf_uri",                :limit => 2048
   end
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
