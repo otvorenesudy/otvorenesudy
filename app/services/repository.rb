@@ -1,6 +1,6 @@
 class Repository < Struct.new(:client)
   def bulk_import(relation)
-    relation.order(:id).find_in_batches(batch_size: 10000) do |batch|
+    relation.order(:id).find_in_batches(batch_size: 5000) do |batch|
       body = batch.map do |document|
         {
           index: {

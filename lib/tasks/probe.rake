@@ -7,34 +7,26 @@ namespace :probe do
     INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Probe::Configuration.indices
   end
 
-  desc "Updates the entire index"
-  task update: :environment do
-    Rake::Task['probe:prepare'].invoke
-
-    indices_to_models(INDICES).each do |index, model|
-      Probe::Bulk.update(model.where('updated_at >= ?', 7.days.ago))
-    end
-  end
-
-  desc "Imports the entire index (drops and creates index from scratch)"
-  task :'import' => :environment do
-    Rake::Task['probe:prepare'].invoke
-
-    indices_to_models(INDICES).each do |index, model|
-      puts "Sync index import: #{index}"
-
-      Probe::Bulk.import(model)
-    end
-  end
-
   desc "Imports the entire index asynchronously (drops and creates index from scratch)"
-  task :'import:async' => :environment do
+  task :import_async => :environment do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Scheduling async index import: #{index}"
+      puts "Index async import: #{index}"
 
-      Probe::Bulk.async_import(model)
+      ImportRepositoryJob.perfom_async(model.to_s)
+    end
+  end
+
+  desc 'Update async'
+  task update_async: :environment do
+    Rake::Task['probe:prepare'].invoke
+
+    indices_to_models(INDICES).each do |index, model|
+      puts "Updating index async: #{index}"
+
+      # TODO parametrize days
+      ImportRepositoryJob.perform_async(model.to_s, 2.days.ago)
     end
   end
 
@@ -46,17 +38,7 @@ namespace :probe do
       puts "Deleting index: #{index}"
 
       model.delete_index
-    end
-  end
-
-  desc 'Update async'
-  task update_async: :environment do
-    Rake::Task['probe:prepare'].invoke
-
-    indices_to_models(INDICES).each do |index, model|
-      puts "Updating index async: #{index}"
-
-      UpdateRepositoryJob.perform_async(model.to_s, 2.days.ago)
+      model.create_index
     end
   end
 end
