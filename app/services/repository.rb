@@ -7,7 +7,7 @@ class Repository < Struct.new(:client)
             _index: relation.index_name,
             _type: relation.document_type,
             _id: document.id,
-            data: document.to_indexed_json
+            data: document.to_indexed_hash
           }
         }
       end
