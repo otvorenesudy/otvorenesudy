@@ -14,7 +14,7 @@ namespace :probe do
     indices_to_models(INDICES).each do |index, model|
       puts "Index async import: #{index}"
 
-      ImportRepositoryJob.perfom_async(model.to_s)
+      ImportRepositoryJob.perform_async(model.to_s)
     end
   end
 
