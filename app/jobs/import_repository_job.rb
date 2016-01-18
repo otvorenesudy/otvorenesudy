@@ -3,8 +3,9 @@ class ImportRepositoryJob
 
   sidekiq_options queue: :probe
 
-  def perform(model, since = nil)
-    relation = model.constantize.where('updated_at >= ?', since) if since
+  def perform(model_name, since = nil)
+    relation = model_name.constantize
+    relation = relation.where('updated_at >= ?', since) if since
     client = Elasticsearch::Client.new
     repository = Repository.new(client)
 
