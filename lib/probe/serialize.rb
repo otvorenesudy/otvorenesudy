@@ -11,7 +11,7 @@ module Probe
         end
       end
 
-      result.to_json
+      result
     end
   end
 end

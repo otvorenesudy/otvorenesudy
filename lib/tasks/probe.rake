@@ -12,20 +12,7 @@ namespace :probe do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Index update: #{index}"
-
-      Probe::Bulk.update(model)
-    end
-  end
-
-  desc "Updates the entire index asynchronously"
-  task :'update:async' => :environment do
-    Rake::Task['probe:prepare'].invoke
-
-    indices_to_models(INDICES).each do |index, model|
-      puts "Scheduling async index update: #{index}"
-
-      Probe::Bulk.async_update(model)
+      Probe::Bulk.update(model.where('updated_at >= ?', 7.days.ago))
     end
   end
 
@@ -59,6 +46,17 @@ namespace :probe do
       puts "Deleting index: #{index}"
 
       model.delete_index
+    end
+  end
+
+  desc 'Update async'
+  task update_async: :environment do
+    Rake::Task['probe:prepare'].invoke
+
+    indices_to_models(INDICES).each do |index, model|
+      puts "Updating index async: #{index}"
+
+      UpdateRepositoryJob.perform_async(model.to_s, 2.days.ago)
     end
   end
 end

@@ -8,6 +8,7 @@ gem 'pg_search'
 
 # search
 gem 'tire'
+gem 'elasticsearch'
 
 # styles
 gem 'bootstrap-sass', '~> 2.2.2.0'

@@ -33,27 +33,12 @@ every :month, options do
   rake 'subscriptions:run[monthly]'
 end
 
-every :day, at: '02:00am' do
-  rake 'crawl:courts:backup'
-  rake 'crawl:courts'
-  rake 'crawl:judges'
-end
-
-every :day, at: '03:00am' do
-  rake 'crawl:hearings:special'
-end
-
 every :day, at: '04:00am' do
   rake 'crawl:selection_procedures'
 end
 
-every 2.days do
-  rake 'work:hearings:civil'
-  rake 'work:hearings:criminal'
-end
-
-every 3.days do
-  rake 'work:decrees'
+every :day, at: '02:00am' do
+  rake 'probe:update_async'
 end
 
 every :day, at: '1:00am' do
