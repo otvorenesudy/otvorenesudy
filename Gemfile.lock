@@ -146,7 +146,9 @@ GEM
     docsplit (0.6.4)
     domain_name (0.5.16)
       unf (>= 0.0.5, < 1.0.0)
-    dotenv (2.0.2)
+    dotenv (2.0.1)
+    dotenv-rails (2.0.1)
+      dotenv (= 2.0.1)
     elasticsearch (1.0.15)
       elasticsearch-api (= 1.0.15)
       elasticsearch-transport (= 1.0.15)
@@ -427,6 +429,7 @@ DEPENDENCIES
   database_cleaner (~> 0.9.1)
   devise
   docsplit (~> 0.6.4)
+  dotenv-rails
   elasticsearch
   execjs
   factory_girl_rails
