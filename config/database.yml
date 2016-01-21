@@ -1,0 +1,18 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: utf8
+  pool: 100
+  username: <%= ENV['OPENCOURTS_DATABASE_USER'] %>
+  password: <%= ENV['OPENCOURTS_DATABASE_PASSWORD'] %>
+
+development:
+  <<: *defaults
+  database: opencourts_development
+
+test:
+  <<: *defaults
+  database: opencourts_test
+
+production:
+  <<: *defaults
+  database: opencourts_production
