@@ -61,7 +61,7 @@ class Decree < ActiveRecord::Base
     analyze :date,                type: :date
     analyze :ecli
     analyze :summary
-    analyze :text,                                as: lambda { |d| d.text }
+    analyze :text,                                as: lambda { |d| d.text }, index: :no
     analyze :pages_count,         type: :integer, as: lambda { |d| d.pages.count }
     analyze :court,                               as: lambda { |d| d.court.name if d.court }
     analyze :court_type,                          as: lambda { |d| d.court.type.value if d.court }
