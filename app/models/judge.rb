@@ -32,7 +32,7 @@ class Judge < ActiveRecord::Base
   scope :chaired, where('judge_chair = true')
 
   # TODO refactor!
-  scope :listed, where(source: Source.of(JusticeGovSk)).joins(:employments).where(:'employments.active' => [true, false])
+  scope :listed, where(source_id: Source.of(JusticeGovSk).id).joins(:employments).where(:'employments.active' => [true, false])
 
   scope :with_related_people, lambda { joins(:related_people) }
 
