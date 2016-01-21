@@ -19,14 +19,13 @@ namespace :probe do
   end
 
   desc 'Update async'
-  task update_async: :environment do
+  task synchronize: :environment do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Updating index async: #{index}"
+      puts "Synchronizing index async: #{index}"
 
-      # TODO parametrize days
-      ImportRepositoryJob.perform_async(model.to_s, 2.days.ago)
+      SynchronizeRepositoryJob.perform_async(model.to_s)
     end
   end
 

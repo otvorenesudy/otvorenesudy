@@ -38,7 +38,7 @@ every :day, at: '04:00am' do
 end
 
 every :day, at: '02:00am' do
-  rake 'probe:update_async'
+  rake 'probe:synchronize'
 end
 
 every :day, at: '1:00am' do
