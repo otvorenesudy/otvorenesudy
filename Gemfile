@@ -43,7 +43,6 @@ gem 'nokogiri'
 
 # utilities
 gem 'squire', '~> 1.2.6'
-gem 'dotenv-rails'
 gem 'colored', '~> 1.2'
 gem 'murmurhash3', '>= 0.1.3'
 gem 'htmlentities'
@@ -104,6 +103,9 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'guard-rspec'
+
+  # dev environment
+  gem 'dotenv-rails'
 end
 
 group :production do
