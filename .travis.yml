@@ -2,6 +2,8 @@ sudo: false
 language: ruby
 rvm: 2.2.2
 bundler_args: --without development
+env:
+  - OPENCOURTS_DATABASE_USER=postgres
 
 before_install:
   - gem install bundler
