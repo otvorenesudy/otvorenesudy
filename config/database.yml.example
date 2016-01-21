@@ -30,5 +30,5 @@ production:
   encoding: unicode
   database: opencourts_production
   pool: 5
-  username: postgres
-  password: 
+  username: <%= ENV['OPENCOURTS_DATABASE_USER'] %>
+  password: <%= ENV['OPENCOURTS_DATABASE_PASSWORD'] %>
