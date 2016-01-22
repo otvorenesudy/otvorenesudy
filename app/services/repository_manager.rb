@@ -13,22 +13,23 @@ class RepositoryManager
         type: model.document_type,
         body: {
           filter: {
-            or: batch.map { |record|
-              {
-                and: [
-                  { term: { id: record.id } },
-                  { term: { :'updated_at.untouched' => record.updated_at } }
-                ]
-              }
-            },
+            not: {
+              or: batch.map { |record|
+                {
+                  and: [
+                    { term: { id: record.id } },
+                    { term: { :'updated_at.untouched' => record.updated_at } }
+                  ]
+                }
+              },
+            }
           },
           size: batch.size,
           fields: [:id]
         }
       )
 
-      synchronized = results['hits']['hits'].map { |e| e['fields']['id'][0].to_i }
-      unsynchronized = batch.map(&:id) - synchronized
+      unsynchronized = results['hits']['hits'].map { |e| e['fields']['id'][0].to_i }
 
       model.where(id: unsynchronized).find_each(&:update_index)
     end
