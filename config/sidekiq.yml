@@ -13,6 +13,7 @@ production:
   - [decree-crawlers,  2]
   - [hearing-crawlers, 1]
 :limits:
+  probe: 2
   decree-listers:   2
   hearing-listers:  2
   decree-crawlers:  2
