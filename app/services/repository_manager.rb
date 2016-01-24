@@ -16,7 +16,7 @@ class RepositoryManager
       body: {
         filter: {
           not: {
-            or: relation.map { |record|
+            or: batch.map { |record|
               {
                 and: [
                   { term: { id: record.id } },
