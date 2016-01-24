@@ -25,7 +25,7 @@ namespace :probe do
     indices_to_models(INDICES).each do |index, model|
       puts "Synchronizing index async: #{index}"
 
-      SynchronizeRepositoryJob.perform_async(model.to_s)
+      SynchronizeRepositoryJob.enqueue_for(model)
     end
   end
 
