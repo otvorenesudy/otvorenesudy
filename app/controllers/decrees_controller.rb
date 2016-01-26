@@ -23,7 +23,8 @@ class DecreesController < SearchController
   def document
     @decree = Decree.find(params[:id])
 
-    redirect_to @decree.pdf_uri if @decree.pdf_uri
+    return redirect_to @decree.pdf_uri if @decree.pdf_uri
+
     send_file_in @decree.document_path, name: "Rozhodnutie-#{@decree.ecli}"
   end
 
