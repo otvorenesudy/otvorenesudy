@@ -37,10 +37,6 @@ every :day, at: '04:00am' do
   rake 'crawl:selection_procedures'
 end
 
-every :day, at: '02:00am' do
-  rake 'probe:synchronize'
-end
-
 every :day, at: '1:00am' do
   rake 'backup:database'
 end
