@@ -1,6 +1,5 @@
 class RemoveApiKeys < ActiveRecord::Migration
   def up
-    remove_index :api_keys, :value
     drop_table :api_keys
   end
 
