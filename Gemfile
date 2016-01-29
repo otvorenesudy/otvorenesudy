@@ -60,7 +60,6 @@ gem 'devise'
 gem 'rollbar', '~> 2.2.1'
 gem 'garelic'
 gem 'newrelic_rpm'
-gem 'gabrake'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
