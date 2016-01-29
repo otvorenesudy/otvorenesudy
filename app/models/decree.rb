@@ -24,8 +24,12 @@ class Decree < ActiveRecord::Base
   belongs_to :court
 
   has_many :judgements, dependent: :destroy
+  # TODO remove conditions in favor of scope in Rails >= 4
+  has_many :inexact_judgements, class_name: :Judgement, conditions: Judgement.inexact_conditions
 
   has_many :judges, through: :judgements
+  # TODO remove conditions in favor of scope in Rails >= 4
+  has_many :exact_judges, through: :judgements, source: :judge, class_name: :Judge, conditions: Judgement.exact_conditions, order: 'judges.last, judges.middle, judges.first'
 
   belongs_to :form, class_name: :DecreeForm, foreign_key: :decree_form_id
 
@@ -57,7 +61,7 @@ class Decree < ActiveRecord::Base
     analyze :date,                type: :date
     analyze :ecli
     analyze :summary
-    analyze :text,                                as: lambda { |d| d.text }
+    analyze :text,                                as: lambda { |d| d.text }, index: :no
     analyze :pages_count,         type: :integer, as: lambda { |d| d.pages.count }
     analyze :court,                               as: lambda { |d| d.court.name if d.court }
     analyze :court_type,                          as: lambda { |d| d.court.type.value if d.court }

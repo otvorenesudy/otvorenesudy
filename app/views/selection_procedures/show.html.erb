@@ -99,9 +99,7 @@
                     <span class="muted">(<%= candidate.score %>)</span>
                   <% end %>
                 </td>
-                <td>
-                  <%= external_link_to t('.resume'), curriculum_selection_procedure_candidate_path(@procedure, candidate) %>
-                </td>
+                <%# TODO get back curriculum, search in git history for code %>
                 <td>
                   <%= external_link_to t('.motivation_letter'), motivation_letter_selection_procedure_candidate_path(@procedure, candidate) %>
                 </td>

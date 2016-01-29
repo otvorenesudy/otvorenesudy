@@ -31,8 +31,8 @@ class Judge < ActiveRecord::Base
   scope :normal,  where('judge_chair = false')
   scope :chaired, where('judge_chair = true')
 
-  scope :listed, where(uri: JusticeGovSk::Request::JudgeList.url)
-  scope :probably_superior_court_officer, where('source_id = ? and uri != ?', Source.of(JusticeGovSk), JusticeGovSk::Request::JudgeList.url)
+  # TODO refactor!
+  scope :listed, where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where(:'employments.active' => [true, false])
 
   scope :with_related_people, lambda { joins(:related_people) }
 
@@ -131,7 +131,7 @@ class Judge < ActiveRecord::Base
   alias :active_at? :active_at
 
   def listed
-    @listed ||= uri == JusticeGovSk::Request::JudgeList.url
+    @listed ||= (source == Source.of(JusticeGovSk) && active != nil)
   end
 
   alias :listed? :listed

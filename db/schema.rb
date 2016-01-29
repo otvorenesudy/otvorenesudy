@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151102145748) do
-
+ActiveRecord::Schema.define(:version => 20160117173159) do
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
     t.string   "value",             :limit => 510, :null => false
@@ -181,18 +180,19 @@ ActiveRecord::Schema.define(:version => 20151102145748) do
     t.string   "case_number"
     t.string   "file_number"
     t.date     "date"
-    t.string   "ecli",                                   :null => false
+    t.string   "ecli"
     t.text     "summary"
     t.integer  "legislation_area_id"
     t.integer  "legislation_subarea_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "pdf_uri",                :limit => 2048
   end
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
   add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
-  add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli", :unique => true
+  add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
@@ -485,7 +485,7 @@ ActiveRecord::Schema.define(:version => 20151102145748) do
 
   create_table "judgements", :force => true do |t|
     t.integer  "decree_id",                                            :null => false
-    t.integer  "judge_id",                                             :null => false
+    t.integer  "judge_id"
     t.decimal  "judge_name_similarity",  :precision => 3, :scale => 2, :null => false
     t.string   "judge_name_unprocessed",                               :null => false
     t.datetime "created_at",                                           :null => false
@@ -520,7 +520,7 @@ ActiveRecord::Schema.define(:version => 20151102145748) do
 
   create_table "judgings", :force => true do |t|
     t.integer  "hearing_id",                                           :null => false
-    t.integer  "judge_id",                                             :null => false
+    t.integer  "judge_id"
     t.decimal  "judge_name_similarity",  :precision => 3, :scale => 2, :null => false
     t.string   "judge_name_unprocessed",                               :null => false
     t.boolean  "judge_chair",                                          :null => false

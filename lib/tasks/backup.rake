@@ -2,7 +2,7 @@ namespace :backup do
   desc 'Creates database dump'
   task database: :environment do
     config = ActiveRecord::Base.connection_config
-    path   = Rails.root.join('shared/backups')
+    path   = Rails.root.join('backups')
     name   = "#{config[:database].gsub(/_/, '-')}-#{Time.now.strftime('%Y-%m-%d')}.sql"
     file   = "#{path}/#{name}"
 

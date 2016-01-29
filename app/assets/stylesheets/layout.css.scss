@@ -55,6 +55,28 @@
   right: 0px;
 }
 
+.pop-up {
+  width: $popupModalWidth;
+  margin-left: $popupModalMarginLeft;
+
+  .modal-body {
+    max-height: $popupModalBodyHeight;
+  }
+
+  text-align: center;
+
+  p {
+    font-size: $fontSizeLarge;
+    line-height: $baseLineHeight * 1.25;
+  }
+
+  .btn-capitalized {
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 // general
 
 html {

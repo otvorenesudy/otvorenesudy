@@ -1,6 +1,10 @@
 module Probe
   module Serialize
     def to_indexed_json
+      to_indexed_hash.to_json
+    end
+
+    def to_indexed_hash
       result = {}
 
       self.class.mapping.each do |field, options|
@@ -11,7 +15,7 @@ module Probe
         end
       end
 
-      result.to_json
+      result
     end
   end
 end

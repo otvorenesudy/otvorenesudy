@@ -87,9 +87,12 @@ court.save!
 
 # decrees
 
+# TODO remove obsolete code attribute
 DecreeForm.create value: "Rozsudok",                  code: 'A'
+DecreeForm.create value: "Rozhodnutie",               code: 'A'
 DecreeForm.create value: "Uznesenie",                 code: 'N'
 DecreeForm.create value: "Opravné uznesenie",         code: 'R'
+DecreeForm.create value: "Dopĺňacie uznesenie",       code: 'R'
 DecreeForm.create value: "Dopĺňací rozsudok",         code: 'D'
 DecreeForm.create value: "Platobný rozkaz",           code: 'P'
 DecreeForm.create value: "Zmenkový platobný rozkaz",  code: 'M'

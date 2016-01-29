@@ -15,6 +15,7 @@ module Probe::Search
       @facets      = options[:facets]
       @params      = options[:params]      || {}
       @sort_fields = options[:sort_fields] || []
+      @fields      = Array.wrap(options[:fields]) + [:id]
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
@@ -42,11 +43,11 @@ module Probe::Search
         block.arity > 0 ? yield(@index, @facets, @params) : instance_eval(&block)
       else
         search_query
-        search_filter
         search_facets
         search_sort
         search_highlights
         search_pagination
+        search_fields
       end
 
       if Rails.env.development? && index.respond_to?(:to_hash)
@@ -62,24 +63,23 @@ module Probe::Search
 
     def search_query
       queries = @facets.build_query
+      filter = @facets.build_filter :and
 
-      if queries.any?
-        @index.query do |query|
-          query.boolean do |b|
-            queries.each { |q| b.must(&q) }
+      @index.query do
+        filtered do
+          if queries.any?
+            query do |query|
+              query.boolean do |boolean|
+                queries.each { |block| boolean.must(&block) }
+              end
+            end
+          end
+
+          if filter
+            filter(*filter.first)
           end
         end
       end
-    end
-
-    def search_filter
-      filter = build_search_filter
-
-      @index.filter(*filter.first) if filter
-    end
-
-    def build_search_filter
-      @facets.build_filter :and
     end
 
     def build_facet_filter(options = {})
@@ -88,7 +88,7 @@ module Probe::Search
 
       queries += Array.wrap(options[:queries])
 
-      build_filtered_query_from(queries, filter)
+      build_filtered_query_from(queries, filter) if queries.any? || filter
     end
 
     def search_facets
@@ -96,9 +96,10 @@ module Probe::Search
         next unless facet.buildable?
 
         options = Hash.new
+        filter = build_facet_filter(exclude: facet)
 
         options[:global]       = true
-        options[:facet_filter] = build_facet_filter(exclude: facet)
+        options[:facet_filter] = filter if filter
 
         facet.build(@index, facet.name, options)
 
@@ -132,6 +133,10 @@ module Probe::Search
 
       @index.size(@per_page)
       @index.from(@per_page * (@page - 1)) if @page
+    end
+
+    def search_fields
+      @index.fields(@fields + [@sort])
     end
   end
 end

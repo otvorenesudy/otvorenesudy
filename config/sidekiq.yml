@@ -1,17 +1,10 @@
 ---
-:concurrency: 8
+:concurrency: 10
 :pidfile: tmp/pids/sidekiq.pid
 staging:
   :concurrency: 0
 production:
-  :concurrency: 8
+  :concurrency: 10
 :queues:
-  - [decree-listers,   2]
-  - [hearing-listers,  1]
-  - [decree-crawlers,  2]
-  - [hearing-crawlers, 1]
-:limits:
-  decree-listers:   2
-  hearing-listers:  2
-  decree-crawlers:  2
-  hearing-crawlers: 2
+  - [default]
+  - [probe]

@@ -9,13 +9,13 @@ set :scm,         :git
 set :repo_url,    'git@github.com:otvorenesudy/otvorenesudy.git'
 set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
-# RVM
-set :rvm_type,         :user
-set :rvm_ruby_version, '2.2.2'
+# Rbenv
+set :rbenv_type, :user
+set :rbenv_ruby, File.read('.ruby-version').strip
 
 # Links
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/configuration.yml')
-set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage')
+set :linked_files, fetch(:linked_files, []).push('config/configuration.yml', 'config/newrelic.yml')
+set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage', 'backups')
 
 # Whenever
 set :whenever_identifier, ->{ "#{fetch(:application)}-#{fetch(:stage)}" }
@@ -56,14 +56,5 @@ namespace :deploy do
         end
       end
     end
-  end
-
-  task :restart do
-    invoke 'unicorn:stop'
-
-    # Safe timeout for unicorn stopping
-    sleep 10
-
-    invoke 'unicorn:start'
   end
 end

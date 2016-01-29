@@ -10,7 +10,7 @@ module DecreesHelper
   end
 
   def decree_natures(decree, options = {})
-    join_and_truncate decree.natures.order(:value).pluck(:value), { separator: ', ' }.merge(options)
+    join_and_truncate decree.natures.sort_by(&:value).map(&:value), { separator: ', ' }.merge(options)
   end
 
   def decree_date(date, options = {})
@@ -49,7 +49,7 @@ module DecreesHelper
   end
 
   def decree_document_viewer(decree, options = {})
-    content_tag :iframe, nil, src: "http://docs.google.com/gview?url=#{document_decree_url(decree)}&embedded=true", style:"width: 100%; height: 1000px;", frameborder: '0'
+    content_tag :iframe, nil, src: "https://docs.google.com/gview?url=#{document_decree_url(decree)}&embedded=true", style:"width: 100%; height: 1000px;", frameborder: '0'
   end
 
   private

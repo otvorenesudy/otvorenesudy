@@ -2,6 +2,8 @@ sudo: false
 language: ruby
 rvm: 2.2.2
 bundler_args: --without development
+env:
+  - OPENCOURTS_DATABASE_USER=postgres
 
 before_install:
   - gem install bundler
@@ -15,7 +17,6 @@ before_install:
 before_script:
   - psql -c 'create database opencourts_test;' -U postgres
   - "cp config/configuration.yml.travis config/configuration.yml"
-  - "cp config/database.yml.example config/database.yml"
   - bundle exec rake db:schema:load
 
 script:

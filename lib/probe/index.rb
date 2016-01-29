@@ -96,6 +96,7 @@ module Probe
 
               type     = options[:type] || :string
               analyzer = options[:analyzer] || :text_analyzer
+              index    = options[:index] || :not_analyzed
 
               case value[:type]
               when :mapped
@@ -105,7 +106,7 @@ module Probe
                   type: :multi_field,
                   fields: {
                     analyzed:  { type: :string, analyzer: analyzer, include_in_all: true },
-                    untouched: { type: type, index: :not_analyzed }
+                    untouched: { type: type, index: index }
                   }
                 )
               end

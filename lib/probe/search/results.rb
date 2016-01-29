@@ -18,7 +18,8 @@ module Probe::Search
                 :per_page,
                 :total_pages,
                 :total_entries,
-                :time
+                :time,
+                :associations
 
     def initialize(model, facets, sort_fields, response)
       @model       = model
@@ -100,6 +101,11 @@ module Probe::Search
       records.empty?
     end
 
+    def associations=(associations)
+      @associations = associations
+      @records = nil
+    end
+
     def each(&block)
       records.each_with_index do |record, i|
         yield(record, highlights[i])
@@ -109,9 +115,16 @@ module Probe::Search
     private
 
     def fetch_records
-      @results.map do |result|
-        @model.find(result.id)
+      ids = @results.map { |result| result.id.to_i }
+      records = @model.where(id: ids)
+
+      if associations
+        records = records.includes(associations)
       end
+
+      records.sort_by! { |record| ids.index(record.id) }
+
+      records
     end
 
     def populate_facets

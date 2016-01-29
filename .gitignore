@@ -20,5 +20,4 @@ Gemfile.lock.tags
 !/tmp/.keep
 
 /config/configuration.yml
-/config/database.yml
 /config/newrelic.yml

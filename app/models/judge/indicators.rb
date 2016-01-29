@@ -7,7 +7,7 @@ class Judge
 
     included do
       mapping do
-        analyze :has_indicators, as: lambda { |j| !!j.indicators && !!j.indicators.statistical }
+        analyze :has_indicators, as: lambda { |j| !!j.indicators && !!j.indicators.statistical && !!j.indicators.numerical }
         analyze :decree_agenda, as: lambda { |j|
           if j.indicators && j.indicators.statistical
             indicators = j.indicators.statistical

@@ -86,12 +86,7 @@
         </div>
       <% end %>
 
-      <% if File.readable? @judge.curriculum_path %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to t('.cv'), curriculum_judge_path(@judge) %>, <%= t '.published_at_selection' %>
-        </p>
-      <% end %>
+      <%# TODO get back path for curriculum here, search in git history %>
 
       <% if File.readable? @judge.cover_letter_path %>
         <p>

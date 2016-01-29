@@ -26,7 +26,7 @@ module Probe
       end
 
       def has_field?(field)
-        @mappings ? @mappings[field].present? : false
+        @mapping ? @mapping[field].present? : false
       end
 
       def has_sort_field?(field)

@@ -48,7 +48,7 @@ module Court::AverageProceedingDurations
       results = Hash.new
 
       [:T, :C, :Cb, :P].each do |acronym|
-        results[acronym] = Resource::Ranking.new(courts) { |court| court.average_proceeding_durations.by_acronym(acronym).data.map { |e| e[:value].to_f }.sum }
+        results[acronym] = Resource::Ranking.new(courts.select(&:average_proceeding_durations)) { |court| court.average_proceeding_durations.by_acronym(acronym).data.map { |e| e[:value].to_f }.sum }
       end
 
       results

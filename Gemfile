@@ -8,6 +8,7 @@ gem 'pg_search'
 
 # search
 gem 'tire'
+gem 'elasticsearch'
 
 # styles
 gem 'bootstrap-sass', '~> 2.2.2.0'
@@ -24,7 +25,6 @@ gem 'chart-js-rails'
 gem 'inflection-js-rails'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'spinjs-rails'
-gem 'rails-backbone'
 gem 'gmaps4rails', '~> 1.5.6'
 
 # pagination
@@ -60,13 +60,14 @@ gem 'devise'
 gem 'rollbar', '~> 2.2.1'
 gem 'garelic'
 gem 'newrelic_rpm'
+gem 'gabrake'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
 # scheduling
-gem 'whenever'
+gem 'whenever', github: 'elhu/whenever', branch: 'ruby-2.3-compat' # Remove after merging this: https://github.com/javan/whenever/pull/603
 
 # hostname
 gem 'rack-canonical-host'
@@ -85,8 +86,8 @@ group :development do
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
-  gem 'capistrano-rvm'
-  gem 'capistrano3-unicorn'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
 
@@ -102,6 +103,9 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'guard-rspec'
+
+  # dev environment
+  gem 'dotenv-rails'
 end
 
 group :production do
