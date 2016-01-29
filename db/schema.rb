@@ -12,6 +12,7 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20160117173159) do
+
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
     t.string   "value",             :limit => 510, :null => false
@@ -285,15 +286,6 @@ ActiveRecord::Schema.define(:version => 20160117173159) do
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["source_id"], :name => "index_hearings_on_source_id"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
-
-  create_table "invites", :force => true do |t|
-    t.string   "email",      :limit => nil, :null => false
-    t.string   "locale",     :limit => nil, :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
-  add_index "invites", ["email", "locale"], :name => "index_invites_on_email_and_locale", :unique => true
 
   create_table "judge_designation_types", :force => true do |t|
     t.string   "value",      :null => false
