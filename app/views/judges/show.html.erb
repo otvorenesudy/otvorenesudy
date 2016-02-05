@@ -87,13 +87,7 @@
       <% end %>
 
       <%# TODO get back path for curriculum here, search in git history %>
-
-      <% if File.readable? @judge.cover_letter_path %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-          <%= external_link_to ('.motivation_letter'), cover_letter_judge_path(@judge) %>, <%= t '.published_at_selection' %>
-        </p>
-      <% end %>
+      <%# TODO get back path for motivational letter here, search in git history %>
 
       <% if @judge.indicators %>
         <% if @judge.indicators.statistical %>
