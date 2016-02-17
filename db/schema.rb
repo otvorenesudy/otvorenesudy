@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160117173159) do
+ActiveRecord::Schema.define(:version => 20160215195259) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -380,13 +380,13 @@ ActiveRecord::Schema.define(:version => 20160117173159) do
   add_index "judge_property_changes", ["value"], :name => "index_judge_property_changes_on_value", :unique => true
 
   create_table "judge_property_declarations", :force => true do |t|
-    t.string   "uri",        :limit => 2048, :null => false
-    t.integer  "source_id",                  :null => false
-    t.integer  "court_id",                   :null => false
-    t.integer  "judge_id",                   :null => false
-    t.integer  "year",                       :null => false
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.string   "uri"
+    t.integer  "source_id",  :null => false
+    t.integer  "court_id",   :null => false
+    t.integer  "judge_id",   :null => false
+    t.integer  "year",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "judge_property_declarations", ["court_id"], :name => "index_judge_property_declarations_on_court_id"
