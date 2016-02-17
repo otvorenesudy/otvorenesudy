@@ -443,34 +443,37 @@ namespace :fixtures do
     end
 
     desc "Export judge related people with metadata about judge position"
-    task judge_related_people: :environment do
-      file = File.open Rails.root.join('tmp', 'judge-related-people.csv'), 'w'
+    task :judge_related_people, [:year] => :environment do |_, args|
+      year = args[:year]
+      file = File.open Rails.root.join('tmp', "judge-related-people-#{year}.csv"), 'w'
 
-      data  = [:judge_id, :judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
-      data += [:person_id, :person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+      data  = [:judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+      data += [:person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
 
       file.write(data.join("\t") + "\n")
 
       Judge.find_each do |judge|
-        related_people = judge.related_people.where(:'judge_property_declarations.year' => 2012)
+        next if judge.employments.empty?
+
+        related_people = judge.related_people.where(:'judge_property_declarations.year' => year)
 
         next unless related_people.any?
 
-        converter = lambda do |j|
-          employment = j.employments.first
-          court      = employment.court
-          position   = employment.judge_position
-
-          [j.id, j.name, court.name, court.address, court.latitude, court.longitude, position.try(:value)]
+        converter = lambda do |j, court, position|
+          [j.name, court.name, court.address, court.latitude, court.longitude, position]
         end
 
         related_people.each do |person|
-          person = person.to_judge
+          if person.to_judge && person.to_judge.employments.any?
+            court = person.to_judge.employments.first.court
+          else
+            court = Court.find_by_name(person.institution)
+          end
 
-          next unless person
+          next unless court
 
-          data  = converter.call(judge)
-          data += converter.call(person)
+          data  = converter.call(judge, judge.employments.first.court, judge.employments.first.judge_position.try(:value))
+          data += converter.call(person, court, person.function)
 
           file.write(data.join("\t") + "\n")
         end
