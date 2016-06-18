@@ -11,8 +11,7 @@ gem 'tire'
 gem 'elasticsearch'
 
 # styles
-gem 'bootstrap-sass', '~> 2.2.2.0'
-gem 'font-awesome-rails', '~> 3.2.0.0'
+gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'roadie'
 
 # scripts
@@ -29,7 +28,7 @@ gem 'gmaps4rails', '~> 1.5.6'
 
 # pagination
 gem 'kaminari', '~> 0.14.1'
-gem 'kaminari-bootstrap', '~> 0.1.3'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # localization
 gem 'rails-i18n'
@@ -75,9 +74,10 @@ gem 'rack-canonical-host'
 gem 'active_model_serializers'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass', '~> 3.4.18'
+  gem 'sass-rails', '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier',     '>= 1.0.3'
+  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do
