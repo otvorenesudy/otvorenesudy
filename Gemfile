@@ -12,6 +12,7 @@ gem 'elasticsearch'
 
 # styles
 gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'font-ionicons-rails', '~> 2.0.1.3'
 gem 'roadie'
 
 # scripts
