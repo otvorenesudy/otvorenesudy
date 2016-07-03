@@ -1,60 +1,45 @@
 en:
   layouts:
     application:
-      default_title: 'Open Courts'
-      meta_description: 'Transparent look at the Slovak judiciary'
-      meta_keywords: 'slovak judiciary, judges, decrees, hearings'
-      meta_og_description: 'Transparent look at courts. Which are the fastest, which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!'
+      title: "Open Courts"
+      authors: "Samuel Molnár and Pavol Zbell"
+      description: "Transparent look at the Slovak judiciary"
+      keywords: "slovak judiciary, judges, decrees, hearings"
+      content: "Transparent look at courts. Which are the fastest and which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!"
 
     header:
-      donate_html: 'Donate</br>now'
-      courts: 'Courts'
-      judges: 'Judges'
-      hearings: 'Hearings'
-      decrees: 'Decrees'
-      proceedings: 'Proceedings'
-      procedures: 'Selection procedures'
-      sign_in: 'Sign In'
-      notifications: 'Notifications'
-      settings: 'Settings'
-      sign_out: 'Sign Out'
-      beta_version: 'Beta version'
+      title: "Open Courts"
+      courts: "Courts"
+      judges: "Judges"
+      hearings: "Hearings"
+      decrees: "Decrees"
+      proceedings: "Proceedings"
+      procedures: "Selection procedures"
+      sign_in: "Sign In"
+      sign_out: "Sign Out"
+      subscriptions: "Subscriptions"
+      settings: "Settings"
+      sk: 'SK'
+      en: 'EN'
 
     footer:
-      open_courts: 'Open Courts'
-      transparency: 'Declarations'
-      statements: 'Transparency'
-      data: 'Data'
+      about: "About"
+      api: "API"
+      contact: "Contacts"
+      copyright: "Copyright"
+      donate: "Support us"
+      faq: "FAQ"
+      feedback: "Did you find a mistake?"
+      privacy: "Privacy"
+      terms: "Terms and conditions"
 
-      about: 'About'
-      faq: 'FAQ'
-      support_us: 'Support us'
-      contact: 'Contacts'
+      disclaimer:
+        resources: "Project uses only data provided by public institutions."
+        correctness: "Authors are not responsible for their accuracy."
 
-      tos: 'Terms and conditions'
-      privacy: 'Privacy'
-      copyright: 'Copyright'
-
-      found_mistake: 'Did you find a mistake?'
-      security: 'Security'
-      source_code: 'Source code'
-
-      how_it_works: 'How does it work?'
-      data_history: 'Data history'
-      api: 'API'
-
-      open_data_projects: 'Open data projects'
-      price_of_state: 'Price of state'
-      municipalities: 'Municipalities'
-      schools: 'Schools'
-      procurements: 'Procurements'
-      universities: 'Universities'
-
-      closing: 'Project uses only data provided by public institutions. Authors are not responsible for their accuracy.'
-      members: 'members of'
-      and: 'and'
-      at: 'at'
-      in_collaboration_with: 'In collaboration with'
-      with_support_of: 'With support of'
-      and_project: 'in Berlin and the project'
-      centre_for_philanthropy: 'of Centre for Philantrophy'
+      sme:
+        price_of_state: "Price of state"
+        municipalities: "Municipalities"
+        schools: "Schools"
+        procurements: "Procurements"
+        universities: "Universities"

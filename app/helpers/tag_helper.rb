@@ -1,3 +1,5 @@
+# TODO rm
+
 module TagHelper
   def square_tag(type, body, options = {})
     content_tag :span, body, options.merge(class: "label label-#{type.to_s}")
@@ -7,21 +9,21 @@ module TagHelper
     content_tag :span, body, options.merge(class: "badge badge-#{type.to_s}")
   end
 
-  def icon_tag(type, options = {})
-    icon  = content_tag :i, nil, class: "icon-#{type.to_s}"
-    label = options.delete(:label)
-
-    return icon if label.blank?
-
-    label = label.to_s.html_safe
-    join  = options.delete(:join)
-    wrap  = options.delete(:wrap)
-    space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
-    body  = [icon, space, wrap.nil? || wrap ? content_tag(:span, label, options) : label]
-
-    body.reverse! if join == :append
-    body.join.html_safe
-  end
+  # def icon_tag(type, options = {})
+  #   icon  = content_tag :i, nil, class: "icon-#{type.to_s}"
+  #   label = options.delete(:label)
+  #
+  #   return icon if label.blank?
+  #
+  #   label = label.to_s.html_safe
+  #   join  = options.delete(:join)
+  #   wrap  = options.delete(:wrap)
+  #   space = content_tag :i, '&nbsp;'.html_safe, class: :'icon-space'
+  #   body  = [icon, space, wrap.nil? || wrap ? content_tag(:span, label, options) : label]
+  #
+  #   body.reverse! if join == :append
+  #   body.join.html_safe
+  # end
 
   def icon_link_to(type, body, url = nil, options = {})
     options[:class] = Array.wrap(options[:class]) << :icon

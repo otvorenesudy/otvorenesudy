@@ -1,57 +1,31 @@
-<div class="donate">
-  <% if I18n.locale == :sk %>
-    <%= external_link_to t('.donate'),'http://transparency.darujme.sk/238', icon: :gift %>
-  <% else %>
-    <%= external_link_to t('.donate_html'),'http://transparency.darujme.sk/761', icon: :gift %>
-  <% end %>
-</div>
-
-<div class="beta">
-  <%= icon_tag :wrench %>
-  <span><%= t '.beta_version' %></span>
-</div>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container" style="width: 1001px">
-      <nav class="nav-collapse collapse">
-        <ul class="nav pull-left">
-          <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
-          <li class="divider-vertical"></li>
-          <li><%= navbar_logo_tag nil, type: :logo %></li>
-<!--
-          <%= navbar_logo_tag t('open_courts') %>
--->
-          <li class="divider-vertical"></li>
-          <%= navbar_link_tag :building, t('.courts'), search_courts_path %>
-          <%= navbar_link_tag :user, t('.judges'), search_judges_path %>
-          <%= navbar_link_tag :comments, t('.hearings'), search_hearings_path %>
-          <%= navbar_link_tag :legal, t('.decrees'), search_decrees_path %>
-          <%= navbar_link_tag :paste, t('.proceedings'), search_proceedings_path %>
-          <%= navbar_link_tag :paste, t('.procedures'), search_selection_procedures_path %>
-        </ul>
-
-        <ul class="nav pull-right">
-          <% if user_signed_in? %>
-            <%= navbar_dropdown_tag :'caret-down', current_user.email, '#', join: :append do %>
-              <li><%= icon_link_to :bell, t('.notifications'), subscriptions_users_path %></li>
-              <li><%= icon_link_to :cog, t('.settings'), edit_user_registration_path %></li>
-              <li><%= icon_link_to :signout, t('.sign_out'), destroy_user_session_path, method: :delete %></li>
-            <% end %>
-            <% if I18n.locale == :sk %>
-              <li><%= link_to "EN", l: :en %></li>
-            <% else %>
-              <li><%= link_to "SK", l: :sk %></li>
-            <% end %>
-          <% else %>
-            <li><%= icon_link_to :signin, t('.sign_in'), new_user_session_path %></li>
-            <li><%= link_to "SK", l: :sk %></li>
-            <li><%= link_to "EN", l: :en %></li>
-          <% end %>
-        </ul>
-      </nav>
+<header>
+  <nav class="navbar navbar-light">
+    <div class="container clearfix">
+      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler pull-xs-right hidden-lg-up', data: { target: '#navbar-full', toggle: 'collapse' }, name: nil, type: 'button' %>
+      <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-lg-up' %>
     </div>
-  </div>
-</div>
-
-<%= yield :header %>
+    <div id="navbar-full" class="container collapse navbar-toggleable-md">
+      <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-md-down' %>
+      <div class="navbar-divider"></div>
+      <div class="nav navbar-nav">
+        <%= nav_link_to t('.courts'), search_courts_path %>
+        <%= nav_link_to t('.judges'), search_judges_path %>
+        <%= nav_link_to t('.hearings'), search_hearings_path %>
+        <%= nav_link_to t('.decrees'), search_decrees_path %>
+        <%= nav_link_to t('.proceedings'), search_proceedings_path %>
+        <%= nav_link_to t('.procedures'), search_selection_procedures_path %>
+      </div>
+      <div class="navbar-divider hidden-lg-up"></div>
+      <div class="nav navbar-nav pull-lg-right">
+        <% if user_signed_in? %>
+          <%= nav_link_to current_user.email, subscriptions_users_path %>
+        <% else %>
+          <%= nav_link_to t('.sign_in'), new_user_session_path %>
+        <% end %>
+        <div class="navbar-divider"></div>
+        <%= link_to t('.sk'), root_path(l: :sk), class: 'nav-item nav-link' %>
+        <%= link_to t('.en'), root_path(l: :en), class: 'nav-item nav-link' %>
+      </div>
+    </div>
+  </nav>
+</header>

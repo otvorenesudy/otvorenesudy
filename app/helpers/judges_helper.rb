@@ -1,8 +1,6 @@
 # encoding: utf-8
 
 module JudgesHelper
-  include Judges::IndicatorsHelper
-
   def judge_titles(judge, options = {})
     content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_options(judge, options)
   end

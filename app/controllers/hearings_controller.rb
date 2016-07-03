@@ -32,9 +32,8 @@ class HearingsController < SearchController
   private
 
   def search_associations
-    # NOTE do not eagerload scoped associations after original associations!
-    # e.g. :exact_judges has to go before :judges, otherwise scoped association will
-    # not be loaded
+    # NOTE do not eager load scoped associations after original associations,
+    # e.g. :exact_judges has to go before :judges, otherwise scoped association will not be loaded
     [:form, :subject, :exact_judges, :inexact_judgings, :judges, :opponents, :proposers, :defendants, :court]
   end
 end

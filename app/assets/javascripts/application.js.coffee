@@ -11,24 +11,24 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery
+#= require tether
+#= require bootstrap
+#
 #= require browser
 #= require jquery_ujs
 #= require jquery.ui.autocomplete
 #= require jquery.spin
 #= require inflection
-#= require bootstrap
-#= require boostrap_ext
 #= require gmaps4rails/gmaps4rails.base
 #= require gmaps4rails/gmaps4rails.googlemaps
 #= require jquery-tablesorter
+#= require Chart
 #= require lib/lib
+#
 #= require tables
 #= require search
 #= require hash
 #= require fixes
-#  require_tree ./document_viewer
 #= require decree_pages
 #= require analytics
-#= require searchd
-#= require Chart
 #= require judges

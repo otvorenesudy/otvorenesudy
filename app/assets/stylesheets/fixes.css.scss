@@ -1,146 +1,21 @@
-@import 'variables';
-@import 'mixins';
+// disables weird outline on Firefox
 
-// popovers and tooltips
-
-.popover,
-.tooltip {
-  cursor: default;
+* {
+  outline: none !important;
 }
 
-.popover-inner {
-  text-align: left;
+// disables transitions on Bootstrap
+
+.fade, .collapse, .collapsing {
+  transition: none !important;
 }
 
-.tooltip-inner {
-  line-height: $baseLineHeight;
-  font-weight: normal;
-  text-align: center;
-}
+// fixes visible line-breaks on inline navigation links
 
-// forms
+.nav-inline .nav-link {
+  float: left !important;
 
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-  &:focus {
-    border-color: $grayLight;
-    @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 4px rgba($grayLight, 0.6));
+  &:last-child {
+    float: none !important;
   }
-}
-
-// tabs
-
-.tabbable {
-  [class*="span"] {
-    overflow: hidden;
-  }
-
-  .alert:first-child {
-    margin-top: 0px;
-  }
-}
-
-// outlines
-
-a:active, a:hover, a:focus,
-.btn:active, .btn:hover, .btn:focus,
-button:active, button:hover, button:focus,
-input:active, input:hover, input:focus,
-select:active, select:hover, select:focus,
-textarea:active, textarea:hover, textarea:focus {
-  outline: 0;
-}
-
-// muted links
-
-.muted a {
-  color: $grayLight;
-}
-
-// modals
-
-.modal-header a.close i:before {
-  cursor: pointer;
-}
-
-// alert links
-
-.alert a.close,
-.alert a.close i {
-  display: inline-block;
-
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  top: 0px;
-  bottom: 0px;
-
-  right: -25px;
-
-  font-size: $baseFontSize;
-  font-weight: normal;
-
-  text-align: center;
-  text-decoration: none;
-
-  &:hover, &:focus {
-    text-decoration: none;
-  }
-}
-
-.alert a.close i:before {
-  cursor: pointer;
-}
-
-.alert-error a {
-  color: $errorLinkColor;
-
-  &:hover, &:focus {
-    color: $errorLinkColorHover;
-  }
-}
-
-.alert-info a {
-  color: $infoLinkColor;
-
-  &:hover, &:focus {
-    color: $infoLinkColorHover;
-  }
-}
-
-.alert-notice a,
-.alert-warning a {
-  color: $warningLinkColor;
-
-  &:hover, &:focus {
-    color: $warningLinkColorHover;
-  }
-}
-
-.alert-success a {
-  color: $successLinkColor;
-
-  &:hover, &:focus {
-    color: $successLinkColorHover;
-  }
-}
-
-// other stuff
-
-.ui-helper-hidden-accessible {
-  display:none;
 }
