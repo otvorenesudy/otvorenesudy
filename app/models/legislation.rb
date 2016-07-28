@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Legislation < ActiveRecord::Base
   include Resource::Formatable
 
@@ -36,6 +34,8 @@ class Legislation < ActiveRecord::Base
 
     return url
   end
+
+  # TODO translate
 
   formatable :value, default: '%t %u/%y %n § %p %s %l', remove: /[\§\/\s]*\z/ do |legislation|
     { '%t' => legislation.type,

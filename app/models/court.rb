@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Court < ActiveRecord::Base
   include Resource::URI
   include Resource::ContextSearch

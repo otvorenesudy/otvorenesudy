@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Decree < ActiveRecord::Base
   include Resource::URI
   include Resource::Storage

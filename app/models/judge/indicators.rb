@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 class Judge
   module Indicators
     extend ActiveSupport::Concern

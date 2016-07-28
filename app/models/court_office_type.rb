@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class CourtOfficeType < ActiveRecord::Base
   include Resource::Enumerable
 
@@ -8,6 +6,8 @@ class CourtOfficeType < ActiveRecord::Base
   has_many :offices, class_name: :CourtOffice, dependent: :destroy
 
   validates :value, presence: true
+
+  # TODO translate (needs database update)
 
   value :information_center,       'Informačné centrum'
   value :registry_center,          'Podateľňa'

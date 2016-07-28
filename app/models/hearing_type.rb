@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class HearingType < ActiveRecord::Base
   include Resource::Enumerable
 
@@ -8,6 +6,8 @@ class HearingType < ActiveRecord::Base
   has_many :hearings
 
   validates :value, presence: true
+
+  # TODO translate (needs database update)
 
   value :civil,    'Civilné'
   value :criminal, 'Trestné'

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Judge < ActiveRecord::Base
   include Resource::URI
   include Resource::ContextSearch
