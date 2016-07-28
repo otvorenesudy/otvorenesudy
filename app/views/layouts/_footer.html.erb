@@ -1,30 +1,10 @@
 <footer>
   <div class="container">
-
-    <!--
-    <nav class="nav nav-inline nav-sme">
-      <%= link_to image_tag(asset_path('partners/sme.svg'), alt: 'sme.sk'), 'http://sme.sk', class: 'nav-link' %>
-      <%= link_to t('.sme.price_of_state'), 'http://cenastatu.sme.sk', class: 'nav-link' %>
-      <%= link_to t('.sme.municipalities'), 'http://obce.sme.sk', class: 'nav-link' %>
-      <%= link_to t('.sme.schools'), 'http://skoly.sme.sk', class: 'nav-link' %>
-      <%= link_to t('.sme.procurements'), 'http://tender.sme.sk', class: 'nav-link' %>
-      <%= link_to t('.sme.universities'), 'http://vysokeskoly.sme.sk', class: 'nav-link' %>
-    </nav>
-    -->
-
-    <!--
-    <nav class="nav nav-inline nav-social">
-      <%= link_to icon_tag('social-facebook'), 'https://facebook.com/otvorenesudy' %>
-      <%= link_to icon_tag('social-twitter'), 'https://twitter.com/otvorenesudy' %>
-      <%= link_to icon_tag('social-github'), 'https://github.com/otvorenesudy' %>
-    </nav>
-    -->
-
     <nav class="nav nav-inline">
       <%= link_to t('.about'), static_page_path('about'), class: 'nav-link' %>
       <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link' %>
       <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link' %>
-      <%= link_to t('.terms'), static_page_path('terms-of-use'), class: 'nav-link' %>
+      <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link' %>
       <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link' %>
     </nav>
 
@@ -37,8 +17,8 @@
     <nav class="nav nav-inline text-small">
       <%= link_to 'Transparency International Slovensko', 'http://transparency.sk', class: 'nav-link' %>
       <%= link_to 'Copyright 2013-2016', static_page_path('copyright'), class: 'nav-link' %>
-      <%= link_to Configuration.github.organization, url_to_organization, class: 'nav-link hidden-md-down' %>
-      <%= link_to OpenCourts::VERSION::STRING, url_to_repository("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link hidden-md-down' %>
+      <%= link_to Configuration.github.organization, organization_url, class: 'nav-link hidden-md-down' %>
+      <%= link_to OpenCourts::VERSION::STRING, repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link hidden-md-down' %>
     </nav>
   </div>
 </footer>

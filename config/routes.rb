@@ -1,3 +1,6 @@
+# TODO use just '/courts' instead of '/courts/search'
+# TODO shorten '/selection_procedures' link just to '/selections'
+
 require 'sidekiq/web'
 
 OpenCourts::Application.routes.draw do

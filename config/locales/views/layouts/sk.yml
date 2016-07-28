@@ -31,15 +31,8 @@ sk:
       faq: "Často kladené otázky"
       feedback: "Našli ste chybu?"
       privacy: "Ochrana súkromia"
-      terms: "Podmienky používania"
+      tos: "Podmienky používania"
 
       disclaimer:
         resources: "Projekt využíva výhradne dáta verejných inštitúcií."
         correctness: "Za ich vecnú správnosť autori nenesú zodpovednosť."
-
-      sme:
-        price_of_state: "Cena štátu"
-        municipalities: "Obce"
-        schools: "Školy"
-        procurements: "Verejné obstarávanie"
-        universities: "Vysoké školy"

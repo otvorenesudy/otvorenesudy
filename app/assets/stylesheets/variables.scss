@@ -1,14 +1,27 @@
-@import 'bootstrap/variables';
+$brand-primary: #9b59b6;
+$brand-success: #2ecc71;
+$brand-info:    #3498db;
+$brand-warning: #f1c40f;
+$brand-danger:  #e74c3c;
 
 $enable-rounded: false;
 
-$link-color: $brand-primary;
+$link-color:       $brand-primary;
 $link-hover-color: $link-color;
 
-$font-family-base: 'Open Sans', $font-family-sans-serif;
+$font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-$navbar-border-color: rgba(#fff, .1);
+$headings-font-weight: 300;
 
-$navbar-light-color: #fff;
-$navbar-light-hover-color: #fff;
+$btn-font-weight: 300;
+
+$navbar-border-color: rgba(#000, .075);
+
+$navbar-light-color:        #fff;
+$navbar-light-hover-color:  #fff;
 $navbar-light-active-color: #fff;
+
+$jumbotron-color: #fff;
+$jumbotron-bg:    #202d5f;
+
+$label-font-weight: 300;

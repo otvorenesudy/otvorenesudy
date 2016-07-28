@@ -1,5 +1,3 @@
-# Našli ste chybu?
-
 ## Chyba na stránke
 
 Všetky chyby, ktoré nastanú pravidelne monitorujme. No ani my nie sme neomylní
@@ -15,13 +13,7 @@ náročnejšie na opravu &ndash; dáta mohli byť totiž chybné už predtým
 ako sme ich získali a spracovali, no mohlo sa stať, že sme niečo pokazili
 aj my.
 
-<hr/>
-
-<p class="lead centered">
-  <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>
-</p>
-
-<hr/>
+<%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex, class: 'btn btn-lg btn-primary-outline' %>
 
 Samozrejme sa snažíme, aby chýb bolo čo najmenej a za všetky vaše postrehy
 vám vopred ďakujeme.

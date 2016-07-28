@@ -28,18 +28,11 @@ en:
       contact: "Contacts"
       copyright: "Copyright"
       donate: "Support us"
-      faq: "FAQ"
+      faq: "Frequently asked questions"
       feedback: "Did you find a mistake?"
       privacy: "Privacy"
-      terms: "Terms and conditions"
+      tos: "Terms of use"
 
       disclaimer:
         resources: "Project uses only data provided by public institutions."
         correctness: "Authors are not responsible for their accuracy."
-
-      sme:
-        price_of_state: "Price of state"
-        municipalities: "Municipalities"
-        schools: "Schools"
-        procurements: "Procurements"
-        universities: "Universities"

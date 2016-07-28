@@ -1,11 +1,11 @@
-# <%= t '.title' %>
+Transparency International Slovensko
 
-#### <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
+Bajkalská 25<br/>
+827 18 Bratislava<br/>
+Slovenská republika
 
-<%= t '.address_part_1' %>
-<%= t '.address_part_2' %>
+tel., fax: +421 253 417 207<br/>
+e-mail: <%= mail_to 'tis@transparency.sk', nil, encode: :hex %><br/>
+web: <%= link_to 'transparency.sk', 'http://transparency.sk' %>
 
-tel., fax: +421 253 417 207  
-
-e-mail: <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>
-
+<%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex, class: 'btn btn-lg btn-primary-outline' %>

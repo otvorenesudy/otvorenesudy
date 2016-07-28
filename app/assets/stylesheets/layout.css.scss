@@ -1,11 +1,13 @@
 body {
   font-weight: 300 !important;
-
-  @include gradient-directional(#0a1855, #da0024); // TODO rm
 }
 
 header {
-  border-bottom: 1px solid $navbar-border-color;
+  @include gradient-vertical(#202d5f, #282f62);
+
+  .navbar {
+    border-bottom: 1px solid $navbar-border-color;
+  }
 
   .navbar-brand {
     padding: .425rem 0;
@@ -29,10 +31,6 @@ header {
   }
 
   .navbar-nav .nav-item {
-    @include hover-focus {
-      text-decoration: $link-hover-decoration;
-    }
-
     @include media-breakpoint-down(md) {
       float: none;
       margin-left: 0 !important;
@@ -45,25 +43,24 @@ header {
 }
 
 footer {
+  @extend .p-y-2;
+  @include gradient-vertical(#282f62, #202d5f);
+
   font-size: 80%;
   color: $navbar-light-color;
-  border-top: 1px solid $navbar-border-color;
-
-  @extend .p-y-2;
 
   a {
     color: $navbar-light-color;
 
     @include hover-focus {
       color: $navbar-light-hover-color;
-      text-decoration: $link-hover-decoration !important;
     }
   }
 
   .nav-inline .nav-link {
     @include media-breakpoint-down(md) {
       float: none !important;
-      display: block;
+      display: block !important;
       margin-left: 0 !important;
     }
   }

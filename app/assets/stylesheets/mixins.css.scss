@@ -1,1 +1,11 @@
 @import 'bootstrap/mixins';
+
+@mixin filter-grayscale($percent: 100%) {
+  -webkit-filter: grayscale($percent);
+  filter: grayscale($percent);
+}
+
+@mixin filter-none {
+  -webkit-filter: none;
+  filter: none;
+}

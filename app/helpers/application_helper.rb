@@ -13,6 +13,10 @@ module ApplicationHelper
     (values << default_title).map { |value| html_escape value }.join(' &middot; ').html_safe
   end
 
+  def container?
+    action_name != 'home'
+  end
+
   def canonical_url
     "https://#{request.host}#{request.fullpath}"
   end
@@ -21,11 +25,11 @@ module ApplicationHelper
     "https://transparency.darujme.sk/#{I18n.locale == :sk ? 238 : 761}"
   end
 
-  def url_to_organization(path = nil)
+  def organization_url(path = nil)
     File.join('https://github.com', Configuration.github.organization, path.to_s).sub(/\/\z/, '')
   end
 
-  def url_to_repository(path = nil)
-    url_to_organization "#{Configuration.github.repository}/#{path}"
+  def repository_url(path = nil)
+    organization_url "#{Configuration.github.repository}/#{path}"
   end
 end

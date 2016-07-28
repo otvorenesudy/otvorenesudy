@@ -9,16 +9,13 @@
     <meta name="author" content="<%= t '.authors' %>" />
     <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
     <meta property="og:description" content="<%= t '.content' %>" />
-    <meta property="og:image" content="<%= asset_path 'icons/icon.png' %>" />
+    <meta property="og:image" content="<%= asset_path 'logo.svg' %>" />
     <meta property="og:url" content="<%= canonical_url %>" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
     <meta name="twitter:description" content="<%= t '.content' %>" />
-    <meta name="twitter:image" content="<%= asset_path 'icons/icon.png' %>" />
+    <meta name="twitter:image" content="<%= asset_path 'logo.svg' %>" />
     <meta name="twitter:url" content="<%= canonical_url %>" />
-    <meta itemprop="name" content="<%= resolve_title(yield :title) %>" />
-    <meta itemprop="description" content="<%= t '.content' %>" />
-    <meta itemprop="image" content="<%= asset_path 'icons/icon.png' %>" />
     <link rel="mask-icon" sizes="any" href="<%= asset_path 'icons/favicon.svg' %>" />
     <link rel="apple-touch-icon" href="<%= asset_path 'icons/touchicon.png' %>" />
     <link rel="icon" href="<%= asset_path 'icons/favicon.png' %>" />
@@ -30,15 +27,18 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <!--
-    <div class="container">
-      <%= render 'shared/flash_messages' %>
+    <%- if container? -%>
+      <div class="container">
+        <%= render 'shared/flash_messages' %>
+        <%= yield %>
+        <%= render 'shared/global_banners' %>
+      </div>
+    <%- else -%>
       <%= yield %>
-    </div>
-    -->
+    <%- end -%>
     <%= render 'layouts/footer' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
-    <%= Garelic.monitoring 'UA-38636233-1' %>
+    <%= Garelic.monitoring 'UA-38636233-1' if Rails.env.production? %>
   </body>
 </html>

@@ -1,21 +1,43 @@
-// disables weird outline on Firefox
+// disable weird outline in Firefox
 
 * {
   outline: none !important;
 }
 
-// disables transitions on Bootstrap
+// disable transitions
 
 .fade, .collapse, .collapsing {
   transition: none !important;
 }
 
-// fixes visible line-breaks on inline navigation links
+// fix font weight on small headings
+
+h1, h2, h3, h4, h5, h6 {
+  small {
+    font-weight: $headings-font-weight;
+  }
+}
+
+// fix paragraph bottom margin in list items
+
+li p {
+  margin-bottom: 0;
+}
+
+// fix visible line-breaks on inline navigation links
 
 .nav-inline .nav-link {
   float: left !important;
 
   &:last-child {
     float: none !important;
+  }
+}
+
+// fix hover-focus effect on navigation items and links
+
+.nav-item, .nav-link {
+  @include hover-focus {
+    text-decoration: $link-hover-decoration !important;
   }
 }

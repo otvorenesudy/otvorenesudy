@@ -1,15 +1,13 @@
-# Podmienky používania
-
 ## Prevádzkovatelia
 
 OtvoreneSudy.sk (ďalej „portál“) sú nezisková investigatívna stránka
 slúžiaca na monitoring a analýzu informácií o súdnictve. Prevádzkovateľom
 portálu je nezisková organizácia Transparency International Slovensko
-(ďalej „prevádzkovatelia”) a Samuel Molnár a Pavol Zbell.
+(ďalej „prevádzkovatelia“), Samuel Molnár a Pavol Zbell.
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
-<%= external_link_to "Transparency International", 'http://transparency.org' %>
-v Berlíne a projektu <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
-organizovaného <%= external_link_to "Centrom pre filantropiu", 'http://cpf.sk' %>. 
+<%= link_to 'Transparency International', 'http://transparency.org' %>
+v Berlíne a projektu <%= link_to 'Reštart', 'http://restartslovensko.sk' %>
+organizovaného <%= link_to 'Centrom pre filantropiu', 'http://cpf.sk' %>. 
 
 ## Základné pravidlá
 
@@ -28,31 +26,20 @@ prípade potreby a nebudú mu zasielať nevyžiadanú poštu.
 Portál zobrazuje súdne informácie na základe dát získaných z verejne dostupných
 zdrojov. Predovšetkým ide o nasledovné zdroje:
 
-<hr/>
+- <%= link_to 'Ministerstvo spravodlivosti Slovenskej republiky', 'http://www.justice.gov.sk' %>
+  - <%= link_to 'Súdy', 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
+  - <%= link_to 'Sudcovia', 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
+  - <%= link_to 'Súdne pojednávania', 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
+  - <%= link_to 'Súdne rozhodnutia', 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
+  - <%= link_to 'Štatistiky o súdoch', 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx' %>
+  - <%= link_to 'Ročné štatistické výkazy o činnosti sudcov', 'http://www.justice.gov.sk/rsvs' %>
+  - <%= link_to 'Životopisy a motivačné listy sudcov', 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
 
-- <%= external_link_to "Ministerstvo spravodlivosti Slovenskej republiky", 'http://www.justice.gov.sk' %>
+- <%= link_to 'Súdna rada Slovenskej republiky', 'http://www.sudnarada.gov.sk' %>
+  - <%= link_to 'Majetkové priznania sudcov', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
 
-  - <%= external_link_to "Súdy", 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
-  - <%= external_link_to "Sudcovia", 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
-  - <%= external_link_to "Súdne pojednávania", 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
-  - <%= external_link_to "Súdne rozhodnutia", 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
-  - <%= external_link_to "Štatistiky o súdoch", 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx' %>
-  - <%= external_link_to "Ročné štatistické výkazy o činnosti sudcov", 'http://www.justice.gov.sk/rsvs' %>
-  - <%= external_link_to "Životopisy a motivačné listy sudcov", 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
-
-<hr/>
-
-- <%= external_link_to "Súdna rada Slovenskej republiky", 'http://www.sudnarada.gov.sk' %>
-
-  - <%= external_link_to "Majetkové priznania sudcov", 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
-
-<hr/>
-
-- <%= external_link_to "Národná rada Slovenskej republiky", 'http://www.nrsr.sk' %> a <%= external_link_to "Kancelária prezidenta Slovenskej republiky", 'http://www.prezident.sk' %>
-
+- <%= link_to 'Národná rada Slovenskej republiky', 'http://www.nrsr.sk' %> a <%= link_to 'Kancelária prezidenta Slovenskej republiky', 'http://www.prezident.sk' %>
   - Dátumy menovania sudcov do funkcie
-
-<hr/>
 
 Dáta sú získavané automatickým sťahovaním z verejne dostupných internetových
 stránok v podobe, v akej boli pôvodne zverejnené alebo poskytnuté inštitúciami.

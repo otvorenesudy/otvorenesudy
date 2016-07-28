@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
 
     name = @slug.gsub(/-/, '_')
 
-    @title    = translate "static_pages.#{name}", default: 'missing'
+    @title    = translate "static_pages.#{name}", default: ''
     @template = "static_pages/content/#{name}"
 
     begin
