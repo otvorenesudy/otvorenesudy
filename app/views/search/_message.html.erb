@@ -1,4 +1,4 @@
-<div class="search-message" data-searchd-total-hits="<%= @count %>">
+<div class="search-message">
   <% unless @count.zero? %>
     <%= @results.offset + 1 %> &ndash; <%= [@results.offset + @results.per_page, @count].min %>
     <%= t '.from_total' %> <%= translate_with_count(@count, :result) %>

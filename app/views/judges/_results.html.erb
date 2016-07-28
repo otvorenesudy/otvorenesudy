@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |judge| %>
   <li>
     <h4>
-      <%= link_to_judge judge, :'data-searchd-result' => judge.name %>
+      <%= link_to_judge judge %>
       <span class="muted"><%= judge_activity_tag judge.active?, placement: :right %></span>
     </h4>
 

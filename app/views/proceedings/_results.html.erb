@@ -1,8 +1,7 @@
 <%= search_list_tag results, offset: offset do |proceeding, highlight| %>
   <li>
     <h4>
-      <%#= link_to proceeding_path(proceeding, nil, params: { q: params[:q] }, :'data-searchd-result' => "Proceeding ##{proceeding.id}") do %>
-      <%= link_to proceeding_path(proceeding, params: { q: params[:q] }, :'data-searchd-result' => "Proceeding ##{proceeding.id}") do %>
+      <%= link_to proceeding_path(proceeding, params: { q: params[:q] }) do %>
         <%= proceeding_headline(proceeding, limit: 67) %>
         <% if proceeding.legislation_area_and_subarea.any? %>
           <br/>
