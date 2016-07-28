@@ -1,3 +1,4 @@
+# TODO translate
 
 module IndicatorsHelper
   def assigned_agendas_indicator(indicators, options = {})

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module HearingsHelper
   def hearing_title(hearing)
     title(*hearing_identifiers(hearing) << hearing_type(hearing.type))

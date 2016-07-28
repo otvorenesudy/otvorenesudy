@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module FacetsHelper
   def facet_form_params(facet, &block)
     form_params(facet.params.except(facet.name), &block)

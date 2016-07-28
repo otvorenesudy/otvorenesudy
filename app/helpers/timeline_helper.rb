@@ -1,3 +1,5 @@
+# TODO mv to proc helper
+
 module TimelineHelper
   def timeline_distance(a, b)
     a, b = timeline_date(a), timeline_date(b)

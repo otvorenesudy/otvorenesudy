@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module ProceedingsHelper
   def proceeding_title(proceeding)
     title(*proceeding_identifiers(proceeding))
