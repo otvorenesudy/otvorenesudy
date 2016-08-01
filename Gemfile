@@ -11,7 +11,7 @@ gem 'tire'
 gem 'elasticsearch'
 
 # styles
-gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'rails-assets-tether', '~> 1.1.0'
 gem 'font-ionicons-rails', '~> 2.0.1.3'
 gem 'roadie'
