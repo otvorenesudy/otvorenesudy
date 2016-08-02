@@ -1,19 +1,12 @@
 ﻿en:
   devise:
-    shared:
-      links:
-        login: "Log In"
-        signup: "Sign Up"
-        forgotten_password: "Forgot password?"
-        signup_confirmation: "Sign Up Confirmation"
-
     confirmations:
       confirmed: "Your e-mail address has been successfully confirmed."
       send_instructions: "You will receive an e-mail with instructions for how to confirm your e-mail address in a few minutes."
       send_paranoid_instructions: "If your e-mail address exists in our database, you will receive an e-mail with instructions for how to confirm your e-mail address in a few minutes."
 
       new:
-        title: "Registration confirmation"
+        title: "Account confirmation"
         no_confirmation: "Have not received confirmation instructions?"
         resend_instructions: "Resend instructions"
 
@@ -50,7 +43,7 @@
       updated_not_active: "Your password has been changed successfully."
 
       new:
-        title: "Password reset"
+        title: "Forgot password?"
         forgotten_password: "Did you forget your password?"
         send_instructions: "Send instructions"
 
@@ -75,17 +68,18 @@
 
       edit:
         settings: "Settings"
-        password_placeholder: "Empty, if you do not want to change."
-        confirm_placeholder: "Fill in to confirm changes."
+        password_placeholder: "Leave blank, if you do not want to change"
+        confirm_placeholder: "Fill in your current password to confirm changes"
         submit: "Submit"
-        delete_account: "Delete account"
-        confirm_delete: "Delete account"
+        account: "Account"
         are_you_sure: "Are you sure?"
+        confirm_delete: "Delete account"
+        cancel: "Back"
 
     sessions:
       new:
-        title: "Log In"
-        submit: "Log In"
+        title: "Sign In"
+        submit: "Sign In"
 
       already_signed_out: "Already signed out."
       signed_in: "Signed in successfully."
@@ -95,6 +89,13 @@
       send_instructions: "You will receive an e-mail with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an e-mail with instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+
+    shared:
+      links:
+        account_confirmation: "Account confirmation"
+        forgotten_password: "Forgot password?"
+        sign_in: "Sign in"
+        sign_up: "Sign up"
 
   errors:
     messages:

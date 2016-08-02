@@ -15,13 +15,33 @@ $headings-font-weight: 300;
 
 $btn-font-weight: 300;
 
+$btn-secondary-color:  #fff;
+$btn-secondary-bg:     #818a91;
+$btn-secondary-border: $btn-secondary-bg;
+
+$input-border-focus: $brand-primary;
+
 $navbar-border-color: rgba(#000, .075);
 
 $navbar-light-color:        #fff;
 $navbar-light-hover-color:  #fff;
 $navbar-light-active-color: #fff;
 
-$jumbotron-color: #fff;
-$jumbotron-bg:    #202d5f;
+$jumbotron-padding: 2.5rem;
+$jumbotron-color:   #fff;
+$jumbotron-bg:      #202d5f;
+
+$state-success-text:   $brand-success;
+$state-success-bg:     #fff;
+$state-success-border: $brand-success;
+$state-info-text:      $brand-info;
+$state-info-bg:        #fff;
+$state-info-border:    $brand-info;
+$state-warning-text:   $brand-warning;
+$state-warning-bg:     #fff;
+$state-warning-border: $brand-warning;
+$state-danger-text:    $brand-danger;
+$state-danger-bg:      #fff;
+$state-danger-border:  $brand-danger;
 
 $label-font-weight: 300;

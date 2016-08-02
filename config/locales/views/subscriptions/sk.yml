@@ -1,0 +1,26 @@
+sk:
+  subscriptions:
+    create:
+      success: "Odoberanie notifikácií bolo zaregistrované."
+      failure: "Niečo sa pokazilo. Odoberanie notifikácií nebolo zaregistrované."
+
+    update:
+      success: "Odoberanie notifikácií bolo aktualizované."
+      failure: "Niečo sa pokazilo. Odoberanie notifikácií nebolo aktualizované."
+
+    delete:
+      notice: "Odoberanie notifikácií bolo zrušené."
+
+    decrees:
+      title: "Rozhodnutia"
+
+    hearings:
+      title: "Pojednávania"
+
+    list:
+      search: "Vyhľadávanie"
+      registered_at: "Registrované dňa"
+      no_filters: "Nenastavené žiadne obmedzenia."
+      update: "Aktualizovať"
+      cancel: "Zrušiť"
+      confirm: "Naozaj si želáte zrušiť odoberanie notifikácií?"

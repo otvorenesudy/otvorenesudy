@@ -1,40 +1,52 @@
 <% provide :title, t('.settings') %>
 
-<section id="user-settings" class="user">
+<div class="container">
+  <h1 class="display-4 m-t-3 m-b-1"><%= yield :title %></h1>
   <div class="row">
-    <div class="offset2 span8">
-      <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f| %>
-        <legend><%= yield :title %></legend>
-        <p>
-          <%= f.label :email, class: :'control-label' %>
-          <%= f.email_field :email, autofocus: true, class: :span8 %>
-        </p>
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p><%= t('.email_not_yet_opened')%>: <%= resource.unconfirmed_email %></p>
-        <% end %>
-        <p>
+    <div class="col-lg-6">
+      <%= render 'devise/shared/messages' %>
+      <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :put } do |f| %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: 'form-control' %>
+        </div>
+        <div class="form-group">
           <%= f.label :password %>
-          <%= f.password_field :password, placeholder: t('.password_placeholder'), class: :span8 %>
-        </p>
-        <p>
+          <%= f.password_field :password, placeholder: t('.password_placeholder'), class: 'form-control' %>
+        </div>
+        <div class="form-group">
           <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, placeholder: t('.password_placeholder'), class: :span8 %>
-        </p>
-        <p>
+          <%= f.password_field :password_confirmation, placeholder: t('.password_placeholder'), class: 'form-control' %>
+        </div>
+        <div class="form-group">
           <%= f.label :current_password %>
-          <%= f.password_field :current_password, placeholder: t('.confirm_placeholder'), class: :span8 %>
-        </p>
-        <button type="submit" class="btn btn-primary btn-large"><%= t '.submit' %></button>
+          <%= f.password_field :current_password, placeholder: t('.confirm_placeholder'), class: 'form-control' %>
+        </div>
+        <button type="submit" class="btn btn-lg btn-outline-primary"><%= t '.submit' %></button>
       <% end %>
     </div>
   </div>
-</section>
-
-<section id="user-unregistration" class="user">
+  <h1 class="display-4 m-t-3 m-b-1"><%= t '.account' %></h1>
   <div class="row">
-    <div class="offset2 span8">
-      <legend><%= t '.delete_account' %></legend>
-      <%= button_to t('.confirm_delete'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete, class: :'btn btn-danger btn-large' %>
+    <div class="col-lg-6">
+      <button class="btn btn-lg btn-outline-danger" data-toggle="modal" data-target="#delete_user"><%= t '.confirm_delete' %></button>
+      <div id="delete_user" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><%= t('.are_you_sure') %></h4>
+            </div>
+            <div class="modal-footer">
+              <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :delete } do %>
+                <button type="button" class="btn btn-lg btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
+                <button type="submit" class="btn btn-lg btn-outline-danger"><%= t '.confirm_delete' %></button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= render 'users/shared/links' %>
     </div>
   </div>
-</section>
+  <%= render 'shared/global_banners' %>
+</div>

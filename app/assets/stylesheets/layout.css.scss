@@ -1,9 +1,23 @@
 body {
   font-weight: 300 !important;
+
+  .container > .alerts {
+    .alert:first-of-type {
+      @extend .m-t-3;
+    }
+
+    .alert:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .alert {
+    border-left-width: $spacer-x;
+  }
 }
 
 header {
-  @include gradient-vertical(#202d5f, #282f62);
+  @include gradient-y(#202d5f, #282f62);
 
   .navbar {
     border-bottom: 1px solid $navbar-border-color;
@@ -26,7 +40,7 @@ header {
       width: 100%;
       height: 1px;
       padding: 0 .425rem;
-      margin: $navbar-padding-vertical 0;
+      margin: $navbar-padding-y 0;
     }
   }
 
@@ -44,7 +58,7 @@ header {
 
 footer {
   @extend .p-y-2;
-  @include gradient-vertical(#282f62, #202d5f);
+  @include gradient-y(#282f62, #202d5f);
 
   font-size: 80%;
   color: $navbar-light-color;
@@ -66,7 +80,7 @@ footer {
   }
 
   .disclaimer {
-    @extend .p-t-1;
+    @extend .m-t-1;
 
     @include media-breakpoint-down(md) {
       margin-top: $spacer-y;

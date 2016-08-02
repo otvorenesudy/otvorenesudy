@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-lg-3 col-lg-push-9">
-    <ul class="nav p-t-3">
+    <ul class="nav m-t-3">
       <li class="nav-item"><%= link_to t('static_pages.about'), static_page_path('about'), class: 'nav-link' %></li>
       <li class="nav-item"><%= link_to t('static_pages.faq'), static_page_path('faq'), class: 'nav-link' %></li>
       <li class="nav-item"><%= link_to t('static_pages.feedback'), static_page_path('feedback'), class: 'nav-link' %></li>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="col-lg-9 col-lg-pull-3">
-    <h1 class="display-4 p-t-3 m-b-1"><%= @title %></h1>
+    <h1 class="display-4 m-t-3 m-b-1"><%= @title %></h1>
     <%= locale_specific_spaces(render @template).html_safe %>
   </div>
 </div>

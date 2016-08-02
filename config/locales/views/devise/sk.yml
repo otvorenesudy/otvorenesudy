@@ -1,12 +1,5 @@
 sk:
   devise:
-    shared:
-      links:
-        login: "Prihlásenie"
-        signup: "Registrácia"
-        forgotten_password: "Zabudli ste heslo?"
-        signup_confirmation: "Potvrdenie registrácie"
-
     confirmations:
       confirmed: "Váš účet bol úspešne overený. Teraz ste prihlásený."
       send_instructions: "O niekoľko minút Vám bude doručený e-mail s inštrukciami ako potvrdiť registráciu."
@@ -39,7 +32,7 @@ sk:
         subject: "[Otvorené Súdy] Odomknutie účtu"
 
     omniauth_callbacks:
-      failure: "Nebolo Vás možné autentifikovať z %{kind} účtu z dôvodu &bdquo;%{reason}&ldquo;."
+      failure: "Nebolo Vás možné autentifikovať z %{kind} účtu z dôvodu %{reason}."
       success: "Úspešne autentifikovaný z %{kind} účtu."
 
     passwords:
@@ -50,7 +43,7 @@ sk:
       updated_not_active: "Vaše heslo bolo úspešne zmenené."
 
       new:
-        title: "Obnovenie hesla"
+        title: "Zabudli ste heslo?"
         forgotten_password: "Zabudli ste heslo?"
         send_instructions: "Poslať inštrukcie"
 
@@ -75,12 +68,13 @@ sk:
 
       edit:
         settings: "Nastavenia"
-        password_placeholder: "Prázdne, ak nechcete zmeniť."
-        confirm_placeholder: "Vyplňte, pre potvrdenie zmien."
+        password_placeholder: "Ponechajte prázdne, ak nechcete zmeniť"
+        confirm_placeholder: "Vyplňte aktuálne heslo, pre potvrdenie zmien"
         submit: "Uložiť"
-        delete_account: "Zrušenie účtu"
-        confirm_delete: "Zrušiť účet"
+        account: "Účet"
         are_you_sure: "Ste si istý?"
+        confirm_delete: "Zrušiť účet"
+        cancel: "Späť"
 
     sessions:
       new:
@@ -95,6 +89,13 @@ sk:
       send_instructions: "O niekoľko minút Vám bude doručený e-mail s inštrukciami ako odomknúť Váš účet."
       send_paranoid_instructions: "Ak Váš účet existuje, o niekoľko minút Vám bude doručený e-mail s inštrukciami ako ho odomknúť."
       unlocked: "Váš účet bol úspešne odomknutý. Prosím prihláste sa, aby ste mohli pokračovať."
+
+    shared:
+      links:
+        account_confirmation: "Potvrdenie registrácie"
+        forgotten_password: "Zabudli ste heslo?"
+        sign_in: "Prihlásenie"
+        sign_up: "Registrácia"
 
   errors:
     messages:

@@ -1,0 +1,15 @@
+en:
+  users:
+    subscriptions:
+      title: "Notifications"
+      subscribe_introduction: "You can subscribe to be notified about new search results in"
+      subscribe_detail: "search, according to current search settings."
+      subscribe_or: "or"
+      decrees: "Decrees"
+      hearings: "Hearings"
+
+    shared:
+      links:
+        subscriptions: "Notifications"
+        settings: "Settings"
+        sign_out: "Sign out"

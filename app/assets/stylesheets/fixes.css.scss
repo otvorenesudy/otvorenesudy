@@ -20,7 +20,13 @@ h1, h2, h3, h4, h5, h6 {
 
 // fix paragraph bottom margin in list items
 
-li p {
+li p:last-of-type {
+  margin-bottom: 0;
+}
+
+// fix excessive bottom margin on button group labels
+
+.form-group .btn-group label {
   margin-bottom: 0;
 }
 
@@ -40,4 +46,10 @@ li p {
   @include hover-focus {
     text-decoration: $link-hover-decoration !important;
   }
+}
+
+// fix double border on modal dialogs with no body
+
+.modal-header + .modal-footer {
+  border-top: none;
 }

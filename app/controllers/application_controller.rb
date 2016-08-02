@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
   before_filter :set_locale
 
   protected
@@ -16,11 +17,11 @@ class ApplicationController < ActionController::Base
     edit_user_registration_path
   end
 
-  def set_locale
-    I18n.locale = params[:l]
+  def default_url_options(options = {})
+    { l: I18n.locale }
   end
 
-  def default_url_options(options={})
-    { l: I18n.locale }
+  def set_locale
+    I18n.locale = params[:l]
   end
 end

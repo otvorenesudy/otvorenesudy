@@ -1,9 +1,10 @@
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-2"><%= t '.head' %></h1>
-    <p class="lead">This is a simple hero unit.</p>
-    <hr class="m-y-2" />
-    <%= link_to t('.donate'), donation_url, class: 'btn btn-primary btn-lg', role: 'button' %>
+
+    <p class="lead"><%= t '.detail' %></p>
+
+    <%= link_to t('.donate'), donation_url, class: 'btn btn-lg btn-outline-inverse', role: :button %>
   </div>
 </div>
 

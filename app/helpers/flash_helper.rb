@@ -1,22 +1,18 @@
 module FlashHelper
-  def normalized_flash
-    return @flash if @flash
-
-    @flash = flash
-
-    if defined?(resource) && (messages = resource.errors.full_messages.uniq).any?
-      @flash.now[:error] = Array.wrap @flash.now[:error]
-
-      messages.each do |message|
-        @flash.now[:error] << (message.end_with?('.') ? message : message + '.')
-      end
-    end
-
-    @flash
+  def flash_to_messages(flash: self.flash)
+    flash.now[:error] = resource.errors.full_messages.uniq if defined? resource
+    flash.flat_map { |type, value|
+      Array.wrap(value).map { |message|
+        [type, message.end_with?('.') ? message : message + '.']
+      } if value.present?
+    }.compact
   end
 
-  def initialize_flash_as_arrays
-    flash.now[:error]  = Array.wrap(flash.now[:error])
-    flash.now[:notice] = Array.wrap(flash.now[:notice])
+  def flash_message_type_to_class(type)
+    { alert: 'danger', error: 'danger', failure: 'danger', notice: 'info' }[type.to_sym] || type.to_s
+  end
+
+  def flash_message_wrap(flash: self.flash, keys: [])
+    keys.each { |key| flash.now[key.to_sym] = Array.wrap(flash.now[key.to_sym]) }
   end
 end

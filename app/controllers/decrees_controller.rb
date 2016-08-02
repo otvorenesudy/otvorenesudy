@@ -1,5 +1,5 @@
 class DecreesController < SearchController
-  before_filter :initialize_flash_as_arrays
+  before_filter { flash_message_wrap keys: %i(danger warning) }
 
   def show
     @decree = Decree.find(params[:id])
@@ -9,9 +9,9 @@ class DecreesController < SearchController
 
     @legislations = @decree.legislations.order(:value)
 
-    flash.now[:error]  << render_to_string(partial: 'unprocessed',     locals: { decree: @decree }).html_safe if @decree.unprocessed?
-    flash.now[:error]  << render_to_string(partial: 'has_future_date', locals: { decree: @decree }).html_safe if @decree.has_future_date?
-    flash.now[:notice] << render_to_string(partial: 'had_future_date', locals: { decree: @decree }).html_safe if @decree.had_future_date?
+    flash.now[:danger]  << render_to_string(partial: 'unprocessed',     locals: { decree: @decree }).html_safe if @decree.unprocessed?
+    flash.now[:danger]  << render_to_string(partial: 'has_future_date', locals: { decree: @decree }).html_safe if @decree.has_future_date?
+    flash.now[:warning] << render_to_string(partial: 'had_future_date', locals: { decree: @decree }).html_safe if @decree.had_future_date?
   end
 
   def resource
@@ -25,6 +25,7 @@ class DecreesController < SearchController
 
     return redirect_to @decree.pdf_uri if @decree.pdf_uri
 
+    # TODO translate?
     send_file_in @decree.document_path, name: "Rozhodnutie-#{@decree.ecli}"
   end
 

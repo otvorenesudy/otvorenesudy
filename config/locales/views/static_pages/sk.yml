@@ -1,28 +1,28 @@
 sk:
   static_pages:
     home:
-      head: 'Otvorené Súdy'
-      detail: ''
-      donate: ''
+      head: "Otvorené Súdy"
+      detail: "Prinášame viac transparentnosti do slovenského súdnictva"
+      donate: "Podporte projekt"
 
       feature_1:
-        head: 'Otvorený projekt'
-        detail: 'Transparentný pohľad'
-        content: 'Projekt, ktorý priniesol transparentnejší pohľad na slovenské súdnictvo. Pre všetkých, ktorí majú radi dôležité informácie na jednom mieste a&nbsp;chcú v&nbsp;nich efektívne vyhľadávať.'
+        head: "Otvorený projekt"
+        detail: "Transparentný pohľad"
+        content: "Projekt, ktorý priniesol transparentnejší pohľad na slovenské súdnictvo. Pre všetkých, ktorí majú radi dôležité informácie na jednom mieste a&nbsp;chcú v&nbsp;nich efektívne vyhľadávať."
 
       feature_2:
-        head: 'Otvorené dáta'
-        detail: 'Súdne dokumenty'
-        content: 'Ponúka všetky súdne rozhodnutia, pojednávania a&nbsp;ďalšie vybrané dokumenty, ktoré boli zverejnené na stránke %{link} Slovenskej republiky.'
-        link: 'Ministerstva spravodlivosti'
+        head: "Otvorené dáta"
+        detail: "Súdne dokumenty"
+        content: "Ponúka všetky súdne rozhodnutia, pojednávania a&nbsp;ďalšie vybrané dokumenty, ktoré boli zverejnené na stránke %{link} Slovenskej republiky."
+        link: "Ministerstva spravodlivosti"
 
       feature_3:
-        head: 'Otvorený kód'
-        detail: 'Ruby on Rails'
-        content: 'Zdrojový kód %{link} je voľne prehliadateľný a&nbsp;dostupný službou GitHub.'
-        link: 'projektu'
+        head: "Otvorený kód"
+        detail: "Ruby on Rails"
+        content: "Zdrojový kód %{link} je voľne prehliadateľný a&nbsp;dostupný službou GitHub."
+        link: "projektu"
 
-      partners: 'Projekt podporili'
+      partners: "Projekt podporili"
 
     about: "O projekte"
     api: "API"

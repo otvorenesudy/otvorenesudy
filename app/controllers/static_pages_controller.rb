@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class StaticPagesController < ApplicationController
   def show
     @slug = params[:slug]

@@ -19,6 +19,7 @@ class DecreePagesController < ApplicationController
     render text: simple_format(@page.text.strip)
   end
 
+  # TODO rm?
   def image
     @page = DecreePage.find_by_decree_id_and_number(params[:decree_id], params[:id])
 

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class JudgesController < SearchController
   include FileHelper
 
@@ -28,12 +26,14 @@ class JudgesController < SearchController
   def curriculum
     @judge = Judge.find(params[:id])
 
+    # TODO translate?
     send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
   end
 
   def cover_letter
     @judge = Judge.find(params[:id])
 
+    # TODO translate?
     send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
   end
 

@@ -1,0 +1,26 @@
+en:
+  subscriptions:
+    create:
+      success: "Subscription to notifications has been registered."
+      failure: "Something went wrong. Subscription to notifications has not been registered."
+
+    update:
+      success: "Subscription to notifications has been updated."
+      failure: "Something went wrong. Subscription to notifications has not been updated."
+
+    delete:
+      notice: "Subscription to notifications has been cancelled."
+
+    decrees:
+      title: "Notifications for new decrees"
+
+    hearings:
+      title: "Notifications for new hearings"
+
+    list:
+      search: "Search"
+      registered_at: "Subscribed on"
+      no_filters: "No filters specified."
+      update: "Update"
+      cancel: "Cancel"
+      confirm: "Do you really want to cancel your subscription for notifications?"

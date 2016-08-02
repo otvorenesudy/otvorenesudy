@@ -1,5 +1,5 @@
 class HearingsController < SearchController
-  before_filter :initialize_flash_as_arrays
+  before_filter { flash_message_wrap keys: %i(danger warning) }
 
   def show
     @hearing = Hearing.find(params[:id])
@@ -12,10 +12,10 @@ class HearingsController < SearchController
     @opponents  = @hearing.opponents.order(:name)
     @defendants = @hearing.defendants.order(:name)
 
-    flash.now[:error]  << render_to_string(partial: 'unprocessed',     locals: { hearing: @hearing }).html_safe if @hearing.unprocessed?
-    flash.now[:error]  << render_to_string(partial: 'has_future_date', locals: { hearing: @hearing }).html_safe if @hearing.has_future_date?
-    flash.now[:notice] << render_to_string(partial: 'had_future_date', locals: { hearing: @hearing }).html_safe if @hearing.had_future_date?
-    flash.now[:notice] << render_to_string(partial: 'anonymized',      locals: { hearing: @hearing }).html_safe if @hearing.anonymized?
+    flash.now[:danger]  << render_to_string(partial: 'unprocessed',     locals: { hearing: @hearing }).html_safe if @hearing.unprocessed?
+    flash.now[:danger]  << render_to_string(partial: 'has_future_date', locals: { hearing: @hearing }).html_safe if @hearing.has_future_date?
+    flash.now[:warning] << render_to_string(partial: 'had_future_date', locals: { hearing: @hearing }).html_safe if @hearing.had_future_date?
+    flash.now[:warning] << render_to_string(partial: 'anonymized',      locals: { hearing: @hearing }).html_safe if @hearing.anonymized?
   end
 
   def resource

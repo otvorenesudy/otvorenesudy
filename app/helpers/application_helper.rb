@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def container?
-    action_name != 'home'
+    action_name != 'home' && !controller.is_a?(DeviseController)
   end
 
   def canonical_url

@@ -1,5 +1,5 @@
 .jumbotron {
-  @include gradient-vertical(#282f62, #8e44ad);
+  @include gradient-y(#282f62, #8e44ad);
 
   color: $jumbotron-color;
 }

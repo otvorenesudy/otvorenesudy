@@ -1,15 +1,9 @@
-<% if normalized_flash.inject(false) { |result, entry| result || !entry.last.empty? } %>
-  <section id="flash">
-    <div class="row">
-      <div class="<%= request.fullpath =~ /^\/users/ || params[:controller] == 'static_pages' ? :'offset2 span8' : :span12 %>">
-        <% normalized_flash.each do |type, messages| %>
-          <% Array.wrap(messages).each do |message| %>
-            <div class="alert alert-<%= type %> fade in">
-              <%= close_link_to_alert %> <%= message %>
-            </div>
-          <% end %>
-        <% end %>
+<% if (messages = flash_to_messages).any? %>
+  <div class="alerts">
+    <% messages.each do |type, message| %>
+      <div class="alert alert-<%= flash_message_type_to_class type %>" role="alert">
+        <%= message %>
       </div>
-    </div>
-  </section>
+    <% end %>
+  </div>
 <% end %>

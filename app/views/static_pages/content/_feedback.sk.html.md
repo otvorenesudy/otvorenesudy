@@ -13,7 +13,7 @@ náročnejšie na opravu &ndash; dáta mohli byť totiž chybné už predtým
 ako sme ich získali a spracovali, no mohlo sa stať, že sme niečo pokazili
 aj my.
 
-<%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex, class: 'btn btn-lg btn-primary-outline' %>
+<%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex, class: 'btn btn-lg btn-outline-primary' %>
 
 Samozrejme sa snažíme, aby chýb bolo čo najmenej a za všetky vaše postrehy
 vám vopred ďakujeme.
