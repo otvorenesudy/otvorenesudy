@@ -34,12 +34,12 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title"><%= t('.are_you_sure') %></h4>
+              <h2 class="modal-title"><%= t '.are_you_sure' %></h2>
             </div>
             <div class="modal-footer">
               <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :delete } do %>
-                <button type="button" class="btn btn-lg btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
                 <button type="submit" class="btn btn-lg btn-outline-danger"><%= t '.confirm_delete' %></button>
+                <button type="button" class="btn btn-lg btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
               <% end %>
             </div>
           </div>

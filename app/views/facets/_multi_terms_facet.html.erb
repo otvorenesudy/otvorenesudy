@@ -17,6 +17,6 @@
 
     <div class="clearfix"></div>
 
-    <%= render 'facets/facet_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+    <%= render 'facets/results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
   </div>
 </div>

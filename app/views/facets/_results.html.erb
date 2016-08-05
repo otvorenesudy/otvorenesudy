@@ -1,14 +1,14 @@
 <% if visible.any? %>
   <ul id="<%= facet.id %>-list" class="unstyled">
     <% visible.each do |result| %>
-      <%= render 'facets/facet_result', facet: facet, result: result, link: link %>
+      <%= render 'facets/result', facet: facet, result: result, link: link %>
     <% end %>
   </ul>
 
   <% if other.any? %>
     <ul id="<%= facet.id %>-fold" class="unstyled collapse out">
       <% other.each do |result| %>
-        <%= render 'facets/facet_result', facet: facet, result: result, link: link %>
+        <%= render 'facets/result', facet: facet, result: result, link: link %>
       <% end %>
     </ul>
 

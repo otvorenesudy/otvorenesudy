@@ -1,0 +1,60 @@
+sk:
+  search:
+    details:
+      from_total: "z celkovo"
+      not_found: "Nenájdené"
+
+    controls:
+      reset: "Zrušiť všetky obmedzenia"
+
+      sort:
+        common: &common
+          score: "Relevancia"
+          created_at: "Dátum pridania dokumentu"
+          updated_at: "Dátum aktualizácie dokumentu"
+
+        court:
+          <<: *common
+
+          judges_count: "Počet sudcov"
+          hearings_count: "Počet pojednávaní"
+          decrees_count: "Počet rozhodnutí"
+
+        judge:
+          <<: *common
+
+        hearing:
+          <<: *common
+
+          date: "Dátum pojednávania"
+
+        decree:
+          <<: *common
+
+          date: "Dátum rozhodnutia"
+          pages_count: "Počet strán"
+
+        proceeding:
+          <<: *common
+
+        selection_procedure:
+          <<: *common
+
+          date: "Dátum konania"
+          closed_at: "Dátum uzávierky"
+
+    results:
+      no_results: "Nastaveným obmedzeniam nevyhovujú žiadne výsledky."
+
+    subscribe:
+      subscribe: "Odoberať notifikácie"
+      introduction: "Zaregistrujte si odoberanie notifikácií o nových výsledkoch vyhľadávania."
+      explanation: "Systém Vás bude periodicky notifikovať formou e-mailu o nových výsledkoch podľa aktuálnych nastavení vyhľadávania."
+      sign_in_required: "Pre odoberanie notifikácií o nových výsledkoch vyhľadávania sa musíte prihlásiť."
+      already_subscribed: "Pre aktuálne nastavenie vyhľadávania už odoberáte notifikácie."
+      sign_up: "Registrovať"
+      sign_in: "Prihlásiť"
+      create: "Odoberať"
+      update: "Aktualizovať"
+      delete: "Zrušiť"
+      cancel: "Späť"

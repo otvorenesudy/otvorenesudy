@@ -1,17 +1,15 @@
 module FacetsHelper
-  def facet_form_params(facet, &block)
-    form_params(facet.params.except(facet.name), &block)
-  end
-
+  # TODO rm?
   def facet_suggest_input(facet, options = {})
-    options[:'data-id'] ||= facet.name
-    options[:'data-suggest-path'] ||= suggest_path(facet.params)
+    options['data-id'] ||= facet.name
+    options['data-suggest-path'] ||= suggest_path(facet.params)
 
     tag :input, options.merge(type: :text, name: facet.name)
   end
 
+  # TODO rm?
   def facet_multi_input(facet, options = {})
-    options.merge! :'data-id' => facet.name
+    options.merge! 'data-id' => facet.name
 
     prefix = options.delete(:prefix)
     input  = facet_suggest_input facet, options.merge(class: :multi)
@@ -31,11 +29,13 @@ module FacetsHelper
     icon_link_to :remove, nil, search_path(result.remove_params), class: :remove
   end
 
+  # TODO rm? / rename?
   def link_to_collapse_facet_results(facet)
     target = "##{facet.id}-fold"
 
+    # TODO translate
     icon_link_to_collapse(:collapse, 'Zobraziť viac', action: :unfold, target: target, join: :append, class: :muted) +
-    icon_link_to_collapse(:'collapse-top', 'Zobrazit menej', action: :fold, target: target, join: :append, class: :muted)
+    icon_link_to_collapse(:'collapse-top', 'Zobraziť menej', action: :fold, target: target, join: :append, class: :muted)
   end
 
   def link_to_terms_facet(facet, result, options = {})
@@ -58,7 +58,7 @@ module FacetsHelper
   private
 
   def format_facet_number(number)
-    number_with_delimiter(number)
+    number_with_delimiter number
   end
 
   def format_facet_value(result, value)
