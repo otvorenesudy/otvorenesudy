@@ -1,4 +1,5 @@
 require File.expand_path('../boot', __FILE__)
+require File.expand_path('../version', __FILE__)
 
 # Pick the frameworks you want:
 require "active_record/railtie"
@@ -81,5 +82,3 @@ module OpenCourts
     config.assets.version = '1.0'
   end
 end
-
-require Rails.root.join 'config', 'version.rb'
