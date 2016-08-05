@@ -1,0 +1,463 @@
+en:
+  counts:
+    court: &court
+      zero: "no courts"
+      one: "1 court"
+      few: "%{count} courts"
+      other: "%{count} courts"
+
+    judge: &judge
+      zero: "no judges"
+      one: "1 judge"
+      few: "%{count} judges"
+      other: "%{count} judges"
+
+    candidate: &candidate
+      zero: "no candidates"
+      one: "1 candidate"
+      few: "%{count} candidates"
+      other: "%{count} of candidates"
+
+    commissioner: &commissioner
+      zero: "no commissioners"
+      one: "1 commissioner"
+      few: "%{count} commissioners"
+      other: "%{count} of commissioners"
+
+    officer: &officer
+      zero: "no higher court officials"
+      one: "1 higher court official"
+      few: "%{count} higher court official"
+      other: "%{count} of higher court official"
+
+    person: &person
+      zero: "nobody"
+      one: "1 person"
+      few: "%{count} persons"
+      other: "%{count} of persons"
+
+    hearing: &hearing
+      zero: "no hearing"
+      one: "1 hearing"
+      few: "%{count} hearings"
+      other: "%{count} hearings"
+
+    decree: &decree
+      zero: "no decree"
+      one: "1 decree"
+      few: "%{count} decrees"
+      other: "%{count} decrees"
+
+    proceeding: &proceeding
+      zero: "no proceedings"
+      one: "1 proceeding"
+      few: "%{count} proceedings"
+      other: "%{count} proceedings"
+
+    document: &document
+      zero: "no documents"
+      one: "1 document"
+      few: "%{count} documents"
+      other: "%{count} of documents"
+
+    page: &page
+      zero: "no pages"
+      one: "1 page"
+      few: "%{count} pages"
+      other: "%{count} of pages"
+
+    result: &result
+      zero: "no results"
+      one: "1 result"
+      few: "%{count} results"
+      other: "%{count} of results"
+
+    event: &event
+      zero: "no events"
+      one: "1 event"
+      few: "%{count} events"
+      other: "%{count} of events"
+
+  facets:
+    types:
+      range:
+        less: "less than %{count}"
+        more: "more than %{count}"
+        exact: "exactly %{lower}"
+        between: "%{lower} to %{upper}"
+
+      date:
+        format:
+          month: "%B, %Y"
+
+    court:
+      q:
+        title: "Court name or address"
+        placeholder: "Court name or address"
+
+      type:
+        title: "Type"
+        missing: "missing"
+
+      judges:
+        title: "Judge"
+        placeholder: "Judge name"
+        missing: "missing"
+
+      judges_count:
+        title: "Number of judges"
+        suffix:
+          <<: *judge
+
+      hearings_count:
+        title: "Number of hearings"
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: "Number of decrees"
+        suffix:
+          <<: *decree
+
+      municipality:
+        title: "City"
+        placeholder: "City name"
+        missing: "missing"
+        not_found: "Not found no cities."
+
+      expenses:
+        title: "Fines"
+        suffix: "%{count} €"
+
+    judge:
+      q:
+        title: "Judge name"
+        placeholder: "Judge name"
+
+      name:
+        title: "Judge name"
+        placeholder: "Judge name"
+        missing: "missing"
+        not_found: "No judges found."
+
+      activity:
+        title: "Activity"
+        active: "Active"
+        inactive: "Inactive"
+        unknown: "Unknown"
+        missing: "Missing"
+
+      positions:
+        title: "Judge position"
+        missing: "missing"
+
+      courts:
+        title: "Court"
+        placeholder: "Court name"
+        missing: "missing"
+        not_found: "No courts found."
+
+      hearings_count:
+        title: "Number of hearings"
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: "Number of decrees"
+        suffix:
+          <<: *decree
+
+      related_people_count:
+        title: "Number of related persons"
+        suffix:
+          <<: *person
+
+      decree_agenda:
+        title: "Decree agenda"
+        missing: "missing"
+        not_found: "No agendas found."
+
+      indicators_courts:
+        title: "Court"
+        placeholder: "Court name"
+        missing: "missing"
+        not_found: "No courts found."
+
+    hearing:
+      q:
+        title: "Hearing text"
+        placeholder: "Search in hearings"
+
+      type:
+        title: "Hearing type"
+
+      court:
+        title: "Court"
+        placeholder: "Court name"
+        missing: "missing"
+        not_found: "No courts found."
+
+      court_type:
+        title: "Court type"
+        missing: "missing"
+
+      judges:
+        title: "Judge"
+        placeholder: "Judge name"
+        missing: "missing"
+        not_found: "No judges found."
+
+      form:
+        title: "Form"
+        placeholder: "Hearing form"
+        missing: "missing"
+        not_found: "No forms found."
+
+      subject:
+        title: "Subject"
+        placeholder: "Hearing subject"
+        missing: "missing"
+        not_found: "No subjects found."
+
+      section:
+        title: "Section"
+        missing: "missing"
+
+      proposers:
+        title: "Proposer"
+        placeholder: "Proposer name"
+        missing: "missing"
+        not_found: "No proposers found."
+
+      participants:
+        title: "Participants"
+        placeholder: "Participant name"
+        missing: "missing"
+        not_found: "No participants found."
+
+      case_number:
+        title: "Case number"
+        placeholder: "Case number"
+        missing: "missing"
+        not_found: "No case numbers found."
+
+      file_number:
+        title: "Case identifier"
+        placeholder: "Case identifier"
+        missing: "missing"
+        not_found: "No case identifiers found."
+
+      date:
+        title: "Date"
+
+      historical:
+        title: "Show past hearings"
+        value: "Show past hearings"
+
+    decree:
+      q:
+        title: "Decree text"
+        placeholder: "Search in decrees"
+
+      pages_count:
+        title: "Page count"
+        suffix:
+          <<: *page
+
+      court:
+        title: "Court"
+        placeholder: "Court name"
+        missing: "missing"
+        not_found: "No courts found."
+
+      court_type:
+        title: "Court type"
+        missing: "missing"
+
+      judges:
+        title: "Judge"
+        placeholder: "Judge name"
+        missing: "missing"
+        not_found: "No judges found."
+
+      form:
+        title: "Form"
+        placeholder: "Decree form"
+        missing: "missing"
+        not_found: "No forms found."
+
+      natures:
+        title: "Disposition"
+        placeholder: "Decree disposition"
+        missing: "missing"
+        not_found: "No dispositions found."
+
+      legislation_area:
+        title: "Legislation area"
+        missing: "missing"
+        not_found: "No areas found."
+
+      legislation_subarea:
+        title: "Legislation subarea"
+        placeholder: "Legislation subarea"
+        missing: "missing"
+        not_found: "No subareas found."
+
+      legislations:
+        title: "Clause"
+        placeholder: "Number year §"
+        missing: "missing"
+        not_found: "No clauses found."
+
+      case_number:
+        title: "Case number"
+        placeholder: "Case number"
+        missing: "missing"
+        not_found: "No case numbers found."
+
+      file_number:
+        title: "Case identifier"
+        placeholder: "Case identifier"
+        missing: "missing"
+        not_found: "No case identifiers found."
+
+      date:
+        title: "Date"
+
+    proceeding:
+      q:
+        title: "Proceeding text"
+        placeholder: "Search in proceedings"
+
+      courts:
+        title: "Court"
+        placeholder: "Court name"
+        missing: "missing"
+        not_found: "No courts found."
+
+      courts_types:
+        title: "Court type"
+        missing: "missing"
+
+      courts_count:
+        title: "Number of courts"
+        suffix:
+          <<: *court
+
+      judges:
+        title: "Judge"
+        placeholder: "Judge name"
+        missing: "missing"
+        not_found: "No judges found."
+
+      judges_count:
+        title: "Number of judges"
+        suffix:
+          <<: *judge
+
+      hearings_count:
+        title: "Number of hearings"
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: "Number of decrees"
+        suffix:
+          <<: *decree
+
+      proposers:
+        title: "Proposers"
+        placeholder: "Proposer name"
+        missing: "missing"
+        not_found: "No proposers found."
+
+      participants:
+        title: "Participants"
+        placeholder: "Participant name"
+        missing: "missing"
+        not_found: "No participants found."
+
+      case_numbers:
+        title: "Case number"
+        placeholder: "Case number"
+        missing: "missing"
+        not_found: "No case numbers found."
+
+      file_number:
+        title: "Case identifier"
+        placeholder: "Case identifier"
+        missing: "missing"
+        not_found: "No case identifiers found."
+
+      duration:
+        title: "Length of proceeding"
+        suffix:
+          one: "1 month"
+          few: "%{count} months"
+          other: "%{count} months"
+
+      closed:
+        title: "Show only closed proceedings"
+        value: "Show only closed proceedings"
+
+    selection_procedure:
+      q:
+        title: "Procedure text"
+        placeholder: "Search in selection procedures"
+
+      organization_name:
+        title: "Organization"
+        placeholder: "Name of organization"
+        missing: "missing"
+        not_found: "No organizations found."
+
+      candidates:
+        title: "Candidate"
+        placeholder: "Candidate name"
+        missing: "missing"
+        not_found: "No candidates found."
+
+      candidates_count:
+        title: "Number of candidates"
+        suffix:
+          <<: *candidate
+
+      commissioners:
+        title: "Committee member"
+        placeholder: "Committee member name"
+        missing: "missing"
+        not_found: "No committee members found."
+
+      commissioners_count:
+        title: "Number of commissioners"
+        suffix:
+          <<: *candidate
+
+      position:
+        title: "Position"
+        placeholder: "Position"
+        missing: "missing"
+        not_found: "No positions found."
+
+      state:
+        title: "Status"
+        missing: "missing"
+        not_found: "No statuses found."
+
+      place:
+        title: "Locality"
+        placeholder: "Locality"
+        missing: "missing"
+        not_found: "No localities found."
+
+      workplace:
+        title: "Workplace"
+        placeholder: "Workplace"
+        missing: "missing"
+        not_found: "No workplaces found."
+
+      closed_at:
+        title: "Application deadline"
+
+      date:
+        title: "Procedure date"
