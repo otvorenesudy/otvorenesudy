@@ -1,7 +1,7 @@
 <%= provide :title, @title %>
 
 <div class="row">
-  <div class="col-lg-3 col-lg-push-9">
+  <div class="col-lg-3 push-lg-9">
     <ul class="nav m-t-3">
       <li class="nav-item"><%= link_to t('static_pages.about'), static_page_path('about'), class: 'nav-link' %></li>
       <li class="nav-item"><%= link_to t('static_pages.faq'), static_page_path('faq'), class: 'nav-link' %></li>
@@ -15,7 +15,7 @@
     </ul>
   </div>
 
-  <div class="col-lg-9 col-lg-pull-3">
+  <div class="col-lg-9 pull-lg-3">
     <h1 class="display-4 m-t-3 m-b-1"><%= @title %></h1>
     <%= locale_specific_spaces(render @template).html_safe %>
   </div>
