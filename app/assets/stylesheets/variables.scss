@@ -1,3 +1,9 @@
+$gray-dark:     #373a3c;
+$gray:          #55595c;
+$gray-light:    #818a91;
+$gray-lighter:  #eceeef;
+$gray-lightest: #f7f7f9;
+
 $brand-primary: #9b59b6;
 $brand-success: #2ecc71;
 $brand-info:    #3498db;
@@ -16,15 +22,21 @@ $headings-font-weight: 300;
 $btn-font-weight: 300;
 
 $btn-secondary-color:  #fff;
-$btn-secondary-bg:     #818a91;
+$btn-secondary-bg:     $gray-light;
 $btn-secondary-border: $btn-secondary-bg;
 
 $input-border-color: $btn-secondary-border;
 $input-border-focus: $brand-primary;
 
-// TODO rm
-$custom-select-indicator:          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23818a91' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
-$custom-select-focus-border-color: $input-border-focus;
+$dropdown-padding-y:    0;
+$dropdown-margin-top:   -1px;
+$dropdown-border-color: $gray-light;
+
+$dropdown-link-color:       $gray;
+$dropdown-link-hover-color: #fff;
+$dropdown-link-hover-bg:    $gray-light;
+
+$dropdown-item-padding-x: 1rem;
 
 $navbar-border-color: rgba(#000, .075);
 
@@ -48,5 +60,11 @@ $state-warning-border: $brand-warning;
 $state-danger-text:    $brand-danger;
 $state-danger-bg:      #fff;
 $state-danger-border:  $brand-danger;
+
+$tooltip-bg:        $gray-dark;
+$tooltip-opacity:   1;
+$tooltip-padding-y: .25rem;
+$tooltip-padding-x: 1rem;
+$tooltip-margin:    0;
 
 $label-font-weight: 300;

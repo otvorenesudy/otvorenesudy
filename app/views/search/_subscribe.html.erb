@@ -27,7 +27,7 @@
             <% end %>
 
             <div class="form-group">
-              <div class="btn-group" data-toggle="buttons">
+              <div class="btn-group" data-toggle="buttons" role="group">
                 <% Period.values.each do |_, period| %>
                   <label class="btn btn-outline-secondary<%= ' active' if @subscription.period == period %>">
                     <%= f.radio_button :period_id, period.id, name: 'period_id', checked: @subscription.period == period, autocomplete: 'off' %>

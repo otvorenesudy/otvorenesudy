@@ -32,6 +32,28 @@ li p:last-of-type {
   }
 }
 
+// fix background and border color for opened secondary drop-down buttons
+
+.open > .btn-outline-secondary.dropdown-toggle {
+  @include hover-focus {
+    background-color: $gray-light;
+    border-color: $gray-light;
+  }
+}
+
+// remove automatically generated drop-down menu caret
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+// fix font weight on drop-down menu items
+
+.dropdown-item {
+  font-weight: $btn-font-weight;
+  padding: $btn-padding-y $dropdown-item-padding-x;
+}
+
 // remove visible line-breaks on inline navigation links
 
 .nav-inline .nav-link {

@@ -1,4 +1,4 @@
-<div class="text-muted">
+<div class="text-xs-right text-small text-muted">
   <% unless @count.zero? %>
     <%= @results.offset + 1 %> &ndash; <%= [@results.offset + @results.per_page, @count].min %>
     <%= t '.from_total' %> <%= translate_with_count @count, :result %>
