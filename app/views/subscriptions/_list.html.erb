@@ -30,21 +30,25 @@
           <%= q.hidden_field :value, value: Query.unwrap(subscription.query.value) %>
         <% end %>
 
-        <div class="form-group m-r-1">
-          <div class="btn-group" data-toggle="buttons">
-            <% Period.values.each do |_, period| %>
-              <label class="btn btn-outline-secondary<%= ' active' if subscription.period == period %>">
-                <%= f.radio_button :period_id, period.id, name: 'period_id', checked: subscription.period == period, autocomplete: 'off' %>
-                <%= t "period.#{period.name}" %>
-              </label>
-            <% end %>
+        <div class="form-group">
+          <div class="btn-toolbar">
+            <div class="btn-group" data-toggle="buttons">
+              <% Period.values.each do |_, period| %>
+                <label class="btn btn-outline-secondary<%= ' active' if subscription.period == period %>">
+                  <%= f.radio_button :period_id, period.id, name: 'period_id', checked: subscription.period == period, autocomplete: 'off' %>
+                  <%= t "period.#{period.name}" %>
+                </label>
+              <% end %>
+            </div>
+
+            <div class="btn-group-mix">
+              <%= link_to_search subscription.query.model, t('.search'), params: subscription.query.value, class: 'btn btn-outline-info' %>
+              <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
+              <%= link_to t('.delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+            </div>
           </div>
         </div>
-
-        <%= link_to_search subscription.query.model, t('.search'), params: subscription.query.value, class: 'btn btn-outline-info' %>
-        <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
-        <%= link_to t('.delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
-      <% end %>
+    <% end %>
     </li>
   <% end %>
 </ol>

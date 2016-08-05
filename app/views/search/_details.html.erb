@@ -1,0 +1,9 @@
+<div class="text-muted">
+  <% unless @count.zero? %>
+    <%= @results.offset + 1 %> &ndash; <%= [@results.offset + @results.per_page, @count].min %>
+    <%= t '.from_total' %> <%= translate_with_count @count, :result %>
+  <% else %>
+    <%= t '.not_found' %> <%= translate_with_count @count, :result %>
+  <% end %>
+  (<%= number_to_human @results.time, precision: 0, units: { unit: 'ms' } %>)
+</div>
