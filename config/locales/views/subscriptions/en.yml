@@ -9,17 +9,18 @@ en:
       failure: "Something went wrong. Subscription to notifications has not been updated."
 
     delete:
-      notice: "Subscription to notifications has been cancelled."
+      notice: "Subscription to notifications has been removed."
 
     decrees:
-      title: "Notifications for new decrees"
+      title: "Decrees"
 
     hearings:
-      title: "Notifications for new hearings"
+      title: "Hearings"
 
     list:
-      search: "Search"
+      title: "Search"
       registered_at: "Subscribed on"
       no_restrictions: "No result restrictions."
+      search": "Search"
       update: "Update"
-      delete: "Cancel"
+      delete: "Remove"

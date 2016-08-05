@@ -2,7 +2,7 @@
   <% subscriptions.each do |subscription| %>
     <li class="m-b-2">
       <h4>
-        <%= t '.search' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
+        <%= t '.title' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
       </h4>
 
       <p class="text-muted">
@@ -30,7 +30,7 @@
           <%= q.hidden_field :value, value: Query.unwrap(subscription.query.value) %>
         <% end %>
 
-        <div class="form-group">
+        <div class="form-group m-r-1">
           <div class="btn-group" data-toggle="buttons">
             <% Period.values.each do |_, period| %>
               <label class="btn btn-outline-secondary<%= ' active' if subscription.period == period %>">
@@ -41,6 +41,7 @@
           </div>
         </div>
 
+        <%= link_to_search subscription.query.model, t('.search'), params: subscription.query.value, class: 'btn btn-outline-info' %>
         <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
         <%= link_to t('.delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
       <% end %>

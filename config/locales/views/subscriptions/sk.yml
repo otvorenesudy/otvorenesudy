@@ -18,8 +18,9 @@ sk:
       title: "Pojednávania"
 
     list:
-      search: "Vyhľadávanie"
+      title: "Vyhľadávanie"
       registered_at: "Registrované dňa"
       no_restrictions: "Žiadne obmedzenia výsledkov."
+      search: "Vyhľadať"
       update: "Aktualizovať"
       delete: "Zrušiť"
