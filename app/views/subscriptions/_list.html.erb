@@ -1,6 +1,6 @@
 <ol class="list-unstyled">
   <% subscriptions.each do |subscription| %>
-    <li>
+    <li class="m-b-2">
       <h4>
         <%= t '.search' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
       </h4>
@@ -10,7 +10,7 @@
       </p>
 
       <% if subscription.query.value.any? %>
-        <ul class="list-unstyled m-b-1">
+        <ul class="list-unstyled m-y-1">
           <% subscription.query.value.each do |name, values| %>
             <li>
               <%= t "#{model.facets[name].key}.title" %> &ndash;
@@ -20,7 +20,7 @@
         </ul>
       <% else %>
         <p class="m-b-1">
-          <%= t '.no_filters' %>
+          <%= t '.no_restrictions' %>
         </p>
       <% end %>
 
@@ -42,7 +42,7 @@
         </div>
 
         <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
-        <%= link_to t('.cancel'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+        <%= link_to t('.delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
       <% end %>
     </li>
   <% end %>

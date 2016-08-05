@@ -18,7 +18,7 @@ sk:
       locked: "Váš účet je zamknutý."
       not_found_in_database: "Nesprávny e-mail alebo heslo."
       timeout: "Vaše sedenie vypršalo. Pre pokračovanie sa prosím znovu prihláste."
-      unauthenticated: "Pred pokračovaním sa musíte zaregistrovať alebo prihlásiť."
+      unauthenticated: "Pred pokračovaním sa musíte prihlásiť."
       unconfirmed: "Pred pokračovaním musíte potvrdiť registráciu."
 
     mailer:

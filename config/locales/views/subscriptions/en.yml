@@ -20,7 +20,6 @@ en:
     list:
       search: "Search"
       registered_at: "Subscribed on"
-      no_filters: "No filters specified."
+      no_restrictions: "No result restrictions."
       update: "Update"
-      cancel: "Cancel"
-      confirm: "Do you really want to cancel your subscription for notifications?"
+      delete: "Cancel"
