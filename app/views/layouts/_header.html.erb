@@ -23,8 +23,8 @@
           <%= nav_link_to t('.sign_in'), new_user_session_path %>
         <% end %>
         <div class="navbar-divider"></div>
-        <%= link_to t('.sk'), root_path(l: :sk), class: 'nav-item nav-link' %>
-        <%= link_to t('.en'), root_path(l: :en), class: 'nav-item nav-link' %>
+        <%= link_to t('.sk'), { l: :sk }, class: 'nav-item nav-link' %>
+        <%= link_to t('.en'), { l: :en }, class: 'nav-item nav-link' %>
       </div>
     </div>
   </nav>
