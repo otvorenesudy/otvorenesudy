@@ -1,3 +1,5 @@
+# TODO review and remove fade transitions
+
 #= require lib/lib
 
 $(document).ready ->

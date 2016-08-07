@@ -1,6 +1,8 @@
+# TODO rm?
+
 $(document).ready ->
 
-  $.extend($.tablesorter.characterEquivalents, 
+  $.extend($.tablesorter.characterEquivalents,
     'a': 'áä'
     'A': 'ÁÄ'
     'c': 'č'

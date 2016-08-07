@@ -11,6 +11,17 @@
         <%= hidden_field_tag name, value %>
       <% end %>
     <% end %>
+
+
+    <!-- TODO
+
+       <% if @facets[:q].active? %>
+    <%= icon_link_to :remove, nil, search_path(params.except @facets[:q].name), class: 'remove muted' %>
+  <% end %>
+
+
+     -->
+
   </div>
 
   <div class="col-xs-12 col-md-6">

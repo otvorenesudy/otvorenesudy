@@ -1,3 +1,5 @@
+# TODO update
+
 $(document).ready ->
   $('[data-track]').click ->
     label = $(this).attr 'data-track'
