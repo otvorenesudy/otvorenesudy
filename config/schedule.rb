@@ -19,17 +19,15 @@
 #
 # Learn more: http://github.com/javan/whenever
 
-options = { at: '07:00am' }
-
-every :day, options do
+every :day, at: '07:00am' do
   rake 'subscriptions:run[daily]'
 end
 
-every :week, options do
+every :week, at: '07:00am' do
   rake 'subscriptions:run[weekly]'
 end
 
-every :month, options do
+every :month, at: '07:00am' do
   rake 'subscriptions:run[monthly]'
 end
 
