@@ -1,0 +1,8 @@
+sk:
+  kaminari:
+    pagination:
+      first: "Prvá strana"
+      previous: "Predchádzajúca strana"
+      current: 'Aktuálna strana'
+      next: "Nasledujúca strana"
+      last: "Posledná strana"

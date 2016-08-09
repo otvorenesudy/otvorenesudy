@@ -64,11 +64,19 @@ li p:last-of-type {
   }
 }
 
-// fix hover-focus effect on navigation items and links
+// add text decoration on hover-focus to navigation items and links
 
 .nav-item, .nav-link {
   @include hover-focus {
     text-decoration: $link-hover-decoration !important;
+  }
+}
+
+// remove text decoration on hover-focus from pagination items and links
+
+.page-item, .page-link {
+  @include hover-focus {
+    text-decoration: none;
   }
 }
 

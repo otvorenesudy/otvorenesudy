@@ -1,3 +1,7 @@
-<li>
-  <%= link_to_unless current_page.first?, raw(t 'views.pagination.first'), url, remote: remote %>
-</li>
+<% unless current_page.first? %>
+  <li class="page-item">
+    <%= link_to url, class: 'page-link' do %>
+      <%= t 'kaminari.pagination.first' %>
+    <% end %>
+  </li>
+<% end %>
