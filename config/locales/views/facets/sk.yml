@@ -31,7 +31,7 @@ sk:
       other: "%{count} vyšších súdnych úradníkov"
 
     person: &person
-      zero: "žiadna osoba"
+      zero: "žiadne osoby"
       one: "1 osoba"
       few: "%{count} osoby"
       other: "%{count} osôb"
