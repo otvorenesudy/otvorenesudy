@@ -7,7 +7,7 @@ sekcii Nastavenia.
 Súbory cookie nám pomáhajú poskytovať a zabezpečiť registráciu a prihlásenie
 používateľov. Používame ich aj na na ochranu Vašich osobných údajov po prihlásení.
 
-<div class="alert alert-warning">
+<div class="alert alert-info">
   Používaním našich služieb vyjadrujete súhlas s používaním súborov cookie.
 </div>
 

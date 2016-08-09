@@ -11,10 +11,10 @@ umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sud
 ## Čo môžem na portáli robiť?
 
 Stránka poskytuje informácie o činnosti
-<%= link_to 'súdov', search_courts_path %>,
-profily <%= link_to 'sudcov', search_judges_path %>,
-minulé aj budúce <%= link_to 'pojednávania', search_hearings_path %> a
-viac ako pol milióna <%= link_to 'súdnych rozhodnutí', search_decrees_path %>.
+<%= link_to 'súdov', courts_path %>,
+profily <%= link_to 'sudcov', judges_path %>,
+minulé aj budúce <%= link_to 'pojednávania', hearings_path %> a
+množstvo <%= link_to 'súdnych rozhodnutí', decrees_path %>.
 
 ## Viete mi poskytnúť právne poradenstvo?
 

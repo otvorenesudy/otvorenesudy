@@ -8,9 +8,10 @@ is to contribute to the development of qualitative and quantitative indicators t
 ## What can I find at the portal?
 
 The webpage offers information about activities
-<%= link_to 'of courts', search_courts_path %>,
-profiles of <%= link_to 'judges', search_judges_path %>,
-past and the future <%= link_to 'hearings', search_hearings_path %> and more than a million <%= link_to 'judicial decree', search_decrees_path %>.
+<%= link_to 'of courts', courts_path %>,
+profiles of <%= link_to 'judges', judges_path %>,
+past and the future <%= link_to 'hearings', hearings_path %>
+and a great amount of <%= link_to 'judicial decrees', decrees_path %>.
 
 ## Can you offer me a legal advice?
 
@@ -99,9 +100,9 @@ These are corrected in a rather more ddifficult way &ndash; the data may have be
 
 Because we do not have data at the moment. The Constitutional Court publishes its data independently from the rest of the courts, but we will try to obtain these information as well.
 
-## Do we really have more than 2 000 judges?
+## Do we really have more than 2,000 judges?
 
-No. In Slovakia we have approximately 1 400 active judges. It si difficult to say an accurate number of judges due to defective source data as well as because of the fact that some judges may have temporarily interrupted the exercise of the judgeship.
+No. In Slovakia we have approximately 1,400 active judges. It si difficult to say an accurate number of judges due to defective source data as well as because of the fact that some judges may have temporarily interrupted the exercise of the judgeship.
 
 ## Who is the rest? Who are HCO?
 
