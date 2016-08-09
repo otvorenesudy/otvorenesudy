@@ -1,6 +1,3 @@
-# TODO use just '/courts' instead of '/courts/search'
-# TODO shorten '/selection_procedures' link just to '/selections'
-
 require 'sidekiq/web'
 
 OpenCourts::Application.routes.draw do
@@ -8,7 +5,6 @@ OpenCourts::Application.routes.draw do
 
   resources :courts, only: [:index, :show] do
     collection do
-      get :search
       get :suggest
 
       get :map
@@ -17,7 +13,6 @@ OpenCourts::Application.routes.draw do
 
   resources :judges, only: [:index, :show] do
     collection do
-      get :search
       get :suggest
     end
 
@@ -31,7 +26,6 @@ OpenCourts::Application.routes.draw do
 
   resources :hearings, only: [:index, :show] do
     collection do
-      get :search
       get :suggest
     end
 
@@ -42,7 +36,6 @@ OpenCourts::Application.routes.draw do
 
   resources :decrees, only: [:index, :show] do
     collection do
-      get :search
       get :suggest
     end
 
@@ -52,25 +45,25 @@ OpenCourts::Application.routes.draw do
     end
 
     resources :decree_pages, as: :pages, path: :pages, only: [] do
-      get :search, on: :collection
+      collection do
+        get :search
+      end
 
       member do
         get :text
-        get :image
+        get :image # TODO rm?
       end
     end
   end
 
   resources :proceedings, only: [:index, :show] do
     collection do
-      get :search
       get :suggest
     end
   end
 
-  resources :selection_procedures, only: [:show] do
+  resources :selection_procedures, as: :selections, path: :selections, only: [:index, :show] do
     collection do
-      get :search
       get :suggest
     end
 

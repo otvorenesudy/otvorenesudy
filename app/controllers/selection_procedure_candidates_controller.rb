@@ -1,4 +1,4 @@
-class SelectionProcedureCandidatesController < SearchController
+class SelectionProcedureCandidatesController < ApplicationController
   def application
     @candidate = SelectionProcedureCandidate.find(params[:id])
 
@@ -32,6 +32,7 @@ class SelectionProcedureCandidatesController < SearchController
   include FileHelper
 
   def identify(candidate)
+    # TODO translate?
     "č. #{candidate.procedure.id}-#{candidate.id} #{candidate.name}"
   end
 end

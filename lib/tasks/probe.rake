@@ -7,7 +7,7 @@ namespace :probe do
     INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Probe::Configuration.indices
   end
 
-  desc "Imports the entire index asynchronously (drops and creates index from scratch)"
+  desc 'Imports the entire index asynchronously (drops and creates index from scratch)'
   task :import_async => :environment do
     Rake::Task['probe:prepare'].invoke
 
@@ -29,7 +29,7 @@ namespace :probe do
     end
   end
 
-  desc "Drops the entire index"
+  desc 'Drops the entire index'
   task drop: :environment do
     Rake::Task['probe:prepare'].invoke
 

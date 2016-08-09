@@ -8,12 +8,12 @@
       <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-md-down' %>
       <div class="navbar-divider"></div>
       <div class="nav navbar-nav">
-        <%= nav_link_to t('.courts'), search_courts_path %>
-        <%= nav_link_to t('.judges'), search_judges_path %>
-        <%= nav_link_to t('.hearings'), search_hearings_path %>
-        <%= nav_link_to t('.decrees'), search_decrees_path %>
-        <%= nav_link_to t('.proceedings'), search_proceedings_path %>
-        <%= nav_link_to t('.procedures'), search_selection_procedures_path %>
+        <%= nav_link_to t('.courts'), courts_path %>
+        <%= nav_link_to t('.judges'), judges_path %>
+        <%= nav_link_to t('.hearings'), hearings_path %>
+        <%= nav_link_to t('.decrees'), decrees_path %>
+        <%= nav_link_to t('.proceedings'), proceedings_path %>
+        <%= nav_link_to t('.selections'), selections_path %>
       </div>
       <div class="navbar-divider hidden-lg-up"></div>
       <div class="nav navbar-nav pull-lg-right">

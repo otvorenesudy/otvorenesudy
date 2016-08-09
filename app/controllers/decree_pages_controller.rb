@@ -1,6 +1,4 @@
 class DecreePagesController < ApplicationController
-  include ActionView::Helpers::TextHelper
-
   def search
     @decree = Decree.find(params[:decree_id])
 
@@ -28,4 +26,8 @@ class DecreePagesController < ApplicationController
 
     send_file path, type: 'image/png', disposition: 'inline'
   end
+
+  private
+
+  include ActionView::Helpers::TextHelper
 end
