@@ -1,5 +1,6 @@
 <% render partial: 'search/initialization', formats: :js %>
 
+<!-- TODO rm section -->
 <section id="search-view">
   <%= render 'search/controls' %>
 
@@ -11,11 +12,9 @@
     <div class="col-lg-8">
       <%= render 'search/results' %>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <%= render 'search/pagination' %>
+    <div class="col-xs-12">
+      <%= paginate @results, window: 4 %>
     </div>
   </div>
 </section>
