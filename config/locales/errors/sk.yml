@@ -1,4 +1,8 @@
 sk:
+  unicorn:
+    title: "Jednorožec"
+    message: "A preto sa veľmi rozzúril jednorožec!"
+
   exceptions:
     bad_request:
       title: "Chybná požiadavka"

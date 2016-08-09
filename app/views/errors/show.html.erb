@@ -1,21 +1,18 @@
-<% provide :title, title(@status, @title) %>
+<% provide :title, title(@title) %>
 
-<section id="error-description" class="error">
-  <div class="row">
-    <div class="span6">
-      <h1 class="centered">
-        <%= @status %> <%= @title %>
-      </h1>
+<div class="row">
+  <div class="col-lg-6">
+    <h1 class="display-4 m-t-3 m-b-1 text-danger">
+      <%= @title %>
+    </h1>
 
-      <p class="centered">
-        <%= t 'angry_unicorn' %>
-        <br/>
-        <span class="muted"><%= @description %></span>
-      </p>
-    </div>
-
-    <div class="span6">
-      <img class="unicorn" src="<%= asset_path('unicorn.png') %>" alt="<%= t 'unicorn' %>" />
-    </div>
+    <p class="lead">
+      <%= @description %><br/>
+      <%= t 'unicorn.message' %>
+    </p>
   </div>
-</section>
+
+  <div class="col-xs-8 offset-xs-4 col-lg-6 offset-lg-0">
+    <img class="img-fluid m-t-3 m-b-1" src="<%= asset_path 'unicorn.svg' %>" alt="<%= t 'unicorn.title' %>" />
+  </div>
+</div>
