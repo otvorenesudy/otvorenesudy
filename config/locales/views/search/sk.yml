@@ -1,7 +1,7 @@
 sk:
   search:
     details:
-      from_total: "z celkovo"
+      of_total: "z celkovo"
       not_found: "Nenájdené"
 
     controls:

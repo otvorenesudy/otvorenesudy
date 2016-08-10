@@ -1,7 +1,7 @@
 en:
   search:
     details:
-      from_total: "from total"
+      of_total: "of total"
       not_found: "Not found"
 
     controls:
