@@ -43,6 +43,10 @@ en:
           date: "Procedure date"
           closed_at: "Closing date"
 
+    facets:
+      show_more: "Show more"
+      show_less: "Show less"
+
     results:
       no_results: "No results found for selected restrictions."
 

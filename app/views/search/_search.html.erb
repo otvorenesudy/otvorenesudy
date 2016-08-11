@@ -1,10 +1,13 @@
-<% render partial: 'search/initialization', formats: :js %>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $(document).ready(function() { window.search = new Search("<%= @model.to_s.underscore.singularize %>", Config.search) })
+  </script>
+<% end %>
 
-<!-- TODO rm section -->
-<section id="search-view">
+<div class="search">
   <%= render 'search/controls' %>
 
-  <div class="row">
+  <div class="row m-t-1">
     <div class="col-lg-4">
       <%= render 'facets/list' %>
     </div>
@@ -17,4 +20,4 @@
       <%= paginate @results, window: 4 %>
     </div>
   </div>
-</section>
+</div>

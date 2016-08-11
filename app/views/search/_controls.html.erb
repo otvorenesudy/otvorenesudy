@@ -2,26 +2,16 @@
   <div class="col-xs-12 col-lg-6">
     <%= form_tag search_path, method: :get do %>
       <div class="input-group">
-        <%= search_field_tag @facets[:q].name, params[@facets[:q].name], class: 'form-control', placeholder: t(@facets[:q].key)[:placeholder] %>
+        <%= search_field_tag @facets[:q].name, params[@facets[:q].name], class: 'form-control search-query', placeholder: t(@facets[:q].key)[:placeholder] %>
         <span class="input-group-btn">
-          <button type="submit" class="btn btn-outline-primary"><%= icon_tag 'search-strong' %></button>
+          <%= link_to icon_tag('close-empty'), search_path(params.except @facets[:q].name), class: 'btn btn-outline-secondary search-query-clear' if @facets[:q].active? %>
+          <button type="submit" class="btn btn-outline-primary search-query-submit"><%= icon_tag 'search-strong' %></button>
         </span>
       </div>
       <% search_form_params @facets.params.except :q do |name, value| %>
         <%= hidden_field_tag name, value %>
       <% end %>
     <% end %>
-
-
-    <!-- TODO
-
-       <% if @facets[:q].active? %>
-    <%= icon_link_to :remove, nil, search_path(params.except @facets[:q].name), class: 'remove muted' %>
-  <% end %>
-
-
-     -->
-
   </div>
 
   <div class="col-xs-12 col-md-6">

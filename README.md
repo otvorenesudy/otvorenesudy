@@ -8,11 +8,13 @@ Public data project aimed at creating much more user friendly interface to inter
 
 * Ruby 2.2
 * Rails 3.2
-* PostgreSQL 9.1 with trigram extension
+* PostgreSQL 9.1
 * Elasticsearch 1.7
 * Redis 3.4
 
-### PostgreSQL Trigram Extension
+### PostgreSQL
+
+Setup Trigram extension for desired Rails environments
 
 ```
 sudo apt-get install postgresql-contrib -y
@@ -22,7 +24,14 @@ RAILS_ENV=development
 psql -U postgres -d opencourts_$RAILS_ENV -f pg_trgm--1.0.sql
 ```
 
-Note that you need to set up the Trigram extension for all Rails environments you plan to use
+### Elasticsearch
+
+Enable Groovy dynamic scripting  
+
+```
+script.engine.groovy.inline.aggs: on
+script.engine.groovy.inline.search: on
+```
 
 ## Installation
 

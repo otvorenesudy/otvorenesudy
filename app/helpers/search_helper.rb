@@ -11,16 +11,9 @@ module SearchHelper
     end
   end
 
-  # TODO rm!
   def search_list_tag(results, options = {}, &block)
-    per_page = results.respond_to?(:per_page) ? results.per_page : options.delete(:per_page)
-    offset   = options.delete(:offset)
-
-    classes = ['search-results']
-    classes << :'search-results-far' if per_page && (offset + per_page) > 1000
-
-    content_tag :ol, class: classes, start: offset + 1 do
-      results.each(&block)
+    content_tag :ol, class: 'search-results', start: options[:offset] + 1 do
+      results.each &block
     end
   end
 

@@ -7,9 +7,9 @@
     </h1>
     <p>
       <%= t '.subscribe_introduction' %>
-      <%= link_to t('.hearings'), search_hearings_path, class: 'btn btn-outline-primary' %>
+      <%= link_to t('.hearings'), hearings_path, class: 'btn btn-outline-primary' %>
       <%= t '.subscribe_or' %>
-      <%= link_to t('.decrees'), search_decrees_path, class: 'btn btn-outline-primary' %>
+      <%= link_to t('.decrees'), decrees_path, class: 'btn btn-outline-primary' %>
       <%= t '.subscribe_detail' %>
     </p>
     <%= render 'subscriptions/hearings', subscriptions: @hearing_subscriptions if @hearing_subscriptions.any? %>

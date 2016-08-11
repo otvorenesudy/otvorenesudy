@@ -1,3 +1,5 @@
+# TODO translate
+
 class window.JudgeChart
   data:
     labels: ['Počet reštančných',

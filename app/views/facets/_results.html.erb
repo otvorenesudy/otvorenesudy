@@ -1,12 +1,12 @@
 <% if visible.any? %>
-  <ul id="<%= facet.id %>-list" class="unstyled">
+  <ul id="<%= facet.id %>-list" class="facet-list">
     <% visible.each do |result| %>
       <%= render 'facets/result', facet: facet, result: result, link: link %>
     <% end %>
   </ul>
 
   <% if other.any? %>
-    <ul id="<%= facet.id %>-fold" class="unstyled collapse out">
+    <ul id="<%= facet.id %>-list-more" class="facet-list collapse">
       <% other.each do |result| %>
         <%= render 'facets/result', facet: facet, result: result, link: link %>
       <% end %>
@@ -15,5 +15,5 @@
     <%= link_to_collapse_facet_results facet %>
   <% end %>
 <% else %>
-  <%= t(facet.key)[:not_found] %>
+  <span class="text-muted"><%= t(facet.key)[:not_found] %></span>
 <% end %>

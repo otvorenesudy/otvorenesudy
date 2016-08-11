@@ -1,41 +1,16 @@
 module FacetsHelper
-  # TODO rm?
-  def facet_suggest_input(facet, options = {})
+  def facet_suggest_input_tag(facet, options = {})
     options['data-id'] ||= facet.name
     options['data-suggest-path'] ||= suggest_path(facet.params)
 
-    tag :input, options.merge(type: :text, name: facet.name)
+    tag :input, options.merge(type: :text, name: facet.name, class: 'facet-suggest')
   end
 
-  # TODO rm?
-  def facet_multi_input(facet, options = {})
-    options.merge! 'data-id' => facet.name
-
-    prefix = options.delete(:prefix)
-    input  = facet_suggest_input facet, options.merge(class: :multi)
-
-    return input unless prefix
-
-    content_tag :div, class: 'input-prepend' do
-      content_tag(:span, prefix, class: 'add-on') + input
-    end
-  end
-
-  def link_to_add_facet(facet, result, options = {})
-    icon_link_to :plus, nil, search_path(result.add_params), class: :add
-  end
-
-  def link_to_remove_facet(facet, result, options = {})
-    icon_link_to :remove, nil, search_path(result.remove_params), class: :remove
-  end
-
-  # TODO rm? / rename?
   def link_to_collapse_facet_results(facet)
-    target = "##{facet.id}-fold"
+    target = "##{facet.id}-list-more"
 
-    # TODO translate
-    icon_link_to_collapse(:collapse, 'Zobraziť viac', action: :unfold, target: target, join: :append, class: :muted) +
-    icon_link_to_collapse(:'collapse-top', 'Zobraziť menej', action: :fold, target: target, join: :append, class: :muted)
+    link_to(t('search.facets.show_more'), '#', data_attributes(toggle: :collapse, target: target, collapse: :unfold).merge(class: 'facet-results-more collapsed')) +
+    link_to(t('search.facets.show_less'), '#', data_attributes(toggle: :collapse, target: target, collapse: :fold).merge(class: 'facet-results-less collapsed'))
   end
 
   def link_to_terms_facet(facet, result, options = {})
@@ -57,57 +32,52 @@ module FacetsHelper
 
   private
 
-  def format_facet_number(number)
-    number_with_delimiter number
-  end
-
-  def format_facet_value(result, value)
-    truncate(value, length: 37 - (3 + result.count.to_s.size), separator: ' ', omission: '&hellip;').html_safe
-  end
-
   def translate_range_facet_value(facet, result)
     range   = result.range
     options = Hash.new
 
     case
     when range.begin == -Float::INFINITY
-      entry           = :less
-      options[:count] = range.end.to_i
+      entry = :less
+      options[:count] = range.end.to_i != 0 ? range.end.to_i + 1 : range.end.to_i
     when range.end == Float::INFINITY
-      entry           = :more
+      entry = :more
       options[:count] = range.begin.to_i
     else
+      entry = range.begin.to_i == range.end.to_i ? :exact : :between
       options[:lower] = range.begin.to_i
       options[:upper] = range.end.to_i
-
-      entry = range.begin.to_i == range.end.to_i ? :exact : :between
     end
 
-    options.each { |k, v| options[k] = format_facet_number(v) }
+    count = (options[:count] || options[:upper]).to_i
+
+    options.each { |k, v| options[k] = number_with_delimiter v }
 
     path = "#{facet.key}.#{entry}"
-    path = "facets.types.range.#{entry}" if missing_translation?(path)
+    path = "facets.types.range.#{entry}" if missing_translation? path
 
     result = translate path, options
     suffix = "#{facet.key}.suffix"
-    count  = (options[:count] || options[:upper]).to_i
 
     if entry == :less && count <= 1
-      translate(suffix, count: 0)
+      translate suffix, count: 0
     else
       # TODO: fix count deletion from translation
-      result << translate(suffix, count: count).gsub(/\d+/, '') unless missing_translation?(suffix)
+      result << translate(suffix, count: count).gsub(/\d+/, '') unless missing_translation? suffix
       result
     end
   end
 
   def link_to_facet_value(facet, result, value, options = {})
-    path  = "#{facet.key}.#{value}"
-    value = translate path unless missing_translation? path
-    body  = format_facet_value(result, value)
+    path   = "#{facet.key}.#{value}"
+    value  = translate path unless missing_translation? path
+    body   = truncate(value, length: 37 - (3 + result.count.to_s.size), separator: ' ', omission: '&hellip;')
+    params = !result.selected? ? result.add_params : result.remove_params
 
     options.merge! title: value if body != value
+    body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
+    body << content_tag(:span, number_with_delimiter(result.count), class: 'facet-tag')
 
-    link_to body, options[:path] ? options[:path].call(result.params) : search_path(result.params) , options
+    link_to body.html_safe, options[:path] ? options[:path].call(params) : search_path(params), options
   end
 end
