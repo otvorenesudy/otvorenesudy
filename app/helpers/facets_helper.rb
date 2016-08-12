@@ -71,12 +71,13 @@ module FacetsHelper
   def link_to_facet_value(facet, result, value, options = {})
     path   = "#{facet.key}.#{value}"
     value  = translate path unless missing_translation? path
-    body   = truncate(value, length: 37 - (3 + result.count.to_s.size), separator: ' ', omission: '&hellip;')
+    count  = number_with_delimiter result.count
+    body   = truncate value, length: 34 - (1 + count.size), separator: ' ', omission: '&hellip;'
     params = !result.selected? ? result.add_params : result.remove_params
 
-    options.merge! title: value if body != value
+    options.merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 1000 }' }, title: value if body != value
     body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
-    body << content_tag(:span, number_with_delimiter(result.count), class: 'facet-tag')
+    body << content_tag(:span, count, class: 'facet-tag')
 
     link_to body.html_safe, options[:path] ? options[:path].call(params) : search_path(params), options
   end
