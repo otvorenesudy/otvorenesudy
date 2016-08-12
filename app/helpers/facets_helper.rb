@@ -62,9 +62,7 @@ module FacetsHelper
     if entry == :less && count <= 1
       translate suffix, count: 0
     else
-      # TODO: fix count deletion from translation
-      result << translate(suffix, count: count).gsub(/\d+/, '') unless missing_translation? suffix
-      result
+      result << translate(suffix, count: count).gsub(/\A\s*\d+/, '') unless missing_translation? suffix
     end
   end
 
