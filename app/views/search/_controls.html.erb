@@ -32,24 +32,28 @@
           <%= link_to icon_tag('arrow-up'), search_path(params.merge order: :asc), class: "btn btn-outline-secondary#{' active' if @facets.params[:order] == :asc}" %>
           <%= link_to icon_tag('arrow-down'), search_path(params.merge order: :desc), class: "btn btn-outline-secondary#{' active' if @facets.params[:order] == :desc}" %>
         </div>
-        <% unless @facets.query_params.empty? %>
+        <% if @facets.query_params.any? %>
           <%= link_to icon_tag('android-close'), search_path, class: 'btn btn-outline-secondary hidden-md-up', data: { toggle: 'tooltip', placement: 'top' }, title: t('.reset') %>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="hidden-sm-down col-md-6 push-lg-6">
-    <div class="pull-xs-right m-t-1">
-      <% unless @facets.query_params.empty? %>
-        <%= link_to t('.reset'), search_path, class: 'btn btn-outline-secondary' %>
+  <% if @facets.query_params.any? || @model.respond_to?(:subscribe) %>
+    <div class="hidden-sm-down col-md-6 push-lg-6">
+      <% if @facets.query_params.any? %>
+        <div class="pull-xs-right m-t-1">
+          <%= link_to t('.reset'), search_path, class: 'btn btn-outline-secondary' %>
+        </div>
       <% end %>
     </div>
-  </div>
 
-  <div class="col-xs-12 col-lg-6 pull-lg-6">
-    <div class="m-t-1">
-      <%= render 'search/subscribe' if @model.respond_to? :subscribe %>
+    <div class="col-xs-12 col-lg-6 pull-lg-6">
+      <% if @model.respond_to? :subscribe %>
+        <div class="m-t-1">
+          <%= render 'search/subscribe' %>
+        </div>
+      <% end %>
     </div>
-  </div>
+  <% end %>
 </div>
