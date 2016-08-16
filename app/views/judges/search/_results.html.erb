@@ -2,7 +2,7 @@
   <li>
     <h4>
       <%= link_to_judge judge %>
-      <span class="muted"><%= judge_activity_tag judge.active?, placement: :right %></span>
+      <span class="muted"><%= judge_activity_icon_tag judge.active?, placement: :right %></span>
     </h4>
 
     <div class="search-result-content">
@@ -10,16 +10,18 @@
         <p<%= ' class="muted"'.html_safe unless judge.active? %>>
           <% if employment.judge_position %>
             <% if employment.judge_position.charged? %>
-              <%= (judge.probably_woman ? t('results.worker_female') : t('results.worker_male')) %>
+              <%= (judge.probably_female ? t('results.worker_female') : t('results.worker_male')) %>
+              <!-- TODO do not use plain judge_position.value -> translate it! -->
               <%= truncate employment.judge_position.value, length: 55, separator: ' ', omission: '' %>
             <% else %>
+              <!-- TODO do not use plain judge_position.value -> translate it! -->
               <%= employment.judge_position.value.upcase_first %>
             <% end %>
           <% else %>
-            <% if judge.probably_superior_court_officer? %>
+            <% if judge.probably_higher_court_official? %>
               <%= t 'results.probably' %> <%= tooltip_tag t('results.vsu_short'), t('results.vsu_long') %>
             <% else %>
-              <% if judge.probably_woman %>
+              <% if judge.probably_female %>
                 <%= t 'results.unknown_worker_female' %>
               <% else %>
                 <%= t 'results.unknown_worker_male' %>

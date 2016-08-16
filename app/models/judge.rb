@@ -30,7 +30,7 @@ class Judge < ActiveRecord::Base
   scope :chaired, where('judge_chair = true')
 
   # TODO refactor!
-  scope :listed, where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where(:'employments.active' => [true, false])
+  scope :listed, where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false])
 
   scope :with_related_people, lambda { joins(:related_people) }
 
@@ -134,16 +134,20 @@ class Judge < ActiveRecord::Base
 
   alias :listed? :listed
 
-  def probably_superior_court_officer
-    @probably_officer ||= source == Source.of(JusticeGovSk) && !listed?
+  def probable_gender
+    probably_female ? :female : :male
   end
 
-  def probably_woman
-    @probably_woman ||= [middle, last].reject(&:nil?).select { |v| v =~ /(ov|sk)á\z/ }.any?
+  def probably_higher_court_official
+    @probably_higher_court_official ||= source == Source.of(JusticeGovSk) && !listed?
   end
 
-  alias :probably_superior_court_officer? :probably_superior_court_officer
-  alias :probably_woman?                  :probably_woman
+  def probably_female
+    @probably_female ||= [middle, last].reject(&:nil?).select { |v| v =~ /(ov|sk)á\z/ }.any?
+  end
+
+  alias :probably_higher_court_official? :probably_higher_court_official
+  alias :probably_female?                :probably_female
 
   context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
 
@@ -157,7 +161,7 @@ class Judge < ActiveRecord::Base
 
     related_people.each { |person| person.invalidate_caches }
 
-    @listed = @probably_officer = @probably_woman = nil
+    @listed = @probably_higher_court_official = @probably_female = nil
   end
 
   #TODO rm: this info is not in selection procedures

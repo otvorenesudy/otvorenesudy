@@ -9,13 +9,13 @@
     <div class="justified">
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
-          <strong><%= judge_at_court_position(court.chair, court).upcase_first %></strong> <%= t('.of_court_is')%> <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? t('.and') : '.' %>
+          <strong><%= judge_position_at_court(court.chair, court).upcase_first %></strong> <%= t('.of_court_is')%> <strong><%= link_to_judge court.chair %></strong><%= court.vicechair ? t('.and') : '.' %>
         <% end %>
         <% if court.vicechair %>
           <% unless court.chair %>
-            <strong><%= judge_at_court_position(court.vicechair, court).upcase_first %></strong> <%= t('.of_court')%>
+            <strong><%= judge_position_at_court(court.vicechair, court).upcase_first %></strong> <%= t('.of_court')%>
           <% else %>
-            <strong><%= judge_at_court_position(court.vicechair, court) %></strong>
+            <strong><%= judge_position_at_court(court.vicechair, court) %></strong>
           <% end %>
           je <strong><%= link_to_judge court.vicechair %></strong>.
         <% end %>

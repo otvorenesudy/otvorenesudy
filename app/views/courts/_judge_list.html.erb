@@ -13,7 +13,7 @@
     <% judges.each do |judge| %>
       <tr>
         <td class="centered muted">
-          <%= judge_activity_tag judge.active_at?(court) %>
+          <%= judge_activity_icon_tag judge.active_at?(court) %>
         </td>
         <td>
           <%= judge_titles judge, adjust_by_activity_at: court %>

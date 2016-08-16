@@ -2,3 +2,45 @@ en:
   judges:
     index:
       title: "Judges"
+
+    activity:
+      active:
+        male: "active"
+        female: "active"
+
+      inactive:
+        male: "inactive"
+        female: "inactive"
+
+      unknown:
+        male: "unknown"
+        female: "unknown"
+
+    position:
+      probably: "probably"
+
+      chairman:
+        male: "chairman"
+        female: "chairman"
+
+      employee:
+        male: "employee"
+        female: "employee"
+
+      higher_court_official:
+        male: "higher court official"
+        female: "higher court official"
+
+        acronym: 'HCO'
+
+      judge:
+        male: "judge"
+        female: "judge"
+
+      vice_chairman:
+        male: "vice chairman"
+        female: "vice chairman"
+
+      unknown:
+        male: "unknown"
+        female: "unknown"

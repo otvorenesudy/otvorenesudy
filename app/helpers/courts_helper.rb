@@ -62,7 +62,7 @@ module CourtsHelper
   end
 
   def link_to_court_by_judge_employment(employment, options = {})
-    options = judge_options employment.judge, options.merge(adjust_by_activity_at: employment.court)
+    options = judge_activity_options employment.judge, options.merge(adjust_by_activity_at: employment.court)
 
     link_to_court employment.court, options
   end
@@ -87,7 +87,7 @@ module CourtsHelper
 
   def courts_map_scripts(id, options)
     content_for :scripts do
-      content_tag :script, type: :'text/javascript', charset: :'utf-8' do
+      content_tag :script, type: 'text/javascript', charset: 'utf-8' do
         render partial: 'courts/map_markers', formats: :js, locals: { id: id }
       end
     end

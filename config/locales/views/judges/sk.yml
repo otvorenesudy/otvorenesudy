@@ -2,3 +2,45 @@ sk:
   judges:
     index:
       title: "Sudcovia"
+
+    activity:
+      active:
+        male: "aktívny"
+        female: "aktívna"
+
+      inactive:
+        male: "neaktívny"
+        female: "neaktívna"
+
+      unknown:
+        male: "naznáma"
+        female: "naznáma"
+
+    position:
+      probably: "pravdepodobne"
+
+      chairman:
+        male: "predseda"
+        female: "predsedníčka"
+
+      employee:
+        male: "pracovník"
+        female: "pracovníčka"
+
+      higher_court_official:
+        male: "vyšší súdny úradník"
+        female: "vyššia súdna úradníčka"
+
+        acronym: 'VSU'
+
+      judge:
+        male: "sudca"
+        female: "sudkyňa"
+
+      vice_chairman:
+        male: "podpredseda"
+        female: "podpredsedníčka"
+
+      unknown:
+        male: "neznámy"
+        female: "neznáma"
