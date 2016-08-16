@@ -12,7 +12,7 @@ module SearchHelper
   end
 
   def search_list_tag(results, options = {}, &block)
-    content_tag :ol, class: 'search-results', start: options[:offset] + 1 do
+    content_tag :ol, class: 'search-result-list', start: options[:offset] + 1 do
       results.each &block
     end
   end

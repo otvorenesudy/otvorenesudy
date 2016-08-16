@@ -2,3 +2,8 @@ en:
   hearings:
     index:
       title: "Hearings"
+
+  type:
+    civil: "Civil"
+    criminal: "Criminal"
+    special: "Of specialized criminal court"

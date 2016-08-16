@@ -10,15 +10,15 @@ sk:
       sort:
         common: &common
           score: "Relevancia"
+          judges_count: "Počet sudcov"
+          hearings_count: "Počet pojednávaní"
+          decrees_count: "Počet rozhodnutí"
+          pages_count: "Počet strán"
           created_at: "Dátum pridania dokumentu"
           updated_at: "Dátum aktualizácie dokumentu"
 
         court:
           <<: *common
-
-          judges_count: "Počet sudcov"
-          hearings_count: "Počet pojednávaní"
-          decrees_count: "Počet rozhodnutí"
 
         judge:
           <<: *common
@@ -32,7 +32,6 @@ sk:
           <<: *common
 
           date: "Dátum rozhodnutia"
-          pages_count: "Počet strán"
 
         proceeding:
           <<: *common

@@ -20,7 +20,7 @@
   p {
     @extend .m-b-3;
 
-    &:last-child {
+    &:last-of-type {
       margin-bottom: 3.5 * $spacer-y !important;
     }
   }

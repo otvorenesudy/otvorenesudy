@@ -2,3 +2,29 @@ en:
   courts:
     index:
       title: "Courts"
+
+    search:
+      results:
+        and: "and"
+        is: "is"
+        at_court_work: "On the court there are currently"
+        of_court: "of the court"
+        for_court: "For the court"
+        register:
+          zero: "in the meantime we register"
+          one: "we register"
+          few: "we register"
+          other: "we register"
+
+    type:
+      constitutional: "Constitutional"
+      supreme: "Supreme"
+      specialized: "Specialized"
+      regional: "Regional"
+      district: "District"
+
+    office:
+      type:
+        information_center: "Information center"
+        registry_center: "Registry"
+        business_registry_center: "Information center of business register"

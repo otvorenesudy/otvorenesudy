@@ -59,7 +59,7 @@ li p:last-of-type {
 .nav-inline .nav-link {
   float: left !important;
 
-  &:last-child {
+  &:last-of-type {
     float: none !important;
   }
 }
@@ -93,8 +93,22 @@ li p:last-of-type {
   margin-right: $btn-toolbar-margin;
 }
 
-// add visual underline for plain text tooltips
+// add visual underline and fix cursor for tooltips
 
-span[data-toggle="tooltip"] {
+a[data-toggle="tooltip"] {
   border-bottom: 1px dotted $gray-light;
+  cursor: help;
+
+  &:not([href="#"]) {
+    border-bottom: none;
+    cursor: pointer;
+  }
 }
+
+// remove visual underline from undecorated tooltips
+
+.text-undecorated[data-toggle="tooltip"] {
+  border-bottom: none;
+}
+
+

@@ -41,11 +41,10 @@ module JudgesHelper
     when nil   then %w(help-outline      judges.activity.unknown)
     end
 
-    unless options.delete(:tooltip) === false
-      options.merge data: { toggle: 'tooltip', placement: options[:placement] || 'left' }, title: t("#{translation}.#{judge.probable_gender}")
-    end
+    options = options.merge class: Array.wrap(options[:class]) << 'text-muted text-undecorated'
+    options = options.merge data: { toggle: 'tooltip', placement: options.delete(:placement) || 'left' }
 
-    icon_tag icon, options
+    tooltip_tag icon_tag(icon), t("#{translation}.#{judge.probable_gender}").upcase_first, options
   end
 
   def judge_activity_by_employment(employment)
@@ -118,8 +117,8 @@ module JudgesHelper
   private
 
   def judge_activity_options(judge, options)
-    options.merge! class: 'text-muted' if options.delete(:adjust_by_activity) && judge.active
-    options.merge! class: 'text-muted' if options.key?(:adjust_by_activity_at) && judge.active_at(options.delete :adjust_by_activity_at)
+    options.merge! class: 'text-muted' if options.delete(:adjust_by_activity) && !judge.active
+    options.merge! class: 'text-muted' if options.key?(:adjust_by_activity_at) && !judge.active_at(options.delete :adjust_by_activity_at)
     options
   end
 

@@ -2,3 +2,8 @@ sk:
   hearings:
     index:
       title: "Pojednávania"
+
+  type:
+    civil: "Civilné"
+    criminal: "Trestné"
+    special: "Špecializovaného trestného súdu"

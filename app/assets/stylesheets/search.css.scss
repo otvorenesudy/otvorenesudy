@@ -73,7 +73,6 @@
 .facet-link-add, .facet-link-remove {
   &, & span {
     @extend .text-muted;
-
     @include size(1rem, 1.5rem);
 
     display: inline-block;
@@ -98,7 +97,6 @@
 .search-query-clear {
   border: none;
   padding: $btn-padding-y .5 * $btn-padding-x;
-
   position: absolute !important;
   top: $input-btn-border-width;
   left: -2rem;
@@ -116,7 +114,31 @@
   }
 }
 
-.search-results {
+.search-result-list {
   @extend .list-unstyled;
   @extend .p-t-2;
+}
+
+.search-result-item {
+  @extend .m-b-2;
+
+  &:last-of-type {
+    margin-bottom: 0 !important;
+  }
+}
+
+.search-result-title {
+  margin: 0 0 .5 * $spacer-y 0;
+
+  small {
+    @extend .text-muted;
+
+    display: block;
+    margin-top: .25 * $spacer-y;
+    font-size: $font-size-base;
+  }
+}
+
+.search-result-content {
+  margin: 0 !important;
 }

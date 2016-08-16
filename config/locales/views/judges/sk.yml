@@ -3,6 +3,16 @@ sk:
     index:
       title: "Sudcovia"
 
+    search:
+      results:
+        and: "a"
+        at_court: "na súde"
+        register:
+          zero: "zatiaľ neevidujeme"
+          one: "evidujeme"
+          few: "evidujeme"
+          other: "evidujeme"
+
     activity:
       active:
         male: "aktívny"
@@ -31,7 +41,7 @@ sk:
         male: "vyšší súdny úradník"
         female: "vyššia súdna úradníčka"
 
-        acronym: 'VSU'
+        acronym: "VSU"
 
       judge:
         male: "sudca"
