@@ -7,8 +7,6 @@ class CourtOfficeType < ActiveRecord::Base
 
   validates :value, presence: true
 
-  # TODO translate (needs database update)
-
   value :information_center,       'Informačné centrum'
   value :registry_center,          'Podateľňa'
   value :business_registry_center, 'Informačné stredisko obchodného registra'

@@ -1,3 +1,4 @@
+# TODO mv to judges/indicators_helper??
 # TODO translate
 
 module IndicatorsHelper

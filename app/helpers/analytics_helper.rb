@@ -1,4 +1,4 @@
-# TODO rm?
+# TODO refactor!
 
 module AnalyticsHelper
   def track_data(value)

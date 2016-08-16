@@ -30,10 +30,10 @@ module TextHelper
   end
 
   def strip_and_highlight(value, options = {})
-    left = right = options[:omission] == false ? '' : options[:omission] || '&hellip;'
+    left = right = !options[:omission] ? '' : options[:omission] || '&hellip;'
 
-    left  = options[:left]  == false ? '' : options[:left]  || left
-    right = options[:right] == false ? '' : options[:right] || right
+    left  = !options[:left]  ? '' : options[:left]  || left
+    right = !options[:right] ? '' : options[:right] || right
 
     value = value.dup
 

@@ -7,8 +7,6 @@ class HearingType < ActiveRecord::Base
 
   validates :value, presence: true
 
-  # TODO translate (needs database update)
-
   value :civil,    'Civilné'
   value :criminal, 'Trestné'
   value :special,  'Špecializovaného trestného súdu'

@@ -1,3 +1,5 @@
+# TODO translate
+
 module DecreesHelper
   def decree_title(decree)
     title(*decree_identifiers(decree) << 'Súdne rozhodnutie')

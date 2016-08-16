@@ -7,8 +7,6 @@ class CourtType < ActiveRecord::Base
 
   validates :value, presence: true
 
-  # TODO translate (needs database update)
-
   value :constitutional, 'Ústavný'
   value :supreme,        'Najvyšší'
   value :specialized,    'Špecializovaný'

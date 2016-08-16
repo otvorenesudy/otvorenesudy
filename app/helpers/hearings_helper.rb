@@ -11,7 +11,7 @@ module HearingsHelper
     if type == HearingType.special
       t '.special'
     else
-      "#{type.value.to_s.upcase_first} #{t('.hearing')}"
+      "#{type.value.to_s.upcase_first} #{t '.hearing'}"
     end
   end
 
