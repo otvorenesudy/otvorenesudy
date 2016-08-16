@@ -37,13 +37,13 @@ en:
       other: "%{count} persons"
 
     hearing: &hearing
-      zero: "no hearing"
+      zero: "no hearings"
       one: "1 hearing"
       few: "%{count} hearings"
       other: "%{count} hearings"
 
     decree: &decree
-      zero: "no decree"
+      zero: "no decrees"
       one: "1 decree"
       few: "%{count} decrees"
       other: "%{count} decrees"
