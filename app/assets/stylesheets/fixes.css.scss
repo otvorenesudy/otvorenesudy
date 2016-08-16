@@ -92,3 +92,9 @@ li p:last-of-type {
   float: left;
   margin-right: $btn-toolbar-margin;
 }
+
+// add visual underline for plain text tooltips
+
+span[data-toggle="tooltip"] {
+  border-bottom: 1px dotted $gray-light;
+}
