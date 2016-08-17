@@ -1,4 +1,17 @@
 en:
   selection_procedures:
+    date: &date
+      procedure: "Selection procedure"
+
+      future: "will close on"
+      past: "was closed on"
+
     index:
       title: "Selection procedures"
+
+    search:
+      results:
+        organization: "Organization"
+        state: "State"
+
+        <<: *date

@@ -6,8 +6,10 @@ en:
       special: "Of specialized criminal court"
 
     date: &date
-      past: "was supposed to be held on"
+      hearing: "Hearing"
+
       future: "will be held on"
+      past: "was supposed to be held on"
       unknown: "unknown date"
 
     index:
@@ -16,7 +18,6 @@ en:
     search:
       results:
         court: "Court"
-        hearing: "Hearing"
 
         <<: *date
 

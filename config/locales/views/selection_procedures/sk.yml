@@ -1,4 +1,17 @@
 sk:
   selection_procedures:
+    date: &date
+      procedure: "Výberové konanie"
+
+      future: "sa uzavrie dňa"
+      past: "sa uzavrelo dňa"
+
     index:
       title: "Výberové konania"
+
+    search:
+      results:
+        organization: "Organizácia"
+        state: "Stav"
+
+        <<: *date

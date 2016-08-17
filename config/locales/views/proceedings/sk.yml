@@ -4,8 +4,8 @@ sk:
       proceeding: "Verejné súdne konanie"
 
       single_hearing:
-        past: "začalo dňa"
         future: "začne dňa"
+        past: "začalo dňa"
 
       single_decree:
         past: "bolo ukončené dňa"

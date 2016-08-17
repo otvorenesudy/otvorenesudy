@@ -6,8 +6,10 @@ sk:
       special: "Špecializovaného trestného súdu"
 
     date: &date
-      past: "malo prebehnúť dňa"
+      hearing: "Pojednávanie"
+
       future: "prebehne dňa"
+      past: "malo prebehnúť dňa"
       unknown: "neznámeho dátumu"
 
     index:
@@ -16,7 +18,6 @@ sk:
     search:
       results:
         court: "Súd"
-        hearing: "Pojednávanie"
 
         <<: *date
 

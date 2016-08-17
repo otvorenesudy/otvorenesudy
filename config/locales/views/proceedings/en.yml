@@ -4,8 +4,8 @@ en:
       proceeding: "Public proceeding"
 
       single_hearing:
-        past: "started on"
         future: "will start on"
+        past: "started on"
 
       single_decree:
         past: "was closed on"
