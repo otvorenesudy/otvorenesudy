@@ -1,11 +1,11 @@
 sk:
   decrees:
-    index:
-      title: "Rozhodnutia"
-
     date: &date
       past: "bolo vynesené dňa"
       unknown: "neznámeho dátumu"
+
+    index:
+      title: "Rozhodnutia"
 
     search:
       results:

@@ -15,10 +15,10 @@
     </h4>
 
     <div class="search-result-content">
-      <ol class="pull-xs-right text-xs-right list-unstyled">
+      <ul class="pull-xs-right text-xs-right list-unstyled">
         <li><%= tooltip_tag decree.case_number || '?', t('case_number.full'), placement: 'left' %></li>
         <li><%= tooltip_tag decree.file_number || '?', t('file_number.full'), placement: 'left' %></li>
-      </ol>
+      </ul>
 
       <% if decree.unprocessed? %>
         <div class="text-danger">

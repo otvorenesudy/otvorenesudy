@@ -1,11 +1,11 @@
 en:
   decrees:
-    index:
-      title: "Decrees"
-
     date: &date
       past: "was issued on"
       unknown: "unknown date"
+
+    index:
+      title: "Decrees"
 
     search:
       results:

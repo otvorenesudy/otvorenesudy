@@ -1,4 +1,29 @@
 sk:
   proceedings:
+    date: &date
+      proceeding: "Verejné súdne konanie"
+
+      single_hearing:
+        past: "začalo dňa"
+        future: "začne dňa"
+
+      single_decree:
+        past: "bolo ukončené dňa"
+
+      probably_open:
+        from: "trvá odo dňa"
+
+      probably_closed:
+        on: "prebehlo dňa"
+        from: "trvalo odo dňa"
+        until: "do dňa"
+
     index:
       title: "Konania"
+
+    search:
+      results:
+        and: "a"
+        register: "evidujeme"
+
+        <<: *date

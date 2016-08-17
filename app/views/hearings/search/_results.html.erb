@@ -19,10 +19,10 @@
         </div>
       <% end %>
 
-      <ol class="pull-xs-right text-xs-right list-unstyled">
+      <ul class="pull-xs-right text-xs-right list-unstyled">
         <li><%= tooltip_tag hearing.case_number || '?', t('case_number.full'), placement: 'left' %></li>
         <li><%= tooltip_tag hearing.file_number || '?', t('file_number.full'), placement: 'left' %></li>
-      </ol>
+      </ul>
 
       <% if hearing.court %>
         <%= t '.court' %> &ndash; <%= link_to_court hearing.court %>

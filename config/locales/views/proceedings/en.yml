@@ -1,4 +1,29 @@
 en:
   proceedings:
+    date: &date
+      proceeding: "Public proceeding"
+
+      single_hearing:
+        past: "started on"
+        future: "will start on"
+
+      single_decree:
+        past: "was closed on"
+
+      probably_open:
+        from: "lasts since"
+
+      probably_closed:
+        on: "was held on"
+        from: "lasted since"
+        until: "until"
+
     index:
       title: "Proceedings"
+
+    search:
+      results:
+        and: "and"
+        register: "registering"
+
+        <<: *date
