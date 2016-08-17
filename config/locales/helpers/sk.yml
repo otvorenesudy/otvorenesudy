@@ -9,21 +9,6 @@ sk:
         format: "%n%u"
         unit: "€"
 
-  years:
-    one: "1 rok"
-    few: "%{count} roky"
-    other: "%{count} rokov"
-
-  months:
-    one: "1 mesiac"
-    few: "%{count} mesiace"
-    other: "%{count} mesiacov"
-
-  days:
-    one: "1 deň"
-    few: "%{count} dni"
-    other: "%{count} dní"
-
   date:
     abbr_day_names:
       - Ne
@@ -80,18 +65,16 @@ sk:
 
     formats:
       default: "%-d. %-m. %Y"
-      numeric: "%-d. %-m."
-      short: "%-d. %b %Y"
+      short: "%-d. %-m."
       normal: "%-d. %B %Y"
       long: "%A %-d. %B %Y"
 
   time:
     formats:
-      default: "%-d. %-m. %Y o %-H:%M:%S"
-      numeric: "%-d. %-m. o %-H:%M"
-      short: "%-d. %b %Y o %-H:%M"
+      default: "%-d. %-m. %Y o %-H:%M"
+      short: "%-d. %-m. o %-H:%M"
       normal: "%-d. %B %Y o %-H:%M"
-      long: "%A %-d. %B %Y o %-H:%M:%S"
+      long: "%A %-d. %B %Y o %-H:%M"
 
   datetime:
     distance_in_words:
@@ -153,9 +136,24 @@ sk:
         other: "%{count} sekundami"
 
     prompts:
-      year: Rok
-      month: Mesiac
-      day: Deň
-      hour: Hodina
-      minute: Minúta
-      second: Sekunda
+      year: "Rok"
+      month: "Mesiac"
+      day: "Deň"
+      hour: "Hodina"
+      minute: "Minúta"
+      second: "Sekunda"
+
+  years:
+    one: "1 rok"
+    few: "%{count} roky"
+    other: "%{count} rokov"
+
+  months:
+    one: "1 mesiac"
+    few: "%{count} mesiace"
+    other: "%{count} mesiacov"
+
+  days:
+    one: "1 deň"
+    few: "%{count} dni"
+    other: "%{count} dní"

@@ -9,21 +9,6 @@ en:
         format: "%n%u"
         unit: "€"
 
-  years:
-    one: "1 year"
-    few: "%{count} years"
-    other: "%{count} years"
-
-  months:
-    one: "1 month"
-    few: "%{count} months"
-    other: "%{count} months"
-
-  days:
-    one: "1 day"
-    few: "%{count} days"
-    other: "%{count} days"
-
   date:
     abbr_day_names:
       - Sun
@@ -78,22 +63,18 @@ en:
       - :month
       - :day
 
-    # TODO use EN date formats
     formats:
-      default: "%-d. %-m. %Y"
-      numeric: "%-d. %-m."
-      short: "%-d. %b %Y"
-      normal: "%-d. %B %Y"
-      long: "%A %-d. %B %Y"
+      default: "%b %-d, %Y"
+      short: "%b %-d"
+      normal: "%B %-d, %Y"
+      long: "%A, %B %-d, %Y"
 
   time:
-    # TODO use EN time formats
     formats:
-      default: "%-d. %-m. %Y o %-H:%M:%S"
-      numeric: "%-d. %-m. o %-H:%M"
-      short: "%-d. %b %Y o %-H:%M"
-      normal: "%-d. %B %Y o %-H:%M"
-      long: "%A %-d. %B %Y o %-H:%M:%S"
+      default: "%b %-d, %Y at %-I:%M %p"
+      short: "%b %-d at %-I:%M %p"
+      normal: "%B %-d, %Y at %-I:%M %p"
+      long: "%A, %B %-d, %Y at %-I:%M %p"
 
   datetime:
     distance_in_words:
@@ -155,9 +136,24 @@ en:
         other: "%{count} seconds"
 
     prompts:
-      year: Year
-      month: Month
-      day: Day
-      hour: Hour
-      minute: Minute
-      second: Second
+      year: "Year"
+      month: "Month"
+      day: "Day"
+      hour: "Hour"
+      minute: "Minute"
+      second: "Second"
+
+  years:
+    one: "1 year"
+    few: "%{count} years"
+    other: "%{count} years"
+
+  months:
+    one: "1 month"
+    few: "%{count} months"
+    other: "%{count} months"
+
+  days:
+    one: "1 day"
+    few: "%{count} days"
+    other: "%{count} days"
