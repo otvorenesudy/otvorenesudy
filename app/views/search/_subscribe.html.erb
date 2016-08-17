@@ -1,53 +1,60 @@
-<%= icon_link_to :'info-sign', t('.subscribe'), '#subscribe', class: :'search-subscribe', join: :append, :'data-toggle' => :modal %>
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#<%= !user_signed_in? || @subscription.new_record? ? 'create' : 'update' %>_subscription">
+  <%= t'.subscribe' %>
+</button>
 
-<div id="subscribe" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscribe-label" aria-hidden="true">
-  <div class="modal-header">
-    <%= close_link_to_modal :'aria-hidden' => true %>
-    <h3 id="subscribe-label"><%= t '.subscribe' %></h3>
-  </div>
-  <div class="modal-body">
-    <% if user_signed_in? %>
-      <p>
-        <% unless @subscription.new_record? %>
-          <%= t '.search_subscribed' %>
+<div id="<%= !user_signed_in? || @subscription.new_record? ? 'create' : 'update' %>_subscription" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          <%= t '.subscribe' %>
+        </h2>
+      </div>
+      <div class="modal-body">
+        <% if user_signed_in? %>
+          <p class="lead text-<%= @subscription.new_record? ? 'primary' : 'info' %>">
+            <%= t @subscription.new_record? ? '.introduction' : '.already_subscribed' %>
+          </p>
+
+          <p>
+            <%= t '.explanation' %>
+          </p>
+
+          <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { class: 'form-inline' } do |f| %>
+            <%= f.fields_for :query do |q| %>
+              <%= q.hidden_field :model, value: @model.to_s %>
+              <%= q.hidden_field :value, value: Query.unwrap(@facets.query_params) %>
+            <% end %>
+
+            <div class="form-group">
+              <div class="btn-group" data-toggle="buttons" role="group">
+                <% Period.values.each do |_, period| %>
+                  <label class="btn btn-outline-secondary<%= ' active' if @subscription.period == period %>">
+                    <%= f.radio_button :period_id, period.id, name: 'period_id', checked: @subscription.period == period, autocomplete: 'off' %>
+                    <%= t "period.#{period.name}" %>
+                  </label>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
         <% else %>
-          <%= t '.subscribe_search' %>
+          <%= t '.sign_in_required' %>
         <% end %>
-      </p>
-      <p>
-        <%= t '.subscribe_explain' %>
-      </p>
-
-      <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { id: :'subscribe-form', class: :'form-inline' } do |f| %>
-        <%= f.fields_for :query do |q| %>
-          <%= q.hidden_field :model, value: @model.to_s %>
-          <%= q.hidden_field :value, value: Query.unwrap(@facets.query_params) %>
+      </div>
+      <div class="modal-footer">
+        <% if user_signed_in? %>
+          <% unless @subscription.new_record? %>
+            <button type="submit" class="btn btn-outline-primary btn-lg" form="edit_subscription_<%= @subscription.id %>"><%= t '.update' %></button>
+            <%= link_to t('.delete'), @subscription, method: :delete, class: 'btn btn-outline-danger btn-lg', role: :button %>
+          <% else %>
+            <button type="submit" class="btn btn-outline-primary btn-lg" form="new_subscription"><%= t '.create' %></button>
+          <% end %>
+        <% else %>
+          <%= link_to t('.sign_up'), new_registration_path(:user), class: 'btn btn-outline-success btn-lg', role: :button %>
+          <%= link_to t('.sign_in'), new_session_path(:user), class: 'btn btn-outline-primary btn-lg', role: :button %>
         <% end %>
-
-        <% Period.values.each do |_, period| %>
-          <label class="radio inline">
-            <%= f.radio_button :period_id, period.id, name: :period_id, id: "period-#{period.name}", checked: @subscription.period == period %>
-            <%= t "period.#{period.name}" %>
-          </label>
-        <% end %>
-      <% end %>
-    <% else %>
-      <%= t '.login_required' %>
-    <% end %>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= t '.close' %></button>
-
-    <% if user_signed_in? %>
-      <% unless @subscription.new_record? %>
-        <button type="submit" id="edit_subscription" class="btn btn-primary" form="subscribe-form"><%= t '.update' %></button>
-        <%= link_to t('.cancel'), @subscription, role: :button, method: :delete, confirm: t('.cancel_confirm'), id: :delete_subscription, class: :'btn btn-danger' %>
-      <% else %>
-        <button type="submit" id="new_subscription" class="btn btn-primary" form="subscribe-form"><%= t '.subscribe_btn' %></button>
-      <% end %>
-    <% else %>
-      <%= link_to t('.sign_up'), new_registration_path(:user), role: :button, class: :'btn btn-success' %>
-      <%= link_to t('.login'), new_session_path(:user), role: :button, class: :'btn btn-primary' %>
-    <% end %>
+        <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal"><%= t '.cancel' %></button>
+      </div>
+    </div>
   </div>
 </div>

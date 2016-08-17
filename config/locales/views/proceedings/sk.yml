@@ -1,35 +1,29 @@
 sk:
   proceedings:
-    public_hearing: 'Verejné súdne konanie'
-    started: 'začalo'
-    will_start: 'začne'
-    in_day: 'dňa'
-    closed_at: 'bolo ukončené dňa'
-    takes_from: 'trvá odo dňa'
-    happened_at: 'prebehlo dňa'
-    took_from: 'trvalo odo dňa'
-    until_day: 'do dňa'
-    and: 'a'
+    date: &date
+      proceeding: "Verejné súdne konanie"
 
-    headline:
-      headline_html: 'Od roku 2009 do júla 2013 zaplatili<br/>súdy za prieťahy v konaní a chybné<br/>rozhodnutia viac než 4 milióny eur'
-      headline_total_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_proceedings} konaniach'
+      single_hearing:
+        future: "začne dňa"
+        past: "začalo dňa"
 
-    show:
-      for_proceeding: 'Pre súdne konanie'
-      so_far: 'zatiaľ '
-      register: 'evidujeme'
-      not_present: 'neuvedená'
-      not_present_2: 'neuvedené'
-      not_present_3: 'neuvedený'
-      present: 'Súčasnosť'
-      pleading: 'Podanie na súd'
-      past: 'Minulosť'
-      info_source: 'Informácie o udalostiach súdneho konania boli získané z dokumentov zverejnených na portáli'
-      ministry_of_justice: 'Ministerstva spravodlivosti Slovenskej republiky'
+      single_decree:
+        past: "bolo ukončené dňa"
+
+      probably_open:
+        from: "trvá odo dňa"
+
+      probably_closed:
+        on: "prebehlo dňa"
+        from: "trvalo odo dňa"
+        until: "do dňa"
+
+    index:
+      title: "Konania"
 
     search:
-      search_proceedings: 'Vyhľadávanie v súdnych konaniach'
+      results:
+        and: "a"
+        register: "evidujeme"
 
-    results:
-      register: 'Evidujeme'
+        <<: *date

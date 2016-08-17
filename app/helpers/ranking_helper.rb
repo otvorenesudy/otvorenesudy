@@ -1,4 +1,4 @@
-# encoding: utf-8
+# TODO translate
 
 module RankingHelper
   def rank(value)

@@ -1,9 +1,7 @@
 <% if subscriptions.any? %>
-  <div class="page-header">
-    <h2>
-      <%= t '.title' %>
-    </h2>
-  </div>
+  <h1 class="display-4 m-t-3 m-b-1">
+    <%= t '.title' %>
+  </h1>
 
-  <%= render 'subscriptions/list', model: Hearing, subscriptions: subscriptions, offset: 0 %>
+  <%= render 'subscriptions/list', model: Hearing, subscriptions: subscriptions %>
 <% end %>

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# TODO translate
 
 module SelectionProceduresHelper
   def selection_procedure_title(procedure)

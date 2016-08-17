@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module ProceedingsHelper
   def proceeding_title(proceeding)
     title(*proceeding_identifiers(proceeding))
@@ -13,8 +11,8 @@ module ProceedingsHelper
     join_and_truncate proceeding.legislation_area_and_subarea.map(&:value), { separator: ' &ndash; ' }.merge(options)
   end
 
-  def proceeding_date(date, options = {})
-    time_tag date.to_date, { format: :long }.merge(options)
+  def proceeding_date(date, options = {}, &block)
+    time_tag date.to_date, { format: :long }.merge(options), &block
   end
 
   def link_to_proceeding(proceeding, body, options = {})

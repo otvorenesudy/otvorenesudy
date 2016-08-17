@@ -7,18 +7,20 @@ namespace :probe do
     INDICES = ENV['INDICES'] ? ENV['INDICES'].split(',') : Probe::Configuration.indices
   end
 
-  desc "Imports the entire index asynchronously (drops and creates index from scratch)"
-  task :import_async => :environment do
+  desc 'Import entire index asynchronously (drop and create index from scratch)'
+  task import_async: :environment do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
       puts "Index async import: #{index}"
 
-      ImportRepositoryJob.perform_async(model.to_s)
+      # TODO this job is somehow missing! fallback to old Probe::Bulk here
+      #ImportRepositoryJob.perform_async(model.to_s)
+      Probe::Bulk.import model
     end
   end
 
-  desc 'Update async'
+  desc 'Update asynchronously'
   task synchronize: :environment do
     Rake::Task['probe:prepare'].invoke
 
@@ -29,7 +31,7 @@ namespace :probe do
     end
   end
 
-  desc "Drops the entire index"
+  desc 'Drop entire index'
   task drop: :environment do
     Rake::Task['probe:prepare'].invoke
 

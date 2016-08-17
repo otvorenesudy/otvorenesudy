@@ -1,9 +1,15 @@
 sk:
   users:
     subscriptions:
-      title: 'Notifikácie pre nové výsledky vyhľadávania'
-      set_notifications_part_1: 'Odoberanie notifikácií si registrujete vo vyhľadávaní'
-      hearings: 'Pojednávaní'
-      or: 'alebo'
-      decrees: 'Rozhodnutí'
-      set_notifications_part_2: 'podľa aktuálnych nastavení vyhľadávania'
+      title: "Notifikácie"
+      subscribe_introduction: "Môžete odoberať notifikácie o nových výsledkoch vyhľadávania"
+      subscribe_detail: "podľa aktuálnych nastavení vyhľadávania."
+      subscribe_or: "alebo"
+      decrees: "Rozhodnutí"
+      hearings: "Pojednávaní"
+
+    shared:
+      links:
+        subscriptions: "Notifikácie"
+        settings: "Nastavenia"
+        sign_out: "Odhlásiť"

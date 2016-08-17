@@ -1,12 +1,10 @@
-# encoding: utf-8
-
 class StaticPagesController < ApplicationController
   def show
     @slug = params[:slug]
 
     name = @slug.gsub(/-/, '_')
 
-    @title    = translate "static_pages.#{name}", default: 'missing'
+    @title    = translate "static_pages.#{name}", default: ''
     @template = "static_pages/content/#{name}"
 
     begin

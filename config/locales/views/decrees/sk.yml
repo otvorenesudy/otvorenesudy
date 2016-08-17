@@ -1,72 +1,19 @@
 sk:
   decrees:
-    headline:
-      headline_html: 'V priemere 45% súdnych rozhodnutí<br/>je potvrdených vyšším súdom'
-      sub_headline: 'Štatistická ročenka MSSR 2011 a 2012'
-      total_decrees_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_decrees} rozhodnutiach'
+    date: &date
+      decree: "Rozhodnutie"
 
-    show:
-      made_on: 'Rozhodnutie bolo vynesené dňa'
-      unknown_date: 'neznámy dátum'
-      from_court: 'Rozhodnuté bolo na súde'
-      from_judge: 'Rozhodutie vydal sudca'
-      areas_of_legislation: 'Oblasti právnej úpravy'
-      form: 'Forma rozhodnutia'
-      nature: 'Povaha rozhodnutia'
-      original_document: 'Pôvodný dokument'
-      link: 'odkaz už'
-      may_not: 'nemusí'
-      see_note: 'Viď poznámku na konci tohto dokumentu'
-      be_valid: 'byť platný'
-      download_as: 'Stiahnuť ako'
-      pdf: 'PDF dokument'
-      missing: 'neuvedená'
-      missing_2: 'neuvedené'
-      missing_3: 'neuvedený'
-      file_number: 'Identifikačné číslo súdneho spisu'
-      show_under: 'Zobraziť v rámci'
-      proceeding: 'súdneho konania'
-      referenced_decrees: 'Predpisy odkazované v rozhodnutí'
-      summary: 'Sumár'
-      document: 'Znenie rozhodnutia'
-      information_source_1: 'Informácie o súdnom rozhodnutí boli získané z'
-      information_source_2: 'ktorého posledná aktualizácia bola vykonaná'
-      document: 'Dokument'
-      link_validity_1: 'Odkaz na'
-      original_document: 'Pôvodný dokument'
-      link_validity_2: 'už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.'
-      original_source_1: 'Z toho dôvodu poskytujeme odkaz na pôvodný'
-      processed_document: 'spracovaný dokument'
-      original_source_2: 'v surovej forme.'
+      past: "bolo vynesené dňa"
+      unknown: "neznámeho dátumu"
+
+    index:
+      title: "Rozhodnutia"
 
     search:
-      title: 'Vyhľadávanie v súdnych rozhodnutiach'
+      results:
+        court: "Súd"
 
-    results:
-      made_on: 'Rozhodnutie bolo vynesené dňa'
-      unknown_date: 'neznámy dátum'
-      incomplete: 'Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba.'
-      error_in_data: 'Rozhodnutie má budúci dátum vynesenia, ide o chybu v pôvodných dátach.'
-      file_number: 'Identifikačné číslo súdneho spisu'
-      court: 'Súd'
+        <<: *date
 
-    unprocessed:
-      attention: 'Pozor!'
-      description: 'Rozhodnutie je neúplné. Pri spracovaní rozhodnutia z portálu Ministerstva spravodlivosti nastala neznáma chyba.'
-
-    had_future_date:
-      note: 'Poznámka.'
-      description: 'Rozhodnutie bolo zverejnené na portáli Ministerstva spravodlivosti skôr ako mohlo byť vynesené.'
-
-    has_future_date:
-      attention: 'Pozor!'
-      description_1: 'Rozhodnutie má budúci dátum vynesenia, ide o chybu v'
-      original_data: 'pôvodných dátach'
-      description_2: '(odkaz už nemusí byť platný).'
-
-  decree_pages:
-    results:
-      for_query: 'Pre hľadaný výraz'
-      were_found: 'sme našli'
-      page: 'Strana %{number}'
-      no_results_html: 'Pre hľadaný výraz sa nenašli <strong>žiadne výsledky</strong>'
+        future_date: "Dátum rozhodnutia je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach."
+        unprocessed: "Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba."

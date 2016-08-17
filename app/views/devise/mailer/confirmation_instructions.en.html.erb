@@ -1,8 +1,8 @@
 ﻿<p>
- Welcome to the portal <%= link_to 'Open Courts', 'http://otvorenesudy.sk' %>,
+ Welcome to the <%= link_to 'Open Courts', 'https://otvorenesudy.sk' %> project,
 </p>
 <p>
-  for the confirmation of your account please click on the following link:
+  to confirm your account please click on the following link:
   <%= link_to 'potvdiť registráciu', confirmation_url(@resource, confirmation_token: @token) %>.
 </p>
 <p>
@@ -12,5 +12,5 @@
   In case of any questions <%= mail_to 'kontakt@otvorenesudy.sk', 'please, contact us', encode: :hex %>.
 </p>
 <p>
-  Thank you for your registration! We are happy the project interests you.
+  Thank you for your registration, we are happy that our project interests you.
 </p>

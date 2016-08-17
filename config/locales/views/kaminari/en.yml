@@ -1,0 +1,8 @@
+en:
+  kaminari:
+    pagination:
+      first: "First page"
+      previous: "Previous page"
+      current: 'Current page'
+      next: "Next page"
+      last: "Last page"

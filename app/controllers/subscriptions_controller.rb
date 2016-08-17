@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class SubscriptionsController < ApplicationController
   before_filter :authenticate_user!
 
@@ -11,9 +9,9 @@ class SubscriptionsController < ApplicationController
     @subscription.period = @period
 
     if @subscription.save
-      flash[:success] = t('.subscription_successful')
+      flash[:success] = t('.subscriptions.create.success')
     else
-      flash[:error] = t('.subscription_error')
+      flash[:failure] = t('.subscriptions.create.failure')
     end
 
     redirect_to :back
@@ -25,9 +23,9 @@ class SubscriptionsController < ApplicationController
     @subscription.period = Period.find(params[:period_id])
 
     if @subscription.save
-      flash[:success] = t('.subscription_updated')
+      flash[:success] = t('.subscriptions.update.success')
     else
-      flash[:error] = t('.subscription_update_error')
+      flash[:failure] = t('.subscriptions.update.failure')
     end
 
     redirect_to :back
@@ -38,7 +36,7 @@ class SubscriptionsController < ApplicationController
 
     @subscription.destroy
 
-    flash[:notice] = t('.subscription_cancelled')
+    flash[:notice] = t('.subscriptions.delete.notice')
 
     redirect_to :back
   end

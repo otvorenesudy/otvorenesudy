@@ -1,0 +1,26 @@
+<%= search_list_tag results, offset: offset do |procedure| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to selection_procedure_headline(procedure, limit: 65), selection_path(procedure) %>
+      <small>
+        <%= t '.procedure' %> <%= t procedure.closed_at.future? ? '.future' : '.past' %>
+        <%= time_tag procedure.closed_at.to_date, format: :long %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <%= t '.state' %> &ndash; <%= procedure.state %>
+      <br/>
+      <%= t '.organization' %> &ndash; <%= procedure.court ? link_to_court(procedure.court) : procedure.organization_name %>
+      <br/>
+      <% if procedure.candidates.any? %>
+        <%= translate_without_count(procedure.candidates.size, :candidate).upcase_first %> &ndash;
+        <% if procedure.candidates.size > 4 %>
+          <%= procedure.candidates.order(:rank, :name).limit(4).map { |person| person.judge ? link_to_judge(person.judge) : person.name }.join(', ').html_safe %>&hellip;
+        <% else %>
+          <%= procedure.candidates.order(:rank, :name).map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
+        <% end %>
+      <% end %>
+    </div>
+  </li>
+<% end %>

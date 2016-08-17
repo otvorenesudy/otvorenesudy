@@ -9,12 +9,14 @@ class SelectionProceduresController < SearchController
   def declaration
     @procedure = SelectionProcedure.find(params[:id])
 
+    # TODO translate?
     send_file_in @procedure.declaration_path, name: "Vyhlásenie výberového konania č. #{@procedure.id}"
   end
 
   def report
     @procedure = SelectionProcedure.find(params[:id])
 
+    # TODO translate?
     send_file_in @procedure.report_path, name: "Zápisnica výberového konania č. #{@procedure.id}"
   end
 

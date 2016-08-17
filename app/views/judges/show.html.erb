@@ -21,10 +21,10 @@
       <% @employments.each do |employment| %>
         <p>
           <span class="gutter centered">
-            <%= judge_activity_tag employment.active, tooltip: !employment.active.nil? %>
+            <%= judge_activity_icon_tag employment.active, tooltip: !employment.active.nil? %>
           </span>
-          <%= judge_activity_gender(employment.active, @judge.probably_woman) %>
-          <%= judge_activity_position(employment, @judge) %>
+          <%= judge_activity_by_employment employment %>
+          <%= judge_position_by_employment employment %>
           <%= t '.at_court' %>
           <%= link_to_court employment.court %>,
           <%= Hearing.during_employment(employment).exact.size.zero? ? t('.not_yet_register') : t('.register') %>

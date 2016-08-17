@@ -1,0 +1,12 @@
+sk:
+  case_number:
+    acronym: "SZ"
+    full: "Spisová značka"
+
+  file_number:
+    acronym: "IČS"
+    full: "Identifikačné číslo spisu"
+
+  ecli:
+    acronym: "ECLI"
+    full: "European Case Law Identifier"

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="<%= I18n.locale %>">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <%- # required for embedding style inline -%>
     <style type="text/css" media="all"></style>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <div class="container"><%= yield %></div>
   </body>
 </html>

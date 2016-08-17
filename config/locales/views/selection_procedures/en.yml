@@ -1,48 +1,17 @@
 en:
   selection_procedures:
-    headline:
-      headline_html: 'Candidates with family members in the judiciary are <br/>1,5 more likely to succeed in the selection procedure'
-      transparency_international: 'Transparency International Slovakia, May 2014'
-      sub_headline_html: 'OpenCourts &mdash; you are searching in %{total_selection_procedures} selection procedures'
+    date: &date
+      procedure: "Selection procedure"
 
-    show:
-      selection_procedure: 'Selection procedure'
-      will_close: 'will be closed'
-      was_closed: 'was closed'
-      organization: 'Organization'
-      position: 'Position'
-      workplace: 'Workplace address'
-      place: 'Venue'
-      date: 'Date'
-      original_document: 'Original document'
-      link: 'link'
-      may_not: 'may not'
-      see_note: 'See the note at the end of the document'
-      be_valid: 'be valid'
-      announcement: 'Procedure was announced'
-      report: 'Download report'
-      selection_comittee: 'Selection comittee'
-      candidates: 'Candidates'
-      name: 'Name'
-      written_part: 'Written part'
-      oral_part: 'Oral part'
-      result: 'Result'
-      documents: 'Documents'
-      resume: 'Resume'
-      motivation_letter: 'Motivation letter'
-      statement: 'Statement'
-      information_source_1: 'Information about the procedure were obtained from'
-      document: 'document'
-      information_source_2: 'which was updated on'
-      link_validity_1: 'Link to'
-      link_validity_2: 'may not be valid, because Ministry of Justice may have publish the document only temporarily.'
+      future: "will close on"
+      past: "was closed on"
+
+    index:
+      title: "Selection procedures"
 
     search:
-      title: 'Search in selection procedures'
+      results:
+        organization: "Organization"
+        state: "State"
 
-    results:
-      selection_procedure: 'Selection procedure'
-      will_close: 'will be closed'
-      was_closed: 'was closed'
-      status: 'Status'
-      organization: 'Organization'
+        <<: *date

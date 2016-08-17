@@ -4,13 +4,13 @@
   <div class="span12">
     <p>
       <% if @court.chair %>
-        <%= judge_at_court_position(@court.chair, @court).upcase_first %> <%= t 'results.of_court_is' %> <%= link_to_judge @court.chair %><%= @court.vicechair ? " #{t('and')}" : '.' %>
+        <%= judge_position_at_court(@court.chair, @court).upcase_first %> <%= t 'results.of_court_is' %> <%= link_to_judge @court.chair %><%= @court.vicechair ? " #{t('and')}" : '.' %>
       <% end %>
       <% if @court.vicechair %>
         <% unless @court.chair %>
-          <%= judge_at_court_position(@court.vicechair, @court).upcase_first %> <%= t 'results.of_court' %>
+          <%= judge_position_at_court(@court.vicechair, @court).upcase_first %> <%= t 'results.of_court' %>
         <% else %>
-          <%= judge_at_court_position(@court.vicechair, @court) %>
+          <%= judge_position_at_court(@court.vicechair, @court) %>
         <% end %>
         <%= t 'results.is' %> <%= link_to_judge @court.vicechair %>.
       <% end %>

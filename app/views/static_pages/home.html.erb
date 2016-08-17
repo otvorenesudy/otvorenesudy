@@ -1,107 +1,61 @@
-<% provide :header, render(partial: 'header') %>
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-2"><%= t '.head' %></h1>
 
-<section class="features">
-  <div class="row">
-    <div class="span3">
-      <img class="feature-icon" src="<%= asset_path 'features-logo.png' %>" />
+    <p class="lead"><%= t '.detail' %></p>
+
+    <%= link_to t('.donate'), donation_url, class: 'btn btn-lg btn-outline-inverse', role: :button %>
+  </div>
+</div>
+
+<div class="container">
+  <%= render 'shared/flash_messages' %>
+
+  <div class="features">
+    <h1 class="display-4">
+      <%= t '.feature_1.head' %>
+      <small><%= t '.feature_1.detail' %></small>
+    </h1>
+
+    <p class="lead">
+      <%= t('.feature_1.content').html_safe %>
+    </p>
+
+    <h1 class="display-4">
+      <%= t '.feature_2.head' %>
+      <small><%= t '.feature_2.detail' %></small>
+    </h1>
+
+    <p class="lead">
+      <%= t('.feature_2.content', link: link_to(t('.feature_2.link'), 'http://justice.gov.sk')).html_safe %>
+    </p>
+
+    <h1 class="display-4">
+      <%= t '.feature_3.head' %>
+      <small><%= t '.feature_3.detail' %></small>
+    </h1>
+
+    <p class="lead">
+      <%= t('.feature_3.content', link: link_to(t('.feature_3.link'), organization_url)).html_safe %>
+    </p>
+  </div>
+
+  <div class="partners">
+    <h1>
+      <%= t '.partners' %>
+    </h1>
+
+    <div>
+      <%= link_to image_tag(asset_path('partners/transparency-international-slovensko.svg'), alt: 'Transparency International Slovensko'), 'http://transparency.sk', class: 'partner-tis' %>
+      <%= link_to image_tag(asset_path('partners/sme.svg'), alt: 'SME'), 'http://sme.sk', class: 'partner-sme' %>
+      <%= link_to image_tag(asset_path('partners/konrad-adenauer-stiftung.svg'), alt: 'Konrad-Adenauer-Stiftung'), 'http://kas.de', class: 'partner-kas' %>
     </div>
 
-    <div class="span9">
-      <h1>
-        <%= t '.open_courts' %>
-        <small><%= t '.transparent_view' %></small>
-      </h1>
-      <p class="lead">
-        <%= t '.open_courts_detail_html' %>
-      </p>
+    <div>
+      <%= link_to image_tag(asset_path('partners/nadacia-pontis.svg'), alt: 'Nadácia Pontis'), 'http://nadaciapontis.sk', class: 'partner-np' %>
+      <%= link_to image_tag(asset_path('partners/index-podnikatela.svg'), alt: 'Index Podnikateľa'), 'http://indexpodnikatela.sk', class: 'partner-ip' %>
     </div>
   </div>
 
-  <hr/>
-
-  <div class="row">
-    <div class="span3">
-      <%= icon_tag :hdd %>
-    </div>
-
-    <div class="span9">
-      <h1>
-        <%= t '.open_data' %>
-        <small><%= t '.court_documents_html' %></small>
-      </h1>
-      <p class="lead">
-        <%= t '.open_data_detail_html' %>
-      </p>
-    </div>
-  </div>
-
-  <hr/>
-
-  <div class="row">
-    <div class="span3">
-      <%= icon_tag :github %>
-    </div>
-
-    <div class="span9">
-      <h1>
-        <%= t '.open_source' %>
-        <small>Ruby&nbsp;on&nbsp;Rails</small>
-      </h1>
-      <p class="lead">
-        <%= t '.open_source_detail_html' %>
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="logos">
-  <h1 class="centered">
-    <%= t '.supporters' %>
-  </h1>
-
-  <hr/>
-
-  <div class="row">
-    <div class="span4">
-      <a class="logo-transparency" href="http://transparency.sk" target="_blank">
-        <img src="<%= asset_path 'logos/transparency-colored-280.png' %>" />
-      </a>
-    </div>
-
-    <div class="span4">
-      <a class="logo-restart" href="http://restartslovensko.sk" target="_blank">
-        <img src="<%= asset_path 'logos/restart-colored-280.png' %>" />
-      </a>
-    </div>
-
-    <div class="span4">
-      <a class="logo-konrad-adenauer-stiftung" href="http://www.kas.de/slowakei/sk/" target="_blank">
-        <img src="<%= asset_path 'logos/konrad-adenauer-stiftung-280.png' %>" />
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="offset1 span5">
-      <a class="logo-pontis" href="http://nadaciapontis.sk" target="_blank">
-        <img src="<%= asset_path 'logos/pontis-colored-280.png' %>" />
-      </a>
-    </div>
-
-    <div class="span5">
-      <a class="logo-iba" href="http://ibanet.org" target="_blank">
-        <img src="<%= asset_path 'logos/iba-colored-140.png' %>" />
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="offset1 span10">
-      <a class="logo-index-podnikatela" href="https://indexpodnikatela.sk" target="_blank">
-        <img src="<%= asset_path 'logos/index-podnikatela.png' %>" />
-      </a>
-    </div>
-  </div>
-
-  <hr/>
-</section>
+  <%= render 'shared/global_banners' %>
+</div>

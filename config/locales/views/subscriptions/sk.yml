@@ -1,52 +1,26 @@
 sk:
-  subscription_successful: 'Odoberanie notifikácií bolo úspešne zaregistrované.'
-  subscription_error: 'Nastala chyba. Odoberanie notifikácií nebolo zaregistrované.'
-  subscription_updated: 'Odoberanie notifikácií bolo úspešne aktualizované.'
-  subscription_update_error: 'Nastala chyba. Odoberanie notifikácií nebolo aktualizované.'
-  subscription_cancelled: 'Odoberanie notifikácií bolo úspešne zrušené.'
-
-  search:
-    subscribe:
-      subscribe: 'Odoberať notifikácie'
-      search_subscribed: 'Pre aktuálne nastavenie vyhľadávania už odoberáte notifikácie.'
-      subscribe_search: 'Zaregistrujte si odoberanie notifikácií o nových výsledkoch vyhľadávania.'
-      subscribe_explain: 'Systém Vás bude periodicky notifikovať formou e-mailu o nových výsledkoch vyhľadávania, ktoré vyhovujú aktuálnym nastaveniam vyhľadávania.'
-      login_required: 'Pre odoberanie notifikácií o nových výsledkoch vyhľadávania sa musíte prihlásiť.'
-      close: 'Zatvoriť'
-      update: 'Aktualizovať'
-      cancel: 'Zrušiť'
-      cancel_confirm: 'Naozaj si želáte zrušiť odoberanie notifikácií?'
-      subscribe_btn: 'Odoberať'
-      sign_up: 'Registrovať'
-      login: 'Prihlásiť'
-
-  subscription_mailer:
-    results:
-      new: 'Nové súdne'
-      search_settings: 'Nastavenie vyhľadávania'
-      no_filters: 'Nenastavené žiadne obmedzenia.'
-      new: 'Nové'
-      more: 'Zobraziť daľšie'
-      cancel_subscription: 'Zrušiť odoberanie notifikácií'
-
-    footer:
-      best_regards: 'S pozdravom'
-      team: 'tím projektu'
-      supporters: 'Projekt Otvorené Súdy podporili Transparency International Berlín a projekt Reštart Centra pre filantropiu.'
-      support_us: 'Úsilie vyvoriť portál, ktorý by zhŕňal čo najviac informácií o súdoch a sudcoch je finančne náročné. Ak sa Vám projekt páči, prosím prispejte aj Vy na jeho rozvoj a sprístupnenie ďalších dát.'
-      support_project: 'Podporte projekt Otvorené Súdy'
-
   subscriptions:
+    create:
+      success: "Odoberanie notifikácií bolo zaregistrované."
+      failure: "Niečo sa pokazilo. Odoberanie notifikácií nebolo zaregistrované."
+
+    update:
+      success: "Odoberanie notifikácií bolo aktualizované."
+      failure: "Niečo sa pokazilo. Odoberanie notifikácií nebolo aktualizované."
+
+    delete:
+      notice: "Odoberanie notifikácií bolo zrušené."
+
     decrees:
-      title: 'Notifikácie pre nové rozhodnutia'
+      title: "Rozhodnutia"
 
     hearings:
-      title: 'Notifikácie pre nové pojednávania'
+      title: "Pojednávania"
 
     list:
-      search: 'Vyhľadávanie'
-      registered_at: 'Registrované dňa'
-      no_filters: 'Nenastavené žiadne obmedzenia.'
-      update: 'Aktualizovať'
-      cancel: 'Zrušiť'
-      confirm: 'Naozaj si želáte zrušiť odoberanie notifikácií?'
+      title: "Vyhľadávanie"
+      registered_at: "Registrované dňa"
+      no_restrictions: "Žiadne obmedzenia výsledkov."
+      search: "Vyhľadať"
+      update: "Aktualizovať"
+      delete: "Zrušiť"

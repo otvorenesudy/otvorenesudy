@@ -1,0 +1,63 @@
+en:
+  search:
+    details:
+      of_total: "of total"
+      not_found: "Not found"
+
+    controls:
+      reset: "Remove all restrictions"
+
+      sort:
+        common: &common
+          score: "Relevance"
+          judges_count: "Number of judges"
+          hearings_count: "Number of hearings"
+          decrees_count: "Number of decrees"
+          pages_count: "Number of pages"
+          created_at: "Document added date"
+          updated_at: "Document updated date"
+
+        court:
+          <<: *common
+
+        judge:
+          <<: *common
+
+        hearing:
+          <<: *common
+
+          date: "Hearing date"
+
+        decree:
+          <<: *common
+
+          date: "Decision date"
+
+        proceeding:
+          <<: *common
+
+        selection_procedure:
+          <<: *common
+
+          date: "Procedure date"
+          closed_at: "Closing date"
+
+    facets:
+      show_more: "Show more"
+      show_less: "Show less"
+
+    results:
+      no_results: "No results found for selected restrictions."
+
+    subscribe:
+      subscribe: "Subscribe to notifications"
+      introduction: "Subscribe to receive notifications for new search results."
+      explanation: "The system will periodically notify you via e-mail about new results according to the current search settings."
+      sign_in_required: "You must sign in for subscribing to notifications."
+      already_subscribed: "You are already subscribed to notifications for current search settings."
+      sign_up: "Sign up"
+      sign_in: "Sign in"
+      create: "Subscribe"
+      update: "Update"
+      delete: "Remove"
+      cancel: "Back"

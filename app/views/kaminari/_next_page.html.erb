@@ -1,3 +1,8 @@
-<li>
-  <%= link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, rel: :next, remote: remote %>
-</li>
+<% unless current_page.last? %>
+  <li class="page-item">
+    <%= link_to url, class: 'page-link' do %>
+      <%= icon_tag 'arrow-right', 'aria-hidden' => 'true' %>
+      <span class="sr-only"><%= t 'kaminari.pagination.next' %></span>
+    <% end %>
+  </li>
+<% end %>

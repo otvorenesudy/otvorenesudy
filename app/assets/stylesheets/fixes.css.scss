@@ -1,146 +1,111 @@
-@import 'variables';
-@import 'mixins';
+// disable weird outline in Firefox
 
-// popovers and tooltips
-
-.popover,
-.tooltip {
-  cursor: default;
+* {
+  outline: none !important;
 }
 
-.popover-inner {
-  text-align: left;
+// disable transitions
+
+.fade, .collapse, .collapsing {
+  transition: none !important;
 }
 
-.tooltip-inner {
-  line-height: $baseLineHeight;
-  font-weight: normal;
-  text-align: center;
-}
+// fix font weight on small headings
 
-// forms
-
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-  &:focus {
-    border-color: $grayLight;
-    @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 4px rgba($grayLight, 0.6));
+h1, h2, h3, h4, h5, h6 {
+  small {
+    font-weight: $headings-font-weight;
   }
 }
 
-// tabs
+// remove paragraph bottom margin in list items
 
-.tabbable {
-  [class*="span"] {
-    overflow: hidden;
+li p:last-of-type {
+  margin-bottom: 0;
+}
+
+// remove excessive bottom margin on button group labels
+
+.form-group .btn-group label {
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
   }
+}
 
-  .alert:first-child {
-    margin-top: 0px;
+// fix background and border color for opened secondary drop-down buttons
+
+.open > .btn-outline-secondary.dropdown-toggle {
+  @include hover-focus {
+    background-color: $gray-light;
+    border-color: $gray-light;
   }
 }
 
-// outlines
+// remove automatically generated drop-down menu caret
 
-a:active, a:hover, a:focus,
-.btn:active, .btn:hover, .btn:focus,
-button:active, button:hover, button:focus,
-input:active, input:hover, input:focus,
-select:active, select:hover, select:focus,
-textarea:active, textarea:hover, textarea:focus {
-  outline: 0;
+.dropdown-toggle::after {
+  display: none;
 }
 
-// muted links
+// fix font weight on drop-down menu items
 
-.muted a {
-  color: $grayLight;
+.dropdown-item {
+  font-weight: $btn-font-weight;
+  padding: $btn-padding-y $dropdown-item-padding-x;
 }
 
-// modals
+// remove visible line-breaks on inline navigation links
 
-.modal-header a.close i:before {
-  cursor: pointer;
+.nav-inline .nav-link {
+  float: left !important;
+
+  &:last-of-type {
+    float: none !important;
+  }
 }
 
-// alert links
+// add text decoration on hover-focus to navigation items and links
 
-.alert a.close,
-.alert a.close i {
-  display: inline-block;
+.nav-item, .nav-link {
+  @include hover-focus {
+    text-decoration: $link-hover-decoration !important;
+  }
+}
 
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  top: 0px;
-  bottom: 0px;
+// remove text decoration on hover-focus from pagination items and links
 
-  right: -25px;
-
-  font-size: $baseFontSize;
-  font-weight: normal;
-
-  text-align: center;
-  text-decoration: none;
-
-  &:hover, &:focus {
+.page-item, .page-link {
+  @include hover-focus {
     text-decoration: none;
   }
 }
 
-.alert a.close i:before {
-  cursor: pointer;
+// remove double border on modal dialogs with no body
+
+.modal-header + .modal-footer {
+  border-top: none;
 }
 
-.alert-error a {
-  color: $errorLinkColor;
+// fix button order on modal dialogs
 
-  &:hover, &:focus {
-    color: $errorLinkColorHover;
-  }
+.modal-footer .btn {
+  float: left;
+  margin-right: $btn-toolbar-margin;
 }
 
-.alert-info a {
-  color: $infoLinkColor;
+// add visual styles for plain tooltips
 
-  &:hover, &:focus {
-    color: $infoLinkColorHover;
-  }
+a[href="#"][data-toggle="tooltip"] {
+  border-bottom: 1px dotted $gray-light;
+  color: $body-color;
+  cursor: help;
+  text-decoration: none;
 }
 
-.alert-notice a,
-.alert-warning a {
-  color: $warningLinkColor;
+// remove underline from undecorated tooltips
 
-  &:hover, &:focus {
-    color: $warningLinkColorHover;
-  }
+.text-undecorated[data-toggle="tooltip"] {
+  border-bottom: none !important;
 }
 
-.alert-success a {
-  color: $successLinkColor;
 
-  &:hover, &:focus {
-    color: $successLinkColorHover;
-  }
-}
-
-// other stuff
-
-.ui-helper-hidden-accessible {
-  display:none;
-}

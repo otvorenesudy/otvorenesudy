@@ -1,0 +1,30 @@
+.btn-group-mix {
+  @extend .btn-group;
+
+  .btn {
+    margin-left: $btn-toolbar-margin !important;
+
+    &:first-child {
+      margin-left: 0 !important;
+    }
+  }
+}
+
+.btn-group + .btn-group-mix {
+  margin-left: 2 * $btn-toolbar-margin;
+}
+
+.btn-outline-inverse {
+  @include button-outline-variant(#fff);
+  @include hover-focus-active {
+    color: $brand-primary;
+  }
+}
+
+.text-small {
+  font-size: 80%;
+}
+
+.text-undecorated {
+  text-decoration: none;
+}

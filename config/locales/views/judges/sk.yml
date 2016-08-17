@@ -1,133 +1,56 @@
 sk:
   judges:
-    active: 'Aktívny'
-    active_gender: 'Aktívn'
-    inactive: 'Neaktívny'
-    inactive_gender: 'Neaktívn'
-    unknown: 'Neznámy'
-    unknown_2: 'neznáma'
-    most_likely: 'Pravdepodobne'
-    vsu_acro: 'VSÚ'
+    activity:
+      active:
+        male: "aktívny"
+        female: "aktívna"
 
-    header:
-      open_search: 'Otvorené vyhľadávanie'
-      average_salary: 'Priemerný mesačný príjem začínajúceho sudcu na okresnom súde v roku 2012 bol 2500 eur, sudcu na Najvyššom súde 3600 eur.'
+      inactive:
+        male: "neaktívny"
+        female: "neaktívna"
+
+      unknown:
+        male: "naznáma"
+        female: "naznáma"
+
+    position:
+      probably: "pravdepodobne"
+
+      chairman:
+        male: "predseda"
+        female: "predsedníčka"
+
+      employee:
+        male: "pracovník"
+        female: "pracovníčka"
+
+      higher_court_official:
+        male: "vyšší súdny úradník"
+        female: "vyššia súdna úradníčka"
+
+        acronym: "VSU"
+
+      judge:
+        male: "sudca"
+        female: "sudkyňa"
+
+      vice_chairman:
+        male: "podpredseda"
+        female: "podpredsedníčka"
+
+      unknown:
+        male: "neznámy"
+        female: "neznáma"
 
     index:
-      title: 'Vyhľadávanie medzi sudcami'
-      judges: 'Sudcovia'
-      information_origin: 'Informácie o sudcoch boli získané z portálu'
-      ministry_of_justice: 'Ministerstva spravodlivosti Slovenskej republiky'
-      additional_info: 'Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcov.'
-
-    judges:
-      judge: 'Sudca'
-      position: 'Pozícia'
-      court: 'Súd'
-      hearings: 'Pojednávania'
-      hearings_count: 'Počet súdnych pojednávaní'
-      decrees: 'Rozhodnutia'
-      decrees_count: 'Počet súdnych rozhodnutí'
-
-    show:
-      judge: 'Sudca'
-      at_court: 'na súde'
-      note: 'Poznámka'
-      incomplete_data: 'Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov.'
-      nominated_before: 'Sudca bol vymenovaný do funkcie pred'
-      cv: 'Životopis'
-      published_at_selection: 'ktorý bol zverejnený vo výberovom konaní.'
-      motivation_letter: 'Motivačný list'
-      decrees_count: 'Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané %{total_released_decrees} a prieťahy pred pridelením veci %{total_delayed_decrees}.'
-      decree_confirmed_in: 'Rozhodnutie sudcu je v prípade odvolaní potvrdené vyšším súdom v'
-      computed_from: 'Vypočítané z pôsobení sudcu'
-      unresolved_issues_count: 'Nevybavených prípadov mal sudca %{unresolved_issues_count} ako na jeho začiatku.'
-      in_end_of_year: 'na konci roka'
-      more: 'viac'
-      less: 'menej'
-      unfinished_issues_count: 'Reštančných prípadov mal sudca %{unfinished_issues_count} ako na jeho začiatku.'
-      unfinished_issues_rate: 'Podiel reštančných vecí z celkového počtu nevybavených vecí je %{unfinished_issues_rate}'
-      by_end_of_year: 'ku koncu roka'
-      unresolved_issue_html: 'Vec, nevybavená dlhšie ako 6 mesiacov<br/>v&nbsp;prípade maloletých a&nbsp;dlhšie ako 1 rok<br/>v&nbsp;ostatných prípadoch.'
-      unresolved_issue: 'Reštančná vec'
-      income_years: 'Príjmy a iné pôžitky sudcu uvedené v majetkových priznaniach za roky'
-      income_year: 'Príjmy a iné pôžitky sudcu uvedené v majetkovom priznaní sudcu za rok'
-      close_ones_income_years: 'Blízke osoby uvedené v majetkových priznaniach sudcu za roky'
-      close_ones_income_year: 'Blízke osoby uvedené v majetkových priznaniach sudcu za rok'
-      note_about_data_part1: 'Poznámky k dátam'
-      note_about_data_part2: 'získaných zo štatistických výkazov sudcov.'
-      report_for_year: 'Výkaz za rok'
-      decrees: 'Rozhodnutia'
-      future_hearings: 'Budúce pojednávania'
-      past_hearings: 'Minulé pojednávania'
-      in_media: 'V médiách'
-      additional_info: 'Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcov.'
-      court_data_from: 'Informácie o sudcovi boli získané'
-      from_long: 'zo'
-      from_short: 'z'
-      list: 'zoznamu'
-      document: 'dokumentu'
-      last_updated_on: 'ktorého posledná aktualizácia bola vykonaná'
-      not_yet_register: 'zatiaľ neevidujeme'
-      register: 'evidujeme'
-      and: 'a'
-
-    edit:
-      email_not_yet_opened: 'Zatiaľ neoverený e-mail'
-
-    media:
-      link_explanation: 'Odkazy sú vyhľadávané automaticky na základe mena a pôsobiska sudcu. Sudcu sa týkať nemusia.'
-      no_media_coverage: 'O sudcovi neboli nájdené žiadne zmienky v médiách.'
-
-    hearings:
-      more_hearings: 'Viac pojednávaní'
-      no_hearings: 'Pre sudcu neevidujeme žiadne súdne pojednávania.'
-
-    decrees:
-      more_decrees: 'Viac rozhodnutí'
-      no_decrees: 'Pre sudcu neevidujeme žiadne súdne rozhodnutia.'
+      title: "Sudcovia"
 
     search:
-      title: 'Vyhľadávanie medzi sudcami'
-
-    headline:
-      headline_html: 'Priemerný mesačný príjem začínajúceho sudcu<br/>na okresnom súde v roku 2012 bol 2&nbsp;500 eur,<br/>sudcu na Najvyššom súde 3&nbsp;600 eur'
-      sub_headline_html: 'Otvorené Súdy &mdash; vyhľadávate medzi %{total_judges} sudcami'
-
-    featured_court:
-      of_court_is: 'súdu je'
-      of_court: 'súdu'
-      at_court_work: 'Na súde pracuje'
-      for_court: 'Pre súd'
-      not_yet: 'zatiaľ ne'
-      register: 'evidujeme'
-      slovak_republic: 'Slovenská republika'
-      and: ' a'
-
-    indicators:
-      quality_indicators: 'Indikátory kvality'
-      efficiency_indictors: 'Indikátory výkonnosti'
-      decrees_count_html: 'Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané %{total_released_decrees} a prieťahy pred pridelením veci %{total_delayed_decrees}.'
-      performance_data: 'Pre sudcu máme výkonnostné dáta za'
-      to_judge: 'Sudcovi'
-      show_details: 'Zobraziť podrobnejšie'
-      civil: 'Občianska'
-      business: 'Obchodná'
-      childcare: 'Poručenská'
-      criminal: 'Trestná'
-      judge_results: 'Sudca v sledovanom období odpracoval %{days_worked} dní a v priemere mu za 10 dní bolo pridelených %{cases_assigned} prípadov v hlavných agendách.'
-      quality_indicators: 'Indikátory kvality'
-      apellate_decrees: 'Počet rozhodnutí o odvolaniach'
-      confirmed_decrees: 'Počet potvrdených odvolaní'
-      efficiency_indicators: 'Indikátory efektivity'
-      data_notes_html: 'Poznámky k dátam</a> získaných zo štatistických výkazov sudcov.'
-      inaccurate: 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.'
-      computed_as_ratio: 'Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami v poslednom roku. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza.'
-      unresolved_issue_note: 'Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch.'
-      unresolved_issue: 'Reštančná vec'
-      name_facet_title: 'Sudcovia'
-      name_facet_subtitle: 'Vyberte daľších sudcov pre porovnanie'
-      name_facet_placeholder: 'Meno sudcu'
-      show_advanced_filters: 'Zobraziť pokročilé filtre'
-      chart_headline: 'Grafické porovnanie'
-      chart_note: 'Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobných súdoch a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory.'
+      results:
+        and: "a"
+        at_court: "na súde"
+        register:
+          zero: "zatiaľ neevidujeme"
+          one: "evidujeme"
+          few: "evidujeme"
+          other: "evidujeme"

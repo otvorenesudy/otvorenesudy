@@ -1,26 +1,19 @@
-# Autorské práva
-
-### &copy; 2013 Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovensko  
+## &copy; 2013-2016 Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovensko  
  
-__Autori konceptu:__ Transparency International Slovensko, Samuel Molnár a Pavol Zbell
+_Autori konceptu:_ Transparency International Slovensko, Samuel Molnár a Pavol Zbell
 
-__Technická realizácia:__ Samuel Molnár a Pavol Zbell
+_Technická realizácia:_ Samuel Molnár a Pavol Zbell
 
-__Zdrojový kód:__ <%= external_link_to "Otvorené Súdy @ GitHub", 'https://github.com/otvorenesudy' %>
+_Zdrojový kód:_ <%= link_to 'Otvorené Súdy @ GitHub', 'https://github.com/otvorenesudy' %>
 
-<hr/>
-
-### Toto dielo je licencované pod<br/><%= external_link_to "Educational Community Lincese 1.0", 'http://opensource.org/licenses/ecl1.php' %>
- 
 Toto dielo, vrátane softvéru, zdrojového kódu, dokumentov, alebo iných
 súvisiacich položiek, poskytujú držitelia autorských práv podľa podmienok
-uvedených v Educational Community License. Nadobudnutím, používaním a / alebo
-kopírovaním tohto diela, prejavujete súhlas s tým, že ste si prečítali a
-pochopili podmienky licencie a budete konať v súlade s nimi. 
+uvedených v <%= link_to 'Educational Community Lincese 1.0', 'http://opensource.org/licenses/ecl1.php' %>.
+Nadobudnutím, používaním a / alebo kopírovaním tohto diela, prejavujete
+súhlas s tým, že ste si prečítali a pochopili podmienky licencie a budete
+konať v súlade s nimi. 
  
-<hr/>
-
-### Podmienky Educational Community License: 
+## Educational Community License 1.0
  
 Povolenie na použitie, kopírovanie, upravovanie, zlučovanie, publikovanie,
 distribuovanie a sublicencovanie tohto pôvodného diela a jeho dokumentácie,
@@ -29,18 +22,14 @@ autorských práv, je týmto udelené za predpokladu, že uvediete nasledovné
 položky vo všetkých ďalších zhotoveninách diela, ich častiach, úpravách
 alebo derivátoch, ktoré vytvoríte: 
 
-<hr/>
-
-- Plné znenie Educational Community License na mieste viditeľnom pre
-  používateľov odvodených diel alebo derivátov. 
+- plné znenie Educational Community License na mieste viditeľnom pre
+  používateľov odvodených diel alebo derivátov, 
  
-- Oznámenia o všetkom už existujúcom duševnom vlastníctve vrátane súvisiacich
-  podmienok. 
+- oznámenia o všetkom už existujúcom duševnom vlastníctve vrátane súvisiacich
+  podmienok, 
  
-- Oznámenie o akýchkoľvek zmenách alebo úpravách originálneho diela, vrátane
+- oznámenie o akýchkoľvek zmenách alebo úpravách originálneho diela, vrátane
   dátumu, kedy boli zmeny vykonané. 
-
-<hr/>
 
 Akékoľvek zmeny pôvodného diela musia byť distribuované takým spôsobom, 
 aby nedochádzalo k zámene s pôvodnou prácou držiteľov autorských práv. 

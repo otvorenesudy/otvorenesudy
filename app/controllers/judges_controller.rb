@@ -1,12 +1,4 @@
-# encoding: utf-8
-
 class JudgesController < SearchController
-  include FileHelper
-
-  def index
-    @judges = Judge.order(:last, :middle, :first).page(params[:page])
-  end
-
   def show
     @judge = Judge.find(params[:id])
 
@@ -28,12 +20,14 @@ class JudgesController < SearchController
   def curriculum
     @judge = Judge.find(params[:id])
 
+    # TODO translate?
     send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
   end
 
   def cover_letter
     @judge = Judge.find(params[:id])
 
+    # TODO translate?
     send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
   end
 
@@ -41,7 +35,9 @@ class JudgesController < SearchController
     redirect_to suggest_judges_path(params)
   end
 
-  private
+  protected
+
+  include FileHelper
 
   def search_associations
     [employments: [:court, :judge, :judge_position]]
@@ -64,6 +60,7 @@ class JudgesController < SearchController
     end
   end
 
+  # TODO rm
   def generate_random_color(options = {})
     3.times.map { rand(0..255) }
   end

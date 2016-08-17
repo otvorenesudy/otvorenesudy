@@ -3,7 +3,7 @@
 
   <div id="<%= facet.id %>-content" class="facet-content">
     <% if translation[:placeholder] %>
-      <%= facet_suggest_input facet, placeholder: translation[:placeholder], :'data-suggest-path' => indicators_suggest_judge_path(params) %>
+      <%= facet_suggest_input_tag facet, placeholder: translation[:placeholder], :'data-suggest-path' => indicators_suggest_judge_path(params) %>
     <% end %>
 
     <div class="facet-results">

@@ -1,23 +1,24 @@
 <% provide :title, t('.title') %>
 
-<%= render "devise/shared/links" %>
-
-<section id="user-password" class="user">
+<div class="container">
+  <h1 class="display-4 m-t-3 m-b-1"><%= yield :title %></h1>
   <div class="row">
-    <div class="offset2 span8">
-      <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put } do |f| %>
-        <legend><%= yield :title %></legend>
-        <p>
+    <div class="col-lg-6">
+      <%= render 'devise/shared/messages' %>
+      <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { class: nil, method: :put } do |f| %>
+        <div class="form-group">
           <%= f.label :password, t('.new_pass') %>
-          <%= f.password_field :password, autofocus: true, class: :span8 %>
-        </p>
-        <p>
+          <%= f.password_field :password, autofocus: true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
           <%= f.label :password_confirmation, t('.new_pass_confirmation') %>
-          <%= f.password_field :password_confirmation, class: :span8 %>
-        </p>
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
         <%= f.hidden_field :reset_password_token %>
-        <button type="submit" class="btn btn-primary btn-large"><%= t '.change_pass' %></button>
+        <button type="submit" class="btn btn-lg btn-outline-primary"><%= t '.change_pass' %></button>
       <% end %>
+      <%= render 'devise/shared/links' %>
     </div>
   </div>
-</section>
+  <%= render 'shared/global_banners' %>
+</div>

@@ -1,0 +1,54 @@
+<%= search_list_tag results, offset: offset do |hearing| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+      <small>
+        <%= t '.hearing' %> <%= t hearing.historical ? '.past' : '.future' %>
+        <%= hearing.date ? hearing_date(hearing.date) : t('.unknown') %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <% if hearing.unprocessed? %>
+        <div class="text-danger">
+          <%= locale_specific_spaces t '.unprocessed' %>
+        </div>
+      <% elsif hearing.has_future_date? %>
+        <div class="text-danger">
+          <%= locale_specific_spaces t '.future_date' %>
+        </div>
+      <% end %>
+
+      <ul class="pull-xs-right text-xs-right list-unstyled">
+        <li><%= tooltip_tag hearing.case_number || '?', t('case_number.full'), placement: 'left' %></li>
+        <li><%= tooltip_tag hearing.file_number || '?', t('file_number.full'), placement: 'left' %></li>
+      </ul>
+
+      <% if hearing.court %>
+        <%= t '.court' %> &ndash; <%= link_to_court hearing.court %>
+        <br/>
+      <% end %>
+      <% if hearing.judges.any? %>
+        <% if hearing.exact_judges.any? %>
+          <%= translate_without_count(hearing.exact_judges.size, :judge).upcase_first %>
+          &ndash; <%= links_to_judges hearing.exact_judges %>
+        <% else %>
+          <%= translate_without_count(hearing.inexact_judgings.map(&:judge_name_unprocessed).uniq.size, :judge).upcase_first %>
+          &ndash; <%= judge_processed_names hearing.inexact_judgings %>
+        <% end %>
+        <br/>
+      <% end %>
+      <% if hearing.proposers.any? %>
+        <%= translate_without_count(hearing.proposers.size, :proposer).upcase_first %> &ndash; <%= hearing.proposers.map(&:name).to_sentence %>
+        <br/>
+      <% end %>
+      <% if hearing.opponents.any? %>
+        <%= translate_without_count(hearing.opponents.size, :opponent).upcase_first %> &ndash; <%= hearing.opponents.map(&:name).to_sentence %>
+        <br/>
+      <% end %>
+      <% if hearing.defendants.any? %>
+        <%= translate_without_count(hearing.defendants.size, :defendant).upcase_first %> &ndash; <%= hearing.defendants.map(&:name).to_sentence %>
+      <% end %>
+    </div>
+  </li>
+<% end %>

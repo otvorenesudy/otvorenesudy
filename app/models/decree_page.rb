@@ -53,10 +53,12 @@ class DecreePage < ActiveRecord::Base
     return results, highlights
   end
 
+  # TODO rm? no longer used
   def image_entry
     "#{number}.png"
   end
 
+  # TODO rm? no longer used
   def image_path
     File.join decree.image_path, image_entry
   end
