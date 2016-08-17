@@ -11,52 +11,52 @@ sk:
 
   date:
     abbr_day_names:
-      - Ne
-      - Po
-      - Ut
-      - St
-      - Št
-      - Pi
-      - So
+      - ne
+      - po
+      - ut
+      - st
+      - št
+      - pi
+      - so
 
     abbr_month_names:
       -
-      - Jan
-      - Feb
-      - Mar
-      - Apr
-      - Máj
-      - Jún
-      - Júl
-      - Aug
-      - Sep
-      - Okt
-      - Nov
-      - Dec
+      - jan
+      - feb
+      - mar
+      - apr
+      - máj
+      - jún
+      - júl
+      - aug
+      - sep
+      - okt
+      - nov
+      - dec
 
     day_names:
-      - Nedeľa
-      - Pondelok
-      - Utorok
-      - Streda
-      - Štvrtok
-      - Piatok
-      - Sobota
+      - nedeľa
+      - pondelok
+      - utorok
+      - streda
+      - štvrtok
+      - piatok
+      - sobota
 
     month_names:
       -
-      - Január
-      - Február
-      - Marec
-      - Apríl
-      - Máj
-      - Jún
-      - Júl
-      - August
-      - September
-      - Október
-      - November
-      - December
+      - január
+      - február
+      - marec
+      - apríl
+      - máj
+      - jún
+      - júl
+      - august
+      - september
+      - október
+      - november
+      - december
 
     order:
       - :day
