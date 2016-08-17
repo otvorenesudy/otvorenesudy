@@ -168,7 +168,7 @@ sk:
           <<: *decree
 
       related_people_count:
-        title: "Počet blízkych osôb"
+        title: "Blízke osoby"
         suffix:
           <<: *person
 
@@ -242,7 +242,7 @@ sk:
         not_found: "Nenájdené žiadne spisové značky."
 
       file_number:
-        title: "IČS"
+        title: "Identifikačné č. spisu"
         placeholder: "Identifikačné číslo spisu"
         missing: "neuvedené"
         not_found: "Nenájdené žiadne identifikačné čísla."
@@ -293,12 +293,12 @@ sk:
         not_found: "Nenájdené žiadne povahy."
 
       legislation_area:
-        title: "Oblasť právnej úpravy"
+        title: "Právna oblasť"
         missing: "neuvedená"
         not_found: "Nenájdené žiadne oblasti."
 
       legislation_subarea:
-        title: "Podoblasť právnej úpravy"
+        title: "Právna podoblasť"
         placeholder: "Podoblasť právnej úpravy"
         missing: "neuvedená"
         not_found: "Nenájdené žiadne podoblasti."
@@ -316,7 +316,7 @@ sk:
         not_found: "Nenájdené žiadne spisové značky."
 
       file_number:
-        title: "IČS"
+        title: "Identifikačné č. spisu"
         placeholder: "Identifikačné číslo spisu"
         missing: "neuvedené"
         not_found: "Nenájdené žiadne identifikačné čísla."
@@ -384,13 +384,13 @@ sk:
         not_found: "Nenájdené žiadne spisové značky."
 
       file_number:
-        title: "IČS"
+        title: "Identifikačné č. spisu"
         placeholder: "Identifikačné číslo spisu"
         missing: "neuvedené"
         not_found: "Nenájdené žiadne identifikačné čísla."
 
       duration:
-        title: "Dlžka konania"
+        title: "Dĺžka konania"
         suffix:
           one: "1 mesiac"
           few: "%{count} mesiace"

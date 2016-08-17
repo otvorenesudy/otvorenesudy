@@ -70,7 +70,7 @@ module FacetsHelper
     path   = "#{facet.key}.#{value}"
     value  = translate path unless missing_translation? path
     count  = number_with_delimiter result.count
-    body   = truncate value, length: 34 - (1 + count.size), separator: ' ', omission: '&hellip;'
+    body   = truncate value.upcase_first, length: 34 - (1 + count.size), separator: ' ', omission: '&hellip;'
     params = !result.selected? ? result.add_params : result.remove_params
 
     options.merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 1000 }' }, title: value if body != value

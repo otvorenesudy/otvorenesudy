@@ -168,7 +168,7 @@ en:
           <<: *decree
 
       related_people_count:
-        title: "Number of related persons"
+        title: "Related people"
         suffix:
           <<: *person
 
@@ -316,10 +316,10 @@ en:
         not_found: "No case numbers found."
 
       file_number:
-        title: "Case identifier"
-        placeholder: "Case identifier"
+        title: "Case file identifier"
+        placeholder: "Case file identifier"
         missing: "missing"
-        not_found: "No case identifiers found."
+        not_found: "No case file identifiers found."
 
       date:
         title: "Date"
@@ -384,13 +384,13 @@ en:
         not_found: "No case numbers found."
 
       file_number:
-        title: "Case identifier"
-        placeholder: "Case identifier"
+        title: "Case file identifier"
+        placeholder: "Case file identifier"
         missing: "missing"
-        not_found: "No case identifiers found."
+        not_found: "No case file identifiers found."
 
       duration:
-        title: "Length of proceeding"
+        title: "Proceeding duration"
         suffix:
           one: "1 month"
           few: "%{count} months"
