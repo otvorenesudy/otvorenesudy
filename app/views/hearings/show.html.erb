@@ -12,7 +12,7 @@
     </h1>
   </div>
 
-  <%-# All hearing types -%>
+  <%# All hearing types -%>
 
   <div class="row">
     <div class="span8">
@@ -25,7 +25,7 @@
             <%= t '.section' %> &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
           <% end %>
 
-          <%-# Civil hearings only -%>
+          <%# Civil hearings only -%>
 
           <% if @hearing.special_type %>
             <%= @hearing.section ? 't' : 'T' %>yp &ndash; <%= @hearing.special_type %>
@@ -33,7 +33,7 @@
         </p>
       <% end %>
 
-      <%-# All hearing types -%>
+      <%# All hearing types -%>
 
       <% if @hearing.form %>
         <p><%= t '.form' %> &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
@@ -42,7 +42,7 @@
         <p><%= t '.subject' %> &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
       <% end %>
 
-      <%-# Special hearings only -%>
+      <%# Special hearings only -%>
 
       <% if @hearing.commencement_date? %>
         <p><%= t '.commencement_date' %> &ndash; <%= hearing_date @hearing.commencement_date %></p>
@@ -51,7 +51,7 @@
         <p><%= t '.self_judge' %> &ndash; <%= @hearing.selfjudge ? t('.yes') : t('.no') %></p>
       <% end %>
 
-      <%-# All hearing types -%>
+      <%# All hearing types -%>
 
       <% if @hearing.note %>
         <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
@@ -60,7 +60,7 @@
       <p><%= external_link_to t('.original_document'), @hearing.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.might_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
     </div>
 
-    <%-# All hearing types -%>
+    <%# All hearing types -%>
 
     <div class="span4">
       <div class="well well-small">
@@ -85,7 +85,7 @@
   </div>
 </section>
 
-<%-# Civil hearings only -%>
+<%# Civil hearings only -%>
 
 <% if @proposers.any? %>
   <section id="hearing-proposers">
@@ -119,7 +119,7 @@
   </section>
 <% end %>
 
-<%-# Criminal and Special hearings only -%>
+<%# Criminal and Special hearings only -%>
 
 <% if @defendants.any? %>
   <section id="hearing-defendants">
@@ -151,13 +151,13 @@
   </section>
 <% end %>
 
-<%-# All hearing types -%>
+<%# All hearing types -%>
 
 <% if @judges.any? %>
   <section id="hearing-judges">
     <h2><%= t('.judges') %></h2>
 
-    <%-# Special hearings only -%>
+    <%# Special hearings only -%>
 
     <% if @judges.chaired.any? %>
       <div class="row">
@@ -172,7 +172,7 @@
       </div>
     <% end %>
 
-    <%-# Civil and Criminal hearings only -%>
+    <%# Civil and Criminal hearings only -%>
 
     <% if @judges.normal.any? %>
       <div class="row">
