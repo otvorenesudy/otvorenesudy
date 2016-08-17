@@ -2,3 +2,17 @@ sk:
   decrees:
     index:
       title: "Rozhodnutia"
+
+    date: &date
+      past: "bolo vynesené dňa"
+      unknown: "neznámeho dátumu"
+
+    search:
+      results:
+        court: "Súd"
+        decree: "Rozhodnutie"
+
+        <<: *date
+
+        future_date: "Dátum rozhodnutia je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach."
+        unprocessed: "Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba."

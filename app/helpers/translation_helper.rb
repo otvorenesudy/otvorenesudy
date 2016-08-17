@@ -8,7 +8,7 @@ module TranslationHelper
   end
 
   def locale_specific_spaces(content)
-    I18n.locale == :sk ? content.gsub(/\s([aikosuvz])\s/i, ' \1&nbsp;') : content
+    I18n.locale == :sk ? content.gsub(/\s([aikosuvz])\s/i, ' \1&nbsp;').html_safe : content
   end
 
   def translate_with_count(count, key, options = {})

@@ -1,18 +1,5 @@
 en:
   judges:
-    index:
-      title: "Judges"
-
-    search:
-      results:
-        and: "and"
-        at_court: "at the court"
-        register:
-          zero: "in the meantime we register"
-          one: "we register"
-          few: "we register"
-          other: "we register"
-
     activity:
       active:
         male: "active"
@@ -54,3 +41,16 @@ en:
       unknown:
         male: "unknown"
         female: "unknown"
+
+    index:
+      title: "Judges"
+
+    search:
+      results:
+        and: "and"
+        at_court: "at the court"
+        register:
+          zero: "in the meantime we register"
+          one: "we register"
+          few: "we register"
+          other: "we register"

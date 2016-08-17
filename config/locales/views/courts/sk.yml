@@ -1,5 +1,18 @@
 sk:
   courts:
+    type:
+      constitutional: "Ústavný"
+      supreme: "Najvyšší"
+      specialized: "Špecializovaný"
+      regional: "Krajský"
+      district: "Okresný"
+
+    office:
+      type:
+        information_center: "Informačné centrum"
+        registry_center: "Podateľňa"
+        business_registry_center: "Informačné stredisko obchodného registra"
+
     index:
       title: "Súdy"
 
@@ -15,16 +28,3 @@ sk:
           one: "evidujeme"
           few: "evidujeme"
           other: "evidujeme"
-
-    type:
-      constitutional: "Ústavný"
-      supreme: "Najvyšší"
-      specialized: "Špecializovaný"
-      regional: "Krajský"
-      district: "Okresný"
-
-    office:
-      type:
-        information_center: "Informačné centrum"
-        registry_center: "Podateľňa"
-        business_registry_center: "Informačné stredisko obchodného registra"

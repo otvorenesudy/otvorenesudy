@@ -1,28 +1,28 @@
 <%= search_list_tag results, offset: offset do |hearing| %>
-  <li>
-    <h4>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
       <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
       <small>
-        <%= t '.hearing' %> <%= hearing.historical ? t('hearings.supposed_to_happen') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
-        <%= hearing.date ? hearing_date(hearing.date) : t('unknown_date') %>
+        <%= t '.hearing' %> <%= t hearing.historical ? '.past' : '.future' %>
+        <%= hearing.date ? hearing_date(hearing.date) : t('.unknown') %>
       </small>
     </h4>
 
-    <% if hearing.unprocessed? %>
-      <div class="alert alert-error">
-        <%= t '.processing_error' %>
-      </div>
-    <% elsif hearing.has_future_date? %>
-      <div class="alert alert-warning">
-        <%= t '.data_error' %>
-      </div>
-    <% end %>
-
     <div class="search-result-content">
-      <div class="search-result-identifiers pull-right">
-          <%= tooltip_tag hearing.case_number || '?', t('file_reference'), placement: :right %><br/>
-          <%= tooltip_tag hearing.file_number || '?', t('court_file_id'), placement: :right %>
-      </div>
+      <% if hearing.unprocessed? %>
+        <div class="text-danger">
+          <%= locale_specific_spaces t '.unprocessed' %>
+        </div>
+      <% elsif hearing.has_future_date? %>
+        <div class="text-danger">
+          <%= locale_specific_spaces t '.future_date' %>
+        </div>
+      <% end %>
+
+      <ol class="pull-xs-right text-xs-right list-unstyled">
+        <li><%= tooltip_tag hearing.case_number || '?', t('case_number.full'), placement: 'left' %></li>
+        <li><%= tooltip_tag hearing.file_number || '?', t('file_number.full'), placement: 'left' %></li>
+      </ol>
 
       <% if hearing.court %>
         <%= t '.court' %> &ndash; <%= link_to_court hearing.court %>
@@ -48,10 +48,7 @@
       <% end %>
       <% if hearing.defendants.any? %>
         <%= translate_without_count(hearing.defendants.size, :defendant).upcase_first %> &ndash; <%= hearing.defendants.map(&:name).to_sentence %>
-        <br/>
       <% end %>
-
-      <div class="clearfix"></div>
     </div>
   </li>
 <% end %>

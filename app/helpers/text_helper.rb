@@ -10,7 +10,7 @@ module TextHelper
     parts  = Array.wrap(text)
     limit += (parts.size - 1) * @entities.decode(separator).size
 
-    packed = parts.map { |part| part.squeeze(' ').strip }.join separator
+    packed = parts.map { |part| part.squeeze(' ').strip } * separator
     result = truncate packed, length: limit, separator: ' ', omission: ''
 
     result.gsub!(/\s*#{separator.strip}\s*$/, '')
@@ -18,9 +18,9 @@ module TextHelper
     if packed.length > limit
       if tooltip
         index   = result.rindex(separator) || 0
-        title   = packed[index..-1].gsub(/^\s*#{separator.strip}\s*/, '')
+        title   = packed[index..-1].gsub(/\A\s*#{separator.strip}\s*/, '')
         title   = html_escape @entities.decode(title)
-        result += tooltip_tag omission.html_safe, title, { placement: :right }.merge(options)
+        result += tooltip_tag omission.html_safe, title, { placement: 'right' }.merge(options)
       else
         result += omission
       end
@@ -29,18 +29,15 @@ module TextHelper
     result.html_safe
   end
 
-  def strip_and_highlight(value, options = {})
-    left = right = !options[:omission] ? '' : options[:omission] || '&hellip;'
+  def strip_and_highlight(text, options = {})
+    separator = options.delete(:separator) || content_tag(:span, ' &hellip; '.html_safe, class: 'text-muted')
+    omission  = options.delete(:omission)  || content_tag(:span, '&hellip;'.html_safe, class: 'text-muted')
 
-    left  = !options[:left]  ? '' : options[:left]  || left
-    right = !options[:right] ? '' : options[:right] || right
+    parts = Array.wrap(text)
 
-    value = value.dup
+    packed = parts.map { |part| sanitize part.gsub(/\A[^[:alnum:]<]+|[^[:alnum:]>]+\z/, ''), tags: %w(em) } * separator
+    result = "#{omission}&nbsp;#{locale_specific_spaces packed}&nbsp;#{omission}"
 
-    value.gsub!(/\A([^[:alnum:]\<])+/, '') if left
-    value.gsub!(/([^[:alnum:]\>])+\z/, '') if right
-    value.gsub!(/\s*[^[:alnum:]]*\s*(\.\s*\.+\s*)+\s*/, '&hellip; ')
-
-    "#{left}#{sanitize value, tags: %w(em)}#{right}".html_safe
+    result.html_safe
   end
 end

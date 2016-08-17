@@ -1,0 +1,12 @@
+en:
+  case_number:
+    acronym: "CN"
+    full: "Case number"
+
+  file_number:
+    acronym: "CFI"
+    full: "Case file identifier"
+
+  ecli:
+    acronym: "ECLI"
+    full: "European Case Law Identifier"

@@ -2,3 +2,17 @@ en:
   decrees:
     index:
       title: "Decrees"
+
+    date: &date
+      past: "was issued on"
+      unknown: "unknown date"
+
+    search:
+      results:
+        court: "Court"
+        decree: "Decree"
+
+        <<: *date
+
+        future_date: "Decree date is in far future, there is an error in original data."
+        unprocessed: "Decree is incomplete, an unknown error occurred during processing."

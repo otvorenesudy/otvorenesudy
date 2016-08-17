@@ -13,8 +13,8 @@ module DecreesHelper
     join_and_truncate decree.natures.sort_by(&:value).map(&:value), { separator: ', ' }.merge(options)
   end
 
-  def decree_date(date, options = {})
-    time_tag date, { format: :long }.merge(options)
+  def decree_date(date, options = {}, &block)
+    time_tag date, { format: :long }.merge(options), &block
   end
 
   def decree_as_attachments(decree)

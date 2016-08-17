@@ -1,9 +1,24 @@
 sk:
   hearings:
+    type:
+      civil: "Civilné"
+      criminal: "Trestné"
+      special: "Špecializovaného trestného súdu"
+
+    date: &date
+      past: "malo prebehnúť dňa"
+      future: "prebehne dňa"
+      unknown: "neznámeho dátumu"
+
     index:
       title: "Pojednávania"
 
-  type:
-    civil: "Civilné"
-    criminal: "Trestné"
-    special: "Špecializovaného trestného súdu"
+    search:
+      results:
+        court: "Súd"
+        hearing: "Pojednávanie"
+
+        <<: *date
+
+        future_date: "Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach."
+        unprocessed: "Pojednávanie je neúplné, pri jeho spracovaní nastala neznáma chyba."

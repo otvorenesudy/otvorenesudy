@@ -1,18 +1,5 @@
 sk:
   judges:
-    index:
-      title: "Sudcovia"
-
-    search:
-      results:
-        and: "a"
-        at_court: "na súde"
-        register:
-          zero: "zatiaľ neevidujeme"
-          one: "evidujeme"
-          few: "evidujeme"
-          other: "evidujeme"
-
     activity:
       active:
         male: "aktívny"
@@ -54,3 +41,16 @@ sk:
       unknown:
         male: "neznámy"
         female: "neznáma"
+
+    index:
+      title: "Sudcovia"
+
+    search:
+      results:
+        and: "a"
+        at_court: "na súde"
+        register:
+          zero: "zatiaľ neevidujeme"
+          one: "evidujeme"
+          few: "evidujeme"
+          other: "evidujeme"

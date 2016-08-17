@@ -1,6 +1,18 @@
-# TODO rm
+# TODO rm all but overridden time_tag
 
 module TagHelper
+  def time_tag(date_or_time, *args, &block)
+    options = args.extract_options!
+    content = localize date_or_time, options
+    content = block.call content if block_given?
+
+    super date_or_time, content, options
+  end
+
+
+
+
+
   # def square_tag(type, body, options = {})
   #   content_tag :span, body, options.merge(class: "label label-#{type.to_s}")
   # end

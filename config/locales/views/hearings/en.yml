@@ -1,9 +1,24 @@
 en:
   hearings:
+    type:
+      civil: "Civil"
+      criminal: "Criminal"
+      special: "Of specialized criminal court"
+
+    date: &date
+      past: "was supposed to be held on"
+      future: "will be held on"
+      unknown: "unknown date"
+
     index:
       title: "Hearings"
 
-  type:
-    civil: "Civil"
-    criminal: "Criminal"
-    special: "Of specialized criminal court"
+    search:
+      results:
+        court: "Court"
+        hearing: "Hearing"
+
+        <<: *date
+
+        future_date: "Hearing date is in far future, there is an error in original data."
+        unprocessed: "Hearing is incomplete, an unknown error occurred during processing."

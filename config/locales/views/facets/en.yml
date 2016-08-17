@@ -242,10 +242,10 @@ en:
         not_found: "No case numbers found."
 
       file_number:
-        title: "Case identifier"
-        placeholder: "Case identifier"
+        title: "Case file identifier"
+        placeholder: "Case file identifier"
         missing: "missing"
-        not_found: "No case identifiers found."
+        not_found: "No case file identifiers found."
 
       date:
         title: "Date"

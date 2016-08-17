@@ -1,5 +1,18 @@
 en:
   courts:
+    type:
+      constitutional: "Constitutional"
+      supreme: "Supreme"
+      specialized: "Specialized"
+      regional: "Regional"
+      district: "District"
+
+    office:
+      type:
+        information_center: "Information center"
+        registry_center: "Registry"
+        business_registry_center: "Information center of business register"
+
     index:
       title: "Courts"
 
@@ -15,16 +28,3 @@ en:
           one: "we register"
           few: "we register"
           other: "we register"
-
-    type:
-      constitutional: "Constitutional"
-      supreme: "Supreme"
-      specialized: "Specialized"
-      regional: "Regional"
-      district: "District"
-
-    office:
-      type:
-        information_center: "Information center"
-        registry_center: "Registry"
-        business_registry_center: "Information center of business register"

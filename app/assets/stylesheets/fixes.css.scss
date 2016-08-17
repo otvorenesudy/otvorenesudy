@@ -93,22 +93,19 @@ li p:last-of-type {
   margin-right: $btn-toolbar-margin;
 }
 
-// add visual underline and fix cursor for tooltips
+// add visual styles for plain tooltips
 
-a[data-toggle="tooltip"] {
+a[href="#"][data-toggle="tooltip"] {
   border-bottom: 1px dotted $gray-light;
+  color: $body-color;
   cursor: help;
-
-  &:not([href="#"]) {
-    border-bottom: none;
-    cursor: pointer;
-  }
+  text-decoration: none;
 }
 
-// remove visual underline from undecorated tooltips
+// remove underline from undecorated tooltips
 
 .text-undecorated[data-toggle="tooltip"] {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 

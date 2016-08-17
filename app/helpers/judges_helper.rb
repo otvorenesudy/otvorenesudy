@@ -42,7 +42,7 @@ module JudgesHelper
     end
 
     options = options.merge class: Array.wrap(options[:class]) << 'text-muted text-undecorated'
-    options = options.merge data: { toggle: 'tooltip', placement: options.delete(:placement) || 'left' }
+    options = options.merge placement: options.delete(:placement) || 'left'
 
     tooltip_tag icon_tag(icon), t("#{translation}.#{judge.probable_gender}").upcase_first, options
   end
