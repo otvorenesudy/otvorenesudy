@@ -2,12 +2,12 @@ require File.expand_path('../boot', __FILE__)
 require File.expand_path('../version', __FILE__)
 
 # Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'active_resource/railtie'
+require 'sprockets/railtie'
+# require 'rails/test_unit/railtie'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -27,8 +27,6 @@ module OpenCourts
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
-    # Include library root.
     # TODO remove concerns path after upgrading to Rails 4
     config.autoload_paths += %W(
       #{config.root}/lib

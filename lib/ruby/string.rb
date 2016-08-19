@@ -27,4 +27,3 @@ class String
     self.sub!(/\A./) { |c| c.mb_chars.upcase }
   end
 end
-
