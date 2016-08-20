@@ -36,7 +36,7 @@ zdrojov. Predovšetkým ide o nasledovné zdroje:
   - <%= link_to 'Životopisy a motivačné listy sudcov', 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
 
 - <%= link_to 'Súdna rada Slovenskej republiky', 'http://www.sudnarada.gov.sk' %>
-  - <%= link_to 'Majetkové priznania sudcov', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
+  - <%= link_to 'Majetkové priznania sudcov', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky' %>
 
 - <%= link_to 'Národná rada Slovenskej republiky', 'http://www.nrsr.sk' %> a <%= link_to 'Kancelária prezidenta Slovenskej republiky', 'http://www.prezident.sk' %>
   - Dátumy menovania sudcov do funkcie

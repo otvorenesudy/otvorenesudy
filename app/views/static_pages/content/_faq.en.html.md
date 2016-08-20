@@ -1,6 +1,6 @@
 ﻿## What is the objective of the project?
 
-The objective is to increase pressure on the quality and efficiency of the Slovak judiciary by utilization of open-data. The portal makes activities and performance of judges and courts more comprehensive and allows for comparisons.
+The objective is to increase pressure on the quality and efficiency of Slovak judiciary by utilization of open-data. The portal makes activities and performance of judges and courts more comprehensive and allows for comparisons.
 
 A long-term objective of <%= link_to 'Transparency International Slovakia', 'http://transparency.sk' %>
 is to contribute to the development of qualitative and quantitative indicators that shall allow measure quality and efficicency and their changes in time in the judiciary at the level of judges, as well as courts.
@@ -56,7 +56,7 @@ If you can, please consider
 
 Portal uses only data published or made available by public institutions:  
 
-- <%= link_to 'Ministry of Justice of the SLovak Republic', 'http://www.justice.gov.sk' %>
+- <%= link_to 'Ministry of Justice of Slovak Republic', 'http://www.justice.gov.sk' %>
   - <%= link_to 'Courts', 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
   - <%= link_to 'Judges', 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
   - <%= link_to 'Hearings', 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
@@ -65,10 +65,10 @@ Portal uses only data published or made available by public institutions:
   - <%= link_to 'Annual statistical reports of judges', 'http://www.justice.gov.sk/rsvs' %>
   - <%= link_to 'CVs and Letters of motivation of judges', 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
 
-- <%= link_to 'Judicial Council of the Slovak Republic', 'http://www.sudnarada.gov.sk' %>
-  - <%= link_to 'Asset declarations of judges', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
+- <%= link_to 'Judicial Council of Slovak Republic', 'http://www.sudnarada.gov.sk' %>
+  - <%= link_to 'Asset declarations of judges', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky' %>
 
-- <%= link_to 'National Council of the Slovak Republic', 'http://www.nrsr.sk' %> a <%= link_to 'The office of the President of the Slovak Republic', 'http://www.prezident.sk' %>
+- <%= link_to 'National Council of Slovak Republic', 'http://www.nrsr.sk' %> and <%= link_to 'The office of President of Slovak Republic', 'http://www.prezident.sk' %>
   - Dates of appointments of judges to their positions
 
 Authors are not responsible for factual accuracy of the data. The used data were normalized and interconnected.

@@ -14,7 +14,7 @@ Portal allows to search, read and download published information about courts, j
 
 Portal shows information about the judiciary based on the data provided by public institutions on publicly accessible locations. It is mainly the following sources:
 
-- <%= link_to 'Ministry of Justice of the Slovak Republic', 'http://www.justice.gov.sk' %>
+- <%= link_to 'Ministry of Justice of Slovak Republic', 'http://www.justice.gov.sk' %>
   - <%= link_to 'Courts', 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
   - <%= link_to 'Judges', 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
   - <%= link_to 'Judicial hearings', 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
@@ -23,10 +23,10 @@ Portal shows information about the judiciary based on the data provided by publi
   - <%= link_to 'Annual statistical reports of judges', 'http://www.justice.gov.sk/rsvs' %>
   - <%= link_to 'CVs and Letters of motivation of judges', 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>
 
-- <%= link_to 'Judicial Council of the Slovak Republic', 'http://www.sudnarada.gov.sk' %>
-  - <%= link_to 'Asset declarations of judges', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky/' %>
+- <%= link_to 'Judicial Council of Slovak Republic', 'http://www.sudnarada.gov.sk' %>
+  - <%= link_to 'Asset declarations of judges', 'http://www.sudnarada.gov.sk/majetkove-priznania-sudcov-slovenskej-republiky' %>
 
-- <%= link_to 'National Council of the Slovak Republic', 'http://www.nrsr.sk' %> a <%= link_to 'the Office of the President of the Slovak Republic', 'http://www.prezident.sk' %>
+- <%= link_to 'National Council of Slovak Republic', 'http://www.nrsr.sk' %> and <%= link_to 'the Office of President of Slovak Republic', 'http://www.prezident.sk' %>
   - Dates of appointments of the judges
 
 Data are obtained automatically from the publicly accessible locations in the form in which they were originally published or provided by institutions. In the majority of cases the data do provide reference to the original source. In case of evident errors the data were adjusted and normalized.
