@@ -1,4 +1,23 @@
 module TranslationHelper
+  def translate(key, options = {})
+    html_safe = options.delete :html_safe
+    interpolations = options.except *I18n::RESERVED_KEYS
+    translation = super key, options
+
+    # mark as HTML safe with positive :html_safe option
+    return translation.html_safe if html_safe
+
+    # mark as HTML safe with no interpolations present and translation not containing HTML tag brackets
+    return translation.html_safe if interpolations.none? && translation !~ /[<>]/
+
+    # mark as HTML safe with some interpolations present and all marked as HTML safe
+    return translation.html_safe if interpolations.any? && interpolations.inject(true) { |r, (_, v)| r && v.html_safe? }
+
+    translation
+  end
+
+  alias :t :translate
+
   def missing_translation?(key)
     translate(key, default: '__missing__') == '__missing__'
   end
