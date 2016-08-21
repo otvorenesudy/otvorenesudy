@@ -9,9 +9,9 @@ class DecreesController < SearchController
 
     @legislations = @decree.legislations.order(:value)
 
-    flash.now[:danger]  << t('.unprocessed') if @decree.unprocessed?
-    flash.now[:danger]  << t('.future_date') if @decree.has_future_date?
-    flash.now[:warning] << t('.faulty_date') if @decree.had_future_date?
+    flash.now[:danger]  << t('decrees.show.unprocessed') if @decree.unprocessed?
+    flash.now[:danger]  << t('decrees.show.future_date') if @decree.has_future_date?
+    flash.now[:warning] << t('decrees.show.faulty_date') if @decree.had_future_date?
   end
 
   def resource
