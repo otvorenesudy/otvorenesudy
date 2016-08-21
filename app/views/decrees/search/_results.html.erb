@@ -22,11 +22,11 @@
 
       <% if decree.unprocessed? %>
         <div class="text-danger">
-          <%= t '.unprocessed' %>
+          <%= s t '.unprocessed' %>
         </div>
       <% elsif decree.has_future_date? %>
-        <div class="text-danger">
-          <%= t '.future_date' %>
+        <div class="text-warning">
+          <%= s t '.future_date' %>
         </div>
       <% end %>
 

@@ -1,6 +1,6 @@
 sk:
   selection_procedures:
-    date: &date
+    common: &common
       procedure: "Výberové konanie"
 
       future: "sa uzavrie dňa"
@@ -14,4 +14,7 @@ sk:
         organization: "Organizácia"
         state: "Stav"
 
-        <<: *date
+        <<: *common
+
+    show:
+      <<: *common

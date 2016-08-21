@@ -1,6 +1,6 @@
 en:
   decrees:
-    date: &date
+    common: &common
       decree: "Decree"
 
       past: "was issued on"
@@ -13,7 +13,41 @@ en:
       results:
         court: "Court"
 
-        <<: *date
+        <<: *common
 
         future_date: "Decree date is in far future, there is an error in original data."
-        unprocessed: "Decree is incomplete, an unknown error occurred during processing."
+        unprocessed: "Decree is incomplete, an unknown error occurred during data processing."
+
+    show:
+      <<: *common
+
+      court: "Decision was made at the court"
+      judge: "Decree was issued by"
+      legislation_area: "Legislation area"
+      form: "Decree form"
+      nature: "Decree nature"
+      resource: "Source"
+
+      document: "original document"
+      document_note: "the link may not be valid"
+
+      show_within: "Show within"
+      proceeding: "the proceeding"
+
+      download_as: "Download as"
+      pdf_document: "PDF document"
+
+      legislations: "Referenced legislation in the decree"
+      summary: "Summary"
+
+      resource_note:
+        description: "Information regarding the decree were obtained from %{document}, which was most recently updated on %{update}."
+        document: "the original document"
+
+      link_note:
+        description: "Link to %{document} may not be valid, due to the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
+        document: "the original document"
+
+      faulty_date: "The decree was published on the portal of the Ministry of Justice with a date in far future."
+      future_date: "The decree date is in far future, there is an error in original data on the portal of the Ministry of Justice."
+      unprocessed: "The decree is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."

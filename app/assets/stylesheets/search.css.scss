@@ -11,9 +11,8 @@
   cursor: pointer;
 
   span {
-    @extend .text-muted;
-
     display: none;
+    color: $text-muted;
   }
 
   &.collapsed span {
@@ -55,7 +54,7 @@
 }
 
 .facet-list {
-  @extend .list-unstyled;
+  @include list-unstyled;
 
   margin: 0;
 }
@@ -74,12 +73,12 @@
 
 .facet-link-add, .facet-link-remove {
   &, & span {
-    @extend .text-muted;
     @include size(1rem, 1.5rem);
 
     display: inline-block;
     position: absolute;
     left: 0;
+    color: $text-muted;
     text-align: center;
   }
 }
@@ -90,10 +89,10 @@
 
 .facet-tag {
   @extend .text-small;
-  @extend .text-muted;
 
   display: inline-block;
   margin-left: .2rem;
+  color: $text-muted;
 }
 
 .search-query-clear {
@@ -117,8 +116,8 @@
 }
 
 .search-result-list {
-  @extend .list-unstyled;
   @extend .p-t-2;
+  @include list-unstyled;
 }
 
 .search-result-item {
@@ -133,11 +132,11 @@
   margin: 0 0 .4 * $spacer-y 0;
 
   small {
-    @extend .text-muted;
-
     display: block;
+    margin-top: .125 * $spacer-y;
     font-size: $font-size-base;
     line-height: $line-height-base;
+    color: $text-muted;
   }
 }
 
@@ -146,13 +145,13 @@
 
   margin: 0 !important;
 
-  .text-danger {
+  .text-info, .text-warning, .text-danger {
     margin-bottom: .4 * $spacer-y;
   }
 }
 
 .search-result-highlights {
-  @extend .list-unstyled;
+  @include list-unstyled;
 
   margin-top: .4 * $spacer-y;
   text-align: justify;

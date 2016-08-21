@@ -1,8 +1,6 @@
-# TODO translate
-
 module SelectionProceduresHelper
   def selection_procedure_title(procedure)
-    title(*selection_procedure_identifiers(procedure) << 'Výberové konanie')
+    title(*selection_procedure_identifiers(procedure) << t('selection_procedures.common.selection_procedure'))
   end
 
   def selection_procedure_headline(procedure, options = {})

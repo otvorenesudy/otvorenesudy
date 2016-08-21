@@ -1,0 +1,73 @@
+.timeline {
+  @extend .m-y-3;
+}
+
+.timeline-header, .timeline-footer {
+  color: $text-muted;
+  font-style: italic;
+  text-align: center;
+}
+
+.timeline-list {
+  @include gradient-x($text-muted, $text-muted, 100%, 100%);
+  @include list-unstyled;
+
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: $card-border-width;
+
+  margin: $spacer-y 0;
+  padding: 2 * $card-spacer-x 0;
+}
+
+.timeline-item {
+  background: $card-bg;
+  box-sizing: content-box;
+  position: relative;
+  border: $card-border-width solid $card-border-color;
+  padding: $card-spacer-x;
+
+  &:first-of-type {
+    margin-top: 0 !important;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  small {
+    display: block;
+    margin-top: .125 * $spacer-y;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: $text-muted;
+  }
+}
+
+.timeline-distance-less-than-day {
+  margin-top: .5rem;
+}
+
+.timeline-distance-day-to-week {
+  margin-top: 1rem;
+}
+
+.timeline-distance-week-to-month {
+  margin-top: 2rem;
+}
+
+.timeline-distance-month-to-half-year {
+  margin-top: 4rem;
+}
+
+.timeline-distance-half-year-to-year {
+  margin-top: 8rem;
+}
+
+.timeline-distance-more-than-year {
+  margin-top: 10rem;
+}
+
+.timeline-distance-unknown {
+  margin-top: 4rem;
+}

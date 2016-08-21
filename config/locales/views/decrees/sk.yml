@@ -1,6 +1,6 @@
 sk:
   decrees:
-    date: &date
+    common: &common
       decree: "Rozhodnutie"
 
       past: "bolo vynesené dňa"
@@ -13,7 +13,41 @@ sk:
       results:
         court: "Súd"
 
-        <<: *date
+        <<: *common
 
         future_date: "Dátum rozhodnutia je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach."
-        unprocessed: "Rozhodnutie je neúplné, pri jeho spracovaní nastala neznáma chyba."
+        unprocessed: "Rozhodnutie je neúplné, pri spracovaní dát nastala neznáma chyba."
+
+    show:
+      <<: *common
+
+      court: "Rozhodnuté bolo na súde"
+      judge: "Rozhodutie vydal sudca"
+      legislation_area: "Oblasť právnej úpravy"
+      form: "Forma rozhodnutia"
+      nature: "Povaha rozhodnutia"
+      resource: "Zdroj"
+
+      document: "pôvodný dokument"
+      document_note: "odkaz už nemusí byť platný"
+
+      show_within: "Zobraziť v rámci"
+      proceeding: "súdneho konania"
+
+      download_as: "Stiahnuť ako"
+      pdf_document: "PDF dokument"
+
+      legislations: "Predpisy odkazované v rozhodnutí"
+      summary: "Sumár"
+
+      resource_note:
+        description: "Informácie o súdnom rozhodnutí boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+        document: "pôvodného dokumentu"
+
+      link_note:
+        description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
+        document: "pôvodný dokument"
+
+      faulty_date: "Rozhodnutie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."
+      future_date: "Dátum rozhodnutia je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach na portáli Ministerstva spravodlivosti."
+      unprocessed: "Rozhodnutie je neúplné. Pri spracovaní dát z portálu Ministerstva spravodlivosti nastala neznáma chyba."

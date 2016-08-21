@@ -94,7 +94,7 @@ Information about hearings shall be more complete than as provided by the minist
 
 ## What about data errors?
 
-These are corrected in a rather more ddifficult way &ndash; the data may have been defective prior obtaining them, or we may have done something wrong. We attempt to minimalize number of any mistakes and we are working on an elegant way to correct defective data.
+These are corrected in a rather more difficult way &ndash; the data may have been defective prior obtaining them, or we may have done something wrong. We attempt to minimalize number of any mistakes and we are working on an elegant way to correct defective data.
 
 ## I do not see the Constitutional Court. Why?
 
@@ -133,6 +133,6 @@ One of the following explanations may apply:
 
 - something went wrong.
 
-## Why are there fewer decrees on the portal than on the webpage of the Ministry?
+## Why are there fewer decrees on the portal than on the webpage of the ministry?
 
 It can be usually explained as technical difficulties, hence the fact that some of the decrees cannot be downloaded despite repeated efforts. Some of the decrees were, on the other hand, published more than once with the same ECLI, or some of their identificators is missing and therefore they cannot be found in our database.

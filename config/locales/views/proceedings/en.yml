@@ -1,6 +1,6 @@
 en:
   proceedings:
-    date: &date
+    common: &common
       proceeding: "Public proceeding"
 
       single_hearing:
@@ -14,7 +14,7 @@ en:
         from: "lasts since"
 
       probably_closed:
-        on: "was held on"
+        point: "was held on"
         from: "lasted since"
         until: "until"
 
@@ -26,4 +26,23 @@ en:
         and: "and"
         register: "registering"
 
-        <<: *date
+        <<: *common
+
+    show:
+      <<: *common
+
+      for_proceeding: "For the proceeding we"
+      so_far: "so far "
+      register: "register"
+      and: "and"
+
+      timeline:
+        past: "Past"
+        present: "Present"
+
+        pleading: "Filed to the court"
+        unknown_date: "Unknown date"
+
+      resource_note:
+        description: "Information about the proceeding events were obtained from the documents published at the portal of the %{ministry}."
+        ministry: "Ministry of Justice of Slovak Republic"

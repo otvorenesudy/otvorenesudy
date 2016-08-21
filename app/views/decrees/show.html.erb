@@ -1,128 +1,109 @@
 <% provide :title, decree_title(@decree) %>
 
-<section id="decree-profile" class="profile">
-  <div class="page-header">
-    <h1>
-      <%= decree_headline @decree, limit: 45, tooltip: true %>
-      <% if @decree.natures.any? %>
-        <br/>
-        <%= decree_natures @decree, limit: 45, tooltip: true %>
-      <% end %>
-      <br/>
-      <small>
-        <%= t '.made_on' %> &ndash;
-        <%= @decree.date ? decree_date(@decree.date) : t('.unknown_date') %>
-      </small>
-    </h1>
-  </div>
+<h1 class="m-t-3 m-b-1">
+  <%= decree_headline @decree, limit: 45, tooltip: true %>
+  <% if @decree.natures.any? %>
+    <br/>
+    <%= decree_natures @decree, limit: 45, tooltip: true %>
+  <% end %>
+  <small class="d-block text-muted">
+    <%= t '.decree' %> <%= t '.past' %>
+    <%= @decree.date ? decree_date(@decree.date) : t('.unknown') %>
+  </small>
+</h1>
 
-  <div class="row">
-    <div class="span8">
-      <% if @court %>
-        <p><%= t '.from_court' %> <%= link_to_court @court %></p>
-      <% end %>
-      <% if @judges.any? %>
-        <p>
-          <%= t '.from_judge' %>
-          <% if @judges.exact.any? %>
-            <%= links_to_judges @judges.exact %>
-          <% else %>
-            <%= judge_processed_names @judges.inexact %>
-          <% end %>
-        </p>
-      <% end %>
-      <% if @decree.legislation_area %>
-        <p>
-          <%= t '.areas_of_legislation' %> &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
-          <% if @decree.legislation_subarea %>
-            &ndash; <%= link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_area: @decree.legislation_area.value, legislation_subarea: @decree.legislation_subarea.value } %>
-          <% end %>
-        </p>
-      <% end %>
-      <% if @decree.form %>
-        <p><%= t '.form' %> &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %></p>
-      <% end %>
-      <% if @decree.natures.any? %>
-        <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
-      <% end %>
-
-      <p><%= external_link_to t('.original_document'), @decree.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.may_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
-
-      <% if File.readable? @decree.document_path %>
-        <p><%= t '.download_as' %> <%= link_to_decree_document @decree, icon_tag(:'download-alt', label: t('.pdf'), join: :append), class: :icon %></p>
-      <% end %>
-    </div>
-
-    <div class="span4">
-      <div class="well well-small">
-        <p>
-          <%= tooltip_tag t('fr'), t('file_reference'), placement: :left %>:
-          <span class="pull-right"><%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : t('.missing') %></span>
-        </p>
-        <p>
-          <%= tooltip_tag t('cfi'), t('.file_number'), placement: :left %>:
-          <span class="pull-right"><%= @decree.file_number ? link_to_decrees_search(@decree.file_number, params: { file_number: @decree.file_number }) : t('.missing_2') %></span>
-        </p>
-        <p>
-          <%= tooltip_tag "ECLI", "European Case Law Identifier", placement: :left %>:
-          <span class="pull-right"><%= @decree.ecli ? link_to_decrees_search(@decree.ecli, params: { q: @decree.ecli }) : t('.missing_3') %></span>
-        </p>
-      </div>
-
-      <% if @decree.proceeding %>
-        <p class="centered">
-          <%= t '.show_under' %> <%= icon_link_to :paste, t('.proceeding'), @decree.proceeding, join: :append %>
-        </p>
-      <% end %>
-
-      <%= render 'shared/social' %>
-    </div>
-  </div>
-
-  <hr/>
-
-  <div class="row">
-    <div class="span12">
-      <% if @legislations.any? %>
-        <p><%= t '.referenced_decrees' %>:</p>
-        <ul>
-          <% @legislations.each do |legislation| %>
-            <li>
-              <%= external_link_to_legislation legislation, format: '%t %u/%y %n § %p %d %s %l' %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-      <% if @decree.summary %>
-        <p><%= t '.summary' %> &ndash; <%= @decree.summary %></p>
-      <% end %>
-    </div>
-  </div>
-</section>
-
-<section id="decree-document">
-  <h2><%= t '.document' %></h2>
-  <hr/>
-  <div class="row">
-    <div class="span12">
-      <%= decree_document_viewer(@decree) %>
-    </div>
-  </div>
-</section>
-
-<section id="decree-resource" class="resources">
-  <div class="row">
-    <div class="span12">
-      <small class="muted">
-        <%= t '.information_source_1' %> <%= external_link_to t('.document'), @decree.uri, class: :muted, icon: true %>,
-        <%= t '.information_source_2' %> <%= time_tag @decree.updated_at.to_date, format: :default %>.
-        <br/>
-        <%= t '.link_validity_1' %> <%= external_link_to t('.original_document'), @decree.uri, class: :muted, icon: true %> <%= t '.link_validity_2' %>
-        <% if File.readable? @decree.resource_path %>
-          <br/>
-          <%= t '.original_source_1' %> <%= link_to_decree_resource @decree, icon_tag(:'file-alt', label: t('.processed_document'), join: :append), class: :icon %> <%= t '.original_source_2' %>
+<div class="row">
+  <div class="col-lg-8">
+    <% if @court %>
+      <p>
+        <%= t '.court' %> <%= link_to_court @court %>
+      </p>
+    <% end %>
+    <% if @judges.any? %>
+      <p>
+        <%= t '.judge' %>
+        <% if @judges.exact.any? %>
+          <%= links_to_judges @judges.exact %>
+        <% else %>
+          <%= judge_processed_names @judges.inexact %>
         <% end %>
-      </small>
-    </div>
+      </p>
+    <% end %>
+    <% if @decree.legislation_area %>
+      <p>
+        <%= t '.legislation_area' %> &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
+        <% if @decree.legislation_subarea %>
+          &ndash; <%= link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_area: @decree.legislation_area.value, legislation_subarea: @decree.legislation_subarea.value } %>
+        <% end %>
+      </p>
+    <% end %>
+    <% if @decree.form %>
+      <p><%= t '.form' %> &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %></p>
+    <% end %>
+    <% if @decree.natures.any? %>
+      <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
+    <% end %>
+
+    <p class="m-b-0">
+      <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+    </p>
+
+    <div class="hidden-lg-up m-b-3"></div>
   </div>
-</section>
+
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-block">
+        <ul class="list-unstyled m-b-0">
+          <li>
+            <%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:
+            <span class="pull-xs-right"><%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : t('case_number.missing') %></span>
+          </li>
+          <li>
+            <%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:
+            <span class="pull-xs-right"><%= @decree.file_number ? link_to_decrees_search(@decree.file_number, params: { file_number: @decree.file_number }) : t('file_number.missing') %></span>
+          </li>
+          <li>
+            <%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:
+            <span class="pull-xs-right"><%= @decree.ecli ? link_to_decrees_search(@decree.ecli, params: { q: @decree.ecli }) : t('ecli.missing') %></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <% if @decree.proceeding %>
+      <div class="text-lg-center">
+        <%= t '.show_within' %> <%= link_to t('.proceeding'), @decree.proceeding %>
+      </div>
+    <% end %>
+
+    <% if File.readable? @decree.document_path %>
+      <div class="text-lg-center">
+        <%= t '.download_as' %> <%= link_to t('.pdf_document'), document_decree_path(@decree, l: nil) %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @legislations.any? %>
+  <p class="m-t-1 m-b-0"><%= t '.legislations' %>:</p>
+
+  <ul class="list-unstyled m-b-0">
+    <% @legislations.each do |legislation| %>
+      <li>
+        <%= link_to legislation.value('%t %u/%y %n § %p %d %s %l'), legislation.external_url %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @decree.summary %>
+  <p><%= t '.summary' %> &ndash; <%= @decree.summary %></p>
+<% end %>
+
+<%= content_tag :iframe, nil, src: "https://docs.google.com/viewer?url=#{document_decree_url @decree, l: nil}&embedded=true", frameborder: '0', class: 'viewer m-t-3' %>
+
+<p class="text-small text-muted m-t-3">
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
+  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @decree.uri) %>
+</p>

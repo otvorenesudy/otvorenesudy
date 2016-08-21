@@ -1,4 +1,8 @@
 sk:
+  polar:
+    yes: "áno"
+    no: "nie"
+
   number:
     format:
       delimiter: " "

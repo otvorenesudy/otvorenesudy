@@ -9,9 +9,9 @@ module HearingsHelper
 
   def hearing_type(type)
     case type
-    when HearingType.civil    then "#{t 'hearings.type.civil'} #{t 'hearing.one'}"
-    when HearingType.criminal then "#{t 'hearings.type.criminal'} #{t 'hearing.one'}"
-    when HearingType.special  then "#{t('hearing.one').upcase_first} #{t('hearings.type.special').downcase_first}"
+    when HearingType.civil    then "#{t 'hearings.type.civil'} #{t 'hearings.common.hearing'}"
+    when HearingType.criminal then "#{t 'hearings.type.criminal'} #{t 'hearings.common.hearing'}"
+    when HearingType.special  then "#{t('hearings.common.hearing').upcase_first} #{t('hearings.type.special').downcase_first}"
     else
       raise
     end
@@ -21,14 +21,6 @@ module HearingsHelper
     date = date.to_date if date.respond_to?(:hour) && date.hour.zero?
 
     time_tag date.to_date, { format: :long }.merge(options), &block
-  end
-
-  def link_to_hearing(hearing, body, options = {})
-    link_to body, hearing_path(hearing), options
-  end
-
-  def link_to_hearing_resource(hearing, body, options = {})
-    external_link_to body, resource_hearing_path(hearing), options
   end
 
   private

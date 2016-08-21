@@ -2,11 +2,14 @@ sk:
   case_number:
     acronym: "SZ"
     full: "Spisová značka"
+    missing: "neznáma"
 
   file_number:
     acronym: "IČS"
     full: "Identifikačné číslo spisu"
+    missing: "neznáme"
 
   ecli:
     acronym: "ECLI"
     full: "European Case Law Identifier"
+    missing: "neznámy"

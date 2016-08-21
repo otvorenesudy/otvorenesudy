@@ -1,4 +1,8 @@
 en:
+  polar:
+    yes: "yes"
+    no: "no"
+
   number:
     format:
       delimiter: ","

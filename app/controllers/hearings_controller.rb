@@ -12,10 +12,10 @@ class HearingsController < SearchController
     @opponents  = @hearing.opponents.order(:name)
     @defendants = @hearing.defendants.order(:name)
 
-    flash.now[:danger]  << render_to_string(partial: 'unprocessed',     locals: { hearing: @hearing }).html_safe if @hearing.unprocessed?
-    flash.now[:danger]  << render_to_string(partial: 'has_future_date', locals: { hearing: @hearing }).html_safe if @hearing.has_future_date?
-    flash.now[:warning] << render_to_string(partial: 'had_future_date', locals: { hearing: @hearing }).html_safe if @hearing.had_future_date?
-    flash.now[:warning] << render_to_string(partial: 'anonymized',      locals: { hearing: @hearing }).html_safe if @hearing.anonymized?
+    flash.now[:danger]  << t('.unprocessed') if @hearing.unprocessed?
+    flash.now[:danger]  << t('.future_date') if @hearing.has_future_date?
+    flash.now[:warning] << t('.faulty_date') if @hearing.had_future_date?
+    flash.now[:warning] << t('.anonymized')  if @hearing.anonymized?
   end
 
   def resource

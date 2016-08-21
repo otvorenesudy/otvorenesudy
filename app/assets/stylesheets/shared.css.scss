@@ -4,6 +4,10 @@
   border-top: $hr-border-width solid $hr-border-color;
   margin-top: 2 * $spacer-y;
 
+  p + & {
+    @extend .m-t-3;
+  }
+
   .nav-link:first-child {
     @include filter-grayscale;
 

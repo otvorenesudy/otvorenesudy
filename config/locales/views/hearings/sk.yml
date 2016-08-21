@@ -1,16 +1,16 @@
 sk:
   hearings:
+    common: &common
+      hearing: "Pojednávanie"
+
+      future: "prebehne dňa"
+      past: "prebehlo dňa"
+      unknown: "neznámeho dátumu"
+
     type:
       civil: "Civilné"
       criminal: "Trestné"
       special: "Špecializovaného trestného súdu"
-
-    date: &date
-      hearing: "Pojednávanie"
-
-      future: "prebehne dňa"
-      past: "malo prebehnúť dňa"
-      unknown: "neznámeho dátumu"
 
     index:
       title: "Pojednávania"
@@ -19,7 +19,49 @@ sk:
       results:
         court: "Súd"
 
-        <<: *date
+        <<: *common
 
         future_date: "Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach."
-        unprocessed: "Pojednávanie je neúplné, pri jeho spracovaní nastala neznáma chyba."
+        unprocessed: "Pojednávanie je neúplné, pri spracovaní dát nastala neznáma chyba."
+
+    show:
+      <<: *common
+
+      took_place: "sa konalo"
+      will_take_place: "sa bude konať"
+      at_court: "na súde %{court}"
+      in_room: ", v miestnosti %{room}"
+
+      section: "Úsek"
+      special_type: "Typ"
+      form: "Forma úkonu"
+      subject: "Predmet"
+      commencement_date: "Dátum započatia"
+      single_judge: "Samosudca"
+      note: "Poznámka"
+      resource: "Zdroj"
+
+      document: "pôvodný dokument"
+      document_note: "odkaz už nemusí byť platný"
+
+      show_within: "Zobraziť v rámci"
+      proceeding: "súdneho konania"
+
+      proposers: "Navrhovatelia"
+      opponents: "Odporcovia"
+      defendants: "Obžalovaní"
+      judges: "Sudcovia"
+      chairman: "Funkciu predsedu senátu zastáva"
+
+      resource_note:
+        description: "Informácie o súdnom pojednávaní vrátane mien fyzických osôb v súlade s § 10, ods. 3, písm. e Zákona č. 122/2013 o ochrane osobných údajov boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+        document: "pôvodného dokumentu"
+
+      link_note:
+        description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
+        document: "pôvodný dokument"
+
+      anonymized: "Pojednávanie bolo anonymizované na základe odôvodnenej žiadosti dotknutej osoby."
+      faulty_date: "Pojednávanie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."
+      future_date: "Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach na portáli Ministerstva spravodlivosti."
+      unprocessed: "Pojednávanie je neúplné. Pri spracovaní dát z portálu Ministerstva spravodlivosti nastala neznáma chyba."

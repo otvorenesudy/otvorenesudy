@@ -1,6 +1,6 @@
 en:
   selection_procedures:
-    date: &date
+    common: &common
       procedure: "Selection procedure"
 
       future: "will close on"
@@ -14,4 +14,7 @@ en:
         organization: "Organization"
         state: "State"
 
-        <<: *date
+        <<: *common
+
+    show:
+      <<: *common

@@ -1,6 +1,6 @@
 sk:
   proceedings:
-    date: &date
+    common: &common
       proceeding: "Verejné súdne konanie"
 
       single_hearing:
@@ -14,7 +14,7 @@ sk:
         from: "trvá odo dňa"
 
       probably_closed:
-        on: "prebehlo dňa"
+        point: "prebehlo dňa"
         from: "trvalo odo dňa"
         until: "do dňa"
 
@@ -26,4 +26,23 @@ sk:
         and: "a"
         register: "evidujeme"
 
-        <<: *date
+        <<: *common
+
+    show:
+      <<: *common
+
+      for_proceeding: "Pre súdne konanie"
+      so_far: "zatiaľ "
+      register: "evidujeme"
+      and: "a"
+
+      timeline:
+        past: "Minulosť"
+        present: "Súčasnosť"
+
+        pleading: "Podanie na súd"
+        unknown_date: "neznámy dátum"
+
+      resource_note:
+        description: "Informácie o udalostiach súdneho konania boli získané z dokumentov zverejnených na portáli %{ministry}."
+        ministry: "Ministerstva spravodlivosti Slovenskej republiky"

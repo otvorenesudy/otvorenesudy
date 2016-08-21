@@ -1,6 +1,6 @@
 module ProceedingsHelper
   def proceeding_title(proceeding)
-    title(*proceeding_identifiers(proceeding))
+    title(*proceeding_identifiers(proceeding) << t('proceedings.common.proceeding'))
   end
 
   def proceeding_headline(proceeding, options = {})
@@ -13,10 +13,6 @@ module ProceedingsHelper
 
   def proceeding_date(date, options = {}, &block)
     time_tag date.to_date, { format: :long }.merge(options), &block
-  end
-
-  def link_to_proceeding(proceeding, body, options = {})
-    link_to body, proceeding_path(proceeding), options
   end
 
   private

@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |hearing| %>
   <li class="search-result-item">
     <h4 class="search-result-title">
-      <%= link_to_hearing hearing, hearing_headline(hearing, limit: 67) %>
+      <%= link_to hearing_headline(hearing, limit: 67), hearing %>
       <small>
         <%= t '.hearing' %> <%= t hearing.historical ? '.past' : '.future' %>
         <%= hearing.date ? hearing_date(hearing.date) : t('.unknown') %>
@@ -11,11 +11,11 @@
     <div class="search-result-content">
       <% if hearing.unprocessed? %>
         <div class="text-danger">
-          <%= locale_specific_spaces t '.unprocessed' %>
+          <%= s t '.unprocessed' %>
         </div>
-      <% elsif hearing.has_future_date? %>
-        <div class="text-danger">
-          <%= locale_specific_spaces t '.future_date' %>
+      <% elsif !hearing.has_future_date? %>
+        <div class="text-warning">
+          <%= s t '.future_date' %>
         </div>
       <% end %>
 

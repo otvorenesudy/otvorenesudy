@@ -44,6 +44,7 @@ OpenCourts::Application.routes.draw do
       get :document
     end
 
+    # TODO rm? this seems no longer used
     resources :decree_pages, as: :pages, path: :pages, only: [] do
       collection do
         get :search

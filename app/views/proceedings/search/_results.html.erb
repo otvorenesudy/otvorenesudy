@@ -20,7 +20,7 @@
             <%= t '.probably_open.from' %> <%= proceeding_date proceeding.duration_events.first.date %>
           <% else %>
             <% if proceeding.duration_events.first.date.to_date == proceeding.duration_events.last.date.to_date %>
-              <%= t '.probably_closed.on' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
+              <%= t '.probably_closed.point' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
             <% else %>
               <%= t '.probably_closed.from' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
               <%= t '.probably_closed.until' %> <%= proceeding_date proceeding.duration_events.last.date, format: :normal %>
