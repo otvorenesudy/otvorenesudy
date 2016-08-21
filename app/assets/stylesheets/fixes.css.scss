@@ -96,16 +96,25 @@ li p:last-of-type {
 // add visual styles for plain tooltips
 
 a[href="#"][data-toggle="tooltip"] {
-  border-bottom: 1px dotted $gray-light;
   color: $body-color;
   cursor: help;
+  position: relative;
   text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    border-bottom: 1px dotted $gray-light;
+    width: 100%;
+    bottom: 12.5%;
+    left: 0;
+  }
 }
 
 // remove underline from undecorated tooltips
 
 .text-undecorated[data-toggle="tooltip"] {
-  border-bottom: none !important;
+  &::after {
+    display: none;
+  }
 }
-
-
