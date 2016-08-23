@@ -1,5 +1,0 @@
-window.searchDecreePages = (decree_id, q, callback) ->
-  path = "/decrees/#{decree_id}/pages/search"
-
-  $.get path, q: q, (data) ->
-    callback?(data.results)

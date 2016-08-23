@@ -1,4 +1,4 @@
-#= require lib/lib
+#= require_tree ./lib
 
 $(document).ready ->
   class window.Search extends Module
@@ -46,9 +46,6 @@ $(document).ready ->
       $(@results).find('a').click (e) -> e.preventDefault()
       $(@results).find('a').addClass('disabled')
 
-    focusSearchView: ->
-      scrollTo($(@element).position().top)
-
     registerCollapse: ->
       model = @model
 
@@ -56,7 +53,6 @@ $(document).ready ->
         name      = $(this).closest('.facet').attr('data-id')
         collapsed = $($(this).attr('data-target')).hasClass('in')
 
-        # TODO: use config or anything else for the path
         $.get '/search/collapse', { model: model, name: name, collapsed: collapsed }
 
   class window.Search.Suggest extends Module

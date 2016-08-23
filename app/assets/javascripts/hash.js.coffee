@@ -6,4 +6,3 @@ $(document).ready ->
 
   $("html, body").on "hash:change", (e, hash) ->
     window.location.hash = "!/#{hash.replace('#', '')}"
-
