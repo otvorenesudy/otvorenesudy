@@ -3,7 +3,7 @@
     <h4 class="search-result-title">
       <%= link_to selection_procedure_headline(procedure, limit: 65), selection_path(procedure) %>
       <small>
-        <%= t '.procedure' %> <%= t procedure.closed_at.future? ? '.future' : '.past' %>
+        <%= t '.selection_procedure' %> <%= t procedure.closed_at.future? ? '.future' : '.past' %>
         <%= time_tag procedure.closed_at.to_date, format: :long %>
       </small>
     </h4>

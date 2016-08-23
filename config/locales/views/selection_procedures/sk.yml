@@ -1,7 +1,7 @@
 sk:
   selection_procedures:
     common: &common
-      procedure: "Výberové konanie"
+      selection_procedure: "Výberové konanie"
 
       future: "sa uzavrie dňa"
       past: "sa uzavrelo dňa"
@@ -18,3 +18,38 @@ sk:
 
     show:
       <<: *common
+
+      state: "Stav"
+      position: "Pozícia"
+      organization: "Organizácia"
+      workplace: "Miesto výkonu práce"
+      place: "Miesto konania"
+      date: "Termín konania"
+      resource: "Zdroj"
+
+      document: "pôvodný dokument"
+      document_note: "odkaz už nemusí byť platný"
+
+      attached_documents: "Priložené dokumenty"
+      declaration: "vyhlásenie konania"
+      report: "zápisnica konania"
+
+      commissioners: "Výberová komisia"
+      candidates: "Kandidáti"
+
+      name: "Meno"
+      written_part: "Písomná časť"
+      oral_part: "Ústna časť"
+      result: "Výsledok"
+      documents: "Dokumenty"
+      statement: "vyhlásenie"
+      resume: "životopis"
+      motivation_letter: "motivačný list"
+
+      resource_note:
+        description: "Informácie o výberovom konaní boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+        document: "pôvodného dokumentu"
+
+      link_note:
+        description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
+        document: "pôvodný dokument"
