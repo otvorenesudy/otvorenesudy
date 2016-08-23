@@ -39,7 +39,7 @@
       </ol>
 
       <%= t('.register').upcase_first %> <%= translate_with_count(proceeding.hearings.size, :hearing) %>
-      <%= t '.and' %>&nbsp;<%= translate_with_count(proceeding.decrees.size, :decree) %>.
+      <%= two_words_connector %>&nbsp;<%= translate_with_count(proceeding.decrees.size, :decree) %>.
       <br/>
       <% if proceeding.courts.any? %>
         <%= translate_without_count(proceeding.courts.size, :court).upcase_first %> &ndash; <%= links_to_courts proceeding.courts %>

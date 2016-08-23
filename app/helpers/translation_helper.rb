@@ -41,4 +41,8 @@ module TranslationHelper
   def translate_without_count(count, key)
     translate key, count: count
   end
+
+  def two_words_connector
+    translate('support.array.two_words_connector').strip
+  end
 end

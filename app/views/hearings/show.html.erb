@@ -27,21 +27,18 @@
         <% end %>
       </p>
     <% end %>
-
     <% if @hearing.form %>
       <p><%= t '.form' %> &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
     <% end %>
     <% if @hearing.subject %>
       <p><%= t '.subject' %> &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
     <% end %>
-
     <% if @hearing.commencement_date? %>
       <p><%= t '.commencement_date' %> &ndash; <%= hearing_date @hearing.commencement_date %></p>
     <% end %>
     <% unless @hearing.selfjudge.nil? %>
       <p><%= t '.single_judge' %> &ndash; <%= t('polar')[@hearing.selfjudge] %></p>
     <% end %>
-
     <% if @hearing.note %>
       <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
     <% end %>
