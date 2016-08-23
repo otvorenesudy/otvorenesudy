@@ -21,6 +21,10 @@
   }
 }
 
+.list-separated > li + li {
+  border-top: 1px solid $gray-lighter;
+}
+
 @include text-emphasis-variant('.text-default', $body-color);
 
 .text-small {

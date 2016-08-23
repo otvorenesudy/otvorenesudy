@@ -1,6 +1,6 @@
-<ol class="list-unstyled">
+<ol class="list-separated list-unstyled">
   <% subscriptions.each do |subscription| %>
-    <li class="m-b-2">
+    <li class="m-b-1 p-t-1">
       <h4>
         <%= t '.title' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
       </h4>
