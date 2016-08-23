@@ -6,8 +6,17 @@ $(document).ready ->
     $('a[href="#"]').click (event) ->
       event.preventDefault()
 
-    $('a[data-toggle="popover"]').popover(container: 'body')
-    $('a[data-toggle="tooltip"]').tooltip(container: 'body')
+    options = {
+      container: 'body',
+      constraints: [{
+        to: 'scrollParent',
+        attachment: 'together',
+        pin: true
+      }]
+    }
+
+    $('a[data-toggle="popover"]').popover(options)
+    $('a[data-toggle="tooltip"]').tooltip(options)
 
   # TODO rm
 

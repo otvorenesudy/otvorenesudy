@@ -21,8 +21,10 @@
   }
 }
 
+@include text-emphasis-variant('.text-default', $body-color);
+
 .text-small {
-  font-size: 80%;
+  font-size: $small-font-size;
 }
 
 .text-undecorated {

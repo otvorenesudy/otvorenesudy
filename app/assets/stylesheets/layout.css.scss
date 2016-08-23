@@ -1,5 +1,5 @@
 body {
-  font-weight: 300 !important;
+  font-weight: $font-weight-base !important;
 
   .container > .alerts {
     .alert:first-of-type {

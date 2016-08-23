@@ -17,9 +17,11 @@ $link-hover-color: $link-color;
 
 $font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-$headings-font-weight: 300;
+$font-weight-base: 300;
 
-$btn-font-weight: 300;
+$headings-font-weight: $font-weight-base;
+
+$btn-font-weight: $font-weight-base;
 
 $btn-secondary-color:  #fff;
 $btn-secondary-bg:     $gray-light;
@@ -77,12 +79,17 @@ $card-spacer-x:     1rem;
 $card-spacer-y:     .5rem;
 $card-border-color: $gray-light;
 
+$tooltip-max-width: 250px;
+$tooltip-color:     #fff;
 $tooltip-bg:        $gray-dark;
 $tooltip-opacity:   1;
 $tooltip-padding-y: .25rem;
-$tooltip-padding-x: 1rem;
-$tooltip-margin:    3px;
+$tooltip-padding-x: .5rem;
+$tooltip-margin:    0;
 
-$tag-font-weight: 300;
+$tooltip-arrow-width: 4px;
+$tooltip-arrow-color: transparent;
+
+$tag-font-weight: $font-weight-base;
 
 $alert-padding: 16px;

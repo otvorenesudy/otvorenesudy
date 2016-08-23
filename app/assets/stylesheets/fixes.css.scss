@@ -93,6 +93,13 @@ li p:last-of-type {
   margin-right: $btn-toolbar-margin;
 }
 
+// fix font size and weight on tooltips
+
+.tooltip {
+  font-size: $small-font-size;
+  font-weight: $font-weight-base;
+}
+
 // add visual styles for plain tooltips
 
 a[href="#"][data-toggle="tooltip"] {
