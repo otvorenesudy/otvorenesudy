@@ -20,7 +20,7 @@ module HearingsHelper
   def hearing_date(date, options = {}, &block)
     date = date.to_date if date.respond_to?(:hour) && date.hour.zero?
 
-    time_tag date.to_date, { format: :long }.merge(options), &block
+    time_tag date, { format: :long }.merge(options), &block
   end
 
   private
