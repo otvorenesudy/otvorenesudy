@@ -47,7 +47,6 @@ sk:
 
     search:
       results:
-        and: "a"
         at_court: "na súde"
         register:
           zero: "zatiaľ neevidujeme"

@@ -23,7 +23,6 @@ sk:
 
     search:
       results:
-        and: "a"
         register: "evidujeme"
 
         <<: *common
@@ -34,7 +33,6 @@ sk:
       for_proceeding: "Pre súdne konanie"
       so_far: "zatiaľ "
       register: "evidujeme"
-      and: "a"
 
       timeline:
         past: "Minulosť"

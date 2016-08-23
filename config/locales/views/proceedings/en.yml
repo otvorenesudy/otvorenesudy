@@ -23,7 +23,6 @@ en:
 
     search:
       results:
-        and: "and"
         register: "registering"
 
         <<: *common
@@ -34,7 +33,6 @@ en:
       for_proceeding: "For the proceeding we"
       so_far: "so far "
       register: "register"
-      and: "and"
 
       timeline:
         past: "Past"

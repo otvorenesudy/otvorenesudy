@@ -18,7 +18,6 @@ sk:
 
     search:
       results:
-        and: "a"
         is: "je"
         at_court_work: "Na súde pracuje"
         of_court: "súdu"

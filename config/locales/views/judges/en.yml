@@ -47,7 +47,6 @@ en:
 
     search:
       results:
-        and: "and"
         at_court: "at the court"
         register:
           zero: "in the meantime we register"
