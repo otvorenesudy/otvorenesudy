@@ -40,7 +40,7 @@ sk:
       name: "Meno"
       written_part: "Písomná časť"
       oral_part: "Ústna časť"
-      result: "Výsledok"
+      rank: "Poradie"
       documents: "Dokumenty"
       statement: "vyhlásenie"
       resume: "životopis"

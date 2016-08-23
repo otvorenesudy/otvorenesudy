@@ -67,7 +67,7 @@
         <%= sortable_th_tag t('.name'), class: 'th-6', sorter: 'text' %>
         <%= sortable_th_tag t('.written_part'), class: 'th-2 text-xs-right', sorter: 'digit' %>
         <%= sortable_th_tag t('.oral_part'), class: 'th-2 text-xs-right', sorter: 'digit' %>
-        <%= sortable_th_tag t('.result'), class: 'th-2 text-xs-right', sorter: 'digit' %>
+        <%= sortable_th_tag t('.rank'), class: 'th-2 text-xs-right', sorter: 'digit' %>
         <%= sortable_th_tag t('.documents'), class: 'th-1', sorter: false %>
       </tr>
     </thead>
@@ -84,12 +84,7 @@
             <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: 'right' if candidate.oral_score %>
           </td>
           <td class="text-xs-right" data-value="<%= candidate.rank %>">
-            <% if candidate.rank %>
-              <%= candidate.rank %>.
-            <% end %>
-            <% if candidate.score %>
-              <span class="text-muted">(<%= candidate.score %>)</span>
-            <% end %>
+            <%= tooltip_tag "#{candidate.rank}.", candidate.score, placement: 'right' if candidate.rank %>
           </td>
           <td>
             <%= link_to t('.statement'), declaration_selection_candidate_path(@procedure, candidate) %>

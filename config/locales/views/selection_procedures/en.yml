@@ -40,7 +40,7 @@ en:
       name: "Name"
       written_part: "Written part"
       oral_part: "Oral part"
-      result: "Result"
+      rank: "Rank"
       documents: "Documents"
       resume: "resume"
       motivation_letter: "motivation letter"
