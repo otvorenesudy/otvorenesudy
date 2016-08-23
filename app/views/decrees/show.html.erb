@@ -13,7 +13,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-7">
     <% if @court %>
       <p>
         <%= t '.court' %> <%= link_to_court @court %>
@@ -51,7 +51,7 @@
     <div class="hidden-lg-up m-b-3"></div>
   </div>
 
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <div class="card">
       <div class="card-block">
         <ul class="list-unstyled m-b-0">
@@ -91,7 +91,7 @@
   <ul class="list-unstyled m-b-0">
     <% @legislations.each do |legislation| %>
       <li>
-        <%= link_to legislation.value('%t %u/%y %n § %p %d %s %l'), legislation.external_url %>
+        <%= link_to legislation.value('%t %u/%y %n § %p %d %s %l'), legislation.external_url, class: 'text-default' %>
       </li>
     <% end %>
   </ul>

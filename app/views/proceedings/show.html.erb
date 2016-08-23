@@ -29,7 +29,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-7">
     <p>
       <%= t '.for_proceeding' %> <%= t '.so_far' unless @proceeding.probably_closed? %><%= t '.register' %>
       <%= translate_with_count @hearings.size, :hearing %> <%= t '.and' %>
@@ -51,7 +51,7 @@
     <% end %>
   </div>
 
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <div class="card">
       <div class="card-block">
         <ul class="list-unstyled m-b-0">
