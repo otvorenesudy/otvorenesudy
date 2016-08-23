@@ -13,7 +13,7 @@
         <div class="text-danger">
           <%= s t '.unprocessed' %>
         </div>
-      <% elsif !hearing.has_future_date? %>
+      <% elsif hearing.has_future_date? %>
         <div class="text-warning">
           <%= s t '.future_date' %>
         </div>
