@@ -1,7 +1,4 @@
-# TODO rm?
-
 $(document).ready ->
-
   $.extend($.tablesorter.characterEquivalents,
     'a': 'áä'
     'A': 'ÁÄ'
@@ -34,33 +31,25 @@ $(document).ready ->
   )
 
   $.extend $.tablesorter.themes.bootstrap,
-      table      : 'table table-striped'
-      header     : ''
-      footerRow  : ''
-      footerCells: ''
-      icons      : ''
-      sortNone   : 'icon-sort'
-      sortAsc    : 'icon-sort-up'
-      sortDesc   : 'icon-sort-down'
-      active     : ''
-      hover      : ''
-      filterRow  : ''
-      even       : ''
-      odd        : ''
+    table:       'table'
+    header:      ''
+    footerRow:   ''
+    footerCells: ''
+    icons:       ''
+    sortNone:    ''
+    sortAsc:     'ion-ios-arrow-thin-up'
+    sortDesc:    'ion-ios-arrow-thin-down'
+    active:      ''
+    hover:       ''
+    filterRow:   ''
+    even:        ''
+    odd:         ''
 
   $('table[data-sortable="true"]').tablesorter
     theme:         'bootstrap'
     tableClass:    'table'
-    cssAsc:        'table-header-asc'
-    cssDesc:       'table-header-desc'
-    cssChildRow:   'table-children'
-    cssHeader:     'table-header'
-    cssHeaderRow:  'table-headers'
-    cssIcon:       'table-icon'
-    cssInfoBlock:  'table-info'
-    cssProcessing: 'table-processing'
 
-    headerTemplate: '{content} <span>{icon}</span>'
+    headerTemplate: '{content}{icon}'
     widgets: ['uitheme']
 
     sortLocaleCompare: true

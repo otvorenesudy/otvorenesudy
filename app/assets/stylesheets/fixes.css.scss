@@ -32,6 +32,21 @@ li p:last-of-type {
   margin-bottom: 0;
 }
 
+// remove borders from striped tables
+
+.table-striped {
+  thead th, thead td, th, td {
+    border: none;
+  }
+}
+
+// fix background color and font weight of table headers
+
+thead th {
+  background: $table-bg;
+  font-weight: $font-weight-base;
+}
+
 // remove excessive bottom margin on button group labels
 
 .form-group .btn-group label {

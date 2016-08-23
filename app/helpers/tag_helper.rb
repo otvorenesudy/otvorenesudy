@@ -97,17 +97,17 @@ module TagHelper
   #   link_to body, '#', options.merge(title: title)
   # end
 
-  def sortable_table_tag(options = {}, &block)
-    content_tag :table, options.merge(:'data-sortable' => true), &block
-  end
-
-  def sortable_th_tag(title = nil, options = {}, &block)
-    options.merge! :'data-sorter' => options.delete(:sorter) || :text
-
-    return content_tag :th, options, &block if block_given?
-
-    content_tag :th, title, options
-  end
+  # def sortable_table_tag(options = {}, &block)
+  #   content_tag :table, options.merge(:'data-sortable' => true), &block
+  # end
+  #
+  # def sortable_th_tag(title = nil, options = {}, &block)
+  #   options.merge! :'data-sorter' => options.delete(:sorter) || :text
+  #
+  #   return content_tag :th, options, &block if block_given?
+  #
+  #   content_tag :th, title, options
+  # end
 
   def link_to_with_count(body, url, count, options = {})
     count = content_tag :span, "&nbsp;(#{number_with_delimiter count})".html_safe, class: :muted
