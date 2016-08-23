@@ -1,12 +1,12 @@
 <% provide :title, proceeding_title(@proceeding) %>
 
 <h1 class="m-t-3 m-b-1">
-  <%= proceeding_headline @proceeding, limit: 45, tooltip: true %>
+  <%= proceeding_headline @proceeding, limit: 45, tooltip: true %><span class="hidden-lg-up">,</span>
   <% if @proceeding.legislation_area_and_subarea.any? %>
-    <br/>
-    <%= proceeding_subject @proceeding, limit: 45, tooltip: true %>
+    <br class="hidden-md-down" /><%= proceeding_subject @proceeding, limit: 45, tooltip: true %>
   <% end %>
-  <small class="d-block text-muted">
+  <br class="hidden-md-down" />
+  <small class="text-muted">
     <%= t '.proceeding' %>
     <% if @proceeding.single_hearing? %>
       <%= t @proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>

@@ -1,4 +1,4 @@
-// disable weird outline in Firefox
+// disable outlines
 
 * {
   outline: none !important;
@@ -15,6 +15,14 @@
 h1, h2, h3, h4, h5, h6 {
   small {
     font-weight: $headings-font-weight;
+  }
+}
+
+// add some top margin on small block headings
+
+h1, h2, h3, h4, h5, h6 {
+  small.d-block {
+    margin-top: .4 * $spacer-y;
   }
 }
 
@@ -47,7 +55,7 @@ li p:last-of-type {
   display: none;
 }
 
-// fix font weight on drop-down menu items
+// fix font weight and padding on drop-down menu items
 
 .dropdown-item {
   font-weight: $btn-font-weight;

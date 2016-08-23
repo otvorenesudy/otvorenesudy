@@ -7,7 +7,7 @@ body {
     }
 
     .alert:last-of-type {
-      margin-bottom: 0;
+      @extend .m-b-0;
     }
   }
 

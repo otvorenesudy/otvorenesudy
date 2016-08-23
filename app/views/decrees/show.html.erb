@@ -1,10 +1,9 @@
 <% provide :title, decree_title(@decree) %>
 
 <h1 class="m-t-3 m-b-1">
-  <%= decree_headline @decree, limit: 45, tooltip: true %>
+  <%= decree_headline @decree, limit: 45, tooltip: true %><span class="hidden-lg-up">,</span>
   <% if @decree.natures.any? %>
-    <br/>
-    <%= decree_natures @decree, limit: 45, tooltip: true %>
+    <br class="hidden-md-down" /><%= decree_natures @decree, limit: 45, tooltip: true %>
   <% end %>
   <small class="d-block text-muted">
     <%= t '.decree' %> <%= t '.past' %>
