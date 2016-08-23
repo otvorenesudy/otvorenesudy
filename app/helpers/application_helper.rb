@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def organization_url(path = nil)
-    File.join('https://github.com', Configuration.github.organization, path.to_s).sub(/\/\z/, '')
+    "https://github.com/#{Configuration.github.organization}/#{path}".sub(/\/\z/, '')
   end
 
   def repository_url(path = nil)

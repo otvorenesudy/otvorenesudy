@@ -4,7 +4,7 @@ module HearingsHelper
   end
 
   def hearing_headline(hearing, options = {})
-    join_and_truncate hearing_identifiers(hearing), { separator: ', ' }.merge(options)
+    join_and_truncate hearing_identifiers(hearing), options.reverse_merge(separator: ', ')
   end
 
   def hearing_type(type)

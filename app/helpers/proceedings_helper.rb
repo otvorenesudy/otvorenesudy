@@ -4,11 +4,11 @@ module ProceedingsHelper
   end
 
   def proceeding_headline(proceeding, options = {})
-    join_and_truncate proceeding_identifiers(proceeding), { separator: ' &ndash; ' }.merge(options)
+    join_and_truncate proceeding_identifiers(proceeding), options.reverse_merge(separator: ' &ndash; ')
   end
 
   def proceeding_subject(proceeding, options = {})
-    join_and_truncate proceeding.legislation_area_and_subarea.map(&:value), { separator: ' &ndash; ' }.merge(options)
+    join_and_truncate proceeding.legislation_area_and_subarea.map(&:value), options.reverse_merge(separator: ' &ndash; ')
   end
 
   def proceeding_date(date, options = {}, &block)

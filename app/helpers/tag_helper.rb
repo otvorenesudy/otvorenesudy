@@ -43,19 +43,19 @@ module TagHelper
     link_to icon_tag(type, label: body, join: options.delete(:join), wrap: options.delete(:wrap)), url, options
   end
 
-  def icon_link_to_collapse(type, body, options = {})
-    options.merge! data toggle: :collapse, collapse: options.delete(:action), target: options.delete(:target)
-
-    icon_link_to type, body, '#', options
-  end
-
-  def icon_mail_to(type, body, url = nil, options = {})
-    options[:class] = Array.wrap(options[:class]) << :icon
-
-    url = body if url.blank?
-
-    mail_to url, icon_tag(type, label: body, join: options.delete(:join)), options
-  end
+  # def icon_link_to_collapse(type, body, options = {})
+  #   options.merge! data toggle: :collapse, collapse: options.delete(:action), target: options.delete(:target)
+  #
+  #   icon_link_to type, body, '#', options
+  # end
+  #
+  # def icon_mail_to(type, body, url = nil, options = {})
+  #   options[:class] = Array.wrap(options[:class]) << :icon
+  #
+  #   url = body if url.blank?
+  #
+  #   mail_to url, icon_tag(type, label: body, join: options.delete(:join)), options
+  # end
 
   # def navbar_logo_tag(title, options = {})
   #   classes = [:capital]
@@ -139,9 +139,9 @@ module TagHelper
     icon_link_to icon == true ? :'external-link' : icon, body, url, options.merge(target: :_blank, join: :append)
   end
 
-  private
-
-  def data(options = {})
-    options.inject({}) { |o, (k, v)| o["data-#{k}"] = v; o }
-  end
+  # private
+  #
+  # def data(options = {})
+  #   options.inject({}) { |o, (k, v)| o["data-#{k}"] = v; o }
+  # end
 end

@@ -20,7 +20,7 @@ module TextHelper
         index   = result.rindex(separator) || 0
         title   = packed[index..-1].gsub(/\A\s*#{separator.strip}\s*/, '')
         title   = html_escape @entities.decode(title)
-        result += tooltip_tag omission.html_safe, title, { placement: 'right' }.merge(options)
+        result += tooltip_tag omission.html_safe, title, options.reverse_merge(placement: 'right')
       else
         result += omission
       end
