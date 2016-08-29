@@ -11,11 +11,8 @@
 
       <% if subscription.query.value.any? %>
         <ul class="list-unstyled m-y-1">
-          <% subscription.query.value.each do |name, values| %>
-            <li>
-              <%= t "#{model.facets[name].key}.title" %> &ndash;
-              <%= Array.wrap(values).join ', ' %>
-            </li>
+          <% subscription_query(subscription).each do |facet, values| %>
+            <li><%= facet %> &ndash; <%= values %></li>
           <% end %>
         </ul>
       <% else %>
