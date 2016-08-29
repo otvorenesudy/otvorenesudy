@@ -1,1 +1,69 @@
-// TODO
+@import 'variables';
+
+@import 'bootstrap/variables';
+
+@mixin border-radius($value...) {}
+@mixin box-shadow($value...) {}
+@mixin tab-focus($value...) {}
+@mixin transition($value...) {}
+
+@import 'bootstrap/mixins/breakpoints';
+@import 'bootstrap/mixins/hover';
+@import 'bootstrap/mixins/size';
+@import 'bootstrap/mixins/text-emphasis';
+@import 'bootstrap/mixins/text-hide';
+@import 'bootstrap/mixins/text-truncate';
+
+@import 'bootstrap/mixins/lists';
+
+@import 'bootstrap/mixins/clearfix';
+@import 'bootstrap/mixins/grid-framework';
+@import 'bootstrap/mixins/grid';
+
+@import 'bootstrap/normalize';
+@import 'bootstrap/print';
+
+@import 'bootstrap/reboot';
+@import 'bootstrap/type';
+@import 'bootstrap/grid';
+
+@import 'bootstrap/utilities/display';
+@import 'bootstrap/utilities/spacing';
+@import 'bootstrap/utilities/text';
+
+* {
+  font-weight: $font-weight-base !important;
+  text-decoration: none !important;
+}
+
+li {
+  margin-left: 0 !important;
+}
+
+.search-result-list {
+  @include list-unstyled;
+}
+
+.search-result-item {
+  margin: 1.5 * $spacer-y 0 !important;
+}
+
+.search-result-title {
+  margin: 0 0 .4 * $spacer-y 0;
+
+  small {
+    display: block;
+    margin-top: .125 * $spacer-y;
+    line-height: $line-height-base;
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+}
+
+.search-result-content {
+  margin: 0 !important;
+}
+
+.text-small {
+  font-size: $small-font-size;
+}

@@ -1,0 +1,32 @@
+<h1>
+  <%= t ".new_#{@type.to_s.pluralize}" %>
+</h1>
+
+<% if @subscription.query.value.any? %>
+  <ul class="list-unstyled">
+    <% subscription_query(@subscription).each do |facet, values| %>
+      <li><%= facet %> &ndash; <%= values %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>
+    <%= t '.no_restrictions' %>
+  </p>
+<% end %>
+
+<%= render "subscriptions/mailer/#{@type.to_s.pluralize}" %>
+
+<p>
+  <%= link_to_search @type, "#{t '.show_more', resources: translate_without_count(:other, @type)}", params: @params %>
+  <br/>
+  <%= link_to t('.manage'), subscriptions_users_url %>
+</p>
+<p class="text-small text-muted">
+  <%= s t '.supporters' %>
+</p>
+<p class="text-small text-muted">
+  <%= s t '.details' %>
+</p>
+<p>
+  <%= link_to t('.donate'), donation_url, class: 'h2 text-primary' %>
+</p>

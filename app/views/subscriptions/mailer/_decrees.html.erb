@@ -1,0 +1,33 @@
+<%= search_list_tag @results, offset: 0 do |decree| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to decree_url(decree) do %>
+        <%= decree_headline decree, limit: 40 %>
+        <% if decree.natures.any? %>
+          <br/>
+          <%= decree_natures decree, limit: 40 %>
+        <% end %>
+      <% end %>
+      <small>
+        <%= t 'decrees.search.results.decree' %> <%= t 'decrees.search.results.past' %>
+        <%= decree.date ? decree_date(decree.date) : t('decrees.search.results.unknown') %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <% if decree.court %>
+        <%= t 'decrees.search.results.court' %> &ndash; <%= link_to_court decree.court %>
+        <br/>
+      <% end %>
+      <% if decree.judges.any? %>
+        <% if decree.exact_judges.any? %>
+          <%= translate_without_count(decree.exact_judges.size, :judge).upcase_first %>
+          &ndash; <%= links_to_judges decree.exact_judges %>
+        <% else %>
+          <%= translate_without_count(decree.inexact_judgements.map(&:judge_name_unprocessed).uniq.size, :judge).upcase_first %>
+          &ndash; <%= judge_processed_names decree.inexact_judgements %>
+        <% end %>
+      <% end %>
+    </div>
+  </li>
+<% end %>
