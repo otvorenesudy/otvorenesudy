@@ -21,16 +21,6 @@
       unauthenticated: "You need to sign in before continuing."
       unconfirmed: "You have to confirm your registration before continuing."
 
-    mailer:
-      confirmation_instructions:
-        subject: "[Open Courts] Confirmation instructions"
-
-      reset_password_instructions:
-        subject: "[Open Courts] Reset password instructions"
-
-      unlock_instructions:
-        subject: "[Open Courts] Unlock instructions"
-
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because %{reason}."
       success: "Successfully authenticated from %{kind} account."
@@ -96,15 +86,3 @@
         forgotten_password: "Forgot password?"
         sign_in: "Sign in"
         sign_up: "Sign up"
-
-  errors:
-    messages:
-      already_confirmed: "was already confirmed, please try signing in"
-      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      expired: "has expired, please request a new one"
-      not_found: "not found"
-      not_locked: "was not locked"
-      not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        few: "%{count} errors prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"

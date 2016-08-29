@@ -1,0 +1,19 @@
+sk:
+  subscriptions:
+    mailer:
+      results:
+        subject:
+          hearings: "[Otvorené Súdy] Nové súdne pojednávania"
+          decrees: "[Otvorené Súdy] Nové súdne rozhodnutia"
+
+        new_hearings: "Nové súdne pojednávania"
+        new_decrees: "Nové súdne rozhodnutia"
+
+        no_restrictions: "Žiadne obmedzenia výsledkov vyhľadávania"
+
+        show_more: "Zobraziť daľšie %{resources}"
+        manage: "Spravovať odoberanie vyhľadávania"
+
+        supporters: "Projekt Otvorené Súdy podporili Transparency International v Berlíne a projekt Reštart Centra pre filantropiu."
+        details: "Úsilie vyvoriť portál, ktorý by zhŕňal čo najviac informácií o súdoch a sudcoch je finančne náročné. Ak sa Vám projekt páči, prosím prispejte aj Vy na jeho vývoj a sprístupnenie ďalších dát."
+        donate: "Podporte Otvorené Súdy"
