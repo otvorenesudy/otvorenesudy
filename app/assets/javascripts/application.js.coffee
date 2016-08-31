@@ -15,8 +15,8 @@
 #= require_tree ./lib
 #
 #= require analytics
-#= require hash
 #= require search
+#= require tabs
 #= require tables
 #
 #= require judges
