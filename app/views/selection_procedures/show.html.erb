@@ -61,14 +61,14 @@
 <% if @candidates.any? %>
   <h2 class="m-t-3"><%= t '.candidates' %></h2>
 
-  <%= sortable_table_tag class: 'table table-striped' do %>
+  <%= table_tag class: 'table table-striped' do %>
     <thead>
       <tr>
-        <%= sortable_th_tag t('.name'), class: 'th-6', sorter: 'text' %>
-        <%= sortable_th_tag t('.written_part'), class: 'th-2 text-xs-right', sorter: 'digit' %>
-        <%= sortable_th_tag t('.oral_part'), class: 'th-2 text-xs-right', sorter: 'digit' %>
-        <%= sortable_th_tag t('.rank'), class: 'th-2 text-xs-right', sorter: 'digit' %>
-        <%= sortable_th_tag t('.documents'), class: 'th-1', sorter: false %>
+        <%= table_header_tag t('.name'), class: 'th-6', sorter: 'text' %>
+        <%= table_header_tag t('.written_part'), class: 'th-2 text-xs-right', sorter: 'digit' %>
+        <%= table_header_tag t('.oral_part'), class: 'th-2 text-xs-right', sorter: 'digit' %>
+        <%= table_header_tag t('.rank'), class: 'th-2 text-xs-right', sorter: 'digit' %>
+        <%= table_header_tag t('.documents'), class: 'th-1', sorter: false %>
       </tr>
     </thead>
     <tbody>
