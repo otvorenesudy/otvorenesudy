@@ -88,17 +88,51 @@ thead th {
   }
 }
 
-// add text decoration on hover-focus to navigation items and links
+// remove visible decorations from tab links
 
-.nav-item, .nav-link {
+.nav-tabs .nav-link {
   @include hover-focus {
-    text-decoration: $link-hover-decoration !important;
+    border-color: transparent;
+  }
+
+  &.active {
+    @include hover-focus {
+      text-decoration: none;
+    }
   }
 }
 
-// remove text decoration on hover-focus from pagination items and links
+// fix missing bottom border corners on active tab links
 
-.page-item, .page-link {
+.nav-tabs .nav-link.active {
+  position: relative;
+
+  @include plain-hover-focus {
+    border-bottom-color: $nav-tabs-border-color;
+
+    &::after {
+      content: "";
+      background: #fff;
+      position: absolute;
+      width: 100%;
+      height: $nav-tabs-border-width;
+      bottom: -$nav-tabs-border-width;
+      left: 0;
+    }
+  }
+}
+
+// add text decoration on hover-focus to navigation links
+
+.nav-link {
+  @include hover-focus {
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+// remove text decoration on hover-focus from pagination links
+
+.page-link {
   @include hover-focus {
     text-decoration: none;
   }
