@@ -9,8 +9,8 @@ module FacetsHelper
   def link_to_collapse_facet_results(facet)
     target = "##{facet.id}-list-more"
 
-    link_to(t('search.facets.show_more'), '#', class: 'facet-results-more collapsed', data: { toggle: :collapse, target: target, collapse: :unfold }) +
-    link_to(t('search.facets.show_less'), '#', class: 'facet-results-less collapsed', data: { toggle: :collapse, target: target, collapse: :fold })
+    link_to(t('search.facets.show_more'), '#', class: 'facet-results-more collapsed', data: { toggle: 'collapse', target: target, collapse: 'unfold' }) +
+    link_to(t('search.facets.show_less'), '#', class: 'facet-results-less collapsed', data: { toggle: 'collapse', target: target, collapse: 'fold' })
   end
 
   def link_to_terms_facet(facet, result, options = {})

@@ -1,26 +1,26 @@
 <header>
   <nav class="navbar navbar-light">
     <div class="container clearfix">
-      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler pull-xs-right hidden-lg-up', data: { target: '#navbar-full', toggle: 'collapse' }, name: nil, type: 'button' %>
+      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler pull-xs-right hidden-lg-up', data: { toggle: 'collapse', target: '#navbar-full' }, name: nil, type: 'button' %>
       <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-lg-up' %>
     </div>
     <div id="navbar-full" class="container collapse navbar-toggleable-md">
       <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-md-down' %>
       <div class="navbar-divider"></div>
       <div class="nav navbar-nav">
-        <%= nav_link_to t('.courts'), courts_path %>
-        <%= nav_link_to t('.judges'), judges_path %>
-        <%= nav_link_to t('.hearings'), hearings_path %>
-        <%= nav_link_to t('.decrees'), decrees_path %>
-        <%= nav_link_to t('.proceedings'), proceedings_path %>
-        <%= nav_link_to t('.selections'), selections_path %>
+        <%= bar_link_to t('.courts'), courts_path %>
+        <%= bar_link_to t('.judges'), judges_path %>
+        <%= bar_link_to t('.hearings'), hearings_path %>
+        <%= bar_link_to t('.decrees'), decrees_path %>
+        <%= bar_link_to t('.proceedings'), proceedings_path %>
+        <%= bar_link_to t('.selections'), selections_path %>
       </div>
       <div class="navbar-divider hidden-lg-up"></div>
       <div class="nav navbar-nav pull-lg-right">
         <% if user_signed_in? %>
-          <%= nav_link_to current_user.email, subscriptions_users_path %>
+          <%= bar_link_to current_user.email, subscriptions_users_path %>
         <% else %>
-          <%= nav_link_to t('.sign_in'), new_user_session_path %>
+          <%= bar_link_to t('.sign_in'), new_user_session_path %>
         <% end %>
         <div class="navbar-divider"></div>
         <%= link_to t('.sk'), { l: :sk }, class: 'nav-item nav-link' %>
