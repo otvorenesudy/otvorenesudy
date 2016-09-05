@@ -15,6 +15,11 @@ table[data-sortable="true"] th {
       cursor: pointer;
     }
 
+    a[href="#"][data-toggle="tooltip"] {
+      cursor: pointer !important;
+      color: $link-color;
+    }
+
     i {
       display: none;
     }

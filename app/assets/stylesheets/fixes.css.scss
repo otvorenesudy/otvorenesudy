@@ -57,6 +57,12 @@ thead th {
   font-weight: $font-weight-base;
 }
 
+// remove paragraph bottom margin in table cells
+
+td p:last-of-type {
+  margin-bottom: 0;
+}
+
 // remove excessive bottom margin on button group labels
 
 .form-group .btn-group label {
