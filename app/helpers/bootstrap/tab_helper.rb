@@ -16,7 +16,7 @@ module Bootstrap
       case options
       when Hash
         block = -> { render options[:partial], locals } unless block_given?
-        tab_content_tag options[:partial].split('/').last, class: options[:class], &block
+        tab_content_tag(options[:partial].split('/').last, class: options[:class], &block)
       else
         tab_content_tag(options.split('/').last) { render options, locals }
       end
