@@ -50,11 +50,10 @@ li p:last-of-type {
   }
 }
 
-// fix background color, cursor, and font weight of table headers
+// fix background color and font weight of table headers
 
 thead th {
   background: $table-bg;
-  cursor: default;
   font-weight: $font-weight-base;
 }
 
