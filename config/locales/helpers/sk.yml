@@ -13,6 +13,10 @@ sk:
         format: "%n%u"
         unit: "€"
 
+  range:
+    format:
+      delimiter: " až "
+
   date:
     abbr_day_names:
       - ne

@@ -13,6 +13,10 @@ en:
         format: "%n%u"
         unit: "€"
 
+  range:
+    format:
+      delimiter: " to "
+
   date:
     abbr_day_names:
       - Sun
