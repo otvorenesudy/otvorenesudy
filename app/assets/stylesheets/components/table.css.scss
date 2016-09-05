@@ -34,11 +34,13 @@ table[data-sortable="true"] th {
   }
 }
 
+// TODO consider making this an universal responsive-width-setting utility, see .w-100
+
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
     @for $column from 1 through ($grid-columns) {
       .th-#{$breakpoint}-#{$column} {
-        width: ($column * 100% / $grid-columns);
+        width: ($column * 100% / $grid-columns) !important;
       }
     }
   }
