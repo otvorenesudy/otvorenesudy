@@ -34,12 +34,16 @@ module TranslationHelper
 
   alias :s :locale_specific_spaces
 
+  def ordinalize(number)
+    I18n.locale == :sk ? "#{number}." : number.to_i.ordinalize
+  end
+
   def translate_with_count(count, key, options = {})
-    translate "counts.#{key}", count: count < 5 ? count : number_with_delimiter(count, options)
+    translate("counts.#{key}", count: count < 5 ? count : number_with_delimiter(count, options))
   end
 
   def translate_without_count(count, key)
-    translate key, count: count
+    translate(key, count: count)
   end
 
   def two_words_connector
