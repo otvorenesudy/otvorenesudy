@@ -1,14 +1,14 @@
 module TextHelper
   def join_and_truncate(text, options = {})
-    @entities ||= HTMLEntities.new
+    limit     = options.fetch :limit, 30
+    separator = options.fetch :separator, ', '
+    omission  = options.fetch :omission, '&hellip;'
+    tooltip   = options.fetch :tooltip, false
 
-    limit     = options.delete(:limit)     || 30
-    separator = options.delete(:separator) || ', '
-    omission  = options.delete(:omission)  || '&hellip;'
-    tooltip   = options.delete(:tooltip)
+    entities = HTMLEntities.new
 
     parts  = Array.wrap(text)
-    limit += (parts.size - 1) * @entities.decode(separator).size
+    limit += (parts.size - 1) * entities.decode(separator).size
 
     packed = parts.map { |part| part.squeeze(' ').strip } * separator
     result = truncate packed, length: limit, separator: ' ', omission: ''
@@ -19,10 +19,12 @@ module TextHelper
       if tooltip
         index   = result.rindex(separator) || 0
         title   = packed[index..-1].gsub(/\A\s*#{separator.strip}\s*/, '')
-        title   = html_escape @entities.decode(title)
-        result += tooltip_tag omission.html_safe, title, options.reverse_merge(placement: 'right')
+        title   = html_escape entities.decode(title)
+        tooltip = tooltip_tag (omission || result).html_safe, title, placement: options.fetch(:placement, 'right')
+
+        omission ? result += tooltip : result = tooltip
       else
-        result += omission
+        result += omission if omission
       end
     end
 
@@ -30,13 +32,21 @@ module TextHelper
   end
 
   def strip_and_highlight(text, options = {})
-    separator = options.delete(:separator) || content_tag(:span, ' &hellip; '.html_safe, class: 'text-muted')
-    omission  = options.delete(:omission)  || content_tag(:span, '&hellip;'.html_safe, class: 'text-muted')
+    default = -> (s) { content_tag(:span, s.html_safe, class: 'text-muted') }
+
+    separator = options.fetch(:separator) { default.call ' &hellip; ' }
+    omission  = options.fetch(:omission) { default.call '&hellip;' }
+
+    if omission.is_a? Hash
+      left, right = %i(left right).map { |k| omission.fetch(k) { default.call '&hellip;' }}
+    else
+      left, right = omission, omission
+    end
 
     parts = Array.wrap(text)
 
     packed = parts.map { |part| sanitize part.gsub(/\A[^[:alnum:]<]+|[^[:alnum:]>]+\z/, ''), tags: %w(em) } * separator
-    result = "#{omission}&nbsp;#{locale_specific_spaces packed}&nbsp;#{omission}"
+    result = "#{"#{left}&nbsp;" if left}#{locale_specific_spaces packed}#{"&nbsp;#{right}" if right}"
 
     result.html_safe
   end
