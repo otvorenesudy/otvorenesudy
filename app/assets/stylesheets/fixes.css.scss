@@ -137,6 +137,30 @@ td p:last-of-type {
   }
 }
 
+// fix responsive behavior of tab items as stack
+
+.nav-tabs {
+  @include media-breakpoint-down(sm) {
+    .nav-item {
+      display: block;
+      float: none;
+      margin: 0 !important;
+      border: $nav-tabs-border-width solid $nav-tabs-border-color;
+      border-bottom: none;
+    }
+
+    .nav-link {
+      @include plain-hover-focus {
+        border: none;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
 // add text decoration on hover-focus to navigation links
 
 .nav-link {
