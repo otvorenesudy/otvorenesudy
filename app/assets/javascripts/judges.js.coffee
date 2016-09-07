@@ -1,3 +1,4 @@
+# TODO review
 # TODO translate
 
 class window.JudgeChart

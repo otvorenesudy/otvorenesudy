@@ -1,21 +1,21 @@
-window.clone = (obj) ->
-  if not obj? or typeof obj isnt 'object'
-    return obj
+window.clone = (o) ->
+  if not o? or typeof o isnt 'object'
+    return o
 
-  if obj instanceof Date
-    return new Date(obj.getTime())
+  if o instanceof Date
+    return new Date(o.getTime())
 
-  if obj instanceof RegExp
+  if o instanceof RegExp
     flags = ''
-    flags += 'g' if obj.global?
-    flags += 'i' if obj.ignoreCase?
-    flags += 'm' if obj.multiline?
-    flags += 'y' if obj.sticky?
-    return new RegExp(obj.source, flags)
+    flags += 'g' if o.global?
+    flags += 'i' if o.ignoreCase?
+    flags += 'm' if o.multiline?
+    flags += 'y' if o.sticky?
+    return new RegExp(o.source, flags)
 
-  instance = new obj.constructor()
+  instance = new o.constructor()
 
-  for key of obj
-    instance[key] = clone obj[key]
+  for key of o
+    instance[key] = clone o[key]
 
   return instance
