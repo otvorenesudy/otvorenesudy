@@ -42,7 +42,7 @@ module JudgesHelper
     end
 
     options = options.merge class: Array.wrap(options[:class]) << 'text-muted text-undecorated'
-    options = options.merge placement: options.delete(:placement) || 'left'
+    options = options.merge placement: options.delete(:placement) || 'top'
 
     tooltip_tag icon_tag(icon), t("#{translation}.#{judge.probable_gender}").upcase_first, options
   end
@@ -55,7 +55,7 @@ module JudgesHelper
     judge_position_by_employment judge.employments.at_court(court).first
   end
 
-  def judge_position_by_employment(employment)
+  def judge_position_by_employment(employment, options = {})
     g = employment.judge.probable_gender
 
     if employment.judge_position
@@ -71,14 +71,21 @@ module JudgesHelper
       end
     else
       if employment.judge.probably_higher_court_official?
-        p, t = t('judges.position.higher_court_official.acronym'), t("judges.position.higher_court_official.#{g}")
-        s = t('judges.position.probably') + tooltip_tag(p, t).html_safe
+        if options.fetch :tooltip, true
+          p, t = t('judges.position.higher_court_official.acronym'), t("judges.position.higher_court_official.#{g}")
+          s = "#{t 'judges.position.probably'} #{tooltip_tag p, t.upcase_first, class: ('text-muted' unless employment.active?)}"
+        else
+          s = "#{t 'judges.position.probably'} #{t "judges.position.higher_court_official.#{g}"}"
+        end
       else
         s = "#{t "judges.position.unknown.#{g}"} #{t "judges.position.employee.#{g}"}"
       end
     end
 
-    employment.active == nil ? s.upcase_first : s
+    s = yield s if block_given?
+
+    return s.html_safe if employment.active?
+    content_tag :span, s.html_safe, class: 'text-muted'
   end
 
   def judge_hearings_count_by_employment(employment)
@@ -127,7 +134,6 @@ module JudgesHelper
     value = number_with_delimiter(count)
 
     return value if employment.active?
-
     content_tag :span, value, class: 'text-muted'
   end
 end

@@ -9,7 +9,7 @@
       <ol class="list-unstyled">
         <% judge.employments.each do |employment| %>
           <%= content_tag :li, class: ('text-muted' unless employment.active?) do %>
-            <%= judge_position_by_employment(employment).upcase_first %>
+            <%= judge_position_by_employment(employment) { |s| s.upcase_first } %>
             <%= t '.at_court' %> <%= link_to_court_by_judge_employment employment %>,
             <%= t '.register', count: Hearing.during_employment(employment).exact.size %>
             <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
