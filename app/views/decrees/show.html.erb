@@ -85,19 +85,29 @@
 </div>
 
 <% if @legislations.any? %>
-  <p class="m-t-1 m-b-0"><%= t '.legislations' %>:</p>
+  <p class="m-t-1 m-b-0">
+    <a href="#" data-toggle="collapse" data-target="#legislations"><%= t '.legislations' %></a>
+  </p>
 
-  <ul class="list-unstyled m-b-0">
-    <% @legislations.each do |legislation| %>
-      <li>
-        <%= link_to legislation.value('%t %u/%y %n § %p %d %s %l'), legislation.external_url, class: 'text-default' %>
-      </li>
-    <% end %>
-  </ul>
+  <div id="legislations" class="collapse">
+    <ul class="list-unstyled m-b-0">
+      <% @legislations.each do |legislation| %>
+        <li>
+          <%= link_to legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url, class: 'text-default' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <% if @decree.summary %>
   <p><%= t '.summary' %> &ndash; <%= @decree.summary %></p>
+<% end %>
+
+<% if File.readable? @decree.document_path %>
+  <div class="alert alert-info m-t-1 m-b-0" role="alert">
+    <%= t '.viewer_note.description', document: link_to(t('.pdf_document'), document_decree_path(@decree, l: nil)) %>
+  </div>
 <% end %>
 
 <%= content_tag :iframe, nil, src: "https://docs.google.com/viewer?url=#{document_decree_url @decree, l: nil}&embedded=true", frameborder: '0', class: 'viewer m-t-3' %>

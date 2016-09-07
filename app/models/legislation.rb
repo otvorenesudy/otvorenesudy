@@ -23,29 +23,24 @@ class Legislation < ActiveRecord::Base
   end
 
   def external_url
-    if year && number
-      url =  "http://www.zakonypreludi.sk/zz/#{year}-#{number}#"
-      url << 'p' << paragraph if paragraph
-      url << '-' << section   if section
-      url << '-' << letter    if letter
-    else
-      url = 'http://www.zakonypreludi.sk/main/search.aspx?text=' + value
-    end
+    return 'http://www.zakonypreludi.sk/main/search.aspx?text=' + value unless year || number
 
-    return url
+    url = "http://www.zakonypreludi.sk/zz/#{year}-#{number}"
+    url << '#p' << paragraph if paragraph
+    url << '-' << section    if section
+    url << '-' << letter     if letter
+    url
   end
 
-  # TODO translate
-
-  formatable :value, default: '%t %u/%y %n § %p %s %l', remove: /[\§\/\s]*\z/ do |legislation|
+  formatable :value, default: '%t %u/%y %n %p %s %l', fixes: [-> (v) { v.sub(/[\s,]*\z/, '') }, -> (v) { v.sub(/\Azákona/, 'Zákon') }] do |legislation|
     { '%t' => legislation.type,
-      '%u' => legislation.number || '?',
-      '%y' => legislation.year || '?',
+      '%u' => legislation.number,
+      '%y' => legislation.year,
       '%n' => legislation.name,
-      '%p' => legislation.paragraph,
-      '%d' => legislation.paragraphs.pluck(:description).join(', '),
-      '%s' => legislation.section ? 'Odsek ' + legislation.section : nil,
-      '%l' => legislation.letter ? 'Písmeno ' + legislation.letter : nil }
+      '%p' => ('§ ' << legislation.paragraph if legislation.paragraph),
+      '%d' => legislation.paragraphs.pluck(:description).map(&:downcase_first) * ', ',
+      '%s' => ('ods. ' << legislation.section if legislation.section),
+      '%l' => ('písm. ' << legislation.letter << ')' if legislation.letter) }
   end
 
   before_save :invalidate_caches

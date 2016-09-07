@@ -52,8 +52,6 @@ class Court < ActiveRecord::Base
 
   indicate Court::AverageProceedingDurations
 
-  acts_as_gmappable lat: :latitude, lng: :longitude, process_geocoding: false
-
   max_paginates_per 100
       paginates_per 20
 
@@ -84,7 +82,7 @@ class Court < ActiveRecord::Base
     facet :expenses,       type: :range, ranges: [1000..10_000, 10_000..20_000, 20_000..50_000, 50_000..100_000]
   end
 
-  formatable :address, default: '%s, %z %m', remove: /\,\s*\z/ do |court|
+  formatable :address, default: '%s, %z %m', fixes: -> (v) { v.sub(/,\s*\z/, '') } do |court|
     { '%s' => court.street,
       '%z' => court.municipality.zipcode,
       '%m' => court.municipality.name,

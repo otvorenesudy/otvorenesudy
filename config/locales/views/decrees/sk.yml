@@ -40,6 +40,10 @@ sk:
       legislations: "Predpisy odkazované v rozhodnutí"
       summary: "Sumár"
 
+      viewer_note:
+        description: "Ak sa text rozhodnutia nezobrazuje správne, skúste ho otvoriť ako %{document}"
+        document: "PDF dokument"
+
       resource_note:
         description: "Informácie o súdnom rozhodnutí boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
         document: "pôvodného dokumentu"

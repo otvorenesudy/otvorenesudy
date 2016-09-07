@@ -21,7 +21,7 @@ class Judge < ActiveRecord::Base
   include Judge::Matched
   include Judge::Indicators
 
-  scope :not_active_or_not_listed, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
+  scope :inactive_or_unlisted, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
 
   scope :chair,     joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
@@ -106,7 +106,7 @@ class Judge < ActiveRecord::Base
     facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..5]
   end
 
-  formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|
+  formatable :name, default: '%p %f %m %l %a, %s', fixes: -> (v) { v.sub(/,\s*\z/, '') } do |judge|
     { '%p' => judge.prefix,
       '%f' => judge.first,
       '%m' => judge.middle,
