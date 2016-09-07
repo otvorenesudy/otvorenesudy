@@ -4,7 +4,7 @@ module Resource::ContextSearch
   module ClassMethods
     def context_query
       define_method :context_query do
-        return @context_query if @context_query  
+        return @context_query if @context_query
 
         query   = yield self
         options = self.class.context_options if options.blank?
@@ -12,7 +12,7 @@ module Resource::ContextSearch
         query << " site:(#{options[:whitelist].join ' OR '})"                unless options[:whitelist].blank?
         query << " #{options[:blacklist].map { |e| "-site:#{e}" }.join ' '}" unless options[:blacklist].blank?
 
-        @context_query = query  
+        @context_query = query
       end
 
       define_method :invalidate_context_query do
@@ -23,7 +23,7 @@ module Resource::ContextSearch
     def context_options(options = {})
       @context_options ||= {
         whitelist: %w(sme.sk tyzden.sk webnoviny.sk tvnoviny.sk pravda.sk etrend.sk aktualne.sk),
-        blacklist: %w(http://www.sme.sk/diskusie/ blog.sme.sk)
+        blacklist: %w(sme.sk/diskusie blog.sme.sk otvorenesudy.sme.sk)
       }.merge options
     end
   end
