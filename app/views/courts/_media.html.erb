@@ -1,12 +1,13 @@
-<h2><%= t '.headline' %></h2>
+<h2 class="m-t-2 m-b-0">
+  <%= t '.headline' %>
+</h2>
 
-<% if results.any? %>
-  <div class="alert alert-warning">
-    <%= icon_tag :'warning-sign' %>
+<% if media.any? %>
+  <div class="alert alert-info m-t-2 m-b-0" role="alert">
     <%= t '.clarification' %>
   </div>
 
-  <%= render 'shared/context_search_results', results: results, offset: 0 %>
+  <%= render 'shared/media_results', results: media, offset: 0 %>
 <% else %>
   <%= t '.no_mentions' %>
 <% end %>

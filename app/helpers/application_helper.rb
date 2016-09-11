@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def container?
-    action_name != 'home' && !controller.is_a?(DeviseController)
+    %w(home map).exclude?(action_name) && !controller.is_a?(DeviseController)
   end
 
   def canonical_url

@@ -1,0 +1,17 @@
+.map {
+  @extend .m-b-1;
+
+  width: 100%;
+
+  @each $breakpoint in map-keys($container-max-widths) {
+    @include media-breakpoint-down($breakpoint) {
+      height: map-get($container-max-widths, $breakpoint) / 2;
+    }
+  }
+}
+
+.map-marker {
+  @include reset-text;
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+}

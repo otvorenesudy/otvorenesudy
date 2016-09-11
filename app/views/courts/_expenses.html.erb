@@ -1,0 +1,25 @@
+<p>
+  <%= t '.overall' %> <%= rank_with_order Court::Expenses.rank_with_order(@court), asc: t('.least'), desc: t('.most') %>
+  <%= t '.charged_court_of' %> <%= Court::Expenses.courts(@court.type).count %> <%= t ".#{@court.type.name}_courts" %>.
+</p>
+<p>
+  <% unless @court.expenses_total.zero? %>
+    <a href="#" data-toggle="collapse" data-target="#expenses"><%= t '.fines' %></a>
+  <% else %>
+    <%= t '.fines' %>
+  <% end %>
+  <%= t '.fines_for' %> <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
+  <%= t '.fines_were' %> <%= number_to_currency @court.expenses_total, precision: 0 %>
+</p>
+<% unless @court.expenses_total.zero? %>
+  <div id="expenses" class="collapse">
+    <ul class="list-unstyled">
+      <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
+        <li>
+          <%= t '.fine_for' %> <%= expense.year %>
+          <%= t '.fine_was' %> <%= number_to_currency expense.value, precision: 0 %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

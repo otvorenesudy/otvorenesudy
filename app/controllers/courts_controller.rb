@@ -3,20 +3,15 @@ class CourtsController < SearchController
     @court = Court.find(params[:id])
 
     @judges = @court.judges.order(:last, :middle, :first)
-
-    @hearings = @court.hearings.order('date desc').limit(10)
-    @decrees  = @court.decrees.order('date desc').limit(10)
+    @expenses = @court.expenses.order(:year)
 
     @hearings = @court.hearings.order('date desc')
     @decrees  = @court.decrees.order('date desc')
 
-    @expenses = @court.expenses.order(:year)
-
-    @results = @court.context_search[0..9]
+    @media = @court.context_search[0..9]
   end
 
   def map
-    @courts = Court::Map.courts
-    @groups = Court::Map.groups
+    @courts = Court.order(:name).all
   end
 end

@@ -2,7 +2,7 @@
 
 Cookies help us to provide and secure registration and logging of users. We use them to protect your personal information after logging in.
 
-<div class="alert alert-info">
+<div class="alert alert-info" role="alert">
   By the using our services you agree to use cookies.
 </div>
 

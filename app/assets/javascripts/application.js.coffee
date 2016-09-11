@@ -7,10 +7,11 @@
 #= require bootstrap
 #
 #= require browser
-#= require Chart
 #= require inflection
-#= require gmaps4rails/gmaps4rails.base
-#= require gmaps4rails/gmaps4rails.googlemaps
+#= require underscore
+#
+#= require Chart
+#= require gmaps/google
 #
 #= require_tree ./lib
 #

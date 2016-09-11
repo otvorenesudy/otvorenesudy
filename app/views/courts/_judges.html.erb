@@ -1,45 +1,40 @@
-<h2><%= t('.court_leadership')%></h2>
+<% if @court.chair || @court.vicechair %>
+  <h2 class="m-t-2 m-b-1">
+    <%= t '.chairs' %>
+  </h2>
 
-<div class="row">
-  <div class="span12">
-    <p>
-      <% if @court.chair %>
-        <%= judge_position_at_court(@court.chair, @court).upcase_first %> <%= t 'results.of_court_is' %> <%= link_to_judge @court.chair %><%= @court.vicechair ? " #{t('and')}" : '.' %>
-      <% end %>
-      <% if @court.vicechair %>
-        <% unless @court.chair %>
-          <%= judge_position_at_court(@court.vicechair, @court).upcase_first %> <%= t 'results.of_court' %>
-        <% else %>
-          <%= judge_position_at_court(@court.vicechair, @court) %>
-        <% end %>
-        <%= t 'results.is' %> <%= link_to_judge @court.vicechair %>.
-      <% end %>
-    </p>
-  </div>
-</div>
-
-<hr/>
-
-<h2><%= t('.judges')%></h2>
-
-<div class="row">
-  <div class="span12">
-    <% if @judges.active.listed.any? %>
-      <p>
-        <%= t('.judges_table')%>
-      </p>
-
-      <%= render 'judge_list', court: @court, judges: @judges.active.listed %>
+  <p>
+    <% if @court.chair %>
+      <%= judge_position_at_court(@court.chair, @court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
+      <%= link_to_judge @court.chair %><%= @court.vicechair ? " #{two_words_connector}" : '.' %>
     <% end %>
-
-    <% if @judges.not_active_or_not_listed.any? %>
-      <br/>
-
-      <p>
-      <%= t '.table_explained' %>
-      </p>
-
-      <%= render 'judge_list', court: @court, judges: @judges.not_active_or_not_listed %>
+    <% if @court.vicechair %>
+      <% unless @court.chair %>
+        <%= judge_position_at_court(@court.vicechair, @court).upcase_first %> <%= t '.of_court' %>
+      <% else %>
+        <%= judge_position_at_court(@court.vicechair, @court) %>
+      <% end %>
+      <%= t '.is' %> <%= link_to_judge @court.vicechair %>.
     <% end %>
-  </div>
-</div>
+  </p>
+<% end %>
+
+<h2 class="m-t-2 m-b-1">
+  <%= t '.judges' %>
+</h2>
+
+<% if @judges.active.listed.any? %>
+  <p>
+    <%= t('.explanation.listed')%>
+  </p>
+
+  <%= render 'courts/judges/list', court: @court, judges: @judges.active.listed %>
+<% end %>
+
+<% if @judges.inactive_or_unlisted.any? %>
+  <p class="m-t-3">
+    <%= t '.explanation.other' %>
+  </p>
+
+  <%= render 'courts/judges/list', court: @court, judges: @judges.inactive_or_unlisted %>
+<% end %>

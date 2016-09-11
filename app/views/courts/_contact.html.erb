@@ -1,70 +1,68 @@
 <div class="row">
-  <div class="span8">
+  <div class="col-lg-8">
     <% if @court.phone || @court.fax %>
-      <h2><%= t '.contact' %> <%= icon_tag :'phone-sign' %></h2>
-  
+      <h2 class="m-t-2 m-b-1"><%= t '.contact' %></h2>
+
       <% if @court.phone %>
         <div class="row">
-          <div class="span2"> <%= t('contact.phone') %> </div>
-          <div class="span6"><%= @court.phone %></div>
+          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
+          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.phone %></div>
         </div>
       <% end %>
 
       <% if @court.fax %>
         <div class="row">
-          <div class="span2"> <%= t('contact.fax') %> </div>
-          <div class="span6"><%= @court.fax %></div>
+          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.fax' %></div>
+          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.fax %></div>
         </div>
       <% end %>
     <% end %>
 
     <% if @court.media_person || @court.media_phone %>
-      <h4> <%= t('contact.to_media') %> </h4>
-  
+      <h4 class="m-t-2 m-b-1"><%= t '.media' %></h4>
+
       <% if @court.media_person %>
         <div class="row">
-          <div class="span2"> <%= t('contact.media_person') %> </div>
-          <div class="span6"><%= @court.media_person %></div>
+          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.media_person' %></div>
+          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.media_person %></div>
         </div>
       <% end %>
 
       <% if @court.media_phone %>
         <div class="row">
-          <div class="span2"> <%= t('contact.phone') %> </div>
-          <div class="span6"><%= @court.media_phone %></div>
+          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.media_phone' %></div>
+          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.media_phone %></div>
         </div>
       <% end %>
     <% end %>
   </div>
 
-  <div class="span4">
-    <h2><%= t '.address' %> <%= icon_tag :envelope %></h2>
+  <div class="col-lg-4">
+    <h2 class="m-t-2 m-b-1"><%= t '.address' %></h2>
 
-    <address class="well">
-      <strong><%= @court.name %></strong><br/>
-      <%= @court.street %><br/>
-      <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br/>
-      <%= t('contact.country') %>
-    </address>
+    <div class="card m-b-0">
+      <div class="card-block">
+        <address class="m-b-0">
+          <%= @court.name %><br/>
+          <%= @court.street %><br/>
+          <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br/>
+          <%= t '.country' %>
+        </address>
+      </div>
+    </div>
   </div>
 </div>
 
-<hr/>
+<%= render 'office', office: @court.information_center if @court.information_center %>
+<%= render 'office', office: @court.registry_center if @court.registry_center %>
+<%= render 'office', office: @court.business_registry_center if @court.business_registry_center %>
 
-<% if @court.offices.any? %>
-  <%= render 'offices' %>
-  <hr/>
-<% end %>
+<h2 class="m-t-3 m-b-1">
+  <%= t '.map' %>
+</h2>
 
-<div class="row">
-  <div class="span12">
-    <h2> <%= t('contact.map') %> <%= icon_tag :'map-marker' %></h2>
+<%= courts_map @court %>
 
-    <%= court_map @court, info: true, zoom: 16 %>
-
-    <p>
-      <%= link_to t('contact.show_on_map'), map_courts_path %>
-      <%= t('contact.with_other_courts') %>
-    </p>
-  </div>
-</div>
+<p>
+  <%= link_to t('.show_on_map'), map_courts_path %> <%= t '.with_other_courts' %>
+</p>

@@ -1,0 +1,30 @@
+<p>
+  <%= t '.average_durations_by_agendas' %>
+</p>
+<ul class="list-inline">
+  <% @court.average_proceeding_durations.each do |agenda| %>
+    <li class="list-inline-item">
+      <a href="#proceedings-<%= agenda.acronym %>" data-toggle="collapse" data-parent="#proceedings" role="tab"><%= agenda.name %></a>
+    </li>
+  <% end %>
+</ul>
+<div id="proceedings" role="tablist">
+  <% @court.average_proceeding_durations.each do |agenda| %>
+    <div class="panel">
+      <div id="proceedings-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>" role="tabpanel">
+        <p>
+          <%= t '.overall' %> <%= rank_with_order Court::AverageProceedingDurations::Ranking.rank_with_order(@court, agenda.acronym), asc: t('.fastest'), desc: t('.slowest') %>
+          <%= t '.court_of' %> <%= Court::AverageProceedingDurations::Ranking.courts.size %>
+          <%= t '.district_courts_in' %> <%= agenda.name %>:
+        </p>
+        <ul class="list-unstyled">
+          <% agenda.data.each do |data| %>
+            <li>
+              <%= t '.average_duration_by_year', year: data[:year], value: number_with_precision(data[:value], precision: 1) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>

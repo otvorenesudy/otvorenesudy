@@ -12,7 +12,7 @@ class JudgesController < SearchController
     @property_declarations = @judge.property_declarations.order('year desc')
     @statistical_summaries = @judge.statistical_summaries.order('year desc')
 
-    @results = @judge.context_search[0..9]
+    @media = @judge.context_search[0..9]
 
     search_judges_for_indicators
   end

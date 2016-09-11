@@ -1,5 +1,20 @@
 en:
   courts:
+    common: &common
+      at_court: "At the court"
+      work:
+        zero: "there are %{judges} working"
+        one: "there are %{judges} working"
+        few: "there are %{judges} working"
+        other: "there are %{judges} working"
+
+      for_court: "For the court"
+      register:
+        zero: "in the meantime we register"
+        one: "we register"
+        few: "we register"
+        other: "we register"
+
     type:
       constitutional: "Constitutional"
       supreme: "Supreme"
@@ -7,23 +22,119 @@ en:
       regional: "Regional"
       district: "District"
 
+    index:
+      title: "Courts"
+
+    search:
+      results:
+        of_court: "of the court"
+        is: "is"
+
+        <<: *common
+
+    show:
+      <<: *common
+
+      contact: "Contact"
+      judges: "Judges"
+      decrees: "Decrees"
+      hearings: "Hearings"
+      media: "Media"
+
+      resource_note:
+        description: "Information regarding the court were obtained from %{document}, which was most recently updated on %{update}."
+        document: "the original document"
+
+    expenses:
+      overall: "Overall"
+      least: "at least"
+      most: "at most"
+      charged_court_of: "fined court out of"
+      regional_courts: "regional courts"
+      district_courts: "district courts"
+
+      fines: "Fines from the Constitutional Court"
+      fines_for: "of Slovak Republic for either late or unlawful decrees in years"
+      fines_were: "were"
+      fine_for: "Fine in year"
+      fine_was: "was"
+
+    proceedings:
+      average_durations_by_agendas: "An average duration of court proceedings according to agendas:"
+      average_duration_by_year: "Average duration for year %{year} is %{value} months"
+
+      overall: "Overall"
+      fastest: "fastest"
+      slowest: "slowest"
+      court_of: "court of"
+      district_courts_in: "district courts in agenda"
+
+    contact:
+      contact: "Contact"
+      phone: "Phone number:"
+      fax: "Fax:"
+
+      media: "For media"
+      media_person: "Contact person:"
+      media_phone: "Phone number:"
+
+      address: "Address"
+      country: "Slovak Republic"
+
+      map: "Map"
+      show_on_map: "Show on map"
+      with_other_courts: "with other courts in Slovak Republic."
+
     office:
       type:
         information_center: "Information center"
         registry_center: "Registry"
         business_registry_center: "Information center of business register"
 
-    index:
-      title: "Courts"
+      phone: "Phone:"
+      email: "E-mail:"
+      note: "Note:"
+      hours: "Opening hours"
 
-    search:
-      results:
-        is: "is"
-        at_court_work: "On the court there are currently"
-        of_court: "of the court"
-        for_court: "For the court"
-        register:
-          zero: "in the meantime we register"
-          one: "we register"
-          few: "we register"
-          other: "we register"
+    judges:
+      chairs: "Chairmen"
+      of_court: "of the court"
+      is: "is"
+
+      judges: "Judges"
+      explanation:
+        listed: "List of judges currently working at the court."
+        other: "List of judges who worked at the court and other officials whose names were found in hearings or decrees."
+
+      list:
+        activity: "Activity"
+        title: "Title"
+        name: "Name"
+        position: "Position"
+        hearings: "Hearings"
+        decrees: "Decrees"
+        hearings_count: "Number of hearings"
+        decrees_count: "Number of decrees"
+
+    decrees:
+      headline: "Published decrees"
+      more: "More decrees"
+      no_decrees: "We do not register any decrees for the court yet."
+
+    hearings:
+      headline: "Announced hearings"
+      more: "More hearings"
+      no_hearings: "We do not register any hearings for the court yet."
+
+    media:
+      headline: "Mentions in media"
+      clarification: "Links are searched automatically using the name of the court. They may not concern the court."
+      no_mentions: "No mentions about the court has been found in media."
+
+    map:
+      title: "Map of courts in Slovak Republic"
+      note: "In Slovakia there are %{courts} courts in %{places} different places"
+      hint: "Basic court information will appear by clicking on a map marker."
+
+      marker:
+        get_directions: "Get directions"

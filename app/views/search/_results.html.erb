@@ -1,7 +1,7 @@
 <% if @results.any? %>
   <%= render "#{@type.to_s.pluralize}/search/results", results: @results, offset: @results.offset %>
 <% else %>
-  <div class="alert alert-info m-t-2">
+  <div class="alert alert-info m-t-2" role="alert">
     <%= t '.no_results' %>
   </div>
 <% end %>

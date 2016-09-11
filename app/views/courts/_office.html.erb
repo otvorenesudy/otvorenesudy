@@ -1,73 +1,59 @@
-<div class="row">
-  <div class="span12">
-    <h2><%= name %></h2>
-  </div>
+<h2 class="m-t-3 m-b-1">
+  <%= t "courts.office.type.#{office.type.name}" %>
+</h2>
 
-  <div class="span8">
+<div class="row">
+  <div class="col-lg-8">
     <% if office.phone? %>
       <div class="row">
-        <div class="span2">
-          <span class="gutter centered"><%= icon_tag :phone %></span>
-          <%= t '.phone_number' %>:
-        </div>
-        <div class="span6">
-          <%= court_phone office %>
-        </div>
+        <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
+        <div class="col-xs-7 col-sm-8 col-md-9"><%= court_phone office %></div>
       </div>
     <% end %>
 
     <% if office.email? %>
       <div class="row">
-        <div class="span2">
-          <span class="gutter centered"><%= icon_tag :'envelope-alt' %></span>
-          E-mail:
-        </div>
-        <div class="span6">
-          <%= court_email office %>
-        </div>
+        <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.email' %></div>
+        <div class="col-xs-7 col-sm-8 col-md-9"><%= court_email office %></div>
       </div>
     <% end %>
 
     <% if office.note? %>
       <div class="row">
-        <div class="span2">
-          <span class="gutter centered"><%= icon_tag :pushpin %></span>
-          <%= t '.note' %>:
-        </div>
-        <div class="span6">
-          <%= office.note %>
-        </div>
+        <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.note' %></div>
+        <div class="col-xs-7 col-sm-8 col-md-9"><%= office.note %></div>
       </div>
     <% end %>
+
+    <div class="hidden-lg-up m-t-1"></div>
   </div>
 
-  <div class="span4">
-    <table class="table table-condensed table-bordered table-striped">
-      <thead>
-        <th colspan="2">
-          <%= t '.opening_hours' %> <%= icon_tag :time %>
-        </th>
+  <div class="col-lg-4">
+    <table class="table table-sm table-bordered m-b-0">
+      <thead class="thead-default">
+        <th class="th-xs-5 th-sm-4 th-md-3 th-lg-6"><%= t '.hours' %></th>
+        <th class="th-xs-7 th-sm-8 th-md-9 th-lg-6"></th>
       </thead>
       <tbody>
         <tr>
-          <td class="span1"><%= t(:'date.day_names')[1] %>:</td>
-          <td class="span2"><%= office.hours_monday %></td>
+          <td><%= t('date.day_names')[1] %>:</td>
+          <td><%= office.hours_monday %></td>
         </tr>
         <tr>
-          <td class="span1"><%= t(:'date.day_names')[2] %>:</td>
-          <td class="span2"><%= office.hours_tuesday %></td>
+          <td><%= t('date.day_names')[2] %>:</td>
+          <td><%= office.hours_tuesday %></td>
         </tr>
         <tr>
-          <td class="span1"><%= t(:'date.day_names')[3] %>:</td>
-          <td class="span2"><%= office.hours_wednesday %></td>
+          <td><%= t('date.day_names')[3] %>:</td>
+          <td><%= office.hours_wednesday %></td>
         </tr>
         <tr>
-          <td class="span1"><%= t(:'date.day_names')[4] %>:</td>
-          <td class="span2"><%= office.hours_thursday %></td>
+          <td><%= t('date.day_names')[4] %>:</td>
+          <td><%= office.hours_thursday %></td>
         </tr>
-        <tr>  
-          <td class="span1"><%= t(:'date.day_names')[5] %>:</td>
-          <td class="span2"><%= office.hours_friday %></td>
+        <tr>
+          <td><%= t('date.day_names')[5] %>:</td>
+          <td><%= office.hours_friday %></td>
         </tr>
       </tbody>
     </table>
