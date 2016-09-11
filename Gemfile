@@ -24,7 +24,8 @@ gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'jquery-tablesorter'
 gem 'chart-js-rails'
 gem 'inflection-js-rails'
-gem 'gmaps4rails', '~> 1.5.6'
+gem 'gmaps4rails', '~> 2.1.2'
+gem 'underscore-rails', '~> 1.8.3'
 gem 'rails-timeago'
 
 # pagination
