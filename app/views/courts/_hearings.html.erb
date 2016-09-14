@@ -6,5 +6,7 @@
   <%= render 'hearings/search/results', results: hearings, offset: 0 %>
   <%= link_to_hearings_search t('.more'), params: query, class: 'btn btn-outline-secondary m-t-1'  %>
 <% else %>
-  <%= t '.no_hearings' %>
+  <p class="m-t-1">
+    <%= t '.none' %>
+  </p>
 <% end %>

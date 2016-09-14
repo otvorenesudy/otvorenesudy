@@ -119,17 +119,17 @@ sk:
     decrees:
       headline: "Vynesené rozhodnutia"
       more: "Viac rozhodnutí"
-      no_decrees: "Pre súd zatiaľ neevidujeme žiadne súdne rozhodnutia."
+      none: "Pre súd zatiaľ neevidujeme žiadne vynesené súdne rozhodnutia."
 
     hearings:
       headline: "Ohlásené pojednávania"
       more: "Viac pojednávaní"
-      no_hearings: "Pre súd zatiaľ neevidujeme žiadne súdne pojednávania."
+      none: "Pre súd zatiaľ neevidujeme žiadne ohlásené súdne pojednávania."
 
     media:
       headline: "Zmienky v médiách"
       clarification: "Odkazy sú vyhľadávané automaticky na základe názvu súdu. Súdu sa týkať nemusia."
-      no_mentions: "O súde neboli nájdené žiadne zmienky v médiách."
+      none: "O súde neboli nájdené žiadne zmienky v médiách."
 
     map:
       title: "Mapa súdov Slovenskej republiky"

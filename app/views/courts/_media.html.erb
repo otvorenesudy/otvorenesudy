@@ -7,7 +7,9 @@
     <%= t '.clarification' %>
   </div>
 
-  <%= render 'shared/media_results', results: media, offset: 0 %>
+  <%= render 'search/media/results', results: media, offset: 0 %>
 <% else %>
-  <%= t '.no_mentions' %>
+  <p class="m-t-1">
+    <%= t '.none' %>
+  </p>
 <% end %>

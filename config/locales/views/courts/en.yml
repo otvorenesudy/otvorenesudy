@@ -119,17 +119,17 @@ en:
     decrees:
       headline: "Published decrees"
       more: "More decrees"
-      no_decrees: "We do not register any decrees for the court yet."
+      none: "We do not register any published decrees for the court yet."
 
     hearings:
       headline: "Announced hearings"
       more: "More hearings"
-      no_hearings: "We do not register any hearings for the court yet."
+      none: "We do not register any announced hearings for the court yet."
 
     media:
       headline: "Mentions in media"
       clarification: "Links are searched automatically using the name of the court. They may not concern the court."
-      no_mentions: "No mentions about the court has been found in media."
+      none: "No mentions about the court has been found in media."
 
     map:
       title: "Map of courts in Slovak Republic"
