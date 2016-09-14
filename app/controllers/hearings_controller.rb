@@ -1,6 +1,4 @@
 class HearingsController < SearchController
-  before_filter { flash_message_wrap keys: %i(danger warning) }
-
   def show
     @hearing = Hearing.find(params[:id])
 
@@ -27,7 +25,6 @@ class HearingsController < SearchController
   protected
 
   include FileHelper
-  include FlashHelper
 
   private
 

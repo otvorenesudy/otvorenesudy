@@ -1,9 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_locale
+  before_filter do
+    flash_message_wrap keys: %i(danger warning info)
+  end
+
+  before_filter do
+    I18n.locale = params[:l]
+  end
 
   protected
+
+  include FlashHelper
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || subscriptions_users_path
@@ -19,9 +27,5 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { l: I18n.locale }
-  end
-
-  def set_locale
-    I18n.locale = params[:l]
   end
 end

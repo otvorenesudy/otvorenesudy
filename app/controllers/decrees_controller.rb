@@ -1,6 +1,4 @@
 class DecreesController < SearchController
-  before_filter { flash_message_wrap keys: %i(danger warning) }
-
   def show
     @decree = Decree.find(params[:id])
 
@@ -32,7 +30,6 @@ class DecreesController < SearchController
   protected
 
   include FileHelper
-  include FlashHelper
 
   private
 

@@ -15,6 +15,8 @@ class JudgesController < SearchController
     @media = @judge.context_search[0..9]
 
     search_judges_for_indicators
+
+    flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
   end
 
   def curriculum
@@ -39,9 +41,6 @@ class JudgesController < SearchController
 
   include FileHelper
 
-  def search_associations
-    [employments: [:court, :judge, :judge_position]]
-  end
 
   def search_judges_for_indicators
     results = Judge.search(params.merge!(has_indicators: true))
@@ -63,5 +62,11 @@ class JudgesController < SearchController
   # TODO rm
   def generate_random_color(options = {})
     3.times.map { rand(0..255) }
+  end
+
+  private
+
+  def search_associations
+    [employments: [:court, :judge, :judge_position]]
   end
 end
