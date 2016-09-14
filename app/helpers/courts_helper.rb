@@ -23,7 +23,6 @@ module CourtsHelper
     classes = Array.wrap(options[:class]) << 'map'
     options = options.except(:class).reverse_merge(
       disableDefaultUI: false,
-      fullscreenControl: true,
       zoom: 16
     )
 
