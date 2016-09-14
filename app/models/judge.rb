@@ -128,6 +128,12 @@ class Judge < ActiveRecord::Base
   alias :active?    :active
   alias :active_at? :active_at
 
+  def incomplete
+    employments.at_court_by_type(CourtType.supreme).any? || employments.at_court_by_type(CourtType.regional).any?
+  end
+
+  alias :incomplete? :incomplete
+
   def listed
     @listed ||= (source == Source.of(JusticeGovSk) && active != nil)
   end
