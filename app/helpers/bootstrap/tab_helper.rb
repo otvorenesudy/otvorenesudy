@@ -15,8 +15,9 @@ module Bootstrap
     def render_tab(options = {}, locals = {}, &block)
       case options
       when Hash
-        block = -> { render options[:partial], locals } unless block_given?
-        tab_content_tag(options[:partial].split('/').last, class: options[:class], &block)
+        tab = options[:tab] || options[:partial].split('/').last
+        block = -> { render options[:partial], options.fetch(:locals, locals) } unless block_given?
+        tab_content_tag(tab, class: options[:class], &block)
       else
         tab_content_tag(options.split('/').last) { render options, locals }
       end
