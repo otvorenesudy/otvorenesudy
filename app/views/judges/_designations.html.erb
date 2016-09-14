@@ -1,0 +1,8 @@
+<ol class="list-unstyled">
+  <% @designations.each do |designation| %>
+    <li>
+      <%= t '.nominated_for' %>
+      <%= tooltip_tag time_ago_in_words(designation.date), l(designation.date, format: :long) %><%= ", #{designation.type.value.downcase_first}" if designation.type %>.
+    </li>
+  <% end %>
+</ol>

@@ -1,0 +1,12 @@
+<p>
+  <a href="#" data-toggle="collapse" data-target="#notes"><%= t '.notes' %></a> <%= t '.addition' %>
+</p>
+<div id="notes" class="collapse">
+  <ul class="list-unstyled m-l-1">
+    <% @judge.substantiation_notes_by_year.each do |year, note| %>
+      <li>
+        <%= t '.report_for' %> <%= year %> &ndash; <%= note.sub(/\.?\z/, '.') %>
+      </li>
+    <% end %>
+  </ul>
+</div>
