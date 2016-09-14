@@ -11,13 +11,13 @@
 <div id="proceedings" role="tablist">
   <% @court.average_proceeding_durations.each do |agenda| %>
     <div class="panel">
-      <div id="proceedings-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>" role="tabpanel">
-        <p>
+      <div id="proceedings-<%= agenda.acronym %>" class="collapse" role="tabpanel">
+        <p class="m-b-0">
           <%= t '.overall' %> <%= rank_with_order Court::AverageProceedingDurations::Ranking.rank_with_order(@court, agenda.acronym), asc: t('.fastest'), desc: t('.slowest') %>
           <%= t '.court_of' %> <%= Court::AverageProceedingDurations::Ranking.courts.size %>
           <%= t '.district_courts_in' %> <%= agenda.name %>:
         </p>
-        <ul class="list-unstyled">
+        <ul class="list-unstyled m-l-1">
           <% agenda.data.each do |data| %>
             <li>
               <%= t '.average_duration_by_year', year: data[:year], value: number_with_precision(data[:value], precision: 1) %>
