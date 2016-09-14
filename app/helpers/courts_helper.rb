@@ -21,10 +21,7 @@ module CourtsHelper
     end
 
     classes = Array.wrap(options[:class]) << 'map'
-    options = options.except(:class).reverse_merge(
-      disableDefaultUI: false,
-      zoom: 16
-    )
+    options = options.except(:class).reverse_merge(disableDefaultUI: false, zoom: 16)
 
     content_for :scripts do
       content_tag :script, nil, type: 'text/javascript', src: "https://maps.google.com/maps/api/js?v=3.24&key=#{key}"
@@ -48,8 +45,11 @@ module CourtsHelper
   end
 
   def link_to_court_by_judge_employment(employment, options = {})
-    options = judge_activity_options employment.judge, options.merge(adjust_by_activity_at: employment.court)
+    link_to_court employment.court, judge_activity_options(employment.judge, options)
+  end
 
-    link_to_court employment.court, options
+  def link_to_institution(institution, options = {})
+    court = Court.where(name: institution).first
+    court ? link_to_court(court, options) : institution
   end
 end

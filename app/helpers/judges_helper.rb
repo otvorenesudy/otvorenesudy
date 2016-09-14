@@ -1,38 +1,7 @@
 module JudgesHelper
-  def judge_titles(judge, options = {})
-    content_tag :span, "#{judge.prefix} #{judge.suffix}".strip, judge_activity_options(judge, options)
+  def judge_titles(judge, options = {}, &block)
+    judge_wrap_fix "#{judge.prefix} #{judge.suffix}".strip, judge_activity_options(judge, options), &block
   end
-
-  # TODO rm - not really needed, present in _judges and _judge_list use (improve) judge_position_by_employment instead
-  # def judge_position(employment, options = {})
-  #
-  #   # TODO refactor
-  #   classes = employment.active ? {} : { class: 'text-muted' }
-  #
-  #   if employment.judge_position
-  #     value = truncate judge_position_by_employment(employment), length: 30, separator: ' ', omission: '&hellip;'
-  #
-  #     tooltip_tag value.html_safe, employment.active ? I18n.t('judges.active') : I18n.t('judges.inactive'), options.merge(classes)
-  #   else
-  #     if employment.judge.probably_higher_court_official?
-  #       content_tag :span, classes do
-  #         (I18n.t('judges.most_likely') + tooltip_tag(I18n.t('judges.vsu_acro'), I18n.t('judges.vsu'), options)).html_safe
-  #       end
-  #     else
-  #       content_tag :span, I18n.t('judges.unknown_2'), classes
-  #     end
-  #   end
-  # end
-
-  # TODO rm - used only once
-  # def judge_designation_date_tag(designation)
-  #   tooltip_tag icon_tag(:calendar), localize(designation.date, format: :long), placement: :left, class: :undecorated
-  # end
-
-  # TODO rm - used only once
-  # def judge_designation_date_distance(designation)
-  #   tooltip_tag distance_of_time_in_words_to_now(designation.date), localize(designation.date, format: :long)
-  # end
 
   def judge_activity_icon_tag(judge, active, options = {})
     icon, translation = case active
@@ -47,15 +16,19 @@ module JudgesHelper
     tooltip_tag icon_tag(icon), t("#{translation}.#{judge.probable_gender}").upcase_first, options
   end
 
-  def judge_activity_by_employment(employment)
-    t "judges.activity.#{employment.active ? 'active' : 'inactive'}.#{employment.judge.probable_gender}"
+  def judge_activity_by_employment(employment, options = {}, &block)
+    s = t "judges.activity.#{employment.active ? 'active' : 'inactive'}.#{employment.judge.probable_gender}"
+    judge_wrap_fix s, judge_activity_options(employment.judge, options), &block
   end
 
-  def judge_position_at_court(judge, court)
-    judge_position_by_employment judge.employments.at_court(court).first
+  def judge_position_at_court(judge, court, options = {}, &block)
+    judge_position_by_employment judge.employments.at_court(court).first, options, &block
   end
 
-  def judge_position_by_employment(employment, options = {})
+  def judge_position_by_employment(employment, options = {}, &block)
+    tooltip = !(options.delete(:tooltip) === false)
+    options = judge_activity_options employment.judge, options
+
     g = employment.judge.probable_gender
 
     if employment.judge_position
@@ -71,9 +44,11 @@ module JudgesHelper
       end
     else
       if employment.judge.probably_higher_court_official?
-        if options.fetch :tooltip, true
-          p, t = t('judges.position.higher_court_official.acronym'), t("judges.position.higher_court_official.#{g}")
-          s = "#{t 'judges.position.probably'} #{tooltip_tag p, t.upcase_first, class: ('text-muted' unless employment.active?)}"
+        if tooltip
+          p = t 'judges.position.higher_court_official.acronym'
+          t = t "judges.position.higher_court_official.#{g}"
+          c = 'text-muted' if Array.wrap(options[:class]).include? 'text-muted'
+          s = "#{t 'judges.position.probably'} #{tooltip_tag p, t.upcase_first, class: c}"
         else
           s = "#{t 'judges.position.probably'} #{t "judges.position.higher_court_official.#{g}"}"
         end
@@ -82,18 +57,17 @@ module JudgesHelper
       end
     end
 
-    s = yield s if block_given?
-
-    return s.html_safe if employment.active?
-    content_tag :span, s.html_safe, class: 'text-muted'
+    judge_wrap_fix s, options, &block
   end
 
-  def judge_hearings_count_by_employment(employment)
-    judge_documents_count Hearing, employment
+  def judge_hearings_count_by_employment(employment, options = {}, &block)
+    count = number_with_delimiter Hearing.during_employment(employment).exact.size
+    judge_wrap_fix count, judge_activity_options(employment.judge, options), &block
   end
 
-  def judge_decrees_count_by_employment(employment)
-    judge_documents_count Decree, employment
+  def judge_decrees_count_by_employment(employment, options = {}, &block)
+    count = number_with_delimiter Decree.during_employment(employment).exact.size
+    judge_wrap_fix count, judge_activity_options(employment.judge, options), &block
   end
 
   def judge_processed_names(relation)
@@ -108,11 +82,6 @@ module JudgesHelper
     judges.map { |judge| link_to_judge(judge, options) }.to_sentence.html_safe
   end
 
-  def link_to_institution(institution, options = {})
-    court = Court.where(name: institution).first
-    court ? link_to_court(court, options) : institution
-  end
-
   def link_to_related_person(person, options = {})
     person.known_judge? ? link_to_judge(person.to_judge, options) : person.name
   end
@@ -124,16 +93,20 @@ module JudgesHelper
   private
 
   def judge_activity_options(judge, options)
-    options.merge! class: 'text-muted' if options.delete(:adjust_by_activity) && !judge.active
-    options.merge! class: 'text-muted' if options.key?(:adjust_by_activity_at) && !judge.active_at(options.delete :adjust_by_activity_at)
-    options
+    global = options.delete :mute_by_activity
+    court = options.delete :mute_by_activity_at
+    employment = options.delete :mute_by_activity_on
+
+    classes = Array.wrap(options[:class])
+    classes << 'text-muted' if global && !judge.active
+    classes << 'text-muted' if court && !judge.active_at(court)
+    classes << 'text-muted' if employment && !employment.active
+    options.merge class: classes
   end
 
-  def judge_documents_count(model, employment)
-    count = model.during_employment(employment).exact.size
-    value = number_with_delimiter(count)
-
-    return value if employment.active?
-    content_tag :span, value, class: 'text-muted'
+  def judge_wrap_fix(content, options)
+    content = yield content if block_given?
+    wrap = %i(id class data).find { |k| options[k].present? }
+    wrap ? content_tag(:span, content.html_safe, options) : content.html_safe
   end
 end

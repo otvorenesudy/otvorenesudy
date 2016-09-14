@@ -16,24 +16,24 @@
           <%= judge_activity_icon_tag judge, judge.active_at?(court) %>
         </td>
         <td>
-          <%= judge_titles judge, adjust_by_activity_at: court %>
+          <%= judge_titles judge, mute_by_activity_at: court %>
         </td>
         <td data-value="<%= judge.name '%l %m %f, %a' %>">
-          <%= link_to_judge judge, adjust_by_activity_at: court, format: '%f %m %l, %a' %>
+          <%= link_to_judge judge, mute_by_activity_at: court, format: '%f %m %l, %a' %>
         </td>
         <td>
           <% judge.employments.at_court(court).each do |employment| %>
-            <p><%= judge_position_by_employment employment %></p>
+            <p><%= judge_position_by_employment employment, mute_by_activity_on: employment %></p>
           <% end %>
         </td>
         <td class="text-xs-right" data-value="<%= judge.hearings.exact.size %>">
           <% judge.employments.at_court(court).each do |employment| %>
-            <p><%= judge_hearings_count_by_employment employment %></p>
+            <p><%= judge_hearings_count_by_employment employment, mute_by_activity_on: employment %></p>
           <% end %>
         </td>
         <td class="text-xs-right" data-value="<%= judge.decrees.exact.size %>">
           <% judge.employments.at_court(court).each do |employment| %>
-            <p><%= judge_decrees_count_by_employment employment %></p>
+            <p><%= judge_decrees_count_by_employment employment, mute_by_activity_on: employment %></p>
           <% end %>
         </td>
       </tr>
