@@ -66,10 +66,6 @@ class SearchController < ApplicationController
     @model = @type.to_s.camelcase.constantize
   end
 
-  def search_associations
-    nil
-  end
-
   def prepare_facets
     @collapsible_facet_names = @facets.map(&:name) - [:q]
 
@@ -102,5 +98,11 @@ class SearchController < ApplicationController
 
   def suggest_path(params = {})
     url_for params.merge action: :suggest
+  end
+
+  private
+
+  def search_associations
+    nil
   end
 end
