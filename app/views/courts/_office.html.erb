@@ -31,29 +31,28 @@
   <div class="col-lg-4">
     <table class="table table-sm table-bordered m-b-0">
       <thead class="thead-default">
-        <th class="th-xs-5 th-sm-4 th-md-3 th-lg-6"><%= t '.hours' %></th>
-        <th class="th-xs-7 th-sm-8 th-md-9 th-lg-6"></th>
+        <th colspan="2"><%= t '.hours' %></th>
       </thead>
       <tbody>
         <tr>
-          <td><%= t('date.day_names')[1] %>:</td>
-          <td><%= office.hours_monday %></td>
+          <td class="th-xs-5 th-sm-4 th-md-3 th-lg-4"><%= t('date.day_names')[1] %>:</td>
+          <td class="th-xs-7 th-sm-8 th-md-9 th-lg-8"><%= office.hours_monday %></td>
         </tr>
         <tr>
-          <td><%= t('date.day_names')[2] %>:</td>
-          <td><%= office.hours_tuesday %></td>
+          <td class="th-xs-5 th-sm-4 th-md-3 th-lg-4"><%= t('date.day_names')[2] %>:</td>
+          <td class="th-xs-7 th-sm-8 th-md-9 th-lg-8"><%= office.hours_tuesday %></td>
         </tr>
         <tr>
-          <td><%= t('date.day_names')[3] %>:</td>
-          <td><%= office.hours_wednesday %></td>
+          <td class="th-xs-5 th-sm-4 th-md-3 th-lg-4"><%= t('date.day_names')[3] %>:</td>
+          <td class="th-xs-7 th-sm-8 th-md-9 th-lg-8"><%= office.hours_wednesday %></td>
         </tr>
         <tr>
-          <td><%= t('date.day_names')[4] %>:</td>
-          <td><%= office.hours_thursday %></td>
+          <td class="th-xs-5 th-sm-4 th-md-3 th-lg-4"><%= t('date.day_names')[4] %>:</td>
+          <td class="th-xs-7 th-sm-8 th-md-9 th-lg-8"><%= office.hours_thursday %></td>
         </tr>
         <tr>
-          <td><%= t('date.day_names')[5] %>:</td>
-          <td><%= office.hours_friday %></td>
+          <td class="th-xs-5 th-sm-4 th-md-3 th-lg-4"><%= t('date.day_names')[5] %>:</td>
+          <td class="th-xs-7 th-sm-8 th-md-9 th-lg-8"><%= office.hours_friday %></td>
         </tr>
       </tbody>
     </table>
