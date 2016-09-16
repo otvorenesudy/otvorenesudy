@@ -12,7 +12,9 @@ $(document).ready ->
         to: 'scrollParent',
         attachment: 'together',
         pin: true
-      }]
+      }],
+      html: true,
+      placement: 'top'
     }
 
     $('a[data-toggle="popover"]').popover(options)
