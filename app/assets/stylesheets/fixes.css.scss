@@ -190,6 +190,18 @@ td p:last-of-type {
   margin-right: $btn-toolbar-margin;
 }
 
+// fix font size in popover title
+
+.popover-title {
+  font-size: $font-size-sm;
+}
+
+// fix font weight in popover content
+
+.popover-content {
+  font-weight: $font-weight-base;
+}
+
 // fix font size and weight on tooltips
 
 .tooltip {

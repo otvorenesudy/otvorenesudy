@@ -92,12 +92,26 @@ $tooltip-max-width: 250px;
 $tooltip-color:     #fff;
 $tooltip-bg:        $gray-dark;
 $tooltip-opacity:   1;
-$tooltip-padding-y: .25rem;
 $tooltip-padding-x: .5rem;
+$tooltip-padding-y: .25rem;
 $tooltip-margin:    0;
 
 $tooltip-arrow-width: 4px;
 $tooltip-arrow-color: transparent;
+
+$popover-inner-padding: 0;
+$popover-max-width:     300px;
+$popover-border-color:  $gray-light;
+
+$popover-title-bg:          $gray-lighter;
+$popover-title-padding-x:   .75rem;
+$popover-title-padding-y:   .5rem;
+$popover-content-padding-x: .75rem;
+$popover-content-padding-y: .5rem;
+
+$popover-arrow-width:       8px;
+$popover-arrow-outer-width: $popover-arrow-width + 2px;
+$popover-arrow-outer-color: transparent;
 
 $tag-font-weight: $font-weight-base;
 
