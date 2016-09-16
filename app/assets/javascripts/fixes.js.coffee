@@ -13,8 +13,7 @@ $(document).ready ->
         attachment: 'together',
         pin: true
       }],
-      html: true,
-      placement: 'top'
+      html: true
     }
 
     $('a[data-toggle="popover"]').popover(options)
