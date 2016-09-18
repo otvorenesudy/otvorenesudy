@@ -209,8 +209,9 @@ td p:last-of-type {
   font-weight: $font-weight-base;
 }
 
-// add visual styles for plain tooltips
+// add visual styles for plain popovers and tooltips
 
+a[href="#"][data-toggle="popover"],
 a[href="#"][data-toggle="tooltip"] {
   color: $body-color;
   cursor: help;
@@ -227,8 +228,9 @@ a[href="#"][data-toggle="tooltip"] {
   }
 }
 
-// remove underline from undecorated tooltips
+// remove underline from undecorated popovers and tooltips
 
+.text-undecorated[data-toggle="popover"],
 .text-undecorated[data-toggle="tooltip"] {
   &::after {
     display: none;
