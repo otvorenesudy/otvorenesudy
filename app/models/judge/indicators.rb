@@ -72,7 +72,7 @@ class Judge
     def self.calculate_numerical_average
       average = Hash.new(0)
 
-      @data.each do |id, values|
+      @data.each do |_, values|
         next unless values.numerical
         next unless values.numerical.to_hash.values.compact != values.numerical.to_hash
 
@@ -89,31 +89,21 @@ class Judge
     end
 
     def self.normalize_statistical_values(values)
-      values.each_with_index do |(key, value), index|
+      values.each_with_index do |(key, value), _|
         next unless value
 
-        value = value.to_s.gsub(/-/, '–')
-        value = case value
-                when 'N/A' then nil
-                else value
-                end
+        value = '' if value == 'N/A'
+        value = '' if value =~ /\A(\d+\s-\s-+;?\s?)+\z/
+        value = value.gsub(/-/, '–')
+        value = value.split(',').map { |name| Court.find_by_name(normalize_court_name name) } if key.in?(%w(S3_2011 S3_2012 S3_2013))
 
-        if value
-          value = case key
-                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(normalize_court_name(name)) }
-                  else value
-                  end
-        end
-
-        values[key] = value
+        values[key] = value.presence
       end
     end
 
     def self.normalize_numerical_values(values)
       values.each_with_index do |(key, value), index|
-        value = case index
-                when 2..9 then value.to_i
-                end
+        value = value.to_i if index.in? 2..9
 
         values[key] = value
       end

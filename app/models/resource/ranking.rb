@@ -23,10 +23,10 @@ class Resource::Ranking
 
   class Ordering
     def initialize(groups)
-      @ranks = build_ranks Hash[yield groups]
+      @ranks = build_ranks Hash[yield(groups)]
     end
 
-    def [] object
+    def [](object)
       @ranks[object]
     end
 
@@ -39,7 +39,7 @@ class Resource::Ranking
     def build_ranks(groups)
       ranks, rank = Hash.new, 0
 
-      groups.each do |key, group|
+      groups.each do |_, group|
         rank = rank.max if rank.is_a? Range
         rank = group.size == 1 ? rank + 1 : (rank + 1) .. (rank + group.size)
 
