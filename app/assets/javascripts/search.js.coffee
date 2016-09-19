@@ -71,7 +71,7 @@ $(document).ready ->
 
     registerSuggest: (input) ->
       name = $(input).attr('data-id')
-      path = $(input).attr('data-suggest-path')
+      path = $(input).attr('data-path')
 
       @.log "suggest on #{name} via #{path}"
 

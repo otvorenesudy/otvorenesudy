@@ -1,9 +1,7 @@
 module FacetsHelper
   def facet_suggest_input_tag(facet, options = {})
-    options['data-id'] ||= facet.name
-    options['data-suggest-path'] ||= suggest_path(facet.params)
-
-    tag :input, options.merge(type: :text, name: facet.name, class: 'facet-suggest')
+    data = { id: facet.name, path: suggest_path(facet.params) }
+    tag :input, options.merge(type: :text, name: facet.name, class: 'facet-suggest', data: data)
   end
 
   def link_to_collapse_facet_results(facet)
@@ -21,7 +19,7 @@ module FacetsHelper
     value = result.value
     key   = "#{facet.key}.format.#{facet.interval}"
     key   = "facets.types.date.format.#{facet.interval}" if missing_translation? key
-    value = localize value.begin, format: translate(key)
+    value = localize value.begin, format: t(key)
 
     link_to_facet_value facet, result, value, options
   end
@@ -56,27 +54,29 @@ module FacetsHelper
     path = "#{facet.key}.#{entry}"
     path = "facets.types.range.#{entry}" if missing_translation? path
 
-    result = translate path, options
+    result = t path, options
     suffix = "#{facet.key}.suffix"
 
     if entry == :less && count <= 1
-      translate suffix, count: 0
+      t suffix, count: 0
     else
-      result << translate(suffix, count: count).gsub(/\A\s*\d+/, '') unless missing_translation? suffix
+      result << t(suffix, count: count).gsub(/\A\s*\d+/, '') unless missing_translation? suffix
     end
   end
 
   def link_to_facet_value(facet, result, value, options = {})
-    path   = "#{facet.key}.#{value}"
-    value  = translate path unless missing_translation? path
-    count  = number_with_delimiter result.count
-    body   = truncate value.upcase_first, length: 34 - (1 + count.size), separator: ' ', omission: '&hellip;'
+    key    = "#{facet.key}.#{value}"
+    value  = missing_translation?(key) ? value.upcase_first : t(key)
+    count  = options.delete(:count) === false ? nil : number_with_delimiter(result.count)
+    body   = truncate value, length: 34 - (count ? 1 + count.size : 0), separator: ' ', omission: '&hellip;'
+    path   = options.delete(:path) || method(:search_path)
     params = !result.selected? ? result.add_params : result.remove_params
 
     options.merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 1000 }' }, title: value if body != value
-    body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
-    body << content_tag(:span, count, class: 'facet-tag')
 
-    link_to body.html_safe, options[:path] ? options[:path].call(params) : search_path(params), options
+    body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
+    body << content_tag(:span, count, class: 'facet-tag') if count.present?
+
+    link_to body.html_safe, path.call(params), options
   end
 end

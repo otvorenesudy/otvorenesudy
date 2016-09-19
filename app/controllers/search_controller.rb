@@ -27,7 +27,7 @@ class SearchController < ApplicationController
       facet   = @results.facets[name]
       results = facet.results
 
-      render partial: facet.view[:results] || "facets/#{facet.type}_facet_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [], options: {} }
+      render partial: facet.view[:results] || "facets/#{facet.type}_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
     else
       render nothing: true
     end
