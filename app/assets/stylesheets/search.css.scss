@@ -8,11 +8,14 @@
 
 .facet-title {
   margin: 0 !important;
-  cursor: pointer;
 
   span {
     display: none;
     color: $text-muted;
+  }
+
+  &.collapsible {
+    cursor: pointer;
   }
 
   &.collapsed span {
