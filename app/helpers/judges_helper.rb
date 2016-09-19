@@ -17,7 +17,9 @@ module JudgesHelper
   end
 
   def judge_activity_by_employment(employment, options = {}, &block)
-    s = t "judges.activity.#{employment.active ? 'active' : 'inactive'}.#{employment.judge.probable_gender}"
+    a = employment.active ? 'active' : 'inactive'
+    a = 'unknown' if employment.active.nil?
+    s = t "judges.activity.#{a}.#{employment.judge.probable_gender}"
     judge_wrap_fix s, judge_activity_options(employment.judge, options), &block
   end
 
