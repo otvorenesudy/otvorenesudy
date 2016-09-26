@@ -96,3 +96,5 @@ $(document).ready ->
               term: terms.join(' ')
             success: (html) ->
               $(input).closest('.facet-content').find('.facet-results').html(html)
+
+              fixes()
