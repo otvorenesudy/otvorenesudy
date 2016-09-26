@@ -5,28 +5,27 @@ class Judge
 
     included do
       mapping do
-        analyze :has_indicators, as: lambda { |j| !!j.indicators && !!j.indicators.statistical && !!j.indicators.numerical }
+        analyze :indicators, as: lambda { |j|
+          !!(j.indicators && j.indicators.statistical && j.indicators.numerical)
+        }
+
         analyze :decree_agenda, as: lambda { |j|
           if j.indicators && j.indicators.statistical
-            indicators = j.indicators.statistical
-
-            map = {
-              'Občianska' => indicators['S5a'].to_i,
-              'Obchodná' => indicators['S5b'].to_i,
-              'Poručenská' => indicators['S5c'].to_i,
-              'Trestná' => indicators['S5d'].to_i
-            }
-
-            map.sort_by { |_, value| value }.last[0]
+            {
+              'Občianska' => j.indicators.statistical['S5a'].to_i,
+              'Obchodná' => j.indicators.statistical['S5b'].to_i,
+              'Poručenská' => j.indicators.statistical['S5c'].to_i,
+              'Trestná' => j.indicators.statistical['S5d'].to_i
+            }.sort_by { |_, v| v }.last
           end
         }
       end
 
       facets do
-        facet :name, type: :terms, visible: false, view: { results: 'judges/indicators/terms_facet_results' }
-        facet :indicators_courts, type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/terms_facet_results' }
-        facet :decree_agenda, type: :terms, visible: false
-        facet :has_indicators, type: :terms, visible: false
+        facet :indicators,     type: :terms, visible: false
+        facet :name,           type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
+        facet :decree_agenda,  type: :terms, visible: false
+        facet :similar_courts, type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
       end
 
       Judge::Indicators.load!
@@ -103,7 +102,7 @@ class Judge
 
     def self.normalize_numerical_values(values)
       values.each_with_index do |(key, value), index|
-        value = value.to_i if index.in? 2..9
+        value = index.in?(2..9) ? value.to_i : nil
 
         values[key] = value
       end
