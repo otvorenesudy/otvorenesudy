@@ -140,7 +140,7 @@ td p:last-of-type {
 // fix responsive behavior of tab items as stack
 
 .nav-tabs {
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     .nav-item {
       display: block;
       float: none;
