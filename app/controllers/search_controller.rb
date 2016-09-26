@@ -39,15 +39,8 @@ class SearchController < ApplicationController
     collapsed = params[:collapsed] == 'true' ? true : false
 
     if Probe::Configuration.indices.include? model.pluralize
-      key = "#{model.to_s.underscore}.collapsed_facet_names".to_sym
-
-      session[key] ||= []
-
-      if collapsed
-        session[key] += [name]
-      else
-        session[key] -= [name]
-      end
+      session[key = "#{model.to_s.underscore}.collapsed_facets".to_sym] ||= []
+      collapsed ? session[key] += [name] : session[key] -= [name]
     end
 
     render nothing: true
@@ -67,13 +60,8 @@ class SearchController < ApplicationController
   end
 
   def prepare_facets
-    @collapsible_facet_names = @facets.map(&:name) - [:q]
-
-    key = "#{@model.to_s.underscore}.collapsed_facet_names".to_sym
-
-    session[key] ||= []
-
-    @collapsed_facet_names = session[key]
+    @collapsible_facets = @facets.map(&:name) - [:q]
+    @collapsed_facets = (session["#{@model.to_s.underscore}.collapsed_facets".to_sym] ||= [])
   end
 
   def prepare_subscription
