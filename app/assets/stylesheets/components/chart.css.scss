@@ -1,0 +1,24 @@
+.chart {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.chart-legend {
+  @extend .p-t-2;
+}
+
+.chart-legend-title {
+  margin: 0 !important;
+}
+
+.chart-legend-content {
+  margin-top: .4 * $spacer-y;
+
+  span {
+    @include size(1rem);
+
+    display: inline-block;
+    vertical-align: -7.95%;
+    margin-right: $tooltip-padding-x;
+  }
+}
