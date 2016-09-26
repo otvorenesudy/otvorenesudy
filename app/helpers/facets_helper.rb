@@ -1,7 +1,8 @@
 module FacetsHelper
   def facet_suggest_input_tag(facet, options = {})
-    data = { id: facet.name, path: suggest_path(facet.params) }
-    tag :input, options.merge(type: :text, name: facet.name, class: 'facet-suggest', data: data)
+    data = { id: facet.name, path: options.delete(:path) || suggest_path(facet.params) }
+
+    tag :input, options.merge(type: 'text', name: facet.name, class: 'facet-suggest', data: data)
   end
 
   def link_to_collapse_facet_results(facet)
