@@ -1,14 +1,17 @@
 .chart {
-  margin: 0 !important;
-  padding: 0 !important;
+  @extend .m-b-1;
+}
+
+.chart-content {
+  @extend .m-a-0;
 }
 
 .chart-legend {
-  @extend .p-t-2;
+  @extend .m-b-1;
 }
 
 .chart-legend-title {
-  margin: 0 !important;
+  @extend .m-a-0;
 }
 
 .chart-legend-content {

@@ -1,13 +1,13 @@
 .facet {
   @extend .m-b-1;
 
-  &:first-of-type {
-    @extend .p-t-2;
+  &.facet-inline {
+    @extend .m-b-0;
   }
 }
 
 .facet-title {
-  margin: 0 !important;
+  @extend .m-a-0;
 
   span {
     display: none;
@@ -24,20 +24,22 @@
 }
 
 .facet-content {
+  @extend .m-a-0;
   @include clearfix;
+}
 
-  margin: 0 !important;
+.facet-addon {
+  margin-top: .4 * $spacer-y;
 }
 
 .facet-suggest {
+  @extend .facet-addon;
   @extend .form-control;
   @extend .form-control-sm;
-
-  margin-top: .4 * $spacer-y;
 }
 
 .facet-results {
-  margin-top: .4 * $spacer-y;
+  @extend .facet-addon;
 }
 
 .facet-results-more {
@@ -57,9 +59,8 @@
 }
 
 .facet-list {
+  @extend .m-a-0;
   @include list-unstyled;
-
-  margin: 0;
 }
 
 .facet-item {
@@ -98,6 +99,18 @@
   color: $text-muted;
 }
 
+.facet-note {
+  @extend .facet-addon;
+  @extend .text-small;
+  @extend .text-muted;
+}
+
+.search {
+  .facet:first-of-type {
+    @extend .p-t-2;
+  }
+}
+
 .search-query-clear {
   border: none;
   padding: $btn-padding-y .5 * $btn-padding-x;
@@ -127,7 +140,7 @@
   @extend .m-b-2;
 
   &:last-of-type {
-    margin-bottom: 0 !important;
+    @extend .m-b-0;
   }
 }
 
@@ -144,9 +157,8 @@
 }
 
 .search-result-content {
+  @extend .m-a-0;
   @include clearfix;
-
-  margin: 0 !important;
 
   .text-info, .text-warning, .text-danger {
     margin-bottom: .4 * $spacer-y;
