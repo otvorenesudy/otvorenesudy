@@ -1,153 +1,50 @@
-<% provide :title, title(@judge.name, t('.judge')) %>
+<% provide :title, @judge.name %>
 
-<section id="judge-profile" class="profile">
-  <div class="page-header">
-    <h1>
-      <%= @judge.name %>
-    </h1>
-  </div>
+<h1 class="m-t-3 m-b-1">
+  <%= yield :title %>
+  <%= judge_activity_icon_tag @judge, @judge.active?, placement: 'right' %>
+</h1>
 
-  <div class="row">
-    <div class="span12">
-      <%= render 'shared/social', classes: 'social-vertical pull-right' %>
-
-      <% if @judge.employments.at_court_by_type(CourtType.supreme).any? || @judge.employments.at_court_by_type(CourtType.regional).any? %>
-        <p class="text-error">
-          <span class="gutter centered"><%= icon_tag :'warning-sign' %></span>
-          <%= t '.incomplete_data' %>
-        </p>
-      <% end %>
-
-      <% @employments.each do |employment| %>
-        <p>
-          <span class="gutter centered">
-            <%= judge_activity_icon_tag employment.active, tooltip: !employment.active.nil? %>
-          </span>
-          <%= judge_activity_by_employment employment %>
-          <%= judge_position_by_employment employment %>
-          <%= t '.at_court' %>
-          <%= link_to_court employment.court %>,
-          <%= Hearing.during_employment(employment).exact.size.zero? ? t('.not_yet_register') : t('.register') %>
-          <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
-          <%= t('.and') %>
-          <%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
-          <% if employment.note %>
-            <br/>
-            <span class="gutter centered"><%= icon_tag :pushpin %></span>
-            <%= t '.note' %>: <%= employment.note %>
-          <% end %>
-        </p>
-      <% end %>
-
-      <% @designations.each do |designation| %>
-        <p>
-          <span class="gutter centered"><%= judge_designation_date_tag designation %></span>
-          <%= t '.nominated_before' %>
-          <%= judge_designation_date_distance designation %><%= ", #{designation.type.value.sub(/^\D{0,1}/) { |c| c.downcase }}" if designation.type %>.
-        </p>
-      <% end %>
-
-      <% if @judge.related_people_by_year.any? %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :group %></span>
-          <%= t '.close_ones_income_years' %>:
-          <%= @judge.related_people_by_year.map { |year, _| link_to year, "#related-people-#{year}", :'data-parent' => :'#related-people', :'data-toggle' => :collapse }.to_sentence.html_safe %>.
-        </p>
-        <div id="related-people">
-          <% @judge.related_people_by_year.each do |year, people| %>
-            <div class="accordion-group">
-              <div id="related-people-<%= year %>" class="collapse">
-                <p>
-                  <span class="gutter centered"><%= icon_tag :group %></span>
-                  <%= t '.close_ones_income_year' %> <%= year %>:
-                </p>
-                <ul class="unstyled">
-                  <% people.each do |person| %>
-                    <li><%= icon_tag :user %> <%= "#{person.function.upcase_first} " if person.function %><%= link_to_related_person(person) %><%= ", #{link_to_institution(person.institution)}".html_safe if person.institution %>.</li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-
-      <% if @judge.substantiation_notes_by_year.any? %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :pushpin %></span>
-          <a href="#" data-target="#substantiation-notes" data-toggle="collapse"><%= t '.note_about_data_part1' %></a> <%= t '.note_about_data_part2' %>
-        </p>
-        <div id="substantiation-notes" class="collapse out">
-          <ul class="unstyled">
-            <% @judge.substantiation_notes_by_year.each do |year, note| %>
-              <li><%= icon_tag :'file-text-alt' %> <%= t '.report_for_year' %> <%= year %> &ndash; <%= note %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <%# TODO get back path for curriculum here, search in git history %>
-      <%# TODO get back path for motivational letter here, search in git history %>
-
-      <% if @judge.indicators %>
-        <% if @judge.indicators.statistical %>
-          <%= render 'indicators', judge: @judge, indicators: @judge.indicators.statistical %>
-        <% end %>
-
-        <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
-          <br/>
-
-          <%= render 'judges/indicators/chart', judge: @judge, indicators: @judge.indicators.numerical %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</section>
-
-<section id="judge-tabs">
-  <div class="row">
-    <div class="span12">
-      <div class="tabbable">
-        <ul class="nav nav-tabs">
-          <li class="active">
-            <%= tab_link_to_with_count t('.decrees'), '#decrees', @decrees.size, track_data(:'judge-decrees') %>
-          </li>
-          <li><%= tab_link_to_with_count t('.future_hearings'), '#upcoming-hearings', @upcoming_hearings.size, track_data(:'judge-upcoming-hearings') %></li>
-          <li><%= tab_link_to_with_count t('.past_hearings'), '#historical-hearings', @historical_hearings.size, track_data(:'judge-historical-hearings') %></li>
-          <li><%= tab_link_to_with_count t('.in_media'), '#media', @results.size, track_data(:'judge-media') %></li>
-        </ul>
-
-        <div class="tab-content">
-          <div id="decrees" class="tab-pane active">
-            <%= render 'decrees', decrees: @decrees.limit(10), query: { judges: @judge.name } %>
-          </div>
-
-          <div id="upcoming-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name } %>
-          </div>
-
-          <div id="historical-hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true } %>
-          </div>
-
-          <div id="media" class="tab-pane">
-            <%= render 'media', results: @results %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="judge-resource" class="resources">
-  <div class="row">
-    <div class="span12">
-      <small class="muted">
-        <%= t '.court_data_from' %> <%= @judge.listed ? t('.from_long') : t('.from_short') %> <%= external_link_to @judge.listed ? t('.list') : t('.document'), @judge.uri, class: :muted, icon: true %>,
-        <%= t '.last_updated_on' %> <%= time_tag @judge.updated_at.to_date, format: :default %>.
+<ol class="list-unstyled">
+  <% @employments.each do |employment| %>
+    <li>
+      <%= judge_activity_by_employment(employment).upcase_first %>
+      <%= judge_position_by_employment(employment) %>
+      <%= t '.at_court' %> <%= link_to_court employment.court %>,
+      <%= t '.register', count: Hearing.during_employment(employment).exact.size %>
+      <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
+      <%= two_words_connector %>&nbsp;<%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
+      <% if employment.note %>
         <br/>
-        <%= t '.additional_info' %>
-      </small>
-    </div>
-  </div>
-</section>
+        <%= t '.note' %>: <%= employment.note.sub(/\.?\z/, '.') %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+
+<%= render 'designations' if @designations.any? %>
+<%= render 'relatives' if @judge.related_people_by_year.any? %>
+<%= render 'notes' if @judge.substantiation_notes_by_year.any? %>
+
+<div class="clearfix m-b-2"></div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <%= tab_link_tag t('.indicators'), 'indicators', class: 'active' %>
+  <%= tab_link_tag t('.decrees'), 'decrees' %>
+  <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
+  <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
+  <%= tab_link_tag t('.media'), 'media' %>
+</ul>
+
+<div class="tab-content">
+  <%= render_tab({ partial: 'indicators', class: 'active' }, judge: @judge) %>
+  <%= render_tab({ partial: 'decrees' }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
+  <%= render_tab({ partial: 'hearings', tab: 'upcoming-hearings' }, prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name }) %>
+  <%= render_tab({ partial: 'hearings', tab: 'historical-hearings' }, prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true }) %>
+  <%= render_tab({ partial: 'media' }, media: @media) %>
+</div>
+
+<p class="text-small text-muted m-t-3">
+  <%= s t ".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.description", document: link_to(t(".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.document"), @judge.uri), update: time_tag(@judge.updated_at.to_date, format: :default) %>
+  <%= s t '.resource_note.supplement' %>
+</p>

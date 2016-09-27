@@ -16,10 +16,9 @@
 #= require_tree ./lib
 #
 #= require analytics
+#= require indicators
 #= require search
 #= require tabs
 #= require tables
-#
-#= require judges
 #
 #= require fixes

@@ -1,0 +1,17 @@
+<div class="facet" data-id="<%= facet.name %>">
+  <h4 class="facet-title">
+    <%= t 'judges.indicators.numerical.additional_judges' %>
+  </h4>
+
+  <div id="<%= facet.id %>-content" class="facet-content">
+    <div class="facet-note">
+      <%= t 'judges.indicators.numerical.judges_note.content' %>
+    </div>
+
+    <%= facet_suggest_input_tag facet, path: suggest_path(facet.params.merge id: @judge.id), placeholder: translation[:placeholder] %>
+
+    <div class="facet-results">
+      <%= render 'judges/indicators/facets/name_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+    </div>
+  </div>
+</div>

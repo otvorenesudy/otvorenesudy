@@ -1,0 +1,5 @@
+<% if other.count == 1 && other.first.missing? %>
+  <%= render 'judges/indicators/facets/results', facet: facet, visible: visible + other, other: [], link: method(:link_to_indicators_terms_facet) %>
+<% else %>
+  <%= render 'judges/indicators/facets/results', facet: facet, visible: visible, other: other, link: method(:link_to_indicators_terms_facet) %>
+<% end %>

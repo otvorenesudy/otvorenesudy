@@ -1,5 +1,13 @@
 en:
   judges:
+    common: &common
+      at_court: "at the court"
+      register:
+        zero: "in the meantime we register"
+        one: "we register"
+        few: "we register"
+        other: "we register"
+
     activity:
       active:
         male: "active"
@@ -47,9 +55,121 @@ en:
 
     search:
       results:
-        at_court: "at the court"
-        register:
-          zero: "in the meantime we register"
-          one: "we register"
-          few: "we register"
-          other: "we register"
+        <<: *common
+
+    show:
+      <<: *common
+
+      indicators: "Indicators"
+      decrees: "Decrees"
+      upcoming_hearings: "Upcoming hearings"
+      historical_hearings: "Past hearings"
+      media: "Media"
+
+      note: "Note"
+
+      resource_note:
+        listed:
+          description: "Information regarding the court were obtained from %{document}, which was most recently updated on %{update}."
+          document: "the judge list"
+
+        unlisted:
+          description: "Information regarding the court were obtained from %{document}, which was most recently updated on %{update}."
+          document: "the original document"
+
+        supplement: "The information may have been additionally supplemented by the data retrieved from property declarations and statistical reports."
+
+      incomplete: "Information about judge's activites may be incomplete. Data obtained from the portal of Ministry of Justice do not include information about the composition of senates."
+
+    designations:
+      nominated_for: "The judge has been nominated to function for"
+
+    relatives:
+      close_ones: "Close persons acknowledged in property declarations in years"
+      close_ones_for: "Close persons acknowledged in property declaration in a year"
+
+    notes:
+      notes: "Notes about the data"
+      addition: "obtained from annual statistical reports of judges."
+      report_for: "Report in year"
+
+    indicators:
+      headline: "Indicators"
+      none: "We do not register any indicators for the judge yet."
+
+      basic:
+        headline: "Basic indicators"
+
+        agenda:
+          civil: "Civil"
+          business: "Business"
+          childcare: "Childcare"
+          criminal: "Criminal"
+
+        decrees_count: "The number of Constitutional court decrees against the judges &ndash; issued %{released_decrees} and delays prior to case assignment %{delayed_decrees}."
+        performance_data: "For the judge we register performance data for years %{years}:"
+        assigned_agendas: "Assigned agendas"
+        decided_agendas: "Decided agendas"
+        judge_results: "The judge in this period worked %{days} days and on average was assigned %{cases} cases in 10 days in main agendas."
+
+      numerical:
+        headline: "Chart comparison"
+
+        legend: "Legend"
+        additional_judges: "Additional judges"
+        advanced_comparison: "Advanced comparison"
+        show_filters: "Show filters"
+        hide_filters: "Hide filters"
+
+        judges_note:
+          content: "Select other judges for comparison"
+
+        filters_note:
+          content: "The chart is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases."
+
+      statistical:
+        headline: "Statistical comparison"
+
+        quality_indicators: "Quality indicators"
+
+        appealed_decrees: "Number of apellate decrees"
+        confirmed_decrees: "Number of confirmed decrees"
+
+        decrees_count_accuracy_note:
+          title: "Indicator is not exact"
+          content: "Appellate courts hear do not hear cases necessarily in the same year as it is decided at a district court. The more data we have, the more exact the indicator is."
+
+        efficiency_indicators: "Efficiency indicators"
+
+        computed_as_ratio_note:
+          content: "Indicator is calculated as a ratio between undecided cases at the end of the year and decided cases in the previous year. The lower the number is, the more capable the judge is to solve incoming cases."
+
+        unresolved_issue_note:
+          title: "Restant case"
+          content: "A case unresolved for more than 6 months in childcare cases and for more than 1 year in other cases."
+
+      notes:
+        headline: "Notes"
+
+        description: "%{data} obtained from annual statistical reports of judges pertaining to indicators."
+        data: "Notes about the data"
+
+    decrees:
+      headline: "Published decrees"
+      more: "More decrees"
+      none: "We do not register any published decrees for the judge yet."
+
+    upcoming_hearings:
+      headline: "Upcoming hearings"
+      more: "More hearings"
+      none: "We do not register any upcoming hearings for the judge yet."
+
+    historical_hearings:
+      headline: "Past hearings"
+      more: "More hearings"
+      none: "We do not register any past hearings for the judge yet."
+
+    media:
+      headline: "Mentions in media"
+      clarification: "Links are searched automatically using the name of the judge. They may not concern the judge."
+      none: "No mentions about the judge has been found in media."

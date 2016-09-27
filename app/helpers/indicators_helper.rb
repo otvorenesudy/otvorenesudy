@@ -4,13 +4,13 @@ module IndicatorsHelper
   def assigned_agendas_indicator(indicators)
     value = indicators['S4'].gsub(/([^\s]+ agenda|žiadnej agende väčšinovo)/) do |match|
       content = <<-CON
-        #{t 'judges.indicators.agenda.civil'} &ndash; #{indicators['S4a']}<br/>
-        #{t 'judges.indicators.agenda.business'} &ndash; #{indicators['S4b']}<br/>
-        #{t 'judges.indicators.agenda.childcare'} &ndash; #{indicators['S4c']}<br/>
-        #{t 'judges.indicators.agenda.criminal'} &ndash; #{indicators['S4d']}<br/>
+        #{t 'judges.indicators.basic.agenda.civil'} &ndash; #{indicators['S4a']}<br/>
+        #{t 'judges.indicators.basic.agenda.business'} &ndash; #{indicators['S4b']}<br/>
+        #{t 'judges.indicators.basic.agenda.childcare'} &ndash; #{indicators['S4c']}<br/>
+        #{t 'judges.indicators.basic.agenda.criminal'} &ndash; #{indicators['S4d']}<br/>
       CON
 
-      popover_tag match, content, title: t('judges.indicators.statistical.assigned_agendas'), trigger: 'hover'
+      popover_tag match, content, title: t('judges.indicators.basic.assigned_agendas'), trigger: 'hover'
     end
 
     "Sudcovi #{value}".html_safe
@@ -19,13 +19,13 @@ module IndicatorsHelper
   def decided_agendas_indicator(indicators)
     value = indicators['S5'].gsub(/([^\s]+ agende|žiadnej agende väčšinovo)/) do |match|
       content = <<-CON
-        #{t 'judges.indicators.agenda.civil'} &ndash; #{indicators['S5a']}<br/>
-        #{t 'judges.indicators.agenda.business'} &ndash; #{indicators['S5b']}<br/>
-        #{t 'judges.indicators.agenda.childcare'} &ndash; #{indicators['S5c']}<br/>
-        #{t 'judges.indicators.agenda.criminal'} &ndash; #{indicators['S5d']}<br/>
+        #{t 'judges.indicators.basic.agenda.civil'} &ndash; #{indicators['S5a']}<br/>
+        #{t 'judges.indicators.basic.agenda.business'} &ndash; #{indicators['S5b']}<br/>
+        #{t 'judges.indicators.basic.agenda.childcare'} &ndash; #{indicators['S5c']}<br/>
+        #{t 'judges.indicators.basic.agenda.criminal'} &ndash; #{indicators['S5d']}<br/>
       CON
 
-      popover_tag match, content, title: t('judges.indicators.statistical.decided_agendas'), trigger: 'hover'
+      popover_tag match, content, title: t('judges.indicators.basic.decided_agendas'), trigger: 'hover'
     end
 
     "Sudca #{value}".html_safe
@@ -45,9 +45,10 @@ module IndicatorsHelper
   # end
 
   def indicators_chart(judge, options = {})
-    classes = Array.wrap(options[:class]) << 'chart'
-    judges = [judge] + (options.delete(:others) || [])
-    locals = { colors: %w(3498db f1c40f e74c3c e67e22 2ecc71), judges: judges }
+    colors = %w(9b59b6 1abc9c 3498db f1c40f e74c3c e67e22 2ecc71)
+    judges = [judge] + options.fetch(:others, [])
+    locals = { colors: judges.size.times.map { |i| colors[i % colors.size] }, judges: judges }
+    options = options.slice(:width, :height).merge(class: 'chart-content')
 
     content_for :scripts do
       content_tag :script, type: 'text/javascript' do
@@ -55,7 +56,7 @@ module IndicatorsHelper
       end
     end
 
-    content_tag :canvas, nil, options.merge(class: classes)
+    content_tag :div, content_tag(:canvas, nil, options), class: 'chart'
   end
 
   def link_to_indicators_name_facet(facet, result, options = {})

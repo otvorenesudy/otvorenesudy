@@ -1,0 +1,5 @@
+<li class="facet-item<%= ' selected' if result.selected? %>">
+  <%= link_to icon_tag('plus-empty'), "#{judge_path params[:id], result.add_params}#indicators-chart", class: 'facet-link-add' unless result.selected? %>
+  <%= link_to icon_tag('minus-empty'), "#{judge_path params[:id], result.remove_params}#indicators-chart", class: 'facet-link-remove' if result.selected? %>
+  <%= link.call facet, result, class: 'facet-link' %>
+</li>

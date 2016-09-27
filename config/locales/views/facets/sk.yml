@@ -174,11 +174,11 @@ sk:
 
       decree_agenda:
         title: "Agenda rozhodnutí"
-        missing: "neuvedený"
+        missing: "neuvedená"
         not_found: "Nenájdené žiadne agendy."
 
-      indicators_courts:
-        title: "Súd"
+      similar_courts:
+        title: "Podobný súd"
         placeholder: "Názov súdu"
         missing: "neuvedený"
         not_found: "Nenájdené žiadne súdy."

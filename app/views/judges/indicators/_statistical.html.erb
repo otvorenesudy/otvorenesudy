@@ -1,0 +1,52 @@
+<h2 class="m-t-2 m-b-1">
+  <%= t '.quality_indicators' %>
+</h2>
+
+<p<%= ' class="m-b-0"'.html_safe if indicators['S9']%>>
+  <%= s indicators['S8'].gsub(/\s+%/, '%') %>
+</p>
+
+<% if indicators['S9'] %>
+  <ul class="list-unstyled m-l-1">
+    <li><%= t '.appealed_decrees' %> &ndash; <%= indicators['S8a'] %>
+    <li><%= t '.confirmed_decrees' %> &ndash; <%= indicators['S8b'] %>
+  </ul>
+
+  <p>
+    <%= s indicators['S9'] %>
+    <%= help_tag '.decrees_count_accuracy_note' %>
+  </p>
+
+  <p>
+    <%= s indicators['S10'].gsub(/\s+%/, '%') %>
+    <%= help_tag '.decrees_count_accuracy_note' %>
+  </p>
+<% end %>
+
+<h2 class="m-t-2 m-b-1">
+  <%= t '.efficiency_indicators' %>
+</h2>
+
+<p>
+  <%= s indicators['S11'] %>
+  <%= help_tag '.computed_as_ratio_note' %>
+</p>
+
+<% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
+  <p>
+    <%= s indicators['S12'] %>
+  </p>
+
+  <p>
+    <%= s indicators['S13'] %>
+    <%= help_tag '.unresolved_issue_note' %>
+  </p>
+
+  <p>
+    <%= s indicators['S14'] %>
+  </p>
+
+  <p>
+    <%= s indicators['S15'] %>
+  </p>
+<% end %>

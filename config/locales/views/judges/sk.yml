@@ -1,5 +1,13 @@
 sk:
   judges:
+    common: &common
+      at_court: "na súde"
+      register:
+        zero: "zatiaľ neevidujeme"
+        one: "evidujeme"
+        few: "evidujeme"
+        other: "evidujeme"
+
     activity:
       active:
         male: "aktívny"
@@ -10,8 +18,8 @@ sk:
         female: "neaktívna"
 
       unknown:
-        male: "naznáma"
-        female: "naznáma"
+        male: "neznámy"
+        female: "neznáma"
 
     position:
       probably: "pravdepodobne"
@@ -47,9 +55,121 @@ sk:
 
     search:
       results:
-        at_court: "na súde"
-        register:
-          zero: "zatiaľ neevidujeme"
-          one: "evidujeme"
-          few: "evidujeme"
-          other: "evidujeme"
+        <<: *common
+
+    show:
+      <<: *common
+
+      indicators: "Indikátory"
+      decrees: "Rozhodnutia"
+      upcoming_hearings: "Budúce pojednávania"
+      historical_hearings: "Minulé pojednávania"
+      media: "Médiá"
+
+      note: "Poznámka"
+
+      resource_note:
+        listed:
+          description: "Informácie o sudcovi boli získané zo %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+          document: "zoznamu sudcov"
+
+        unlisted:
+          description: "Informácie o sudcovi boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+          document: "pôvodného dokumentu"
+
+        supplement: "Tieto informácie mohli byť ďalej doplnené o dáta získané z majetkových priznaní a štatistických výkazov sudcov."
+
+      incomplete: "Údaje o činnosti sudcu sú neúplné. Preberaným dátam z portálu Ministerstva spravodlivosti chýba informácia o zložení senátov."
+
+    designations:
+      nominated_for: "Sudca bol vymenovaný do funkcie pred"
+
+    relatives:
+      close_ones: "Blízke osoby uvedené v majetkových priznaniach sudcu za roky"
+      close_ones_for: "Blízke osoby uvedené v majetkových priznaniach sudcu za rok"
+
+    notes:
+      notes: "Poznámky k dátam"
+      addition: "získané zo štatistických výkazov sudcov."
+      report_for: "Výkaz za rok"
+
+    indicators:
+      headline: "Indikátory"
+      none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
+
+      basic:
+        headline: "Základné indikátory"
+
+        agenda:
+          civil: "Občianska"
+          business: "Obchodná"
+          childcare: "Poručenská"
+          criminal: "Trestná"
+
+        decrees_count: "Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané %{released_decrees} a prieťahy pred pridelením veci %{delayed_decrees}."
+        performance_data: "Pre sudcu evidujeme výkonnostné dáta za roky %{years}:"
+        assigned_agendas: "Prideľované agendy"
+        decided_agendas: "Rozhodované agendy"
+        judge_results: "Sudca v sledovanom období odpracoval %{days} dní a v priemere mu za 10 dní bolo pridelených %{cases} prípadov v hlavných agendách."
+
+      numerical:
+        headline: "Grafické porovnanie"
+
+        legend: "Legenda"
+        additional_judges: "Ďalší sudcovia"
+        advanced_comparison: "Pokročilé porovnanie"
+        show_filters: "Zobraziť filtre"
+        hide_filters: "Skryť filtre"
+
+        judges_note:
+          content: "Vyberte daľších sudcov pre porovnanie"
+
+        filters_note:
+          content: "Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobnom súde a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory."
+
+      statistical:
+        headline: "Štatistické porovnanie"
+
+        quality_indicators: "Indikátory kvality"
+
+        appealed_decrees: "Počet rozhodnutí o odvolaniach"
+        confirmed_decrees: "Počet potvrdených odvolaní"
+
+        decrees_count_accuracy_note:
+          title: "Indikátor nie je presný"
+          content: "O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší."
+
+        efficiency_indicators: "Indikátory výkonnosti"
+
+        computed_as_ratio_note:
+          content: "Indikátor je vypočítaný ako podiel medzi nevybavenými vecami na konci roka a rozhodnutými vecami v poslednom roku. Čím je toto číslo nižšie, tým schopnejší je sudca vybavovať včas to, čo mu prichádza."
+
+        unresolved_issue_note:
+          title: "Reštančná vec"
+          content: "Vec, nevybavená dlhšie ako 6 mesiacov v prípade maloletých a dlhšie ako 1 rok v ostatných prípadoch."
+
+      notes:
+        headline: "Poznámky"
+
+        description: "%{data} získané zo štatistických výkazov sudcov týkajúce sa indikátorov."
+        data: "Poznámky k dátam"
+
+    decrees:
+      headline: "Vynesené rozhodnutia"
+      more: "Viac rozhodnutí"
+      none: "Pre sudcu zatiaľ neevidujeme žiadne vynesené súdne rozhodnutia."
+
+    upcoming_hearings:
+      headline: "Budúce pojednávania"
+      more: "Viac pojednávaní"
+      none: "Pre sudcu zatiaľ neevidujeme žiadne budúce súdne pojednávania."
+
+    historical_hearings:
+      headline: "Minulé pojednávania"
+      more: "Viac pojednávaní"
+      none: "Pre sudcu zatiaľ neevidujeme žiadne minulé súdne pojednávania."
+
+    media:
+      headline: "Zmienky v médiách"
+      clarification: "Odkazy sú vyhľadávané automaticky na základe mena a pôsobiska sudcu. Sudcu sa týkať nemusia."
+      none: "O sudcovi neboli nájdené žiadne zmienky v médiách."

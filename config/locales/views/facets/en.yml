@@ -177,8 +177,8 @@ en:
         missing: "missing"
         not_found: "No agendas found."
 
-      indicators_courts:
-        title: "Court"
+      similar_courts:
+        title: "Similar court"
         placeholder: "Court name"
         missing: "missing"
         not_found: "No courts found."
