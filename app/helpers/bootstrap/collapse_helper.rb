@@ -12,7 +12,7 @@ module Bootstrap
         content = content.last
       end
 
-      options.deep_merge! class: classes, data: data.merge(toggle: 'collapse')
+      options.deep_merge! class: (classes if classes.present?), data: data.merge(toggle: 'collapse')
       link_to content, target, options
     end
   end
