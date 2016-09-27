@@ -6,6 +6,11 @@ $(document).ready ->
     $('a[href="#"]').click (e) ->
       e.preventDefault()
 
+    $('a[data-toggle="collapse"][data-toggle-content]').click ->
+      e = $(this)
+      c = e.attr('data-toggle-content')
+      e.attr('data-toggle-content', e.html()) and e.html(c)
+
     options = {
       container: 'body',
       constraints: [{
