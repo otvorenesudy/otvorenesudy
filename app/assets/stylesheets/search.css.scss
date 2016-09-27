@@ -1,7 +1,8 @@
 .facet {
   @extend .m-b-1;
 
-  &.facet-inline {
+  &.facet-collapse {
+    @extend .m-t-1;
     @extend .m-b-0;
   }
 }
@@ -108,6 +109,16 @@
 .search {
   .facet:first-of-type {
     @extend .p-t-2;
+  }
+
+  .facet-suggest {
+    @include media-breakpoint-only(sm) {
+      width: 6 * (100% / 12);
+    }
+
+    @include media-breakpoint-only(md) {
+      width: 5 * (100% / 12);
+    }
   }
 }
 
