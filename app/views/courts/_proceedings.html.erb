@@ -4,7 +4,7 @@
 <ul class="list-inline">
   <% @court.average_proceeding_durations.each do |agenda| %>
     <li class="list-inline-item">
-      <a href="#proceedings-<%= agenda.acronym %>" data-toggle="collapse" data-parent="#proceedings" role="tab"><%= agenda.name %></a>
+      <%= link_to_collapse agenda.name, "#proceedings-#{agenda.acronym}", parent: '#proceedings', role: 'tab' %>
     </li>
   <% end %>
 </ul>

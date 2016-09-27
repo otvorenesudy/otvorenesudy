@@ -4,7 +4,7 @@
 </p>
 <p>
   <% unless @court.expenses_total.zero? %>
-    <a href="#" data-toggle="collapse" data-target="#expenses"><%= t '.fines' %></a>
+    <%= link_to_collapse t('.fines'), '#expenses' %>
   <% else %>
     <%= t '.fines' %>
   <% end %>

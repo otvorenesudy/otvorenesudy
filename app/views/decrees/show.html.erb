@@ -86,11 +86,11 @@
 
 <% if @legislations.any? %>
   <p class="m-t-1 m-b-0">
-    <a href="#" data-toggle="collapse" data-target="#legislations"><%= t '.legislations' %></a>
+    <%= link_to_collapse t('.legislations'), '#legislations' %>
   </p>
 
   <div id="legislations" class="collapse">
-    <ul class="list-unstyled m-b-0">
+    <ul class="list-unstyled m-b-0 m-l-1">
       <% @legislations.each do |legislation| %>
         <li>
           <%= link_to legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url, class: 'text-default' %>
