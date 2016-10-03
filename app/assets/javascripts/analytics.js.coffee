@@ -1,6 +1,8 @@
-# TODO update
-
 $(document).ready ->
-  $('[data-track]').click ->
-    label = $(this).attr 'data-track'
-    _gaq.push ['_trackEvent', 'Actions', 'Click', label]
+  $('[data-track-category]').click ->
+    element = $(this)
+    category = element.attr('data-track-category')
+    action = element.attr('data-track-action')
+    label = element.attr('data-track-label') || element.attr('id')
+
+    _gaq?.push ['_trackEvent', category, action, label]
