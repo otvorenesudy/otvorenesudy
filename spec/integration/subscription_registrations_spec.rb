@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'spec_helper'
 
 describe 'SubscriptionRegistrations' do
@@ -20,16 +18,16 @@ describe 'SubscriptionRegistrations' do
       end
 
       after :each do
-        page.should have_content('Odoberanie notifikácií bolo úspešne zaregistrované.')
+        page.should have_content('Odoberanie notifikácií bolo zaregistrované.')
 
         logout user
       end
 
       it 'should register notification for empty query' do
-        visit search_decrees_path
+        visit decrees_path
 
-        within '#subscribe' do
-          click_button 'new_subscription'
+        within '#create_subscription' do
+          click_button 'Odoberať'
         end
 
         subscription = user.subscriptions.first
@@ -40,11 +38,11 @@ describe 'SubscriptionRegistrations' do
       end
 
       it 'should register weekly notification for empty query' do
-        visit search_decrees_path
+        visit decrees_path
 
-        within '#subscribe' do
-          choose 'period-weekly'
-          click_button 'new_subscription'
+        within '#create_subscription' do
+          choose 'Týždenne'
+          click_button 'Odoberať'
         end
 
         subscription = user.subscriptions.first
@@ -52,8 +50,6 @@ describe 'SubscriptionRegistrations' do
         subscription.period.name.should eql('weekly')
         subscription.query.value.should eql({})
         subscription.query.model.should eql('Decree')
-
-        page.should have_content('Odoberanie notifikácií bolo úspešne zaregistrované.')
       end
 
       it 'should register query from selection' do
@@ -61,19 +57,19 @@ describe 'SubscriptionRegistrations' do
 
         reload_indices
 
-        visit search_decrees_path
+        visit decrees_path
 
-        within '#search-view #decree-court' do
+        within '#decree-court' do
           click_link decree.court.name
         end
 
-        within '#search-view #decree-date ul' do
-          find('a.add:first').click
+        within '#decree-date ul' do
+          find('a:first').click
         end
 
-        within '#subscribe' do
-          choose 'period-daily'
-          click_button 'new_subscription'
+        within '#create_subscription' do
+          choose 'Denne'
+          click_button 'Odoberať'
         end
 
         subscription = user.subscriptions.first
@@ -88,17 +84,17 @@ describe 'SubscriptionRegistrations' do
 
         reload_indices
 
-        visit search_decrees_path
+        visit decrees_path
 
         2.times do |n|
-          within "#search-view #decree-date ul li:nth-child(#{n + 1})" do
-            find('a.add:first').click
+          within "#decree-date ul li:nth-child(#{n + 1})" do
+            find('a:first').click
           end
         end
 
-        within '#subscribe' do
-          choose 'period-weekly'
-          click_button 'new_subscription'
+        within '#create_subscription' do
+          choose 'Týždenne'
+          click_button 'Odoberať'
         end
 
         subscription = user.subscriptions.first
@@ -111,7 +107,7 @@ describe 'SubscriptionRegistrations' do
 
     describe '#update' do
       after :each do
-        page.should have_content('Odoberanie notifikácií bolo úspešne aktualizované.')
+        page.should have_content('Odoberanie notifikácií bolo aktualizované.')
       end
 
       it 'should update existing query' do
@@ -119,13 +115,13 @@ describe 'SubscriptionRegistrations' do
 
         login_as subscription.user
 
-        visit search_decrees_path
+        visit decrees_path
 
-        within '#subscribe' do
+        within '#update_subscription' do
           # find('#period-monthly')['checked'].should_not be_nil
 
-          choose 'period-weekly'
-          click_button 'edit_subscription'
+          choose 'Týždenne'
+          click_button 'Aktualizovať'
         end
 
         subscription.reload
@@ -141,13 +137,13 @@ describe 'SubscriptionRegistrations' do
 
         login_as subscription.user
 
-        visit search_decrees_path
+        visit decrees_path
 
-        within '#subscribe' do
-          click_link 'delete_subscription'
+        within '#update_subscription' do
+          click_link 'Zrušiť'
         end
 
-        page.should have_content('Odoberanie notifikácií bolo úspešne zrušené.')
+        page.should have_content('Odoberanie notifikácií bolo zrušené.')
 
         Subscription.exists?(subscription.id).should be_false
       end
@@ -163,9 +159,9 @@ describe 'SubscriptionRegistrations' do
 
         visit subscriptions_users_path
 
-        within "#subscription-form-#{subscription.id}" do
-          choose 'period-daily'
-          click_button 'edit_subscription'
+        within "#edit_subscription_#{subscription.id}" do
+          choose 'Denne'
+          click_button 'Aktualizovať'
         end
 
         subscription.reload
@@ -173,7 +169,7 @@ describe 'SubscriptionRegistrations' do
         subscription.period.name.should eql('daily')
         subscription.query.value.should eql({})
 
-        page.should have_content('Odoberanie notifikácií bolo úspešne aktualizované.')
+        page.should have_content('Odoberanie notifikácií bolo aktualizované.')
       end
     end
 
@@ -185,11 +181,11 @@ describe 'SubscriptionRegistrations' do
 
         visit subscriptions_users_path
 
-        within "#subscription-form-#{subscription.id}" do
-          click_link 'delete_subscription'
+        within "#edit_subscription_#{subscription.id}" do
+          click_link 'Zrušiť'
         end
 
-        page.should have_content('Odoberanie notifikácií bolo úspešne zrušené.')
+        page.should have_content('Odoberanie notifikácií bolo zrušené.')
         Subscription.exists?(subscription.id).should be_false
       end
     end
