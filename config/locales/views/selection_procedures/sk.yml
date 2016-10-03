@@ -53,3 +53,9 @@ sk:
       link_note:
         description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
         document: "pôvodný dokument"
+
+    declaration:
+      file: "Vyhlásenie výberového konania č. %{id}"
+
+    report:
+      file: "Zápisnica výberového konania č. %{id}"

@@ -55,3 +55,6 @@ sk:
       faulty_date: "Rozhodnutie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."
       future_date: "Dátum rozhodnutia je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach na portáli Ministerstva spravodlivosti."
       unprocessed: "Rozhodnutie je neúplné. Pri spracovaní dát z portálu Ministerstva spravodlivosti nastala neznáma chyba."
+
+    document:
+      file: "Rozhodnutie-%{ecli}"

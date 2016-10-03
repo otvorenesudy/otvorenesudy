@@ -1,5 +1,3 @@
-# TODO translate
-
 module IndicatorsHelper
   def assigned_agendas_indicator(indicators)
     value = indicators['S4'].gsub(/([^\s]+ agenda|žiadnej agende väčšinovo)/) do |match|
@@ -13,6 +11,7 @@ module IndicatorsHelper
       popover_tag match, content, title: t('judges.indicators.basic.assigned_agendas'), trigger: 'hover'
     end
 
+    # TODO translate
     "Sudcovi #{value}".html_safe
   end
 
@@ -28,10 +27,11 @@ module IndicatorsHelper
       popover_tag match, content, title: t('judges.indicators.basic.decided_agendas'), trigger: 'hover'
     end
 
+    # TODO translate
     "Sudca #{value}".html_safe
   end
 
-  # TODO rm - seems unused
+  # TODO rm - unused?
   # def abjuration_rate_indicator(indicators, options = {})
   #   tooltip_tag(indicators['S9'], 'Indikátor nie je presný. O rozhodnutiach sudcu rozhoduje odvolací súd nie nevyhnutne v rovnakom roku. Čím viac dát o práci sudcu máme, tým je indikátor presnejší.')
   # end

@@ -23,8 +23,7 @@ class DecreesController < SearchController
 
     return redirect_to @decree.pdf_uri if @decree.pdf_uri
 
-    # TODO translate?
-    send_file_in @decree.document_path, name: "Rozhodnutie-#{@decree.ecli}"
+    send_file_in @decree.document_path, name: t('decrees.document.file', ecli: @decree.ecli)
   end
 
   protected

@@ -53,3 +53,9 @@ en:
       link_note:
         description: "Link to %{document} may not be valid, due to the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
         document: "the original document"
+
+    declaration:
+      file: "Declaration of selection procedure n. %{id}"
+
+    report:
+      file: "Report of selection procedure n. %{id}"

@@ -16,10 +16,11 @@ OpenCourts::Application.routes.draw do
       get :suggest
     end
 
-    member do
-      get :curriculum
-      get :cover_letter
-    end
+    # TODO rm - unused?
+    # member do
+    #   get :curriculum
+    #   get :cover_letter
+    # end
   end
 
   resources :hearings, only: [:index, :show] do
@@ -61,10 +62,14 @@ OpenCourts::Application.routes.draw do
 
     resources :selection_procedure_candidates, as: :candidates, path: :candidates, only: [] do
       member do
-        get :application
-        get :curriculum
+        # TODO rm - unused?
+        # get :application
+        # get :curriculum
+
         get :declaration
-        get :motivation_letter
+
+        # TODO rm - unused?
+        # get :motivation_letter
       end
     end
   end

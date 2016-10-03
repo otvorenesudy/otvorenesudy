@@ -170,7 +170,7 @@ class Judge < ActiveRecord::Base
     @listed = @probably_higher_court_official = @probably_female = nil
   end
 
-  #TODO rm: this info is not in selection procedures
-  storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
-  storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
+  # TODO rm - unused? this info is not in selection procedures anymore
+  # storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
+  # storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end

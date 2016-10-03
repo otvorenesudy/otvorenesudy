@@ -55,3 +55,6 @@ en:
       faulty_date: "The decree was published on the portal of the Ministry of Justice with a date in far future."
       future_date: "The decree date is in far future, there is an error in original data on the portal of the Ministry of Justice."
       unprocessed: "The decree is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."
+
+    document:
+      file: "Decree-%{ecli}"

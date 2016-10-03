@@ -22,19 +22,21 @@ class JudgesController < SearchController
     @others = params[:name] ? results.to_a.map(&:first) : []
   end
 
-  def curriculum
-    @judge = Judge.find(params[:id])
+  # TODO rm - unused?
+  # def curriculum
+  #   @judge = Judge.find(params[:id])
+  #
+  # TODO translate
+  #   send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
+  # end
 
-    # TODO translate?
-    send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
-  end
-
-  def cover_letter
-    @judge = Judge.find(params[:id])
-
-    # TODO translate?
-    send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
-  end
+  # TODO rm - unused?
+  # def cover_letter
+  #   @judge = Judge.find(params[:id])
+  #
+  # TODO translate
+  #   send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
+  # end
 
   protected
 
