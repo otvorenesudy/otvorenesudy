@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter do
-    I18n.locale = params[:l]
+    I18n.locale = params[:l] || I18n.default_locale
   end
 
   protected
