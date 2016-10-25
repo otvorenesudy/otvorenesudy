@@ -1,5 +1,5 @@
 require 'rollbar/rails'
-require 'rollbar/sidekiq'
+require 'rollbar/plugins/sidekiq'
 
 Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.
