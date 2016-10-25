@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter do
-    I18n.locale = params[:l] || I18n.default_locale
+    set_locale params[:l] || I18n.default_locale
   end
 
   protected
@@ -27,5 +27,11 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { l: I18n.locale }
+  end
+
+  def set_locale(value)
+    I18n.locale = value
+  rescue I18n::InvalidLocale
+    redirect_to :root
   end
 end
