@@ -67,7 +67,7 @@ gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
 # scheduling
-gem 'whenever', github: 'elhu/whenever', branch: 'ruby-2.3-compat' # TODO remove after merging this: https://github.com/javan/whenever/pull/603
+gem 'whenever', '~> 0.9.7'
 
 # hostname
 gem 'rack-canonical-host'

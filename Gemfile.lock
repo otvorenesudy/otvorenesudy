@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/elhu/whenever.git
-  revision: 10f5db1d715c1225d57fe9ab573f5a9d89c4575d
-  branch: ruby-2.3-compat
-  specs:
-    whenever (0.9.4)
-      chronic (>= 0.6.3)
-
-GIT
   remote: git://github.com/mperham/sidekiq.git
   revision: deca1dcfcf5218a2d6ef0d789e0f871ae7454a69
   specs:
@@ -397,6 +389,8 @@ GEM
       rack (>= 1.0)
     webrobots (0.1.1)
     websocket (1.0.7)
+    whenever (0.9.7)
+      chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -469,7 +463,7 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   underscore-rails (~> 1.8.3)
   unicorn
-  whenever!
+  whenever (~> 0.9.7)
 
 BUNDLED WITH
-   1.12.5
+   1.13.3
