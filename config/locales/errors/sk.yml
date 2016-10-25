@@ -6,10 +6,10 @@ sk:
   exceptions:
     bad_request:
       title: "Chybná požiadavka"
-      description: "Server nerozumel vašej požiadavke. Mohla byť poškodená."
+      description: "Server nerozumel Vašej požiadavke. Mohla byť poškodená."
     internal_server_error:
       title: "Kritická chyba"
-      description: "Je nám ľúto, ale niečo sa pokazilo pri spracovaní vašej požiadavky."
+      description: "Je nám ľúto, ale niečo sa pokazilo pri spracovaní Vašej požiadavky."
     not_found:
       title: "Stránka nenájdená"
       description: "Stránka, ktorú ste hľadali neexistuje."

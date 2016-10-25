@@ -12,6 +12,6 @@ používateľov. Používame ich aj na na ochranu Vašich osobných údajov po p
 </div>
 
 Cookie je krátky textový súbor, ktorý do prehliadača odosielajú navštívené webové stránky.
-Webovým stránkam umožňuje zapamätať si informácie o vašej návšteve, napríklad preferovaný
+Webovým stránkam umožňuje zapamätať si informácie o Vašej návšteve, napríklad preferovaný
 jazyk a ďalšie nastavenia. Ďalšia návšteva stránok tak môže prebehnúť ľahšie a môže byť
 produktívnejšia. Súbory cookie sú dôležité. Bez nich by bolo prehliadanie webu oveľa zložitejšie.
