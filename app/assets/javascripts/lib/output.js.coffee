@@ -1,14 +1,14 @@
 #= require lib/config
 
 class window.Output
-  @format_msg: (msg) ->
-    "[#{Config.appName}] #{msg}"
+  @format: (s) ->
+    "[#{Config.application}] #{s}"
 
-  @puts: (msg) ->
-    console.log(Output.format_msg(msg)) if window.Config.debug
+  @print: (s) ->
+    console.log(Output.format(s)) if window.Config.debug
 
-  @warn: (msg) ->
-    console.warn(Output.format_msg(msg)) if window.Config.debug
+  @warn: (s) ->
+    console.warn(Output.format(s)) if window.Config.debug
 
-  @error: (msg) ->
-    console.error(Output.format_msg(msg)) if window.Config.debug
+  @error: (s) ->
+    console.error(Output.format(s)) if window.Config.debug

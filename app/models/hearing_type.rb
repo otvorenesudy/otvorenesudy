@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class HearingType < ActiveRecord::Base
   include Resource::Enumerable
 

@@ -135,7 +135,7 @@ module SudnaradaGovSk
         value = value.utf8
 
         value.gsub!(/súdkyňa/, 'sudkyňa')
-        value.gsub!(/asistenka/, 'asistentka')        
+        value.gsub!(/asistenka/, 'asistentka')
         value.gsub!(/probačnýa\s*mediač\.+\s*prac\.+/i, 'probačný a mediačný pracovník')
         value.gsub!(/administr\./i, 'administratívny ')
         value.gsub!(/VS(Ú|U)/i, 'vyšší súdny úradník')
@@ -149,7 +149,7 @@ module SudnaradaGovSk
       end
 
       # TODO impossible to implement normalization of acquisition date on current data
-      # TODO rm, unused
+      # TODO rm - unused?
 
       def normalize_acquisition_date(value)
         value = value.ascii.strip
@@ -161,24 +161,16 @@ module SudnaradaGovSk
 
         return nil if value == '-'
 
-        puts "VALUE #{value}" #TODO rm
-
         case
         when value =~ /\./
           parts = value.split(/\./)
-          puts "-. #{parts}" #TODO rm
         when value =~ /\//
           parts = value.split(/\//)
-
-          puts "-/ #{parts}" #TODO rm
         when value =~ /[a-z]/
           months = ['januar', 'februar', 'marec', 'april', 'maj', 'jun', 'jul', 'august', 'september', 'oktober', 'november', 'december']
           parts  = [months.index(value.match(/[a-z]+/)[0]) + 1, value.match(/\d+\z/)[0]]
-
-          puts "az #{parts}" #TODO rm
         else
           parts = [value.to_i]
-          puts "el !#{parts}" #TODO rm
         end
 
         year  = parts.last

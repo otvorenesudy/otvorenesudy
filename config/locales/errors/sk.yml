@@ -1,11 +1,27 @@
 sk:
+  unicorn:
+    title: "Jednorožec"
+    message: "A preto sa veľmi rozzúril jednorožec!"
+
   exceptions:
-    not_found:
-      title: 'Stránka nenájdená'
-      description: 'Stránka, ktorú ste hľadali neexistuje.'
-    internal_server_error:
-      title: 'Kritická chyba'
-      description: 'Je nám ľúto, ale niečo sa pokazilo pri spracovaní vašej požiadavky.'
     bad_request:
-      title: 'Chybná požiadavka'
-      description: 'Server nerozumel vašej požiadavke. Mohla byť poškodená.'
+      title: "Chybná požiadavka"
+      description: "Server nerozumel Vašej požiadavke. Mohla byť poškodená."
+    internal_server_error:
+      title: "Kritická chyba"
+      description: "Je nám ľúto, ale niečo sa pokazilo pri spracovaní Vašej požiadavky."
+    not_found:
+      title: "Stránka nenájdená"
+      description: "Stránka, ktorú ste hľadali neexistuje."
+
+  errors:
+    messages:
+      already_confirmed: "bol už potvrdený, skúste sa prihlásiť"
+      confirmation_period_expired: "je potrebné overiť do %{period}, prosím vyžiadajte si nové overenie"
+      expired: "vypršal, prosím vyžiadajte si nový"
+      not_found: "nenájdený"
+      not_locked: "nebol zamknutý"
+      not_saved:
+        one: "%{resource} nebol uložený kvôli chybe:"
+        few: "%{resource} nebol uložený kvôli %{count} chybám:"
+        other: "%{resource} nebol uložený kvôli %{count} chybám:"

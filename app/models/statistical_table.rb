@@ -3,7 +3,6 @@ class StatisticalTable < ActiveRecord::Base
 
   belongs_to :statistical_summary, foreign_key: :statistical_summary_id, polymorphic: true
 
-  # TODO: fix, make it more pretty
   alias :summary  :statistical_summary
   alias :summary= :statistical_summary=
 

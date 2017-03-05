@@ -1,22 +1,20 @@
 <div id="<%= facet.id %>" class="facet" data-id="<%= facet.name %>">
-  <% if @collapsible_facet_names.include? facet.name %>
-    <h4 class="collapsible" data-toggle="collapse" data-target="#<%= facet.id %>-content">
+  <% if @collapsible_facets.include? facet.name %>
+    <h4 class="facet-title collapsible<%= ' collapsed' if @collapsed_facets.include? facet.name %>" data-toggle="collapse" data-target="#<%= facet.id %>-content">
       <%= translation[:title] if translation[:title] %>
-      <%= icon_tag :circle %>
+      <%= icon_tag 'plus-empty' %>
     </h4>
   <% else %>
-    <h4>
+    <h4 class="facet-title">
       <%= translation[:title] if translation[:title] %>
     </h4>
   <% end %>
 
-  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless @collapsed_facet_names.include? facet.name}" if @collapsible_facet_names.include? facet.name %>">
-    <% if translation[:placeholder] %>
-      <%= facet_suggest_input facet, placeholder: translation[:placeholder] %>
-    <% end %>
+  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' in' unless @collapsed_facets.include? facet.name}" if @collapsible_facets.include? facet.name %>">
+    <%= facet_suggest_input_tag facet, placeholder: translation[:placeholder] if translation[:placeholder] %>
 
     <div class="facet-results">
-      <%= render "facets/#{facet.type}_facet_results", facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+      <%= render "facets/#{facet.type}_results", facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
     </div>
   </div>
 </div>

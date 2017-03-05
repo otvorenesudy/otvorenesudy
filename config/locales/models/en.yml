@@ -29,6 +29,12 @@ en:
     few: 'proceedings'
     other: 'proceedings'
 
+  selection_procedure: &selection_procedure
+    zero: 'selection procedures'
+    one: 'selection procedure'
+    few: 'selection procedures'
+    other: 'selection procedures'
+
   proposer: &proposer
     zero: 'proposers'
     one: 'proposer'
@@ -47,13 +53,13 @@ en:
     few: 'defendants'
     other: 'defendants'
 
-  candidate:
+  candidate: &candidate
     zero: 'candidates'
     one: 'candidate'
     few: 'candidates'
     other: 'candidates'
 
-  commissioner:
+  commissioner: &commissioner
     zero: 'commissioners'
     one: 'commissioner'
     few: 'commissioners'
@@ -83,7 +89,7 @@ en:
     few: 'events'
     other: 'events'
 
-  period:
+  period: &preiod
     daily: 'Daily'
     weekly: 'Weekly'
     monthly: 'Monthly'
@@ -111,3 +117,6 @@ en:
 
       proceeding:
         <<: *proceeding
+
+      selection_procedure:
+        <<: *selection_procedure

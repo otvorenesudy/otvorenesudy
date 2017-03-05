@@ -1,6 +1,7 @@
 class window.Config
-  @appName:     "<%= Rails.application.class.parent_name %>"
+  @application: "<%= Rails.application.class.parent_name %>"
   @environment: "<%= Rails.env %>"
-  @debug:        <%= !Rails.env.production?  %>
+  @debug:        <%= !Rails.env.production? %>
   @search:
-    el: '#search-view'
+    element: '.search'
+    results: '.search-result-list'

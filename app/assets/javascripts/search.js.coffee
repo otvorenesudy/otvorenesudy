@@ -1,15 +1,15 @@
-#= require lib/lib
+#= require_tree ./lib
 
 $(document).ready ->
   class window.Search extends Module
     @include Initializer
     @include Logger
 
-    constructor: (model, el, options) ->
-      @.log 'Initializing search ...'
+    constructor: (model, options) ->
+      @.log "search on #{options.element}"
 
       @model   = model
-      @el      = $(el)
+      @element = $(options.element)
       @results = $(options.results)
 
       @.setup(options) if options?
@@ -17,8 +17,6 @@ $(document).ready ->
       @.registerEvents()
 
     registerEvents: ->
-      @.log 'Registering events ...'
-
       @.registerSubmit()
       @.registerSuggest()
       @.registerSelect()
@@ -26,32 +24,27 @@ $(document).ready ->
       @.registerCollapse()
 
     registerSubmit: ->
-      $(@el).find('form button.submit, form input[type="checkbox"]').click ->
+      $(@element).find('form button.submit, form input[type="checkbox"]').click ->
         $(this).closest('form').submit()
 
     registerSuggest: ->
-      suggest = new Search.Suggest(@el)
+      suggest = new Search.Suggest(@element)
 
       suggest.register()
 
     registerSelect: ->
-      $(@el).find('form select').on 'change', ->
+      $(@element).find('form select').on 'change', ->
         $(this).closest('form').submit()
 
     registerSearch: ->
-      $(@el).find('.facet ul li a, form a, .btn-group a:not(.active)').click (e) => @.onSearch()
-      $(@el).find('form input').change => @.onSearch()
-      $(@el).submit => @.onSearch()
-      $(@el).find('.search-reset').click => @.onSearch()
+      $(@element).find('.facet ul li a, form a, .btn-group a:not(.active)').click (e) => @.onSearch()
+      $(@element).find('form input').change => @.onSearch()
+      $(@element).submit => @.onSearch()
+      $(@element).find('.search-reset').click => @.onSearch()
 
     onSearch: ->
       $(@results).find('a').click (e) -> e.preventDefault()
       $(@results).find('a').addClass('disabled')
-
-      $(@results).fadeTo('slow', 0.25)
-
-    focusSearchView: ->
-      scrollTo($(@el).position().top)
 
     registerCollapse: ->
       model = @model
@@ -60,19 +53,16 @@ $(document).ready ->
         name      = $(this).closest('.facet').attr('data-id')
         collapsed = $($(this).attr('data-target')).hasClass('in')
 
-        # TODO: use config or anything else for the path
         $.get '/search/collapse', { model: model, name: name, collapsed: collapsed }
 
   class window.Search.Suggest extends Module
     @include Logger
 
-    constructor: (el) ->
-      @el = el
+    constructor: (element) ->
+      @element = element
 
     register: ->
-      facets = $(@el).find('.facet')
-
-      @.log "Applying suggest to #{facets.length} facets."
+      facets = $(@element).find('.facet')
 
       for facet in facets
         input = $(facet).find('input').first()
@@ -80,10 +70,10 @@ $(document).ready ->
         @.registerSuggest(input) if input.length > 0
 
     registerSuggest: (input) ->
-      name    = $(input).attr('data-id')
-      path    = $(input).attr('data-suggest-path')
+      name = $(input).attr('data-id')
+      path = $(input).attr('data-path')
 
-      @.log "Setting up suggesting for #{name} with path #{path}"
+      @.log "suggest on #{name} via #{path}"
 
       $(input).autocomplete
         minLength: 0
@@ -92,8 +82,6 @@ $(document).ready ->
 
           $(results).find('a').click (e) -> e.preventDefault()
           $(results).find('a').addClass('disabled')
-
-          $(results).fadeTo('slow', 0.25)
 
           terms = []
 
@@ -108,3 +96,5 @@ $(document).ready ->
               term: terms.join(' ')
             success: (html) ->
               $(input).closest('.facet-content').find('.facet-results').html(html)
+
+              fixes()

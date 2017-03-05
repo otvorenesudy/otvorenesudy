@@ -4,17 +4,17 @@ window.Logger =
   prefix: ->
     @constructor.name
 
-  inspect: (obj) ->
+  inspect: (o) ->
     try
-      JSON.stringify obj
-    catch err
-      return "<Could not be inspected. (error=#{err.message})>"
+      JSON.stringify o
+    catch e
+      return "<Could not be inspected. (error=#{e.message})>"
 
-  log: (msg) ->
-    Output.puts "#{@.prefix()} > #{msg}"
+  log: (s) ->
+    Output.print "#{@.prefix()} > #{s}"
 
-  warn: (msg) ->
-    Output.warn "#{@.prefix()} [WARNING] #{msg}"
+  warn: (s) ->
+    Output.warn "#{@.prefix()} [WARNING] #{s}"
 
-  err: (msg) ->
-    Output.error "#{@.prefix()} [ERROR] #{msg}"
+  error: (s) ->
+    Output.error "#{@.prefix()} [ERROR] #{s}"

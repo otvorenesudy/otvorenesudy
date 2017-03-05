@@ -1,0 +1,30 @@
+<p>
+  <%= t '.decrees_count', released_decrees: indicators['S1'], delayed_decrees: indicators['S2'], html_safe: true %>
+</p>
+
+<p class="m-b-0">
+  <%= t '.performance_data', years: indicators['S3'] %>
+</p>
+
+<ul class="list-unstyled m-l-1">
+  <% if indicators['S3_2013'] %>
+    <li>2013 &ndash; <%= indicators['S3_2013'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
+  <% end %>
+
+  <% if indicators['S3_2012'] %>
+    <li>2012 &ndash; <%= indicators['S3_2012'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
+  <% end %>
+
+  <% if indicators['S3_2011'] %>
+    <li>2011 &ndash; <%= indicators['S3_2011'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
+  <% end %>
+</ul>
+
+<p>
+  <%= assigned_agendas_indicator indicators %>.
+  <%= decided_agendas_indicator indicators %>.
+</p>
+
+<p>
+  <%= t '.judge_results', days: indicators['S6'], cases: indicators['S7'] %>
+</p>

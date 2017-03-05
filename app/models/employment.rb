@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Employment < ActiveRecord::Base
   attr_accessible :active,
                   :note

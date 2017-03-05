@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class JudgePosition < ActiveRecord::Base
   attr_accessible :value
 

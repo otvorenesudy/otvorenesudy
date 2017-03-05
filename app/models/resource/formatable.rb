@@ -37,26 +37,20 @@ module Resource::Formatable
   class Formatter
     attr_reader :default,
                 :directives,
-                :remove,
-                :squeeze,
-                :strip
+                :fixes
 
     def initialize(data, options = {})
       @default    = options[:default] || raise
       @directives = data.keys.map { |key| key[1].to_sym }
+      @fixes      = Array.wrap options[:fixes]
       @regexp     = /\%[#{@directives.join}]/
-
-      @remove  = options[:remove]
-      @squeeze = options[:squeeze] == false ? nil : options[:squeeze] || ' '
-      @strip   = options[:strip] == nil ? true : options[:strip]
     end
 
     def format(pattern, data)
-      value = (pattern || default).gsub(@regexp, data)
+      value = (pattern || default).gsub(@regexp, data).squeeze(' ').strip
 
-      value.gsub! @remove, '' if @remove
-      value.squeeze! @squeeze if @squeeze
-      value.strip! if @strip
+      @fixes.each { |fix| value = fix.call value }
+
       value
     end
   end

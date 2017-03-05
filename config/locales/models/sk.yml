@@ -29,6 +29,12 @@ sk:
     few: 'konania'
     other: 'konania'
 
+  selection_procedure: &selection_procedure
+    zero: 'výberové konania'
+    one: 'výberové konanie'
+    few: 'výberové konania'
+    other: 'výberových konaní'
+
   proposer: &proposer
     zero: 'navrhovatelia'
     one: 'navrhovateľ'
@@ -47,13 +53,13 @@ sk:
     few: 'obžalovaní'
     other: 'obžalovaní'
 
-  candidate:
+  candidate: &candidate
     zero: 'uchádzačov'
     one: 'uchádzač'
     few: 'uchádzači'
     other: 'uchádzači'
 
-  commissioner:
+  commissioner: &commissioner
     zero: 'členov komisie'
     one: 'člen komisie'
     few: 'členovia komisie'
@@ -83,7 +89,7 @@ sk:
     few: 'udalosti'
     other: 'udalostí'
 
-  period:
+  period: &period
     daily: 'Denne'
     weekly: 'Týždenne'
     monthly: 'Mesačne'
@@ -111,3 +117,6 @@ sk:
 
       proceeding:
         <<: *proceeding
+
+      selection_procedure:
+        <<: *selection_procedure

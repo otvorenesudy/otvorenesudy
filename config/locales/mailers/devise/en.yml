@@ -1,0 +1,11 @@
+﻿en:
+  devise:
+    mailer:
+      confirmation_instructions:
+        subject: "[Open Courts] Confirmation instructions"
+
+      reset_password_instructions:
+        subject: "[Open Courts] Reset password instructions"
+
+      unlock_instructions:
+        subject: "[Open Courts] Unlock instructions"

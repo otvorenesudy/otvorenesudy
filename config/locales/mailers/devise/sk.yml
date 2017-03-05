@@ -1,0 +1,11 @@
+sk:
+  devise:
+    mailer:
+      confirmation_instructions:
+        subject: "[Otvorené Súdy] Potvrdenie registrácie"
+
+      reset_password_instructions:
+        subject: "[Otvorené Súdy] Obnovenie hesla"
+
+      unlock_instructions:
+        subject: "[Otvorené Súdy] Odomknutie účtu"

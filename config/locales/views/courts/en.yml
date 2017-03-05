@@ -1,134 +1,140 @@
-﻿en:
-  court_type:
-    constitutional: 'Constitutional'
-    supreme: 'Supreme'
-    specialized: 'Specialized Criminal'
-    regional: 'Regional'
-    district: 'District'
-
-  contact:
-    fax: 'Fax:'
-    media_person: 'Contact person'
-    map: 'Map'
-    phone: 'Phone number:'
-    show_on_map: 'Show on map'
-    country: 'Slovak Republic'
-    to_media: 'Contacts for media'
-    with_other_courts: 'with other courts in Slovak Republic'
-
+en:
   courts:
+    common: &common
+      at_court: "At the court"
+      work:
+        zero: "there are %{judges} working"
+        one: "there are %{judges} working"
+        few: "there are %{judges} working"
+        other: "there are %{judges} working"
+
+      for_court: "For the court"
+      register:
+        zero: "in the meantime we register"
+        one: "we register"
+        few: "we register"
+        other: "we register"
+
+    type:
+      constitutional: "Constitutional"
+      supreme: "Supreme"
+      specialized: "Specialized"
+      regional: "Regional"
+      district: "District"
+
     index:
-      title: 'Courts of the Slovak Republic'
-      reginoal_courts: 'Regional Courts'
-      district_courts: 'District Courts'
-      courts_map: 'Map of courts'
-      regional_courts_count: 'In Slovakia you can find %{regional_courts_count} regional courts.'
-      district_courts_count: 'In Slovakia you can find %{district_courts_count} district courts.'
-      data_source: 'Information about courts were obtained from the portal of'
-      ministry_of_justice: 'Ministry of Justice of the Slovak Republic'
-
-    courts:
-      court: 'Court'
-      address: 'Address'
-      judges: 'Judges'
-      hearings: 'Hearings'
-      decrees: 'Decrees'
-      judges_count: 'Number of employed judges'
-      hearings_count: 'Number of hearings'
-      decrees_count: 'Number of decrees'
-
-    show:
-      at_court: 'At the court'
-      work: 'there are currently working'
-      dont_work: 'does not work'
-      for_court: 'For the court'
-      not_yet: 'Not yet'
-      register: 'we register'
-      and: 'and'
-      overall: 'Overall'
-      least: 'at least'
-      most: 'at most'
-      charged: 'fined court out of'
-      regional: 'regional'
-      district: 'district'
-      courts: 'courts'
-      penalties: 'The fines from the Constitutional Court'
-      for_bad_decrees: 'of the Slovak Republic for either late or unlawful decrees in years'
-      were: 'were'
-      penalty_for_your: 'Fines in a year'
-      was: 'was'
-      average_proceeding_duration: 'An average duration of proceedings at the court according to different agendas were'
-      fastest: 'fastest'
-      slowest: 'slowest'
-      average_agenda_by_year: 'Average length for year %{year} is %{value} months.'
-      district_courts_agenda: 'district courts in agenda'
-      average_length: 'An average length in a year %{year} is %{month} months.'
-      contact: 'Contact'
-      judges: 'Judges'
-      decrees: 'Decrees'
-      hearings: 'Hearings'
-      media: 'In media'
-      data_source: 'Information about the court were obtained from'
-      document: 'document'
-      last_updated_at: 'which was last updated on'
+      title: "Courts"
 
     search:
-      title: 'Search courts'
+      results:
+        of_court: "of the court"
+        is: "is"
 
-    headline:
-      headline_html: 'Altogether 20% of judges have at least<br/>one family member in the judiciary.'
-      sub_headline_html: 'Open Courts &mdash; you are searching among %{total_courts} courts'
-      record_holds: 'The record holds'
-      record_hold: 'The record holds'
+        <<: *common
 
-    office:
-      phone_number: 'Phone'
-      note: 'Note'
-      opening_hours: 'Opening hours'
+    show:
+      <<: *common
 
-    offices:
-      information_center: 'Information center'
-      registry: 'Registry'
-      commercial_registery: 'Information centre of the Business registry'
+      contact: "Contact"
+      judges: "Judges"
+      decrees: "Decrees"
+      hearings: "Hearings"
+      media: "Media"
+
+      resource_note:
+        description: "Information regarding the court were obtained from %{document}, which was most recently updated on %{update}."
+        document: "the original document"
+
+    expenses:
+      overall: "Overall"
+      least: "at least"
+      most: "at most"
+      charged_court_of: "fined court out of"
+      regional_courts: "regional courts"
+      district_courts: "district courts"
+
+      fines: "Fines from the Constitutional Court"
+      fines_for: "of Slovak Republic for either late or unlawful decrees in years"
+      fines_were: "were"
+      fine_for: "Fine in year"
+      fine_was: "was"
+
+    proceedings:
+      average_durations_by_agendas: "An average duration of court proceedings according to agendas:"
+      average_duration_by_year: "Average duration for year %{year} is %{value} months"
+
+      overall: "Overall"
+      fastest: "fastest"
+      slowest: "slowest"
+      court_of: "court of"
+      district_courts_in: "district courts in agenda"
 
     contact:
-      contact: 'Contact'
-      address: 'Address'
+      contact: "Contact"
+      phone: "Phone number:"
+      fax: "Fax:"
+
+      media: "For media"
+      media_person: "Contact person:"
+      media_phone: "Phone number:"
+
+      address: "Address"
+      country: "Slovak Republic"
+
+      map: "Map"
+      show_on_map: "Show on map"
+      with_other_courts: "with other courts in Slovak Republic."
+
+    office:
+      type:
+        information_center: "Information center"
+        registry_center: "Registry"
+        business_registry_center: "Information center of business register"
+
+      phone: "Phone:"
+      email: "E-mail:"
+      note: "Note:"
+      hours: "Opening hours"
 
     judges:
-      court_leadership: 'Court leadership'
-      judges: 'Judges'
-      judges_table: 'List of judges currently working at the court.'
-      table_explained: 'List of judges that worked at the court and other officials whose names were found in decrees or hearings.'
+      chairs: "Chairmen"
+      of_court: "of the court"
+      is: "is"
 
-    judge_list:
-      title: 'Title'
-      name: 'Name'
-      position: 'Position'
-      hearings: 'Hearings'
-      decrees: 'Decrees'
-      hearings_count: 'Number of hearings'
-      decrees_count: 'Number of decrees'
+      judges: "Judges"
+      explanation:
+        listed: "List of judges currently working at the court."
+        other: "List of judges who worked at the court and other officials whose names were found in hearings or decrees."
+
+      list:
+        activity: "Activity"
+        title: "Title"
+        name: "Name"
+        position: "Position"
+        hearings: "Hearings"
+        decrees: "Decrees"
+        hearings_count: "Number of hearings"
+        decrees_count: "Number of decrees"
 
     decrees:
-      title: 'Published decrees'
-      more: 'More decrees'
-      no_decrees: 'We do not register any decrees for the court.'
+      headline: "Published decrees"
+      more: "More decrees"
+      none: "We do not register any published decrees for the court yet."
 
     hearings:
-      headline: 'Announced hearings'
+      headline: "Announced hearings"
+      more: "More hearings"
+      none: "We do not register any announced hearings for the court yet."
 
     media:
-      headline: 'In media'
-      clarification: 'Links are searched automatically using the name of the court. They may not inform about the court.'
-      no_mentions: 'Information about the court has not been found in the media.'
+      headline: "Mentions in media"
+      clarification: "Links are searched automatically using the name of the court. They may not concern the court."
+      none: "No mentions about the court has been found in media."
 
     map:
-      title: 'Map of courts in Slovak Republic'
-      in_slovakia: 'In Slovakia there are '
-      courts_in: 'courts in'
-      places: 'different places'
-      hint: 'By clicking on the map, basic information about the court will appear.'
+      title: "Map of courts in Slovak Republic"
+      note: "In Slovakia there are %{courts} courts in %{places} different places"
+      hint: "Basic court information will appear by clicking on a map marker."
 
-    map_marker:
-      get_directions: 'Get directions'
+      marker:
+        get_directions: "Get directions"

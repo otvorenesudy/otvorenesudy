@@ -1,0 +1,8 @@
+<li class="timeline-item timeline-distance-<%= timeline_distance previous, hearing %>">
+  <h4>
+    <%= link_to hearing_headline(hearing, limit: 67), hearing %>
+    <small>
+      <%= hearing.date ? hearing_date(hearing.date) : t('proceedings.show.timeline.unknown_date') %>
+    </small>
+  </h4>
+</li>

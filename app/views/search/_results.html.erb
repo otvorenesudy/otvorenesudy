@@ -1,7 +1,10 @@
 <% if @results.any? %>
-  <%= render "#{@type.to_s.pluralize}/results", results:  @results, offset: @results.offset %>
+  <%= render "#{@type.to_s.pluralize}/search/results", results: @results, offset: @results.offset %>
 <% else %>
-  <div class="alert alert-info search-alert">
-    <%= icon_tag :'search' %> <%= t '.no_results_html' %>
+  <div class="alert alert-info m-t-2" role="alert">
+    <%= t '.no_results' %>
   </div>
 <% end %>
+
+<%= render 'search/details' %>
+<%= paginate @results, window: 4 %>

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Hearing < ActiveRecord::Base
   include Resource::URI
   include Resource::Storage

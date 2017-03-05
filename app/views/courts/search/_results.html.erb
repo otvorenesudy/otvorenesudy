@@ -1,0 +1,32 @@
+<%= search_list_tag results, offset: offset do |court| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to_court court %>
+      <small><%= court.address %></small>
+    </h4>
+
+    <div class="search-result-content">
+      <% if court.chair || court.vicechair %>
+        <% if court.chair %>
+          <%= judge_position_at_court(court.chair, court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
+          <%= link_to_judge court.chair %><%= court.vicechair ? " #{two_words_connector}" : '.' %>
+        <% end %>
+        <% if court.vicechair %>
+          <% unless court.chair %>
+            <%= judge_position_at_court(court.vicechair, court).upcase_first %> <%= t '.of_court' %>
+          <% else %>
+            <%= judge_position_at_court(court.vicechair, court) %>
+          <% end %>
+          <%= t '.is' %> <%= link_to_judge court.vicechair %>.
+        <% end %>
+        <br class="hidden-sm-down" />
+      <% end %>
+      <% if court.judges.active.listed.any? %>
+        <%= t '.at_court' %> <%= t '.work', count: court.judges.active.listed.size, judges: translate_with_count(court.judges.active.listed.size, :judge) %>.
+      <% end %>
+      <%= t '.for_court' %> <%= t '.register', count: court.hearings.size %>
+      <%= translate_with_count court.hearings.size, :hearing %>
+      <%= two_words_connector %>&nbsp;<%= translate_with_count court.decrees.size, :decree %>.
+    </div>
+  </li>
+<% end %>

@@ -1,39 +1,167 @@
 sk:
+  polar:
+    yes: "áno"
+    no: "nie"
+
   number:
     format:
-      delimiter: ' '
-      separator: ','
+      delimiter: " "
+      separator: ","
 
     currency:
       format:
-        format: '%n %u'
-        unit: '€'
+        format: "%n%u"
+        unit: "€"
+
+  range:
+    format:
+      delimiter: " až "
 
   date:
+    abbr_day_names:
+      - ne
+      - po
+      - ut
+      - st
+      - št
+      - pi
+      - so
+
+    abbr_month_names:
+      -
+      - jan
+      - feb
+      - mar
+      - apr
+      - máj
+      - jún
+      - júl
+      - aug
+      - sep
+      - okt
+      - nov
+      - dec
+
+    day_names:
+      - nedeľa
+      - pondelok
+      - utorok
+      - streda
+      - štvrtok
+      - piatok
+      - sobota
+
+    month_names:
+      -
+      - január
+      - február
+      - marec
+      - apríl
+      - máj
+      - jún
+      - júl
+      - august
+      - september
+      - október
+      - november
+      - december
+
+    order:
+      - :day
+      - :month
+      - :year
+
     formats:
-      default: '%-d. %-m. %Y'
-      short: '%-d. %-m.'
-      normal: '%-d. %B %Y'
-      long: '%A %-d. %B %Y'
+      default: "%-d. %-m. %Y"
+      short: "%-d. %-m."
+      normal: "%-d. %B %Y"
+      long: "%A %-d. %B %Y"
 
   time:
     formats:
-      default: '%-d. %-m. %Y o %-H:%M'
-      short: '%-d. %-m. o %-H:%M'
-      normal: '%-d. %B %Y o %-H:%M'
-      long: '%A %-d. %B %Y o %-H:%M'
+      default: "%-d. %-m. %Y o %-H:%M"
+      short: "%-d. %-m. o %-H:%M"
+      normal: "%-d. %B %Y o %-H:%M"
+      long: "%A %-d. %B %Y o %-H:%M"
 
-  days:
-    one: '1 deň'
-    few: '%{count} dni'
-    other: '%{count} dní'
+  datetime:
+    distance_in_words:
+      about_x_years:
+        one: "asi rokom"
+        few: "asi %{count} rokmi"
+        other: "asi %{count} rokmi"
 
-  months:
-    one: '1 mesiac'
-    few: '%{count} mesiace'
-    other: '%{count} mesiacov'
+      almost_x_years:
+        one: "takmer rokom"
+        few: "takmer %{count} rokmi"
+        other: "takmer %{count} rokmi"
+
+      over_x_years:
+        one: "viac ako rokom"
+        few: "viac ako %{count} rokmi"
+        other: "viac ako %{count} rokmi"
+
+      about_x_months:
+        one: "asi mesiacom"
+        few: "asi %{count} mesiacmi"
+        other: "asi %{count} mesiacmi"
+
+      about_x_hours:
+        one: "asi hodinou"
+        few: "asi %{count} hodinami"
+        other: "asi %{count} hodinami"
+
+      half_a_minute: "pol minútou"
+
+      less_than_x_minutes:
+        one: "necelou minútou"
+        few: "necelými %{count} minútami"
+        other: "necelými %{count} minútami"
+
+      less_than_x_seconds:
+        one: "necelou sekundou"
+        few: "necelými %{count} sekundami"
+        other: "necelými %{count} sekundami"
+
+      x_days:
+        one: "dňom"
+        few: "%{count} dňami"
+        other: "%{count} dňami"
+
+      x_minutes:
+        one: "minútou"
+        few: "%{count} minútami"
+        other: "%{count} minútami"
+
+      x_months:
+        one: "mesiacom"
+        few: "%{count} mesiacmi"
+        other: "%{count} mesiacmi"
+
+      x_seconds:
+        one: "sekundou"
+        few: "%{count} sekundami"
+        other: "%{count} sekundami"
+
+    prompts:
+      year: "Rok"
+      month: "Mesiac"
+      day: "Deň"
+      hour: "Hodina"
+      minute: "Minúta"
+      second: "Sekunda"
 
   years:
-    one: '1 rok'
-    few: '%{count} roky'
-    other: '%{count} rokov'
+    one: "1 rok"
+    few: "%{count} roky"
+    other: "%{count} rokov"
+
+  months:
+    one: "1 mesiac"
+    few: "%{count} mesiace"
+    other: "%{count} mesiacov"
+
+  days:
+    one: "1 deň"
+    few: "%{count} dni"
+    other: "%{count} dní"

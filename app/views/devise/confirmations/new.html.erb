@@ -1,22 +1,19 @@
 <% provide :title, t('.title') %>
 
-<%= render "devise/shared/links" %>
-
-<section id="user-password" class="user">
+<div class="container">
+  <h1 class="display-4 m-t-3 m-b-1"><%= yield :title %></h1>
   <div class="row">
-    <div class="offset2 span8">
-      <%= form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post } do |f| %>
-        <legend><%= yield :title %></legend>
-        <p>
-          <strong><%= t '.no_confirmation' %></strong>
-        </p>
-        <hr/>
-        <p>
+    <div class="col-lg-6">
+      <%= render 'devise/shared/messages' %>
+      <%= form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { class: nil, method: :post } do |f| %>
+        <div class="form-group">
           <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, class: :span8 %>
-        </p>
-        <button type="submit" class="btn btn-primary btn-large"><%= t '.resend_instructions' %></button>
+          <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+        </div>
+        <button type="submit" class="btn btn-lg btn-outline-primary"><%= t '.resend_instructions' %></button>
       <% end %>
+      <%= render 'devise/shared/links' %>
     </div>
   </div>
-</section>
+  <%= render 'shared/global_banners' %>
+</div>

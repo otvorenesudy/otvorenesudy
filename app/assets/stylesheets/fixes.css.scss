@@ -1,146 +1,238 @@
-@import 'variables';
-@import 'mixins';
+// disable outlines
 
-// popovers and tooltips
-
-.popover,
-.tooltip {
-  cursor: default;
+* {
+  outline: none !important;
 }
 
-.popover-inner {
-  text-align: left;
+// disable transitions
+
+.fade, .collapse, .collapsing {
+  transition: none !important;
 }
 
-.tooltip-inner {
-  line-height: $baseLineHeight;
-  font-weight: normal;
-  text-align: center;
-}
+// fix font weight on small headings
 
-// forms
-
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-  &:focus {
-    border-color: $grayLight;
-    @include box-shadow(0px 1px 1px rgba($black, 0.075), 0px 0px 4px rgba($grayLight, 0.6));
+h1, h2, h3, h4, h5, h6 {
+  small {
+    font-weight: $headings-font-weight;
   }
 }
 
-// tabs
+// add some top margin on small block headings
 
-.tabbable {
-  [class*="span"] {
-    overflow: hidden;
-  }
-
-  .alert:first-child {
-    margin-top: 0px;
+h1, h2, h3, h4, h5, h6 {
+  small.d-block {
+    margin-top: .4 * $spacer-y;
   }
 }
 
-// outlines
+// remove paragraph bottom margin in list items
 
-a:active, a:hover, a:focus,
-.btn:active, .btn:hover, .btn:focus,
-button:active, button:hover, button:focus,
-input:active, input:hover, input:focus,
-select:active, select:hover, select:focus,
-textarea:active, textarea:hover, textarea:focus {
-  outline: 0;
+li p:last-of-type {
+  margin-bottom: 0;
 }
 
-// muted links
+// remove visible line-breaks on inline list items
 
-.muted a {
-  color: $grayLight;
+.list-inline .list-inline-item {
+  float: left !important;
+
+  &:last-of-type {
+    float: none !important;
+  }
 }
 
-// modals
+// remove borders from striped tables
 
-.modal-header a.close i:before {
-  cursor: pointer;
+.table-striped {
+  thead th, thead td, th, td {
+    border: none;
+  }
 }
 
-// alert links
+// fix background color and font weight of table headers
 
-.alert a.close,
-.alert a.close i {
-  display: inline-block;
+thead th {
+  background: $table-bg;
+  font-weight: $font-weight-base;
+}
 
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  top: 0px;
-  bottom: 0px;
+// remove paragraph bottom margin in table cells
 
-  right: -25px;
+td p:last-of-type {
+  margin-bottom: 0;
+}
 
-  font-size: $baseFontSize;
-  font-weight: normal;
+// remove excessive bottom margin on button group labels
 
-  text-align: center;
-  text-decoration: none;
+.form-group .btn-group label {
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
+  }
+}
 
-  &:hover, &:focus {
+// fix background and border color for opened secondary drop-down buttons
+
+.open > .btn-outline-secondary.dropdown-toggle {
+  @include hover-focus {
+    background-color: $gray-light;
+    border-color: $gray-light;
+  }
+}
+
+// remove automatically generated drop-down menu caret
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+// fix font weight and padding on drop-down menu items
+
+.dropdown-item {
+  font-weight: $btn-font-weight;
+  padding: $btn-padding-y $dropdown-item-padding-x;
+}
+
+// remove visible line-breaks on inline navigation links
+
+.nav-inline .nav-link {
+  float: left !important;
+
+  &:last-of-type {
+    float: none !important;
+  }
+}
+
+// remove visible decorations from tab links
+
+.nav-tabs .nav-link {
+  @include hover-focus {
+    border-color: transparent;
+  }
+
+  &.active {
+    @include hover-focus {
+      text-decoration: none;
+    }
+  }
+}
+
+// fix missing bottom border corners on active tab links
+
+.nav-tabs .nav-link.active {
+  position: relative;
+
+  @include plain-hover-focus {
+    border-bottom-color: $nav-tabs-border-color;
+
+    &::after {
+      content: "";
+      background: #fff;
+      position: absolute;
+      width: 100%;
+      height: $nav-tabs-border-width;
+      bottom: -$nav-tabs-border-width;
+      left: 0;
+    }
+  }
+}
+
+// fix responsive behavior of tab items as stack
+
+.nav-tabs {
+  @include media-breakpoint-down(md) {
+    .nav-item {
+      display: block;
+      float: none;
+      margin: 0 !important;
+      border: $nav-tabs-border-width solid $nav-tabs-border-color;
+      border-bottom: none;
+    }
+
+    .nav-link {
+      @include plain-hover-focus {
+        border: none;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+// add text decoration on hover-focus to navigation links
+
+.nav-link {
+  @include hover-focus {
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+// remove text decoration on hover-focus from pagination links
+
+.page-link {
+  @include hover-focus {
     text-decoration: none;
   }
 }
 
-.alert a.close i:before {
-  cursor: pointer;
+// remove double border on modal dialogs with no body
+
+.modal-header + .modal-footer {
+  border-top: none;
 }
 
-.alert-error a {
-  color: $errorLinkColor;
+// fix button order on modal dialogs
 
-  &:hover, &:focus {
-    color: $errorLinkColorHover;
+.modal-footer .btn {
+  float: left;
+  margin-right: $btn-toolbar-margin;
+}
+
+// fix font size in popover title
+
+.popover-title {
+  font-size: $font-size-sm;
+}
+
+// fix font weight in popover content
+
+.popover-content {
+  font-weight: $font-weight-base;
+}
+
+// fix font size and weight on tooltips
+
+.tooltip {
+  font-size: $small-font-size;
+  font-weight: $font-weight-base;
+}
+
+// add visual styles for plain popovers and tooltips
+
+a[href="#"][data-toggle="popover"],
+a[href="#"][data-toggle="tooltip"] {
+  color: $body-color;
+  cursor: help;
+  position: relative;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    border-bottom: 1px dotted $gray-light;
+    width: 100%;
+    bottom: 12.5%;
+    left: 0;
   }
 }
 
-.alert-info a {
-  color: $infoLinkColor;
+// remove underline from undecorated popovers and tooltips
 
-  &:hover, &:focus {
-    color: $infoLinkColorHover;
+.text-undecorated[data-toggle="popover"],
+.text-undecorated[data-toggle="tooltip"] {
+  &::after {
+    display: none;
   }
-}
-
-.alert-notice a,
-.alert-warning a {
-  color: $warningLinkColor;
-
-  &:hover, &:focus {
-    color: $warningLinkColorHover;
-  }
-}
-
-.alert-success a {
-  color: $successLinkColor;
-
-  &:hover, &:focus {
-    color: $successLinkColorHover;
-  }
-}
-
-// other stuff
-
-.ui-helper-hidden-accessible {
-  display:none;
 }

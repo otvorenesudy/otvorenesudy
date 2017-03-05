@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 class Judge
   module Indicators
     extend ActiveSupport::Concern
@@ -7,28 +5,27 @@ class Judge
 
     included do
       mapping do
-        analyze :has_indicators, as: lambda { |j| !!j.indicators && !!j.indicators.statistical && !!j.indicators.numerical }
+        analyze :indicators, as: lambda { |j|
+          !!(j.indicators && j.indicators.statistical && j.indicators.numerical)
+        }
+
         analyze :decree_agenda, as: lambda { |j|
           if j.indicators && j.indicators.statistical
-            indicators = j.indicators.statistical
-
-            map = {
-              'Občianska' => indicators['S5a'].to_i,
-              'Obchodná' => indicators['S5b'].to_i,
-              'Poručenská' => indicators['S5c'].to_i,
-              'Trestná' => indicators['S5d'].to_i
-            }
-
-            map.sort_by { |_, value| value }.last[0]
+            {
+              'Občianska' => j.indicators.statistical['S5a'].to_i,
+              'Obchodná' => j.indicators.statistical['S5b'].to_i,
+              'Poručenská' => j.indicators.statistical['S5c'].to_i,
+              'Trestná' => j.indicators.statistical['S5d'].to_i
+            }.sort_by { |_, v| v }.last
           end
         }
       end
 
       facets do
-        facet :name, type: :terms, visible: false, view: { results: 'judges/indicators/terms_facet_results' }
-        facet :indicators_courts, type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/terms_facet_results' }
-        facet :decree_agenda, type: :terms, visible: false
-        facet :has_indicators, type: :terms, visible: false
+        facet :indicators,     type: :terms, visible: false
+        facet :name,           type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
+        facet :decree_agenda,  type: :terms, visible: false
+        facet :similar_courts, type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
       end
 
       Judge::Indicators.load!
@@ -74,7 +71,7 @@ class Judge
     def self.calculate_numerical_average
       average = Hash.new(0)
 
-      @data.each do |id, values|
+      @data.each do |_, values|
         next unless values.numerical
         next unless values.numerical.to_hash.values.compact != values.numerical.to_hash
 
@@ -91,31 +88,21 @@ class Judge
     end
 
     def self.normalize_statistical_values(values)
-      values.each_with_index do |(key, value), index|
+      values.each_with_index do |(key, value), _|
         next unless value
 
-        value = value.to_s.gsub(/-/, '–')
-        value = case value
-                when 'N/A' then nil
-                else value
-                end
+        value = '' if value == 'N/A'
+        value = '' if value =~ /\A(\d+\s-\s-+;?\s?)+\z/
+        value = value.gsub(/-/, '–')
+        value = value.split(',').map { |name| Court.find_by_name(normalize_court_name name) } if key.in?(%w(S3_2011 S3_2012 S3_2013))
 
-        if value
-          value = case key
-                  when 'S3_2011', 'S3_2012', 'S3_2013' then value.split(',').map { |name| Court.find_by_name(normalize_court_name(name)) }
-                  else value
-                  end
-        end
-
-        values[key] = value
+        values[key] = value.presence
       end
     end
 
     def self.normalize_numerical_values(values)
       values.each_with_index do |(key, value), index|
-        value = case index
-                when 2..9 then value.to_i
-                end
+        value = index.in?(2..9) ? value.to_i : nil
 
         values[key] = value
       end

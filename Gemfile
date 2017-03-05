@@ -11,25 +11,26 @@ gem 'tire'
 gem 'elasticsearch'
 
 # styles
-gem 'bootstrap-sass', '~> 2.2.2.0'
-gem 'font-awesome-rails', '~> 3.2.0.0'
+gem 'bootstrap', '~> 4.0.0.alpha3.1'
+gem 'rails-assets-tether', '~> 1.1.0'
+gem 'font-ionicons-rails', '~> 2.0.1.3'
 gem 'roadie'
 
 # scripts
 gem 'coffee-script'
-gem 'jquery-rails', '~> 2.2.1'
-gem 'rails-timeago'
-gem 'jquery-tablesorter'
 gem 'execjs'
+gem 'jquery-rails', '~> 2.2.1'
+gem 'jquery-ui-rails', '~> 3.0.1'
+gem 'jquery-tablesorter'
 gem 'chart-js-rails'
 gem 'inflection-js-rails'
-gem 'jquery-ui-rails', '~> 3.0.1'
-gem 'spinjs-rails'
-gem 'gmaps4rails', '~> 1.5.6'
+gem 'gmaps4rails', '~> 2.1.2'
+gem 'underscore-rails', '~> 1.8.3'
+gem 'rails-timeago'
 
 # pagination
 gem 'kaminari', '~> 0.14.1'
-gem 'kaminari-bootstrap', '~> 0.1.3'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # localization
 gem 'rails-i18n'
@@ -57,7 +58,7 @@ gem 'sidekiq-limit_fetch'
 gem 'devise'
 
 # monitoring
-gem 'rollbar', '~> 2.2.1'
+gem 'rollbar', '~> 2.12.0'
 gem 'garelic'
 gem 'newrelic_rpm'
 
@@ -66,7 +67,7 @@ gem 'redcarpet', require: 'redcarpet/compat'
 gem 'markdown-rails'
 
 # scheduling
-gem 'whenever', github: 'elhu/whenever', branch: 'ruby-2.3-compat' # Remove after merging this: https://github.com/javan/whenever/pull/603
+gem 'whenever', '~> 0.9.7'
 
 # hostname
 gem 'rack-canonical-host'
@@ -75,9 +76,10 @@ gem 'rack-canonical-host'
 gem 'active_model_serializers'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass', '~> 3.4.18'
+  gem 'sass-rails', '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier',     '>= 1.0.3'
+  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do

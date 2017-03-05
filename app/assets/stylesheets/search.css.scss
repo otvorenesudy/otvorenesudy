@@ -1,233 +1,190 @@
-@import 'mixins';
-@import 'variables';
-
-.search-controls {
-  form {
-    position: relative;
-    margin-bottom: 20px;
-
-    .remove {
-      display: block;
-      position: absolute;
-
-      width: 12px;
-      height: 20px;
-      margin: 2px;
-      padding: 2px 4px;
-
-      top: 1px;
-      right: 39px;
-
-      background: $white;
-
-      text-align: center;
-    }
-  }
-
-  input, select {
-    margin-bottom: 0px;
-  }
-
-  select {
-    margin-right: $gridGutterWidth;
-  }
-}
-
-.search-subscribe,
-.search-reset {
-  color: $textColor;
-
-  font-weight: bold;
-
-  &:hover, &:focus {
-    color: inherit;
-  }
-}
-
-.search-subscribe i {
-  color: $green;
-}
-
-.search-reset i {
-  color: $red;
-}
-
-.search-separator {
-  margin: 0px 6px;
-}
-
-.search-message {
-  margin-bottom: 20px;
-
-  color: $grayLight;
-  text-align: right;
-}
-
-.search-alert {
-  margin: 0px 0px 0px -20px;
-}
-
-.search-results {
-  margin: 0px 0px 0px -20px;
-  border-left: 1px dashed darken($grayLighter, 12.5%);
-
-  .alert {
-    margin: 0px;
-  }
-
-  li {
-    padding: 10px 10px 20px 10px;
-
-    color: $grayLight;
-
-    &:hover, &:focus {
-      background: lighten($grayLighter, 5%);
-    }
-
-    p:last-child {
-      margin-bottom: 0px;
-    }
-  }
-
-  li + li {
-    border-top: 1px dashed darken($grayLighter, 12.5%);
-  }
-
-  h4, .search-result-content, blockquote {
-    color: $textColor;
-  }
-
-  .search-result-content {
-    margin-top: 10px;
-  }
-
-  .search-result-identifiers {
-    text-align: right;
-  }
-
-  blockquote {
-    margin-top: 10px;
-    margin-bottom: 0px;
-
-    em {
-      padding: 0px 4px;
-
-      @include border-radius(2px);
-
-      background: $infoBackground;
-      color: $infoText;
-    }
-  }
-}
-
-.search-results-far {
-  list-style: none;
-}
-
-.tabbable .search-results {
-  margin-left: 40px;
-  border: none;
-}
-
 .facet {
-  padding-right: 40px;
+  @extend .m-b-1;
 
-  & + .facet {
-    margin: 20px 0px;
+  &.facet-collapse {
+    @extend .m-t-1;
+    @extend .m-b-0;
+  }
+}
+
+.facet-title {
+  @extend .m-a-0;
+
+  span {
+    display: none;
+    color: $text-muted;
   }
 
-  h4 {
-    margin: 0px;
-
-    &.collapsible {
-      cursor: pointer;
-    }
-
-    i {
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-
-      color: $grayLighter;
-
-      text-decoration: none;
-      text-align: center;
-
-      &:focus, &:hover {
-        color: darken($grayLighter, 12.5%);
-      }
-
-      &:before {
-        cursor: pointer;
-      }
-    }
+  &.collapsible {
+    cursor: pointer;
   }
 
-  .facet-content {
-    position: relative;
+  &.collapsed span {
+    display: inline;
+  }
+}
 
-    left: -20px;
-    padding-left: 20px;
+.facet-content {
+  @extend .m-a-0;
+  @include clearfix;
+}
 
-    input[type="text"], .add-on {
-      width: 175px;
-      margin: 10px 0px 0px 0px;
+.facet-addon {
+  margin-top: .4 * $spacer-y;
+}
+
+.facet-suggest {
+  @extend .facet-addon;
+  @extend .form-control;
+  @extend .form-control-sm;
+}
+
+.facet-results {
+  @extend .facet-addon;
+}
+
+.facet-results-more {
+  display: none;
+
+  &.collapsed {
+    display: inline;
+  }
+}
+
+.facet-results-less {
+  display: inline;
+
+  &.collapsed {
+    display: none;
+  }
+}
+
+.facet-list {
+  @extend .m-a-0;
+  @include list-unstyled;
+}
+
+.facet-item {
+  vertical-align: middle;
+
+  &:not(.selected):hover .facet-link-add {
+    display: inline-block;
+  }
+}
+
+.facet-link {
+  display: inline-block;
+}
+
+.facet-link-add, .facet-link-remove {
+  &, & span {
+    @include size(1rem, 1.5rem);
+
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    color: $text-muted;
+    text-align: center;
+  }
+}
+
+.facet-link-add {
+  display: none;
+}
+
+.facet-tag {
+  @extend .text-small;
+
+  display: inline-block;
+  margin-left: .2rem;
+  color: $text-muted;
+}
+
+.facet-note {
+  @extend .facet-addon;
+  @extend .text-small;
+  @extend .text-muted;
+}
+
+.search {
+  .facet:first-of-type {
+    @extend .p-t-2;
+  }
+
+  .facet-suggest {
+    @include media-breakpoint-only(sm) {
+      width: 6 * (100% / 12);
     }
 
-    .facet-results {
-      margin-top: 10px;
+    @include media-breakpoint-only(md) {
+      width: 5 * (100% / 12);
     }
+  }
+}
 
-    ul {
-      margin: 0px 0px 0px -20px;
-    }
+.search-query-clear {
+  border: none;
+  padding: $btn-padding-y .5 * $btn-padding-x;
+  position: absolute !important;
+  top: $input-btn-border-width;
+  left: -2rem;
+  z-index: 3 !important;
 
-    li {
-      position: relative;
-      padding-left: 20px;
+  @include hover-focus-active {
+    background: #fff !important;
+    color: $brand-danger !important;
+  }
 
-      .label {
-        background-color: $grayLighter;
-        color: $gray;
-        text-shadow: none;
-      }
+  span {
+    @include size(1rem, 1.25rem);
 
-      .add, .remove {
-        position: absolute;
-        left: 0px;
+    display: inline-block;
+  }
+}
 
-        color: $grayLight;
+.search-result-list {
+  @extend .p-t-2;
+  @include list-unstyled;
+}
 
-        text-align: center;
-        text-decoration: none;
+.search-result-item {
+  @extend .m-b-2;
 
-        &:hover {
-          color: $linkColorHover;
-        }
-      }
+  &:last-of-type {
+    @extend .m-b-0;
+  }
+}
 
-      .add, .remove,
-      .add i, .remove i {
-        display: inline-block;
+.search-result-title {
+  margin: 0 0 .4 * $spacer-y 0;
 
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        top: 0px;
-        bottom: 0px;
-      }
+  small {
+    display: block;
+    margin-top: .125 * $spacer-y;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: $text-muted;
+  }
+}
 
-      .add {
-        display: none;
-      }
+.search-result-content {
+  @extend .m-a-0;
+  @include clearfix;
 
-      &:not(.selected):hover .add {
-        display: inline-block;
-      }
-    }
+  .text-info, .text-warning, .text-danger {
+    margin-bottom: .4 * $spacer-y;
+  }
+}
 
-    a[data-collapse="fold"] {
-      display: none;
-    }
+.search-result-highlights {
+  @include list-unstyled;
+
+  margin-top: .4 * $spacer-y;
+  text-align: justify;
+
+  em {
+    background: rgba($brand-warning, .25);
+    font-style: normal;
+    padding: 0 .25rem;
   }
 }

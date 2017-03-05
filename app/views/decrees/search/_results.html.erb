@@ -1,0 +1,54 @@
+<%= search_list_tag results, offset: offset do |decree, highlight| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to decree_path(decree, params: { q: params[:q] }) do %>
+        <%= decree_headline decree, limit: 67 %>
+        <% if decree.natures.any? %>
+          <br/>
+          <%= decree_natures decree, limit: 67 %>
+        <% end %>
+      <% end %>
+      <small>
+        <%= t '.decree' %> <%= t '.past' %>
+        <%= decree.date ? decree_date(decree.date) : t('.unknown') %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <ul class="pull-xs-right text-xs-right list-unstyled">
+        <li><%= tooltip_tag decree.case_number || '?', t('case_number.full'), placement: 'left' %></li>
+        <li><%= tooltip_tag decree.file_number || '?', t('file_number.full'), placement: 'left' %></li>
+      </ul>
+
+      <% if decree.unprocessed? %>
+        <div class="text-danger">
+          <%= s t '.unprocessed' %>
+        </div>
+      <% elsif decree.has_future_date? %>
+        <div class="text-warning">
+          <%= s t '.future_date' %>
+        </div>
+      <% end %>
+
+      <% if decree.court %>
+        <%= t '.court' %> &ndash; <%= link_to_court decree.court %>
+        <br/>
+      <% end %>
+      <% if decree.judges.any? %>
+        <% if decree.exact_judges.any? %>
+          <%= translate_without_count(decree.exact_judges.size, :judge).upcase_first %>
+          &ndash; <%= links_to_judges decree.exact_judges %>
+        <% else %>
+          <%= translate_without_count(decree.inexact_judgements.map(&:judge_name_unprocessed).uniq.size, :judge).upcase_first %>
+          &ndash; <%= judge_processed_names decree.inexact_judgements %>
+        <% end %>
+      <% end %>
+
+      <% if highlight && highlight[:text].any? %>
+        <div class="search-result-highlights">
+          <%= strip_and_highlight highlight[:text] %>
+        </div>
+      <% end %>
+    </div>
+  </li>
+<% end %>

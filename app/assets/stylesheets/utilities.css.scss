@@ -1,0 +1,36 @@
+.btn-group-mix {
+  @extend .btn-group;
+
+  .btn {
+    margin-left: $btn-toolbar-margin !important;
+
+    &:first-child {
+      @extend .m-l-0;
+    }
+  }
+}
+
+.btn-group + .btn-group-mix {
+  margin-left: 2 * $btn-toolbar-margin;
+}
+
+.btn-outline-inverse {
+  @include button-outline-variant(#fff);
+  @include hover-focus-active {
+    color: $brand-primary;
+  }
+}
+
+.list-separated > li + li {
+  border-top: 1px solid $gray-lighter;
+}
+
+@include text-emphasis-variant('.text-default', $body-color);
+
+.text-small {
+  font-size: $small-font-size;
+}
+
+.text-undecorated {
+  text-decoration: none !important;
+}

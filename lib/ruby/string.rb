@@ -9,19 +9,21 @@ class String
     self.utf8.normalize(:kd).bytes.map { |b| (0x00..0x7F).include?(b) ? b.chr : '' }.join
   end
 
+  # TODO switch to Ruby 2.4.0 where *case methods handle Unicode instead of only ASCII by default
+
   def downcase_first
-    self.sub(/^\D{0,1}/) { |c| c.downcase }
+    self.dup.downcase_first!
   end
 
   def downcase_first!
-    self.sub!(/^\D{0,1}/) { |c| c.downcase }
+    self.sub!(/\A./) { |c| c.mb_chars.downcase }
   end
 
   def upcase_first
-    self.sub(/^\D{0,1}/) { |c| c.upcase }
+    self.dup.upcase_first!
   end
 
   def upcase_first!
-    self.sub!(/^\D{0,1}/) { |c| c.upcase }
+    self.sub!(/\A./) { |c| c.mb_chars.upcase }
   end
 end

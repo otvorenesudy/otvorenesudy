@@ -1,10 +1,10 @@
 module OpenCourts
   module VERSION
-    MAJOR = 1
-    MINOR = 7
-    PATCH = 4
+    MAJOR = 2
+    MINOR = 0
+    PATCH = 8
 
-    PRE = 'beta'
+    PRE = 'alpha'
 
     STRING = [MAJOR, MINOR, PATCH, PRE].compact * '.'
   end

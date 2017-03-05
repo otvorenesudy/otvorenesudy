@@ -1,206 +1,149 @@
 <% provide :title, hearing_title(@hearing) %>
 
-<section id="hearing-profile" class="profile">
-  <div class="page-header">
-    <h1>
-      <%= hearing_headline @hearing, limit: 45, tooltip: true %>
-      <br/>
-      <small>
-        <%= t('hearing', count: 1).capitalize %> <%= @hearing.historical ? t('hearings.supposed_to_happen') : t('hearings.will_happen') %> <%= t 'on_day' %> &ndash;
-        <%= @hearing.date ? hearing_date(@hearing.date) : t('unknown_date') %>
-      </small>
-    </h1>
+<h1 class="m-t-3 m-b-1">
+  <%= hearing_headline @hearing, limit: 45, tooltip: true %>
+  <small class="d-block text-muted">
+    <%= t '.hearing' %> <%= t @hearing.historical ? '.past' : '.future' %>
+    <%= @hearing.date ? hearing_date(@hearing.date) : t('.unknown') %>
+  </small>
+</h1>
+
+<div class="row">
+  <div class="col-lg-7">
+    <% if @court %>
+      <p>
+        <%= hearing_type @hearing.type %> <%= t @hearing.historical ? '.took_place' : '.will_take_place' %>
+        <%= t '.at_court', court: link_to_court(@court) %><%= s t '.in_room', room: @hearing.room if @hearing.room %>.
+      </p>
+    <% end %>
+    <% if @hearing.section || @hearing.special_type %>
+      <p>
+        <% if @hearing.section %>
+          <%= t '.section' %> &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
+        <% end %>
+
+        <% if @hearing.special_type %>
+          <%= @hearing.section ? t('.special_type').downcase_first : t('.special_type') %> &ndash; <%= @hearing.special_type %>
+        <% end %>
+      </p>
+    <% end %>
+    <% if @hearing.form %>
+      <p><%= t '.form' %> &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
+    <% end %>
+    <% if @hearing.subject %>
+      <p><%= t '.subject' %> &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
+    <% end %>
+    <% if @hearing.commencement_date? %>
+      <p><%= t '.commencement_date' %> &ndash; <%= hearing_date @hearing.commencement_date %></p>
+    <% end %>
+    <% unless @hearing.selfjudge.nil? %>
+      <p><%= t '.single_judge' %> &ndash; <%= t('polar')[@hearing.selfjudge] %></p>
+    <% end %>
+    <% if @hearing.note %>
+      <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
+    <% end %>
+
+    <p class="m-b-0">
+      <%= t '.resource' %> &ndash; <%= link_to t('.document'), @hearing.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+    </p>
+
+    <div class="hidden-lg-up m-b-3"></div>
   </div>
 
-  <%-# All hearing types -%>
-
-  <div class="row">
-    <div class="span8">
-      <% if @court %>
-        <p><%= hearing_type @hearing.type %> <%= t '.sa' %> <%= @hearing.historical ? t('.took_place') : t('.will_take_place') %> <%= t '.at_court' %> <%= link_to_court @court %><%= t('.in_room', room: @hearing.room) if @hearing.room %>.</p>
-      <% end %>
-      <% if @hearing.section || @hearing.special_type %>
-        <p>
-          <% if @hearing.section %>
-            <%= t '.section' %> &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
-          <% end %>
-
-          <%-# Civil hearings only -%>
-
-          <% if @hearing.special_type %>
-            <%= @hearing.section ? 't' : 'T' %>yp &ndash; <%= @hearing.special_type %>
-          <% end %>
-        </p>
-      <% end %>
-
-      <%-# All hearing types -%>
-
-      <% if @hearing.form %>
-        <p><%= t '.form' %> &ndash; <%= link_to_hearings_search @hearing.form.value, params: { form: @hearing.form.value } %></p>
-      <% end %>
-      <% if @hearing.subject %>
-        <p><%= t '.subject' %> &ndash; <%= link_to_hearings_search @hearing.subject.value, params: { subject: @hearing.subject.value } %></p>
-      <% end %>
-
-      <%-# Special hearings only -%>
-
-      <% if @hearing.commencement_date? %>
-        <p><%= t '.commencement_date' %> &ndash; <%= hearing_date @hearing.commencement_date %></p>
-      <% end %>
-      <% unless @hearing.selfjudge.nil? %>
-        <p><%= t '.self_judge' %> &ndash; <%= @hearing.selfjudge ? t('.yes') : t('.no') %></p>
-      <% end %>
-
-      <%-# All hearing types -%>
-
-      <% if @hearing.note %>
-        <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
-      <% end %>
-
-      <p><%= external_link_to t('.original_document'), @hearing.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.might_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
-    </div>
-
-    <%-# All hearing types -%>
-
-    <div class="span4">
-      <div class="well well-small">
-        <p>
-          <%= tooltip_tag t('fr'), t('file_reference'), placement: :left %>:
-          <span class="pull-right"><%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : t('.missing') %></span>
-        </p>
-        <p>
-          <%= tooltip_tag t('cfi'), t('court_file_id'), placement: :left %>:
-          <span class="pull-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : t('.missing_2') %></span>
-        </p>
-      </div>
-
-      <% if @hearing.proceeding %>
-        <p class="centered">
-          <%= t('.show_within') %> <%= icon_link_to :paste, t('.hearing'), @hearing.proceeding, join: :append %>
-        </p>
-      <% end %>
-
-      <%= render 'shared/social' %>
-    </div>
-  </div>
-</section>
-
-<%-# Civil hearings only -%>
-
-<% if @proposers.any? %>
-  <section id="hearing-proposers">
-    <h2><%= t('.proposers') %></h2>
-
-    <div class="row">
-      <div class="span12">
-        <ul>
-          <% @proposers.each do |proposer| %>
-            <li><%= proposer.name %></li>
-          <% end %>
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-block">
+        <ul class="list-unstyled m-b-0">
+          <li>
+            <%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:
+            <span class="pull-xs-right"><%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : t('case_number.missing') %></span>
+          </li>
+          <li>
+            <%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:
+            <span class="pull-xs-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : t('file_number.missing') %></span>
+          </li>
         </ul>
       </div>
     </div>
-  </section>
+
+    <% if @hearing.proceeding %>
+      <div class="text-lg-center">
+        <%= t '.show_within' %> <%= link_to t('.proceeding'), @hearing.proceeding %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @proposers.any? %>
+  <h2 class="m-t-3"><%= t '.proposers' %></h2>
+
+  <ul class="list-unstyled">
+    <% @proposers.each do |proposer| %>
+      <li><%= proposer.name %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <% if @opponents.any? %>
-  <section id="hearing-opponents">
-    <h2><%= t('.opponents') %></h2>
+  <h2 class="m-t-3"><%= t '.opponents' %></h2>
 
-    <div class="row">
-      <div class="span12">
-        <ul>
-          <% @opponents.each do |opponent| %>
-            <li><%= opponent.name %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <ul class="list-unstyled">
+    <% @opponents.each do |opponent| %>
+      <li><%= opponent.name %></li>
+    <% end %>
+  </ul>
 <% end %>
-
-<%-# Criminal and Special hearings only -%>
 
 <% if @defendants.any? %>
-  <section id="hearing-defendants">
-    <h2><%= t('.defendants') %></h2>
+  <h2 class="m-t-3"><%= t '.defendants' %></h2>
 
-    <div class="row">
-      <div class="span12">
-        <ul>
-          <% @defendants.each do |defendant| %>
-            <li>
-              <%= defendant.name %>
-              <% if defendant.accusations.any? %>
-                <ul>
-                  <% defendant.accusations.each do |accusation| %>
-                    <li>
-                      <% if accusation.paragraphs.any? %>
-                        <%= accusation.paragraphs.pluck(:description).join ', ' %>,
-                      <% end %>
-                      <%= accusation.value %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <ul class="list-unstyled">
+    <% @defendants.each do |defendant| %>
+      <li>
+        <%= defendant.name %>
+        <% if defendant.accusations.any? %>
+          <ul class="list-unstyled p-l-1">
+            <% defendant.accusations.each do |accusation| %>
+              <li>
+                <% if accusation.paragraphs.any? %>
+                  <%= accusation.paragraphs.pluck(:description).join ', ' %>,
+                <% end %>
+                <%= accusation.value %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
-
-<%-# All hearing types -%>
 
 <% if @judges.any? %>
-  <section id="hearing-judges">
-    <h2><%= t('.judges') %></h2>
+  <h2 class="m-t-3"><%= t '.judges' %></h2>
 
-    <%-# Special hearings only -%>
+  <% if @judges.chaired.any? %>
+    <p>
+      <%= t '.chairman' %>
+      <% if @judges.chaired.exact.any? %>
+        <%= links_to_judges @judges.chaired.exact %>.
+      <% else %>
+        <%= judge_processed_names @judges.chaired.inexact %>
+      <% end %>
+    </p>
+  <% end %>
 
-    <% if @judges.chaired.any? %>
-      <div class="row">
-        <div class="span12">
-          <%= t('.chaired_is') %>
-          <% if @judges.chaired.exact.any? %>
-            <%= links_to_judges @judges.chaired.exact %>.
-          <% else %>
-            <%= judge_processed_names @judges.chaired.inexact %>.
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
-    <%-# Civil and Criminal hearings only -%>
-
-    <% if @judges.normal.any? %>
-      <div class="row">
-        <div class="span12">
-          <% if @judges.normal.exact.any? %>
-            <%= links_to_judges @judges.normal.exact %>
-          <% else %>
-            <%= judge_processed_names @judges.normal.inexact %>.
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </section>
+  <% if @judges.normal.any? %>
+    <p>
+      <% if @judges.normal.exact.any? %>
+        <%= links_to_judges @judges.normal.exact %>
+      <% else %>
+        <%= judge_processed_names @judges.normal.inexact %>
+      <% end %>
+    </p>
+  <% end %>
 <% end %>
 
-<section id="hearing-resource" class="resources">
-  <div class="row">
-    <div class="span12">
-      <small class="muted">
-        <%= t('.info_source') %> <%= external_link_to t('.document'), @hearing.uri, class: :muted, icon: true %>,
-        <%= t 'lastly_updated' %> <%= time_tag @hearing.updated_at.to_date, format: :default %>.
-        <br/>
-        <%= t('.info_source') %> <%= external_link_to t('original_document'), @hearing.uri, class: :muted, icon: true %> <%= t '.may_be_invalid' %>
-        <% if File.readable? @hearing.resource_path %>
-          <br/>
-          <%= t('.thats_why') %> <%= link_to_hearing_resource @hearing, icon_tag(:'file-alt', label: t('.processed_doc'), join: :append), class: :icon %> <%= t('.raw_form') %>.
-        <% end %>
-      </small>
-    </div>
-  </div>
-</section>
+<p class="text-small text-muted m-t-3">
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @hearing.uri), update: time_tag(@hearing.updated_at.to_date, format: :default) %>
+  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @hearing.uri) %>
+</p>

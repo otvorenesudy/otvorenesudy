@@ -1,48 +1,61 @@
 sk:
   selection_procedures:
-    headline:
-      headline_html: 'Kandidáti s rodinou v justícii majú 1,5-krát<br/>väčšiu šancu úspešne prejsť výberovým konaním'
-      transparency_international: 'Transparency International Slovensko, máj 2014'
-      sub_headline_html: 'Otvorené Súdy &mdash; vyhľadávate v %{total_selection_procedures} výberových konaniach'
+    common: &common
+      selection_procedure: "Výberové konanie"
 
-    show:
-      selection_procedure: 'Výberové konanie'
-      will_close: 'sa uzavrie'
-      was_closed: 'sa uzavrelo'
-      organization: 'Organizácia'
-      position: 'Pozícia'
-      workplace: 'Miesto výkonu práce'
-      place: 'Miesto konania'
-      date: 'Termín konania'
-      original_document: 'Pôvodný dokument'
-      link: 'odkaz už'
-      may_not: 'nemusí'
-      see_note: 'Viď poznámku na konci tohto dokumentu'
-      be_valid: 'byť platný'
-      announcement: 'Vyhlásenie konania'
-      report: 'Zápisnica konania'
-      selection_comittee: 'Výberová komisia'
-      candidates: 'Kandidáti'
-      name: 'Meno'
-      written_part: 'Písomná časť'
-      oral_part: 'Ústna časť'
-      result: 'Výsledok'
-      documents: 'Dokumenty'
-      resume: 'Životopis'
-      motivation_letter: 'Motivačný list'
-      statement: 'Vyhlásenie'
-      information_source_1: 'Informácie o súdnom rozhodnutí boli získané z'
-      document: 'dokumentu'
-      information_source_2: 'ktorého posledná aktualizácia bola vykonaná'
-      link_validity_1: 'Odkaz na'
-      link_validity_2: 'už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu.'
+      future: "sa uzavrie dňa"
+      past: "sa uzavrelo dňa"
+
+    index:
+      title: "Výberové konania"
 
     search:
-      title: 'Vyhľadávanie vo výberových konaniach'
+      results:
+        organization: "Organizácia"
+        state: "Stav"
 
-    results:
-      selection_procedure: 'Výberové konanie'
-      will_close: 'sa uzavrie'
-      was_closed: 'sa uzavrelo'
-      status: 'Stav'
-      organization: 'Organizácia'
+        <<: *common
+
+    show:
+      <<: *common
+
+      state: "Stav"
+      position: "Pozícia"
+      organization: "Organizácia"
+      workplace: "Miesto výkonu práce"
+      place: "Miesto konania"
+      date: "Termín konania"
+      resource: "Zdroj"
+
+      document: "pôvodný dokument"
+      document_note: "odkaz už nemusí byť platný"
+
+      attached_documents: "Priložené dokumenty"
+      declaration: "vyhlásenie konania"
+      report: "zápisnica konania"
+
+      commissioners: "Výberová komisia"
+      candidates: "Kandidáti"
+
+      name: "Meno"
+      written_part: "Písomná časť"
+      oral_part: "Ústna časť"
+      rank: "Poradie"
+      documents: "Dokumenty"
+      statement: "vyhlásenie"
+      resume: "životopis"
+      motivation_letter: "motivačný list"
+
+      resource_note:
+        description: "Informácie o výberovom konaní boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+        document: "pôvodného dokumentu"
+
+      link_note:
+        description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
+        document: "pôvodný dokument"
+
+    declaration:
+      file: "Vyhlásenie výberového konania č. %{id}"
+
+    report:
+      file: "Zápisnica výberového konania č. %{id}"

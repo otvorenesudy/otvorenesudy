@@ -1,112 +1,88 @@
 sk:
   devise:
-    shared:
-      links:
-        login: 'Prihlásenie'
-        signup: 'Registrácia'
-        forgotten_password: 'Zabudli ste heslo?'
-        signup_confirmation: 'Potvrdenie registrácie'
-
     confirmations:
-      confirmed: 'Váš účet bol úspešne overený. Teraz ste prihlásený.'
-      send_instructions: 'O niekoľko minút Vám bude doručený e-mail s inštrukciami ako potvrdiť registráciu.'
-      send_paranoid_instructions: 'Ak sa Vaša e-mailová adresa nachádza v našej databáze, bude Vám doručený e-mail s inštrukciami ako potvrdiť registráciu.'
+      confirmed: "Váš účet bol úspešne overený. Teraz ste prihlásený."
+      send_instructions: "O niekoľko minút Vám bude doručený e-mail s inštrukciami ako potvrdiť registráciu."
+      send_paranoid_instructions: "Ak sa Vaša e-mailová adresa nachádza v našej databáze, bude Vám doručený e-mail s inštrukciami ako potvrdiť registráciu."
 
       new:
-        title: 'Potvrdenie registrácie'
-        no_confirmation: 'Nedostali ste inštrukcie pre potvrdenie registrácie?'
-        resend_instructions: 'Preposlať inštrukcie'
+        title: "Potvrdenie registrácie"
+        no_confirmation: "Nedostali ste inštrukcie pre potvrdenie registrácie?"
+        resend_instructions: "Preposlať inštrukcie"
 
     failure:
-      already_authenticated: 'Už ste prihlásený.'
-      inactive: 'Váš účet ešte nebol aktivovaný.'
-      invalid: 'Nesprávny e-mail alebo heslo.'
-      invalid_token: 'Nesprávny overovací symbol.'
-      locked: 'Váš účet je zamknutý.'
-      not_found_in_database: 'Nesprávny e-mail alebo heslo.'
-      timeout: 'Vaše sedenie vypršalo. Pre pokračovanie sa prosím znovu prihláste.'
-      unauthenticated: 'Pred pokračovaním sa musíte zaregistrovať alebo prihlásiť.'
-      unconfirmed: 'Pred pokračovaním musíte potvrdiť registráciu.'
-
-    mailer:
-      confirmation_instructions:
-        subject: '[Otvorené Súdy] Potvrdenie registrácie'
-
-      reset_password_instructions:
-        subject: '[Otvorené Súdy] Obnovenie hesla'
-
-      unlock_instructions:
-        subject: '[Otvorené Súdy] Odomknutie účtu'
+      already_authenticated: "Už ste prihlásený."
+      inactive: "Váš účet ešte nebol aktivovaný."
+      invalid: "Nesprávny e-mail alebo heslo."
+      invalid_token: "Nesprávny overovací symbol."
+      locked: "Váš účet je zamknutý."
+      not_found_in_database: "Nesprávny e-mail alebo heslo."
+      timeout: "Vaše sedenie vypršalo. Pre pokračovanie sa prosím znovu prihláste."
+      unauthenticated: "Pred pokračovaním sa musíte prihlásiť."
+      unconfirmed: "Pred pokračovaním musíte potvrdiť registráciu."
 
     omniauth_callbacks:
-      failure: 'Nebolo Vás možné autentifikovať z %{kind} účtu z dôvodu &bdquo;%{reason}&ldquo;.'
-      success: 'Úspešne autentifikovaný z %{kind} účtu.'
+      failure: "Nebolo Vás možné autentifikovať z %{kind} účtu z dôvodu %{reason}."
+      success: "Úspešne autentifikovaný z %{kind} účtu."
 
     passwords:
-      no_token: 'Túto stránku nemôžete navštíviť pokiaľ neprichádzate z e-mailu s inštrukciami na obnovu hesla. Pokiaľ prichádzate z tohto e-mailu, prosím uistite sa že ste správne zadali celú URL adresu.'
-      send_instructions: 'O niekoľko minút Vám bude doručený e-mail s inštrukciami ako obnoviť heslo.'
-      send_paranoid_instructions: 'Ak sa Vaša e-mailová adresa nachádza v našej databáze, bude Vám doručený e-mail s inštrukciami ako obnoviť heslo.'
-      updated: 'Vaše heslo bolo úspešne zmenené. Teraz ste prihlásený.'
-      updated_not_active: 'Vaše heslo bolo úspešne zmenené.'
+      no_token: "Túto stránku nemôžete navštíviť pokiaľ neprichádzate z e-mailu s inštrukciami na obnovu hesla. Pokiaľ prichádzate z tohto e-mailu, prosím uistite sa že ste správne zadali celú URL adresu."
+      send_instructions: "O niekoľko minút Vám bude doručený e-mail s inštrukciami ako obnoviť heslo."
+      send_paranoid_instructions: "Ak sa Vaša e-mailová adresa nachádza v našej databáze, bude Vám doručený e-mail s inštrukciami ako obnoviť heslo."
+      updated: "Vaše heslo bolo úspešne zmenené. Teraz ste prihlásený."
+      updated_not_active: "Vaše heslo bolo úspešne zmenené."
 
       new:
-        title: 'Obnovenie hesla'
-        forgotten_password: Zabudli ste heslo?'
-        send_instructions: 'Poslať inštrukcie'
+        title: "Zabudli ste heslo?"
+        forgotten_password: "Zabudli ste heslo?"
+        send_instructions: "Poslať inštrukcie"
 
       edit:
-        title: 'Zmena hesla'
-        new_pass: 'Nové heslo'
-        new_pass_confirmation: 'Potvrdenie nového hesla'
-        change_pass: 'Zmeniť heslo'
+        title: "Zmena hesla"
+        new_pass: "Nové heslo"
+        new_pass_confirmation: "Potvrdenie nového hesla"
+        change_pass: "Zmeniť heslo"
 
     registrations:
       new:
-        title: 'Registrácia'
-        submit: 'Zaregistrovať sa'
+        title: "Registrácia"
+        submit: "Zaregistrovať sa"
 
-      destroyed: 'Dovidenia! Váš účet bol úspešne zrušený. Dúfame, že sa čoskoro opäť uvidíme.'
-      signed_up: 'Vitajte! Registrácia bola úspešná.'
-      signed_up_but_inactive: 'Registrácia bola úspešná. Nemohli sme vás prihlásiť, pretože Váš účet ešte nebol aktivovaný.'
-      signed_up_but_locked: 'Registrácia bola úspešná. Nemohli sme vás prihlásiť, pretože Váš účet je uzamknutý.'
-      signed_up_but_unconfirmed: 'Správa s potvrdzovacím odkazom bola odoslaná na Vašu e-mailovú adresu. Prosím otvorte odkaz, aby ste potvrdili registráciu.'
-      update_needs_confirmation: 'Váš účet bol úspešne aktualizovaný ale potrebujeme overiť Vašu novú e-mailovú adresu. Prosím skontrolujte si e-mail a otvorením potvrdzovacieho odkazu potvrďte novú e-mailovú adresu.'
-      updated: 'Úspešne ste aktualizovali Váš účet.'
+      destroyed: "Dovidenia! Váš účet bol úspešne zrušený. Dúfame, že sa čoskoro opäť uvidíme."
+      signed_up: "Vitajte! Registrácia bola úspešná."
+      signed_up_but_inactive: "Registrácia bola úspešná. Nemohli sme Vás prihlásiť, pretože Váš účet ešte nebol aktivovaný."
+      signed_up_but_locked: "Registrácia bola úspešná. Nemohli sme Vás prihlásiť, pretože Váš účet je uzamknutý."
+      signed_up_but_unconfirmed: "Správa s potvrdzovacím odkazom bola odoslaná na Vašu e-mailovú adresu. Prosím otvorte odkaz, aby ste potvrdili registráciu."
+      update_needs_confirmation: "Váš účet bol úspešne aktualizovaný ale potrebujeme overiť Vašu novú e-mailovú adresu. Prosím skontrolujte si e-mail a otvorením potvrdzovacieho odkazu potvrďte novú e-mailovú adresu."
+      updated: "Úspešne ste aktualizovali Váš účet."
 
       edit:
-        settings: 'Nastavenia'
-        password_placeholder: 'Prázdne, ak nechcete zmeniť.'
-        confirm_placeholder: 'Vyplňte, pre potvrdenie zmien.'
-        submit: 'Uložiť'
-        delete_account: 'Zrušenie účtu'
-        confirm_delete: 'Zrušiť účet'
-        are_you_sure: 'Ste si istý?'
+        settings: "Nastavenia"
+        password_placeholder: "Ponechajte prázdne, ak nechcete zmeniť"
+        confirm_placeholder: "Vyplňte aktuálne heslo, pre potvrdenie zmien"
+        submit: "Uložiť"
+        account: "Účet"
+        are_you_sure: "Ste si istý?"
+        confirm_delete: "Zrušiť účet"
+        cancel: "Späť"
 
     sessions:
       new:
-        title: 'Prihlásenie'
-        submit: 'Prihlásiť sa'
+        title: "Prihlásenie"
+        submit: "Prihlásiť sa"
 
-      signed_in: 'Úspešne prihlásený.'
-      signed_out: 'Úspešne odhlásený.'
+      already_signed_out: "Už odhlásený."
+      signed_in: "Úspešne prihlásený."
+      signed_out: "Úspešne odhlásený."
 
     unlocks:
-      send_instructions: 'O niekoľko minút Vám bude doručený e-mail s inštrukciami ako odomknúť Váš účet.'
-      send_paranoid_instructions: 'Ak Váš účet existuje, o niekoľko minút Vám bude doručený e-mail s inštrukciami ako ho odomknúť.'
-      unlocked: 'Váš účet bol úspešne odomknutý. Prosím prihláste sa, aby ste mohli pokračovať.'
+      send_instructions: "O niekoľko minút Vám bude doručený e-mail s inštrukciami ako odomknúť Váš účet."
+      send_paranoid_instructions: "Ak Váš účet existuje, o niekoľko minút Vám bude doručený e-mail s inštrukciami ako ho odomknúť."
+      unlocked: "Váš účet bol úspešne odomknutý. Prosím prihláste sa, aby ste mohli pokračovať."
 
-  errors:
-    messages:
-      already_confirmed: 'bol už potvrdený, skúste sa prihlásiť'
-      confirmation_period_expired: 'je potrebné overiť do %{period}, prosím vyžiadajte si nové overenie'
-      expired: 'vypršal, prosím vyžiadajte si nový'
-      not_found: 'nenájdený'
-      not_locked: 'nebol zamknutý'
-
-    not_saved:
-      one: '%{resource} nebol uložený kvôli chybe:'
-      few: '%{resource} nebol uložený kvôli %{count} chybám:'
-      other: '%{resource} nebol uložený kvôli %{count} chybám:'
-
-
-
+    shared:
+      links:
+        account_confirmation: "Potvrdenie registrácie"
+        forgotten_password: "Zabudli ste heslo?"
+        sign_in: "Prihlásenie"
+        sign_up: "Registrácia"

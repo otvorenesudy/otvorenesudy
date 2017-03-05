@@ -1,88 +1,69 @@
 @import 'variables';
-@import 'mixins';
-@import 'bootstrap';
 
-// general
+@import 'bootstrap/variables';
 
-address, p, dl, ol, ul, table {
-  &:last-child {
-    margin-bottom: 0px;
+@mixin border-radius($value...) {}
+@mixin box-shadow($value...) {}
+@mixin tab-focus($value...) {}
+@mixin transition($value...) {}
+
+@import 'bootstrap/mixins/breakpoints';
+@import 'bootstrap/mixins/hover';
+@import 'bootstrap/mixins/size';
+@import 'bootstrap/mixins/text-emphasis';
+@import 'bootstrap/mixins/text-hide';
+@import 'bootstrap/mixins/text-truncate';
+
+@import 'bootstrap/mixins/lists';
+
+@import 'bootstrap/mixins/clearfix';
+@import 'bootstrap/mixins/grid-framework';
+@import 'bootstrap/mixins/grid';
+
+@import 'bootstrap/normalize';
+@import 'bootstrap/print';
+
+@import 'bootstrap/reboot';
+@import 'bootstrap/type';
+@import 'bootstrap/grid';
+
+@import 'bootstrap/utilities/display';
+@import 'bootstrap/utilities/spacing';
+@import 'bootstrap/utilities/text';
+
+* {
+  font-weight: $font-weight-base !important;
+  text-decoration: none !important;
+}
+
+li {
+  margin-left: 0 !important;
+}
+
+.search-result-list {
+  @include list-unstyled;
+}
+
+.search-result-item {
+  margin: 1.5 * $spacer-y 0 !important;
+}
+
+.search-result-title {
+  margin: 0 0 .4 * $spacer-y 0;
+
+  small {
+    display: block;
+    margin-top: .125 * $spacer-y;
+    line-height: $line-height-base;
+    font-size: $font-size-base;
+    color: $text-muted;
   }
 }
 
-a {
-  color: $linkColor !important;
+.search-result-content {
+  margin: 0 !important;
 }
 
-.muted {
-  color: $grayLight !important;
-}
-
-.centered {
-  text-align: center;
-}
-
-// header
-
-.header {
-  @extend header;
-
-  margin: 40px 0px;
-
-  text-align: center;
-
-  h1 {
-    margin: 20px;
-
-    small {
-      display: block;
-      margin-top: 20px;
-
-      font-size: $fontSizeLarge;
-
-      color: $grayLight !important;
-    }
-  }
-}
-
-// footer
-
-.footer {
-  margin: 40px 0px;
-}
-
-// sections
-
-.section {
-  @extend section;
-
-  ul, p {
-    margin-top: 20px !important;
-    margin-left: 50px !important;
-  }
-}
-
-.section + section {
-  padding-top: 40px;
-}
-
-.search-results {
-  margin: 0px 0px 20px 40px !important;
-
-  li {
-    margin-left: 0px;
-    padding: 10px 10px 20px 10px;
-
-    border-bottom: 1px dashed darken($grayLighter, 12.5%);
-
-    color: $grayLight;
-
-    p:last-child {
-      margin-bottom: 0px;
-    }
-  }
-
-  h4, .search-result-content, blockquote {
-    color: $textColor;
-  }
+.text-small {
+  font-size: $small-font-size;
 }

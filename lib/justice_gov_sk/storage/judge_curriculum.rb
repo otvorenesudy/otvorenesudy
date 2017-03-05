@@ -1,4 +1,4 @@
-#TODO rm
+# TODO rm - unused?
 module JusticeGovSk
   class Storage
     class JudgeCurriculum < JusticeGovSk::Storage::Data

@@ -1,127 +1,101 @@
 <% provide :title, selection_procedure_title(@procedure) %>
 
-<section id="selection-procedure-profile" class="profile">
-  <div class="page-header">
-    <h1>
-      <%= selection_procedure_headline @procedure, limit: 45, tooltip: true %>
-      <br/>
-      <small>
-        <%= t '.selection_procedure' %> <%= @procedure.closed_at.future? ? t('.will_close') : t('.was_closed')  %> <%= t 'on_day' %>
-        <%= time_tag @procedure.closed_at.to_date, format: :long %>
-      </small>
-    </h1>
-  </div>
+<h1 class="m-t-3 m-b-1">
+  <%= selection_procedure_headline @procedure, limit: 45, tooltip: true %>
+  <small class="d-block text-muted">
+    <%= t '.selection_procedure' %> <%= t @procedure.closed_at.future? ? '.future' : '.past' %>
+    <%= time_tag @procedure.closed_at.to_date, format: :long %>
+  </small>
+</h1>
 
-  <div class="row">
-    <div class="span12">
-      <p>Stav &ndash; <%= @procedure.state %></p>
-      <% if @procedure.position %>
-        <p><%= t '.position' %> &ndash; <%= @procedure.position %></p>
-      <% end %>
-      <p>
-        <%= t '.organization' %> &ndash; <%= @procedure.court ? link_to_court(@procedure.court) : @procedure.organization_name %>
-        <% if @procedure.organization_description %>
-          &ndash; <%= @procedure.organization_description %>
-        <% end %>
-      </p>
-      <% if @procedure.workplace %>
-        <p><%= t '.workplace' %> &ndash; <%= @procedure.workplace %></p>
-      <% end %>
-      <% if @procedure.place %>
-        <p><%= t '.place' %> &ndash; <%= @procedure.place %></p>
-      <% end %>
-      <% if @procedure.date %>
-        <p><%= t '.date' %> &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
-      <% end %>
+<p><%= t '.state' %> &ndash; <%= @procedure.state %></p>
+<% if @procedure.position %>
+  <p><%= t '.position' %> &ndash; <%= @procedure.position %></p>
+<% end %>
+<p>
+  <%= t '.organization' %> &ndash; <%= @procedure.court ? link_to_court(@procedure.court) : @procedure.organization_name %>
+  <% if @procedure.organization_description && @procedure.organization_description != (@procedure.court ? @procedure.court.name : @procedure.organization_name) %>
+    &ndash; <%= @procedure.organization_description %>
+  <% end %>
+</p>
+<% if @procedure.workplace %>
+  <p><%= t '.workplace' %> &ndash; <%= @procedure.workplace %></p>
+<% end %>
+<% if @procedure.place %>
+  <p><%= t '.place' %> &ndash; <%= @procedure.place %></p>
+<% end %>
+<% if @procedure.date %>
+  <p><%= t '.date' %> &ndash; <%= time_tag @procedure.date.to_date, format: :long %></p>
+<% end %>
 
-      <p><%= external_link_to t('.original_document'), @procedure.uri, icon: true %> (<%= t '.link' %> <%= tooltip_tag t('.may_not'), t('.see_note') %> <%= t '.be_valid' %>)</p>
+<p>
+  <%= t '.resource' %> &ndash; <%= link_to t('.document'), @procedure.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+</p>
 
-      <% if File.readable? @procedure.declaration_path %>
-        <p><%= external_link_to icon_tag(:'download-alt', label: t('.announcement'), join: :append), declaration_selection_procedure_path(@procedure), class: :icon %></p>
-      <% end %>
-      <% if File.readable? @procedure.report_path %>
-        <p><%= external_link_to icon_tag(:'download-alt', label: t('.report'), join: :append), report_selection_procedure_path(@procedure), class: :icon %></p>
-      <% end %>
+<% if File.readable?(@procedure.declaration_path) || File.readable?(@procedure.report_path) %>
+  <p>
+    <%= t '.attached_documents' %> &ndash;
+    <% if File.readable? @procedure.declaration_path %>
+      <%= link_to t('.declaration'), declaration_selection_path(@procedure) %>
+    <% end %>
+    <% if File.readable? @procedure.report_path %>
+      <%= two_words_connector if File.readable? @procedure.declaration_path %>
+      <%= link_to t('.report'), report_selection_path(@procedure) %>
+    <% end %>
+  </p>
+<% end %>
 
-      <% if @procedure.description %>
-        <hr/>
-        <p class="justified"><%= @procedure.description %></p>
-      <% end %>
-    </div>
-  </div>
-</section>
+<% if @procedure.description %>
+  <hr/>
+  <p><%= @procedure.description %></p>
+<% end %>
 
 <% if @commissioners.any? %>
-  <section id="selectoin-procedure-commissioners">
-    <h2><%= t '.selection_comittee' %></h2>
+  <h2 class="m-t-3"><%= t '.commissioners' %></h2>
 
-    <div class="row">
-      <div class="span12">
-        <%= @commissioners.map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
-      </div>
-    </div>
-  </section>
+  <p>
+    <%= @commissioners.map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
+  </p>
 <% end %>
 
 <% if @candidates.any? %>
-  <section id="selectoin-procedure-candidates">
-    <h2><%= t '.candidates' %></h2>
+  <h2 class="m-t-3"><%= t '.candidates' %></h2>
 
-    <div class="row">
-      <div class="span12">
-        <%= sortable_table_tag class: 'table table-striped' do %>
-          <thead>
-            <tr>
-              <th class="span3"><%= t '.name' %></th>
-              <th class="span2" data-sorter="digit"><%= t '.written_part' %></th>
-              <th class="span2" data-sorter="digit"><%= t '.oral_part' %></th>
-              <th class="span1" data-sorter="digit"><%= t '.result' %></th>
-              <th class="span4" colspan="3" data-sorter="false"><%= t '.documents' %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @candidates.each do |candidate| %>
-              <tr>
-                <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s(([^\s]|\,\s)*)\z/)[1] %>">
-                  <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
-                </td>
-                <td class="number" data-value="<%= candidate.written_score %>">
-                  <%= tooltip_tag candidate.written_score, candidate.written_result, placement: :top if candidate.written_score %>
-                </td>
-                <td class="number" data-value="<%= candidate.oral_score %>">
-                  <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: :top if candidate.oral_score %>
-                </td>
-                <td class="number" data-value="<%= candidate.rank %>">
-                  <% if candidate.rank %>
-                    <%= candidate.rank %>.
-                  <% end %>
-                  <% if candidate.score %>
-                    <span class="muted">(<%= candidate.score %>)</span>
-                  <% end %>
-                </td>
-                <%# TODO get back curriculum, search in git history for code %>
-                <%# TODO get back motivational letter, search in git history for code %>
-                <td>
-                  <%= external_link_to t('.statement'), declaration_selection_procedure_candidate_path(@procedure, candidate) %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        <% end %>
-      </div>
-    </div>
-  </section>
+  <%= table_tag class: 'table table-striped' do %>
+    <thead>
+      <tr>
+        <%= table_header_tag t('.name'), class: 'th-xs-6', sorter: 'text' %>
+        <%= table_header_tag t('.written_part'), class: 'th-xs-2 text-xs-right', sorter: 'digit' %>
+        <%= table_header_tag t('.oral_part'), class: 'th-xs-2 text-xs-right', sorter: 'digit' %>
+        <%= table_header_tag t('.rank'), class: 'th-xs-2 text-xs-right', sorter: 'digit' %>
+        <%= table_header_tag t('.documents'), class: 'th-xs-1', sorter: false %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @candidates.each do |candidate| %>
+        <tr>
+          <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s(([^\s]|\,\s)*)\z/)[1] %>">
+            <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
+          </td>
+          <td class="text-xs-right" data-value="<%= candidate.written_score %>">
+            <%= tooltip_tag candidate.written_score, candidate.written_result, placement: 'right' if candidate.written_score %>
+          </td>
+          <td class="text-xs-right" data-value="<%= candidate.oral_score %>">
+            <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: 'right' if candidate.oral_score %>
+          </td>
+          <td class="text-xs-right" data-value="<%= candidate.rank %>">
+            <%= tooltip_tag "#{candidate.rank}.", candidate.score, placement: 'right' if candidate.rank %>
+          </td>
+          <td>
+            <%= link_to t('.statement'), declaration_selection_candidate_path(@procedure, candidate) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
 <% end %>
 
-<section id="selection-procedure-resource" class="resources">
-  <div class="row">
-    <div class="span12">
-      <small class="muted">
-        <%= t '.information_source_1' %> <%= external_link_to t('.document'), @procedure.uri, class: :muted, icon: true %>,
-        <%= t '.information_source_2' %> <%= time_tag @procedure.updated_at.to_date, format: :default %>.
-        <br/>
-        <%= t '.link_validity_1' %> <%= external_link_to t('.original_document'), @procedure.uri, class: :muted, icon: true %> <%= t '.link_validity_2' %>
-      </small>
-    </div>
-  </div>
-</section>
+<p class="text-small text-muted m-t-3">
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @procedure.uri), update: time_tag(@procedure.updated_at.to_date, format: :default) %>
+  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @procedure.uri) %>
+</p>

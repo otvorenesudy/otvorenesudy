@@ -1,72 +1,60 @@
 en:
   decrees:
-    headline:
-      headline_html: 'On average 45% of judicial decrees<br/>are confirmed by apellate courts'
-      sub_headline: 'Statistical yearbook of the Ministry of Justice 2011 and 2012'
-      total_decrees_html: 'OpenCourts &mdash; you are searching in %{total_decrees} decrees'
+    common: &common
+      decree: "Decree"
 
-    show:
-      made_on: 'The decree was published on'
-      unknown_date: 'date unknown'
-      from_court: 'The decree took place at the court'
-      from_judge: 'The decree was issued by'
-      areas_of_legislation: 'Legislation area'
-      form: 'Decree form'
-      nature: 'Type of decison'
-      original_document: 'Original document'
-      link: 'Link'
-      may_not: 'may not'
-      see_note: 'See the note at the end of this document'
-      be_valid: 'be valid'
-      download_as: 'Download as'
-      pdf: 'PDF document'
-      missing: 'missing'
-      missing_2: 'missing'
-      missing_3: 'missing'
-      file_number: 'Unique identification number'
-      show_under: 'Show in'
-      proceeding: 'the proceeding'
-      referenced_decrees: 'Referenced legislation in the decree'
-      summary: 'Summary'
-      document: 'Text of the decree'
-      information_source_1: 'Information about the decree were obtained from'
-      information_source_2: 'which last update took place on'
-      document: 'Document'
-      link_validity_1: 'Link to'
-      original_document: 'Original document'
-      link_validity_2: 'may not be valid as the Ministry of Justice may have publsihed document on this address only for a restricted time.'
-      original_source_1: 'For that reason we provide a link to the original'
-      processed_document: 'processed document'
-      original_source_2: 'in raw form.'
+      past: "was issued on"
+      unknown: "unknown date"
+
+    index:
+      title: "Decrees"
 
     search:
-      title: 'Search decrees'
+      results:
+        court: "Court"
 
-    results:
-      made_on: 'The decree was published on'
-      unknown_date: 'date unknown'
-      incomplete: 'The decree is incomplete, a mistake occurred during the data collection.'
-      error_in_data: 'The date of ppublication of the decree is in the future. The problem is in the original data.'
-      file_number: 'Unique identification number'
-      court: 'Court'
+        <<: *common
 
-    unprocessed:
-      attention: 'Attention!'
-      description: 'The decree is incomplete. An unkown error occurred during data collection.'
+        future_date: "Decree date is in far future, there is an error in original data."
+        unprocessed: "Decree is incomplete, an unknown error occurred during data processing."
 
-    had_future_date:
-      note: 'Note.'
-      description: 'The decree was published on the portal of the Ministry of Justice before it could have been made.'
+    show:
+      <<: *common
 
-    has_future_date:
-      attention: 'Attention!'
-      description_1: 'The decree contains a date of publication in the future. The error is in the'
-      original_data: 'original data'
-      description_2: '(odkaz už nemusí byť platný).'
+      court: "Decision was made at the court"
+      judge: "Decree was issued by"
+      legislation_area: "Legislation area"
+      form: "Decree form"
+      nature: "Decree nature"
+      resource: "Source"
 
-  decree_pages:
-    results:
-      for_query: 'For searched term'
-      were_found: 'were found'
-      page: 'Page %{number}'
-      no_results_html: 'There were <strong>no results</strong> for searched term'
+      document: "original document"
+      document_note: "the link may not be valid"
+
+      show_within: "Show within"
+      proceeding: "the proceeding"
+
+      download_as: "Download as"
+      pdf_document: "PDF document"
+
+      legislations: "Referenced legislation in the decree"
+      summary: "Summary"
+
+      viewer_note:
+        description: "If decree text is not shown correctly, try opening it as %{document}"
+        document: "PDF document"
+
+      resource_note:
+        description: "Information regarding the decree were obtained from %{document}, which was most recently updated on %{update}."
+        document: "the original document"
+
+      link_note:
+        description: "Link to %{document} may not be valid, due to the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
+        document: "the original document"
+
+      faulty_date: "The decree was published on the portal of the Ministry of Justice with a date in far future."
+      future_date: "The decree date is in far future, there is an error in original data on the portal of the Ministry of Justice."
+      unprocessed: "The decree is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."
+
+    document:
+      file: "Decree-%{ecli}"

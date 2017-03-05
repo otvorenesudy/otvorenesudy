@@ -1,133 +1,31 @@
-<p>
-  <span class="gutter centered"><%= icon_tag :legal %></span>
-  <%= t '.decrees_count_html', total_released_decrees: indicators['S1'], total_delayed_decrees: indicators['S2'] %>
-</p>
+<h2 class="m-t-2 m-b-1">
+  <%= t '.headline' %>
+</h2>
 
-<p>
-  <span class="gutter centered"><%= icon_tag :tasks %></span>
-  <b><%= t '.performance_date' %> <%= indicators['S3'] %>:</b>
-</p>
-
-<div>
-  <ul class="unstyled">
-    <% if indicators['S3_2011'] %>
-      <li><strong>2011</strong> &ndash; <%= indicators['S3_2011'].map { |court| link_to_court(court) }.to_sentence.html_safe %></li>
-    <% end %>
-
-    <% if indicators['S3_2012'] %>
-      <li><strong>2012</strong> &ndash; <%= indicators['S3_2012'].map { |court| link_to_court(court) }.to_sentence.html_safe %></li>
-    <% end %>
-
-    <% if indicators['S3_2013'] %>
-      <li><strong>2013</strong> &ndash; <%= indicators['S3_2013'].map { |court| link_to_court(court) }.to_sentence.html_safe %></li>
-    <% end %>
-  </ul>
-</div>
-
-<p>
-  <span class="gutter centered"><%= icon_tag :inbox %></span>
-  <%= assigned_agendas_indicator(indicators) %>.&nbsp;
-  <%= decrees_agendas_indicator(indicators) %>.
-</p>
-
-<p>
-  <span class="gutter centered"><%= icon_tag :time %></span>
-  <%= t '.judge_results', days_worked: indicators['S6'], cases_assigned: indicators['S7'] %>
-</p>
-
-<br />
-
-<h4><%= t '.quality_indicators' %></h4>
-<hr />
-
-<p>
-  <span class="gutter centered"><%= icon_tag :'thumbs-up-alt' %></span>
-  <%= indicators['S8'] %>
-</p>
-
-<% if indicators['S9'] %>
-  <p>
-    <a href="#" data-target="#additional-quality-indicators" data-toggle="collapse"><%= t '.show_details' %></a>
-  </p>
-
-  <div id="additional-quality-indicators" class="collapse out hide-after-show">
-    <div>
-      <ul class="unstyled">
-        <li><%= t '.apellate_decrees' %> &ndash; <%= indicators['S8a'] %>
-        <li><%= t '.confirmed_decrees' %> &ndash; <%= indicators['S8b'] %>
-      </ul>
+<% if @judge.indicators %>
+  <% if I18n.locale == :en %>
+    <div class="alert alert-info m-t-2" role="alert">
+      Please note that some content pertaining judge indicators may not be translated.
     </div>
+  <% end %>
 
-    <p>
-      <span class="gutter centered"><%= icon_tag :'thumbs-down-alt' %></span>
+  <% if @judge.indicators.statistical %>
+    <%= render 'judges/indicators/basic', judge: judge, indicators: judge.indicators.statistical %>
+  <% end %>
 
-      <%= indicators['S9'] %>
-      <%= tooltip_tag icon_tag(:question), t('.inaccurate') %>
-    </p>
+  <% if @judge.indicators.numerical && @judge.indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
+    <%= render 'judges/indicators/numerical', judge: judge, indicators: judge.indicators.numerical %>
+  <% end %>
 
-    <p>
-      <span class="gutter centered"><%= icon_tag :'ban-circle' %></span>
+  <% if @judge.indicators.statistical %>
+    <%= render 'judges/indicators/statistical', judge: judge, indicators: judge.indicators.statistical %>
+  <% end %>
 
-      <%= indicators['S10'] %>
-      <%= tooltip_tag icon_tag(:question), t('.inaccurate') %>
-    </p>
-  </div>
-<% end %>
-
-<br />
-
-<h4><%= t '.efficiency_indicators' %></h4>
-<hr />
-
-<p>
-  <span class="gutter centered"><%= icon_tag :tasks %></span>
-  <%= indicators['S11'] %>
-  <%= tooltip_tag icon_tag(:question), t('.computed_as_ratio') %>
-</p>
-
-<% if indicators['S12'] && indicators['S13'] && indicators['S14']  %>
-  <p>
-    <a href="#" data-target="#additional-indicators-of-quality" data-toggle="collapse"><%= t '.show_details' %></a>
+  <% if @judge.indicators.statistical %>
+    <%= render 'judges/indicators/notes', judge: judge, indicators: judge.indicators.statistical %>
+  <% end %>
+<% else %>
+  <p class="m-t-1">
+    <%= t '.none' %>
   </p>
-
-  <div id="additional-indicators-of-quality" class="collapse out hide-after-show">
-    <p>
-      <span class="gutter centered"><%= icon_tag :inbox %></span>
-      <%= indicators['S12'] %>
-    </p>
-
-    <p>
-      <span class="gutter centered"><%= icon_tag :inbox %></span>
-      <%= indicators['S13'] %>
-
-      <%= popover_tag icon_tag(:question), t('.unresolved_issue_note'), title: t('.unresolved_issue'), trigger: :hover %>
-    </p>
-
-    <p>
-      <span class="gutter centered"><%= icon_tag :inbox %></span>
-      <%= indicators['S14'] %>
-    </p>
-
-    <p>
-      <span class="gutter centered"><%= icon_tag :'bar-chart' %></span>
-      <%= indicators['S15'] %>
-    </p>
-  </div>
-<% end %>
-
-<% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').reject(&:blank?).any? %>
-  <br/>
-
-  <p>
-    <span class="gutter centered"><%= icon_tag :pushpin %></span>
-    <a href="#" data-target="#indicators-notes" data-toggle="collapse"><%= t '.data_notes_html' %>
-  </p>
-
-  <div id="indicators-notes" class="collapse out">
-    <ul class="unstyled">
-      <% indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').compact.sort.each do |value| %>
-         <li><%= value %></li>
-      <% end %>
-    </ul>
-  </div>
 <% end %>

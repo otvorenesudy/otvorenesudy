@@ -1,140 +1,42 @@
 <% provide :title, @court.name %>
 
-<section id="court-profile" class="profile">
-  <div class="page-header">
-    <h1>
-      <%= yield :title %>
-      <br/>
-      <small><%= @court.address %></small>
-    </h1>
-  </div>
+<h1 class="m-t-3 m-b-1">
+  <%= yield :title %>
+  <small class="d-block text-muted">
+    <%= @court.address %>
+  </small>
+</h1>
 
-  <div class="row">
-    <div class="span12">
-      <%= render 'shared/social', classes: 'social-vertical pull-right' %>
+<p>
+  <%= t '.at_court' %> <%= t '.work', count: @judges.active.listed.size, judges: translate_with_count(@judges.active.listed.size, :judge) %>.
+</p>
+<p>
+  <%= t '.for_court'%> <%= t '.register', count: @court.hearings.size %>
+  <%= translate_with_count @court.hearings.size, :hearing %>
+  <%= two_words_connector %>&nbsp;<%= translate_with_count @court.decrees.size, :decree %>.
+</p>
 
-      <p>
-        <span class="gutter centered"><%= icon_tag :user %></span>
-        <%= t '.at_court' %> <%= @judges.active.listed.any? ? t('.work') : t('.dont_work') %>
-        <%= translate_with_count(@judges.active.listed.size, :judge) %>.
-      </p>
-      <p>
-        <span class="gutter centered"><%= icon_tag :'file-text-alt' %></span>
-        <%= t '.for_court'%> <%= t('.not_yet') if @court.hearings.size.zero? %><%= t '.register'%>
-        <%= translate_with_count(@court.hearings.size, :hearing) %>
-        <%= t '.and'%>&nbsp;<%= translate_with_count(@court.decrees.size, :decree) %>.
-      </p>
+<%= render 'expenses' if @expenses.any? %>
+<%= render 'proceedings' if @court.average_proceeding_durations? %>
 
-      <% if @expenses.any? %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :legal %></span>
-          <%= t '.overall' %> <%= rank_with_order Court::Expenses.rank_with_order(@court), asc: t('.least'), desc: t('.most') %>
-          <%= t '.charged_from' %> <%= Court::Expenses.courts(@court.type).count %>
-          <%= @court.type == CourtType.regional ? t('.regional') : t('.district') %> <%= t '.courts' %>.
-        </p>
-        <p>
-          <span class="gutter centered"><%= icon_tag :legal %></span>
-          <% unless @court.expenses_total.zero? %>
-            <a href="#" data-target="#expenses" data-toggle="collapse"><%= t '.penalties' %></a>
-          <% else %>
-            <%= t '.penalties' %>
-          <% end %>
-          <%= t '.for_bad_decrees' %>
-          <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
-          <%= t '.were' %> <%= number_to_currency(@court.expenses_total, precision: 0) %>.
-        </p>
-        <% unless @court.expenses_total.zero? %>
-          <div id="expenses" class="collapse out">
-            <ul class="unstyled">
-              <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
-                <li><%= icon_tag :'credit-card' %> <%= t '.penalty_for_your' %> <%= expense.year %> <%= t '.was' %> <%= number_to_currency expense.value, precision: 0 %>.</li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-      <% end %>
+<div class="clearfix m-b-2"></div>
 
-      <% if @court.average_proceeding_durations? %>
-        <p>
-          <span class="gutter centered"><%= icon_tag :time %></span>
-          <%= t '.average_proceeding_duration' %>:
-        </p>
-        <ul class="unstyled inline">
-          <% @court.average_proceeding_durations.each do |agenda| %>
-            <li><a href="#average-proceeding-duration-<%= agenda.acronym %>" data-parent="#average-proceeding-durations" data-toggle="collapse"><%= agenda.name %></a></li>
-          <% end %>
-        </ul>
-        <div id="average-proceeding-durations">
-          <% @court.average_proceeding_durations.each do |agenda| %>
-            <div class="accordion-group">
-              <div id="average-proceeding-duration-<%= agenda.acronym %>" class="collapse<%= ' in' if agenda.acronym == :T %>">
-                <p>
-                  <span class="gutter centered"><%= icon_tag :time %></span>
-                  <%= t '.overall' %> <%= rank_with_order Court::AverageProceedingDurations::Ranking.rank_with_order(@court, agenda.acronym), asc: t('.fastest'), desc: t('.slowest') %>
-                  <%= t '.court_from' %> <%= Court::AverageProceedingDurations::Ranking.courts.size %>
-                  <%= t '.district_courts_agenda' %> <%= agenda.name %>:
-                </p>
-                <ul class="unstyled">
-                  <% agenda.data.each do |data| %>
-                    <li><%= t '.average_agenda_by_year', year: data[:year], value: number_with_precision(data[:value], precision: 1) %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</section>
+<ul class="nav nav-tabs" role="tablist">
+  <%= tab_link_tag t('.contact'), 'contact', class: 'active' %>
+  <%= tab_link_tag t('.judges'), 'judges' %>
+  <%= tab_link_tag t('.decrees'), 'decrees' %>
+  <%= tab_link_tag t('.hearings'), 'hearings' %>
+  <%= tab_link_tag t('.media'), 'media' %>
+</ul>
 
-<section id="court-tabs">
-  <div class="row">
-    <div class="span12">
-      <div class="tabbable">
-        <ul class="nav nav-tabs">
-          <li class="active">
-            <a href="#contact" data-toggle="tab" data-track="court-contact"><%= t '.contact' %></a>
-          </li>
-          <li><%= tab_link_to_with_count t('.judges'), '#judges', @judges.active.listed.size, track_data(:'court-judges') %></li>
-          <li><%= tab_link_to_with_count t('.decrees'), '#decrees', @decrees.size, track_data(:'court-decrees') %></li>
-          <li><%= tab_link_to_with_count t('.hearings'), '#hearings', @hearings.size, track_data(:'court-hearings') %></li>
-          <li><%= tab_link_to_with_count t('.media'), '#media', @results.size, track_data(:'court-media') %></li>
-        </ul>
+<div class="tab-content">
+  <%= render_tab partial: 'contact', class: 'active' %>
+  <%= render_tab 'judges', judges: @judges %>
+  <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
+  <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
+  <%= render_tab 'media', media: @media %>
+</div>
 
-        <div class="tab-content">
-          <div id="contact" class="tab-pane active">
-            <%= render 'contact' %>
-          </div>
-
-          <div id="judges" class="tab-pane">
-            <%= render 'judges', judges: @judges %>
-          </div>
-
-          <div id="decrees" class="tab-pane">
-            <%= render 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
-          </div>
-
-          <div id="hearings" class="tab-pane">
-            <%= render 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
-          </div>
-
-          <div id="media" class="tab-pane">
-            <%= render 'media', results: @results %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="court-resource" class="resources">
-  <div class="row">
-    <div class="span12">
-      <small class="muted">
-        <%= t '.data_source' %> <%= external_link_to t('.document'), @court.uri, class: :muted, icon: true %>,
-        <%= t '.last_updated_at' %> <%= time_tag(@court.updated_at.to_date, format: :default) %>.
-      </small>
-    </div>
-  </div>
-</section>
+<p class="text-small text-muted m-t-3">
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @court.uri), update: time_tag(@court.updated_at.to_date, format: :default) %>
+</p>

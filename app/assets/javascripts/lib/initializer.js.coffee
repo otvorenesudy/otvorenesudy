@@ -1,4 +1,4 @@
 window.Initializer =
   setup: (options) ->
-    for attr, value of options
-      @[attr] = value
+    for attribute, value of options
+      @[attribute] = value

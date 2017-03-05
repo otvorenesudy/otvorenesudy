@@ -1,126 +1,24 @@
 <footer>
   <div class="container">
-    <div class="row">
-      <div class="span3">
-        <h4><%= t '.open_courts' %> <%= icon_tag :legal %></h4>
-      </div>
+    <nav class="nav nav-inline">
+      <%= link_to t('.about'), static_page_path('about'), class: 'nav-link' %>
+      <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link' %>
+      <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link' %>
+      <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link' %>
+      <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link' %>
+    </nav>
 
-      <div class="span3">
-        <h4><%= t '.statements' %> <%= icon_tag :'file-text-alt' %></h4>
-      </div>
-
-      <div class="span3">
-        <h4><%= t '.transparency' %> <%= icon_tag :ok %></h4>
-      </div>
-
-      <div class="span3">
-        <h4><%= t '.data' %> <%= icon_tag :hdd %></h4>
-      </div>
+    <div class="disclaimer text-small">
+      <%= t '.disclaimer.resources' %>
+      <br class="hidden-lg-up" />
+      <%= t '.disclaimer.correctness' %>
     </div>
 
-    <hr/>
-
-    <div class="row">
-      <div class="span3">
-        <nav>
-          <ul class="nav pull-left">
-            <li><%= link_to t('.about'), static_page_path(:about) %></li>
-            <li><%= link_to t('.faq'), static_page_path(:faq) %></li>
-            <% if I18n.locale == :sk %>
-            <li><%= external_link_to t('.support_us'), 'http://transparency.darujme.sk/238' %></li>
-            <% else %>
-            <li><%= external_link_to t('.support_us'), 'http://transparency.darujme.sk/761' %></li>
-            <% end %>
-            <li><%= link_to t('.contact'), static_page_path(:contact) %></li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="span3">
-        <nav>
-          <ul class="nav pull-left">
-            <li><%= link_to t('.tos'), static_page_path(:'terms-of-use') %></li>
-            <li><%= link_to t('.privacy'), static_page_path(:privacy) %></li>
-            <li><%= link_to t('.copyright'), static_page_path(:copyright) %></li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="span3">
-        <nav>
-          <ul class="nav pull-left">
-            <li><%= link_to t('.found_mistake'), static_page_path(:feedback) %></li>
-            <li><%= link_to t('.security'), static_page_path(:security) %></li>
-            <li><%= external_link_to t('.source_code'), url_to_repository %></li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="span3">
-        <nav>
-          <ul class="nav pull-left">
-            <li><%= link_to t('.how_it_works'), static_page_path(:'how-it-works') %></li>
-            <li><%= link_to t('.data_history'), static_page_path(:'data-history') %></li>
-            <li><%= link_to t('.api'), 'http://api.otvorenesudy.sk' %></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-    <hr/>
-
-    <div class="row">
-      <div class="span12">
-        <nav>
-          <ul class="open inline">
-            <li><%= external_link_to image_tag(asset_path('logos/sme-colored-76.png'), alt: nil), 'http://sme.sk', { class: :'logo-sme' }.merge(track_data :'sme') %></li>
-            <li><strong><%= t '.open_data_projects' %></strong></li>
-            <li><%= external_link_to t('.price_of_state'), 'http://cenastatu.sme.sk', track_data(:'sme-cenastatu') %></li>
-            <li><%= external_link_to t('.municipalities'), 'http://obce.sme.sk', track_data(:'sme-obce') %></li>
-            <li><%= external_link_to t('.schools'), 'http://skoly.sme.sk', track_data(:'sme-skoly') %></li>
-            <li><%= external_link_to t('.procurements'), 'http://tender.sme.sk', track_data(:'sme-tender') %></li>
-            <li><%= external_link_to t('.universities'), 'http://vysokeskoly.sme.sk', track_data(:'sme-vysokeskoly') %></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-    <hr/>
-
-    <div class="row">
-      <div class="span12">
-        <nav>
-          <ul class="social inline">
-            <li><%= external_link_to nil, 'https://facebook.com/otvorenesudy', icon: :facebook %></li>
-            <li><%= external_link_to nil, 'https://twitter.com/otvorenesudy', icon: :twitter %></li>
-            <li><%= external_link_to nil, 'https://github.com/otvorenesudy', icon: :github %></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="span12">
-        <div class="note centered muted">
-          <%= t '.closing' %>
-        </div>
-        <div class="note centered muted">
-          <%= external_link_to "Samuel Molnár", 'https://twitter.com/samuelmolnar' %>
-          <%= t '.and' %> <%= external_link_to "Pavol Zbell", 'https://twitter.com/pavolzbell' %>
-          (<%= t '.members' %> <%= external_link_to "PeWe", 'http://pewe.fiit.stuba.sk' %> <%= t '.at' %>
-          <%= external_link_to "FIIT", 'http://fiit.stuba.sk' %>
-          <%= external_link_to "STU", 'http://stuba.sk' %>)
-          <%= t '.in_collaboration_with' %> <%= external_link_to "Transparency International Slovensko", 'http://transparency.sk' %>
-          <br/>
-          <%= t '.with_support_of' %> <%= external_link_to "Transparency International", 'http://transparency.org' %>
-          <%= t '.and_project' %> <%= external_link_to "Reštart", 'http://restartslovensko.sk' %>
-          <%= external_link_to t('.centre_for_philanthropy'), 'http://cpf.sk' %>
-          <br/>
-          Copyright 2014 &middot;
-          <%= link_to Configuration.github.organization, url_to_organization %> &middot;
-          <%= link_to OpenCourts::VERSION::STRING, url_to_repository("releases/tag/v#{OpenCourts::VERSION::STRING}") %>
-        </div>
-      </div>
-    </div>
+    <nav class="nav nav-inline text-small">
+      <%= link_to 'Transparency International Slovensko', 'http://transparency.sk', class: 'nav-link' %>
+      <%= link_to 'Copyright 2013-2016', static_page_path('copyright'), class: 'nav-link' %>
+      <%= link_to Configuration.github.organization, organization_url, class: 'nav-link hidden-md-down' %>
+      <%= link_to OpenCourts::VERSION::STRING, repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link hidden-md-down' %>
+    </nav>
   </div>
 </footer>

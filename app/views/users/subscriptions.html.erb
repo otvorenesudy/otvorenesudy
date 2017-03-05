@@ -1,46 +1,19 @@
 <%= provide :title, t('.title') %>
 
-<% if @hearing_subscriptions.any? || @decree_subscriptions.any? %>
-  <% if @hearing_subscriptions.any? %>
-    <section class="subscriptions">
-      <div class="row">
-        <div class="offset2 span8">
-          <%= render 'subscriptions/hearings', subscriptions: @hearing_subscriptions %>
-        </div>
-      </div>
-    </section>
-  <% end %>
-  <% if @decree_subscriptions.any? %>
-    <section class="subscriptions">
-      <div class="row">
-        <div class="offset2 span8">
-          <%= render 'subscriptions/decrees', subscriptions: @decree_subscriptions %>
-        </div>
-      </div>
-    </section>
-  <% end %>
-<% else %>
-  <section class="subscriptions">
-    <div class="row">
-      <div class="offset2 span8">
-        <div class="page-header">
-          <h1 class="centered">
-            <small><%= yield :title %></small>
-          </h1>
-        </div>
-
-        <p class="lead centered">
-          <%= t '.set_notifications_part_1' %>
-        </p>
-        <p class="lead centered">
-          <%= link_to t('.hearings'), search_hearings_path, class: :'btn btn-primary btn-large' %>
-          <%= t '.or' %>
-          <%= link_to t('.decrees'), search_decrees_path, class: :'btn btn-primary btn-large' %>
-        </p>
-        <p class="lead centered">
-          <%= t '.set_notifications_part_2' %>.
-        </p>
-      </div>
-    </div>
-  </section>
-<% end %>
+<div class="row">
+  <div class="col-xs-12">
+    <h1 class="display-4 m-t-3 m-b-1">
+      <%= yield :title %>
+    </h1>
+    <p>
+      <%= t '.subscribe_introduction' %>
+      <%= link_to t('.hearings'), hearings_path, class: 'btn btn-outline-primary' %>
+      <%= t '.subscribe_or' %>
+      <%= link_to t('.decrees'), decrees_path, class: 'btn btn-outline-primary' %>
+      <%= t '.subscribe_detail' %>
+    </p>
+    <%= render 'subscriptions/hearings', subscriptions: @hearing_subscriptions if @hearing_subscriptions.any? %>
+    <%= render 'subscriptions/decrees', subscriptions: @decree_subscriptions if @decree_subscriptions.any? %>
+    <%= render 'users/shared/links' %>
+  </div>
+</div>

@@ -1,1 +1,167 @@
 en:
+  polar:
+    yes: "yes"
+    no: "no"
+
+  number:
+    format:
+      delimiter: ","
+      separator: "."
+
+    currency:
+      format:
+        format: "%n%u"
+        unit: "€"
+
+  range:
+    format:
+      delimiter: " to "
+
+  date:
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Thursday
+      - Wednesday
+      - Friday
+      - Saturday
+
+    month_names:
+      -
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+
+    order:
+      - :year
+      - :month
+      - :day
+
+    formats:
+      default: "%b %-d, %Y"
+      short: "%b %-d"
+      normal: "%B %-d, %Y"
+      long: "%A, %B %-d, %Y"
+
+  time:
+    formats:
+      default: "%b %-d, %Y at %-I:%M %p"
+      short: "%b %-d at %-I:%M %p"
+      normal: "%B %-d, %Y at %-I:%M %p"
+      long: "%A, %B %-d, %Y at %-I:%M %p"
+
+  datetime:
+    distance_in_words:
+      about_x_years:
+        one: "about a year"
+        few: "about %{count} years"
+        other: "about %{count} years"
+
+      almost_x_years:
+        one: "almost a year"
+        few: "almost %{count} years"
+        other: "almost %{count} years"
+
+      over_x_years:
+        one: "more than a year"
+        few: "more than %{count} years"
+        other: "more than %{count} years"
+
+      about_x_months:
+        one: "about a month"
+        few: "about %{count} months"
+        other: "about %{count} months"
+
+      about_x_hours:
+        one: "about an hour"
+        few: "about %{count} hours"
+        other: "about %{count} hours"
+
+      half_a_minute: "half a minute"
+
+      less_than_x_minutes:
+        one: "less than a minute"
+        few: "less than %{count} minutes"
+        other: "less than %{count} minutes"
+
+      less_than_x_seconds:
+        one: "less than a second"
+        few: "less than %{count} seconds"
+        other: "less than %{count} seconds"
+
+      x_days:
+        one: "day"
+        few: "%{count} days"
+        other: "%{count} days"
+
+      x_minutes:
+        one: "minute"
+        few: "%{count} minutes"
+        other: "%{count} minutes"
+
+      x_months:
+        one: "month"
+        few: "%{count} months"
+        other: "%{count} months"
+
+      x_seconds:
+        one: "second"
+        few: "%{count} seconds"
+        other: "%{count} seconds"
+
+    prompts:
+      year: "Year"
+      month: "Month"
+      day: "Day"
+      hour: "Hour"
+      minute: "Minute"
+      second: "Second"
+
+  years:
+    one: "1 year"
+    few: "%{count} years"
+    other: "%{count} years"
+
+  months:
+    one: "1 month"
+    few: "%{count} months"
+    other: "%{count} months"
+
+  days:
+    one: "1 day"
+    few: "%{count} days"
+    other: "%{count} days"

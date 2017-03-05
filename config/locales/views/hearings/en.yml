@@ -1,77 +1,67 @@
 en:
   hearings:
-    supposed_to_happen: 'was supposed to be held'
-    will_happen: 'will be held on'
-    happened: 'was held on'
+    common: &common
+      hearing: "Hearing"
 
-    headline:
-      headline_html: 'One in twelve households gave a bribe<br/>when in contact with judiciary in 2012'
-      sub_headline: 'Global Corruption Barometer, Transparency International'
-      total_hearings_html: 'OpenCourts &mdash; you are searching in %{total_hearings} hearings'
+      future: "will be held on"
+      past: "was held on"
+      unknown: "unknown date"
 
-    results:
-      processing_error: 'Hearing information is incomplete, there was an unknown problem.'
-      data_error: 'Date of the hearing appears to be far in the future, the problem is in original data.'
-      hearing: 'Hearing'
-      court: 'Court'
+    type:
+      civil: "Civil"
+      criminal: "Criminal"
+      special: "Of specialized criminal court"
 
-    show:
-      special: 'Hearing of the Specialized criminal court'
-      hearing: 'court hearing'
-      took_place: 'took place'
-      will_take_place: 'will take place'
-      at_court: 'at the court'
-      in_room: ', in the room %{room}'
-      section: 'Section'
-      form: 'Form'
-      subject: 'Subject'
-      commencement_date: 'Commencement date'
-      self_judge: 'Judge'
-      yes: 'yes'
-      no: 'no'
-      note: 'Note'
-      original_document: 'Original document'
-      link: 'the link'
-      might_not: 'may not'
-      see_note: 'See the note at the end of the document'
-      be_valid: 'be valid'
-      missing: 'missing'
-      missing_2: 'missing'
-      show_within: 'Show within'
-      hearing: 'the whole procedure'
-      proposers: 'Proposed by'
-      opponents: 'Opponents'
-      defendants: 'Defendants'
-      judges: 'Judges'
-      chaired_is: 'The senate was chaired by'
-      info_source: 'Information regarding the hearing, including names were obtained, in accordance with § 10 (3)-e of the Act 122/2013 on the protection of private data, from'
-      document: 'the document'
-      lastly_updated: 'which was most recently updated on'
-      link_to: 'Link to'
-      original_document: 'the original document'
-      may_be_invalid: 'may not be valid. The portal of the Ministry of Justice may have published the information for a restricted period of time'
-      thats_why: 'For that reason we provide a link to the original'
-      processed_doc: 'processed document'
-      raw_form: 'in a raw form.'
-      sa: ''
+    index:
+      title: "Hearings"
 
     search:
-      title: 'Search in hearings'
+      results:
+        court: "Court"
 
-    anonymized:
-      note: 'Note.'
-      description: 'Information about the hearing were anonymized because of the reasoned request by the person(s) affected.'
+        <<: *common
 
-    had_future_date:
-      note: 'Note.'
-      description: 'Information about the hearing was published on the portal of the Ministry of Justice with a date in a distant future.'
+        future_date: "Hearing date is in far future, there is an error in original data."
+        unprocessed: "Hearing is incomplete, an unknown error occurred during data processing."
 
-    has_future_date:
-      attention: 'Attention!'
-      description_1: 'The date of the hearing is in a distant future, the mistake is in'
-      original_data: 'the original data'
-      description_2: 'the link may not be valid anymore'
+    show:
+      <<: *common
 
-    unprocessed:
-      attention: 'Attention!'
-      description: 'Information about the hearing is incomplete. While collecting the data from the portal of Ministry of Justice an unknown mistake occurred.'
+      took_place: "took place"
+      will_take_place: "will take place"
+      at_court: "at court %{court}"
+      in_room: ", in room %{room}"
+
+      section: "Section"
+      special_type: "Type"
+      form: "Form"
+      subject: "Subject"
+      commencement_date: "Commencement date"
+      single_judge: "Single judge"
+      note: "Note"
+      resource: "Source"
+
+      document: "original document"
+      document_note: "the link may not be valid"
+
+      show_within: "Show within"
+      proceeding: "the proceeding"
+
+      proposers: "Proposed by"
+      opponents: "Opponents"
+      defendants: "Defendants"
+      judges: "Judges"
+      chairman: "The senate was chaired by"
+
+      resource_note:
+        description: "Information regarding the hearing, including person names were obtained, in accordance with § 10 (3)-e of the Act 122/2013 on the protection of private data, from %{document}, which was most recently updated on %{update}."
+        document: "the original document"
+
+      link_note:
+        description: "Link to %{document} may not be valid, due to the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
+        document: "the original document"
+
+      anonymized: "The hearing was anonymized based on a reasoned request by an affected person."
+      faulty_date: "The hearing was published on the portal of the Ministry of Justice with a date in far future."
+      future_date: "The hearing date is in far future, there is an error in original data on the portal of the Ministry of Justice."
+      unprocessed: "The hearing is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."

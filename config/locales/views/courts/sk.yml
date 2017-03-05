@@ -1,136 +1,140 @@
 sk:
-  court_type:
-    constitutional: 'Ústavný'
-    supreme: 'Najvyšší'
-    specialized: 'Špecializovaný'
-    regional: 'Krajský'
-    district: 'Okresný'
-
-  contact:
-    fax: 'Fax:'
-    media_person: 'Kontaktná osoba:'
-    map: 'Mapa'
-    phone: 'Tel. číslo:'
-    show_on_map: 'Zobraziť na mape'
-    country: 'Slovenská republika'
-    to_media: 'Pre médiá'
-    with_other_courts: 'aj s ostatnými súdmi Slovenskej Republiky.'
-
   courts:
+    common: &common
+      at_court: "Na súde"
+      work:
+        zero: "nepracujú %{judges}"
+        one: "pracuje %{judges}"
+        few: "pracujú %{judges}"
+        other: "pracuje %{judges}"
+
+      for_court: "Pre súd"
+      register:
+        zero: "zatiaľ neevidujeme"
+        one: "evidujeme"
+        few: "evidujeme"
+        other: "evidujeme"
+
+    type:
+      constitutional: "Ústavný"
+      supreme: "Najvyšší"
+      specialized: "Špecializovaný"
+      regional: "Krajský"
+      district: "Okresný"
+
     index:
-      title: 'Súdy Slovenskej Republiky'
-      regional_courts: 'Krajské súdy'
-      district_courts: 'Okresné súdy'
-      courts_map: 'Mapa súdov'
-      regional_courts_count: 'Na Slovensku je %{regional_courts_count} krajských súdov.'
-      district_courts_count: 'Na Slovensku je %{district_courts_count} okresných súdov.'
-      data_source: 'Informácie o súdoch boli získané z portálu'
-      ministry_of_justice: 'Ministerstva spravodlivosti Slovenskej republiky'
-
-    courts:
-      court: 'Súd'
-      address: 'Adresa'
-      judges: 'Sudcovia'
-      hearings: 'Pojednávania'
-      decrees: 'Rozhodnutia'
-      judges_count: 'Počet zamestnaných sudcov'
-      hearings_count: 'Počet súdnych pojednávaní'
-      decrees_count: 'Počet súdnych rozhodnutí'
-
-    show:
-      at_court: 'Na súde'
-      work: 'pracuje'
-      dont_work: 'nepracujú'
-      for_court: 'Pre súd'
-      not_yet: 'zatiaľ ne'
-      register: 'evidujeme'
-      and: 'a'
-      overall: 'Celkovo'
-      least: 'najmenej'
-      most: 'najviac'
-      charged: 'pokutovaný súd z'
-      regional: 'krajských'
-      district: 'okresných'
-      courts: 'súdov'
-      penalties: 'Pokuty od Ústavného súdu'
-      for_bad_decrees: 'Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch'
-      were: 'boli'
-      penalty_for_your: 'Pokuta za rok'
-      was: 'bola'
-      average_proceeding_duration: 'Priemerné dĺžky trvania konaní v rámci súdu podľa agiend'
-      fastest: 'najrýchlejší'
-      slowest: 'najpomalší'
-      average_agenda_by_year: 'Priemerná dĺžka za rok %{year} je %{value} mesiaca.'
-      district_courts_agenda: 'okresných súdov v rámci agendy'
-      average_length: 'Priemerná dĺžka za rok %{year} je %{month} mesiaca.'
-      contact: 'Kontakt'
-      judges: 'Sudcovia'
-      decrees: 'Rozhodnutia'
-      hearings: 'Pojednávania'
-      media: 'V médiách'
-      data_source: 'Informácie o súde boli získané z'
-      document: 'dokument'
-      last_updated_at: 'ktorého posledná aktualizácia bola vykonaná'
+      title: "Súdy"
 
     search:
-      title: 'Vyhľadávanie medzi súdmi'
+      results:
+        of_court: "súdu"
+        is: "je"
 
-    headline:
-      headline_html: 'Celkovo 20% sudcov má v súdnictve<br/>aspoň jedného príbuzného.'
-      sub_headline_html: 'Otvorené Súdy &mdash; vyhľadávate medzi %{total_courts} súdmi'
-      record_holds: 'Rekordérom je'
-      record_hold: 'Rekordérmi sú'
+        <<: *common
 
-    office:
-      phone_number: 'Tel. číslo'
-      note: 'Poznámka'
-      opening_hours: 'Otváracie hodiny'
+    show:
+      <<: *common
 
-    offices:
-      information_center: 'Informačné centrum'
-      registry: 'Podateľňa'
-      commercial_registery: 'Informačné stredisko obchodného registra'
+      contact: "Kontakt"
+      judges: "Sudcovia"
+      decrees: "Rozhodnutia"
+      hearings: "Pojednávania"
+      media: "Médiá"
+
+      resource_note:
+        description: "Informácie o súde boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
+        document: "pôvodného dokumentu"
+
+    expenses:
+      overall: "Celkovo"
+      least: "najmenej"
+      most: "najviac"
+      charged_court_of: "pokutovaný súd z"
+      regional_courts: "krajských súdov"
+      district_courts: "okresných súdov"
+
+      fines: "Pokuty od Ústavného súdu"
+      fines_for: "Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch"
+      fines_were: "boli"
+      fine_for: "Pokuta za rok"
+      fine_was: "bola"
+
+    proceedings:
+      average_durations_by_agendas: "Priemerné dĺžky trvania konaní v rámci súdu podľa agiend:"
+      average_duration_by_year: "Priemerná dĺžka za rok %{year} je %{value} mesiaca"
+
+      overall: "Celkovo"
+      fastest: "najrýchlejší"
+      slowest: "najpomalší"
+      court_of: "súd z"
+      district_courts_in: "okresných súdov v rámci agendy"
 
     contact:
-      contact: 'Kontakt'
-      address: 'Adresa'
+      contact: "Kontakt"
+      phone: "Tel. číslo:"
+      fax: "Fax:"
+
+      media: "Pre médiá"
+      media_person: "Kontaktná osoba:"
+      media_phone: "Tel. číslo:"
+
+      address: "Adresa"
+      country: "Slovenská republika"
+
+      map: "Mapa"
+      show_on_map: "Zobraziť na mape"
+      with_other_courts: "aj s ostatnými súdmi Slovenskej Republiky."
+
+    office:
+      type:
+        information_center: "Informačné centrum"
+        registry_center: "Podateľňa"
+        business_registry_center: "Informačné stredisko obchodného registra"
+
+      phone: "Tel. číslo:"
+      email: "E-mail:"
+      note: "Poznámka:"
+      hours: "Otváracie hodiny"
 
     judges:
-      court_leadership: 'Vedenie súdu'
-      judges: 'Sudcovia'
-      judges_table: 'Tabuľka sudcov, ktorí aktívne pôsobia na súde.'
-      table_explained: 'Tabuľka sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach.'
+      chairs: "Predsedovia"
+      of_court: "súdu"
+      is: "je"
 
-    judge_list:
-      title: 'Titul'
-      name: 'Meno'
-      position: 'Pozícia'
-      hearings: 'Pojednávania'
-      decrees: 'Rozhodnutia'
-      hearings_count: 'Počet súdnych pojednávaní'
-      decrees_count: 'Počet súdnych rozhodnutí'
+      judges: "Sudcovia"
+      explanation:
+        listed: "Zoznam sudcov, ktorí aktívne pôsobia na súde."
+        other: "Zoznam sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach."
+
+      list:
+        activity: "Aktivita"
+        title: "Titul"
+        name: "Meno"
+        position: "Pozícia"
+        hearings: "Pojednávania"
+        decrees: "Rozhodnutia"
+        hearings_count: "Počet súdnych pojednávaní"
+        decrees_count: "Počet súdnych rozhodnutí"
 
     decrees:
-      title: 'Vynesené rozhodnutia'
-      more: 'Viac rozhodnutí'
-      no_decrees: 'Pre súd neevidujeme žiadne súdne rozhodnutia.'
+      headline: "Vynesené rozhodnutia"
+      more: "Viac rozhodnutí"
+      none: "Pre súd zatiaľ neevidujeme žiadne vynesené súdne rozhodnutia."
 
     hearings:
-      headline: 'Ohlásené pojednávania'
-      more: 'Viac pojednávaní'
-      no_hearings: 'Pre súd neevidujeme žiadne súdne pojednávania.'
+      headline: "Ohlásené pojednávania"
+      more: "Viac pojednávaní"
+      none: "Pre súd zatiaľ neevidujeme žiadne ohlásené súdne pojednávania."
 
     media:
-      headline: 'Zmienky v médiách'
-      clarification: 'Odkazy sú vyhľadávané automaticky na základe názvu súdu. Súdu sa týkať nemusia.'
-      no_mentions: 'O súde neboli nájdené žiadne zmienky v médiách.'
+      headline: "Zmienky v médiách"
+      clarification: "Odkazy sú vyhľadávané automaticky na základe názvu súdu. Súdu sa týkať nemusia."
+      none: "O súde neboli nájdené žiadne zmienky v médiách."
 
     map:
-      title: 'Mapa súdov Slovenskej Republiky'
-      in_slovakia: 'Na Slovensku sídli'
-      courts_in: 'súdov na'
-      places: 'rôznych miestach'
-      hint: 'Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde.'
+      title: "Mapa súdov Slovenskej republiky"
+      note: "Na Slovensku sídli %{courts} súdov na %{places} rôznych miestach"
+      hint: "Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde."
 
-    map_marker:
-      get_directions: 'Vyhľadať trasu'
+      marker:
+        get_directions: "Vyhľadať trasu"

@@ -1,24 +1,18 @@
-# encoding: utf-8
-
 module ProceedingsHelper
   def proceeding_title(proceeding)
-    title(*proceeding_identifiers(proceeding))
+    title(*proceeding_identifiers(proceeding) << t('proceedings.common.proceeding'))
   end
 
   def proceeding_headline(proceeding, options = {})
-    join_and_truncate proceeding_identifiers(proceeding), { separator: ' &ndash; ' }.merge(options)
+    join_and_truncate proceeding_identifiers(proceeding), options.reverse_merge(separator: ' &ndash; ')
   end
 
   def proceeding_subject(proceeding, options = {})
-    join_and_truncate proceeding.legislation_area_and_subarea.map(&:value), { separator: ' &ndash; ' }.merge(options)
+    join_and_truncate proceeding.legislation_area_and_subarea.map(&:value), options.reverse_merge(separator: ' &ndash; ')
   end
 
-  def proceeding_date(date, options = {})
-    time_tag date.to_date, { format: :long }.merge(options)
-  end
-
-  def link_to_proceeding(proceeding, body, options = {})
-    link_to body, proceeding_path(proceeding), options
+  def proceeding_date(date, options = {}, &block)
+    time_tag date.to_date, { format: :long }.merge(options), &block
   end
 
   private

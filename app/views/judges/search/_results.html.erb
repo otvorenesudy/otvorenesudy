@@ -1,0 +1,22 @@
+<%= search_list_tag results, offset: offset do |judge| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to_judge judge %>
+      <%= judge_activity_icon_tag judge, judge.active?, placement: 'right' %>
+    </h4>
+
+    <div class="search-result-content">
+      <ol class="list-unstyled">
+        <% judge.employments.each do |employment| %>
+          <%= content_tag :li, class: ('text-muted' unless employment.active?) do %>
+            <%= judge_position_by_employment(employment, mute_by_activity_on: employment) { |s| s.upcase_first } %>
+            <%= t '.at_court' %> <%= link_to_court_by_judge_employment employment, mute_by_activity_on: employment %>,
+            <%= t '.register', count: Hearing.during_employment(employment).exact.size %>
+            <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
+            <%= two_words_connector %>&nbsp;<%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
+          <% end %>
+        <% end %>
+      </ol>
+    </div>
+  </li>
+<% end %>

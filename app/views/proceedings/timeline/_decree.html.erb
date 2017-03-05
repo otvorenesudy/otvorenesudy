@@ -1,0 +1,14 @@
+<li class="timeline-item timeline-distance-<%= timeline_distance previous, decree %>">
+  <h4>
+    <%= link_to decree_path(decree, params: { q: params[:q] }) do %>
+      <%= decree_headline decree, limit: 67 %>
+      <% if decree.natures.any? %>
+        <br/>
+        <%= decree_natures decree, limit: 67 %>
+      <% end %>
+    <% end %>
+    <small>
+      <%= decree.date ? decree_date(decree.date) : t('proceedings.show.timeline.unknown_date') %>
+    </small>
+  </h4>
+</li>

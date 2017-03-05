@@ -1,0 +1,41 @@
+.sme {
+  @extend .p-y-3;
+
+  border-top: $hr-border-width solid $hr-border-color;
+  margin-top: 2 * $spacer-y;
+
+  p + & {
+    @extend .m-t-3;
+  }
+
+  .nav-link:first-child {
+    @include filter-grayscale;
+
+    @include hover-focus {
+      @include filter-none;
+    }
+
+    img {
+      display: block;
+      height: 1.5rem;
+
+      @include media-breakpoint-down(md) {
+        margin-bottom: $spacer-y * .5;
+      }
+    }
+  }
+
+  .nav-inline .nav-link {
+    color: $body-color;
+
+    @include hover-focus {
+      color: $body-color;
+    }
+
+    @include media-breakpoint-down(md) {
+      float: none !important;
+      display: block !important;
+      margin-left: 0 !important;
+    }
+  }
+}

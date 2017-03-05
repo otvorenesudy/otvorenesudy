@@ -1,12 +1,13 @@
 require File.expand_path('../boot', __FILE__)
+require File.expand_path('../version', __FILE__)
 
 # Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'active_resource/railtie'
+require 'sprockets/railtie'
+# require 'rails/test_unit/railtie'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -26,8 +27,6 @@ module OpenCourts
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
-    # Include library root.
     # TODO remove concerns path after upgrading to Rails 4
     config.autoload_paths += %W(
       #{config.root}/lib
@@ -46,9 +45,12 @@ module OpenCourts
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Bratislava'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    # Set default locale
     config.i18n.default_locale = :sk
+    config.i18n.locale = :sk
 
+    # Set available locales and enforce them
+    config.i18n.available_locales = [:sk, :en]
     config.i18n.enforce_available_locales = true
 
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -78,8 +80,6 @@ module OpenCourts
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '2.0'
   end
 end
-
-require Rails.root.join 'config', 'version.rb'

@@ -1,11 +1,27 @@
 en:
+  unicorn:
+    title: "Unicorn"
+    message: "And that's why the unicorn got really mad!"
+
   exceptions:
-    not_found:
-      title: "Not Found"
-      description: "The page you were looking for does not exists."
-    internal_server_error:
-      title: "Internal Server Error"
-      description: "Sorry, something went wrong while processing your request."
     bad_request:
-      title: "Bad Request"
+      title: "Bad request"
       description: "The server did not understand your request. It may have been malformed."
+    internal_server_error:
+      title: "Internal server error"
+      description: "Sorry, something went wrong while processing your request."
+    not_found:
+      title: "Page not found"
+      description: "The page you were looking for does not exists."
+
+  errors:
+    messages:
+      already_confirmed: "was already confirmed, please try signing in"
+      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      expired: "has expired, please request a new one"
+      not_found: "not found"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        few: "%{count} errors prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"

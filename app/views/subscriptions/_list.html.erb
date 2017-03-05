@@ -1,44 +1,51 @@
-<ol class="subscription-list" start="<%= offset + 1 %>">
-  <% subscriptions.each_with_index do |subscription, i| %>
-    <li>
+<ol class="list-separated list-unstyled">
+  <% subscriptions.each do |subscription| %>
+    <li class="m-b-1 p-t-1">
       <h4>
-        <%= t '.search' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
-        <small><%= t '.registered_at' %> <%= time_tag subscription.created_at, format: :default %></small>
+        <%= t '.title' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
       </h4>
 
+      <p class="text-muted">
+        <%= t '.registered_at' %> <%= time_tag subscription.created_at, format: :default %>
+      </p>
+
       <% if subscription.query.value.any? %>
-        <ul class="unstyled">
-          <% subscription.query.value.each do |name, values| %>
-            <li>
-              <%= t "#{model.facets[name].key}.title" %> &ndash;
-              <%= Array.wrap(values).join ', ' %>
-            </li>
+        <ul class="list-unstyled m-y-1">
+          <% subscription_query(subscription).each do |facet, values| %>
+            <li><%= facet %> &ndash; <%= values %></li>
           <% end %>
         </ul>
       <% else %>
-        <p>
-          <%= t '.no_filters' %>
+        <p class="m-b-1">
+          <%= t '.no_restrictions' %>
         </p>
       <% end %>
 
-      <%= form_for subscription, method: subscription.new_record? ? :post : :put, html: { id: "subscription-form-#{subscription.id}", class: :'subscription-controls form-inline' } do |f| %>
+      <%= form_for subscription, method: :put, html: { class: 'form-inline' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: subscription.query.model.to_s %>
           <%= q.hidden_field :value, value: Query.unwrap(subscription.query.value) %>
         <% end %>
 
-        <% Period.values.each do |_, period| %>
-          <label class="radio inline">
-            <%= f.radio_button :period_id, period.id, id: "period-#{period.name}", name: :period_id, checked: subscription.period == period %>
-            <%= t "period.#{period.name}" %>
-          </label>
-        <% end %>
+        <div class="form-group">
+          <div class="btn-toolbar">
+            <div class="btn-group" data-toggle="buttons" role="group">
+              <% Period.values.each do |_, period| %>
+                <label class="btn btn-outline-secondary<%= ' active' if subscription.period == period %>">
+                  <%= f.radio_button :period_id, period.id, name: 'period_id', checked: subscription.period == period, autocomplete: 'off' %>
+                  <%= t "period.#{period.name}" %>
+                </label>
+              <% end %>
+            </div>
 
-        <div class="pull-right">
-          <button type="submit" id="edit_subscription" class="submit btn btn-primary btn-small" form="subscription-form-<%= subscription.id %>"><%= t '.update' %></button>
-          <%= link_to t('.cancel'), subscription, role: :button, method: :delete, confirm: t('.confirm'), id: :delete_subscription, class: :'btn btn-danger btn-small' %>
+            <div class="btn-group-mix" role="group">
+              <%= link_to_search subscription.query.model, t('.search'), params: subscription.query.value, class: 'btn btn-outline-info' %>
+              <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
+              <%= link_to t('.delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+            </div>
+          </div>
         </div>
-      <% end %>
+    <% end %>
     </li>
   <% end %>
 </ol>

@@ -1,12 +1,10 @@
-# encoding: utf-8
-
 module SelectionProceduresHelper
   def selection_procedure_title(procedure)
-    title(*selection_procedure_identifiers(procedure) << 'Výberové konanie')
+    title(*selection_procedure_identifiers(procedure) << t('selection_procedures.common.selection_procedure'))
   end
 
   def selection_procedure_headline(procedure, options = {})
-    join_and_truncate selection_procedure_identifiers(procedure), { separator: ' &ndash; ' }.merge(options)
+    join_and_truncate selection_procedure_identifiers(procedure), options.reverse_merge(separator: ' &ndash; ')
   end
 
   private

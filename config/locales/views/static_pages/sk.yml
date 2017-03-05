@@ -1,47 +1,35 @@
 sk:
   static_pages:
-    header:
-      fact1: 'Súdom na Slovensku nedôveruje až 67% ľudí'
-      source1: 'Inštitút pre verejné otázky, jún 2012'
-      fact2: 'Trestné konanie na okresných súdoch trvá priemerne štyri a pol mesiaca'
-      source2: 'Štatistická ročenka MSSR 2012'
-      fact3: 'Už šesť miliónov eur zaplatili okresné a krajské súdy sťažovateľom za súdne prieťahy od roku 2006'
-      source3: 'nálezy Ústavného súdu'
-      fact4: 'Vyhľadávanie v %{decree} rozhodnutiach a %{hearing} pojednávaniach'
-      source4: 'Otvorené Súdy'
-      headline: 'Viac transparentnosti do slovenského súdnictva'
-      search: 'Vyhľadávať v súdnych rozhodnutiach&hellip;'
-
     home:
-      open_courts: 'Otvorené súdy'
-      transparent_view: 'Transparentný pohľad'
-      open_courts_detail_html: 'Projekt, ktorý <strong>stransparentní pohľad</strong> na <strong>slovenské súdnictvo</strong>. Pre všetkých, ktorí majú radi <strong>dôležité informácie</strong> na jednom mieste a&nbsp;chcú v&nbsp;nich <strong>efektívne vyhľadávať</strong>.'
-      open_data: 'Otvorené dáta'
-      court_documents_html: 'Súdne&nbsp;dokumenty'
-      open_data_detail_html: 'Ponúkame všetky <strong>súdne rozhodnutia a&nbsp;pojednávania</strong>, ktoré boli zverejnené na stránke <a href="http://justice.gov.sk" target="_blank">Ministerstva spravodlivosti</a> Slovenskej republiky.'
-      open_source: 'Otvorený zdrojový kód'
-      supporters: 'Projekt podporili'
-      open_source_detail_html: 'Zdrojový kód projektu <a href="https://github.com/otvorenesudy">Otvorené súdy</a> je voľne dostupný službou <a href="https://github.com" target="_blank">GitHub</a>.'
+      head: "Otvorené Súdy"
+      detail: "Prinášame viac transparentnosti do slovenského súdnictva"
+      donate: "Podporte projekt"
 
-    content:
-      security:
-        title: 'Bezpečnosť'
-        description_part_1: 'Hoci sa snažíme chrániť náš systém a používateľské dáta, ani my nie sme neomylní. Informujte nás prosím, pokiaľ nájdete akékoľvek chyby zabezpečenia, alebo máte obavy.'
-        description_part_2: 'Budeme veľmi radi, ak s nami budete zdieľať znalosti o odhalenej bezpečnostnej chybe, prípadne nám ju pomôžete odstrániť.'
-        contact_us: 'Napíšte nám na'
-        we_are_thankful: 'Určite Vám za to budeme veľmi vdační.'
+      feature_1:
+        head: "Otvorený projekt"
+        detail: "Transparentný pohľad"
+        content: "Projekt, ktorý priniesol transparentnejší pohľad na slovenské súdnictvo. Pre všetkých, ktorí majú radi dôležité informácie na jednom mieste a&nbsp;chcú v&nbsp;nich efektívne vyhľadávať."
 
-      contact:
-        title: 'Kontakt'
-        address_part_1: 'Bajkalská 25'
-        address_part_2: '827 18 Bratislava'
+      feature_2:
+        head: "Otvorené dáta"
+        detail: "Súdne dokumenty"
+        content: "Ponúka všetky súdne rozhodnutia, pojednávania a&nbsp;ďalšie vybrané dokumenty, ktoré boli zverejnené na stránke %{link} Slovenskej republiky."
+        link: "Ministerstva spravodlivosti"
 
-      how_it_works:
-        work_in_progress: 'Obsah tejto sekcie sa pripravuje.'
-        title: 'Ako to funguje?'
-        description: Ako funguje spracovanie verejných dát a aké postupy sa pritom používajú?
+      feature_3:
+        head: "Otvorený kód"
+        detail: "Ruby on Rails"
+        content: "Zdrojový kód %{link} je voľne prehliadateľný a&nbsp;dostupný službou GitHub."
+        link: "projektu"
 
-      data_history:
-        work_in_progress: 'Obsah tejto sekcie sa pripravuje.'
-        title: 'História dát'
-        description: 'Ako rýchlo rastie počet zverejnených súdnych dokumentov? Koľko súdnych rozhodnutí bolo zverejnených na najvyššom súde za posledný mesiac? Odpovede na tieto a podobné otázky nájdete čoskoro v tejto sekcii.'
+      partners: "Projekt podporili"
+
+    about: "O projekte"
+    api: "API"
+    contact: "Kontakt"
+    copyright: "Autorské práva"
+    donate: "Podporte projekt"
+    faq: "Často kladené otázky"
+    feedback: "Našli ste chybu?"
+    privacy: "Ochrana súkromia"
+    tos: "Podmienky používania"

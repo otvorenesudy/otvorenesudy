@@ -1,0 +1,65 @@
+<%= search_list_tag results, offset: offset do |proceeding, highlight| %>
+  <li class="search-result-item">
+    <h4 class="search-result-title">
+      <%= link_to proceeding_path(proceeding, params: { q: params[:q] }) do %>
+        <%= proceeding_headline(proceeding, limit: 67) %>
+        <% if proceeding.legislation_area_and_subarea.any? %>
+          <br/>
+          <%= proceeding_subject proceeding, limit: 67 %>
+        <% end %>
+      <% end %>
+      <small>
+        <%= t '.proceeding' %>
+        <% if proceeding.single_hearing? %>
+          <%= t proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
+          <%= proceeding_date proceeding.duration_events.first.date %>
+        <% elsif proceeding.single_decree? %>
+          <%= t '.single_decree.past' %> <%= proceeding_date proceeding.duration_events.first.date %>
+        <% else %>
+          <% unless proceeding.probably_closed? %>
+            <%= t '.probably_open.from' %> <%= proceeding_date proceeding.duration_events.first.date %>
+          <% else %>
+            <% if proceeding.duration_events.first.date.to_date == proceeding.duration_events.last.date.to_date %>
+              <%= t '.probably_closed.point' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
+            <% else %>
+              <%= t '.probably_closed.from' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
+              <%= t '.probably_closed.until' %> <%= proceeding_date proceeding.duration_events.last.date, format: :normal %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </small>
+    </h4>
+
+    <div class="search-result-content">
+      <ol class="pull-xs-right text-xs-right list-unstyled">
+        <% proceeding.case_numbers.each do |number| %>
+          <li><%= tooltip_tag number || '?', t('case_number.full'), placement: 'left' %></li>
+        <% end %>
+        <li><%= tooltip_tag proceeding.file_number || '?', t('file_number.full'), placement: 'left' %></li>
+      </ol>
+
+      <%= t('.register').upcase_first %> <%= translate_with_count(proceeding.hearings.size, :hearing) %>
+      <%= two_words_connector %>&nbsp;<%= translate_with_count(proceeding.decrees.size, :decree) %>.
+      <br/>
+      <% if proceeding.courts.any? %>
+        <%= translate_without_count(proceeding.courts.size, :court).upcase_first %> &ndash; <%= links_to_courts proceeding.courts %>
+        <br/>
+      <% end %>
+      <% if proceeding.judges.any? %>
+        <% if proceeding.judges_exact.any? %>
+          <%= translate_without_count(proceeding.judges_exact.size, :judge).upcase_first %>
+          &ndash; <%= links_to_judges proceeding.judges_exact.order(:last, :middle, :first) %>
+        <% else %>
+          <%= translate_without_count(proceeding.judges_inexact.size, :judge).upcase_first %>
+          &ndash; <%= judge_processed_names proceeding.judges_inexact.order(:last, :middle, :first) %>
+        <% end %>
+      <% end %>
+
+      <% if highlight[:text].any? %>
+        <div class="search-result-highlights">
+          <%= strip_and_highlight highlight[:text] %>
+        </div>
+      <% end %>
+    </div>
+  </li>
+<% end %>

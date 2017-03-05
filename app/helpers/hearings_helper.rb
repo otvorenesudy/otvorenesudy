@@ -1,34 +1,26 @@
-# encoding: utf-8
-
 module HearingsHelper
   def hearing_title(hearing)
     title(*hearing_identifiers(hearing) << hearing_type(hearing.type))
   end
 
   def hearing_headline(hearing, options = {})
-    join_and_truncate hearing_identifiers(hearing), { separator: ' &ndash; ' }.merge(options)
+    join_and_truncate hearing_identifiers(hearing), options.reverse_merge(separator: ', ')
   end
 
   def hearing_type(type)
-    if type == HearingType.special
-      t '.special'
+    case type
+    when HearingType.civil    then "#{t 'hearings.type.civil'} #{t 'hearings.common.hearing'}"
+    when HearingType.criminal then "#{t 'hearings.type.criminal'} #{t 'hearings.common.hearing'}"
+    when HearingType.special  then "#{t('hearings.common.hearing').upcase_first} #{t('hearings.type.special').downcase_first}"
     else
-      "#{type.value.to_s.upcase_first} #{t('.hearing')}"
+      raise
     end
   end
 
-  def hearing_date(date, options = {})
-    date = date.to_date if date.respond_to?(:hour) && date.hour == 0
+  def hearing_date(date, options = {}, &block)
+    date = date.to_date if date.respond_to?(:hour) && date.hour.zero?
 
-    time_tag date, { format: :long }.merge(options)
-  end
-
-  def link_to_hearing(hearing, body, options = {})
-    link_to body, hearing_path(hearing), options
-  end
-
-  def link_to_hearing_resource(hearing, body, options = {})
-    external_link_to body, resource_hearing_path(hearing), options
+    time_tag date, { format: :long }.merge(options), &block
   end
 
   private

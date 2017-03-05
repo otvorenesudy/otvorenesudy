@@ -1,12 +1,4 @@
-# encoding: utf-8
-
 class JudgesController < SearchController
-  include FileHelper
-
-  def index
-    @judges = Judge.order(:last, :middle, :first).page(params[:page])
-  end
-
   def show
     @judge = Judge.find(params[:id])
 
@@ -20,51 +12,39 @@ class JudgesController < SearchController
     @property_declarations = @judge.property_declarations.order('year desc')
     @statistical_summaries = @judge.statistical_summaries.order('year desc')
 
-    @results = @judge.context_search[0..9]
+    @media = @judge.context_search[0..9]
 
-    search_judges_for_indicators
+    flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
+
+    results = Judge.search(params.merge! indicators: true)
+
+    @facets = results.facets
+    @others = params[:name] ? results.to_a.map(&:first) : []
   end
 
-  def curriculum
-    @judge = Judge.find(params[:id])
+  # TODO rm - unused?
+  # def curriculum
+  #   @judge = Judge.find(params[:id])
+  #
+  # TODO translate
+  #   send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
+  # end
 
-    send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
-  end
+  # TODO rm - unused?
+  # def cover_letter
+  #   @judge = Judge.find(params[:id])
+  #
+  # TODO translate
+  #   send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
+  # end
 
-  def cover_letter
-    @judge = Judge.find(params[:id])
+  protected
 
-    send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
-  end
-
-  def indicators_suggest
-    redirect_to suggest_judges_path(params)
-  end
+  include FileHelper
 
   private
 
   def search_associations
     [employments: [:court, :judge, :judge_position]]
-  end
-
-  def search_judges_for_indicators
-    results = Judge.search(params.merge!(has_indicators: true))
-
-    @facets = results.facets
-    @judges_for_indicators = Hash.new
-
-    if params[:name]
-      color = generate_random_color
-
-      results.each do |result|
-        color = generate_random_color while @judges_for_indicators[color]
-
-        @judges_for_indicators[color] = result
-      end
-    end
-  end
-
-  def generate_random_color(options = {})
-    3.times.map { rand(0..255) }
   end
 end

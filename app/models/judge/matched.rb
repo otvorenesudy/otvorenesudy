@@ -7,8 +7,7 @@ module Judge::Matched
   end
 
   module ClassMethods
-    # TODO consider removing this when moving to Rails >= 4
-    # which supports scopes in has_many associations
+    # TODO consider removing this when moving to Rails >= 4 which supports scopes in has_many associations
     def exact_conditions
       'judge_name_similarity = 1.0'
     end

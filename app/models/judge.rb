@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class Judge < ActiveRecord::Base
   include Resource::URI
   include Resource::ContextSearch
@@ -23,7 +21,7 @@ class Judge < ActiveRecord::Base
   include Judge::Matched
   include Judge::Indicators
 
-  scope :not_active_or_not_listed, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
+  scope :inactive_or_unlisted, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
 
   scope :chair,     joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
@@ -32,7 +30,7 @@ class Judge < ActiveRecord::Base
   scope :chaired, where('judge_chair = true')
 
   # TODO refactor!
-  scope :listed, where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where(:'employments.active' => [true, false])
+  scope :listed, where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false])
 
   scope :with_related_people, lambda { joins(:related_people) }
 
@@ -108,7 +106,7 @@ class Judge < ActiveRecord::Base
     facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..5]
   end
 
-  formatable :name, default: '%p %f %m %l %a, %s', remove: /\,\s*\z/ do |judge|
+  formatable :name, default: '%p %f %m %l %a, %s', fixes: -> (v) { v.sub(/,\s*\z/, '') } do |judge|
     { '%p' => judge.prefix,
       '%f' => judge.first,
       '%m' => judge.middle,
@@ -130,22 +128,32 @@ class Judge < ActiveRecord::Base
   alias :active?    :active
   alias :active_at? :active_at
 
+  def incomplete
+    employments.at_court_by_type(CourtType.supreme).any? || employments.at_court_by_type(CourtType.regional).any?
+  end
+
+  alias :incomplete? :incomplete
+
   def listed
     @listed ||= (source == Source.of(JusticeGovSk) && active != nil)
   end
 
   alias :listed? :listed
 
-  def probably_superior_court_officer
-    @probably_officer ||= source == Source.of(JusticeGovSk) && !listed?
+  def probable_gender
+    probably_female ? :female : :male
   end
 
-  def probably_woman
-    @probably_woman ||= [middle, last].reject(&:nil?).select { |v| v =~ /(ov|sk)á\z/ }.any?
+  def probably_higher_court_official
+    @probably_higher_court_official ||= source == Source.of(JusticeGovSk) && !listed?
   end
 
-  alias :probably_superior_court_officer? :probably_superior_court_officer
-  alias :probably_woman?                  :probably_woman
+  def probably_female
+    @probably_female ||= [middle, last].reject(&:nil?).select { |v| v =~ /(ov|sk)á\z/ }.any?
+  end
+
+  alias :probably_higher_court_official? :probably_higher_court_official
+  alias :probably_female?                :probably_female
 
   context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
 
@@ -159,10 +167,10 @@ class Judge < ActiveRecord::Base
 
     related_people.each { |person| person.invalidate_caches }
 
-    @listed = @probably_officer = @probably_woman = nil
+    @listed = @probably_higher_court_official = @probably_female = nil
   end
 
-  #TODO rm: this info is not in selection procedures
-  storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
-  storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
+  # TODO rm - unused? this info is not in selection procedures anymore
+  # storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
+  # storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end
