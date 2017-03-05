@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170305152500) do
+ActiveRecord::Schema.define(:version => 20170305154502) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -194,9 +195,9 @@ ActiveRecord::Schema.define(:version => 20170305152500) do
   add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
   add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
-  add_index "decrees", ["id", "updated_at"], :name => "index_decrees_on_id_and_updated_at"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
   add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
+  add_index "decrees", ["updated_at", "id"], :name => "index_decrees_on_updated_at_and_id"
   add_index "decrees", ["updated_at"], :name => "index_decrees_on_updated_at"
   add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
 
