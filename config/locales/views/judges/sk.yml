@@ -60,7 +60,7 @@ sk:
     show:
       <<: *common
 
-      indicators: "Indikátory"
+      indicators: "Indikátory za rok %{year}"
       decrees: "Rozhodnutia"
       upcoming_hearings: "Budúce pojednávania"
       historical_hearings: "Minulé pojednávania"
@@ -93,8 +93,8 @@ sk:
       addition: "získané zo štatistických výkazov sudcov."
       report_for: "Výkaz za rok"
 
-    indicators:
-      headline: "Indikátory"
+    indicators_2013:
+      headline: "Indikátory za rok 2013"
       none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
 
       basic:
@@ -153,6 +153,17 @@ sk:
 
         description: "%{data} získané zo štatistických výkazov sudcov týkajúce sa indikátorov."
         data: "Poznámky k dátam"
+
+    indicators_2015:
+      headline: 'Indiátori za rok 2015'
+
+      basic:
+        agenda:
+          C: 'Občianska'
+          Trest: 'Trestná'
+          P: 'Poručenská'
+          Cb: 'Obchodná'
+          0: 'Neurčená'
 
     decrees:
       headline: "Vynesené rozhodnutia"

@@ -29,7 +29,8 @@
 <div class="clearfix m-b-2"></div>
 
 <ul class="nav nav-tabs" role="tablist">
-  <%= tab_link_tag t('.indicators'), 'indicators', class: 'active' %>
+  <%= tab_link_tag t('.indicators', year: 2015), 'indicators-2015', class: ('active' if @judge.indicators_2015) %>
+  <%= tab_link_tag t('.indicators', year: 2013), 'indicators-2013', class: ('active' if !@judge.indicators_2013) %>
   <%= tab_link_tag t('.decrees'), 'decrees' %>
   <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
   <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
@@ -37,7 +38,8 @@
 </ul>
 
 <div class="tab-content">
-  <%= render_tab({ partial: 'indicators', class: 'active' }, judge: @judge) %>
+  <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: ('active' if @judge.indicators_2015) }, judge: @judge) %>
+  <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: ('active' if !@judge.indicators_2013) }, judge: @judge) %>
   <%= render_tab({ partial: 'decrees' }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'upcoming-hearings' }, prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'historical-hearings' }, prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true }) %>

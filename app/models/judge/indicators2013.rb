@@ -1,38 +1,38 @@
 class Judge
-  module Indicators
+  module Indicators2013
     extend ActiveSupport::Concern
     extend JusticeGovSk::Helper::Normalizer
 
     included do
       mapping do
-        analyze :indicators, as: lambda { |j|
-          !!(j.indicators && j.indicators.statistical && j.indicators.numerical)
+        analyze :indicators_2013, as: lambda { |j|
+          !!(j.indicators_2013 && j.indicators_2013.statistical && j.indicators_2013.numerical)
         }
 
-        analyze :decree_agenda, as: lambda { |j|
-          if j.indicators && j.indicators.statistical
+        analyze :decree_agenda_2013, as: lambda { |j|
+          if j.indicators_2013 && j.indicators_2013.statistical
             {
-              'Občianska' => j.indicators.statistical['S5a'].to_i,
-              'Obchodná' => j.indicators.statistical['S5b'].to_i,
-              'Poručenská' => j.indicators.statistical['S5c'].to_i,
-              'Trestná' => j.indicators.statistical['S5d'].to_i
+              'Občianska' => j.indicators_2013.statistical['S5a'].to_i,
+              'Obchodná' => j.indicators_2013.statistical['S5b'].to_i,
+              'Poručenská' => j.indicators_2013.statistical['S5c'].to_i,
+              'Trestná' => j.indicators_2013.statistical['S5d'].to_i
             }.sort_by { |_, v| v }.last
           end
         }
       end
 
       facets do
-        facet :indicators,     type: :terms, visible: false
-        facet :name,           type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
-        facet :decree_agenda,  type: :terms, visible: false
-        facet :similar_courts, type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
+        facet :name,                type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
+        facet :similar_courts,      type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
+        facet :indicators_2013,     type: :terms, visible: false
+        facet :decree_agenda_2013,  type: :terms, visible: false
       end
 
-      Judge::Indicators.load!
+      Judge::Indicators2013.load!
     end
 
-    def indicators
-      Judge::Indicators.for(self)
+    def indicators_2013
+      Judge::Indicators2013.for(self)
     end
 
     def self.for(judge)

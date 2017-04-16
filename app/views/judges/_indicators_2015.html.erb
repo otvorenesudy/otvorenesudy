@@ -1,0 +1,13 @@
+<h3 class="m-t-2 m-b-1">
+  <%= t '.headline' %>
+</h3>
+
+<% if @judge.indicators_2015 %>
+  <% if @judge.indicators_2013.statistical %>
+    <%= render 'judges/indicators_2015/basic', judge: judge, indicators: judge.indicators_2015.statistical %>
+  <% end %>
+<% else %>
+  <p class="m-t-1">
+    <%= t '.none' %>
+  </p>
+ <% end %>

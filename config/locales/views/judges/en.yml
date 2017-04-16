@@ -60,7 +60,7 @@ en:
     show:
       <<: *common
 
-      indicators: "Indicators"
+      indicators: "Indicators for %{year}"
       decrees: "Decrees"
       upcoming_hearings: "Upcoming hearings"
       historical_hearings: "Past hearings"
@@ -93,8 +93,8 @@ en:
       addition: "obtained from annual statistical reports of judges."
       report_for: "Report in year"
 
-    indicators:
-      headline: "Indicators"
+    indicators_2013:
+      headline: "Indicators for 2013"
       none: "We do not register any indicators for the judge yet."
 
       basic:
@@ -154,7 +154,7 @@ en:
         description: "%{data} obtained from annual statistical reports of judges pertaining to indicators."
         data: "Notes about the data"
 
-    decrees:
+    decree :
       headline: "Published decrees"
       more: "More decrees"
       none: "We do not register any published decrees for the judge yet."

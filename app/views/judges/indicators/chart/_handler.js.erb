@@ -1,7 +1,7 @@
-window.judgeChart = new JudgeChart(<%= raw Judge::Indicators.numerical_average.values.to_json %>)
+window.judgeChart = new JudgeChart(<%= raw Judge::Indicators2013.numerical_average.values.to_json %>)
 
 <% judges.zip(colors).each do |judge, color| %>
-  judgeChart.push("<%= raw judge.name %>", <%= raw judge.indicators.numerical.to_hash.values[2..9].to_json %>, <%= raw "##{color}".to_json %>)
+  judgeChart.push("<%= raw judge.name %>", <%= raw judge.indicators_2013.numerical.to_hash.values[2..9].to_json %>, <%= raw "##{color}".to_json %>)
 <% end %>
 
 judgeChart.build();

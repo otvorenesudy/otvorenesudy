@@ -26,7 +26,7 @@
             </h4>
 
             <div class="facet-addon">
-              <%= link_to_collapse [t('.show_filters'), t('.hide_filters')], '#indicators-facets', collapsed: params.slice(*%i(positions decree_agenda similar_courts)).none? %>
+              <%= link_to_collapse [t('.show_filters'), t('.hide_filters')], '#indicators-facets', collapsed: params.slice(*%i(positions decree_agenda_2013 similar_courts)).none? %>
             </div>
           </div>
         </div>
@@ -39,14 +39,14 @@
   <%= s t '.filters_note.content' %>
 </p>
 
-<div id="indicators-facets" class="collapse<%= ' in' if params.slice(*%i(positions decree_agenda similar_courts)).any? %>">
+<div id="indicators-facets" class="collapse<%= ' in' if params.slice(*%i(positions decree_agenda_2013 similar_courts)).any? %>">
   <div class="row">
     <div class="col-sm-6 col-md-4">
       <%= render 'judges/indicators/facets/terms_facet', facet: @facets[:positions], translation: t(@facets[:positions].key) %>
     </div>
 
     <div class="col-sm-6 col-md-4">
-      <%= render 'judges/indicators/facets/terms_facet', facet: @facets[:decree_agenda], translation: t(@facets[:decree_agenda].key) %>
+      <%= render 'judges/indicators/facets/terms_facet', facet: @facets[:decree_agenda_2013], translation: t(@facets[:decree_agenda_2013].key) %>
     </div>
 
     <div class="col-sm-6 offset-sm-6 pull-sm-6 col-md-4 offset-md-0 pull-md-0">

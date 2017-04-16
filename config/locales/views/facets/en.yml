@@ -172,7 +172,7 @@ en:
         suffix:
           <<: *person
 
-      decree_agenda:
+      decree_agenda_2013:
         title: "Decree agenda"
         missing: "missing"
         not_found: "No agendas found."

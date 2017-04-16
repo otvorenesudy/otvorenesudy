@@ -172,7 +172,7 @@ sk:
         suffix:
           <<: *person
 
-      decree_agenda:
+      decree_agenda_2013:
         title: "Agenda rozhodnutí"
         missing: "neuvedená"
         not_found: "Nenájdené žiadne agendy."
