@@ -16,7 +16,7 @@ class JudgesController < SearchController
 
     flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
 
-    results = Judge.search(params.merge!(indicators_2013: true))
+    results = Judge.search(params.merge!(indicators_2013: true, indicators_2015: true))
 
     @facets = results.facets
     @others = params[:name] ? results.to_a.map(&:first) : []
