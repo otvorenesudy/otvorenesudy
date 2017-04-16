@@ -183,6 +183,11 @@ en:
         missing: "missing"
         not_found: "No courts found."
 
+      decree_agenda_2015:
+        title: "Decree agenda"
+        missing: "missing"
+        not_found: "No agendas found."
+
     hearing:
       q:
         title: "Hearing text"

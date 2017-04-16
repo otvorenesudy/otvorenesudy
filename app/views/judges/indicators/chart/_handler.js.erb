@@ -1,12 +1,12 @@
-window.judgeChart = new JudgeChart(<%= raw Judge::Indicators2013.numerical_average.values.to_json %>)
+var judgeChart = new JudgeChart("<%= year  %>", <%= raw average.values.to_json %>)
 
 <% judges.zip(colors).each do |judge, color| %>
-  judgeChart.push("<%= raw judge.name %>", <%= raw judge.indicators_2013.numerical.to_hash.values[2..9].to_json %>, <%= raw "##{color}".to_json %>)
+  judgeChart.push("<%= raw judge.name %>", <%= raw indicators.to_json %>, <%= raw "##{color}".to_json %>)
 <% end %>
 
 judgeChart.build();
 
 $(document).ready(function() {
-  new Search.Suggest('#indicators-chart').register();
-  new Search.Suggest('#indicators-facets').register();
+  new Search.Suggest('#indicators-chart-<%= year %>').register();
+  new Search.Suggest('#indicators-facets-<%= year %>').register();
 });

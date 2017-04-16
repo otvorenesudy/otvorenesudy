@@ -1,11 +1,11 @@
-<div id="indicators-chart-2013">
+<div id="indicators-chart-2015">
   <h2 class="p-t-2 m-b-1">
     <%= t '.headline' %>
   </h2>
 
   <div class="row">
     <div class="col-lg-9 push-lg-3">
-      <%= indicators_chart judge, year: 2013, indicators: judge.indicators_2013.numerical.to_hash.values[2..9], average: Judge::Indicators2013.numerical_average, others: @others, height: '220px' %>
+      <%= indicators_chart judge, year: 2015, indicators: judge.indicators_2015.numerical.to_hash.values[2..5], average: Judge::Indicators2015.numerical_average, others: @others, height: '220px' %>
     </div>
 
     <div class="col-lg-3 pull-lg-9">
@@ -26,7 +26,7 @@
             </h4>
 
             <div class="facet-addon">
-              <%= link_to_collapse [t('.show_filters'), t('.hide_filters')], '#indicators-facets', collapsed: params.slice(*%i(positions decree_agenda_2013 similar_courts)).none? %>
+              <%= link_to_collapse [t('.show_filters'), t('.hide_filters')], '#indicators-facets', collapsed: params.slice(*%i(positions decree_agenda_2015 similar_courts)).none? %>
             </div>
           </div>
         </div>
@@ -39,14 +39,14 @@
   <%= s t '.filters_note.content' %>
 </p>
 
-<div id="indicators-facets" class="collapse<%= ' in' if params.slice(*%i(positions decree_agenda_2013 similar_courts)).any? %>">
+<div id="indicators-facets" class="collapse<%= ' in' if params.slice(*%i(positions decree_agenda_2015 similar_courts)).any? %>">
   <div class="row">
     <div class="col-sm-6 col-md-4">
       <%= render 'judges/indicators/facets/terms_facet', facet: @facets[:positions], translation: t(@facets[:positions].key) %>
     </div>
 
     <div class="col-sm-6 col-md-4">
-      <%= render 'judges/indicators/facets/terms_facet', facet: @facets[:decree_agenda_2013], translation: t(@facets[:decree_agenda_2013].key) %>
+      <%= render 'judges/indicators/facets/terms_facet', facet: @facets[:decree_agenda_2015], translation: t(@facets[:decree_agenda_2015].key) %>
     </div>
 
     <div class="col-sm-6 offset-sm-6 pull-sm-6 col-md-4 offset-md-0 pull-md-0">

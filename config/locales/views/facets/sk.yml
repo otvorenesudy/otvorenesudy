@@ -183,6 +183,11 @@ sk:
         missing: "neuvedený"
         not_found: "Nenájdené žiadne súdy."
 
+      decree_agenda_2015:
+        title: "Agenda rozhodnutí"
+        missing: "neuvedená"
+        not_found: "Nenájdené žiadne agendy."
+
     hearing:
       q:
         title: "Text pojednávania"

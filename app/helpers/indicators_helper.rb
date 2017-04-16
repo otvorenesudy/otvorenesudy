@@ -1,4 +1,4 @@
-module Indicators2013Helper
+module IndicatorsHelper
   def assigned_agendas_indicator_2013(indicators)
     value = indicators['S4'].gsub(/([^\s]+ agenda|žiadnej agende väčšinovo)/) do |match|
       content = <<-CON
@@ -34,7 +34,13 @@ module Indicators2013Helper
   def indicators_chart(judge, options = {})
     colors = %w(9b59b6 1abc9c 3498db f1c40f e74c3c e67e22 2ecc71)
     judges = [judge] + options.fetch(:others, [])
-    locals = { colors: judges.size.times.map { |i| colors[i % colors.size] }, judges: judges }
+    locals = {
+      colors: judges.size.times.map { |i| colors[i % colors.size] },
+      judges: judges,
+      average: options[:average],
+      indicators: options[:indicators],
+      year: options[:year]
+    }
     options = options.slice(:width, :height).merge(class: 'chart-content')
 
     content_for :scripts do

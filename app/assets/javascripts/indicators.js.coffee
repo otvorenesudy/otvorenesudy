@@ -1,29 +1,4 @@
 class window.JudgeChart
-  data:
-    labels: [
-      'Počet reštančných',
-      'Vybavenosť',
-      'Kapacita vybavovať',
-      'Reštančné z nevybavených',
-      'Počet nevybavených',
-      'Frekvencia odvolaní',
-      'Potvrdené rozhodnutia',
-      'Zmenené alebo zrušené z celku'
-    ],
-
-    datasets: [{
-      label: "Maximum",
-      fillColor: "transparent",
-      strokeColor: "transparent",
-      pointColor: "#ecf0f1",
-      data: [10, 10, 10, 10, 10, 10, 10, 10]
-    }, {
-      label: "Priemer",
-      fillColor: "transparent",
-      strokeColor: "#bdc3c7",
-      pointColor: "#bdc3c7",
-    }]
-
   options:
     animation: false,
     responsive: true,
@@ -58,7 +33,56 @@ class window.JudgeChart
       </ul>
     '
 
-  constructor: (average) ->
+  getData: () ->
+    2013:
+      labels: [
+        'Počet reštančných',
+        'Vybavenosť',
+        'Kapacita vybavovať',
+        'Reštančné z nevybavených',
+        'Počet nevybavených',
+        'Frekvencia odvolaní',
+        'Potvrdené rozhodnutia',
+        'Zmenené alebo zrušené z celku'
+      ],
+
+      datasets: [{
+        label: "Maximum",
+        fillColor: "transparent",
+        strokeColor: "transparent",
+        pointColor: "#ecf0f1",
+        data: [10, 10, 10, 10, 10, 10, 10, 10]
+      }, {
+        label: "Priemer",
+        fillColor: "transparent",
+        strokeColor: "#bdc3c7",
+        pointColor: "#bdc3c7",
+      }]
+
+    2015:
+      labels: [
+        'Vybavenosť',
+        'Reštančné z nevybavených',
+        'Kapacita vybavovať',
+        'Potvrdené rozhodnutia'
+      ],
+
+      datasets: [{
+        label: "Maximum",
+        fillColor: "transparent",
+        strokeColor: "transparent",
+        pointColor: "#ecf0f1",
+        data: [10, 10, 10, 10]
+      }, {
+        label: "Priemer",
+        fillColor: "transparent",
+        strokeColor: "#bdc3c7",
+        pointColor: "#bdc3c7",
+      }]
+
+  constructor: (year, average) ->
+    @year = year
+    @data = @getData()[year]
     @data.datasets[1].data = average
 
   push: (judge, data, color) ->
@@ -71,5 +95,7 @@ class window.JudgeChart
     )
 
   build: ->
-    @chart = new Chart($('.chart-content').get(0).getContext('2d')).Radar(@data, @options)
-    $('.chart-legend-content').append(@chart.generateLegend())
+    container = $("#indicators-chart-#{@year}")
+
+    @chart = new Chart(container.find('.chart-content').get(0).getContext('2d')).Radar(@data, @options)
+    container.find('.chart-legend-content').append(@chart.generateLegend())

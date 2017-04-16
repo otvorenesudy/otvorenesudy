@@ -1,0 +1,12 @@
+<h2 class="m-t-2 m-b-1">
+  <%= t '.evaluation' %>
+</h2>
+
+<p>
+  <%= t '.evaluation_text', year: indicators['year'], score: indicators['score.total.new'], rank: indicators['rank'] %>.
+</p>
+
+<ul class="list-unstyled m-l-1">
+  <li><%= t '.quality' %> &ndash; <%= indicators['Q.score.total.new'] %> <%= t 'out_of_points', points: 15 %>
+  <li><%= t '.effectivity' %> &ndash; <%= indicators['E.score.total.new'] %> <%= t 'out_of_points', points: 25 %>
+</ul>

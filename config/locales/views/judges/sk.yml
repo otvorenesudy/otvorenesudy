@@ -165,6 +165,21 @@ sk:
           Cb: 'Obchodná'
           0: 'Neurčená'
 
+      numerical:
+        headline: "Grafické porovnanie"
+
+        legend: "Legenda"
+        additional_judges: "Ďalší sudcovia"
+        advanced_comparison: "Pokročilé porovnanie"
+        show_filters: "Zobraziť filtre"
+        hide_filters: "Skryť filtre"
+
+        judges_note:
+          content: "Vyberte daľších sudcov pre porovnanie"
+
+        filters_note:
+          content: "Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobnom súde a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory."
+
     decrees:
       headline: "Vynesené rozhodnutia"
       more: "Viac rozhodnutí"
