@@ -37,7 +37,7 @@
   <%= tab_link_tag t('.media'), 'media' %>
 </ul>
 
-<div class="tab-content">
+<div class="tab-content tab-with-chart">
   <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: ('active' if @judge.indicators_2015) }, judge: @judge) %>
   <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: ('active' if !@judge.indicators_2013) }, judge: @judge) %>
   <%= render_tab({ partial: 'decrees' }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
