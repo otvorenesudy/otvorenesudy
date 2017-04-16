@@ -8,11 +8,11 @@ namespace :probe do
   end
 
   desc 'Import entire index asynchronously (drop and create index from scratch)'
-  task import_async: :environment do
+  task import: :environment do
     Rake::Task['probe:prepare'].invoke
 
     indices_to_models(INDICES).each do |index, model|
-      puts "Index async import: #{index}"
+      puts "Index import: #{index}"
 
       # TODO this job is somehow missing! fallback to old Probe::Bulk here
       #ImportRepositoryJob.perform_async(model.to_s)
