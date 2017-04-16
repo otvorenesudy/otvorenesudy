@@ -31,6 +31,35 @@ module IndicatorsHelper
     "Sudca #{value}".html_safe
   end
 
+  def assigned_agendas_indicator_2015(indicators)
+    content = <<-CON
+      #{t 'judges.indicators_2013.basic.agenda.civil'} &ndash; #{indicators['C.assigned.agenda']}<br/>
+      #{t 'judges.indicators_2013.basic.agenda.business'} &ndash; #{indicators['Cb.assigned.agenda']}<br/>
+      #{t 'judges.indicators_2013.basic.agenda.childcare'} &ndash; #{indicators['P.assigned.agenda']}<br/>
+      #{t 'judges.indicators_2013.basic.agenda.criminal'} &ndash; #{indicators['Trest.assigned.agenda']}<br/>
+    CON
+
+    if indicators['assigned.agenda.dominant'].to_s != '0'
+      result = I18n.t('judges.indicators_2015.basic.dominant_assigned_agenda') +
+        popover_tag(I18n.t("judges.indicators_2015.basic.assigned_agenda.#{indicators['assigned.agenda.dominant']}"), content, title: t('judges.indicators_2013.basic.assigned_agendas'), trigger: 'hover')
+    else
+      result = I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_1') +
+        popover_tag(I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2'), content, title: t('judges.indicators_2013.basic.assigned_agendas'), trigger: 'hover')
+    end
+
+    result.html_safe
+  end
+
+  def decided_agendas_indicator_2015(indicators)
+    if indicators['decided.agenda.dominant'].to_s != '0'
+        I18n.t('judges.indicators_2015.basic.dominant_decided_agenda') +
+        I18n.t("judges.indicators_2015.basic.decided_agenda.#{indicators['decided.agenda.dominant']}")
+    else
+        I18n.t('judges.indicators_2015.basic.no_dominant_decided_agenda')
+    end
+  end
+
+
   def indicators_chart(judge, options = {})
     colors = %w(9b59b6 1abc9c 3498db f1c40f e74c3c e67e22 2ecc71)
     judges = [judge] + options.fetch(:others, [])

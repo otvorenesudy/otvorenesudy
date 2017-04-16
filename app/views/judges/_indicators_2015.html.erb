@@ -11,6 +11,11 @@
   <% if @judge.indicators_2015.numerical %>
     <%= render 'judges/indicators_2015/numerical', judge: judge %>
   <% end %>
+
+  <% if @judge.indicators_2015.statistical %>
+    <%= render 'judges/indicators_2015/quality', judge: judge, indicators: judge.indicators_2015.statistical %>
+    <%= render 'judges/indicators_2015/effectivity', judge: judge, indicators: judge.indicators_2015.statistical %>
+  <% end %>
 <% else %>
   <p class="m-t-1">
     <%= t '.none' %>

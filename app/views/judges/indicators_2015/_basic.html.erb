@@ -3,24 +3,15 @@
 </p>
 
 <ul class="list-unstyled m-l-1">
-  <li><%= t '.councourt_issued' %> &ndash; <i><%= indicators['concourt.decisions'] %></i></li>
-  <li><%= t '.concourt_delays' %> &ndash; <i><%= indicators['concourt.delays'] %></i></li>
+  <li><%= t '.concourt_issued' %> &ndash; <%= indicators['concourt.decisions'] %></li>
+  <li><%= t '.concourt_delays' %> &ndash; <%= indicators['concourt.delays'] %></li>
 </ul>
 
 <p>
-  <%= t '.dominant_assigned_agenda' %> <i><%= t ".agenda.#{indicators['assigned.agenda.dominant']}" %></i>:
-</p>
-
-<ul class="list-unstyled m-l-1">
-  <% [:C, :Cb, :P, :Trest].each do |key|  %>
-    <li><%= t ".agenda.#{key}" %> &ndash; <%= indicators["#{key}.assigned.agenda"] %></li>
-  <% end %>
-</ul>
-
-<p>
-  <%= t '.dominant_decided_agenda' %> <b><%= t ".agenda.#{indicators['decided.agenda.dominant']}" %></b>.
+  <%= assigned_agendas_indicator_2015(indicators) %>.
+  <%= decided_agendas_indicator_2015(indicators) %>.
 </p>
 
 <p>
-  <%= t '.worked_and_average_cases', workdays: indicators['workdays'], cases: indicators['incoming.10.days'] %>.
+  <%= t '.worked_and_average_cases', workdays: indicators['workdays'].to_s.html_safe, cases: indicators['incoming.10.days'].to_s.html_safe %>
 </p>
