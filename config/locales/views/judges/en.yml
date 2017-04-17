@@ -113,13 +113,13 @@ en:
         judge_results: "The judge in this period worked %{days} days and on average was assigned %{cases} cases in 10 days in main agendas."
 
       numerical:
-        headline: "Chart comparison"
+        headline: "Chart Comparison"
 
         legend: "Legend"
-        additional_judges: "Additional judges"
-        advanced_comparison: "Advanced comparison"
-        show_filters: "Show filters"
-        hide_filters: "Hide filters"
+        additional_judges: "Additional Judges"
+        advanced_comparison: "Advanced Comparison"
+        show_filters: "Show Filters"
+        hide_filters: "Hide Filters"
 
         judges_note:
           content: "Select other judges for comparison"
@@ -153,6 +153,69 @@ en:
 
         description: "%{data} obtained from annual statistical reports of judges pertaining to indicators."
         data: "Notes about the data"
+
+    indicators_2015:
+      headline: "Indicators for 2015"
+
+      basic:
+        court_decrees_count_by_supreme_court: Number of Constitutional Court decisions against the judge
+        concourt_issued: issued
+        concourt_delays: delays prior to case assignment
+        dominant_assigned_agenda: "The judge was mostly assigned to "
+        no_dominant_assigned_agenda_1: "The judge was not assigned to "
+        no_dominant_assigned_agenda_2: "any agenda dominantly"
+        dominant_decided_agenda: "The judge mostly issued decrees in "
+        no_dominant_decided_agenda: The judge did not issue decrees in any agenda dominantly.
+        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 10 days in main agendas.
+        assigned_agenda:
+          C: "Civil agenda"
+          Trest: "Criminal agenda"
+          P: "Family Agenda"
+          Cb: "Commercial agenda"
+
+        decided_agenda:
+          C: "Civil agenda"
+          Trest: "Criminal agenda"
+          P: "Family Agenda"
+          Cb: "Commercial agenda"
+
+      evaluation:
+        headline: Evaluation
+        evaluation_text: In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 738 evaluated judges.
+        quality: Quality
+        effectivity: Effectivity
+        out_of_points: out of %{points} points
+
+      numerical:
+        headline: "Chart Comparison"
+
+        legend: "Legend"
+        additional_judges: "Additional Judges"
+        advanced_comparison: "Advanced Comparison"
+        show_filters: "Show Filters"
+        hide_filters: "Hide Filters"
+
+        judges_note:
+          content: "Select other judges for comparison"
+
+        filters_note:
+          content: "The chart is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases."
+
+      quality:
+        headline: Quality Indicators
+        confirmation_ratio: The judge's decrees were on appeal affirmed in %{ratio} of cases. The average in the same agenda is %{average}.
+        appeal_decrees_count: Number of Appellate Decisions
+        confirmed_decrees_count: Number of Affirmed Decisions
+        appeal_ratio: An appeal against the judge's decrees is filed in %{ratio} of cases. The average in the same agenda is %{average}.
+        total_ratio: Of the total number of the judge's decrees %{ratio} is changed or reversed. The average in the same agenda is %{average}.
+
+      effectivity:
+        headline: Effectivity Indicators
+        length_ratio: Estimated average length of proceedings is %{ratio} days. The average at the end of %{year} was %{average} days.
+        outstanding_count: The judge had %{count} unresolved cases at the end of %{year}. The average was %{average} cases.
+        restant_count: The judge had %{count} restant cases at the end of %{year}. The average was %{average}.
+        restant_ratio: This represents %{ratio} of the judge's unresolved cases. Average was %{average}.
+        total_ratio: In %{year}, the judge was able to resolve %{ratio} of assigned cases. Average was %{average}.
 
     decrees:
       headline: "Published decrees"
