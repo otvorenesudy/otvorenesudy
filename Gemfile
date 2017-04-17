@@ -104,6 +104,7 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'guard-rspec'
+  gem 'pry'
 
   # dev environment
   gem 'dotenv-rails'

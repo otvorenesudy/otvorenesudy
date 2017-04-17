@@ -65,11 +65,8 @@ module IndicatorsHelper
     judges = [judge] + options.fetch(:others, [])
     locals = {
       colors: judges.size.times.map { |i| colors[i % colors.size] },
-      judges: judges,
-      average: options[:average],
-      indicators: options[:indicators],
-      year: options[:year]
-    }
+      judges: judges
+    }.merge(options.slice(:indicators_repository, :year))
     options = options.slice(:width, :height).merge(class: 'chart-content')
 
     content_for :scripts do

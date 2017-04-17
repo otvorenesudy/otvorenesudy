@@ -9,7 +9,7 @@
   <% end %>
 
   <% if @judge.indicators_2015.numerical %>
-    <%= render 'judges/indicators_2015/numerical', judge: judge %>
+    <%= render 'judges/indicators_2015/numerical', judge: judge, facets: facets, others: others %>
   <% end %>
 
   <% if @judge.indicators_2015.statistical %>

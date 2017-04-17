@@ -16,7 +16,7 @@ class Judge
               'Obchodná' => j.indicators_2015.statistical['Cb.assigned.agenda'].to_i,
               'Poručenská' => j.indicators_2015.statistical['P.assigned.agenda'].to_i,
               'Trestná' => j.indicators_2015.statistical['Trest.assigned.agenda'].to_i
-            }.sort_by { |_, v| v }.last
+            }.sort_by { |_, v| v }.last[0]
           end
         }
       end
@@ -37,6 +37,10 @@ class Judge
 
     def self.for(judge)
       @data[judge.id]
+    end
+
+    def self.numerical_values_for(judge)
+      self.for(judge).numerical[2..5] if self.for(judge) && self.for(judge).numerical
     end
 
     def self.load!

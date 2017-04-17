@@ -14,7 +14,7 @@
   <% end %>
 
   <% if @judge.indicators_2013.numerical && @judge.indicators_2013.numerical.to_hash.values[2..9].compact.size == 8 %>
-    <%= render 'judges/indicators_2013/numerical', judge: judge, indicators: judge.indicators_2013.numerical %>
+    <%= render 'judges/indicators_2013/numerical', judge: judge, facets: facets, others: others %>
   <% end %>
 
   <% if @judge.indicators_2013.statistical %>

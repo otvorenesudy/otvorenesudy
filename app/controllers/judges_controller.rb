@@ -16,10 +16,13 @@ class JudgesController < SearchController
 
     flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
 
-    results = Judge.search(params.merge!(indicators_2013: true, indicators_2015: true))
+    results_2013 = Judge.search(params.except(:indicators_2013).merge(indicators_2013: true))
+    @facets_2013 = results_2013.facets
+    @others_2013 = params[:name] ? results_2013.to_a.map(&:first) : []
 
-    @facets = results.facets
-    @others = params[:name] ? results.to_a.map(&:first) : []
+    results_2015 = Judge.search(params.except(:indicators_2013).merge(indicators_2015: true))
+    @facets_2015 = results_2015.facets
+    @others_2015 = params[:name] ? results_2015.to_a.map(&:first) : []
   end
 
   # TODO rm - unused?
