@@ -95,6 +95,7 @@ class Judge
       values.each_with_index do |(key, value), _|
         next unless value
 
+        value = value.gsub(/-/, ' – ') if key == 'rank'
         value = Court.find_by_name(normalize_court_name(value)) if key.in?(%w(court))
 
         values[key] = value.presence

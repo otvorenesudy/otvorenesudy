@@ -156,6 +156,7 @@ en:
 
     indicators_2015:
       headline: "Indicators for 2015"
+      none: "We do not register any indicators for the judge yet."
 
       basic:
         court_decrees_count_by_supreme_court: Number of Constitutional Court decisions against the judge

@@ -156,6 +156,7 @@ sk:
 
     indicators_2015:
       headline: "Indikátori za rok 2015"
+      none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
 
       basic:
         court_decrees_count_by_supreme_court: Počet rozhodnutí Ústavného súdu SR voči sudcovi
