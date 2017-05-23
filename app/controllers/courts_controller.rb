@@ -8,7 +8,8 @@ class CourtsController < SearchController
     @hearings = @court.hearings.order('date desc')
     @decrees  = @court.decrees.order('date desc')
 
-    @media = @court.context_search[0..9]
+    # TODO rm or fix Bing Search API
+    @media = [] # @court.context_search[0..9]
   end
 
   def map
