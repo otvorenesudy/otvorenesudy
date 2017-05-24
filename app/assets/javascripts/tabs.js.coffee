@@ -4,7 +4,7 @@ $(document).ready ->
 
   hash = window.location.hash
 
-  if hash != ''
+  if hash != '' or $('a.active[data-target="tab"]').length == 0
     $("a[data-target=\"#{hash.replace('#', '#tab-pane-')}\"]").tab('show')
   else
     $('a[data-toggle="tab"]:first').tab('show')

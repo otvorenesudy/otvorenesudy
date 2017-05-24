@@ -236,3 +236,10 @@ a[href="#"][data-toggle="tooltip"] {
     display: none;
   }
 }
+
+// bootstrap hack: fix content width inside hidden tabs
+.tab-content.tab-with-chart > .tab-pane:not(.active) {
+  display: block;
+  height: 0;
+  overflow-y: hidden;
+}

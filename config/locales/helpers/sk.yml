@@ -7,11 +7,16 @@ sk:
     format:
       delimiter: " "
       separator: ","
+      strip_insignificant_zeros: true
 
     currency:
       format:
         format: "%n%u"
         unit: "€"
+
+    percentage:
+      format:
+        strip_insignificant_zeros: true
 
   range:
     format:

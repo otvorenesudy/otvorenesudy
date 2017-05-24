@@ -1,0 +1,31 @@
+<h2 class="m-t-2 m-b-1">
+  <%= t '.headline' %>
+</h2>
+
+<% if @judge.indicators_2013 %>
+  <% if I18n.locale == :en %>
+    <div class="alert alert-info m-t-2" role="alert">
+      Please note that some content pertaining judge indicators may not be translated.
+    </div>
+  <% end %>
+
+  <% if @judge.indicators_2013.statistical %>
+    <%= render 'judges/indicators_2013/basic', judge: judge, indicators: judge.indicators_2013.statistical %>
+  <% end %>
+
+  <% if @judge.indicators_2013.numerical && @judge.indicators_2013.numerical.to_hash.values[2..9].compact.size == 8 %>
+    <%= render 'judges/indicators_2013/numerical', judge: judge, facets: facets, others: others %>
+  <% end %>
+
+  <% if @judge.indicators_2013.statistical %>
+    <%= render 'judges/indicators_2013/statistical', judge: judge, indicators: judge.indicators_2013.statistical %>
+  <% end %>
+
+  <% if @judge.indicators_2013.statistical %>
+    <%= render 'judges/indicators_2013/notes', judge: judge, indicators: judge.indicators_2013.statistical %>
+  <% end %>
+<% else %>
+  <p class="m-t-1">
+    <%= t '.none' %>
+  </p>
+ <% end %>

@@ -1,0 +1,20 @@
+<h2 class="m-t-2 m-b-1">
+  <%= t '.headline' %>
+</h2>
+
+<p class="m-b-0">
+  <%= t '.confirmation_ratio', ratio: number_to_percentage(indicators['Q1'], precision: 1), average: number_to_percentage(indicators['Q1.mean'], precision: 1) %>
+</p>
+
+<ul class="list-unstyled m-l-1">
+  <li><%= t '.appeal_decrees_count' %> &ndash; <%= indicators['sum.appeals'] %></li>
+  <li><%= t '.confirmed_decrees_count' %> &ndash; <%= indicators['affirmed'] %></li>
+</ul>
+
+<p>
+  <%= t '.appeal_ratio', ratio: number_to_percentage(indicators['Q2'], precision: 1), average: number_to_percentage(indicators['Q2.mean'], precision: 1) %>
+</p>
+
+<p>
+  <%= t '.total_ratio', ratio: number_to_percentage(indicators['Q3'], precision: 1), average: number_to_percentage(indicators['Q3.mean'], precision: 1) %>
+</p>

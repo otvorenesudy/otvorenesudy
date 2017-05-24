@@ -172,7 +172,7 @@ en:
         suffix:
           <<: *person
 
-      decree_agenda:
+      decree_agenda_2013:
         title: "Decree agenda"
         missing: "missing"
         not_found: "No agendas found."
@@ -182,6 +182,11 @@ en:
         placeholder: "Court name"
         missing: "missing"
         not_found: "No courts found."
+
+      decree_agenda_2015:
+        title: "Decree agenda"
+        missing: "missing"
+        not_found: "No agendas found."
 
     hearing:
       q:

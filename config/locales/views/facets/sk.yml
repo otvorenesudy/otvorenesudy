@@ -172,7 +172,7 @@ sk:
         suffix:
           <<: *person
 
-      decree_agenda:
+      decree_agenda_2013:
         title: "Agenda rozhodnutí"
         missing: "neuvedená"
         not_found: "Nenájdené žiadne agendy."
@@ -182,6 +182,11 @@ sk:
         placeholder: "Názov súdu"
         missing: "neuvedený"
         not_found: "Nenájdené žiadne súdy."
+
+      decree_agenda_2015:
+        title: "Agenda rozhodnutí"
+        missing: "neuvedená"
+        not_found: "Nenájdené žiadne agendy."
 
     hearing:
       q:

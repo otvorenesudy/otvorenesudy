@@ -1,0 +1,23 @@
+<h2 class="m-t-2 m-b-1">
+  <%= t '.headline' %>
+</h2>
+
+<% if @judge.indicators_2015 %>
+  <% if @judge.indicators_2015.statistical %>
+    <%= render 'judges/indicators_2015/basic', judge: judge, indicators: judge.indicators_2015.statistical %>
+    <%= render 'judges/indicators_2015/evaluation', judge: judge, indicators: judge.indicators_2015.statistical %>
+  <% end %>
+
+  <% if @judge.indicators_2015.numerical %>
+    <%= render 'judges/indicators_2015/numerical', judge: judge, facets: facets, others: others %>
+  <% end %>
+
+  <% if @judge.indicators_2015.statistical %>
+    <%= render 'judges/indicators_2015/quality', judge: judge, indicators: judge.indicators_2015.statistical %>
+    <%= render 'judges/indicators_2015/effectivity', judge: judge, indicators: judge.indicators_2015.statistical %>
+  <% end %>
+<% else %>
+  <p class="m-t-1">
+    <%= t '.none' %>
+  </p>
+ <% end %>
