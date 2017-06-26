@@ -40,7 +40,7 @@ class Judge
     end
 
     def self.numerical_values_for(judge)
-      self.for(judge).numerical[2..5] if self.for(judge) && self.for(judge).numerical
+      self.for(judge).numerical[3..6] if self.for(judge) && self.for(judge).numerical
     end
 
     def self.load!
@@ -104,7 +104,7 @@ class Judge
 
     def self.normalize_numerical_values(values)
       values.each_with_index do |(key, value), index|
-        value = index.in?(2..9) ? value.to_i : nil
+        value = index.in?(3..9) ? value.to_i : nil
 
         values[key] = value
       end
