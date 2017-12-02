@@ -4,6 +4,15 @@
   color: $jumbotron-color;
 }
 
+.banner {
+  @extend .jumbotron;
+
+  background: none !important;
+  border-bottom: 1px solid $gray-lighter;
+  text-align: center;
+  padding: 0px;
+}
+
 .features {
   h1 {
     @extend .m-t-3;
