@@ -1,5 +1,4 @@
-@import 'variables';
-
+@import '../variables';
 @import 'bootstrap/variables';
 
 @mixin border-radius($value...) {}
