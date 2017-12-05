@@ -5,6 +5,7 @@ unless Rails.env.test?
     domain: 'mg.otvorenesudy.sk',
     port: 587,
     user_name: Configuration.mailer.username,
-    password: Configuration.mailer.password
+    password: Configuration.mailer.password,
+    authentication: :plain
   }
 end
