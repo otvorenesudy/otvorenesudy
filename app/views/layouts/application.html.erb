@@ -45,5 +45,8 @@
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
     <%= Garelic.monitoring 'UA-38636233-1' if Rails.env.production? %>
+
+    <!-- Transparency Newsletter -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us7.list-manage.com","uuid":"62c76c96e9ce8b3e2492ebf24","lid":"63d692ade5"}) })</script>
   </body>
 </html>
