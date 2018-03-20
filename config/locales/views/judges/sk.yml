@@ -155,7 +155,7 @@ sk:
         data: "Poznámky k dátam"
 
     indicators_2015:
-      headline: "Indikátori za rok 2015"
+      headline: "Indikátory za rok 2015"
       none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
 
       basic:
