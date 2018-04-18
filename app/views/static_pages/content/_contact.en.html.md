@@ -4,7 +4,6 @@ Bajkalská 25<br/>
 827 18 Bratislava<br/>
 Slovak Republic
 
-tel., fax: +421 253 417 207<br/>
 e-mail: <%= mail_to 'tis@transparency.sk', nil, encode: :hex %><br/>
 web: <%= link_to 'transparency.sk', 'http://transparency.sk' %>
 
