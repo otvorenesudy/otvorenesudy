@@ -591,27 +591,21 @@ namespace :fixtures do
 
       include JusticeGovSk::Helper::Normalizer
 
-      hearing = Hearing.find args[:hearing_id]
+      Hearing.where(id: args[:hearing_id].split(',').map(&:strip)).find_each do |hearing|
+        next puts('Already anonymized') if hearing.anonymized
+        next puts('No defendants') if hearing.defendants.none?
 
-      abort "Already anonymized" if hearing.anonymized
-      abort "No defendants" if hearing.defendants.none?
+        hearing.defendants.each do |defendant|
+          defendant.name = defendant.name_unprocessed = 'X. Y.'
+          defendant.save!
+        end
 
-      hearing.defendants.each do |defendant|
-        others = defendant.name.sub!(/\s+a\s+spol\.\z/i, '')
-        parts  = partition_person_name(defendant.name)
-        name   = "#{parts[:prefix]} #{[parts[:first], parts[:middle], parts[:last]].reject(&:blank?).map { |s| "#{s.first}. " }.join.strip}, #{parts[:suffix]}"
-        name   = name.sub(/\,\s*\z/, '')
-        name  += ' a spol.' if others
-        name   = name.strip.squeeze ' '
-
-        puts "#{identify defendant} '#{defendant.name}' -> '#{name}'"
-
-        defendant.name = name
-        defendant.save!
+        hearing.anonymized = true
+        hearing.save!
       end
 
-      hearing.anonymized = true
-      hearing.save!
+      Judge.find_each(&:save!)
+      Court.find_each(&:save!)
     end
   end
 
