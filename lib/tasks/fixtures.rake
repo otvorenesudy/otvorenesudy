@@ -584,14 +584,14 @@ namespace :fixtures do
     end
 
     desc "Anonymizes all defendants"
-    task :anonymize, [:hearing_id] => :environment do |_, args|
+    task :anonymize => :environment do
       include Core::Identify
       include Core::Pluralize
       include Core::Output
 
       include JusticeGovSk::Helper::Normalizer
 
-      Hearing.where(id: args[:hearing_id].split(',').map(&:strip)).find_each do |hearing|
+      Hearing.where(id: ENV['HEARING_IDS'].split(',').map(&:strip)).find_each do |hearing|
         next puts('Already anonymized') if hearing.anonymized
         next puts('No defendants') if hearing.defendants.none?
 
