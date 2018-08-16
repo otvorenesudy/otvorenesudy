@@ -130,7 +130,7 @@ class Hearing < ActiveRecord::Base
 
     names = mapper.call(defendants) + mapper.call(opponents) + mapper.call(proposers)
     names.any? do |name|
-      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna poistovna/)
+      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna\s+poistovna/)
     end
   end
 
