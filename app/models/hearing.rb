@@ -149,11 +149,8 @@ class Hearing < ActiveRecord::Base
       association.find_each do |record|
         next if skip.call(record.name)
 
-        loop do
-          name = anonymizer.call(record.name)
-          record.name = record.name_unprocessed = name
-          break unless association.exists?(name: name)
-        end
+        name = anonymizer.call(record.name)
+        record.name = record.name_unprocessed = name
 
         record.save!
       end
