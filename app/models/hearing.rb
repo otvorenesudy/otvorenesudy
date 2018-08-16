@@ -128,13 +128,13 @@ class Hearing < ActiveRecord::Base
       association.loaded? ? association.map(&:name) : association.pluck(:name)
     end
 
-    names = defendants.map(&:name) + opponents.map(&:name) + proposers.map(&:name)
+    names = mapper.call(defendants) + mapper.call(opponents) + mapper.call(proposers)
     names.any? do |name|
       ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna poistovna/)
     end
   end
 
-  def anonymize(opponents: true, defendants: true, proposers: true)
+  def anonymize!(options = { proposers: true, opponents: true, defendants: true })
     anonymizer = lambda do |name|
       a, b = ('A'..'Z').to_a.sample(2)
 
@@ -159,13 +159,20 @@ class Hearing < ActiveRecord::Base
       end
     end
 
-    anonymize(opponents)
-    anonymize(opponents)
-    anonymize(defendants)
+    anonymize.call(opponents) if options[:opponents]
+    anonymize.call(proposers) if options[:proposers]
+    anonymize.call(defendants) if options[:defendants]
 
-    hearing.anonymized = true
+    self.anonymized = true
 
     save!
+  end
+
+  def self.anonymize!
+    self.find_each(&:anonymize!)
+
+    Judge.find_each(&:save!)
+    Court.find_each(&:save!)
   end
 
   storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
