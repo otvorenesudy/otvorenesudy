@@ -45,6 +45,12 @@ class Hearing < ActiveRecord::Base
 
   has_many :accusations, through: :defendants
 
+  after_save do
+    return unless social_security_case?
+
+    anonymize!
+  end
+
   max_paginates_per 100
       paginates_per 20
 
@@ -153,7 +159,6 @@ class Hearing < ActiveRecord::Base
           name = anonymizer.call(record.name)
           record.name = record.name_unprocessed = name
 
-          puts name
           break unless association.where('id != ?', record.id).where(name: name).any?
         end
 
