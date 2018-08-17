@@ -46,7 +46,7 @@ class Hearing < ActiveRecord::Base
   has_many :accusations, through: :defendants
 
   after_save do
-    return unless social_security_case?
+    return if !social_security_case? || anonymized
 
     anonymize!
   end
