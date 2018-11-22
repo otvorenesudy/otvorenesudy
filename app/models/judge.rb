@@ -21,6 +21,7 @@ class Judge < ActiveRecord::Base
   include Judge::Matched
   include Judge::Indicators2013
   include Judge::Indicators2015
+  include Judge::Indicators2017
 
   scope :inactive_or_unlisted, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
 
