@@ -218,6 +218,70 @@ sk:
         restant_ratio: To u sudcu tvorí %{ratio} z nevybavených vecí. Priemer bol %{average}.
         total_ratio: Sudca dokázal v roku %{year} vybaviť k počtu pridelených vecí %{ratio} prípadov. Priemer bol %{average}.
 
+    indicators_2017:
+      headline: "Indikátory za rok 2017"
+      none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
+
+      basic:
+        court_decrees_count_by_supreme_court: Počet rozhodnutí Ústavného súdu SR voči sudcovi
+        concourt_issued: vydané
+        concourt_delays: prieťahy pred pridelením veci
+        dominant_assigned_agenda: "Sudcovi bola prideľovaná najmä "
+        no_dominant_assigned_agenda_1: "Sudcovi nebola prideľovaná "
+        no_dominant_assigned_agenda_2: žiadna agenda väčšinovo
+        dominant_decided_agenda: "Sudca rozhodoval najmä v "
+        no_dominant_decided_agenda: Sudca nerozhodoval v žiadnej agende väčšinovo.
+        worked_and_average_cases: Sudca v sledovanom období odpracoval %{workdays} dní a v priemere mu za 10 dní bolo pridelených %{cases} prípadov v hlavných agendách.
+        assigned_agenda:
+          C: "Občianska agenda"
+          Trest: "Trestná agenda"
+          P: "Poručenská agenda"
+          Cb: "Obchodná agenda"
+
+        decided_agenda:
+          C: "Občianskej agende"
+          Trest: "Trestnej agende"
+          P: "Poručenskej agende"
+          Cb: "Obchodnej agende"
+
+      evaluation:
+        headline: Hodnotenie
+        evaluation_text: Sudca získal v roku year celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 738 hodnotených sudcov.
+        quality: Kvalita
+        effectivity: Efektivita
+        out_of_points: z %{points} bodov
+
+      numerical:
+        headline: "Grafické porovnanie"
+
+        legend: "Legenda"
+        additional_judges: "Ďalší sudcovia"
+        advanced_comparison: "Pokročilé porovnanie"
+        show_filters: "Zobraziť filtre"
+        hide_filters: "Skryť filtre"
+
+        judges_note:
+          content: "Vyberte daľších sudcov pre porovnanie"
+
+        filters_note:
+          content: "Najväčší zmysel má porovnávať sudcov na rovnakom alebo podobnom súde a takých, ktorí pôsobia v rovnakej alebo podobnej agende. Súdy aj agendy totiž majú špecifický vplyv na výkonnosť sudcov. Povedané ešte jednoduchšie, obchodný sudca z Bratislavy a trestný sudca z Rožňavy zrejme riešia náročnosťou úplne iné spory."
+
+      quality:
+        headline: Indikátory kvality
+        confirmation_ratio: Rozhodnutie sudcu bolo v odvolacom konaní potvrdené v %{ratio} prípadoch. Priemer v rovnakej agende je %{average}.
+        appeal_decrees_count: Počet rozhodnutí o odvolaniach
+        confirmed_decrees_count: Počet potvrdených rozhodnutí
+        appeal_ratio: Odvolanie je proti rozhodnutiam sudcu podávané v %{ratio} prípadoch. Priemer v rovnakej agende je %{average}.
+        total_ratio: Z celkového počtu rozhodnutí sudcu je zmenených alebo zrušených %{ratio}. Priemer v rovnakej agende je %{average}.
+
+      effectivity:
+        headline: Indikátory efektivity
+        length_ratio: Odhadovaná priemerná dĺžka sporu je %{ratio} dní. Priemer na konci roka %{year} bol %{average} dní.
+        outstanding_count: Sudca mal na konci roka %{year} nevybavených %{count} prípadov. Priemer bol %{average} prípadov.
+        restant_count: Sudca mal na konci roka %{year} %{count} reštančných vecí. Priemer bol %{average}.
+        restant_ratio: To u sudcu tvorí %{ratio} z nevybavených vecí. Priemer bol %{average}.
+        total_ratio: Sudca dokázal v roku %{year} vybaviť k počtu pridelených vecí %{ratio} prípadov. Priemer bol %{average}.
+
     decrees:
       headline: "Vynesené rozhodnutia"
       more: "Viac rozhodnutí"
