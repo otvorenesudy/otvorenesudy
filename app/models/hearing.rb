@@ -172,6 +172,8 @@ class Hearing < ActiveRecord::Base
 
     self.anonymized = true
 
+    proceeding.update_index if proceeding
+
     save!
   end
 
