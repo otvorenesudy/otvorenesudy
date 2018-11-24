@@ -106,6 +106,9 @@ class Judge < ActiveRecord::Base
     facet :hearings_count,       type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
     facet :decrees_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
     facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..5]
+
+    facet :name,                type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
+    facet :similar_courts,       type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
   end
 
   formatable :name, default: '%p %f %m %l %a, %s', fixes: -> (v) { v.sub(/,\s*\z/, '') } do |judge|
