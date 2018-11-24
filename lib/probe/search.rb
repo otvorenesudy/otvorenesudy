@@ -17,7 +17,7 @@ module Probe
         options = Hash.new
 
         options[:name]        = index_name
-        options[:facets]      = facets
+        options[:facets]      = Probe::Facets.new(@facet_definitions)
         options[:sort_fields] = sort_fields
         options[:per_page]    = per_page
 

@@ -110,7 +110,7 @@ sk:
         performance_data: "Pre sudcu evidujeme výkonnostné dáta za roky %{years}:"
         assigned_agendas: "Prideľované agendy"
         decided_agendas: "Rozhodované agendy"
-        judge_results: "Sudca v sledovanom období odpracoval %{days} dní a v priemere mu za 10 dní bolo pridelených %{cases} prípadov v hlavných agendách."
+        judge_results: "Sudca v sledovanom období odpracoval %{days} dní a v priemere mu za 100 dní bolo pridelených %{cases} prípadov v hlavných agendách."
 
       numerical:
         headline: "Grafické porovnanie"
@@ -167,7 +167,7 @@ sk:
         no_dominant_assigned_agenda_2: žiadna agenda väčšinovo
         dominant_decided_agenda: "Sudca rozhodoval najmä v "
         no_dominant_decided_agenda: Sudca nerozhodoval v žiadnej agende väčšinovo.
-        worked_and_average_cases: Sudca v sledovanom období odpracoval %{workdays} dní a v priemere mu za 10 dní bolo pridelených %{cases} prípadov v hlavných agendách.
+        worked_and_average_cases: Sudca v sledovanom období odpracoval %{workdays} dní a v priemere mu za 100 dní bolo pridelených %{cases} prípadov v hlavných agendách.
         assigned_agenda:
           C: "Občianska agenda"
           Trest: "Trestná agenda"
@@ -231,7 +231,7 @@ sk:
         no_dominant_assigned_agenda_2: žiadna agenda väčšinovo
         dominant_decided_agenda: "Sudca rozhodoval najmä v "
         no_dominant_decided_agenda: Sudca nerozhodoval v žiadnej agende väčšinovo.
-        worked_and_average_cases: Sudca v sledovanom období odpracoval %{workdays} dní a v priemere mu za 10 dní bolo pridelených %{cases} prípadov v hlavných agendách.
+        worked_and_average_cases: Sudca v sledovanom období odpracoval %{workdays} dní a v priemere mu za 100 dní bolo pridelených %{cases} prípadov v hlavných agendách.
         assigned_agenda:
           C: "Občianska agenda"
           Trest: "Trestná agenda"

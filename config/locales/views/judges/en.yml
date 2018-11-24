@@ -167,7 +167,7 @@ en:
         no_dominant_assigned_agenda_2: "any agenda dominantly"
         dominant_decided_agenda: "The judge mostly issued decrees in "
         no_dominant_decided_agenda: The judge did not issue decrees in any agenda dominantly.
-        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 10 days in main agendas.
+        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 100 days in main agendas.
         assigned_agenda:
           C: "Civil agenda"
           Trest: "Criminal agenda"
@@ -231,7 +231,7 @@ en:
         no_dominant_assigned_agenda_2: "any agenda dominantly"
         dominant_decided_agenda: "The judge mostly issued decrees in "
         no_dominant_decided_agenda: The judge did not issue decrees in any agenda dominantly.
-        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 10 days in main agendas.
+        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 100 days in main agendas.
         assigned_agenda:
           C: "Civil agenda"
           Trest: "Criminal agenda"

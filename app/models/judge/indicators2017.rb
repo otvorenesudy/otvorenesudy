@@ -22,8 +22,6 @@ class Judge
       end
 
       facets do
-        facet :name,                type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
-        facet :similar_courts,      type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
         facet :indicators_2017,     type: :terms, visible: false
         facet :decree_agenda_2017,  type: :terms, visible: false
       end
