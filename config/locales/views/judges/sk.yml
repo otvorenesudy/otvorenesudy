@@ -60,7 +60,7 @@ sk:
     show:
       <<: *common
 
-      indicators: "Indikátory za rok %{year}"
+      indicators: "Indikátory – %{year}"
       decrees: "Rozhodnutia"
       upcoming_hearings: "Budúce pojednávania"
       historical_hearings: "Minulé pojednávania"

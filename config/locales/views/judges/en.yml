@@ -60,7 +60,7 @@ en:
     show:
       <<: *common
 
-      indicators: "Indicators for %{year}"
+      indicators: "Indicators – %{year}"
       decrees: "Decrees"
       upcoming_hearings: "Upcoming hearings"
       historical_hearings: "Past hearings"
