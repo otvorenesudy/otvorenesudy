@@ -188,6 +188,11 @@ sk:
         missing: "neuvedená"
         not_found: "Nenájdené žiadne agendy."
 
+      decree_agenda_2017:
+        title: "Agenda rozhodnutí"
+        missing: "neuvedená"
+        not_found: "Nenájdené žiadne agendy."
+
     hearing:
       q:
         title: "Text pojednávania"

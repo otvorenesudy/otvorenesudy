@@ -1,36 +1,36 @@
 class Judge
-  module Indicators2015
+  module Indicators2017
     extend ActiveSupport::Concern
     extend JusticeGovSk::Helper::Normalizer
 
     included do
       mapping do
-        analyze :indicators_2015, as: lambda { |j|
-          !!(j.indicators_2015 && j.indicators_2015.statistical && j.indicators_2015.numerical)
+        analyze :indicators_2017, as: lambda { |j|
+          !!(j.indicators_2017 && j.indicators_2017.statistical && j.indicators_2017.numerical)
         }
 
-        analyze :decree_agenda_2015, as: lambda { |j|
-          if j.indicators_2015 && j.indicators_2015.statistical
+        analyze :decree_agenda_2017, as: lambda { |j|
+          if j.indicators_2017 && j.indicators_2017.statistical
             {
-              'Občianska' => j.indicators_2015.statistical['C.assigned.agenda'].to_i,
-              'Obchodná' => j.indicators_2015.statistical['Cb.assigned.agenda'].to_i,
-              'Poručenská' => j.indicators_2015.statistical['P.assigned.agenda'].to_i,
-              'Trestná' => j.indicators_2015.statistical['Trest.assigned.agenda'].to_i
+              'Občianska' => j.indicators_2017.statistical['C.assigned.agenda'].to_i,
+              'Obchodná' => j.indicators_2017.statistical['Cb.assigned.agenda'].to_i,
+              'Poručenská' => j.indicators_2017.statistical['P.assigned.agenda'].to_i,
+              'Trestná' => j.indicators_2017.statistical['Trest.assigned.agenda'].to_i
             }.sort_by { |_, v| v }.last[0]
           end
         }
       end
 
       facets do
-        facet :indicators_2015,     type: :terms, visible: false
-        facet :decree_agenda_2015,  type: :terms, visible: false
+        facet :indicators_2017,     type: :terms, visible: false
+        facet :decree_agenda_2017,  type: :terms, visible: false
       end
 
-      Judge::Indicators2015.load!
+      Judge::Indicators2017.load!
     end
 
-    def indicators_2015
-      Judge::Indicators2015.for(self)
+    def indicators_2017
+      Judge::Indicators2017.for(self)
     end
 
     def self.for(judge)
@@ -45,7 +45,7 @@ class Judge
       @data = Hash.new
       @numerical_average = nil
 
-      CSV.read(Rails.root.join('data', 'judge-statistical-indicators-2015.csv'), col_sep: ',', headers: true).each do |line|
+      CSV.read(Rails.root.join('tmp', 'judge-statistical-indicators-2017-1.csv'), col_sep: ',', headers: true).each do |line|
         judge = Judge.find_by_id(line[1].strip)
 
         next unless judge
@@ -54,7 +54,7 @@ class Judge
         @data[judge.id].statistical = normalize_statistical_values(line)
       end
 
-      CSV.read(Rails.root.join('data', 'judge-numerical-indicators-2015.csv'), col_sep: ',', headers: true).each do |line|
+      CSV.read(Rails.root.join('tmp', 'judge-numerical-indicators-2017-1.csv'), col_sep: ',', headers: true).each do |line|
         judge = Judge.find_by_id(line[1].strip)
 
         next unless judge

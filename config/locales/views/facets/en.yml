@@ -188,6 +188,11 @@ en:
         missing: "missing"
         not_found: "No agendas found."
 
+      decree_agenda_2017:
+        title: "Decree agenda"
+        missing: "missing"
+        not_found: "No agendas found."
+
     hearing:
       q:
         title: "Hearing text"

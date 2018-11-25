@@ -80,6 +80,27 @@ class window.JudgeChart
         pointColor: "#bdc3c7",
       }]
 
+    2017:
+      labels: [
+        'Vybavenosť',
+        'Reštančné z nevybavených',
+        'Kapacita vybavovať',
+        'Potvrdené rozhodnutia'
+      ],
+
+      datasets: [{
+        label: "Maximum",
+        fillColor: "transparent",
+        strokeColor: "transparent",
+        pointColor: "#ecf0f1",
+        data: [10, 10, 10, 10]
+      }, {
+        label: "Priemer",
+        fillColor: "transparent",
+        strokeColor: "#bdc3c7",
+        pointColor: "#bdc3c7",
+      }]
+
   constructor: (year, average) ->
     @year = year
     @data = @getData()[year]
