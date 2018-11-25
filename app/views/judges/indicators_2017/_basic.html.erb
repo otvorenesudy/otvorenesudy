@@ -1,0 +1,17 @@
+<p class="m-b-0">
+  <%= t '.court_decrees_count_by_supreme_court' %>:
+</p>
+
+<ul class="list-unstyled m-l-1">
+  <li><%= t '.concourt_issued' %> &ndash; <%= indicators['concourt.decisions'] %></li>
+  <li><%= t '.concourt_delays' %> &ndash; <%= indicators['concourt.delays'] %></li>
+</ul>
+
+<p>
+  <%= assigned_agendas_indicator_2015(indicators) %>.
+  <%= decided_agendas_indicator_2015(indicators) %>.
+</p>
+
+<p>
+  <%= t '.worked_and_average_cases', workdays: indicators['workdays'].to_s.html_safe, cases: indicators['incoming.100.days'].to_s.html_safe %>
+</p>
