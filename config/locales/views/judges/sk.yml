@@ -182,7 +182,7 @@ sk:
 
       evaluation:
         headline: Hodnotenie
-        evaluation_text: Sudca získal v roku year celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 738 hodnotených sudcov.
+        evaluation_text: Sudca získal v roku %{year} celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 738 hodnotených sudcov.
         quality: Kvalita
         effectivity: Efektivita
         out_of_points: z %{points} bodov
@@ -246,7 +246,7 @@ sk:
 
       evaluation:
         headline: Hodnotenie
-        evaluation_text: Sudca získal v roku year celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 738 hodnotených sudcov.
+        evaluation_text: Sudca získal v roku %{year} celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 651 hodnotených sudcov.
         quality: Kvalita
         effectivity: Efektivita
         out_of_points: z %{points} bodov
