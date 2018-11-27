@@ -246,7 +246,7 @@ en:
 
       evaluation:
         headline: Evaluation
-        evaluation_text: In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 738 evaluated judges.
+        evaluation_text: In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 651 evaluated judges.
         quality: Quality
         effectivity: Effectivity
         out_of_points: out of %{points} points
