@@ -2,15 +2,22 @@
   @include gradient-y(#282f62, #8e44ad);
 
   color: $jumbotron-color;
+  margin-bottom: 0px !important;
+  border-bottom: 5px solid darken(#8e44ad, 10%);
 }
 
 .banner {
   @extend .jumbotron;
 
-  background: none !important;
+  background: #20325c !important;
+  background-image: none !important;
   border-bottom: 1px solid $gray-lighter;
   text-align: center;
   padding: 0px;
+
+  img {
+    height: 275px;
+  }
 }
 
 .features {
