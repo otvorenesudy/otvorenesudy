@@ -71,6 +71,12 @@
         <%= t '.show_within' %> <%= link_to t('.proceeding'), @hearing.proceeding %>
       </div>
     <% end %>
+
+    <% if current_user&.admin? && !@hearing.anonymized? %>
+      <div class="text-lg-center">
+        <%= link_to t('.anonymize'), anonymize_hearing_path(@hearing), class: 'btn-link text-danger', method: :delete %>
+      </div>
+    <% end %>
   </div>
 </div>
 

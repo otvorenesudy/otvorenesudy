@@ -65,3 +65,6 @@ sk:
       faulty_date: "Pojednávanie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."
       future_date: "Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach na portáli Ministerstva spravodlivosti."
       unprocessed: "Pojednávanie je neúplné. Pri spracovaní dát z portálu Ministerstva spravodlivosti nastala neznáma chyba."
+      anonymize: 'Anonymizovať'
+    anonymize:
+      success: 'Pojednávanie bolo anonymizované'
