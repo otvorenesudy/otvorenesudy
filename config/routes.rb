@@ -30,6 +30,7 @@ OpenCourts::Application.routes.draw do
 
     member do
       get :resource
+      delete :anonymize
     end
   end
 

@@ -22,6 +22,18 @@ class HearingsController < SearchController
     send_file_in @hearing.resource_path, type: 'text/plain'
   end
 
+  def anonymize
+    @hearing = Hearing.find(params[:id])
+
+    return head 404 unless current_user.admin?
+
+    @hearing.anonymize!
+
+    flash[:success] = t('hearings.anonymize.success')
+
+    redirect_to :back
+  end
+
   protected
 
   include FileHelper
