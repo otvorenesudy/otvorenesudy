@@ -4,7 +4,7 @@
 staging:
   :concurrency: 0
 production:
-  :concurrency: 10
+  :concurrency: 1
 :queues:
   - [default]
   - [probe]
