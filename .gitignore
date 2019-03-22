@@ -21,3 +21,5 @@ Gemfile.lock.tags
 
 /config/configuration.yml
 /config/newrelic.yml
+
+.env.local
