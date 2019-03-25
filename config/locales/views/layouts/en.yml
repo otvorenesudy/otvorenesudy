@@ -21,11 +21,11 @@ en:
       sign_out: "Sign Out"
       subscriptions: "Subscriptions"
       settings: "Settings"
+      about: "About"
       sk: 'SK'
       en: 'EN'
 
     footer:
-      about: "About"
       api: "API"
       contact: "Contacts"
       copyright: "Copyright"
