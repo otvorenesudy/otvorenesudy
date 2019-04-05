@@ -50,7 +50,7 @@ gem 'htmlentities'
 
 # jobs
 gem 'sinatra', require: nil
-gem 'sidekiq', github: 'mperham/sidekiq'
+gem 'sidekiq', '< 4.0'
 gem 'celluloid', '~> 0.17.2'
 gem 'sidekiq-limit_fetch'
 
