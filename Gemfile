@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22'
+gem 'rails', '3.2.22.5'
 
 # database
 gem 'pg'
@@ -83,7 +83,6 @@ group :assets do
 end
 
 group :development do
-  # deployment
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
@@ -91,12 +90,11 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
-
-  # other
   gem 'bump', github: 'pavolzbell/bump'
 end
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'rspec-rails',      '~> 2.0'
   gem 'fuubar'
   gem 'database_cleaner', '~> 0.9.1'
@@ -105,13 +103,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'pry'
-
-  # dev environment
-  gem 'dotenv-rails'
 end
 
 group :production do
   gem 'unicorn'
 end
-
-gem 'test-unit', '~> 3.0'
