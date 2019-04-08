@@ -1,6 +1,6 @@
 sudo: false
 language: ruby
-rvm: 2.2.2
+rvm: 2.3.8
 bundler_args: --without development
 env:
   - OPENCOURTS_DATABASE_USER=postgres
