@@ -3,7 +3,7 @@
 #= require jquery.ui.autocomplete
 #= require jquery-tablesorter
 #
-#= require tether
+#= require popper
 #= require bootstrap
 #
 #= require browser
