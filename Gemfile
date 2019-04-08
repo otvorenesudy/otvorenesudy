@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.22.5'
+gem 'rake', '< 11'
 
 # database
 gem 'pg'
@@ -54,7 +55,7 @@ gem 'sidekiq', '< 4.0'
 gem 'celluloid', '~> 0.17.2'
 gem 'sidekiq-limit_fetch'
 
-# authentification
+# authentication
 gem 'devise'
 
 # monitoring
@@ -95,15 +96,15 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'rspec-rails',      '~> 2.0'
+  gem 'rspec-rails'
   gem 'fuubar'
-  gem 'database_cleaner', '~> 0.9.1'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'pry'
-  gem 'test-unit', '~> 3.0'
+  gem 'test-unit'
 end
 
 group :production do
