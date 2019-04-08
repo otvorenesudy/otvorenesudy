@@ -241,6 +241,7 @@ GEM
       activesupport (>= 3.1)
       arel
     polyglot (0.3.5)
+    power_assert (0.2.6)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -357,6 +358,8 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    test-unit (3.1.5)
+      power_assert
     thor (0.20.3)
     thread_safe (0.2.0)
       atomic (>= 1.1.7, < 2)
@@ -460,6 +463,7 @@ DEPENDENCIES
   sidekiq-limit_fetch
   sinatra
   squire (~> 1.2.6)
+  test-unit (~> 3.0)
   tire
   uglifier (>= 1.0.3)
   underscore-rails (~> 1.8.3)
