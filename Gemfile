@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22'
+gem 'rails', '3.2.22.5'
+gem 'rake', '< 11'
 
 # database
 gem 'pg'
@@ -48,7 +49,7 @@ gem 'htmlentities'
 
 # jobs
 gem 'sinatra', require: nil
-gem 'sidekiq', github: 'mperham/sidekiq'
+gem 'sidekiq', '< 4.0'
 gem 'celluloid', '~> 0.17.2'
 gem 'sidekiq-limit_fetch'
 
@@ -81,7 +82,6 @@ group :assets do
 end
 
 group :development do
-  # deployment
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
@@ -89,27 +89,22 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
-
-  # other
   gem 'bump', github: 'pavolzbell/bump'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'dotenv-rails'
+  gem 'rspec-rails'
   gem 'fuubar'
-  gem 'database_cleaner', '~> 0.9.1'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'pry'
-
-  # dev environment
-  gem 'dotenv-rails'
+  gem 'test-unit'
 end
 
 group :production do
   gem 'unicorn'
 end
-
-gem 'test-unit', '~> 3.0'
