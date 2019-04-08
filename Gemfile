@@ -103,6 +103,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'pry'
+  gem 'test-unit', '~> 3.0'
 end
 
 group :production do
