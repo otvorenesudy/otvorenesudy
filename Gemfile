@@ -76,6 +76,8 @@ gem 'rack-canonical-host'
 # serialization
 gem 'active_model_serializers'
 
+gem 'test-unit'
+
 group :assets do
   gem 'sass', '~> 3.4.18'
   gem 'sass-rails', '~> 3.2.3'
@@ -104,7 +106,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'pry'
-  gem 'test-unit'
 end
 
 group :production do
