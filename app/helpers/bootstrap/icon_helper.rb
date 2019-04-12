@@ -1,8 +1,11 @@
 module Bootstrap
   module IconHelper
+    SIZES = { 'sm' => '.8rem', '' => '1rem', 'lg' => '1.5rem' }.freeze
+
     def icon_tag(name, options = {})
-      classes = Array.wrap(options[:class]) << "ion-#{'ios-' if name !~ /\A(android|social)/}#{name}"
-      content_tag :span, nil, options.merge(class: classes)
+      size = SIZES.fetch(options[:size].to_s, options.delete(:size))
+      use = content_tag(:use, nil, 'xlink:href' => "#icons-#{name}")
+      content_tag :svg, use, options.merge(width: size, height: size)
     end
   end
 end
