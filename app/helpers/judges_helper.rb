@@ -1,5 +1,5 @@
 module JudgesHelper
-  def judge_titles(judge, options = {}, &block)
+  def judge_title(judge, options = {}, &block)
     judge_wrap_fix "#{judge.prefix} #{judge.suffix}".strip, judge_activity_options(judge, options), &block
   end
 
@@ -10,7 +10,7 @@ module JudgesHelper
     when nil   then %w(help-outline      text-warning judges.activity.unknown)
     end
 
-    options = options.merge class: Array.wrap(options[:class]) << "#{c} text-undecorated"
+    options = options.merge class: Array.wrap(options[:class]).unshift("#{c} text-undecorated")
     options = options.merge placement: options.delete(:placement) || 'top'
 
     tooltip_tag icon_tag(n), t("#{t}.#{judge.probable_gender}").upcase_first, options

@@ -30,6 +30,6 @@ module ApplicationHelper
   end
 
   def repository_url(path = nil)
-    organization_url "#{Configuration.github.repository}/#{path}"
+    organization_url "#{Configuration.github.repository}/#{path}".sub(/\/\z/, '')
   end
 end
