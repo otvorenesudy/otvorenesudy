@@ -20,7 +20,7 @@ module CourtsHelper
       marker.infowindow render(partial: 'courts/map/marker', locals: coordinates.merge(courts: groups[coordinates].sort_by(&:name))).html_safe
     end
 
-    classes = Array.wrap(options[:class]) << 'map'
+    classes = Array.wrap(options[:class]).unshift 'map'
     options = options.except(:class).reverse_merge(disableDefaultUI: false, zoom: 16)
 
     content_for :scripts do

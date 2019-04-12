@@ -16,7 +16,7 @@
           <%= judge_activity_icon_tag judge, judge.active_at?(court) %>
         </td>
         <td>
-          <%= judge_titles judge, mute_by_activity_at: court %>
+          <%= judge_title judge, mute_by_activity_at: court %>
         </td>
         <td data-value="<%= judge.name '%l %m %f, %a' %>">
           <%= link_to_judge judge, mute_by_activity_at: court, format: '%f %m %l, %a' %>
