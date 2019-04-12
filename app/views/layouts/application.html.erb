@@ -9,36 +9,29 @@
     <meta name="author" content="<%= t '.authors' %>" />
     <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
     <meta property="og:description" content="<%= t '.content' %>" />
-    <meta property="og:image" content="<%= asset_path 'logo.svg' %>" />
+    <meta property="og:image" content="<%= asset_path 'brands/otvorene-sudy.svg' %>" />
     <meta property="og:url" content="<%= canonical_url %>" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
     <meta name="twitter:description" content="<%= t '.content' %>" />
-    <meta name="twitter:image" content="<%= asset_path 'logo.svg' %>" />
+    <meta name="twitter:image" content="<%= asset_path 'brands/otvorene-sudy.svg' %>" />
     <meta name="twitter:url" content="<%= canonical_url %>" />
     <link rel="mask-icon" sizes="any" href="<%= asset_path 'icons/favicon.svg' %>" />
     <link rel="apple-touch-icon" href="<%= asset_path 'icons/touchicon.png' %>" />
     <link rel="icon" href="<%= asset_path 'icons/favicon.png' %>" />
     <meta name="msapplication-TileColor" content="#fff" />
     <meta name="msapplication-TileImage" content="<%= asset_path 'icons/tileicon.png' %>" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,700&amp;subset=latin-ext" rel="stylesheet" />
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
     <%= Garelic.monitoring 'UA-38636233-1' if Rails.env.production? %>
-    <!-- Transparency Newsletter -->
-    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us7.list-manage.com","uuid":"62c76c96e9ce8b3e2492ebf24","lid":"63d692ade5"}) })</script>
-
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson:true,isDebug:false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"],function(L){L.start({"baseUrl":"mc.us7.list-manage.com","uuid":"62c76c96e9ce8b3e2492ebf24","lid":"63d692ade5"})})</script>
     <%= csrf_meta_tags %>
   </head>
   <body>
     <%= render 'layouts/header' %>
     <%- if container? -%>
-      <div class="banner">
-        <a href="https://www.transparency.sk/2percenta" target="_blank" class="banner">
-          <%= image_tag 'banner.png' %>
-        </a>
-      </div>
       <div class="container">
         <%= render 'shared/flash_messages' %>
         <%= yield %>
@@ -47,5 +40,6 @@
       <%= yield %>
     <%- end -%>
     <%= render 'layouts/footer' %>
+    <%= raw Rails.application.assets.find_asset('icons.svg') %>
   </body>
 </html>
