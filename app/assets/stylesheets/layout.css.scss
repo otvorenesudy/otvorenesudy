@@ -1,96 +1,11 @@
-body {
-  font-weight: $font-weight-base !important;
-
-  .container > .alerts {
-    .alert:first-of-type {
-      @extend .m-t-3;
-    }
-
-    .alert:last-of-type {
-      @extend .m-b-0;
-    }
-  }
-
-  .alert {
-    border-left-width: $spacer-x;
-  }
-}
-
 header {
-  @include gradient-y(#202d5f, #282f62);
-
-  .navbar {
-    border-bottom: 1px solid $navbar-border-color;
-  }
-
-  .navbar-brand {
-    padding: .425rem 0;
-    margin-right: 0;
-
-    img {
-      @include size(1.5rem);
+  @include media-breakpoint-up(xl) {
+    #navbar {
+      display: block !important;
     }
-  }
-
-  .navbar-divider {
-    background-color: $navbar-border-color !important;
-
-    @include media-breakpoint-down(md) {
-      float: none;
-      width: 100%;
-      height: 1px;
-      padding: 0 .425rem;
-      margin: $navbar-padding-y 0;
-    }
-  }
-
-  .navbar-nav .nav-item {
-    @include media-breakpoint-down(md) {
-      float: none;
-      margin-left: 0 !important;
-    }
-  }
-
-  .navbar-toggler {
-    color: $navbar-light-color;
   }
 }
 
 footer {
-  @extend .p-y-2;
-  @include gradient-y(#282f62, #202d5f);
-
-  font-size: 80%;
-  color: $navbar-light-color;
-
-  a {
-    color: $navbar-light-color;
-
-    @include hover-focus {
-      color: $navbar-light-hover-color;
-    }
-  }
-
-  .nav-inline .nav-link {
-    @include media-breakpoint-down(md) {
-      float: none !important;
-      display: block !important;
-      margin-left: 0 !important;
-    }
-  }
-
-  .disclaimer {
-    @extend .m-t-1;
-
-    @include media-breakpoint-down(md) {
-      margin-top: $spacer-y;
-      border-top: 1px solid $navbar-border-color;
-    }
-  }
-
-  .text-small {
-    .nav-link + .nav-link {
-      margin-left: .8rem;
-    }
-  }
+  border-top: $border-width * 2 solid $secondary;
 }

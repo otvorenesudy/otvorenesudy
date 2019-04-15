@@ -1,35 +1,19 @@
 ﻿en:
   static_pages:
     home:
-      head: "Open Courts"
-      detail: "Bringing more transparency to Slovak judiciary"
-      donate: "Support us"
+      feature:
+        headline: "More transparency<br>to Slovak judiciary"
+        list: "<span class=\"text-uppercase\">Open Courts</span> brings:"
+        items:
+          - "all published decrees in one place,"
+          - "judicial proceeding survey with one click,"
+          - "list of judges and surveys of their work,"
+          - "archive of judicial hearings."
 
-      feature_1:
-        head: "Open project"
-        detail: "Transparent view"
-        content: "Project that made a view on Slovak judiciary more transparent. For everybody who is interested in important information in one convenient place and want to use them effectively."
-
-      feature_2:
-        head: "Open data"
-        detail: "Court documents"
-        content: "Offers all judicial decrees, hearings and other selected documents, that were published on pages of the %{link} of Slovak Republic."
-        link: "Ministry of Justice"
-
-      feature_3:
-        head: "Open source"
-        detail: "Ruby on Rails"
-        content: "Source code of the %{link} is available to browse at GitHub."
-        link: "project"
-
-      partners: "Project supported by"
-
-    about: "About"
-    api: "API"
-    contact: "Contact"
-    copyright: "Copyright"
-    donate: "Support us"
-    faq: "Frequently asked questions"
-    feedback: "Found a mistake?"
-    privacy: "Privacy"
-    tos: "Terms of use"
+      squares:
+        courts: "Courts"
+        judges: "Judges"
+        hearings: "Hearings"
+        decrees: "Decrees"
+        proceedings: "Judicial Proceedings"
+        selections: "Selection Procedures"

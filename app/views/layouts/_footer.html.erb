@@ -1,23 +1,50 @@
-<footer>
-  <div class="container">
-    <nav class="nav nav-inline">
+<footer class="container small mt-5 px-sm-0 py-3">
+  <div class="d-flex align-items-center text-uppercase border-bottom mb-3">
+    <nav class="nav nav-primary flex-grow-1 mb-3">
+      <%= link_to t('.about'), static_page_path('about'), class: 'nav-link ml-0' %>
+      <%= link_to t('.articles'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link' %>
       <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link' %>
       <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link' %>
       <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link' %>
-      <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link' %>
+      <%= link_to t('.privacy'), static_page_path('privacy'), class: 'nav-link' %>
+      <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link mr-0' %>
     </nav>
 
-    <div class="disclaimer text-small">
+    <nav class="nav nav-primary d-flex align-items-center mb-3">
+      <% unless user_signed_in? %>
+        <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mr-4' %>
+      <% end %>
+      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary', role: :button %>
+    </nav>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-between border-bottom mb-3">
+    <%= link_to image_tag(asset_path('brands/transparency-international-slovensko.svg'), alt: 'Transparency International Slovensko', height: '38px'), 'https://transparency.sk', class: 'w-20 mb-3' %>
+
+    <div class="text-center mb-3">
+      <nav class="nav nav-secondary justify-content-center">
+        <%= link_to 'Transparency International Slovensko', 'https://transparency.sk', class: 'nav-link font-weight-bold' %>
+        <%= link_to "&copy; 2013-#{Date.current.year}".html_safe, static_page_path('copyright'), class: 'nav-link' %>
+        <%= link_to Configuration.github.organization, organization_url, class: 'nav-link' %>
+        <%= link_to OpenCourts::VERSION::STRING, repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link' %>
+      </nav>
       <%= t '.disclaimer.resources' %>
-      <br class="hidden-lg-up" />
       <%= t '.disclaimer.correctness' %>
     </div>
 
-    <nav class="nav nav-inline text-small">
-      <%= link_to 'Transparency International Slovensko', 'http://transparency.sk', class: 'nav-link' %>
-      <%= link_to 'Copyright 2013-2016', static_page_path('copyright'), class: 'nav-link' %>
-      <%= link_to Configuration.github.organization, organization_url, class: 'nav-link hidden-md-down' %>
-      <%= link_to OpenCourts::VERSION::STRING, repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link hidden-md-down' %>
+    <nav class="nav justify-content-end w-20 mb-3">
+      <%= link_to icon_tag('facebook', size: 'lg'), 'https://facebook.com/otvorenesudy', class: 'nav-link m-0' %>
+      <%= link_to icon_tag('twitter', size: 'lg'), 'https://twitter.com/otvorenesudy', class: 'nav-link mx-1 m-0' %>
+      <%= link_to icon_tag('youtube', size: 'lg'), 'https://www.youtube.com/user/TISlovensko', class: 'nav-link m-0' %>
     </nav>
   </div>
+
+  <nav class="nav d-flex align-items-center justify-content-center text-uppercase">
+    <%= link_to image_tag(asset_path('brands/sme.svg'), alt: 'SME', height: '24px'), 'https://sme.sk', class: 'nav-link mx-2' %>
+    <%= link_to t('.sme.price_of_state'), 'https://cenastatu.sme.sk', class: 'nav-link text-muted mx-2' %>
+    <%= link_to t('.sme.municipalities'), 'https://obce.sme.sk', class: 'nav-link text-muted mx-2' %>
+    <%= link_to t('.sme.schools'), 'https://skoly.sme.sk', class: 'nav-link text-muted mx-2' %>
+    <%= link_to t('.sme.procurements'), 'https://tender.sme.sk', class: 'nav-link text-muted mx-2' %>
+    <%= link_to t('.sme.universities'), 'https://vysokeskoly.sme.sk', class: 'nav-link text-muted mx-2' %>
+  </nav>
 </footer>

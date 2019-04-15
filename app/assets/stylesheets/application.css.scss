@@ -2,16 +2,9 @@
 @import 'variables';
 
 @import 'bootstrap';
-@import 'ionicons';
-
-@import 'components/chart';
-@import 'components/map';
-@import 'components/table';
-@import 'components/timeline';
-@import 'components/viewer';
+@import 'components/*';
 
 @import 'layout';
-@import 'shared';
 @import 'search';
 @import 'home';
 

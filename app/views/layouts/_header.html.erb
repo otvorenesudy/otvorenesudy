@@ -1,33 +1,29 @@
-<header>
-  <nav class="navbar navbar-light">
-    <div class="container clearfix">
-      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler pull-xs-right hidden-lg-up', data: { toggle: 'collapse', target: '#navbar-full' }, name: nil, type: 'button' %>
-      <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-lg-up' %>
+<header class="container px-sm-0 pt-3">
+  <div class="d-flex align-items-center mb-3">
+    <%= link_to image_tag(asset_path('brands/otvorene-sudy.svg'), alt: t('.title')), root_path, class: 'navbar-brand mr-auto' %>
+
+    <div class="nav nav-secondary align-items-center align-self-stretch font-weight-bold text-uppercase small border-right mr-4 pr-4">
+      <%= link_to t('.slovak'), { l: :sk }, class: 'nav-link' %>
+      <%= link_to t('.english'), { l: :en }, class: 'nav-link' %>
     </div>
-    <div id="navbar-full" class="container collapse navbar-toggleable-md">
-      <%= link_to image_tag(asset_path('logo.svg'), alt: t('.title')), root_path, class: 'navbar-brand hidden-md-down' %>
-      <div class="navbar-divider"></div>
-      <div class="nav navbar-nav">
-        <%= bar_link_to t('.courts'), courts_path %>
-        <%= bar_link_to t('.judges'), judges_path %>
-        <%= bar_link_to t('.hearings'), hearings_path %>
-        <%= bar_link_to t('.decrees'), decrees_path %>
-        <%= bar_link_to t('.proceedings'), proceedings_path %>
-        <%= bar_link_to t('.selections'), selections_path %>
-        <%= bar_link_to t('.map'), 'http://sudy.transparency.sk/', target: '_blank' %>
-        <%= bar_link_to t('.prosecutors'), 'https://prokuratori.otvorenesudy.sk/', target: '_blank' %>
-        <%= bar_link_to t('.about'), static_page_path('about') %>
-      </div>
-      <div class="navbar-divider hidden-lg-up"></div>
-      <div class="nav navbar-nav pull-lg-right">
-        <% if user_signed_in? %>
-          <%= bar_link_to current_user.email, subscriptions_users_path %>
-        <% else %>
-          <%= bar_link_to t('.sign_in'), new_user_session_path %>
-        <% end %>
-        <div class="navbar-divider"></div>
-        <%= link_to t('.sk'), { l: :sk }, class: 'nav-item nav-link' %>
-        <%= link_to t('.en'), { l: :en }, class: 'nav-item nav-link' %>
+
+    <%= link_to image_tag(asset_path('brands/transparency-international-slovensko.svg'), alt: 'Transparency International Slovensko', height: '38px'), 'https://transparency.sk', class: 'mr-4' %>
+    <%= link_to t('.donate'), donation_url, class: 'btn btn-primary btn-lg', role: :button %>
+  </div>
+
+  <nav class="navbar navbar-light navbar-expand-xl font-weight-bold text-uppercase border-bottom">
+    <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbar' }, name: nil, type: 'button' %>
+
+    <div id="navbar" class="navbar-collapse collapse">
+      <div class="navbar-nav justify-content-between border-top py-2">
+        <%= bar_link_to t('.courts'), courts_path, class: 'mx-0' %>
+        <%= bar_link_to t('.judges'), judges_path, class: 'mx-0' %>
+        <%= bar_link_to t('.hearings'), hearings_path, class: 'mx-0' %>
+        <%= bar_link_to t('.decrees'), decrees_path, class: 'mx-0' %>
+        <%= bar_link_to t('.proceedings'), proceedings_path, class: 'mx-0' %>
+        <%= bar_link_to t('.selections'), selections_path, class: 'mx-0' %>
+        <%= bar_link_to t('.families'), 'http://sudy.transparency.sk', class: 'mx-0', target: '_blank' %>
+        <%= bar_link_to t('.prosecutors'), 'https://prokuratori.otvorenesudy.sk', class: 'mx-0', target: '_blank' %>
       </div>
     </div>
   </nav>
