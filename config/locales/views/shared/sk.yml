@@ -1,9 +1,0 @@
-sk:
-  shared:
-    global_banners:
-      sme:
-        price_of_state: "Cena štátu"
-        municipalities: "Obce"
-        schools: "Školy"
-        procurements: "Verejné obstarávanie"
-        universities: "Vysoké školy"

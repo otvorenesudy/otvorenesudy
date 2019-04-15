@@ -1,119 +1,163 @@
-$gray-dark:     #373a3c;
-$gray:          #55595c;
-$gray-light:    #818a91;
-$gray-lighter:  #eceeef;
-$gray-lightest: #f7f7f9;
+// Colors
 
-$brand-primary: #9b59b6;
-$brand-success: #2ecc71;
-$brand-info:    #3498db;
-$brand-warning: #f1c40f;
-$brand-danger:  #e74c3c;
+$white: #fff;
+$gray:  #8392ac;
 
-$enable-rounded: false;
+$grays: ();
 
-$link-color:       $brand-primary;
-$link-hover-color: $link-color;
+$orange: #f16c4f;
+$blue:   #00aeef;
+$navy:   #1b325f;
 
-$font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$green:  #73be1e;
+$red:    #d34242;
+$yellow: #e19e41;
 
-$font-weight-base: 300;
+$colors: ();
 
-$headings-font-weight: $font-weight-base;
+$primary:   $orange;
+$secondary: $navy;
+$success:   $green;
+$info:      $blue;
+$warning:   $yellow;
+$danger:    $red;
 
-$hr-border-color: $gray-lighter;
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+);
 
-$list-inline-padding: 1rem;
+// Options
 
-$table-bg-accent: $gray-lightest;
+$enable-caret:        false;
+$enable-rounded:      false;
+$enable-shadows:      false;
+$enable-gradients:    false;
+$enable-transitions:  false;
+$enable-grid-classes: true;
+$enable-print-styles: true;
 
-$btn-font-weight: $font-weight-base;
+// Spacing
 
-$btn-secondary-color:  #fff;
-$btn-secondary-bg:     $gray-light;
-$btn-secondary-border: $btn-secondary-bg;
+$spacer: 1rem;
 
-$input-border-color: $btn-secondary-border;
-$input-border-focus: $brand-primary;
+$spacers: (
+  0: ($spacer * 0),
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: ($spacer * 1),
+  4: ($spacer * 2),
+  5: ($spacer * 4),
+);
 
-$dropdown-padding-y:    0;
-$dropdown-margin-top:   -1px;
-$dropdown-border-color: $gray-light;
+$sizes: (
+  20: 20%,
+  25: 25%,
+  40: 40%,
+  50: 50%,
+  60: 60%,
+  75: 75%,
+  80: 80%,
+  100: 100%,
+  auto: auto
+);
 
-$dropdown-link-color:       $gray;
-$dropdown-link-hover-color: #fff;
-$dropdown-link-hover-bg:    $gray-light;
+// Body
 
-$dropdown-item-padding-x: 1rem;
+$body-bg:    $white;
+$body-color: $navy;
 
-$navbar-border-color: rgba(#000, .075);
+// Links
 
-$navbar-light-color:        #fff;
-$navbar-light-hover-color:  #fff;
-$navbar-light-active-color: #fff;
+$link-color:            $primary;
+$link-decoration:       none;
+$link-hover-color:      $primary;
+$link-hover-decoration: underline;
 
-$nav-tabs-border-color:                   $gray-lighter;
-$nav-tabs-active-link-hover-border-color: $gray-lighter;
+// Grid columns
 
-$pagination-color:           $gray-light;
-$pagination-border-color:    $gray-light;
-$pagination-hover-color:     #fff;
-$pagination-hover-bg:        $gray-light;
-$pagination-hover-border:    $gray-light;
-$pagination-active-color:    #fff;
-$pagination-active-bg:       $gray-light;
-$pagination-active-border:   $gray-light;
-$pagination-disabled-color:  $gray-light;
-$pagination-disabled-bg:     #fff;
-$pagination-disabled-border: $gray-light;
+$grid-gutter-width: $spacer * 2;
 
-$jumbotron-padding: 2.5rem;
-$jumbotron-color:   #fff;
-$jumbotron-bg:      #202d5f;
+// Components
 
-$state-success-text:   $brand-success;
-$state-success-bg:     #fff;
-$state-success-border: $brand-success;
-$state-info-text:      $brand-info;
-$state-info-bg:        #fff;
-$state-info-border:    $brand-info;
-$state-warning-text:   $brand-warning;
-$state-warning-bg:     #fff;
-$state-warning-border: $brand-warning;
-$state-danger-text:    $brand-danger;
-$state-danger-bg:      #fff;
-$state-danger-border:  $brand-danger;
+$border-color: #d1dee8;
 
-$card-spacer-x:     1rem;
-$card-spacer-y:     .5rem;
-$card-border-color: $gray-light;
+// Fonts
 
-$tooltip-max-width: 250px;
-$tooltip-color:     #fff;
-$tooltip-bg:        $gray-dark;
-$tooltip-opacity:   1;
-$tooltip-padding-x: .5rem;
-$tooltip-padding-y: .25rem;
-$tooltip-margin:    0;
+$font-family-sans-serif: "Ubuntu", sans-serif;
+$font-family-monospace:  "Courier New", monospace;
 
-$tooltip-arrow-width: 4px;
-$tooltip-arrow-color: transparent;
+$font-size-base:         1rem;
 
-$popover-inner-padding: 0;
-$popover-max-width:     280px;
-$popover-border-color:  $gray-light;
+$font-weight-normal:     300;
+$font-weight-bold:       700;
 
-$popover-title-bg:          $gray-lighter;
-$popover-title-padding-x:   .75rem;
-$popover-title-padding-y:   .5rem;
-$popover-content-padding-x: .75rem;
-$popover-content-padding-y: .5rem;
+$h1-font-size:           $font-size-base * 1.75;
+$h2-font-size:           $font-size-base * 1.5;
+$h3-font-size:           $font-size-base * 1.25;
+$h4-font-size:           $font-size-base * 1;
+$h5-font-size:           $font-size-base * 1;
+$h6-font-size:           $font-size-base * 1;
 
-$popover-arrow-width:       4px;
-$popover-arrow-outer-width: $popover-arrow-width + 2px;
-$popover-arrow-outer-color: transparent;
+$text-muted:             $gray;
 
-$tag-font-weight: $font-weight-base;
+$hr-border-color:        $border-color;
 
-$alert-padding:          16px;
-$alert-link-font-weight: $font-weight-base;
+$list-inline-padding:    1rem;
+
+// Tables
+
+$table-accent-bg:    #f4f8fb; // TODO use this as card bg
+
+$table-border-color: $border-color;
+
+$table-head-bg:      #e9f2f9;
+$table-head-color:   $body-color;
+
+// Buttons + Forms
+
+$input-btn-padding-y:    .75rem;
+$input-btn-padding-x:    .75rem;
+
+$input-btn-padding-y-sm: .5rem;
+$input-btn-padding-x-sm: .5rem;
+
+$input-btn-padding-y-lg: 1rem;
+$input-btn-padding-x-lg: 1rem;
+
+// Buttons
+
+$btn-border-width: 0;
+
+$btn-font-weight:  $font-weight-bold;
+
+// Forms
+
+$input-bg:                 #e9f2f9;
+$input-color:              $body-color;
+$input-border-color:       #9cc4e3;
+$input-border-width:       2px;
+
+$input-focus-bg:           $input-bg;
+$input-focus-border-color: $input-border-color;
+$input-focus-color:        $input-color;
+
+$input-placeholder-color:  $text-muted;
+$input-plaintext-color:    $text-muted;
+
+// Navbar
+
+$navbar-padding-x:          0;
+$navbar-padding-y:          0;
+
+$navbar-nav-link-padding-x: 0;
+
+$navbar-brand-padding-y:    0;
+
+$navbar-light-color:        $secondary;
+$navbar-light-hover-color:  $primary;
+$navbar-light-active-color: $primary;

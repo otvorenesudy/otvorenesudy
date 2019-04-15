@@ -5,7 +5,7 @@ en:
       authors: "Samuel Molnár and Pavol Zbell"
       description: "Transparent look at Slovak judiciary"
       keywords: "slovak judiciary, judges, decrees, hearings"
-      content: "Transparent look at courts. Which are the fastest and which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!"
+      content: "Transparent look at Slovak courts. Which are the fastest and which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!"
 
     header:
       title: "Open Courts"
@@ -13,28 +13,38 @@ en:
       judges: "Judges"
       hearings: "Hearings"
       decrees: "Decrees"
-      proceedings: "Proceedings"
-      selections: "Selection procedures"
-      map: 'Map'
-      prosecutors: 'Prosecutors'
+      proceedings: "Judicial Proceedings"
+      selections: "Selection Procedures"
+      families: "Family Bonds"
+      prosecutors: "Prosecutors"
       sign_in: "Sign In"
       sign_out: "Sign Out"
       subscriptions: "Subscriptions"
       settings: "Settings"
-      about: "About"
-      sk: 'SK'
-      en: 'EN'
+      english: 'English'
+      slovak: 'Slovenčina'
+      donate: "Support us"
 
     footer:
+      about: "About"
       api: "API"
+      articles: "Articles"
       contact: "Contacts"
       copyright: "Copyright"
-      donate: "Support us"
-      faq: "Frequently asked questions"
+      faq: "FAQ"
       feedback: "Found a mistake?"
       privacy: "Privacy"
+      sign_in: "Sign In"
       tos: "Terms of use"
+      donate: "Support us"
 
       disclaimer:
         resources: "Project uses only data provided by public institutions."
         correctness: "Authors are not responsible for their accuracy."
+
+      sme:
+        price_of_state: "Price of state"
+        municipalities: "Municipalities"
+        schools: "Schools"
+        procurements: "Procurements"
+        universities: "Universities"

@@ -1,0 +1,11 @@
+.btn {
+  @extend .text-uppercase;
+}
+
+.btn-primary {
+  @include button-variant($primary, $primary, darken($secondary, 7.5%), transparent, darken($secondary, 10%), transparent);
+
+  &:hover:focus, &:focus:active {
+    box-shadow: none !important;
+  }
+}

@@ -5,7 +5,7 @@ sk:
       authors: "Samuel Molnár a Pavol Zbell"
       description: "Transparentný pohľad na slovenské súdnictvo."
       keywords: "slovenské súdnictvo, sudcovia, súdne rozhodnutia, súdne pojednávania"
-      content: "Transparentný pohľad na súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!"
+      content: "Transparentný pohľad na slovenské súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!"
 
     header:
       title: "Otvorené Súdy"
@@ -13,29 +13,38 @@ sk:
       judges: "Sudcovia"
       hearings: "Pojednávania"
       decrees: "Rozhodnutia"
-      proceedings: "Konania"
+      proceedings: "Súdne konania"
       selections: "Výberové konania"
-      map: 'Mapa'
-      prosecutors: 'Prokurátori'
+      families: "Rodinné väzby"
+      prosecutors: "Prokurátori"
       sign_in: "Prihlásiť sa"
       sign_out: "Odhlásiť sa"
       subscriptions: "Notifikácie"
       settings: "Nastavenia"
-      about: "O projekte"
-      sk: 'SK'
-      en: 'EN'
+      english: 'English'
+      slovak: 'Slovenčina'
+      donate: "Podporte"
 
     footer:
       about: "O projekte"
       api: "API"
+      articles: "Články"
       contact: "Kontakt"
       copyright: "Autorské práva"
-      donate: "Podporte projekt"
-      faq: "Často kladené otázky"
+      faq: "FAQ"
       feedback: "Našli ste chybu?"
       privacy: "Ochrana súkromia"
+      sign_in: "Prihlásenie"
       tos: "Podmienky používania"
+      donate: "Podporte"
 
       disclaimer:
         resources: "Projekt využíva výhradne dáta verejných inštitúcií."
         correctness: "Za ich vecnú správnosť autori nenesú zodpovednosť."
+
+      sme:
+        price_of_state: "Cena štátu"
+        municipalities: "Obce"
+        schools: "Školy"
+        procurements: "Verejné obstarávanie"
+        universities: "Vysoké školy"
