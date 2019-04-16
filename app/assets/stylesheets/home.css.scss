@@ -1,6 +1,12 @@
 .feature {
   background: $input-bg;
 
+  ol {
+    background: url('maskicon.svg') no-repeat -25.25px center;
+    background-size: 90px;
+    padding-left: 62px;
+  }
+
   li:before {
     content: "\b7";
     padding-right: map-get($spacers, 2);
