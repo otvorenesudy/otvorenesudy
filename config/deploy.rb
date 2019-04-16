@@ -14,7 +14,7 @@ set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip
 
 # Links
-set :linked_files, fetch(:linked_files, []).push('config/configuration.yml', 'config/newrelic.yml')
+set :linked_files, fetch(:linked_files, []).push('config/configuration.yml')
 set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage', 'backups')
 
 # Whenever

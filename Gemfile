@@ -61,7 +61,7 @@ gem 'devise'
 # monitoring
 gem 'rollbar', '~> 2.12.0'
 gem 'garelic'
-gem 'newrelic_rpm'
+gem 'skylight'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
