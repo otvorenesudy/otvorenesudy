@@ -36,8 +36,10 @@
     <div class="col">
       <div class="partners p-4">
         <h3 class="mb-3"><%= t('.partners.supported_by') %></h3>
-        <%= link_to brand_tag('sme', width: 68.31, height: 24), 'https://sme.sk', class: 'sme mr-4' %>
-        <%= link_to brand_tag('index-podnikatela', width: 245.05, height: 24), 'https://indexpodnikatela.sk', class: 'ip' %>
+        <div class="d-flex">
+          <%= link_to brand_tag('sme', width: 68.31, height: 24), 'https://sme.sk', class: 'sme mr-4' %>
+          <%= link_to brand_tag('index-podnikatela', width: 245.05, height: 24), 'https://indexpodnikatela.sk', class: 'ip' %>
+        </div>
       </div>
     </div>
   </div>
