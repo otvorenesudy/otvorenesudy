@@ -1,4 +1,18 @@
+body {
+  .sme {
+    @include link-variant($text-muted, #cf2529)
+  }
+
+  .tis {
+    @include link-variant($blue, $navy);
+  }
+}
+
 header {
+  .navbar-brand {
+    @include link-variant($navy, $blue);
+  }
+
   @include media-breakpoint-up(xl) {
     #navbar {
       display: block !important;

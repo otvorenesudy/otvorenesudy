@@ -1,9 +1,9 @@
 .nav-primary {
   .nav-link {
-    color: $secondary;
+    color: $navy;
 
     @include hover-focus {
-      color: $primary;
+      color: $blue;
     }
   }
 }

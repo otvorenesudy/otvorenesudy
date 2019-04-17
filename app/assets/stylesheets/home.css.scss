@@ -38,6 +38,7 @@
     position: absolute;
     top: map-get($spacers, 4);
     left: calc(50% - 30px);
+    fill: $navy;
   }
 
   span {
@@ -49,5 +50,15 @@
     height: $line-height-base * 2rem;
     bottom: map-get($spacers, 3);
     left: 10%;
+  }
+}
+
+.partners {
+  .ip {
+    @include link-variant($navy, #4b647c)
+  }
+
+  .sme {
+    @include link-variant($navy, #cf2529)
   }
 }

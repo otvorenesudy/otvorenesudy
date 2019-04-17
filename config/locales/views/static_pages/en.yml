@@ -17,3 +17,6 @@
         decrees: "Decrees"
         proceedings: "Judicial Proceedings"
         selections: "Selection Procedures"
+
+      partners:
+        supported_by: "Supported by:"

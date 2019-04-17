@@ -3,3 +3,11 @@
 * {
   outline: none !important;
 }
+
+// add hover link decoration also on focus and active links
+
+a {
+  @include hover-focus-active {
+    text-decoration: $link-hover-decoration;
+  }
+}
