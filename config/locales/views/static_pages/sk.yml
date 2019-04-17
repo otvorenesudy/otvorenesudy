@@ -17,3 +17,6 @@ sk:
         decrees: "Rozhodnutia"
         proceedings: "Súdne konania"
         selections: "Výberové konania"
+
+      partners:
+        supported_by: "Projekt podporili:"

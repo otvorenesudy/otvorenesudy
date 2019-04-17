@@ -16,12 +16,14 @@
     <meta name="twitter:description" content="<%= t '.content' %>" />
     <meta name="twitter:image" content="<%= asset_path 'brands/otvorene-sudy.svg' %>" />
     <meta name="twitter:url" content="<%= canonical_url %>" />
-    <link rel="mask-icon" sizes="any" href="<%= asset_path 'maskicon.svg' %>" />
+    <link rel="mask-icon" href="<%= asset_path 'maskicon.svg' %>" sizes="any" />
     <link rel="apple-touch-icon" href="<%= asset_path 'touchicon.png' %>" />
     <link rel="icon" href="<%= asset_path 'favicon.png' %>" />
-    <meta name="msapplication-TileColor" content="#fff" />
     <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>" />
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,700&amp;subset=latin-ext" rel="stylesheet" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,700&subset=latin-ext" />
+    <link rel="prefetch" href="<%= asset_path 'icons.svg' %>" />
+    <link rel="prefetch" href="<%= asset_path 'brands.svg' %>" />
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
@@ -32,7 +34,7 @@
   <body>
     <%= render 'layouts/header' %>
     <%- if container? -%>
-      <div class="container">
+      <div class="container mt-4 px-sm-0">
         <%= render 'shared/flash_messages' %>
         <%= yield %>
       </div>
@@ -40,6 +42,5 @@
       <%= yield %>
     <%- end -%>
     <%= render 'layouts/footer' %>
-    <%= raw Rails.application.assets.find_asset('icons.svg') %>
   </body>
 </html>

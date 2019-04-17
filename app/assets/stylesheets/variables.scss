@@ -103,6 +103,8 @@ $h4-font-size:           $font-size-base * 1;
 $h5-font-size:           $font-size-base * 1;
 $h6-font-size:           $font-size-base * 1;
 
+$headings-font-weight:   $font-weight-bold;
+
 $text-muted:             $gray;
 
 $hr-border-color:        $border-color;
@@ -140,11 +142,13 @@ $btn-font-weight:  $font-weight-bold;
 $input-bg:                 #e9f2f9;
 $input-color:              $body-color;
 $input-border-color:       #9cc4e3;
-$input-border-width:       2px;
+$input-border-width:       0;
 
 $input-focus-bg:           $input-bg;
-$input-focus-border-color: $input-border-color;
+$input-focus-border-color: rgba($primary, .5);
 $input-focus-color:        $input-color;
+$input-focus-width:        2px;
+$input-focus-box-shadow:   none;
 
 $input-placeholder-color:  $text-muted;
 $input-plaintext-color:    $text-muted;
@@ -158,6 +162,6 @@ $navbar-nav-link-padding-x: 0;
 
 $navbar-brand-padding-y:    0;
 
-$navbar-light-color:        $secondary;
-$navbar-light-hover-color:  $primary;
-$navbar-light-active-color: $primary;
+$navbar-light-color:        $navy;
+$navbar-light-hover-color:  $blue;
+$navbar-light-active-color: $blue;
