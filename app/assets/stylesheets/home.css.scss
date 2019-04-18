@@ -17,7 +17,6 @@
   position: relative;
   flex: 1 0 auto;
   height: auto;
-  margin: 0 map-get($spacers, 3);
 
   color: $white;
   background: $blue;
@@ -55,10 +54,10 @@
 
 .partners {
   .ip {
-    @include link-variant($navy, #4b647c)
+    @include link-variant($gray, #4b647c)
   }
 
   .sme {
-    @include link-variant($navy, #cf2529)
+    @include link-variant($gray, #cf2529)
   }
 }
