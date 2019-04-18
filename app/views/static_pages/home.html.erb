@@ -7,9 +7,9 @@
         <h1 class="text-info mb-4">
           <%= t('.feature.headline').html_safe %>
         </h1>
-        <h3 class="mb-3">
+        <h4 class="mb-3">
           <%= t('.feature.list').html_safe %>
-        </h3>
+        </h4>
         <div class="d-flex align-items-center">
           <ol class="list-unstyled mb-0">
             <% t('.feature.items').each do |item| %>
@@ -35,7 +35,7 @@
   <div class="row">
     <div class="col">
       <div class="partners p-4">
-        <h3 class="mb-3"><%= t('.partners.supported_by') %></h3>
+        <h4 class="mb-3"><%= t('.partners.supported_by') %></h4>
         <div class="d-flex">
           <%= link_to brand_tag('sme', width: 68.31, height: 24), 'https://sme.sk', class: 'sme mr-4' %>
           <%= link_to brand_tag('index-podnikatela', width: 245.05, height: 24), 'https://indexpodnikatela.sk', class: 'ip' %>

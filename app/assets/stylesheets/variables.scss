@@ -98,10 +98,10 @@ $font-weight-normal:     300;
 $font-weight-bold:       700;
 
 $h1-font-size:           $font-size-base * 1.75;
-$h2-font-size:           $font-size-base * 1.5;
-$h3-font-size:           $font-size-base * 1.25;
-$h4-font-size:           $font-size-base * 1;
-$h5-font-size:           $font-size-base * 1;
+$h2-font-size:           $font-size-base * 1.625;
+$h3-font-size:           $font-size-base * 1.5;
+$h4-font-size:           $font-size-base * 1.375;
+$h5-font-size:           $font-size-base * 1.25;
 $h6-font-size:           $font-size-base * 1;
 
 $headings-font-weight:   $font-weight-bold;
@@ -123,14 +123,14 @@ $table-head-color:   $body-color;
 
 // Buttons + Forms
 
-$input-btn-padding-y:    .75rem;
 $input-btn-padding-x:    .75rem;
+$input-btn-padding-y:    .75rem;
 
-$input-btn-padding-y-sm: .5rem;
 $input-btn-padding-x-sm: .5rem;
+$input-btn-padding-y-sm: .5rem;
 
-$input-btn-padding-y-lg: 1rem;
 $input-btn-padding-x-lg: 1rem;
+$input-btn-padding-y-lg: 1rem;
 
 // Buttons
 
@@ -182,8 +182,8 @@ $navbar-light-active-color: $blue;
 
 // Pagination
 
-$pagination-padding-y:             .5rem;
 $pagination-padding-x:             .75rem;
+$pagination-padding-y:             .5rem;
 
 $pagination-color:                 $blue;
 $pagination-bg:                    $white;
