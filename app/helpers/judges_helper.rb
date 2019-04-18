@@ -10,7 +10,7 @@ module JudgesHelper
     when nil   then %w(help-outline      text-warning judges.activity.unknown)
     end
 
-    options = options.merge class: Array.wrap(options[:class]).unshift("#{c} text-undecorated")
+    options = options.merge class: Array.wrap(options[:class]).unshift(c)
     options = options.merge placement: options.delete(:placement) || 'top'
 
     tooltip_tag icon_tag(n), t("#{t}.#{judge.probable_gender}").upcase_first, options

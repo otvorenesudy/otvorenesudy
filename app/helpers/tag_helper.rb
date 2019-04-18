@@ -1,6 +1,6 @@
 module TagHelper
   def help_tag(key, options = {})
-    options = options.merge class: 'text-undecorated', trigger: 'hover'
+    options = options.merge trigger: 'hover'
     title = s(t "#{key}.title", default: '')
     options[:title] = title if title.present?
     popover_tag icon_tag('help-outline'), s(t "#{key}.content"), options

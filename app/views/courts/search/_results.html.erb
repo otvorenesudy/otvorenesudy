@@ -9,7 +9,7 @@
       <% if court.chair || court.vicechair %>
         <% if court.chair %>
           <%= judge_position_at_court(court.chair, court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
-          <%= link_to_judge court.chair %><%= court.vicechair ? " #{two_words_connector}" : '.' %>
+          <%= link_to_judge court.chair %><%= court.vicechair ? ' ' + two_words_connector : '.' %>
         <% end %>
         <% if court.vicechair %>
           <% unless court.chair %>

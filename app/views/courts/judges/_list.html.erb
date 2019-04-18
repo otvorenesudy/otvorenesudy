@@ -1,12 +1,12 @@
 <%= table_tag class: 'table table-striped' do %>
   <thead>
     <tr>
-      <%= table_header_tag tooltip_tag(icon_tag('circle-outline'), t('.activity'), class: 'text-muted text-undecorated'), sorter: false %>
+      <%= table_header_tag tooltip_tag(icon_tag('circle-outline'), t('.activity'), class: 'text-muted'), sorter: false %>
       <%= table_header_tag t('.title'), class: 'th-xs-2', sorter: 'text' %>
       <%= table_header_tag t('.name'), class: 'th-xs-6', sorter: 'text' %>
       <%= table_header_tag t('.position'), class: 'th-xs-4', sorter: 'text' %>
-      <%= table_header_tag tooltip_tag(t('.hearings'), t('.hearings_count')), class: 'text-undecorated', sorter: 'digit' %>
-      <%= table_header_tag tooltip_tag(t('.decrees'),  t('.decrees_count')), class: 'text-undecorated', sorter: 'digit' %>
+      <%= table_header_tag tooltip_tag(t('.hearings'), t('.hearings_count')), sorter: 'digit' %>
+      <%= table_header_tag tooltip_tag(t('.decrees'),  t('.decrees_count')), sorter: 'digit' %>
     </tr>
   </thead>
   <tbody>
