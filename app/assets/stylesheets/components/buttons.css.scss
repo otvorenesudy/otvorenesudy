@@ -1,11 +1,19 @@
 .btn {
-  @extend .text-uppercase;
+  text-transform: uppercase;
 }
 
 .btn-primary {
-  @include button-variant($primary, $primary, darken($secondary, 7.5%), transparent, darken($secondary, 10%), transparent);
+  @include button-variant($orange, transparent, $navy, transparent, $navy, transparent);
 
+  &:hover.focus, &:focus.active,
   &:hover:focus, &:focus:active {
     box-shadow: none !important;
   }
+}
+
+.btn-secondary {
+  @include button-variant($white, transparent, $input-bg, transparent, $input-bg, transparent);
+  @include link-variant($blue, $navy);
+
+  box-shadow: none !important;
 }

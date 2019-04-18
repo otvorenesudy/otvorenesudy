@@ -7,7 +7,8 @@
     fill: $color;
   }
 
-  @include hover-focus-active {
+  &.hover, &.focus, &.active,
+  &:hover, &:focus, &:active {
     color: $hover-color;
 
     svg {

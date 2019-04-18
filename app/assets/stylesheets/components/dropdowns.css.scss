@@ -1,0 +1,18 @@
+.dropdown-menu {
+  left: -1px !important;
+  margin: 0;
+}
+
+.dropdown-item {
+  font-weight: $btn-font-weight;
+  text-transform: uppercase;
+
+  @include hover-focus-active {
+    background: $input-bg;
+    color: $navy;
+  }
+
+  &:not(:last-child) {
+    border-bottom: $border-width solid $border-color;
+  }
+}

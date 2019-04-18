@@ -84,6 +84,7 @@ $grid-gutter-width: $spacer * 2;
 
 // Components
 
+$border-width: 1px;
 $border-color: #d1dee8;
 
 // Fonts
@@ -152,6 +153,19 @@ $input-focus-box-shadow:   none;
 
 $input-placeholder-color:  $text-muted;
 $input-plaintext-color:    $text-muted;
+
+// Dropdowns
+
+$dropdown-padding-y:        0;
+$dropdown-border-color:     $border-color;
+$dropdown-box-shadow:       none;
+
+$dropdown-link-color:       $blue;
+$dropdown-link-hover-color: $navy;
+$dropdown-link-hover-bg:    $input-bg;
+
+$dropdown-item-padding-x:   .75rem;
+$dropdown-item-padding-y:   .75rem;
 
 // Navbar
 
