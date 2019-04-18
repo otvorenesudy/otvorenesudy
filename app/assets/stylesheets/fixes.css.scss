@@ -4,10 +4,16 @@
   outline: none !important;
 }
 
-// add hover link decoration also on focus and active links
+// fix text decoration on focus and active links
 
 a {
   @include hover-focus-active {
     text-decoration: $link-hover-decoration;
   }
+}
+
+// fix color on active buttons with shown items
+
+.show > .btn.dropdown-toggle {
+  color: inherit !important;
 }
