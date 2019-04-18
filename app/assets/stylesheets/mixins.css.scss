@@ -3,16 +3,8 @@
 @mixin link-variant($color, $hover-color: null) {
   color: $color;
 
-  svg {
-    fill: $color;
-  }
-
   &.hover, &.focus, &.active,
   &:hover, &:focus, &:active {
     color: $hover-color;
-
-    svg {
-      fill: $hover-color;
-    }
   }
 }
