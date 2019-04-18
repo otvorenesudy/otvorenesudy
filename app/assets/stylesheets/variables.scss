@@ -106,6 +106,16 @@ $h6-font-size:           $font-size-base * 1;
 
 $headings-font-weight:   $font-weight-bold;
 
+$display1-size:          $font-size-base * 2.75;
+$display2-size:          $font-size-base * 2.5;
+$display3-size:          $font-size-base * 2.25;
+$display4-size:          $font-size-base * 2;
+
+$display1-weight:        $headings-font-weight;
+$display2-weight:        $headings-font-weight;
+$display3-weight:        $headings-font-weight;
+$display4-weight:        $headings-font-weight;
+
 $text-muted:             $gray;
 
 $hr-border-color:        $border-color;
@@ -209,7 +219,7 @@ $pagination-disabled-border-color: $white;
 // Alerts
 
 $alert-padding-y:     .75rem;
-$alert-padding-x:     .75rem;
+$alert-padding-x:     1rem;
 $alert-margin-bottom: $spacer;
 $alert-border-width:  0;
 
