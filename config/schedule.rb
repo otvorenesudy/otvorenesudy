@@ -38,3 +38,7 @@ end
 every :day, at: '1:00am' do
   rake 'backup:database'
 end
+
+every :day, at: '12am' do
+  runner 'Hearing.anonymize_anonymizable_hearings!'
+end

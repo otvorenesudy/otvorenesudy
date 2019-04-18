@@ -23,6 +23,13 @@ class Hearing < ActiveRecord::Base
   scope :historical, lambda { where('date <  ?', Time.now) }
   scope :upcoming,   lambda { where('date >= ?', Time.now) }
 
+  scope :anonymizable, lambda {
+    where(
+      '(yhearings.anonymized_at IS NULL AND hearings.date < ?) OR (hearings.anonymized_at < hearings.updated_at)',
+      1.day.ago.beginning_of_day
+    )
+  }
+
   belongs_to :proceeding
 
   belongs_to :court
@@ -45,8 +52,9 @@ class Hearing < ActiveRecord::Base
 
   has_many :accusations, through: :defendants
 
+  before_save :invalidate_caches
   after_save do
-    return if !social_security_case? || anonymized
+    return if !social_security_case? && !anonymizable?
 
     anonymize!
   end
@@ -123,7 +131,15 @@ class Hearing < ActiveRecord::Base
     court.nil? || judgings.none?
   end
 
-  before_save :invalidate_caches
+  def anonymized?
+    anonymized_at.present?
+  end
+
+  def anonymizable?
+    return false unless date
+
+    (!anonymized? && date < 1.day.ago.beginning_of_day) || (anonymized_at.to_i < updated_at.to_i)
+  end
 
   def invalidate_caches
     @time = @judge_names = nil
@@ -157,7 +173,7 @@ class Hearing < ActiveRecord::Base
 
         loop do
           name = anonymizer.call(record.name)
-          record.name = record.name_unprocessed = name
+          record.name = name
 
           break unless association.where('id != ?', record.id).where(name: name).any?
         end
@@ -170,7 +186,7 @@ class Hearing < ActiveRecord::Base
     anonymize.call(proposers) if options[:proposers]
     anonymize.call(defendants) if options[:defendants]
 
-    self.anonymized = true
+    self.anonymized_at = Time.now
 
     proceeding.update_index if proceeding
 
@@ -178,7 +194,14 @@ class Hearing < ActiveRecord::Base
   end
 
   def self.anonymize!
-    self.find_each(&:anonymize!)
+    find_each(&:anonymize!)
+
+    Judge.find_each(&:save!)
+    Court.find_each(&:save!)
+  end
+
+  def self.anonymize_anonymizable_hearings!
+    anonymizable.find_each(&:anonymize!)
 
     Judge.find_each(&:save!)
     Court.find_each(&:save!)
