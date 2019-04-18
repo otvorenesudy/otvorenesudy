@@ -1,5 +1,5 @@
 <% unless current_page.first? %>
-  <li class="page-item hidden-xs-up">
+  <li class="page-item d-none">
     <%= link_to url, class: 'page-link' do %>
       <%= t 'kaminari.pagination.first' %>
     <% end %>

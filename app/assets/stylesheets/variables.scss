@@ -165,3 +165,36 @@ $navbar-brand-padding-y:    0;
 $navbar-light-color:        $navy;
 $navbar-light-hover-color:  $blue;
 $navbar-light-active-color: $blue;
+
+// Pagination
+
+$pagination-padding-y:             .5rem;
+$pagination-padding-x:             .75rem;
+
+$pagination-color:                 $blue;
+$pagination-bg:                    $white;
+$pagination-border-color:          $border-color;
+
+$pagination-focus-box-shadow:      none;
+
+$pagination-hover-color:           $navy;
+$pagination-hover-bg:              $white;
+$pagination-hover-border-color:    $border-color;
+
+$pagination-active-color:          $navy;
+$pagination-active-bg:             $white;
+$pagination-active-border-color:   $border-color;
+
+$pagination-disabled-color:        $white;
+$pagination-disabled-bg:           $white;
+$pagination-disabled-border-color: $white;
+
+// Alerts
+
+$alert-padding-y:     .75rem;
+$alert-padding-x:     .75rem;
+$alert-margin-bottom: $spacer;
+$alert-border-width:  0;
+
+$alert-bg-level:      -10;
+$alert-color-level:   5;
