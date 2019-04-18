@@ -123,13 +123,13 @@ $table-head-color:   $body-color;
 
 // Buttons + Forms
 
-$input-btn-padding-x:    .75rem;
+$input-btn-padding-x:    1rem;
 $input-btn-padding-y:    .75rem;
 
-$input-btn-padding-x-sm: .5rem;
+$input-btn-padding-x-sm: .75rem;
 $input-btn-padding-y-sm: .5rem;
 
-$input-btn-padding-x-lg: 1rem;
+$input-btn-padding-x-lg: 1.25rem;
 $input-btn-padding-y-lg: 1rem;
 
 // Buttons
@@ -164,8 +164,11 @@ $dropdown-link-color:       $blue;
 $dropdown-link-hover-color: $navy;
 $dropdown-link-hover-bg:    $input-bg;
 
+$dropdown-link-active-color: $navy;
+$dropdown-link-active-bg:    $input-bg;
+
 $dropdown-item-padding-x:   .75rem;
-$dropdown-item-padding-y:   .75rem;
+$dropdown-item-padding-y:   .5rem;
 
 // Navbar
 

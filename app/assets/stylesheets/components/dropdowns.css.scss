@@ -3,14 +3,13 @@
   margin: 0;
 }
 
+.dropdown-menu-sm {
+  font-size: $font-size-sm;
+}
+
 .dropdown-item {
   font-weight: $btn-font-weight;
   text-transform: uppercase;
-
-  @include hover-focus-active {
-    background: $input-bg;
-    color: $navy;
-  }
 
   &:not(:last-child) {
     border-bottom: $border-width solid $border-color;
