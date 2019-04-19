@@ -13,7 +13,7 @@
 
 .btn-secondary {
   @include button-variant($white, transparent, $input-bg, transparent, $input-bg, transparent);
-  @include link-variant($blue, $navy);
+  @include color-variant($blue, $navy);
 
   box-shadow: none !important;
 }
