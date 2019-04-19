@@ -17,3 +17,28 @@ a {
 .show > .btn.dropdown-toggle {
   color: inherit !important;
 }
+
+// add text decoration on helper elements without icons (helper elements with icons have inline flex class)
+// set default color and correct cursor on helper elements
+
+@each $helper in ("popover" "tooltip") {
+  a[href="#"][data-toggle="#{$helper}"] {
+    color: $gray;
+    cursor: help;
+    position: relative;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-bottom: 1px dashed currentColor;
+      width: 100%;
+      bottom: -2px;
+      left: 0;
+    }
+
+    &.d-inline-flex::after {
+      display: none;
+    }
+  }
+}
