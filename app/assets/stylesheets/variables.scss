@@ -218,10 +218,14 @@ $pagination-disabled-border-color: $border-color;
 
 // Alerts
 
-$alert-padding-y:     .75rem;
 $alert-padding-x:     1rem;
+$alert-padding-y:     .75rem;
+
+$alert-padding-x-sm:  .5rem;
+$alert-padding-y-sm:  .25rem;
+
 $alert-margin-bottom: $spacer;
 $alert-border-width:  0;
 
 $alert-bg-level:      -10;
-$alert-color-level:   5;
+$alert-color-level:   2;
