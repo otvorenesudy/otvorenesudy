@@ -5,12 +5,12 @@ module JudgesHelper
 
   def judge_activity_icon_tag(judge, active, options = {})
     n, c, t = case active
-    when true  then %w(checkmark-outline text-success judges.activity.active)
-    when false then %w(close-outline     text-danger  judges.activity.inactive)
-    when nil   then %w(help-outline      text-warning judges.activity.unknown)
+    when true  then %w(check    text-success judges.activity.active)
+    when false then %w(times    text-danger  judges.activity.inactive)
+    when nil   then %w(question text-warning judges.activity.unknown)
     end
 
-    options = options.merge class: Array.wrap(options[:class]).unshift(c)
+    options = options.merge class: Array.wrap(options[:class]).unshift("d-inline-flex #{c}")
     options = options.merge placement: options.delete(:placement) || 'top'
 
     tooltip_tag icon_tag(n), t("#{t}.#{judge.probable_gender}").upcase_first, options
