@@ -1,264 +1,264 @@
 // Colors
 
-$white: #fff;
-$gray:  #8392ac;
+$white:       #fff;
+$gray:        #8392ac;
 
 $grays: ();
 
-$orange: #f16c4f;
-$blue:   #00aeef;
-$navy:   #1b325f;
+$orange:      #f16c4f;
+$blue:        #00aeef;
+$navy:        #1b325f;
 
-$green:  #73be1e;
-$red:    #d34242;
-$yellow: #e19e41;
+$green:       #73be1e;
+$red:         #d34242;
+$yellow:      #e19e41;
 
 $colors: ();
 
-$primary:   $orange;
-$secondary: $navy;
-$success:   $green;
-$info:      $blue;
-$warning:   $yellow;
-$danger:    $red;
+$primary:     $orange;
+$secondary:   $navy;
+$success:     $green;
+$info:        $blue;
+$warning:     $yellow;
+$danger:      $red;
 
 $theme-colors: (
-  "primary":   $primary,
-  "secondary": $secondary,
-  "success":   $success,
-  "info":      $info,
-  "warning":   $warning,
-  "danger":    $danger,
+  "primary":       $primary,
+  "secondary":     $secondary,
+  "success":       $success,
+  "info":          $info,
+  "warning":       $warning,
+  "danger":        $danger,
 );
 
 // Options
 
-$enable-caret:        false;
-$enable-rounded:      false;
-$enable-shadows:      false;
-$enable-gradients:    false;
-$enable-transitions:  false;
-$enable-grid-classes: true;
-$enable-print-styles: true;
+$enable-caret:          false;
+$enable-rounded:        false;
+$enable-shadows:        false;
+$enable-gradients:      false;
+$enable-transitions:    false;
+$enable-grid-classes:   true;
+$enable-print-styles:   true;
 
 // Spacing
 
 $spacer: 1rem;
 
 $spacers: (
-  0: ($spacer * 0),
-  1: ($spacer * .25),
-  2: ($spacer * .5),
-  3: ($spacer * 1),
-  4: ($spacer * 2),
-  5: ($spacer * 4),
+  0: $spacer * 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer * 1,
+  4: $spacer * 2,
+  5: $spacer * 4,
 );
 
 $sizes: (
-  20: 20%,
-  25: 25%,
-  40: 40%,
-  50: 50%,
-  60: 60%,
-  75: 75%,
-  80: 80%,
-  100: 100%,
+    20:   20%,
+    25:   25%,
+    40:   40%,
+    50:   50%,
+    60:   60%,
+    75:   75%,
+    80:   80%,
+   100:  100%,
   auto: auto
 );
 
 // Body
 
-$body-bg:    $white;
-$body-color: $navy;
+$body-bg:                              $white;
+$body-color:                           $navy;
 
 // Links
 
-$link-color:            $primary;
-$link-decoration:       none;
-$link-hover-color:      $primary;
-$link-hover-decoration: underline;
+$link-color:                           $primary;
+$link-decoration:                      none;
+$link-hover-color:                     $primary;
+$link-hover-decoration:                underline;
 
 // Grid columns
 
-$grid-gutter-width: $spacer * 2;
+$grid-gutter-width:                    $spacer * 2;
 
 // Components
 
-$border-width: 1px;
-$border-color: #d1dee8;
+$border-width:                         1px;
+$border-color:                         #d1dee8;
 
 // Fonts
 
-$font-family-sans-serif: "Ubuntu", sans-serif;
-$font-family-monospace:  "Courier New", monospace;
+$font-family-sans-serif:               "Ubuntu", sans-serif;
+$font-family-monospace:                "Courier New", monospace;
 
-$font-size-base:         1rem;
+$font-size-base:                       1rem;
 
-$font-weight-normal:     300;
-$font-weight-bold:       700;
+$font-weight-normal:                   300;
+$font-weight-bold:                     700;
 
-$h1-font-size:           $font-size-base * 1.75;
-$h2-font-size:           $font-size-base * 1.625;
-$h3-font-size:           $font-size-base * 1.5;
-$h4-font-size:           $font-size-base * 1.375;
-$h5-font-size:           $font-size-base * 1.25;
-$h6-font-size:           $font-size-base * 1;
+$h1-font-size:                         $font-size-base * 1.75;
+$h2-font-size:                         $font-size-base * 1.625;
+$h3-font-size:                         $font-size-base * 1.5;
+$h4-font-size:                         $font-size-base * 1.375;
+$h5-font-size:                         $font-size-base * 1.25;
+$h6-font-size:                         $font-size-base * 1;
 
-$headings-font-weight:   $font-weight-bold;
+$headings-font-weight:                 $font-weight-bold;
 
-$display1-size:          $font-size-base * 2.75;
-$display2-size:          $font-size-base * 2.5;
-$display3-size:          $font-size-base * 2.25;
-$display4-size:          $font-size-base * 2;
+$display1-size:                        $font-size-base * 2.75;
+$display2-size:                        $font-size-base * 2.5;
+$display3-size:                        $font-size-base * 2.25;
+$display4-size:                        $font-size-base * 2;
 
-$display1-weight:        $headings-font-weight;
-$display2-weight:        $headings-font-weight;
-$display3-weight:        $headings-font-weight;
-$display4-weight:        $headings-font-weight;
+$display1-weight:                      $headings-font-weight;
+$display2-weight:                      $headings-font-weight;
+$display3-weight:                      $headings-font-weight;
+$display4-weight:                      $headings-font-weight;
 
-$text-muted:             $gray;
+$text-muted:                           $gray;
 
-$hr-border-color:        $border-color;
+$hr-border-color:                      $border-color;
 
-$list-inline-padding:    1rem;
+$list-inline-padding:                  1rem;
 
 // Tables
 
-$table-accent-bg:    #f4f8fb;
+$table-accent-bg:                      #f4f8fb;
 
-$table-border-color: $border-color;
+$table-border-color:                   $border-color;
 
-$table-head-bg:      #e9f2f9;
-$table-head-color:   $body-color;
+$table-head-bg:                        #e9f2f9;
+$table-head-color:                     $body-color;
 
 // Buttons + Forms
 
-$input-btn-padding-x:    1rem;
-$input-btn-padding-y:    .75rem;
+$input-btn-padding-x:                  1rem;
+$input-btn-padding-y:                  .75rem;
 
-$input-btn-padding-x-sm: .75rem;
-$input-btn-padding-y-sm: .5rem;
+$input-btn-padding-x-sm:               .75rem;
+$input-btn-padding-y-sm:               .5rem;
 
-$input-btn-padding-x-lg: 1.25rem;
-$input-btn-padding-y-lg: 1rem;
+$input-btn-padding-x-lg:               1.25rem;
+$input-btn-padding-y-lg:               1rem;
 
 // Buttons
 
-$btn-border-width: 0;
+$btn-border-width:                     0;
 
-$btn-font-weight:  $font-weight-bold;
+$btn-font-weight:                      $font-weight-bold;
 
 // Forms
 
-$input-bg:                 #e9f2f9;
-$input-color:              $body-color;
-$input-border-color:       #9cc4e3;
-$input-border-width:       0;
+$input-bg:                             #e9f2f9;
+$input-color:                          $body-color;
+$input-border-color:                   #9cc4e3;
+$input-border-width:                   0;
 
-$input-focus-bg:           $input-bg;
-$input-focus-border-color: rgba($primary, .5);
-$input-focus-color:        $input-color;
-$input-focus-width:        2px;
-$input-focus-box-shadow:   none;
+$input-focus-bg:                       $input-bg;
+$input-focus-border-color:             rgba($primary, .5);
+$input-focus-color:                    $input-color;
+$input-focus-width:                    2px;
+$input-focus-box-shadow:               none;
 
-$input-placeholder-color:  $text-muted;
-$input-plaintext-color:    $text-muted;
+$input-placeholder-color:              $text-muted;
+$input-plaintext-color:                $text-muted;
 
 // Dropdowns
 
-$dropdown-padding-y:        0;
-$dropdown-border-color:     $border-color;
+$dropdown-padding-y:                   0;
+$dropdown-border-color:                $border-color;
 
-$dropdown-link-color:       $blue;
-$dropdown-link-hover-color: $navy;
-$dropdown-link-hover-bg:    $input-bg;
+$dropdown-link-color:                  $blue;
+$dropdown-link-hover-color:            $navy;
+$dropdown-link-hover-bg:               $input-bg;
 
-$dropdown-link-active-color: $navy;
-$dropdown-link-active-bg:    $input-bg;
+$dropdown-link-active-color:           $navy;
+$dropdown-link-active-bg:              $input-bg;
 
-$dropdown-item-padding-x:   .75rem;
-$dropdown-item-padding-y:   .5rem;
+$dropdown-item-padding-x:              .75rem;
+$dropdown-item-padding-y:              .5rem;
 
 // Navbar
 
-$navbar-padding-x:          0;
-$navbar-padding-y:          0;
+$navbar-padding-x:                     0;
+$navbar-padding-y:                     0;
 
-$navbar-nav-link-padding-x: 0;
+$navbar-nav-link-padding-x:            0;
 
-$navbar-brand-padding-y:    0;
+$navbar-brand-padding-y:               0;
 
-$navbar-light-color:        $navy;
-$navbar-light-hover-color:  $blue;
-$navbar-light-active-color: $blue;
+$navbar-light-color:                   $navy;
+$navbar-light-hover-color:             $blue;
+$navbar-light-active-color:            $blue;
 
 // Pagination
 
-$pagination-padding-x:             .75rem;
-$pagination-padding-y:             .5rem;
+$pagination-padding-x:                 .75rem;
+$pagination-padding-y:                 .5rem;
 
-$pagination-color:                 $blue;
-$pagination-bg:                    $white;
-$pagination-border-color:          $border-color;
+$pagination-color:                     $blue;
+$pagination-bg:                        $white;
+$pagination-border-color:              $border-color;
 
-$pagination-focus-box-shadow:      none;
+$pagination-focus-box-shadow:          none;
 
-$pagination-hover-color:           $navy;
-$pagination-hover-bg:              $white;
-$pagination-hover-border-color:    $border-color;
+$pagination-hover-color:               $navy;
+$pagination-hover-bg:                  $white;
+$pagination-hover-border-color:        $border-color;
 
-$pagination-active-color:          $navy;
-$pagination-active-bg:             $white;
-$pagination-active-border-color:   $border-color;
+$pagination-active-color:              $navy;
+$pagination-active-bg:                 $white;
+$pagination-active-border-color:       $border-color;
 
-$pagination-disabled-color:        $gray;
-$pagination-disabled-bg:           $white;
-$pagination-disabled-border-color: $border-color;
+$pagination-disabled-color:            $gray;
+$pagination-disabled-bg:               $white;
+$pagination-disabled-border-color:     $border-color;
 
 // Tooltips
 
-$tooltip-max-width:    250px;
-$tooltip-color:        $white;
-$tooltip-bg:           $gray;
-$tooltip-opacity:      1;
-$tooltip-padding-x:    .5rem;
-$tooltip-padding-y:    .25rem;
-$tooltip-margin:       0;
+$tooltip-max-width:                    250px;
+$tooltip-color:                        $white;
+$tooltip-bg:                           $gray;
+$tooltip-opacity:                      1;
+$tooltip-padding-x:                    .5rem;
+$tooltip-padding-y:                    .25rem;
+$tooltip-margin:                       0;
 
-$tooltip-arrow-width:  .4rem;
-$tooltip-arrow-height: .4rem;
-$tooltip-arrow-color:  transparent;
+$tooltip-arrow-width:                  .4rem;
+$tooltip-arrow-height:                 .4rem;
+$tooltip-arrow-color:                  transparent;
 
 // Popovers
 
-$popover-bg:                $white;
-$popover-max-width:         280px;
-$popover-border-color:      $border-color;
+$popover-bg:                           $white;
+$popover-max-width:                    280px;
+$popover-border-color:                 $border-color;
 
-$popover-header-bg:         $gray;
-$popover-header-color:      $white;
-$popover-header-padding-x:  .75rem;
-$popover-header-padding-y:  .5rem;
+$popover-header-bg:                    $gray;
+$popover-header-color:                 $white;
+$popover-header-padding-x:             .75rem;
+$popover-header-padding-y:             .5rem;
 
-$popover-body-color:        $body-color;
-$popover-body-padding-y:    $popover-header-padding-y;
-$popover-body-padding-x:    $popover-header-padding-x;
+$popover-body-color:                   $body-color;
+$popover-body-padding-y:               $popover-header-padding-y;
+$popover-body-padding-x:               $popover-header-padding-x;
 
-$popover-arrow-width:       .4rem;
-$popover-arrow-height:      .4rem;
-$popover-arrow-color:       transparent;
-$popover-arrow-outer-color: transparent;
+$popover-arrow-width:                  .4rem;
+$popover-arrow-height:                 .4rem;
+$popover-arrow-color:                  transparent;
+$popover-arrow-outer-color:            transparent;
 
 // Alerts
 
-$alert-padding-x:     1rem;
-$alert-padding-y:     .75rem;
+$alert-padding-x:                      1rem;
+$alert-padding-y:                      .75rem;
 
-$alert-padding-x-sm:  .5rem;
-$alert-padding-y-sm:  .25rem;
+$alert-padding-x-sm:                   .5rem;
+$alert-padding-y-sm:                   .25rem;
 
-$alert-margin-bottom: $spacer;
-$alert-border-width:  0;
+$alert-margin-bottom:                  $spacer;
+$alert-border-width:                   0;
 
-$alert-bg-level:      -10;
-$alert-color-level:   2;
+$alert-bg-level:                       -10;
+$alert-color-level:                    2;
