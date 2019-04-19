@@ -32,13 +32,13 @@ module TextHelper
   end
 
   def strip_and_highlight(text, options = {})
-    default = -> (s) { content_tag(:span, s.html_safe, class: 'text-muted') }
+    wrapper = -> (s) { content_tag(:span, s.html_safe, class: 'text-muted') }
 
-    separator = options.fetch(:separator) { default.call ' &hellip; ' }
-    omission  = options.fetch(:omission) { default.call '&hellip;' }
+    separator = options.fetch(:separator) { " #{wrapper.call('&hellip;')} " }
+    omission  = options.fetch(:omission) { wrapper.call('&hellip;') }
 
     if omission.is_a? Hash
-      left, right = %i(left right).map { |k| omission.fetch(k) { default.call '&hellip;' }}
+      left, right = %i(left right).map { |k| omission.fetch(k) { wrapper.call '&hellip;' }}
     else
       left, right = omission, omission
     end
