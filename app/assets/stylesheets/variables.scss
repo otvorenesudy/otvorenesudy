@@ -124,7 +124,7 @@ $list-inline-padding:    1rem;
 
 // Tables
 
-$table-accent-bg:    #f4f8fb; // TODO use this as card bg
+$table-accent-bg:    #f4f8fb;
 
 $table-border-color: $border-color;
 
@@ -168,7 +168,6 @@ $input-plaintext-color:    $text-muted;
 
 $dropdown-padding-y:        0;
 $dropdown-border-color:     $border-color;
-$dropdown-box-shadow:       none;
 
 $dropdown-link-color:       $blue;
 $dropdown-link-hover-color: $navy;
@@ -215,6 +214,40 @@ $pagination-active-border-color:   $border-color;
 $pagination-disabled-color:        $gray;
 $pagination-disabled-bg:           $white;
 $pagination-disabled-border-color: $border-color;
+
+// Tooltips
+
+$tooltip-max-width:    250px;
+$tooltip-color:        $white;
+$tooltip-bg:           $gray;
+$tooltip-opacity:      1;
+$tooltip-padding-x:    .5rem;
+$tooltip-padding-y:    .25rem;
+$tooltip-margin:       0;
+
+$tooltip-arrow-width:  .4rem;
+$tooltip-arrow-height: .4rem;
+$tooltip-arrow-color:  transparent;
+
+// Popovers
+
+$popover-bg:                $white;
+$popover-max-width:         280px;
+$popover-border-color:      $border-color;
+
+$popover-header-bg:         $gray;
+$popover-header-color:      $white;
+$popover-header-padding-x:  .75rem;
+$popover-header-padding-y:  .5rem;
+
+$popover-body-color:        $body-color;
+$popover-body-padding-y:    $popover-header-padding-y;
+$popover-body-padding-x:    $popover-header-padding-x;
+
+$popover-arrow-width:       .4rem;
+$popover-arrow-height:      .4rem;
+$popover-arrow-color:       transparent;
+$popover-arrow-outer-color: transparent;
 
 // Alerts
 
