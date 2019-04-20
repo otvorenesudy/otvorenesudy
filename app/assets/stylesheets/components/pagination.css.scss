@@ -8,7 +8,7 @@
 
   @include color-variant($pagination-color, $pagination-hover-color);
 
-  @include hover-focus-active {
+  @include hover-focus {
     text-decoration: none;
   }
 }

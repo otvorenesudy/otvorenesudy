@@ -4,11 +4,11 @@
   outline: none !important;
 }
 
-// add text decoration on focus and active to all links
+// add text decoration on focus to links (do not change this)
 
 a {
-  @include hover-focus-active {
-    text-decoration: $link-hover-decoration
+  @include hover-focus {
+    text-decoration: $link-hover-decoration;
   }
 }
 

@@ -144,7 +144,7 @@ $input-btn-padding-y-lg:               1rem;
 
 // Buttons
 
-$btn-border-width:                     0;
+$btn-border-width:                     $border-width;
 
 $btn-font-weight:                      $font-weight-bold;
 
@@ -187,10 +187,6 @@ $navbar-padding-y:                     0;
 $navbar-nav-link-padding-x:            0;
 
 $navbar-brand-padding-y:               0;
-
-$navbar-light-color:                   $navy;
-$navbar-light-hover-color:             $blue;
-$navbar-light-active-color:            $blue;
 
 // Pagination
 
