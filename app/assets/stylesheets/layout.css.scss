@@ -22,4 +22,10 @@ header {
 
 footer {
   border-top: $border-width * 2 solid $secondary;
+
+  .sme {
+    @include hover-focus {
+      text-decoration: none;
+    }
+  }
 }
