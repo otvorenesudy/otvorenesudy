@@ -69,7 +69,7 @@ module FacetsHelper
     key    = "#{facet.key}.#{value}"
     value  = missing_translation?(key) ? value.upcase_first : t(key)
     count  = options.delete(:count) === false ? nil : number_with_delimiter(result.count)
-    body   = truncate value, length: 32 - (count ? 1 + count.size : 0), separator: ' ', omission: '&hellip;'
+    body   = truncate value, length: 31 - (count ? 1 + count.size : 0), separator: ' ', omission: '&hellip;'
     path   = options.delete(:path) || method(:search_path)
     params = !result.selected? ? result.add_params : result.remove_params
 
