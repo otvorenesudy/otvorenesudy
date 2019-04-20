@@ -471,7 +471,7 @@ sk:
 
       position:
         title: "Pozícia"
-        placeholder: "Pozícia"
+        placeholder: "Názov pozície"
         missing: "Neuvedená"
         not_found: "Nenájdené žiadne pozície."
 
@@ -482,13 +482,13 @@ sk:
 
       place:
         title: "Miesto konania"
-        placeholder: "Miesto konania"
+        placeholder: "Názov miesta konania"
         missing: "Neuvedené"
         not_found: "Nenájdené žiadne miesta."
 
       workplace:
         title: "Miesto výkonu práce"
-        placeholder: "Miesto výkonu práce"
+        placeholder: "Názov miesta výkonu práce"
         missing: "Neuvedené"
         not_found: "Nenájdené žiadne miesta."
 
