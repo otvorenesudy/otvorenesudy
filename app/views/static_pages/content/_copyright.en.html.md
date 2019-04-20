@@ -1,4 +1,4 @@
-﻿## &copy; 2013-2016 Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovensko  
+#### &copy; 2013-<%= Date.current.year %> Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovensko  
  
 _Authors of the concept:_ Transparency International Slovensko, Samuel Molnár and Pavol Zbell
 
@@ -8,7 +8,7 @@ _Source code:_ <%= link_to 'Otvorené Súdy @ GitHub', 'https://github.com/otvor
 
 This Original work, including the software, source code, documents or other related items, is being provided by copyright holders subject to the terms of the <%= link_to 'Educational Community Lincese 1.0', 'http://opensource.org/licenses/ecl1.php' %>. By obtaining, using and / or copying of this Original work, you agree that you have read, and understood, and will comply with the following terms and conditions of the Educational Community License. 
  
-## Educational Community License 1.0
+#### Educational Community License 1.0
  
 Permission to use, copy, modify, merge, publish, distribute, and sublicense this Original work and its documentation, with or without modification, for any purpose, and without fee or royalty to the copyright holders(s) is hereby granted, provided that you include the following on ALL copies of the Original work or portions thereof, including modifications or derivates, that you make: 
 

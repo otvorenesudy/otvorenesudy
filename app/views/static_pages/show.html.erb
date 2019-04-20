@@ -1,22 +1,23 @@
 <%= provide :title, @title %>
 
 <div class="row">
-  <div class="col-lg-3 push-lg-9">
-    <ul class="nav m-t-3">
-      <li class="nav-item"><%= link_to t('static_pages.about'), static_page_path('about'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.faq'), static_page_path('faq'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.feedback'), static_page_path('feedback'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.donate'), donation_url, class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.tos'), static_page_path('tos'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.privacy'), static_page_path('privacy'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.copyright'), static_page_path('copyright'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.contact'), static_page_path('contact'), class: 'nav-link' %></li>
-      <li class="nav-item"><%= link_to t('static_pages.api'), 'https://api.otvorenesudy.sk', class: 'nav-link' %></li>
-    </ul>
+  <div class="col-xl-3 order-xl-last">
+    <nav class="nav flex-column align-items-start border">
+      <%= link_to t('static_pages.about'), static_page_path('about'), class: 'nav-link' %>
+      <%= link_to t('static_pages.articles'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link' %>
+      <%= link_to t('static_pages.faq'), static_page_path('faq'), class: 'nav-link' %>
+      <%= link_to t('static_pages.feedback'), static_page_path('feedback'), class: 'nav-link' %>
+      <%= link_to t('static_pages.tos'), static_page_path('tos'), class: 'nav-link' %>
+      <%= link_to t('static_pages.privacy'), static_page_path('privacy'), class: 'nav-link' %>
+      <%= link_to t('static_pages.copyright'), static_page_path('copyright'), class: 'nav-link' %>
+      <%= link_to t('static_pages.donate'), donation_url, class: 'nav-link' %>
+      <%= link_to t('static_pages.contact'), static_page_path('contact'), class: 'nav-link' %>
+      <%= link_to t('static_pages.api'), 'https://api.otvorenesudy.sk', class: 'nav-link' %>
+    </nav>
   </div>
 
-  <div class="col-lg-9 pull-lg-3">
-    <h1 class="display-4 m-t-3 m-b-1"><%= @title %></h1>
+  <div class="col-xl-9 order-xl-first content mt-4 mt-xl-0">
+    <h1 class="display-2 text-uppercase mb-3"><%= @title %></h1>
     <%= locale_specific_spaces(render @template).html_safe %>
   </div>
 </div>

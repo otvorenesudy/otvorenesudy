@@ -20,3 +20,15 @@
 
       partners:
         supported_by: "Supported by:"
+
+    about: "About"
+    api: "API"
+    articles: "Articles"
+    contact: "Contacts"
+    copyright: "Copyright"
+    donate: "Support us"
+    faq: "Frequently asked questions"
+    feedback: "Found a mistake?"
+    privacy: "Privacy"
+    sign_in: "Sign In"
+    tos: "Terms of use"

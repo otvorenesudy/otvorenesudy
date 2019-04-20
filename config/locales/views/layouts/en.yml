@@ -31,12 +31,12 @@ en:
       articles: "Articles"
       contact: "Contacts"
       copyright: "Copyright"
+      donate: "Support us"
       faq: "FAQ"
       feedback: "Found a mistake?"
       privacy: "Privacy"
       sign_in: "Sign In"
       tos: "Terms of use"
-      donate: "Support us"
 
       disclaimer:
         resources: "Project uses only data provided by public institutions."
