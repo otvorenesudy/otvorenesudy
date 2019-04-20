@@ -471,7 +471,7 @@ en:
 
       position:
         title: "Position"
-        placeholder: "Position"
+        placeholder: "Position name"
         missing: "Missing"
         not_found: "No positions found."
 
@@ -482,13 +482,13 @@ en:
 
       place:
         title: "Locality"
-        placeholder: "Locality"
+        placeholder: "Locality name"
         missing: "Missing"
         not_found: "No localities found."
 
       workplace:
         title: "Workplace"
-        placeholder: "Workplace"
+        placeholder: "Workplace name"
         missing: "Missing"
         not_found: "No workplaces found."
 
