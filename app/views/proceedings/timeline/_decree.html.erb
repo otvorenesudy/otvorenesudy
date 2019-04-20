@@ -1,14 +1,14 @@
-<li class="timeline-item timeline-distance-<%= timeline_distance previous, decree %>">
-  <h4>
+<li class="timeline-item timeline-distance-<%= timeline_distance previous, decree %> d-flex flex-column-reverse p-3">
+  <span class="h5 font-weight-bold mb-0">
     <%= link_to decree_path(decree, params: { q: params[:q] }) do %>
-      <%= decree_headline decree, limit: 67 %>
+      <%= decree_headline decree, limit: 35 %>
       <% if decree.natures.any? %>
         <br/>
-        <%= decree_natures decree, limit: 67 %>
+        <%= decree_natures decree, limit: 35 %>
       <% end %>
     <% end %>
-    <small>
-      <%= decree.date ? decree_date(decree.date) : t('proceedings.show.timeline.unknown_date') %>
-    </small>
-  </h4>
+  </span>
+  <small class="h6 font-weight-bold mb-2">
+    <%= decree.date ? decree_date(decree.date) : t('proceedings.show.timeline.unknown_date') %>
+  </small>
 </li>
