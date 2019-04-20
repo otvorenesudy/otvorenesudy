@@ -98,24 +98,29 @@ en:
       type:
         title: "Type"
         missing: "Missing"
+        not_found: "No types available."
 
       judges:
         title: "Judge"
         placeholder: "Judge name"
         missing: "Missing"
+        not_found: "No judges found."
 
       judges_count:
         title: "Number of judges"
+        not_found: "No numbers available."
         suffix:
           <<: *judge
 
       hearings_count:
         title: "Number of hearings"
+        not_found: "No numbers available."
         suffix:
           <<: *hearing
 
       decrees_count:
         title: "Number of decrees"
+        not_found: "No numbers available."
         suffix:
           <<: *decree
 
@@ -123,10 +128,11 @@ en:
         title: "City"
         placeholder: "City name"
         missing: "Missing"
-        not_found: "Not found no cities."
+        not_found: "No cities found."
 
       expenses:
         title: "Fines"
+        not_found: "No fines available."
         suffix: "%{count} €"
 
     judge:
@@ -146,10 +152,12 @@ en:
         inactive: "Inactive"
         unknown: "Unknown"
         missing: "Missing"
+        not_found: "No activities available."
 
       positions:
         title: "Judge position"
         missing: "Missing"
+        not_found: "No positions available."
 
       courts:
         title: "Court"
@@ -157,41 +165,44 @@ en:
         missing: "Missing"
         not_found: "No courts found."
 
-      hearings_count:
-        title: "Number of hearings"
-        suffix:
-          <<: *hearing
-
-      decrees_count:
-        title: "Number of decrees"
-        suffix:
-          <<: *decree
-
-      related_people_count:
-        title: "Related people"
-        suffix:
-          <<: *person
-
-      decree_agenda_2013:
-        title: "Decree agenda"
-        missing: "Missing"
-        not_found: "No agendas found."
-
       similar_courts:
         title: "Similar court"
         placeholder: "Court name"
         missing: "Missing"
         not_found: "No courts found."
 
+      hearings_count:
+        title: "Number of hearings"
+        not_found: "No numbers available."
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: "Number of decrees"
+        not_found: "No numbers available."
+        suffix:
+          <<: *decree
+
+      related_people_count:
+        title: "Related people"
+        not_found: "No people available."
+        suffix:
+          <<: *person
+
+      decree_agenda_2013:
+        title: "Decree agenda"
+        missing: "Missing"
+        not_found: "No agendas available."
+
       decree_agenda_2015:
         title: "Decree agenda"
         missing: "Missing"
-        not_found: "No agendas found."
+        not_found: "No agendas available."
 
       decree_agenda_2017:
         title: "Decree agenda"
         missing: "Missing"
-        not_found: "No agendas found."
+        not_found: "No agendas available."
 
     hearing:
       q:
@@ -200,6 +211,7 @@ en:
 
       type:
         title: "Hearing type"
+        not_found: "No types available."
 
       court:
         title: "Court"
@@ -210,6 +222,7 @@ en:
       court_type:
         title: "Court type"
         missing: "Missing"
+        not_found: "No types available."
 
       judges:
         title: "Judge"
@@ -232,6 +245,7 @@ en:
       section:
         title: "Section"
         missing: "Missing"
+        not_found: "No sections available."
 
       proposers:
         title: "Proposer"
@@ -249,16 +263,17 @@ en:
         title: "Case number"
         placeholder: "Case number"
         missing: "Missing"
-        not_found: "No case numbers found."
+        not_found: "No numbers found."
 
       file_number:
         title: "Case file identifier"
         placeholder: "Case file identifier"
         missing: "Missing"
-        not_found: "No case file identifiers found."
+        not_found: "No identifiers found."
 
       date:
         title: "Date"
+        not_found: "No dates available."
 
       historical:
         title: "Show past hearings"
@@ -269,11 +284,6 @@ en:
         title: "Decree text"
         placeholder: "Search in decrees"
 
-      pages_count:
-        title: "Page count"
-        suffix:
-          <<: *page
-
       court:
         title: "Court"
         placeholder: "Court name"
@@ -283,6 +293,7 @@ en:
       court_type:
         title: "Court type"
         missing: "Missing"
+        not_found: "No types available."
 
       judges:
         title: "Judge"
@@ -305,17 +316,17 @@ en:
       legislation_area:
         title: "Legislation area"
         missing: "Missing"
-        not_found: "No areas found."
+        not_found: "No areas available."
 
       legislation_subarea:
         title: "Legislation subarea"
-        placeholder: "Legislation subarea"
+        placeholder: "Decree legislation subarea"
         missing: "Missing"
         not_found: "No subareas found."
 
       legislations:
         title: "Clause"
-        placeholder: "Number year §"
+        placeholder: "Number / Year / §"
         missing: "Missing"
         not_found: "No clauses found."
 
@@ -323,16 +334,23 @@ en:
         title: "Case number"
         placeholder: "Case number"
         missing: "Missing"
-        not_found: "No case numbers found."
+        not_found: "No numbers found."
 
       file_number:
         title: "Case file identifier"
         placeholder: "Case file identifier"
         missing: "Missing"
-        not_found: "No case file identifiers found."
+        not_found: "No identifiers found."
 
       date:
         title: "Date"
+        not_found: "No dates available."
+
+      pages_count:
+        title: "Number of pages"
+        not_found: "No numbers available."
+        suffix:
+          <<: *page
 
     proceeding:
       q:
@@ -348,9 +366,11 @@ en:
       courts_types:
         title: "Court type"
         missing: "Missing"
+        not_found: "No types available."
 
       courts_count:
         title: "Number of courts"
+        not_found: "No numbers available."
         suffix:
           <<: *court
 
@@ -362,16 +382,19 @@ en:
 
       judges_count:
         title: "Number of judges"
+        not_found: "No numbers available."
         suffix:
           <<: *judge
 
       hearings_count:
         title: "Number of hearings"
+        not_found: "No numbers available."
         suffix:
           <<: *hearing
 
       decrees_count:
         title: "Number of decrees"
+        not_found: "No numbers available."
         suffix:
           <<: *decree
 
@@ -391,16 +414,17 @@ en:
         title: "Case number"
         placeholder: "Case number"
         missing: "Missing"
-        not_found: "No case numbers found."
+        not_found: "No numbers found."
 
       file_number:
         title: "Case file identifier"
         placeholder: "Case file identifier"
         missing: "Missing"
-        not_found: "No case file identifiers found."
+        not_found: "No identifiers found."
 
       duration:
         title: "Proceeding duration"
+        not_found: "No durations available."
         suffix:
           one: "1 month"
           few: "%{count} months"
@@ -417,7 +441,7 @@ en:
 
       organization_name:
         title: "Organization"
-        placeholder: "Name of organization"
+        placeholder: "Organization name"
         missing: "Missing"
         not_found: "No organizations found."
 
@@ -429,6 +453,7 @@ en:
 
       candidates_count:
         title: "Number of candidates"
+        not_found: "No numbers available."
         suffix:
           <<: *candidate
 
@@ -436,10 +461,11 @@ en:
         title: "Committee member"
         placeholder: "Committee member name"
         missing: "Missing"
-        not_found: "No committee members found."
+        not_found: "No members found."
 
       commissioners_count:
         title: "Number of commissioners"
+        not_found: "No numbers available."
         suffix:
           <<: *candidate
 
@@ -452,7 +478,7 @@ en:
       state:
         title: "Status"
         missing: "Missing"
-        not_found: "No statuses found."
+        not_found: "No statuses available."
 
       place:
         title: "Locality"
@@ -468,6 +494,8 @@ en:
 
       closed_at:
         title: "Application deadline"
+        not_found: "No dates available."
 
       date:
         title: "Procedure date"
+        not_found: "No dates available."

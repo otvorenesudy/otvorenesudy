@@ -98,35 +98,41 @@ sk:
       type:
         title: "Typ"
         missing: "Neuvedený"
+        not_found: "Nevyhovujú žiadne typy."
 
       judges:
         title: "Sudca"
         placeholder: "Meno sudcu"
         missing: "Neuvedený"
+        not_found: "Nenájdený žiadni sudcovia."
 
       judges_count:
         title: "Počet sudcov"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *judge
 
       hearings_count:
         title: "Počet pojednávaní"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *hearing
 
       decrees_count:
         title: "Počet rozhodnutí"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *decree
 
       municipality:
         title: "Obec"
-        placeholder: "Meno obce"
+        placeholder: "Názov obce"
         missing: "Neuvedená"
         not_found: "Nenájdené žiadne obce."
 
       expenses:
         title: "Pokuty"
+        not_found: "Nevyhovujú žiadne pokuty."
         suffix: "%{count} €"
 
     judge:
@@ -146,10 +152,12 @@ sk:
         inactive: "Neaktívny"
         unknown: "Missáma"
         missing: "Neuvedená"
+        not_found: "Nevyhovujú žiadne aktivity."
 
       positions:
         title: "Pozícia sudcu"
         missing: "Neuvedená"
+        not_found: "Nevyhovujú žiadne pozície."
 
       courts:
         title: "Súd"
@@ -157,41 +165,44 @@ sk:
         missing: "Neuvedený"
         not_found: "Nenájdené žiadne súdy."
 
-      hearings_count:
-        title: "Počet pojednávaní"
-        suffix:
-          <<: *hearing
-
-      decrees_count:
-        title: "Počet rozhodnutí"
-        suffix:
-          <<: *decree
-
-      related_people_count:
-        title: "Blízke osoby"
-        suffix:
-          <<: *person
-
-      decree_agenda_2013:
-        title: "Agenda rozhodnutí"
-        missing: "Neuvedená"
-        not_found: "Nenájdené žiadne agendy."
-
       similar_courts:
         title: "Podobný súd"
         placeholder: "Názov súdu"
         missing: "Neuvedený"
         not_found: "Nenájdené žiadne súdy."
 
+      hearings_count:
+        title: "Počet pojednávaní"
+        not_found: "Nevyhovuje žiaden počet."
+        suffix:
+          <<: *hearing
+
+      decrees_count:
+        title: "Počet rozhodnutí"
+        not_found: "Nevyhovuje žiaden počet."
+        suffix:
+          <<: *decree
+
+      related_people_count:
+        title: "Blízke osoby"
+        not_found: "Nevyhovujú žiadne osoby."
+        suffix:
+          <<: *person
+
+      decree_agenda_2013:
+        title: "Agenda rozhodnutí"
+        missing: "Neuvedená"
+        not_found: "Nevyhovujú žiadne agendy."
+
       decree_agenda_2015:
         title: "Agenda rozhodnutí"
         missing: "Neuvedená"
-        not_found: "Nenájdené žiadne agendy."
+        not_found: "Nevyhovujú žiadne agendy."
 
       decree_agenda_2017:
         title: "Agenda rozhodnutí"
         missing: "Neuvedená"
-        not_found: "Nenájdené žiadne agendy."
+        not_found: "Nevyhovujú žiadne agendy."
 
     hearing:
       q:
@@ -200,6 +211,7 @@ sk:
 
       type:
         title: "Typ pojednávania"
+        not_found: "Nevyhovujú žiadne typy."
 
       court:
         title: "Súd"
@@ -210,6 +222,7 @@ sk:
       court_type:
         title: "Typ súdu"
         missing: "Neuvedený"
+        not_found: "Nevyhovujú žiadne typy."
 
       judges:
         title: "Sudca"
@@ -232,10 +245,11 @@ sk:
       section:
         title: "Úsek"
         missing: "Neuvedený"
+        not_found: "Nevyhovujú žiadne úseky."
 
       proposers:
         title: "Navrhovatelia"
-        placeholder: "Navrhovateľ"
+        placeholder: "Meno navrhovateľa"
         missing: "Neuvedení"
         not_found: "Nenájdení žiadni navrhovatelia."
 
@@ -249,16 +263,17 @@ sk:
         title: "Spisová značka"
         placeholder: "Spisová značka"
         missing: "Neuvedená"
-        not_found: "Nenájdené žiadne spisové značky."
+        not_found: "Nenájdené žiadne značky."
 
       file_number:
-        title: "Identifikačné č. spisu"
+        title: "Identifikačné číslo spisu"
         placeholder: "Identifikačné číslo spisu"
         missing: "Neuvedené"
-        not_found: "Nenájdené žiadne identifikačné čísla."
+        not_found: "Nenájdené žiadne čísla."
 
       date:
         title: "Dátum"
+        not_found: "Nevyhovujú žiadne dátumy."
 
       historical:
         title: "Zobraziť minulé pojednávania"
@@ -269,11 +284,6 @@ sk:
         title: "Text rozhodnutia"
         placeholder: "Vyhľadávanie v rozhodnutiach"
 
-      pages_count:
-        title: "Počet strán"
-        suffix:
-          <<: *page
-
       court:
         title: "Súd"
         placeholder: "Názov súdu"
@@ -283,6 +293,7 @@ sk:
       court_type:
         title: "Typ súdu"
         missing: "Neuvedený"
+        not_found: "Nevyhovujú žiadne typy."
 
       judges:
         title: "Sudca"
@@ -305,17 +316,17 @@ sk:
       legislation_area:
         title: "Právna oblasť"
         missing: "Neuvedená"
-        not_found: "Nenájdené žiadne oblasti."
+        not_found: "Nevyhovujú žiadne oblasti."
 
       legislation_subarea:
         title: "Právna podoblasť"
-        placeholder: "Podoblasť právnej úpravy"
+        placeholder: "Právna podoblasť rozhodnutia"
         missing: "Neuvedená"
         not_found: "Nenájdené žiadne podoblasti."
 
       legislations:
         title: "Ustanovenie"
-        placeholder: "Číslo rok §"
+        placeholder: "Číslo / Rok / §"
         missing: "Neuvedené"
         not_found: "Nenájdené žiadne ustanovania."
 
@@ -323,16 +334,23 @@ sk:
         title: "Spisová značka"
         placeholder: "Spisová značka"
         missing: "Neuvedená"
-        not_found: "Nenájdené žiadne spisové značky."
+        not_found: "Nenájdené žiadne značky."
 
       file_number:
-        title: "Identifikačné č. spisu"
+        title: "Identifikačné číslo spisu"
         placeholder: "Identifikačné číslo spisu"
         missing: "Neuvedené"
-        not_found: "Nenájdené žiadne identifikačné čísla."
+        not_found: "Nenájdené žiadne čísla."
 
       date:
         title: "Dátum"
+        not_found: "Nevyhovujú žiadne dátumy."
+
+      pages_count:
+        title: "Počet strán"
+        not_found: "Nevyhovuje žiaden počet."
+        suffix:
+          <<: *page
 
     proceeding:
       q:
@@ -341,16 +359,18 @@ sk:
 
       courts:
         title: "Súd"
-        placeholder: "Meno súdu"
+        placeholder: "Názov súdu"
         missing: "Neuvedené"
         not_found: "Nenájdené žiadne súdy."
 
       courts_types:
         title: "Typ súdu"
         missing: "Neuvedený"
+        not_found: "Nevyhovujú žiadne typy."
 
       courts_count:
         title: "Počet súdov"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *court
 
@@ -362,22 +382,25 @@ sk:
 
       judges_count:
         title: "Počet sudcov"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *judge
 
       hearings_count:
         title: "Počet pojednávaní"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *hearing
 
       decrees_count:
         title: "Počet rozhodnutí"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *decree
 
       proposers:
         title: "Navrhovatelia"
-        placeholder: "Navrhovateľ"
+        placeholder: "Meno navrhovateľa"
         missing: "Neuvedení"
         not_found: "Nenájdení žiadni navrhovatelia."
 
@@ -391,16 +414,17 @@ sk:
         title: "Spisová značka"
         placeholder: "Spisová značka"
         missing: "Neuvedená"
-        not_found: "Nenájdené žiadne spisové značky."
+        not_found: "Nenájdené žiadne značky."
 
       file_number:
-        title: "Identifikačné č. spisu"
+        title: "Identifikačné číslo spisu"
         placeholder: "Identifikačné číslo spisu"
         missing: "Neuvedené"
-        not_found: "Nenájdené žiadne identifikačné čísla."
+        not_found: "Nenájdené žiadne čísla."
 
       duration:
         title: "Dĺžka konania"
+        not_found: "Nevyhovujú žiadne dĺžky."
         suffix:
           one: "1 mesiac"
           few: "%{count} mesiace"
@@ -417,7 +441,7 @@ sk:
 
       organization_name:
         title: "Organizácia"
-        placeholder: "Meno organizácie"
+        placeholder: "Názov organizácie"
         missing: "Neuvedené"
         not_found: "Nenájdené žiadne organizácie."
 
@@ -425,10 +449,11 @@ sk:
         title: "Kandidát"
         placeholder: "Meno kandidáta"
         missing: "Neuvedené"
-        not_found: "Nenájdené žiadni kandidáti."
+        not_found: "Nenájdení žiadni kandidáti."
 
       candidates_count:
         title: "Počet uchádzačov"
+        not_found: "Nevyhovuje žiaden počet."
         suffix:
           <<: *candidate
 
@@ -440,6 +465,7 @@ sk:
 
       commissioners_count:
         title: "Počet členov komisie"
+        not_found: "Nevyhovujé žiaden počet."
         suffix:
           <<: *candidate
 
@@ -452,7 +478,7 @@ sk:
       state:
         title: "Stav"
         missing: "Neuvedený"
-        not_found: "Nenájdené žiadne stavy."
+        not_found: "Nevyhovujú žiadne stavy."
 
       place:
         title: "Miesto konania"
@@ -468,6 +494,8 @@ sk:
 
       closed_at:
         title: "Dátum uzávierky"
+        not_found: "Nevyhovujú žiadne dátumy."
 
       date:
         title: "Dátum konania"
+        not_found: "Nevyhovujú žiadne dátumy."
