@@ -49,9 +49,9 @@ $(document).ready ->
     registerCollapse: ->
       model = @model
 
-      $('.facet [data-toggle="collapse"]').click ->
+      $('.facet .facet-title[data-toggle="collapse"]').click ->
         name      = $(this).closest('.facet').attr('data-id')
-        collapsed = $($(this).attr('data-target')).hasClass('in')
+        collapsed = $($(this).attr('data-target')).hasClass('show')
 
         $.get '/search/collapse', { model: model, name: name, collapsed: collapsed }
 

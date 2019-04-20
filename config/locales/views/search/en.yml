@@ -1,11 +1,7 @@
 en:
   search:
-    details:
-      of_total: "of total"
-      not_found: "Not found"
-
     controls:
-      reset: "Remove all restrictions"
+      reset: "Remove all criteria"
 
       sort:
         common: &common
@@ -47,7 +43,9 @@ en:
       show_less: "Show less"
 
     results:
-      no_results: "No results found for selected restrictions."
+      found: "%{count} of total %{total} (%{time} ms)"
+      not_found: "No results found (%{time} ms)"
+      no_results: "Chosen search criteria have not matched any results."
 
     subscribe:
       subscribe: "Subscribe to notifications"

@@ -12,9 +12,6 @@
     </nav>
 
     <nav class="nav nav-primary d-flex align-items-center mb-3">
-      <% unless user_signed_in? %>
-        <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mr-4' %>
-      <% end %>
       <%= link_to t('.donate'), donation_url, class: 'btn btn-primary', role: :button %>
     </nav>
   </div>

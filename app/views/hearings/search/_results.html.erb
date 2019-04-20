@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |hearing| %>
   <li class="search-result-item">
     <h4 class="search-result-title">
-      <%= link_to hearing_headline(hearing, limit: 67), hearing %>
+      <%= link_to hearing_headline(hearing, limit: 57), hearing %>
       <small>
         <%= t '.hearing' %> <%= t hearing.historical ? '.past' : '.future' %>
         <%= hearing.date ? hearing_date(hearing.date) : t('.unknown') %>
@@ -10,22 +10,20 @@
 
     <div class="search-result-content">
       <% if hearing.unprocessed? %>
-        <div class="text-danger">
+        <div class="alert alert-danger alert-sm mb-2">
           <%= s t '.unprocessed' %>
         </div>
       <% elsif hearing.has_future_date? %>
-        <div class="text-warning">
+        <div class="alert alert-warning alert-sm mb-2">
           <%= s t '.future_date' %>
         </div>
       <% end %>
 
-      <ul class="pull-xs-right text-xs-right list-unstyled">
+      <ul class="float-right list-unstyled text-right ml-2 mb-2">
         <li><%= tooltip_tag hearing.case_number || '?', t('case_number.full'), placement: 'left' %></li>
         <li><%= tooltip_tag hearing.file_number || '?', t('file_number.full'), placement: 'left' %></li>
         <% if current_user&.admin? && !hearing.anonymized? %>
-          <li>
-            <%= link_to t('hearings.show.anonymize'), anonymize_hearing_path(hearing), class: 'btn-link text-danger', method: :delete %>
-          </li>
+          <li class="mt-3"><%= link_to t('hearings.show.anonymize'), anonymize_hearing_path(hearing), class: 'text-danger', method: :delete %></li>
         <% end %>
       </ul>
 

@@ -1,5 +1,3 @@
-<li class="facet-item<%= ' selected' if result.selected? %>">
-  <%= link_to icon_tag('plus-empty'), search_path(result.add_params), class: 'facet-link-add' unless result.selected? %>
-  <%= link_to icon_tag('minus-empty'), search_path(result.remove_params), class: 'facet-link-remove' if result.selected? %>
+<li class="facet-item<%= ' active' if result.selected? %>">
   <%= link.call facet, result, class: 'facet-link' %>
 </li>
