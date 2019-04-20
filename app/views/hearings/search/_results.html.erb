@@ -20,8 +20,8 @@
       <% end %>
 
       <ul class="float-right list-unstyled text-right ml-2 mb-2">
-        <li><%= tooltip_tag hearing.case_number || '?', t('case_number.full'), placement: 'left' %></li>
-        <li><%= tooltip_tag hearing.file_number || '?', t('file_number.full'), placement: 'left' %></li>
+        <li><%= tooltip_tag hearing.case_number || '?', t('case_number.full'), class: 'text-muted', placement: 'left' %></li>
+        <li><%= tooltip_tag hearing.file_number || '?', t('file_number.full'), class: 'text-muted', placement: 'left' %></li>
         <% if current_user&.admin? && !hearing.anonymized? %>
           <li class="mt-3"><%= link_to t('hearings.show.anonymize'), anonymize_hearing_path(hearing), class: 'text-danger', method: :delete %></li>
         <% end %>
