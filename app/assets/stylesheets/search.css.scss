@@ -70,7 +70,7 @@
 .facet-item {
   margin-bottom: map-get($spacers, 2);
 
-  .collapse.show & {
+  .collapse.show > & {
     margin-top: map-get($spacers, 2);
   }
 

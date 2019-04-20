@@ -3,7 +3,7 @@
   <div class="btn-toolbar mb-3" role="toolbar">
     <% if @facets.query_params.any? %>
       <div class="btn-group btn-group-sm border mr-2" role="group">
-        <%= link_to t('.reset'), search_path, class: 'btn btn-secondary btn-sm' %>
+        <%= link_to t('.reset'), search_path, class: 'btn btn-secondary btn-sm shadow-none border-0' %>
       </div>
     <% end %>
     <div class="btn-group btn-group-sm border" role="group">
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<%= form_tag search_path.split('?', 2).first, method: :get, class: 'search-query-form mb-4' do %>
+<%= form_tag search_path(l: nil), method: :get, class: 'search-query-form mb-4' do %>
   <div class="input-group">
     <%= search_field_tag @facets[:q].name, params[@facets[:q].name], class: 'form-control search-query-input', placeholder: t(@facets[:q].key)[:placeholder] %>
     <div class="input-group-append">
