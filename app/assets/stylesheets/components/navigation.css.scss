@@ -4,6 +4,7 @@
 
     @include hover-focus {
       color: $blue;
+      text-decoration: none;
     }
   }
 }
@@ -33,4 +34,8 @@
 .nav-link {
   margin: $nav-link-padding-y $nav-link-padding-x;
   padding: 0;
+
+  @include hover-focus {
+    text-decoration: $link-hover-decoration;
+  }
 }

@@ -61,3 +61,19 @@
     @include color-variant($gray, #cf2529)
   }
 }
+
+.content {
+  text-align: justify;
+
+  ol, ul {
+    padding-left: 1.5rem;
+  }
+
+  li ol, li ul {
+    margin-bottom: 1rem;
+  }
+
+  li p, > *:last-child {
+    margin-bottom: 0;
+  }
+}

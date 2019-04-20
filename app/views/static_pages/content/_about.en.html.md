@@ -14,14 +14,14 @@ they are often over-generalizing (“judges are corrupt”) without any clear re
 of problems. Secondly, majority of discussions are held only among unnecessarily restricted group of legal professionals. Open Courts
 aim to contribute to the improvement of the discussion about Slovak judiciary in three ways:
 
-1. improvement of accessebility of information about activities and performance of judges and courts, 
+1. improvement of accessibility of information about activities and performance of judges and courts, 
 2. the data are interconnected and allow for comparisons,
 3. doing so on the level of particular judges and courts.
 
 Authors of the project are
 <%= link_to 'Samuel Molnár', 'https://twitter.com/samuelmolnar' %> and
 <%= link_to 'Pavol Zbell', 'https://twitter.com/pavolzbell' %>
-(members of research group <%= link_to 'PeWe', 'http://pewe.fiit.stuba.sk' %> at
+(former members of research group <%= link_to 'PeWe', 'http://pewe.fiit.stuba.sk' %> at
 <%= link_to 'Faculty of Informatics and Information Technologies', 'http://fiit.stuba.sk' %> of
 <%= link_to 'Slovak University of Technology in Bratislava', 'http://stuba.sk' %>) and
 <%= link_to 'Transparency International Slovakia', 'http://transparency.sk' %>.

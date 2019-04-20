@@ -23,7 +23,7 @@ je príspevkom k zlepšeniu diskusie o slovenskom súdnictve troma spôsobmi:
 Autormi projektu sú
 <%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> a
 <%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
-(členovia výskumnej skupiny <%= link_to 'PeWe', 'http://pewe.fiit.stuba.sk' %> na
+(bývalí členovia výskumnej skupiny <%= link_to 'PeWe', 'http://pewe.fiit.stuba.sk' %> na
 <%= link_to 'Fakulte informatiky a informačných technológií', 'http://fiit.stuba.sk' %>
 <%= link_to 'Slovenskej technickej univerzity v Bratislave', 'http://stuba.sk' %>) a
 <%= link_to 'Transparency International Slovensko', 'http://transparency.sk' %>.
