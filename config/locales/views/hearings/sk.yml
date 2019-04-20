@@ -61,10 +61,11 @@ sk:
         description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
         document: "pôvodný dokument"
 
+      anonymize: "Anonymizovať"
       anonymized: "Pojednávanie bolo anonymizované na základe odôvodnenej žiadosti dotknutej osoby."
       faulty_date: "Pojednávanie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."
       future_date: "Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach na portáli Ministerstva spravodlivosti."
       unprocessed: "Pojednávanie je neúplné. Pri spracovaní dát z portálu Ministerstva spravodlivosti nastala neznáma chyba."
-      anonymize: 'Anonymizovať'
+
     anonymize:
-      success: 'Pojednávanie bolo anonymizované'
+      success: "Pojednávanie bolo anonymizované"
