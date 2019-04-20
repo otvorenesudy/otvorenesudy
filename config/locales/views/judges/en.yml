@@ -218,7 +218,7 @@ en:
         restant_ratio: This represents %{ratio} of the judge's unresolved cases. Average was %{average}.
         total_ratio: In %{year}, the judge was able to resolve %{ratio} of assigned cases. Average was %{average}.
 
-    indicators_2015:
+    indicators_2017:
       headline: "Indicators for 2017"
       none: "We do not register any indicators for the judge yet."
 
