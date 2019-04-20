@@ -42,10 +42,9 @@ en:
       resource: "Source"
 
       document: "original document"
-      document_note: "the link may not be valid"
+      document_note: "the link may not work anymore"
 
-      show_within: "Show within"
-      proceeding: "the proceeding"
+      in_proceeding: "Show within judicial proceeding"
 
       proposers: "Proposed by"
       opponents: "Opponents"
@@ -58,7 +57,7 @@ en:
         document: "the original document"
 
       link_note:
-        description: "Link to %{document} may not be valid, due to the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
+        description: "Link to %{document} may not work anymore, because the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
         document: "the original document"
 
       anonymize: "Anonymize"

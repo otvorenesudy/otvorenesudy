@@ -1,8 +1,8 @@
-<li class="timeline-item timeline-distance-<%= timeline_distance previous, hearing %>">
-  <h4>
-    <%= link_to hearing_headline(hearing, limit: 67), hearing %>
-    <small>
-      <%= hearing.date ? hearing_date(hearing.date) : t('proceedings.show.timeline.unknown_date') %>
-    </small>
-  </h4>
+<li class="timeline-item timeline-distance-<%= timeline_distance previous, hearing %> d-flex flex-column-reverse p-3">
+  <span class="h5 font-weight-bold mb-0">
+    <%= link_to hearing_headline(hearing, limit: 35), hearing %>
+  </span>
+  <small class="h6 font-weight-bold mb-2">
+    <%= hearing.date ? hearing_date(hearing.date) : t('proceedings.show.timeline.unknown_date') %>
+  </small>
 </li>

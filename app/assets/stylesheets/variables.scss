@@ -1,6 +1,7 @@
 // Colors
 
 $white:       #fff;
+$light:       #f4f8fb;
 $gray:        #8392ac;
 
 $grays: ();
@@ -124,7 +125,7 @@ $list-inline-padding:                  1rem;
 
 // Tables
 
-$table-accent-bg:                      #f4f8fb;
+$table-accent-bg:                      $light;
 
 $table-border-color:                   $border-color;
 

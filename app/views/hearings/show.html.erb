@@ -1,15 +1,15 @@
 <% provide :title, hearing_title(@hearing) %>
 
-<h1 class="m-t-3 m-b-1">
-  <%= hearing_headline @hearing, limit: 45, tooltip: true %>
-  <small class="d-block text-muted">
+<h1 class="text-uppercase mb-4">
+  <%= hearing_headline @hearing, limit: 49, tooltip: true %>
+  <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.hearing' %> <%= t @hearing.historical ? '.past' : '.future' %>
     <%= @hearing.date ? hearing_date(@hearing.date) : t('.unknown') %>
   </small>
 </h1>
 
 <div class="row">
-  <div class="col-lg-7">
+  <div class="col-xl-8">
     <% if @court %>
       <p>
         <%= hearing_type @hearing.type %> <%= t @hearing.historical ? '.took_place' : '.will_take_place' %>
@@ -21,7 +21,6 @@
         <% if @hearing.section %>
           <%= t '.section' %> &ndash; <%= @hearing.section.value %><%= ', ' if @hearing.special_type %>
         <% end %>
-
         <% if @hearing.special_type %>
           <%= @hearing.section ? t('.special_type').downcase_first : t('.special_type') %> &ndash; <%= @hearing.special_type %>
         <% end %>
@@ -42,48 +41,37 @@
     <% if @hearing.note %>
       <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
     <% end %>
-
-    <p class="m-b-0">
+    <p class="mb-4">
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @hearing.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
-
-    <div class="hidden-lg-up m-b-3"></div>
   </div>
 
-  <div class="col-lg-5">
-    <div class="card">
-      <div class="card-block">
-        <ul class="list-unstyled m-b-0">
-          <li>
-            <%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:
-            <span class="pull-xs-right"><%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : t('case_number.missing') %></span>
-          </li>
-          <li>
-            <%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:
-            <span class="pull-xs-right"><%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : t('file_number.missing') %></span>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <div class="col-xl-4">
+    <ul class="list-unstyled bg-light border mb-3 p-3">
+      <li class="d-flex justify-content-between mx-2">
+        <span><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
+        <%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : t('case_number.missing') %>
+      </li>
+      <li class="d-flex justify-content-between mx-2">
+        <span><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
+        <%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, params: { file_number: @hearing.file_number }) : t('file_number.missing') %>
+      </li>
+    </ul>
 
     <% if @hearing.proceeding %>
-      <div class="text-lg-center">
-        <%= t '.show_within' %> <%= link_to t('.proceeding'), @hearing.proceeding %>
-      </div>
+      <%= link_to t('.in_proceeding'), @hearing.proceeding, class: 'btn btn-outline-primary d-block' %>
     <% end %>
 
     <% if current_user&.admin? && !@hearing.anonymized? %>
-      <div class="text-lg-center">
-        <%= link_to t('.anonymize'), anonymize_hearing_path(@hearing), class: 'btn-link text-danger', method: :delete %>
-      </div>
+      <%= link_to t('.anonymize'), anonymize_hearing_path(@hearing), class: 'btn btn-outline-danger d-block mt-3', method: :delete %>
     <% end %>
   </div>
 </div>
 
 <% if @proposers.any? %>
-  <h2 class="m-t-3"><%= t '.proposers' %></h2>
+  <h2 class="h4 text-uppercase"><%= t '.proposers' %></h2>
 
-  <ul class="list-unstyled">
+  <ul class="list-unstyled mb-4">
     <% @proposers.each do |proposer| %>
       <li><%= proposer.name %></li>
     <% end %>
@@ -91,9 +79,9 @@
 <% end %>
 
 <% if @opponents.any? %>
-  <h2 class="m-t-3"><%= t '.opponents' %></h2>
+  <h2 class="h4 text-uppercase"><%= t '.opponents' %></h2>
 
-  <ul class="list-unstyled">
+  <ul class="list-unstyled mb-4">
     <% @opponents.each do |opponent| %>
       <li><%= opponent.name %></li>
     <% end %>
@@ -101,14 +89,14 @@
 <% end %>
 
 <% if @defendants.any? %>
-  <h2 class="m-t-3"><%= t '.defendants' %></h2>
+  <h2 class="h4 text-uppercase"><%= t '.defendants' %></h2>
 
-  <ul class="list-unstyled">
+  <ul class="list-unstyled mb-4">
     <% @defendants.each do |defendant| %>
       <li>
         <%= defendant.name %>
         <% if defendant.accusations.any? %>
-          <ul class="list-unstyled p-l-1">
+          <ul class="list-unstyled ml-3 mb-2">
             <% defendant.accusations.each do |accusation| %>
               <li>
                 <% if accusation.paragraphs.any? %>
@@ -125,7 +113,7 @@
 <% end %>
 
 <% if @judges.any? %>
-  <h2 class="m-t-3"><%= t '.judges' %></h2>
+  <h2 class="h4 text-uppercase"><%= t '.judges' %></h2>
 
   <% if @judges.chaired.any? %>
     <p>
@@ -149,7 +137,7 @@
   <% end %>
 <% end %>
 
-<p class="text-small text-muted m-t-3">
+<p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @hearing.uri), update: time_tag(@hearing.updated_at.to_date, format: :default) %>
   <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @hearing.uri) %>
 </p>
