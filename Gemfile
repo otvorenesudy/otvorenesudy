@@ -59,7 +59,7 @@ gem 'devise'
 # monitoring
 gem 'rollbar', '~> 2.12.0'
 gem 'garelic'
-gem 'newrelic_rpm'
+gem 'skylight'
 
 # markup
 gem 'redcarpet', require: 'redcarpet/compat'
@@ -73,6 +73,8 @@ gem 'rack-canonical-host'
 
 # serialization
 gem 'active_model_serializers'
+
+gem 'test-unit'
 
 group :assets do
   gem 'sass'
@@ -102,7 +104,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'guard-rspec'
   gem 'pry'
-  gem 'test-unit'
 end
 
 group :production do

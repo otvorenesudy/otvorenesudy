@@ -46,7 +46,6 @@ bundle install
 ```
 cp config/configuration.{yml.example,yml}
 cp config/database.{yml.example,yml}
-cp config/newrelic.{yml.example,yml}
 ```
 
 ## Data
