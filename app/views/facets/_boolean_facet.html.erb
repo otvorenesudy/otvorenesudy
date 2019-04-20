@@ -1,7 +1,5 @@
 <div id="<%= facet.id %>" class="facet">
-  <div class="facet-item<%= ' selected' if facet.value %>">
-    <%= link_to icon_tag('plus-empty'), search_path(params.merge facet.name => true), class: 'facet-link-add' unless facet.value %>
-    <%= link_to icon_tag('minus-empty'), search_path(params.merge facet.name => false), class: 'facet-link-remove' if facet.value %>
+  <div class="facet-item<%= ' active' if facet.value %>">
     <%= link_to translation[:value], search_path(params.merge facet.name => !facet.value), class: 'facet-link' %>
   </div>
 </div>

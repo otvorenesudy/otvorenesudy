@@ -2,10 +2,10 @@
   <li class="search-result-item">
     <h4 class="search-result-title">
       <%= link_to proceeding_path(proceeding, params: { q: params[:q] }) do %>
-        <%= proceeding_headline(proceeding, limit: 67) %>
+        <%= proceeding_headline(proceeding, limit: 57) %>
         <% if proceeding.legislation_area_and_subarea.any? %>
           <br/>
-          <%= proceeding_subject proceeding, limit: 67 %>
+          <%= proceeding_subject proceeding, limit: 57 %>
         <% end %>
       <% end %>
       <small>
@@ -31,12 +31,12 @@
     </h4>
 
     <div class="search-result-content">
-      <ol class="pull-xs-right text-xs-right list-unstyled">
+      <ul class="float-right list-unstyled text-right ml-2 mb-2">
         <% proceeding.case_numbers.each do |number| %>
           <li><%= tooltip_tag number || '?', t('case_number.full'), placement: 'left' %></li>
         <% end %>
         <li><%= tooltip_tag proceeding.file_number || '?', t('file_number.full'), placement: 'left' %></li>
-      </ol>
+      </ul>
 
       <%= t('.register').upcase_first %> <%= translate_with_count(proceeding.hearings.size, :hearing) %>
       <%= two_words_connector %>&nbsp;<%= translate_with_count(proceeding.decrees.size, :decree) %>.

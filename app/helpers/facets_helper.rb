@@ -5,11 +5,11 @@ module FacetsHelper
     tag :input, options.merge(type: 'text', name: facet.name, class: 'facet-suggest', data: data)
   end
 
-  def link_to_collapse_facet_results(facet)
+  def link_to_more_facet_results(facet)
+    content = content_tag(:span, t('search.facets.show_more'), class: 'more') + content_tag(:span, t('search.facets.show_less'), class: 'less')
     target = "##{facet.id}-list-more"
 
-    link_to(t('search.facets.show_more'), '#', class: 'facet-results-more collapsed', data: { toggle: 'collapse', target: target, collapse: 'unfold' }) +
-    link_to(t('search.facets.show_less'), '#', class: 'facet-results-less collapsed', data: { toggle: 'collapse', target: target, collapse: 'fold' })
+    link_to(content, '#', class: 'facet-results-more collapsed', data: { toggle: 'collapse', target: target })
   end
 
   def link_to_terms_facet(facet, result, options = {})
@@ -73,7 +73,7 @@ module FacetsHelper
     path   = options.delete(:path) || method(:search_path)
     params = !result.selected? ? result.add_params : result.remove_params
 
-    options.merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 1000 }' }, title: value if body != value
+    options.merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 500 }' }, title: value if body != value
 
     body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
     body << content_tag(:span, count, class: 'facet-tag') if count.present?

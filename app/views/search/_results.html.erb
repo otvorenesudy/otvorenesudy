@@ -1,10 +1,18 @@
 <% if @results.any? %>
   <%= render "#{@type.to_s.pluralize}/search/results", results: @results, offset: @results.offset %>
 <% else %>
-  <div class="alert alert-info m-t-2" role="alert">
+  <div class="alert alert-info mb-0" role="alert">
     <%= t '.no_results' %>
   </div>
 <% end %>
 
-<%= render 'search/details' %>
-<%= paginate @results, window: 4 %>
+<div class="d-flex align-items-center justify-content-between mt-4">
+  <div class="small text-muted">
+    <% unless @count.zero? %>
+      <%= t '.found', count: "#{@results.offset + 1} &ndash; #{[@results.offset + @results.per_page, @count].min}".html_safe, total: translate_with_count(@count, :result), time: number_with_delimiter(@results.time) %>
+    <% else %>
+      <%= t '.not_found', time: number_with_delimiter(@results.time) %>
+    <% end %>
+  </div>
+  <%= paginate @results, window: 4 %>
+</div>

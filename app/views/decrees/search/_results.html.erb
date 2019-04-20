@@ -2,10 +2,10 @@
   <li class="search-result-item">
     <h4 class="search-result-title">
       <%= link_to decree_path(decree, params: { q: params[:q] }) do %>
-        <%= decree_headline decree, limit: 67 %>
+        <%= decree_headline decree, limit: 57 %>
         <% if decree.natures.any? %>
           <br/>
-          <%= decree_natures decree, limit: 67 %>
+          <%= decree_natures decree, limit: 57 %>
         <% end %>
       <% end %>
       <small>
@@ -15,17 +15,17 @@
     </h4>
 
     <div class="search-result-content">
-      <ul class="pull-xs-right text-xs-right list-unstyled">
+      <ul class="float-right list-unstyled text-right ml-2 mb-2">
         <li><%= tooltip_tag decree.case_number || '?', t('case_number.full'), placement: 'left' %></li>
         <li><%= tooltip_tag decree.file_number || '?', t('file_number.full'), placement: 'left' %></li>
       </ul>
 
       <% if decree.unprocessed? %>
-        <div class="text-danger">
+        <div class="alert alert-danger alert-sm mb-2">
           <%= s t '.unprocessed' %>
         </div>
       <% elsif decree.has_future_date? %>
-        <div class="text-warning">
+        <div class="alert alert-warning alert-sm mb-2">
           <%= s t '.future_date' %>
         </div>
       <% end %>
@@ -44,7 +44,7 @@
         <% end %>
       <% end %>
 
-      <% if highlight && highlight[:text].any? %>
+      <% if highlight[:text].any? %>
         <div class="search-result-highlights">
           <%= strip_and_highlight highlight[:text] %>
         </div>
