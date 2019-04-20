@@ -121,6 +121,7 @@
   z-index: 910 !important;;
   right: 0;
 
+  border: 0;
   padding: $input-padding-x;
 
   @include color-variant($primary, $secondary);

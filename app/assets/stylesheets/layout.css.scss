@@ -1,6 +1,6 @@
 body {
   .sme {
-    @include color-variant($text-muted, #cf2529)
+    @include color-variant($text-muted, #cf2529);
   }
 
   .tis {

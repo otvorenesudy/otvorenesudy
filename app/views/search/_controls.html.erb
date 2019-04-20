@@ -8,7 +8,7 @@
     <% end %>
     <div class="btn-group btn-group-sm border" role="group">
       <div class="btn-group btn-group-sm" role="group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= t(".sort.#{@model.to_s.underscore}.#{(params[:sort] || @sort_fields.first).to_s.gsub(/\A_/, '')}") %>
         </button>
         <div class="dropdown-menu dropdown-menu-sm">
@@ -17,8 +17,8 @@
           <% end %>
         </div>
       </div>
-      <%= link_to icon_tag('arrow-up', size: 12), search_path(params.merge order: :asc), class: "btn btn-secondary#{' active' if @facets.params[:order] == :asc} d-flex align-items-center border-left" %>
-      <%= link_to icon_tag('arrow-down', size: 12), search_path(params.merge order: :desc), class: "btn btn-secondary#{' active' if @facets.params[:order] == :desc} d-flex align-items-center border-left" %>
+      <%= link_to icon_tag('arrow-up', size: 12), search_path(params.merge order: :asc), class: "btn btn-secondary#{' active' if @facets.params[:order] == :asc} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>
+      <%= link_to icon_tag('arrow-down', size: 12), search_path(params.merge order: :desc), class: "btn btn-secondary#{' active' if @facets.params[:order] == :desc} d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0" %>
     </div>
   </div>
 </div>
