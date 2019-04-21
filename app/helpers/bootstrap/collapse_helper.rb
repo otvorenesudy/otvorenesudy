@@ -3,7 +3,6 @@ module Bootstrap
     def link_to_collapse(content, target, options = {})
       classes = Array.wrap(options[:class])
       collapsed = !(options.delete(:collapsed) === false)
-      data = options.extract!(:parent).select { |_, v| v }
       classes << 'collapsed' if collapsed
 
       if content.is_a? Array
@@ -12,7 +11,7 @@ module Bootstrap
         content = content.last
       end
 
-      options.deep_merge! class: (classes if classes.present?), data: data.merge(toggle: 'collapse')
+      options.deep_merge! class: classes.presence, data: { toggle: 'collapse' }
       link_to content, target, options
     end
   end
