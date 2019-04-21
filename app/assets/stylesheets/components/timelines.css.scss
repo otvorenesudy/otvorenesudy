@@ -18,7 +18,7 @@
   position: relative;
   width: calc(50% - 3rem);
 
-  &:after {
+  &::after {
     content: "";
     position: absolute;
     top: calc(50% - 2rem);
@@ -29,7 +29,7 @@
     border-bottom: 2rem solid transparent;
   }
 
-  &:before {
+  &::before {
     content: "";
     position: absolute;
     top: calc(50% - .25rem);
@@ -43,12 +43,12 @@
   &:nth-child(even) {
     margin-left: auto;
 
-    &:after {
+    &::after {
       left: -2rem;
       border-right: 2rem solid $light;
     }
 
-    &:before {
+    &::before {
       left: -3.25rem;
     }
   }
@@ -56,12 +56,12 @@
   &:nth-child(odd) {
     margin-right: auto;
 
-    &:after {
+    &::after {
       right: -2rem;
       border-left: 2rem solid $light;
     }
 
-    &:before {
+    &::before {
       right: -3.25rem;
     }
   }
@@ -73,7 +73,7 @@
       margin-left: 0;
       margin-right: auto;
 
-      &:after {
+      &::after {
         left: initial;
         right: -2rem;
 
@@ -81,7 +81,7 @@
         border-left: 2rem solid $light;
       }
 
-      &:before {
+      &::before {
         left: initial;
         right: -3.25rem;
       }
