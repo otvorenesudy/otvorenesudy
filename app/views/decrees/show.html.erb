@@ -1,6 +1,6 @@
 <% provide :title, decree_title(@decree) %>
 
-<h1 class="text-uppercase mb-4">
+<h1 class="text-uppercase my-4">
   <%= decree_headline @decree, limit: 49, tooltip: true %><span class="d-inline d-xl-none">,</span>
   <% if @decree.natures.any? %>
     <br class="d-none d-xl-inline"/><%= decree_natures @decree, limit: 49, tooltip: true %>

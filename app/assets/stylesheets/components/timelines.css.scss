@@ -1,7 +1,7 @@
 .timeline {
+  @include gradient-x($light, $light, 100%, 100%);
   @include list-unstyled;
 
-  @include gradient-x($light, $light, 100%, 100%);
   background-position: center;
   background-repeat: repeat-y;
   background-size: 4px;
@@ -23,8 +23,8 @@
     position: absolute;
     top: calc(50% - 2rem);
 
-    width: 0;
-    height: 0;
+    @include size(0);
+
     border-top: 2rem solid transparent;
     border-bottom: 2rem solid transparent;
   }
@@ -34,8 +34,7 @@
     position: absolute;
     top: calc(50% - .25rem);
 
-    height: .5rem;
-    width: .5rem;
+    @include size(.5rem);
 
     background: $blue;
     border-radius: 50%;
