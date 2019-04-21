@@ -52,3 +52,24 @@ a {
     }
   }
 }
+
+// add bottom border corners on active tab links
+
+.nav-tabs .nav-link.active {
+  position: relative;
+
+  @include plain-hover-focus {
+    border-bottom-color: $nav-tabs-border-color;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: $nav-tabs-border-width;
+      bottom: -$nav-tabs-border-width;
+      left: 0;
+
+      background: $nav-tabs-link-active-bg;
+    }
+  }
+}

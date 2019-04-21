@@ -39,3 +39,33 @@
     text-decoration: $link-hover-decoration;
   }
 }
+
+.nav-tabs {
+  .nav-link {
+    margin: 0;
+    padding: $nav-link-padding-y $nav-link-padding-x;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    @include hover-focus {
+      color: $nav-tabs-link-hover-color;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    flex-direction: column;
+
+    .nav-link {
+      @include plain-hover-focus {
+        border-color: $nav-tabs-border-color;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
