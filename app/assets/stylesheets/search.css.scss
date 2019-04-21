@@ -48,7 +48,6 @@
   @include color-variant($navy, $blue);
 
   display: inline-block;
-  margin-top: map-get($spacers, 2);
 
   &.collapsed {
     .more { display: inline }
@@ -58,21 +57,23 @@
   &:not(.collapsed) {
     .more { display: none }
     .less { display: inline }
+
+    margin-top: map-get($spacers, 2);
   }
 }
 
 .facet-list {
   @include list-unstyled;
 
-  margin: 0;
+  margin-bottom: map-get($spacers, 2);
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .facet-item {
   margin-bottom: map-get($spacers, 2);
-
-  .collapse.show > & {
-    margin-top: map-get($spacers, 2);
-  }
 
   &:last-of-type {
     margin-bottom: 0;
