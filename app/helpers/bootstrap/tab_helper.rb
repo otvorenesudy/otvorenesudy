@@ -3,13 +3,13 @@ module Bootstrap
     def tab_link_tag(title, tab, options = {})
       classes = Array.wrap(options[:class]).unshift 'nav-link'
       content_tag :li, class: 'nav-item' do
-        link_to title, '#', options.deep_merge(class: classes, data: { toggle: 'tab', target: "#tab-pane-#{tab}" }, role: 'tab')
+        link_to title, "##{tab}", options.deep_merge(class: classes, data: { toggle: 'tab' }, role: 'tab')
       end
     end
 
     def tab_content_tag(tab, options = {}, &block)
       classes = Array.wrap(options[:class]).unshift 'tab-pane'
-      content_tag :div, options.merge(id: "tab-pane-#{tab}", class: classes, role: 'tabpanel'), &block
+      content_tag :div, options.merge(id: tab, class: classes, role: 'tabpanel'), &block
     end
 
     def render_tab(options = {}, locals = {}, &block)
