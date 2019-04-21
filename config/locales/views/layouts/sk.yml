@@ -8,7 +8,6 @@ sk:
       content: "Transparentný pohľad na slovenské súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!"
 
     header:
-      title: "Otvorené Súdy"
       courts: "Súdy"
       judges: "Sudcovia"
       hearings: "Pojednávania"
@@ -17,12 +16,15 @@ sk:
       selections: "Výberové konania"
       families: "Rodinné väzby"
       prosecutors: "Prokurátori"
+
       sign_in: "Prihlásiť sa"
       sign_out: "Odhlásiť sa"
       subscriptions: "Notifikácie"
       settings: "Nastavenia"
+
       english: 'English'
       slovak: 'Slovenčina'
+
       donate: "Podporte"
 
     footer:
@@ -30,13 +32,14 @@ sk:
       api: "API"
       articles: "Články"
       contact: "Kontakt"
-      copyright: "Autorské práva"
-      donate: "Podporte nás"
       faq: "FAQ"
       feedback: "Našli ste chybu?"
       privacy: "Ochrana súkromia"
-      sign_in: "Prihlásenie"
       tos: "Podmienky používania"
+
+      sign_in: "Prihlásenie"
+
+      donate: "Podporte"
 
       disclaimer:
         resources: "Projekt využíva výhradne dáta verejných inštitúcií."

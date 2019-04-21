@@ -8,21 +8,23 @@ en:
       content: "Transparent look at Slovak courts. Which are the fastest and which have paid the most in fines for wrong or delayed decrees? What do judges own? Search in judicial decrees and hearings!"
 
     header:
-      title: "Open Courts"
       courts: "Courts"
       judges: "Judges"
       hearings: "Hearings"
       decrees: "Decrees"
-      proceedings: "Judicial Proceedings"
-      selections: "Selection Procedures"
-      families: "Family Bonds"
+      proceedings: "Judicial proceedings"
+      selections: "Selection procedures"
+      families: "Family bonds"
       prosecutors: "Prosecutors"
-      sign_in: "Sign In"
-      sign_out: "Sign Out"
+
+      sign_in: "Sign in"
+      sign_out: "Sign out"
       subscriptions: "Subscriptions"
       settings: "Settings"
+
       english: 'English'
       slovak: 'Slovenčina'
+
       donate: "Support us"
 
     footer:
@@ -30,13 +32,14 @@ en:
       api: "API"
       articles: "Articles"
       contact: "Contacts"
-      copyright: "Copyright"
-      donate: "Support us"
       faq: "FAQ"
       feedback: "Found a mistake?"
       privacy: "Privacy"
-      sign_in: "Sign In"
       tos: "Terms of use"
+
+      sign_in: "Sign in"
+
+      donate: "Support us"
 
       disclaimer:
         resources: "Project uses only data provided by public institutions."
