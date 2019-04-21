@@ -12,11 +12,12 @@ class DecreesController < SearchController
     flash.now[:warning] << t('decrees.show.faulty_date') if @decree.had_future_date?
   end
 
-  def resource
-    @decree = Decree.find(params[:id])
-
-    send_file_in @decree.resource_path, type: 'text/plain'
-  end
+  # TODO rm - unused?
+  # def resource
+  #   @decree = Decree.find(params[:id])
+  #
+  #   send_file_in @decree.resource_path, type: 'text/plain'
+  # end
 
   def document
     @decree = Decree.find(params[:id])

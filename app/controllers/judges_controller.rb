@@ -13,7 +13,7 @@ class JudgesController < SearchController
     @statistical_summaries = @judge.statistical_summaries.order('year desc')
 
     # TODO rm or fix Bing Search API
-    @media = [] # @judge.context_search[0..9]
+    # @media = [] # @judge.context_search[0..9]
 
     flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
 
