@@ -7,7 +7,8 @@ OpenCourts::Application.routes.draw do
     collection do
       get :suggest
 
-      get :map
+      # TODO rm - unused?
+      # get :map
     end
   end
 
@@ -29,7 +30,9 @@ OpenCourts::Application.routes.draw do
     end
 
     member do
-      get :resource
+      # TODO rm - unused?
+      # get :resource
+
       delete :anonymize
     end
   end
@@ -40,7 +43,9 @@ OpenCourts::Application.routes.draw do
     end
 
     member do
-      get :resource
+      # TODO rm - unused?
+      # get :resource
+
       get :document
     end
   end

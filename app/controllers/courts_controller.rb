@@ -9,10 +9,11 @@ class CourtsController < SearchController
     @decrees  = @court.decrees.order('date desc')
 
     # TODO rm or fix Bing Search API
-    @media = [] # @court.context_search[0..9]
+    # @media = [] # @court.context_search[0..9]
   end
 
-  def map
-    @courts = Court.order(:name).all
-  end
+  # TODO rm - unused?
+  # def map
+  #   @courts = Court.order(:name).all
+  # end
 end
