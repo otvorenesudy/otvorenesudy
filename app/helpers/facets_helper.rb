@@ -5,10 +5,10 @@ module FacetsHelper
     tag :input, options.merge(type: 'text', name: facet.name, class: 'facet-suggest', data: data)
   end
 
-  def link_to_more_facet_results(facet)
-    options = { class: 'facet-results-more', data: { content: t('search.facets.show_less') }}
+  def link_to_facet_results_continuation(facet)
+    options = { class: 'facet-results-continuation', data: { content: t('search.facets.show_less') }}
 
-    link_to_collapse t('search.facets.show_more'), "##{facet.id}-list-more", options
+    link_to_collapse t('search.facets.show_more'), "##{facet.id}-list-continuation", options
   end
 
   def link_to_terms_facet(facet, result, options = {})
