@@ -44,7 +44,7 @@
   margin-bottom: map-get($spacers, 1);
 }
 
-.facet-results-more {
+.facet-results-continuation {
   @include color-variant($navy, $blue);
 
   display: inline-block;
