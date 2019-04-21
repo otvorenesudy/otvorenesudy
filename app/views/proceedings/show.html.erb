@@ -50,7 +50,7 @@
   </div>
 
   <div class="col-xl-4">
-    <ul class="list-unstyled bg-light border mb-3 p-3">
+    <ul class="list-unstyled bg-light border mb-0 p-3">
       <% @proceeding.case_numbers.each do |case_number| %>
         <li class="d-flex justify-content-between mx-2">
           <span><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<nav class="border-top mt-3">
+<nav class="border-top mt-4">
   <p class="h3 font-weight-bold text-center text-uppercase mt-4 mb-3"><%= t '.timeline.present' %></p>
   <ol class="timeline mb-0 py-3">
     <% ([nil] + @events.reverse).each_cons(2) do |previous, event| %>

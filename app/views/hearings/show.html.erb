@@ -41,13 +41,13 @@
     <% if @hearing.note %>
       <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
     <% end %>
-    <p class="mb-4">
+    <p class="mb-0">
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @hearing.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
   </div>
 
   <div class="col-xl-4">
-    <ul class="list-unstyled bg-light border mb-3 p-3">
+    <ul class="list-unstyled bg-light border mb-0 p-3">
       <li class="d-flex justify-content-between mx-2">
         <span><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
         <%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, params: { case_number: @hearing.case_number }) : t('case_number.missing') %>
@@ -59,7 +59,7 @@
     </ul>
 
     <% if @hearing.proceeding %>
-      <%= link_to t('.in_proceeding'), @hearing.proceeding, class: 'btn btn-outline-primary d-block' %>
+      <%= link_to t('.in_proceeding'), @hearing.proceeding, class: 'btn btn-outline-primary d-block mt-3' %>
     <% end %>
 
     <% if current_user&.admin? && !@hearing.anonymized? %>
@@ -69,9 +69,9 @@
 </div>
 
 <% if @proposers.any? %>
-  <h2 class="h4 text-uppercase"><%= t '.proposers' %></h2>
+  <h2 class="h4 text-uppercase mt-4"><%= t '.proposers' %></h2>
 
-  <ul class="list-unstyled mb-4">
+  <ul class="list-unstyled">
     <% @proposers.each do |proposer| %>
       <li><%= proposer.name %></li>
     <% end %>
@@ -79,9 +79,9 @@
 <% end %>
 
 <% if @opponents.any? %>
-  <h2 class="h4 text-uppercase"><%= t '.opponents' %></h2>
+  <h2 class="h4 text-uppercase mt-4"><%= t '.opponents' %></h2>
 
-  <ul class="list-unstyled mb-4">
+  <ul class="list-unstyled">
     <% @opponents.each do |opponent| %>
       <li><%= opponent.name %></li>
     <% end %>
@@ -89,9 +89,9 @@
 <% end %>
 
 <% if @defendants.any? %>
-  <h2 class="h4 text-uppercase"><%= t '.defendants' %></h2>
+  <h2 class="h4 text-uppercase mt-4"><%= t '.defendants' %></h2>
 
-  <ul class="list-unstyled mb-4">
+  <ul class="list-unstyled">
     <% @defendants.each do |defendant| %>
       <li>
         <%= defendant.name %>
@@ -113,7 +113,7 @@
 <% end %>
 
 <% if @judges.any? %>
-  <h2 class="h4 text-uppercase"><%= t '.judges' %></h2>
+  <h2 class="h4 text-uppercase mt-4"><%= t '.judges' %></h2>
 
   <% if @judges.chaired.any? %>
     <p>

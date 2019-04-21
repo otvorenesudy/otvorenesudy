@@ -42,13 +42,13 @@
     <% if @decree.natures.any? %>
       <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
     <% end %>
-    <p class="mb-4">
+    <p class="mb-0">
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
   </div>
 
   <div class="col-xl-4">
-    <ul class="list-unstyled bg-light border mb-3 p-3">
+    <ul class="list-unstyled bg-light border mb-0 p-3">
       <li class="d-flex justify-content-between mx-2">
         <span><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
         <%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : t('case_number.missing') %>
@@ -64,7 +64,7 @@
     </ul>
 
     <% if @decree.proceeding %>
-      <%= link_to t('.in_proceeding'), @decree.proceeding, class: 'btn btn-outline-primary d-block' %>
+      <%= link_to t('.in_proceeding'), @decree.proceeding, class: 'btn btn-outline-primary d-block mt-3' %>
     <% end %>
 
     <% if File.readable? @decree.document_path %>
@@ -74,12 +74,12 @@
 </div>
 
 <% if @legislations.any? %>
-  <p class="mb-0">
+  <p class="mt-4 mb-0">
     <%= link_to_collapse t('.legislations'), '#legislations' %>
   </p>
 
   <div id="legislations" class="collapse">
-    <ul class="list-unstyled ml-3 mb-4">
+    <ul class="list-unstyled ml-3">
       <% @legislations.each do |legislation| %>
         <li>
           <%= link_to legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url %>
@@ -90,13 +90,13 @@
 <% end %>
 
 <% if @decree.summary %>
-  <p class="mt-4 mb-0">
+  <p class="mt-4">
     <%= t '.summary' %> &ndash; <%= @decree.summary %>
   </p>
 <% end %>
 
 <% if File.readable? @decree.document_path %>
-  <p class="text-muted mt-4 mb-0">
+  <p class="text-muted mt-4">
     <%= t '.viewer_note.description', document: link_to(t('.viewer_note.document'), document_decree_path(@decree)) %>
   </p>
 

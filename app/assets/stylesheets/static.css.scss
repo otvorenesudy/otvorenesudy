@@ -65,6 +65,10 @@
 .content {
   text-align: justify;
 
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: map-get($spacers, 4);
+  }
+
   ol, ul {
     padding-left: 1.5rem;
   }
