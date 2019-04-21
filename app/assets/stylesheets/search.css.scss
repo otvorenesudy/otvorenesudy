@@ -49,15 +49,7 @@
 
   display: inline-block;
 
-  &.collapsed {
-    .more { display: inline }
-    .less { display: none }
-  }
-
   &:not(.collapsed) {
-    .more { display: none }
-    .less { display: inline }
-
     margin-top: map-get($spacers, 2);
   }
 }

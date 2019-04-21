@@ -6,10 +6,9 @@ module FacetsHelper
   end
 
   def link_to_more_facet_results(facet)
-    content = content_tag(:span, t('search.facets.show_more'), class: 'more') + content_tag(:span, t('search.facets.show_less'), class: 'less')
-    target = "##{facet.id}-list-more"
+    options = { class: 'facet-results-more', data: { content: t('search.facets.show_less') }}
 
-    link_to(content, '#', class: 'facet-results-more collapsed', data: { toggle: 'collapse', target: target })
+    link_to_collapse t('search.facets.show_more'), "##{facet.id}-list-more", options
   end
 
   def link_to_terms_facet(facet, result, options = {})
