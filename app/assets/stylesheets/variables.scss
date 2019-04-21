@@ -180,6 +180,21 @@ $dropdown-link-active-bg:              $input-bg;
 $dropdown-item-padding-x:              .75rem;
 $dropdown-item-padding-y:              .5rem;
 
+// Navs
+
+$nav-link-padding-y:                   .5rem;
+$nav-link-padding-x:                   1rem;
+$nav-link-disabled-color:              $gray;
+
+$nav-tabs-border-color:                $navy;
+$nav-tabs-border-width:                2px;
+
+$nav-tabs-link-hover-color:            $navy;
+$nav-tabs-link-hover-border-color:     transparent;
+
+$nav-tabs-link-active-color:           $nav-tabs-link-hover-color;
+$nav-tabs-link-active-border-color:    $nav-tabs-border-color $nav-tabs-border-color transparent;
+
 // Navbar
 
 $navbar-padding-x:                     0;
