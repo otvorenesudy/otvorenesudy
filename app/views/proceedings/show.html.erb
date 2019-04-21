@@ -1,6 +1,6 @@
 <% provide :title, proceeding_title(@proceeding) %>
 
-<h1 class="text-uppercase mb-4">
+<h1 class="text-uppercase my-4">
   <%= proceeding_headline @proceeding, limit: 49, tooltip: true %><span class="d-inline d-xl-none">,</span>
   <% if @proceeding.legislation_area_and_subarea.any? %>
     <br class="d-none d-xl-inline"/><%= proceeding_subject @proceeding, limit: 49, tooltip: true %>

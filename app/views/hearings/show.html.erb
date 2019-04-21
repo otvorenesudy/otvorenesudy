@@ -1,6 +1,6 @@
 <% provide :title, hearing_title(@hearing) %>
 
-<h1 class="text-uppercase mb-4">
+<h1 class="text-uppercase my-4">
   <%= hearing_headline @hearing, limit: 49, tooltip: true %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.hearing' %> <%= t @hearing.historical ? '.past' : '.future' %>
