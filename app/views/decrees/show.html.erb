@@ -95,14 +95,6 @@
   </p>
 <% end %>
 
-<% if File.readable? @decree.document_path %>
-  <p class="text-muted mt-4">
-    <%= t '.viewer_note.description', document: link_to(t('.viewer_note.document'), document_decree_path(@decree)) %>
-  </p>
-
-  <%= content_tag :iframe, nil, src: "https://docs.google.com/viewer?url=#{document_decree_url @decree, l: nil, embedded: true}", class: 'd-block w-100 mt-4', frameborder: '0', height: '1156px' %>
-<% end %>
-
 <p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
   <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @decree.uri) %>
