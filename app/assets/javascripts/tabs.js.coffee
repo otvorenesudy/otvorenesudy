@@ -9,5 +9,3 @@ $(document).ready ->
 
   if window.location.hash != ''
     $("a[data-toggle=\"tab\"][href=\"#{window.location.hash}\"]").tab('show')
-  else
-    $("a[data-toggle=\"tab\"]:first").tab('show')
