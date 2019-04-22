@@ -13,6 +13,14 @@
     }
   }
 
+  tbody {
+    td {
+      > *:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   &[data-sortable="true"] th {
     cursor: default;
 
