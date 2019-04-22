@@ -10,10 +10,10 @@ module JudgesHelper
     when nil   then %w(question text-warning judges.activity.unknown)
     end
 
-    options = options.merge class: Array.wrap(options[:class]).unshift("d-inline-flex #{c}")
+    options = options.merge class: Array.wrap(options[:class]).unshift("d-inline #{c}")
     options = options.merge placement: options.delete(:placement) || 'top'
 
-    tooltip_tag icon_tag(n), t("#{t}.#{judge.probable_gender}").upcase_first, options
+    tooltip_tag icon_tag(n, size: options.delete(:size)), t("#{t}.#{judge.probable_gender}").upcase_first, options
   end
 
   def judge_activity_by_employment(employment, options = {}, &block)

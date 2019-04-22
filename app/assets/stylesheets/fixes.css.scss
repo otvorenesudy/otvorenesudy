@@ -28,14 +28,15 @@ a {
   color: inherit !important;
 }
 
-// add text decoration on helper elements without icons (helper elements with icons have inline flex class)
+// add text decoration on helper elements without icons (helper elements with icons have display inline class)
 // set default color and correct cursor on helper elements
 
 @each $helper in ("popover" "tooltip") {
   a[href="#"][data-toggle="#{$helper}"] {
+    position: relative;
+
     color: $body-color;
     cursor: help;
-    position: relative;
     text-decoration: none;
 
     &::after {
@@ -48,8 +49,14 @@ a {
       left: 0;
     }
 
-    &.d-inline-flex::after {
-      display: none;
+    &.d-inline {
+      svg {
+        vertical-align: initial;
+      }
+
+      &::after {
+        display: none;
+      }
     }
   }
 }
