@@ -1,7 +1,0 @@
-<div class="map-marker">
-  <% courts.each do |court| %>
-    <h4><%= link_to_court court %></h4>
-    <p><%= court.address %></p>
-  <% end %>
-  <%= link_to t('.get_directions'), "https://www.google.sk/maps/dir/#{latitude},#{longitude}" %>
-</div>

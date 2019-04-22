@@ -80,10 +80,6 @@ en:
       address: "Address"
       country: "Slovak Republic"
 
-      map: "Map"
-      show_on_map: "Show on map"
-      with_other_courts: "with other courts in Slovak Republic."
-
     office:
       type:
         information_center: "Information center"
@@ -125,11 +121,3 @@ en:
       headline: "Announced hearings"
       more: "More hearings"
       none: "We do not register any announced hearings for the court yet."
-
-    map:
-      title: "Map of courts in Slovak Republic"
-      note: "In Slovakia there are %{courts} courts in %{places} different places"
-      hint: "Basic court information will appear by clicking on a map marker."
-
-      marker:
-        get_directions: "Get directions"
