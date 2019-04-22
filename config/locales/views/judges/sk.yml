@@ -64,7 +64,6 @@ sk:
       decrees: "Rozhodnutia"
       upcoming_hearings: "Budúce pojednávania"
       historical_hearings: "Minulé pojednávania"
-      media: "Médiá"
 
       note: "Poznámka"
 
@@ -296,8 +295,3 @@ sk:
       headline: "Minulé pojednávania"
       more: "Viac pojednávaní"
       none: "Pre sudcu zatiaľ neevidujeme žiadne minulé súdne pojednávania."
-
-    media:
-      headline: "Zmienky v médiách"
-      clarification: "Odkazy sú vyhľadávané automaticky na základe mena a pôsobiska sudcu. Sudcu sa týkať nemusia."
-      none: "O sudcovi neboli nájdené žiadne zmienky v médiách."

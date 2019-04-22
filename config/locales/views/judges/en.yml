@@ -64,7 +64,6 @@ en:
       decrees: "Decrees"
       upcoming_hearings: "Upcoming hearings"
       historical_hearings: "Past hearings"
-      media: "Media"
 
       note: "Note"
 
@@ -296,8 +295,3 @@ en:
       headline: "Past hearings"
       more: "More hearings"
       none: "We do not register any past hearings for the judge yet."
-
-    media:
-      headline: "Mentions in media"
-      clarification: "Links are searched automatically using the name of the judge. They may not concern the judge."
-      none: "No mentions about the judge has been found in media."

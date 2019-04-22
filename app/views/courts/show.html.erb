@@ -26,7 +26,6 @@
   <%= tab_link_tag t('.judges'), 'judges' %>
   <%= tab_link_tag t('.decrees'), 'decrees' %>
   <%= tab_link_tag t('.hearings'), 'hearings' %>
-  <%= tab_link_tag t('.media'), 'media' %>
 </ul>
 
 <div class="tab-content">
@@ -34,7 +33,6 @@
   <%= render_tab 'judges', judges: @judges %>
   <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
   <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
-  <%= render_tab 'media', media: @media %>
 </div>
 
 <p class="text-small text-muted m-t-3">

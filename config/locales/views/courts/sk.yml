@@ -39,7 +39,6 @@ sk:
       judges: "Sudcovia"
       decrees: "Rozhodnutia"
       hearings: "Pojednávania"
-      media: "Médiá"
 
       resource_note:
         description: "Informácie o súde boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
@@ -125,11 +124,6 @@ sk:
       headline: "Ohlásené pojednávania"
       more: "Viac pojednávaní"
       none: "Pre súd zatiaľ neevidujeme žiadne ohlásené súdne pojednávania."
-
-    media:
-      headline: "Zmienky v médiách"
-      clarification: "Odkazy sú vyhľadávané automaticky na základe názvu súdu. Súdu sa týkať nemusia."
-      none: "O súde neboli nájdené žiadne zmienky v médiách."
 
     map:
       title: "Mapa súdov Slovenskej republiky"
