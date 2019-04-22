@@ -80,10 +80,6 @@ sk:
       address: "Adresa"
       country: "Slovenská republika"
 
-      map: "Mapa"
-      show_on_map: "Zobraziť na mape"
-      with_other_courts: "aj s ostatnými súdmi Slovenskej Republiky."
-
     office:
       type:
         information_center: "Informačné centrum"
@@ -125,11 +121,3 @@ sk:
       headline: "Ohlásené pojednávania"
       more: "Viac pojednávaní"
       none: "Pre súd zatiaľ neevidujeme žiadne ohlásené súdne pojednávania."
-
-    map:
-      title: "Mapa súdov Slovenskej republiky"
-      note: "Na Slovensku sídli %{courts} súdov na %{places} rôznych miestach"
-      hint: "Kliknutím na vyznačený bod na mape sa zobrazia základné informácie o súde."
-
-      marker:
-        get_directions: "Vyhľadať trasu"

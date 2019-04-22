@@ -11,7 +11,6 @@
 #= require underscore
 #
 #= require Chart
-#= require gmaps/google
 #
 #= require_tree ./lib
 #
