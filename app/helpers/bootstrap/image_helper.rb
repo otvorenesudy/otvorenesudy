@@ -1,6 +1,6 @@
 module Bootstrap
   module ImageHelper
-    SIZES = { base: '1rem', sm: '.8rem', lg: '1.5rem' }.with_indifferent_access.freeze
+    SIZES = { base: 16, sm: 12, lg: 20 }.with_indifferent_access.freeze
 
     def icon_tag(name, options = {})
       use = content_tag(:use, nil, 'xlink:href' => "#{asset_path 'icons.svg'}#icons-#{name}")
