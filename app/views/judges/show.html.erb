@@ -35,7 +35,6 @@
   <%= tab_link_tag t('.decrees'), 'decrees' %>
   <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
   <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
-  <%= tab_link_tag t('.media'), 'media' %>
 </ul>
 
 <div class="tab-content tab-with-chart">
@@ -45,7 +44,6 @@
   <%= render_tab({ partial: 'decrees' }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'upcoming-hearings' }, prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'historical-hearings' }, prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true }) %>
-  <%= render_tab({ partial: 'media' }, media: @media) %>
 </div>
 
 <p class="text-small text-muted m-t-3">
