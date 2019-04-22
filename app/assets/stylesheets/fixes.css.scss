@@ -81,3 +81,11 @@ a {
     }
   }
 }
+
+// set display to block even for hidden tabs so charts do not lose responsiveness (zero height hides tab content)
+
+.tab-content > .tab-pane:not(.active) {
+  display: block;
+  overflow-y: hidden;
+  height: 0;
+}

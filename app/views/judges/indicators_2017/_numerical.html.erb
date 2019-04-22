@@ -1,55 +1,52 @@
+<h3 class="h4 text-uppercase my-4">
+  <%= t '.headline' %>
+</h3>
+
 <div id="indicators-chart-2017">
-  <h2 class="p-t-2 m-b-1">
-    <%= t '.headline' %>
-  </h2>
-
   <div class="row">
-    <div class="col-lg-9 push-lg-3">
-      <%= indicators_chart judge, year: 2017, indicators_repository: Judge::Indicators2017, others: others, height: '220px' %>
-    </div>
+    <div class="col-xl-3">
+      <div class="facet">
+        <h6 class="facet-title">
+          <%= t '.legend' %>
+        </h6>
 
-    <div class="col-lg-3 pull-lg-9">
-      <div class="row">
-        <div class="col-sm-6 push-sm-6 col-md-4 offset-md-4 push-md-4 col-lg-12 offset-lg-0 push-lg-0">
-          <div class="chart-legend">
-            <h4 class="chart-legend-title"><%= t '.legend' %></h4>
-            <div class="chart-legend-content"></div>
-          </div>
-        </div>
+        <%= indicators_chart_legend_tag %>
+      </div>
 
-        <div class="col-sm-6 pull-sm-6 col-md-4 pull-md-8 col-lg-12 pull-lg-0">
-          <%= render 'judges/indicators/facets/name_facet', facet: facets[:name], translation: t(facets[:name].key) %>
+      <%= render 'judges/indicators/facets/name_facet', facet: facets[:name], translation: t(facets[:name].key) %>
 
-          <div class="facet">
-            <h4 class="facet-title">
-              <%= t '.advanced_comparison' %>
-            </h4>
+      <div class="facet">
+        <h6 class="facet-title">
+          <%= t '.advanced_comparison' %>
+        </h6>
 
-            <div class="facet-addon">
-              <%= link_to_collapse [t('.show_filters'), t('.hide_filters')], '#indicators-facets-2017', collapsed: params.slice(*%i(positions decree_agenda_2017 similar_courts)).none? %>
-            </div>
-          </div>
+        <div class="facet-content">
+          <%= link_to_collapse [t('.show_filters'), t('.hide_filters')], '#indicators-facets-2017', class: 'text-secondary', collapsed: params.slice(*%i(decree_agenda_2017 positions similar_courts)).none? %>
         </div>
       </div>
+    </div>
+
+    <div class="col-xl-9">
+      <%= indicators_chart_canvas_tag judge, indicators_repository: Judge::Indicators2017, year: 2017, others: others %>
+
+      <p class="small text-center text-muted w-80 mx-auto mb-0">
+        <%= s t '.filters_note.content' %>
+      </p>
     </div>
   </div>
 </div>
 
-<p class="text-small text-muted m-b-0">
-  <%= s t '.filters_note.content' %>
-</p>
-
-<div id="indicators-facets-2017" class="collapse<%= ' in' if params.slice(*%i(positions decree_agenda_2017 similar_courts)).any? %>">
-  <div class="row">
-    <div class="col-sm-6 col-md-4">
+<div id="indicators-facets-2017" class="collapse<%= ' show' if params.slice(*%i(positions decree_agenda_2017 similar_courts)).any? %>">
+  <div class="row mt-3">
+    <div class="col-xl-4">
       <%= render 'judges/indicators/facets/terms_facet', facet: facets[:positions], translation: t(facets[:positions].key) %>
     </div>
 
-    <div class="col-sm-6 col-md-4">
+    <div class="col-xl-4">
       <%= render 'judges/indicators/facets/terms_facet', facet: facets[:decree_agenda_2017], translation: t(facets[:decree_agenda_2017].key) %>
     </div>
 
-    <div class="col-sm-6 offset-sm-6 pull-sm-6 col-md-4 offset-md-0 pull-md-0">
+    <div class="col-xl-4">
       <%= render 'judges/indicators/facets/terms_facet', facet: facets[:similar_courts], translation: t(facets[:similar_courts].key) %>
     </div>
   </div>
