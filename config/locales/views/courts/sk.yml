@@ -106,14 +106,15 @@ sk:
         other: "Zoznam sudcov, ktorí pôsobili na súde a ostatných úradníkov, ktorí boli uvedení pri súdnych pojednávaniach alebo rozhodnutiach."
 
       list:
-        activity: "Aktivita"
+        activity: "A"
+        activity_help: "Aktivita"
         title: "Titul"
         name: "Meno"
         position: "Pozícia"
         hearings: "Pojednávania"
+        hearings_help: "Počet súdnych pojednávaní"
         decrees: "Rozhodnutia"
-        hearings_count: "Počet súdnych pojednávaní"
-        decrees_count: "Počet súdnych rozhodnutí"
+        decrees_help: "Počet súdnych rozhodnutí"
 
     decrees:
       headline: "Vynesené rozhodnutia"

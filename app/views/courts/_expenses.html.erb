@@ -13,7 +13,7 @@
 </p>
 <% unless @court.expenses_total.zero? %>
   <div id="expenses" class="collapse">
-    <ul class="list-unstyled">
+    <ul class="list-unstyled ml-3">
       <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
         <li>
           <%= t '.fine_for' %> <%= expense.year %>

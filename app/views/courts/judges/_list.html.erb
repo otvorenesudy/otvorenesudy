@@ -1,18 +1,18 @@
-<%= table_tag class: 'table table-striped' do %>
+<%= table_tag class: 'table' do %>
   <thead>
     <tr>
-      <%= table_header_tag tooltip_tag(icon_tag('circle-outline'), t('.activity'), class: 'text-muted'), sorter: false %>
-      <%= table_header_tag t('.title'), class: 'th-xs-2', sorter: 'text' %>
-      <%= table_header_tag t('.name'), class: 'th-xs-6', sorter: 'text' %>
-      <%= table_header_tag t('.position'), class: 'th-xs-4', sorter: 'text' %>
-      <%= table_header_tag tooltip_tag(t('.hearings'), t('.hearings_count')), sorter: 'digit' %>
-      <%= table_header_tag tooltip_tag(t('.decrees'),  t('.decrees_count')), sorter: 'digit' %>
+      <%= table_header_tag tooltip_tag(t('.activity'), t('.activity_help')), class: 'text-center', sorter: false %>
+      <%= table_header_tag t('.title'), class: 'w-20', sorter: 'text' %>
+      <%= table_header_tag t('.name'), class: 'w-60', sorter: 'text' %>
+      <%= table_header_tag t('.position'), class: 'w-40', sorter: 'text' %>
+      <%= table_header_tag tooltip_tag(t('.hearings'), t('.hearings_help')), sorter: 'digit' %>
+      <%= table_header_tag tooltip_tag(t('.decrees'), t('.decrees_help')), sorter: 'digit' %>
     </tr>
   </thead>
   <tbody>
     <% judges.each do |judge| %>
       <tr>
-        <td class="text-xs-center">
+        <td class="text-center">
           <%= judge_activity_icon_tag judge, judge.active_at?(court) %>
         </td>
         <td>
@@ -26,12 +26,12 @@
             <p><%= judge_position_by_employment employment, mute_by_activity_on: employment %></p>
           <% end %>
         </td>
-        <td class="text-xs-right" data-value="<%= judge.hearings.exact.size %>">
+        <td class="text-right" data-value="<%= judge.hearings.exact.size %>">
           <% judge.employments.at_court(court).each do |employment| %>
             <p><%= judge_hearings_count_by_employment employment, mute_by_activity_on: employment %></p>
           <% end %>
         </td>
-        <td class="text-xs-right" data-value="<%= judge.decrees.exact.size %>">
+        <td class="text-right" data-value="<%= judge.decrees.exact.size %>">
           <% judge.employments.at_court(court).each do |employment| %>
             <p><%= judge_decrees_count_by_employment employment, mute_by_activity_on: employment %></p>
           <% end %>
