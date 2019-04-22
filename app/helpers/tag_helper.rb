@@ -1,9 +1,9 @@
 module TagHelper
   def help_tag(key, options = {})
-    options = options.merge trigger: 'hover'
+    options = options.merge class: 'd-inline text-info', trigger: 'hover'
     title = s(t "#{key}.title", default: '')
     options[:title] = title if title.present?
-    popover_tag icon_tag('help-outline'), s(t "#{key}.content"), options
+    popover_tag icon_tag('question', size: 12), s(t "#{key}.content"), options
   end
 
   def time_tag(date_or_time, *args, &block)
