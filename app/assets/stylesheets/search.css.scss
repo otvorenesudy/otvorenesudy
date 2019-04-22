@@ -140,6 +140,10 @@
   padding: map-get($spacers, 3);
   border-top: $border-width solid $border-color;
 
+  .tab-pane & {
+    padding: map-get($spacers, 3) 0;
+  }
+
   &:last-of-type {
     border-bottom: $border-width solid $border-color;
   }

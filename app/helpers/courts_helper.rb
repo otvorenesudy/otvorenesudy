@@ -1,12 +1,4 @@
 module CourtsHelper
-  def court_email(court, separator = ', ')
-    court.email.split(/,\s+/).map { |email| mail_to(email, nil, encode: :hex).ascii }.join(separator).html_safe
-  end
-
-  def court_phone(court, separator = ', ')
-    court.phone.split(/,\s+/).map { |phone| phone.gsub(/\d\s+\d/) { |s| s[0] + '&nbsp;' + s[2] }}.join(separator).html_safe
-  end
-
   def courts_map(courts, options = {})
     key = 'AIzaSyAOxHiahbFCA001J7SFq1C-U6qYUfaKvT8'
 

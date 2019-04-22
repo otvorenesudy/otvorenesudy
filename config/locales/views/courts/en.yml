@@ -106,14 +106,15 @@ en:
         other: "List of judges who worked at the court and other officials whose names were found in hearings or decrees."
 
       list:
-        activity: "Activity"
+        activity: "A"
+        activity_help: "Activity"
         title: "Title"
         name: "Name"
         position: "Position"
         hearings: "Hearings"
+        hearings_help: "Number of hearings"
         decrees: "Decrees"
-        hearings_count: "Number of hearings"
-        decrees_count: "Number of decrees"
+        decrees_help: "Number of decrees"
 
     decrees:
       headline: "Published decrees"

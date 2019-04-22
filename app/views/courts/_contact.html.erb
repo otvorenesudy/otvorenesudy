@@ -1,54 +1,52 @@
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-xl-8">
     <% if @court.phone || @court.fax %>
-      <h2 class="m-t-2 m-b-1"><%= t '.contact' %></h2>
+      <h2 class="h4 text-uppercase mt-4"><%= t '.contact' %></h2>
 
       <% if @court.phone %>
         <div class="row">
-          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
-          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.phone %></div>
+          <div class="col-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
+          <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.phone %></div>
         </div>
       <% end %>
 
       <% if @court.fax %>
         <div class="row">
-          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.fax' %></div>
-          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.fax %></div>
+          <div class="col-5 col-sm-4 col-md-3"><%= t '.fax' %></div>
+          <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.fax %></div>
         </div>
       <% end %>
     <% end %>
 
     <% if @court.media_person || @court.media_phone %>
-      <h4 class="m-t-2 m-b-1"><%= t '.media' %></h4>
+      <h3 class="h6 text-uppercase mt-4"><%= t '.media' %></h3>
 
       <% if @court.media_person %>
         <div class="row">
-          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.media_person' %></div>
-          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.media_person %></div>
+          <div class="col-5 col-sm-4 col-md-3"><%= t '.media_person' %></div>
+          <div class="col-7 col-sm-8 col-md-9"><%= @court.media_person %></div>
         </div>
       <% end %>
 
       <% if @court.media_phone %>
         <div class="row">
-          <div class="col-xs-5 col-sm-4 col-md-3"><%= t '.media_phone' %></div>
-          <div class="col-xs-7 col-sm-8 col-md-9"><%= @court.media_phone %></div>
+          <div class="col-5 col-sm-4 col-md-3"><%= t '.media_phone' %></div>
+          <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.media_phone %></div>
         </div>
       <% end %>
     <% end %>
   </div>
 
-  <div class="col-lg-4">
-    <h2 class="m-t-2 m-b-1"><%= t '.address' %></h2>
+  <div class="col-xl-4">
+    <div class="bg-light border mt-4 p-3">
+      <h2 class="h4 text-uppercase m-1 mb-3"><%= t '.address' %></h2>
 
-    <div class="card m-b-0">
-      <div class="card-block">
-        <address class="m-b-0">
-          <%= @court.name %><br/>
-          <%= @court.street %><br/>
-          <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br/>
-          <%= t '.country' %>
-        </address>
-      </div>
+      <address class="m-1 mt-3">
+        <%= @court.name %><br/>
+        <%= @court.street %><br/>
+        <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br/>
+        <%= t '.country' %>
+      </address>
     </div>
   </div>
 </div>
@@ -57,7 +55,9 @@
 <%= render 'office', office: @court.registry_center if @court.registry_center %>
 <%= render 'office', office: @court.business_registry_center if @court.business_registry_center %>
 
-<h2 class="m-t-3 m-b-1">
+<hr class="my-4"/>
+
+<h2 class="h4 text-uppercase mt-4">
   <%= t '.map' %>
 </h2>
 

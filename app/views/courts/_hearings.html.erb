@@ -1,12 +1,12 @@
-<h2 class="m-t-2 m-b-0">
+<h2 class="h4 text-uppercase my-4">
   <%= t '.headline' %>
 </h2>
 
 <% if hearings.any? %>
   <%= render 'hearings/search/results', results: hearings, offset: 0 %>
-  <%= link_to_hearings_search t('.more'), params: query, class: 'btn btn-outline-secondary m-t-1'  %>
+  <%= link_to_hearings_search t('.more'), params: query, class: 'btn btn-secondary mt-4' %>
 <% else %>
-  <p class="m-t-1">
+  <p class="mb-0">
     <%= t '.none' %>
   </p>
 <% end %>
