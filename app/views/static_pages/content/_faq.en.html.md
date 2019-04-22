@@ -121,7 +121,7 @@ All of the lawful decrees issued after 2012 are supposed to be published, includ
 Detailed explanation can be found in
 <%= link_to 'Act on courts', 'http://www.zakonypreludi.sk/zz/2004-757#p82a' %>.
 
-#### I cannot find decrees that has been issued. Why?
+#### I cannot find decrees that have been issued. Why?
 
 One of the following explanations may apply:
 
