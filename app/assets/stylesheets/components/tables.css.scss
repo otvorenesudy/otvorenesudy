@@ -30,17 +30,16 @@
       }
 
       .tablesorter-header-inner {
-        display: inline-block;
+        display: inline-flex;
+        flex-wrap: nowrap;
 
         cursor: pointer;
 
         &::after {
           content: "";
           display: inline-block;
-          vertical-align: bottom;
-
-          width: 1rem;
-          height: 1rem * $line-height-base;
+          align-self: stretch;
+          min-width: 1rem;
 
           background: right center no-repeat;
           background-size: .8rem;
