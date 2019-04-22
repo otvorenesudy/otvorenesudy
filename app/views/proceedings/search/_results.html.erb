@@ -55,7 +55,7 @@
         <% end %>
       <% end %>
 
-      <% if highlight[:text].any? %>
+      <% if highlight && highlight[:text].any? %>
         <div class="search-result-highlights">
           <%= strip_and_highlight highlight[:text] %>
         </div>

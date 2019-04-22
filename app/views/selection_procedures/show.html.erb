@@ -63,11 +63,11 @@
   <%= table_tag class: 'table' do %>
     <thead>
       <tr>
-        <%= table_header_tag t('.name'), class: 'w-50', scope: 'col', sorter: 'text' %>
-        <%= table_header_tag t('.written_part'), scope: 'col', sorter: 'digit' %>
-        <%= table_header_tag t('.oral_part'), scope: 'col', sorter: 'digit' %>
-        <%= table_header_tag t('.rank'), scope: 'col', sorter: 'digit' %>
-        <%= table_header_tag t('.documents'), scope: 'col', sorter: false %>
+        <%= table_header_tag t('.name'), class: 'w-50', sorter: 'text' %>
+        <%= table_header_tag t('.written_part'), sorter: 'digit' %>
+        <%= table_header_tag t('.oral_part'), sorter: 'digit' %>
+        <%= table_header_tag t('.rank'), sorter: 'digit' %>
+        <%= table_header_tag t('.documents'), sorter: false %>
       </tr>
     </thead>
     <tbody>
@@ -76,13 +76,13 @@
           <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s(([^\s]|\,\s)*)\z/)[1] %>">
             <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
           </td>
-          <td data-value="<%= candidate.written_score %>">
+          <td class="text-right" data-value="<%= candidate.written_score %>">
             <%= tooltip_tag candidate.written_score, candidate.written_result, placement: 'right' if candidate.written_score %>
           </td>
-          <td data-value="<%= candidate.oral_score %>">
+          <td class="text-right" data-value="<%= candidate.oral_score %>">
             <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: 'right' if candidate.oral_score %>
           </td>
-          <td data-value="<%= candidate.rank %>">
+          <td class="text-right" data-value="<%= candidate.rank %>">
             <%= tooltip_tag "#{candidate.rank}.", candidate.score, placement: 'right' if candidate.rank %>
           </td>
           <td>
