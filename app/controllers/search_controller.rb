@@ -35,13 +35,11 @@ class SearchController < ApplicationController
 
   def collapse
     model     = params[:model].to_s
-    name      = params[:name].to_sym
+    name      = params[:facet].to_sym
     collapsed = params[:collapsed] == 'true' ? true : false
 
-    if Probe::Configuration.indices.include? model.pluralize
-      session[key = "#{model.to_s.underscore}.collapsed_facets".to_sym] ||= []
-      collapsed ? session[key] += [name] : session[key] -= [name]
-    end
+    session[key = "#{model.to_s.underscore}.collapsed_facets".to_sym] ||= []
+    collapsed ? session[key] += [name] : session[key] -= [name]
 
     render nothing: true
   end

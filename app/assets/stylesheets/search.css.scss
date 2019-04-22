@@ -80,6 +80,10 @@
   .facet-item.active & {
     color: $blue;
   }
+
+  &.disabled {
+    color: $gray;
+  }
 }
 
 .facet-tag {

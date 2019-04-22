@@ -22,9 +22,6 @@ gem 'jquery-rails', '~> 2.2.1'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'jquery-tablesorter'
 gem 'chart-js-rails'
-gem 'inflection-js-rails'
-gem 'gmaps4rails', '~> 2.1.2'
-gem 'underscore-rails', '~> 1.8.3'
 gem 'rails-timeago'
 
 # pagination
@@ -74,6 +71,7 @@ gem 'rack-canonical-host'
 # serialization
 gem 'active_model_serializers'
 
+# others
 gem 'test-unit'
 
 group :assets do
