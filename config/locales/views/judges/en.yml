@@ -60,7 +60,7 @@ en:
     show:
       <<: *common
 
-      indicators: "Indicators – %{year}"
+      indicators: "Indicators %{year}"
       decrees: "Decrees"
       upcoming_hearings: "Upcoming hearings"
       historical_hearings: "Past hearings"
@@ -92,9 +92,41 @@ en:
       addition: "obtained from annual statistical reports of judges."
       report_for: "Report in year"
 
-    indicators_2013:
-      headline: "Indicators for 2013"
+    indicators: &indicators
       none: "We do not register any indicators for the judge yet."
+
+      numerical: &indicators_numerical
+        headline: "Chart Comparison"
+
+        legend: "Legend"
+        additional_judges: "Additional Judges"
+        advanced_comparison: "Advanced Comparison"
+        show_filters: "Show Filters"
+        hide_filters: "Hide Filters"
+
+        judges_note:
+          content: "Select other judges for comparison:"
+
+        filters_note:
+          content: "The chart is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases."
+
+      statistical: &indicators_statistical
+        decrees_count_accuracy_note:
+          title: "Indicator is not exact"
+          content: "Appellate courts hear do not hear cases necessarily in the same year as it is decided at a district court. The more data we have, the more exact the indicator is."
+
+        computed_as_ratio_note:
+          title: "Estimated duration"
+          content: "Indicator is calculated as a ratio between undecided cases at the end of the year and decided cases in the previous year. The lower the number is, the more capable the judge is to solve incoming cases."
+
+        unresolved_issue_note:
+          title: "Restant case"
+          content: "A case unresolved for more than 6 months in childcare cases and for more than 1 year in other cases."
+
+    indicators_2013:
+      <<: *indicators
+
+      headline: "Indicators for 2013"
 
       basic:
         headline: "Basic indicators"
@@ -111,22 +143,9 @@ en:
         decided_agendas: "Decided agendas"
         judge_results: "The judge in this period worked %{days} days and on average was assigned %{cases} cases in 10 days in main agendas."
 
-      numerical:
-        headline: "Chart Comparison"
-
-        legend: "Legend"
-        additional_judges: "Additional Judges"
-        advanced_comparison: "Advanced Comparison"
-        show_filters: "Show Filters"
-        hide_filters: "Hide Filters"
-
-        judges_note:
-          content: "Select other judges for comparison"
-
-        filters_note:
-          content: "The chart is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases."
-
       statistical:
+        <<: *indicators_statistical
+
         headline: "Statistical comparison"
 
         quality_indicators: "Quality indicators"
@@ -134,18 +153,7 @@ en:
         appealed_decrees: "Number of appellate decrees"
         confirmed_decrees: "Number of confirmed decrees"
 
-        decrees_count_accuracy_note:
-          title: "Indicator is not exact"
-          content: "Appellate courts hear do not hear cases necessarily in the same year as it is decided at a district court. The more data we have, the more exact the indicator is."
-
         efficiency_indicators: "Efficiency indicators"
-
-        computed_as_ratio_note:
-          content: "Indicator is calculated as a ratio between undecided cases at the end of the year and decided cases in the previous year. The lower the number is, the more capable the judge is to solve incoming cases."
-
-        unresolved_issue_note:
-          title: "Restant case"
-          content: "A case unresolved for more than 6 months in childcare cases and for more than 1 year in other cases."
 
       notes:
         headline: "Notes"
@@ -153,20 +161,22 @@ en:
         description: "%{data} obtained from annual statistical reports of judges pertaining to indicators."
         data: "Notes about the data"
 
-    indicators_2015:
+    indicators_2015: &indicators_2015
+      <<: *indicators
+
       headline: "Indicators for 2015"
-      none: "We do not register any indicators for the judge yet."
 
       basic:
-        court_decrees_count_by_supreme_court: Number of Constitutional Court decisions against the judge
-        concourt_issued: issued
-        concourt_delays: delays prior to case assignment
+        court_decrees_count_by_supreme_court: "Number of Constitutional Court decisions against the judge"
+        concourt_issued: "Issued"
+        concourt_delays: "Delays prior to case assignment"
         dominant_assigned_agenda: "The judge was mostly assigned to "
         no_dominant_assigned_agenda_1: "The judge was not assigned to "
         no_dominant_assigned_agenda_2: "any agenda dominantly"
         dominant_decided_agenda: "The judge mostly issued decrees in "
-        no_dominant_decided_agenda: The judge did not issue decrees in any agenda dominantly.
-        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 100 days in main agendas.
+        no_dominant_decided_agenda: "The judge did not issue decrees in any agenda dominantly."
+        worked_and_average_cases: "The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 100 days in main agendas."
+
         assigned_agenda:
           C: "Civil agenda"
           Trest: "Criminal agenda"
@@ -179,107 +189,42 @@ en:
           P: "Family Agenda"
           Cb: "Commercial agenda"
 
-      evaluation:
-        headline: Evaluation
-        evaluation_text: In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 738 evaluated judges.
-        quality: Quality
-        effectivity: Effectivity
-        out_of_points: out of %{points} points
-
-      numerical:
-        headline: "Chart Comparison"
-
-        legend: "Legend"
-        additional_judges: "Additional Judges"
-        advanced_comparison: "Advanced Comparison"
-        show_filters: "Show Filters"
-        hide_filters: "Hide Filters"
-
-        judges_note:
-          content: "Select other judges for comparison"
-
-        filters_note:
-          content: "The chart is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases."
+      evaluation: &indicators_2015_evaluation
+        headline: "Evaluation"
+        evaluation_text: "In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 738 evaluated judges."
+        quality: "Quality"
+        effectivity: "Effectivity"
+        out_of_points: "out of %{points} points"
 
       quality:
-        headline: Quality Indicators
-        confirmation_ratio: The judge's decrees were on appeal affirmed in %{ratio} of cases. The average in the same agenda is %{average}.
-        appeal_decrees_count: Number of Appellate Decisions
-        confirmed_decrees_count: Number of Affirmed Decisions
-        appeal_ratio: An appeal against the judge's decrees is filed in %{ratio} of cases. The average in the same agenda is %{average}.
-        total_ratio: Of the total number of the judge's decrees %{ratio} is changed or reversed. The average in the same agenda is %{average}.
+        <<: *indicators_statistical
 
-      effectivity:
-        headline: Effectivity Indicators
-        length_ratio: Estimated average length of proceedings is %{ratio} days. The average at the end of %{year} was %{average} days.
-        outstanding_count: The judge had %{count} unresolved cases at the end of %{year}. The average was %{average} cases.
-        restant_count: The judge had %{count} restant cases at the end of %{year}. The average was %{average}.
-        restant_ratio: This represents %{ratio} of the judge's unresolved cases. Average was %{average}.
-        total_ratio: In %{year}, the judge was able to resolve %{ratio} of assigned cases. Average was %{average}.
+        headline: "Quality Indicators"
+        confirmation_ratio: "The judge's decrees were on appeal affirmed in %{ratio} of cases. The average in the same agenda is %{average}."
+        appeal_decrees_count: "Number of Appellate Decisions"
+        confirmed_decrees_count: "Number of Affirmed Decisions"
+        appeal_ratio: "An appeal against the judge's decrees is filed in %{ratio} of cases. The average in the same agenda is %{average}."
+        total_ratio: "Of the total number of the judge's decrees %{ratio} is changed or reversed. The average in the same agenda is %{average}."
+
+      efficiency:
+        <<: *indicators_statistical
+
+        headline: "Effectivity Indicators"
+        length_ratio: "Estimated average length of proceedings is %{ratio} days. The average at the end of %{year} was %{average} days."
+        outstanding_count: "The judge had %{count} unresolved cases at the end of %{year}. The average was %{average} cases."
+        restant_count: "The judge had %{count} restant cases at the end of %{year}. The average was %{average}."
+        restant_ratio: "This represents %{ratio} of the judge's unresolved cases. Average was %{average}."
+        total_ratio: "In %{year}, the judge was able to resolve %{ratio} of assigned cases. Average was %{average}."
 
     indicators_2017:
+      <<: *indicators_2015
+
       headline: "Indicators for 2017"
-      none: "We do not register any indicators for the judge yet."
-
-      basic:
-        court_decrees_count_by_supreme_court: Number of Constitutional Court decisions against the judge
-        concourt_issued: issued
-        concourt_delays: delays prior to case assignment
-        dominant_assigned_agenda: "The judge was mostly assigned to "
-        no_dominant_assigned_agenda_1: "The judge was not assigned to "
-        no_dominant_assigned_agenda_2: "any agenda dominantly"
-        dominant_decided_agenda: "The judge mostly issued decrees in "
-        no_dominant_decided_agenda: The judge did not issue decrees in any agenda dominantly.
-        worked_and_average_cases: The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 100 days in main agendas.
-        assigned_agenda:
-          C: "Civil agenda"
-          Trest: "Criminal agenda"
-          P: "Family Agenda"
-          Cb: "Commercial agenda"
-
-        decided_agenda:
-          C: "Civil agenda"
-          Trest: "Criminal agenda"
-          P: "Family Agenda"
-          Cb: "Commercial agenda"
 
       evaluation:
-        headline: Evaluation
-        evaluation_text: In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 651 evaluated judges.
-        quality: Quality
-        effectivity: Effectivity
-        out_of_points: out of %{points} points
+        <<: *indicators_2015_evaluation
 
-      numerical:
-        headline: "Chart Comparison"
-
-        legend: "Legend"
-        additional_judges: "Additional Judges"
-        advanced_comparison: "Advanced Comparison"
-        show_filters: "Show Filters"
-        hide_filters: "Hide Filters"
-
-        judges_note:
-          content: "Select other judges for comparison"
-
-        filters_note:
-          content: "The chart is most useful for comparisons of judges at the same or similar courts, and those who decide cases in the same or similar agenda. Specific courts and agendas have an impact on the overall performance of judges. Simply put, commercial judge from Bratislava and criminal judge from Rožňava decide uncomparable cases."
-
-      quality:
-        headline: Quality Indicators
-        confirmation_ratio: The judge's decrees were on appeal affirmed in %{ratio} of cases. The average in the same agenda is %{average}.
-        appeal_decrees_count: Number of Appellate Decisions
-        confirmed_decrees_count: Number of Affirmed Decisions
-        appeal_ratio: An appeal against the judge's decrees is filed in %{ratio} of cases. The average in the same agenda is %{average}.
-        total_ratio: Of the total number of the judge's decrees %{ratio} is changed or reversed. The average in the same agenda is %{average}.
-
-      effectivity:
-        headline: Effectivity Indicators
-        length_ratio: Estimated average length of proceedings is %{ratio} days. The average at the end of %{year} was %{average} days.
-        outstanding_count: The judge had %{count} unresolved cases at the end of %{year}. The average was %{average} cases.
-        restant_count: The judge had %{count} restant cases at the end of %{year}. The average was %{average}.
-        restant_ratio: This represents %{ratio} of the judge's unresolved cases. Average was %{average}.
-        total_ratio: In %{year}, the judge was able to resolve %{ratio} of assigned cases. Average was %{average}.
+        evaluation_text: "In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 651 evaluated judges."
 
     decrees:
       headline: "Published decrees"

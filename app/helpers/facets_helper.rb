@@ -6,9 +6,9 @@ module FacetsHelper
   end
 
   def link_to_facet_results_continuation(facet)
-    options = { class: 'facet-results-continuation', data: { content: t('search.facets.show_less') }}
+    content = [t('search.facets.show_more'), t('search.facets.show_less')]
 
-    link_to_collapse t('search.facets.show_more'), "##{facet.id}-list-continuation", options
+    link_to_collapse content, "##{facet.id}-list-continuation", class: 'facet-results-continuation'
   end
 
   def link_to_terms_facet(facet, result, options = {})

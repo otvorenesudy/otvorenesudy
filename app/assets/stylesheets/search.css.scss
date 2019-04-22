@@ -77,7 +77,7 @@
 
   display: inline-block;
 
-  .active & {
+  .facet-item.active & {
     color: $blue;
   }
 }

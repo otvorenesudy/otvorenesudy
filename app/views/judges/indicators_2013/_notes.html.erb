@@ -1,14 +1,14 @@
 <% if indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').reject(&:blank?).any? %>
-  <h2 class="m-t-2 m-b-1">
+  <h3 class="h4 text-uppercase mt-4">
     <%= t '.headline' %>
-  </h2>
+  </h3>
 
-  <p class="m-b-0">
+  <p>
     <%= t '.description', data: link_to_collapse(t('.data'), '#indicators-notes') %>
   </p>
 
   <div id="indicators-notes" class="collapse">
-    <ul class="list-unstyled m-b-0 m-l-1">
+    <ul class="list-unstyled ml-3 mb-0">
       <% indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').compact.sort.reverse_each do |value| %>
          <li><%= s value %></li>
       <% end %>

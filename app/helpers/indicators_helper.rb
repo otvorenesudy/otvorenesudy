@@ -59,11 +59,10 @@ module IndicatorsHelper
     end
   end
 
-  def indicators_chart(judge, options = {})
-    colors = %w(9b59b6 1abc9c 3498db f1c40f e74c3c e67e22 2ecc71)
+  def indicators_chart_canvas_tag(judge, options = {})
+    colors = %w(f16c4f 00aeef e19e41 73be1e)
     judges = [judge] + options.fetch(:others, [])
     locals = { colors: judges.size.times.map { |i| colors[i % colors.size] }, judges: judges }.merge(options.slice(:indicators_repository, :year))
-    options = options.slice(:width, :height).merge(class: 'chart-content')
 
     content_for :scripts do
       content_tag :script, type: 'text/javascript' do
@@ -71,7 +70,11 @@ module IndicatorsHelper
       end
     end
 
-    content_tag :div, content_tag(:canvas, nil, options), class: 'chart'
+    content_tag :div, content_tag(:canvas, nil, class: 'chart-canvas'), class: 'position-relative my-4'
+  end
+
+  def indicators_chart_legend_tag
+    content_tag :div, nil, class: 'chart-legend'
   end
 
   def link_to_indicators_name_facet(facet, result, options = {})
@@ -79,7 +82,7 @@ module IndicatorsHelper
   end
 
   def link_to_indicators_terms_facet(facet, result, options = {})
-    path = -> (other) { "#{judge_path params.merge other}#indicators-chart" }
+    path = -> (other) { judge_path params.merge other }
     link_to_facet_value facet, result, result.value, options.merge(path: path)
   end
 end

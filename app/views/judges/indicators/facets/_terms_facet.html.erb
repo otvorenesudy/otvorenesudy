@@ -1,13 +1,13 @@
-<div id="<%= facet.id %>" class="facet facet-collapse" data-id="<%= facet.name %>">
-  <h4 class="facet-title">
+<div id="<%= facet.id %>" class="facet" data-id="<%= facet.name %>">
+  <h6 class="facet-title">
     <%= translation[:title] %>
-  </h4>
+  </h6>
 
   <div id="<%= facet.id %>-content" class="facet-content">
     <%= facet_suggest_input_tag facet, path: suggest_path(facet.params.merge id: @judge.id), placeholder: translation[:placeholder] if translation[:placeholder] %>
 
     <div class="facet-results">
-      <%= render 'judges/indicators/facets/terms_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+      <%= render 'judges/indicators/facets/terms_results', facet: facet, visible: facet.results.first(5), other: facet.results[10..-1] || [] %>
     </div>
   </div>
 </div>

@@ -3,35 +3,28 @@ class window.JudgeChart
     animation: false,
     responsive: true,
 
-    angleLineColor: "#eceeef",
-    datasetStrokeWidth: 2,
-    pointLabelFontFamily: "Open Sans",
+    angleLineColor: "#d1dee8",
+    scaleLineColor: "#d1dee8",
+
+    pointLabelFontColor: "#1b325f",
+    pointLabelFontFamily: "Ubuntu",
     pointLabelFontStyle: "300",
     pointLabelFontSize: 12.8,
-    pointLabelFontColor: "#55595c",
     pointDotRadius: 0,
 
-    tooltipFillColor: "#373a3c",
-    tooltipFontFamily: "Open Sans",
-    tooltipFontSize: 12.8,
-    tooltipFontStyle: "300",
-    tooltipFontColor: "#fff",
-    tooltipTitleFontFamily: "Open Sans",
-    tooltipTitleFontSize: 12.8,
-    tooltipTitleFontStyle: "300",
-    tooltipTitleFontColor: "#fff",
-    tooltipXPadding: 8,
-    tooltipYPadding: 8,
-    tooltipCaretSize: 0,
-    tooltipCornerRadius: 0,
-    tooltipXOffset: 10,
-    legendTemplate: '
-      <ul class="list-unstyled">
-        <% for (var i = 0; i < datasets.length; i ++) { %>
-          <li><span style="background: <%= datasets[i].pointColor %>"></span><%= datasets[i].label %></li>
-        <% } %>
-      </ul>
-    '
+    showTooltips: false,
+
+    legendTemplate: """
+      <div class="facet-results">
+        <ul class="facet-list">
+          <% for (var i = 1; i < datasets.length; i ++) { %>
+            <li class="facet-item">
+              <span class="d-inline-block align-top mr-2 my-1" style="width: 16px; height: 16px; background: <%= datasets[i].pointColor %>"></span><%= datasets[i].label %>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    """
 
   getData: () ->
     2013:
@@ -45,18 +38,15 @@ class window.JudgeChart
         'Potvrdené rozhodnutia',
         'Zmenené alebo zrušené z celku'
       ],
-
       datasets: [{
         label: "Maximum",
         fillColor: "transparent",
         strokeColor: "transparent",
-        pointColor: "#ecf0f1",
         data: [10, 10, 10, 10, 10, 10, 10, 10]
       }, {
         label: "Priemer",
         fillColor: "transparent",
-        strokeColor: "#bdc3c7",
-        pointColor: "#bdc3c7",
+        strokeColor: "#8392ac",
       }]
 
     2015:
@@ -66,18 +56,15 @@ class window.JudgeChart
         'Kapacita vybavovať',
         'Potvrdené rozhodnutia'
       ],
-
       datasets: [{
         label: "Maximum",
         fillColor: "transparent",
         strokeColor: "transparent",
-        pointColor: "#ecf0f1",
         data: [10, 10, 10, 10]
       }, {
         label: "Priemer",
         fillColor: "transparent",
-        strokeColor: "#bdc3c7",
-        pointColor: "#bdc3c7",
+        strokeColor: "#8392ac",
       }]
 
     2017:
@@ -87,18 +74,15 @@ class window.JudgeChart
         'Kapacita vybavovať',
         'Potvrdené rozhodnutia'
       ],
-
       datasets: [{
         label: "Maximum",
         fillColor: "transparent",
         strokeColor: "transparent",
-        pointColor: "#ecf0f1",
         data: [10, 10, 10, 10]
       }, {
         label: "Priemer",
         fillColor: "transparent",
-        strokeColor: "#bdc3c7",
-        pointColor: "#bdc3c7",
+        strokeColor: "#8392ac",
       }]
 
   constructor: (year, average) ->
@@ -111,11 +95,10 @@ class window.JudgeChart
       label: judge,
       fillColor: "transparent",
       strokeColor: color,
-      pointColor: color,
       data: data
     )
 
   build: ->
     container = $("#indicators-chart-#{@year}")
-    @chart = new Chart(container.find('.chart-content').get(0).getContext('2d')).Radar(@data, @options)
-    container.find('.chart-legend-content').append(@chart.generateLegend())
+    @chart = new Chart(container.find('.chart-canvas').get(0).getContext('2d')).Radar(@data, @options)
+    container.find('.chart-legend').append(@chart.generateLegend())

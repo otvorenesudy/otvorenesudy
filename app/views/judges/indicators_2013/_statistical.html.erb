@@ -1,13 +1,13 @@
-<h2 class="m-t-2 m-b-1">
+<h3 class="h4 text-uppercase mt-4">
   <%= t '.quality_indicators' %>
-</h2>
+</h3>
 
-<p<%= ' class="m-b-0"'.html_safe if indicators['S9']%>>
+<p>
   <%= s indicators['S8'].gsub(/\s+%/, '%') %>
 </p>
 
 <% if indicators['S9'] %>
-  <ul class="list-unstyled m-l-1">
+  <ul class="list-unstyled ml-3">
     <li><%= t '.appealed_decrees' %> &ndash; <%= indicators['S8a'] %>
     <li><%= t '.confirmed_decrees' %> &ndash; <%= indicators['S8b'] %>
   </ul>
@@ -23,9 +23,9 @@
   </p>
 <% end %>
 
-<h2 class="m-t-2 m-b-1">
+<h3 class="h4 text-uppercase mt-4">
   <%= t '.efficiency_indicators' %>
-</h2>
+</h3>
 
 <p>
   <%= s indicators['S11'] %>
@@ -47,6 +47,6 @@
   </p>
 
   <p>
-    <%= s indicators['S15'] %>
+    <%= s indicators['S15'].gsub(/\. –/, ' –') %>
   </p>
 <% end %>
