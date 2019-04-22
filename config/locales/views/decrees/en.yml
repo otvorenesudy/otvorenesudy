@@ -37,10 +37,6 @@ en:
       legislations: "Referenced legislation in the decree"
       summary: "Summary"
 
-      viewer_note:
-        description: "If decree text is not shown correctly, try opening it as %{document}."
-        document: "PDF document"
-
       resource_note:
         description: "Information regarding the decree were obtained from %{document}, which was most recently updated on %{update}."
         document: "the original document"
