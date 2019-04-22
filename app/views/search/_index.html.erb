@@ -1,10 +1,10 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
-    $(document).ready(function() { window.search = new Search("<%= @model.to_s.underscore.singularize %>", Config.search) })
+    $(document).ready(function() { new Search('#search-<%= @model.to_s.downcase.dasherize.pluralize %>', '<%= @model.to_s.underscore %>') })
   </script>
 <% end %>
 
-<div class="search">
+<div id="search-<%= @model.to_s.downcase.dasherize.pluralize %>">
   <div class="row">
     <div class="col-lg-3">
       <%= render 'facets/list' %>
