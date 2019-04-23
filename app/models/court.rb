@@ -1,6 +1,7 @@
 class Court < ActiveRecord::Base
   include Resource::URI
-  include Resource::ContextSearch
+  # TODO rm or fix Bing Search API
+  # include Resource::ContextSearch
   include Resource::Formatable
   include Resource::Storage
   include Resource::Indicator
@@ -105,12 +106,15 @@ class Court < ActiveRecord::Base
     @expenses_total ||= expenses.sum :value
   end
 
-  context_query { |court| "\"#{court.name}\"" }
+  # TODO rm or fix Bing Search API
+  #context_query { |court| "\"#{court.name}\"" }
 
   before_save :invalidate_caches
 
   def invalidate_caches
-    invalidate_context_query
+    # TODO rm or fix Bing Search API
+    #invalidate_context_query
+
     invalidate_address
 
     @coordinates = @chair = @vicechair = @expenses_total = nil

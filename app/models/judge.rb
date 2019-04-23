@@ -1,6 +1,7 @@
 class Judge < ActiveRecord::Base
   include Resource::URI
-  include Resource::ContextSearch
+  # TODO rm or fix Bing Search API
+  #include Resource::ContextSearch
   include Resource::Formatable
   include Resource::Indicator
   include Resource::Similarity
@@ -160,14 +161,16 @@ class Judge < ActiveRecord::Base
   alias :probably_higher_court_official? :probably_higher_court_official
   alias :probably_female?                :probably_female
 
-  context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
-
-  context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
+  # TODO rm or fix Bing Search API
+  # context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
+  # context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
 
   before_save :invalidate_caches
 
   def invalidate_caches
-    invalidate_context_query
+    # TODO rm or fix Bing Search API
+    #invalidate_context_query
+
     invalidate_name
 
     related_people.each { |person| person.invalidate_caches }
