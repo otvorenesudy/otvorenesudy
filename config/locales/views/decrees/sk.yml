@@ -31,6 +31,8 @@ sk:
       document: "pôvodný dokument"
       document_note: "odkaz už nemusí byť funkčný"
 
+      read: "Prečítať rozhodnutie"
+
       in_proceeding: "Zobraziť v rámci súdneho konania"
       as_document: "Stiahnuť ako PDF dokument"
 
