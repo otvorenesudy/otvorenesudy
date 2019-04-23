@@ -8,7 +8,7 @@
     </div>
 
     <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38), 'https://transparency.sk', class: 'tis mr-4' %>
-    <%= link_to t('.donate'), donation_url, class: 'btn btn-primary btn-lg', role: :button, target: '_blank' %>
+    <%= link_to t('.donate'), donation_url, class: 'btn btn-primary btn-lg', role: :button %>
   </nav>
 
   <nav class="navbar nav-primary navbar-expand-xl font-weight-bold text-uppercase border-bottom">
@@ -22,8 +22,8 @@
         <%= bar_link_to t('.decrees'), decrees_path, class: 'mx-0' %>
         <%= bar_link_to t('.proceedings'), proceedings_path, class: 'mx-0' %>
         <%= bar_link_to t('.selections'), selections_path, class: 'mx-0' %>
-        <%= bar_link_to t('.families'), 'http://sudy.transparency.sk', class: 'mx-0', target: '_blank' %>
-        <%= bar_link_to t('.prosecutors'), 'https://prokuratori.otvorenesudy.sk', class: 'mx-0', target: '_blank' %>
+        <%= bar_link_to t('.families'), 'http://sudy.transparency.sk', class: 'mx-0' %>
+        <%= bar_link_to t('.prosecutors'), 'https://prokuratori.otvorenesudy.sk', class: 'mx-0' %>
       </div>
     </div>
   </nav>

@@ -34,5 +34,5 @@
 </div>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @court.uri, target: '_blank'), update: time_tag(@court.updated_at.to_date, format: :default) %>
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @court.uri), update: time_tag(@court.updated_at.to_date, format: :default) %>
 </p>

@@ -43,7 +43,7 @@
       <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
     <% end %>
     <p class="mb-0">
-      <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri, target: '_blank' %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+      <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
     <% if File.readable? @decree.document_path %>
       <%= link_to t('.read'), document_decree_path(@decree), class: 'btn btn-secondary mt-4', target: '_blank' %>
@@ -99,6 +99,6 @@
 <% end %>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri, target: '_blank'), update: time_tag(@decree.updated_at.to_date, format: :default) %>
-  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @decree.uri, target: '_blank') %>
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
+  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @decree.uri) %>
 </p>
