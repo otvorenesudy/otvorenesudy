@@ -5,10 +5,10 @@
         headline: "More transparency<br>to Slovak judiciary"
         list: "<span class=\"text-uppercase\">Open Courts</span> brings:"
         items:
-          - "all published decrees in one place,"
-          - "judicial proceeding survey with one click,"
-          - "list of judges and surveys of their work,"
-          - "archive of judicial hearings."
+          - "all published court judgments in one place,"
+          - "comparison of judges' performance,"
+          - "easy-to-follow overview of court proceedings,"
+          - "data on new judges' selection procedures."
 
       squares:
         courts: "Courts"
