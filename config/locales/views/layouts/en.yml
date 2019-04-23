@@ -14,7 +14,7 @@ en:
       decrees: "Decrees"
       proceedings: "Judicial proceedings"
       selections: "Selection procedures"
-      families: "Family bonds"
+      families: "Family ties"
       prosecutors: "Prosecutors"
 
       sign_in: "Sign in"
@@ -29,8 +29,8 @@ en:
 
     footer:
       about: "About"
+      analyses: "Analyses"
       api: "API"
-      articles: "Articles"
       contact: "Contacts"
       faq: "FAQ"
       feedback: "Found a mistake?"
