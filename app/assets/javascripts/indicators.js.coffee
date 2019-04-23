@@ -1,3 +1,5 @@
+# TODO update to chartjs > 2.0 to be able to use multiline lables to save canvas space (especially for 2013 labels)
+
 class window.JudgeChart
   options:
     animation: false,
