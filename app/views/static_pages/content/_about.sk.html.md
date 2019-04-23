@@ -1,14 +1,12 @@
 Dobré fungovanie súdneho systému má zásadný vplyv na kvalitu verejného života
 a demokracie. Fungujúce a dôveryhodné súdnictvo je predpokladom pre dobré
 podnikateľské ale aj bežné občianske prostredie na život. Slováci so stavom
-súdnictva nie sú spokojní. Podľa <%= link_to 'Eurobarometra z jesene 2009', 'http://ec.europa.eu/public_opinion/archives/ebs/ebs_374_en.pdf' %> 
-len 29% Slovákov dôveruje súdom. Zároveň každá dvanásta domácnosť, ktorá
-prišla do kontaktu so súdnictvom, zaplatila podľa prieskumu
-<%= link_to 'Globálneho barometra korupcie z roku 2013', 'http://transparency.sk/sk/kazda-piata-domacnost-zaplati-rocne-aspon-jeden-uplatok' %>
-úplatok. 
+súdnictva nie sú spokojní. Podľa Eurobarometra z roku 2018 menej ako 30%
+Slovákov vníma súdy ako nezávislé.
 
-O činnosti sudcov a súdov pritom veľa nevieme, aj kvôli obmedzeniam v prístupe
-k informáciám, ktoré sú pri poslancoch alebo vláde miernejšie.  
+O činnosti súdov a sudcov sa môžeme v posledných rokoch dozvedať viac
+informácií, no obmedzenia k prístupu k ďalším informáciám o ich činnosti stále
+pretrvávajú.
 
 Zároveň diskusie o fungovaní a kvalite súdnictva trpia dvoma neduhmi. Po prvé,
 často sú paušalizujúce („sudcovia sú skorumpovaní“) bez jasného pomenovania
