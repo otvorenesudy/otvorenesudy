@@ -6,6 +6,8 @@ $(document).ready ->
     $('a[href="#"]').click (e) ->
       e.preventDefault()
 
+    $('a[href^="http"]').attr('target', '_blank')
+
     $('a[data-toggle="collapse"]').click ->
       $(this).blur()
 

@@ -45,6 +45,6 @@
 </div>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t ".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.description", document: link_to(t(".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.document"), @judge.uri, target: '_blank'), update: time_tag(@judge.updated_at.to_date, format: :default) %>
+  <%= s t ".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.description", document: link_to(t(".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.document"), @judge.uri), update: time_tag(@judge.updated_at.to_date, format: :default) %>
   <%= s t '.resource_note.supplement' %>
 </p>

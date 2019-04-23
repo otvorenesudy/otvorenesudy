@@ -29,7 +29,7 @@
 <% end %>
 
 <p>
-  <%= t '.resource' %> &ndash; <%= link_to t('.document'), @procedure.uri, target: '_blank' %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+  <%= t '.resource' %> &ndash; <%= link_to t('.document'), @procedure.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
 </p>
 
 <% if File.readable?(@procedure.declaration_path) || File.readable?(@procedure.report_path) %>
@@ -95,6 +95,6 @@
 <% end %>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @procedure.uri, target: '_blank'), update: time_tag(@procedure.updated_at.to_date, format: :default) %>
-  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @procedure.uri, target: '_blank') %>
+  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @procedure.uri), update: time_tag(@procedure.updated_at.to_date, format: :default) %>
+  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @procedure.uri) %>
 </p>
