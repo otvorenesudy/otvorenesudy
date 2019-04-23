@@ -3,7 +3,7 @@
     home:
       feature:
         headline: "More transparency<br>to Slovak judiciary"
-        list: "<span class=\"text-uppercase\">Open Courts</span> brings:"
+        list: "<span class=\"text-uppercase\">Open Courts</span>:"
         items:
           - "all published court judgments in one place,"
           - "comparison of judges' performance,"
