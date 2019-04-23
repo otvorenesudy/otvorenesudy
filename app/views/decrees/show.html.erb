@@ -45,6 +45,9 @@
     <p class="mb-0">
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri, target: '_blank' %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
+    <% if File.readable? @decree.document_path %>
+      <%= link_to t('.read'), document_decree_path(@decree), class: 'btn btn-secondary mt-4', target: '_blank' %>
+    <% end %>
   </div>
 
   <div class="col-xl-4">

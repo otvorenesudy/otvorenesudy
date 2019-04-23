@@ -31,6 +31,8 @@ en:
       document: "original document"
       document_note: "the link may not work anymore"
 
+      read: "Read decree"
+
       in_proceeding: "Show within judicial proceeding"
       as_document: "Download as PDF document"
 
