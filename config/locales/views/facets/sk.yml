@@ -83,7 +83,7 @@ sk:
       range:
         less: "menej ako %{count}"
         more: "viac ako %{count}"
-        exact: "práve %{lower}"
+        exact: "%{lower}"
         between: "%{lower} až %{upper}"
 
       date:

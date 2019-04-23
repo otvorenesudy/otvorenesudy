@@ -53,7 +53,7 @@ class SelectionProcedure < ActiveRecord::Base
     facet :closed_at,         type: :date, interval: :month
     #facet :place,             type: :terms
     #facet :workplace,         type: :terms
-    facet :candidates_count,  type: :range, ranges: [1..5, 6..10, 11..15, 16..20, 21..25, 26..30, 31..35]
+    facet :candidates_count,  type: :range, ranges: [1..1, 2..2, 3..5, 5..10, 10..20, 20..50]
   end
 
   storage(:declaration, JusticeGovSk::Storage::SelectionProcedureDocument) { |procedure| "#{procedure.uri.match(/Ic=(\d+)/)[1]}_declaration.pdf" }

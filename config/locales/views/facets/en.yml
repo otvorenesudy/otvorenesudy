@@ -83,7 +83,7 @@ en:
       range:
         less: "less than %{count}"
         more: "more than %{count}"
-        exact: "exactly %{lower}"
+        exact: "%{lower}"
         between: "%{lower} to %{upper}"
 
       date:

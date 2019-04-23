@@ -177,6 +177,11 @@ module Probe
         @facet_definitions << create_facet(type, name, field, options)
       end
 
+      def distribute(relation)
+        x = 10 ** Math.log10(relation.total / total.to_f).to_i
+        [1..(x / 2), (x / 2)..(x), (x)..(x * 2), (x * 2)..(x * 5), (x * 5)..(x * 10)].uniq
+      end
+
       def sort_by(*args)
         @sort_fields = *args
       end
