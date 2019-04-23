@@ -44,8 +44,8 @@ administrator of the portal <%= link_to 'SME.sk', 'http://sme.sk' %>.
 #### How can I contribute?
 
 Use the webpage. share it with others that may be interested. Follow the news about the project at social networks
-<%= link_to 'Facebook', 'https://facebook.com/otvorenesudy' %> and
-<%= link_to 'Twitter', 'https://twitter.com/otvorenesudy' %>,
+<%= link_to 'Facebook', 'https://facebook.com/transparencysk' %> and
+<%= link_to 'Twitter', 'https://twitter.com/transparencysk' %>,
 and if you are an IT developer also on
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
