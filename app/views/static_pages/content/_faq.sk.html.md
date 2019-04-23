@@ -52,8 +52,8 @@ prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %>.
 
 Používajte stránku, dajte o nej vedieť známym, ktorých by mohla zaujímať.
 Sledujte novinky na sociálnych sieťach
-<%= link_to 'Facebook', 'https://facebook.com/otvorenesudy' %> a
-<%= link_to 'Twitter', 'https://twitter.com/otvorenesudy' %>,
+<%= link_to 'Facebook', 'https://facebook.com/transparencysk' %> a
+<%= link_to 'Twitter', 'https://twitter.com/transparencysk' %>,
 a ak ste programátor tak určite aj na sieti
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
