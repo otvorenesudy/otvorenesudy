@@ -57,9 +57,8 @@ Sledujte novinky na sociálnych sieťach
 a ak ste programátor tak určite aj na sieti
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
-Ak môžete, prosím, zvážte
-<%= link_to 'finančnú podporu', donation_url %>
-projektu.
+Pridajte sa a <%= link_to 'podporte tento projekt', donation_url %>,
+aby sme mohli prinášať viac transparentnosti do slovenského súdnictva.
 
 #### Odkiaľ pochádzajú použité dáta?
 

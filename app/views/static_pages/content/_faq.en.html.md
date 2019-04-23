@@ -49,8 +49,8 @@ Use the webpage. share it with others that may be interested. Follow the news ab
 and if you are an IT developer also on
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
-If you can, please consider
-<%= link_to 'financial contribution', donation_url %> to the project.
+Join us and <%= link_to 'support this project', donation_url %> 
+so that we can bring more transparency into Slovak judiciary.
 
 #### Where do the data come from?
 
