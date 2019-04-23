@@ -55,6 +55,6 @@ SitemapGenerator::Sitemap.create do
   end
 
   SelectionProcedure.pluck(:id).each do |id|
-    add selection_procedure_path(id), changefreq: 'daily', priority: 0.6
+    add selection_path(id), changefreq: 'daily', priority: 0.6
   end
 end
