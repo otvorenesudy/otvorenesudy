@@ -58,7 +58,7 @@ a ak ste programátor tak určite aj na sieti
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
 Ak môžete, prosím, zvážte
-<%= link_to 'finančnú podporu', donation_url %>
+<%= link_to 'finančnú podporu', donation_url, target: '_blank' %>
 projektu.
 
 #### Odkiaľ pochádzajú použité dáta?

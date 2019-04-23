@@ -50,7 +50,7 @@ and if you are an IT developer also on
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
 If you can, please consider
-<%= link_to 'financial contribution', donation_url %> to the project.
+<%= link_to 'financial contribution', donation_url, target: '_blank' %> to the project.
 
 #### Where do the data come from?
 
