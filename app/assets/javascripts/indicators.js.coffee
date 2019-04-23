@@ -19,7 +19,7 @@ class window.JudgeChart
         <ul class="facet-list">
           <% for (var i = 1; i < datasets.length; i ++) { %>
             <li class="facet-item">
-              <span class="d-inline-block align-top mr-2 my-1" style="width: 16px; height: 16px; background: <%= datasets[i].pointColor %>"></span><%= datasets[i].label %>
+              <span class="d-inline-block align-top mr-2 my-1" style="width: 16px; height: 16px; background: <%= datasets[i].strokeColor %>"></span><%= datasets[i].label %>
             </li>
           <% } %>
         </ul>
