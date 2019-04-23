@@ -26,6 +26,9 @@ set :git_enable_submodules, 1
 set :ssh_options, { forward_agent: true }
 set :use_sudo, false
 
+# Sitemap
+set :sitemap_roles, :web
+
 # TODO: Probe
 namespace :deploy do
   after 'deploy:publishing', 'deploy:restart'

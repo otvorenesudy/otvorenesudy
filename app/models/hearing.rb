@@ -25,7 +25,7 @@ class Hearing < ActiveRecord::Base
 
   scope :anonymizable, lambda {
     where(
-      '(yhearings.anonymized_at IS NULL AND hearings.date < ?) OR (hearings.anonymized_at < hearings.updated_at)',
+      '(hearings.anonymized_at IS NULL AND hearings.date < ?) OR (hearings.anonymized_at < hearings.updated_at)',
       1.day.ago.beginning_of_day
     )
   }
