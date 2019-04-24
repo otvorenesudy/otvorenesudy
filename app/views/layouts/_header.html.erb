@@ -1,6 +1,6 @@
 <header class="container mt-3 px-sm-0">
   <nav class="nav align-items-center mb-3">
-    <%= link_to brand_tag('otvorene-sudy', width: 170, height: 60), root_path, class: 'navbar-brand mr-auto' %>
+    <%= link_to brand_tag('otvorene-sudy', { height: 60, variant: I18n.locale }, sk: { width: 170 }, en: { width: 132.57 }), root_path, class: 'navbar-brand mr-auto' %>
 
     <div class="nav nav-secondary justify-content-center align-items-center align-self-stretch font-weight-bold text-uppercase small border-right ml-3 mx-md-4 pr-md-4">
       <%= link_to span_tag(t('.slovak'), class: 'd-none d-lg-inline') + span_tag(t('.sk'), class: 'd-lg-none'), { l: :sk }, class: 'nav-link' %>
@@ -8,7 +8,7 @@
     </div>
 
     <div class="nav flex-grow-1 flex-md-grow-0 flex-wrap justify-content-between align-items-center border-top mt-3 mt-md-0">
-      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38), 'https://transparency.sk', class: 'tis d-block mr-4 mt-3 mt-md-0' %>
+      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis d-block mr-4 mt-3 mt-md-0' %>
       <%= link_to t('.donate'), donation_url, class: 'btn btn-primary btn-lg mt-3 mt-md-0', role: :button %>
     </div>
   </nav>
