@@ -6,6 +6,10 @@ module TagHelper
     popover_tag icon_tag('question', size: 12), s(t "#{key}.content"), options
   end
 
+  def span_tag(*args, &block)
+    content_tag :span, *args, &block
+  end
+
   def time_tag(date_or_time, *args, &block)
     options = args.extract_options!
     content = localize date_or_time, options
