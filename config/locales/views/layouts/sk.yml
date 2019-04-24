@@ -8,6 +8,8 @@ sk:
       content: "Transparentný pohľad na slovenské súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!"
 
     header:
+      menu: "Menu"
+
       courts: "Súdy"
       judges: "Sudcovia"
       hearings: "Pojednávania"
@@ -26,6 +28,9 @@ sk:
       slovak: 'Slovenčina'
 
       donate: "Podporte"
+
+      en: 'EN'
+      sk: 'SK'
 
     footer:
       about: "O projekte"
