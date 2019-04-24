@@ -2,7 +2,7 @@
   <li class="page-item active">
     <a class="page-link" href="#" tabindex="-1">
       <%= number_with_delimiter(page) %>
-      <%= content_tag :span, t('kaminari.pagination.current'), class: 'sr-only' %>
+      <%= span_tag t('kaminari.pagination.current'), class: 'sr-only' %>
     </a>
   </li>
 <% else %>
