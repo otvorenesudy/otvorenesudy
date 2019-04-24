@@ -3,7 +3,7 @@
 <h1 class="text-uppercase my-4">
   <%= decree_headline @decree, limit: 49, tooltip: true %><span class="d-inline d-xl-none">,</span>
   <% if @decree.natures.any? %>
-    <br class="d-none d-xl-inline"/><%= decree_natures @decree, limit: 49, tooltip: true %>
+    <br class="d-none d-xl-inline" /><%= decree_natures @decree, limit: 49, tooltip: true %>
   <% end %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.decree' %> <%= t '.past' %>

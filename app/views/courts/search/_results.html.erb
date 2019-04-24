@@ -19,7 +19,7 @@
           <% end %>
           <%= t '.is' %> <%= link_to_judge court.vicechair %>.
         <% end %>
-        <br class="d-none d-md-inline"/>
+        <br class="d-none d-md-inline" />
       <% end %>
       <% if court.judges.active.listed.any? %>
         <%= t '.at_court' %> <%= t '.work', count: court.judges.active.listed.size, judges: translate_with_count(court.judges.active.listed.size, :judge) %>.
