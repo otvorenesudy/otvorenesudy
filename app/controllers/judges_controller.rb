@@ -26,9 +26,15 @@ class JudgesController < SearchController
     @facets_2013 = results_2013.facets
     @others_2013 = params[:name] ? results_2013.to_a.map(&:first) : []
 
+    # TODO check @facets_2013 here:
+    # binding.pry
+
     results_2015 = Judge.search(search_params(:indicators_2015, except: keys))
     @facets_2015 = results_2015.facets
     @others_2015 = params[:name] ? results_2015.to_a.map(&:first) : []
+
+    # TODO check @facets_2015 and @facets_2013 here:
+    # binding.pry
 
     results_2017 = Judge.search(search_params(:indicators_2017, except: keys))
     @facets_2017 = results_2017.facets
