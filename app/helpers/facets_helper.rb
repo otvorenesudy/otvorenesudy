@@ -77,6 +77,6 @@ module FacetsHelper
     body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
     body << content_tag(:span, count, class: 'facet-tag') if count.present?
 
-    link_to body.html_safe, path.call(params), options
+    link_to body.html_safe, path.call(params.merge(only_path: true)), options
   end
 end
