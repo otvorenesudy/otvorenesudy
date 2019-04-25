@@ -7,7 +7,7 @@ in Berlin and the project <%= link_to 'Reštart', 'http://restartslovensko.sk' %
 
 #### Basic rules
 
-Portal allows to search, read and download published information about courts, judges, hearings and judicial decrees. The advantage of registration is a possibility to receive notifications about new data based on the search filters selected by the user. Registered user is obliged to provide his/her e-mail address upon registration where he/she can be contacted. Administrators pledge to contact any user only in case of need and will not send any spam.
+Portal allows to search, read and download published information about courts, judges, hearings and judgements. The advantage of registration is a possibility to receive notifications about new data based on the search filters selected by the user. Registered user is obliged to provide his/her e-mail address upon registration where he/she can be contacted. Administrators pledge to contact any user only in case of need and will not send any spam.
 
 
 #### Data sources
@@ -17,8 +17,8 @@ Portal shows information about the judiciary based on the data provided by publi
 - <%= link_to 'Ministry of Justice of Slovak Republic', 'http://www.justice.gov.sk' %>
   - <%= link_to 'Courts', 'http://www.justice.gov.sk/Stranky/Sudy/SudZoznam.aspx' %>
   - <%= link_to 'Judges', 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx' %>
-  - <%= link_to 'Judicial hearings', 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
-  - <%= link_to 'Judicial decrees', 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
+  - <%= link_to 'Hearings', 'http://www.justice.gov.sk/Stranky/Pojednavania/Pojednavania-uvod.aspx' %>
+  - <%= link_to 'Judgements', 'http://www.justice.gov.sk/Stranky/Sudne-rozhodnutia/Sudne-rozhodnutia.aspx' %>
   - <%= link_to 'Statistics about courts', 'http://www.justice.gov.sk/Stranky/Sudy/Statistika-sudy.aspx' %>
   - <%= link_to 'Annual statistical reports of judges', 'http://www.justice.gov.sk/rsvs' %>
   - <%= link_to 'CVs and Letters of motivation of judges', 'http://www.justice.gov.sk/Stranky/Ministerstvo/Vyberove-konania-v-rezorte/Zoznam-vyberovych-konani.aspx' %>

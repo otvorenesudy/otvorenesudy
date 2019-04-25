@@ -1,13 +1,13 @@
 en:
   decrees:
     common: &common
-      decree: "Decree"
+      decree: "Judgement"
 
       past: "was issued on"
       unknown: "unknown date"
 
     index:
-      title: "Decrees"
+      title: "Judgements"
 
     search:
       results:
@@ -15,41 +15,41 @@ en:
 
         <<: *common
 
-        future_date: "Decree date is in far future, there is an error in original data."
-        unprocessed: "Decree is incomplete, an unknown error occurred during data processing."
+        future_date: "Judgement date is in far future, there is an error in original data."
+        unprocessed: "Judgement is incomplete, an unknown error occurred during data processing."
 
     show:
       <<: *common
 
       court: "Decision was made at the court"
-      judge: "Decree was issued by"
+      judge: "Judgement was issued by"
       legislation_area: "Legislation area"
-      form: "Decree form"
-      nature: "Decree nature"
+      form: "Judgement form"
+      nature: "Judgement nature"
       resource: "Source"
 
       document: "original document"
       document_note: "the link may not work anymore"
 
-      read: "Read decree"
+      read: "Read judgement"
 
       in_proceeding: "Show within judicial proceeding"
       as_document: "Download as PDF document"
 
-      legislations: "Referenced legislation in the decree"
+      legislations: "Referenced legislation in the judgement"
       summary: "Summary"
 
       resource_note:
-        description: "Information regarding the decree were obtained from %{document}, which was most recently updated on %{update}."
+        description: "Information regarding the judgement were obtained from %{document}, which was most recently updated on %{update}."
         document: "the original document"
 
       link_note:
         description: "Link to %{document} may not work anymore, because the portal of the Ministry of Justice may have published the document under this link for only a certain period of time."
         document: "the original document"
 
-      faulty_date: "The decree was published on the portal of the Ministry of Justice with a date in far future."
-      future_date: "The decree date is in far future, there is an error in original data on the portal of the Ministry of Justice."
-      unprocessed: "The decree is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."
+      faulty_date: "The judgement was published on the portal of the Ministry of Justice with a date in far future."
+      future_date: "The judgement date is in far future, there is an error in original data on the portal of the Ministry of Justice."
+      unprocessed: "The judgement is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."
 
     document:
-      file: "Decree-%{ecli}"
+      file: "Judgement-%{ecli}"

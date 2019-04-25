@@ -3,18 +3,18 @@
     home:
       feature:
         headline: "More transparency<br>to Slovak judiciary"
-        list: "<span class=\"text-uppercase\">Open Courts</span>:"
+        list: "At <span class=\"text-uppercase\">Open Courts</span> we help you to:"
         items:
           - "all published court judgments in one place,"
           - "comparison of judges' performance,"
-          - "easy-to-follow overview of court proceedings,"
-          - "data on new judges' selection procedures."
+          - "follow individual court proceedings,"
+          - "analyze how new judges were selected."
 
       squares:
         courts: "Courts"
         judges: "Judges"
         hearings: "Hearings"
-        decrees: "Decrees"
+        decrees: "Judgements"
         proceedings: "Judicial Proceedings"
         selections: "Selection Procedures"
 

@@ -8,7 +8,7 @@ en:
           score: "Relevance"
           judges_count: "Number of judges"
           hearings_count: "Number of hearings"
-          decrees_count: "Number of decrees"
+          decrees_count: "Number of judgements"
           pages_count: "Number of pages"
           created_at: "Document added date"
           updated_at: "Document updated date"
