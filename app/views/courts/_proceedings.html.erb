@@ -1,7 +1,7 @@
 <p>
   <%= t '.average_durations_by_agendas' %>
 </p>
-<ul class="list-inline" role="tablist">
+<ul class="d-flex flex-column flex-md-row list-inline" role="tablist">
   <% @court.average_proceeding_durations.each do |agenda| %>
     <li class="list-inline-item">
       <%= link_to_collapse agenda.name, "#proceedings-#{agenda.acronym}", role: 'tab' %>
