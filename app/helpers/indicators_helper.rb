@@ -70,7 +70,7 @@ module IndicatorsHelper
       end
     end
 
-    content_tag :div, content_tag(:canvas, nil, class: 'chart-canvas'), class: 'position-relative my-4'
+    content_tag :div, content_tag(:canvas, nil, class: 'chart-canvas'), class: 'chart'
   end
 
   def indicators_chart_legend_tag
