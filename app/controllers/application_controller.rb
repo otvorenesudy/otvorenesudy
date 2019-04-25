@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
     edit_user_registration_path
   end
 
-  def default_url_options(options = {})
-    { l: I18n.locale }
+  def default_url_options
+    { l: I18n.locale, only_path: true }
   end
 
   def set_locale(value)
