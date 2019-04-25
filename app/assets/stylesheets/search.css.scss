@@ -151,6 +151,10 @@
   &:last-of-type {
     border-bottom: $border-width solid $border-color;
   }
+
+  @include media-breakpoint-down(md) {
+    padding: map-get($spacers, 3) 0;
+  }
 }
 
 .search-result-title {

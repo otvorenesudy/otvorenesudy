@@ -1,3 +1,7 @@
+<% if action_name == 'index' %>
+  <h2 class="display-2 text-uppercase d-lg-none mb-3"><%= t '.headline' %></h2>
+<% end %>
+
 <% if @results.any? %>
   <%= render "#{@type.to_s.pluralize}/search/results", results: @results, offset: @results.offset %>
 <% else %>

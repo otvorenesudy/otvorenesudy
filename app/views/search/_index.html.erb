@@ -1,18 +1,18 @@
 <% content_for :scripts do %>
   <script type="text/javascript">
-    $(document).ready(function() { new Search('#search-<%= @model.to_s.downcase.dasherize.pluralize %>', '<%= @model.to_s.underscore %>') })
+    $(document).ready(function() { new Search('#search-<%= @model.to_s.underscore.dasherize.pluralize %>', '<%= @model.to_s.underscore %>') })
   </script>
 <% end %>
 
-<div id="search-<%= @model.to_s.downcase.dasherize.pluralize %>">
-  <div class="row">
-    <div class="col-lg-3">
-      <%= render 'facets/list' %>
-    </div>
 
-    <div class="col-lg-9">
-      <%= render 'search/controls' %>
-      <%= render 'search/results' %>
-    </div>
+<div id="search-<%= @model.to_s.underscore.dasherize.pluralize %>" class="clearfix">
+  <div class="float-lg-right col-lg-9 mb-3 mb-lg-4 px-0">
+    <%= render 'search/controls' %>
+  </div>
+  <div class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
+    <%= render 'facets/list' %>
+  </div>
+  <div class="float-lg-right col-lg-9 px-0">
+    <%= render 'search/results' %>
   </div>
 </div>
