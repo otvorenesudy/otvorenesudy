@@ -12,7 +12,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-xl-8">
+  <div class="col-xl-8 mb-0-last">
     <% if @court %>
       <p>
         <%= t '.court' %> <%= link_to_court @court %>
@@ -42,7 +42,7 @@
     <% if @decree.natures.any? %>
       <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
     <% end %>
-    <p class="mb-0">
+    <p>
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
     <% if File.readable? @decree.document_path %>

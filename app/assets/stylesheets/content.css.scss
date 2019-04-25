@@ -1,4 +1,8 @@
 body {
+  .container {
+    min-width: 320px;
+  }
+
   .sme {
     @include color-variant($text-muted, #cf2529);
   }
