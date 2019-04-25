@@ -2,8 +2,10 @@
   static_pages:
     home:
       feature:
-        headline: "More transparency<br>to Slovak judiciary"
-        list: "At <span class=\"text-uppercase\">Open Courts</span> we help you to:"
+        headline: "More transparency"
+        footline: "to Slovak judiciary"
+        project: "Open Courts"
+        list: "At %{project} we help you to:"
         items:
           - "all published court judgments in one place,"
           - "comparison of judges' performance,"

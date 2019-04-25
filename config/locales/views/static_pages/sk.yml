@@ -2,8 +2,10 @@ sk:
   static_pages:
     home:
       feature:
-        headline: "Viac transparentnosti<br>do slovenského súdnictva"
-        list: "<span class=\"text-uppercase\">Otvorené Súdy</span> prinášajú:"
+        headline: "Viac transparentnosti"
+        footline: "do slovenského súdnictva"
+        project: "Otvorené Súdy"
+        list: "%{project} prinášajú:"
         items:
           - "všetky zverejnené rozhodnutia na jednom mieste,"
           - "prehľad priebehu konania na jeden klik,"
