@@ -1,9 +1,10 @@
 <% provide :title, proceeding_title(@proceeding) %>
 
 <h1 class="text-uppercase my-4">
-  <%= proceeding_headline @proceeding, limit: 49, tooltip: true %><span class="d-inline d-xl-none">,</span>
+  <%= proceeding_headline @proceeding, limit: 49, tooltip: true %>
   <% if @proceeding.legislation_area_and_subarea.any? %>
-    <br class="d-none d-xl-inline" /><%= proceeding_subject @proceeding, limit: 49, tooltip: true %>
+    <span class="d-inline d-xl-none">,</span><br class="d-none d-xl-inline" />
+    <%= proceeding_subject @proceeding, limit: 49, tooltip: true %>
   <% end %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.proceeding' %>
@@ -50,21 +51,21 @@
   </div>
 
   <div class="col-xl-4">
-    <ul class="list-unstyled bg-light border mb-0 p-3">
+    <ul class="list-unstyled bg-light border mt-3 mt-xl-0 mb-0 p-3">
       <% @proceeding.case_numbers.each do |case_number| %>
         <li class="d-flex justify-content-between mx-2">
-          <span><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
-          <%= case_number ? link_to_proceedings_search(case_number, params: { case_number: case_number }) : t('case_number.missing') %>
+          <span class="mr-2"><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
+          <%= case_number ? link_to_proceedings_search(case_number, class: 'text-truncate', params: { case_number: case_number }) : t('case_number.missing') %>
         </li>
       <% end %>
       <li class="d-flex justify-content-between mx-2">
-        <span><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
-        <%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, params: { file_number: @proceeding.file_number }) : t('file_number.missing') %>
+        <span class="mr-2"><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
+        <%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, class: 'text-truncate', params: { file_number: @proceeding.file_number }) : t('file_number.missing') %>
       </li>
       <% @proceeding.eclis.each do |ecli| %>
         <li class="d-flex justify-content-between mx-2">
-          <span><%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:</span>
-          <%= ecli ? link_to_proceedings_search(ecli, params: { q: ecli }) : t('ecli.missing') %>
+          <span class="mr-2"><%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:</span>
+          <%= ecli ? link_to_proceedings_search(ecli, class: 'text-truncate', params: { q: ecli }) : t('ecli.missing') %>
         </li>
       <% end %>
     </ul>
