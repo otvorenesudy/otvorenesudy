@@ -61,7 +61,7 @@ en:
       <<: *common
 
       indicators: "Indicators %{year}"
-      decrees: "Decrees"
+      decrees: "Judgements"
       upcoming_hearings: "Upcoming hearings"
       historical_hearings: "Past hearings"
 
@@ -137,7 +137,7 @@ en:
           childcare: "Childcare"
           criminal: "Criminal"
 
-        decrees_count: "The number of Constitutional court decrees against the judges &ndash; issued %{released_decrees} and delays prior to case assignment %{delayed_decrees}."
+        decrees_count: "The number of Constitutional court judgements against the judges &ndash; issued %{released_decrees} and delays prior to case assignment %{delayed_decrees}."
         performance_data: "For the judge we register performance data for years %{years}:"
         assigned_agendas: "Assigned agendas"
         decided_agendas: "Decided agendas"
@@ -150,8 +150,8 @@ en:
 
         quality_indicators: "Quality indicators"
 
-        appealed_decrees: "Number of appellate decrees"
-        confirmed_decrees: "Number of confirmed decrees"
+        appealed_decrees: "Number of appellate judgements"
+        confirmed_decrees: "Number of confirmed judgements"
 
         efficiency_indicators: "Efficiency indicators"
 
@@ -173,8 +173,8 @@ en:
         dominant_assigned_agenda: "The judge was mostly assigned to "
         no_dominant_assigned_agenda_1: "The judge was not assigned to "
         no_dominant_assigned_agenda_2: "any agenda dominantly"
-        dominant_decided_agenda: "The judge mostly issued decrees in "
-        no_dominant_decided_agenda: "The judge did not issue decrees in any agenda dominantly."
+        dominant_decided_agenda: "The judge mostly issued judgements in "
+        no_dominant_decided_agenda: "The judge did not issue judgements in any agenda dominantly."
         worked_and_average_cases: "The judge worked %{workdays} days in the period and was assigned on average %{cases} cases per 100 days in main agendas."
 
         assigned_agenda:
@@ -200,11 +200,11 @@ en:
         <<: *indicators_statistical
 
         headline: "Quality Indicators"
-        confirmation_ratio: "The judge's decrees were on appeal affirmed in %{ratio} of cases. The average in the same agenda is %{average}."
+        confirmation_ratio: "The judge's judgements were on appeal affirmed in %{ratio} of cases. The average in the same agenda is %{average}."
         appeal_decrees_count: "Number of Appellate Decisions"
         confirmed_decrees_count: "Number of Affirmed Decisions"
-        appeal_ratio: "An appeal against the judge's decrees is filed in %{ratio} of cases. The average in the same agenda is %{average}."
-        total_ratio: "Of the total number of the judge's decrees %{ratio} is changed or reversed. The average in the same agenda is %{average}."
+        appeal_ratio: "An appeal against the judge's judgements is filed in %{ratio} of cases. The average in the same agenda is %{average}."
+        total_ratio: "Of the total number of the judge's judgements %{ratio} is changed or reversed. The average in the same agenda is %{average}."
 
       efficiency:
         <<: *indicators_statistical
@@ -227,9 +227,9 @@ en:
         evaluation_text: "In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 651 evaluated judges."
 
     decrees:
-      headline: "Published decrees"
-      more: "More decrees"
-      none: "We do not register any published decrees for the judge yet."
+      headline: "Published judgements"
+      more: "More judgements"
+      none: "We do not register any published judgements for the judge yet."
 
     upcoming_hearings:
       headline: "Upcoming hearings"

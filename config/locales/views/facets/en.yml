@@ -43,10 +43,10 @@ en:
       other: "%{count} hearings"
 
     decree: &decree
-      zero: "no decrees"
-      one: "1 decree"
-      few: "%{count} decrees"
-      other: "%{count} decrees"
+      zero: "no judgements"
+      one: "1 judgement"
+      few: "%{count} judgements"
+      other: "%{count} judgements"
 
     proceeding: &proceeding
       zero: "no proceedings"
@@ -119,7 +119,7 @@ en:
           <<: *hearing
 
       decrees_count:
-        title: "Number of decrees"
+        title: "Number of judgements"
         not_found: "No numbers available."
         suffix:
           <<: *decree
@@ -178,7 +178,7 @@ en:
           <<: *hearing
 
       decrees_count:
-        title: "Number of decrees"
+        title: "Number of judgements"
         not_found: "No numbers available."
         suffix:
           <<: *decree
@@ -190,17 +190,17 @@ en:
           <<: *person
 
       decree_agenda_2013:
-        title: "Decree agenda"
+        title: "Judgement agenda"
         missing: "Missing"
         not_found: "No agendas available."
 
       decree_agenda_2015:
-        title: "Decree agenda"
+        title: "Judgement agenda"
         missing: "Missing"
         not_found: "No agendas available."
 
       decree_agenda_2017:
-        title: "Decree agenda"
+        title: "Judgement agenda"
         missing: "Missing"
         not_found: "No agendas available."
 
@@ -281,8 +281,8 @@ en:
 
     decree:
       q:
-        title: "Decree text"
-        placeholder: "Search in decrees"
+        title: "Judgement text"
+        placeholder: "Search in judgements"
 
       court:
         title: "Court"
@@ -303,13 +303,13 @@ en:
 
       form:
         title: "Form"
-        placeholder: "Decree form"
+        placeholder: "Judgement form"
         missing: "Missing"
         not_found: "No forms found."
 
       natures:
         title: "Disposition"
-        placeholder: "Decree disposition"
+        placeholder: "Judgement disposition"
         missing: "Missing"
         not_found: "No dispositions found."
 
@@ -320,7 +320,7 @@ en:
 
       legislation_subarea:
         title: "Legislation subarea"
-        placeholder: "Decree legislation subarea"
+        placeholder: "Judgement legislation subarea"
         missing: "Missing"
         not_found: "No subareas found."
 
@@ -393,7 +393,7 @@ en:
           <<: *hearing
 
       decrees_count:
-        title: "Number of decrees"
+        title: "Number of judgements"
         not_found: "No numbers available."
         suffix:
           <<: *decree

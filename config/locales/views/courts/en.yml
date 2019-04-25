@@ -37,7 +37,7 @@ en:
 
       contact: "Contact"
       judges: "Judges"
-      decrees: "Decrees"
+      decrees: "Judgements"
       hearings: "Hearings"
 
       resource_note:
@@ -53,7 +53,7 @@ en:
       district_courts: "district courts"
 
       fines: "Fines from the Constitutional Court"
-      fines_for: "of Slovak Republic for either late or unlawful decrees in years"
+      fines_for: "of Slovak Republic for either late or unlawful judgements in years"
       fines_were: "were"
       fine_for: "Fine in year"
       fine_was: "was"
@@ -99,7 +99,7 @@ en:
       judges: "Judges"
       explanation:
         listed: "List of judges currently working at the court."
-        other: "List of judges who worked at the court and other officials whose names were found in hearings or decrees."
+        other: "List of judges who worked at the court and other officials whose names were found in hearings or judgements."
 
       list:
         activity: "A"
@@ -109,13 +109,13 @@ en:
         position: "Position"
         hearings: "Hearings"
         hearings_help: "Number of hearings"
-        decrees: "Decrees"
-        decrees_help: "Number of decrees"
+        decrees: "Judgements"
+        decrees_help: "Number of judgements"
 
     decrees:
-      headline: "Published decrees"
-      more: "More decrees"
-      none: "We do not register any published decrees for the court yet."
+      headline: "Published judgements"
+      more: "More judgements"
+      none: "We do not register any published judgements for the court yet."
 
     hearings:
       headline: "Announced hearings"
