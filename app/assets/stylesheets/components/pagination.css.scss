@@ -1,5 +1,10 @@
 .pagination {
-  margin: 0;
+  flex-wrap: wrap;
+  margin: - map-get($spacers, 3) 0 0 0;
+}
+
+.page-item {
+  margin-top: map-get($spacers, 3);
 }
 
 .page-link {
