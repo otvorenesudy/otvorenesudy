@@ -1,5 +1,5 @@
-<div class="d-flex align-items-center justify-content-between">
-  <h1 class="display-2 text-uppercase mb-3"><%= yield :title %></h1>
+<div class="d-flex flex-wrap align-items-center justify-content-between">
+  <h1 class="display-2 text-uppercase mr-sm-4 mb-3"><%= yield :title %></h1>
   <div class="btn-toolbar mb-3" role="toolbar">
     <% if @facets.query_params.any? %>
       <div class="btn-group btn-group-sm border mr-2" role="group">
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<%= form_tag search_path(l: nil), method: :get, class: 'search-query-form mb-4' do %>
+<%= form_tag search_path(l: nil), method: :get, class: 'search-query-form' do %>
   <div class="input-group">
     <%= search_field_tag @facets[:q].name, params[@facets[:q].name], class: 'form-control search-query-input', placeholder: t(@facets[:q].key)[:placeholder] %>
     <div class="input-group-append">

@@ -43,6 +43,7 @@ en:
       show_less: "Show less"
 
     results:
+      headline: "Results"
       found: "%{count} of total %{total} (%{time} ms)"
       not_found: "No results found (%{time} ms)"
       no_results: "Chosen search criteria have not matched any results."

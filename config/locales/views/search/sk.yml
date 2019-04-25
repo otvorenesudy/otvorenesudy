@@ -43,6 +43,7 @@ sk:
       show_less: "Zobraziť menej"
 
     results:
+      headline: "Výsledky"
       found: "%{count} z celkovo %{total} (%{time} ms)"
       not_found: "Nenájdené žiadne výsledky (%{time} ms)"
       no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadne výsledky."

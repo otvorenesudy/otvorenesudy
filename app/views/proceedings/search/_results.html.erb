@@ -31,7 +31,7 @@
     </h4>
 
     <div class="search-result-content">
-      <ul class="float-right list-unstyled text-right ml-2 mb-2">
+      <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
         <% proceeding.case_numbers.each do |number| %>
           <li><%= tooltip_tag number || '?', t('case_number.full'), class: 'text-muted', placement: 'left' %></li>
         <% end %>
