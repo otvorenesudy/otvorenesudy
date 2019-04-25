@@ -12,13 +12,15 @@
 
 <div class="d-flex flex-wrap align-items-center justify-content-between">
   <div class="small text-muted mr-3 mt-4">
-    <% unless @count.zero? %>
+    <% if @results.any? %>
       <%= t '.found', count: "#{@results.offset + 1} &ndash; #{[@results.offset + @results.per_page, @count].min}".html_safe, total: translate_with_count(@count, :result), time: number_with_delimiter(@results.time) %>
     <% else %>
       <%= t '.not_found', time: number_with_delimiter(@results.time) %>
     <% end %>
   </div>
-  <nav class="d-flex align-items-center justify-content-end mt-4">
-    <%= paginate @results, window: 4 %>
-  </nav>
+  <% if @results.any? %>
+    <nav class="d-flex align-items-center justify-content-end mt-4">
+      <%= paginate @results, window: 4 %>
+    </nav>
+  <% end %>
 </div>
