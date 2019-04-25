@@ -18,15 +18,19 @@ class JudgesController < SearchController
     flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
 
     keys = [:indicators_2013, :indicators_2015, :indicators_2017]
-    results_2013 = Judge.search(params.except(*keys).merge(indicators_2013: true))
+
+    @latest_indicators = keys.reverse.find { |key| @judge.send(key).present? }
+    @searched_indicators = keys.find { |key| params[key].present? }
+
+    results_2013 = Judge.search(search_params(:indicators_2013, except: keys))
     @facets_2013 = results_2013.facets
     @others_2013 = params[:name] ? results_2013.to_a.map(&:first) : []
 
-    results_2015 = Judge.search(params.except(*keys).merge(indicators_2015: true))
+    results_2015 = Judge.search(search_params(:indicators_2015, except: keys))
     @facets_2015 = results_2015.facets
     @others_2015 = params[:name] ? results_2015.to_a.map(&:first) : []
 
-    results_2017 = Judge.search(params.except(*keys).merge(indicators_2017: true))
+    results_2017 = Judge.search(search_params(:indicators_2017, except: keys))
     @facets_2017 = results_2017.facets
     @others_2017 = params[:name] ? results_2017.to_a.map(&:first) : []
   end
@@ -55,5 +59,9 @@ class JudgesController < SearchController
 
   def search_associations
     [employments: [:court, :judge, :judge_position]]
+  end
+
+  def search_params(key, except:)
+    (@searched_indicators == key ? params.except(*except) : {}).merge(key => true)
   end
 end
