@@ -28,7 +28,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-xl-8">
+  <div class="col-xl-8 mb-0-last">
     <p>
       <%= t '.for_proceeding' %> <%= t '.so_far' unless @proceeding.probably_closed? %><%= t '.register' %>
       <%= translate_with_count @hearings.size, :hearing %> <%= two_words_connector %> <%= translate_with_count @decrees.size, :decree %>.

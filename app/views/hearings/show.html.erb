@@ -9,7 +9,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-xl-8">
+  <div class="col-xl-8 mb-0-last">
     <% if @court %>
       <p>
         <%= hearing_type @hearing.type %> <%= t @hearing.historical ? '.took_place' : '.will_take_place' %>
@@ -41,7 +41,7 @@
     <% if @hearing.note %>
       <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
     <% end %>
-    <p class="mb-0">
+    <p>
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @hearing.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
   </div>
