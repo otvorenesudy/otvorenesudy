@@ -1,4 +1,6 @@
 .btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: uppercase;
 
   &:hover.focus,
