@@ -2,9 +2,11 @@
   background: $input-bg;
 
   ol {
-    background: url("maskicon.svg") no-repeat -25.25px center;
-    background-size: 90px;
-    padding-left: 62px;
+    @include media-breakpoint-up(sm) {
+      background: url("maskicon.svg") no-repeat -25.25px center;
+      background-size: 90px;
+      padding-left: 62px;
+    }
   }
 
   li:before {
@@ -17,6 +19,9 @@
   position: relative;
   flex: 1 0 auto;
   height: auto;
+
+  min-width: 163.33px;
+  max-height: 163.33px;
 
   color: $white;
   background: $blue;
@@ -35,9 +40,11 @@
   svg {
     display: block;
     position: absolute;
+
     top: map-get($spacers, 4);
     left: calc(50% - 30px);
-    fill: $navy;
+
+    color: $navy;
   }
 
   span {
@@ -45,10 +52,30 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    width: 80%;
+    width: 0;
+    left: 50%;
+
     height: $line-height-base * 2rem;
     bottom: map-get($spacers, 3);
-    left: 10%;
+  }
+
+  @include media-breakpoint-down(sm) {
+    min-width: 133.33px;
+    max-height: 133.33px;
+
+    svg {
+      @include size(60px * .8);
+
+      top: map-get($spacers, 4) * .8;
+      left: calc(50% - 30px * .8);
+    }
+
+    span {
+      font-size: $font-size-sm;
+
+      height: $line-height-base * 2rem * .8;
+      bottom: map-get($spacers, 3) * .8;
+    }
   }
 }
 

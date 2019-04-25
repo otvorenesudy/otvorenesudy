@@ -1,45 +1,42 @@
-<div class="container mt-5 px-sm-0">
-  <%= render 'shared/flash_messages' %>
-
-  <div class="row">
-    <div class="col">
-      <div class="feature h-100 p-4">
-        <h1 class="text-info mb-4">
-          <%= t('.feature.headline').html_safe %>
-        </h1>
-        <h4 class="mb-3">
-          <%= t('.feature.list').html_safe %>
-        </h4>
-        <div class="d-flex align-items-center">
-          <ol class="list-unstyled mb-0">
-            <% t('.feature.items').each do |item| %>
-              <li><%= item %></li>
-            <% end %>
-          </ol>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row font-weight-bold text-center text-uppercase mb-4">
-        <%= link_to icon_tag('courts', size: 60) + content_tag(:span, t('.squares.courts')), courts_path, class: 'square mx-3' %>
-        <%= link_to icon_tag('judges', size: 60) + content_tag(:span, t('.squares.judges')), judges_path, class: 'square mx-3' %>
-        <%= link_to icon_tag('hearings', size: 60) + content_tag(:span, t('.squares.hearings')), hearings_path, class: 'square mx-3' %>
-      </div>
-      <div class="row font-weight-bold text-center text-uppercase">
-        <%= link_to icon_tag('decrees', size: 60) + content_tag(:span, t('.squares.decrees')), decrees_path, class: 'square mx-3' %>
-        <%= link_to icon_tag('proceedings', size: 60) + content_tag(:span, t('.squares.proceedings')), proceedings_path, class: 'square mx-3' %>
-        <%= link_to icon_tag('selections', size: 60) + content_tag(:span, t('.squares.selections')), selections_path, class: 'square mx-3' %>
+<div class="row">
+  <div class="col-12 col-lg-7 col-xl-6">
+    <div class="feature h-100 p-4">
+      <h1 class="text-info mb-4">
+        <%= t('.feature.headline') %><br/><%= t('.feature.footline') %>
+      </h1>
+      <h4 class="mb-3">
+        <%= t('.feature.list', project: content_tag(:span, t('.feature.project'), class: 'text-uppercase').html_safe) %>
+      </h4>
+      <div class="d-flex align-items-center">
+        <ol class="list-unstyled mb-0">
+          <% t('.feature.items').each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ol>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <div class="partners p-4">
-        <h4 class="mb-3"><%= t('.partners.supported_by') %></h4>
-        <div class="d-flex">
-          <%= link_to brand_tag('sme', width: 68.31, height: 24), 'https://sme.sk', class: 'sme mr-4' %>
-          <%= link_to brand_tag('index-podnikatela', width: 245.05, height: 24), 'https://indexpodnikatela.sk', class: 'ip' %>
-        </div>
+  <div class="col-12 col-lg-5 col-xl-6 mt-4 mt-lg-0">
+    <div class="row font-weight-bold text-center text-uppercase">
+      <%= link_to icon_tag('courts', size: 60) + content_tag(:span, t('.squares.courts')), courts_path, class: 'square mx-3 mb-4' %>
+      <%= link_to icon_tag('judges', size: 60) + content_tag(:span, t('.squares.judges')), judges_path, class: 'square mx-3 mb-4' %>
+      <div class="d-block d-md-none d-lg-block d-xl-none w-100"></div>
+      <%= link_to icon_tag('hearings', size: 60) + content_tag(:span, t('.squares.hearings')), hearings_path, class: 'square mx-3 mb-4' %>
+      <div class="d-none d-md-block d-lg-none d-xl-block w-100"></div>
+      <%= link_to icon_tag('decrees', size: 60) + content_tag(:span, t('.squares.decrees')), decrees_path, class: 'square mx-3 mb-4 mb-xl-0' %>
+      <div class="d-block d-md-none d-lg-block d-xl-none w-100"></div>
+      <%= link_to icon_tag('proceedings', size: 60) + content_tag(:span, t('.squares.proceedings')), proceedings_path, class: 'square mx-3 mb-4 mb-lg-0' %>
+      <%= link_to icon_tag('selections', size: 60) + content_tag(:span, t('.squares.selections')), selections_path, class: 'square mx-3 mb-4 mb-lg-0' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="partners mt-lg-4 px-sm-4">
+      <h4 class="mb-3"><%= t('.partners.supported_by') %></h4>
+      <div class="d-flex flex-column flex-sm-row">
+        <%= link_to brand_tag('sme', width: 68.31, height: 24), 'https://sme.sk', class: 'sme ml-2 ml-sm-0 mr-sm-4 mb-3 mb-sm-0' %>
+        <%= link_to brand_tag('index-podnikatela', width: 245.05, height: 24), 'https://indexpodnikatela.sk', class: 'ip ml-2 ml-sm-0' %>
       </div>
     </div>
   </div>
