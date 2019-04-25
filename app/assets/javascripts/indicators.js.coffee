@@ -116,6 +116,6 @@ class window.JudgeChart
     )
 
   build: ->
-    container = $("#indicators-chart-#{@year}")
+    container = $("#indicators-chart")
     @chart = new Chart(container.find('.chart-content').get(0).getContext('2d')).Radar(@data, @options)
     container.find('.chart-legend-content').append(@chart.generateLegend())
