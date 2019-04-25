@@ -4,7 +4,7 @@
 
 <% if hearings.any? %>
   <%= render 'hearings/search/results', results: hearings, offset: 0 %>
-  <%= link_to_hearings_search t('.more'), params: query, class: 'btn btn-secondary mt-4' %>
+  <%= link_to_hearings_search t('.more'), class: 'btn btn-secondary d-block d-md-inline-block mt-4', params: query %>
 <% else %>
   <p class="mb-0">
     <%= t '.none' %>

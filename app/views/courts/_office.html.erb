@@ -1,7 +1,7 @@
 <hr class="my-4" />
 
 <div class="row">
-  <div class="col-xl-8">
+  <div class="col-lg-8">
     <h2 class="h4 text-uppercase">
       <%= t "courts.office.type.#{office.type.name}" %>
     </h2>
@@ -16,7 +16,7 @@
     <% if office.email? %>
       <div class="row">
         <div class="col-5 col-sm-4 col-md-3"><%= t '.email' %></div>
-        <div class="col-7 col-sm-8 col-md-9"><%= email_to office.email %></div>
+        <div class="col-7 col-sm-8 col-md-9 text-truncate"><%= email_to office.email %></div>
       </div>
     <% end %>
 
@@ -28,8 +28,8 @@
     <% end %>
   </div>
 
-  <div class="col-xl-4">
-    <table class="table mb-0">
+  <div class="col-lg-4">
+    <table class="table mt-4 mt-lg-0 mb-0">
       <thead>
         <th class="py-2" colspan="2" scope="col"><%= t '.hours' %></th>
       </thead>

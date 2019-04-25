@@ -1,17 +1,17 @@
 <div class="row">
-  <div class="col-xl-8">
+  <div class="col-lg-8">
     <% if @court.phone || @court.fax %>
       <h2 class="h4 text-uppercase mt-4"><%= t '.contact' %></h2>
 
       <% if @court.phone %>
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
           <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.phone %></div>
         </div>
       <% end %>
 
       <% if @court.fax %>
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-5 col-sm-4 col-md-3"><%= t '.fax' %></div>
           <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.fax %></div>
         </div>
@@ -22,14 +22,14 @@
       <h3 class="h6 text-uppercase mt-4"><%= t '.media' %></h3>
 
       <% if @court.media_person %>
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-5 col-sm-4 col-md-3"><%= t '.media_person' %></div>
           <div class="col-7 col-sm-8 col-md-9"><%= @court.media_person %></div>
         </div>
       <% end %>
 
       <% if @court.media_phone %>
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-5 col-sm-4 col-md-3"><%= t '.media_phone' %></div>
           <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.media_phone %></div>
         </div>
@@ -37,7 +37,7 @@
     <% end %>
   </div>
 
-  <div class="col-xl-4">
+  <div class="col-lg-4">
     <div class="bg-light border mt-4 p-3">
       <h2 class="h4 text-uppercase m-1 mb-3"><%= t '.address' %></h2>
       <address class="m-1 mt-3">
