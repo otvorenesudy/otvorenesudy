@@ -13,17 +13,6 @@ body {
 }
 
 header {
-  .nav.border-top {
-    @include media-breakpoint-up(md) {
-      border-top: 0 !important;
-    }
-  }
-
-  .nav.border-right {
-    @include media-breakpoint-down(sm) {
-      border-right: 0 !important;
-    }
-  }
 }
 
 footer {
