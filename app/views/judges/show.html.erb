@@ -29,9 +29,9 @@
 <div class="clearfix m-b-2"></div>
 
 <ul class="nav nav-tabs" role="tablist">
-  <%= tab_link_tag t('.indicators', year: 2017), 'indicators-2017', class: ('active' if @judge.indicators_2017.present?) %>
-  <%= tab_link_tag t('.indicators', year: 2015), 'indicators-2015', class: ('active' if !@judge.indicators_2017.present? && @judge.indicators_2015.present?) %>
-  <%= tab_link_tag t('.indicators', year: 2013), 'indicators-2013', class: ('active' if !@judge.indicators_2017.present? && !@judge.indicators_2015.present? && @judge.indicators_2013.present?) %>
+  <%= tab_link_tag t('.indicators', year: 2017), 'indicators-2017', path: judge_path(@judge, { indicators_2017: true }), class: ('active' if @indicators == :indicators_2017) %>
+  <%= tab_link_tag t('.indicators', year: 2015), 'indicators-2015', path: judge_path(@judge, { indicators_2015: true }), class: ('active' if @indicators == :indicators_2015) %>
+  <%= tab_link_tag t('.indicators', year: 2013), 'indicators-2013', path: judge_path(@judge, { indicators_2013: true }), class: ('active' if @indicators == :indicators_2013) %>
   <%= tab_link_tag t('.decrees'), 'decrees' %>
   <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
   <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
@@ -39,9 +39,18 @@
 </ul>
 
 <div class="tab-content tab-with-chart">
-  <%= render_tab({ partial: 'indicators_2017', tab: 'indicators-2017', class: ('active' if @judge.indicators_2017.present?) }, judge: @judge, others: @others_2017, facets: @facets_2017) %>
-  <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: ('active' if !@judge.indicators_2017.present? && @judge.indicators_2015.present?) }, judge: @judge, others: @others_2015, facets: @facets_2015) %>
-  <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: ('active' if !@judge.indicators_2017.present? && !@judge.indicators_2015.present? && @judge.indicators_2013.present?) }, judge: @judge, others: @others_2013, facets: @facets_2013) %>
+  <% if @indicators == :indicators_2017 %>
+    <%= render_tab({ partial: 'indicators_2017', tab: 'indicators-2017', class: 'active' }, judge: @judge, others: @others, facets: @facets) %>
+  <% end %>
+
+  <% if @indicators == :indicators_2015 %>
+    <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: 'active' }, judge: @judge, others: @others, facets: @facets) %>
+  <% end %>
+
+  <% if @indicators == :indicators_2013 %>
+    <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: 'active' }, judge: @judge, others: @others, facets: @facets) %>
+  <% end %>
+
   <%= render_tab({ partial: 'decrees' }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'upcoming-hearings' }, prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'historical-hearings' }, prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true }) %>

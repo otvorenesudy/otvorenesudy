@@ -7,6 +7,6 @@ $(document).ready(function() {
 
   judgeChart.build();
 
-  new Search.Suggest('#indicators-chart-<%= year %>').register();
+  new Search.Suggest('#indicators-chart').register();
   new Search.Suggest('#indicators-facets-<%= year %>').register();
 });

@@ -1,9 +1,11 @@
 module Bootstrap
   module TabHelper
     def tab_link_tag(title, tab, options = {})
+      path = options.delete(:path)
       classes = Array.wrap(options[:class]) << 'nav-link'
+      tab_options = path ? options : options.deep_merge(data: { toggle: 'tab', target: "#tab-pane-#{tab}" }, role: 'tab')
       content_tag :li, class: 'nav-item' do
-        link_to title, '#', options.deep_merge(class: classes, data: { toggle: 'tab', target: "#tab-pane-#{tab}" }, role: 'tab')
+        link_to title, path.present? ? path : '#', tab_options.deep_merge(class: classes)
       end
     end
 
