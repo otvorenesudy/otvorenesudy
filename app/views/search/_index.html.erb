@@ -4,6 +4,9 @@
   </script>
 <% end %>
 
+<% # TODO rethink this since the goal here is: %>
+<% # for >= LG - facets float left and take only needed space, controls + results float right and fill available space %>
+<% # for < LG - full width in order: controls, facets, results %>
 
 <div id="search-<%= @model.to_s.underscore.dasherize.pluralize %>" class="clearfix">
   <div class="float-lg-right col-lg-9 mb-3 mb-lg-4 px-0">
