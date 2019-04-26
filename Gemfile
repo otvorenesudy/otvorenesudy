@@ -18,7 +18,6 @@ gem 'roadie'
 # scripts
 gem 'coffee-script'
 gem 'execjs'
-gem 'mini_racer'
 gem 'jquery-rails', '~> 2.2.1'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'jquery-tablesorter'
