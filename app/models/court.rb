@@ -1,6 +1,7 @@
 class Court < ActiveRecord::Base
   include Resource::URI
-  include Resource::ContextSearch
+  # TODO rm or fix Bing Search API
+  # include Resource::ContextSearch
   include Resource::Formatable
   include Resource::Storage
   include Resource::Indicator
@@ -76,8 +77,8 @@ class Court < ActiveRecord::Base
     facet :q,              type: :fulltext, field: [:type, :name, :street, :municipality, :judges]
     facet :type,           type: :terms
     facet :municipality,   type: :terms
-    facet :hearings_count, type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :decrees_count,  type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
+    facet :hearings_count, type: :range, ranges: distribute(Hearing)
+    facet :decrees_count,  type: :range, ranges: distribute(Decree)
     facet :judges_count,   type: :range, ranges: [5..10, 10..20, 20..50, 50..100]
     facet :expenses,       type: :range, ranges: [1000..10_000, 10_000..20_000, 20_000..50_000, 50_000..100_000]
   end
@@ -105,12 +106,15 @@ class Court < ActiveRecord::Base
     @expenses_total ||= expenses.sum :value
   end
 
-  context_query { |court| "\"#{court.name}\"" }
+  # TODO rm or fix Bing Search API
+  #context_query { |court| "\"#{court.name}\"" }
 
   before_save :invalidate_caches
 
   def invalidate_caches
-    invalidate_context_query
+    # TODO rm or fix Bing Search API
+    #invalidate_context_query
+
     invalidate_address
 
     @coordinates = @chair = @vicechair = @expenses_total = nil

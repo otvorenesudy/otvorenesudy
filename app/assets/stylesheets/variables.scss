@@ -1,119 +1,289 @@
-$gray-dark:     #373a3c;
-$gray:          #55595c;
-$gray-light:    #818a91;
-$gray-lighter:  #eceeef;
-$gray-lightest: #f7f7f9;
+// Colors
 
-$brand-primary: #9b59b6;
-$brand-success: #2ecc71;
-$brand-info:    #3498db;
-$brand-warning: #f1c40f;
-$brand-danger:  #e74c3c;
+$white:       #fff;
+$light:       #f4f8fb;
+$gray:        #8392ac;
 
-$enable-rounded: false;
+$grays: ();
 
-$link-color:       $brand-primary;
-$link-hover-color: $link-color;
+$orange:      #f16c4f;
+$blue:        #00aeef;
+$navy:        #1b325f;
 
-$font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$green:       #73be1e;
+$red:         #d34242;
+$yellow:      #e19e41;
 
-$font-weight-base: 300;
+$colors: ();
 
-$headings-font-weight: $font-weight-base;
+$primary:     $orange;
+$secondary:   $navy;
+$success:     $green;
+$info:        $blue;
+$warning:     $yellow;
+$danger:      $red;
 
-$hr-border-color: $gray-lighter;
+$theme-colors: (
+  "primary":       $primary,
+  "secondary":     $secondary,
+  "success":       $success,
+  "info":          $info,
+  "warning":       $warning,
+  "danger":        $danger,
+);
 
-$list-inline-padding: 1rem;
+// Options
 
-$table-bg-accent: $gray-lightest;
+$enable-caret:          false;
+$enable-rounded:        false;
+$enable-shadows:        false;
+$enable-gradients:      false;
+$enable-transitions:    false;
+$enable-grid-classes:   true;
+$enable-print-styles:   true;
 
-$btn-font-weight: $font-weight-base;
+// Spacing
 
-$btn-secondary-color:  #fff;
-$btn-secondary-bg:     $gray-light;
-$btn-secondary-border: $btn-secondary-bg;
+$spacer: 1rem;
 
-$input-border-color: $btn-secondary-border;
-$input-border-focus: $brand-primary;
+$spacers: (
+  0: $spacer * 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer * 1,
+  4: $spacer * 2,
+  5: $spacer * 4,
+);
 
-$dropdown-padding-y:    0;
-$dropdown-margin-top:   -1px;
-$dropdown-border-color: $gray-light;
+$sizes: (
+    10:   10%,
+    20:   20%,
+    25:   25%,
+    30:   30%,
+    40:   40%,
+    50:   50%,
+    60:   60%,
+    70:   70%,
+    75:   75%,
+    80:   80%,
+    90:   90%,
+   100:  100%,
+  auto: auto
+);
 
-$dropdown-link-color:       $gray;
-$dropdown-link-hover-color: #fff;
-$dropdown-link-hover-bg:    $gray-light;
+// Body
 
-$dropdown-item-padding-x: 1rem;
+$body-bg:                              $white;
+$body-color:                           $navy;
 
-$navbar-border-color: rgba(#000, .075);
+// Links
 
-$navbar-light-color:        #fff;
-$navbar-light-hover-color:  #fff;
-$navbar-light-active-color: #fff;
+$link-color:                           $primary;
+$link-decoration:                      none;
+$link-hover-color:                     $primary;
+$link-hover-decoration:                underline;
 
-$nav-tabs-border-color:                   $gray-lighter;
-$nav-tabs-active-link-hover-border-color: $gray-lighter;
+// Grid columns
 
-$pagination-color:           $gray-light;
-$pagination-border-color:    $gray-light;
-$pagination-hover-color:     #fff;
-$pagination-hover-bg:        $gray-light;
-$pagination-hover-border:    $gray-light;
-$pagination-active-color:    #fff;
-$pagination-active-bg:       $gray-light;
-$pagination-active-border:   $gray-light;
-$pagination-disabled-color:  $gray-light;
-$pagination-disabled-bg:     #fff;
-$pagination-disabled-border: $gray-light;
+$grid-gutter-width:                    $spacer * 2;
 
-$jumbotron-padding: 2.5rem;
-$jumbotron-color:   #fff;
-$jumbotron-bg:      #202d5f;
+// Components
 
-$state-success-text:   $brand-success;
-$state-success-bg:     #fff;
-$state-success-border: $brand-success;
-$state-info-text:      $brand-info;
-$state-info-bg:        #fff;
-$state-info-border:    $brand-info;
-$state-warning-text:   $brand-warning;
-$state-warning-bg:     #fff;
-$state-warning-border: $brand-warning;
-$state-danger-text:    $brand-danger;
-$state-danger-bg:      #fff;
-$state-danger-border:  $brand-danger;
+$border-width:                         1px;
+$border-color:                         #d1dee8;
 
-$card-spacer-x:     1rem;
-$card-spacer-y:     .5rem;
-$card-border-color: $gray-light;
+// Fonts
 
-$tooltip-max-width: 250px;
-$tooltip-color:     #fff;
-$tooltip-bg:        $gray-dark;
-$tooltip-opacity:   1;
-$tooltip-padding-x: .5rem;
-$tooltip-padding-y: .25rem;
-$tooltip-margin:    0;
+$font-family-sans-serif:               "Ubuntu", sans-serif;
+$font-family-monospace:                "Courier New", monospace;
 
-$tooltip-arrow-width: 4px;
-$tooltip-arrow-color: transparent;
+$font-size-base:                       1rem;
 
-$popover-inner-padding: 0;
-$popover-max-width:     280px;
-$popover-border-color:  $gray-light;
+$font-weight-normal:                   300;
+$font-weight-bold:                     700;
 
-$popover-title-bg:          $gray-lighter;
-$popover-title-padding-x:   .75rem;
-$popover-title-padding-y:   .5rem;
-$popover-content-padding-x: .75rem;
-$popover-content-padding-y: .5rem;
+$h1-font-size:                         $font-size-base * 1.75;
+$h2-font-size:                         $font-size-base * 1.625;
+$h3-font-size:                         $font-size-base * 1.5;
+$h4-font-size:                         $font-size-base * 1.375;
+$h5-font-size:                         $font-size-base * 1.25;
+$h6-font-size:                         $font-size-base * 1;
 
-$popover-arrow-width:       4px;
-$popover-arrow-outer-width: $popover-arrow-width + 2px;
-$popover-arrow-outer-color: transparent;
+$headings-font-weight:                 $font-weight-bold;
 
-$tag-font-weight: $font-weight-base;
+$display1-size:                        $font-size-base * 2.75;
+$display2-size:                        $font-size-base * 2.5;
+$display3-size:                        $font-size-base * 2.25;
+$display4-size:                        $font-size-base * 2;
 
-$alert-padding:          16px;
-$alert-link-font-weight: $font-weight-base;
+$display1-weight:                      $headings-font-weight;
+$display2-weight:                      $headings-font-weight;
+$display3-weight:                      $headings-font-weight;
+$display4-weight:                      $headings-font-weight;
+
+$text-muted:                           $gray;
+
+$hr-border-color:                      $border-color;
+
+$list-inline-padding:                  1rem;
+
+// Tables
+
+$table-accent-bg:                      $light;
+
+$table-border-color:                   $border-color;
+
+$table-head-bg:                        $light;
+$table-head-color:                     $body-color;
+
+// Buttons + Forms
+
+$input-btn-padding-x:                  1rem;
+$input-btn-padding-y:                  .75rem;
+
+$input-btn-padding-x-sm:               .75rem;
+$input-btn-padding-y-sm:               .5rem;
+
+$input-btn-padding-x-lg:               1.25rem;
+$input-btn-padding-y-lg:               1rem;
+
+// Buttons
+
+$btn-border-width:                     $border-width;
+
+$btn-font-weight:                      $font-weight-bold;
+
+// Forms
+
+$input-bg:                             #e9f2f9;
+$input-color:                          $body-color;
+$input-border-color:                   #9cc4e3;
+$input-border-width:                   0;
+
+$input-focus-bg:                       $input-bg;
+$input-focus-border-color:             rgba($primary, .5);
+$input-focus-color:                    $input-color;
+$input-focus-width:                    2px;
+$input-focus-box-shadow:               none;
+
+$input-placeholder-color:              $text-muted;
+$input-plaintext-color:                $text-muted;
+
+// Dropdowns
+
+$dropdown-padding-y:                   0;
+$dropdown-border-color:                $border-color;
+
+$dropdown-link-color:                  $blue;
+$dropdown-link-hover-color:            $navy;
+$dropdown-link-hover-bg:               $input-bg;
+
+$dropdown-link-active-color:           $navy;
+$dropdown-link-active-bg:              $input-bg;
+
+$dropdown-item-padding-x:              .75rem;
+$dropdown-item-padding-y:              .5rem;
+
+// Navs
+
+$nav-link-padding-y:                   .5rem;
+$nav-link-padding-x:                   1rem;
+$nav-link-disabled-color:              $gray;
+
+$nav-tabs-border-color:                $navy;
+$nav-tabs-border-width:                2px;
+
+$nav-tabs-link-hover-color:            $navy;
+$nav-tabs-link-hover-border-color:     transparent;
+
+$nav-tabs-link-active-color:           $nav-tabs-link-hover-color;
+$nav-tabs-link-active-border-color:    $nav-tabs-border-color $nav-tabs-border-color transparent;
+
+// Navbar
+
+$navbar-padding-x:                     0;
+$navbar-padding-y:                     0;
+
+$navbar-nav-link-padding-x:            0;
+
+$navbar-brand-padding-y:               0;
+
+$navbar-toggler-padding-x:             0;
+$navbar-toggler-padding-y:             0;
+$navbar-toggler-font-size:             $font-size-base;
+
+// Pagination
+
+$pagination-padding-x:                 .75rem;
+$pagination-padding-y:                 .5rem;
+
+$pagination-color:                     $blue;
+$pagination-bg:                        $white;
+$pagination-border-color:              $border-color;
+
+$pagination-focus-box-shadow:          none;
+
+$pagination-hover-color:               $navy;
+$pagination-hover-bg:                  $white;
+$pagination-hover-border-color:        $border-color;
+
+$pagination-active-color:              $navy;
+$pagination-active-bg:                 $white;
+$pagination-active-border-color:       $border-color;
+
+$pagination-disabled-color:            $gray;
+$pagination-disabled-bg:               $white;
+$pagination-disabled-border-color:     $border-color;
+
+// Tooltips
+
+$tooltip-max-width:                    250px;
+$tooltip-color:                        $white;
+$tooltip-bg:                           $gray;
+$tooltip-opacity:                      1;
+$tooltip-padding-x:                    .5rem;
+$tooltip-padding-y:                    .25rem;
+$tooltip-margin:                       0;
+
+$tooltip-arrow-width:                  .4rem;
+$tooltip-arrow-height:                 .4rem;
+$tooltip-arrow-color:                  transparent;
+
+// Popovers
+
+$popover-bg:                           $white;
+$popover-max-width:                    280px;
+$popover-border-color:                 $border-color;
+
+$popover-header-bg:                    $light;
+$popover-header-color:                 $body-color;
+$popover-header-padding-x:             .75rem;
+$popover-header-padding-y:             .5rem;
+
+$popover-body-color:                   $body-color;
+$popover-body-padding-y:               $popover-header-padding-y;
+$popover-body-padding-x:               $popover-header-padding-x;
+
+$popover-arrow-width:                  .4rem;
+$popover-arrow-height:                 .4rem;
+$popover-arrow-color:                  transparent;
+$popover-arrow-outer-color:            transparent;
+
+// Modals
+
+$modal-header-border-color:            $border-color;
+$modal-footer-border-color:            $border-color;
+
+// Alerts
+
+$alert-padding-x:                      1rem;
+$alert-padding-y:                      .75rem;
+
+$alert-padding-x-sm:                   .5rem;
+$alert-padding-y-sm:                   .25rem;
+
+$alert-margin-bottom:                  $spacer;
+$alert-border-width:                   0;
+
+$alert-bg-level:                       -10;
+$alert-color-level:                    2;

@@ -1,8 +1,8 @@
 module TimelineHelper
   def timeline_distance(a, b)
-    a, b = [a, b].map { |e| e.date.try :to_time }
-
     return 'unknown' if a.nil? || b.nil?
+
+    a, b = [a, b].map { |e| e.date.try :to_time }
 
     case ((a - b) / (60 * 60 * 24)).abs.round
     when 0..0     then 'less-than-day'

@@ -2,8 +2,14 @@ class SelectionProceduresController < SearchController
   def show
     @procedure = SelectionProcedure.find(params[:id])
 
-    @candidates    = @procedure.candidates.order(:rank, :name)
-    @commissioners = @procedure.commissioners.order(:name)
+    sorter = -> (c) do
+      r = c.respond_to?(:rank) ? c.rank : nil
+      n = c.name.match(/\s(([^\s]|\,\s)*)\z/)[1]
+      [r, ActiveSupport::Inflector.transliterate(n).downcase]
+    end
+
+    @candidates    = @procedure.candidates.order(:rank, :name).sort_by(&sorter)
+    @commissioners = @procedure.commissioners.order(:name).sort_by(&sorter)
   end
 
   def declaration

@@ -11,9 +11,10 @@
   <%= t '.fines_for' %> <%= @expenses.first.year %> &ndash; <%= @expenses.last.year %>
   <%= t '.fines_were' %> <%= number_to_currency @court.expenses_total, precision: 0 %>
 </p>
+
 <% unless @court.expenses_total.zero? %>
   <div id="expenses" class="collapse">
-    <ul class="list-unstyled">
+    <ul class="list-unstyled ml-3">
       <% @expenses.reverse.reject { |expense| expense.value.zero? }.each do |expense| %>
         <li>
           <%= t '.fine_for' %> <%= expense.year %>

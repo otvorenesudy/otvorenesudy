@@ -86,7 +86,7 @@ class Decree < ActiveRecord::Base
     facet :legislations,        type: :terms
     facet :file_number,         type: :terms
     facet :case_number,         type: :terms
-    facet :pages_count,         type: :range, ranges: [1..1, 2..2, 2..5, 6..10]
+    facet :pages_count,         type: :range, ranges: [1..1, 2..2, 3..5, 5..10]
   end
 
   def text

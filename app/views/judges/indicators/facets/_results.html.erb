@@ -6,13 +6,13 @@
   </ul>
 
   <% if other.any? %>
-    <ul id="<%= facet.id %>-list-more" class="facet-list collapse">
+    <ul id="<%= facet.id %>-list-continuation" class="facet-list collapse">
       <% other.each do |result| %>
         <%= render 'judges/indicators/facets/result', facet: facet, result: result, link: link %>
       <% end %>
     </ul>
 
-    <%= link_to_collapse_facet_results facet %>
+    <%= link_to_facet_results_continuation facet %>
   <% end %>
 <% else %>
   <span class="text-muted"><%= t(facet.key)[:not_found] %></span>

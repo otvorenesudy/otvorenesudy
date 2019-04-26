@@ -7,9 +7,3 @@ sk:
       subscribe_or: "alebo"
       decrees: "Rozhodnutí"
       hearings: "Pojednávaní"
-
-    shared:
-      links:
-        subscriptions: "Notifikácie"
-        settings: "Nastavenia"
-        sign_out: "Odhlásiť"

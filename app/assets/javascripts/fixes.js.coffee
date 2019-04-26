@@ -6,6 +6,11 @@ $(document).ready ->
     $('a[href="#"]').click (e) ->
       e.preventDefault()
 
+    $('a[href^="http"]').attr('target', '_blank')
+
+    $('a[data-toggle="collapse"]').click ->
+      $(this).blur()
+
     $('a[data-toggle="collapse"][data-content]').click ->
       e = $(this)
       c = e.attr('data-content')

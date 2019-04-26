@@ -1,12 +1,12 @@
 <% if @court.chair || @court.vicechair %>
-  <h2 class="m-t-2 m-b-1">
+  <h2 class="h4 text-uppercase mt-4">
     <%= t '.chairs' %>
   </h2>
 
   <p>
     <% if @court.chair %>
       <%= judge_position_at_court(@court.chair, @court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
-      <%= link_to_judge @court.chair %><%= @court.vicechair ? " #{two_words_connector}" : '.' %>
+      <%= link_to_judge @court.chair %><%= @court.vicechair ? ' ' + two_words_connector : '.' %>
     <% end %>
     <% if @court.vicechair %>
       <% unless @court.chair %>
@@ -19,7 +19,7 @@
   </p>
 <% end %>
 
-<h2 class="m-t-2 m-b-1">
+<h2 class="h4 text-uppercase mt-4">
   <%= t '.judges' %>
 </h2>
 
@@ -32,7 +32,7 @@
 <% end %>
 
 <% if @judges.inactive_or_unlisted.any? %>
-  <p class="m-t-3">
+  <p class="mt-4">
     <%= t '.explanation.other' %>
   </p>
 

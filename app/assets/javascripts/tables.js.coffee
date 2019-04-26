@@ -37,8 +37,8 @@ $(document).ready ->
     footerCells: ''
     icons:       ''
     sortNone:    ''
-    sortAsc:     'ion-ios-arrow-thin-up'
-    sortDesc:    'ion-ios-arrow-thin-down'
+    sortAsc:     ''
+    sortDesc:    ''
     active:      ''
     hover:       ''
     filterRow:   ''
@@ -46,14 +46,12 @@ $(document).ready ->
     odd:         ''
 
   $('table[data-sortable="true"]').tablesorter
-    theme:         'bootstrap'
-    tableClass:    'table'
-
-    headerTemplate: '{content}{icon}'
-    widgets: ['uitheme']
-
+    theme:             'bootstrap'
+    tableClass:        'table'
+    headerTemplate:    '{content}'
+    widgets:           ['uitheme']
     sortLocaleCompare: true
-    textExtraction: (node, table, column) -> $.trim($(node).attr('data-value') or $(node).text())
+    textExtraction:    (node, table, column) -> $.trim($(node).attr('data-value') or $(node).text())
 
   $('table').bind 'sortEnd', ->
     fixes()

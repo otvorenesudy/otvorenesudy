@@ -42,10 +42,9 @@ sk:
       resource: "Zdroj"
 
       document: "pôvodný dokument"
-      document_note: "odkaz už nemusí byť platný"
+      document_note: "odkaz už nemusí byť funkčný"
 
-      show_within: "Zobraziť v rámci"
-      proceeding: "súdneho konania"
+      in_proceeding: "Zobraziť v rámci súdneho konania"
 
       proposers: "Navrhovatelia"
       opponents: "Odporcovia"
@@ -58,13 +57,14 @@ sk:
         document: "pôvodného dokumentu"
 
       link_note:
-        description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
+        description: "Odkaz na %{document} už nemusí byť funkčný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
         document: "pôvodný dokument"
 
+      anonymize: "Anonymizovať"
       anonymized: "Pojednávanie bolo anonymizované na základe odôvodnenej žiadosti dotknutej osoby alebo uplynula doba jeho zverejnenia."
       faulty_date: "Pojednávanie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."
       future_date: "Dátum pojednávania je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach na portáli Ministerstva spravodlivosti."
       unprocessed: "Pojednávanie je neúplné. Pri spracovaní dát z portálu Ministerstva spravodlivosti nastala neznáma chyba."
-      anonymize: 'Anonymizovať'
+
     anonymize:
-      success: 'Pojednávanie bolo anonymizované'
+      success: "Pojednávanie bolo anonymizované."

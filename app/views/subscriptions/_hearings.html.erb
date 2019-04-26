@@ -1,7 +1,4 @@
 <% if subscriptions.any? %>
-  <h1 class="display-4 m-t-3">
-    <%= t '.title' %>
-  </h1>
-
+  <h2 class="text-uppercase my-4"><%= t '.title' %></h2>
   <%= render 'subscriptions/list', model: Hearing, subscriptions: subscriptions %>
 <% end %>

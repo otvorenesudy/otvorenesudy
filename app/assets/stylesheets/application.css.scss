@@ -2,18 +2,10 @@
 @import 'variables';
 
 @import 'bootstrap';
-@import 'ionicons';
+@import 'components/*';
+@import 'utilities/*';
 
-@import 'components/chart';
-@import 'components/map';
-@import 'components/table';
-@import 'components/timeline';
-@import 'components/viewer';
-
-@import 'layout';
-@import 'shared';
+@import 'content';
 @import 'search';
-@import 'home';
-
-@import 'utilities';
+@import 'static';
 @import 'fixes';

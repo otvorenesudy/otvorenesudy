@@ -9,7 +9,7 @@ module FlashHelper
   end
 
   def flash_message_type_to_class(type)
-    { alert: 'danger', error: 'danger', failure: 'danger', notice: 'info' }[type.to_sym] || type.to_s
+    { alert: 'danger', error: 'danger', success: 'info', failure: 'danger', notice: 'info' }[type.to_sym] || type.to_s
   end
 
   def flash_message_wrap(flash: self.flash, keys: [])

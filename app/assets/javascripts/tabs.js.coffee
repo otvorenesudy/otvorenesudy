@@ -1,10 +1,11 @@
 $(document).ready ->
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
-    window.location.hash = $(e.target).attr('data-target').replace('tab-pane-', '')
+    $(e.target).attr('tabindex', -1)
 
-  hash = window.location.hash
+    history.pushState(null, null, $(e.target).attr('href'))
 
-  if hash != '' or $('a.active[data-target="tab"]').length == 0
-    $("a[data-target=\"#{hash.replace('#', '#tab-pane-')}\"]").tab('show')
-  else
-    $('a[data-toggle="tab"]:first').tab('show')
+  $('a[data-toggle="tab"]').on 'hidden.bs.tab', (e) ->
+    $(e.target).removeAttr('tabindex')
+
+  if window.location.hash != ''
+    $("a[data-toggle=\"tab\"][href=\"#{window.location.hash}\"]").tab('show')

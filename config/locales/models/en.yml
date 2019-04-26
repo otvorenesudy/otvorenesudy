@@ -18,10 +18,10 @@ en:
     other: 'hearings'
 
   decree: &decree
-    zero: 'decrees'
-    one: 'decree'
-    few: 'decrees'
-    other: 'decrees'
+    zero: 'judgements'
+    one: 'judgement'
+    few: 'judgements'
+    other: 'judgements'
 
   proceeding: &proceeding
     zero: 'proceedings'

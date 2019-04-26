@@ -1,19 +1,19 @@
 module JudgesHelper
-  def judge_titles(judge, options = {}, &block)
+  def judge_title(judge, options = {}, &block)
     judge_wrap_fix "#{judge.prefix} #{judge.suffix}".strip, judge_activity_options(judge, options), &block
   end
 
   def judge_activity_icon_tag(judge, active, options = {})
     n, c, t = case active
-    when true  then %w(checkmark-outline text-success judges.activity.active)
-    when false then %w(close-outline     text-danger  judges.activity.inactive)
-    when nil   then %w(help-outline      text-warning judges.activity.unknown)
+    when true  then %w(check    text-success judges.activity.active)
+    when false then %w(times    text-danger  judges.activity.inactive)
+    when nil   then %w(question text-warning judges.activity.unknown)
     end
 
-    options = options.merge class: Array.wrap(options[:class]) << "#{c} text-undecorated"
+    options = options.merge class: Array.wrap(options[:class]).unshift("d-inline #{c}")
     options = options.merge placement: options.delete(:placement) || 'top'
 
-    tooltip_tag icon_tag(n), t("#{t}.#{judge.probable_gender}").upcase_first, options
+    tooltip_tag icon_tag(n, size: options.delete(:size)), t("#{t}.#{judge.probable_gender}").upcase_first, options
   end
 
   def judge_activity_by_employment(employment, options = {}, &block)

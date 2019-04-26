@@ -4,10 +4,10 @@ en:
       results:
         subject:
           hearings: "[Open Courts] New court hearings"
-          decrees: "[Open Courts] New court decrees"
+          decrees: "[Open Courts] New court judgements"
 
         new_hearings: "New court hearings"
-        new_decrees: "New court decrees"
+        new_decrees: "New court judgements"
 
         no_restrictions: "No search result restrictions"
 

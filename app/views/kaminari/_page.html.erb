@@ -1,6 +1,12 @@
-<li class="page-item<%= ' active' if page.current? %>">
-  <%= link_to page.current? ? '#' : url, class: 'page-link' do %>
-    <%= number_with_delimiter page %>
-    <%= content_tag :span, t('kaminari.pagination.current'), class: 'sr-only' if page.current? %>
-  <% end %>
-</li>
+<% if page.current? %>
+  <li class="page-item active">
+    <a class="page-link" href="#" tabindex="-1">
+      <%= number_with_delimiter(page) %>
+      <%= span_tag t('kaminari.pagination.current'), class: 'sr-only' %>
+    </a>
+  </li>
+<% else %>
+  <li class="page-item">
+    <%= link_to number_with_delimiter(page), url, class: 'page-link' %>
+  </li>
+<% end %>

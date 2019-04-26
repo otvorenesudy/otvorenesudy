@@ -1,23 +1,21 @@
-<p>
+<p role="tablist">
   <%= t '.close_ones' %>
   <%= @judge.related_people_by_year.map { |year, _| link_to year, "#relatives-#{year}", data: { toggle: 'collapse', parent: '#relatives' }, role: 'tab' }.to_sentence.html_safe %>.
 </p>
-<div id="relatives" role="tablist">
+<div id="relatives">
   <% @judge.related_people_by_year.each do |year, people| %>
-    <div class="panel">
-      <div id="relatives-<%= year %>" class="collapse" role="tabpanel">
-        <p class="m-b-0">
-          <%= t '.close_ones_for' %> <%= year %>:
-        </p>
-        <ul class="list-unstyled m-l-1">
-          <% people.each do |person| %>
-            <li>
-              <%= person.function.upcase_first if person.function %>
-              <%= link_to_related_person person %><%= ", #{link_to_institution person.institution}".html_safe if person.institution %>.
-            </li>
-          <% end %>
-        </ul>
-      </div>
+    <div id="relatives-<%= year %>" class="collapse ml-3" data-parent="#relatives" role="tabpanel">
+      <p class="ml-3 mb-0">
+        <%= t '.close_ones_for' %> <%= year %>:
+      </p>
+      <ul class="list-unstyled ml-3">
+        <% people.each do |person| %>
+          <li>
+            <%= person.function.upcase_first if person.function %>
+            <%= link_to_related_person person %><%= ", #{link_to_institution person.institution}".html_safe if person.institution %>.
+          </li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 </div>

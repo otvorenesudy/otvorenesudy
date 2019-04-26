@@ -24,7 +24,7 @@ class Probe::Facets
     end
 
     def id
-      @id ||= "#{base.to_s.underscore}-#{name}"
+      @id ||= "#{base}-#{name}".dasherize.downcase
     end
 
     def key

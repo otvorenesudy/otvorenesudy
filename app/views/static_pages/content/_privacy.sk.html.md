@@ -6,10 +6,7 @@ sekcii Nastavenia.
 
 Súbory cookie nám pomáhajú poskytovať a zabezpečiť registráciu a prihlásenie
 používateľov. Používame ich aj na na ochranu Vašich osobných údajov po prihlásení.
-
-<div class="alert alert-info" role="alert">
-  Používaním našich služieb vyjadrujete súhlas s používaním súborov cookie.
-</div>
+Používaním našich služieb vyjadrujete súhlas s používaním súborov cookie.
 
 Cookie je krátky textový súbor, ktorý do prehliadača odosielajú navštívené webové stránky.
 Webovým stránkam umožňuje zapamätať si informácie o Vašej návšteve, napríklad preferovaný

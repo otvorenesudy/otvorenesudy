@@ -1,9 +1,0 @@
-en:
-  shared:
-    global_banners:
-      sme:
-        price_of_state: "Price of state"
-        municipalities: "Municipalities"
-        schools: "Schools"
-        procurements: "Procurements"
-        universities: "Universities"

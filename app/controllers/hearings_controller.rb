@@ -16,11 +16,12 @@ class HearingsController < SearchController
     flash.now[:warning] << t('hearings.show.anonymized')  if @hearing.anonymized?
   end
 
-  def resource
-    @hearing = Hearing.find(params[:id])
-
-    send_file_in @hearing.resource_path, type: 'text/plain'
-  end
+  # TODO rm - unused?
+  #  # def resource
+  #   @hearing = Hearing.find(params[:id])
+  #
+  #   send_file_in @hearing.resource_path, type: 'text/plain'
+  # end
 
   def anonymize
     @hearing = Hearing.find(params[:id])

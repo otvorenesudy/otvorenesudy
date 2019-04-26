@@ -1,18 +1,18 @@
 <% provide :title, title(@title) %>
 
-<div class="row">
-  <div class="col-lg-7">
-    <h1 class="display-4 m-t-3 m-b-1 text-danger">
+<div class="row align-items-center">
+  <div class="col-md-6 offset-md-0 col-lg-5 offset-lg-1 col-xl-4 offset-xl-1">
+    <h1 class="display-4 text-md-center text-uppercase mb-3 text-danger">
       <%= @title %>
     </h1>
-
-    <p class="lead">
-      <%= @description %><br/>
+    <p class="lead text-md-center mx-auto">
+      <%= @description %>
+    </p>
+    <p class="lead text-md-center mx-auto mb-0 mb-md-5">
       <%= t 'unicorn.message' %>
     </p>
   </div>
-
-  <div class="col-xs-7 offset-xs-5 col-lg-5 offset-lg-0">
-    <img class="img-fluid m-t-3 m-b-1" src="<%= asset_path 'unicorn.svg' %>" alt="<%= t 'unicorn.title' %>" />
+  <div class="col-md-6 offset-xl-1">
+    <img class="img-fluid mt-4 px-4 px-md-0" src="<%= asset_path 'unicorn.svg' %>" alt="<%= t 'unicorn.title' %>" />
   </div>
 </div>
