@@ -178,6 +178,7 @@ module Probe
       end
 
       def distribute(relation)
+        return [1..1] if relation.total.zero? || total.zero?
         x = 10 ** Math.log10(relation.total / total.to_f).to_i
         [1..(x / 2), (x / 2)..(x), (x)..(x * 2), (x * 2)..(x * 5), (x * 5)..(x * 10)].uniq
       end
