@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#<%= !user_signed_in? || @subscription.new_record? ? 'create' : 'update' %>_subscription">
+<button type="button" class="btn btn-outline-primary w-100 mb-3" data-toggle="modal" data-target="#<%= !user_signed_in? || @subscription.new_record? ? 'create' : 'update' %>_subscription">
   <%= t'.subscribe' %>
 </button>
 
@@ -6,28 +6,23 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">
-          <%= t '.subscribe' %>
-        </h2>
+        <h1 class="modal-title text-uppercase"><%= t '.subscribe' %></h1>
       </div>
       <div class="modal-body">
         <% if user_signed_in? %>
-          <p class="lead text-<%= @subscription.new_record? ? 'primary' : 'info' %>">
+          <p class="text-<%= @subscription.new_record? ? 'primary' : 'info' %>">
             <%= t @subscription.new_record? ? '.introduction' : '.already_subscribed' %>
           </p>
-
           <p>
             <%= t '.explanation' %>
           </p>
-
           <%= form_for @subscription, method: @subscription.new_record? ? :post : :put, html: { class: 'form-inline' } do |f| %>
             <%= f.fields_for :query do |q| %>
               <%= q.hidden_field :model, value: @model.to_s %>
               <%= q.hidden_field :value, value: Query.unwrap(@facets.query_params) %>
             <% end %>
-
             <div class="form-group">
-              <div class="btn-group" data-toggle="buttons" role="group">
+              <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons" role="group">
                 <% Period.values.each do |_, period| %>
                   <label class="btn btn-outline-secondary<%= ' active' if @subscription.period == period %>">
                     <%= f.radio_button :period_id, period.id, name: 'period_id', checked: @subscription.period == period, autocomplete: 'off' %>
@@ -44,17 +39,33 @@
       <div class="modal-footer">
         <% if user_signed_in? %>
           <% unless @subscription.new_record? %>
-            <button type="submit" class="btn btn-outline-primary btn-lg" form="edit_subscription_<%= @subscription.id %>"><%= t '.update' %></button>
-            <%= link_to t('.delete'), @subscription, method: :delete, class: 'btn btn-outline-danger btn-lg', role: :button %>
+            <button type="submit" class="btn btn-outline-primary" form="edit_subscription_<%= @subscription.id %>"><%= t '.update' %></button>
+            <button type="button" class="btn btn-outline-danger" onclick="$('#<%= !user_signed_in? || @subscription.new_record? ? 'create' : 'update' %>_subscription').modal('hide')" data-toggle="modal" data-target="#delete_subscription"><%= t '.delete' %></button>
           <% else %>
-            <button type="submit" class="btn btn-outline-primary btn-lg" form="new_subscription"><%= t '.create' %></button>
+            <button type="submit" class="btn btn-outline-primary" form="new_subscription"><%= t '.create' %></button>
           <% end %>
         <% else %>
-          <%= link_to t('.sign_up'), new_registration_path(:user), class: 'btn btn-outline-success btn-lg', role: :button %>
-          <%= link_to t('.sign_in'), new_session_path(:user), class: 'btn btn-outline-primary btn-lg', role: :button %>
+          <%= link_to t('.sign_up'), new_registration_path(:user), class: 'btn btn-outline-primary', role: :button %>
+          <%= link_to t('.sign_in'), new_session_path(:user), class: 'btn btn-outline-primary', role: :button %>
         <% end %>
-        <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal"><%= t '.cancel' %></button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
       </div>
     </div>
   </div>
 </div>
+
+<% unless !user_signed_in? || @subscription.new_record? %>
+  <div id="delete_subscription" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text-uppercase"><%= t '.are_you_sure' %></h1>
+        </div>
+        <div class="modal-footer">
+          <%= link_to t('.confirm_delete'), @subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

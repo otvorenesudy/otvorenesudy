@@ -10,6 +10,7 @@
     <%= render 'search/controls' %>
   </div>
   <div class="float-lg-left col-lg-3 mb-5 mb-lg-0 px-0 pr-lg-4">
+    <%= render 'search/subscribe' if @model.respond_to? :subscribe %>
     <%= render 'facets/list' %>
   </div>
   <div class="float-lg-right col-lg-9 px-0">

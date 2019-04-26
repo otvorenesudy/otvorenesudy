@@ -24,3 +24,6 @@ en:
       search": "Search"
       update: "Update"
       delete: "Remove"
+      are_you_sure: "Are you sure?"
+      confirm_delete: "Unsubscribe"
+      cancel: "Back"
