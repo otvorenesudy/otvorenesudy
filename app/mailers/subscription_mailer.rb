@@ -2,7 +2,7 @@ class SubscriptionMailer < ActionMailer::Base
   default content_type: 'text/html'
   default template_path: 'subscriptions/mailer'
 
-  default from: "#{I18n.t 'layouts.application.title'} <noreply@otvorenesudy.sk>", css: 'mailers/layout'
+  default from: "#{I18n.t 'layouts.application.title'} <noreply@otvorenesudy.sk>", css: 'mailer'
 
   layout 'mailer'
 
