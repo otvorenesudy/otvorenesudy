@@ -17,21 +17,23 @@ class JudgesController < SearchController
 
     flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
 
-    keys = [:indicators_2013, :indicators_2015, :indicators_2017]
+    @available_indicators = {
+      indicators_2017: @judge.indicators_2017.present?,
+      indicators_2015: @judge.indicators_2015.present?,
+      indicators_2013: @judge.indicators_2013.present?
+    }
 
-    results_2013 = Judge.search(params.except(*keys).merge(indicators_2013: true))
-    @facets_2013 = results_2013.facets
-    @others_2013 = params[:name] ? results_2013.to_a.map(&:first) : []
+    @indicators = (
+      params.slice(:indicators_2017, :indicators_2015, :indicators_2013).keys.first&.to_sym ||
+      @available_indicators.find { |(name, available)| available }&.first ||
+      :indicators_2017
+    )
 
-    results_2015 = Judge.search(params.except(*keys).merge(indicators_2015: true))
-    @facets_2015 = results_2015.facets
-    @others_2015 = params[:name] ? results_2015.to_a.map(&:first) : []
+    params[@indicators] = true unless params[@indicators].present?
 
-    results_2017 = Judge.search(params.except(*keys).merge(indicators_2017: true))
-    @facets_2017 = results_2017.facets
-    @others_2017 = params[:name] ? results_2017.to_a.map(&:first) : []
-
-    @latest_indicators = keys.reverse.find { |key| @judge.send(key).present? }
+    results = Judge.search(params)
+    @facets = results.facets
+    @others = params[:name] ? results.to_a.map(&:first) : []
   end
 
   # TODO rm - unused?

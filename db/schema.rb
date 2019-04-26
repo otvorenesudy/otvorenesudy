@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20190329094548) do
+ActiveRecord::Schema.define(:version => 20190418202027) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -261,11 +261,11 @@ ActiveRecord::Schema.define(:version => 20190329094548) do
   add_index "hearing_types", ["value"], :name => "index_hearing_types_on_value", :unique => true
 
   create_table "hearings", :force => true do |t|
-    t.string   "uri",                :limit => 2048,                    :null => false
-    t.integer  "source_id",                                             :null => false
+    t.string   "uri",                :limit => 2048, :null => false
+    t.integer  "source_id",                          :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
-    t.integer  "hearing_type_id",                                       :null => false
+    t.integer  "hearing_type_id",                    :null => false
     t.integer  "hearing_section_id"
     t.integer  "hearing_subject_id"
     t.integer  "hearing_form_id"
@@ -277,11 +277,12 @@ ActiveRecord::Schema.define(:version => 20190329094548) do
     t.datetime "commencement_date"
     t.boolean  "selfjudge"
     t.text     "note"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
-    t.boolean  "anonymized",                         :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.datetime "anonymized_at"
   end
 
+  add_index "hearings", ["anonymized_at"], :name => "index_hearings_on_anonymized_at"
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
   add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"

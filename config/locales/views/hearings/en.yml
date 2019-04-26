@@ -61,10 +61,10 @@ en:
         document: "the original document"
 
       anonymize: "Anonymize"
-      anonymized: "The hearing was anonymized based on a reasoned request by an affected person."
+      anonymized: "The hearing was anonymized based on a request of the person involved or the time of its public availability has been reached."
       faulty_date: "The hearing was published on the portal of the Ministry of Justice with a date in far future."
       future_date: "The hearing date is in far future, there is an error in original data on the portal of the Ministry of Justice."
       unprocessed: "The hearing is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."
 
     anonymize:
-      success: "The hearing was anonymized"
+      success: "The hearing was anonymized."
