@@ -1,4 +1,4 @@
-<h2 class="m-t-2 m-b-1">
+<h2 class="h4 text-uppercase my-4">
   <%= t '.headline' %>
 </h2>
 
@@ -8,16 +8,16 @@
     <%= render 'judges/indicators_2017/evaluation', judge: judge, indicators: judge.indicators_2017.statistical %>
   <% end %>
 
-  <% if @judge.indicators_2017.numerical %>
+  <% if @judge.indicators_2017.numerical && @latest_indicators == :indicators_2017 %>
     <%= render 'judges/indicators_2017/numerical', judge: judge, facets: facets, others: others %>
   <% end %>
 
   <% if @judge.indicators_2017.statistical %>
     <%= render 'judges/indicators_2017/quality', judge: judge, indicators: judge.indicators_2017.statistical %>
-    <%= render 'judges/indicators_2017/effectivity', judge: judge, indicators: judge.indicators_2017.statistical %>
+    <%= render 'judges/indicators_2017/efficiency', judge: judge, indicators: judge.indicators_2017.statistical %>
   <% end %>
 <% else %>
-  <p class="m-t-1">
+  <p class="mb-0">
     <%= t '.none' %>
   </p>
 <% end %>

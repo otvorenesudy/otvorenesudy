@@ -1,7 +1,7 @@
 <% unless current_page.last? %>
   <li class="page-item">
-    <%= link_to url, class: 'page-link' do %>
-      <%= icon_tag 'arrow-right', 'aria-hidden' => 'true' %>
+    <%= link_to url, class: 'page-link d-flex' do %>
+      <%= icon_tag('arrow-right', width: 9, height: 20, 'aria-hidden' => 'true') %>
       <span class="sr-only"><%= t 'kaminari.pagination.next' %></span>
     <% end %>
   </li>

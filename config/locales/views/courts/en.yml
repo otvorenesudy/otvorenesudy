@@ -37,9 +37,8 @@ en:
 
       contact: "Contact"
       judges: "Judges"
-      decrees: "Decrees"
+      decrees: "Judgements"
       hearings: "Hearings"
-      media: "Media"
 
       resource_note:
         description: "Information regarding the court were obtained from %{document}, which was most recently updated on %{update}."
@@ -54,7 +53,7 @@ en:
       district_courts: "district courts"
 
       fines: "Fines from the Constitutional Court"
-      fines_for: "of Slovak Republic for either late or unlawful decrees in years"
+      fines_for: "of Slovak Republic for either late or unlawful judgements in years"
       fines_were: "were"
       fine_for: "Fine in year"
       fine_was: "was"
@@ -81,10 +80,6 @@ en:
       address: "Address"
       country: "Slovak Republic"
 
-      map: "Map"
-      show_on_map: "Show on map"
-      with_other_courts: "with other courts in Slovak Republic."
-
     office:
       type:
         information_center: "Information center"
@@ -104,37 +99,25 @@ en:
       judges: "Judges"
       explanation:
         listed: "List of judges currently working at the court."
-        other: "List of judges who worked at the court and other officials whose names were found in hearings or decrees."
+        other: "List of judges who worked at the court and other officials whose names were found in hearings or judgements."
 
       list:
-        activity: "Activity"
+        activity: "A"
+        activity_help: "Activity"
         title: "Title"
         name: "Name"
         position: "Position"
         hearings: "Hearings"
-        decrees: "Decrees"
-        hearings_count: "Number of hearings"
-        decrees_count: "Number of decrees"
+        hearings_help: "Number of hearings"
+        decrees: "Judgements"
+        decrees_help: "Number of judgements"
 
     decrees:
-      headline: "Published decrees"
-      more: "More decrees"
-      none: "We do not register any published decrees for the court yet."
+      headline: "Published judgements"
+      more: "More judgements"
+      none: "We do not register any published judgements for the court yet."
 
     hearings:
       headline: "Announced hearings"
       more: "More hearings"
       none: "We do not register any announced hearings for the court yet."
-
-    media:
-      headline: "Mentions in media"
-      clarification: "Links are searched automatically using the name of the court. They may not concern the court."
-      none: "No mentions about the court has been found in media."
-
-    map:
-      title: "Map of courts in Slovak Republic"
-      note: "In Slovakia there are %{courts} courts in %{places} different places"
-      hint: "Basic court information will appear by clicking on a map marker."
-
-      marker:
-        get_directions: "Get directions"

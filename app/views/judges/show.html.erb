@@ -1,8 +1,8 @@
 <% provide :title, @judge.name %>
 
-<h1 class="m-t-3 m-b-1">
+<h1 class="text-uppercase my-4">
   <%= yield :title %>
-  <%= judge_activity_icon_tag @judge, @judge.active?, placement: 'right' %>
+  <%= judge_activity_icon_tag @judge, @judge.active?, size: 20, placement: 'right' %>
 </h1>
 
 <ol class="list-unstyled">
@@ -26,38 +26,25 @@
 <%= render 'relatives' if @judge.related_people_by_year.any? %>
 <%= render 'notes' if @judge.substantiation_notes_by_year.any? %>
 
-<div class="clearfix m-b-2"></div>
-
-<ul class="nav nav-tabs" role="tablist">
-  <%= tab_link_tag t('.indicators', year: 2017), 'indicators-2017', path: judge_path(@judge, { indicators_2017: true }), class: ('active' if @indicators == :indicators_2017) %>
-  <%= tab_link_tag t('.indicators', year: 2015), 'indicators-2015', path: judge_path(@judge, { indicators_2015: true }), class: ('active' if @indicators == :indicators_2015) %>
-  <%= tab_link_tag t('.indicators', year: 2013), 'indicators-2013', path: judge_path(@judge, { indicators_2013: true }), class: ('active' if @indicators == :indicators_2013) %>
-  <%= tab_link_tag t('.decrees'), 'decrees' %>
+<ul class="nav nav-tabs mt-4" role="tablist">
+  <%= tab_link_tag t('.indicators', year: 2017), 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) %>
+  <%= tab_link_tag t('.indicators', year: 2015), 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) %>
+  <%= tab_link_tag t('.indicators', year: 2013), 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) %>
+  <%= tab_link_tag t('.decrees'), 'decrees', class: ('active' unless @latest_indicators) %>
   <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
   <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
-  <%= tab_link_tag t('.media'), 'media' %>
 </ul>
 
-<div class="tab-content tab-with-chart">
-  <% if @indicators == :indicators_2017 %>
-    <%= render_tab({ partial: 'indicators_2017', tab: 'indicators-2017', class: 'active' }, judge: @judge, others: @others, facets: @facets) %>
-  <% end %>
-
-  <% if @indicators == :indicators_2015 %>
-    <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: 'active' }, judge: @judge, others: @others, facets: @facets) %>
-  <% end %>
-
-  <% if @indicators == :indicators_2013 %>
-    <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: 'active' }, judge: @judge, others: @others, facets: @facets) %>
-  <% end %>
-
-  <%= render_tab({ partial: 'decrees' }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
+<div class="tab-content">
+  <%= render_tab({ partial: 'indicators_2017', tab: 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) }, judge: @judge, others: @others_2017, facets: @facets_2017) %>
+  <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) }, judge: @judge, others: @others_2015, facets: @facets_2015) %>
+  <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) }, judge: @judge, others: @others_2013, facets: @facets_2013) %>
+  <%= render_tab({ partial: 'decrees', tab: 'decrees', class: ('active' unless @latest_indicators) }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'upcoming-hearings' }, prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name }) %>
   <%= render_tab({ partial: 'hearings', tab: 'historical-hearings' }, prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true }) %>
-  <%= render_tab({ partial: 'media' }, media: @media) %>
 </div>
 
-<p class="text-small text-muted m-t-3">
+<p class="small text-muted mt-4 mb-0">
   <%= s t ".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.description", document: link_to(t(".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.document"), @judge.uri), update: time_tag(@judge.updated_at.to_date, format: :default) %>
   <%= s t '.resource_note.supplement' %>
 </p>

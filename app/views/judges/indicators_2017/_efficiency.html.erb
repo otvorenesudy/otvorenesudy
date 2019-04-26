@@ -1,0 +1,22 @@
+<h3 class="h4 text-uppercase mt-4">
+  <%= t '.headline' %>
+</h3>
+
+<p>
+  <%= t '.length_ratio', year: indicators['year'], ratio: number_with_precision(indicators['E5'], precision: 1), average: number_with_precision(indicators['E5.mean'], precision: 1) %>
+  <%= help_tag '.computed_as_ratio_note' %>
+</p>
+
+<p>
+  <%= t '.outstanding_count', year: indicators['year'], count: number_with_precision(indicators['E2'], precision: 1), average: number_with_precision(indicators['E2.mean'], precision: 1) %>
+</p>
+
+<p>
+  <%= t '.restant_count', year: indicators['year'], count: number_with_precision(indicators['E3'], precision: 1), average: number_with_precision(indicators['E3.mean'], precision: 1) %>
+  <%= t '.restant_ratio', ratio: number_to_percentage(indicators['E4'], precision: 1), average: number_to_percentage(indicators['E4.mean'], precision: 1) %>
+  <%= help_tag '.unresolved_issue_note' %>
+</p>
+
+<p>
+  <%= t '.total_ratio', year: indicators['year'], ratio: number_to_percentage(indicators['E1'], precision: 1), average: number_to_percentage(indicators['E1.mean'], precision: 1) %>
+</p>

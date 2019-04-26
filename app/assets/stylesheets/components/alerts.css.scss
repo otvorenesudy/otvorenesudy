@@ -1,0 +1,9 @@
+.alert {
+  &:last-of-type {
+    margin-bottom: map-get($spacers, 4);
+  }
+}
+
+.alert-sm {
+  padding: $alert-padding-y-sm $alert-padding-x-sm;
+}

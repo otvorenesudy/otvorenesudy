@@ -1,6 +1,7 @@
 class Judge < ActiveRecord::Base
   include Resource::URI
-  include Resource::ContextSearch
+  # TODO rm or fix Bing Search API
+  #include Resource::ContextSearch
   include Resource::Formatable
   include Resource::Indicator
   include Resource::Similarity
@@ -103,9 +104,9 @@ class Judge < ActiveRecord::Base
     facet :activity,             type: :terms
     facet :positions,            type: :terms
     facet :courts,               type: :terms
-    facet :hearings_count,       type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :decrees_count,        type: :range, ranges: [10..50, 50..100, 100..500, 500..1000]
-    facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..5]
+    facet :hearings_count,       type: :range, ranges: distribute(Hearing)
+    facet :decrees_count,        type: :range, ranges: distribute(Decree)
+    facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..3]
 
     facet :name,                type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
     facet :similar_courts,       type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
@@ -160,14 +161,16 @@ class Judge < ActiveRecord::Base
   alias :probably_higher_court_official? :probably_higher_court_official
   alias :probably_female?                :probably_female
 
-  context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
-
-  context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
+  # TODO rm or fix Bing Search API
+  # context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
+  # context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
 
   before_save :invalidate_caches
 
   def invalidate_caches
-    invalidate_context_query
+    # TODO rm or fix Bing Search API
+    #invalidate_context_query
+
     invalidate_name
 
     related_people.each { |person| person.invalidate_caches }

@@ -1,11 +1,7 @@
 sk:
   search:
-    details:
-      of_total: "z celkovo"
-      not_found: "Nenájdené"
-
     controls:
-      reset: "Zrušiť všetky obmedzenia"
+      reset: "Zrušiť všetky kritériá"
 
       sort:
         common: &common
@@ -47,7 +43,10 @@ sk:
       show_less: "Zobraziť menej"
 
     results:
-      no_results: "Nastaveným obmedzeniam nevyhovujú žiadne výsledky."
+      headline: "Výsledky"
+      found: "%{count} z celkovo %{total} (%{time} ms)"
+      not_found: "Nenájdené žiadne výsledky (%{time} ms)"
+      no_results: "Vybraným vyhľadávacím kritériám nevyhovujú žiadne výsledky."
 
     subscribe:
       subscribe: "Odoberať notifikácie"
@@ -60,4 +59,6 @@ sk:
       create: "Odoberať"
       update: "Aktualizovať"
       delete: "Zrušiť"
+      are_you_sure: "Ste si istý?"
+      confirm_delete: "Zrušiť odoberanie"
       cancel: "Späť"

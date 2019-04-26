@@ -1,0 +1,110 @@
+.feature {
+  background: $input-bg;
+
+  ol {
+    @include media-breakpoint-up(sm) {
+      background: url("maskicon.svg") no-repeat -25.25px center;
+      background-size: 90px;
+      padding-left: 62px;
+    }
+  }
+
+  li:before {
+    content: "\b7";
+    padding-right: map-get($spacers, 2);
+  }
+}
+
+.square {
+  position: relative;
+  flex: 1 0 auto;
+  height: auto;
+
+  min-width: 163.33px;
+  max-height: 163.33px;
+
+  color: $white;
+  background: $blue;
+
+  @include hover-focus-active {
+    color: $navy;
+    text-decoration: none;
+  }
+
+  &::before {
+    content: "";
+    float: left;
+    padding-top: 100%;
+  }
+
+  svg {
+    display: block;
+    position: absolute;
+
+    top: map-get($spacers, 4);
+    left: calc(50% - 30px);
+
+    color: $navy;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 0;
+    left: 50%;
+
+    height: $line-height-base * 2rem;
+    bottom: map-get($spacers, 3);
+  }
+
+  @include media-breakpoint-down(sm) {
+    min-width: 133.33px;
+    max-height: 133.33px;
+
+    svg {
+      @include size(60px * .8);
+
+      top: map-get($spacers, 4) * .8;
+      left: calc(50% - 30px * .8);
+    }
+
+    span {
+      font-size: $font-size-sm;
+
+      height: $line-height-base * 2rem * .8;
+      bottom: map-get($spacers, 3) * .8;
+    }
+  }
+}
+
+.partners {
+  .ip {
+    @include color-variant($gray, #4b647c)
+  }
+
+  .sme {
+    @include color-variant($gray, #cf2529)
+  }
+}
+
+.content {
+  text-align: justify;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: map-get($spacers, 4);
+  }
+
+  ol, ul {
+    padding-left: 1.5rem;
+  }
+
+  li ol, li ul {
+    margin-bottom: 1rem;
+  }
+
+  li p {
+    margin-bottom: 0;
+  }
+}

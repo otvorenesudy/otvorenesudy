@@ -1,51 +1,61 @@
-<ol class="list-separated list-unstyled">
+<ol class="list-unstyled">
   <% subscriptions.each do |subscription| %>
-    <li class="m-b-1 p-t-1">
-      <h4>
+    <li class="mb-4">
+      <h2 class="h4 text-uppercase">
         <%= t '.title' %> <%= t subscription.query.model.underscore.to_sym, count: :other %>
-      </h4>
-
-      <p class="text-muted">
-        <%= t '.registered_at' %> <%= time_tag subscription.created_at, format: :default %>
-      </p>
-
+      </h2>
       <% if subscription.query.value.any? %>
-        <ul class="list-unstyled m-y-1">
+        <ul class="list-unstyled mb-2">
           <% subscription_query(subscription).each do |facet, values| %>
             <li><%= facet %> &ndash; <%= values %></li>
           <% end %>
         </ul>
       <% else %>
-        <p class="m-b-1">
+        <p class="mb-2">
           <%= t '.no_restrictions' %>
         </p>
       <% end %>
-
-      <%= form_for subscription, method: :put, html: { class: 'form-inline' } do |f| %>
+      <p class="small text-muted mb-2">
+        <%= t '.registered_at' %> <%= time_tag subscription.created_at, format: :default %>
+      </p>
+      <%= form_for subscription, method: :put, html: { class: 'form-inline mb-2' } do |f| %>
         <%= f.fields_for :query do |q| %>
           <%= q.hidden_field :model, value: subscription.query.model.to_s %>
           <%= q.hidden_field :value, value: Query.unwrap(subscription.query.value) %>
         <% end %>
-
         <div class="form-group">
-          <div class="btn-toolbar">
-            <div class="btn-group" data-toggle="buttons" role="group">
-              <% Period.values.each do |_, period| %>
-                <label class="btn btn-outline-secondary<%= ' active' if subscription.period == period %>">
-                  <%= f.radio_button :period_id, period.id, name: 'period_id', checked: subscription.period == period, autocomplete: 'off' %>
-                  <%= t "period.#{period.name}" %>
-                </label>
-              <% end %>
+          <div class="btn-group btn-group-sm btn-group-toggle mr-3" data-toggle="buttons" role="group">
+            <% Period.values.each do |_, period| %>
+              <label class="btn btn-outline-secondary<%= ' active' if subscription.period == period %>">
+                <%= f.radio_button :period_id, period.id, name: 'period_id', checked: subscription.period == period, autocomplete: 'off' %>
+                <%= t "period.#{period.name}" %>
+              </label>
+            <% end %>
+          </div>
+          <div class="btn-group btn-group-sm mr-2" role="group">
+            <%= link_to_search subscription.query.model, t('.search'), params: subscription.query.value, class: 'btn btn-outline-info' %>
+          </div>
+          <div class="btn-group btn-group-sm mr-2" role="group">
+            <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
+          </div>
+          <div class="btn-group btn-group-sm" role="group">
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#delete_subscription_<%= subscription.id %>"><%= t '.delete' %></button>
+          </div>
+        </div>
+      <% end %>
+      <div id="delete_subscription_<%= subscription.id %>" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title text-uppercase"><%= t '.are_you_sure' %></h1>
             </div>
-
-            <div class="btn-group-mix" role="group">
-              <%= link_to_search subscription.query.model, t('.search'), params: subscription.query.value, class: 'btn btn-outline-info' %>
-              <button type="submit" class="btn btn-outline-primary"><%= t '.update' %></button>
-              <%= link_to t('.delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+            <div class="modal-footer">
+              <%= link_to t('.confirm_delete'), subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
             </div>
           </div>
         </div>
-    <% end %>
+      </div>
     </li>
   <% end %>
 </ol>

@@ -1,0 +1,19 @@
+.pagination {
+  flex-wrap: wrap;
+  margin: - map-get($spacers, 2) 0;
+}
+
+.page-item {
+  margin: map-get($spacers, 2) 0;
+}
+
+.page-link {
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+
+  @include color-variant($pagination-color, $pagination-hover-color);
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+}

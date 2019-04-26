@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+svgeez build --with-svgo -s app/assets/images/icons -d app/assets/images/icons.svg
+svgeez build --with-svgo -s app/assets/images/brands -d app/assets/images/brands.svg

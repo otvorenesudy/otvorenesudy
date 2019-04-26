@@ -1,4 +1,4 @@
-## Prevádzkovatelia
+#### Prevádzkovatelia
 
 OtvoreneSudy.sk (ďalej „portál“) sú nezisková investigatívna stránka
 slúžiaca na monitoring a analýzu informácií o súdnictve. Prevádzkovateľom
@@ -9,7 +9,7 @@ Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 v Berlíne a projektu <%= link_to 'Reštart', 'http://restartslovensko.sk' %>
 organizovaného <%= link_to 'Centrom pre filantropiu', 'http://cpf.sk' %>. 
 
-## Základné pravidlá
+#### Základné pravidlá
 
 Portál umožňuje vyhľadávať, čítať a preberať zverejnené informácie o súdoch,
 sudcoch, súdnych pojednávaniach a rozhodnutiach. Výhodou registrácie je 
@@ -21,7 +21,7 @@ ho môžu prevádzkovatelia v prípade potreby kontaktovať. Prevádzkovatelia s
 zaväzujú, že budú používateľa na registračnom e-maili kontaktovať iba v
 prípade potreby a nebudú mu zasielať nevyžiadanú poštu.  
 
-## Zdroje dát
+#### Zdroje dát
 
 Portál zobrazuje súdne informácie na základe dát získaných z verejne dostupných
 zdrojov. Predovšetkým ide o nasledovné zdroje:
@@ -46,7 +46,7 @@ stránok v podobe, v akej boli pôvodne zverejnené alebo poskytnuté inštitúc
 Vo väčšine prípadov sú priamo odkazované na pôvodný zdroj. V prípadoch zjavných
 chýb boli dáta upravované a normalizované.
 
-## Vyhlásenie
+#### Vyhlásenie
 
 Prevádzkovatelia nepreberajú právnu zodpovednosť za obsah, podobu, správnosť
 zverejnených dát alebo ich neustálu dostupnosť. Používateľ berie na vedomie

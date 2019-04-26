@@ -1,8 +1,8 @@
 <% provide :title, @court.name %>
 
-<h1 class="m-t-3 m-b-1">
+<h1 class="text-uppercase my-4">
   <%= yield :title %>
-  <small class="d-block text-muted">
+  <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= @court.address %>
   </small>
 </h1>
@@ -19,14 +19,11 @@
 <%= render 'expenses' if @expenses.any? %>
 <%= render 'proceedings' if @court.average_proceeding_durations? %>
 
-<div class="clearfix m-b-2"></div>
-
-<ul class="nav nav-tabs" role="tablist">
-  <%= tab_link_tag t('.contact'), 'contact', class: 'active' %>
+<ul class="nav nav-tabs mt-4" role="tablist">
+  <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>
   <%= tab_link_tag t('.judges'), 'judges' %>
   <%= tab_link_tag t('.decrees'), 'decrees' %>
   <%= tab_link_tag t('.hearings'), 'hearings' %>
-  <%= tab_link_tag t('.media'), 'media' %>
 </ul>
 
 <div class="tab-content">
@@ -34,9 +31,8 @@
   <%= render_tab 'judges', judges: @judges %>
   <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
   <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
-  <%= render_tab 'media', media: @media %>
 </div>
 
-<p class="text-small text-muted m-t-3">
+<p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @court.uri), update: time_tag(@court.updated_at.to_date, format: :default) %>
 </p>

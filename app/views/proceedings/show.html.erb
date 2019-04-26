@@ -1,12 +1,12 @@
 <% provide :title, proceeding_title(@proceeding) %>
 
-<h1 class="m-t-3 m-b-1">
-  <%= proceeding_headline @proceeding, limit: 45, tooltip: true %><span class="hidden-lg-up">,</span>
+<h1 class="text-uppercase my-4">
+  <%= proceeding_headline @proceeding, limit: 49, tooltip: true %>
   <% if @proceeding.legislation_area_and_subarea.any? %>
-    <br class="hidden-md-down" /><%= proceeding_subject @proceeding, limit: 45, tooltip: true %>
+    <span class="d-inline d-xl-none">,</span><br class="d-none d-xl-inline" />
+    <%= proceeding_subject @proceeding, limit: 49, tooltip: true %>
   <% end %>
-  <br class="hidden-md-down" />
-  <small class="text-muted">
+  <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.proceeding' %>
     <% if @proceeding.single_hearing? %>
       <%= t @proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
@@ -29,7 +29,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-lg-7">
+  <div class="col-xl-8 mb-0-last">
     <p>
       <%= t '.for_proceeding' %> <%= t '.so_far' unless @proceeding.probably_closed? %><%= t '.register' %>
       <%= translate_with_count @hearings.size, :hearing %> <%= two_words_connector %> <%= translate_with_count @decrees.size, :decree %>.
@@ -50,48 +50,46 @@
     <% end %>
   </div>
 
-  <div class="col-lg-5">
-    <div class="card">
-      <div class="card-block">
-        <ul class="list-unstyled m-b-0">
-          <% @proceeding.case_numbers.each do |case_number| %>
-            <li>
-              <%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:
-              <span class="pull-xs-right"><%= case_number ? link_to_proceedings_search(case_number, params: { case_number: case_number }) : t('case_number.missing') %></span>
-            </li>
-          <% end %>
-          <li>
-            <%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:
-            <span class="pull-xs-right"><%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, params: { file_number: @proceeding.file_number }) : t('file_number.missing') %></span>
-          </li>
-          <% @proceeding.eclis.each do |ecli| %>
-            <li>
-              <%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:
-              <span class="pull-xs-right"><%= ecli ? link_to_proceedings_search(ecli, params: { q: ecli }) : t('ecli.missing') %></span>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+  <div class="col-xl-4">
+    <ul class="list-unstyled bg-light border mt-3 mt-xl-0 mb-0 p-3">
+      <% @proceeding.case_numbers.each do |case_number| %>
+        <li class="d-flex justify-content-between mx-2">
+          <span class="mr-2"><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
+          <%= case_number ? link_to_proceedings_search(case_number, class: 'text-truncate', params: { case_number: case_number }) : t('case_number.missing') %>
+        </li>
+      <% end %>
+      <li class="d-flex justify-content-between mx-2">
+        <span class="mr-2"><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
+        <%= @proceeding.file_number ? link_to_proceedings_search(@proceeding.file_number, class: 'text-truncate', params: { file_number: @proceeding.file_number }) : t('file_number.missing') %>
+      </li>
+      <% @proceeding.eclis.each do |ecli| %>
+        <li class="d-flex justify-content-between mx-2">
+          <span class="mr-2"><%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:</span>
+          <%= ecli ? link_to_proceedings_search(ecli, class: 'text-truncate', params: { q: ecli }) : t('ecli.missing') %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 
-<div class="timeline">
-  <div class="timeline-header"><%= t '.timeline.present' %></div>
-  <ol class="timeline-list">
-    <% ([@events.last] + @events.reverse).each_cons(2) do |previous, event| %>
+<nav class="border-top mt-4">
+  <p class="h3 font-weight-bold text-center text-uppercase mt-4 mb-3"><%= t '.timeline.present' %></p>
+  <ol class="timeline mb-0 py-3">
+    <% ([nil] + @events.reverse).each_cons(2) do |previous, event| %>
       <%= render "proceedings/timeline/#{event.class.name.downcase}", event.class.name.downcase.to_sym => event, previous: previous %>
     <% end %>
-    <li class="timeline-item timeline-distance-unknown">
-      <h4>
-        <%= t '.timeline.pleading' %><br/>
-        <small><%= t '.timeline.unknown_date' %></small>
-      </h4>
+    <li class="timeline-item timeline-distance-unknown d-flex flex-column-reverse p-3">
+      <span class="h5 font-weight-bold mb-0">
+        <%= t '.timeline.pleading' %>
+      </span>
+      <small class="h6 font-weight-bold mb-2">
+        <%= t '.timeline.unknown_date' %>
+      </small>
     </li>
   </ol>
-  <div class="timeline-footer"><%= t '.timeline.past' %></div>
-</div>
+  <p class="h3 font-weight-bold text-center text-uppercase mt-3 mb-4"><%= t '.timeline.past' %></p>
+</nav>
 
-<p class="text-small text-muted m-t-3">
+<p class="small text-muted mt-4 mb-0">
   <%= t '.resource_note.description', ministry: link_to(t('.resource_note.ministry'), JusticeGovSk::URL.base) %>
 </p>

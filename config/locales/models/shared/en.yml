@@ -2,14 +2,14 @@ en:
   case_number:
     acronym: "CN"
     full: "Case number"
-    missing: "unknown"
+    missing: "Unknown"
 
   file_number:
     acronym: "CFI"
     full: "Case file identifier"
-    missing: "unknown"
+    missing: "Unknown"
 
   ecli:
     acronym: "ECLI"
     full: "European Case Law Identifier"
-    missing: "unknown"
+    missing: "Unknown"

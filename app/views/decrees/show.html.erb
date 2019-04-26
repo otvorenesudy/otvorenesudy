@@ -1,22 +1,21 @@
 <% provide :title, decree_title(@decree) %>
 
-<h1 class="m-t-3 m-b-1">
-  <%= decree_headline @decree, limit: 45, tooltip: true %><span class="hidden-lg-up">,</span>
+<h1 class="text-uppercase my-4">
+  <%= decree_headline @decree, limit: 49, tooltip: true %>
   <% if @decree.natures.any? %>
-    <br class="hidden-md-down" /><%= decree_natures @decree, limit: 45, tooltip: true %>
+    <span class="d-inline d-xl-none">,</span><br class="d-none d-xl-inline" />
+    <%= decree_natures @decree, limit: 49, tooltip: true %>
   <% end %>
-  <small class="d-block text-muted">
+  <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.decree' %> <%= t '.past' %>
     <%= @decree.date ? decree_date(@decree.date) : t('.unknown') %>
   </small>
 </h1>
 
 <div class="row">
-  <div class="col-lg-7">
+  <div class="col-xl-8 mb-0-last">
     <% if @court %>
-      <p>
-        <%= t '.court' %> <%= link_to_court @court %>
-      </p>
+      <p><%= t '.court' %> <%= link_to_court @court %></p>
     <% end %>
     <% if @judges.any? %>
       <p>
@@ -42,58 +41,50 @@
     <% if @decree.natures.any? %>
       <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
     <% end %>
-
-    <p class="m-b-0">
+    <p>
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
-
-    <div class="hidden-lg-up m-b-3"></div>
+    <% if File.readable? @decree.document_path %>
+      <%= link_to t('.read'), document_decree_path(@decree), class: 'btn btn-secondary d-block d-xl-inline-block mt-3', target: '_blank' %>
+    <% end %>
   </div>
 
-  <div class="col-lg-5">
-    <div class="card">
-      <div class="card-block">
-        <ul class="list-unstyled m-b-0">
-          <li>
-            <%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:
-            <span class="pull-xs-right"><%= @decree.case_number ? link_to_decrees_search(@decree.case_number, params: { case_number: @decree.case_number }) : t('case_number.missing') %></span>
-          </li>
-          <li>
-            <%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:
-            <span class="pull-xs-right"><%= @decree.file_number ? link_to_decrees_search(@decree.file_number, params: { file_number: @decree.file_number }) : t('file_number.missing') %></span>
-          </li>
-          <li>
-            <%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:
-            <span class="pull-xs-right"><%= @decree.ecli ? link_to_decrees_search(@decree.ecli, params: { q: @decree.ecli }) : t('ecli.missing') %></span>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <div class="col-xl-4">
+    <ul class="list-unstyled bg-light border mt-3 mt-xl-0 mb-0 p-3">
+      <li class="d-flex justify-content-between mx-2">
+        <span class="mr-2"><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
+        <%= @decree.case_number ? link_to_decrees_search(@decree.case_number, class: 'text-truncate', params: { case_number: @decree.case_number }) : t('case_number.missing') %>
+      </li>
+      <li class="d-flex justify-content-between mx-2">
+        <span class="mr-2"><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
+        <%= @decree.file_number ? link_to_decrees_search(@decree.file_number, class: 'text-truncate', params: { file_number: @decree.file_number }) : t('file_number.missing') %>
+      </li>
+      <li class="d-flex justify-content-between mx-2">
+        <span class="mr-2"><%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:</span>
+        <%= @decree.ecli ? link_to_decrees_search(@decree.ecli, class: 'text-truncate', params: { q: @decree.ecli }) : t('ecli.missing') %>
+      </li>
+    </ul>
 
     <% if @decree.proceeding %>
-      <div class="text-lg-center">
-        <%= t '.show_within' %> <%= link_to t('.proceeding'), @decree.proceeding %>
-      </div>
+      <%= link_to t('.in_proceeding'), @decree.proceeding, class: 'btn btn-outline-primary d-block mt-3' %>
     <% end %>
 
     <% if File.readable? @decree.document_path %>
-      <div class="text-lg-center">
-        <%= t '.download_as' %> <%= link_to t('.pdf_document'), document_decree_path(@decree, l: nil) %>
-      </div>
+      <%= link_to t('.as_document'), document_decree_path(@decree), class: 'btn btn-outline-primary d-block mt-3', target: '_blank' %>
     <% end %>
   </div>
 </div>
 
 <% if @legislations.any? %>
-  <p class="m-t-1 m-b-0">
+  <p class="mt-4">
     <%= link_to_collapse t('.legislations'), '#legislations' %>
   </p>
 
   <div id="legislations" class="collapse">
-    <ul class="list-unstyled m-b-0 m-l-1">
+    <ul class="list-unstyled ml-3">
       <% @legislations.each do |legislation| %>
         <li>
-          <%= link_to legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url, class: 'text-default' %>
+          <%= link_to legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url %>
         </li>
       <% end %>
     </ul>
@@ -101,18 +92,12 @@
 <% end %>
 
 <% if @decree.summary %>
-  <p><%= t '.summary' %> &ndash; <%= @decree.summary %></p>
+  <p class="mt-4">
+    <%= t '.summary' %> &ndash; <%= @decree.summary %>
+  </p>
 <% end %>
 
-<% if File.readable? @decree.document_path %>
-  <div class="alert alert-info m-t-1 m-b-0" role="alert">
-    <%= t '.viewer_note.description', document: link_to(t('.pdf_document'), document_decree_path(@decree, l: nil)) %>
-  </div>
-<% end %>
-
-<%= content_tag :iframe, nil, src: "https://docs.google.com/viewer?url=#{document_decree_url @decree, l: nil}&embedded=true", frameborder: '0', class: 'viewer m-t-3' %>
-
-<p class="text-small text-muted m-t-3">
+<p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
   <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @decree.uri) %>
 </p>

@@ -1,52 +1,43 @@
 <% provide :title, t('.settings') %>
 
-<div class="container">
-  <h1 class="display-4 m-t-3 m-b-1"><%= yield :title %></h1>
-  <div class="row">
-    <div class="col-lg-6">
-      <%= render 'devise/shared/messages' %>
-      <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :put } do |f| %>
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.email_field :email, class: 'form-control' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password %>
-          <%= f.password_field :password, placeholder: t('.password_placeholder'), class: 'form-control' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, placeholder: t('.password_placeholder'), class: 'form-control' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :current_password %>
-          <%= f.password_field :current_password, placeholder: t('.confirm_placeholder'), class: 'form-control' %>
-        </div>
-        <button type="submit" class="btn btn-lg btn-outline-primary"><%= t '.submit' %></button>
-      <% end %>
-    </div>
-  </div>
-  <h1 class="display-4 m-t-3 m-b-1"><%= t '.account' %></h1>
-  <div class="row">
-    <div class="col-lg-6">
-      <button class="btn btn-lg btn-outline-danger" data-toggle="modal" data-target="#delete_user"><%= t '.confirm_delete' %></button>
-      <div id="delete_user" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="modal-title"><%= t '.are_you_sure' %></h2>
-            </div>
-            <div class="modal-footer">
-              <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :delete } do %>
-                <button type="submit" class="btn btn-lg btn-outline-danger"><%= t '.confirm_delete' %></button>
-                <button type="button" class="btn btn-lg btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
-              <% end %>
-            </div>
+<div class="row justify-content-between">
+  <div class="col-md-7 col-lg-6 col-xl-5">
+    <h1 class="text-uppercase mb-4"><%= yield :title %></h1>
+    <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :put } do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, placeholder: t('.password_placeholder'), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, placeholder: t('.password_placeholder'), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :current_password %>
+        <%= f.password_field :current_password, placeholder: t('.confirm_placeholder'), class: 'form-control' %>
+      </div>
+      <button type="submit" class="btn btn-lg btn-outline-primary mt-3 mb-4 mb-md-0"><%= t '.submit' %></button>
+    <% end %>
+    <h2 class="text-uppercase mt-5 mb-4 pt-4 border-top"><%= t '.account' %></h2>
+    <button type="button" class="btn btn-outline-danger mb-4 mb-lg-0" data-toggle="modal" data-target="#delete_user"><%= t '.delete' %></button>
+    <div id="delete_user" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title text-uppercase"><%= t '.are_you_sure' %></h1>
+          </div>
+          <div class="modal-footer">
+            <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :delete } do %>
+              <button type="submit" class="btn btn-outline-danger"><%= t '.confirm_delete' %></button>
+            <% end %>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
           </div>
         </div>
       </div>
-      <%= render 'users/shared/links' %>
     </div>
   </div>
-  <%= render 'shared/global_banners' %>
 </div>

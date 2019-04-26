@@ -1,4 +1,4 @@
-## Čo je cieľom projektu? 
+#### Čo je cieľom projektu? 
 
 Cieľom projektu Otvorené súdy je na základe verejne dostupných dát zvýšiť tlak
 na kvalitu slovenského súdnictva. Stránka pomocou týchto dát sprehľadňuje
@@ -8,7 +8,7 @@ Dlhodobým cieľom <%= link_to 'Transparency International Slovensko', 'http://t
 je prispieť k vývoju kvalitatívnych aj kvantitatívnych indikátorov, ktoré by
 umožňovali merať kvalitu a zmeny kvality v súdnictve na úrovni súdov a sudcov.
 
-## Čo môžem na portáli robiť?
+#### Čo môžem na portáli robiť?
 
 Stránka poskytuje informácie o činnosti
 <%= link_to 'súdov', courts_path %>,
@@ -16,7 +16,7 @@ profily <%= link_to 'sudcov', judges_path %>,
 minulé aj budúce <%= link_to 'pojednávania', hearings_path %> a
 množstvo <%= link_to 'súdnych rozhodnutí', decrees_path %>.
 
-## Viete mi poskytnúť právne poradenstvo?
+#### Viete mi poskytnúť právne poradenstvo?
 
 Právna poradňa nie je súčasťou tohto projektu. V prípade, že právnu radu
 hľadáte, môžete sa obrátiť na
@@ -27,17 +27,17 @@ priamo vyhľadať advokáta na stránke
 <%= link_to 'Slovenskej advokátskej komory', 'https://www.sak.sk/blox/cms/sk/sak/adv/vyhladanie' %>,
 na ktorého sa obrátite.
 
-## Kto sú autori projektu? 
+#### Kto sú autori projektu? 
 
 Autormi projektu sú
-<%= link_to 'Samuel Molnár', 'https://twitter.com/samuelmolnar' %> a
-<%= link_to 'Pavol Zbell', 'https://twitter.com/pavolzbell' %>
-(členovia výskumnej skupiny <%= link_to 'PeWe', 'http://pewe.fiit.stuba.sk' %> na
+<%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> a
+<%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
+(bývalí členovia výskumnej skupiny <%= link_to 'PeWe', 'https://pewe.sk' %> na
 <%= link_to 'Fakulte informatiky a informačných technológií', 'http://fiit.stuba.sk' %>
 <%= link_to 'Slovenskej technickej univerzity v Bratislave', 'http://stuba.sk' %>) a
 <%= link_to 'Transparency International Slovensko', 'http://transparency.sk' %>.
 
-## Kto to platí?
+#### Kto to platí?
 
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 <%= link_to 'Transparency International', 'http://transparency.org' %>
@@ -48,20 +48,19 @@ Za hosting projektu ďakujeme spoločnosti
 <%= link_to 'Petit Press', 'http://petitpress.sk' %>,
 prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %>.
 
-## Ako môžem pomôcť?
+#### Ako môžem pomôcť?
 
 Používajte stránku, dajte o nej vedieť známym, ktorých by mohla zaujímať.
 Sledujte novinky na sociálnych sieťach
-<%= link_to 'Facebook', 'https://facebook.com/otvorenesudy' %> a
-<%= link_to 'Twitter', 'https://twitter.com/otvorenesudy' %>,
+<%= link_to 'Facebook', 'https://facebook.com/transparencysk' %> a
+<%= link_to 'Twitter', 'https://twitter.com/transparencysk' %>,
 a ak ste programátor tak určite aj na sieti
 <%= link_to 'GitHub', 'https://github.com/otvorenesudy' %>.
 
-Ak môžete, prosím, zvážte
-<%= link_to 'finančnú podporu', donation_url %>
-projektu.
+Pridajte sa a <%= link_to 'podporte tento projekt', donation_url %>,
+aby sme mohli prinášať viac transparentnosti do slovenského súdnictva.
 
-## Odkiaľ pochádzajú použité dáta?
+#### Odkiaľ pochádzajú použité dáta?
 
 Portál využíva výhradne dáta zverejnené alebo sprístupnené
 nasledujúcimi verejnými inštitúciami:  
@@ -89,18 +88,18 @@ SME.sk, Tyzden.sk, Webnoviny.sk, TVnoviny.sk, Pravda.sk, TREND.sk, Aktualne.sk.
 Odkazy na tieto články sú vyhľadávané automaticky na základe názvu súdu alebo
 mena a pôsobiska sudcu. Súdu ani sudcu sa týkať nemusia.
 
-## Ako často sú dáta aktualizované? 
+#### Ako často sú dáta aktualizované? 
 
 Za bežnej prevádzky plánujeme aktualizovať dáta o súdnych pojednávaniach denne.
 Dáta o súdnych rozhodnutich by sme radi aktualizovali najmenej raz za týždeň.
 
-## Našiel som chybu, čo mám spraviť?
+#### Našiel som chybu, čo mám spraviť?
 
 Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom
 na <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>. Ak ste našli
 <%= link_to 'chybu v dátach', static_page_path(:feedback) %>, postupujte podobne.
 
-## Sú dáta úplné?
+#### Sú dáta úplné?
 
 Dobrá otázka. Úplné v zmysle vernej, lepšej a použiteľnejšej kópie, by mali
 byť informácie o súdoch, sudcoch a súdnych rozhodnutiach.
@@ -108,23 +107,23 @@ byť informácie o súdoch, sudcoch a súdnych rozhodnutiach.
 Informácie o súdnych pojednávaniach by mali byť úplnejšie &ndash; Otvorené
 Súdy by mali poskytovať viac dát ako stránka ministerstva spravodlivosti.
 
-## A čo dátové chyby?
+#### A čo dátové chyby?
 
 Tie sú náročnejšie na opravu &ndash; dáta mohli byť chybné pred tým ako sme
 ich získali, alebo sme niečo pokazili my. Snažíme sa, aby chýb bolo najmenej
 a do budúcna plánujeme pracovať na elegantnom riešení opravy chýb.
 
-## Nevidím Ústavný súd? Prečo?
+#### Nevidím Ústavný súd? Prečo?
 
 Lebo k nemu momentálne nemáme dáta. Ústavný súd zverejňuje informácie o svojej agende samostatne, budeme sa snažiť tieto dáta na stránku získať.
 
-## Naozaj máme vyše 2 000 sudcov?
+#### Naozaj máme vyše 2 000 sudcov?
 
 Nie. Na Slovensku máme približne 1 400 činných sudcov, ich presný aktuálny
 počet nevieme povedať &ndash; jednak pre zlé zdrojové dáta, ale aj preto,
 že sudcovia môžu mať prerušený výkon funkcie.  
 
-## Kto sú tí zvyšní? Kto sú VSÚ?
+#### Kto sú tí zvyšní? Kto sú VSÚ?
 
 VSÚ sú takzvaní „vyšší súdni úradníci“, ktorí pomáhajú sudcom a môžu vydávať
 aj vybrané súdne rozhodnutia. Celkovo ich je na Slovensku vyše 1 000.
@@ -143,7 +142,7 @@ _Nie všetci sudcovia majú životopis a motivačný list._
 Aj o tomto vieme. Iba sudcovia, ktorí sa zúčastnili výberových konaní po roku
 2012, majú tieto zverejnené údaje.
 
-## Aké rozhodnutia sú na stránke?
+#### Aké rozhodnutia sú na stránke?
 
 Na stránke by mali byť zverejnené všetky právoplatné konečné súdne rozhodnutia
 vydané po roku 2012, ako aj všetky súvisiace rozhodnutia, ktoré predchádzali
@@ -153,7 +152,7 @@ spravodlivosti v týždenných intervaloch.
 Úplne presne vysvetlené v
 <%= link_to 'zákone o súdoch', 'http://www.zakonypreludi.sk/zz/2004-757#p82a' %>.
 
-## Neviem nájsť rozhodnutie, ktoré existuje. Prečo?
+#### Neviem nájsť rozhodnutie, ktoré existuje. Prečo?
 
 Može ísť o jeden z nasledujúcich prípadov:
 
@@ -167,7 +166,7 @@ Može ísť o jeden z nasledujúcich prípadov:
 
 - niečo sa pokazilo.
 
-## Prečo je na stránke menej rozhodnutí než na stránkach ministerstva?
+#### Prečo je na stránke menej rozhodnutí než na stránkach ministerstva?
 
 Vysvetlením sú najmä technické príčiny, a teda skutočnosť, že niektoré
 rozhodnutia nebolo možné stiahnuť ani po opakovaných pokusoch. Niektoré

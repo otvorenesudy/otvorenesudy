@@ -12,9 +12,7 @@ gem 'tire'
 gem 'elasticsearch'
 
 # styles
-gem 'bootstrap', '~> 4.0.0.alpha3.1'
-gem 'rails-assets-tether', '~> 1.1.0'
-gem 'font-ionicons-rails', '~> 2.0.1.3'
+gem 'bootstrap', '~> 4.1.0'
 gem 'roadie'
 
 # scripts
@@ -24,9 +22,6 @@ gem 'jquery-rails', '~> 2.2.1'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'jquery-tablesorter'
 gem 'chart-js-rails'
-gem 'inflection-js-rails'
-gem 'gmaps4rails', '~> 2.1.2'
-gem 'underscore-rails', '~> 1.8.3'
 gem 'rails-timeago'
 
 # pagination
@@ -79,13 +74,14 @@ gem 'active_model_serializers'
 # sitemap
 gem 'sitemap_generator'
 
+# others
 gem 'test-unit'
 
 group :assets do
-  gem 'sass', '~> 3.4.18'
-  gem 'sass-rails', '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 group :development do

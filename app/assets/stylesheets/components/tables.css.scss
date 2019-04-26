@@ -1,0 +1,62 @@
+// TODO try to reference arrows via url("icons.svg#icons-arrow-up")
+
+.table {
+  thead {
+    color: $table-head-color;
+    background: $table-head-bg;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+
+    th {
+      border: none;
+      vertical-align: middle;
+    }
+  }
+
+  tbody {
+    td {
+      > *:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &[data-sortable="true"] th {
+    cursor: default;
+
+    &:not([data-sorter="false"]) {
+      a[href="#"][data-toggle="tooltip"] {
+        cursor: pointer !important;
+      }
+
+      .tablesorter-header-inner {
+        display: inline-flex;
+        flex-wrap: nowrap;
+
+        cursor: pointer;
+
+        &::after {
+          content: "";
+          display: inline-block;
+          align-self: stretch;
+          min-width: 1rem;
+
+          background: right center no-repeat;
+          background-size: .8rem;
+        }
+      }
+
+      &.tablesorter-headerAsc .tablesorter-header-inner::after {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 -1.5 10 10'%3E%3Cpath fill='%231b325f' d='M6.269,0L10,5.75L7.516,6.551L5,3.182L2.485,6.551L0,5.75L3.729,0H6.269z'/%3E%3C/svg%3E%0A");
+      }
+
+      &.tablesorter-headerDesc .tablesorter-header-inner::after {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 -1.5 10 10'%3E%3Cpath fill='%231b325f' d='M3.733,7L0.001,1.249l2.484-0.801l2.515,3.369l2.515-3.369l2.485,0.801l-3.729,5.75L3.733,7z'/%3E%3C/svg%3E%0A");
+      }
+
+      &.tablesorter-headerUnSorted .tablesorter-header-inner::after {
+        cursor: default;
+      }
+    }
+  }
+}

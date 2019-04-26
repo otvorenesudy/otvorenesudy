@@ -2,11 +2,11 @@
   <%= t '.decrees_count', released_decrees: indicators['S1'], delayed_decrees: indicators['S2'], html_safe: true %>
 </p>
 
-<p class="m-b-0">
+<p>
   <%= t '.performance_data', years: indicators['S3'] %>
 </p>
 
-<ul class="list-unstyled m-l-1">
+<ul class="list-unstyled ml-3">
   <% if indicators['S3_2013'] %>
     <li>2013 &ndash; <%= indicators['S3_2013'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
   <% end %>

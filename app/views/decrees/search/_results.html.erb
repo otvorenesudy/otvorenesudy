@@ -1,11 +1,11 @@
 <%= search_list_tag results, offset: offset do |decree, highlight| %>
   <li class="search-result-item">
     <h4 class="search-result-title">
-      <%= link_to decree_path(decree, params: { q: params[:q] }) do %>
-        <%= decree_headline decree, limit: 67 %>
+      <%= link_to decree do %>
+        <%= decree_headline decree, limit: 57 %>
         <% if decree.natures.any? %>
           <br/>
-          <%= decree_natures decree, limit: 67 %>
+          <%= decree_natures decree, limit: 57 %>
         <% end %>
       <% end %>
       <small>
@@ -15,17 +15,17 @@
     </h4>
 
     <div class="search-result-content">
-      <ul class="pull-xs-right text-xs-right list-unstyled">
-        <li><%= tooltip_tag decree.case_number || '?', t('case_number.full'), placement: 'left' %></li>
-        <li><%= tooltip_tag decree.file_number || '?', t('file_number.full'), placement: 'left' %></li>
+      <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
+        <li><%= tooltip_tag decree.case_number || '?', t('case_number.full'), class: 'text-muted', placement: 'left' %></li>
+        <li><%= tooltip_tag decree.file_number || '?', t('file_number.full'), class: 'text-muted', placement: 'left' %></li>
       </ul>
 
       <% if decree.unprocessed? %>
-        <div class="text-danger">
+        <div class="alert alert-danger alert-sm mb-2">
           <%= s t '.unprocessed' %>
         </div>
       <% elsif decree.has_future_date? %>
-        <div class="text-warning">
+        <div class="alert alert-warning alert-sm mb-2">
           <%= s t '.future_date' %>
         </div>
       <% end %>

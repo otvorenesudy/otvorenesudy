@@ -29,27 +29,22 @@ sk:
       resource: "Zdroj"
 
       document: "pôvodný dokument"
-      document_note: "odkaz už nemusí byť platný"
+      document_note: "odkaz už nemusí byť funkčný"
 
-      show_within: "Zobraziť v rámci"
-      proceeding: "súdneho konania"
+      read: "Prečítať rozhodnutie"
 
-      download_as: "Stiahnuť ako"
-      pdf_document: "PDF dokument"
+      in_proceeding: "Zobraziť v rámci súdneho konania"
+      as_document: "Stiahnuť ako PDF dokument"
 
       legislations: "Predpisy odkazované v rozhodnutí"
       summary: "Sumár"
-
-      viewer_note:
-        description: "Ak sa text rozhodnutia nezobrazuje správne, skúste ho otvoriť ako %{document}"
-        document: "PDF dokument"
 
       resource_note:
         description: "Informácie o súdnom rozhodnutí boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
         document: "pôvodného dokumentu"
 
       link_note:
-        description: "Odkaz na %{document} už nemusí byť platný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
+        description: "Odkaz na %{document} už nemusí byť funkčný, pretože portál Ministerstva spravodlivosti mohol zverejniť dokument pod týmto odkazom iba na určitú dobu."
         document: "pôvodný dokument"
 
       faulty_date: "Rozhodnutie bolo zverejnené na portáli Ministerstva spravodlivosti s dátumom zo vzdialenej budúcnosti."

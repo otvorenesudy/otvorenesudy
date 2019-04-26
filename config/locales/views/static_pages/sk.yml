@@ -1,35 +1,36 @@
 sk:
   static_pages:
     home:
-      head: "Otvorené Súdy"
-      detail: "Prinášame viac transparentnosti do slovenského súdnictva"
-      donate: "Podporte projekt"
+      feature:
+        headline: "Viac transparentnosti"
+        footline: "do slovenského súdnictva"
+        project: "Otvorené Súdy"
+        list: "%{project} prinášajú:"
+        items:
+          - "všetky zverejnené rozhodnutia na jednom mieste,"
+          - "prehľad priebehu konania na jeden klik,"
+          - "zoznam sudcov a prehľad ich činnosti,"
+          - "archiváciu súdnych pojednávaní."
 
-      feature_1:
-        head: "Otvorený projekt"
-        detail: "Transparentný pohľad"
-        content: "Projekt, ktorý priniesol transparentnejší pohľad na slovenské súdnictvo. Pre všetkých, ktorí majú radi dôležité informácie na jednom mieste a&nbsp;chcú v&nbsp;nich efektívne vyhľadávať."
+      squares:
+        courts: "Súdy"
+        judges: "Sudcovia"
+        hearings: "Pojednávania"
+        decrees: "Rozhodnutia"
+        proceedings: "Súdne konania"
+        selections: "Výberové konania"
 
-      feature_2:
-        head: "Otvorené dáta"
-        detail: "Súdne dokumenty"
-        content: "Ponúka všetky súdne rozhodnutia, pojednávania a&nbsp;ďalšie vybrané dokumenty, ktoré boli zverejnené na stránke %{link} Slovenskej republiky."
-        link: "Ministerstva spravodlivosti"
-
-      feature_3:
-        head: "Otvorený kód"
-        detail: "Ruby on Rails"
-        content: "Zdrojový kód %{link} je voľne prehliadateľný a&nbsp;dostupný službou GitHub."
-        link: "projektu"
-
-      partners: "Projekt podporili"
+      partners:
+        supported_by: "Projekt podporili:"
 
     about: "O projekte"
     api: "API"
+    analyses: "Články"
     contact: "Kontakt"
     copyright: "Autorské práva"
-    donate: "Podporte projekt"
+    donate: "Podporte nás"
     faq: "Často kladené otázky"
     feedback: "Našli ste chybu?"
     privacy: "Ochrana súkromia"
+    sign_in: "Prihlásenie"
     tos: "Podmienky používania"

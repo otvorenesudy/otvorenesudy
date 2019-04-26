@@ -1,11 +1,10 @@
 @import 'bootstrap/mixins';
 
-@mixin filter-grayscale($percent: 100%) {
-  -webkit-filter: grayscale($percent);
-  filter: grayscale($percent);
-}
+@mixin color-variant($color, $hover-color: null) {
+  color: $color;
 
-@mixin filter-none {
-  -webkit-filter: none;
-  filter: none;
+  &.hover, &.focus, &.active,
+  &:hover, &:focus, &:active {
+    color: $hover-color;
+  }
 }

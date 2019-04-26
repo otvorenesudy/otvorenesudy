@@ -62,6 +62,7 @@ sk:
         confirm_placeholder: "Vyplňte aktuálne heslo, pre potvrdenie zmien"
         submit: "Uložiť"
         account: "Účet"
+        delete: "Zrušiť"
         are_you_sure: "Ste si istý?"
         confirm_delete: "Zrušiť účet"
         cancel: "Späť"
@@ -80,9 +81,8 @@ sk:
       send_paranoid_instructions: "Ak Váš účet existuje, o niekoľko minút Vám bude doručený e-mail s inštrukciami ako ho odomknúť."
       unlocked: "Váš účet bol úspešne odomknutý. Prosím prihláste sa, aby ste mohli pokračovať."
 
-    shared:
-      links:
-        account_confirmation: "Potvrdenie registrácie"
-        forgotten_password: "Zabudli ste heslo?"
-        sign_in: "Prihlásenie"
-        sign_up: "Registrácia"
+    links:
+      account_confirmation: "Potvrdenie registrácie"
+      forgotten_password: "Zabudli ste heslo?"
+      sign_in: "Prihlásenie"
+      sign_up: "Registrácia"

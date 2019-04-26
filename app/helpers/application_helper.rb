@@ -13,16 +13,12 @@ module ApplicationHelper
     (values << default_title).map { |value| html_escape value }.join(' &middot; ').html_safe
   end
 
-  def container?
-    %w(home map).exclude?(action_name) && !controller.is_a?(DeviseController)
-  end
-
   def canonical_url
     "https://#{request.host}#{request.fullpath}"
   end
 
   def donation_url
-    "https://transparency.darujme.sk/#{I18n.locale == :sk ? 238 : 761}"
+    "https://transparency.darujme.sk/#{I18n.locale == :sk ? 238 : 761}?donation=40&periodicity=periodical"
   end
 
   def organization_url(path = nil)
@@ -30,6 +26,6 @@ module ApplicationHelper
   end
 
   def repository_url(path = nil)
-    organization_url "#{Configuration.github.repository}/#{path}"
+    organization_url "#{Configuration.github.repository}/#{path}".sub(/\/\z/, '')
   end
 end

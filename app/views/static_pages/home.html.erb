@@ -1,67 +1,43 @@
-<div class="jumbotron">
-  <div class="container">
-    <h1 class="display-2"><%= t '.head' %></h1>
-
-    <p class="lead"><%= t '.detail' %></p>
-
-    <%= link_to t('.donate'), donation_url, class: 'btn btn-lg btn-outline-inverse', role: :button %>
-  </div>
-</div>
-
-<div class="banner">
-  <a href="https://www.transparency.sk/2percenta" target="_blank" class="banner">
-    <%= image_tag 'banner.png' %>
-  </a>
-</div>
-
-<div class="container">
-  <%= render 'shared/flash_messages' %>
-
-  <div class="features">
-    <h1 class="display-4">
-      <%= t '.feature_1.head' %>
-      <small><%= t '.feature_1.detail' %></small>
-    </h1>
-
-    <p class="lead">
-      <%= t '.feature_1.content' %>
-    </p>
-
-    <h1 class="display-4">
-      <%= t '.feature_2.head' %>
-      <small><%= t '.feature_2.detail' %></small>
-    </h1>
-
-    <p class="lead">
-      <%= t '.feature_2.content', link: link_to(t('.feature_2.link'), 'http://justice.gov.sk') %>
-    </p>
-
-    <h1 class="display-4">
-      <%= t '.feature_3.head' %>
-      <small><%= t '.feature_3.detail' %></small>
-    </h1>
-
-    <p class="lead">
-      <%= t '.feature_3.content', link: link_to(t('.feature_3.link'), organization_url) %>
-    </p>
-  </div>
-
-  <div class="partners">
-    <h1>
-      <%= t '.partners' %>
-    </h1>
-
-    <div>
-      <%= link_to image_tag(asset_path('partners/transparency-international-slovensko.svg'), alt: 'Transparency International Slovensko'), 'http://transparency.sk', class: 'partner-tis' %>
-      <%= link_to image_tag(asset_path('partners/sme.svg'), alt: 'SME'), 'http://sme.sk', class: 'partner-sme' %>
-      <%= link_to image_tag(asset_path('partners/konrad-adenauer-stiftung.svg'), alt: 'Konrad-Adenauer-Stiftung'), 'http://kas.de', class: 'partner-kas' %>
-    </div>
-
-    <div>
-      <%= link_to image_tag(asset_path('partners/nadacia-pontis.svg'), alt: 'Nadácia Pontis'), 'http://nadaciapontis.sk', class: 'partner-np' %>
-      <%= link_to image_tag(asset_path('partners/index-podnikatela.svg'), alt: 'Index Podnikateľa'), 'http://indexpodnikatela.sk', class: 'partner-ip' %>
+<div class="row">
+  <div class="col-12 col-lg-7 col-xl-6">
+    <div class="feature h-100 p-4">
+      <h1 class="text-info mb-4">
+        <%= t('.feature.headline') %><br/><%= t('.feature.footline') %>
+      </h1>
+      <h4 class="mb-3">
+        <%= t('.feature.list', project: content_tag(:span, t('.feature.project'), class: 'text-uppercase').html_safe) %>
+      </h4>
+      <div class="d-flex align-items-center">
+        <ol class="list-unstyled mb-0">
+          <% t('.feature.items').each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ol>
+      </div>
     </div>
   </div>
-
-  <%= render 'shared/global_banners' %>
+  <div class="col-12 col-lg-5 col-xl-6 mt-4 mt-lg-0">
+    <div class="row font-weight-bold text-center text-uppercase">
+      <%= link_to icon_tag('courts', size: 60) + content_tag(:span, t('.squares.courts')), courts_path, class: 'square mx-3 mb-4' %>
+      <%= link_to icon_tag('judges', size: 60) + content_tag(:span, t('.squares.judges')), judges_path, class: 'square mx-3 mb-4' %>
+      <div class="d-block d-md-none d-lg-block d-xl-none w-100"></div>
+      <%= link_to icon_tag('hearings', size: 60) + content_tag(:span, t('.squares.hearings')), hearings_path, class: 'square mx-3 mb-4' %>
+      <div class="d-none d-md-block d-lg-none d-xl-block w-100"></div>
+      <%= link_to icon_tag('decrees', size: 60) + content_tag(:span, t('.squares.decrees')), decrees_path, class: 'square mx-3 mb-4 mb-xl-0' %>
+      <div class="d-block d-md-none d-lg-block d-xl-none w-100"></div>
+      <%= link_to icon_tag('proceedings', size: 60) + content_tag(:span, t('.squares.proceedings')), proceedings_path, class: 'square mx-3 mb-4 mb-lg-0' %>
+      <%= link_to icon_tag('selections', size: 60) + content_tag(:span, t('.squares.selections')), selections_path, class: 'square mx-3 mb-4 mb-lg-0' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="partners mt-lg-4 px-sm-4">
+      <h4 class="mb-3"><%= t('.partners.supported_by') %></h4>
+      <div class="d-flex flex-column flex-sm-row">
+        <%= link_to brand_tag('sme', width: 68.31, height: 24), 'https://sme.sk', class: 'sme ml-2 ml-sm-0 mr-sm-4 mb-3 mb-sm-0' %>
+        <%= link_to brand_tag('index-podnikatela', width: 245.05, height: 24), 'https://indexpodnikatela.sk', class: 'ip ml-2 ml-sm-0' %>
+      </div>
+    </div>
+  </div>
 </div>

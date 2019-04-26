@@ -1,0 +1,19 @@
+// TODO remove this if it becomes available in Bootstrap
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .border#{$infix}          { border:        $border-width solid $border-color !important; }
+    .border-top#{$infix}      { border-top:    $border-width solid $border-color !important; }
+    .border-right#{$infix}    { border-right:  $border-width solid $border-color !important; }
+    .border-bottom#{$infix}   { border-bottom: $border-width solid $border-color !important; }
+    .border-left#{$infix}     { border-left:   $border-width solid $border-color !important; }
+
+    .border#{$infix}-0        { border:        0 !important; }
+    .border-top#{$infix}-0    { border-top:    0 !important; }
+    .border-right#{$infix}-0  { border-right:  0 !important; }
+    .border-bottom#{$infix}-0 { border-bottom: 0 !important; }
+    .border-left#{$infix}-0   { border-left:   0 !important; }
+  }
+}

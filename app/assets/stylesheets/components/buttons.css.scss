@@ -1,0 +1,37 @@
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+
+  &:hover.focus,
+  &:hover:focus {
+    text-decoration: none;
+  }
+}
+
+.btn-primary {
+  @include button-variant($orange, $orange, $navy, transparent, $navy, $navy);
+
+  &:hover.focus, &:focus.active,
+  &:hover:focus, &:focus:active {
+    box-shadow: 0 0 0 $btn-focus-width rgba($navy, .5) !important;
+  }
+}
+
+.btn-outline-primary {
+  @include button-outline-variant($orange, $white);
+}
+
+.btn-secondary {
+  @include button-variant($white, $gray, $input-bg, $gray, $input-bg, $gray);
+  @include color-variant($blue, $navy);
+
+  &:hover.focus, &:focus.active,
+  &:hover:focus, &:focus:active {
+    box-shadow: 0 0 0 $btn-focus-width rgba($gray, .5);
+  }
+}
+
+.btn-outline-secondary {
+  @include button-outline-variant($blue, $white);
+}
