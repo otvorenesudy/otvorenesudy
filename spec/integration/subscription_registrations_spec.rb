@@ -140,7 +140,11 @@ describe 'SubscriptionRegistrations' do
         visit decrees_path
 
         within '#update_subscription' do
-          click_link 'Zrušiť'
+          click_button 'Zrušiť'
+        end
+
+        within '#delete_subscription' do
+          click_link 'Zrušiť odoberanie'
         end
 
         page.should have_content('Odoberanie notifikácií bolo zrušené.')
@@ -182,7 +186,11 @@ describe 'SubscriptionRegistrations' do
         visit subscriptions_users_path
 
         within "#edit_subscription_#{subscription.id}" do
-          click_link 'Zrušiť'
+          click_button 'Zrušiť'
+        end
+
+        within "#delete_subscription_#{subscription.id}" do
+          click_link 'Zrušiť odoberanie'
         end
 
         page.should have_content('Odoberanie notifikácií bolo zrušené.')
