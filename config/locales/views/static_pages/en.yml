@@ -3,12 +3,12 @@
     home:
       feature:
         headline: "More transparency"
-        footline: "to Slovak judiciary"
+        footline: "in Slovak judiciary"
         project: "Open Courts"
         list: "At %{project} we help you to:"
         items:
-          - "all published court judgments in one place,"
-          - "comparison of judges' performance,"
+          - "find all published court judgments in one place,"
+          - "compare judges' performance,"
           - "follow individual court proceedings,"
           - "analyze how new judges were selected."
 
