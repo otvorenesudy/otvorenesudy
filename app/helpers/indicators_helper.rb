@@ -82,7 +82,8 @@ module IndicatorsHelper
   end
 
   def link_to_indicators_terms_facet(facet, result, options = {})
-    path = -> (other) { judge_path params.merge other }
+    anchor = facet.params.find { |k, v| k.start_with?('indicators') && v }.first.dasherize
+    path = -> (other) { judge_path params.merge(other).merge(anchor: anchor) }
     link_to_facet_value facet, result, result.value, options.merge(path: path)
   end
 end
