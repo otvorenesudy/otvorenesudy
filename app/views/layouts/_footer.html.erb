@@ -1,19 +1,23 @@
 <footer class="container small mt-5 px-sm-0 py-3">
-  <div class="d-flex align-items-start align-items-lg-center text-uppercase border-bottom mb-3">
-    <nav class="nav nav-primary flex-grow-1 mb-3">
-      <%= link_to t('.about'), static_page_path('about'), class: 'nav-link ml-0' %>
-      <%= link_to t('.analyses'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link' %>
-      <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link' %>
-      <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link' %>
-      <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link' %>
-      <%= link_to t('.privacy'), static_page_path('privacy'), class: 'nav-link' %>
-      <%= link_to t('.api'), 'https://api.otvorenesudy.sk', class: 'nav-link' %>
-      <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link mr-0' %>
+  <div class="d-flex align-items-start align-items-xl-center text-uppercase border-bottom mb-3">
+    <nav class="nav nav-primary flex-row flex-grow-1 mb-3">
+      <div class="d-flex flex-column flex-xl-row flex-grow-1 flex-xl-grow-0 mr-4 mr-xl-0">
+        <%= link_to t('.about'), static_page_path('about'), class: 'nav-link ml-0 mr-auto mr-xl-3' %>
+        <%= link_to t('.analyses'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+        <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+        <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+      </div>
+      <div class="d-flex flex-column flex-xl-row flex-grow-1 flex-xl-grow-0 mr-4">
+        <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+        <%= link_to t('.privacy'), static_page_path('privacy'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+        <%= link_to t('.api'), 'https://api.otvorenesudy.sk', class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+        <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link ml-0 ml-xl-3 mr-0' %>
+      </div>
     </nav>
 
-    <nav class="nav nav-primary flex-sm-row flex-nowrap align-items-center justify-content-center mb-3">
-      <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mx-auto mr-sm-4 mt-3 mt-sm-0 mb-0' unless user_signed_in? %>
-      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary order-first order-sm-last', role: :button %>
+    <nav class="nav nav-primary flex-column flex-md-row flex-nowrap align-items-center justify-content-center mb-3">
+      <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mx-auto mr-md-4 mt-3 mt-md-0 mb-0' unless user_signed_in? %>
+      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary order-first order-md-last', role: :button %>
     </nav>
   </div>
 

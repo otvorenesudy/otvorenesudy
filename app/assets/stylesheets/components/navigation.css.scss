@@ -7,17 +7,6 @@
       text-decoration: none;
     }
   }
-
-  @include media-breakpoint-down(md) {
-    &:not(.navbar) {
-      flex-direction: column;
-
-      .nav-link {
-        margin-left: 0;
-        margin-right: auto;
-      }
-    }
-  }
 }
 
 .nav-secondary {
