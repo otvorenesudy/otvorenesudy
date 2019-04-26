@@ -39,6 +39,10 @@
           <%= bar_link_to t('.settings'), edit_user_registration_path, class: 'mx-0 mr-xl-4' %>
           <%= bar_link_to t('.sign_out'), destroy_user_session_path, method: :delete, class: 'mx-0' %>
         </div>
+      <% else %>
+        <div class="navbar-nav d-xl-none border-top py-2">
+          <%= bar_link_to t('.sign_in'), new_user_session_path, class: 'mx-0' %>
+        </div>
       <% end %>
     </div>
   </nav>
