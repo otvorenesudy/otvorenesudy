@@ -33,14 +33,10 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <%- if container? -%>
-      <div class="container mt-4 px-sm-0">
-        <%= render 'shared/flash_messages' %>
-        <%= yield %>
-      </div>
-    <%- else -%>
+    <div class="container mt-4 px-sm-0">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
-    <%- end -%>
+    </div>
     <%= render 'layouts/footer' %>
   </body>
 </html>

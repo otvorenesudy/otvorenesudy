@@ -13,10 +13,6 @@ module ApplicationHelper
     (values << default_title).map { |value| html_escape value }.join(' &middot; ').html_safe
   end
 
-  def container?
-    %w(home map).exclude?(action_name) && !controller.is_a?(DeviseController)
-  end
-
   def canonical_url
     "https://#{request.host}#{request.fullpath}"
   end

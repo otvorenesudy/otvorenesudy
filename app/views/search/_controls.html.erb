@@ -1,12 +1,12 @@
 <div class="d-flex flex-wrap align-items-center justify-content-between">
   <h1 class="display-2 text-truncate text-uppercase mr-sm-4 mb-3"><%= yield :title %></h1>
-  <div class="btn-toolbar mb-3" role="toolbar">
+  <div class="btn-toolbar" role="toolbar">
     <% if @facets.query_params.any? %>
-      <div class="btn-group btn-group-sm border mr-2" role="group">
+      <div class="btn-group btn-group-sm border mr-2 mb-3" role="group">
         <%= link_to t('.reset'), search_path, class: 'btn btn-secondary btn-sm shadow-none border-0' %>
       </div>
     <% end %>
-    <div class="btn-group btn-group-sm border" role="group">
+    <div class="btn-group btn-group-sm border mb-3" role="group">
       <div class="btn-group btn-group-sm" role="group">
         <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= t(".sort.#{@model.to_s.underscore}.#{(params[:sort] || @sort_fields.first).to_s.gsub(/\A_/, '')}") %>

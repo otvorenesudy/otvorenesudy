@@ -1,19 +1,19 @@
 <%= provide :title, t('.title') %>
 
-<div class="row">
-  <div class="col-xs-12">
-    <h1 class="display-4 m-t-3 m-b-1">
-      <%= yield :title %>
-    </h1>
-    <p>
-      <%= t '.subscribe_introduction' %>
-      <%= link_to t('.hearings'), hearings_path, class: 'btn btn-outline-primary' %>
-      <%= t '.subscribe_or' %>
-      <%= link_to t('.decrees'), decrees_path, class: 'btn btn-outline-primary' %>
-      <%= t '.subscribe_detail' %>
-    </p>
-    <%= render 'subscriptions/hearings', subscriptions: @hearing_subscriptions if @hearing_subscriptions.any? %>
-    <%= render 'subscriptions/decrees', subscriptions: @decree_subscriptions if @decree_subscriptions.any? %>
-    <%= render 'users/shared/links' %>
-  </div>
-</div>
+<h1 class="text-uppercase my-4"><%= yield :title %></h1>
+
+<p>
+  <%= t '.subscribe_introduction' %>
+  <%= link_to t('.hearings'), hearings_path, class: 'btn btn-outline-primary' %>
+  <%= t '.subscribe_or' %>
+  <%= link_to t('.decrees'), decrees_path, class: 'btn btn-outline-primary' %>
+  <%= t '.subscribe_detail' %>
+</p>
+
+<hr class="my-4" />
+
+<%= render 'subscriptions/hearings', subscriptions: @hearing_subscriptions if @hearing_subscriptions.any? %>
+
+<hr class="my-4" />
+
+<%= render 'subscriptions/decrees', subscriptions: @decree_subscriptions if @decree_subscriptions.any? %>

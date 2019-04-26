@@ -21,8 +21,8 @@
       <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbar' }, name: nil, type: 'button' %>
     </div>
 
-    <div id="navbar" class="navbar-collapse collapse d-xl-block border-top py-2">
-      <div class="navbar-nav justify-content-between">
+    <div id="navbar" class="navbar-collapse collapse d-xl-block border-top">
+      <div class="navbar-nav justify-content-between py-2">
         <%= bar_link_to t('.courts'), courts_path, class: 'mx-0' %>
         <%= bar_link_to t('.judges'), judges_path, class: 'mx-0' %>
         <%= bar_link_to t('.hearings'), hearings_path, class: 'mx-0' %>
@@ -32,6 +32,14 @@
         <%= bar_link_to t('.families'), 'http://sudy.transparency.sk', class: 'mx-0' %>
         <%= bar_link_to t('.prosecutors'), 'https://prokuratori.otvorenesudy.sk', class: 'mx-0' %>
       </div>
+      <% if user_signed_in? %>
+        <div class="navbar-nav border-top py-2">
+          <span class="navbar-text text-muted mr-auto"><%= current_user.email %></span>
+          <%= bar_link_to t('.subscriptions'), subscriptions_users_path, class: 'mx-0 mr-xl-4' %>
+          <%= bar_link_to t('.settings'), edit_user_registration_path, class: 'mx-0 mr-xl-4' %>
+          <%= bar_link_to t('.sign_out'), destroy_user_session_path, method: :delete, class: 'mx-0' %>
+        </div>
+      <% end %>
     </div>
   </nav>
 </header>

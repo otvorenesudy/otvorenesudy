@@ -7,9 +7,3 @@ en:
       subscribe_or: "or"
       decrees: "Judgements"
       hearings: "Hearings"
-
-    shared:
-      links:
-        subscriptions: "Notifications"
-        settings: "Settings"
-        sign_out: "Sign out"

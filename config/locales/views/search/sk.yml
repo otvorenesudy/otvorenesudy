@@ -59,4 +59,6 @@ sk:
       create: "Odoberať"
       update: "Aktualizovať"
       delete: "Zrušiť"
+      are_you_sure: "Ste si istý?"
+      confirm_delete: "Zrušiť odoberanie"
       cancel: "Späť"

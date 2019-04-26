@@ -11,8 +11,9 @@
       <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link mr-0' %>
     </nav>
 
-    <nav class="nav nav-primary d-flex align-items-center mb-3">
-      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary', role: :button %>
+    <nav class="nav nav-primary flex-sm-row flex-nowrap align-items-center justify-content-center mb-3">
+      <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mx-auto mr-sm-4 mt-3 mt-sm-0 mb-0' unless user_signed_in? %>
+      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary order-first order-sm-last', role: :button %>
     </nav>
   </div>
 
