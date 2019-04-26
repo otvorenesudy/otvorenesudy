@@ -71,6 +71,9 @@ gem 'rack-canonical-host'
 # serialization
 gem 'active_model_serializers'
 
+# sitemap
+gem 'sitemap_generator'
+
 # others
 gem 'test-unit'
 
