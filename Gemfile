@@ -13,6 +13,7 @@ gem 'elasticsearch'
 
 # styles
 gem 'bootstrap', '~> 4.1.0'
+gem 'autoprefixer-rails'
 gem 'roadie'
 
 # scripts

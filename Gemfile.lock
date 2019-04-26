@@ -404,6 +404,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  autoprefixer-rails
   bootstrap (~> 4.1.0)
   bump!
   capistrano (~> 3.4.0)
