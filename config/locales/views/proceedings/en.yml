@@ -1,7 +1,7 @@
 en:
   proceedings:
     common: &common
-      proceeding: "Public proceeding"
+      proceeding: "Public judicial proceeding"
 
       single_hearing:
         future: "will start on"
@@ -19,7 +19,7 @@ en:
         until: "until"
 
     index:
-      title: "Proceedings"
+      title: "Judicial proceedings"
 
     search:
       results:
