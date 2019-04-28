@@ -19,7 +19,7 @@ sk:
         until: "do dňa"
 
     index:
-      title: "Konania"
+      title: "Súdne konania"
 
     search:
       results:
