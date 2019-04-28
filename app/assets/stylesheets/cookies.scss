@@ -1,0 +1,13 @@
+.cc-window {
+  @extend .container;
+
+  transition: none !important;
+
+  &.cc-banner {
+    padding: map-get($spacers, 3);
+  }
+}
+
+.cc-btn {
+  @extend .btn, .btn-primary;
+}

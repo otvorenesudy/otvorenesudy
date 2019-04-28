@@ -21,14 +21,17 @@
     <link rel="icon" href="<%= asset_path 'favicon.png' %>" />
     <meta name="msapplication-TileImage" content="<%= asset_path 'tileicon.png' %>" />
     <meta name="msapplication-TileColor" content="#fff" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,700&subset=latin-ext" />
     <link rel="prefetch" href="<%= asset_path 'icons.svg' %>" />
     <link rel="prefetch" href="<%= asset_path 'brands.svg' %>" />
+    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:300,400,700&subset=latin-ext" />
+    <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
     <%= Garelic.monitoring 'UA-38636233-1' if Rails.env.production? %>
-    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson:true,isDebug:false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"],function(L){L.start({"baseUrl":"mc.us7.list-manage.com","uuid":"62c76c96e9ce8b3e2492ebf24","lid":"63d692ade5"})})</script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson:true,isDebug:false"></script>
+    <script type="text/javascript">require(["mojo/signup-forms/Loader"],function(L){L.start({"baseUrl":"mc.us7.list-manage.com","uuid":"62c76c96e9ce8b3e2492ebf24","lid":"63d692ade5"})})</script>
     <%= csrf_meta_tags %>
   </head>
   <body>

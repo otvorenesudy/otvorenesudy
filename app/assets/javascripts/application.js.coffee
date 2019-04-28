@@ -9,6 +9,7 @@
 #= require Chart
 #
 #= require analytics
+#= require cookies
 #= require indicators
 #= require search
 #= require tables
