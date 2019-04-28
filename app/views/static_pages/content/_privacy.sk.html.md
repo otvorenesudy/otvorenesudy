@@ -12,3 +12,5 @@ Cookie je krátky textový súbor, ktorý do prehliadača odosielajú navštíve
 Webovým stránkam umožňuje zapamätať si informácie o Vašej návšteve, napríklad preferovaný
 jazyk a ďalšie nastavenia. Ďalšia návšteva stránok tak môže prebehnúť ľahšie a môže byť
 produktívnejšia. Súbory cookie sú dôležité. Bez nich by bolo prehliadanie webu oveľa zložitejšie.
+
+Viac o <%= link_to 'politike ochrany sukromia', 'https://transparency.sk/sukromie' %>.

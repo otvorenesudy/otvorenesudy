@@ -1,6 +1,6 @@
-#### &copy; 2013-<%= Date.current.year %> Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovensko  
+#### &copy; 2013-<%= Date.current.year %> Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovakia  
  
-Authors of the concept: Transparency International Slovensko, Samuel Molnár and Pavol Zbell
+Authors of the concept: Transparency International Slovakia, Samuel Molnár and Pavol Zbell
 
 Technical realization: Samuel Molnár and Pavol Zbell
 
