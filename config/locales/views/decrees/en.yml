@@ -50,6 +50,3 @@ en:
       faulty_date: "The judgement was published on the portal of the Ministry of Justice with a date in far future."
       future_date: "The judgement date is in far future, there is an error in original data on the portal of the Ministry of Justice."
       unprocessed: "The judgement is incomplete. An unknown error occurred during data processing from the portal of Ministry of Justice."
-
-    document:
-      file: "Judgement-%{ecli}"
