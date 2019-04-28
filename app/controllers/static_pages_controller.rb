@@ -4,6 +4,12 @@ class StaticPagesController < ApplicationController
 
     name = @slug.gsub(/-/, '_')
 
+    # TODO rm when we host api static page under this project
+    if @slug == 'api'
+      redirect_to "https://api.otvorenesudy.sk?l#{I18n.locale}"
+      return
+    end
+
     @title    = translate "static_pages.#{name}", default: ''
     @template = "static_pages/content/#{name}"
 
