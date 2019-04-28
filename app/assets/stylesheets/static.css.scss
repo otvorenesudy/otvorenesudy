@@ -9,9 +9,16 @@
     }
   }
 
-  li:before {
-    content: "\b7";
-    padding-right: map-get($spacers, 2);
+  li {
+    position: relative;
+    margin-left: map-get($spacers, 1) + map-get($spacers, 2);
+
+    &::before {
+      content: "\b7";
+      position: absolute;
+      width: map-get($spacers, 1);
+      left: - map-get($spacers, 1) - map-get($spacers, 2);
+    }
   }
 }
 
