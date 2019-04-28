@@ -84,7 +84,7 @@ At the times of regular operation we plan to update the data about hearings dail
 #### I found a mistake, what shall I do?
 
 Write us an e-mail describing the mistake as accurately as possible to <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>.
-If you found an <%= link_to 'error in the data', static_page_path(:feedback) %>, please follow the same instructions.
+If you found an <%= link_to 'error in the data', static_page_path('feedback') %>, please follow the same instructions.
 
 #### Are the data complete?
 
