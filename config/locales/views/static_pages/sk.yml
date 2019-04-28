@@ -8,7 +8,7 @@ sk:
         list: "%{project} prinášajú:"
         items:
           - "všetky zverejnené rozhodnutia na jednom mieste,"
-          - "prehľad priebehu konania na jeden klik,"
+          - "priebeh konania na jeden klik,"
           - "zoznam sudcov a prehľad ich činnosti,"
           - "archiváciu súdnych pojednávaní."
 
