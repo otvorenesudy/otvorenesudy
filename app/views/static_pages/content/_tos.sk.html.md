@@ -5,8 +5,8 @@ slúžiaca na monitoring a analýzu informácií o súdnictve. Prevádzkovateľo
 portálu je nezisková organizácia Transparency International Slovensko
 (ďalej „prevádzkovatelia“), Samuel Molnár a Pavol Zbell.
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
-<%= link_to 'Transparency International', 'http://transparency.org' %>
-v Berlíne a projektu <%= link_to 'Reštart', 'http://restartslovensko.sk' %>
+<%= link_to 'Transparency International', 'https://transparency.org' %>
+v Berlíne a projektu Reštart Slovensko
 organizovaného <%= link_to 'Centrom pre filantropiu', 'http://cpf.sk' %>. 
 
 #### Základné pravidlá

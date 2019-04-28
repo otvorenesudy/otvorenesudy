@@ -22,19 +22,19 @@ Autormi projektu sú
 <%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> a
 <%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
 (bývalí členovia výskumnej skupiny <%= link_to 'PeWe', 'https://pewe.sk' %> na
-<%= link_to 'Fakulte informatiky a informačných technológií', 'http://fiit.stuba.sk' %>
-<%= link_to 'Slovenskej technickej univerzity v Bratislave', 'http://stuba.sk' %>) a
-<%= link_to 'Transparency International Slovensko', 'http://transparency.sk' %>.
+<%= link_to 'Fakulte informatiky a informačných technológií', 'https://fiit.stuba.sk' %>
+<%= link_to 'Slovenskej technickej univerzity v Bratislave', 'https://stuba.sk' %>) a
+<%= link_to 'Transparency International Slovensko', 'https://transparency.sk' %>.
 
 Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
-<%= link_to 'Transparency International', 'http://transparency.org' %>
-v Berlíne a projektu <%= link_to 'Reštart', 'http://restartslovensko.sk' %>
+<%= link_to 'Transparency International', 'https://transparency.org' %>
+v Berlíne a projektu Reštart Slovensko
 organizovaného <%= link_to 'Centrom pre filantropiu', 'http://cpf.sk' %>.
 Aktualizácie portálu boli financované Fondom pre transparentné Slovensko
 <%= link_to 'Nadácie Pontis', 'http://nadaciapontis.sk' %>.
 
 Za hosting projektu ďakujeme spoločnosti
-<%= link_to 'Petit Press', 'http://petitpress.sk' %>,
+<%= link_to 'Petit Press', 'https://petitpress.sk' %>,
 prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %>.
 
 Za pomoc veľmi pekne ďakujeme aj
