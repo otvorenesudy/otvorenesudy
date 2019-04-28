@@ -18,14 +18,14 @@ class DecreesController < SearchController
   #
   #   send_file_in @decree.resource_path, type: 'text/plain'
   # end
-
-  def document
-    @decree = Decree.find(params[:id])
-
-    return redirect_to @decree.pdf_uri if @decree.pdf_uri
-
-    send_file_in @decree.document_path, name: t('decrees.document.file', ecli: @decree.ecli)
-  end
+  #
+  # def document
+  #   @decree = Decree.find(params[:id])
+  #
+  #   return redirect_to @decree.pdf_uri if @decree.pdf_uri
+  #
+  #   send_file_in @decree.document_path, name: t('decrees.document.file', ecli: @decree.ecli)
+  # end
 
   protected
 

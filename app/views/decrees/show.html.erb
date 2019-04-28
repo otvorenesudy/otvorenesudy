@@ -44,8 +44,8 @@
     <p>
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
-    <% if File.readable? @decree.document_path %>
-      <%= link_to t('.read'), document_decree_path(@decree), class: 'btn btn-secondary d-block d-xl-inline-block mt-3', target: '_blank' %>
+    <% if @decree.pdf_uri.present? %>
+      <%= link_to t('.read'), @decree.pdf_uri, class: 'btn btn-secondary d-block d-xl-inline-block mt-3', target: '_blank' %>
     <% end %>
   </div>
 
@@ -69,8 +69,8 @@
       <%= link_to t('.in_proceeding'), @decree.proceeding, class: 'btn btn-outline-primary d-block mt-3' %>
     <% end %>
 
-    <% if File.readable? @decree.document_path %>
-      <%= link_to t('.as_document'), document_decree_path(@decree), class: 'btn btn-outline-primary d-block mt-3', target: '_blank' %>
+    <% if @decree.pdf_uri.present? %>
+      <%= link_to t('.as_document'), @decree.pdf_uri, class: 'btn btn-outline-primary d-block mt-3', target: '_blank' %>
     <% end %>
   </div>
 </div>
