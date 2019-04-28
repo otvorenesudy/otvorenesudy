@@ -2,7 +2,7 @@
 
 The objective is to increase pressure on the quality and efficiency of Slovak judiciary by utilization of open-data. The portal makes activities and performance of judges and courts more comprehensive and allows for comparisons.
 
-A long-term objective of <%= link_to 'Transparency International Slovakia', 'http://transparency.sk' %>
+A long-term objective of <%= link_to 'Transparency International Slovakia', 'https://transparency.sk' %>
 is to contribute to the development of qualitative and quantitative indicators that shall allow measure quality and efficicency and their changes in time in the judiciary at the level of judges, as well as courts.
 
 #### What can I find at the portal?
@@ -16,7 +16,7 @@ and a great amount of <%= link_to 'judgements', decrees_path %>.
 #### Can you offer me a legal advice?
 
 Advisory office is not a part of the project. In case you are searching for a legal advice you can contact
-<%= link_to 'Legal Aid Centre', 'http://www.legalaid.sk' %>.
+<%= link_to 'Legal Aid Centre', 'https://www.ustavnysud.sk/en/centrum-pravnej-pomoci' %>.
 The Centre is obliged to help those in socially disadvantageous position that cannot afford any other legal help, but they can help you with simple matters. You can also search for an advocate at the webpage of
 <%= link_to 'Slovak Bar Association', 'https://www.sak.sk/blox/cms/sk/sak/adv/vyhladanie' %>,
 that you can subsequently contact.
@@ -27,18 +27,18 @@ Authors are
 <%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> a
 <%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
 (former members of research group <%= link_to 'PeWe', 'https://pewe.sk' %> at
-<%= link_to 'Faculty of Informatics and Information Technologies', 'http://fiit.stuba.sk' %> of
-<%= link_to 'Slovak University of Technology in Bratislava', 'http://stuba.sk' %>) and<%= link_to 'Transparency International Slovakia', 'http://transparency.sk' %>.
+<%= link_to 'Faculty of Informatics and Information Technologies', 'https://fiit.stuba.sk' %> of
+<%= link_to 'Slovak University of Technology in Bratislava', 'https://stuba.sk' %>) and <%= link_to 'Transparency International Slovakia', 'https://transparency.sk' %>.
 
 #### Who is it paid by?
 
 The project Open Courts was created thanks to the support of the Secretariat of
-<%= link_to 'Transparency International', 'http://transparency.org' %>
-in Berlin and the project <%= link_to 'Reštart', 'http://restartslovensko.sk' %>
+<%= link_to 'Transparency International', 'https://transparency.org' %>
+in Berlin and the project Reštart Slovensko
 organized by the<%= link_to 'Centre for Philantropy', 'http://cpf.sk' %>.
 
 For the hosting we are grateful to 
-<%= link_to 'Petit Press', 'http://petitpress.sk' %>,
+<%= link_to 'Petit Press', 'https://petitpress.sk' %>,
 administrator of the portal <%= link_to 'SME.sk', 'http://sme.sk' %>.
 
 #### How can I contribute?

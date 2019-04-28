@@ -19,19 +19,19 @@ Authors of the project are
 <%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> and
 <%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
 (former members of research group <%= link_to 'PeWe', 'https://pewe.sk' %> at
-<%= link_to 'Faculty of Informatics and Information Technologies', 'http://fiit.stuba.sk' %> of
-<%= link_to 'Slovak University of Technology in Bratislava', 'http://stuba.sk' %>) and
-<%= link_to 'Transparency International Slovakia', 'http://transparency.sk' %>.
+<%= link_to 'Faculty of Informatics and Information Technologies', 'https://fiit.stuba.sk' %> of
+<%= link_to 'Slovak University of Technology in Bratislava', 'https://stuba.sk' %>) and
+<%= link_to 'Transparency International Slovakia', 'https://transparency.sk' %>.
 
 Project Open Courts was created thanks to the support of Secretariat of
-<%= link_to 'Transparency International', 'http://transparency.org' %>
-in Berlin and the project <%= link_to 'Reštart', 'http://restartslovensko.sk' %>
+<%= link_to 'Transparency International', 'https://transparency.org' %>
+in Berlin and the project Reštart Slovensko
 organized by <%= link_to 'Centre for Philantropy', 'http://cpf.sk' %>.
 Portal updates were funded by Fund for transparent Slovakia
 in <%= link_to 'Pontis foundation', 'http://nadaciapontis.sk' %>.
 
 For the hosting of the project we are grateful to
-<%= link_to 'Petit Press', 'http://petitpress.sk' %>,
+<%= link_to 'Petit Press', 'https://petitpress.sk' %>,
 administrator of the portal <%= link_to 'SME.sk', 'http://sme.sk' %>.
 
 For help and useful comments we are also very thankful to 
