@@ -5,12 +5,12 @@ sk:
         headline: "Viac transparentnosti"
         footline: "do slovenského súdnictva"
         project: "Otvorené Súdy"
-        list: "%{project} prinášajú:"
+        list: "%{project} prinášajú:"
         items:
-          - "všetky zverejnené rozhodnutia na jednom mieste,"
+          - "všetky zverejnené rozhodnutia na jednom mieste,"
           - "priebeh konania na jeden klik,"
-          - "zoznam sudcov a prehľad ich činnosti,"
-          - "archiváciu súdnych pojednávaní."
+          - "zoznam sudcov a prehľad ich činnosti,"
+          - "archiváciu súdnych pojednávaní."
 
       squares:
         courts: "Súdy"
