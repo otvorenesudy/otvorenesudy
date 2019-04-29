@@ -105,6 +105,10 @@ class Decree < ActiveRecord::Base
     @legislation_area_and_subarea ||= [legislation_area, legislation_subarea].reject(&:nil?)
   end
 
+  def pdf_uri_valid?
+    pdf_uri && !pdf_uri_invalid
+  end
+
   def has_future_date?
     date > Time.now.to_date unless date.nil?
   end
