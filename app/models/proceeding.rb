@@ -54,11 +54,11 @@ class Proceeding < ActiveRecord::Base
   end
 
   def case_numbers
-    @case_numbers ||= events.map(&:case_number).uniq.sort
+    @case_numbers ||= events.map(&:case_number).uniq.compact.sort
   end
 
   def eclis
-    decrees.pluck(:ecli).sort
+    decrees.pluck(:ecli).compact.sort
   end
 
   def text
