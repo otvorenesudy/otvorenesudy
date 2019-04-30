@@ -54,7 +54,7 @@ class Hearing < ActiveRecord::Base
 
   before_save :invalidate_caches
   after_save do
-    return if !social_security_case? && !anonymizable?
+    return if !social_security_case? || !anonymizable?
 
     anonymize!
   end
