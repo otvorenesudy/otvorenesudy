@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://otvorenesudy.sk"
+SitemapGenerator::Sitemap.default_host = 'https://otvorenesudy.sk'
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
@@ -30,9 +30,9 @@ SitemapGenerator::Sitemap.create do
   add '/contact'
   add '/copyright'
   add '/faq'
-  add 'feedback'
-  add 'privacy'
-  add 'tos'
+  add '/feedback'
+  add '/privacy'
+  add '/tos'
 
   Court.pluck(:id).each do |id|
     add court_path(id), changefreq: 'daily', priority: 0.6
