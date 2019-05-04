@@ -1,0 +1,15 @@
+.carousel-indicators {
+  position: initial;
+  margin: 0;
+
+  li {
+    background: $carousel-indicator-bg;
+
+    top: calc(50% - .25rem);
+    border-radius: 50%;
+
+    &::before, &::after {
+      display: none;
+    }
+  }
+}
