@@ -1,4 +1,26 @@
 <div class="row">
+  <div class="col">
+    <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
+      <div class="carousel-inner mb-3">
+        <div class="carousel-item active">
+          <%= link_to image_tag(asset_path('slides/aj-ty-v-boji-proti-korupcii.svg'), alt: 'Staň sa aj ty hlasom odvážnych v boji proti korupcii.'), donation_url, class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť.'), donation_url, class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Sledujte rodinné väzby sudcov.'), 'http://sudy.transparency.sk', class: 'd-block w-100' %>
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="col-12 col-lg-7 col-xl-6">
     <div class="feature h-100 p-4">
       <h1 class="text-info mb-4">
