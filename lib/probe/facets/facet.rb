@@ -18,7 +18,7 @@ class Probe::Facets
       @name    = name
       @field   = field
       @type    = options[:type]
-      @size    = options[:size] || 10
+      @size    = options[:size] || 5
       @visible = options[:visible].nil? ? true : !!options[:visible]
       @view    = options[:view] || Hash.new
     end
