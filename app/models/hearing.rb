@@ -186,11 +186,12 @@ class Hearing < ActiveRecord::Base
     anonymize.call(proposers) if options[:proposers]
     anonymize.call(defendants) if options[:defendants]
 
-    self.anonymized_at = Time.now
-
-    proceeding.update_index if proceeding
+    proceeding&.update_index
 
     save!
+    reload
+
+    update_column(:anonymized_at, updated_at)
   end
 
   def self.anonymize!
