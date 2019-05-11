@@ -9,12 +9,12 @@
     <meta name="author" content="<%= t '.authors' %>" />
     <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
     <meta property="og:description" content="<%= t '.content' %>" />
-    <meta property="og:image" content="<%= asset_path 'brands/otvorene-sudy.svg' %>" />
+    <meta property="og:image" content="<%= asset_path "brands/otvorene-sudy.#{I18n.locale}.svg" %>" />
     <meta property="og:url" content="<%= canonical_url %>" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
     <meta name="twitter:description" content="<%= t '.content' %>" />
-    <meta name="twitter:image" content="<%= asset_path 'brands/otvorene-sudy.svg' %>" />
+    <meta name="twitter:image" content="<%= asset_path "brands/otvorene-sudy.#{I18n.locale}.svg" %>" />
     <meta name="twitter:url" content="<%= canonical_url %>" />
     <link rel="mask-icon" href="<%= asset_path 'maskicon.svg' %>" sizes="any" />
     <link rel="apple-touch-icon" href="<%= asset_path 'touchicon.png' %>" />
