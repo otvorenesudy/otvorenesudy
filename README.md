@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/otvorenesudy/otvorenesudy.svg?branch=beta)](https://travis-ci.org/otvorenesudy/otvorenesudy)
 [![View performance data on Skylight](https://badges.skylight.io/status/mINBQqa1duz7.svg)](https://oss.skylight.io/app/applications/mINBQqa1duz7)
+[![View performance data on Skylight](https://badges.skylight.io/typical/mINBQqa1duz7.svg)](https://oss.skylight.io/app/applications/mINBQqa1duz7)
 
 Public data project aimed at creating much more user friendly interface to interesting public data provided by [Department of Justice](http://www.justice.gov.sk) and [The Judicial Council](http://www.sudnarada.sk) of Slovak Republic
 
