@@ -26,12 +26,14 @@
   <%= tab_link_tag t('.hearings'), 'hearings' %>
 </ul>
 
-<div class="tab-content">
-  <%= render_tab partial: 'contact', class: 'active' %>
-  <%= render_tab 'judges', judges: @judges %>
-  <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
-  <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
-</div>
+<%= cache("court-#{@court.id}-tabs", expires_in: 1.minute) do %>
+  <div class="tab-content">
+    <%= render_tab partial: 'contact', class: 'active' %>
+    <%= render_tab 'judges', judges: @judges %>
+    <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
+    <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
+  </div>
+<% end %>
 
 <p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @court.uri), update: time_tag(@court.updated_at.to_date, format: :default) %>
