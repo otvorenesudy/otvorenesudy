@@ -39,6 +39,10 @@ every :day, at: '1am' do
   runner 'Hearing.anonymize_anonymizable_hearings!'
 end
 
-every 1.day, at: '6am' do
+every :day, at: '6am' do
   rake '-s sitemap:refresh'
+end
+
+every :day, at: '6am' do
+  rake 'Rails.cache.clear'
 end

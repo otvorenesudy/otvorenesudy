@@ -15,6 +15,10 @@ OpenCourts::Application.configure do
   # Disable caching
   config.action_controller.perform_caching = false
 
+  # NOTE: Uncomment this to enable caching locally
+  # config.action_controller.perform_caching = true
+  # config.cache_store = :dalli_store
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 

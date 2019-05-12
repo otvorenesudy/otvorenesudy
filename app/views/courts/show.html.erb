@@ -26,7 +26,7 @@
   <%= tab_link_tag t('.hearings'), 'hearings' %>
 </ul>
 
-<%= cache("court-#{@court.id}-tabs", expires_in: 12.hours) do %>
+<% cache "courts-show-#{@court.id}-tabs" do %>
   <div class="tab-content">
     <%= render_tab partial: 'contact', class: 'active' %>
     <%= render_tab 'judges', judges: @judges %>
