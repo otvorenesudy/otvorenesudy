@@ -1,8 +1,9 @@
-$(document).ready ->
-  $('[data-track-category]').click ->
-    element = $(this)
-    category = element.attr('data-track-category')
-    action = element.attr('data-track-action')
-    label = element.attr('data-track-label') || element.attr('id')
+window.ga = window.ga or ->
+  (ga.q = ga.q or []).push arguments
 
-    _gaq?.push ['_trackEvent', category, action, label]
+ga.l = +new Date
+
+ga 'create', 'UA-38636233-1', 'auto'
+
+# TODO configure plugins here
+ga 'require', 'outboundLinkTracker' #, fieldsObj: { eventCategory: 'External Link' }, events: ['click', 'auxclick', 'contextmenu']
