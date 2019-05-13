@@ -27,6 +27,7 @@ SitemapGenerator::Sitemap.create do
 
   %i[en sk].each do |l|
     add "/?l=#{l}"
+
     add "/about?l=#{l}"
     add "/contact?l=#{l}"
     add "/copyright?l=#{l}"
@@ -34,35 +35,29 @@ SitemapGenerator::Sitemap.create do
     add "/feedback?l=#{l}"
     add "/privacy?l=#{l}"
     add "/tos?l=#{l}"
-  end
 
-  Court.pluck(:id).each do |id|
-    add court_path(id, l: :en), changefreq: 'daily', priority: 0.6
-    add court_path(id, l: :sk), changefreq: 'daily', priority: 0.6
-  end
+    Court.pluck(:id).each do |id|
+      add court_path(id, l: l), changefreq: 'daily', priority: 0.6
+    end
 
-  Judge.pluck(:id).each do |id|
-    add judge_path(id, l: :en), changefreq: 'daily', priority: 0.6
-    add judge_path(id, l: :sk), changefreq: 'daily', priority: 0.6
-  end
+    Judge.pluck(:id).each do |id|
+      add judge_path(id, l: l), changefreq: 'daily', priority: 0.6
+    end
 
-  Hearing.pluck(:id).each do |id|
-    add hearing_path(id, l: :en), changefreq: 'daily', priority: 0.9
-    add hearing_path(id, l: :sk), changefreq: 'daily', priority: 0.9
-  end
+    Hearing.pluck(:id).each do |id|
+      add hearing_path(id, l: l), changefreq: 'daily', priority: 0.9
+    end
 
-  Decree.pluck(:id).each do |id|
-    add decree_path(id, l: :en), changefreq: 'daily', priority: 0.7
-    add decree_path(id, l: :sk), changefreq: 'daily', priority: 0.7
-  end
+    Decree.pluck(:id).each do |id|
+      add decree_path(id, l: l), changefreq: 'daily', priority: 0.7
+    end
 
-  Proceeding.pluck(:id).each do |id|
-    add proceeding_path(id, l: :en), changefreq: 'daily', priority: 0.8
-    add proceeding_path(id, l: :sk), changefreq: 'daily', priority: 0.8
-  end
+    Proceeding.pluck(:id).each do |id|
+      add proceeding_path(id, l: l), changefreq: 'daily', priority: 0.8
+    end
 
-  SelectionProcedure.pluck(:id).each do |id|
-    add selection_path(id, l: :en), changefreq: 'daily', priority: 0.6
-    add selection_path(id, l: :sk), changefreq: 'daily', priority: 0.6
+    SelectionProcedure.pluck(:id).each do |id|
+      add selection_path(id, l: l), changefreq: 'daily', priority: 0.6
+    end
   end
 end
