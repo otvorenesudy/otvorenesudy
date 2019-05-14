@@ -3,13 +3,13 @@
     <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
       <div class="carousel-inner mb-3">
         <div class="carousel-item active">
-          <%= link_to image_tag(asset_path('slides/aj-ty-v-boji-proti-korupcii.svg'), alt: 'Staň sa aj ty hlasom odvážnych v boji proti korupcii.'), support_us_url, class: 'd-block w-100' %>
+          <%= link_to image_tag(asset_path('slides/boj-proti-korupcii.svg'), alt: 'Staň sa aj ty hlasom odvážnych v boji proti korupcii.'), support_us_url, class: 'd-block w-100', data: track(as: 'slide:boj-proti-korupcii') %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť.'), support_us_url, class: 'd-block w-100' %>
+          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť.'), support_us_url, class: 'd-block w-100', data: track(as: 'slide:korupcia-zabija-spravodlivost') %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Sledujte rodinné väzby sudcov.'), 'http://sudy.transparency.sk', class: 'd-block w-100' %>
+          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Sledujte rodinné väzby sudcov.'), 'http://sudy.transparency.sk', class: 'd-block w-100', data: track(as: 'slide:rodinne-vazby-sudcov') %>
         </div>
       </div>
       <ol class="carousel-indicators">
@@ -40,15 +40,15 @@
   </div>
   <div class="col-12 col-lg-5 col-xl-6 mt-4 mt-lg-0">
     <div class="row font-weight-bold text-center text-uppercase">
-      <%= link_to icon_tag('courts', size: 60) + content_tag(:span, t('.squares.courts')), courts_path, class: 'square mx-3 mb-4' %>
-      <%= link_to icon_tag('judges', size: 60) + content_tag(:span, t('.squares.judges')), judges_path, class: 'square mx-3 mb-4' %>
+      <%= link_to icon_tag('courts', size: 60) + content_tag(:span, t('.squares.courts')), courts_path, class: 'square mx-3 mb-4', data: track(nav: 'courts') %>
+      <%= link_to icon_tag('judges', size: 60) + content_tag(:span, t('.squares.judges')), judges_path, class: 'square mx-3 mb-4', data: track(nav: 'judges') %>
       <div class="d-block d-md-none d-lg-block d-xl-none w-100"></div>
-      <%= link_to icon_tag('hearings', size: 60) + content_tag(:span, t('.squares.hearings')), hearings_path, class: 'square mx-3 mb-4' %>
+      <%= link_to icon_tag('hearings', size: 60) + content_tag(:span, t('.squares.hearings')), hearings_path, class: 'square mx-3 mb-4', data: track(nav: 'hearings') %>
       <div class="d-none d-md-block d-lg-none d-xl-block w-100"></div>
-      <%= link_to icon_tag('decrees', size: 60) + content_tag(:span, t('.squares.decrees')), decrees_path, class: 'square mx-3 mb-4 mb-xl-0' %>
+      <%= link_to icon_tag('decrees', size: 60) + content_tag(:span, t('.squares.decrees')), decrees_path, class: 'square mx-3 mb-4 mb-xl-0', data: track(nav: 'decrees') %>
       <div class="d-block d-md-none d-lg-block d-xl-none w-100"></div>
-      <%= link_to icon_tag('proceedings', size: 60) + content_tag(:span, t('.squares.proceedings')), proceedings_path, class: 'square mx-3 mb-4 mb-lg-0' %>
-      <%= link_to icon_tag('selections', size: 60) + content_tag(:span, t('.squares.selections')), selections_path, class: 'square mx-3 mb-4 mb-lg-0' %>
+      <%= link_to icon_tag('proceedings', size: 60) + content_tag(:span, t('.squares.proceedings')), proceedings_path, class: 'square mx-3 mb-4 mb-lg-0', data: track(nav: 'proceedings') %>
+      <%= link_to icon_tag('selections', size: 60) + content_tag(:span, t('.squares.selections')), selections_path, class: 'square mx-3 mb-4 mb-lg-0', data: track(nav: 'selections') %>
     </div>
   </div>
 </div>
