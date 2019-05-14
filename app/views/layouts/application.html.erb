@@ -28,8 +28,10 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
-    <script async type="text/javascript" src="//google-analytics.com/analytics.js"></script>
-    <script async type="text/javascript" src="//cdn.jsdelivr.net/gh/googleanalytics/autotrack/autotrack.js"></script>
+    <% if Rails.env.production? %>
+      <script async type="text/javascript" src="//google-analytics.com/analytics.js"></script>
+      <script async type="text/javascript" src="//cdn.jsdelivr.net/gh/googleanalytics/autotrack/autotrack.js"></script>
+    <% end %>
     <script async type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
     <%= csrf_meta_tags %>
   </head>
