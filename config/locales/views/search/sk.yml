@@ -51,7 +51,7 @@ sk:
     subscribe:
       subscribe: "Odoberať notifikácie"
       introduction: "Zaregistrujte si odoberanie notifikácií o nových výsledkoch vyhľadávania."
-      explanation: "Systém Vás bude periodicky notifikovať formou e-mailu o nových výsledkoch podľa aktuálnych nastavení vyhľadávania."
+      explanation: "Systém Vás bude pravidelne notifikovať formou e-mailu o nových výsledkoch podľa aktuálnych nastavení vyhľadávania."
       sign_in_required: "Pre odoberanie notifikácií o nových výsledkoch vyhľadávania sa musíte prihlásiť."
       already_subscribed: "Pre aktuálne nastavenie vyhľadávania už odoberáte notifikácie."
       sign_up: "Registrovať"
