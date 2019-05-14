@@ -17,15 +17,15 @@ module ApplicationHelper
     "https://#{request.host}#{request.fullpath}"
   end
 
-  def donation_url
+  def support_us_url
     "https://transparency.darujme.sk/#{I18n.locale == :sk ? 238 : 761}?donation=40&periodicity=periodical"
   end
 
-  def organization_url(path = nil)
-    "https://github.com/#{Configuration.github.organization}/#{path}".sub(/\/\z/, '')
+  def github_organization_url
+    "https://github.com/#{Configuration.github.organization}"
   end
 
-  def repository_url(path = nil)
-    organization_url "#{Configuration.github.repository}/#{path}".sub(/\/\z/, '')
+  def github_repository_url(path = nil)
+    [github_organization_url, Configuration.github.repository, path].compact.join('/')
   end
 end

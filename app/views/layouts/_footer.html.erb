@@ -17,7 +17,7 @@
 
     <nav class="nav nav-primary flex-column flex-md-row flex-nowrap align-items-center justify-content-center mb-3">
       <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mx-auto mr-md-4 mt-3 mt-md-0 mb-0' unless user_signed_in? %>
-      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary order-first order-md-last', role: :button %>
+      <%= link_to t('.support_us'), support_us_url, class: 'btn btn-primary order-first order-md-last', role: :button %>
     </nav>
   </div>
 
@@ -30,8 +30,8 @@
       <nav class="nav nav-secondary justify-content-center mt-3 mt-lg-0 mb-2 mb-md-0">
         <%= link_to 'Transparency International Slovensko', 'https://transparency.sk', class: 'nav-link font-weight-bold mb-2 mb-sm-0' %>
         <%= link_to "&copy; 2013-#{Date.current.year}".html_safe, static_page_path('copyright'), class: 'nav-link' %>
-        <%= link_to Configuration.github.organization, organization_url, class: 'nav-link' %>
-        <%= link_to OpenCourts::VERSION::STRING, repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link' %>
+        <%= link_to Configuration.github.organization, github_organization_url, class: 'nav-link' %>
+        <%= link_to OpenCourts::VERSION::STRING, github_repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link' %>
       </nav>
       <%= t '.disclaimer.resources' %>
       <br class="d-inline d-md-none" />
