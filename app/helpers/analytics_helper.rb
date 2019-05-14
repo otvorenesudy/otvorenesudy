@@ -3,7 +3,7 @@
 module AnalyticsHelper
   def track(category, action = 'click', label = nil)
     if category.is_a?(Hash)
-      category, action, label = category.fetch(:in, File.basename(@virtual_path)).titleize.strip, *category.except(:in).first
+      category, action, label = File.basename(@virtual_path).titleize.strip, *category.first
       action, label = 'navigate', "item:#{label}" if action == :nav
       action = 'click' if action == :as
     end
