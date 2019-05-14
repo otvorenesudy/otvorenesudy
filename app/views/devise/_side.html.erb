@@ -1,0 +1,6 @@
+<nav class="nav flex-column align-items-start border">
+  <%= link_to t('.sign_in'), new_session_path(resource_name), class: 'nav-link', data: track('sign in' => 'item:sign-in') %>
+  <%= link_to t('.sign_up'), new_registration_path(resource_name), class: 'nav-link', data: track('sign up' => 'item:sign-up') if devise_mapping.registerable? %>
+  <%= link_to t('.account_recovery'), new_password_path(resource_name), class: 'nav-link', data: track(nav: 'account-recovery') if devise_mapping.recoverable? %>
+  <%= link_to t('.account_confirmation'), new_confirmation_path(resource_name), class: 'nav-link', data: track(nav: 'account-confirmation') if devise_mapping.confirmable? %>
+</nav>

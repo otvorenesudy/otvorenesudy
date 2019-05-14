@@ -1,0 +1,12 @@
+<nav class="nav flex-column align-items-start border">
+  <%= link_to t('.about'), static_page_path('about'), class: 'nav-link', data: track(nav: 'about') %>
+  <%= link_to t('.analyses'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link', data: track(nav: 'analyses') %>
+  <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link', data: track(nav: 'faq') %>
+  <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link', data: track(nav: 'feedback') %>
+  <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link', data: track(nav: 'tos') %>
+  <%= link_to t('.privacy'), static_page_path('privacy'), class: 'nav-link', data: track(nav: 'privacy') %>
+  <%= link_to t('.copyright'), static_page_path('copyright'), class: 'nav-link', data: track(nav: 'copyright') %>
+  <%= link_to t('.support_us'), support_us_url, class: 'nav-link', data: track(nav: 'support-us') %>
+  <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link', data: track(nav: 'contact') %>
+  <%= link_to t('.api'), static_page_path('api'), class: 'nav-link', data: track(nav: 'api') %>
+</nav>

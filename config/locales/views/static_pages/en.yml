@@ -23,7 +23,7 @@
       partners:
         supported_by: "Supported by:"
 
-    show:
+    side:
       about: "About"
       api: "API"
       analyses: "Analyses"

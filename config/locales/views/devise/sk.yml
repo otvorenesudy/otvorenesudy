@@ -81,8 +81,8 @@ sk:
       send_paranoid_instructions: "Ak Váš účet existuje, o niekoľko minút Vám bude doručený e-mail s inštrukciami ako ho odomknúť."
       unlocked: "Váš účet bol úspešne odomknutý. Prosím prihláste sa, aby ste mohli pokračovať."
 
-    links:
+    side:
       account_confirmation: "Potvrdenie registrácie"
-      forgotten_password: "Zabudli ste heslo?"
+      account_recovery: "Zabudli ste heslo?"
       sign_in: "Prihlásenie"
       sign_up: "Registrácia"

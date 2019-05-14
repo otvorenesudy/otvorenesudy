@@ -23,7 +23,7 @@ sk:
       partners:
         supported_by: "Projekt podporili:"
 
-    show:
+    side:
       about: "O projekte"
       api: "API"
       analyses: "Články"

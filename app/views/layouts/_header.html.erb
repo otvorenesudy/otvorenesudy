@@ -1,47 +1,47 @@
 <header class="container mt-3 px-sm-0">
   <nav class="nav flex-column flex-md-row align-items-between align-items-md-center">
     <div class="nav flex-grow-1 justify-content-between mr-md-4 mb-3">
-      <%= link_to brand_tag('otvorene-sudy', { height: 60, variant: I18n.locale }, sk: { width: 170 }, en: { width: 132.57 }), root_path, class: 'navbar-brand mr-3 mr-md-4' %>
+      <%= link_to brand_tag('otvorene-sudy', { height: 60, variant: I18n.locale }, sk: { width: 170 }, en: { width: 132.57 }), root_path, class: 'navbar-brand mr-3 mr-md-4', data: track(as: 'image:oc') %>
 
       <div class="nav nav-secondary justify-content-center align-items-center align-self-stretch font-weight-bold text-uppercase small border-right-md pr-md-4">
-        <%= link_to span_tag(t('.slovak'), class: 'd-none d-lg-inline') + span_tag(t('.sk'), class: 'd-lg-none'), { l: :sk }, class: 'nav-link' %>
-        <%= link_to span_tag(t('.english'), class: 'd-none d-lg-inline') + span_tag(t('.en'), class: 'd-lg-none'), { l: :en }, class: 'nav-link' %>
+        <%= link_to span_tag(t('.slovak'), class: 'd-none d-lg-inline') + span_tag(t('.sk'), class: 'd-lg-none'), { l: :sk }, class: 'nav-link', data: track('select language' => 'text:sk') %>
+        <%= link_to span_tag(t('.english'), class: 'd-none d-lg-inline') + span_tag(t('.en'), class: 'd-lg-none'), { l: :en }, class: 'nav-link', data: track('select language' => 'text:en') %>
       </div>
     </div>
 
     <div class="nav flex-grow-1 flex-md-grow-0 flex-wrap justify-content-between align-items-center border-top border-top-md-0 mb-3">
-      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis d-block mr-3 mr-md-4 mt-3 mt-md-0' %>
-      <%= link_to t('.support_us'), support_us_url, class: 'btn btn-primary btn-lg mt-3 mt-md-0', role: :button %>
+      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis d-block mr-3 mr-md-4 mt-3 mt-md-0', data: track(as: 'image:tis') %>
+      <%= link_to t('.support_us'), support_us_url, class: 'btn btn-primary btn-lg mt-3 mt-md-0', data: track('support us' => 'text:support-us'), role: :button %>
     </div>
   </nav>
 
   <nav class="navbar nav-primary navbar-expand-xl font-weight-bold text-uppercase border-bottom">
     <div class="d-flex d-xl-none justify-content-between border-top w-100 py-2">
-      <%= button_tag t('.menu'), class: 'navbar-toggler mx-0', data: { toggle: 'collapse', target: '#navbar' }, name: nil, type: 'button' %>
-      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbar' }, name: nil, type: 'button' %>
+      <%= button_tag t('.menu'), class: 'navbar-toggler mx-0', data: { toggle: 'collapse', target: '#navbar' }.merge(track 'toggle navigation' => 'text:menu'), name: nil, type: 'button' %>
+      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbar' }.merge(track 'toggle navigation' => 'icon:toggle'), name: nil, type: 'button' %>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse d-xl-block border-top">
       <div class="navbar-nav justify-content-between py-2">
-        <%= bar_link_to t('.courts'), courts_path, class: 'mx-0' %>
-        <%= bar_link_to t('.judges'), judges_path, class: 'mx-0' %>
-        <%= bar_link_to t('.hearings'), hearings_path, class: 'mx-0' %>
-        <%= bar_link_to t('.decrees'), decrees_path, class: 'mx-0' %>
-        <%= bar_link_to t('.proceedings'), proceedings_path, class: 'mx-0' %>
-        <%= bar_link_to t('.selections'), selections_path, class: 'mx-0' %>
-        <%= bar_link_to t('.families'), 'http://sudy.transparency.sk', class: 'mx-0' %>
-        <%= bar_link_to t('.prosecutors'), "https://prokuratori.otvorenesudy.sk?l=#{I18n.locale}", class: 'mx-0' %>
+        <%= bar_link_to t('.courts'), courts_path, class: 'mx-0', data: track(nav: 'courts') %>
+        <%= bar_link_to t('.judges'), judges_path, class: 'mx-0', data: track(nav: 'judges') %>
+        <%= bar_link_to t('.hearings'), hearings_path, class: 'mx-0', data: track(nav: 'hearings') %>
+        <%= bar_link_to t('.decrees'), decrees_path, class: 'mx-0', data: track(nav: 'decrees') %>
+        <%= bar_link_to t('.proceedings'), proceedings_path, class: 'mx-0', data: track(nav: 'proceedings') %>
+        <%= bar_link_to t('.selections'), selections_path, class: 'mx-0', data: track(nav: 'selections') %>
+        <%= bar_link_to t('.families'), 'http://sudy.transparency.sk', class: 'mx-0', data: track(nav: 'families') %>
+        <%= bar_link_to t('.prosecutors'), "https://prokuratori.otvorenesudy.sk?l=#{I18n.locale}", class: 'mx-0', data: track(nav: 'prosecutors') %>
       </div>
       <% if user_signed_in? %>
         <div class="navbar-nav border-top py-2">
           <span class="navbar-text text-muted mr-auto"><%= current_user.email %></span>
-          <%= bar_link_to t('.subscriptions'), subscriptions_users_path, class: 'mx-0 mr-xl-4' %>
-          <%= bar_link_to t('.settings'), edit_user_registration_path, class: 'mx-0 mr-xl-4' %>
-          <%= bar_link_to t('.sign_out'), destroy_user_session_path, method: :delete, class: 'mx-0' %>
+          <%= bar_link_to t('.subscriptions'), subscriptions_users_path, class: 'mx-0 mr-xl-4', data: track(nav: 'subscriptions') %>
+          <%= bar_link_to t('.settings'), edit_user_registration_path, class: 'mx-0 mr-xl-4', data: track(nav: 'settings') %>
+          <%= bar_link_to t('.sign_out'), destroy_user_session_path, class: 'mx-0', data: track('sign out' => 'item:sign-out'), method: :delete %>
         </div>
       <% else %>
         <div class="navbar-nav d-xl-none border-top py-2">
-          <%= bar_link_to t('.sign_in'), new_user_session_path, class: 'mx-0' %>
+          <%= bar_link_to t('.sign_in'), new_user_session_path, class: 'mx-0', data: track('sign in' => 'item:sign-in') %>
         </div>
       <% end %>
     </div>

@@ -62,7 +62,7 @@
           <h1 class="modal-title text-uppercase"><%= t '.are_you_sure' %></h1>
         </div>
         <div class="modal-footer">
-          <%= link_to t('.confirm_delete'), @subscription, method: :delete, class: 'btn btn-outline-danger', role: :button %>
+          <%= link_to t('.confirm_delete'), @subscription, class: 'btn btn-outline-danger', method: :delete, role: :button %>
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
         </div>
       </div>
