@@ -19,9 +19,9 @@ module Probe::Search
 
       @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
 
-      @page     = extract_page_param(@params) if @params[:page]
-      @order    = extract_order_param(@params) if @params[:order]
-      @sort     = extract_sort_param(@params, @sort_fields) if @params[:sort]
+      @page     = extract_page_param(@params)
+      @order    = extract_order_param(@params)
+      @sort     = extract_sort_param(@params, @sort_fields)
       @per_page = options[:per_page] || Probe::Configuration.per_page
 
       @facets.extract_facets_params(@params)
