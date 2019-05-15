@@ -164,7 +164,7 @@ class Hearing < ActiveRecord::Base
     end
 
     skip = lambda do |name|
-      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna poistovna/)
+      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna\s+poistovna/)
     end
 
     anonymize = lambda do |association|
