@@ -42,11 +42,9 @@ OpenCourts::Application.routes.draw do
       get :suggest
     end
 
-    # TODO rm - unused?
-    # member do
-    #   get :resource
-    #   get :document
-    # end
+    member do
+      get :document
+    end
   end
 
   resources :proceedings, only: [:index, :show] do
