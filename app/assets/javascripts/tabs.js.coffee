@@ -2,7 +2,7 @@ $(document).ready ->
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
     $(e.target).attr('tabindex', -1)
 
-    history.pushState(null, null, $(e.target).attr('href'))
+    history.replaceState(null, null, $(e.target).attr('href'))
 
   $('a[data-toggle="tab"]').on 'hidden.bs.tab', (e) ->
     $(e.target).removeAttr('tabindex')
