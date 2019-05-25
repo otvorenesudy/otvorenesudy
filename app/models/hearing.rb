@@ -23,13 +23,6 @@ class Hearing < ActiveRecord::Base
   scope :historical, lambda { where('date <  ?', Time.now) }
   scope :upcoming,   lambda { where('date >= ?', Time.now) }
 
-  scope :anonymizable, lambda {
-    where(
-      '(hearings.anonymized_at IS NULL AND hearings.date < ?) OR (hearings.anonymized_at < hearings.updated_at)',
-      1.day.ago.beginning_of_day
-    )
-  }
-
   belongs_to :proceeding
 
   belongs_to :court
@@ -53,11 +46,6 @@ class Hearing < ActiveRecord::Base
   has_many :accusations, through: :defendants
 
   before_save :invalidate_caches
-  after_save do
-    return if !social_security_case? || !anonymizable?
-
-    anonymize!
-  end
 
   max_paginates_per 100
       paginates_per 20
@@ -135,12 +123,6 @@ class Hearing < ActiveRecord::Base
     anonymized_at.present?
   end
 
-  def anonymizable?
-    return false unless date
-
-    (!anonymized? && date < 1.day.ago.beginning_of_day) || (anonymized_at.to_i < updated_at.to_i)
-  end
-
   def invalidate_caches
     @time = @judge_names = nil
   end
@@ -202,7 +184,7 @@ class Hearing < ActiveRecord::Base
   end
 
   def self.anonymize_anonymizable_hearings!
-    anonymizable.find_each(&:anonymize!)
+    where('hearings.anonymized_at IS NULL').find_each(&:anonymize!)
 
     Judge.find_each(&:save!)
     Court.find_each(&:save!)
