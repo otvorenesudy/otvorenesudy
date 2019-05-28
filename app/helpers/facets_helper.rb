@@ -72,7 +72,7 @@ module FacetsHelper
     path   = options.delete(:path) || method(:search_path)
     params = !result.selected? ? result.add_params : result.remove_params
 
-    options.merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 500 }' }, title: value if body != value
+    options.deep_merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 500 }' }, title: value if body != value
 
     body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
     body << content_tag(:span, count, class: 'facet-tag') if count.present?
