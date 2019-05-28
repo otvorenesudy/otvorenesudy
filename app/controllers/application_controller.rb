@@ -32,6 +32,6 @@ class ApplicationController < ActionController::Base
   def set_locale(value)
     I18n.locale = value
   rescue I18n::InvalidLocale
-    redirect_to :root
+    I18n.locale = I18n.default_locale
   end
 end
