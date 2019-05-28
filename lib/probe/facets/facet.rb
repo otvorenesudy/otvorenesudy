@@ -92,7 +92,7 @@ class Probe::Facets
       false
     end
 
-    def suggestable?
+    def suggestible?
       respond_to? :build_suggest_facet
     end
 
