@@ -8,6 +8,7 @@ module AnalyticsHelper
       action = 'click' if action == :as
     end
 
+    # TODO maybe track simple clicks only?
     { 'on' => 'click,auxclick,contextmenu', 'event-category' => category, 'event-action' => action, 'event-label' => label }.select { |_, v| v.present? }
   end
 end
