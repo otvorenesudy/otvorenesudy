@@ -8,7 +8,7 @@ module Probe
 
     def extract_sort_param(params, sort_fields)
       return params[:sort].to_sym if sort_fields.include?(params[:sort]&.to_sym)
-      sort_fields&.first.to_sym || :'_score'
+      sort_fields&.first.to_sym || :_score
     end
 
     def extract_order_param(params)
