@@ -88,8 +88,8 @@ class Hearing < ActiveRecord::Base
   end
 
   facets do
-    facet :q,            type: :fulltext, field: :all
-    facet :type,         type: :terms, collapsible: false
+    facet :q,            type: :fulltext, field: :all, visible: false
+    facet :type,         type: :terms
     facet :court_type,   type: :terms
     facet :court,        type: :terms
     facet :subject,      type: :terms

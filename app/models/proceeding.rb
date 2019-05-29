@@ -37,7 +37,7 @@ class Proceeding < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: :all, highlights: :text
+    facet :q,              type: :fulltext, field: :all, highlights: :text, visible: false
     facet :case_numbers,   type: :terms
     facet :courts,         type: :terms
     facet :judges,         type: :terms

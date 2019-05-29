@@ -43,7 +43,7 @@ class SelectionProcedure < ActiveRecord::Base
   end
 
   facets do
-    facet :q,                 type: :fulltext, field: :all
+    facet :q,                 type: :fulltext, field: :all, visible: false
     facet :position,          type: :terms
     facet :state,             type: :terms, size: SelectionProcedure.pluck(:state).uniq.count
     facet :candidates,        type: :terms

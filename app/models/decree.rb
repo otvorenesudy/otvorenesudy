@@ -74,7 +74,7 @@ class Decree < ActiveRecord::Base
   end
 
   facets do
-    facet :q,                   type: :fulltext, field: :all, highlights: :text
+    facet :q,                   type: :fulltext, field: :all, highlights: :text, visible: false
     facet :judges,              type: :terms
     facet :legislation_area,    type: :terms, size: LegislationArea.count
     facet :legislation_subarea, type: :terms, size: LegislationSubarea.count
