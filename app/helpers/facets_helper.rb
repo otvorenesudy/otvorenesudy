@@ -30,6 +30,22 @@ module FacetsHelper
 
   private
 
+  def link_to_facet_value(facet, result, value, options = {})
+    key    = "#{facet.key}.#{value}"
+    value  = missing_translation?(key) ? value.upcase_first : t(key)
+    count  = options.delete(:count) === false ? nil : number_with_delimiter(result.count)
+    body   = truncate value, length: 31 - (count ? 1 + count.size : 0), separator: ' ', omission: '&hellip;'
+    path   = options.delete(:path) || method(:search_path)
+    params = !result.selected? ? result.add_params : result.remove_params
+
+    options.deep_merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 500 }' }, title: value if body != value
+
+    body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
+    body << content_tag(:span, count, class: 'facet-tag') if count.present?
+
+    link_to body.html_safe, path.call(params), options
+  end
+
   def translate_range_facet_value(facet, result)
     range   = result.range
     options = Hash.new
@@ -62,21 +78,5 @@ module FacetsHelper
     else
       result << t(suffix, count: count).gsub(/\A\s*\d+/, '') unless missing_translation? suffix
     end
-  end
-
-  def link_to_facet_value(facet, result, value, options = {})
-    key    = "#{facet.key}.#{value}"
-    value  = missing_translation?(key) ? value.upcase_first : t(key)
-    count  = options.delete(:count) === false ? nil : number_with_delimiter(result.count)
-    body   = truncate value, length: 31 - (count ? 1 + count.size : 0), separator: ' ', omission: '&hellip;'
-    path   = options.delete(:path) || method(:search_path)
-    params = !result.selected? ? result.add_params : result.remove_params
-
-    options.deep_merge! data: { toggle: 'tooltip', placement: 'right', delay: '{ "show": 500 }' }, title: value if body != value
-
-    body.gsub!(/\s*[–]\s*&hellip;\z/, '&hellip;')
-    body << content_tag(:span, count, class: 'facet-tag') if count.present?
-
-    link_to body.html_safe, path.call(params), options
   end
 end
