@@ -96,8 +96,8 @@ class Hearing < ActiveRecord::Base
     facet :judges,       type: :terms
     facet :date,         type: :date, interval: :month
     facet :form,         type: :terms
-    facet :proposers,    type: :terms
-    facet :participants, type: :terms
+    # facet :proposers,    type: :terms
+    # facet :participants, type: :terms
     facet :section,      type: :terms
     facet :file_number,  type: :terms
     facet :case_number,  type: :terms
