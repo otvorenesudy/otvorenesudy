@@ -1,11 +1,11 @@
 $(document).ready ->
   class window.Search
-    constructor: (selector, model) ->
+    constructor: (selector) ->
       $("#{selector} .facet .facet-title[data-toggle=\"collapse\"]").click ->
-        name      = $(this).closest('.facet').attr('data-id')
+        id        = $(this).closest('.facet').attr('id')
         collapsed = $(this).hasClass('collapsed') == false
 
-        $.get '/search/collapse', { model: model, facet: name, collapsed: collapsed }
+        $.get "#{window.location.pathname}/collapse", { facet: id, collapsed: collapsed }
 
       new Suggest(selector)
 
@@ -14,7 +14,7 @@ $(document).ready ->
       @.register(input) for input in $("#{selector} .facet .facet-suggest")
 
     register: (input) ->
-        name = $(input).attr('data-id')
+        name = $(input).attr('name')
         path = $(input).attr('data-path')
 
         $(input).autocomplete

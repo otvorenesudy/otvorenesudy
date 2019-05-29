@@ -1,3 +1,0 @@
-<% if facet.params[:type].nil? || Array.wrap(facet.params[:type]).include?(HearingType.civil.value) %>
-  <%= render 'facets/terms_facet', facet: facet, translation: translation %>
-<% end %>

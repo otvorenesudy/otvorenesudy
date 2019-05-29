@@ -24,7 +24,7 @@ class Probe::Facets
     end
 
     def id
-      @id ||= "#{base}-#{name}".dasherize.downcase
+      @id ||= name.to_s.dasherize.downcase
     end
 
     def key
@@ -83,6 +83,8 @@ class Probe::Facets
     def visible?
       @visible
     end
+
+    alias :collapsible? :visible?
 
     def buildable?
       respond_to? :build

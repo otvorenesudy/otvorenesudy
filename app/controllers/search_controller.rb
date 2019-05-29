@@ -1,27 +1,20 @@
 class SearchController < ApplicationController
   def index
-    search_instances
+    set_search_model
+    set_collapsed_facets
+    set_subscription
 
-    @results = @model.search params.freeze
-
+    @results = @model.search(params.freeze)
     @results.associations = search_associations
-
-    @count       = @results.total_count
-    @page        = @results.page
-    @facets      = @results.facets
-    @sort_fields = @results.sort_fields
-
-    prepare_facets
-    prepare_subscription
+    @facets = @results.facets
   end
 
   def suggest
-    search_instances
+    set_search_model
 
-    name = params[:facet]
-    term = params[:term]
+    name, term = params[:facet], params[:term]
 
-    @results = @model.suggest name, term, params.except(:facet, :term)
+    @results = @model.suggest(name, term, params.except(:facet, :term))
 
     if @results
       facet   = @results.facets[name]
@@ -34,35 +27,29 @@ class SearchController < ApplicationController
   end
 
   def collapse
-    model     = params[:model].to_s
-    name      = params[:facet].to_sym
-    collapsed = params[:collapsed] == 'true' ? true : false
+    set_search_model
+    set_collapsed_facets
 
-    session[key = "#{model.to_s.underscore}.collapsed_facets".to_sym] ||= []
-    collapsed ? session[key] += [name] : session[key] -= [name]
+    id = params[:facet]
+
+    if @model.facets.find { |facet| facet.id == id }
+      params[:collapsed] == 'true' ? @collapsed_facets.add(id) : @collapsed_facets.delete(id)
+    end
 
     render nothing: true
   end
 
-  protected
+  private
 
-  helper_method :search_instances,
-                :prepare_facets,
-                :prepare_subscription,
-                :search_path,
-                :suggest_path
-
-  def search_instances
-    @type  = params[:controller].singularize.to_sym
-    @model = @type.to_s.camelcase.constantize
+  def set_search_model
+    @model = params[:controller].singularize.camelize.constantize
   end
 
-  def prepare_facets
-    @collapsible_facets = @facets.map(&:name) - [:q]
-    @collapsed_facets = (session["#{@model.to_s.underscore}.collapsed_facets".to_sym] ||= [])
+  def set_collapsed_facets
+    @collapsed_facets = (session["#{params[:controller]}.collapsed_facets".to_sym] ||= Set.new)
   end
 
-  def prepare_subscription
+  def set_subscription
     if user_signed_in? && @model.respond_to?(:subscribe)
       query = Query.by_model_and_value(@model, @facets.query_params).first
 
@@ -78,17 +65,17 @@ class SearchController < ApplicationController
     end
   end
 
+  def search_associations
+    nil
+  end
+
+  helper_method :search_path, :suggest_path
+
   def search_path(params = {})
     url_for params.merge action: :index
   end
 
   def suggest_path(params = {})
     url_for params.merge action: :suggest
-  end
-
-  private
-
-  def search_associations
-    nil
   end
 end
