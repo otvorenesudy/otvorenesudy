@@ -1,11 +1,5 @@
 <% @facets.each do |facet| %>
   <% if !facet.abstract? && facet.visible? %>
-    <% if @collapsible_facets.include? facet.name %>
-      <% begin %>
-        <%= render facet.view[:facet] || "#{params[:controller]}/facets/#{facet.name}_facet", facet: facet, translation: t(facet.key) %>
-      <% rescue ActionView::MissingTemplate %>
-        <%= render "facets/#{facet.type}_facet", facet: facet, translation: t(facet.key) %>
-      <% end %>
-    <% end %>
+    <%= render facet.view[:facet] || "facets/#{facet.type}_facet", facet: facet, translation: t(facet.key) %>
   <% end %>
 <% end %>

@@ -53,5 +53,5 @@ $(document).ready ->
     sortLocaleCompare: true
     textExtraction:    (node, table, column) -> $.trim($(node).attr('data-value') or $(node).text())
 
-  $('table').bind 'sortEnd', ->
+  $('table[data-sortable="true"]').bind 'sortEnd', ->
     fixes()

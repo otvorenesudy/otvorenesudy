@@ -72,20 +72,18 @@ class Hearing < ActiveRecord::Base
     analyze :participants,      as: lambda { |h| h.opponents.pluck(:name) + h.defendants.pluck(:name) }
     analyze :accusations,       as: lambda { |h| h.accusations.map { |a| "#{a.value} #{a.paragraphs.pluck(:description).join ' '}" } }
 
-    sort_by :date, :created_at
+    sort_by :date, :created_at, :_score
   end
 
   facets do
-    facet :q,            type: :fulltext, field: :all
-    facet :type,         type: :terms, collapsible: false
+    facet :q,            type: :fulltext, field: :all, visible: false
+    facet :type,         type: :terms
     facet :court_type,   type: :terms
     facet :court,        type: :terms
     facet :subject,      type: :terms
     facet :judges,       type: :terms
     facet :date,         type: :date, interval: :month
     facet :form,         type: :terms
-    facet :proposers,    type: :terms
-    facet :participants, type: :terms
     facet :section,      type: :terms
     facet :file_number,  type: :terms
     facet :case_number,  type: :terms
@@ -146,7 +144,7 @@ class Hearing < ActiveRecord::Base
     end
 
     skip = lambda do |name|
-      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna poistovna/)
+      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna\s+poistovna/)
     end
 
     anonymize = lambda do |association|

@@ -2,36 +2,36 @@
   <div class="d-flex align-items-start align-items-xl-center text-uppercase border-bottom mb-3">
     <nav class="nav nav-primary flex-row flex-grow-1 mb-3">
       <div class="d-flex flex-column flex-xl-row flex-grow-1 flex-xl-grow-0 mr-4 mr-xl-0">
-        <%= link_to t('.about'), static_page_path('about'), class: 'nav-link ml-0 mr-auto mr-xl-3' %>
-        <%= link_to t('.analyses'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
-        <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
-        <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
+        <%= link_to t('.about'), static_page_path('about'), class: 'nav-link ml-0 mr-auto mr-xl-3', data: track(nav: 'about') %>
+        <%= link_to t('.analyses'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3', data: track(nav: 'analyses') %>
+        <%= link_to t('.faq'), static_page_path('faq'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3', data: track(nav: 'faq') %>
+        <%= link_to t('.feedback'), static_page_path('feedback'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3', data: track(nav: 'feedback') %>
       </div>
       <div class="d-flex flex-column flex-xl-row flex-grow-1 flex-xl-grow-0 mr-4">
-        <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
-        <%= link_to t('.privacy'), static_page_path('privacy'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
-        <%= link_to t('.api'), static_page_path('api'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3' %>
-        <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link ml-0 ml-xl-3 mr-0' %>
+        <%= link_to t('.tos'), static_page_path('tos'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3', data: track(nav: 'tos') %>
+        <%= link_to t('.privacy'), static_page_path('privacy'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3', data: track(nav: 'privacy') %>
+        <%= link_to t('.api'), static_page_path('api'), class: 'nav-link ml-0 ml-xl-3 mr-auto mr-xl-3', data: track(nav: 'api') %>
+        <%= link_to t('.contact'), static_page_path('contact'), class: 'nav-link ml-0 ml-xl-3 mr-0', data: track(nav: 'contact') %>
       </div>
     </nav>
 
     <nav class="nav nav-primary flex-column flex-md-row flex-nowrap align-items-center justify-content-center mb-3">
-      <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mx-auto mr-md-4 mt-3 mt-md-0 mb-0' unless user_signed_in? %>
-      <%= link_to t('.donate'), donation_url, class: 'btn btn-primary order-first order-md-last', role: :button %>
+      <%= link_to t('.sign_in'), new_user_session_path, class: 'nav-link font-weight-bold mx-auto mr-md-4 mt-3 mt-md-0 mb-0', data: track('sign in' => 'text:sign-in') unless user_signed_in? %>
+      <%= link_to t('.support_us'), support_us_url, class: 'btn btn-primary order-first order-md-last', data: track('support us' => 'text:support-us'), role: :button %>
     </nav>
   </div>
 
   <div class="d-flex flex-wrap align-items-center justify-content-between border-bottom mb-3">
     <nav class="nav justify-content-start col mr-3 mb-3 p-0">
-      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis' %>
+      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis', data: track(as: 'image:tis') %>
     </nav>
 
     <div class="flex-grow-1 flex-grow-lg-0 text-center order-last order-lg-0 border-top border-top-lg-0 mb-3">
       <nav class="nav nav-secondary justify-content-center mt-3 mt-lg-0 mb-2 mb-md-0">
-        <%= link_to 'Transparency International Slovensko', 'https://transparency.sk', class: 'nav-link font-weight-bold mb-2 mb-sm-0' %>
-        <%= link_to "&copy; 2013-#{Date.current.year}".html_safe, static_page_path('copyright'), class: 'nav-link' %>
-        <%= link_to Configuration.github.organization, organization_url, class: 'nav-link' %>
-        <%= link_to OpenCourts::VERSION::STRING, repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link' %>
+        <%= link_to 'Transparency International Slovensko', 'https://transparency.sk', class: 'nav-link font-weight-bold mb-2 mb-sm-0', data: track(nav: 'tis') %>
+        <%= link_to "&copy; 2013-#{Date.current.year}".html_safe, static_page_path('copyright'), class: 'nav-link', data: track(nav: 'copyright') %>
+        <%= link_to Configuration.github.organization, github_organization_url, class: 'nav-link', data: track(nav: 'project') %>
+        <%= link_to OpenCourts::VERSION::STRING, github_repository_url("releases/tag/v#{OpenCourts::VERSION::STRING}"), class: 'nav-link', data: track(nav: 'version') %>
       </nav>
       <%= t '.disclaimer.resources' %>
       <br class="d-inline d-md-none" />
@@ -39,9 +39,9 @@
     </div>
 
     <nav class="nav flex-nowrap justify-content-end col ml-3 mb-3 p-0">
-      <%= link_to icon_tag('facebook', size: 24), 'https://facebook.com/transparencysk', class: 'nav-link tis m-0' %>
-      <%= link_to icon_tag('twitter', size: 24), 'https://twitter.com/transparencysk', class: 'nav-link tis mx-1 m-0' %>
-      <%= link_to icon_tag('youtube', size: 24), 'https://www.youtube.com/user/TISlovensko', class: 'nav-link tis m-0' %>
+      <%= link_to icon_tag('facebook', size: 24), 'https://facebook.com/transparencysk', class: 'nav-link tis m-0', data: track(as: 'icon:facebook') %>
+      <%= link_to icon_tag('twitter', size: 24), 'https://twitter.com/transparencysk', class: 'nav-link tis mx-1 m-0', data: track(as: 'icon:twitter') %>
+      <%= link_to icon_tag('youtube', size: 24), 'https://www.youtube.com/user/TISlovensko', class: 'nav-link tis m-0', data: track(as: 'icon:youtube') %>
     </nav>
   </div>
 

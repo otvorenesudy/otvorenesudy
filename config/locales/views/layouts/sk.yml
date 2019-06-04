@@ -27,7 +27,7 @@ sk:
       english: 'English'
       slovak: 'Slovenčina'
 
-      donate: "Podporte"
+      support_us: "Podporte"
 
       en: 'EN'
       sk: 'SK'
@@ -44,7 +44,7 @@ sk:
 
       sign_in: "Prihlásenie"
 
-      donate: "Podporte"
+      support_us: "Podporte"
 
       disclaimer:
         resources: "Projekt využíva výhradne dáta verejných inštitúcií."

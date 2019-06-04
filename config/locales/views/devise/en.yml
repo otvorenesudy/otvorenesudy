@@ -81,8 +81,8 @@
       send_paranoid_instructions: "If your account exists, you will receive an e-mail with instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
 
-    links:
+    side:
       account_confirmation: "Account confirmation"
-      forgotten_password: "Forgot password?"
+      account_recovery: "Forgot password?"
       sign_in: "Sign in"
       sign_up: "Sign up"

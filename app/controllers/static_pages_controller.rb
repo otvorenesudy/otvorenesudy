@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
       return
     end
 
-    @title    = translate "static_pages.#{name}", default: ''
+    @title    = translate "static_pages.show.#{name}", default: ''
     @template = "static_pages/content/#{name}"
 
     begin

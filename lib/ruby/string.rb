@@ -26,4 +26,9 @@ class String
   def upcase_first!
     self.sub!(/\A./) { |c| c.mb_chars.upcase }
   end
+
+  # TODO remove on switch to Ruby 2.5+
+  def delete_prefix(prefix)
+    self.sub(/\A#{prefix}/, '')
+  end
 end

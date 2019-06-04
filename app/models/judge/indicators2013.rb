@@ -6,11 +6,11 @@ class Judge
     included do
       mapping do
         analyze :indicators_2013, as: lambda { |j|
-          !!(j.indicators_2013 && j.indicators_2013.statistical && j.indicators_2013.numerical)
+          !!(j.indicators_2013&.statistical && j.indicators_2013&.numerical)
         }
 
         analyze :decree_agenda_2013, as: lambda { |j|
-          if j.indicators_2013 && j.indicators_2013.statistical
+          if j.indicators_2013&.statistical
             {
               'Občianska' => j.indicators_2013.statistical['S5a'].to_i,
               'Obchodná' => j.indicators_2013.statistical['S5b'].to_i,

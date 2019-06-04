@@ -1,9 +1,15 @@
-# See https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
+# See https://developers.google.com/analytics/devguides/collection/analyticsjs/events
 
 module AnalyticsHelper
-  def track(category, action, label = nil, options = {})
-    category, action, label = *[category, action, label].map { |s| Array.wrap(s).map(&:to_s).join(' - ').downcase }
-    data = { :'track-category' => category, :'track-action' => action, :'track-label' => label }
-    options.deep_merge data: data.select { |_, v| v.present? }
+  def track(category, action = 'click', label = nil)
+    if category.is_a?(Hash)
+      category, action, label = File.basename(@virtual_path).titleize.strip, *category.first
+      action, label = 'navigate', "item:#{label}" if action == :nav
+      action = 'click' if action == :as
+    elsif category == :search
+      category, label = 'Search', "entity:#{@model.to_s.underscore.dasherize} #{label}".rstrip
+    end
+
+    { 'on' => 'click', 'event-category' => category, 'event-action' => action, 'event-label' => label }.select { |_, v| v.present? }
   end
 end

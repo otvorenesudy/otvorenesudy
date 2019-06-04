@@ -17,11 +17,11 @@ module Probe::Search
       @sort_fields = options[:sort_fields] || []
       @fields      = Array.wrap(options[:fields]) + [:id]
 
-      @sort_fields += [:'_score'] unless @sort_fields.include? :'_score'
+      @sort_fields += [:_score] unless @sort_fields.include? :_score
 
-      @page     = extract_page_param(@params) if @params[:page]
-      @order    = extract_order_param(@params) if @params[:order]
-      @sort     = extract_sort_param(@params, @sort_fields) if @params[:sort]
+      @page     = extract_page_param(@params)
+      @order    = extract_order_param(@params)
+      @sort     = extract_sort_param(@params, @sort_fields)
       @per_page = options[:per_page] || Probe::Configuration.per_page
 
       @facets.extract_facets_params(@params)
@@ -117,7 +117,7 @@ module Probe::Search
     def search_sort
       @sort ||= @sort_fields.first
 
-      field = @sort == :'_score' ? @sort : not_analyzed_field(@sort)
+      field = @sort == :_score ? @sort : not_analyzed_field(@sort)
 
       @index.sort { |s| s.by field, @order || :desc }
     end

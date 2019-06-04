@@ -2,18 +2,7 @@
 
 <div class="row">
   <div class="col-xl-3 order-xl-last">
-    <nav class="nav flex-column align-items-start border">
-      <%= link_to t('static_pages.about'), static_page_path('about'), class: 'nav-link' %>
-      <%= link_to t('static_pages.analyses'), 'https://transparency.sk/sk/tag/sudy', class: 'nav-link' %>
-      <%= link_to t('static_pages.faq'), static_page_path('faq'), class: 'nav-link' %>
-      <%= link_to t('static_pages.feedback'), static_page_path('feedback'), class: 'nav-link' %>
-      <%= link_to t('static_pages.tos'), static_page_path('tos'), class: 'nav-link' %>
-      <%= link_to t('static_pages.privacy'), static_page_path('privacy'), class: 'nav-link' %>
-      <%= link_to t('static_pages.copyright'), static_page_path('copyright'), class: 'nav-link' %>
-      <%= link_to t('static_pages.donate'), donation_url, class: 'nav-link' %>
-      <%= link_to t('static_pages.contact'), static_page_path('contact'), class: 'nav-link' %>
-      <%= link_to t('static_pages.api'), static_page_path('api'), class: 'nav-link' %>
-    </nav>
+    <%= render 'side' %>
   </div>
 
   <div class="col-xl-9 order-xl-first content mt-4 mt-xl-0 mb-0-last">

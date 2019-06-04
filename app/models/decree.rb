@@ -70,11 +70,11 @@ class Decree < ActiveRecord::Base
     analyze :legislation_subarea,                 as: lambda { |d| d.legislation_subarea.value if d.legislation_subarea }
     analyze :legislations,                        as: lambda { |d| d.legislations.map { |l| l.value '%u/%y/%p' } }
 
-    sort_by :date, :created_at, :pages_count
+    sort_by :date, :created_at, :_score, :pages_count
   end
 
   facets do
-    facet :q,                   type: :fulltext, field: :all, highlights: :text
+    facet :q,                   type: :fulltext, field: :all, highlights: :text, visible: false
     facet :judges,              type: :terms
     facet :legislation_area,    type: :terms, size: LegislationArea.count
     facet :legislation_subarea, type: :terms, size: LegislationSubarea.count

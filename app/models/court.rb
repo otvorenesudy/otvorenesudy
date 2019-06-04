@@ -74,7 +74,7 @@ class Court < ActiveRecord::Base
   end
 
   facets do
-    facet :q,              type: :fulltext, field: [:type, :name, :street, :municipality, :judges]
+    facet :q,              type: :fulltext, field: [:type, :name, :street, :municipality, :judges], visible: false
     facet :type,           type: :terms
     facet :municipality,   type: :terms
     facet :hearings_count, type: :range, ranges: distribute(Hearing)

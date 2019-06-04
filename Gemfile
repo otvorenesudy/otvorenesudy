@@ -55,7 +55,6 @@ gem 'devise'
 
 # monitoring
 gem 'rollbar', '~> 2.12.0'
-gem 'garelic'
 gem 'skylight'
 
 # markup

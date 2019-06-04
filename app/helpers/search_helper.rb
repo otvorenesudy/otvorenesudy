@@ -11,6 +11,10 @@ module SearchHelper
     end
   end
 
+  def search_sort_fields(current, fields)
+    yield current.to_s.delete_prefix('_'), (fields - [current]).map { |field| [field.to_s.delete_prefix('_'), field] }
+  end
+
   def search_list_tag(results, options = {}, &block)
     content_tag :ol, class: 'search-result-list', start: options[:offset] + 1 do
       results.each &block

@@ -59,11 +59,11 @@ describe 'SubscriptionRegistrations' do
 
         visit decrees_path
 
-        within '#decree-court' do
+        within '#court' do
           click_link decree.court.name
         end
 
-        within '#decree-date ul' do
+        within '#date ul' do
           find('a:first').click
         end
 
@@ -87,7 +87,7 @@ describe 'SubscriptionRegistrations' do
         visit decrees_path
 
         2.times do |n|
-          within "#decree-date ul li:nth-child(#{n + 1})" do
+          within "#date ul li:nth-child(#{n + 1})" do
             find('a:first').click
           end
         end

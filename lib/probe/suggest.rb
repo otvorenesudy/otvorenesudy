@@ -9,7 +9,7 @@ module Probe
       def suggest(name, term, params, options = {})
         facet = facets[name]
 
-        return unless facet && facet.suggestable?
+        return unless facet&.suggestible?
 
         options[:name]        = index.name
         options[:params]      = params

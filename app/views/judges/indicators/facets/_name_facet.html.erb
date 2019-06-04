@@ -1,11 +1,11 @@
-<div class="facet" data-id="<%= facet.name %>">
+<div id="<%= facet.id %>" class="facet">
   <h6 class="facet-title">
-    <%= t 'judges.indicators_2013.numerical.additional_judges' %>
+    <%= t 'judges.indicators.numerical.additional_judges' %>
   </h6>
 
   <div id="<%= facet.id %>-content" class="facet-content">
     <div class="small text-muted mb-3">
-      <%= t 'judges.indicators_2013.numerical.judges_note.content' %>
+      <%= t 'judges.indicators.numerical.judges_note.content' %>
     </div>
 
     <%= facet_suggest_input_tag facet, path: suggest_path(facet.params.merge id: @judge.id), placeholder: translation[:placeholder] %>

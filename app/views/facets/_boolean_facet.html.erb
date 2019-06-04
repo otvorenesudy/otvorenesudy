@@ -1,5 +1,5 @@
 <div id="<%= facet.id %>" class="facet">
   <div class="facet-item<%= ' active' if facet.value %>">
-    <%= link_to translation[:value], search_path(params.merge facet.name => !facet.value), class: 'facet-link' %>
+    <%= link_to translation[:value], search_path(params.merge facet.name => !facet.value), class: 'facet-link', data: track(:search, "#{'un' if facet.value}select facet", "facet:#{facet.id}") %>
   </div>
 </div>

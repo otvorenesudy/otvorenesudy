@@ -27,7 +27,7 @@ en:
       english: 'English'
       slovak: 'Slovenčina'
 
-      donate: "Support us"
+      support_us: "Support us"
 
       en: 'EN'
       sk: 'SK'
@@ -44,7 +44,7 @@ en:
 
       sign_in: "Sign in"
 
-      donate: "Support us"
+      support_us: "Support us"
 
       disclaimer:
         resources: "Project uses only data provided by public institutions."
