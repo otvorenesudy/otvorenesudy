@@ -10,6 +10,7 @@ ga 'require', 'eventTracker', attributePrefix: 'data-', events: ['click'], hitFi
   [category, action, label] = [model.get('eventCategory'), model.get('eventAction'), model.get('eventLabel')]
   model.set('eventLabel', "#{label} value:\"#{$(element).closest('form').find('[type="search"]').val()}\"", true) if action == 'search'
   model.set('eventLabel', "#{label} value:\"#{$(element).clone().children().remove().end().text()}\"", true) if label.indexOf('facet:') >= 0
+  model.set('eventLabel', "#{label}:#{$(element).parent().index()} value:\"#{$(element).find('img').attr('alt')}\"", true) if label == 'slide'
 )
 
 ga 'require', 'outboundLinkTracker', attributePrefix: 'data-', events: ['click'], hitFilter: (model, element, event) -> (
