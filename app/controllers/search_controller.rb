@@ -2,11 +2,12 @@ class SearchController < ApplicationController
   def index
     set_search_model
     set_collapsed_facets
-    set_subscription
 
     @results = @model.search(params.freeze)
     @results.associations = search_associations
     @facets = @results.facets
+
+    set_subscription
   end
 
   def suggest
