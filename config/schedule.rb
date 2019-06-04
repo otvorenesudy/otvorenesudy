@@ -35,10 +35,6 @@ every :day, at: '04:00am' do
   rake 'crawl:selection_procedures'
 end
 
-every :day, at: '1am' do
-  runner 'Hearing.anonymize_anonymizable_hearings!'
-end
-
 every :day, at: '6am' do
   rake '-s sitemap:refresh'
 end

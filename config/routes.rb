@@ -33,6 +33,10 @@ OpenCourts::Application.routes.draw do
       get :collapse
       get :suggest
     end
+
+    member do
+      get :document
+    end
   end
 
   resources :proceedings, only: [:index, :show] do

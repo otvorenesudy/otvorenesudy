@@ -3,19 +3,23 @@
     <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
       <div class="carousel-inner mb-3">
         <div class="carousel-item active">
-          <%= link_to image_tag(asset_path('slides/boj-proti-korupcii.svg'), alt: 'Staň sa aj ty hlasom odvážnych v boji proti korupcii.'), support_us_url, class: 'd-block w-100', data: track(as: 'slide:boj-proti-korupcii') %>
+          <%= link_to image_tag(asset_path('slides/velke-rybie-prsty.svg'), alt: 'Veľké rybie prsty'), 'https://transparency.darujme.sk/2991/?donation=40&periodicity=periodical', class: 'd-block w-100' %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť.'), support_us_url, class: 'd-block w-100', data: track(as: 'slide:korupcia-zabija-spravodlivost') %>
+          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Sledujte rodinné väzby sudcov'), 'http://sudy.transparency.sk', class: 'd-block w-100' %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/rodinne-vazby-sudcov.svg'), alt: 'Sledujte rodinné väzby sudcov.'), 'http://sudy.transparency.sk', class: 'd-block w-100', data: track(as: 'slide:rodinne-vazby-sudcov') %>
+          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť'), 'https://transparency.darujme.sk/2319/?donation=40&periodicity=periodical', class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
+          <%= link_to image_tag(asset_path('slides/newsletter-transparency.svg'), alt: 'Správy z boja proti korupcii'), 'https://eepurl.com/doWD8X', class: 'd-block w-100' %>
         </div>
       </div>
       <ol class="carousel-indicators">
         <li data-target="#carousel" data-slide-to="0" class="active"></li>
         <li data-target="#carousel" data-slide-to="1"></li>
         <li data-target="#carousel" data-slide-to="2"></li>
+        <li data-target="#carousel" data-slide-to="3"></li>
       </ol>
     </div>
   </div>
