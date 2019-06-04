@@ -69,9 +69,9 @@ shared_examples_for Probe::Search::Composer do
         add_params    = Array.wrap(values) + [result.value]
         remove_params = Array.wrap(values) - [result.value]
 
-        result.params.should        eql(name.to_s => add_params.uniq)
-        result.add_params.should    eql(name.to_s => add_params.uniq)
-        result.remove_params.should eql(name.to_s => remove_params.uniq)
+        result.params[name.to_s].should        eql(add_params.uniq)
+        result.add_params[name.to_s].should    eql(add_params.uniq)
+        result.remove_params[name.to_s].should eql(remove_params.uniq)
       end
 
       mapper = model.mapping[name][:as]
