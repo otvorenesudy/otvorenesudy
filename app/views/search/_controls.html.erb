@@ -3,36 +3,35 @@
   <div class="btn-toolbar" role="toolbar">
     <% if @facets.query_params.any? %>
       <div class="btn-group btn-group-sm border mr-2 mb-3" role="group">
-        <%= link_to t('.reset'), search_path, class: 'btn btn-secondary btn-sm shadow-none border-0' %>
+        <%= link_to t('.reset'), search_path, class: 'btn btn-secondary btn-sm shadow-none border-0', data: track(:search, 'reset', 'text:reset') %>
       </div>
     <% end %>
-    <div class="btn-group btn-group-sm border mb-3" role="group">
-      <div class="btn-group btn-group-sm" role="group">
-        <button type="button" class="btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= t(".sort.#{@model.to_s.underscore}.#{(params[:sort] || @sort_fields.first).to_s.gsub(/\A_/, '')}") %>
-        </button>
-        <div class="dropdown-menu dropdown-menu-sm">
-          <% (@sort_fields - [params[:sort].try(:to_sym) || @sort_fields.first]).each do |value| %>
-            <%= link_to t(".sort.#{@model.to_s.underscore}.#{value.to_s.gsub(/\A_/, '')}"), search_path(params.merge sort: value), class: 'dropdown-item' %>
-          <% end %>
+    <% search_sort_fields @facets.params[:sort], @results.sort_fields do |sort, others| %>
+      <div class="btn-group btn-group-sm border mb-3" role="group">
+        <div class="btn-group btn-group-sm" role="group">
+          <%= button_tag t(".sort.#{@model.to_s.underscore}.#{sort}"), class: 'btn btn-secondary dropdown-toggle shadow-none border-left-0 border-right border-top-0 border-bottom-0', data: { toggle: 'dropdown' }.merge(track :search, 'toggle sort', "text:#{sort.dasherize}"), name: nil, type: 'button' %>
+          <div class="dropdown-menu dropdown-menu-sm">
+            <% others.each do |other, value| %>
+              <%= link_to t(".sort.#{@model.to_s.underscore}.#{other}"), search_path(params.merge(sort: value, order: 'desc')), class: 'dropdown-item', data: track(:search, 'select sort', "sort:#{other.dasherize} text:#{other.dasherize}") %>
+            <% end %>
+          </div>
         </div>
-      </div>
-      <%= link_to icon_tag('arrow-up', size: 12), search_path(params.merge order: :asc), class: "btn btn-secondary#{' active' if @facets.params[:order] == :asc} d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" %>
-      <%= link_to icon_tag('arrow-down', size: 12), search_path(params.merge order: :desc), class: "btn btn-secondary#{' active' if @facets.params[:order] == :desc} d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0" %>
+        <%= link_to icon_tag('arrow-up', size: 12), search_path(params.merge(order: 'asc')), class: 'btn btn-secondary d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0', data: track(:search, 'select sort', "sort:#{sort.dasherize} icon:up") if @facets.params[:order] == :desc %>
+        <%= link_to icon_tag('arrow-down', size: 12), search_path(params.merge(order: 'desc')), class: 'btn btn-secondary d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0', data: track(:search, 'select sort', "sort:#{sort.dasherize} icon:down") if @facets.params[:order] == :asc %>
+      <% end %>
     </div>
   </div>
 </div>
 
 <%= form_tag search_path(l: nil), method: :get, class: 'search-query-form' do %>
   <div class="input-group">
-    <%= search_field_tag @facets[:q].name, params[@facets[:q].name], class: 'form-control search-query-input', placeholder: t(@facets[:q].key)[:placeholder] %>
+    <%= search_field_tag @facets[:q].name, params[@facets[:q].name], id: nil, class: 'form-control search-query-input', placeholder: t(@facets[:q].key)[:placeholder] %>
     <div class="input-group-append">
-      <%= link_to icon_tag('times'), search_path(params.except(@facets[:q].name)), class: 'btn search-query-reset' if @facets[:q].active? %>
-      <button type="submit" class="btn search-query-submit"><%= icon_tag('search') %></button>
+      <%= link_to icon_tag('times'), search_path(params.except(@facets[:q].name)), class: 'btn search-query-reset', data: track(:search, 'reset', 'icon:reset') if @facets[:q].active? %>
+      <%= button_tag icon_tag('search'), class: 'btn search-query-submit', data: track(:search, 'search'), name: nil, type: 'submit' %>
     </div>
   </div>
-  <% search_form_params @facets.params.except :q do |name, value| %>
-    <%= hidden_field_tag name, value %>
+  <% search_form_params @facets.params.except(:q).reverse_merge(l: I18n.locale) do |name, value| %>
+    <%= hidden_field_tag name, value, id: nil %>
   <% end %>
-  <%= hidden_field_tag :l, I18n.locale %>
 <% end %>

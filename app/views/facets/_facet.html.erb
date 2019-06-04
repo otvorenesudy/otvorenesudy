@@ -1,6 +1,6 @@
 <div id="<%= facet.id %>" class="facet">
   <% if facet.collapsible? %>
-    <%= content_tag :h6, translation[:title], class: "facet-title#{' collapsed' if @collapsed_facets.include?(facet.id)}" %>
+    <%= content_tag :h6, translation[:title], class: "facet-title#{' collapsed' if @collapsed_facets.include?(facet.id)}", data: { toggle: 'collapse', target: "##{facet.id}-content" }.merge(track :search, 'toggle facet', "text:#{facet.id}") %>
   <% else %>
     <h6 class="facet-title"><%= translation[:title] %></h6>
   <% end %>
