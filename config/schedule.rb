@@ -42,3 +42,7 @@ end
 every :day, at: '6am' do
   rake 'Rails.cache.clear'
 end
+
+every :day, at: '6am' do
+  runner 'Decree.where(pdf_uri: nil).find_each(&:destroy)'
+end
