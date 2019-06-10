@@ -145,17 +145,11 @@ class Hearing < ActiveRecord::Base
       "#{a}. #{b}."
     end
 
-    skip = lambda do |name|
-      ActiveSupport::Inflector.transliterate(name).downcase.match(/socialna poistovna/)
-    end
-
     anonymize = lambda do |association|
       association.find_each do |record|
-        next if skip.call(record.name)
-
         loop do
           name = anonymizer.call(record.name)
-          record.name = name
+          record.name = record.name_unprocessed = name
 
           break unless association.where('id != ?', record.id).where(name: name).any?
         end
