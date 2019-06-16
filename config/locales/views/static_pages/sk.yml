@@ -3,7 +3,7 @@ sk:
     home:
       feature:
         headline: "Viac transparentnosti"
-        footline: "do slovenského súdnictva"
+        footline: "do slovenského súdnictva"
         project: "Otvorené Súdy"
         list: "%{project} prinášajú:"
         items:
