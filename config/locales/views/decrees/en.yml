@@ -1,5 +1,8 @@
 en:
   decrees:
+    data_notice:
+      Due to technical difficulties of Department of Justice we are temporarily unable to update the decree dataset of otvorenesudy.sk only regular basis. As a result our data might be out of date. We are sorry for the inconvenience. Thank you for understanding.
+
     common: &common
       decree: "Judgement"
 
