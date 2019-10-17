@@ -1,4 +1,6 @@
 class DecreesController < SearchController
+  before_filter :set_data_notice, only: [:index, :show]
+
   def show
     @decree = Decree.find(params[:id])
 
@@ -28,5 +30,9 @@ class DecreesController < SearchController
     # NOTE do not eager load scoped associations after original associations,
     # e.g. :exact_judges has to go before :judges, otherwise scoped association will not be loaded
     [:form, :legislation_area, :legislation_subarea, :natures, :court, :exact_judges, :inexact_judgements, :judgements, :judges]
+  end
+
+  def set_data_notice
+    flash.now[:warning] << t('decrees.data_notice')
   end
 end
