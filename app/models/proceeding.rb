@@ -77,7 +77,7 @@ class Proceeding < ActiveRecord::Base
 
   def judges
     judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
-    judges.define_singleton_method(:order) { |*attributes| Array.wrap(attributes).each { |attribute| self.sort_by { |e| value = e.send(attribute).nil? ? value.to_s : value }  }; self }
+    judges.define_singleton_method(:order) { |*attributes| Array.wrap(attributes).each { |attribute| self.sort_by { |e| (value = e.send(attribute)).nil? ? value.to_s : value }  }; self }
     judges.define_singleton_method(:pluck) { |attribute| self.map { |judge| judge.read_attribute(attribute.to_s.sub(/\Ajudge_/, '')) }}
     judges
   end

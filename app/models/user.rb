@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
          :rememberable,
          :validatable
 
-  has_many :subscriptions
-
+  has_many :subscriptions, dependent: :destroy
   has_many :queries, through: :subscriptions
 
   validates :email, presence: true, uniqueness: true

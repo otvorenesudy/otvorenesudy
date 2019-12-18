@@ -2,10 +2,14 @@ class SelectionProceduresController < SearchController
   def show
     @procedure = SelectionProcedure.find(params[:id])
 
-    sorter = -> (c) do
-      r = c.respond_to?(:rank) ? c.rank : nil
-      n = c.name.match(/\s(([^\s]|\,\s)*)\z/)[1]
-      [r, ActiveSupport::Inflector.transliterate(n).downcase]
+    sorter = lambda do |c|
+      rank = c.respond_to?(:rank) ? c.rank : nil
+      name = c.name.match(/\s(([^\s]|\,\s)*)\z/).try(:[], 1) || c.name
+      transliterated = ActiveSupport::Inflector.transliterate(n).downcase
+
+      transliterated unless rank
+
+      [rank, ActiveSupport::Inflector.transliterate(name).downcase]
     end
 
     @candidates    = @procedure.candidates.order(:rank, :name).sort_by(&sorter)
