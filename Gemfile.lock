@@ -391,6 +391,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    utf8-cleaner (0.2.5)
+      activesupport
     warden (1.2.3)
       rack (>= 1.0)
     webrobots (0.1.1)
@@ -468,6 +470,7 @@ DEPENDENCIES
   tire
   uglifier
   unicorn
+  utf8-cleaner
   whenever (~> 0.9.7)
 
 BUNDLED WITH

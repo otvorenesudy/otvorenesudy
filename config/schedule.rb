@@ -31,9 +31,10 @@ every :month, at: '07:00am' do
   rake 'subscriptions:run[monthly]'
 end
 
-every :day, at: '04:00am' do
-  rake 'crawl:selection_procedures'
-end
+# TODO: turn off for now and refactor in API repo
+#every :day, at: '04:00am' do
+#  rake 'crawl:selection_procedures'
+#end
 
 every :day, at: '6am' do
   rake '-s sitemap:refresh'

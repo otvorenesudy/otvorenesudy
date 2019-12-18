@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20190418202027) do
+ActiveRecord::Schema.define(:version => 20191218104004) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -130,9 +130,11 @@ ActiveRecord::Schema.define(:version => 20190418202027) do
   add_index "courts", ["acronym"], :name => "index_courts_on_acronym"
   add_index "courts", ["court_jurisdiction_id"], :name => "index_courts_on_court_jurisdiction_id"
   add_index "courts", ["court_type_id"], :name => "index_courts_on_court_type_id"
+  add_index "courts", ["created_at"], :name => "index_courts_on_created_at"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
   add_index "courts", ["source_id"], :name => "index_courts_on_source_id"
+  add_index "courts", ["updated_at"], :name => "index_courts_on_updated_at"
   add_index "courts", ["uri"], :name => "index_courts_on_uri", :unique => true
 
   create_table "decree_forms", :force => true do |t|
@@ -193,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20190418202027) do
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
+  add_index "decrees", ["created_at"], :name => "index_decrees_on_created_at"
   add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
   add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
@@ -285,9 +288,11 @@ ActiveRecord::Schema.define(:version => 20190418202027) do
   add_index "hearings", ["anonymized_at"], :name => "index_hearings_on_anonymized_at"
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
+  add_index "hearings", ["created_at"], :name => "index_hearings_on_created_at"
   add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["source_id"], :name => "index_hearings_on_source_id"
+  add_index "hearings", ["updated_at"], :name => "index_hearings_on_updated_at"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
 
   create_table "judge_designation_types", :force => true do |t|
@@ -506,11 +511,13 @@ ActiveRecord::Schema.define(:version => 20190418202027) do
     t.datetime "updated_at",                       :null => false
   end
 
+  add_index "judges", ["created_at"], :name => "index_judges_on_created_at"
   add_index "judges", ["first", "middle", "last"], :name => "index_judges_on_first_and_middle_and_last"
   add_index "judges", ["last", "middle", "first"], :name => "index_judges_on_last_and_middle_and_first"
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
   add_index "judges", ["source_id"], :name => "index_judges_on_source_id"
+  add_index "judges", ["updated_at"], :name => "index_judges_on_updated_at"
   add_index "judges", ["uri"], :name => "index_judges_on_uri"
 
   create_table "judgings", :force => true do |t|
@@ -629,7 +636,9 @@ ActiveRecord::Schema.define(:version => 20190418202027) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "proceedings", ["created_at"], :name => "index_proceedings_on_created_at"
   add_index "proceedings", ["file_number"], :name => "index_proceedings_on_file_number", :unique => true
+  add_index "proceedings", ["updated_at"], :name => "index_proceedings_on_updated_at"
 
   create_table "proposers", :force => true do |t|
     t.integer  "hearing_id",       :null => false
@@ -716,10 +725,12 @@ ActiveRecord::Schema.define(:version => 20190418202027) do
 
   add_index "selection_procedures", ["closed_at"], :name => "index_selection_procedures_on_closed_at"
   add_index "selection_procedures", ["court_id"], :name => "index_selection_procedures_on_court_id"
+  add_index "selection_procedures", ["created_at"], :name => "index_selection_procedures_on_created_at"
   add_index "selection_procedures", ["date"], :name => "index_selection_procedures_on_date"
   add_index "selection_procedures", ["organization_name"], :name => "index_selection_procedures_on_organization_name"
   add_index "selection_procedures", ["organization_name_unprocessed"], :name => "index_selection_procedures_on_organization_name_unprocessed"
   add_index "selection_procedures", ["source_id"], :name => "index_selection_procedures_on_source_id"
+  add_index "selection_procedures", ["updated_at"], :name => "index_selection_procedures_on_updated_at"
   add_index "selection_procedures", ["uri"], :name => "index_selection_procedures_on_uri"
 
   create_table "sources", :force => true do |t|

@@ -1,7 +1,7 @@
 class ErrorsController < ApplicationController
   def show
     @exception = env['action_dispatch.exception']
-    @message   = @exception.message
+    @message   = @exception.try(:message)
 
     class_name        = @exception.class.name
     rescue_response   = ActionDispatch::ExceptionWrapper.rescue_responses[class_name]

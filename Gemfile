@@ -79,6 +79,7 @@ gem 'dalli', '~> 2.7.6'
 
 # others
 gem 'test-unit'
+gem 'utf8-cleaner'
 
 group :assets do
   gem 'sass'
