@@ -5,7 +5,7 @@ class SelectionProceduresController < SearchController
     sorter = lambda do |c|
       rank = c.respond_to?(:rank) ? c.rank : nil
       name = c.name.match(/\s(([^\s]|\,\s)*)\z/).try(:[], 1) || c.name
-      transliterated = ActiveSupport::Inflector.transliterate(n).downcase
+      transliterated = ActiveSupport::Inflector.transliterate(name).downcase
 
       transliterated unless rank
 
