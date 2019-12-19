@@ -5,9 +5,11 @@ bundler_args: --without development
 env:
   - OPENCOURTS_DATABASE_USER=postgres
 
+jdk:
+   - openjdk8
+
 before_install:
   - gem install bundler
-  - jdk_switcher use oraclejdk8
 
   # Elastic
   - curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.tar.gz
