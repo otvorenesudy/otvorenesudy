@@ -8,7 +8,7 @@
   <% end %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.proceeding' %>
-    <% if proceeding.duration_events.any? %>
+    <% if @proceeding.duration_events.any? %>
       <% if @proceeding.single_hearing? %>
         <%= t @proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
         <%= proceeding_date @proceeding.duration_events.first.date %>
