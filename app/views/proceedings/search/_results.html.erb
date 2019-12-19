@@ -8,9 +8,9 @@
           <%= proceeding_subject proceeding, limit: 57 %>
         <% end %>
       <% end %>
-      <% if proceeding.duration_events.any? %>
-        <small>
-          <%= t '.proceeding' %>
+      <small>
+        <%= t '.proceeding' %>
+        <% if proceeding.duration_events.any? %>
           <% if proceeding.single_hearing? %>
             <%= t proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
             <%= proceeding_date proceeding.duration_events.first.date %>
@@ -28,8 +28,8 @@
               <% end %>
             <% end %>
           <% end %>
-        </small>
-      <% end %>
+        <% end %>
+      </small>
     </h4>
 
     <div class="search-result-content">

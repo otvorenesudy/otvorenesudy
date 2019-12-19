@@ -8,7 +8,7 @@ class ErrorsController < ApplicationController
     exception_wrapper = ActionDispatch::ExceptionWrapper.new(env, @exception)
 
     @status = exception_wrapper.status_code
-    @trace  = exception_wrapper.full_trace
+    @trace  = exception_wrapper.full_trace if @exception
 
     I18n.with_options scope: [:exceptions, rescue_response] do |i18n|
       key = class_name.underscore

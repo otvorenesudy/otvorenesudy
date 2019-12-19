@@ -8,20 +8,22 @@
   <% end %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">
     <%= t '.proceeding' %>
-    <% if @proceeding.single_hearing? %>
-      <%= t @proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
-      <%= proceeding_date @proceeding.duration_events.first.date %>
-    <% elsif @proceeding.single_decree? %>
-      <%= t '.single_decree.past' %> <%= proceeding_date @proceeding.duration_events.first.date %>
-    <% else %>
-      <% unless @proceeding.probably_closed? %>
-        <%= t '.probably_open.from' %> <%= proceeding_date @proceeding.duration_events.first.date %>
+    <% if proceeding.duration_events.any? %>
+      <% if @proceeding.single_hearing? %>
+        <%= t @proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
+        <%= proceeding_date @proceeding.duration_events.first.date %>
+      <% elsif @proceeding.single_decree? %>
+        <%= t '.single_decree.past' %> <%= proceeding_date @proceeding.duration_events.first.date %>
       <% else %>
-        <% if @proceeding.duration_events.first.date.to_date == @proceeding.duration_events.last.date.to_date %>
-          <%= t '.probably_closed.point' %> <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
+        <% unless @proceeding.probably_closed? %>
+          <%= t '.probably_open.from' %> <%= proceeding_date @proceeding.duration_events.first.date %>
         <% else %>
-          <%= t '.probably_closed.from' %> <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
-          <%= t '.probably_closed.until' %> <%= proceeding_date @proceeding.duration_events.last.date, format: :normal %>
+          <% if @proceeding.duration_events.first.date.to_date == @proceeding.duration_events.last.date.to_date %>
+            <%= t '.probably_closed.point' %> <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
+          <% else %>
+            <%= t '.probably_closed.from' %> <%= proceeding_date @proceeding.duration_events.first.date, format: :normal %>
+            <%= t '.probably_closed.until' %> <%= proceeding_date @proceeding.duration_events.last.date, format: :normal %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
