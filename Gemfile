@@ -18,7 +18,7 @@ gem 'roadie'
 # scripts
 gem 'coffee-script'
 gem 'execjs'
-gem 'jquery-rails', '~> 2.2.1'
+gem 'jquery-rails', '~> 3.1.5'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'jquery-tablesorter'
 gem 'chart-js-rails'
