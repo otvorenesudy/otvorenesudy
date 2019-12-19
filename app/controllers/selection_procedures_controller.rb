@@ -7,7 +7,7 @@ class SelectionProceduresController < SearchController
       name = c.name.match(/\s(([^\s]|\,\s)*)\z/).try(:[], 1) || c.name
       transliterated = ActiveSupport::Inflector.transliterate(name).downcase
 
-      transliterated unless rank
+      next [transliterated] unless rank
 
       [rank, ActiveSupport::Inflector.transliterate(name).downcase]
     end
