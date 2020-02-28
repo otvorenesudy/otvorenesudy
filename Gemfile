@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.22.5'
-gem 'rake', '< 11'
+gem 'rake', '< 14'
 
 # database
 gem 'pg'
