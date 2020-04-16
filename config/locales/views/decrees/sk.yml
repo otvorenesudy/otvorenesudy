@@ -1,8 +1,5 @@
 sk:
   decrees:
-    data_notice:
-      V súčasnej dobe dochádza z technických dôvodov na strane Ministerstva spravodlivosti SR iba k nepravidelným aktualizáciám datasetov na stránke otvorenesudy.sk. Je možné, že na stránke preto dočasne chýbajú najaktuálnejšie informácie. Ospravedlňujeme sa za prípadne vzniknuté komplikácie. Ďakujeme za pochopenie.
-
     common: &common
       decree: "Rozhodnutie"
 
