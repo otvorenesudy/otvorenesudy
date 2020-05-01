@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20191218104004) do
+ActiveRecord::Schema.define(:version => 20200501214856) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(:version => 20191218104004) do
     t.text     "note"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "status"
   end
 
   add_index "employments", ["active"], :name => "index_employments_on_active"
