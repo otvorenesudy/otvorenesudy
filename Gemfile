@@ -96,7 +96,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
-  gem 'bump', github: 'pavolzbell/bump'
+  # gem 'bump', github: 'pavolzbell/bump'
 end
 
 group :development, :test do
