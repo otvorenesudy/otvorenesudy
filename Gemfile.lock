@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/pavolzbell/bump.git
-  revision: 5a607237540812c4fcd75c72082b11f6c9880e42
+  revision: 136e59f21d8effccd4c259e7b22066f27a904942
   specs:
-    bump (0.1.1)
+    bump (0.3.0)
 
 GEM
   remote: https://rubygems.org/
