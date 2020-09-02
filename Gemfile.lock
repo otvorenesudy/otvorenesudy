@@ -184,7 +184,7 @@ GEM
     jquery-ui-rails (3.0.1)
       jquery-rails
       railties (>= 3.1.0)
-    json (1.8.2)
+    json (1.8.6)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -438,7 +438,7 @@ DEPENDENCIES
   jquery-rails (~> 3.1.5)
   jquery-tablesorter
   jquery-ui-rails (~> 3.0.1)
-  json (= 1.8.2)
+  json (= 1.8.6)
   kaminari (~> 0.14.1)
   kaminari-bootstrap (~> 3.0.1)
   markdown-rails
