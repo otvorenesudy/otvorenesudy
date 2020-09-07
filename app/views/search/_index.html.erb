@@ -8,6 +8,13 @@
 <% # for >= LG - facets float left and take only needed space, controls + results float right and fill available space %>
 <% # for < LG - full width in order: controls, facets, results %>
 
+
+<div class="alerts">
+  <div class="alert alert-warning">
+    Ospravedlňujeme sa, ale počas nasledujúcich pár dní bude v našom systéme prebiehať upgrade dát na nový formát. Ako dôsledok môžu byť niektoré dáta vo výsledkoch chýbať.
+  </div>
+</div>
+
 <div id="search-<%= @model.to_s.underscore.dasherize.pluralize %>" class="clearfix">
   <div class="float-lg-right col-lg-9 mb-3 mb-lg-4 px-0">
     <%= render 'search/controls' %>
