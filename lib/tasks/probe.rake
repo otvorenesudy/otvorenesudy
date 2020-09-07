@@ -14,9 +14,7 @@ namespace :probe do
     indices_to_models(INDICES).each do |index, model|
       puts "Index import: #{index}"
 
-      # TODO this job is somehow missing! fallback to old Probe::Bulk here
-      #ImportRepositoryJob.perform_async(model.to_s)
-      Probe::Bulk.import model
+      Probe::Bulk.async_import(model)
     end
   end
 

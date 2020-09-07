@@ -12,7 +12,14 @@ module Probe
     end
 
     def self.async_import(model)
-      AsyncImport.perform_async(model.to_s)
+      model.delete_index
+      model.create_index
+
+      model.order(id: :asc).find_in_batches(batch_size: 5000) do |batch|
+        AsyncImport.perform_async(model.to_s, batch[0].id, batch[-1].id)
+      end
+
+      model.index.refresh
     end
 
     def self.update(model)
@@ -29,8 +36,8 @@ module Probe
 
     sidekiq_options queue: :probe
 
-    def perform(model)
-      Probe::Bulk.import(model.constantize)
+    def perform(model, from, to)
+      model.index.import(model.where('id >= ? AND id <= to', from, to), method: :bulk)
     end
   end
 
