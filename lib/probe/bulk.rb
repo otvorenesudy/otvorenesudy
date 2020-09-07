@@ -37,7 +37,8 @@ module Probe
     sidekiq_options queue: :probe
 
     def perform(model, from, to)
-      model.index.import(model.where('id >= ? AND id <= to', from, to), method: :bulk)
+      model = model.constantize
+      model.index.import(model.where('id >= ? AND id <= ?', from, to), method: :bulk)
     end
   end
 
