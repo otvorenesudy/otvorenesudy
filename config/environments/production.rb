@@ -71,5 +71,5 @@ OpenCourts::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Turn off AR logging
-  config.active_record.logger = Logger.new(STDOUT)
+  config.active_record.logger = nil
 end
