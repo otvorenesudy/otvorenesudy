@@ -7,10 +7,6 @@ Rack::Attack.blacklist('Pentesters') do |req|
   end
 end
 
-Rack::Attack.throttle('Google Bot', limit: 1, period: 30) do |req|
-  req.user_agent =~ /(googlebot)/i
-end
-
-Rack::Attack.throttle('Other Bots', limit: 1, period: 60) do |req|
-  req.user_agent =~ /(bingbot|semrushbot|yandexbot|petalbot|seokicks|dotbot)/i
+Rack::Attack.throttle('Bots', limit: 1, period: 60) do |req|
+  req.user_agent =~ /(googlebot|bingbot|semrushbot|yandexbot|petalbot|seokicks|dotbot)/i
 end
