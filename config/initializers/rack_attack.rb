@@ -12,5 +12,5 @@ Rack::Attack.throttle('Google Bot', limit: 1, period: 30) do |req|
 end
 
 Rack::Attack.throttle('Other Bots', limit: 1, period: 60) do |req|
-  req.user_agent =~ /(bingbot|semrushbot|yandexbot|petalbot)/i
+  req.user_agent =~ /(bingbot|semrushbot|yandexbot|petalbot|seokicks|dotbot)/i
 end
