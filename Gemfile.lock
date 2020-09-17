@@ -243,6 +243,8 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     rack (1.4.7)
+    rack-attack (4.4.1)
+      rack
     rack-cache (1.10.0)
       rack (>= 0.4)
     rack-canonical-host (0.0.8)
@@ -448,6 +450,7 @@ DEPENDENCIES
   pg
   pg_search
   pry
+  rack-attack (~> 4.4.1)
   rack-canonical-host
   rails (= 3.2.22.5)
   rails-i18n
