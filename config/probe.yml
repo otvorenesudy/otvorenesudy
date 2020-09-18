@@ -43,8 +43,6 @@ defaults: &defaults
     suggest:
       name: suggest_matcher
       script: '
-        import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
-
         value = term;
         query = query;
 
