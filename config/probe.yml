@@ -43,8 +43,19 @@ defaults: &defaults
     suggest:
       name: suggest_matcher
       script: '
-        value = term;
-        query = query;
+        import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
+
+        analyze = { string ->
+          size   = string.length();
+          result = new char[size];
+
+          ASCIIFoldingFilter.foldToASCII(string.toCharArray(), 0, result, 0, size);
+
+          new String(result).toLowerCase();
+        }
+
+        value = analyze(term);
+        query = analyze(query);
 
         if (!value.contains(query)) {
             return null;
