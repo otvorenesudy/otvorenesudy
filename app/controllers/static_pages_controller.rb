@@ -2,11 +2,15 @@ class StaticPagesController < ApplicationController
   def show
     @slug = params[:slug]
 
+    unless @slug.in?(%[about contact copyright faq feedback privacy tos api])
+      return head 404
+    end
+
     name = @slug.gsub(/-/, '_')
 
     # TODO rm when we host api static page under this project
     if @slug == 'api'
-      redirect_to "https://api.otvorenesudy.sk?l#{I18n.locale}"
+      redirect_to "https://api.otvorenesudy.sk?l=#{I18n.locale}"
       return
     end
 
