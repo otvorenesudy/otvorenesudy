@@ -44,9 +44,9 @@ every :day, at: '6am' do
 end
 
 every :day, at: '6am' do
-  rake 'Rails.cache.clear'
+  runner 'ExceptionHandler.run { Rails.cache.clear }'
 end
 
 every :day, at: '6am' do
-  runner 'Decree.where(pdf_uri: nil).find_each(&:destroy)'
+  runner 'ExceptionHandler.run { Decree.where(pdf_uri: nil).find_each(&:destroy) }'
 end
