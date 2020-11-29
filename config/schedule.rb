@@ -20,7 +20,6 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, 'log/cron.log'
-set :job_template, nil
 
 every :day, at: '07:00am' do
   rake 'subscriptions:run[daily]'
