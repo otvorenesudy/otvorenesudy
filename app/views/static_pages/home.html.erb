@@ -3,22 +3,22 @@
     <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
       <div class="carousel-inner mb-3">
         <div class="carousel-item active">
+          <%= link_to image_tag(asset_path('slides/prokuratura.svg'), alt: 'Otvorená Prokuratúra', style: 'max-width: 100%; max-height: 100%'), 'https://prokuratura.otvorenesudy.sk', class: 'd-block w-100' %>
+        </div>
+        <div class="carousel-item">
           <%= link_to image_tag(asset_path('slides/rytieri.png'), alt: 'Rytieri a bojovníčky Transparency', style: 'max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/rytieri', class: 'd-block w-100', target: :_blank %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/vazby-zacali-klesat.png'), alt: 'Počet rodín medzi sudcami začal konečne klesať', style: 'max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/pocet-rodin-medzi-sudcami-zacal-konecne-klesat/', class: 'd-block w-100' %>
+          <%= link_to image_tag(asset_path('slides/vazby-zacali-klesat.png'), alt: 'Počet rodín medzi sudcami začal konečne klesať', style: 'max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/pocet-rodin-medzi-sudcami-zacal-konecne-klesat/', class: 'd-block w-100', target: :_blank %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/moc-korupcie-2.png'), alt: 'Sprístupnite ju ostatným – podporte distribúciu knihy', style: 'max-width: 100%; max-height: 100%'), 'https://www.startlab.sk/MocKorupcie', class: 'd-block w-100'  %>
+          <%= link_to image_tag(asset_path('slides/justicia-a-infozakon.svg'), alt: 'Justícia a infozákon'), 'https://transparency.sk/sk/akademia/temy/justicia', class: 'd-block w-100', target: :_blank %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/justicia-a-infozakon.svg'), alt: 'Justícia a infozákon'), 'https://transparency.sk/sk/akademia/temy/justicia', class: 'd-block w-100' %>
+          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť'), 'https://transparency.darujme.sk/2319/?donation=40&periodicity=periodical', class: 'd-block w-100', target: :_blank %>
         </div>
         <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/korupcia-zabija-spravodlivost.svg'), alt: 'Korupcia zabíja spravodlivosť'), 'https://transparency.darujme.sk/2319/?donation=40&periodicity=periodical', class: 'd-block w-100' %>
-        </div>
-        <div class="carousel-item">
-          <%= link_to image_tag(asset_path('slides/spravy-z-boja-proti-korupcii.svg'), alt: 'Správy z boja proti korupcii'), 'https://eepurl.com/doWD8X', class: 'd-block w-100' %>
+          <%= link_to image_tag(asset_path('slides/spravy-z-boja-proti-korupcii.svg'), alt: 'Správy z boja proti korupcii'), 'https://eepurl.com/doWD8X', class: 'd-block w-100', target: :_blank %>
         </div>
       </div>
       <ol class="carousel-indicators">
