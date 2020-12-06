@@ -86,9 +86,9 @@ OpenCourts::Application.routes.draw do
   resources :subscriptions, only: [:create, :update, :destroy]
 
   match '/search/collapse', to: 'search#collapse'
-
   match '/404', to: 'errors#show', as: :not_found_error
   match '/500', to: 'errors#show', as: :internal_server_error
+  match '/health', to: 'static_pages#health'
 
   mount Sidekiq::Web, at: '/sidekiq'
 
