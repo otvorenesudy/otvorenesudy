@@ -1,4 +1,14 @@
 class StaticPagesController < ApplicationController
+  def health
+    models = [Court, Judge, Hearing, Decree]
+
+    models.each do |model|
+      return render status: 422, json: { errors: ["#{model} count does not match"] } if model.count != model.total
+    end
+
+    head 204
+  end
+
   def show
     @slug = params[:slug]
 
