@@ -59,6 +59,18 @@ module Probe
         index.refresh
       end
 
+      def recheck_index
+        find_each do |record|
+          results = Tire.search(index_name) do |search|
+            search.query do |query|
+              query.string "id:#{record.id}"
+            end
+          end.results
+
+          record.update_index if results.empty?
+        end
+      end
+
       def reload_index
         delete_index
         create_index
