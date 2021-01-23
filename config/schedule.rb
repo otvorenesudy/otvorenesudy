@@ -51,9 +51,9 @@ every :day, at: '6am' do
 end
 
 every :day, at: '1am' do
-  runner 'Hearing.update_index'
+  runner 'ExceptionHandler.run { Hearing.recheck_index }'
 end
 
 every :day, at: '1am' do
-  runner 'Decree.update_index'
+  runner 'ExceptionHandler.run { Decree.recheck_index }'
 end
