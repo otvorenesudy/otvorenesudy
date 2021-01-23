@@ -49,3 +49,11 @@ end
 every :day, at: '6am' do
   runner 'ExceptionHandler.run { Decree.where(pdf_uri: nil).find_each(&:destroy) }'
 end
+
+every :day, at: '1am' do
+  runner 'Hearing.update_index'
+end
+
+every :day, at: '1am' do
+  runner 'Decree.update_index'
+end
