@@ -4,7 +4,7 @@ defaults: &defaults
   per_page: 20
 
   index:
-    number_of_shards: 5
+    number_of_shards: 10
     number_of_replicas: 1
 
     analysis:
