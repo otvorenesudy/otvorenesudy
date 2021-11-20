@@ -32,7 +32,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'rails-i18n'
 
 # crawlers
-gem 'curb', '>= 0.8.3'
+gem 'curb', '>= 0.9.11'
 gem 'mechanize', '~> 2.5.1'
 gem 'docsplit', '~> 0.6.4'
 gem 'json', '1.8.6'
