@@ -4,7 +4,7 @@ lock '3.4.1'
 set :user, 'deploy'
 
 # Repository
-set :application, 'opencourts'
+set :application, 'otvorenesudy'
 set :scm,         :git
 set :repo_url,    'git@github.com:otvorenesudy/otvorenesudy.git'
 set :git_strategy, Capistrano::Git::SubmoduleStrategy
