@@ -37,9 +37,9 @@ The project Open Courts was created thanks to the support of the Secretariat of
 in Berlin and the project Reštart Slovensko
 organized by the<%= link_to 'Centre for Philantropy', 'http://cpf.sk' %>.
 
-For the hosting we are grateful to 
-<%= link_to 'Petit Press', 'https://petitpress.sk' %>,
-administrator of the portal <%= link_to 'SME.sk', 'http://sme.sk' %>.
+For the hosting of the project we are grateful to <%= link_to 'Websupport.sk', 'https://websupport.sk' %>.
+We are also grateful to <%= link_to 'Petit Press', 'https://petitpress.sk' %>, the administrator of the portal <%= link_to 'SME.sk', 'http://sme.sk' %>
+as they hosted our project until December 2021.
 
 #### How can I contribute?
 

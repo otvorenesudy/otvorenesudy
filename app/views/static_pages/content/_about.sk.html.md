@@ -33,9 +33,9 @@ organizovaného <%= link_to 'Centrom pre filantropiu', 'http://cpf.sk' %>.
 Aktualizácie portálu boli financované Fondom pre transparentné Slovensko
 <%= link_to 'Nadácie Pontis', 'http://nadaciapontis.sk' %>.
 
-Za hosting projektu ďakujeme spoločnosti
-<%= link_to 'Petit Press', 'https://petitpress.sk' %>,
-prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %>.
+Za hosting projektu ďakujeme spoločnosti <%= link_to 'Websupport', 'https://websupport.sk' %>.
+Spoločnosti <%= link_to 'Petit Press', 'https://petitpress.sk' %>,
+prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %> ďakujeme za prevádzku nášho hostingu do decembra roku 2021.
 
 Za pomoc veľmi pekne ďakujeme aj
 <%= link_to 'Pavlovi Nechalovi', 'http://advocate.sk/' %>,

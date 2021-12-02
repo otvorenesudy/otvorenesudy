@@ -52,6 +52,7 @@ gem 'sidekiq-limit_fetch'
 
 # authentication
 gem 'devise'
+gem 'bcrypt', '~> 3.1.15'
 
 # monitoring
 gem 'rollbar', '~> 2.12.0'
@@ -90,6 +91,7 @@ group :assets do
 end
 
 group :development do
+  gem 'bump', git: 'https://github.com/pavolzbell/bump.git'
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
@@ -97,7 +99,6 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'capistrano-git-submodule-strategy', '~> 0.1'
-  gem 'bump', git: 'https://github.com/pavolzbell/bump.git'
 end
 
 group :development, :test do
