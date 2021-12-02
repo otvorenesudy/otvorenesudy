@@ -50,6 +50,10 @@ cp config/configuration.{yml.example,yml}
 cp config/database.{yml.example,yml}
 ```
 
+## Images Generation
+
+Use Ruby 2.6.6 locally and install `gem install svgeez` and `npm install -g svgo@1.3.2`. After that, run `app/assets/images/compile`.
+
 ## Data
 
 *Following commands across this section should be executed subsequently in general*

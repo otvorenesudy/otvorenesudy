@@ -44,9 +44,9 @@ Projekt Otvorené Súdy vznikol vďaka podpore sekretariátu
 v Berlíne a projektu Reštart Slovensko
 organizovaného <%= link_to 'Centrom pre filantropiu', 'http://cpf.sk' %>.
 
-Za hosting projektu ďakujeme spoločnosti
-<%= link_to 'Petit Press', 'https://petitpress.sk' %>,
-prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %>.
+Za hosting projektu ďakujeme spoločnosti <%= link_to 'Websupport', 'https://websupport.sk' %>.
+Spoločnosti <%= link_to 'Petit Press', 'https://petitpress.sk' %>,
+prevádzkovateľovi portálu <%= link_to 'SME.sk', 'http://sme.sk' %> ďakujeme za prevádzku nášho hostingu do decembra roku 2021.
 
 #### Ako môžem pomôcť?
 

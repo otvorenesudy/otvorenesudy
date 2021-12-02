@@ -87,6 +87,10 @@
 }
 
 .partners {
+  .websupport {
+    @include color-variant($gray, #000000)
+  }
+
   .ip {
     @include color-variant($gray, #4b647c)
   }
