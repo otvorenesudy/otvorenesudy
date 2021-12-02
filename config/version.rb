@@ -2,7 +2,7 @@ module OpenCourts
   module VERSION
     MAJOR = 4
     MINOR = 3
-    PATCH = 71
+    PATCH = 72
 
     PRE = 'alpha'
 
