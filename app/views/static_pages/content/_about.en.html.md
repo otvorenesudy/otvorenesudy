@@ -31,8 +31,6 @@ Portal updates were funded by Fund for transparent Slovakia
 in <%= link_to 'Pontis foundation', 'http://nadaciapontis.sk' %>.
 
 For the hosting of the project we are grateful to <%= link_to 'Websupport.sk', 'https://websupport.sk' %>.
-We are also grateful to <%= link_to 'Petit Press', 'https://petitpress.sk' %>, the administrator of the portal <%= link_to 'SME.sk', 'http://sme.sk' %>
-as they hosted our project until December 2021.
 
 For help and useful comments we are also very thankful to 
 <%= link_to 'Pavel Nechala', 'http://advocate.sk/' %>,
