@@ -50,10 +50,3 @@ sk:
       disclaimer:
         resources: "Projekt využíva výhradne dáta verejných inštitúcií."
         correctness: "Za ich vecnú správnosť autori nenesú zodpovednosť."
-
-      sme:
-        price_of_state: "Cena štátu"
-        municipalities: "Obce"
-        schools: "Školy"
-        procurements: "Verejné obstarávanie"
-        universities: "Vysoké školy"

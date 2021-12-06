@@ -50,10 +50,3 @@ en:
       disclaimer:
         resources: "Project uses only data provided by public institutions."
         correctness: "Authors are not responsible for their accuracy."
-
-      sme:
-        price_of_state: "Price of state"
-        municipalities: "Municipalities"
-        schools: "Schools"
-        procurements: "Procurements"
-        universities: "Universities"
