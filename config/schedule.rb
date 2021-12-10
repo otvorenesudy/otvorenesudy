@@ -59,5 +59,5 @@ every :day, at: '1am' do
 end
 
 every :saturday, at: '10am' do
-  runner 'ExceptionHandler.run { Decree.find_each { |decree| MarkDecreesWithInvalidPdfUriJob.perform_async(d.id, d.pdf_uri) } }'
+  runner 'ExceptionHandler.run { Decree.find_each { |decree| MarkDecreesWithInvalidPdfUriJob.perform_async(decree.id, decree.pdf_uri) } }'
 end
