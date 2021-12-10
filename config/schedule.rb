@@ -57,3 +57,7 @@ end
 every :day, at: '1am' do
   runner 'ExceptionHandler.run { Decree.recheck_index }'
 end
+
+every :saturday, at: '10am' do
+  runner 'ExceptionHandler.run { Decree.find_each { |decree| MarkDecreesWithInvalidPdfUriJob.perform_async(d.id, d.pdf_uri) } }'
+end

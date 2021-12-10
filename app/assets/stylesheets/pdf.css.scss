@@ -1,0 +1,16 @@
+#pdf-container {
+  overflow: auto;
+  position: absolute;
+  height: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+  .textLayer {
+    .highlight {
+      opacity: 1;
+      background-color: $yellow;
+      border-radius: 0px;
+    }
+  }
+}

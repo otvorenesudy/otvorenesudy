@@ -59,7 +59,7 @@
 
       <% if highlight && highlight[:text].any? %>
         <div class="search-result-highlights">
-          <%= strip_and_highlight highlight[:text] %>
+          <%= strip_and_highlight highlight[:text].first(5) %>
         </div>
       <% end %>
     </div>

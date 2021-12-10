@@ -1,0 +1,50 @@
+<% content_for :scripts do %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/web/pdf_viewer.css">
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/build/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/web/pdf_viewer.js"></script>
+<% end %>
+
+<div class="row text-center" style="height: 800px;">
+  <div id="pdf-container" class="container">
+    <div id="viewer" class="pdfViewer"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/build/pdf.worker.min.js";
+
+  const container = document.getElementById("pdf-container");
+
+  const eventBus = new pdfjsViewer.EventBus();
+
+  const linkService = new pdfjsViewer.PDFLinkService({
+    eventBus
+  });
+
+  const findController = new pdfjsViewer.PDFFindController({
+    eventBus,
+    linkService: linkService
+  });
+
+  const viewer = new pdfjsViewer.PDFViewer({
+    container,
+    eventBus,
+    linkService: linkService,
+    findController: findController,
+  });
+
+  linkService.setViewer(viewer);
+
+  eventBus.on("pagesinit", function() {
+    findController.executeCommand("find", { query: "<%= highlights %>", highlightAll: true, caseSensitive: false, multiplePhraseSearch: true });
+  });
+
+  const loadingTask = pdfjsLib.getDocument({
+    url: "<%= url %>",
+  });
+
+  loadingTask.promise.then(function (pdfDocument) {
+    viewer.setDocument(pdfDocument);
+    linkService.setDocument(pdfDocument, null);
+  });
+</script>

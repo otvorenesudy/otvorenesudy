@@ -44,9 +44,6 @@
     <p>
       <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
-    <% if @decree.pdf_uri_valid? %>
-      <%= link_to t('.read'), @decree.pdf_uri, class: 'btn btn-secondary d-block d-xl-inline-block mt-3', target: '_blank' %>
-    <% end %>
   </div>
 
   <div class="col-xl-4">
@@ -96,6 +93,15 @@
     <%= t '.summary' %> &ndash; <%= @decree.summary %>
   </p>
 <% end %>
+
+<h3 class="text-uppercase my-4">
+  <%= t '.decree' %>
+</h3>
+
+<hr>
+<p class="mt-2">
+  <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
+</p>
 
 <p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
