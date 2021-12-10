@@ -125,7 +125,7 @@ module Probe::Search
     def search_highlights
       fields = @facets.highlights
 
-      @index.highlight(*fields.map { |f| analyzed_field(f) }) if fields.any?
+      @index.highlight(*fields.map { |f| { analyzed_field(f) => { number_of_fragments: 1_000_000  }}}) if fields.any?
     end
 
     def search_pagination

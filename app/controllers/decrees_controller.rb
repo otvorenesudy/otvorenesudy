@@ -1,6 +1,7 @@
 class DecreesController < SearchController
   def show
     @decree = Decree.find(params[:id])
+    @highlights = params[:h]
 
     @court  = @decree.court
     @judges = @decree.judges.order(:last, :middle, :first)
@@ -15,7 +16,15 @@ class DecreesController < SearchController
   def document
     @decree = Decree.find(params[:id])
 
-    redirect_to @decree.pdf_uri
+    @file = Tempfile.new('decree', binmode: true)
+    curl = Curl.get(@decree.pdf_uri)
+
+    curl.perform
+
+    @file.write(curl.body_str)
+    @file.rewind
+
+    send_file @file, filename: "Otvorené Súdy — Rozhodnutie — ##{@decree.id}.pdf"
   end
 
   protected

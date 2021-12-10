@@ -42,4 +42,10 @@ module SearchHelper
   def link_to_proceedings_search(body, options = {})
     link_to_search(:proceedings, body, options)
   end
+
+  def extract_highlight_tokens(highlights)
+    Array.wrap(highlights).map { |text|
+      text.scan(/<em>(.*?)<\/em>/)
+    }.flatten.uniq
+  end
 end

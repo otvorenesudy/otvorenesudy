@@ -1,7 +1,7 @@
 <%= search_list_tag results, offset: offset do |decree, highlight| %>
   <li class="search-result-item">
     <h4 class="search-result-title">
-      <%= link_to decree do %>
+      <%= link_to decree_path(decree, h: highlight ? extract_highlight_tokens(highlight[:text]).join(' ') : nil) do %>
         <%= decree_headline decree, limit: 57 %>
         <% if decree.natures.any? %>
           <br/>
@@ -46,7 +46,7 @@
 
       <% if highlight && highlight[:text].any? %>
         <div class="search-result-highlights">
-          <%= strip_and_highlight highlight[:text] %>
+          <%= strip_and_highlight highlight[:text].first(5) %>
         </div>
       <% end %>
     </div>
