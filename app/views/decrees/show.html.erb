@@ -94,11 +94,11 @@
   </p>
 <% end %>
 
-<h3 class="text-uppercase my-4">
+<h3 class="text-uppercase my-5">
   <%= t '.decree' %>
+  <hr>
 </h3>
 
-<hr>
 <p class="mt-2">
   <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
 </p>
