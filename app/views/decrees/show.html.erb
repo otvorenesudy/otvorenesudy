@@ -94,14 +94,16 @@
   </p>
 <% end %>
 
-<h3 class="text-uppercase my-5">
-  <%= t '.decree' %>
-  <hr>
-</h3>
+<% if @decree.pdf_uri_valid? %>
+  <h3 class="text-uppercase my-5">
+    <%= t '.decree' %>
+    <hr>
+  </h3>
 
-<p class="mt-2">
-  <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
-</p>
+  <p class="mt-2">
+    <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
+  </p>
+<% end %>
 
 <p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
