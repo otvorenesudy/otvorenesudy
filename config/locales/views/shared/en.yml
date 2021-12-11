@@ -1,0 +1,4 @@
+en:
+  shared:
+    pdfjs:
+      error: 'We are sorry, but there was an error rendering the document.'
