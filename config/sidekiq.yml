@@ -8,4 +8,4 @@ production:
 :queues:
   - [default]
   - [probe]
-  - [utils]
+  - [utils, 1]
