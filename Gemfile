@@ -76,7 +76,7 @@ gem 'active_model_serializers'
 gem 'sitemap_generator'
 
 # caching
-gem 'dalli', '~> 2.7.6'
+gem 'dalli', '~> 3.2.3'
 
 # others
 gem 'test-unit'
