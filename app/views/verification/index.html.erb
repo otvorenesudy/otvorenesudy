@@ -1,0 +1,20 @@
+<%= provide :title, t('.title') %>
+
+
+<div class="row justify-content-between">
+  <div class="col-md-12">
+    <h1 class="text-uppercase mb-4">
+      <%= yield :title %>
+    
+      <small class="text-normal">
+        <br>
+        <%= t '.subtitle' %>
+      </small>
+    </h1>
+
+    <%= form_for :verification, url: '/verify', html: { class: nil, method: :post } do |f| %>
+       <%= recaptcha_tags %>
+      <button type="submit" class="btn btn-outline-primary btn-lg mt-3 mb-4 mb-md-0"><%= t '.submit' %></button>
+    <% end %>
+  </div>
+</div>
