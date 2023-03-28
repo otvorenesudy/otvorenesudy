@@ -38,15 +38,15 @@ end
 #  rake 'crawl:selection_procedures'
 #end
 
-every :day, at: '6am' do
+every :day, at: '1:30am' do
   rake '-s sitemap:refresh'
 end
 
-every :day, at: '6am' do
+every :day, at: '2am' do
   runner 'ExceptionHandler.run { Rails.cache.clear }'
 end
 
-every :day, at: '6am' do
+every :day, at: '2:30am' do
   runner 'ExceptionHandler.run { Decree.where(pdf_uri: nil).find_each(&:destroy) }'
 end
 
