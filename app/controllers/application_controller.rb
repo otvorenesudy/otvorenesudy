@@ -34,4 +34,12 @@ class ApplicationController < ActionController::Base
   rescue I18n::InvalidLocale
     redirect_to :root
   end
+
+  def verify
+    return if session[:verify] && session[:verify][:verified] && session[:verify][:at] > 1.minute.ago
+
+    session[:verify] = { origin: request.url }
+
+    redirect_to verification_index_path
+  end
 end

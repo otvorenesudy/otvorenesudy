@@ -77,6 +77,8 @@ OpenCourts::Application.routes.draw do
     end
   end
 
+  resources :verification, path: :verify, only: [:index, :create]
+
   devise_for :users
 
   resource :users, only: [] do

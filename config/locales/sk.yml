@@ -1,1 +1,5 @@
 sk:
+  recaptcha:
+    errors:
+      verification_failed: "reCAPTCHA bola nesprávna. Skúste, prosím, znovu."
+      recaptcha_unreachable: "reCAPTCHA server zlyhal. Skúste, prosím, znovu."
