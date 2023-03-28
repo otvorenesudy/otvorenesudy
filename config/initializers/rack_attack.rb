@@ -7,6 +7,10 @@ Rack::Attack.blacklist('Pentesters') do |req|
   end
 end
 
+Rack::Attack.throttle('req/ip', limit: 300, period: 5.minutes, bantime: 24.hour) do |req|
+  req.ip
+end
+
 Rack::Attack.blacklist('Block all bots accessing search') do |req|
   req.user_agent =~ /(googlebot|bingbot|semrushbot|yandexbot|petalbot|seokicks|dotbot|ahrefsbot)/i && (req.path =~ /\/(courts|judges|hearings|decrees|proceedings|selection_procedures)\z/ || req.path =~ /search/)
 end
