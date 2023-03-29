@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify
-    return if session[:verify] && session[:verify][:verified] && session[:verify][:at] > 1.minute.ago
+    return if session[:verify] && session[:verify][:verified] && session[:verify][:at] > 5.minute.ago
 
     session[:verify] = { origin: request.url }
 
