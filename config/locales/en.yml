@@ -1,5 +1,1 @@
 en:
-  recaptcha:
-    errors:
-      verification_failed: "reCAPTCHA failed. Please try again."
-      recaptcha_unreachable: "reCAPTCHA server failed. Please try again."

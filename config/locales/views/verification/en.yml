@@ -4,3 +4,5 @@ en:
       title: "Verification"
       subtitle: "Verification helps us to prevent malicious bots and automated software from scraping our website and slowing down traffic. Thank you for understanding."
       submit: "Verify Access"
+    create:
+      failed: "Verification failed. Please try again."

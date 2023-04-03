@@ -53,7 +53,6 @@ gem 'sidekiq-limit_fetch'
 # authentication
 gem 'devise'
 gem 'bcrypt', '~> 3.1.15'
-gem 'recaptcha'
 
 # monitoring
 gem 'rollbar', '~> 2.12.0'

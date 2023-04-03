@@ -284,8 +284,6 @@ GEM
     rdiscount (1.6.8)
     rdoc (3.12.2)
       json (~> 1.4)
-    recaptcha (5.6.0)
-      json
     redcarpet (3.4.0)
     redis (3.3.5)
     redis-namespace (1.6.0)
@@ -457,7 +455,6 @@ DEPENDENCIES
   rails-i18n
   rails-timeago
   rake (< 11)
-  recaptcha
   redcarpet
   roadie
   rollbar (~> 2.12.0)

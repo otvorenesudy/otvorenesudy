@@ -12,7 +12,7 @@
     </h1>
 
     <%= form_for :verification, url: '/verify', html: { class: nil, method: :post } do |f| %>
-       <%= recaptcha_tags %>
+      <div class="h-captcha" data-sitekey="<%= ENV['HCAPTCHA_SITE_KEY'] %>"></div>
       <button type="submit" class="btn btn-outline-primary btn-lg mt-3 mb-4 mb-md-0"><%= t '.submit' %></button>
     <% end %>
   </div>
