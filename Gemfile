@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.5'
-gem 'rake', '< 11'
+gem 'rails', '7.0.4.3'
+gem 'rake', '< 14'
 
 # database
 gem 'pg', '~> 0.11'
@@ -18,14 +18,14 @@ gem 'roadie'
 # scripts
 gem 'coffee-script'
 gem 'execjs'
-gem 'jquery-rails', '~> 3.1.5'
-gem 'jquery-ui-rails', '~> 3.0.1'
+gem 'jquery-rails', '~> 4.5.1'
+gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'jquery-tablesorter'
 gem 'chart-js-rails'
 gem 'rails-timeago'
 
 # pagination
-gem 'kaminari', '~> 0.14.1'
+gem 'kaminari', '~> 1.2.2'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # localization
@@ -46,7 +46,7 @@ gem 'htmlentities'
 
 # jobs
 gem 'sinatra', require: nil
-gem 'sidekiq', '< 4.0'
+gem 'sidekiq', '< 8.0'
 gem 'celluloid', '~> 0.17.2'
 gem 'sidekiq-limit_fetch'
 
@@ -92,7 +92,7 @@ end
 
 group :development do
   gem 'bump', git: 'https://github.com/pavolzbell/bump.git'
-  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano', '~> 3.17.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
   gem 'capistrano-rbenv', '~> 2.0'
