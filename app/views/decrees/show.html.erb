@@ -1,4 +1,6 @@
 <% provide :title, decree_title(@decree) %>
+<% provide :keywords, @decree.seo_keywords.join(', ') %>
+<% provide :description, @decree.text %>
 
 <h1 class="text-uppercase my-4">
   <%= decree_headline @decree, limit: 49, tooltip: true %>

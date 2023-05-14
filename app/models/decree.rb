@@ -121,6 +121,12 @@ class Decree < ActiveRecord::Base
     court.nil? || judgements.none?
   end
 
+  def seo_keywords
+    companies = text ? text.scan(/.{3,30}s\.r\.o\./) : []
+
+    companies
+  end
+
   before_save :invalidate_caches
 
   def invalidate_caches

@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <title><%= resolve_title(yield :title) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="<%= t '.description'%>" />
-    <meta name="keywords" content="<%= t '.keywords' %>" />
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : t('.description') %>" />
+    <meta name="keywords" content="<%= content_for?(:keywords) ? yield(:keywords) : t('.keywords') %>" />
     <meta name="author" content="<%= t '.authors' %>" />
     <meta property="og:title" content="<%= resolve_title(yield :title) %>" />
-    <meta property="og:description" content="<%= t '.content' %>" />
+    <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : t('.content') %>" />
     <meta property="og:image" content="<%= asset_path "brands/otvorene-sudy.#{I18n.locale}.svg" %>" />
     <meta property="og:url" content="<%= canonical_url %>" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="<%= resolve_title(yield :title) %>" />
-    <meta name="twitter:description" content="<%= t '.content' %>" />
+    <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : t('.content') %>" />
     <meta name="twitter:image" content="<%= asset_path "brands/otvorene-sudy.#{I18n.locale}.svg" %>" />
     <meta name="twitter:url" content="<%= canonical_url %>" />
     <link rel="mask-icon" href="<%= asset_path 'maskicon.svg' %>" sizes="any" />
