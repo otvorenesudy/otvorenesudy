@@ -122,7 +122,7 @@ class Decree < ActiveRecord::Base
   end
 
   def seo_keywords
-    companies = text ? text.scan(/.{3,30}s\.r\.o\./) : []
+    companies = text ? text.scan(/.{3,30}s\.r\.o/) : []
 
     companies
   end
