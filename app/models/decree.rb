@@ -127,6 +127,10 @@ class Decree < ActiveRecord::Base
     companies
   end
 
+  def formatted_text
+    text ? text.gsub(/(?>\r\n|\n|\f|\r|\u2028|\u2029)/, "\n") : ""
+  end
+
   before_save :invalidate_caches
 
   def invalidate_caches
