@@ -1,6 +1,4 @@
 class HearingsController < SearchController
-  before_filter :verify
-
   def show
     @hearing = Hearing.find(params[:id])
 
