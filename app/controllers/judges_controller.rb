@@ -38,7 +38,7 @@ class JudgesController < SearchController
 
     # TODO this searches through first available indicators only! it leaves others as blank so later
     # when we figure out how to search through desired available indicators we do not have to change views
-    keys = [:indicators_2013, :indicators_2015, :indicators_2017]
+    keys = [:indicators_2013, :indicators_2015, :indicators_2017, :indicators_2021]
 
     @latest_indicators = keys.reverse.find { |key| @judge.send(key).present? }
 

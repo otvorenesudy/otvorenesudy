@@ -27,15 +27,17 @@
 <%= render 'notes' if @judge.substantiation_notes_by_year.any? %>
 
 <ul class="nav nav-tabs mt-4" role="tablist">
-  <%= tab_link_tag t('.indicators', year: 2017), 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) %>
-  <%= tab_link_tag t('.indicators', year: 2015), 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) %>
-  <%= tab_link_tag t('.indicators', year: 2013), 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) %>
+  <%= tab_link_tag t('.indicators', year: 2021), 'indicators-2021', class: ('active' if @latest_indicators == :indicators_2021) %>
+  <%= tab_link_tag '2017', 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) %>
+  <%= tab_link_tag '2015', 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) %>
+  <%= tab_link_tag '2013', 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) %>
   <%= tab_link_tag t('.decrees'), 'decrees', class: ('active' unless @latest_indicators) %>
   <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
   <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
 </ul>
 
 <div class="tab-content">
+  <%= render_tab({ partial: 'indicators_2021', tab: 'indicators-2021', class: ('active' if @latest_indicators == :indicators_2021) }, judge: @judge, others: @others_2021, facets: @facets_2021) %>
   <%= render_tab({ partial: 'indicators_2017', tab: 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) }, judge: @judge, others: @others_2017, facets: @facets_2017) %>
   <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) }, judge: @judge, others: @others_2015, facets: @facets_2015) %>
   <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) }, judge: @judge, others: @others_2013, facets: @facets_2013) %>

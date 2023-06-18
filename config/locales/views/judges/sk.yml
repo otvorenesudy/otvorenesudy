@@ -226,6 +226,18 @@ sk:
 
         evaluation_text: "Sudca získal v roku %{year} celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 651 hodnotených sudcov."
 
+    indicators_2021:
+      headline: "Indikátory za rok 2021"
+      evaluation: Sudca má celkové hodnotenie %{evaluation}.
+      dominant_agenda:
+        Civil: Nápad sudcu v roku 2021 tvorili prevažne veci z civilnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z civilnej agendy.
+        Obchod: Nápad sudcu v roku 2021 tvorili prevažne veci z obchodnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z obchodnej agendy.
+        Rodina: Nápad sudcu v roku 2021 tvorili prevažne veci z rodinnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z rodinnej agendy.
+        Trest: Nápad sudcu v roku 2021 tvorili prevažne veci z trestnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z trestnej agendy.
+        Iné: V nápade sudcu roku 2021 nedominovala žiadna agenda. Medzi rozhodnutými vecami sudcu roku 2021 nedominovala žiadna agenda.
+      quality:
+        headline: Komponent &ndash; Kvalita
+
     decrees:
       headline: "Vynesené rozhodnutia"
       more: "Viac rozhodnutí"
