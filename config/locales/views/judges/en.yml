@@ -226,6 +226,48 @@ en:
 
         evaluation_text: "In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 651 evaluated judges."
 
+    indicators_2021:
+      headline: "Indicators for 2021"
+      evaluation: Overall evaluation of the judge is %{evaluation}.
+      evaluation_values:
+        výborné: "excellent"
+        nadpriemerné: "above average"
+        priemerné: "average"
+        podpriemerné: "below average"
+        slabé: "low"
+      dominant_agenda:
+        Civil: Incoming cases for the judge in 2021 were mostly from civil agenda. Judge's decrees in 2021 were mostly from civil agenda.
+        Obchod: Incoming cases for the judge in 2021 were mostly from business agenda. Judge's decrees in 2021 were mostly from business agenda.
+        Rodina: Incoming cases for the judge in 2021 were mostly from family agenda. Judge's decrees in 2021 were mostly from family agenda.
+        Trest: Incoming cases for the judge in 2021 were mostly from criminal agenda. Judge's decrees in 2021 were mostly from criminal agenda.
+        Iné: No agenda dominated in incoming cases for the judge during 2021. No agenda dominated in judge's decrees during 2021.
+      rating:
+        value_1: In this dimension the judge belongs to the group that is better than average.
+        value_2: In this dimension the judge belongs to the group that is average.
+        value_3: In this dimension the judge belongs to the group that is worse than average.
+      quality:
+        headline: Component &ndash; Quality
+        decrees: We register %{percentage} decrees for the judge, which are confirmed by the higher court in case of an appeal. The median amongst judges is 68,9%.
+        decrees_appealed: We register %{amount} decrees concerning appeals.
+      effectivity:
+        headline: Component &ndash; Effectivity
+        ratio: The judge had overal appointment of cases of %{percentage} in 2021. The median amongst judges is 107,9%.
+        available_time: Anticipated time of the judge was based on data from 2021 %{days} days. Median amongst judges was 224,3 days.
+        decrees_in_agenda: In 2021 the judge decided %{amount} cases in the observed agendas.
+      productivity:
+        headline: Component &ndash; Productivity
+        weighted_product: Weighted product of the judge in 2021 was %{amount}. Median amongst judges was 248,1.
+        unresolved: For the judge we register %{amount} unresolved cases at the end of 2021. From those %{arrears_percentage} are restant cases. Median amongst judges was 39,34% of restant cases from the total number of unresolved cases.
+      chart:
+        headline: Overall Evaluation
+        disclaimer: Evaluation on a scale from 0 to 10.
+        values:
+          approved_appeals: Approved Appeals
+          ratio: Appointment of Cases
+          availability: Anticipated Time
+          arrears: Unresolved Cases
+          productivity: Productivity
+
     decrees:
       headline: "Published judgements"
       more: "More judgements"

@@ -84,7 +84,7 @@ class window.JudgeChart
       }, {
         label: "Priemer",
         fillColor: "transparent",
-        strokeColor: "#8392ac",
+        strokeColor: "#8392ac"
       }]
 
   constructor: (year, average) ->

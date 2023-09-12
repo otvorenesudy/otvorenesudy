@@ -11,6 +11,7 @@
 #= require analytics
 #= require cookies
 #= require indicators
+#= require indicators2021
 #= require search
 #= require tables
 #= require tabs

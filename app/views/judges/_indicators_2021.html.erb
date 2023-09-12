@@ -1,0 +1,76 @@
+<h2 class="h4 text-uppercase my-4">
+  <%= t '.headline' %>
+</h2>
+
+<% if @judge.indicators_2021 %>
+  <p>
+    <%= t('.evaluation', evaluation: content_tag(:span, t(".evaluation_values.#{@judge.indicators_2021['Celkové hodnotenie']}"), class: 'font-weight-bold')) %>
+    <br/>
+    <%= t(".dominant_agenda.#{@judge.indicators_2021['Dominantná agenda']}") %>
+  </p>
+
+  <h2 class="h4 text-uppercase mb-2 mt-4">
+    <%= t '.quality.headline' %>
+  </h2>
+
+  <p>
+    <%= t('.quality.decrees', percentage: @judge.indicators_2021['Potvrdené rozhodnutia (%)']) %>
+    <%= t('.quality.decrees_appealed', amount: @judge.indicators_2021['Počet odvolaní']) %>
+    <br/>
+    <%= icon_tag('arrow-right', width: 9, height: 30, 'aria-hidden' => 'true') %>
+    <%= t(".rating.value_#{@judge.indicators_2021['Kvalita_rec']}")%>
+  </p>
+
+  <h2 class="h4 text-uppercase mb-2 mt-4">
+    <%= t '.effectivity.headline' %>
+  </h2>
+
+  <p>
+    <%= t('.effectivity.ratio', percentage: @judge.indicators_2021['Vybavenosť (%)']) %>
+    <br/>
+    <%= t('.effectivity.available_time', days: @judge.indicators_2021['Odhadovaná priemerná dĺžka konania (dispozičný čas - dni)']) %>
+    <br/>
+    <%= t('.effectivity.decrees_in_agenda', amount: @judge.indicators_2021['Rozhodnuté veci']) %>
+    <br/>
+    <%= icon_tag('arrow-right', width: 9, height: 30, 'aria-hidden' => 'true') %>
+    <%= t(".rating.value_#{@judge.indicators_2021['Efektivita_rec']}")%>
+  </p>
+
+
+  <h2 class="h4 text-uppercase mb-2 mt-4">
+    <%= t '.productivity.headline' %>
+  </h2>
+
+  <p>
+    <%= t('.productivity.weighted_product', amount: @judge.indicators_2021['Vážené rozhodnuté']) %>
+    <br/>
+    <%= t('.productivity.unresolved', amount: @judge.indicators_2021['Nevybavené veci'], arrears_percentage: @judge.indicators_2021['Reštančné z nevybavených (%)'])  %>
+    <br/>
+    <%= icon_tag('arrow-right', width: 9, height: 30, 'aria-hidden' => 'true') %>
+    <%= t(".rating.value_#{@judge.indicators_2021['Produktivita_rec']}")%>
+  </p>
+
+  <h2 class="h4 text-uppercase mb-2 mt-4">
+    <%= t '.chart.headline' %>
+    <br/>
+    <small class="text-muted"><%= t '.chart.disclaimer' %></small>
+    <hr/>
+  </h2>
+  <div id="indicators-chart-2021">
+    <% content_for :scripts do %>
+      <% content_tag :script do %>
+         <%= render(partial: 'judges/indicators_2021/chart', formats: :js, locals: { judge: judge }).html_safe %>
+      <% end %>
+    <% end %>
+
+    <div class="chart mt-4 text-center">
+      <canvas class="chart-canvas" width="500px" height="500px">
+      </canvas>
+      <div class="chart-legend"></div>
+    </div>
+  </div>
+<% else %>
+  <p class="mb-0">
+    <%= t '.none' %>
+  </p>
+<% end %>

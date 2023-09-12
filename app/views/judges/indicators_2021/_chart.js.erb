@@ -1,0 +1,7 @@
+$(document).ready(function() {
+  var chart = new Indicators2021Chart(
+    <%= raw Hash[judge.indicators_2021[:chart].map { |k, v| [I18n.t("judges.indicators_2021.chart.values.#{k}"), v] }].to_json %>
+  )
+
+  chart.build();
+});

@@ -8,7 +8,7 @@
     <%= render 'judges/indicators_2015/evaluation', judge: judge, indicators: judge.indicators_2015.statistical %>
   <% end %>
 
-  <% if @judge.indicators_2015.numerical && @latest_indicators == :indicators_2015 %>
+  <% if @judge.indicators_2015.numerical %>
     <%= render 'judges/indicators_2015/numerical', judge: judge, facets: facets, others: others %>
   <% end %>
 
