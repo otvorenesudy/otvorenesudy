@@ -60,8 +60,7 @@ module IndicatorsHelper
   end
 
   def indicators_chart_canvas_tag(judge, options = {})
-    colors = %w(f16c4f 00aeef e19e41 73be1e
-    )
+    colors = %w(f16c4f 00aeef e19e41 73be1e)
     judges = [judge] + options.fetch(:others, [])
     locals = { colors: judges.size.times.map { |i| colors[i % colors.size] }, judges: judges }.merge(options.slice(:indicators_repository, :year))
 
