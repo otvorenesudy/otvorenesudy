@@ -74,8 +74,8 @@ class JudgesController < SearchController
   end
 
   def search_indicators(key)
-    return if key != @latest_indicators
-    results = Judge.search(params.merge(@latest_indicators => true))
+    results = Judge.search(params.merge(key => true))
     [results.facets, params[:name] ? results.to_a.map(&:first) : []]
   end
 end
+

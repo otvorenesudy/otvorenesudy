@@ -419,7 +419,7 @@ DEPENDENCIES
   capistrano-sidekiq
   capybara
   celluloid (~> 0.17.2)
-  chart-js-rails
+  chart-js-rails (= 0.0.7)
   coffee-rails
   coffee-script
   colored (~> 1.2)

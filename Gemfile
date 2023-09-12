@@ -21,7 +21,7 @@ gem 'execjs'
 gem 'jquery-rails', '~> 3.1.5'
 gem 'jquery-ui-rails', '~> 3.0.1'
 gem 'jquery-tablesorter'
-gem 'chart-js-rails'
+gem 'chart-js-rails', '0.0.7'
 gem 'rails-timeago'
 
 # pagination

@@ -229,14 +229,44 @@ sk:
     indicators_2021:
       headline: "Indikátory za rok 2021"
       evaluation: Sudca má celkové hodnotenie %{evaluation}.
+      evaluation_values:
+        výborné: "výborné"
+        nadpriemerné: "nadpriemerné"
+        priemerné: "priemerné"
+        podpriemerné: "podpriemerné"
+        slabé: "slabé"
       dominant_agenda:
         Civil: Nápad sudcu v roku 2021 tvorili prevažne veci z civilnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z civilnej agendy.
         Obchod: Nápad sudcu v roku 2021 tvorili prevažne veci z obchodnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z obchodnej agendy.
         Rodina: Nápad sudcu v roku 2021 tvorili prevažne veci z rodinnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z rodinnej agendy.
         Trest: Nápad sudcu v roku 2021 tvorili prevažne veci z trestnej agendy. Rozhodnutia sudcu v roku 2021 tvorili prevažne veci z trestnej agendy.
         Iné: V nápade sudcu roku 2021 nedominovala žiadna agenda. Medzi rozhodnutými vecami sudcu roku 2021 nedominovala žiadna agenda.
+      rating:
+        value_1: V tejto dimenzii patrí sudca do skupiny, ktorá je lepšia než priemer.
+        value_2: V tejto dimenzii patrí sudca do skupiny, ktorá je priemerná.
+        value_3: V tejto dimenzii patrí sudca do skupiny, ktorá je horšia než priemer.
       quality:
         headline: Komponent &ndash; Kvalita
+        decrees: Pre sudcu evidujeme %{percentage} rozhodnutí, ktoré sú v prípade odvolania potvrdené vyšším súdom. Medián medzi sudcami je 68,9%.
+        decrees_appealed: Pre sudcu evidujeme %{amount} rozhodnutí o odvolaniach.
+      effectivity:
+        headline: Komponent &ndash; Efektivita
+        ratio: Sudca mal v roku 2021 vybavenosť %{percentage}. Medián medzi sudcami bol 107,9%.
+        available_time: Odhadovaný dispozičný čas sudcu bol na základe údajov z roku 2021 %{days} dní. Medián medzi sudcami bol 224,3 dní.
+        decrees_in_agenda: "V roku 2021 sudca rozhodol %{amount} vecí v sledovaných agendách."
+      productivity:
+        headline: Komponent &ndash; Produktivita
+        weighted_product: Vážený produkt sudcu v roku 2021 mal hodnotu %{amount}. Medián medzi sudcami bol 248,1.
+        unresolved: Pre sudcu evidujeme na konci roku 2021 %{amount} nevybavených vecí. Z nich %{arrears_percentage} tvoria reštančné veci. Medián medzi sudcami bol 39,34% reštančných vecí z celkového počtu nevybavených.
+      chart:
+        headline: Celkové hodnotenie
+        disclaimer: Hodnotenie na škále 0 až 10
+        values:
+          approved_appeals: Potvrdené odvolania
+          ratio: Vybavenosť
+          availability: Dispozičný čas
+          arrears: Restančné z nevybavených
+          productivity: Produktivita
 
     decrees:
       headline: "Vynesené rozhodnutia"
