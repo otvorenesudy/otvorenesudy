@@ -21,6 +21,7 @@ sk:
       specialized: "Špecializovaný"
       regional: "Krajský"
       district: "Okresný"
+      municipal: "Mestský"
 
     index:
       title: "Súdy"

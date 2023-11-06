@@ -12,4 +12,5 @@ class CourtType < ActiveRecord::Base
   value :specialized,    'Špecializovaný'
   value :regional,       'Krajský'
   value :district,       'Okresný'
+  value :municipal,      'Mestský'
 end

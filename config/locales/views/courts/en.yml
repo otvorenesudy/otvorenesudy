@@ -21,6 +21,7 @@ en:
       specialized: "Specialized"
       regional: "Regional"
       district: "District"
+      municipal: "Municipal"
 
     index:
       title: "Courts"
