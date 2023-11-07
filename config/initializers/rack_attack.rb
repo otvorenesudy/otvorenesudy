@@ -6,3 +6,11 @@ Rack::Attack.blacklist('Pentesters') do |req|
     req.path.include?('wp-login')
   end
 end
+
+Rack::Attack.throttle('req/ip', limit: 10, period: 5.seconds, bantime: 24.hour) do |req|
+  req.ip
+end
+
+Rack::Attack.blacklist('Block bots accessing search') do |req|
+   req.user_agent =~ /(googlebot|bingbot|semrushbot|yandexbot|petalbot|seokicks|dotbot|ahrefsbot|thesis-research-bot|gptbot|amazonbot)/i && req.path =~ /\/(courts|judges|hearings|decrees|proceedings|selection_procedures)(\z|\?)/
+ end
