@@ -28,7 +28,16 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
-    <%= Garelic.monitoring 'UA-38636233-1' if Rails.env.production? %>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9KE4RBRL3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-B9KE4RBRL3');
+    </script>
+
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
     <%= csrf_meta_tags %>

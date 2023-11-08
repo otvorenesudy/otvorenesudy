@@ -56,7 +56,6 @@ gem 'bcrypt', '~> 3.1.15'
 
 # monitoring
 gem 'rollbar', '~> 2.12.0'
-gem 'garelic'
 gem 'skylight'
 
 # markup
