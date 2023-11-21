@@ -227,6 +227,7 @@ sk:
         evaluation_text: "Sudca získal v roku %{year} celkovo %{score} zo 40 možných bodov a umiestnil sa na %{rank} mieste spomedzi 651 hodnotených sudcov."
 
     indicators_2021:
+      none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
       headline: "Indikátory za rok 2021"
       evaluation: Sudca má celkové hodnotenie %{evaluation}.
       evaluation_values:

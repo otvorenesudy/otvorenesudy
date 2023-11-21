@@ -227,6 +227,7 @@ en:
         evaluation_text: "In %{year}, the judge received in total %{score} from 40 possible points and ranked on %{rank} place of 651 evaluated judges."
 
     indicators_2021:
+      none: "We do not register any indicators for the judge yet."
       headline: "Indicators for 2021"
       evaluation: Overall evaluation of the judge is %{evaluation}.
       evaluation_values:
