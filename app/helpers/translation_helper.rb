@@ -25,7 +25,7 @@ module TranslationHelper
   end
 
   def guess_translation_key(translation, locale, keys)
-    keys.each { |key| return key if translation == translate(key, locale: locale) }
+    keys.find { |key| translation == translate(key, locale: locale) }
   end
 
   def locale_specific_spaces(content)

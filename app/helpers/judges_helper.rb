@@ -39,8 +39,10 @@ module JudgesHelper
       else
         if employment.judge_position.value == 'sudca'
           s = t "judges.position.judge.#{g}"
+        elsif  employment.judge_position.value == 'hosťujúci sudca'
+          s = t "judges.position.visiting_judge.#{g}"
         else
-          k = %w(chairman vice_chairman visiting_judge).map { |e| "judges.position.#{e}.#{g}" }
+          k = %w(chairman vice_chairman).flat_map { |k| %W(judges.position.#{k}.male judges.position.#{k}.female) }
           s = t(guess_translation_key(employment.judge_position.value, :sk, k)) || employeement.judge_position.value
         end
       end
