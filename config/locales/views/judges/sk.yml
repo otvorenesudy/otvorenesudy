@@ -46,6 +46,10 @@ sk:
         male: "podpredseda"
         female: "podpredsedníčka"
 
+      visting_judge:
+        male: "hosťujúci sudca"
+        female: "hosťujúca sudkyňa"
+
       unknown:
         male: "neznámy"
         female: "neznáma"
