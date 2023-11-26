@@ -41,7 +41,7 @@ module JudgesHelper
           s = t "judges.position.judge.#{g}"
         else
           k = %w(chairman vice_chairman visiting_judge).map { |e| "judges.position.#{e}.#{g}" }
-          s = t guess_translation_key(employment.judge_position.value, :sk, k) || employeement.judge_position.value
+          s = t(guess_translation_key(employment.judge_position.value, :sk, k)) || employeement.judge_position.value
         end
       end
     else
