@@ -27,7 +27,7 @@ module Court::AverageProceedingDurations
     extend self
 
     def courts
-      @courts ||= Court.by_type CourtType.district
+      @courts ||= Court.by_type([CourtType.district, CourtType.municipal])
     end
 
     def rank(court, acronym)

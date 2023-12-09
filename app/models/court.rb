@@ -19,7 +19,7 @@ class Court < ActiveRecord::Base
                   :latitude,
                   :longitude
 
-  scope :by_type, lambda { |court_type| where('court_type_id = ?', court_type.id) }
+  scope :by_type, lambda { |court_types| where(court_type_id: Array.wrap(court_types).map(&:id)) }
 
   belongs_to :type, class_name: :CourtType, foreign_key: :court_type_id
 
