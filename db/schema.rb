@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20200501214856) do
+ActiveRecord::Schema.define(:version => 20240301134042) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(:version => 20200501214856) do
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
   add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
   add_index "decrees", ["created_at"], :name => "index_decrees_on_created_at"
+  add_index "decrees", ["date"], :name => "index_decrees_on_date"
   add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
   add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
@@ -290,6 +291,7 @@ ActiveRecord::Schema.define(:version => 20200501214856) do
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
   add_index "hearings", ["court_id"], :name => "index_hearings_on_court_id"
   add_index "hearings", ["created_at"], :name => "index_hearings_on_created_at"
+  add_index "hearings", ["date"], :name => "index_hearings_on_date"
   add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
   add_index "hearings", ["source_id"], :name => "index_hearings_on_source_id"
