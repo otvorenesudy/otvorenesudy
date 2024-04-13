@@ -4,7 +4,7 @@ class UpdateRepositoryJob
   sidekiq_options queue: :probe
 
   def perform(model_name, id)
-    return unless model_name.in? ['Decree', 'Court', 'Hearing', 'Judge']
+    return unless model_name.in? %w[Decree Court Hearing Judge]
 
     model_name.constantize.find(id).update_index
   end

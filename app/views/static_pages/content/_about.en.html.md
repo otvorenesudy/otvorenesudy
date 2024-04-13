@@ -15,12 +15,7 @@ aim to contribute to the improvement of the discussion about Slovak judiciary in
 2. the data are interconnected and allow for comparisons,
 3. doing so on the level of particular judges and courts.
 
-Authors of the project are
-<%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> and
-<%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
-(former members of research group <%= link_to 'PeWe', 'https://pewe.sk' %> at
-<%= link_to 'Faculty of Informatics and Information Technologies', 'https://fiit.stuba.sk' %> of
-<%= link_to 'Slovak University of Technology in Bratislava', 'https://stuba.sk' %>) and
+Author of the project is
 <%= link_to 'Transparency International Slovakia', 'https://transparency.sk' %>.
 
 Project Open Courts was created thanks to the support of Secretariat of

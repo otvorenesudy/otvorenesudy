@@ -29,12 +29,7 @@ na ktorého sa obrátite.
 
 #### Kto sú autori projektu? 
 
-Autormi projektu sú
-<%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> a
-<%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
-(bývalí členovia výskumnej skupiny <%= link_to 'PeWe', 'https://pewe.sk' %> na
-<%= link_to 'Fakulte informatiky a informačných technológií', 'https://fiit.stuba.sk' %>
-<%= link_to 'Slovenskej technickej univerzity v Bratislave', 'https://stuba.sk' %>) a
+Autorom projektu je
 <%= link_to 'Transparency International Slovensko', 'https://transparency.sk' %>.
 
 #### Kto to platí?

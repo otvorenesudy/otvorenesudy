@@ -78,6 +78,9 @@ sk:
       media_person: "Kontaktná osoba:"
       media_phone: "Tel. číslo:"
 
+      data_protection: "Ochrana osobných údajov"
+      data_protection_email: "Email:"
+
       address: "Adresa"
       country: "Slovenská republika"
 

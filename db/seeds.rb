@@ -1,5 +1,4 @@
-# sources
-
+# Sources
 source = Source.new
 source.module = 'JusticeGovSk'
 source.name = 'Ministerstvo spravodlivosti Slovenskej republiky'
@@ -30,8 +29,7 @@ seeds.name = 'Database seeds file'
 seeds.uri = 'db/seeds.rb'
 seeds.save!
 
-# courts
-
+# Courts
 #court              = Court.new
 #court.uri          = 'http://portal.concourt.sk'
 #court.source       = seeds
@@ -78,8 +76,7 @@ court.registry_center.hours_friday = '8:00 - 11:30, 12:00 - 15:30'
 court.registry_center.save!
 court.save!
 
-# decrees
-
+# Decrees
 DecreeForm.create value: 'Rozsudok', code: 'A'
 DecreeForm.create value: 'Rozhodnutie', code: 'A'
 DecreeForm.create value: 'Uznesenie', code: 'N'

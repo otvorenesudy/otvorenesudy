@@ -8,9 +8,10 @@ class CourtType < ActiveRecord::Base
   validates :value, presence: true
 
   value :constitutional, 'Ústavný'
-  value :supreme,        'Najvyšší'
-  value :specialized,    'Špecializovaný'
-  value :regional,       'Krajský'
-  value :district,       'Okresný'
-  value :municipal,      'Mestský'
+  value :supreme, 'Najvyšší'
+  value :administrative, 'Správny'
+  value :specialized, 'Špecializovaný'
+  value :regional, 'Krajský'
+  value :district, 'Okresný'
+  value :municipal, 'Mestský'
 end

@@ -2,7 +2,7 @@ sk:
   layouts:
     application:
       title: "Otvorené Súdy"
-      authors: "Samuel Molnár a Pavol Zbell"
+      authors: ""
       description: "Transparentný pohľad na slovenské súdnictvo."
       keywords: "slovenské súdnictvo, sudcovia, súdne rozhodnutia, súdne pojednávania"
       content: "Transparentný pohľad na slovenské súdy. Ktoré sú najrýchlejšie a ktoré platia najvyššie pokuty za zlé verdikty? Aké majú sudcovia majetky? Hľadajte v súdnych rozhodnutiach a pojednávaniach!"

@@ -23,7 +23,7 @@
     <% if office.note? %>
       <div class="row">
         <div class="col-5 col-sm-4 col-md-3"><%= t '.note' %></div>
-        <div class="col-7 col-sm-8 col-md-9"><%= office.note %></div>
+        <div class="col-7 col-sm-8 col-md-9"><%= sanitize(office.note).gsub(/\n/, '<br>').html_safe %></div>
       </div>
     <% end %>
   </div>

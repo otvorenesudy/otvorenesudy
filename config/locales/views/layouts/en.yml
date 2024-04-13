@@ -2,7 +2,7 @@ en:
   layouts:
     application:
       title: "Open Courts"
-      authors: "Samuel Molnár and Pavol Zbell"
+      authors: ""
       description: "Transparent look at Slovak judiciary"
       keywords: "slovak judiciary, judges, judgements, judicial hearings"
       content: "Transparent look at Slovak courts. Which are the fastest and which have paid the most in fines for wrong or delayed judgements? What do judges own? Search in judgements and judicial hearings!"

@@ -35,6 +35,15 @@
         </div>
       <% end %>
     <% end %>
+
+    <% if @court.data_protection_email %>
+      <h3 class="h6 text-uppercase mt-4"><%= t '.data_protection' %></h3>
+      
+      <div class="row align-items-center">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.data_protection_email' %></div>
+        <div class="col-7 col-sm-8 col-md-9 text-truncate"><%= email_to @court.data_protection_email %></div>
+      </div>
+    <% end %>
   </div>
 
   <div class="col-lg-4">

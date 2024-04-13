@@ -78,6 +78,9 @@ en:
       media_person: "Contact person:"
       media_phone: "Phone number:"
 
+      data_protection: "Data protection"
+      data_protection_email: "Email:"
+
       address: "Address"
       country: "Slovak Republic"
 

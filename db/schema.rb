@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20240301134042) do
+ActiveRecord::Schema.define(:version => 20240408171033) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -125,6 +125,9 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
     t.datetime "created_at",                                                                 :null => false
     t.datetime "updated_at",                                                                 :null => false
     t.string   "acronym"
+    t.string   "source_class"
+    t.integer  "source_class_id"
+    t.string   "data_protection_email"
   end
 
   add_index "courts", ["acronym"], :name => "index_courts_on_acronym"
@@ -133,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
   add_index "courts", ["created_at"], :name => "index_courts_on_created_at"
   add_index "courts", ["municipality_id"], :name => "index_courts_on_municipality_id"
   add_index "courts", ["name"], :name => "index_courts_on_name", :unique => true
+  add_index "courts", ["source_class", "source_class_id"], :name => "index_courts_on_source_class_and_source_class_id"
   add_index "courts", ["source_id"], :name => "index_courts_on_source_id"
   add_index "courts", ["updated_at"], :name => "index_courts_on_updated_at"
   add_index "courts", ["uri"], :name => "index_courts_on_uri", :unique => true
@@ -191,6 +195,8 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
     t.datetime "updated_at",                                                :null => false
     t.string   "pdf_uri",                :limit => 2048
     t.boolean  "pdf_uri_invalid",                        :default => false, :null => false
+    t.string   "source_class"
+    t.integer  "source_class_id"
   end
 
   add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
@@ -201,6 +207,7 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
   add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli"
   add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
   add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
+  add_index "decrees", ["source_class", "source_class_id"], :name => "index_decrees_on_source_class_and_source_class_id"
   add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
   add_index "decrees", ["updated_at", "id"], :name => "index_decrees_on_updated_at_and_id"
   add_index "decrees", ["updated_at"], :name => "index_decrees_on_updated_at"
@@ -285,6 +292,8 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.datetime "anonymized_at"
+    t.string   "source_class"
+    t.integer  "source_class_id"
   end
 
   add_index "hearings", ["anonymized_at"], :name => "index_hearings_on_anonymized_at"
@@ -294,6 +303,7 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
   add_index "hearings", ["date"], :name => "index_hearings_on_date"
   add_index "hearings", ["file_number"], :name => "index_hearings_on_file_number"
   add_index "hearings", ["proceeding_id"], :name => "index_hearings_on_proceeding_id"
+  add_index "hearings", ["source_class", "source_class_id"], :name => "index_hearings_on_source_class_and_source_class_id"
   add_index "hearings", ["source_id"], :name => "index_hearings_on_source_id"
   add_index "hearings", ["updated_at"], :name => "index_hearings_on_updated_at"
   add_index "hearings", ["uri"], :name => "index_hearings_on_uri", :unique => true
@@ -512,6 +522,8 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
     t.string   "addition"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.string   "source_class"
+    t.integer  "source_class_id"
   end
 
   add_index "judges", ["created_at"], :name => "index_judges_on_created_at"
@@ -519,6 +531,7 @@ ActiveRecord::Schema.define(:version => 20240301134042) do
   add_index "judges", ["last", "middle", "first"], :name => "index_judges_on_last_and_middle_and_first"
   add_index "judges", ["name"], :name => "index_judges_on_name", :unique => true
   add_index "judges", ["name_unprocessed"], :name => "index_judges_on_name_unprocessed", :unique => true
+  add_index "judges", ["source_class", "source_class_id"], :name => "index_judges_on_source_class_and_source_class_id"
   add_index "judges", ["source_id"], :name => "index_judges_on_source_id"
   add_index "judges", ["updated_at"], :name => "index_judges_on_updated_at"
   add_index "judges", ["uri"], :name => "index_judges_on_uri"

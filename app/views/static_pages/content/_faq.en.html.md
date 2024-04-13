@@ -23,12 +23,7 @@ that you can subsequently contact.
 
 #### Who are the authors of the project?
 
-Authors are
-<%= link_to 'Samuel Molnár', 'https://github.com/smolnar' %> a
-<%= link_to 'Pavol Zbell', 'https://github.com/pavolzbell' %>
-(former members of research group <%= link_to 'PeWe', 'https://pewe.sk' %> at
-<%= link_to 'Faculty of Informatics and Information Technologies', 'https://fiit.stuba.sk' %> of
-<%= link_to 'Slovak University of Technology in Bratislava', 'https://stuba.sk' %>) and <%= link_to 'Transparency International Slovakia', 'https://transparency.sk' %>.
+Author is <%= link_to 'Transparency International Slovakia', 'https://transparency.sk' %>.
 
 #### Who is it paid by?
 

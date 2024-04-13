@@ -1,7 +1,7 @@
 #### Administrators
 
 The portal Otvorenesudy.sk (hereinafter “portal”) is a non-profit investigative webpage aiming to monitor and analyze information about the judiciary. Administrator of the portal is a non-profit organization Transparency International Slovakia 
-(hereinafter “administrator”), Samuel Molnár and Pavol Zbell. The project Open Courts was created thanks to the support of the Secretariat of
+(hereinafter “administrator”). The project Open Courts was created thanks to the support of the Secretariat of
 <%= link_to 'Transparency International', 'https://transparency.org' %>
 in Berlin and the project Reštart Slovensko organized by <%= link_to 'Centre for Philantropy', 'http://cpf.sk' %>. 
 

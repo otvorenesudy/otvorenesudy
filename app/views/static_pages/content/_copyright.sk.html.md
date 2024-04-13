@@ -1,8 +1,6 @@
-#### &copy; 2013-<%= Date.current.year %> Samuel Molnár, Pavol Zbell,<br/>Transparency International Slovensko  
+#### &copy; 2013-<%= Date.current.year %> Transparency International Slovensko  
  
-Autori konceptu: Transparency International Slovensko, Samuel Molnár a Pavol Zbell
-
-Technická realizácia: Samuel Molnár a Pavol Zbell
+Autori konceptu: Transparency International Slovensko
 
 Zdrojový kód: <%= link_to 'Otvorené Súdy @ GitHub', 'https://github.com/otvorenesudy' %>
 
