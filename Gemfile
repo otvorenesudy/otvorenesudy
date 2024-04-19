@@ -43,6 +43,7 @@ gem 'squire', '~> 1.2.6'
 gem 'colored', '~> 1.2'
 gem 'murmurhash3', '>= 0.1.3'
 gem 'htmlentities'
+gem 'crawler_detect'
 
 # jobs
 gem 'sinatra', require: nil
