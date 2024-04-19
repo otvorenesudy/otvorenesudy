@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.5'
-gem 'rake', '< 11'
+gem 'rails', '7.0.8.1'
+gem 'rake', '< 13'
 
 # database
 gem 'pg', '~> 0.11'
@@ -12,20 +12,20 @@ gem 'tire'
 gem 'elasticsearch'
 
 # styles
-gem 'bootstrap', '~> 4.1.0'
+gem 'bootstrap', '~> 5.3.2'
 gem 'roadie'
 
 # scripts
 gem 'coffee-script'
 gem 'execjs'
-gem 'jquery-rails', '~> 3.1.5'
-gem 'jquery-ui-rails', '~> 3.0.1'
+gem 'jquery-rails', '~> 4.6.0'
+gem 'jquery-ui-rails', '~> 7.0.0'
 gem 'jquery-tablesorter'
-gem 'chart-js-rails', '0.0.7'
+gem 'chart-js-rails', '0.1.7'
 gem 'rails-timeago'
 
 # pagination
-gem 'kaminari', '~> 0.14.1'
+gem 'kaminari', '~> 1.2.2'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # localization
@@ -33,9 +33,9 @@ gem 'rails-i18n'
 
 # crawlers
 gem 'curb', '>= 0.9.11'
-gem 'mechanize', '~> 2.5.1'
+gem 'mechanize', '~> 2.7.7'
 gem 'docsplit', '~> 0.6.4'
-gem 'json', '1.8.6'
+gem 'json', '2.7.2'
 gem 'nokogiri'
 
 # utilities
@@ -47,7 +47,7 @@ gem 'crawler_detect'
 
 # jobs
 gem 'sinatra', require: nil
-gem 'sidekiq', '< 4.0'
+gem 'sidekiq', '< 8.0'
 gem 'celluloid', '~> 0.17.2'
 gem 'sidekiq-limit_fetch'
 
@@ -76,7 +76,7 @@ gem 'active_model_serializers'
 gem 'sitemap_generator'
 
 # caching
-gem 'dalli', '~> 2.7.6'
+gem 'dalli', '~> 3.2.3'
 
 # others
 gem 'test-unit'
