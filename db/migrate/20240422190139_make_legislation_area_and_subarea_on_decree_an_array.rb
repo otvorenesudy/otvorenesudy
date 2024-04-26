@@ -27,7 +27,7 @@ class MakeLegislationAreaAndSubareaOnDecreeAnArray < ActiveRecord::Migration
               name: 'index_subarea_usage_on_decree_id_and_subarea_id'
 
     Decree
-      .select(:id, :legislation_area_id, :legislation_subarea_id)
+      .select('decrees.id, decrees.legislation_area_id, decrees.legislation_subarea_id')
       .find_in_batches(batch_size: 10_000) do |decree_batch|
         areas = decree_batch.map { |decree| "(#{decree.id}, #{decree.legislation_area_id}, NOW(), NOW())" }
         subareas = decree_batch.map { |decree| "(#{decree.id}, #{decree.legislation_subarea_id}, NOW(), NOW())" }
