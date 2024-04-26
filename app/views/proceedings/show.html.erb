@@ -2,7 +2,7 @@
 
 <h1 class="text-uppercase my-4">
   <%= proceeding_headline @proceeding, limit: 49, tooltip: true %>
-  <% if @proceeding.legislation_area_and_subarea.any? %>
+  <% if @proceeding.legislation_areas_and_subareas.any? %>
     <span class="d-inline d-xl-none">,</span><br class="d-none d-xl-inline" />
     <%= proceeding_subject @proceeding, limit: 49, tooltip: true %>
   <% end %>

@@ -3,7 +3,7 @@
     <h4 class="search-result-title">
       <%= link_to proceeding do %>
         <%= proceeding_headline(proceeding, limit: 57) %>
-        <% if proceeding.legislation_area_and_subarea.any? %>
+        <% if proceeding.legislation_areas_and_subareas.any? %>
           <br/>
           <%= proceeding_subject proceeding, limit: 57 %>
         <% end %>

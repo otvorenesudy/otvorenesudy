@@ -1,11 +1,21 @@
 class DecreeSerializer < ActiveModel::Serializer
-  attributes :id, :case_number, :file_number, :ecli, :text, :date, :pages_urls, :uri, :document_url, :created_at, :updated_at
+  attributes :id,
+             :case_number,
+             :file_number,
+             :ecli,
+             :text,
+             :date,
+             :pages_urls,
+             :uri,
+             :document_url,
+             :created_at,
+             :updated_at
 
   has_one :court
   has_one :form
-  has_one :legislation_area
-  has_one :legislation_subarea
 
+  has_many :legislation_areas
+  has_many :legislation_subareas
   has_many :natures
   has_many :judges
   has_many :legislations
@@ -14,9 +24,7 @@ class DecreeSerializer < ActiveModel::Serializer
   has_many :proposers
 
   def pages_urls
-    object.pages.map do |page|
-      scope.image_decree_page_url(object, page.number)
-    end
+    object.pages.map { |page| scope.image_decree_page_url(object, page.number) }
   end
 
   def document_url

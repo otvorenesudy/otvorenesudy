@@ -99,3 +99,9 @@ DecreeForm.create value: 'Rozsudok pre vzdanie', code: 'X' # TODO
 DecreeForm.create value: 'Čiastočný rozsudok', code: 'X' # TODO
 DecreeForm.create value: 'Medzitýmny rozsudok', code: 'X' # TODO
 DecreeForm.create value: 'Opatrenie', code: 'X' # TODO
+
+# Enumerable Values
+CourtOfficeType
+HearingType
+CourtType
+Period
