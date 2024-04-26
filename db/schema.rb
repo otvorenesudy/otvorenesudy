@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20240419135456) do
+ActiveRecord::Schema.define(:version => 20240422190139) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -179,8 +179,8 @@ ActiveRecord::Schema.define(:version => 20240419135456) do
   add_index "decree_pages", ["decree_id", "number"], :name => "index_decree_pages_on_decree_id_and_number", :unique => true
 
   create_table "decrees", :force => true do |t|
-    t.string   "uri",                    :limit => 2048,                    :null => false
-    t.integer  "source_id",                                                 :null => false
+    t.string   "uri",             :limit => 2048,                    :null => false
+    t.integer  "source_id",                                          :null => false
     t.integer  "proceeding_id"
     t.integer  "court_id"
     t.integer  "decree_form_id"
@@ -189,12 +189,10 @@ ActiveRecord::Schema.define(:version => 20240419135456) do
     t.date     "date"
     t.string   "ecli"
     t.text     "summary"
-    t.integer  "legislation_area_id"
-    t.integer  "legislation_subarea_id"
-    t.datetime "created_at",                                                :null => false
-    t.datetime "updated_at",                                                :null => false
-    t.string   "pdf_uri",                :limit => 2048
-    t.boolean  "pdf_uri_invalid",                        :default => false, :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
+    t.string   "pdf_uri",         :limit => 2048
+    t.boolean  "pdf_uri_invalid",                 :default => false, :null => false
     t.string   "source_class"
     t.integer  "source_class_id"
   end
@@ -552,6 +550,17 @@ ActiveRecord::Schema.define(:version => 20240419135456) do
   add_index "judgings", ["judge_id", "hearing_id"], :name => "index_judgings_on_judge_id_and_hearing_id", :unique => true
   add_index "judgings", ["judge_name_unprocessed"], :name => "index_judgings_on_judge_name_unprocessed"
 
+  create_table "legislation_area_usages", :force => true do |t|
+    t.integer  "decree_id",           :null => false
+    t.integer  "legislation_area_id", :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "legislation_area_usages", ["decree_id", "legislation_area_id"], :name => "index_area_usage_on_decree_id_and_area_id", :unique => true
+  add_index "legislation_area_usages", ["decree_id"], :name => "index_legislation_area_usages_on_decree_id"
+  add_index "legislation_area_usages", ["legislation_area_id"], :name => "index_legislation_area_usages_on_legislation_area_id"
+
   create_table "legislation_areas", :force => true do |t|
     t.string   "value",      :null => false
     t.datetime "created_at", :null => false
@@ -560,14 +569,23 @@ ActiveRecord::Schema.define(:version => 20240419135456) do
 
   add_index "legislation_areas", ["value"], :name => "index_legislation_areas_on_value"
 
-  create_table "legislation_subareas", :force => true do |t|
-    t.integer  "legislation_area_id", :null => false
-    t.string   "value",               :null => false
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+  create_table "legislation_subarea_usages", :force => true do |t|
+    t.integer  "decree_id",              :null => false
+    t.integer  "legislation_subarea_id", :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
-  add_index "legislation_subareas", ["legislation_area_id"], :name => "index_legislation_subareas_on_legislation_area_id"
+  add_index "legislation_subarea_usages", ["decree_id", "legislation_subarea_id"], :name => "index_subarea_usage_on_decree_id_and_subarea_id", :unique => true
+  add_index "legislation_subarea_usages", ["decree_id"], :name => "index_legislation_subarea_usages_on_decree_id"
+  add_index "legislation_subarea_usages", ["legislation_subarea_id"], :name => "index_legislation_subarea_usages_on_legislation_subarea_id"
+
+  create_table "legislation_subareas", :force => true do |t|
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   add_index "legislation_subareas", ["value"], :name => "index_legislation_subareas_on_value"
 
   create_table "legislation_usages", :force => true do |t|

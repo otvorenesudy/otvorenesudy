@@ -109,7 +109,7 @@ class Decree < ActiveRecord::Base
   end
 
   def legislation_areas_and_subareas
-    @legislation_areas_and_subareas ||= [*legislation_areas, *legislation_subarea].compact
+    @legislation_areas_and_subareas ||= [*legislation_areas, *legislation_subareas].compact
   end
 
   def pdf_uri_valid?

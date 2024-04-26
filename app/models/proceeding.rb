@@ -102,7 +102,7 @@ class Proceeding < ActiveRecord::Base
       decrees
         .order(:date)
         .each_with_object([]) do |decree, _|
-          break decree.legislation_areas_and_subareas if decree.legislation_area_and_subarea.any?
+          break decree.legislation_areas_and_subareas if decree.legislation_areas_and_subareas.any?
         end
   end
 

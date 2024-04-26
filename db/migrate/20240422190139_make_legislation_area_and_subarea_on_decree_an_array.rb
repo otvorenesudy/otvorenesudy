@@ -59,7 +59,7 @@ class MakeLegislationAreaAndSubareaOnDecreeAnArray < ActiveRecord::Migration
 
     remove_column :decrees, :legislation_area_id
     remove_column :decrees, :legislation_subarea_id
-    remove_column :legislation_subarea, :legislation_area_id
+    remove_column :legislation_subareas, :legislation_area_id
   end
 
   def down

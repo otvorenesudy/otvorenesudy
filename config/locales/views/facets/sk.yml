@@ -313,12 +313,12 @@ sk:
         missing: "Neuvedená"
         not_found: "Nenájdené žiadne povahy."
 
-      legislation_area:
+      legislation_areas:
         title: "Právna oblasť"
         missing: "Neuvedená"
         not_found: "Nevyhovujú žiadne oblasti."
 
-      legislation_subarea:
+      legislation_subareas:
         title: "Právna podoblasť"
         placeholder: "Právna podoblasť rozhodnutia"
         missing: "Neuvedená"

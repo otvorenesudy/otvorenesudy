@@ -31,18 +31,18 @@
     <% end %>
     <% if @decree.legislation_areas.any? %>
       <p>
-        <%= t '.legislation_area' %> &ndash; 
+        <%= t '.legislation_areas' %> &ndash; 
         
-        <%= @decree.legilation_areas.map do |area| %> 
-          <%= link_to_decrees_search area.value, params: { legislation_area: area.value } %>
-        <% end.to_sentence %>
+        <%= @decree.legislation_areas.map do |area| %> 
+          <% link_to_decrees_search area.value, params: { legislation_areas: area.value } %>
+        <% end.to_sentence.html_safe %>
 
         <% if @decree.legislation_subareas.any? %>
           &ndash;
           
-          <%= @decree.legilation_subareas.map do |subarea| %> 
-            <%= link_to_decrees_search subarea.value, params: { legislation_subarea: subarea.value }
-          <% end.to_sentence %>
+          <%= @decree.legislation_subareas.map do |subarea| %> 
+            <% link_to_decrees_search subarea.value, params: { legislation_subareas: subarea.value } %>
+          <% end.to_sentence.html_safe %>
         <% end %>
       </p>
     <% end %>
