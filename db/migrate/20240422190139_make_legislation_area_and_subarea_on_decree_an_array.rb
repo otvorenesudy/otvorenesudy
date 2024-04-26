@@ -29,8 +29,18 @@ class MakeLegislationAreaAndSubareaOnDecreeAnArray < ActiveRecord::Migration
     Decree
       .select('decrees.id, decrees.legislation_area_id, decrees.legislation_subarea_id')
       .find_in_batches(batch_size: 10_000) do |decree_batch|
-        areas = decree_batch.map { |decree| "(#{decree.id}, #{decree.legislation_area_id}, NOW(), NOW())" }
-        subareas = decree_batch.map { |decree| "(#{decree.id}, #{decree.legislation_subarea_id}, NOW(), NOW())" }
+        areas =
+          decree_batch
+            .map do |decree|
+              "(#{decree.id}, #{decree.legislation_area_id}, NOW(), NOW())" if decree.legislation_area_id
+            end
+            .compact
+        subareas =
+          decree_batch
+            .map do |decree|
+              "(#{decree.id}, #{decree.legislation_subarea_id}, NOW(), NOW())" if decree.legislation_subarea_id
+            end
+            .compact
 
         ActiveRecord::Base.connection.execute(
           "
@@ -49,7 +59,7 @@ class MakeLegislationAreaAndSubareaOnDecreeAnArray < ActiveRecord::Migration
 
     remove_column :decrees, :legislation_area_id
     remove_column :decrees, :legislation_subarea_id
-    remove_column :legislation_subarea, :legislation_area
+    remove_column :legislation_subarea, :legislation_area_id
   end
 
   def down
