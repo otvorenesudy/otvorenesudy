@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(:version => 20240422190139) do
     t.datetime "anonymized_at"
     t.string   "source_class"
     t.integer  "source_class_id"
-    t.integer  "orignal_court_id"
+    t.integer  "original_court_id"
     t.string   "original_case_number"
   end
 
