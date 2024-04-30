@@ -2,6 +2,8 @@ sk:
   courts:
     common: &common
       at_court: "Na súde"
+      destroyed_at: "Súd bol zrušený ku dňu %{date}"
+      destroyed_at_info_html: 'Viac informácii na stránke <a href="https://www.justice.gov.sk/sudy-a-rozhodnutia/sudy/zanikajuceSudy/" target="_blank">Ministerstva spravodlivosti SR</a>.'
       work:
         zero: "nepracujú %{judges}"
         one: "pracuje %{judges}"

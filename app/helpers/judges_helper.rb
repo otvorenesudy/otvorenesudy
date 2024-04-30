@@ -4,11 +4,15 @@ module JudgesHelper
   end
 
   def judge_activity_icon_tag(judge, active, options = {})
-    n, c, t = case active
-    when true  then %w(check    text-success judges.activity.active)
-    when false then %w(times    text-danger  judges.activity.inactive)
-    when nil   then %w(question text-warning judges.activity.unknown)
-    end
+    n, c, t =
+      case active
+      when true
+        %w[check text-success judges.activity.active]
+      when false
+        %w[times text-danger judges.activity.inactive]
+      when nil
+        %w[question text-warning judges.activity.unknown]
+      end
 
     options = options.merge class: Array.wrap(options[:class]).unshift("d-inline #{c}")
     options = options.merge placement: options.delete(:placement) || 'top'
@@ -39,11 +43,11 @@ module JudgesHelper
       else
         if employment.judge_position.value == 'sudca'
           s = t "judges.position.judge.#{g}"
-        elsif  employment.judge_position.value == 'hosťujúci sudca'
+        elsif employment.judge_position.value == 'hosťujúci sudca'
           s = t "judges.position.visiting_judge.#{g}"
         else
-          k = %w(chairman vice_chairman).flat_map { |k| %W(judges.position.#{k}.male judges.position.#{k}.female) }
-          s = t(guess_translation_key(employment.judge_position.value, :sk, k)) || employeement.judge_position.value
+          k = %w[chairman vice_chairman].flat_map { |k| %W[judges.position.#{k}.male judges.position.#{k}.female] }
+          s = t(guess_translation_key(employment.judge_position.value, :sk, k)) || employment.judge_position.value
         end
       end
     else
@@ -110,7 +114,7 @@ module JudgesHelper
 
   def judge_wrap_fix(content, options)
     content = yield content if block_given?
-    wrap = %i(id class data).find { |k| options[k].present? }
+    wrap = %i[id class data].find { |k| options[k].present? }
     wrap ? content_tag(:span, content.html_safe, options) : content.html_safe
   end
 end

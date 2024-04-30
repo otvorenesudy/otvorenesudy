@@ -2,6 +2,8 @@ en:
   courts:
     common: &common
       at_court: "At the court"
+      destroyed_at: "The court was decommissioned on %{date}"
+      destroyed_at_info_html: 'More information on the page of <a href="https://www.justice.gov.sk/sudy-a-rozhodnutia/sudy/zanikajuceSudy/" target="_blank">Department of Justice of Slovak Republic</a>.'
       work:
         zero: "there are %{judges} working"
         one: "there are %{judges} working"

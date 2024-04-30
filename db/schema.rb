@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20240422190139) do
+ActiveRecord::Schema.define(:version => 20240429101517) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20240422190139) do
     t.string   "source_class"
     t.integer  "source_class_id"
     t.string   "data_protection_email"
+    t.datetime "destroyed_at"
   end
 
   add_index "courts", ["acronym"], :name => "index_courts_on_acronym"

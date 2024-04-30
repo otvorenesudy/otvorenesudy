@@ -53,26 +53,36 @@ municipality = Municipality.find_or_initialize_by_name('Bratislava')
 municipality.zipcode = '814 90'
 municipality.save!
 
-court = Court.find_or_initialize_by_uri('http://www.nsud.sk')
-court.source = seeds
-court.type = CourtType.supreme
-court.municipality = municipality
-court.name = 'Najvyšší súd Slovenskej republiky'
-court.street = 'Župné námestie č. 13'
-court.latitude = 48.145895
-court.longitude = 17.104694
-court.save!
-court.registry_center =
-  CourtOffice.find_or_initialize_by_court_id_and_court_office_type_id(court.id, CourtOfficeType.registry_center.id)
-court.registry_center.email = 'podatelna@nsud.sk, info@nsud.sk'
-court.registry_center.phone = '02/32 304 660'
-court.registry_center.hours_monday = '8:00 - 11:30, 12:00 - 15:30'
-court.registry_center.hours_tuesday = '8:00 - 11:30, 12:00 - 15:30'
-court.registry_center.hours_wednesday = '8:00 - 11:30, 12:00 - 15:30'
-court.registry_center.hours_thursday = '8:00 - 11:30, 12:00 - 15:30'
-court.registry_center.hours_friday = '8:00 - 11:30, 12:00 - 15:30'
-court.registry_center.save!
-court.save!
+# Destroyed Courts
+destroyed_courts = [
+  'Okresný súd Bánovce nad Bebravou',
+  'Okresný súd Partizánske',
+  'Okresný súd Brezno',
+  'Okresný súd Čadca',
+  'Okresný súd Považská Bystrica',
+  'Okresný súd Dolný Kubín',
+  'Okresný súd Kežmarok',
+  'Okresný súd Nové Mesto nad Váhom',
+  'Okresný súd Piešťany',
+  'Okresný súd Revúca',
+  'Okresný súd Ružomberok',
+  'Okresný súd Skalica',
+  'Okresný súd Svidník',
+  'Okresný súd Topoľčany',
+  'Okresný súd Veľký Krtíš',
+  'Okresný súd Košice II',
+  'Okresný súd Košice-okolie',
+  'Okresný súd Bratislava V'
+]
+
+destroyed_courts.each do |court_name|
+  court = Court.find_by_name(court_name)
+
+  next unless court
+
+  court.destroyed_at = Time.parse('2023-05-31 00:00:00')
+  court.save!
+end
 
 # Decrees
 DecreeForm.find_or_create_by_value('Rozsudok').update_attributes!(code: 'A')

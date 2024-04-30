@@ -1,5 +1,12 @@
 <% provide :title, @court.name %>
 
+<% if @court.destroyed_at.present? %>
+  <div class="alert alert-danger mb-2">
+    <%= t '.destroyed_at', date: I18n.l(@court.destroyed_at.to_date) %>.
+    <%= t '.destroyed_at_info_html' %>
+  </div>
+<% end%>
+
 <h1 class="text-uppercase my-4">
   <%= yield :title %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">

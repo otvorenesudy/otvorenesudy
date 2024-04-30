@@ -6,6 +6,12 @@
     </h4>
 
     <div class="search-result-content">
+      <% if court.destroyed_at.present? %>
+        <div class="alert alert-danger alert-sm mb-2">
+          <%= t '.destroyed_at', date: I18n.l(court.destroyed_at.to_date) %>
+        </div>
+      <% end%>
+
       <% cache "courts-index-#{court.id}-description" do %>
         <% if court.chair || court.vicechair %>
           <% if court.chair %>
