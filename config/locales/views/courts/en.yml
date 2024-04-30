@@ -97,6 +97,12 @@ en:
       note: "Note:"
       hours: "Opening hours"
 
+    contact_office:
+      phone: "Phone:"
+      email: "E-mail:"
+      note: "Note:"
+      hours: "Opening hours"
+
     judges:
       chairs: "Chairmen"
       of_court: "of the court"

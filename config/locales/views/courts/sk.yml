@@ -97,6 +97,12 @@ sk:
       note: "Poznámka:"
       hours: "Otváracie hodiny"
 
+    contact_office:
+      phone: "Tel. číslo:"
+      email: "E-mail:"
+      note: "Poznámka:"
+      hours: "Otváracie hodiny"
+
     judges:
       chairs: "Predsedovia"
       of_court: "súdu"
