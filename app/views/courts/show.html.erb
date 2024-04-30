@@ -33,7 +33,7 @@
   <%= tab_link_tag t('.hearings'), 'hearings' %>
 </ul>
 
-<% cache "courts-show-#{@court.id}-tabs" do %>
+<% cache "courts-show-#{@court.id}-#{I18n.locale}-tabs" do %>
   <div class="tab-content">
     <%= render_tab partial: 'contact', class: 'active' %>
     <%= render_tab 'judges', judges: @judges %>

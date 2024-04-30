@@ -98,8 +98,24 @@ class Court < ActiveRecord::Base
     @chair ||= judges.active.chair.first
   end
 
+  def chairs
+    @chairs ||= judges.active.chair
+  end
+
   def vicechair
     @vicechair ||= judges.active.vicechair.first
+  end
+
+  def vicechairs
+    @vicechairs ||= judges.active.vicechair
+  end
+
+  def judicial_council_chairs
+    @judicial_council_chairs ||= judges.active.judicial_council_chair
+  end
+
+  def judicial_council_members
+    @judicial_council_members ||= judges.active.judicial_council_member
   end
 
   def expenses_total
@@ -121,7 +137,10 @@ class Court < ActiveRecord::Base
 
     invalidate_address
 
-    @coordinates = @chair = @vicechair = @expenses_total, @other_contacts = nil
+    @coordinates =
+      @chair =
+        @vicechair = @chairs = @vicechairs = @judicial_council_chairs = @judicial_council_members = @expenses_total,
+      @other_contacts = nil
   end
 
   storage :resource, JusticeGovSk::Storage::CourtPage, extension: :html

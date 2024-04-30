@@ -3,14 +3,14 @@
     <h4 class="search-result-title">
       <%= link_to_judge judge %>
 
-      <% cache "judges-index-#{judge.id}-icon-tag" do %>
+      <% cache "judges-index-#{judge.id}-#{I18n.locale}-icon-tag" do %>
         <%= judge_activity_icon_tag judge, judge.active?, size: 16, placement: 'right' %>
       <% end %>
     </h4>
 
     <div class="search-result-content">
       <ol class="list-unstyled">
-        <% cache "judges-index-#{judge.id}-description" do %>
+        <% cache "judges-index-#{judge.id}-#{I18n.locale}-description" do %>
           <% judge.employments.each do |employment| %>
             <%= content_tag :li, class: ('text-muted' unless employment.active?) do %>
               <%= judge_position_by_employment(employment) { |s| s.upcase_first } %>

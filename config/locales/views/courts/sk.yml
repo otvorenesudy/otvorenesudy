@@ -32,6 +32,7 @@ sk:
       results:
         of_court: "súdu"
         is: "je"
+        and_more: "a ďalší"
 
         <<: *common
 
@@ -104,7 +105,14 @@ sk:
       hours: "Otváracie hodiny"
 
     judges:
-      chairs: "Predsedovia"
+      chairman: "Predseda"
+      chairmen: "Predsedovia"
+      vice_chairman: "Podpredseda"
+      vice_chairmen: "Podpredsedovia"
+      judicial_council_chairman: "Predseda súdnej rady"
+      judicial_council_chairmen: "Predsedovia súdnej rady"
+      judicial_council_member: "Člen súdnej rady"
+      judicial_council_members: "Členovia súdnej rady"
       of_court: "súdu"
       is: "je"
 

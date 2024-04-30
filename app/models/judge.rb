@@ -9,14 +9,7 @@ class Judge < ActiveRecord::Base
 
   include Probe
 
-  attr_accessible :name,
-                  :name_unprocessed,
-                  :prefix,
-                  :first,
-                  :middle,
-                  :last,
-                  :suffix,
-                  :addition
+  attr_accessible :name, :name_unprocessed, :prefix, :first, :middle, :last, :suffix, :addition
 
   include Judge::Activity
   include Judge::Matched
@@ -25,16 +18,23 @@ class Judge < ActiveRecord::Base
   include Judge::Indicators2017
   include Judge::Indicators2021
 
-  scope :inactive_or_unlisted, where('employments.active = false OR employments.active IS NULL OR uri != ?', JusticeGovSk::Request::JudgeList.url)
+  scope :inactive_or_unlisted,
+        where(
+          'employments.active = false OR employments.active IS NULL OR uri != ?',
+          JusticeGovSk::Request::JudgeList.url
+        )
 
-  scope :chair,     joins(:positions).merge(JudgePosition.chair)
+  scope :chair, joins(:positions).merge(JudgePosition.chair)
   scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
+  scope :judicial_council_chair, joins(:positions).merge(JudgePosition.judicial_council_chair)
+  scope :judicial_council_member, joins(:positions).merge(JudgePosition.judicial_council_member)
 
-  scope :normal,  where('judge_chair = false')
+  scope :normal, where('judge_chair = false')
   scope :chaired, where('judge_chair = true')
 
   # TODO refactor!
-  scope :listed, where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false])
+  scope :listed,
+        where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false])
 
   scope :with_related_people, lambda { joins(:related_people) }
 
@@ -56,17 +56,13 @@ class Judge < ActiveRecord::Base
 
   has_many :decrees, through: :judgements
 
-  has_many :property_declarations, class_name: :JudgePropertyDeclaration,
-                                   dependent: :destroy
+  has_many :property_declarations, class_name: :JudgePropertyDeclaration, dependent: :destroy
 
-  has_many :related_people, class_name: :JudgeRelatedPerson,
-                            through: :property_declarations
+  has_many :related_people, class_name: :JudgeRelatedPerson, through: :property_declarations
 
-  has_many :statistical_summaries, class_name: :JudgeStatisticalSummary,
-                                   dependent: :destroy
+  has_many :statistical_summaries, class_name: :JudgeStatisticalSummary, dependent: :destroy
 
-  has_many :statistical_tables, through: :statistical_summaries,
-                                source: :tables
+  has_many :statistical_tables, through: :statistical_summaries, source: :tables
 
   has_many :selection_procedure_commissioners
   has_many :selection_procedure_candidates
@@ -84,68 +80,76 @@ class Judge < ActiveRecord::Base
   indicate Judge::UnresolvedIssuesCounts
 
   max_paginates_per 100
-      paginates_per 20
+  paginates_per 20
 
   mapping do
     map :id
 
     analyze :name
-    analyze :activity,                              as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
-    analyze :positions,                             as: lambda { |j| j.positions.pluck(:value) }
-    analyze :courts,                                as: lambda { |j| j.courts.pluck(:name) }
-    analyze :hearings_count,        type: :integer, as: lambda { |j| j.hearings.exact.size }
-    analyze :decrees_count,         type: :integer, as: lambda { |j| j.decrees.exact.size }
-    analyze :related_people_count,  type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
+    analyze :activity, as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
+    analyze :positions, as: lambda { |j| j.positions.pluck(:value) }
+    analyze :courts, as: lambda { |j| j.courts.pluck(:name) }
+    analyze :hearings_count, type: :integer, as: lambda { |j| j.hearings.exact.size }
+    analyze :decrees_count, type: :integer, as: lambda { |j| j.decrees.exact.size }
+    analyze :related_people_count, type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
 
     sort_by :_score, :hearings_count, :decrees_count
   end
 
   facets do
-    facet :q,                    type: :fulltext, field: [:name], force_wildcard: true
-    facet :activity,             type: :terms
-    facet :positions,            type: :terms
-    facet :courts,               type: :terms
-    facet :hearings_count,       type: :range, ranges: distribute(Hearing)
-    facet :decrees_count,        type: :range, ranges: distribute(Decree)
+    facet :q, type: :fulltext, field: [:name], force_wildcard: true
+    facet :activity, type: :terms
+    facet :positions, type: :terms
+    facet :courts, type: :terms
+    facet :hearings_count, type: :range, ranges: distribute(Hearing)
+    facet :decrees_count, type: :range, ranges: distribute(Decree)
     facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..3]
 
-    facet :name,                type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
-    facet :similar_courts,       type: :terms, field: :courts, visible: false, view: { results: 'judges/indicators/facets/terms_results' }
+    facet :name, type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
+    facet :similar_courts,
+          type: :terms,
+          field: :courts,
+          visible: false,
+          view: {
+            results: 'judges/indicators/facets/terms_results'
+          }
   end
 
-  formatable :name, default: '%p %f %m %l %a, %s', fixes: -> (v) { v.sub(/,\s*\z/, '') } do |judge|
-    { '%p' => judge.prefix,
+  formatable :name, default: '%p %f %m %l %a, %s', fixes: ->(v) { v.sub(/,\s*\z/, '') } do |judge|
+    {
+      '%p' => judge.prefix,
       '%f' => judge.first,
       '%m' => judge.middle,
       '%l' => judge.last,
       '%s' => judge.suffix,
-      '%a' => judge.addition }
+      '%a' => judge.addition
+    }
   end
 
   def active
-    return true  if employments.active.any?
+    return true if employments.active.any?
     return false if employments.inactive.any?
   end
 
   def active_at(court)
-    return true  if employments.at_court(court).active.any?
+    return true if employments.at_court(court).active.any?
     return false if employments.at_court(court).inactive.any?
   end
 
-  alias :active?    :active
-  alias :active_at? :active_at
+  alias active? active
+  alias active_at? active_at
 
   def incomplete
     employments.at_court_by_type(CourtType.supreme).any? || employments.at_court_by_type(CourtType.regional).any?
   end
 
-  alias :incomplete? :incomplete
+  alias incomplete? incomplete
 
   def listed
     @listed ||= (source == Source.of(JusticeGovSk) && active != nil)
   end
 
-  alias :listed? :listed
+  alias listed? listed
 
   def probable_gender
     probably_female ? :female : :male
@@ -159,8 +163,8 @@ class Judge < ActiveRecord::Base
     @probably_female ||= [middle, last].reject(&:nil?).select { |v| v =~ /(ov|sk)á\z/ }.any?
   end
 
-  alias :probably_higher_court_official? :probably_higher_court_official
-  alias :probably_female?                :probably_female
+  alias probably_higher_court_official? probably_higher_court_official
+  alias probably_female? probably_female
 
   # TODO rm or fix Bing Search API
   # context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }

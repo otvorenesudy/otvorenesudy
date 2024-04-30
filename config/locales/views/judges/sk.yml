@@ -50,6 +50,14 @@ sk:
         male: "hosťujúci sudca"
         female: "hosťujúca sudkyňa"
 
+      judicial_council_chairman:
+        male: "predseda súdnej rady"
+        female: "predsedníčka súdnej rady"
+
+      judicial_council_member:
+        male: "člen súdnej rady"
+        female: "členka súdnej rady"
+
       unknown:
         male: "neznámy"
         female: "neznáma"
