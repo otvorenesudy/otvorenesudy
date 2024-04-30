@@ -107,7 +107,7 @@ class Court < ActiveRecord::Base
   end
 
   def other_contacts
-    @other_contacts ||= JSON.parse(other_contacts_json || '[]', symbolize_names: true)
+    @other_contacts ||= other_contacts_json ? JSON.parse(other_contacts_json, symbolize_names: true) : false
   end
 
   # TODO rm or fix Bing Search API
