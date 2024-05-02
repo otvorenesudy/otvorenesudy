@@ -1,5 +1,12 @@
 <% provide :title, @court.name %>
 
+<% if @court.destroyed_at.present? %>
+  <div class="alert alert-danger mb-2">
+    <%= t '.destroyed_at', date: I18n.l(@court.destroyed_at.to_date) %>.
+    <%= t '.destroyed_at_info_html' %>
+  </div>
+<% end%>
+
 <h1 class="text-uppercase my-4">
   <%= yield :title %>
   <small class="d-block h6 font-weight-bold mt-2 mb-0">
@@ -26,7 +33,7 @@
   <%= tab_link_tag t('.hearings'), 'hearings' %>
 </ul>
 
-<% cache "courts-show-#{@court.id}-tabs" do %>
+<% cache "courts-show-#{@court.id}-#{I18n.locale}-tabs" do %>
   <div class="tab-content">
     <%= render_tab partial: 'contact', class: 'active' %>
     <%= render_tab 'judges', judges: @judges %>

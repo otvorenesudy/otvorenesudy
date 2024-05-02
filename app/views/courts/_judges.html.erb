@@ -1,21 +1,40 @@
-<% if @court.chair || @court.vicechair %>
+<% if @court.chairs.any? %>
   <h2 class="h4 text-uppercase mt-4">
-    <%= t '.chairs' %>
+    <%= t ".#{"chairman".pluralize(@court.chairs.count)}" %>
   </h2>
 
   <p>
-    <% if @court.chair %>
-      <%= judge_position_at_court(@court.chair, @court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
-      <%= link_to_judge @court.chair %><%= @court.vicechair ? ' ' + two_words_connector : '.' %>
-    <% end %>
-    <% if @court.vicechair %>
-      <% unless @court.chair %>
-        <%= judge_position_at_court(@court.vicechair, @court).upcase_first %> <%= t '.of_court' %>
-      <% else %>
-        <%= judge_position_at_court(@court.vicechair, @court) %>
-      <% end %>
-      <%= t '.is' %> <%= link_to_judge @court.vicechair %>.
-    <% end %>
+    <%= @court.chairs.map { |chair| link_to_judge chair }.to_sentence.html_safe %>
+  </p>
+<% end %>
+
+<% if @court.vicechairs.any? %>
+  <h2 class="h4 text-uppercase mt-4">
+    <%= t ".#{"vice_chairman".pluralize(@court.vicechairs.count)}" %>
+  </h2>
+
+  <p>
+    <%= @court.vicechairs.map { |vicechair| link_to_judge vicechair }.to_sentence.html_safe %>
+  </p>
+<% end %>
+
+<% if @court.judicial_council_chairs.any? %>
+  <h2 class="h4 text-uppercase mt-4">
+    <%= t ".#{"judicial_council_chairman".pluralize(@court.judicial_council_chairs.count)}" %>
+  </h2>
+
+  <p>
+    <%= @court.judicial_council_chairs.map { |chair| link_to_judge chair }.to_sentence.html_safe %>
+  </p>
+<% end %>
+
+<% if @court.judicial_council_members.any? %>
+  <h2 class="h4 text-uppercase mt-4">
+    <%= t ".#{"judicial_council_member".pluralize(@court.judicial_council_members.count)}" %>
+  </h2>
+
+  <p>
+    <%= @court.judicial_council_members.map { |member| link_to_judge member }.to_sentence.html_safe %>
   </p>
 <% end %>
 

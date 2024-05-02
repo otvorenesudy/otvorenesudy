@@ -23,7 +23,7 @@ en:
 
       court: "Decision was made at the court"
       judge: "Judgement was issued by"
-      legislation_area: "Legislation area"
+      legislation_areas: "Legislation area"
       form: "Judgement form"
       nature: "Judgement nature"
       resource: "Source"

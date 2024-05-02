@@ -313,12 +313,12 @@ en:
         missing: "Missing"
         not_found: "No dispositions found."
 
-      legislation_area:
+      legislation_areas:
         title: "Legislation area"
         missing: "Missing"
         not_found: "No areas available."
 
-      legislation_subarea:
+      legislation_subareas:
         title: "Legislation subarea"
         placeholder: "Judgement legislation subarea"
         missing: "Missing"

@@ -5,7 +5,7 @@
 
       <% if @court.phone %>
         <div class="row align-items-center">
-          <div class="col-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
+          <div class="col-5 col-sm-4 col-md-3"><%= t 'courts.office.phone' %></div>
           <div class="col-7 col-sm-8 col-md-9"><%= phone_to @court.phone %></div>
         </div>
       <% end %>
@@ -62,3 +62,9 @@
 <%= render 'office', office: @court.information_center if @court.information_center %>
 <%= render 'office', office: @court.registry_center if @court.registry_center %>
 <%= render 'office', office: @court.business_registry_center if @court.business_registry_center %>
+
+<% if @court.other_contacts.present? %>
+  <% @court.other_contacts.each do |contact| %>
+    <%= render 'contact_office', contact: contact %>
+  <% end %>
+<% end%>

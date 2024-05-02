@@ -47,8 +47,16 @@ en:
         female: "vice chairman"
 
       visiting_judge:
-        male: "hosťujúci sudca"
-        female: "hosťujúca sudkyňa"
+        male: "visiting judge"
+        female: "visiting judge"
+
+      judicial_council_chairman:
+        male: "judicial council chairman"
+        female: "judicial council chairman"
+
+      judicial_council_member:
+        male: "judicial council member"
+        female: "judicial council member"
 
       unknown:
         male: "unknown"

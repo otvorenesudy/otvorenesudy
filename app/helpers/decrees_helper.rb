@@ -18,6 +18,6 @@ module DecreesHelper
   private
 
   def decree_identifiers(decree)
-    [decree.form, decree.legislation_subarea].reject(&:blank?).map(&:value)
+    [decree.form, *decree.legislation_subareas].reject(&:blank?).map(&:value)
   end
 end

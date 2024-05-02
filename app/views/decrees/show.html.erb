@@ -29,11 +29,20 @@
         <% end %>
       </p>
     <% end %>
-    <% if @decree.legislation_area %>
+    <% if @decree.legislation_areas.any? %>
       <p>
-        <%= t '.legislation_area' %> &ndash; <%= link_to_decrees_search @decree.legislation_area.value, params: { legislation_area: @decree.legislation_area.value } %>
-        <% if @decree.legislation_subarea %>
-          &ndash; <%= link_to_decrees_search @decree.legislation_subarea.value, params: { legislation_area: @decree.legislation_area.value, legislation_subarea: @decree.legislation_subarea.value } %>
+        <%= t '.legislation_areas' %> &ndash; 
+        
+        <%= @decree.legislation_areas.map do |area| %> 
+          <% link_to_decrees_search area.value, params: { legislation_areas: area.value } %>
+        <% end.to_sentence.html_safe %>
+
+        <% if @decree.legislation_subareas.any? %>
+          &ndash;
+          
+          <%= @decree.legislation_subareas.map do |subarea| %> 
+            <% link_to_decrees_search subarea.value, params: { legislation_subareas: subarea.value } %>
+          <% end.to_sentence.html_safe %>
         <% end %>
       </p>
     <% end %>

@@ -3,7 +3,7 @@ require 'json'
 
 namespace :fixtures do
   namespace :db do
-    desc "Drops, creates, migrates and loads seed data into the database"
+    desc 'Drops, creates, migrates and loads seed data into the database'
     task rebuild: :environment do
       Rake::Task['db:drop'].invoke
       Rake::Task['db:create'].invoke
@@ -11,7 +11,7 @@ namespace :fixtures do
       Rake::Task['db:seed'].invoke
     end
 
-    desc "Setups small database with production data (drops existing database)"
+    desc 'Setups small database with production data (drops existing database)'
     task setup: :environment do
       Rake::Task['fixtures:db:rebuild'].invoke
       Rake::Task['fixtures:db:seed'].invoke
@@ -19,7 +19,7 @@ namespace :fixtures do
       Rake::Task['fixtures:db:decrees'].invoke
     end
 
-    desc "Seeds database with necessary data"
+    desc 'Seeds database with necessary data'
     task seed: :environment do
       Rake::Task['crawl:courts'].invoke
       Rake::Task['crawl:judges'].invoke
@@ -28,20 +28,20 @@ namespace :fixtures do
       Rake::Task['process:paragraphs'].invoke
     end
 
-    desc "Crawls small amount hearings"
+    desc 'Crawls small amount hearings'
     task hearings: :environment do
-      Rake::Task['crawl:hearings:civil'].invoke    1, 5
+      Rake::Task['crawl:hearings:civil'].invoke 1, 5
       Rake::Task['crawl:hearings:criminal'].invoke 1, 5
-      Rake::Task['crawl:hearings:special'].invoke  1, 5
+      Rake::Task['crawl:hearings:special'].invoke 1, 5
     end
 
-    desc "Crawls small amount of decrees"
+    desc 'Crawls small amount of decrees'
     task :decrees, [:reverse] => :environment do |_, args|
       args.with_defaults reverse: false
 
       codes = DecreeForm.order(:code).all
 
-      raise "No decree form codes found." if codes.empty?
+      raise 'No decree form codes found.' if codes.empty?
 
       codes.reverse! if args[:reverse]
 
@@ -51,7 +51,7 @@ namespace :fixtures do
       end
     end
 
-    desc "Prints basic statistics about the database"
+    desc 'Prints basic statistics about the database'
     task stat: :environment do
       puts "Courts: #{Court.count}"
       puts "Judges: #{Judge.count}"
@@ -65,9 +65,10 @@ namespace :fixtures do
       puts
       puts "Decrees total:  #{Decree.count}"
 
-      DecreeForm.order(:code).all.each do |form|
-        puts "Decrees form #{form.code}: #{Decree.where('decree_form_id = ?', form.id).count}"
-      end
+      DecreeForm
+        .order(:code)
+        .all
+        .each { |form| puts "Decrees form #{form.code}: #{Decree.where('decree_form_id = ?', form.id).count}" }
 
       puts
       puts "Court expenses:              #{CourtExpense.count}"
@@ -80,24 +81,19 @@ namespace :fixtures do
   end
 
   namespace :convert do
-    desc "Converts court proceeding durations CSV to JSON"
+    desc 'Converts court proceeding durations CSV to JSON'
     task :court_proceeding_durations, [:path] => :environment do |_, args|
       path = args[:path] || raise
 
       print "Converting #{path} ..."
 
-      data  = {}
+      data = {}
       lines = 0
 
       CSV.foreach(path, col_sep: "\t", headers: :first_row) do |line|
         court = data[line[1]] ||= []
 
-        court << {
-          year: line[0],
-          acronym: line[2],
-          name: line[3],
-          value: line[4].sub(/\,/, '.')
-        }
+        court << { year: line[0], acronym: line[2], name: line[3], value: line[4].sub(/\,/, '.') }
 
         lines += 1
       end
@@ -109,11 +105,11 @@ namespace :fixtures do
   end
 
   namespace :export do
-    desc "Export all hearings expanded with additional data"
-    task :expanded_hearings, [:path, :limit] => :environment do |_, args|
+    desc 'Export all hearings expanded with additional data'
+    task :expanded_hearings, %i[path limit] => :environment do |_, args|
       include Core::Output
 
-      path  = args[:path] || 'tmp'
+      path = args[:path] || 'tmp'
       limit = args[:limit] ? args[:limit].to_i : 1000
 
       separator = "\t"
@@ -203,74 +199,74 @@ namespace :fixtures do
           #{limit}
       SQL
 
-      data  = [:hearing_id, :hearing_case_number]
-      data += [:hearing_type_id, :hearing_type]
-      data += [:hearing_section_id, :hearing_section]
-      data += [:hearing_subject_id, :hearing_subject]
-      data += [:judge_id, :judge]
-      data += [:decree_form_id, :decree_form]
-      data += [:decree_nature_id,:decree_nature]
-      data += [:legislation_area_id,:legislation_area]
-      data += [:legislation_id,:legislation_name]
-      data += [:legislation_number,:legislation_section]
-      data += [:legislation_paragraph,:legislation_letter, :legislation_year]
-      data += [:defendant_id,:defendant]
-      data += [:accusation_id,:accusation]
-      data += [:court_id,:court]
-      data += [:court_type_id,:court_type]
+      data = %i[hearing_id hearing_case_number]
+      data += %i[hearing_type_id hearing_type]
+      data += %i[hearing_section_id hearing_section]
+      data += %i[hearing_subject_id hearing_subject]
+      data += %i[judge_id judge]
+      data += %i[decree_form_id decree_form]
+      data += %i[decree_nature_id decree_nature]
+      data += %i[legislation_area_id legislation_area]
+      data += %i[legislation_id legislation_name]
+      data += %i[legislation_number legislation_section]
+      data += %i[legislation_paragraph legislation_letter legislation_year]
+      data += %i[defendant_id defendant]
+      data += %i[accusation_id accusation]
+      data += %i[court_id court]
+      data += %i[court_type_id court_type]
 
       file.write(data.join(separator) + "\n")
 
       records = ActiveRecord::Base.connection.execute(query)
 
       records.each do |record|
-        hearing_id            = record['hearing_id'] || ''
-        hearing_case_number   = record['hearing_case_number'] || ''
-        hearing_type_id       = record['hearing_type_id'] || ''
-        hearing_type          = record['hearing_type'] || ''
-        hearing_section_id    = record['hearing_section_id'] || ''
-        hearing_section       = record['hearing_section'] || ''
-        hearing_subject_id    = record['hearing_subject_id'] || ''
-        hearing_subject       = record['hearing_subject'] || ''
-        judge_id              = record['judge_id'] || ''
-        judge                 = record['judge'] || ''
-        decree_form_id        = record['decree_form_id'] || ''
-        decree_form           = record['decree_form'] || ''
-        decree_nature_id      = record['decree_nature_id'] || ''
-        decree_nature         = record['decree_nature'] || ''
-        legislation_area_id   = record['legislation_area_id'] || ''
-        legislation_area      = record['legislation_area'] || ''
-        legislation_id        = record['legislation_id'] || ''
-        legislation_name      = record['legislation_name'] || ''
-        legislation_number    = record['legislation_number'] || ''
-        legislation_section   = record['legislation_section'] || ''
+        hearing_id = record['hearing_id'] || ''
+        hearing_case_number = record['hearing_case_number'] || ''
+        hearing_type_id = record['hearing_type_id'] || ''
+        hearing_type = record['hearing_type'] || ''
+        hearing_section_id = record['hearing_section_id'] || ''
+        hearing_section = record['hearing_section'] || ''
+        hearing_subject_id = record['hearing_subject_id'] || ''
+        hearing_subject = record['hearing_subject'] || ''
+        judge_id = record['judge_id'] || ''
+        judge = record['judge'] || ''
+        decree_form_id = record['decree_form_id'] || ''
+        decree_form = record['decree_form'] || ''
+        decree_nature_id = record['decree_nature_id'] || ''
+        decree_nature = record['decree_nature'] || ''
+        legislation_area_id = record['legislation_area_id'] || ''
+        legislation_area = record['legislation_area'] || ''
+        legislation_id = record['legislation_id'] || ''
+        legislation_name = record['legislation_name'] || ''
+        legislation_number = record['legislation_number'] || ''
+        legislation_section = record['legislation_section'] || ''
         legislation_paragraph = record['legislation_paragraph'] || ''
-        legislation_letter    = record['legislation_letter'] || ''
-        legislation_year      = record['legislation_year'] || ''
-        defendant_id          = record['defendant_id'] || ''
-        defendant             = record['defendant'] || ''
-        accusation_id         = record['accusation_id'] || ''
-        accusation            = record['accusation'] || ''
-        court_id              = record['court_id'] || ''
-        court                 = record['court'] || ''
-        court_type_id         = record['court_type_id'] || ''
-        court_type            = record['court_type'] || ''
+        legislation_letter = record['legislation_letter'] || ''
+        legislation_year = record['legislation_year'] || ''
+        defendant_id = record['defendant_id'] || ''
+        defendant = record['defendant'] || ''
+        accusation_id = record['accusation_id'] || ''
+        accusation = record['accusation'] || ''
+        court_id = record['court_id'] || ''
+        court = record['court'] || ''
+        court_type_id = record['court_type_id'] || ''
+        court_type = record['court_type'] || ''
 
-        data  = [hearing_id, hearing_case_number]
+        data = [hearing_id, hearing_case_number]
         data += [hearing_type_id, hearing_type]
         data += [hearing_section_id, hearing_section]
         data += [hearing_subject_id, hearing_subject]
         data += [judge_id, judge]
         data += [decree_form_id, decree_form]
-        data += [decree_nature_id,decree_nature]
-        data += [legislation_area_id,legislation_area]
-        data += [legislation_id,legislation_name]
-        data += [legislation_number,legislation_section]
-        data += [legislation_paragraph,legislation_letter, legislation_year]
-        data += [defendant_id,defendant]
-        data += [accusation_id,accusation]
-        data += [court_id,court]
-        data += [court_type_id,court_type]
+        data += [decree_nature_id, decree_nature]
+        data += [legislation_area_id, legislation_area]
+        data += [legislation_id, legislation_name]
+        data += [legislation_number, legislation_section]
+        data += [legislation_paragraph, legislation_letter, legislation_year]
+        data += [defendant_id, defendant]
+        data += [accusation_id, accusation]
+        data += [court_id, court]
+        data += [court_type_id, court_type]
 
         file.write(data.join(separator) + "\n")
       end
@@ -278,11 +274,11 @@ namespace :fixtures do
       file.close
     end
 
-    desc "Export decrees expanded with legislations data"
-    task :expanded_decrees, [:path, :limit] => :environment do |_, args|
+    desc 'Export decrees expanded with legislations data'
+    task :expanded_decrees, %i[path limit] => :environment do |_, args|
       include Core::Output
 
-      path  = args[:path] || 'tmp'
+      path = args[:path] || 'tmp'
       limit = args[:limit] ? args[:limit].to_i : 1000
 
       separator = "\t"
@@ -320,40 +316,40 @@ namespace :fixtures do
           #{limit}
       SQL
 
-      data  = [:decree_id, :decree_case_number, :court_registry]
-      data += [:legislation_id,:legislation_type]
-      data += [:legislation_year,:legislation_name]
-      data += [:legislation_paragraph,:legislation_section]
-      data += [:legislation_letter, :legislation_value]
-      data += [:legislation_area_id, :legislation_area_value]
-      data += [:legislation_subarea_id, :legislatio_subarea_value]
+      data = %i[decree_id decree_case_number court_registry]
+      data += %i[legislation_id legislation_type]
+      data += %i[legislation_year legislation_name]
+      data += %i[legislation_paragraph legislation_section]
+      data += %i[legislation_letter legislation_value]
+      data += %i[legislation_area_id legislation_area_value]
+      data += %i[legislation_subarea_id legislatio_subarea_value]
 
       file.write(data.join(separator) + "\n")
 
       records = ActiveRecord::Base.connection.execute(query)
 
       records.each do |record|
-        decree_id                 = record['decree_id'] || ''
-        decree_case_number        = record['decree_case_number'] || ''
-        legislation_id            = record['legislation_id'] || ''
-        legislation_type          = record['legislation_type'] || ''
-        legislation_year          = record['legislation_year'] || ''
-        legislation_name          = record['legislation_name'] || ''
-        legislation_paragraph     = record['legislation_paragraph'] || ''
-        legislation_section       = record['legislation_section'] || ''
-        legislation_letter        = record['legislation_letter'] || ''
-        legislation_value         = record['legislation_value'] || ''
-        legislation_area_id       = record['legislation_area_id'] || ''
-        legislation_area_value    = record['legislation_area'] || ''
-        legislation_subarea_id    = record['legislation_subarea_id'] || ''
+        decree_id = record['decree_id'] || ''
+        decree_case_number = record['decree_case_number'] || ''
+        legislation_id = record['legislation_id'] || ''
+        legislation_type = record['legislation_type'] || ''
+        legislation_year = record['legislation_year'] || ''
+        legislation_name = record['legislation_name'] || ''
+        legislation_paragraph = record['legislation_paragraph'] || ''
+        legislation_section = record['legislation_section'] || ''
+        legislation_letter = record['legislation_letter'] || ''
+        legislation_value = record['legislation_value'] || ''
+        legislation_area_id = record['legislation_area_id'] || ''
+        legislation_area_value = record['legislation_area'] || ''
+        legislation_subarea_id = record['legislation_subarea_id'] || ''
         legislation_subarea_value = record['legislation_subarea_value'] || ''
 
         decree_court_registry = decree_case_number.split('/').first.gsub(/\d/, '')
 
-        data  = [decree_id, decree_case_number, decree_court_registry]
-        data += [legislation_id,legislation_type]
-        data += [legislation_year,legislation_name]
-        data += [legislation_paragraph,legislation_section]
+        data = [decree_id, decree_case_number, decree_court_registry]
+        data += [legislation_id, legislation_type]
+        data += [legislation_year, legislation_name]
+        data += [legislation_paragraph, legislation_section]
         data += [legislation_letter, legislation_value]
         data += [legislation_area_id, legislation_area_value]
         data += [legislation_subarea_id, legislation_subarea_value]
@@ -364,7 +360,7 @@ namespace :fixtures do
       file.close
     end
 
-    desc "Export judge property declarations and some other related data into CSVs"
+    desc 'Export judge property declarations and some other related data into CSVs'
     task :judge_property_declarations, [:path] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
@@ -373,66 +369,69 @@ namespace :fixtures do
 
       FileUtils.mkpath path
 
-      file            = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
-      file_incomes    = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
-      file_people     = File.open File.join(path, 'judge-property-declarations-people.csv'), 'w'
+      file = File.open File.join(path, 'judge-property-declarations.csv'), 'w'
+      file_incomes = File.open File.join(path, 'judge-property-declarations-incomes.csv'), 'w'
+      file_people = File.open File.join(path, 'judge-property-declarations-people.csv'), 'w'
       file_statements = File.open File.join(path, 'judge-property-declarations-statements.csv'), 'w'
 
-      data  = [:uri, :judge_name]
-      data += [:court_name, :year]
+      data = %i[uri judge_name]
+      data += %i[court_name year]
       data += [:category]
       data += [:description]
-      data += [:cost, :share_size, :acquisition_date]
-      data += [:acquisition_reason, :ownership_form, :change]
+      data += %i[cost share_size acquisition_date]
+      data += %i[acquisition_reason ownership_form change]
 
       file.write(data.join("\t") + "\n")
 
-      Judge.order(:name).all.each do |judge|
-        print "Exporting declaration properties for judge #{judge.name} ... "
+      Judge
+        .order(:name)
+        .all
+        .each do |judge|
+          print "Exporting declaration properties for judge #{judge.name} ... "
 
-        judge.property_declarations.each do |declaration|
-          declaration.lists.each do |list|
-            list.items.each do |property|
-              data  = [declaration.uri, judge.name]
+          judge.property_declarations.each do |declaration|
+            declaration.lists.each do |list|
+              list.items.each do |property|
+                data = [declaration.uri, judge.name]
+                data += [declaration.court.name, declaration.year]
+                data += [list.category.value]
+                data += [property.description]
+                data += [property.cost, property.share_size, property.acquisition_date]
+                data << (property.acquisition_reason.nil? ? '' : property.acquisition_reason.value)
+                data << (property.ownership_form.nil? ? '' : property.ownership_form.value)
+                data << (property.change.nil? ? '' : property.change.value)
+
+                file.write(data.join("\t") + "\n")
+              end
+            end
+
+            declaration.incomes.each do |income|
+              data = [declaration.uri, judge.name]
               data += [declaration.court.name, declaration.year]
-              data += [list.category.value]
-              data += [property.description]
-              data += [property.cost, property.share_size, property.acquisition_date]
-              data << (property.acquisition_reason.nil? ? '' : property.acquisition_reason.value)
-              data << (property.ownership_form.nil?     ? '' : property.ownership_form.value)
-              data << (property.change.nil?             ? '' : property.change.value)
+              data += [income.description, income.value]
 
-              file.write(data.join("\t") + "\n")
+              file_incomes.write(data.join("\t") + "\n")
+            end
+
+            declaration.related_people.each do |person|
+              data = [declaration.uri, judge.name]
+              data += [declaration.court.name, declaration.year]
+              data += [person.name, person.institution, person.function]
+
+              file_people.write(data.join("\t") + "\n")
+            end
+
+            declaration.statements.each do |statement|
+              data = [declaration.uri, judge.name]
+              data += [declaration.court.name, declaration.year]
+              data += [statement.value]
+
+              file_statements.write(data.join("\t") + "\n")
             end
           end
 
-          declaration.incomes.each do |income|
-            data  = [declaration.uri, judge.name]
-            data += [declaration.court.name, declaration.year]
-            data += [income.description, income.value]
-
-            file_incomes.write(data.join("\t") + "\n")
-          end
-
-          declaration.related_people.each do |person|
-            data  = [declaration.uri, judge.name]
-            data += [declaration.court.name, declaration.year]
-            data += [person.name, person.institution, person.function]
-
-            file_people.write(data.join("\t") + "\n")
-          end
-
-          declaration.statements.each do |statement|
-            data  = [declaration.uri, judge.name]
-            data += [declaration.court.name, declaration.year]
-            data += [statement.value]
-
-            file_statements.write(data.join("\t") + "\n")
-          end
+          puts 'done'
         end
-
-        puts "done"
-      end
 
       file.close
       file_incomes.close
@@ -440,26 +439,25 @@ namespace :fixtures do
       file_statements.close
     end
 
-    desc "Export judge related people with metadata about judge position"
+    desc 'Export judge related people with metadata about judge position'
     task :judge_related_people, [:year] => :environment do |_, args|
       year = args[:year]
       file = File.open Rails.root.join('tmp', "judge-related-people-#{year}.csv"), 'w'
 
-      data  = [:judge_name, :court, :court_address, :court_latitude, :court_longitude, :position]
-      data += [:person_name, :court, :court_address, :court_latitude, :court_longitude, :position]
+      data = %i[judge_name court court_address court_latitude court_longitude position]
+      data += %i[person_name court court_address court_latitude court_longitude position]
 
       file.write(data.join("\t") + "\n")
 
       Judge.find_each do |judge|
         next if judge.employments.empty?
 
-        related_people = judge.related_people.where(:'judge_property_declarations.year' => year)
+        related_people = judge.related_people.where('judge_property_declarations.year': year)
 
         next unless related_people.any?
 
-        converter = lambda do |j, court, position|
-          [j.name, court.name, court.address, court.latitude, court.longitude, position]
-        end
+        converter =
+          lambda { |j, court, position| [j.name, court.name, court.address, court.latitude, court.longitude, position] }
 
         related_people.each do |person|
           if person.to_judge && person.to_judge.employments.any?
@@ -470,7 +468,8 @@ namespace :fixtures do
 
           next unless court
 
-          data  = converter.call(judge, judge.employments.first.court, judge.employments.first.judge_position.try(:value))
+          data =
+            converter.call(judge, judge.employments.first.court, judge.employments.first.judge_position.try(:value))
           data += converter.call(person, court, person.function)
 
           file.write(data.join("\t") + "\n")
@@ -480,24 +479,27 @@ namespace :fixtures do
       file.close
     end
 
-    desc "Export some statistics from judge statistical summaries"
+    desc 'Export some statistics from judge statistical summaries'
     task judge_statistics: :environment do
       file = File.open Rails.root.join('tmp', 'judge-statistics.csv'), 'w'
 
-      years   = [2012, 2011]
-      keys    = ['rozhodnuté', 'rozhodnuté-meritórne', 'odvolania-potvrdené', 'odvolania-zmenené', 'odvolania-zrušené', 'odvolania-odmietnuté']
-      agendas = ['C', 'Cb', 'P', 'T']
+      years = [2012, 2011]
+      keys = %w[
+        rozhodnuté
+        rozhodnuté-meritórne
+        odvolania-potvrdené
+        odvolania-zmenené
+        odvolania-zrušené
+        odvolania-odmietnuté
+      ]
+      agendas = %w[C Cb P T]
 
       data = ['sudca']
 
       years.each do |year|
         data << "súd-#{year}"
 
-        keys.each do |key|
-          agendas.each do |agenda|
-            data << "#{key}-#{agenda}-#{year}"
-          end
-        end
+        keys.each { |key| agendas.each { |agenda| data << "#{key}-#{agenda}-#{year}" } }
       end
 
       file.write(data.join("\t") + "\n")
@@ -507,13 +509,9 @@ namespace :fixtures do
 
         summaries = []
 
-        years.each do |year|
-          summaries << judge.statistical_summaries.where(year: year).first
-        end
+        years.each { |year| summaries << judge.statistical_summaries.where(year: year).first }
 
-        if summaries.blank?
-          puts "done (no summaries)"
-        end
+        puts 'done (no summaries)' if summaries.blank?
 
         data = [judge.name]
 
@@ -528,16 +526,16 @@ namespace :fixtures do
 
           table = summary.tables.by_name('R').first
 
-          ['sv_Pocet1', 'sv_Pocet2'].each do |row|
+          %w[sv_Pocet1 sv_Pocet2].each do |row|
             agendas.each do |agenda|
-              cell = StatisticalTableCell.of(table, agenda,  row)
+              cell = StatisticalTableCell.of(table, agenda, row)
               data << (cell ? cell.value : :missing)
             end
           end
 
           table = summary.tables.by_name('O').first
 
-          ['sv_Pocet1', 'sv_Pocet2', 'sv_Pocet3', 'sv_Pocet4'].each do |row|
+          %w[sv_Pocet1 sv_Pocet2 sv_Pocet3 sv_Pocet4].each do |row|
             agendas.each do |agenda|
               cell = StatisticalTableCell.of(table, agenda, row)
               data << (cell ? cell.value : :missing)
@@ -555,13 +553,13 @@ namespace :fixtures do
   end
 
   namespace :hearings do
-    desc "Loads remaining stored hearings into database"
+    desc 'Loads remaining stored hearings into database'
     task :load, [:hearing_type] => :environment do |_, args|
       include Core::Injector
       include Core::Pluralize
       include Core::Output
 
-      type = args[:hearing_type] || raise("Hearing type not set.")
+      type = args[:hearing_type] || raise('Hearing type not set.')
 
       storage = inject JusticeGovSk::Storage, prefix: type.titlecase, implementation: :Hearing, suffix: :Page
       crawler = inject JusticeGovSk::Crawler, prefix: type.titlecase, implementation: :Hearing
@@ -583,8 +581,8 @@ namespace :fixtures do
       end
     end
 
-    desc "Anonymizes all defendants"
-    task :anonymize => :environment do
+    desc 'Anonymizes all defendants'
+    task anonymize: :environment do
       include Core::Identify
       include Core::Pluralize
       include Core::Output
@@ -596,14 +594,14 @@ namespace :fixtures do
   end
 
   namespace :decrees do
-    desc "Loads remaining stored decrees into database"
-    task :load, [:decree_form_code, :offset, :limit] => :environment do |_, args|
+    desc 'Loads remaining stored decrees into database'
+    task :load, %i[decree_form_code offset limit] => :environment do |_, args|
       args.with_defaults safe: false
 
       options = args.dup
 
       offset = options[:offset].blank? ? 1 : options[:offset].to_i
-      limit  = options[:limit].blank? ? nil : options[:limit].to_i
+      limit = options[:limit].blank? ? nil : options[:limit].to_i
 
       request, lister = JusticeGovSk.build_request_and_lister Decree, options
 
@@ -613,12 +611,12 @@ namespace :fixtures do
       JusticeGovSk.run_lister lister, request, options do
         lister.crawl(request, offset, limit) do |uri|
           unless storage.contains? JusticeGovSk::URL.url_to_path(uri, :html)
-            puts "Decree page not downloaded, crawling skipped."
+            puts 'Decree page not downloaded, crawling skipped.'
             next
           end
 
           if Decree.where(uri: uri).first
-            puts "Decree already exists in database, crawling skipped."
+            puts 'Decree already exists in database, crawling skipped.'
             next
           end
 
@@ -627,15 +625,15 @@ namespace :fixtures do
       end
     end
 
-    desc "Extract missing images of decree documents"
-    task :extract_images, [:filter, :override] => :environment do |_, args|
+    desc 'Extract missing images of decree documents'
+    task :extract_images, %i[filter override] => :environment do |_, args|
       include Core::Pluralize
       include Core::Output
 
       args.with_defaults filter: '', override: false
 
       document_storage = JusticeGovSk::Storage::DecreeDocument.instance
-      image_storage    = JusticeGovSk::Storage::DecreeImage.instance
+      image_storage = JusticeGovSk::Storage::DecreeImage.instance
 
       document_storage.batch do |entries, bucket|
         unless bucket.start_with? args[:filter]
@@ -645,7 +643,7 @@ namespace :fixtures do
 
         print "Running image extraction for bucket #{bucket}, "
         print "#{pluralize entries.size, 'document'}, "
-        puts  "#{args[:override] ? 'overriding' : 'skipping'} already extracted."
+        puts "#{args[:override] ? 'overriding' : 'skipping'} already extracted."
 
         n = 0
 
@@ -666,7 +664,7 @@ namespace :fixtures do
 
   namespace :proceedings do
     desc 'Extract random finished proceedings with treshold'
-    task :extract, [:limit] => :environment  do |_, args|
+    task :extract, [:limit] => :environment do |_, args|
       limit = args[:limit] ? args[:limit].to_i : 1000
       count = 0
 
@@ -731,74 +729,88 @@ namespace :fixtures do
 
       puts columns.join("\t")
 
-      Proceeding.order('random()').find_each do |proceeding|
-        break if count >= limit
+      Proceeding
+        .order('random()')
+        .find_each do |proceeding|
+          break if count >= limit
 
-        # select only probably closed proceedings with at least one hearing and one decree
-        next unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree] && proceeding.duration > 0
+          # select only probably closed proceedings with at least one hearing and one decree
+          unless proceeding.probably_closed? && proceeding.events.map(&:class).uniq == [Hearing, Decree] &&
+                   proceeding.duration > 0
+            next
+          end
 
-        count += 1
+          count += 1
 
-        data = []
+          data = []
 
-        proceeding_courts_ids = proceeding.courts.map(&:id).uniq.sort
-        proceeding_judges_ids = proceeding.judges.map(&:id).uniq.sort
+          proceeding_courts_ids = proceeding.courts.map(&:id).uniq.sort
+          proceeding_judges_ids = proceeding.judges.map(&:id).uniq.sort
 
-        proceeding_proposers_ids  = Proposer.joins(:hearing).where(:'hearings.proceeding_id' => proceeding.id).pluck('proposers.id').uniq
-        proceeding_opponents_ids  = Opponent.joins(:hearing).where(:'hearings.proceeding_id' => proceeding.id).pluck('opponents.id').uniq
-        proceeding_defendants_ids = Defendant.joins(:hearing).where(:'hearings.proceeding_id' => proceeding.id).pluck('defendants.id').uniq
+          proceeding_proposers_ids =
+            Proposer.joins(:hearing).where('hearings.proceeding_id': proceeding.id).pluck('proposers.id').uniq
+          proceeding_opponents_ids =
+            Opponent.joins(:hearing).where('hearings.proceeding_id': proceeding.id).pluck('opponents.id').uniq
+          proceeding_defendants_ids =
+            Defendant.joins(:hearing).where('hearings.proceeding_id': proceeding.id).pluck('defendants.id').uniq
 
-        data << proceeding.id
-        data << proceeding.probably_closed?
-        data << proceeding.duration(time) / 24.hours
-        data << proceeding.decrees.order('date desc').last.court.type.id # TODO (smolnar) use comparison on court.type for determining the most significant court type
-        data << proceeding.judges.map(&:designations).flatten.map { |designation| designation.duration(time) }.sum.round / 24.hours
+          data << proceeding.id
+          data << proceeding.probably_closed?
+          data << proceeding.duration(time) / 24.hours
+          data << proceeding.decrees.order('date desc').last.court.type.id # TODO (smolnar) use comparison on court.type for determining the most significant court type
+          data << proceeding
+            .judges
+            .map(&:designations)
+            .flatten
+            .map { |designation| designation.duration(time) }
+            .sum
+            .round / 24.hours
 
-        #data << proceeding_courts_ids.join(',')
-        data << proceeding_courts_ids.size
-        #data << proceeding_judges_ids.join(',')
-        data << proceeding_judges_ids.size
+          #data << proceeding_courts_ids.join(',')
+          data << proceeding_courts_ids.size
+          #data << proceeding_judges_ids.join(',')
+          data << proceeding_judges_ids.size
 
-        #data << proceeding_proposers_ids.join(',')
-        data << proceeding_proposers_ids.size
-        #data << proceeding_opponents_ids.join(',')
-        data << proceeding_opponents_ids.size
-        #data << proceeding_defendants_ids.join(',')
-        data << proceeding_defendants_ids.size
+          #data << proceeding_proposers_ids.join(',')
+          data << proceeding_proposers_ids.size
+          #data << proceeding_opponents_ids.join(',')
+          data << proceeding_opponents_ids.size
+          #data << proceeding_defendants_ids.join(',')
+          data << proceeding_defendants_ids.size
 
-        #data << proceeding.events.map(&:id).uniq.join(',')
-        data << proceeding.events.uniq.size
-        #data << proceeding.hearings.pluck('hearings.id').uniq.join(',')
-        data << proceeding.hearings.uniq.size
-        #data << proceeding.decrees.pluck('decrees.id').uniq.join(',')
-        data << proceeding.decrees.uniq.size
-        data << proceeding.decrees.map(&:pages).flatten.uniq.size
+          #data << proceeding.events.map(&:id).uniq.join(',')
+          data << proceeding.events.uniq.size
+          #data << proceeding.hearings.pluck('hearings.id').uniq.join(',')
+          data << proceeding.hearings.uniq.size
+          #data << proceeding.decrees.pluck('decrees.id').uniq.join(',')
+          data << proceeding.decrees.uniq.size
+          data << proceeding.decrees.map(&:pages).flatten.uniq.size
 
-        #data << proceeding.hearings.pluck('hearing_form_id').uniq.join(',')
-        data << proceeding.hearings.pluck('hearing_form_id').uniq.size
-        #data << proceeding.hearings.pluck('hearing_section_id').uniq.join(',')
-        data << proceeding.hearings.pluck('hearing_section_id').uniq.size
-        #data << proceeding.hearings.pluck('hearing_subject_id').uniq.join(',')
-        data << proceeding.hearings.pluck('hearing_subject_id').uniq.size
-        #data << proceeding.hearings.pluck('hearing_type_id').uniq.join(',')
-        data << proceeding.hearings.pluck('hearing_type_id').uniq.size
+          #data << proceeding.hearings.pluck('hearing_form_id').uniq.join(',')
+          data << proceeding.hearings.pluck('hearing_form_id').uniq.size
+          #data << proceeding.hearings.pluck('hearing_section_id').uniq.join(',')
+          data << proceeding.hearings.pluck('hearing_section_id').uniq.size
+          #data << proceeding.hearings.pluck('hearing_subject_id').uniq.join(',')
+          data << proceeding.hearings.pluck('hearing_subject_id').uniq.size
+          #data << proceeding.hearings.pluck('hearing_type_id').uniq.join(',')
+          data << proceeding.hearings.pluck('hearing_type_id').uniq.size
 
-        #data << proceeding.decrees.pluck('decree_form_id').uniq.join(',')
-        data << proceeding.decrees.pluck('decree_form_id').uniq.size
-        #data << proceeding.decrees.pluck('legislation_area_id').uniq.join(',')
-        data << proceeding.decrees.pluck('legislation_area_id').uniq.size
-        #data << proceeding.decrees.pluck('legislation_subarea_id').uniq.join(',')
-        data << proceeding.decrees.pluck('legislation_subarea_id').uniq.size
-        #data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.join(',')
-        data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.size
-        #data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.join(',')
-        data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.size
+          #data << proceeding.decrees.pluck('decree_form_id').uniq.join(',')
+          data << proceeding.decrees.pluck('decree_form_id').uniq.size
+          #data << proceeding.decrees.pluck('legislation_area_id').uniq.join(',')
+          data << proceeding.decrees.pluck('legislation_area_id').uniq.size
+          #data << proceeding.decrees.pluck('legislation_subarea_id').uniq.join(',')
+          data << proceeding.decrees.pluck('legislation_subarea_id').uniq.size
+          #data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.join(',')
+          data << proceeding.decrees.joins(:legislations).pluck('legislations.id').uniq.size
+          #data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.join(',')
+          data << proceeding.decrees.joins(:naturalizations).pluck('decree_nature_id').uniq.size
 
-        courts_ids.each { |id| data << (proceeding_courts_ids.include?(id) ? 1 : 0) }
-        judges_ids.each { |id| data << (proceeding_judges_ids.include?(id) ? 1 : 0) }
+          courts_ids.each { |id| data << (proceeding_courts_ids.include?(id) ? 1 : 0) }
+          judges_ids.each { |id| data << (proceeding_judges_ids.include?(id) ? 1 : 0) }
 
-        puts data.join("\t")
-      end
+          puts data.join("\t")
+        end
     end
   end
 end

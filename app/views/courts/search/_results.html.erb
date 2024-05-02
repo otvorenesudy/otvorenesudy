@@ -6,11 +6,19 @@
     </h4>
 
     <div class="search-result-content">
-      <% cache "courts-index-#{court.id}-description" do %>
+      <% if court.destroyed_at.present? %>
+        <div class="alert alert-danger alert-sm mb-2">
+          <%= t '.destroyed_at', date: I18n.l(court.destroyed_at.to_date) %>
+        </div>
+      <% end%>
+
+      <% cache "courts-index-#{court.id}-#{I18n.locale}-description" do %>
         <% if court.chair || court.vicechair %>
           <% if court.chair %>
             <%= judge_position_at_court(court.chair, court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
-            <%= link_to_judge court.chair %><%= court.vicechair ? ' ' + two_words_connector : '.' %>
+            <%= link_to_judge court.chair %>
+            <%= court.chairs.count > 1 ? " #{t('.and_more')}" : nil %>
+            <%= court.vicechair ? ' ' + two_words_connector : '.' %>
           <% end %>
           <% if court.vicechair %>
             <% unless court.chair %>
@@ -18,7 +26,7 @@
             <% else %>
               <%= judge_position_at_court(court.vicechair, court) %>
             <% end %>
-            <%= t '.is' %> <%= link_to_judge court.vicechair %>.
+            <%= t '.is' %> <%= link_to_judge court.vicechair %> <%= court.vicechairs.count > 1 ? t('.and_more') : nil %>.
           <% end %>
           <br class="d-none d-md-inline" />
         <% end %>

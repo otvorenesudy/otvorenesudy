@@ -23,7 +23,7 @@ sk:
 
       court: "Rozhodnuté bolo na súde"
       judge: "Rozhodutie vydal sudca"
-      legislation_area: "Oblasť právnej úpravy"
+      legislation_areas: "Oblasť právnej úpravy"
       form: "Forma rozhodnutia"
       nature: "Povaha rozhodnutia"
       resource: "Zdroj"

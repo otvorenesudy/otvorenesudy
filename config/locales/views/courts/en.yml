@@ -2,6 +2,8 @@ en:
   courts:
     common: &common
       at_court: "At the court"
+      destroyed_at: "The court was decommissioned on %{date}"
+      destroyed_at_info_html: 'More information on the page of <a href="https://www.justice.gov.sk/sudy-a-rozhodnutia/sudy/zanikajuceSudy/" target="_blank">Department of Justice of Slovak Republic</a>.'
       work:
         zero: "there are %{judges} working"
         one: "there are %{judges} working"
@@ -30,6 +32,7 @@ en:
       results:
         of_court: "of the court"
         is: "is"
+        and_more: "and more"
 
         <<: *common
 
@@ -90,6 +93,12 @@ en:
         registry_center: "Registry"
         business_registry_center: "Information center of business register"
 
+      phone: "Phone:"
+      email: "E-mail:"
+      note: "Note:"
+      hours: "Opening hours"
+
+    contact_office:
       phone: "Phone:"
       email: "E-mail:"
       note: "Note:"

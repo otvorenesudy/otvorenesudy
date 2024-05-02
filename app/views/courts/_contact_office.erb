@@ -1,0 +1,62 @@
+<hr class="my-4" />
+
+<div class="row">
+  <div class="col-lg-8">
+    <h2 class="h4 text-uppercase">
+      <%= contact[:name] %>
+    </h2>
+
+    <% if contact[:phone] %>
+      <div class="row">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.phone' %></div>
+        <div class="col-7 col-sm-8 col-md-9"><%= phone_to contact[:phone] %></div>
+      </div>
+    <% end %>
+
+    <% if contact[:email] %>
+      <div class="row">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.email' %></div>
+        <div class="col-7 col-sm-8 col-md-9 text-truncate"><%= email_to contact[:email] %></div>
+      </div>
+    <% end %>
+
+    <% if contact[:note] %>
+      <div class="row">
+        <div class="col-5 col-sm-4 col-md-3"><%= t '.note' %></div>
+        <div class="col-7 col-sm-8 col-md-9"><%= sanitize(contact[:note]).gsub(/\n/, '<br>').html_safe %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if contact[:hours].compact.any? %>
+    <div class="col-lg-4">
+      <table class="table mt-4 mt-lg-0 mb-0">
+        <thead>
+          <th class="py-2" colspan="2" scope="col"><%= t '.hours' %></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="w-30 py-1"><%= t('date.day_names')[1] %>:</td>
+            <td class="w-70 py-1"><%= contact[:hours][0] %></td>
+          </tr>
+          <tr>
+            <td class="w-30 py-1"><%= t('date.day_names')[2] %>:</td>
+            <td class="w-70 py-1"><%= contact[:hours][1] %></td>
+          </tr>
+          <tr>
+            <td class="w-30 py-1"><%= t('date.day_names')[3] %>:</td>
+            <td class="w-70 py-1"><%= contact[:hours][2] %></td>
+          </tr>
+          <tr>
+            <td class="w-30 py-1"><%= t('date.day_names')[4] %>:</td>
+            <td class="w-70 py-1"><%= contact[:hours][3] %></td>
+          </tr>
+          <tr>
+            <td class="w-30 py-1"><%= t('date.day_names')[5] %>:</td>
+            <td class="w-70 py-1"><%= contact[:hours][4] %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
