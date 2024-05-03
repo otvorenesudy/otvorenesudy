@@ -1,3 +1,4 @@
 [submodule "data"]
-	path = data
-	url = https://github.com/otvorenesudy/otvorenesudy-data.git
+  path = data
+  url = https://github.com/otvorenesudy/otvorenesudy-data.git
+  branch = main
