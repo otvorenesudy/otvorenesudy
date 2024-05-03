@@ -6,7 +6,9 @@ if Rails.env.production? || Rails.env.staging?
     end
   end
 
-  Rack::Attack.throttle('req/ip', limit: 10, period: 5.seconds, bantime: 24.hour) { |req| req.ip }
+  Rack::Attack.throttle('req/ip', limit: 10, period: 5.seconds, bantime: 24.hour) do |req|
+    req.ip if !req.path.match(%r{\A/sidekiq})
+  end
 
   Rack::Attack.blacklist('Block bots accessing search') do |req|
     CrawlerDetect.is_crawler?(req.user_agent) &&
