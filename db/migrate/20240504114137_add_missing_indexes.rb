@@ -28,17 +28,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     end
 
     add_index :legislation_subareas, :value, unique: true
-
-    judgements = Judgement.group(:decree_id, :judge_name_unprocessed).having('count(*) > 1').count
-
-    judgements.each do |(decree_id, judge_name_unprocessed), _|
-      id, *duplicate_ids =
-        Judgement.where(decree_id: decree_id, judge_name_unprocessed: judge_name_unprocessed).order(:id).pluck(:id)
-
-      Judgement.where(id: duplicate_ids).delete_all
-    end
-
-    add_index :judgements, %i[decree_id judge_name_unprocessed], unique: true
   end
 
   def down
@@ -47,7 +36,5 @@ class AddMissingIndexes < ActiveRecord::Migration
 
     remove_index :legislation_subareas, :value
     add_index :legislation_subareas, :value
-
-    remove_index :judgements, %i[decree_id judge_name_unprocessed]
   end
 end
