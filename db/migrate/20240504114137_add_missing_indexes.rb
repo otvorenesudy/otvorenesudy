@@ -1,10 +1,37 @@
 class AddMissingIndexes < ActiveRecord::Migration
   def up
     remove_index :legislation_areas, :value
+
+    areas = LegislationArea.group(:value).having('count(legislation_areas.value) > 1').pluck(:value)
+    areas.each do |value|
+      id, *duplicate_ids = LegislationArea.where(value: value).order(:id).pluck(:id)
+
+      LegislationAreaUsage.where(legislation_area_id: duplicate_ids).update_all(legislation_area_id: id)
+      LegislationArea.where(id: duplicate_ids).delete_all
+    end
+
     add_index :legislation_areas, :value, unique: true
 
     remove_index :legislation_subareas, :value
+
+    subareas = LegislationSubarea.group(:value).having('count(legislation_subareas.value) > 1').pluck(:value)
+    subareas.each do |value|
+      id, *duplicate_ids = LegislationSubarea.where(value: value).order(:id).pluck(:id)
+
+      LegislationSubareaUsage.where(legislation_subarea_id: duplicate_ids).update_all(legislation_subarea_id: id)
+      LegislationSubarea.where(id: duplicate_ids).delete_all
+    end
+
     add_index :legislation_subareas, :value, unique: true
+
+    judgements = Judgement.group(:decree_id, :judge_name_unprocessed).having('count(*) > 1').count
+
+    judgements.each do |(decree_id, judge_name_unprocessed), _|
+      id, *duplicate_ids =
+        Judgement.where(decree_id: decree_id, judge_name_unprocessed: judge_name_unprocessed).order(:id).pluck(:id)
+
+      Judgement.where(id: duplicate_ids).delete_all
+    end
 
     add_index :judgements, %i[decree_id judge_name_unprocessed], unique: true
   end
