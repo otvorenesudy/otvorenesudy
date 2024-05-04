@@ -1,13 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter do
-    flash_message_wrap keys: %i(danger warning info)
-  end
+  before_filter { flash_message_wrap keys: %i[danger warning info] }
 
-  before_filter do
-    set_locale params[:l] || I18n.default_locale
-  end
+  before_filter { set_locale params[:l] || I18n.default_locale }
 
   protected
 

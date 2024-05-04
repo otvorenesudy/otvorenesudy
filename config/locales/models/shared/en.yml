@@ -1,12 +1,17 @@
 en:
   case_number:
     acronym: "CN"
-    full: "Case number"
+    full: "Case Number"
+    missing: "Unknown"
+
+  original_case_number:
+    acronym: "OCN"
+    full: "Original Case Number"
     missing: "Unknown"
 
   file_number:
     acronym: "CFI"
-    full: "Case file identifier"
+    full: "Case File Identifier"
     missing: "Unknown"
 
   ecli:

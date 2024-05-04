@@ -32,6 +32,7 @@ sk:
       at_court: "na súde %{court}"
       in_room: ", v miestnosti %{room}"
 
+      original_court: "Pôvodný súd"
       section: "Úsek"
       special_type: "Typ"
       form: "Forma úkonu"

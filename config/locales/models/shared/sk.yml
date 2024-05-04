@@ -4,6 +4,11 @@ sk:
     full: "Spisová značka"
     missing: "Neznáma"
 
+  original_case_number:
+    acronym: "PSZ"
+    full: "Pôvodná spisová značka"
+    missing: "Neznáma"
+
   file_number:
     acronym: "IČS"
     full: "Identifikačné číslo spisu"

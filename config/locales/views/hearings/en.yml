@@ -32,6 +32,7 @@ en:
       at_court: "at court %{court}"
       in_room: ", in room %{room}"
 
+      original_court: "Original court"
       section: "Section"
       special_type: "Type"
       form: "Form"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20240430115407) do
+ActiveRecord::Schema.define(:version => 20240504114137) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -508,6 +508,7 @@ ActiveRecord::Schema.define(:version => 20240430115407) do
   end
 
   add_index "judgements", ["decree_id", "judge_id"], :name => "index_judgements_on_decree_id_and_judge_id", :unique => true
+  add_index "judgements", ["decree_id", "judge_name_unprocessed"], :name => "index_judgements_on_decree_id_and_judge_name_unprocessed", :unique => true
   add_index "judgements", ["judge_id", "decree_id"], :name => "index_judgements_on_judge_id_and_decree_id", :unique => true
   add_index "judgements", ["judge_name_unprocessed"], :name => "index_judgements_on_judge_name_unprocessed"
 
@@ -569,7 +570,7 @@ ActiveRecord::Schema.define(:version => 20240430115407) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "legislation_areas", ["value"], :name => "index_legislation_areas_on_value"
+  add_index "legislation_areas", ["value"], :name => "index_legislation_areas_on_value", :unique => true
 
   create_table "legislation_subarea_usages", :force => true do |t|
     t.integer  "decree_id",              :null => false
@@ -588,7 +589,7 @@ ActiveRecord::Schema.define(:version => 20240430115407) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "legislation_subareas", ["value"], :name => "index_legislation_subareas_on_value"
+  add_index "legislation_subareas", ["value"], :name => "index_legislation_subareas_on_value", :unique => true
 
   create_table "legislation_usages", :force => true do |t|
     t.integer  "legislation_id", :null => false

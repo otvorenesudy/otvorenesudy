@@ -16,6 +16,9 @@
         <%= t '.at_court', court: link_to_court(@court) %><%= s t '.in_room', room: @hearing.room if @hearing.room %>.
       </p>
     <% end %>
+    <% if @hearing.original_court %>
+      <p><%= t '.original_court' %> &ndash; <%= links_to_court @hearing.original_court %></p>
+    <% end %>
     <% if @hearing.section || @hearing.special_type %>
       <p>
         <% if @hearing.section %>
@@ -52,6 +55,12 @@
         <span class="mr-2"><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
         <%= @hearing.case_number ? link_to_hearings_search(@hearing.case_number, class: 'text-truncate', params: { case_number: @hearing.case_number }) : t('case_number.missing') %>
       </li>
+      <% if @hearing.original_case_number %>
+        <li class="d-flex justify-content-between mx-2">
+          <span class="mr-2"><%= tooltip_tag t('original_case_number.acronym'), t('original_case_number.full'), placement: 'left' %>:</span>
+          <%= link_to_hearings_search(@hearing.original_case_number, class: 'text-truncate', params: { case_number: @hearing.original_case_number }) %>
+        </li>
+      <% end %>
       <li class="d-flex justify-content-between mx-2">
         <span class="mr-2"><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
         <%= @hearing.file_number ? link_to_hearings_search(@hearing.file_number, class: 'text-truncate', params: { file_number: @hearing.file_number }) : t('file_number.missing') %>
