@@ -19,7 +19,7 @@ class AddMissingIndexes < ActiveRecord::Migration
       ActiveRecord::Base.connection.execute(
         "
           INSERT INTO legislation_subarea_usages (decree_id, legislation_subarea_id, created_at, updated_at)
-          VALUES #{areas.join(', ')}
+          VALUES #{values.join(', ')}
           ON CONFLICT (decree_id, legislation_subarea_id)
           DO NOTHING;
         "
