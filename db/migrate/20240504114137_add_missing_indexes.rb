@@ -1,15 +1,6 @@
 class AddMissingIndexes < ActiveRecord::Migration
   def up
     remove_index :legislation_areas, :value
-
-    areas = LegislationArea.group(:value).having('count(legislation_areas.value) > 1').pluck(:value)
-    areas.each do |value|
-      id, *duplicate_ids = LegislationArea.where(value: value).order(:id).pluck(:id)
-
-      LegislationAreaUsage.where(legislation_area_id: duplicate_ids).update_all(legislation_area_id: id)
-      LegislationArea.where(id: duplicate_ids).delete_all
-    end
-
     add_index :legislation_areas, :value, unique: true
 
     remove_index :legislation_subareas, :value
@@ -18,7 +9,22 @@ class AddMissingIndexes < ActiveRecord::Migration
     subareas.each do |value|
       id, *duplicate_ids = LegislationSubarea.where(value: value).order(:id).pluck(:id)
 
-      LegislationSubareaUsage.where(legislation_subarea_id: duplicate_ids).update_all(legislation_subarea_id: id)
+      values =
+        LegislationSubareaUsage
+          .where(legislation_subarea_id: duplicate_ids)
+          .pluck(:decree_id)
+          .map { |decree_id| "(#{decree_id}, #{id}, NOW(), NOW())" }
+          .join(', ')
+
+      ActiveRecord::Base.connection.execute(
+        "
+          INSERT INTO legislation_subarea_usages (decree_id, legislation_subarea_id, created_at, updated_at)
+          VALUES #{areas.join(', ')}
+          ON CONFLICT (decree_id, legislation_subarea_id)
+          DO NOTHING;
+        "
+      )
+
       LegislationSubarea.where(id: duplicate_ids).delete_all
     end
 
