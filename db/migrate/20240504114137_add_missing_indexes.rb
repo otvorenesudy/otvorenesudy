@@ -14,7 +14,6 @@ class AddMissingIndexes < ActiveRecord::Migration
           .where(legislation_subarea_id: duplicate_ids)
           .pluck(:decree_id)
           .map { |decree_id| "(#{decree_id}, #{id}, NOW(), NOW())" }
-          .join(', ')
 
       ActiveRecord::Base.connection.execute(
         "
