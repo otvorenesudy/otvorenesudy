@@ -19,6 +19,6 @@ if Rails.env.production? || Rails.env.staging?
       req.path =~ %r{/(courts|judges|hearings|decrees|proceedings|selection_procedures)(\z|\?)}
   end
 
-  Rack::Attack.blocklisted_responder = lambda { |request| [503, {}, ['Blocked']] }
+  Rack::Attack.blacklisted_responder = lambda { |request| [503, {}, ['Blocked']] }
   Rack::Attack.throttled_responder = lambda { |request| [503, {}, ["Server Error\n"]] }
 end
