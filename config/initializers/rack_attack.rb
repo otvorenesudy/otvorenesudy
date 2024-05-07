@@ -6,12 +6,19 @@ if Rails.env.production? || Rails.env.staging?
     end
   end
 
-  Rack::Attack.throttle('req/ip', limit: 10, period: 5.seconds, bantime: 24.hour) do |req|
-    req.ip if !req.path.match(%r{\A/sidekiq})
+  Rack::Attack.throttle('req/ip', limit: 10, period: 5.seconds) { |req| req.ip unless req.path.match(%r{\A/sidekiq}) }
+
+  Rack::Attack.blacklist('Block IP') do |req|
+    Rack::Attack::Allow2Ban.filter("throttle-ban-#{req.ip}", maxretry: 10, findtime: 5.seconds, bantime: 1.hours) do
+      !req.path.match(%r{\A/sidekiq})
+    end
   end
 
   Rack::Attack.blacklist('Block bots accessing search') do |req|
     CrawlerDetect.is_crawler?(req.user_agent) &&
       req.path =~ %r{/(courts|judges|hearings|decrees|proceedings|selection_procedures)(\z|\?)}
   end
+
+  Rack::Attack.blocklisted_responder = lambda { |request| [503, {}, ['Blocked']] }
+  Rack::Attack.throttled_responder = lambda { |request| [503, {}, ["Server Error\n"]] }
 end
