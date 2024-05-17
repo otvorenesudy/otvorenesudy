@@ -15,9 +15,11 @@ en:
 
         court:
           <<: *common
+          name: "Name"
 
         judge:
           <<: *common
+          sortable_name: "Name"
 
         hearing:
           <<: *common

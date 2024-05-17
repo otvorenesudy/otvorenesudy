@@ -1,13 +1,15 @@
 class JudgesController < SearchController
+  before_filter :prepare_search_params, only: :index
+
   def show
     @judge = Judge.find(params[:id])
 
-    @employments  = @judge.employments
+    @employments = @judge.employments
     @designations = @judge.designations.order('date desc')
 
     @historical_hearings = @judge.hearings.historical.exact.order('date desc')
-    @upcoming_hearings   = @judge.hearings.upcoming.exact.order('date desc')
-    @decrees             = @judge.decrees.exact.order('date desc')
+    @upcoming_hearings = @judge.hearings.upcoming.exact.order('date desc')
+    @decrees = @judge.decrees.exact.order('date desc')
 
     @property_declarations = @judge.property_declarations.order('year desc')
     @statistical_summaries = @judge.statistical_summaries.order('year desc')
@@ -38,7 +40,7 @@ class JudgesController < SearchController
 
     # TODO this searches through first available indicators only! it leaves others as blank so later
     # when we figure out how to search through desired available indicators we do not have to change views
-    keys = [:indicators_2013, :indicators_2015, :indicators_2017, :indicators_2021]
+    keys = %i[indicators_2013 indicators_2015 indicators_2017 indicators_2021]
 
     @latest_indicators = keys.reverse.find { |key| @judge.send(key).present? }
 
@@ -70,12 +72,16 @@ class JudgesController < SearchController
   private
 
   def search_associations
-    [employments: [:court, :judge, :judge_position]]
+    [employments: %i[court judge judge_position]]
   end
 
   def search_indicators(key)
     results = Judge.search(params.merge(key => true))
     [results.facets, params[:name] ? results.to_a.map(&:first) : []]
   end
-end
 
+  def prepare_search_params
+    params[:sort] = 'sortable_name' if params[:sort].blank?
+    params[:order] = 'asc' if params[:sort] == 'sortable_name' && params[:order].blank?
+  end
+end
