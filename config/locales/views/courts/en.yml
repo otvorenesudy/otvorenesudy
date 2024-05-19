@@ -55,6 +55,7 @@ en:
       charged_court_of: "fined court out of"
       regional_courts: "regional courts"
       district_courts: "district courts"
+      municipal_courts: "municipal courts"
 
       fines: "Fines from the Constitutional Court"
       fines_for: "of Slovak Republic for either late or unlawful judgements in years"

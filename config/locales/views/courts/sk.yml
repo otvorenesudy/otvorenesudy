@@ -55,6 +55,7 @@ sk:
       charged_court_of: "pokutovaný súd z"
       regional_courts: "krajských súdov"
       district_courts: "okresných súdov"
+      municipal_courts: "mestských súdov"
 
       fines: "Pokuty od Ústavného súdu"
       fines_for: "Slovenskej republiky za neskoré a nesprávne rozhodnutia v rokoch"

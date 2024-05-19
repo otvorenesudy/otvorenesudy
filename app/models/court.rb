@@ -68,7 +68,7 @@ class Court < ActiveRecord::Base
     analyze :municipality, as: lambda { |c| c.municipality.name }
     analyze :expenses, type: :integer, as: lambda { |c| c.expenses_total }
 
-    sort_by :_score, :judges_count, :hearings_count, :decrees_count
+    sort_by :name, :_score, :judges_count, :hearings_count, :decrees_count
   end
 
   facets do

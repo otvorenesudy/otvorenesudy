@@ -86,6 +86,7 @@ class Judge < ActiveRecord::Base
     map :id
 
     analyze :name
+    analyze :sortable_name, as: lambda { |j| [j.middle, j.last, j.first].compact.join(' ') }
     analyze :activity, as: lambda { |j| j.active == nil ? :unknown : j.active ? :active : :inactive }
     analyze :positions, as: lambda { |j| j.positions.pluck(:value) }
     analyze :courts, as: lambda { |j| j.courts.pluck(:name) }
@@ -93,7 +94,7 @@ class Judge < ActiveRecord::Base
     analyze :decrees_count, type: :integer, as: lambda { |j| j.decrees.exact.size }
     analyze :related_people_count, type: :integer, as: lambda { |j| j.related_people.group(:name).count.size }
 
-    sort_by :_score, :hearings_count, :decrees_count
+    sort_by :sortable_name, :_score, :hearings_count, :decrees_count
   end
 
   facets do

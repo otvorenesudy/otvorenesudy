@@ -15,9 +15,11 @@ sk:
 
         court:
           <<: *common
+          name: "Názov súdu"
 
         judge:
           <<: *common
+          sortable_name: "Meno sudcu"
 
         hearing:
           <<: *common
