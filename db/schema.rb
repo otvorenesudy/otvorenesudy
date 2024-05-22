@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20240504114137) do
+ActiveRecord::Schema.define(:version => 20240516084658) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "defendant_id",                     :null => false
@@ -180,38 +180,8 @@ ActiveRecord::Schema.define(:version => 20240504114137) do
 
   add_index "decree_pages", ["decree_id", "number"], :name => "index_decree_pages_on_decree_id_and_number", :unique => true
 
-  create_table "decrees", :force => true do |t|
-    t.string   "uri",             :limit => 2048,                    :null => false
-    t.integer  "source_id",                                          :null => false
-    t.integer  "proceeding_id"
-    t.integer  "court_id"
-    t.integer  "decree_form_id"
-    t.string   "case_number"
-    t.string   "file_number"
-    t.date     "date"
-    t.string   "ecli"
-    t.text     "summary"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
-    t.string   "pdf_uri",         :limit => 2048
-    t.boolean  "pdf_uri_invalid",                 :default => false, :null => false
-    t.string   "source_class"
-    t.integer  "source_class_id"
-  end
-
-  add_index "decrees", ["case_number"], :name => "index_decrees_on_case_number"
-  add_index "decrees", ["court_id"], :name => "index_decrees_on_court_id"
-  add_index "decrees", ["created_at"], :name => "index_decrees_on_created_at"
-  add_index "decrees", ["date"], :name => "index_decrees_on_date"
-  add_index "decrees", ["decree_form_id"], :name => "index_decrees_on_decree_form_id"
-  add_index "decrees", ["ecli"], :name => "index_decrees_on_ecli"
-  add_index "decrees", ["file_number"], :name => "index_decrees_on_file_number"
-  add_index "decrees", ["proceeding_id"], :name => "index_decrees_on_proceeding_id"
-  add_index "decrees", ["source_class", "source_class_id"], :name => "index_decrees_on_source_class_and_source_class_id"
-  add_index "decrees", ["source_id"], :name => "index_decrees_on_source_id"
-  add_index "decrees", ["updated_at", "id"], :name => "index_decrees_on_updated_at_and_id"
-  add_index "decrees", ["updated_at"], :name => "index_decrees_on_updated_at"
-  add_index "decrees", ["uri"], :name => "index_decrees_on_uri", :unique => true
+# Could not dump table "decrees" because of following StandardError
+#   Unknown type 'vector(768)' for column 'embedding'
 
   create_table "defendants", :force => true do |t|
     t.integer  "hearing_id",       :null => false
@@ -508,7 +478,6 @@ ActiveRecord::Schema.define(:version => 20240504114137) do
   end
 
   add_index "judgements", ["decree_id", "judge_id"], :name => "index_judgements_on_decree_id_and_judge_id", :unique => true
-  add_index "judgements", ["decree_id", "judge_name_unprocessed"], :name => "index_judgements_on_decree_id_and_judge_name_unprocessed", :unique => true
   add_index "judgements", ["judge_id", "decree_id"], :name => "index_judgements_on_judge_id_and_decree_id", :unique => true
   add_index "judgements", ["judge_name_unprocessed"], :name => "index_judgements_on_judge_name_unprocessed"
 
