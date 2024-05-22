@@ -85,28 +85,30 @@ destroyed_courts.each do |court_name|
 end
 
 # Decrees
-DecreeForm.find_or_create_by_value('Rozsudok').update_attributes!(code: 'A')
-DecreeForm.find_or_create_by_value('Rozhodnutie').update_attributes!(code: 'A')
-DecreeForm.find_or_create_by_value('Uznesenie').update_attributes!(code: 'N')
-DecreeForm.find_or_create_by_value('Opravné uznesenie').update_attributes!(code: 'R')
-DecreeForm.find_or_create_by_value('Dopĺňacie uznesenie').update_attributes!(code: 'R')
-DecreeForm.find_or_create_by_value('Dopĺňací rozsudok').update_attributes!(code: 'D')
-DecreeForm.find_or_create_by_value('Platobný rozkaz').update_attributes!(code: 'P')
-DecreeForm.find_or_create_by_value('Zmenkový platobný rozkaz').update_attributes!(code: 'M')
-DecreeForm.find_or_create_by_value('Európsky platobný rozkaz').update_attributes!(code: 'E')
-DecreeForm.find_or_create_by_value('Šekový platobný rozkaz').update_attributes!(code: 'S')
-DecreeForm.find_or_create_by_value('Rozkaz na plnenie').update_attributes!(code: 'L')
-DecreeForm.find_or_create_by_value('Rozsudok pre zmeškanie').update_attributes!(code: 'K')
-DecreeForm.find_or_create_by_value('Rozsudok pre uznanie').update_attributes!(code: 'U')
-DecreeForm.find_or_create_by_value('Rozsudok bez odôvodnenia').update_attributes!(code: 'F')
-DecreeForm.find_or_create_by_value('Uznesenie bez odôvodnenia').update_attributes!(code: 'C')
-DecreeForm.find_or_create_by_value('Osvedčenie').update_attributes!(code: 'B')
-DecreeForm.find_or_create_by_value('Trestný rozkaz').update_attributes!(code: 'T')
-DecreeForm.find_or_create_by_value('Opatrenie bez poučenia').update_attributes!(code: 'X') # TODO
-DecreeForm.find_or_create_by_value('Rozsudok pre vzdanie').update_attributes!(code: 'X') # TODO
 DecreeForm.find_or_create_by_value('Čiastočný rozsudok').update_attributes!(code: 'X') # TODO
+DecreeForm.find_or_create_by_value('Dopĺňací rozsudok').update_attributes!(code: 'D')
+DecreeForm.find_or_create_by_value('Dopĺňacie uznesenie').update_attributes!(code: 'R')
+DecreeForm.find_or_create_by_value('Európsky platobný rozkaz').update_attributes!(code: 'E')
 DecreeForm.find_or_create_by_value('Medzitýmny rozsudok').update_attributes!(code: 'X') # TODO
+DecreeForm.find_or_create_by_value('Opatrenie bez poučenia').update_attributes!(code: 'X') # TODO
 DecreeForm.find_or_create_by_value('Opatrenie').update_attributes!(code: 'X') # TODO
+DecreeForm.find_or_create_by_value('Opravné uznesenie').update_attributes!(code: 'R')
+DecreeForm.find_or_create_by_value('Osvedčenie').update_attributes!(code: 'B')
+DecreeForm.find_or_create_by_value('Platobný rozkaz').update_attributes!(code: 'P')
+DecreeForm.find_or_create_by_value('Príkaz').update_attributes!(code: 'X') # TODO
+DecreeForm.find_or_create_by_value('Rozhodnutie').update_attributes!(code: 'A')
+DecreeForm.find_or_create_by_value('Rozkaz na plnenie').update_attributes!(code: 'L')
+DecreeForm.find_or_create_by_value('Rozsudok bez odôvodnenia').update_attributes!(code: 'F')
+DecreeForm.find_or_create_by_value('Rozsudok pre uznanie').update_attributes!(code: 'U')
+DecreeForm.find_or_create_by_value('Rozsudok pre vzdanie').update_attributes!(code: 'X') # TODO
+DecreeForm.find_or_create_by_value('Rozsudok pre zmeškanie').update_attributes!(code: 'K')
+DecreeForm.find_or_create_by_value('Rozsudok').update_attributes!(code: 'A')
+DecreeForm.find_or_create_by_value('Šekový platobný rozkaz').update_attributes!(code: 'S')
+DecreeForm.find_or_create_by_value('Trestný rozkaz').update_attributes!(code: 'T')
+DecreeForm.find_or_create_by_value('Uznesenie bez odôvodnenia').update_attributes!(code: 'C')
+DecreeForm.find_or_create_by_value('Uznesenie').update_attributes!(code: 'N')
+DecreeForm.find_or_create_by_value('Výzva').update_attributes!(code: 'X') # TODO
+DecreeForm.find_or_create_by_value('Zmenkový platobný rozkaz').update_attributes!(code: 'M')
 
 # Enumerable Values
 CourtOfficeType
