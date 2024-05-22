@@ -45,11 +45,6 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container mt-4 px-sm-0">
-      <div class="alerts">
-        <div class="alert alert-info" role="alert">
-          <%= t 'announcement_html' %>
-        </div>
-      </div>
       <%= render 'shared/flash_messages' %>
       <%= yield %>
     </div>
