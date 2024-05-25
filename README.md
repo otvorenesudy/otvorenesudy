@@ -18,15 +18,7 @@ Public data project aimed at creating much more user friendly interface to inter
 
 ### PostgreSQL
 
-Setup Trigram extension for desired Rails environments
-
-```
-sudo apt-get install postgresql-contrib -y
-sudo service postgresql restart
-cd /usr/share/postgresql/9.1/extension/
-RAILS_ENV=development
-psql -U postgres -d opencourts_$RAILS_ENV -f pg_trgm--1.0.sql
-```
+Make sure to have `pg_trgm` and `pgvector` extensions installed.
 
 ### Elasticsearch
 
@@ -62,6 +54,7 @@ Use Ruby 2.6.6 locally and install `gem install svgeez` and `npm install -g svgo
 
 ```
 rake db:create
+rake db:migrate # or rake db:structure:load
 rake db:seed
 ```
 
@@ -69,37 +62,11 @@ Note that the seed data are essential for the next steps
 
 ### Courts and judges
 
-Crawl courts and judges from justice.gov.sk:
-
-```
-rake crawl:courts
-rake crawl:judges
-```
-
-Process court acronyms from other source:
-
-```
-rake process:court_acronyms
-```
-
-Process paragraph descriptions from other source:
-
-```
-rake process:paragraphs
-```
+See [otvorenesudy-api](https://github.com/otvorenesudy/otvorenesudy-api).
 
 ### Hearings and decrees
 
-Crawl and process hearings and decrees from justice.gov.sk:
-
-```
-rake crawl:hearings:civil
-rake crawl:hearings:criminal
-rake crawl:hearings:special
-rake crawl:decrees
-```
-
-Note to see `rake work` tasks to crawl via background jobs
+See [otvorenesudy-api](https://github.com/otvorenesudy/otvorenesudy-api).
 
 ### Judge selection procedures
 
