@@ -1,6 +1,8 @@
-<h1>
-  <%= t ".new_#{@type.to_s.pluralize}" %>
-</h1>
+<h2>
+  <%= t 'layouts.application.title' %>
+  <br>
+  <small><%= t ".new_#{@type.to_s.pluralize}" %></small>
+</h2>
 
 <% if @subscription.query.value.any? %>
   <ul class="list-unstyled">

@@ -3,7 +3,7 @@ class Subscription < ActiveRecord::Base
 
   scope :latest, lambda { order('created_at desc') }
 
-  scope :by_model,  lambda { |model| joins(:query).where('queries.model = ?', model.to_s) }
+  scope :by_model, lambda { |model| joins(:query).where('queries.model = ?', model.to_s) }
   scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
 
   belongs_to :user
@@ -12,7 +12,7 @@ class Subscription < ActiveRecord::Base
 
   accepts_nested_attributes_for :query
 
-  after_save       :register
+  after_save :register
   after_initialize :assign_period
 
   def results
