@@ -1,0 +1,9 @@
+<% if @decree.pdf_uri_valid? %>
+  <p class="mt-4">
+    <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
+  </p>
+<% else %>
+  <p class="mt-4">
+    <%= simple_format(@decree.formatted_text, class: 'text-center') %>
+  </p>
+<% end %>

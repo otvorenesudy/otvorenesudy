@@ -18,6 +18,10 @@ en:
         future_date: "Judgement date is in far future, there is an error in original data."
         unprocessed: "Judgement is incomplete, an unknown error occurred during data processing."
 
+    similar:
+      headline: "Similar judgements"
+      disclaimer_html: 'The following judgements are similar based on the same legislation area, form, nature and various other attributes. The similarity is calculated by artificial intelligence model. If you find any inconsistencies or have any ideas how to improve the model, please let us know at <a href="mailto:kontakt@otvorenesudy.sk">kontakt@otvorenesudy.sk</a>. Thank you.'
+
     show:
       <<: *common
 
@@ -38,6 +42,7 @@ en:
 
       legislations: "Referenced legislation in the judgement"
       summary: "Summary"
+      similar: 'Similar'
 
       resource_note:
         description: "Information regarding the judgement were obtained from %{document}, which was most recently updated on %{update}."

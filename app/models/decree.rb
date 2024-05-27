@@ -128,6 +128,12 @@ class Decree < ActiveRecord::Base
     court.nil? || judgements.none?
   end
 
+  def similar
+    return [] if embedding.blank?
+
+    Decree.where('decrees.id != ?', id).order("decrees.embedding <=> '#{embedding}' ASC").limit(25).to_a
+  end
+
   def seo_keywords
     companies = text ? text.gsub(/[[:space:]]+/, ' ').squeeze(' ').scan(/.{3,30}s\.r\.o/) : []
 

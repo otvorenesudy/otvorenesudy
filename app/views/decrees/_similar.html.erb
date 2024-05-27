@@ -1,0 +1,9 @@
+<p class="mt-4 text-muted">
+  <%= t '.disclaimer_html' %>
+</p>
+
+<ol class="search-result-list mt-4">
+  <% @decree.similar.each do |decree| %>
+    <%= render partial: 'decrees/search/result', locals: { decree: decree, highlight: nil } %>
+  <% end %>
+</ol>

@@ -105,25 +105,24 @@
   </p>
 <% end %>
 
-<% if @decree.pdf_uri_valid? %>
-  <h3 class="text-uppercase my-5">
-    <%= t '.decree' %>
-    <hr>
-  </h3>
 
-  <p class="mt-2">
-    <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
-  </p>
-<% else %>
-  <h3 class="text-uppercase my-5">
-    <%= t '.decree' %>
-    <hr>
-  </h3>
+<% cache "decrees-show-#{@decree.id}-#{I18n.locale}-tabs" do %>
+  <ul class="nav nav-tabs mt-4" role="tablist">
+    <%= tab_link_tag t('.decree'), 'pdf', class: 'active', tabindex: -1 %>
+    <% if @decree.similar.any? %>
+      <%= tab_link_tag t('.similar'), 'similar' %>
+    <% end %>
+  </ul>
 
-  <p class="mt-2">
-    <%= simple_format(@decree.formatted_text, class: 'text-center') %>
-  </p>
+  <div class="tab-content">
+    <%= render_tab partial: 'decrees/pdf', class: 'active' %>
+    <% if @decree.similar.any? %>
+      <%= render_tab 'similar' %>
+    <% end %>
+  </div>
 <% end %>
+
+
 
 <p class="small text-muted mt-4 mb-0">
   <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
