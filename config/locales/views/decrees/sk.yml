@@ -18,6 +18,10 @@ sk:
         future_date: "Dátum rozhodnutia je zo vzdialenej budúcnosti, ide o chybu v pôvodných dátach."
         unprocessed: "Rozhodnutie je neúplné, pri spracovaní dát nastala neznáma chyba."
 
+    similar:
+      headline: "Podobné rozhodnutia"
+      disclaimer_html: 'Nasledujúce rozhodnutia sú podobné na základe rovnakej oblasti právnej úpravy, formy, povahy a ďalších atribútov. Podobnosť je získaná na základe modelu strojového učenia. Ak nájdete nejaké nezhody alebo máte návrhy na zlepšenie, dajte nám, prosím, vedieť na <a href="mailto:kontakt@otvorenesudy.sk">kontakt@otvorenesudy.sk</a>. Ďakujeme.'
+
     show:
       <<: *common
 
@@ -38,6 +42,7 @@ sk:
 
       legislations: "Predpisy odkazované v rozhodnutí"
       summary: "Sumár"
+      similar: 'Podobné'
 
       resource_note:
         description: "Informácie o súdnom rozhodnutí boli získané z %{document}, ktorého posledná aktualizácia bola vykonaná %{update}."
