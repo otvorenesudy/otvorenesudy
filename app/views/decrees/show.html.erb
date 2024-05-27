@@ -107,15 +107,19 @@
 
 <ul class="nav nav-tabs mt-4" role="tablist">
   <%= tab_link_tag t('.decree'), 'pdf', class: 'active', tabindex: -1 %>
-  <% if @decree.similar.any? %>
-    <%= tab_link_tag t('.similar'), 'similar' %>
+  <% cache "decrees-show-#{@decree.id}-#{I18n.locale}-similar-tab-link" do %>
+    <% if @similar.any? %>
+      <%= tab_link_tag t('.similar'), 'similar' %>
+    <% end %>
   <% end %>
 </ul>
 
 <div class="tab-content">
   <%= render_tab partial: 'decrees/pdf', class: 'active' %>
-  <% if @decree.similar.any? %>
-    <%= render_tab 'similar' %>
+  <% cache "decrees-show-#{@decree.id}-#{I18n.locale}-similar-tab" do %>
+    <% if @similar.any? %>
+      <%= render_tab 'similar' %>
+    <% end %>
   <% end %>
 </div>
 

@@ -2,6 +2,7 @@ class DecreesController < SearchController
   def show
     @decree = Decree.find(params[:id])
     @highlights = params[:h]
+    @similar = @decree.similar
 
     @court = @decree.court
     @judges = @decree.judges.order(:last, :middle, :first)
