@@ -20,7 +20,7 @@ en:
 
     similar:
       headline: "Similar judgements"
-      disclaimer_html: 'The following judgements are similar based on the same legislation area, form, nature and various other attributes. The similarity is calculated by artificial intelligence model. If you find any inconsistencies or have any ideas how to improve the model, please let us know at <a href="mailto:kontakt@otvorenesudy.sk">kontakt@otvorenesudy.sk</a>. Thank you.'
+      disclaimer_html: 'The following judgements are similar based on their legislation area, form, nature and various other attributes. The similarity is calculated by artificial intelligence model. If you find any inconsistencies or have any ideas how to improve the model, please let us know at <a href="mailto:kontakt@otvorenesudy.sk">kontakt@otvorenesudy.sk</a>. Thank you.'
 
     show:
       <<: *common
