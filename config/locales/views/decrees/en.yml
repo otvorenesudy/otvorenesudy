@@ -10,7 +10,7 @@ en:
       title: "Judgements"
 
     search:
-      results:
+      result:
         court: "Court"
 
         <<: *common

@@ -10,7 +10,7 @@ sk:
       title: "Rozhodnutia"
 
     search:
-      results:
+      result:
         court: "Súd"
 
         <<: *common
