@@ -16,10 +16,7 @@ if Rails.env.production? || Rails.env.staging?
 
   Rack::Attack.blacklist('Block bots accessing search') do |req|
     !req.user_agent.match(/uptime/i) && (CrawlerDetect.is_crawler?(req.user_agent) || req.user_agent.match(/bot/i)) &&
-      (
-        req.path =~ %r{/(courts|judges|hearings|decrees|proceedings|selection_procedures)(\z|\?)} ||
-          req.path =~ %r{/judges/\d+\?}
-      )
+      (req.path =~ %r{/(courts|judges|hearings|decrees|proceedings|selections)(\z|\?)} || req.path =~ %r{/judges/\d+\?})
   end
 
   Rack::Attack.blacklisted_response = lambda { |env| [503, {}, ['Blocked']] }
