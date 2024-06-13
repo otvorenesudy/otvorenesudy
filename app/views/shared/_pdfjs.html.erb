@@ -211,8 +211,10 @@
   document.getElementById("pdfjs-search-input").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && e.shiftKey) {
       matchPrevious();
+      e.preventDefault();
     } else if (e.key === "Enter") {
       matchNext();
+      e.preventDefault();
     }
   });
 
