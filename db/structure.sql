@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Homebrew)
--- Dumped by pg_dump version 16.2 (Homebrew)
+-- Dumped from database version 16.3 (Homebrew)
+-- Dumped by pg_dump version 16.3 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -81,7 +81,6 @@ CREATE TABLE public.accusations (
 --
 
 CREATE SEQUENCE public.accusations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -117,7 +116,6 @@ CREATE TABLE public.court_expenses (
 --
 
 CREATE SEQUENCE public.court_expenses_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -150,7 +148,6 @@ CREATE TABLE public.court_jurisdictions (
 --
 
 CREATE SEQUENCE public.court_jurisdictions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -182,7 +179,6 @@ CREATE TABLE public.court_office_types (
 --
 
 CREATE SEQUENCE public.court_office_types_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -223,7 +219,6 @@ CREATE TABLE public.court_offices (
 --
 
 CREATE SEQUENCE public.court_offices_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -255,7 +250,6 @@ CREATE TABLE public.court_proceeding_types (
 --
 
 CREATE SEQUENCE public.court_proceeding_types_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -290,7 +284,6 @@ CREATE TABLE public.court_statistical_summaries (
 --
 
 CREATE SEQUENCE public.court_statistical_summaries_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -322,7 +315,6 @@ CREATE TABLE public.court_types (
 --
 
 CREATE SEQUENCE public.court_types_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -376,7 +368,6 @@ CREATE TABLE public.courts (
 --
 
 CREATE SEQUENCE public.courts_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -409,7 +400,6 @@ CREATE TABLE public.decree_forms (
 --
 
 CREATE SEQUENCE public.decree_forms_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -442,7 +432,6 @@ CREATE TABLE public.decree_naturalizations (
 --
 
 CREATE SEQUENCE public.decree_naturalizations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -474,7 +463,6 @@ CREATE TABLE public.decree_natures (
 --
 
 CREATE SEQUENCE public.decree_natures_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -508,7 +496,6 @@ CREATE TABLE public.decree_pages (
 --
 
 CREATE SEQUENCE public.decree_pages_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -554,7 +541,6 @@ CREATE TABLE public.decrees (
 --
 
 CREATE SEQUENCE public.decrees_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -588,7 +574,6 @@ CREATE TABLE public.defendants (
 --
 
 CREATE SEQUENCE public.defendants_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -625,7 +610,6 @@ CREATE TABLE public.employments (
 --
 
 CREATE SEQUENCE public.employments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -657,7 +641,6 @@ CREATE TABLE public.hearing_forms (
 --
 
 CREATE SEQUENCE public.hearing_forms_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -689,7 +672,6 @@ CREATE TABLE public.hearing_sections (
 --
 
 CREATE SEQUENCE public.hearing_sections_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -721,7 +703,6 @@ CREATE TABLE public.hearing_subjects (
 --
 
 CREATE SEQUENCE public.hearing_subjects_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -753,7 +734,6 @@ CREATE TABLE public.hearing_types (
 --
 
 CREATE SEQUENCE public.hearing_types_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -805,7 +785,6 @@ CREATE TABLE public.hearings (
 --
 
 CREATE SEQUENCE public.hearings_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -837,7 +816,6 @@ CREATE TABLE public.judge_designation_types (
 --
 
 CREATE SEQUENCE public.judge_designation_types_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -873,7 +851,6 @@ CREATE TABLE public.judge_designations (
 --
 
 CREATE SEQUENCE public.judge_designations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -907,7 +884,6 @@ CREATE TABLE public.judge_incomes (
 --
 
 CREATE SEQUENCE public.judge_incomes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -939,7 +915,6 @@ CREATE TABLE public.judge_positions (
 --
 
 CREATE SEQUENCE public.judge_positions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -972,7 +947,6 @@ CREATE TABLE public.judge_proclaims (
 --
 
 CREATE SEQUENCE public.judge_proclaims_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1011,7 +985,6 @@ CREATE TABLE public.judge_properties (
 --
 
 CREATE SEQUENCE public.judge_properties_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1043,7 +1016,6 @@ CREATE TABLE public.judge_property_acquisition_reasons (
 --
 
 CREATE SEQUENCE public.judge_property_acquisition_reasons_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1075,7 +1047,6 @@ CREATE TABLE public.judge_property_categories (
 --
 
 CREATE SEQUENCE public.judge_property_categories_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1107,7 +1078,6 @@ CREATE TABLE public.judge_property_changes (
 --
 
 CREATE SEQUENCE public.judge_property_changes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1143,7 +1113,6 @@ CREATE TABLE public.judge_property_declarations (
 --
 
 CREATE SEQUENCE public.judge_property_declarations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1176,7 +1145,6 @@ CREATE TABLE public.judge_property_lists (
 --
 
 CREATE SEQUENCE public.judge_property_lists_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1208,7 +1176,6 @@ CREATE TABLE public.judge_property_ownership_forms (
 --
 
 CREATE SEQUENCE public.judge_property_ownership_forms_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1244,7 +1211,6 @@ CREATE TABLE public.judge_related_people (
 --
 
 CREATE SEQUENCE public.judge_related_people_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1276,7 +1242,6 @@ CREATE TABLE public.judge_senate_inclusions (
 --
 
 CREATE SEQUENCE public.judge_senate_inclusions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1308,7 +1273,6 @@ CREATE TABLE public.judge_statements (
 --
 
 CREATE SEQUENCE public.judge_statements_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1356,7 +1320,6 @@ CREATE TABLE public.judge_statistical_summaries (
 --
 
 CREATE SEQUENCE public.judge_statistical_summaries_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1380,7 +1343,7 @@ CREATE TABLE public.judgements (
     decree_id integer NOT NULL,
     judge_id integer,
     judge_name_similarity numeric(3,2) NOT NULL,
-    judge_name_unprocessed character varying(255) NOT NULL,
+    judge_name_unprocessed character varying(255),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1391,7 +1354,6 @@ CREATE TABLE public.judgements (
 --
 
 CREATE SEQUENCE public.judgements_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1434,7 +1396,6 @@ CREATE TABLE public.judges (
 --
 
 CREATE SEQUENCE public.judges_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1458,7 +1419,7 @@ CREATE TABLE public.judgings (
     hearing_id integer NOT NULL,
     judge_id integer,
     judge_name_similarity numeric(3,2) NOT NULL,
-    judge_name_unprocessed character varying(255) NOT NULL,
+    judge_name_unprocessed character varying(255),
     judge_chair boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1470,7 +1431,6 @@ CREATE TABLE public.judgings (
 --
 
 CREATE SEQUENCE public.judgings_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1535,7 +1495,6 @@ CREATE TABLE public.legislation_areas (
 --
 
 CREATE SEQUENCE public.legislation_areas_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1600,7 +1559,6 @@ CREATE TABLE public.legislation_subareas (
 --
 
 CREATE SEQUENCE public.legislation_subareas_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1633,7 +1591,6 @@ CREATE TABLE public.legislation_usages (
 --
 
 CREATE SEQUENCE public.legislation_usages_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1673,7 +1630,6 @@ CREATE TABLE public.legislations (
 --
 
 CREATE SEQUENCE public.legislations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1706,7 +1662,6 @@ CREATE TABLE public.municipalities (
 --
 
 CREATE SEQUENCE public.municipalities_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1740,7 +1695,6 @@ CREATE TABLE public.opponents (
 --
 
 CREATE SEQUENCE public.opponents_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1774,7 +1728,6 @@ CREATE TABLE public.paragraph_explanations (
 --
 
 CREATE SEQUENCE public.paragraph_explanations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1808,7 +1761,6 @@ CREATE TABLE public.paragraphs (
 --
 
 CREATE SEQUENCE public.paragraphs_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1841,7 +1793,6 @@ CREATE TABLE public.periods (
 --
 
 CREATE SEQUENCE public.periods_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1873,7 +1824,6 @@ CREATE TABLE public.proceedings (
 --
 
 CREATE SEQUENCE public.proceedings_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1907,7 +1857,6 @@ CREATE TABLE public.proposers (
 --
 
 CREATE SEQUENCE public.proposers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1941,7 +1890,6 @@ CREATE TABLE public.queries (
 --
 
 CREATE SEQUENCE public.queries_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1997,7 +1945,6 @@ CREATE TABLE public.selection_procedure_candidates (
 --
 
 CREATE SEQUENCE public.selection_procedure_candidates_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2032,7 +1979,6 @@ CREATE TABLE public.selection_procedure_commissioners (
 --
 
 CREATE SEQUENCE public.selection_procedure_commissioners_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2078,7 +2024,6 @@ CREATE TABLE public.selection_procedures (
 --
 
 CREATE SEQUENCE public.selection_procedures_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2112,7 +2057,6 @@ CREATE TABLE public.sources (
 --
 
 CREATE SEQUENCE public.sources_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2146,7 +2090,6 @@ CREATE TABLE public.statistical_table_cells (
 --
 
 CREATE SEQUENCE public.statistical_table_cells_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2178,7 +2121,6 @@ CREATE TABLE public.statistical_table_column_names (
 --
 
 CREATE SEQUENCE public.statistical_table_column_names_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2211,7 +2153,6 @@ CREATE TABLE public.statistical_table_columns (
 --
 
 CREATE SEQUENCE public.statistical_table_columns_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2243,7 +2184,6 @@ CREATE TABLE public.statistical_table_names (
 --
 
 CREATE SEQUENCE public.statistical_table_names_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2275,7 +2215,6 @@ CREATE TABLE public.statistical_table_row_names (
 --
 
 CREATE SEQUENCE public.statistical_table_row_names_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2308,7 +2247,6 @@ CREATE TABLE public.statistical_table_rows (
 --
 
 CREATE SEQUENCE public.statistical_table_rows_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2342,7 +2280,6 @@ CREATE TABLE public.statistical_tables (
 --
 
 CREATE SEQUENCE public.statistical_tables_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2376,7 +2313,6 @@ CREATE TABLE public.subscriptions (
 --
 
 CREATE SEQUENCE public.subscriptions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2417,7 +2353,6 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4934,3 +4869,5 @@ INSERT INTO schema_migrations (version) VALUES ('20240504161043');
 INSERT INTO schema_migrations (version) VALUES ('20240513145707');
 
 INSERT INTO schema_migrations (version) VALUES ('20240516084658');
+
+INSERT INTO schema_migrations (version) VALUES ('20240613170412');
