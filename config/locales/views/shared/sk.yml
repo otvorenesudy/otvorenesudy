@@ -2,3 +2,6 @@ sk:
   shared:
     pdfjs:
       error: 'Ospravedlňujeme sa, ale nastala chyba pri zobrazovaní rozhodnutia.' 
+      page: 'Strana'
+      search: 'Hľadať v dokumente'
+      match_help: Použite Enter alebo Shift + Enter na posúvanie medzi výsledkami.

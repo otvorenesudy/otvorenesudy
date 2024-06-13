@@ -4,13 +4,100 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/web/pdf_viewer.js"></script>
 <% end %>
 
-<div id="pdf-wrapper" class="text-center mt-5 mb-5" style="height: 800px; position: relative;">
-  <div id="pdf-container" class="container">
+<div id="pdf-wrapper" class="text-center mb-5 container" style="height: 800px; position: relative;">
+  <div class="row mb-2">
+    <div class="col-lg-3 px-0 mb-2 mb-lg-0">
+      <div class="btn-group btn-group-sm border float-left" role="group">
+        <div class="btn d-flex align-items-center shadow-none border-left-0 border-right border-top-0 border-bottom-0" style="cursor: auto;"><%= t '.page' %>&nbsp;<span id="pdf-js-page-count">- / -</span></div>
+        <button id="pdfjs-page-previous" class="btn btn-secondary d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" disabled>
+          <%= icon_tag('arrow-up', size: 12) %>
+        </button>
+        <button id="pdfjs-page-next" class="btn btn-secondary d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0">
+          <%= icon_tag('arrow-down', size: 12) %>
+        </button>
+      </div>
+    </div>
+    <div class="offset-lg-3"></div>
+    <div class="col-lg-6 px-0">
+      <div class="d-flex">
+        <div class="input-group input-group-sm">
+          <%= search_field_tag "q", "", id: 'pdfjs-search-input', class: 'flex-grow-1 form-control form-control-sm p-2 search-query-input search-query-input-sm', placeholder: t('.search') %>
+          <div class="input-group-append">
+            <button id="pdfjs-clear-search" class="btn search-query-submit d-none"><%= icon_tag('times', size: 10) %></button>
+          </div>
+        </div>
+      
+        <div id="pdfjs-match-group" class="btn-group btn-group-sm border float-left d-none" role="group">
+          <button id="pdfjs-match-previous" class="btn btn-secondary d-flex align-items-center shadow-none border-left-0 border-right border-top-0 border-bottom-0">
+            <%= icon_tag('arrow-up', size: 12) %>
+          </button>
+          <button id="pdfjs-match-next" class="btn btn-secondary d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0">
+            <%= icon_tag('arrow-down', size: 12) %>
+          </button>
+        </div>
+      </div>
+
+      <small id="pdfjs-match-help" class="form-text text-muted text-right d-none"><%= t '.match_help' %></small>
+    </div>
+  </div>
+  
+  <div id="pdf-container">
     <div id="viewer" class="pdfViewer"></div>
   </div>
 </div>
 
 <script type="text/javascript">
+  function setPage(page, totalPages) {
+    document.getElementById("pdf-js-page-count").innerText = "" + page + " / " + totalPages;
+  }
+
+  function unaccent(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function unaccentedCalculateMatch(pageIndex) {
+    let pageContent = this._pageContents[pageIndex];
+    let pageDiffs = this._pageDiffs[pageIndex];
+    let query = this._query;
+    let _this$_state = this._state,
+        caseSensitive = _this$_state.caseSensitive,
+        entireWord = _this$_state.entireWord,
+        phraseSearch = _this$_state.phraseSearch;
+
+    if (query.length === 0) {
+      return;
+    }
+
+    if (!caseSensitive) {
+      pageContent = unaccent(pageContent).toLowerCase();
+      query = unaccent(query).toLowerCase();
+    }
+
+    if (phraseSearch) {
+      this._calculatePhraseMatch(query, pageIndex, pageContent, pageDiffs, entireWord);
+    } else {
+      this._calculateWordMatch(query, pageIndex, pageContent, pageDiffs, entireWord);
+    }
+
+    if (this._state.highlightAll) {
+      this._updatePage(pageIndex);
+    }
+
+    if (this._resumePageIdx === pageIndex) {
+      this._resumePageIdx = null;
+
+      this._nextPageMatch();
+    }
+
+    var pageMatchesCount = this._pageMatches[pageIndex].length;
+
+    if (pageMatchesCount > 0) {
+      this._matchesCountTotal += pageMatchesCount;
+
+      this._updateUIResultsCount();
+    }
+  }
+
   pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/build/pdf.worker.min.js";
 
   const container = document.getElementById("pdf-container");
@@ -26,6 +113,8 @@
     linkService: linkService
   });
 
+  findController._calculateMatch = unaccentedCalculateMatch;
+
   const viewer = new pdfjsViewer.PDFViewer({
     container,
     eventBus,
@@ -37,7 +126,96 @@
 
   eventBus.on("pagesinit", function() {
     findController.executeCommand("find", { query: "<%= highlights %>", highlightAll: true, caseSensitive: false, multiplePhraseSearch: true });
+
+    setPage(viewer.currentPageNumber, viewer.pagesCount)
   });
+
+  eventBus.on("pagechanging", (e) => {
+    setPage(e.pageNumber, viewer.pagesCount);
+
+    const previousButton = document.getElementById("pdfjs-page-previous");
+    const nextButton = document.getElementById("pdfjs-page-next");
+
+    if (e.pageNumber > 1) {
+      previousButton.removeAttribute("disabled");
+    } else {
+      previousButton.setAttribute("disabled", "true");
+    }
+
+    if (e.pageNumber < viewer.pagesCount) {
+      nextButton.removeAttribute("disabled");
+    } else {
+      nextButton.setAttribute("disabled", "true");
+    }
+  });
+
+  document.getElementById("pdfjs-search-input").addEventListener("input", function() {
+    findController.executeCommand("find", { query: this.value, highlightAll: true, caseSensitive: false, phraseSearch: true, findPrevious: false });
+
+    const matchGroupButton = document.getElementById("pdfjs-match-group");
+    const matchHelp = document.getElementById("pdfjs-match-help");
+    const clearButton = document.getElementById("pdfjs-clear-search");
+
+    if (this.value) {
+      matchGroupButton.classList.remove("d-none");
+      matchHelp.classList.remove("d-none");
+      clearButton.classList.remove("d-none");
+    } else {
+      viewer.currentPageNumber = 1;
+
+      findController.executeCommand("find", { query: "<%= highlights %>", highlightAll: true, caseSensitive: false, multiplePhraseSearch: true });
+
+      clearButton.classList.add("d-none");
+      matchGroupButton.classList.add("d-none");
+      matchHelp.classList.add("d-none");
+    }
+  });
+
+  document.getElementById("pdfjs-clear-search").addEventListener("click", function() {
+    const searchInput = document.getElementById("pdfjs-search-input");
+
+    searchInput.value = "";
+    searchInput.dispatchEvent(new Event("input"));
+    searchInput.focus();
+  });
+
+  document.getElementById("pdfjs-page-next").addEventListener("click", function() {
+    const pagesCount = viewer.pagesCount;
+    const currentPage = viewer.currentPageNumber;
+
+    if (currentPage < pagesCount) {
+      viewer.currentPageNumber = currentPage + 1;
+    }
+  });
+
+  document.getElementById("pdfjs-page-previous").addEventListener("click", function() {
+    const pagesCount = viewer.pagesCount;
+    const currentPage = viewer.currentPageNumber;
+
+    if (currentPage > 1) {
+      viewer.currentPageNumber = currentPage - 1;
+    }
+  });
+
+  const matchPrevious = () => {
+    findController.executeCommand("findagain", { query: document.getElementById("pdfjs-search-input").value, highlightAll: true, caseSensitive: false, phraseSearch: true, findPrevious: true });
+  }
+
+  const matchNext = () => {
+    findController.executeCommand("findagain", { query: document.getElementById("pdfjs-search-input").value, highlightAll: true, caseSensitive: false, phraseSearch: true, findPrevious: false });
+  }
+
+  document.getElementById("pdfjs-match-previous").addEventListener("click", matchPrevious);
+  document.getElementById("pdfjs-match-next").addEventListener("click", matchNext);
+
+  document.getElementById("pdfjs-search-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.shiftKey) {
+      matchPrevious();
+    } else if (e.key === "Enter") {
+      matchNext();
+    }
+  });
+
 
   const loadingTask = pdfjsLib.getDocument({
     url: "<%= url %>",

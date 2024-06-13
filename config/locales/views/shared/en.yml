@@ -2,3 +2,6 @@ en:
   shared:
     pdfjs:
       error: 'We are sorry, but there was an error rendering the document.'
+      page: 'Page'
+      search: 'Search in the document'
+      match_help: Use Enter or Shift + Enter to navigate between matches.

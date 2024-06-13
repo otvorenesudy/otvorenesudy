@@ -1,8 +1,8 @@
-<h2>
+<h1 class="h1">
   <%= t 'layouts.application.title' %>
   <br>
   <small><%= t ".new_#{@type.to_s.pluralize}" %></small>
-</h2>
+</h1>
 
 <% if @subscription.query.value.any? %>
   <ul class="list-unstyled">
@@ -30,5 +30,5 @@
   <%= s t '.details' %>
 </p>
 <p>
-  <%= link_to t('.donate'), donation_url, class: 'h2 text-primary' %>
+  <%= link_to t('.donate'), donation_url, class: 'h3 text-primary' %>
 </p>

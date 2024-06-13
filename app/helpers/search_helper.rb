@@ -44,8 +44,6 @@ module SearchHelper
   end
 
   def extract_highlight_tokens(highlights)
-    Array.wrap(highlights).map { |text|
-      text.scan(/<em>(.*?)<\/em>/)
-    }.flatten.uniq
+    Array.wrap(highlights).map { |text| text.scan(%r{<em>(.*?)</em>}) }.flatten.map(&:downcase).uniq
   end
 end

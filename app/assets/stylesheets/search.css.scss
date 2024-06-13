@@ -112,6 +112,11 @@
   }
 }
 
+.search-query-input-sm {
+  background: $input-bg;
+  border-bottom-width: $input-focus-width-sm;
+}
+
 .search-query-submit {
   background: $input-bg;
   position: absolute !important;

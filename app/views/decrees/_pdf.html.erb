@@ -1,5 +1,5 @@
 <% if @decree.pdf_uri_valid? %>
-  <p class="mt-4">
+  <p class="mt-2">
     <%= render partial: 'shared/pdfjs', locals: { url: document_decree_path(@decree), highlights: @highlights } %>
   </p>
 <% else %>
