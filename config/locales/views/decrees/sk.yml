@@ -20,7 +20,7 @@ sk:
 
     similar:
       headline: "Podobné rozhodnutia"
-      disclaimer_html: 'Nasledujúce rozhodnutia sú podobné na základe ich oblasti právnej úpravy, formy, povahy a ďalších atribútov. Podobnosť je získaná na základe modelu strojového učenia. Ak nájdete nejaké nezhody alebo máte návrhy na zlepšenie, dajte nám, prosím, vedieť na <a href="mailto:kontakt@otvorenesudy.sk">kontakt@otvorenesudy.sk</a>. Ďakujeme.'
+      disclaimer_html: 'Nasledujúce rozhodnutia sú podobné na základe ich oblasti právnej úpravy, formy, povahy a ďalších atribútov. Podobnosť je získaná na základe modelu strojového učenia, a preto nemôžeme ručiť za relevantnosť podobnosti. Ak nájdete nejaké nezhody alebo máte návrhy na zlepšenie, dajte nám, prosím, vedieť na <a href="mailto:kontakt@otvorenesudy.sk">kontakt@otvorenesudy.sk</a>. Ďakujeme.'
 
     show:
       <<: *common
