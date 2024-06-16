@@ -40,9 +40,45 @@
       <small id="pdfjs-match-help" class="form-text text-muted text-right d-none"><%= t '.match_help' %></small>
     </div>
   </div>
-  
+
+  <div id="pdf-loading" class="row">
+    <div class="offset-lg-3"></div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="mx-auto mt-5">
+        <% 6.times.each do |width| %>
+          <div class="row mb-2">
+            <div class="bg-loading col-<%= rand(3..6).to_i %>" style="height: 15px"></div>
+          </div>
+        <% end %>
+
+        <div class="row my-5">
+          <div class="offset-1"></div>
+          <div class="bg-loading col-10" style="height: 25px"></div>
+        </div>
+
+        <% 6.times.each do |width| %>
+          <div class="row mb-2">
+            <div class="bg-loading col-12" style="height: 15px"></div>
+          </div>
+        <% end %>
+
+        <div class="row my-4">
+          <div class="offset-3"></div>
+          <div class="bg-loading col-6" style="height: 15px"></div>
+        </div>
+
+        <% 10.times.each do |width| %>
+          <div class="row mb-2">
+            <div class="bg-loading col-12" style="height: 15px"></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <div id="pdf-container">
-    <div id="viewer" class="pdfViewer"></div>
+    <div id="viewer" class="pdfViewer">
+    </div>
   </div>
 </div>
 
@@ -224,12 +260,15 @@
   });
 
   loadingTask.promise.then(function (pdfDocument) {
+    const loadingWrapper = document.getElementById('pdf-loading');
+    loadingWrapper.classList.add('d-none');
+
     viewer.setDocument(pdfDocument);
     linkService.setDocument(pdfDocument, null);
   }).catch(function(error) {
     const wrapper = document.getElementById('pdf-wrapper');
 
     wrapper.style = 'height: auto';
-    wrapper.innerHTML = '<p class="text-center"><%= t ".error" %></p>'
+    wrapper.innerHTML = '<p class="text-center mt-5"><%= t ".error" %></p>'
   });
 </script>
