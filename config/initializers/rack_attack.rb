@@ -6,7 +6,7 @@ if Rails.env.production? || Rails.env.staging?
     end
   end
 
-  Rack::Attack.throttle('req/ip', limit: 10, period: 5.seconds) { |req| req.ip unless req.path.match(%r{\A/sidekiq}) }
+  Rack::Attack.throttle('req/ip', limit: 15, period: 5.seconds) { |req| req.ip unless req.path.match(%r{\A/sidekiq}) }
 
   Rack::Attack.blacklist('Block IP') do |req|
     Rack::Attack::Allow2Ban.filter("throttle-ban-#{req.ip}", maxretry: 10, findtime: 5.seconds, bantime: 1.hours) do
