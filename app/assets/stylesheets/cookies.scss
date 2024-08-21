@@ -1,13 +1,18 @@
-.cc-window {
-  @extend .container;
-
-  transition: none !important;
-
-  &.cc-banner {
-    padding: map-get($spacers, 3);
+#cc-main {
+  .cm__btn, .pm__btn {
+    @extend .btn-primary;
   }
-}
 
-.cc-btn {
-  @extend .btn, .btn-primary;
+  .cm__btn--secondary, .pm__btn--secondary {
+    @extend .btn-secondary;
+  }
+
+  .section__toggle:checked~.toggle__icon {
+    background: $orange;
+    box-shadow: 0 0 0 1px $orange;
+  }
+
+  .toggle__icon-on svg {
+    stroke: $orange
+  }
 }

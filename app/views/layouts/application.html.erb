@@ -24,13 +24,13 @@
     <link rel="prefetch" href="<%= asset_path 'icons.svg' %>" />
     <link rel="prefetch" href="<%= asset_path 'brands.svg' %>" />
     <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:300,700&subset=latin-ext" />
-    <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :scripts %>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9KE4RBRL3"></script>
-    <script>
+    <script async data-category="analytics" data-service="Google Analytics" src="https://www.googletagmanager.com/gtag/js?id=G-B9KE4RBRL3"></script>
+    <script data-category="analytics" data-service="Google Analytics">
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -39,7 +39,7 @@
     </script>
 
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
     <%= csrf_meta_tags %>
   </head>
   <body>
