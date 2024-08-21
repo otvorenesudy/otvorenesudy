@@ -47,7 +47,7 @@ window.addEventListener("load", function () {
               {
                 title: "More information",
                 description:
-                  'For any queries in relation to my policy on cookies and your choices, please <a href="/contact">contact us</a>',
+                  'For any queries in relation to our policy on cookies and your choices, please <a href="/contact">contact us</a>',
               },
             ],
           },
@@ -84,7 +84,7 @@ window.addEventListener("load", function () {
               {
                 title: "Viac informácií",
                 description:
-                  'Pre akékoľvek otázky týkajúce sa mojej politiky cookies a vašich možností, prosím <a href="/contact">kontaktujte nás</a>',
+                  'Pre akékoľvek otázky týkajúce sa našej politiky cookies a vašich možností, prosím <a href="/contact">kontaktujte nás</a>',
               },
             ],
           },
