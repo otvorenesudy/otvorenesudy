@@ -3,7 +3,7 @@
     <div id="carousel" class="carousel carousel-fade slide mb-5" data-ride="carousel">
       <div class="carousel-inner mb-3">
         <div class="carousel-item active">
-          <%= link_to image_tag(asset_path('slides/volby-2023.png'), alt: 'Nenechajme voľby bez kontroly', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.sk/volby', class: 'd-block w-100', target: :_blank %>
+          <%= link_to image_tag(asset_path('slides/vytrvame-darujte-pastircak-2024.png'), alt: 'V snahe o lepšie Slovensko vytrváme', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.darujme.sk/vytrvame/?referral_tag_id=0c53dd1c-dacb-422c-93a8-8f3b0808fac0', class: 'd-block w-100', target: :_blank %>
         </div>
         <div class="carousel-item">
           <%= link_to image_tag(asset_path('slides/2-percenta-2023.png'), alt: '2% pre Transparency International', style: 'width: 100%; max-width: 100%; max-height: 100%'), 'https://transparency.sk/sk/2percenta', class: 'd-block w-100', target: :_blank %>
@@ -42,7 +42,7 @@
   <div class="col-12 col-lg-7 col-xl-6">
     <div class="feature h-100 p-4">
       <h1 class="text-info mb-4">
-        <%= t('.feature.headline') %><br/><%= t('.feature.footline') %>
+        <%= t('.feature.headline') %><br><%= t('.feature.footline') %>
       </h1>
       <h4 class="mb-3">
         <%= t('.feature.list', project: content_tag(:span, t('.feature.project'), class: 'text-uppercase').html_safe) %>
