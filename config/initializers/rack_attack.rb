@@ -18,7 +18,7 @@ if Rails.env.production? || Rails.env.staging?
     !req.user_agent.match(/uptime/i) && (CrawlerDetect.is_crawler?(req.user_agent) || req.user_agent.match(/bot/i)) &&
       (
         req.url =~ %r{/(courts|judges|hearings|decrees|proceedings|selections)(\z|\?)} ||
-          req.url =~ %r{/judges/\d+\?(?!l=)}
+          req.url =~ %r{/judges/.+\?(?!l=)}
       )
   end
 
