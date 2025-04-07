@@ -1,4 +1,4 @@
-set :domain, 'otvorenesudy.sk'
+set :domain, '37.9.168.190'
 
 server fetch(:domain), user: 'deploy', roles: %w[app db web]
 
