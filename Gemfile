@@ -91,7 +91,6 @@ group :assets do
 end
 
 group :development do
-  gem 'bump', git: 'https://github.com/pavolzbell/bump.git'
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
