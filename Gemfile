@@ -4,7 +4,7 @@ gem 'rails', '3.2.22.5'
 gem 'rake', '< 11'
 
 # database
-gem 'pg', '0.17.0'
+gem 'pg', '~> 0.11'
 gem 'pg_search'
 
 # search
@@ -91,6 +91,7 @@ group :assets do
 end
 
 group :development do
+  gem 'bump', git: 'https://github.com/pavolzbell/bump.git'
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler'
