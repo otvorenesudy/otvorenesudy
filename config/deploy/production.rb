@@ -1,4 +1,4 @@
-set :domain, '37.9.168.190'
+set :domain, 'otvorenesudy1.server.wbsprt.com'
 
 server fetch(:domain), user: 'deploy', roles: %w[app db web]
 

@@ -5,8 +5,8 @@ set :user, 'deploy'
 
 # Repository
 set :application, 'otvorenesudy'
-set :scm,         :git
-set :repo_url,    'git@github.com:otvorenesudy/otvorenesudy.git'
+set :scm, :git
+set :repo_url, 'git@github.com:otvorenesudy/otvorenesudy.git'
 set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 # Rbenv
@@ -15,10 +15,11 @@ set :rbenv_ruby, File.read('.ruby-version').strip
 
 # Links
 set :linked_files, fetch(:linked_files, []).push('config/configuration.yml')
-set :linked_dirs,  fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage', 'backups')
+set :linked_dirs,
+    fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage', 'backups')
 
 # Whenever
-set :whenever_identifier, ->{ "#{fetch(:application)}-#{fetch(:stage)}" }
+set :whenever_identifier, -> { "#{fetch(:application)}-#{fetch(:stage)}" }
 
 set :keep_releases, 1
 set :deploy_via, :remote_cache
