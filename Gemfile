@@ -4,7 +4,7 @@ gem 'rails', '3.2.22.5'
 gem 'rake', '< 11'
 
 # database
-gem 'pg', '~> 0.21.0'
+gem 'pg', '0.17.0'
 gem 'pg_search'
 
 # search
