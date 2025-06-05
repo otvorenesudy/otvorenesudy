@@ -1,5 +1,3 @@
-require 'pg'
-
 require File.expand_path('../boot', __FILE__)
 require File.expand_path('../version', __FILE__)
 
