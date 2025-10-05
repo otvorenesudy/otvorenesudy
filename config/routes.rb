@@ -3,7 +3,7 @@ require 'sidekiq/web'
 OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
 
-  resources :courts, only: [:index, :show] do
+  resources :courts, only: %i[index show] do
     collection do
       get :suggest
 
@@ -12,10 +12,8 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :judges, only: [:index, :show] do
-    collection do
-      get :suggest
-    end
+  resources :judges, only: %i[index show] do
+    collection { get :suggest }
 
     # TODO rm - unused?
     # member do
@@ -24,10 +22,8 @@ OpenCourts::Application.routes.draw do
     # end
   end
 
-  resources :hearings, only: [:index, :show] do
-    collection do
-      get :suggest
-    end
+  resources :hearings, only: %i[index show] do
+    collection { get :suggest }
 
     member do
       # TODO rm - unused?
@@ -37,22 +33,17 @@ OpenCourts::Application.routes.draw do
     end
   end
 
-  resources :decrees, only: [:index, :show] do
-    collection do
-      get :suggest
-    end
+  resources :decrees, only: %i[index show] do
+    collection { get :suggest }
 
-    member do
-      get :document
-    end
+    member { get :document }
   end
 
-  resources :proceedings, only: [:index, :show] do
-    collection do
-      get :suggest
-    end
+  resources :proceedings, only: %i[index show] do
+    collection { get :suggest }
   end
 
+=begin
   resources :selection_procedures, as: :selections, path: :selections, only: [:index, :show] do
     collection do
       get :suggest
@@ -76,8 +67,9 @@ OpenCourts::Application.routes.draw do
       end
     end
   end
+=end
 
-  resources :verification, path: :verify, only: [:index, :create]
+  resources :verification, path: :verify, only: %i[index create]
 
   devise_for :users
 
@@ -85,7 +77,7 @@ OpenCourts::Application.routes.draw do
     get :subscriptions
   end
 
-  resources :subscriptions, only: [:create, :update, :destroy]
+  resources :subscriptions, only: %i[create update destroy]
 
   match '/search/collapse', to: 'search#collapse'
   match '/404', to: 'errors#show', as: :not_found_error
