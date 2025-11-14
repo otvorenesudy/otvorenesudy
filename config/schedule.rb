@@ -51,11 +51,11 @@ every :day, at: '2:30am' do
 end
 
 every :day, at: '1am' do
-  runner 'ExceptionHandler.run { Hearing.recheck_index }'
+  runner 'ExceptionHandler.run { Hearing.recheck_index; Hearing.consolidate_index }'
 end
 
 every :day, at: '1am' do
-  runner 'ExceptionHandler.run { Decree.recheck_index }'
+  runner 'ExceptionHandler.run { Decree.recheck_index; Decree.consolidate_index }'
 end
 
 every :saturday, at: '10am' do
