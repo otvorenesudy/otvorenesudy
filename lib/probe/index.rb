@@ -70,13 +70,12 @@ module Probe
       def consolidate_index
         search = Tire.scan(index_name) { |s| s.fields ['id'] }
         ids_to_delete = []
+        current_ids = Set.new(pluck(:id))
 
-        search.each_document { |document| ids_to_delete << document.id unless exists?(document.id) }
+        search.each_document { |document| ids_to_delete << document.id unless current_ids.include?(document.id) }
 
         unless ids_to_delete.empty?
-          ids_to_delete.each_slice(1000) do |ids_slice|
-            Tire::DeleteByQuery.new(index_name) { query { terms :_id, ids_slice } }
-          end
+          ids_to_delete.each_slice(1000) { |ids_slice| Tire::DeleteByQuery.new(index_name) { terms :_id, ids_slice } }
         end
 
         index.refresh
