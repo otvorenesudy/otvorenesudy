@@ -72,10 +72,10 @@ module Probe
         ids_to_delete = []
         current_ids = Set.new(pluck(:id))
 
-        search.each_document { |document| ids_to_delete << document.id unless current_ids.include?(document.id) }
+        search.each_document { |document| ids_to_delete << document.id unless current_ids.include?(document.id.to_i) }
 
         unless ids_to_delete.empty?
-          ids_to_delete.each_slice(1000) { |ids_slice| Tire::DeleteByQuery.new(index_name) { terms :_id, ids_slice } }
+          ids_to_delete.each_slice(1000) { |ids_slice| Tire::DeleteByQuery.new(index_name) { terms :id, ids_slice } }
         end
 
         index.refresh
