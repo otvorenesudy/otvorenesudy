@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "INPUT=$(cat); TOOL_NAME=$(echo \"$INPUT\" | jq -r '.toolName'); if [ \"$TOOL_NAME\" = \"multi_replace_string_in_file\" ]; then FILE_PATHS=$(echo \"$INPUT\" | jq -r '.toolArgs | fromjson | .replacements[].filePath'); else FILE_PATHS=$(echo \"$INPUT\" | jq -r '.toolArgs | fromjson | .filePath // empty'); fi; for FILE_PATH in $FILE_PATHS; do if [[ \"$FILE_PATH\" == *.rb || \"$FILE_PATH\" == *.rake ]]; then STREE_CMD='stree'; if command -v bundle &>/dev/null && bundle exec stree version &>/dev/null 2>&1; then STREE_CMD='bundle exec stree'; elif ! command -v stree &>/dev/null; then exit 0; fi; if [[ -f .streerc ]]; then $STREE_CMD write --config=.streerc \"$FILE_PATH\"; else $STREE_CMD write \"$FILE_PATH\"; fi; fi; done",
+        "timeoutSec": 180
+      }
+    ]
+  }
+}

@@ -22,3 +22,5 @@ Gemfile.lock.tags
 /config/configuration.yml
 
 .env.local
+
+plans/*.md
