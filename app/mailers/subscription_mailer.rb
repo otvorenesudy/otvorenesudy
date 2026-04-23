@@ -30,6 +30,11 @@ class SubscriptionMailer < ActionMailer::Base
     @model = @query.model.constantize
     @params = @query.value.merge! order: :desc, sort: :created_at
 
+    @unsubscribe_url = unsubscribe_subscriptions_url(token: @subscription.token, only_path: false)
+
+    headers['List-Unsubscribe'] = "<#{@unsubscribe_url}>"
+    headers['List-Unsubscribe-Post'] = 'List-Unsubscribe=One-Click'
+
     mail to: @user.email, subject: I18n.t("subscriptions.mailer.results.subject.#{@type.to_s.pluralize}")
   end
 end

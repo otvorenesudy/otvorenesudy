@@ -77,7 +77,9 @@ OpenCourts::Application.routes.draw do
     get :subscriptions
   end
 
-  resources :subscriptions, only: %i[create update destroy]
+  resources :subscriptions, only: %i[create update destroy] do
+    collection { match 'unsubscribe/:token', action: :unsubscribe, as: :unsubscribe, via: %i[get post] }
+  end
 
   match '/search/collapse', to: 'search#collapse'
   match '/404', to: 'errors#show', as: :not_found_error

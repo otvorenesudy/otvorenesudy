@@ -17,3 +17,7 @@ en:
         supporters: "Open Courts project was supported by Transparency International Berlin and Reštart project of Centre for Philantrophy."
         details: "The effort to create a portal collecting as much information as possible about courts and judges is financially difficult. If you like the project, please contribute to its development and publication of additional data."
         donate: "Support Open Courts"
+
+        unsubscribe:
+          notice: "You are receiving this email because you subscribed to a search on the Open Courts portal."
+          link: "Unsubscribe"

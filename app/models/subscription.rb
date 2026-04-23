@@ -12,6 +12,10 @@ class Subscription < ActiveRecord::Base
 
   accepts_nested_attributes_for :query
 
+  validates :token, presence: true, uniqueness: true
+
+  before_validation :assign_token, on: :create
+
   after_save :register
   after_initialize :assign_period
 
@@ -43,5 +47,18 @@ class Subscription < ActiveRecord::Base
 
   def assign_period
     self.period ||= Period.monthly
+  end
+
+  def assign_token
+    return if token.present?
+
+    self.token = self.class.generate_unique_token
+  end
+
+  def self.generate_unique_token
+    loop do
+      token = SecureRandom.urlsafe_base64(24)
+      break token unless where(token: token).exists?
+    end
   end
 end
