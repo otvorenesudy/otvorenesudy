@@ -22,12 +22,12 @@ class SubscriptionMailer < ActionMailer::Base
   def results(subscription)
     @subscription = subscription
 
-    @user    = @subscription.user
-    @query   = @subscription.query
+    @user = @subscription.user
+    @query = @subscription.query
     @results = @subscription.results.first 10
 
-    @type   = @query.model.underscore.to_sym
-    @model  = @query.model.constantize
+    @type = @query.model.underscore.to_sym
+    @model = @query.model.constantize
     @params = @query.value.merge! order: :desc, sort: :created_at
 
     mail to: @user.email, subject: I18n.t("subscriptions.mailer.results.subject.#{@type.to_s.pluralize}")

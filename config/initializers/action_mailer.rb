@@ -1,7 +1,7 @@
 unless Rails.env.test?
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    address: 'smtp.sendgrid.net',
+    address: 'smtp-relay.brevo.com',
     domain: 'otvorenesudy.sk',
     port: 587,
     user_name: Configuration.mailer.username,
