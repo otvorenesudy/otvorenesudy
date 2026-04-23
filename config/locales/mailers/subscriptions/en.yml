@@ -21,3 +21,6 @@ en:
         unsubscribe:
           notice: "You are receiving this email because you subscribed to a search on the Open Courts portal."
           link: "Unsubscribe"
+
+        unsubscribed:
+          notice: "You have successfully unsubscribed from the search."

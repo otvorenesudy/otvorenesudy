@@ -47,7 +47,7 @@ class SubscriptionsController < ApplicationController
 
     @subscription.destroy if @subscription
 
-    flash[:notice] = t('.subscriptions.mailer.results.unsubscribe.notice')
+    flash[:notice] = t('.subscriptions.mailer.results.unsubscribed.notice')
 
     redirect_to root_path
   end

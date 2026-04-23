@@ -21,3 +21,7 @@ sk:
         unsubscribe:
           notice: "Tento e-mail Vám prišiel preto, lebo ste si zaregistrovali odoberanie vyhľadávania na portáli Otvorené Súdy."
           link: "Zrušiť odoberanie"
+
+        unsubscribed:
+          notice: "Odoberanie vyhľadávania bolo úspešne zrušené."
+
