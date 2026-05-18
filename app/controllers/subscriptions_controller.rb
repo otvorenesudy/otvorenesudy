@@ -43,7 +43,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    @subscription = Subscription.where(token: unsubscribe_params[:token]).first
+    @subscription = Subscription.find_by(token: unsubscribe_params[:token])
 
     @subscription.destroy if @subscription
 

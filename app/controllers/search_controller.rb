@@ -21,7 +21,7 @@ class SearchController < ApplicationController
     name = params[:facet]
     term = params[:term]
 
-    @results = @model.suggest name, term, index_params.to_h.except('facet', 'term').symbolize_keys
+    @results = @model.suggest name, term, suggest_context_params
 
     if @results
       facet   = @results.facets[name]
@@ -90,6 +90,10 @@ class SearchController < ApplicationController
 
   def index_params
     params.permit(:q, :page, :sort, :order, :per_page, :l, :facet, :term)
+  end
+
+  def suggest_context_params
+    index_params.except(:facet, :term).to_h.symbolize_keys
   end
 
   def collapse_params
