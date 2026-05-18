@@ -421,7 +421,7 @@ module Normalizer
 
     value.gsub!(/,\s*\z/, '')
     value.gsub!(/\,\-/, '')
-    value.gsub!(/(\A|\s+)(\d*(\.|\,)\d+)+(\s+|\z)/) { |n| n.gsub(/\./, ' ') }
+    value.gsub!(/(?:\A|\s+)\d+(?:[.,]\d+)+(?:\s+|\z)/) { |n| n.gsub(/\./, ' ') }
 
     value.gsub!(/(\-\s*){3,}/, '--')
     value.gsub!(/\s*\-\-\s*/, ' – ')
