@@ -1,12 +1,27 @@
 module Probe
   class Configuration
-    include Squire::Base
+    def self.config
+      @config ||= Rails.application.config_for(:probe).with_indifferent_access
+    end
 
-    squire.source    Rails.root.join('config', 'probe.yml')
-    squire.namespace Rails.env, base: :defaults
+    def self.method_missing(name, *args)
+      config[name]
+    end
+
+    def self.respond_to_missing?(name, include_private = false)
+      config.key?(name) || super
+    end
 
     def self.models
-      @models ||= indices.map { |e| e.singularize.to_sym }
+      @models ||= Array(config[:indices]).map { |e| e.to_s.singularize.to_sym }
+    end
+
+    def self.per_page
+      config[:per_page] || 20
+    end
+
+    def self.index
+      config[:index] || {}
     end
   end
 end

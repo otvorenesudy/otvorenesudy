@@ -6,54 +6,50 @@ module Probe::Search
 
     def build_query_from(field, terms, options = {})
       values = analyze_query_string(terms, force_wildcard: options[:force_wildcard])
+      fields = Array.wrap(analyzed_field(field)).map(&:to_s)
 
-      query_options = build_query_options(analyzed_field(field), options)
-
-      if block_given?
-        yield(field, values, query_options)
-      else
-        Proc.new { string values, query_options }
-      end
+      {
+        query_string: {
+          fields: fields,
+          query: values,
+          default_operator: (options[:operator] || :or).to_s.upcase,
+          analyze_wildcard: options.fetch(:analyze_wildcard, true)
+        }
+      }
     end
 
     def build_query_filter_from(field, terms, options = {})
-      build_query_from(field, terms, options) do |fields, values, query_options|
-        filter = { query_string: { query: values }}
-
-        filter[:query_string].merge! query_options
-
-        filter
-      end
+      build_query_from(field, terms, options)
     end
 
     def build_filtered_query_from(queries, filter)
-      query = Hash.new
+      must = Array.wrap(queries).compact
+      filters = Array.wrap(filter).compact
 
-      return { query: { match_all: {}}} if queries.empty? && filter.nil?
+      bool = {}
+      bool[:must] = must if must.any?
+      bool[:filter] = filters if filters.any?
 
-      query.merge! filter: filter if filter
-      query.merge! query: { bool: { must: queries }} if queries.any?
+      bool.any? ? { bool: bool } : { match_all: {} }
+    end
 
-      { query: { filtered: query }}
+    def extract_page_param(params)
+      params[:page].to_i
+    end
+
+    def extract_order_param(params)
+      %w[asc desc].include?(params[:order].to_s) ? params[:order].to_sym : :desc
+    end
+
+    def extract_sort_param(params, sort_fields)
+      field = params[:sort].to_sym
+      sort_fields.include?(field) ? field : sort_fields.first
     end
 
     def analyze_query_string(value, options = {})
-      value = sanitize_query_string(value.dup)
-
-      value += "*" if options[:force_wildcard]
-
+      value = sanitize_query_string(value.to_s.dup)
+      value += '*' if options[:force_wildcard]
       value
-    end
-
-    def build_query_options(fields, options = {})
-      other = {
-        default_operator: options[:operator] || :or,
-        analyze_wildcard: options[:analyze_wildcard] || true
-      }
-
-      other[:fields] = Array.wrap(fields) if fields
-
-      other
     end
   end
 end
