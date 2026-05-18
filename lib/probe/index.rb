@@ -18,33 +18,26 @@ module Probe
       end
 
       def index(name = nil)
-        name ? Tire::Index.new(name) : tire.index
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       def index_alias(name = nil)
-        Tire::Alias.new(name: name || index_name)
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       def settings(params = {})
-        settings = configuration.index.to_hash
-
-        settings.deep_merge!(params)
-
-        tire.settings.deep_merge!(settings)
-
-        tire.settings
+        @_tire_settings ||= {}
+        @_tire_settings.deep_merge!(configuration.index.to_hash)
+        @_tire_settings.deep_merge!(params)
+        @_tire_settings
       end
 
       def create_index(name = nil)
-        index = index(name)
-
-        index.create(mappings: tire.mapping_to_hash, settings: tire.settings) unless index.exists?
-
-        index
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       def delete_index(name = nil)
-        index(name).delete
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       def import_index
@@ -60,25 +53,11 @@ module Probe
       end
 
       def recheck_index
-        find_each do |record|
-          results = Tire.search(index_name) { |search| search.query { |query| query.string "id:#{record.id}" } }.results
-
-          record.update_index if results.empty?
-        end
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       def consolidate_index
-        search = Tire.scan(index_name) { |s| s.fields ['id'] }
-        ids_to_delete = []
-        current_ids = Set.new(pluck(:id))
-
-        search.each_document { |document| ids_to_delete << document.id unless current_ids.include?(document.id.to_i) }
-
-        unless ids_to_delete.empty?
-          ids_to_delete.each_slice(1000) { |ids_slice| Tire::DeleteByQuery.new(index_name) { terms :id, ids_slice } }
-        end
-
-        index.refresh
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       def reload_index
@@ -102,7 +81,7 @@ module Probe
 
       def mapping
         unless block_given?
-          return tire.mapping
+          return @mapping
         else
           @mapping = Hash.new
           @sort_fields = Array.new
@@ -112,36 +91,7 @@ module Probe
           analyze :created_at, type: :date
           analyze :updated_at, type: :date
 
-          tire.mapping do
-            @mapping.each do |field, value|
-              options = value[:options] || Hash.new
-
-              type = options[:type] || :string
-              analyzer = options[:analyzer] || :text_analyzer
-              index = options[:index] || :not_analyzed
-
-              case value[:type]
-              when :mapped
-                indexes field, options.merge(index: :not_analyzed)
-              when :analyzed
-                indexes field,
-                        options.deep_merge(
-                          type: :multi_field,
-                          fields: {
-                            analyzed: {
-                              type: :string,
-                              analyzer: analyzer,
-                              include_in_all: true
-                            },
-                            untouched: {
-                              type: type,
-                              index: index
-                            }
-                          }
-                        )
-              end
-            end
-          end
+          @mapping
         end
       end
 
@@ -175,7 +125,7 @@ module Probe
       end
 
       def total
-        (tire.search { query { all } }).total
+        raise NotImplementedError, 'Tire gem removed: implement with modern Elasticsearch client'
       end
 
       private

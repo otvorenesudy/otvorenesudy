@@ -1,6 +1,5 @@
 class Hearing < ApplicationRecord
   include Resource::URI
-  include Resource::Storage
   include Resource::Subscribable
 
   include Probe
@@ -188,7 +187,4 @@ class Hearing < ApplicationRecord
     Court.find_each(&:save!)
   end
 
-  storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
-    File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
-  end
 end

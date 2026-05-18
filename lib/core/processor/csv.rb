@@ -3,11 +3,7 @@ require 'csv'
 module Core
   module Processor
     module CSV
-      include Core::Output
-
       def read(filepath, options = {})
-        puts "Processing #{filepath} as csv ..."
-
         settings = Hash.new
 
         settings[:col_sep] = options[:separator] || ','
@@ -24,7 +20,7 @@ module Core
           lines += 1
         end
 
-        puts "done (#{lines} lines read)"
+        lines
       end
     end
   end

@@ -1,7 +1,5 @@
 class Judge < ApplicationRecord
   include Resource::URI
-  # TODO rm or fix Bing Search API
-  #include Resource::ContextSearch
   include Resource::Formatable
   include Resource::Indicator
   include Resource::Similarity
@@ -28,9 +26,8 @@ class Judge < ApplicationRecord
   scope :normal, -> { where('judge_chair = false') }
   scope :chaired, -> { where('judge_chair = true') }
 
-  # TODO refactor!
   scope :listed,
-        -> { where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false]) }
+        -> { where('source_id = ?', Source.of('JusticeGovSk')).joins(:employments).where('employments.active' => [true, false]) }
 
   scope :with_related_people, lambda { joins(:related_people) }
 
@@ -143,7 +140,7 @@ class Judge < ApplicationRecord
   alias incomplete? incomplete
 
   def listed
-    @listed ||= (source == Source.of(JusticeGovSk) && active != nil)
+    @listed ||= (source == Source.of('JusticeGovSk') && active != nil)
   end
 
   alias listed? listed
@@ -153,7 +150,7 @@ class Judge < ApplicationRecord
   end
 
   def probably_higher_court_official
-    @probably_higher_court_official ||= source == Source.of(JusticeGovSk) && !listed?
+    @probably_higher_court_official ||= source == Source.of('JusticeGovSk') && !listed?
   end
 
   def probably_female
@@ -163,24 +160,13 @@ class Judge < ApplicationRecord
   alias probably_higher_court_official? probably_higher_court_official
   alias probably_female? probably_female
 
-  # TODO rm or fix Bing Search API
-  # context_query { |judge| "sud \"#{judge.first} #{judge.middle} #{judge.last}\"" }
-  # context_options exclude: /www\.webnoviny\.sk\/.*\?from=.*\z/
-
   before_save :invalidate_caches
 
   def invalidate_caches
-    # TODO rm or fix Bing Search API
-    #invalidate_context_query
-
     invalidate_name
 
     related_people.each { |person| person.invalidate_caches }
 
     @listed = @probably_higher_court_official = @probably_female = nil
   end
-
-  # TODO rm - unused? this info is not in selection procedures anymore
-  # storage(:curriculum, JusticeGovSk::Storage::JudgeCurriculum)    { |judge| "#{judge.name}.pdf" }
-  # storage(:cover_letter, JusticeGovSk::Storage::JudgeCoverLetter) { |judge| "#{judge.name}.pdf" }
 end

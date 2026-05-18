@@ -1,7 +1,6 @@
 class SelectionProcedure < ApplicationRecord
   include Probe
   include Resource::URI
-  include Resource::Storage
 
 
   belongs_to :court
@@ -43,7 +42,4 @@ class SelectionProcedure < ApplicationRecord
     #facet :workplace,         type: :terms
     facet :candidates_count,  type: :range, ranges: [1..1, 2..2, 3..5, 5..10, 10..20, 20..50]
   end
-
-  storage(:declaration, JusticeGovSk::Storage::SelectionProcedureDocument) { |procedure| "#{procedure.uri.match(/Ic=(\d+)/)[1]}_declaration.pdf" }
-  storage(:report,      JusticeGovSk::Storage::SelectionProcedureDocument) { |procedure| "#{procedure.uri.match(/Ic=(\d+)/)[1]}_report.pdf" }
 end

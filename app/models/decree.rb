@@ -1,6 +1,5 @@
 class Decree < ApplicationRecord
   include Resource::URI
-  include Resource::Storage
   include Resource::Subscribable
 
   include Probe
@@ -150,8 +149,4 @@ class Decree < ApplicationRecord
 
     @text = @time = @judge_names = @legislation_areas_and_subareas = nil
   end
-
-  storage :resource, JusticeGovSk::Storage::DecreePage, extension: :html
-  storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
-  storage :image, JusticeGovSk::Storage::DecreeImage, extension: :pdf
 end
