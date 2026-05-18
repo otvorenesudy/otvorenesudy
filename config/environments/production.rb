@@ -1,75 +1,27 @@
-OpenCourts::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+require 'active_support/core_ext/integer/time'
 
-  # Code is not reloaded between requests
-  config.cache_classes = true
-
-  # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+Rails.application.configure do
+  config.enable_reloading = false
+  config.eager_load = true
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.assume_ssl = true
+  config.force_ssl = true
 
-  # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.logger = ActiveSupport::Logger.new($stdout)
+    .tap { |logger| logger.formatter = Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.log_tags = [:request_id]
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
-  # Generate digests for assets URLs
-  config.assets.digest = true
+  config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
 
-  # Defaults to nil and saved in location specified by config.assets.prefix
-  # config.assets.manifest = YOUR_PATH
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { host: 'otvorenesudy.sk' }
 
-  # Specifies the header that your server uses for sending files
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
-
-  # See everything in the log (default is :info)
-  # config.log_level = :debug
-
-  # Prepend all log lines with the following tags
-  # config.log_tags = [ :subdomain, :uuid ]
-
-  # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
-
-  # Cache store
-  config.cache_store = :dalli_store
-
-  # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = true
-
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
-
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
-
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'otvorenesudy.sk' }
-
-  # Enable threaded mode
-  # config.threadsafe!
-
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation can not be found)
+  config.active_support.report_deprecations = false
+  config.active_record.dump_schema_after_migration = false
   config.i18n.fallbacks = true
-
-  # Send deprecation notices to registered listeners
-  config.active_support.deprecation = :notify
-
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-  # Turn off all logging
-  config.logger = nil
 end

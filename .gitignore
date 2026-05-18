@@ -24,3 +24,6 @@ Gemfile.lock.tags
 .env.local
 
 plans/*.md
+
+config/credentials/development.yml
+config/credentials/*.key
