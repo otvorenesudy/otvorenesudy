@@ -1,7 +1,5 @@
-class MarkDecreesWithInvalidPdfUriJob
-  include Sidekiq::Worker
-
-  sidekiq_options queue: :utils
+class MarkDecreesWithInvalidPdfUriJob < ApplicationJob
+  queue_as :utils
 
   def perform(records)
     records.each do |(id, uri)|

@@ -1,4 +1,4 @@
-class StatisticalTableColumn < ActiveRecord::Base
+class StatisticalTableColumn < ApplicationRecord
   scope :by_name, lambda { |name| joins(:name).where('value = ?', name) }
 
   belongs_to :table, class_name: :StatisticalTable,

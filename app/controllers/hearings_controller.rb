@@ -41,6 +41,14 @@ class HearingsController < SearchController
 
   private
 
+  def index_params
+    params.permit(
+      :q, :page, :sort, :order, :per_page, :l, :historical, :exact_date,
+      type: [], court_type: [], court: [], subject: [], judges: [], date: [], form: [],
+      proposers: [], participants: [], section: [], file_number: [], case_number: []
+    )
+  end
+
   def search_associations
     # NOTE do not eager load scoped associations after original associations,
     # e.g. :exact_judges has to go before :judges, otherwise scoped association will not be loaded

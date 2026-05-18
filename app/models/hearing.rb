@@ -1,4 +1,4 @@
-class Hearing < ActiveRecord::Base
+class Hearing < ApplicationRecord
   include Resource::URI
   include Resource::Storage
   include Resource::Subscribable
@@ -7,7 +7,6 @@ class Hearing < ActiveRecord::Base
 
   include Judge::Matched
 
-  attr_accessible :case_number, :file_number, :date, :room, :special_type, :commencement_date, :selfjudge, :note
 
   scope :at_court, lambda { |court| where court_id: court }
 

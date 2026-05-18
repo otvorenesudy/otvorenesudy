@@ -1,8 +1,4 @@
-class User < ActiveRecord::Base
-  attr_accessible :email,
-                  :password,
-                  :password_confirmation,
-                  :remember_me
+class User < ApplicationRecord
 
   devise :confirmable,
          :database_authenticatable,

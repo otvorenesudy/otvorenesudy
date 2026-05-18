@@ -1,7 +1,4 @@
-class Paragraph < ActiveRecord::Base
-  attr_accessible :legislation,
-                  :number,
-                  :description
+class Paragraph < ApplicationRecord
 
   has_many :explanations, class_name: :ParagraphExplanation
 

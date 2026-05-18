@@ -1,4 +1,4 @@
-class Decree < ActiveRecord::Base
+class Decree < ApplicationRecord
   include Resource::URI
   include Resource::Storage
   include Resource::Subscribable
@@ -7,7 +7,6 @@ class Decree < ActiveRecord::Base
 
   include Judge::Matched
 
-  attr_accessible :case_number, :file_number, :date, :ecli, :summary
 
   scope :at_court, lambda { |court| where court_id: court }
 

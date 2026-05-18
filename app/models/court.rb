@@ -1,4 +1,4 @@
-class Court < ActiveRecord::Base
+class Court < ApplicationRecord
   include Resource::URI
   # TODO rm or fix Bing Search API
   # include Resource::ContextSearch
@@ -8,16 +8,6 @@ class Court < ActiveRecord::Base
 
   include Probe
 
-  attr_accessible :name,
-                  :acronym,
-                  :street,
-                  :phone,
-                  :fax,
-                  :media_person,
-                  :media_person_unprocessed,
-                  :media_phone,
-                  :latitude,
-                  :longitude
 
   scope :by_type, lambda { |court_types| where(court_type_id: Array.wrap(court_types).map(&:id)) }
 

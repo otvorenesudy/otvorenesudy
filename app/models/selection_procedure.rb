@@ -1,20 +1,8 @@
-class SelectionProcedure < ActiveRecord::Base
+class SelectionProcedure < ApplicationRecord
   include Probe
   include Resource::URI
   include Resource::Storage
 
-  attr_accessible :declaration_url,
-                  :report_url,
-                  :organization_name,
-                  :organization_name_unprocessed,
-                  :organization_description,
-                  :date,
-                  :description,
-                  :place,
-                  :position,
-                  :state,
-                  :workplace,
-                  :closed_at
 
   belongs_to :court
 

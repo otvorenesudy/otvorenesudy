@@ -1,5 +1,5 @@
 class CourtsController < SearchController
-  before_filter :prepare_search_params, only: :index
+  before_action :prepare_search_params, only: :index
 
   def show
     @court = Court.find(params[:id])
@@ -12,6 +12,10 @@ class CourtsController < SearchController
   end
 
   private
+
+  def index_params
+    params.permit(:q, :page, :sort, :order, :per_page, :l, type: [], municipality: [], hearings_count: [], decrees_count: [], judges_count: [], expenses: [])
+  end
 
   def prepare_search_params
     params[:sort] = 'name' unless params[:sort].present?

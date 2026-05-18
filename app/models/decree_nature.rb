@@ -1,5 +1,4 @@
-class DecreeNature < ActiveRecord::Base
-  attr_accessible :value
+class DecreeNature < ApplicationRecord
 
   has_many :naturalizations, class_name: :DecreeNaturalization, dependent: :destroy
 

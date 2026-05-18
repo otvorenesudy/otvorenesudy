@@ -1,15 +1,6 @@
-class Legislation < ActiveRecord::Base
+class Legislation < ApplicationRecord
   include Resource::Formatable
 
-  attr_accessible :value,
-                  :value_unprocessed,
-                  :type,
-                  :number,
-                  :year,
-                  :name,
-                  :paragraph,
-                  :section,
-                  :letter
 
   has_many :usages, class_name: :LegislationUsage
 

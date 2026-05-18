@@ -1,5 +1,4 @@
-class Subscription < ActiveRecord::Base
-  attr_accessible :query_attributes
+class Subscription < ApplicationRecord
 
   scope :latest, lambda { order('created_at desc') }
 

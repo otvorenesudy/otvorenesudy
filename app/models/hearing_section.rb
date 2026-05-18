@@ -1,5 +1,4 @@
-class HearingSection < ActiveRecord::Base
-  attr_accessible :value
+class HearingSection < ApplicationRecord
 
   has_many :hearings
 

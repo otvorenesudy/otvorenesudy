@@ -1,15 +1,13 @@
-class SynchronizeRepositoryJob
-  include Sidekiq::Worker
-
-  sidekiq_options queue: :probe
+class SynchronizeRepositoryJob < ApplicationJob
+  queue_as :probe
 
   def perform(model_name, options)
-    options.symbolize_keys!
+    options = options.symbolize_keys
 
     model = model_name.constantize
     range = (options[:from]..options[:to])
     relation = model.where(id: range)
-    repository = RepositoryManager.new(model, relation: relation, client: Elasticsearch::Client.new)
+    repository = RepositoryManager.new(model, relation: relation, client: Probe.client)
 
     repository.synchronize
   end
@@ -19,7 +17,7 @@ class SynchronizeRepositoryJob
       from = batch.first.id
       to = batch.last.id
 
-      SynchronizeRepositoryJob.perform_async(model.to_s, from: from, to: to)
+      SynchronizeRepositoryJob.perform_later(model.to_s, from: from, to: to)
     end
   end
 end

@@ -1,8 +1,6 @@
-class Period < ActiveRecord::Base
+class Period < ApplicationRecord
   include Resource::Enumerable
 
-  attr_accessible :name,
-                  :value
 
   scope :of, lambda { |name| where(name: name) }
 

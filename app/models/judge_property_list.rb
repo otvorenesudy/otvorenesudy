@@ -1,4 +1,4 @@
-class JudgePropertyList < ActiveRecord::Base
+class JudgePropertyList < ApplicationRecord
   belongs_to :declaration, class_name: :JudgePropertyDeclaration,
                            foreign_key: :judge_property_declaration_id
 

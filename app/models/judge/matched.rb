@@ -2,8 +2,8 @@ module Judge::Matched
   extend ActiveSupport::Concern
 
   included do
-    scope :exact,   where(exact_conditions)
-    scope :inexact, where(inexact_conditions)
+    scope :exact,   -> { where(exact_conditions) }
+    scope :inexact, -> { where(inexact_conditions) }
   end
 
   module ClassMethods

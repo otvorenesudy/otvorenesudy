@@ -1,12 +1,4 @@
-class CourtOffice < ActiveRecord::Base
-  attr_accessible :email,
-                  :phone,
-                  :hours_monday,
-                  :hours_tuesday,
-                  :hours_wednesday,
-                  :hours_thursday,
-                  :hours_friday,
-                  :note
+class CourtOffice < ApplicationRecord
 
   belongs_to :court
 

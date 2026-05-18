@@ -1,4 +1,4 @@
-class LegislationAreaUsage < ActiveRecord::Base
+class LegislationAreaUsage < ApplicationRecord
   belongs_to :decree, dependent: :destroy
   belongs_to :legislation_area, dependent: :destroy
 

@@ -1,4 +1,4 @@
-class Judge < ActiveRecord::Base
+class Judge < ApplicationRecord
   include Resource::URI
   # TODO rm or fix Bing Search API
   #include Resource::ContextSearch
@@ -9,7 +9,6 @@ class Judge < ActiveRecord::Base
 
   include Probe
 
-  attr_accessible :name, :name_unprocessed, :prefix, :first, :middle, :last, :suffix, :addition
 
   include Judge::Activity
   include Judge::Matched
@@ -19,22 +18,19 @@ class Judge < ActiveRecord::Base
   include Judge::Indicators2021
 
   scope :inactive_or_unlisted,
-        where(
-          'employments.active = false OR employments.active IS NULL OR uri != ?',
-          JusticeGovSk::Request::JudgeList.url
-        )
+        -> { where('employments.active = false OR employments.active IS NULL') }
 
-  scope :chair, joins(:positions).merge(JudgePosition.chair)
-  scope :vicechair, joins(:positions).merge(JudgePosition.vicechair)
-  scope :judicial_council_chair, joins(:positions).merge(JudgePosition.judicial_council_chair)
-  scope :judicial_council_member, joins(:positions).merge(JudgePosition.judicial_council_member)
+  scope :chair, -> { joins(:positions).merge(JudgePosition.chair) }
+  scope :vicechair, -> { joins(:positions).merge(JudgePosition.vicechair) }
+  scope :judicial_council_chair, -> { joins(:positions).merge(JudgePosition.judicial_council_chair) }
+  scope :judicial_council_member, -> { joins(:positions).merge(JudgePosition.judicial_council_member) }
 
-  scope :normal, where('judge_chair = false')
-  scope :chaired, where('judge_chair = true')
+  scope :normal, -> { where('judge_chair = false') }
+  scope :chaired, -> { where('judge_chair = true') }
 
   # TODO refactor!
   scope :listed,
-        where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false])
+        -> { where('source_id = ?', Source.of(JusticeGovSk)).joins(:employments).where('employments.active' => [true, false]) }
 
   scope :with_related_people, lambda { joins(:related_people) }
 

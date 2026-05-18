@@ -1,7 +1,6 @@
-class CourtStatisticalSummary < ActiveRecord::Base
+class CourtStatisticalSummary < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :year
 
   belongs_to :court
 

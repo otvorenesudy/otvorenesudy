@@ -1,7 +1,6 @@
-class JudgePropertyDeclaration < ActiveRecord::Base
+class JudgePropertyDeclaration < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :year
 
   scope :of_year, lambda { |year| where('year = ?', year) }
 

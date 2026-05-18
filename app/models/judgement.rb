@@ -1,6 +1,4 @@
-class Judgement < ActiveRecord::Base
-  attr_accessible :judge_name_similarity,
-                  :judge_name_unprocessed
+class Judgement < ApplicationRecord
 
   include Judge::Matched
 

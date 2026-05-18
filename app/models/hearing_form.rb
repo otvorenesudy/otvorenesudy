@@ -1,5 +1,4 @@
-class HearingForm < ActiveRecord::Base
-  attr_accessible :value
+class HearingForm < ApplicationRecord
 
   has_many :hearings
 

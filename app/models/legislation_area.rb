@@ -1,5 +1,4 @@
-class LegislationArea < ActiveRecord::Base
-  attr_accessible :value
+class LegislationArea < ApplicationRecord
 
   has_many :decrees
 
