@@ -18,10 +18,10 @@ class SearchController < ApplicationController
   def suggest
     search_instances
 
-    name = suggest_params[:facet]
-    term = suggest_params[:term]
+    name = params[:facet]
+    term = params[:term]
 
-    @results = @model.suggest name, term, suggest_params.except(:facet, :term)
+    @results = @model.suggest name, term, index_params.to_h.except('facet', 'term').symbolize_keys
 
     if @results
       facet   = @results.facets[name]
@@ -89,11 +89,7 @@ class SearchController < ApplicationController
   private
 
   def index_params
-    params.permit(:q, :page, :sort, :order, :per_page, :l)
-  end
-
-  def suggest_params
-    params.permit(:facet, :term, :q, :page, :sort, :order, :l)
+    params.permit(:q, :page, :sort, :order, :per_page, :l, :facet, :term)
   end
 
   def collapse_params

@@ -14,7 +14,7 @@ class CourtsController < SearchController
   private
 
   def index_params
-    params.permit(:q, :page, :sort, :order, :per_page, :l, type: [], municipality: [], hearings_count: [], decrees_count: [], judges_count: [], expenses: [])
+    params.permit(:q, :page, :sort, :order, :per_page, :l, :facet, :term, type: [], municipality: [], hearings_count: [], decrees_count: [], judges_count: [], expenses: [])
   end
 
   def prepare_search_params

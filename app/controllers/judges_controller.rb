@@ -73,7 +73,7 @@ class JudgesController < SearchController
 
   def index_params
     params.permit(
-      :q, :page, :sort, :order, :per_page, :l, :name,
+      :q, :page, :sort, :order, :per_page, :l, :name, :facet, :term,
       :indicators_2013, :indicators_2015, :indicators_2017, :indicators_2021,
       activity: [], positions: [], courts: [], hearings_count: [], decrees_count: [], related_people_count: []
     )

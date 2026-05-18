@@ -43,7 +43,7 @@ class HearingsController < SearchController
 
   def index_params
     params.permit(
-      :q, :page, :sort, :order, :per_page, :l, :historical, :exact_date,
+      :q, :page, :sort, :order, :per_page, :l, :historical, :exact_date, :facet, :term,
       type: [], court_type: [], court: [], subject: [], judges: [], date: [], form: [],
       proposers: [], participants: [], section: [], file_number: [], case_number: []
     )

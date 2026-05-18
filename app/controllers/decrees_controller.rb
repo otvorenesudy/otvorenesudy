@@ -36,7 +36,7 @@ class DecreesController < SearchController
 
   def index_params
     params.permit(
-      :q, :page, :sort, :order, :per_page, :l,
+      :q, :page, :sort, :order, :per_page, :l, :h, :facet, :term,
       judges: [], legislation_areas: [], legislation_subareas: [], natures: [], form: [],
       court_type: [], court: [], date: [], legislations: [], file_number: [], case_number: [], pages_count: []
     )
