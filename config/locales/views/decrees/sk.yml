@@ -13,7 +13,7 @@ sk:
       title: "Rozhodnutia Úradu na ochranu oznamovateľov"
       decree: "Rozhodnutie"
       issued_on: "Rozhodnutie bolo vydané dňa %{date}."
-      search_party_tooltip: "Vyhľadať \"%{name}\" v súdnych rozhodnutiach"
+      search_party_tooltip: "Vyhľadať v súdnych rozhodnutiach"
       source: "Zdroj"
 
     search:

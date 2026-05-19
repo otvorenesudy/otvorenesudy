@@ -42,8 +42,8 @@
             <% Array.wrap(decree['parties']).each do |party| %>
               <% if party['name'].present? %>
                 <strong><%= link_to party['name'], decrees_path(q: party['name']),
-                       data: { toggle: 'tooltip' },
-                       title: t('.search_party_tooltip', name: party['name']) %></strong><br>
+                       data: { toggle: 'tooltip', placement: 'bottom' },
+                       title: t('.search_party_tooltip') %></strong><br>
               <% end %>
               <% if party['address'].present? %>
                 <%= party['address'] %><br>
@@ -55,7 +55,7 @@
     </ul>
 
     <% if @uoo_source_url.present? %>
-      <p class="text-muted small mt-3 text-left">
+      <p class="text-muted small mt-3 text-right">
         <%= t('.source') %>: <%= link_to @uoo_source_url, @uoo_source_url, target: '_blank', rel: 'noopener noreferrer' %>
       </p>
     <% end %>

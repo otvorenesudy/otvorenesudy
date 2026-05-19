@@ -13,7 +13,7 @@ en:
       title: "Decrees of Whistleblower Protection Office"
       decree: "Decision"
       issued_on: "Judgement was issued on %{date}."
-      search_party_tooltip: "Search \"%{name}\" in court decisions"
+      search_party_tooltip: "Search in court decisions"
       source: "Source"
 
     search:
