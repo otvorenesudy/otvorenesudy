@@ -28,7 +28,7 @@
         <%= bar_link_to t('.hearings'), hearings_path, class: 'mx-0' %>
         <div class="nav-item dropdown nav-dropdown-hover mx-0">
           <%= link_to t('.decrees'), decrees_path, id: 'decrees-dropdown', class: "nav-link dropdown-toggle#{' active' if request.fullpath.start_with?(decrees_path)}", data: { toggle: 'dropdown' }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu" aria-labelledby="decrees-dropdown">
+          <div class="dropdown-menu mt-2 " aria-labelledby="decrees-dropdown">
             <%= link_to t('.decrees_courts'), decrees_path, class: 'dropdown-item' %>
             <%= link_to t('.decrees_uoo'), uoo_decrees_path, class: 'dropdown-item' %>
           </div>

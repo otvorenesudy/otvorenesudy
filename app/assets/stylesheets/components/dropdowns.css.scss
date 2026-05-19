@@ -20,9 +20,3 @@
     border-bottom: $border-width solid $border-color;
   }
 }
-
-@include media-breakpoint-up(xl) {
-  .nav-dropdown-hover:hover > .dropdown-menu {
-    display: block;
-  }
-}
