@@ -96,8 +96,6 @@
           <% if decree['children'].any? %>
             <ul class="search-result-list pl-4 border-left ml-2 mt-2">
               <% decree['children'].each do |child| %>
-                <% child_fine = Array.wrap(child['parties']).map { |p| p['fine_amount'] }.compact.first %>
-                <% child_fine_currency = Array.wrap(child['parties']).map { |p| p['fine_currency'] }.compact.first || 'EUR' %>
                 <li class="search-result-item border-0 pr-0">
                   <h4 class="search-result-title d-flex justify-content-between align-items-baseline">
                     <span>
