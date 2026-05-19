@@ -41,13 +41,10 @@
 
             <% Array.wrap(decree['parties']).each do |party| %>
               <% if party['name'].present? %>
-                <strong><%= party['name'] %></strong><br/>
+                <strong><%= party['name'] %></strong><br>
               <% end %>
               <% if party['address'].present? %>
-                <%= party['address'] %><br/>
-              <% end %>
-              <% if party['company_id_number'].present? %>
-                <%= party['company_id_number'] %><br/>
+                <%= party['address'] %><br>
               <% end %>
             <% end %>
           </div>
