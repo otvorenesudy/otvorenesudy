@@ -16,10 +16,10 @@ class DecreesController < SearchController
 
   def uoo
     data = self.class.uoo_data
-    titles_by_url = data['pdfs'].each_with_object({}) { |pdf, hash| hash[pdf['url']] = pdf['title'] }
+    titles_by_url = Array.wrap(data['pdfs']).each_with_object({}) { |pdf, hash| hash[pdf['url']] = pdf['title'] }
 
     @uoo_source_url = data['source_url']
-    @uoo_decrees = data['data'].map do |decree|
+    @uoo_decrees = Array.wrap(data['data']).map do |decree|
       decree.merge('title' => titles_by_url[decree['url']])
     end
   end
@@ -38,8 +38,12 @@ class DecreesController < SearchController
     send_file @file, filename: "Otvorené Súdy — Rozhodnutie — ##{@decree.id}.pdf"
   end
 
+  UOO_DATA_MUTEX = Mutex.new
+
   def self.uoo_data
-    @uoo_data ||= JSON.parse(File.read(Rails.root.join('data', 'uoo-decrees.json')))
+    UOO_DATA_MUTEX.synchronize do
+      @uoo_data ||= JSON.parse(File.read(Rails.root.join('data', 'uoo-decrees.json')))
+    end
   end
 
   protected
