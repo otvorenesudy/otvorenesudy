@@ -14,6 +14,12 @@ class DecreesController < SearchController
     flash.now[:warning] << t('decrees.show.faulty_date') if @decree.had_future_date?
   end
 
+  def uoo
+    @uoo_source_url = Uoo::Data.source_url
+    @uoo_decrees = Uoo::Data.all
+    @uoo_stats = Uoo::Data.stats
+  end
+
   def document
     @decree = Decree.find(params[:id])
 

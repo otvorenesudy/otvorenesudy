@@ -3,6 +3,21 @@ module DecreesHelper
     title(*decree_identifiers(decree) << t('decrees.common.decree'))
   end
 
+  def uoo_decree_effect_badge_class(effect)
+    case effect
+    when 'confirmed', 'approved', 'no_change', 'appeal_rejected', 'appeal_dismissed'
+      'info'
+    when 'cancelled', 'partially_cancelled'
+      'danger'
+    when 'changed', 'partially_changed'
+      'warning'
+    when 'remanded'
+      'warning'
+    else
+      'secondary'
+    end
+  end
+
   def decree_headline(decree, options = {})
     join_and_truncate decree_identifiers(decree), options.reverse_merge(separator: ' &ndash; ')
   end

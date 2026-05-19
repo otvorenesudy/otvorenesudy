@@ -14,6 +14,8 @@ sk:
       judges: "Sudcovia"
       hearings: "Pojednávania"
       decrees: "Rozhodnutia"
+      decrees_courts: "Súdy"
+      decrees_uoo: "Úrad na ochranu oznamovateľov"
       proceedings: "Súdne konania"
       selections: "Výberové konania"
       families: "Rodinné väzby"

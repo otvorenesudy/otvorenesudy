@@ -9,6 +9,33 @@ sk:
     index:
       title: "Rozhodnutia"
 
+    uoo:
+      title: "Rozhodnutia Úradu na ochranu oznamovateľov"
+      subtitle: "Úrad vydal celkovo %{count} rozhodnutí a udelil pokuty dokopy vo výške %{fine}."
+      decree: "Rozhodnutie"
+      issued_on: "Rozhodnutie bolo vydané dňa %{date}"
+      search_party_tooltip: "Vyhľadať v súdnych rozhodnutiach"
+      source: "Zdroj"
+      case_file_number: "Číslo spisu"
+      file_identification_number: "Číslo rozhodnutia"
+      effect:
+        confirmed: "Potvrdené"
+        approved: "Schválené"
+        cancelled: "Zrušené"
+        partially_cancelled: "Čiastočne zrušené"
+        changed: "Zmenené"
+        partially_changed: "Čiastočne zmenené"
+        remanded: "Vrátené na nové konanie"
+        appeal_rejected: "Odvolanie zamietnuté"
+        appeal_dismissed: "Odvolanie odmietnuté"
+        no_change: "Bez zmeny"
+        unknown: "Neznáme"
+      disclaimer: "Štatistiky berú do úvahy len prvostupňové rozhodnutia Úradu na ochranu oznamovateľov a udelené pokuty sú započítané bez ohľadu na výsledky odvolaní."
+      stats:
+        party: "Názov firmy alebo inštitúcie"
+        count: "Počet rozhodnutí"
+        fine: "Výška pokút"
+
     search:
       result:
         court: "Súd"
