@@ -14,6 +14,16 @@ class DecreesController < SearchController
     flash.now[:warning] << t('decrees.show.faulty_date') if @decree.had_future_date?
   end
 
+  def uoo
+    data = self.class.uoo_data
+    titles_by_url = data['pdfs'].each_with_object({}) { |pdf, hash| hash[pdf['url']] = pdf['title'] }
+
+    @uoo_source_url = data['source_url']
+    @uoo_decrees = data['data'].map do |decree|
+      decree.merge('title' => titles_by_url[decree['url']])
+    end
+  end
+
   def document
     @decree = Decree.find(params[:id])
 
@@ -26,6 +36,10 @@ class DecreesController < SearchController
     @file.rewind
 
     send_file @file, filename: "Otvorené Súdy — Rozhodnutie — ##{@decree.id}.pdf"
+  end
+
+  def self.uoo_data
+    @uoo_data ||= JSON.parse(File.read(Rails.root.join('data', 'uoo-decrees.json')))
   end
 
   protected

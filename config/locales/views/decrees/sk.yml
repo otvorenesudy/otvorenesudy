@@ -9,6 +9,17 @@ sk:
     index:
       title: "Rozhodnutia"
 
+    uoo:
+      title: "Úrad na ochranu oznamovateľov"
+      decree: "Rozhodnutie"
+      case_file_number: "Spisová značka"
+      file_identification_number: "Identifikačné číslo spisu"
+      party_name: "Názov"
+      party_address: "Adresa"
+      party_company_id_number: "IČO"
+      party_fine: "Pokuta"
+      source: "Zdroj"
+
     search:
       result:
         court: "Súd"

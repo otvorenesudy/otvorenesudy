@@ -34,7 +34,10 @@ OpenCourts::Application.routes.draw do
   end
 
   resources :decrees, only: %i[index show] do
-    collection { get :suggest }
+    collection do
+      get :suggest
+      get :uoo
+    end
 
     member { get :document }
   end
