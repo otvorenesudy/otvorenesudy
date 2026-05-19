@@ -81,6 +81,7 @@ sk:
       short: "%-d. %-m."
       normal: "%-d. %B %Y"
       long: "%A %-d. %B %Y"
+      uoo: "%-d. %-m. %Y"
 
   time:
     formats:

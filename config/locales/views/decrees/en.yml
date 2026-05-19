@@ -10,14 +10,9 @@ en:
       title: "Judgements"
 
     uoo:
-      title: "Whistleblower Protection Office"
+      title: "Decrees of Whistleblower Protection Office"
       decree: "Decision"
-      case_file_number: "Case file number"
-      file_identification_number: "File identification number"
-      party_name: "Name"
-      party_address: "Address"
-      party_company_id_number: "Company ID"
-      party_fine: "Fine"
+      issued_on: "Judgement was issued on %{date}."
       source: "Source"
 
     search:

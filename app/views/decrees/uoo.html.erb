@@ -6,46 +6,48 @@
 
     <ul class="search-result-list">
       <% @uoo_decrees.each do |decree| %>
+        <% fine = Array.wrap(decree['parties']).map { |p| p['fine_amount'] }.compact.first %>
+        <% fine_currency = Array.wrap(decree['parties']).map { |p| p['fine_currency'] }.compact.first || 'EUR' %>
         <li class="search-result-item">
-          <h4 class="search-result-title">
-            <% if decree['title'].present? %>
-              <%= link_to decree['title'], decree['url'], target: '_blank', rel: 'noopener noreferrer' %>
-            <% else %>
-              <%= link_to t('.decree'), decree['url'], target: '_blank', rel: 'noopener noreferrer' %>
-            <% end %>
-            <% if decree['date'].present? %>
-              <small><%= decree['date'] %></small>
+          <h4 class="search-result-title d-flex justify-content-between align-items-baseline">
+            <span>
+              <% if decree['title'].present? %>
+                <%= link_to decree['title'], decree['url'], target: '_blank', rel: 'noopener noreferrer' %>
+              <% else %>
+                <%= link_to t('.decree'), decree['url'], target: '_blank', rel: 'noopener noreferrer' %>
+              <% end %>
+              <% if decree['parsed_date'] %>
+                <small><%= t('.issued_on', date: l(decree['parsed_date'], format: :uoo)) %></small>
+              <% elsif decree['date'].present? %>
+                <small><%= t('.issued_on', date: decree['date']) %></small>
+              <% end %>
+            </span>
+            <% if fine %>
+              <span class="font-weight-bold text-nowrap ml-3">
+                <%= number_with_delimiter(fine, delimiter: ' ') %> <%= fine_currency %>
+              </span>
             <% end %>
           </h4>
 
           <div class="search-result-content">
             <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
               <% Array.wrap(decree['case_file_number']).each do |number| %>
-                <li><%= tooltip_tag number, t('.case_file_number'), class: 'text-muted', placement: 'left' %></li>
+                <li><span class="text-muted"><%= number %></span></li>
               <% end %>
               <% if decree['file_identification_number'].present? %>
-                <li><%= tooltip_tag decree['file_identification_number'], t('.file_identification_number'), class: 'text-muted', placement: 'left' %></li>
+                <li><span class="text-muted"><%= decree['file_identification_number'] %></span></li>
               <% end %>
             </ul>
 
             <% Array.wrap(decree['parties']).each do |party| %>
               <% if party['name'].present? %>
-                <%= t('.party_name') %> &ndash; <%= party['name'] %><br/>
+                <strong><%= party['name'] %></strong><br/>
               <% end %>
               <% if party['address'].present? %>
-                <%= t('.party_address') %> &ndash; <%= party['address'] %><br/>
+                <%= party['address'] %><br/>
               <% end %>
               <% if party['company_id_number'].present? %>
-                <%= t('.party_company_id_number') %> &ndash; <%= party['company_id_number'] %><br/>
-              <% end %>
-              <% if party['fine_text'].present? || party['fine_amount'].present? %>
-                <%= t('.party_fine') %> &ndash;
-                <% if party['fine_amount'].present? %>
-                  <%= number_with_delimiter(party['fine_amount'], delimiter: ' ') %> <%= party['fine_currency'] || 'EUR' %>
-                <% else %>
-                  <%= party['fine_text'] %>
-                <% end %>
-                <br/>
+                <%= party['company_id_number'] %><br/>
               <% end %>
             <% end %>
           </div>

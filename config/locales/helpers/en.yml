@@ -81,6 +81,7 @@ en:
       short: "%b %-d"
       normal: "%B %-d, %Y"
       long: "%A, %B %-d, %Y"
+      uoo: "%Y/%m/%d"
 
   time:
     formats:
