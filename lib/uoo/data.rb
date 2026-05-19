@@ -1,5 +1,6 @@
 require 'json'
 require 'date'
+require 'uri'
 
 module Uoo
   module Data
@@ -10,7 +11,15 @@ module Uoo
     end
 
     def self.source_url
-      raw['source_url']
+      value = raw['source_url'].to_s.strip
+      return nil if value.blank?
+
+      uri = URI.parse(value)
+      return nil unless uri.is_a?(URI::HTTP) && uri.host.present?
+
+      uri.to_s
+    rescue URI::InvalidURIError
+      nil
     end
 
     def self.decrees
