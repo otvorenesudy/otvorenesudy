@@ -39,41 +39,52 @@ module Uoo
     def self.build_decrees
       entries = Array.wrap(raw['decrees']).map { |entry| entry.merge('parsed_date' => parse_date(entry['date'])) }
 
-      approved_chains = entries.each_with_object(Set.new) do |entry, set|
-        set << entry['chain_root_decree_url'] if entry['approves_or_confirms_chain_root_decree'] == true
-      end
+      approved_chains =
+        entries.each_with_object(Set.new) do |entry, set|
+          set << entry['chain_root_decree_url'] if entry['approves_or_confirms_chain_root_decree'] == true
+        end
 
-      entries = entries.map do |entry|
-        entry.merge(
-          'root' => entry['parent_decree_url'].nil?,
-          'approved' => approved_chains.include?(entry['chain_root_decree_url'])
-        )
-      end
+      roots = entries.select { |e| e['parent_decree_url'].nil? }
+      children = entries.select { |e| e['parent_decree_url'].present? }
 
-      entries.sort_by { |d| [d['parsed_date'] ? 0 : 1, d['parsed_date'] ? -d['parsed_date'].jd : 0] }
+      date_sort = ->(d) { [d['parsed_date'] ? 0 : 1, d['parsed_date'] ? -d['parsed_date'].jd : 0] }
+
+      roots =
+        roots.map do |root|
+          chain_root = root['chain_root_decree_url']
+          standalone = children.none? { |c| c['chain_root_decree_url'] == chain_root }
+          approved = standalone || approved_chains.include?(chain_root)
+
+          root_children = children.select { |c| c['chain_root_decree_url'] == chain_root }.sort_by(&date_sort)
+
+          root.merge('approved' => approved, 'children' => root_children)
+        end
+
+      roots.sort_by(&date_sort)
     end
 
     def self.build_stats
-      entries = decrees
+      roots = decrees
 
-      by_party = entries.each_with_object({}) do |entry, hash|
-        Array.wrap(entry['parties']).each do |party|
-          name = party['name'].to_s.strip
-          next if name.blank?
+      by_party =
+        roots.each_with_object({}) do |entry, hash|
+          Array
+            .wrap(entry['parties'])
+            .each do |party|
+              name = party['name'].to_s.strip
+              next if name.blank?
 
-          row = hash[name] ||= { name: name, count: 0, fine: 0, currency: nil }
-          row[:count] += 1
-          if entry['root'] && entry['approved']
-            row[:fine] += party['fine_amount'].to_i
-            row[:currency] ||= party['fine_currency']
-          end
+              row = hash[name] ||= { name: name, count: 0, fine: 0, currency: nil }
+              row[:count] += 1
+              row[:fine] += party['fine_amount'].to_i
+              row[:currency] ||= party['fine_currency']
+            end
         end
-      end
 
       rows = by_party.values.sort_by { |row| [-row[:fine], -row[:count], row[:name]] }
 
       {
-        total_count: entries.size,
+        total_count: roots.size,
         total_fine: rows.sum { |row| row[:fine] },
         currency: rows.map { |row| row[:currency] }.compact.first || 'EUR',
         by_party: rows

@@ -41,6 +41,7 @@
               <% end %>
             </tbody>
           </table>
+          <p class="text-muted small text-right"><%= t('.disclaimer') %></p>
         </div>
       <% end %>
     <% end %>
@@ -73,10 +74,10 @@
           <div class="search-result-content">
             <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
               <% Array.wrap(decree['case_file_number']).each do |number| %>
-                <li><span class="text-muted"><%= number %></span></li>
+                <li><%= tooltip_tag number, t('.case_file_number'), class: 'text-muted', placement: 'left' %></li>
               <% end %>
               <% if decree['file_identification_number'].present? %>
-                <li><span class="text-muted"><%= decree['file_identification_number'] %></span></li>
+                <li><%= tooltip_tag decree['file_identification_number'], t('.file_identification_number'), class: 'text-muted', placement: 'left' %></li>
               <% end %>
             </ul>
 
@@ -91,6 +92,56 @@
               <% end %>
             <% end %>
           </div>
+
+          <% if decree['children'].any? %>
+            <ul class="search-result-list pl-4 border-left ml-2 mt-2">
+              <% decree['children'].each do |child| %>
+                <% child_fine = Array.wrap(child['parties']).map { |p| p['fine_amount'] }.compact.first %>
+                <% child_fine_currency = Array.wrap(child['parties']).map { |p| p['fine_currency'] }.compact.first || 'EUR' %>
+                <li class="search-result-item border-0 pr-0">
+                  <h4 class="search-result-title d-flex justify-content-between align-items-baseline">
+                    <span>
+                      <% if child['title'].present? %>
+                        <%= link_to child['title'], child['url'], target: '_blank', rel: 'noopener noreferrer' %>
+                      <% else %>
+                        <%= link_to t('.decree'), child['url'], target: '_blank', rel: 'noopener noreferrer' %>
+                      <% end %>
+                      <% if child['effect_on_chain_root_decree'] %>
+                        <span class="badge badge-<%= uoo_decree_effect_badge_class(child['effect_on_chain_root_decree']) %> ml-1"><%= t(".effect.#{child['effect_on_chain_root_decree']}") %></span>
+                      <% end %>
+                      <% if child['parsed_date'] %>
+                        <small><%= t('.issued_on', date: l(child['parsed_date'], format: :uoo)) %></small>
+                      <% elsif child['date'].present? %>
+                        <small><%= t('.issued_on', date: child['date']) %></small>
+                      <% end %>
+                    </span>
+                  </h4>
+
+                  <div class="search-result-content">
+                    <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
+                      <% Array.wrap(child['case_file_number']).each do |number| %>
+                        <li><%= tooltip_tag number, t('.case_file_number'), class: 'text-muted', placement: 'left' %></li>
+                      <% end %>
+                      <% if child['file_identification_number'].present? %>
+                        <li><%= tooltip_tag child['file_identification_number'], t('.file_identification_number'), class: 'text-muted', placement: 'left' %></li>
+                      <% end %>
+                    </ul>
+
+                    <% Array.wrap(child['parties']).each do |party| %>
+                      <% if party['name'].present? %>
+                        <strong><%= link_to party['name'], decrees_path(q: party['name']),
+                               data: { toggle: 'tooltip', placement: 'bottom' },
+                               title: t('.search_party_tooltip') %></strong><br>
+                      <% end %>
+                      <% if party['address'].present? %>
+                        <%= party['address'] %><br>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </li>
       <% end %>
     </ul>
