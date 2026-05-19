@@ -11,10 +11,15 @@ sk:
 
     uoo:
       title: "Rozhodnutia Úradu na ochranu oznamovateľov"
+      subtitle: "Úrad vydal celkovo %{count} rozhodnutí a udelil pokuty dokopy vo výške %{fine}."
       decree: "Rozhodnutie"
       issued_on: "Rozhodnutie bolo vydané dňa %{date}."
       search_party_tooltip: "Vyhľadať v súdnych rozhodnutiach"
       source: "Zdroj"
+      stats:
+        party: "Názov firmy alebo inštitúcie"
+        count: "Počet rozhodnutí"
+        fine: "Výška pokút"
 
     search:
       result:

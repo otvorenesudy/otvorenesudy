@@ -11,10 +11,15 @@ en:
 
     uoo:
       title: "Decrees of Whistleblower Protection Office"
+      subtitle: "The office has issued %{count} decrees in total and imposed fines amounting to %{fine}."
       decree: "Decision"
       issued_on: "Judgement was issued on %{date}."
       search_party_tooltip: "Search in court decisions"
       source: "Source"
+      stats:
+        party: "Company or institution name"
+        count: "Number of decrees"
+        fine: "Total fines"
 
     search:
       result:

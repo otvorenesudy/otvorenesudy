@@ -4,6 +4,47 @@
   <div class="col">
     <h1 class="mb-4"><%= t('.title') %></h1>
 
+    <% if @uoo_stats && @uoo_stats[:total_count] > 0 %>
+      <p class="lead mb-4">
+        <%= t('.subtitle',
+              count: @uoo_stats[:total_count],
+              fine: "#{number_with_delimiter(@uoo_stats[:total_fine], delimiter: ' ')} #{@uoo_stats[:currency]}") %>
+      </p>
+
+      <% if @uoo_stats[:by_party].any? %>
+        <div class="table-responsive-sm mb-5">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><%= t('.stats.party') %></th>
+                <th class="text-right" scope="col"><%= t('.stats.count') %></th>
+                <th class="text-right" scope="col"><%= t('.stats.fine') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @uoo_stats[:by_party].each do |row| %>
+                <tr>
+                  <td>
+                    <%= link_to row[:name], decrees_path(q: row[:name]),
+                          data: { toggle: 'tooltip', placement: 'bottom' },
+                          title: t('.search_party_tooltip') %>
+                  </td>
+                  <td class="text-right"><%= row[:count] %></td>
+                  <td class="text-right">
+                    <% if row[:fine] > 0 %>
+                      <%= number_with_delimiter(row[:fine], delimiter: ' ') %> <%= row[:currency] || @uoo_stats[:currency] %>
+                    <% else %>
+                      &mdash;
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    <% end %>
+
     <ul class="search-result-list">
       <% @uoo_decrees.each do |decree| %>
         <% fine = Array.wrap(decree['parties']).map { |p| p['fine_amount'] }.compact.first %>
