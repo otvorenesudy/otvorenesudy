@@ -3,3 +3,8 @@
 Sitemap: https://otvorenesudy.sk/sitemap.xml.gz
 User-agent: *
 Allow: /
+Disallow: /hearings
+Disallow: /decrees
+Disallow: /judges
+Disallow: /courts
+Disallow: /proceedings
