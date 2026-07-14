@@ -1,5 +1,4 @@
-class StatisticalTableName < ActiveRecord::Base
-  attr_accessible :value
+class StatisticalTableName < ApplicationRecord
 
   has_many :tables, class_name: :StatisticalTable
 

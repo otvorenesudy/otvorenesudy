@@ -1,13 +1,11 @@
-class Hearing < ActiveRecord::Base
+class Hearing < ApplicationRecord
   include Resource::URI
-  include Resource::Storage
   include Resource::Subscribable
 
   include Probe
 
   include Judge::Matched
 
-  attr_accessible :case_number, :file_number, :date, :room, :special_type, :commencement_date, :selfjudge, :note
 
   scope :at_court, lambda { |court| where court_id: court }
 
@@ -189,7 +187,4 @@ class Hearing < ActiveRecord::Base
     Court.find_each(&:save!)
   end
 
-  storage :resource, JusticeGovSk::Storage::HearingPage, extension: :html do |hearing|
-    File.join hearing.type.name.to_s, JusticeGovSk::URL.url_to_path(hearing.uri, :html)
-  end
 end

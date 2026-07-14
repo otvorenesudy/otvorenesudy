@@ -1,7 +1,6 @@
-class CourtType < ActiveRecord::Base
+class CourtType < ApplicationRecord
   include Resource::Enumerable
 
-  attr_accessible :value
 
   has_many :courts, dependent: :destroy
 

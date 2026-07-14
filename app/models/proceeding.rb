@@ -1,5 +1,4 @@
-class Proceeding < ActiveRecord::Base
-  attr_accessible :file_number
+class Proceeding < ApplicationRecord
 
   include Probe
 

@@ -1,0 +1,7 @@
+{
+  "name": "otvorenesudy",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.3.0"
+  }
+}

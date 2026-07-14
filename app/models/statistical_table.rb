@@ -1,4 +1,4 @@
-class StatisticalTable < ActiveRecord::Base
+class StatisticalTable < ApplicationRecord
   scope :by_name, lambda { |name| joins(:name).where('value = ?', name) }
 
   belongs_to :statistical_summary, foreign_key: :statistical_summary_id, polymorphic: true

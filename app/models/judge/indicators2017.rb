@@ -1,7 +1,7 @@
 class Judge
   module Indicators2017
     extend ActiveSupport::Concern
-    extend JusticeGovSk::Helper::Normalizer
+    extend Normalizer
 
     included do
       mapping do

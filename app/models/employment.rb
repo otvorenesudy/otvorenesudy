@@ -1,7 +1,4 @@
-class Employment < ActiveRecord::Base
-  attr_accessible :active,
-                  :status,
-                  :note
+class Employment < ApplicationRecord
 
   include Judge::Activity
 

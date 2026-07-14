@@ -1,12 +1,11 @@
-class JudgePosition < ActiveRecord::Base
-  attr_accessible :value
+class JudgePosition < ApplicationRecord
 
-  scope :chair, where('judge_positions.value = ? OR value = ?', 'predseda', 'predsedníčka')
-  scope :vicechair, where('judge_positions.value = ? OR value = ?', 'podpredseda', 'podpredsedníčka')
+  scope :chair, -> { where('judge_positions.value = ? OR value = ?', 'predseda', 'predsedníčka') }
+  scope :vicechair, -> { where('judge_positions.value = ? OR value = ?', 'podpredseda', 'podpredsedníčka') }
   scope :judicial_council_chair,
-        where('judge_positions.value = ? OR value = ?', 'predseda súdnej rady', 'predsedníčka súdnej rady')
+        -> { where('judge_positions.value = ? OR value = ?', 'predseda súdnej rady', 'predsedníčka súdnej rady') }
   scope :judicial_council_member,
-        where('judge_positions.value = ? OR value = ?', 'člen súdnej rady', 'členka súdnej rady')
+        -> { where('judge_positions.value = ? OR value = ?', 'člen súdnej rady', 'členka súdnej rady') }
 
   has_many :employments, dependent: :destroy
 

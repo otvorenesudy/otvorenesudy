@@ -1,36 +1,20 @@
-require 'sidekiq/web'
+require 'mission_control/jobs/engine'
 
 OpenCourts::Application.routes.draw do
   root to: 'static_pages#home'
 
   resources :courts, only: %i[index show] do
-    collection do
-      get :suggest
-
-      # TODO rm - unused?
-      # get :map
-    end
+    collection { get :suggest }
   end
 
   resources :judges, only: %i[index show] do
     collection { get :suggest }
-
-    # TODO rm - unused?
-    # member do
-    #   get :curriculum
-    #   get :cover_letter
-    # end
   end
 
   resources :hearings, only: %i[index show] do
     collection { get :suggest }
 
-    member do
-      # TODO rm - unused?
-      # get :resource
-
-      delete :anonymize
-    end
+    member { delete :anonymize }
   end
 
   resources :decrees, only: %i[index show] do
@@ -46,32 +30,6 @@ OpenCourts::Application.routes.draw do
     collection { get :suggest }
   end
 
-=begin
-  resources :selection_procedures, as: :selections, path: :selections, only: [:index, :show] do
-    collection do
-      get :suggest
-    end
-
-    member do
-      get :declaration
-      get :report
-    end
-
-    resources :selection_procedure_candidates, as: :candidates, path: :candidates, only: [] do
-      member do
-        # TODO rm - unused?
-        # get :application
-        # get :curriculum
-
-        get :declaration
-
-        # TODO rm - unused?
-        # get :motivation_letter
-      end
-    end
-  end
-=end
-
   resources :verification, path: :verify, only: %i[index create]
 
   devise_for :users
@@ -84,12 +42,14 @@ OpenCourts::Application.routes.draw do
     collection { match 'unsubscribe/:token', action: :unsubscribe, as: :unsubscribe, via: %i[get post] }
   end
 
-  match '/search/collapse', to: 'search#collapse'
-  match '/404', to: 'errors#show', as: :not_found_error
-  match '/500', to: 'errors#show', as: :internal_server_error
-  match '/health', to: 'static_pages#health'
+  get '/search/collapse', to: 'search#collapse'
+  match '/404', to: 'errors#show', as: :not_found_error, via: :all
+  match '/500', to: 'errors#show', as: :internal_server_error, via: :all
+  get '/health', to: 'static_pages#health'
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  authenticate :user, ->(u) { u.admin? } do
+    mount MissionControl::Jobs::Engine, at: '/jobs'
+  end
 
   match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
 end

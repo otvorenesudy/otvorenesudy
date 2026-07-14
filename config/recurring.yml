@@ -1,0 +1,17 @@
+production_subscriptions_daily:
+  class: "NotifySubscriptionsJob"
+  args: ["daily"]
+  schedule: "0 8 * * *"
+  queue: default
+
+production_subscriptions_weekly:
+  class: "NotifySubscriptionsJob"
+  args: ["weekly"]
+  schedule: "0 8 * * 1"
+  queue: default
+
+production_subscriptions_monthly:
+  class: "NotifySubscriptionsJob"
+  args: ["monthly"]
+  schedule: "0 8 1 * *"
+  queue: default

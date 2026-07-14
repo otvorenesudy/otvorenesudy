@@ -1,6 +1,4 @@
-class DecreeForm < ActiveRecord::Base
-  attr_accessible :value,
-                  :code
+class DecreeForm < ApplicationRecord
 
   has_many :decrees
 

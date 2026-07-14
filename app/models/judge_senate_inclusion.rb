@@ -1,5 +1,4 @@
-class JudgeSenateInclusion < ActiveRecord::Base
-  attr_accessible :value
+class JudgeSenateInclusion < ApplicationRecord
 
   has_many :summaries, class_name: :JudgeStatisticalSummary
 

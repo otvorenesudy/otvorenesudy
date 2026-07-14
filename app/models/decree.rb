@@ -1,13 +1,11 @@
-class Decree < ActiveRecord::Base
+class Decree < ApplicationRecord
   include Resource::URI
-  include Resource::Storage
   include Resource::Subscribable
 
   include Probe
 
   include Judge::Matched
 
-  attr_accessible :case_number, :file_number, :date, :ecli, :summary
 
   scope :at_court, lambda { |court| where court_id: court }
 
@@ -151,8 +149,4 @@ class Decree < ActiveRecord::Base
 
     @text = @time = @judge_names = @legislation_areas_and_subareas = nil
   end
-
-  storage :resource, JusticeGovSk::Storage::DecreePage, extension: :html
-  storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
-  storage :image, JusticeGovSk::Storage::DecreeImage, extension: :pdf
 end

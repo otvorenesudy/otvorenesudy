@@ -1,8 +1,4 @@
-class JudgeProperty < ActiveRecord::Base
-  attr_accessible :description,
-                  :acquisition_date,
-                  :cost,
-                  :share_size
+class JudgeProperty < ApplicationRecord
 
   belongs_to :list, class_name: :JudgePropertyList,
                     foreign_key: :judge_property_list_id

@@ -1,33 +1,19 @@
 module Probe::Search
   class Results
     include Enumerable
-
     include Probe::Helpers::Index
 
-    attr_reader :model,
-                :records,
-                :facets,
-                :highlights,
-                :sort_fields,
-                :response,
-                :results,
-                :offset,
-                :current_page,
-                :previous_page,
-                :next_page,
-                :per_page,
-                :total_pages,
-                :total_entries,
-                :time,
-                :associations
+    attr_reader :model, :facets, :sort_fields, :response
 
-    def initialize(model, facets, sort_fields, response)
-      @model       = model
-      @facets      = facets
-      @response    = response
+    def initialize(model, facets, sort_fields, response, page, per_page)
+      @model = model
+      @facets = facets
       @sort_fields = sort_fields
-
-      @results  = @response.results
+      @response = response
+      @page = page.to_i
+      @per_page = per_page.to_i
+      @hits = response['hits']['hits'] || []
+      @total_entries = response.dig('hits', 'total', 'value') || 0
     end
 
     def records
@@ -51,50 +37,51 @@ module Probe::Search
     end
 
     def offset
-      @offset ||= @results.offset
+      @per_page * (@page - 1)
     end
 
     def current_page
-      @current_page ||= @results.current_page
+      @page
     end
 
     def previous_page
-      @previous_page ||= @results.previous_page
+      @page > 1 ? @page - 1 : nil
     end
 
     def next_page
-      @next_page ||= @results.next_page
+      @page < total_pages ? @page + 1 : nil
     end
 
     def per_page
-      @per_page ||= @results.per_page
+      @per_page
     end
 
     def total_pages
-      @total_pages ||= @results.total_pages
+      return 1 if @per_page.zero?
+      (@total_entries.to_f / @per_page).ceil
     end
 
     def total_entries
-      @total_entries ||= @results.total_entries
+      @total_entries
     end
 
     def time
-      @time ||= @results.time
+      @response['took']
     end
 
-    alias :model_name   :model
-    alias :limit_value  :per_page
-    alias :total_count  :total_entries
-    alias :num_pages    :total_pages
-    alias :offset_value :offset
-    alias :page         :current_page
+    alias model_name model
+    alias limit_value per_page
+    alias total_count total_entries
+    alias num_pages total_pages
+    alias offset_value offset
+    alias page current_page
 
     def first_page?
-      page == 1
+      @page == 1
     end
 
     def last_page?
-      page == total_pages
+      @page >= total_pages
     end
 
     def empty?
@@ -115,38 +102,26 @@ module Probe::Search
     private
 
     def fetch_records
-      ids = @results.map { |result| result.id.to_i }
+      ids = @hits.map { |hit| (hit.dig('_source', 'id') || hit['_id']).to_i }
       records = @model.where(id: ids)
-
-      if associations
-        records = records.includes(associations)
-      end
-
+      records = records.includes(@associations) if @associations
       records.sort_by! { |record| ids.index(record.id) }
-
       records
     end
 
     def populate_facets
-      @facets.populate(@results.facets)
-
+      aggs = @response['aggregations'] || {}
+      @facets.populate(aggs)
       @facets
     end
 
     def format_highlights
-      @results.map do |result|
-        highlight = Hash.new
-
+      @hits.map do |hit|
+        highlight = {}
         @facets.highlights.each do |field|
-          fields = Array.wrap(field)
-
-          fields.each do |f|
-            analyzed_field = analyzed_field(f)
-
-            highlight[f] = result.highlight ? result.highlight[analyzed_field] : []
-          end
+          h_field = analyzed_field(field).to_s
+          highlight[field] = hit.dig('highlight', h_field) || []
         end
-
         highlight
       end
     end

@@ -1,7 +1,5 @@
-class NotifySubscriptionJob
-  include Sidekiq::Worker
-
-  sidekiq_options queue: :default
+class NotifySubscriptionJob < ApplicationJob
+  queue_as :default
 
   def perform(subscription_id)
     Subscription.find(subscription_id).notify

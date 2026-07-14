@@ -1,7 +1,6 @@
 module Core
   module Storage
     module Utils
-      extend Core::Output
       extend self
 
       def build(root, *flags)
@@ -193,19 +192,7 @@ module Core
       end
 
       def colorize(args)
-        super(args).map do |arg|
-          arg.gsub!(/^sum(?<line>.+)/i, 'sum'.blue.bold + '\k<line>'.bold)
-         #arg.gsub!(/[\w\-\_\?\=\.]+(\/[\w\-\_\?\=\.]+)+/) { |s| s.underline }
-
-          arg.gsub!(/^([a-f\d]{2}\s|\d+)/i)      { |s| s.blue.bold  }
-          arg.gsub!(/^(avg|min|max)/i)           { |s| s.blue.bold  }
-          arg.gsub!(/\d+(\.\d+)?(\s+.?i?B)?\+/i) { |s| s.green.bold }
-          arg.gsub!(/\d+(\.\d+)?(\s+.?i?B)?\-/i) { |s| s.red.bold   }
-          arg.gsub!( /0+(\.?0+)?(\s+.?i?B)?\=/i) { |s| s.bold       }
-          arg.gsub!(/\s\w*\s*\!$/i)              { |s| s.red.bold   }
-
-          arg
-        end
+        args
       end
     end
   end

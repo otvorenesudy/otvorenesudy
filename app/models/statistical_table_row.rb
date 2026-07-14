@@ -1,4 +1,4 @@
-class StatisticalTableRow < ActiveRecord::Base
+class StatisticalTableRow < ApplicationRecord
   scope :by_name, lambda { |name| joins(:name).where('value = ?', name) }
 
   belongs_to :table, class_name: :StatisticalTable,

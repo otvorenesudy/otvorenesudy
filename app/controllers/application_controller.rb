@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter { flash_message_wrap keys: %i[danger warning info] }
+  before_action { flash_message_wrap keys: %i[danger warning info] }
 
-  before_filter { set_locale params[:l] || I18n.default_locale }
+  before_action { set_locale locale_params[:l] || I18n.default_locale }
 
   protected
 
@@ -37,5 +37,11 @@ class ApplicationController < ActionController::Base
     session[:verify] = { origin: request.url }
 
     redirect_to verification_index_path
+  end
+
+  private
+
+  def locale_params
+    params.permit(:l)
   end
 end

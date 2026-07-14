@@ -1,5 +1,4 @@
-class CourtProceedingType < ActiveRecord::Base
-  attr_accessible :value
+class CourtProceedingType < ApplicationRecord
 
   has_many :jurisdictions, class_name: :CourtJurisdiction,
                            dependent: :destroy

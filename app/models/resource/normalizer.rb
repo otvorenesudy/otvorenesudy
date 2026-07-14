@@ -1,3 +1,3 @@
 module Resource::Normalizer
-  extend JusticeGovSk::Helper::Normalizer
+  extend Normalizer
 end

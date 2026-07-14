@@ -1,108 +1,48 @@
-# Usage:
-#
-# rake process:paragraphs
-#
-# rake process:court_expenses:2010
-# rake process:court_statistical_summaries:2011
-#
-# rake process:judge_designations:nrsr_sk
-# rake process:judge_statistical_summaries:2011
-
 namespace :process do
-  desc "Process know paragraph descriptions"
+  desc 'Process known paragraph descriptions'
   task paragraphs: :environment do
-    processor = JusticeGovSk::Processor::Paragraphs.new
-
-    processor.process('data/paragraphs.csv')
-  end
-
-  task "Process court acronyms"
-  task court_acronyms: :environment do
-    processor = JusticeGovSk::Processor::CourtAcronyms.new
-
-    processor.process('data/court_acronyms.csv')
+    require Rails.root.join('lib/justice_gov_sk/processor/paragraphs')
+    # TODO: migrate to standalone service
+    raise NotImplementedError, 'Paragraph processor has been removed with crawler infrastructure'
   end
 
   namespace :court_expenses do
-    desc "Process court expenses from 2010"
-    task :'2010' => :environment do
-      processor = JusticeGovSk::Processor::CourtExpenses.new
-
-      processor.process('data/court_expenses_2010.csv')
-    end
-
-    desc "Process court expenses from 2011"
-    task :'2011' => :environment do
-      processor = JusticeGovSk::Processor::CourtExpenses.new
-
-      processor.process('data/court_expenses_2011.csv')
-    end
-
-    desc "Process court expenses from 2012"
-    task :'2012' => :environment do
-      processor = JusticeGovSk::Processor::CourtExpenses.new
-
-      processor.process('data/court_expenses_2012.csv')
-    end
-
-    desc "Process court expenses from 2013"
-    task :'2013' => :environment do
-      processor = JusticeGovSk::Processor::CourtExpenses.new
-
-      processor.process('data/court_expenses_2013.csv')
+    %w[2010 2011 2012 2013].each do |year|
+      desc "Process court expenses from #{year}"
+      task year.to_sym => :environment do
+        raise NotImplementedError, 'Court expenses processor has been removed with crawler infrastructure'
+      end
     end
   end
 
-  desc "Process court statistical summaries"
+  desc 'Process court statistical summaries'
   namespace :court_statistical_summaries do
-    desc "process court statistical summaries from 2012"
-    task :'2011' => :environment do
-      processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
-
-      processor.process('data/court_statistical_summaries_2011.csv')
-    end
-
-    desc "process court statistical summaries from 2012"
-    task :'2012' => :environment do
-      processor = JusticeGovSk::Processor::CourtStatisticalSummaries.new
-
-      processor.process('data/court_statistical_summaries_2012.csv')
+    %w[2011 2012].each do |year|
+      desc "Process court statistical summaries from #{year}"
+      task year.to_sym => :environment do
+        raise NotImplementedError, 'Court statistical summaries processor has been removed with crawler infrastructure'
+      end
     end
   end
 
   namespace :judge_designations do
-    desc "Process judge designations"
-    task :nrsr_sk => :environment do
-      processor = NrsrSk::Processor::JudgeDesignations.new
-
-      options = { separator: "\t" }
-
-      processor.process('data/judge_designations_nrsr_sk.csv', options)
+    desc 'Process judge designations'
+    task nrsr_sk: :environment do
+      raise NotImplementedError, 'Judge designations processor has been removed with crawler infrastructure'
     end
 
-    desc "Process judge designations"
-    task :prezident_sk => :environment do
-      processor = NrsrSk::Processor::JudgeDesignations.new
-
-      options = { separator: "\t", source: Source.find_by_module(:PrezidentSk) }
-
-      processor.process('data/judge_designations_prezident_sk.csv', options)
+    desc 'Process judge designations'
+    task prezident_sk: :environment do
+      raise NotImplementedError, 'Judge designations processor has been removed with crawler infrastructure'
     end
   end
 
   namespace :judge_statistical_summaries do
-    desc "Process judge statistical summaries from 2011"
-    task :'2011' => :environment do
-      processor = JusticeGovSk::Processor::JudgeStatisticalSummaries.new
-
-      processor.process('data/judge_statistical_summaries_2011.csv')
-    end
-
-    desc "Process court statistical summaries from 2012"
-    task :'2012' => :environment do
-      processor = JusticeGovSk::Processor::JudgeStatisticalSummaries.new
-
-      processor.process('data/judge_statistical_summaries_2012.csv')
+    %w[2011 2012].each do |year|
+      desc "Process judge statistical summaries from #{year}"
+      task year.to_sym => :environment do
+        raise NotImplementedError, 'Judge statistical summaries processor has been removed with crawler infrastructure'
+      end
     end
   end
 end

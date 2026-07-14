@@ -1,7 +1,5 @@
-class UpdateRepositoryJob
-  include Sidekiq::Worker
-
-  sidekiq_options queue: :probe
+class UpdateRepositoryJob < ApplicationJob
+  queue_as :probe
 
   def perform(model_name, id)
     return unless model_name.in? %w[Decree Court Hearing Judge]

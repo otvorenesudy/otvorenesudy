@@ -1,4 +1,4 @@
-class DecreeNaturalization < ActiveRecord::Base
+class DecreeNaturalization < ApplicationRecord
   belongs_to :decree
 
   belongs_to :nature, class_name: DecreeNature, foreign_key: :decree_nature_id

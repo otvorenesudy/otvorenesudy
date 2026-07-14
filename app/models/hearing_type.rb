@@ -1,7 +1,6 @@
-class HearingType < ActiveRecord::Base
+class HearingType < ApplicationRecord
   include Resource::Enumerable
 
-  attr_accessible :value
 
   has_many :hearings
 

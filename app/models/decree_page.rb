@@ -1,11 +1,9 @@
-class DecreePage < ActiveRecord::Base
+class DecreePage < ApplicationRecord
   include Probe
 
   extend Probe::Sanitizer
   extend Probe::Search::Query
 
-  attr_accessible :number,
-                  :text
 
   belongs_to :decree
 

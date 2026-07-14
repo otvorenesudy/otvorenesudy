@@ -1,11 +1,8 @@
 require 'digest/sha1'
 
-class Query < ActiveRecord::Base
+class Query < ApplicationRecord
   include Resource::Serializable
 
-  attr_accessible :model,
-                  :digest,
-                  :value
 
   scope :by_model, lambda { |model| where(model: model.to_s) }
 

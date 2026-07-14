@@ -1,7 +1,5 @@
-class DestroyModelJob
-  include Sidekiq::Worker
-
-  sidekiq_options queue: :utils
+class DestroyModelJob < ApplicationJob
+  queue_as :utils
 
   def perform(model, id)
     model.constantize.find(id).destroy

@@ -1,23 +1,10 @@
-class Court < ActiveRecord::Base
+class Court < ApplicationRecord
   include Resource::URI
-  # TODO rm or fix Bing Search API
-  # include Resource::ContextSearch
   include Resource::Formatable
-  include Resource::Storage
   include Resource::Indicator
 
   include Probe
 
-  attr_accessible :name,
-                  :acronym,
-                  :street,
-                  :phone,
-                  :fax,
-                  :media_person,
-                  :media_person_unprocessed,
-                  :media_phone,
-                  :latitude,
-                  :longitude
 
   scope :by_type, lambda { |court_types| where(court_type_id: Array.wrap(court_types).map(&:id)) }
 
@@ -126,15 +113,9 @@ class Court < ActiveRecord::Base
     @other_contacts ||= other_contacts_json ? JSON.parse(other_contacts_json, symbolize_names: true) : false
   end
 
-  # TODO rm or fix Bing Search API
-  #context_query { |court| "\"#{court.name}\"" }
-
   before_save :invalidate_caches
 
   def invalidate_caches
-    # TODO rm or fix Bing Search API
-    #invalidate_context_query
-
     invalidate_address
 
     @coordinates =
@@ -142,6 +123,4 @@ class Court < ActiveRecord::Base
         @vicechair = @chairs = @vicechairs = @judicial_council_chairs = @judicial_council_members = @expenses_total,
       @other_contacts = nil
   end
-
-  storage :resource, JusticeGovSk::Storage::CourtPage, extension: :html
 end

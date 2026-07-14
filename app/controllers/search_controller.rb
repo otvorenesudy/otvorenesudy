@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def index
     search_instances
 
-    @results = @model.search params.freeze
+    @results = @model.search index_params
 
     @results.associations = search_associations
 
@@ -21,7 +21,7 @@ class SearchController < ApplicationController
     name = params[:facet]
     term = params[:term]
 
-    @results = @model.suggest name, term, params.except(:facet, :term)
+    @results = @model.suggest name, term, suggest_context_params
 
     if @results
       facet   = @results.facets[name]
@@ -34,9 +34,9 @@ class SearchController < ApplicationController
   end
 
   def collapse
-    model     = params[:model].to_s
-    name      = params[:facet].to_sym
-    collapsed = params[:collapsed] == 'true' ? true : false
+    model     = collapse_params[:model].to_s
+    name      = collapse_params[:facet].to_sym
+    collapsed = collapse_params[:collapsed] == 'true' ? true : false
 
     session[key = "#{model.to_s.underscore}.collapsed_facets".to_sym] ||= []
     collapsed ? session[key] += [name] : session[key] -= [name]
@@ -87,6 +87,18 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def index_params
+    params.permit(:q, :page, :sort, :order, :per_page, :l, :facet, :term)
+  end
+
+  def suggest_context_params
+    index_params.except(:facet, :term).to_h.symbolize_keys
+  end
+
+  def collapse_params
+    params.permit(:model, :facet, :collapsed)
+  end
 
   def search_associations
     nil

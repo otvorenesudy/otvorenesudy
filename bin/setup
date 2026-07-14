@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+echo "== Installing Ruby dependencies =="
+bundle install
+
+echo "== Installing Node dependencies =="
+npm install
+
+echo "== Preparing database =="
+bin/rails db:prepare
+
+echo "== Removing old logs and tempfiles =="
+bin/rails log:clear tmp:clear
+
+echo "== Restarting application server =="
+bin/rails restart
+
+echo "== Setup complete =="

@@ -1,6 +1,4 @@
-class Municipality < ActiveRecord::Base
-  attr_accessible :name,
-                  :zipcode
+class Municipality < ApplicationRecord
 
   has_many :courts, dependent: :destroy
 

@@ -1,10 +1,10 @@
 class SubscriptionsController < ApplicationController
-  before_filter :authenticate_user!, except: :unsubscribe
-  skip_before_filter :verify_authenticity_token, only: :unsubscribe
+  before_action :authenticate_user!, except: :unsubscribe
+  skip_before_action :verify_authenticity_token, only: :unsubscribe
 
   def create
     @period = Period.find(params[:period_id])
-    @subscription = Subscription.new(params[:subscription])
+    @subscription = Subscription.new(subscription_params)
 
     @subscription.user = current_user
     @subscription.period = @period
@@ -43,12 +43,22 @@ class SubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    @subscription = Subscription.where(token: params[:token]).first
+    @subscription = Subscription.find_by(token: unsubscribe_params[:token])
 
     @subscription.destroy if @subscription
 
     flash[:notice] = t('.subscriptions.mailer.results.unsubscribed.notice')
 
     redirect_to root_path
+  end
+
+  private
+
+  def subscription_params
+    params.require(:subscription).permit(:query_attributes)
+  end
+
+  def unsubscribe_params
+    params.permit(:token)
   end
 end

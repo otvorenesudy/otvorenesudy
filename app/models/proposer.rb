@@ -1,6 +1,4 @@
-class Proposer < ActiveRecord::Base
-  attr_accessible :name,
-                  :name_unprocessed
+class Proposer < ApplicationRecord
 
   belongs_to :hearing
 

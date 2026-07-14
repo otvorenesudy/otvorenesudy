@@ -1,5 +1,4 @@
-class JudgeDesignationType < ActiveRecord::Base
-  attr_accessible :value
+class JudgeDesignationType < ApplicationRecord
 
   has_many :designations, class_name: :JudgeDesignation
 

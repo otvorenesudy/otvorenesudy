@@ -1,5 +1,4 @@
-class StatisticalTableCell < ActiveRecord::Base
-  attr_accessible :value
+class StatisticalTableCell < ApplicationRecord
 
   belongs_to :column, class_name: :StatisticalTableColumn,
                       foreign_key: :statistical_table_column_id

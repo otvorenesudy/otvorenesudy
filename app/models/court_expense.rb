@@ -1,7 +1,6 @@
-class CourtExpense < ActiveRecord::Base
+class CourtExpense < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :year, :value
 
   belongs_to :court
 

@@ -1,7 +1,4 @@
-class Source < ActiveRecord::Base
-  attr_accessible :module,
-                  :name,
-                  :uri
+class Source < ApplicationRecord
 
   validates :module, presence: true
   validates :name,   presence: true

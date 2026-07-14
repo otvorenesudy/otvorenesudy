@@ -1,18 +1,6 @@
-class JudgeStatisticalSummary < ActiveRecord::Base
+class JudgeStatisticalSummary < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :author,
-                  :year,
-                  :date,
-                  :days_worked,
-                  :days_heard,
-                  :days_used,
-                  :released_constitutional_decrees,
-                  :delayed_constitutional_decrees,
-                  :idea_reduction_reasons,
-                  :educational_activities,
-                  :substantiation_notes,
-                  :court_chair_actions
 
   scope :by_prominent_court_type, lambda { |judge|
     types = where(judge_id: judge.id).joins(:court).group('courts.court_type_id').order(:count_all).count

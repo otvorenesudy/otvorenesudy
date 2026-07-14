@@ -4,8 +4,8 @@ unless Rails.env.test?
     address: 'smtp-relay.brevo.com',
     domain: 'otvorenesudy.sk',
     port: 587,
-    user_name: Configuration.mailer.username,
-    password: Configuration.mailer.password,
+    user_name: Rails.application.credentials.dig(:mailer, :user_name),
+    password: Rails.application.credentials.dig(:mailer, :password),
     authentication: :plain,
     enable_starttls_auto: true
   }

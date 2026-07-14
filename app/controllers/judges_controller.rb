@@ -1,5 +1,5 @@
 class JudgesController < SearchController
-  before_filter :prepare_search_params, only: :index
+  before_action :prepare_search_params, only: :index
 
   def show
     @judge = Judge.find(params[:id])
@@ -70,6 +70,14 @@ class JudgesController < SearchController
   include FileHelper
 
   private
+
+  def index_params
+    params.permit(
+      :q, :page, :sort, :order, :per_page, :l, :name, :facet, :term,
+      :indicators_2013, :indicators_2015, :indicators_2017, :indicators_2021,
+      activity: [], positions: [], courts: [], hearings_count: [], decrees_count: [], related_people_count: []
+    )
+  end
 
   def search_associations
     [employments: %i[court judge judge_position]]

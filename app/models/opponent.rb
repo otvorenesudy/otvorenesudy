@@ -1,6 +1,4 @@
-class Opponent < ActiveRecord::Base
-  attr_accessible :name,
-                  :name_unprocessed
+class Opponent < ApplicationRecord
 
   belongs_to :hearing
 
