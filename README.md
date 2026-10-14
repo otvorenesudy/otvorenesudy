@@ -1,138 +1,106 @@
-# Open Courts (Otvorené Súdy in Slovak)
+# Open Courts (Otvorené súdy)
 
-[![Build Status](https://travis-ci.org/otvorenesudy/otvorenesudy.svg)](https://travis-ci.org/otvorenesudy/otvorenesudy)
-[![View performance data on Skylight](https://badges.skylight.io/status/mINBQqa1duz7.svg)](https://oss.skylight.io/app/applications/mINBQqa1duz7)
-[![View performance data on Skylight](https://badges.skylight.io/rpm/mINBQqa1duz7.svg)](https://oss.skylight.io/app/applications/mINBQqa1duz7)
-[![View performance data on Skylight](https://badges.skylight.io/typical/mINBQqa1duz7.svg)](https://oss.skylight.io/app/applications/mINBQqa1duz7)
-[![View performance data on Skylight](https://badges.skylight.io/problem/mINBQqa1duz7.svg)](https://oss.skylight.io/app/applications/mINBQqa1duz7)
+[![CI](https://github.com/otvorenesudy/otvorenesudy/actions/workflows/ci.yml/badge.svg)](https://github.com/otvorenesudy/otvorenesudy/actions/workflows/ci.yml)
 
-Public data project aimed at creating much more user friendly interface to interesting public data provided by [Department of Justice](http://www.justice.gov.sk) and [The Judicial Council](http://www.sudnarada.sk) of Slovak Republic
+A public data project that makes data about the Slovak judiciary usable: courts, judges, hearings, decrees and
+proceedings from the [Ministry of Justice](https://www.justice.gov.sk), with faceted search, judges' indicators and
+e-mail subscriptions to searches. It runs at [otvorenesudy.sk](https://otvorenesudy.sk).
+
+[otvorenesudy-api](https://github.com/otvorenesudy/otvorenesudy-api) imports the court system's data into the shared
+database; this app shows it and keeps the search indices up to date.
 
 ## Requirements
 
-* Ruby 2.2
-* Rails 3.2
-* PostgreSQL 9.1
-* Elasticsearch 1.7
-* Redis 3.4
+- Ruby 4.0 and Node 24 (`.tool-versions`; Node only runs Prettier, the app's JavaScript needs no build)
+- PostgreSQL 17 with the pg_trgm, unaccent and pgvector extensions
+- Elasticsearch 9 (`bin/elasticsearch` downloads and runs it locally)
+- Redis (Sidekiq) and Memcached (cache, in production)
+- Chrome, for the specs that need JavaScript
 
-### PostgreSQL
+## Setup
 
-Make sure to have `pg_trgm` and `pgvector` extensions installed.
-
-### Elasticsearch
-
-Enable Groovy dynamic scripting  
-
-```
-script.engine.groovy.inline.aggs: on
-script.engine.groovy.inline.search: on
-```
-
-## Installation
-
-```
-git clone --recursive git://github.com/otvorenesudy/otvorenesudy.git
+```sh
+git clone --recursive git@github.com:otvorenesudy/otvorenesudy.git
 cd otvorenesudy
-bundle install
+bin/elasticsearch --daemon
+bin/setup
 ```
+
+`bin/setup` installs the gems and Prettier, creates the database from `db/structure.sql` with its seeds, then starts
+`bin/dev` (the app on port 3000 and the Dart Sass watcher). Build the search indices with `bin/rails probe:reindex`.
+
+The database login comes from `OPENCOURTS_DATABASE_USER` and `OPENCOURTS_DATABASE_PASSWORD` (and
+`OPENCOURTS_DATABASE_HOST`), in your environment or a `.env` file; without them PostgreSQL's defaults apply.
+
+### A Copy of Production
+
+With a dump of the production server (`db-backup-*.gz`), `bin/restore-production-copy <dump>` restores its
+`opencourts_production` database as `opencourts_development`. It masks every user's e-mail address but yours
+(`git config user.email`, or `--keep`), resets their passwords and replaces the subscriptions' unsubscribe tokens.
+Then reindex with `bin/rails probe:reindex`.
 
 ## Configuration
 
-```
-cp config/configuration.{yml.example,yml}
-cp config/database.{yml.example,yml}
+Secrets live in Rails' encrypted credentials: `config/credentials/production.yml.enc`, with its key in
+`config/credentials/production.key` (on the server, linked by Capistrano; never committed).
+
+```yaml
+devise:
+  secret_key: ...
+smtp:
+  username: ...
+  password: ...
+sentry:
+  dsn: ...
+  traces_sample_rate: 0.1
 ```
 
-## Images Generation
-
-Use Ruby 2.6.6 locally and install `gem install svgeez` and `npm install -g svgo@1.3.2`. After that, run `app/assets/images/compile`.
+Edit them with `bin/rails credentials:edit --environment production`.
 
 ## Data
 
-*Following commands across this section should be executed subsequently in general*
+The seeds (`db/seeds.rb`) hold the code lists the app needs: sources, court types, hearing types, decree forms,
+periods. Courts, judges, hearings and decrees come from otvorenesudy-api. The datasets in `data/` (the
+[otvorenesudy-data](https://github.com/otvorenesudy/otvorenesudy-data) submodule) load with `rake process:*`:
 
-```
-rake db:create
-rake db:migrate # or rake db:structure:load
-rake db:seed
-```
-
-Note that the seed data are essential for the next steps
-
-### Courts and judges
-
-See [otvorenesudy-api](https://github.com/otvorenesudy/otvorenesudy-api).
-
-### Hearings and decrees
-
-See [otvorenesudy-api](https://github.com/otvorenesudy/otvorenesudy-api).
-
-### Judge selection procedures
-
-Crawl judge selection procedures from justice.gov.sk:
-
-```
-rake crawl:selection_procedures
+```sh
+bin/rails process:paragraphs
+bin/rails process:court_acronyms
+bin/rails process:court_expenses:2013            # also 2010, 2011, 2012
+bin/rails process:court_statistical_summaries:2012
+bin/rails process:judge_statistical_summaries:2012
+bin/rails process:judge_designations:nrsr_sk     # and prezident_sk
 ```
 
-### Judge property declarations
+The judges' indicators (2013, 2015, 2017 and 2021) are read from `data/` as the pages need them.
 
-*Judge property declarations processing currently fails as sudnarada.gov.sk switched from semi-structured (HTML tables) to unstructured (PDF document) publishing* 
+## Search
 
-Crawl judge property declarations from sudnarada.gov.sk:
+Each searchable model (courts, judges, hearings, decrees, proceedings) has an index behind an alias, built by
+`lib/probe`. otvorenesudy-api reindexes what it imports through `UpdateRepositoryJob`; the indices can also be
+maintained by hand (`INDICES=courts,judges` limits a task to those):
 
-```
-rake crawl:judge_property_declarations
-```
-
-Note that current support is only for property declarations of 2011 and 2012
-
-### Partially preprocessed statistical summaries
-
-Process court statistical summaries from justice.gov.sk:
-
-```
-rake process:court_statistical_summaries:2011
-rake process:court_statistical_summaries:2012
-```
-
-Process judge statistical summaries from justice.gov.sk:
-
-```
-rake process:judge_statistical_summaries:2011
-rake process:judge_statistical_summaries:2012
-```
-
-### Partially preprocessed data from various sources
-
-Process court expenses from justice.gov.sk:
-
-```
-rake process:court_expenses:2010
-rake process:court_expenses:2011
-rake process:court_expenses:2012
-rake process:court_expenses:2013
-```
-
-Process judge designations from nrsr.sk and prezident.sk:
-
-```
-rake process:judge_designations:nrsr_sk
-rake process:judge_designations:prezident_sk
+```sh
+bin/rails probe:reindex        # rebuild in a new index, then switch the alias to it
+bin/rails probe:import         # the same, in the background (Sidekiq)
+bin/rails probe:synchronize    # reindex what is missing or older than the database (Sidekiq)
 ```
 
 ## Testing
 
-Run specs with `bundle exec rspec`
+```sh
+bin/test                                # lint, every spec with coverage, undercover
+bin/test spec/system/courts_spec.rb     # lint, then those specs
+bin/lint --fix                          # RuboCop and Prettier on what the branch changed
+```
 
-## Contributing
+`bin/test` needs PostgreSQL and Elasticsearch running locally; CI runs it on every pull request.
 
-1. Fork it
-2. Create your feature branch `git checkout -b new-feature`
-3. Commit your changes `git commit -am 'Add some feature'`
-4. Push to the branch `git push origin new-feature`
-5. Create new Pull Request
+## Deployment
+
+A maintainer deploys `main` with Capistrano: `bundle exec cap production deploy`. The server is provisioned by
+[otvorenesudy-server](https://github.com/otvorenesudy/otvorenesudy-server). Cron jobs (`config/schedule.rb`) send the
+subscription e-mails, refresh the sitemap and check the indices.
 
 ## License
 
