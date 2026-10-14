@@ -2,7 +2,7 @@
 
 <h1 class="text-uppercase my-4">
   <%= selection_procedure_headline @procedure, limit: 49, tooltip: true %>
-  <small class="d-block h6 font-weight-bold mt-2 mb-0">
+  <small class="d-block h6 fw-bold mt-2 mb-0">
     <%= t '.selection_procedure' %> <%= t @procedure.closed_at.future? ? '.future' : '.past' %>
     <%= time_tag @procedure.closed_at.to_date, format: :long %>
   </small>
@@ -53,7 +53,7 @@
   <h2 class="h4 text-uppercase mt-4"><%= t '.commissioners' %></h2>
 
   <p>
-    <%= @commissioners.map { |person| person.judge ? link_to_judge(person.judge) : person.name }.to_sentence.html_safe %>
+    <%= to_sentence(@commissioners.map { |person| person.judge ? link_to_judge(person.judge) : person.name }) %>
   </p>
 <% end %>
 
@@ -64,7 +64,7 @@
     <%= table_tag class: 'table' do %>
       <thead>
         <tr>
-          <%= table_header_tag t('.name'), class: 'w-50', sorter: 'text' %>
+          <%= table_header_tag t('.name'), class: 'w-50' %>
           <%= table_header_tag t('.written_part'), sorter: 'digit' %>
           <%= table_header_tag t('.oral_part'), sorter: 'digit' %>
           <%= table_header_tag t('.rank'), sorter: 'digit' %>
@@ -74,16 +74,16 @@
       <tbody>
         <% @candidates.each do |candidate| %>
           <tr>
-            <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name.match(/\s(([^\s]|\,\s)*)\z/)[1] %>">
+            <td data-value="<%= candidate.judge ? candidate.judge.last : candidate.name[/\s((?:[^\s]|,\s)*)\z/, 1] %>">
               <%= candidate.judge ? link_to_judge(candidate.judge) : candidate.name %>
             </td>
-            <td class="text-right" data-value="<%= candidate.written_score %>">
+            <td class="text-end" data-value="<%= candidate.written_score %>">
               <%= tooltip_tag candidate.written_score, candidate.written_result, placement: 'right' if candidate.written_score %>
             </td>
-            <td class="text-right" data-value="<%= candidate.oral_score %>">
+            <td class="text-end" data-value="<%= candidate.oral_score %>">
               <%= tooltip_tag candidate.oral_score, candidate.oral_result, placement: 'right' if candidate.oral_score %>
             </td>
-            <td class="text-right" data-value="<%= candidate.rank %>">
+            <td class="text-end" data-value="<%= candidate.rank %>">
               <%= tooltip_tag "#{candidate.rank}.", candidate.score, placement: 'right' if candidate.rank %>
             </td>
             <td>
@@ -97,6 +97,6 @@
 <% end %>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @procedure.uri), update: time_tag(@procedure.updated_at.to_date, format: :default) %>
-  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @procedure.uri) %>
+  <%= s t('.resource_note.description', document: link_to(t('.resource_note.document'), @procedure.uri), update: time_tag(@procedure.updated_at.to_date, format: :default)) %>
+  <%= s t('.link_note.description', document: link_to(t('.link_note.document'), @procedure.uri)) %>
 </p>

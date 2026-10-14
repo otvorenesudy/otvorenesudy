@@ -59,3 +59,7 @@ en:
 
     report:
       file: "Report of selection procedure n. %{id}"
+
+    candidates:
+      declaration:
+        file: "Declaration of a candidate in selection procedure n. %{id} %{name}"
