@@ -79,8 +79,13 @@ module Probe
         missing.positive? ? results + [result(MISSING, missing)] : results
       end
 
+      # Selected values stay listed, so they can be deselected, at a count of 0 when nothing has them.
       def build_selected(response)
-        response.dig('selected', 'buckets').to_a.map { |bucket| result(bucket_value(bucket), bucket['doc_count']) }
+        selected = response.dig('selected', 'buckets').to_a.map do |bucket|
+          result(bucket_value(bucket), bucket['doc_count'])
+        end
+
+        selected + (terms - selected.map(&:value)).map { |term| result(term, 0) }
       end
 
       def bucket_value(bucket)

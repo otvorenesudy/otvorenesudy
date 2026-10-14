@@ -3,7 +3,7 @@
 module Probe
   class Facets
     # A yes/no switch that filters through another facet: `value:` gives that facet's terms for the switch's state
-    # (nil filters nothing). Hearings' `historical` switch, off by default, keeps only hearings from today on.
+    # (nil filters nothing). Hearings' `historical` switch is on by default (all hearings); off keeps those from now on.
     class BooleanFacet < Facet
       def initialize(name, field, options)
         super
