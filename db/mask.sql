@@ -4,10 +4,10 @@
 --   psql -d opencourts_development -v keep_email=you@example.com -f db/mask.sql
 --
 -- Every user except the one with keep_email gets the e-mail user<id>@example.invalid, the password "password" and no
--- confirmation, reset or remember tokens; their subscriptions get new unsubscribe tokens. They lose admin rights too:
--- with a known password, anyone who reaches the local app could sign in as one. Ids, confirmation state and
--- subscriptions stay, so the app behaves as in production. Running it again changes nothing, and fixes a copy masked
--- before admins were.
+-- confirmation, reset or remember tokens; their subscriptions get new random unsubscribe tokens, as the app makes
+-- them. They lose admin rights too: with a known password, anyone who reaches the local app could sign in as one.
+-- Ids, confirmation state and subscriptions stay, so the app behaves as in production. Running it again only draws
+-- the masked subscriptions' tokens anew, and fixes a copy masked before admins were or with tokens derived from ids.
 
 \set ON_ERROR_STOP on
 
@@ -42,7 +42,8 @@ SET admin = false
 WHERE id NOT IN (SELECT id FROM kept_users)
   AND admin;
 
--- subscriptions.token exists once migration 20260423120000 has run.
+-- subscriptions.token exists once migration 20260423120000 has run. A token is 24 random bytes in URL-safe Base64,
+-- 32 characters, like SecureRandom.urlsafe_base64(24) in Subscription.
 DO $$
 BEGIN
   IF EXISTS (
@@ -51,9 +52,8 @@ BEGIN
   ) THEN
     EXECUTE $sql$
       UPDATE public.subscriptions
-      SET token = encode(sha256(convert_to('masked-subscription-' || id, 'UTF8')), 'hex')
+      SET token = translate(encode(public.gen_random_bytes(24), 'base64'), '+/', '-_')
       WHERE user_id NOT IN (SELECT id FROM kept_users)
-        AND token IS DISTINCT FROM encode(sha256(convert_to('masked-subscription-' || id, 'UTF8')), 'hex')
     $sql$;
   END IF;
 END

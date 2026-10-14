@@ -87,10 +87,13 @@ RSpec.describe 'bin/restore-production-copy' do # rubocop:disable RSpec/Describe
     expect(query('SELECT id, admin FROM users ORDER BY id')).to eq([%w[1 f], %w[2 f], %w[3 t]])
   end
 
-  it 'replaces the unsubscribe tokens of the masked users' do
-    tokens = query('SELECT token FROM subscriptions ORDER BY id').flatten
+  it 'replaces the unsubscribe tokens of the masked users with random ones, like the app makes' do
+    subscriptions = query('SELECT id, token FROM subscriptions ORDER BY id')
+    masked = subscriptions.first(2)
+    derived = masked.map { |id, _| Digest::SHA256.hexdigest("masked-subscription-#{id}") }
 
-    expect(tokens.first(2)).not_to include('token-of-admin', 'token-of-reader')
-    expect(tokens.last).to eq('token-of-kept')
+    expect(masked.map(&:last)).not_to include('token-of-admin', 'token-of-reader', *derived)
+    expect(masked.map(&:last)).to all(match(/\A[A-Za-z0-9_-]{32}\z/))
+    expect(subscriptions.last.last).to eq('token-of-kept')
   end
 end
