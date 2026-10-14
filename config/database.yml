@@ -1,29 +1,24 @@
-# The database names and logins are shared with otvorenesudy-api, which writes into the same database. Settings
-# (host, user) come from the environment: the deploy user's ~/.env on the server, .env or your own user locally.
-# Production's password is a secret, in the production credentials (database.password).
+# The database names and the OPENCOURTS_DATABASE_* logins are shared with otvorenesudy-api, which writes into the
+# same database. The logins come from the environment: the deploy user's ~/.env on the server, .env or your own user
+# locally.
 default: &default
   adapter: postgresql
   encoding: unicode
   host: <%= ENV.fetch('OPENCOURTS_DATABASE_HOST', 'localhost') %>
   username: <%= ENV['OPENCOURTS_DATABASE_USER'] %>
+  password: <%= ENV['OPENCOURTS_DATABASE_PASSWORD'] %>
   max_connections: <%= ENV.fetch('RAILS_MAX_THREADS', 5).to_i + ENV.fetch('SIDEKIQ_CONCURRENCY', 5).to_i %>
   # libpq's GSSAPI negotiation crashes forked processes on macOS; nothing here uses Kerberos.
   gssencmode: disable
 
-# A local database's password protects nothing, so it is a setting here.
-local: &local
-  <<: *default
-  password: <%= ENV['OPENCOURTS_DATABASE_PASSWORD'] %>
-
 development:
-  <<: *local
+  <<: *default
   database: opencourts_development
 
 test:
-  <<: *local
+  <<: *default
   database: opencourts_test
 
 production:
   <<: *default
   database: opencourts_production
-  password: <%= Rails.application.credentials.dig(:database, :password) %>

@@ -30,8 +30,7 @@ bin/setup
 `bin/dev` (the app on port 3000 and the Dart Sass watcher). Build the search indices with `bin/rails probe:reindex`.
 
 The database login comes from `OPENCOURTS_DATABASE_USER` and `OPENCOURTS_DATABASE_PASSWORD` (and
-`OPENCOURTS_DATABASE_HOST`), in your environment or a `.env` file; without them PostgreSQL's defaults apply. In
-production the password is in the credentials (see Configuration).
+`OPENCOURTS_DATABASE_HOST`), in your environment or a `.env` file; without them PostgreSQL's defaults apply.
 
 ### A Copy of Production
 
@@ -42,18 +41,17 @@ Then reindex with `bin/rails probe:reindex`.
 
 ## Configuration
 
-Settings come from the environment, or a `.env` file: `OPENCOURTS_DATABASE_HOST` and `OPENCOURTS_DATABASE_USER`, and
-optionally `REDIS_URL`, `ELASTICSEARCH_URL`, `RAILS_MAX_THREADS`, `SIDEKIQ_CONCURRENCY` and `RAILS_LOG_LEVEL`. A local
-database's password is a setting too (`OPENCOURTS_DATABASE_PASSWORD`).
+The environment, or a `.env` file, holds the database login, shared with otvorenesudy-api
+(`OPENCOURTS_DATABASE_HOST`, `OPENCOURTS_DATABASE_USER`, `OPENCOURTS_DATABASE_PASSWORD`; on the server, the deploy
+user's `~/.env`), and settings: optionally `REDIS_URL`, `ELASTICSEARCH_URL`, `RAILS_MAX_THREADS`, `SIDEKIQ_CONCURRENCY`
+and `RAILS_LOG_LEVEL`.
 
-Secrets live only in Rails' encrypted credentials: `config/credentials/production.yml.enc`, with its key in
+The other secrets live only in Rails' encrypted credentials: `config/credentials/production.yml.enc`, with its key in
 `config/credentials/production.key` (on the server, linked by Capistrano; never committed). Production doesn't boot
 without them and names the ones missing (`config/initializers/production_boot_check.rb`):
 
 ```yaml
 secret_key_base: ...       # signs sessions and cookies
-database:
-  password: ...            # the opencourts login's
 devise:
   secret_key: ...          # keep the old one, so sent confirmation and password links keep working
 smtp:
