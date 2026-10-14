@@ -75,6 +75,37 @@ RSpec.describe 'Decrees' do
 
       expect(page).to have_css('.search-result-item', count: 1, text: '2Co/1/2026')
     end
+
+    it 'shows the decrees of no nature with the first ten natures, not on request' do
+      create_list(:decree_nature, 10).each { |nature| decree { |item| item.natures << nature } }
+      decree
+      refresh_indices
+
+      visit decrees_path
+
+      within(facet('Povaha')) do
+        expect(page).to have_css('#decree-natures-list > .facet-item', count: 11)
+        expect(page).to have_css('#decree-natures-list > .facet-item', text: 'Neuvedená')
+        expect(page).to have_no_link(I18n.t('search.facets.show_more'))
+      end
+    end
+  end
+
+  describe 'facets in the browser', :js do
+    it 'shows the values beyond the first ten on request' do
+      decree { |item| (1..11).each { |n| item.natures << create(:decree_nature, value: format('Povaha %02d', n)) } }
+      refresh_indices
+
+      visit decrees_path
+      natures = facet('Povaha')
+
+      expect(natures).to have_no_css('.facet-item', text: 'Povaha 11')
+
+      within(natures) { click_on I18n.t('search.facets.show_more') }
+
+      expect(natures).to have_css('.facet-item', text: 'Povaha 11')
+      expect(natures).to have_link(I18n.t('search.facets.show_less'))
+    end
   end
 
   describe 'a decree' do

@@ -8,8 +8,9 @@ module Probe
     # Operators that make no sense in a court records search; quotes (phrases), * and ? (wildcards) and AND/OR stay.
     SYNTAX = %r{(\+|-|=|&&|\|\||\||\(|\)|\{|\}|\[|\]|\^|~|!|\\|/|:)}
 
-    # Everything Lucene's query syntax reserves, for a second try when Elasticsearch still can't parse a query.
-    RESERVED = %r{(\+|-|=|&&|\|\||\||\(|\)|\{|\}|\[|\]|\^|"|~|\*|\?|!|\\|/|:)}
+    # Everything Lucene's query syntax reserves, operator words included (\AND is the word "and"), for a second try when
+    # Elasticsearch still can't parse a query.
+    RESERVED = %r{(\+|-|=|&&|\|\||\||\(|\)|\{|\}|\[|\]|\^|"|~|\*|\?|!|\\|/|:|\bAND\b|\bOR\b|\bNOT\b)}
 
     def page(value, max:)
       page = value.to_i

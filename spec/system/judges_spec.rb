@@ -88,6 +88,37 @@ RSpec.describe 'Judges' do
       expect(page).to have_text('Poznámka: Dočasne.')
     end
 
+    it 'names their position at each court in the language of the page' do
+      judge = judge('Pozičný')
+      judge.employments.sole.update!(judge_position: JudgePosition.create!(value: 'sudca'))
+      { 'Okresný súd Poprad' => 'poverený podpredseda', 'Okresný súd Levoča' => 'hovorca',
+        'Okresný súd Kežmarok' => 'predseda' }.each do |name, position|
+        create(:employment, judge:, court: create(:court, name:),
+                            judge_position: JudgePosition.create!(value: position))
+      end
+
+      visit judge_path(judge)
+
+      expect(page).to have_text('Aktívny sudca na súde Okresný súd Rimavská Sobota')
+      expect(page).to have_text('Aktívny pracovník na súde Okresný súd Poprad')
+      expect(page).to have_text('Aktívny hovorca na súde Okresný súd Levoča')
+
+      visit judge_path(judge, l: :en)
+
+      expect(page).to have_text('Active judge at the court Okresný súd Rimavská Sobota')
+      expect(page).to have_text('Active chairman at the court Okresný súd Kežmarok')
+    end
+
+    it 'says a judge of unknown activity is probably a higher court official' do
+      official = create(:judge, first: 'Mária', last: 'Úradníčková')
+      create(:employment, :unknown, judge: official, court:)
+
+      visit judge_path(official)
+
+      expect(page).to have_text('Neznáma pravdepodobne VSÚ na súde Okresný súd Rimavská Sobota')
+      expect(find_link('VSÚ')['data-bs-title']).to eq('Vyššia súdna úradníčka')
+    end
+
     it 'shows their designation, relatives and notes' do
       judge = judge('Novák')
       create(:judge_designation, judge:, date: 10.years.ago.to_date,
@@ -169,6 +200,41 @@ RSpec.describe 'Judges' do
       expect(page).to have_current_path(/name/)
       expect(find('#indicators-2017 .chart-legend')).to have_text(/JUDr\. Ivan Ďalak.*JUDr\. Margita Žilková/m)
     end
+
+    it 'keeps the comparison filters open once one is chosen' do
+      zilkova.employments.sole.update!(judge_position: JudgePosition.create!(value: 'sudca'))
+      index_with_indicators(dalak, zilkova)
+
+      visit judge_path(dalak, anchor: 'indicators-2017')
+
+      within('#indicators-2017') do
+        expect(page).to have_link(I18n.t('judges.indicators.numerical.show_filters'))
+
+        within(facet(I18n.t('facets.judge.positions.title'))) { click_on 'Sudca' }
+      end
+
+      within('#indicators-2017') do
+        expect(page).to have_link(I18n.t('judges.indicators.numerical.hide_filters'))
+        expect(page).to have_css('#indicators-facets-2017.show')
+      end
+    end
+  end
+
+  describe 'the 2015 indicators of a judge with no dominant agenda' do
+    it 'says that no agenda was mostly assigned to or decided by the judge' do
+      gesvantnerova = create(:judge, id: 337, first: 'Beáta', last: 'Gešvantnerová', name: 'JUDr. Beáta Gešvantnerová')
+      index_with_indicators(gesvantnerova)
+
+      visit judge_path(gesvantnerova, anchor: 'indicators-2015')
+
+      within('#indicators-2015') do
+        expect(page).to have_text(
+          I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_1') +
+            I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2')
+        )
+        expect(page).to have_text(I18n.t('judges.indicators_2015.basic.no_dominant_decided_agenda'))
+      end
+    end
   end
 
   describe 'the 2017 indicators of a judge deciding mostly criminal cases' do
@@ -202,6 +268,40 @@ RSpec.describe 'Judges' do
 
       expect(additional).to have_css('.facet-item', text: 'JUDr. Margita Žilková')
       expect(additional).to have_no_css('.facet-item', text: 'JUDr. Viera Kvetková')
+    end
+
+    it 'narrows the similar courts as one types and compares with the judges of the one picked' do
+      dalak = create(:judge, id: 194, first: 'Ivan', last: 'Ďalak', name: 'JUDr. Ivan Ďalak')
+      zilkova = create(:judge, id: 1492, first: 'Margita', last: 'Žilková', name: 'JUDr. Margita Žilková')
+      create(:employment, court:, judge: dalak)
+      create(:employment, court: create(:court, name: 'Okresný súd Poprad'), judge: zilkova)
+      index_with_indicators(dalak, zilkova)
+
+      visit judge_path(dalak, anchor: 'indicators-2017')
+
+      within('#indicators-2017') do
+        click_on I18n.t('judges.indicators.numerical.show_filters')
+
+        similar = facet(I18n.t('facets.judge.similar_courts.title'))
+        within(similar) { fill_in 'similar_courts', with: 'popr' }
+
+        expect(similar).to have_no_css('.facet-item', text: 'Okresný súd Rimavská Sobota')
+
+        within(similar) { click_on 'Okresný súd Poprad' }
+      end
+
+      expect(page).to have_current_path(/similar_courts/)
+      expect(page).to have_css('#indicators-2017.active')
+    end
+
+    it 'shows the cases assigned in each agenda on hover' do
+      gesvantnerova = create(:judge, id: 337, first: 'Beáta', last: 'Gešvantnerová', name: 'JUDr. Beáta Gešvantnerová')
+      index_with_indicators(gesvantnerova)
+
+      visit judge_path(gesvantnerova, anchor: 'indicators-2015')
+      find('#indicators-2015 a', text: I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2')).hover
+
+      expect(page).to have_css('.popover', text: /Občianska – 1023.*Trestná – 574/m)
     end
   end
 end

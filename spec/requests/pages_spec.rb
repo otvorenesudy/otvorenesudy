@@ -33,6 +33,13 @@ RSpec.describe 'Pages' do
     end
   end
 
+  it 'shows the server error page for a status code that does not exist' do
+    get '/999'
+
+    expect(response).to have_http_status(:internal_server_error)
+    expect(response.body).to include(I18n.t('exceptions.internal_server_error.title'))
+  end
+
   it 'renders a listing whose search has invalid UTF-8' do
     get '/courts?q=%FF'
 
@@ -53,7 +60,8 @@ RSpec.describe 'Pages' do
 
       expect(response).to have_http_status(:internal_server_error)
       expect(response.body).to include(I18n.t('exceptions.internal_server_error.title'))
-      expect(sentry_events.size).to eq(1)
+      # Tracing samples some requests as transactions too; the error is the one error event.
+      expect(sentry_events.grep(Sentry::ErrorEvent).size).to eq(1)
     end
   end
 end

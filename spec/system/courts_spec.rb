@@ -94,6 +94,36 @@ RSpec.describe 'Courts' do
       expect(result_names).to eq(['Okresný súd Veľký'])
     end
 
+    it 'offers the courts fined more than the largest range' do
+      fined = create(:court, name: 'Okresný súd Pokutovaný')
+      create(:court, name: 'Okresný súd Bez pokút')
+      create(:court_expense, court: fined, value: 150_000)
+      Court.find(fined.id).update_index
+      refresh_indices
+
+      visit courts_path
+      within(facet('Pokuty')) { find('.facet-link', text: /Viac ako 100[[:space:]]000[[:space:]]€/).click }
+
+      expect(result_names).to eq(['Okresný súd Pokutovaný'])
+    end
+
+    it 'names the chair and the vice-chair of each court' do
+      both = create(:court, name: 'Okresný súd Košice I')
+      create(:employment, court: both, judge: create(:judge, first: 'Ján', last: 'Predseda'),
+                          judge_position: JudgePosition.create!(value: 'predseda'))
+      create(:employment, court: both, judge: create(:judge, first: 'Eva', last: 'Zástupcová'),
+                          judge_position: JudgePosition.create!(value: 'podpredsedníčka'))
+      vice = create(:court, name: 'Okresný súd Prešov')
+      create(:employment, court: vice, judge: create(:judge, first: 'Juraj', last: 'Zástupca'),
+                          judge_position: JudgePosition.create!(value: 'podpredseda'))
+      refresh_indices
+
+      visit courts_path
+
+      expect(page).to have_text('Predseda súdu je JUDr. Ján Predseda a podpredsedníčka je JUDr. Eva Zástupcová.')
+      expect(page).to have_text('Podpredseda súdu je JUDr. Juraj Zástupca.')
+    end
+
     it 'sorts by the chosen field and order, and falls back to the name for an unknown one' do
       create(:court, name: 'Okresný súd A')
       busy = create(:court, name: 'Okresný súd B')
@@ -156,6 +186,16 @@ RSpec.describe 'Courts' do
 
       expect(page).to have_css('#court-type-content:not(.show)', visible: :all)
     end
+
+    it 'shortens a long value and shows it in full on hover' do
+      create(:court, municipality: create(:municipality, name: 'Spišská Nová Ves – Novoveská Huta'))
+      refresh_indices
+
+      visit courts_path
+      within(facet('Obec')) { find('.facet-link', text: /Novoveská…/).hover }
+
+      expect(page).to have_css('.tooltip', text: 'Spišská Nová Ves – Novoveská Huta')
+    end
   end
 
   describe 'a court' do
@@ -200,6 +240,49 @@ RSpec.describe 'Courts' do
       visit court_path(court)
 
       expect(page).to have_text('30 000')
+    end
+
+    it 'ranks the average durations of its proceedings among the district courts' do
+      bardejov = create(:court, name: 'Okresný súd Bardejov')
+      create(:court, name: 'Okresný súd Banská Bystrica')
+
+      visit court_path(bardejov)
+
+      expect(page).to have_link('Občiansko-právne')
+
+      within('#proceedings-C') do
+        expect(page).to have_text('Celkovo 1. najpomalší súd z 2 okresných súdov v rámci agendy Občiansko-právne:')
+        expect(page).to have_text('Priemerná dĺžka za rok 2013 je 15,1 mesiaca')
+      end
+    end
+
+    it 'ranks it together with a court of equal expenses' do
+      create(:court_expense, court:, value: 20_000)
+      create(:court_expense, court: create(:court), value: 20_000)
+
+      visit court_path(court)
+
+      expect(page).to have_text('Celkovo 1. až 2.')
+    end
+
+    it 'links each of its e-mail addresses' do
+      court.update!(data_protection_email: 'gdpr@justice.sk, podatelna@justice.sk')
+
+      visit court_path(court)
+
+      expect(page).to have_link('gdpr@justice.sk', href: 'mailto:gdpr@justice.sk')
+      expect(page).to have_link('podatelna@justice.sk', href: 'mailto:podatelna@justice.sk')
+    end
+
+    it 'lists a judge of unknown activity as probably a higher court official' do
+      create(:employment, :unknown, court:, judge: create(:judge, first: 'Mária', last: 'Úradníčková'))
+
+      visit court_path(court)
+
+      within('#judges') do
+        expect(page).to have_text('pravdepodobne VSÚ')
+        expect(find_link('VSÚ', class: 'text-muted')['data-bs-title']).to eq('Vyššia súdna úradníčka')
+      end
     end
 
     it 'shows its headings in English' do

@@ -38,6 +38,15 @@ RSpec.describe 'probe tasks', type: :task do
     expect(names).to eq(['Okresný súd Chýbajúci', 'Okresný súd Nový'])
   end
 
+  it 'synchronize leaves the current documents as they are' do
+    court = create(:court)
+    version = Court.client.get(index: Court.index_name, id: court.id)['_version']
+
+    expect { run('synchronize') }.to output(/Synchronizing/).to_stdout
+
+    expect(Court.client.get(index: Court.index_name, id: court.id)['_version']).to eq(version)
+  end
+
   it 'import rebuilds an index in the background, in a new index' do
     create(:court, name: 'Okresný súd Košice I')
     before = Court.client.indices.get_alias(name: Court.index_name).keys

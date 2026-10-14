@@ -26,7 +26,7 @@
           <%= translate_without_count(exact.size, :judge).upcase_first %> &ndash; <%= links_to_judges exact %>
         <% else %>
           <% inexact = @proceeding.judges_inexact.order(:last, :middle, :first) %>
-          <%= translate_without_count(inexact.size, :judge).upcase_first %> &ndash; <%= judge_processed_names inexact %>
+          <%= translate_without_count(inexact.size, :judge).upcase_first %> &ndash; <%= judge_processed_names @proceeding.inexact_judgings, @proceeding.inexact_judgements %>
         <% end %>
       </p>
     <% end %>

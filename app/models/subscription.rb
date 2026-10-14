@@ -14,6 +14,7 @@ class Subscription < ApplicationRecord
   accepts_nested_attributes_for :query
 
   validates :token, presence: true, uniqueness: true
+  validates :query_id, uniqueness: { scope: %i[user_id period_id] }
 
   after_initialize :assign_period
   before_validation :assign_token, on: :create

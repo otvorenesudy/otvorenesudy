@@ -40,6 +40,18 @@ RSpec.describe Query do
     end
   end
 
+  describe '.wrap' do
+    it 'reads a search stored as JSON' do
+      expect(described_class.wrap('{"court":["Okresný súd Košice I"]}')).to eq(court: ['Okresný súd Košice I'])
+    end
+
+    it 'keeps a search already read' do
+      value = { court: ['Okresný súd Košice I'] }
+
+      expect(described_class.wrap(value)).to be(value)
+    end
+  end
+
   it 'saves searches of decrees and hearings only' do
     expect(build(:query, model: 'User')).not_to be_valid
   end

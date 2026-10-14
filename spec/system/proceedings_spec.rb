@@ -48,6 +48,17 @@ RSpec.describe 'Proceedings' do
       expect(page).to have_css('.search-result-highlights em', text: 'nájomného')
     end
 
+    it 'names an event at an unknown court by its case number alone' do
+      proceeding = create(:proceeding)
+      create(:hearing, proceeding:, court: nil, case_number: '3C/1/2026')
+      Proceeding.find(proceeding.id).update_index
+      refresh_indices
+
+      visit proceedings_path
+
+      expect(find('.search-result-item')).to have_link('3C/1/2026', exact: true)
+    end
+
     it 'shows only the proceedings that ended when asked' do
       proceeding(case_number: '1C/1/2026')
       proceeding(case_number: '2C/1/2026', closed: false)
@@ -77,6 +88,34 @@ RSpec.describe 'Proceedings' do
 
       expect(events.first).to include(decree_path(item.decrees.first))
       expect(events.last).to include(hearing_path(item.hearings.first))
+    end
+
+    it 'spaces its events more than a year apart widest on the timeline' do
+      item = proceeding(case_number: '1C/1/2026')
+      item.hearings.sole.update!(date: Time.zone.local(2024, 1, 12, 9))
+
+      visit proceeding_path(item)
+
+      expect(page).to have_css('.timeline-item.timeline-distance-more-than-year', count: 1)
+    end
+
+    it 'names its judges as the sources wrote them when none matched exactly' do
+      item = create(:proceeding)
+      hearing = create(:hearing, proceeding: item, court:)
+      create(:judging, hearing:, judge:, judge_name_similarity: 0.8, judge_name_unprocessed: 'JUDr. SUDKYŇA Eva, PhD.')
+      decree = create(:decree, proceeding: item, court:)
+      create(:judgement, decree:, judge_name_similarity: 0.6, judge_name_unprocessed: 'Mgr. Ján NOVÁK')
+      Proceeding.find(item.id).update_index
+      refresh_indices
+
+      visit proceeding_path(item)
+
+      expect(page).to have_text(/JUDr\. Eva Sudkyňa, PhD\.\s+a\s+Mgr\. Ján Novák/)
+      expect(page).to have_no_link('JUDr. Eva Sudkyňa')
+
+      visit proceedings_path
+
+      expect(find('.search-result-item')).to have_text(/JUDr\. Eva Sudkyňa, PhD\.\s+a\s+Mgr\. Ján Novák/)
     end
 
     it 'links its case number to the proceedings with it' do

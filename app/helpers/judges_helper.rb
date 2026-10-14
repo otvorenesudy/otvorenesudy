@@ -71,8 +71,8 @@ module JudgesHelper
     judge_wrap count, judge_activity_options(employment.judge, options), &
   end
 
-  def judge_processed_names(relation)
-    Judge::Names.from_unprocessed(relation).sort.to_sentence
+  def judge_processed_names(*relations)
+    relations.flat_map { |relation| Judge::Names.from_unprocessed(relation) }.uniq.sort.to_sentence
   end
 
   def link_to_judge(judge, options = {})

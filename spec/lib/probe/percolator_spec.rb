@@ -21,11 +21,29 @@ RSpec.describe Probe::Percolator do
     expect(subscriptions).not_to include(other)
   end
 
+  it 'matches a record to a full-text search, regardless of diacritics' do
+    matching = subscription(q: 'kosice')
+    other = subscription(q: 'bratislava')
+
+    subscriptions = create(:decree, court:).subscriptions
+
+    expect(subscriptions).to include(matching)
+    expect(subscriptions).not_to include(other)
+  end
+
   it 'forgets a search no longer saved' do
     saved = subscription(court: ['Okresný súd Košice I'])
 
     Decree.unsubscribe(saved.query.id)
 
     expect(create(:decree, court:).subscriptions).to be_empty
+  end
+
+  it 'forgets a search it never stored without failing' do
+    saved = subscription(court: ['Okresný súd Košice I'])
+
+    Decree.unsubscribe(0)
+
+    expect(create(:decree, court:).subscriptions).to contain_exactly(saved)
   end
 end

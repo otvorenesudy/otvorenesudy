@@ -95,7 +95,7 @@ module IndicatorsHelper
   # Links of the comparison facets stay on the judge's page, in the tab of the year.
   def link_to_indicators_terms_facet(facet, result, options = {})
     year = facet.params.find { |key, value| key.to_s.start_with?('indicators') && value }&.first
-    path = ->(query) { judge_path(params[:id], query.merge(anchor: year&.to_s&.dasherize)) }
+    path = ->(query) { judge_path(params[:id], query.to_h.symbolize_keys.merge(anchor: year&.to_s&.dasherize)) }
 
     link_to_facet_value facet, result, result.value, options.merge(path:)
   end

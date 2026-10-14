@@ -87,8 +87,16 @@ class Proceeding < ApplicationRecord
   end
 
   def judges_inexact
-    Judge.where(id: Judging.inexact.where(hearing: hearings).select(:judge_id))
-         .or(Judge.where(id: Judgement.inexact.where(decree: decrees).select(:judge_id)))
+    Judge.where(id: inexact_judgings.select(:judge_id)).or(Judge.where(id: inexact_judgements.select(:judge_id)))
+  end
+
+  # The judgings and judgements whose judge, as the source named it, matched a judge only approximately.
+  def inexact_judgings
+    Judging.inexact.where(hearing: hearings)
+  end
+
+  def inexact_judgements
+    Judgement.inexact.where(decree: decrees)
   end
 
   def legislation_areas_and_subareas

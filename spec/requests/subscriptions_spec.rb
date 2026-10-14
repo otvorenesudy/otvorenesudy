@@ -24,6 +24,19 @@ RSpec.describe 'Subscriptions' do
     end
   end
 
+  describe 'subscribing to a listing without subscriptions' do
+    it 'saves nothing and says the subscription failed' do
+      sign_in owner
+
+      post subscriptions_path, params: { period_id: Period.weekly.id,
+                                         subscription: { query_attributes: { model: 'Court', value: '{}' } } }
+
+      expect(response).to redirect_to(subscriptions_users_path(l: :sk))
+      expect(flash[:failure]).to eq(I18n.t('subscriptions.create.failure'))
+      expect(owner.subscriptions.reload).to eq([subscription])
+    end
+  end
+
   describe 'unsubscribing by the link in the e-mail' do
     it 'cancels the subscription from the link' do
       get unsubscribe_subscriptions_path(token: subscription.token)

@@ -42,6 +42,18 @@ RSpec.describe 'Subscriptions' do
       expect(user.subscriptions.sole.query).to eq(Query.sole)
     end
 
+    it 'says the subscription failed when the user already saved the search from another page' do
+      query = create(:query, :hearings, value: { court: ['Okresný súd Košice I'] })
+      login_as user
+
+      visit hearings_path(court: ['Okresný súd Košice I'])
+      create(:subscription, user:, query:, period: Period.monthly)
+      click_on I18n.t('search.subscribe.create')
+
+      expect(page).to have_text(I18n.t('subscriptions.create.failure'))
+      expect(user.subscriptions.count).to eq(1)
+    end
+
     it 'asks a visitor to sign in or sign up' do
       visit hearings_path
 
@@ -71,6 +83,19 @@ RSpec.describe 'Subscriptions' do
 
       expect(page).to have_text(I18n.t('subscriptions.update.success'))
       expect(subscription.reload.period).to eq(Period.daily)
+    end
+
+    it 'says the change failed when another subscription to the search has that period' do
+      create(:subscription, :daily, user:, query: subscription.query)
+
+      visit subscriptions_users_path
+      within("#edit_subscription_#{subscription.id}") do
+        choose I18n.t('period.daily'), allow_label_click: true
+        click_on I18n.t('subscriptions.list.update')
+      end
+
+      expect(page).to have_text(I18n.t('subscriptions.update.failure'))
+      expect(subscription.reload.period).to eq(Period.monthly)
     end
 
     it 'cancels a subscription' do

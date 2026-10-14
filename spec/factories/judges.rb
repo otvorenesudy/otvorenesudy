@@ -71,6 +71,12 @@ FactoryBot.define do
     function { 'sudkyňa' }
   end
 
+  factory :judge_income do
+    property_declaration factory: %i[judge_property_declaration]
+    description { 'príjmy zo zamestnania' }
+    value { 40_000 }
+  end
+
   factory :judge_statistical_summary do
     judge
     court

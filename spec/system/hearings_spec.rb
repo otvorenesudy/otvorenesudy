@@ -91,6 +91,16 @@ RSpec.describe 'Hearings' do
       expect(page).to have_css('.search-result-item', count: 1, text: '1C/1/2026')
     end
 
+    it 'shortens a long title' do
+      hearing(form: create(:hearing_form,
+                           value: 'Pojednávanie a rozhodnutie o návrhu na nariadenie predbežného opatrenia'))
+      refresh_indices
+
+      visit hearings_path
+
+      expect(result_titles).to eq(['Pojednávanie a rozhodnutie o návrhu na nariadenie…'])
+    end
+
     it 'offers the proposers only for civil hearings' do
       hearing { |item| create(:proposer, hearing: item, name: 'J. N.') }
       refresh_indices
@@ -125,6 +135,27 @@ RSpec.describe 'Hearings' do
       expect(page).to have_link('JUDr. Eva Sudkyňa')
       expect(page).to have_text('P. S.')
       expect(page).to have_text('§ 212 Trestného zákona, Krádež')
+    end
+
+    it 'shortens a long title and shows it in full on hover' do
+      form = create(:hearing_form, value: 'Pojednávanie a rozhodnutie o návrhu na nariadenie predbežného opatrenia')
+      item = hearing(form:)
+
+      visit hearing_path(item)
+
+      expect(page).to have_css('h1', text: 'Pojednávanie a rozhodnutie o návrhu na nariadenie…')
+      expect(find('h1').find_link('…')['data-bs-title']).to eq("#{form.value}, O zaplatenie")
+    end
+
+    it 'describes a hearing of the specialized criminal court' do
+      item = hearing(type: HearingType.special)
+
+      visit hearing_path(item)
+
+      type = 'Pojednávanie špecializovaného trestného súdu'
+
+      expect(page).to have_title(/#{type}/)
+      expect(page).to have_text("#{type} sa bude konať na súde Okresný súd Košice I")
     end
 
     it 'links its subject and numbers to the hearings with them' do
