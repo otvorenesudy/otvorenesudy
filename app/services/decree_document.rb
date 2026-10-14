@@ -6,7 +6,7 @@ require 'resolv'
 
 # A decree's PDF, fetched from where the court system publishes it (the decree's pdf_uri) for a visitor's browser. It
 # follows redirects only on the same host over http(s), and connects only to public addresses, so a document address
-# or a redirect can't make the server fetch its own services (Elasticsearch, Redis) for a visitor.
+# or a redirect can't make the server fetch its own services (Elasticsearch, Redis) or its networks' for a visitor.
 #
 # Any visitor can start a fetch, so fetches are bounded: at most FETCHES at once across the app's processes, the others
 # refused at once rather than left waiting, so slow sources can't hold every process; DEADLINE seconds and MAX_SIZE
@@ -23,6 +23,17 @@ class DecreeDocument
   MAX_SIZE = 20.megabytes
   REDIRECTS = 3
   SCHEMES = %w[http https].freeze
+
+  # IANA's special-purpose IPv4 ranges: this network, private, shared (carrier-grade NAT), loopback, link-local,
+  # protocol assignments, documentation, 6to4 relays, benchmarking, multicast, reserved and broadcast. An IPv6 address
+  # must be global unicast (2000::/3), which leaves out loopback, IPv4-mapped, NAT64, discard, unique local, link-local
+  # and multicast addresses; within it, protocol assignments (Teredo among them), 6to4 and documentation.
+  NON_PUBLIC = %w[
+    0.0.0.0/8 10.0.0.0/8 100.64.0.0/10 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.0.0.0/24 192.0.2.0/24
+    192.88.99.0/24 192.168.0.0/16 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 240.0.0.0/4
+    2001::/23 2001:db8::/32 2002::/16 3fff::/20
+  ].map { |range| IPAddr.new(range) }.freeze
+  GLOBAL_UNICAST = IPAddr.new('2000::/3')
 
   NETWORK_ERRORS = [
     Timeout::Error, SocketError, SystemCallError, IOError, OpenSSL::SSL::SSLError, Net::HTTPBadResponse,
@@ -69,9 +80,9 @@ class DecreeDocument
       raise Unavailable, "No document within #{DEADLINE} s for [#{uri}]" unless remaining.positive?
 
       options = { use_ssl: uri.scheme == 'https', open_timeout: [OPEN_TIMEOUT, remaining].min,
-                  read_timeout: [READ_TIMEOUT, remaining].min, ipaddr: public_address(uri.host) }
+                  read_timeout: [READ_TIMEOUT, remaining].min, ipaddr: public_address(uri.hostname) }
 
-      Net::HTTP.start(uri.host, uri.port, **options) do |http|
+      Net::HTTP.start(uri.hostname, uri.port, **options) do |http|
         http.request(Net::HTTP::Get.new(uri)) do |response|
           break [response, (read(response, deadline) if response.is_a?(Net::HTTPSuccess))]
         end
@@ -107,18 +118,20 @@ class DecreeDocument
       uri
     end
 
-    # The host's address to connect to: refused when any of its addresses is the server itself or its network.
+    # The host's address to connect to: refused when any of its addresses isn't public.
     def public_address(host)
       addresses = Resolv.getaddresses(host).map { |address| IPAddr.new(address) }
 
       raise Unavailable, "[#{host}] has no address" if addresses.empty?
-      raise Unavailable, "[#{host}] is a private address" if addresses.any? { |address| private_address?(address) }
+
+      refused = addresses.reject { |address| public?(address) }
+      raise Unavailable, "[#{host}] has an address that isn't public [#{refused.join(', ')}]" if refused.any?
 
       addresses.first.to_s
     end
 
-    def private_address?(address)
-      address.loopback? || address.private? || address.link_local? || address.to_i.zero?
+    def public?(address)
+      (address.ipv4? || GLOBAL_UNICAST.include?(address)) && NON_PUBLIC.none? { |range| range.include?(address) }
     end
   end
 end
