@@ -103,9 +103,9 @@ secret, ask the user to add it.
 
 | File | What |
 | --- | --- |
-| `.env`, `.env.local` | dotenv settings for development and tests: the database login |
-| `config/master.key`, `config/credentials/*.key` | Keys of the encrypted credentials (Devise key, mailer login, Sentry DSN); `config/credentials/*.yml.enc` are the encrypted files |
-| `config/configuration.yml` | The Rails 3.2 app's secrets, until they move to the credentials |
+| `.env`, `.env.local` | Settings only (database host and user, a local database's password); no production secrets |
+| `config/master.key`, `config/credentials/*.key` | Keys of the encrypted credentials; `config/credentials/*.yml.enc` are the encrypted files. Production's hold every secret: `secret_key_base`, `database.password`, `devise.secret_key`, `smtp.*`, `sentry.dsn`, `skylight.token` (`config/initializers/production_boot_check.rb` lists them) |
+| `config/configuration.yml` | The Rails 3.2 app's secrets, no longer read; delete it once they are in the credentials |
 
 Claude Code denies them to its file tools (`permissions.deny`) and to sandboxed commands
 (`sandbox.filesystem.denyRead`), and a hook blocks shell commands that name them. `config/database.yml` only refers
