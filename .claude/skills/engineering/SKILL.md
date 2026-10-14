@@ -1,6 +1,7 @@
 ---
 name: engineering
 description: Skill for applying engineering principles when writing or reviewing code, inspired by Russ Cox's worknotes. Apply this skill anytime you're writing, editing, or reviewing any code.
+allowed-tools: Read, Edit, Write, Grep, Glob, Bash
 ---
 
 # Engineering Principles
@@ -70,7 +71,7 @@ Use these instructions whenever generating or reviewing code.
 
 - Everything committed should be production-ready.
 - Do not leave behind partially integrated, fragile, or knowingly low-quality implementations.
-- Validate behavior with appropriate tests for the level of change.
+- Validate behavior with end-to-end tests, per the `acceptance-first` skill; only those prove a feature is done. Add unit tests only for dense logic, and treat mocks as a last resort.
 - Preserve code quality and consistency with existing project conventions and development guides.
 - Prefer code that is easy to understand and easy to change over code optimized for hypothetical future reuse.
 - Release when the work is ready; do not rush implementation only to fit an arbitrary date.

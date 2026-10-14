@@ -1,2 +1,3 @@
 --print-width=120
 --plugins=plugin/single_quotes
+--target-ruby-version=2.3.8

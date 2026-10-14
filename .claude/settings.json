@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Bash(bin/lint)",
+      "Bash(bin/lint *)",
+      "Bash(bin/test)",
+      "Bash(bin/test *)"
+    ],
+    "ask": [
+      "Bash(bundle exec cap *)",
+      "Bash(cap *)",
+      "Bash(git push *main*)"
+    ],
+    "deny": [
+      "Read(./**/.env)",
+      "Edit(./**/.env)",
+      "Read(./**/.env.*)",
+      "Edit(./**/.env.*)",
+      "Read(./**/config/configuration.yml)",
+      "Edit(./**/config/configuration.yml)",
+      "Read(./**/secret_token.rb)",
+      "Edit(./**/secret_token.rb)",
+      "Read(./**/config/credentials/**)",
+      "Edit(./**/config/credentials/**)",
+      "Read(./**/*.yml.enc)",
+      "Edit(./**/*.yml.enc)",
+      "Read(./**/*.key)",
+      "Edit(./**/*.key)",
+      "Read(./**/*.pem)",
+      "Edit(./**/*.pem)",
+      "Read(./**/*.p12)",
+      "Edit(./**/*.p12)",
+      "Read(./**/*.pfx)",
+      "Edit(./**/*.pfx)",
+      "Read(./**/*_rsa)",
+      "Edit(./**/*_rsa)",
+      "Read(./**/*_ed25519)",
+      "Edit(./**/*_ed25519)",
+      "Read(./**/.netrc)",
+      "Edit(./**/.netrc)",
+      "Read(./**/.npmrc)",
+      "Edit(./**/.npmrc)",
+      "Read(./**/.pgpass)",
+      "Edit(./**/.pgpass)",
+      "Read(./**/.vault_pass*)",
+      "Edit(./**/.vault_pass*)",
+      "Read(./**/db-backup-*)",
+      "Edit(./**/db-backup-*)",
+      "Read(//tmp/*.pgpassword)",
+      "Edit(//tmp/*.pgpassword)",
+      "Read(//private/tmp/*.pgpassword)",
+      "Edit(//private/tmp/*.pgpassword)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "excludedCommands": [
+      "bin/test",
+      "bin/test *"
+    ],
+    "filesystem": {
+      "denyRead": [
+        "./**/.env",
+        "./**/.env.*",
+        "./**/config/configuration.yml",
+        "./**/secret_token.rb",
+        "./**/config/credentials",
+        "./**/*.yml.enc",
+        "./**/*.key",
+        "./**/*.pem",
+        "./**/*.p12",
+        "./**/*.pfx",
+        "./**/*_rsa",
+        "./**/*_ed25519",
+        "./**/.netrc",
+        "./**/.npmrc",
+        "./**/.pgpass",
+        "./**/.vault_pass*",
+        "./**/db-backup-*",
+        "/tmp/*.pgpassword",
+        "/private/tmp/*.pgpassword"
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "rubygems.org",
+        "index.rubygems.org",
+        "github.com",
+        "codeload.github.com",
+        "*.githubusercontent.com",
+        "www.justice.gov.sk",
+        "www.sudnarada.gov.sk",
+        "www.nrsr.sk",
+        "www.prezident.sk"
+      ]
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-sensitive-files.sh",
+            "statusMessage": "Checking the command for files that hold secrets"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format.sh",
+            "timeout": 120,
+            "statusMessage": "Formatting and linting"
+          }
+        ]
+      }
+    ]
+  }
+}
