@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# Runs Elasticsearch for development and tests on localhost:9200: one node, security off, data kept between runs in
+# ~/.local/share/otvorenesudy (shared by every checkout and worktree). The first run downloads Elastic's tarball, which
+# bundles its own JDK. Production runs the same version, provisioned by otvorenesudy-server.
+#
+# Usage:
+#   bin/elasticsearch            run in the foreground (Ctrl-C stops it)
+#   bin/elasticsearch --daemon   run in the background
+#   bin/elasticsearch --stop     stop the background node
+#
+# ELASTICSEARCH_HEAP sets the JVM heap (default 4g).
+set -euo pipefail
+
+version=9.5.5
+home=${XDG_DATA_HOME:-$HOME/.local/share}/otvorenesudy
+install=$home/elasticsearch-$version
+pidfile=$home/elasticsearch.pid
+
+usage() {
+  sed -n '/^# Usage:/,/^[^#]/p' "$0" | sed -e '$d' -e 's/^# \{0,1\}//' >&2
+  exit 2
+}
+
+case "${1:-}" in
+  "" | --daemon) ;;
+  --stop)
+    if [[ -f "$pidfile" ]] && kill "$(cat "$pidfile")" 2>/dev/null; then
+      echo "Stopped Elasticsearch."
+    else
+      echo "Elasticsearch isn't running in the background." >&2
+    fi
+    exit 0
+    ;;
+  *) usage ;;
+esac
+
+if [[ ! -x "$install/bin/elasticsearch" ]]; then
+  case "$(uname -s)-$(uname -m)" in
+    Darwin-arm64) platform=darwin-aarch64 ;;
+    Darwin-x86_64) platform=darwin-x86_64 ;;
+    Linux-aarch64) platform=linux-aarch64 ;;
+    Linux-x86_64) platform=linux-x86_64 ;;
+    *)
+      echo "No Elasticsearch build for $(uname -sm)." >&2
+      exit 1
+      ;;
+  esac
+
+  url=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$version-$platform.tar.gz
+  echo "Downloading Elasticsearch $version into $install..."
+  mkdir -p "$home"
+  download=$(mktemp "${TMPDIR:-/tmp}/elasticsearch.XXXXXX")
+  trap 'rm -f "$download"' EXIT
+  curl -fsSL "$url" -o "$download"
+  curl -fsSL "$url.sha512" | awk '{ print $1 }' >"$download.sha512"
+  if [[ "$(shasum -a 512 "$download" | awk '{ print $1 }')" != "$(cat "$download.sha512")" ]]; then
+    rm -f "$download.sha512"
+    echo "The download doesn't match its SHA-512 checksum." >&2
+    exit 1
+  fi
+  rm -f "$download.sha512"
+  tar -xzf "$download" -C "$home"
+  rm -f "$download"
+  trap - EXIT
+fi
+
+mkdir -p "$home/data" "$home/logs"
+
+# No machine learning or GeoIP downloads, which need memory or the network, and no disk watermarks: a local database
+# copy can fill the disk past them, which would make every index read-only.
+settings=(
+  -E cluster.name=otvorenesudy
+  -E discovery.type=single-node
+  -E network.host=127.0.0.1
+  -E http.port=9200
+  -E xpack.security.enabled=false
+  -E xpack.ml.enabled=false
+  -E ingest.geoip.downloader.enabled=false
+  -E cluster.routing.allocation.disk.threshold_enabled=false
+  -E "path.data=$home/data"
+  -E "path.logs=$home/logs"
+)
+
+heap=${ELASTICSEARCH_HEAP:-4g}
+export ES_JAVA_OPTS="-Xms$heap -Xmx$heap ${ES_JAVA_OPTS:-}"
+
+if [[ "${1:-}" == --daemon ]]; then
+  "$install/bin/elasticsearch" -d -p "$pidfile" "${settings[@]}"
+  echo "Elasticsearch $version is starting on http://localhost:9200 (logs in $home/logs)."
+else
+  exec "$install/bin/elasticsearch" "${settings[@]}"
+fi
