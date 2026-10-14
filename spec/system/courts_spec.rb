@@ -35,6 +35,17 @@ RSpec.describe 'Courts' do
       expect(results['top']).to be >= search['bottom']
     end
 
+    it 'keeps the English of a visitor who searches', :js do
+      create(:court, name: 'Okresný súd Košice I')
+      refresh_indices
+
+      visit courts_path(l: :en)
+      find('.search-query-input').send_keys('kosice', :enter)
+
+      expect(page).to have_current_path(/q=kosice/)
+      expect(page).to have_css('html[lang="en"]')
+    end
+
     it 'separates the sort field and the two orders with lines', :js do
       create(:court)
       refresh_indices

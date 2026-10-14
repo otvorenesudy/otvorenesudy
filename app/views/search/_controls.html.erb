@@ -35,4 +35,6 @@
   <% search_form_params @facets.params.except(query_facet.name) do |name, value| %>
     <%= hidden_field_tag name, value, id: nil %>
   <% end %>
+  <%# A GET form drops the query of its action, so the locale goes along as a field. %>
+  <%= hidden_field_tag :l, I18n.locale, id: nil %>
 <% end %>
