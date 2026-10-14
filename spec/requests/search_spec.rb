@@ -43,6 +43,13 @@ RSpec.describe 'Search' do
 
       expect(names).to eq(['Okresný súd Košice I', 'Okresný súd Košice II'])
     end
+
+    it 'ignores a range beyond the numbers the index holds' do
+      get courts_path(judges_count: ['3000000000..Infinity'])
+
+      expect(response).to have_http_status(:ok)
+      expect(names.size).to eq(3)
+    end
   end
 
   describe 'GET /hearings' do
@@ -76,6 +83,16 @@ RSpec.describe 'Search' do
 
       get hearings_path(date: ['abc..'])
 
+      expect(case_numbers).to eq(['1C/1/2026'])
+    end
+
+    it 'ignores a date beyond the years the index holds' do
+      create(:hearing, case_number: '1C/1/2026')
+      refresh_indices
+
+      get hearings_path(date: ['99999-01-01..99999-01-31'])
+
+      expect(response).to have_http_status(:ok)
       expect(case_numbers).to eq(['1C/1/2026'])
     end
   end

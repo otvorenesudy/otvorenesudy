@@ -10,8 +10,13 @@ module Probe
         Time.at(value / 1000).utc.to_date
       end
 
+      # A date the index can't hold (a year beyond 1 to 9999) is unreadable, as "abc" is.
       def to_elastic(value)
-        ::Date.parse(value.to_s)
+        date = ::Date.parse(value.to_s)
+
+        raise ArgumentError, "#{value} is beyond the index's years" unless (1..9999).cover?(date.year)
+
+        date
       end
 
       # Both ends inclusive, to the day.

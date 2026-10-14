@@ -58,10 +58,12 @@ RSpec.describe Probe::Search do
   end
 
   # Only a full-text query can be searched again, as plain words; other errors are the search's to report.
-  it 'raises the error of a search without full text' do
-    expect { Court.search(judges_count: ['3000000000..Infinity']) }.to raise_error(
-      Elastic::Transport::Transport::Errors::BadRequest,
-      /out of range/
-    )
+  it 'raises the error of a search without full text, having no query to retry escaped' do
+    stub_request(:post, %r{\Ahttp://localhost:9200/courts_test/_search})
+      .to_return(status: 400, body: '{"error":"rejected"}',
+                 headers: { 'content-type' => 'application/json', 'x-elastic-product' => 'Elasticsearch' })
+
+    expect { Court.search({}) }.to raise_error(Elastic::Transport::Transport::Errors::BadRequest, /rejected/)
+    expect(a_request(:post, %r{/courts_test/_search})).to have_been_made.once
   end
 end
