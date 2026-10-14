@@ -31,6 +31,18 @@ RSpec.describe 'The decisions of the Whistleblower Protection Office' do
     expect(item).to have_css('.badge', text: I18n.t("decrees.uoo.effect.#{appeal['effect_on_chain_root_decree']}"))
   end
 
+  it 'shows the fine of a decision, not again on its appeals' do
+    fined = ->(entry) { Array.wrap(entry['parties']).any? { |party| party['fine_amount'] } }
+    decision = decisions.find { |entry| fined.call(entry) && entry['children'].any?(&fined) }
+
+    visit uoo_decrees_path
+
+    item = find('.search-result-list > .search-result-item', text: decision['title'])
+
+    expect(item.first('.search-result-title')).to have_text(/\d EUR/)
+    expect(item.all('.search-result-list .search-result-item')).to all(have_no_text(/\d EUR/))
+  end
+
   it 'searches the court decrees for a party' do
     party = stats[:by_party].first
 

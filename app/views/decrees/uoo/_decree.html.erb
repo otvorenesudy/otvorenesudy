@@ -1,7 +1,7 @@
-<%# A decision of the Whistleblower Protection Office: its title, how it changed the first decision, the date, the fine,
-    the file numbers and the parties. %>
+<%# A decision of the Whistleblower Protection Office: its title, how it changed the first decision, the date, the fine
+    (of a first decision only, not of an appeal), the file numbers and the parties. %>
 <% parties = Array.wrap(decree['parties']) %>
-<% fine = parties.filter_map { |party| party['fine_amount'] }.first %>
+<% fine = parties.filter_map { |party| party['fine_amount'] }.first unless local_assigns[:appeal] %>
 <% effect = decree['effect_on_chain_root_decree'] %>
 
 <h4 class="search-result-title d-flex justify-content-between align-items-baseline">

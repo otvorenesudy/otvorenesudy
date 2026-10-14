@@ -47,7 +47,7 @@
         <ul class="search-result-list ps-4 border-start ms-2 mt-2">
           <% decree['children'].each do |child| %>
             <li class="search-result-item border-0 pe-0">
-              <%= render 'decrees/uoo/decree', decree: child %>
+              <%= render 'decrees/uoo/decree', decree: child, appeal: true %>
             </li>
           <% end %>
         </ul>
