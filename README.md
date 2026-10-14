@@ -35,9 +35,10 @@ The database login comes from `OPENCOURTS_DATABASE_USER` and `OPENCOURTS_DATABAS
 ### A Copy of Production
 
 With a dump of the production server (`db-backup-*.gz`), `bin/restore-production-copy <dump>` restores its
-`opencourts_production` database as `opencourts_development`. It masks every user's e-mail address but yours
-(`git config user.email`, or `--keep`), resets their passwords and replaces the subscriptions' unsubscribe tokens.
-Then reindex with `bin/rails probe:reindex`.
+`opencourts_production` database as `opencourts_development`, 8 sessions at a time (`brew install gawk` makes its
+first step, splitting the dump, eight times faster). It masks every user's e-mail address but yours
+(`git config user.email`, or `--keep`), resets their passwords, takes away their admin rights and replaces the
+subscriptions' unsubscribe tokens. Then reindex with `bin/rails probe:reindex`.
 
 ## Configuration
 

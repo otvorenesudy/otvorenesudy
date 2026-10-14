@@ -4,8 +4,10 @@
 --   psql -d opencourts_development -v keep_email=you@example.com -f db/mask.sql
 --
 -- Every user except the one with keep_email gets the e-mail user<id>@example.invalid, the password "password" and no
--- confirmation, reset or remember tokens; their subscriptions get new unsubscribe tokens. Ids, confirmation state and
--- subscriptions stay, so the app behaves as in production. Running it again changes nothing.
+-- confirmation, reset or remember tokens; their subscriptions get new unsubscribe tokens. They lose admin rights too:
+-- with a known password, anyone who reaches the local app could sign in as one. Ids, confirmation state and
+-- subscriptions stay, so the app behaves as in production. Running it again changes nothing, and fixes a copy masked
+-- before admins were.
 
 \set ON_ERROR_STOP on
 
@@ -34,6 +36,11 @@ SET email = 'user' || u.id || '@example.invalid',
 FROM masked_password AS p
 WHERE u.id NOT IN (SELECT id FROM kept_users)
   AND u.email <> 'user' || u.id || '@example.invalid';
+
+UPDATE public.users
+SET admin = false
+WHERE id NOT IN (SELECT id FROM kept_users)
+  AND admin;
 
 -- subscriptions.token exists once migration 20260423120000 has run.
 DO $$
@@ -78,6 +85,7 @@ SELECT
   (SELECT count(*) FROM public.users) AS users,
   (SELECT count(*) FROM public.users WHERE email LIKE '%@example.invalid') AS masked_users,
   (SELECT count(*) FROM kept_users) AS kept_users,
+  (SELECT count(*) FROM public.users WHERE admin) AS admins,
   (SELECT count(*) FROM public.subscriptions) AS subscriptions,
   (SELECT count(*) FROM public.subscriptions WHERE user_id IN (SELECT id FROM kept_users)) AS kept_subscriptions;
 
