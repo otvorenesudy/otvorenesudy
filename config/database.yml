@@ -1,19 +1,23 @@
-defaults: &defaults
+# The database names and the OPENCOURTS_DATABASE_* logins are shared with otvorenesudy-api, which writes into the
+# same database. On the server the logins come from /home/deploy/.env; locally from .env or your own user.
+default: &default
   adapter: postgresql
-  encoding: utf8
-  pool: 100
-  host: localhost
+  encoding: unicode
+  host: <%= ENV.fetch('OPENCOURTS_DATABASE_HOST', 'localhost') %>
   username: <%= ENV['OPENCOURTS_DATABASE_USER'] %>
   password: <%= ENV['OPENCOURTS_DATABASE_PASSWORD'] %>
+  max_connections: <%= ENV.fetch('RAILS_MAX_THREADS', 5).to_i + ENV.fetch('SIDEKIQ_CONCURRENCY', 5).to_i %>
+  # libpq's GSSAPI negotiation crashes forked processes on macOS; nothing here uses Kerberos.
+  gssencmode: disable
 
 development:
-  <<: *defaults
+  <<: *default
   database: opencourts_development
 
 test:
-  <<: *defaults
+  <<: *default
   database: opencourts_test
 
 production:
-  <<: *defaults
+  <<: *default
   database: opencourts_production

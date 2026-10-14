@@ -1,10 +1,13 @@
-class Proceeding < ActiveRecord::Base
-  attr_accessible :file_number
+# frozen_string_literal: true
 
+# A case followed through its hearings and decrees, across courts.
+class Proceeding < ApplicationRecord
   include Probe
 
-  has_many :hearings
-  has_many :decrees
+  has_many :hearings, dependent: nil
+  has_many :decrees, dependent: nil
+
+  before_save :invalidate_caches
 
   max_paginates_per 100
   paginates_per 20
@@ -12,26 +15,26 @@ class Proceeding < ActiveRecord::Base
   mapping do
     map :id
 
-    analyze :case_numbers, as: lambda { |p| p.case_numbers }
+    analyze :case_numbers, as: lambda(&:case_numbers)
     analyze :file_number
-    analyze :eclis, as: lambda { |p| p.eclis }
-    analyze :text, as: lambda { |p| p.text }
-    analyze :courts, as: lambda { |p| p.courts.map(&:name) }
-    analyze :courts_types, as: lambda { |p| p.courts.map { |c| c.type.value } }
-    analyze :courts_count, type: :integer, as: lambda { |p| p.courts.count }
-    analyze :judges, as: lambda { |p| p.judges.map(&:name) }
-    analyze :judges_count, type: :integer, as: lambda { |p| p.judges.count }
-    analyze :events_count, type: :integer, as: lambda { |p| p.events.count }
-    analyze :hearings_count, type: :integer, as: lambda { |p| p.hearings.count }
-    analyze :decrees_count, type: :integer, as: lambda { |p| p.decrees.count }
+    analyze :eclis, as: lambda(&:eclis)
+    analyze :text, as: lambda(&:text), index: :no
+    analyze :courts, as: ->(proceeding) { proceeding.courts.map(&:name) }
+    analyze :courts_types, as: ->(proceeding) { proceeding.courts.map { |court| court.type&.value } }
+    analyze :courts_count, type: :integer, as: ->(proceeding) { proceeding.courts.count }
+    analyze :judges, as: ->(proceeding) { proceeding.judges.map(&:name) }
+    analyze :judges_count, type: :integer, as: ->(proceeding) { proceeding.judges.count }
+    analyze :events_count, type: :integer, as: ->(proceeding) { proceeding.events.count }
+    analyze :hearings_count, type: :integer, as: ->(proceeding) { proceeding.hearings.count }
+    analyze :decrees_count, type: :integer, as: ->(proceeding) { proceeding.decrees.count }
 
-    analyze :duration, type: :integer, as: lambda { |p| p.duration / 1.month if p.duration }
-    analyze :closed, type: :boolean, as: lambda { |p| p.probably_closed? }
+    analyze :duration, type: :integer, as: ->(proceeding) { proceeding.duration&./(1.month) }
+    analyze :closed, type: :boolean, as: lambda(&:probably_closed?)
 
-    analyze :proposers, as: lambda { |p| p.proposers.pluck(:name) }
-    analyze :opponents, as: lambda { |p| p.opponents.pluck(:name) }
-    analyze :defendants, as: lambda { |p| p.defendants.pluck(:name) }
-    analyze :participants, as: lambda { |p| p.opponents.pluck(:name) + p.defendants.pluck(:name) }
+    analyze :proposers, as: ->(proceeding) { proceeding.proposers.map(&:name) }
+    analyze :opponents, as: ->(proceeding) { proceeding.opponents.map(&:name) }
+    analyze :defendants, as: ->(proceeding) { proceeding.defendants.map(&:name) }
+    analyze :participants, as: ->(proceeding) { proceeding.opponents.map(&:name) + proceeding.defendants.map(&:name) }
 
     sort_by :_score, :hearings_count, :decrees_count
   end
@@ -48,13 +51,12 @@ class Proceeding < ActiveRecord::Base
     facet :judges_count, type: :range, ranges: [1..1, 2..2, 3..5, 5..10]
     facet :courts_types, type: :terms
     facet :file_number, type: :terms
-    #facet :proposers,      type: :terms
-    #facet :participants,   type: :terms
-    facet :closed, type: :boolean, facet: :terms, default: false, value: lambda { |facet| true if facet.terms == true }
+    # Off (the default) shows every proceeding, on only those that probably ended with a decree.
+    facet :closed, type: :boolean, facet: :terms, default: false, value: ->(facet) { true if facet.terms == true }
   end
 
   def case_numbers
-    @case_numbers ||= events.map(&:case_number).uniq.compact.sort
+    @case_numbers ||= events.filter_map(&:case_number).uniq.sort
   end
 
   def eclis
@@ -65,79 +67,60 @@ class Proceeding < ActiveRecord::Base
     decrees.map(&:text).join("\n") if decrees.any?
   end
 
+  # Hearings and decrees in the order they happened.
   def events
-    @events ||= (hearings + decrees).sort_by { |event| event.time ? event.time : event.created_at }
+    @events ||= (hearings.to_a + decrees.to_a).sort_by { |event| event.time || event.created_at }
   end
 
   def courts
-    Court.where(id: @court_ids ||= events.map(&:court_id).uniq)
+    Court.where(id: events.map(&:court_id).uniq)
   end
 
-  # TODO judges* refactor into AR relations if possible
-
   def judges
-    judges = events.flat_map { |event| block_given? ? yield(event) : event.judges }.uniq
-    judges.define_singleton_method(:order) do |*attributes|
-      Array
-        .wrap(attributes)
-        .each { |attribute| self.sort_by { |e| (value = e.send(attribute)).nil? ? value.to_s : value } }
-      self
-    end
-    judges.define_singleton_method(:pluck) do |attribute|
-      self.map { |judge| judge.read_attribute(attribute.to_s.sub(/\Ajudge_/, '')) }
-    end
-    judges
+    Judge.where(id: Judging.where(hearing: hearings).select(:judge_id))
+         .or(Judge.where(id: Judgement.where(decree: decrees).select(:judge_id)))
   end
 
   def judges_exact
-    judges { |event| event.judges.exact }
+    Judge.where(id: Judging.exact.where(hearing: hearings).select(:judge_id))
+         .or(Judge.where(id: Judgement.exact.where(decree: decrees).select(:judge_id)))
   end
 
   def judges_inexact
-    judges { |event| event.judges.inexact }
+    Judge.where(id: Judging.inexact.where(hearing: hearings).select(:judge_id))
+         .or(Judge.where(id: Judgement.inexact.where(decree: decrees).select(:judge_id)))
   end
 
   def legislation_areas_and_subareas
     @legislation_areas_and_subareas ||=
-      decrees
-        .order(:date)
-        .each_with_object([]) do |decree, _|
-          break decree.legislation_areas_and_subareas if decree.legislation_areas_and_subareas.any?
-        end
+      decrees.order(:date).map(&:legislation_areas_and_subareas).find(&:any?) || []
   end
 
   def proposers
-    through_hearings_to Proposer
+    parties(Proposer)
   end
 
   def opponents
-    through_hearings_to Opponent
+    parties(Opponent)
   end
 
   def defendants
-    through_hearings_to Defendant
+    parties(Defendant)
   end
 
-  def duration(time = Time.now)
-    return duration_events.last.time.to_i - duration_events.first.time.to_i if probably_closed?
+  # Seconds from the first event with a time to the last one if the proceeding probably ended, else to `time`.
+  def duration(time = Time.current)
+    first, last = duration_events
 
-    # TODO this is probably a bug as we are storing Time.now based result to ES but not updating it:
-    # we store proceeding with duration 4 months and then no event occurs in 4 months, status:
-    # ES has it indexed under 4 months duration but on show it renders 8 months
-    time.to_i - duration_events.first.time.to_i if duration_events.first.try(:time)
+    return unless first&.time
+    return last.time.to_i - first.time.to_i if probably_closed?
+
+    time.to_i - first.time.to_i
   end
 
   def duration_events
-    @duration_events ||= [events.find { |event| event.time }, events.reverse.find { |event| event.time }]
+    @duration_events ||= [events.find(&:time), events.rfind(&:time)]
   end
-
-  private
-
-  def through_hearings_to(model)
-    model.select('distinct name').joins(:hearing).where('hearings.proceeding_id': id)
-  end
-
-  public
 
   def single_hearing?
     events.size == 1 && hearings.size == 1
@@ -148,12 +131,16 @@ class Proceeding < ActiveRecord::Base
   end
 
   def probably_closed?
-    events.last.is_a? Decree
+    events.last.is_a?(Decree)
   end
 
-  before_save :invalidate_caches
-
   def invalidate_caches
-    @case_numbers = @duration_events = @events = @court_ids = @legislation_areas_and_subareas = nil
+    @case_numbers = @duration_events = @events = @legislation_areas_and_subareas = nil
+  end
+
+  private
+
+  def parties(model)
+    model.select(:name).distinct.joins(:hearing).where(hearings: { proceeding_id: id })
   end
 end

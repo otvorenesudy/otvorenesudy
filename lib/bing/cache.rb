@@ -1,19 +1,24 @@
+# frozen_string_literal: true
+
 module Bing
+  # Responses by URL, for the life of the process.
   module Cache
-    def self.get(key)
+    module_function
+
+    def get(key)
       cache[key]
     end
 
-    def self.store(key, value)
+    def store(key, value)
       cache[key] = value
     end
 
-    def self.delete(key)
-      cache[key] = nil
+    def delete(key)
+      cache.delete(key)
     end
 
-    def self.cache
-      @cache ||= Hash.new
+    def cache
+      @cache ||= {}
     end
   end
 end

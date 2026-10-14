@@ -1,7 +1,7 @@
-class HearingSection < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :hearings
+class HearingSection < ApplicationRecord
+  has_many :hearings, dependent: nil
 
   validates :value, presence: true
 end

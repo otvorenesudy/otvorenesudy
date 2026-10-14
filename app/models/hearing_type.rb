@@ -1,13 +1,13 @@
-class HearingType < ActiveRecord::Base
+# frozen_string_literal: true
+
+class HearingType < ApplicationRecord
   include Resource::Enumerable
 
-  attr_accessible :value
-
-  has_many :hearings
+  has_many :hearings, dependent: nil, inverse_of: :type
 
   validates :value, presence: true
 
-  value :civil,    'Civilné'
+  value :civil, 'Civilné'
   value :criminal, 'Trestné'
-  value :special,  'Špecializovaného trestného súdu'
+  value :special, 'Špecializovaného trestného súdu'
 end

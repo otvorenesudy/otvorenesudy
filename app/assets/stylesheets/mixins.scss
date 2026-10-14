@@ -1,0 +1,12 @@
+@mixin color-variant($color, $hover-color: null) {
+  color: $color;
+
+  &.hover,
+  &.focus,
+  &.active,
+  &:hover,
+  &:focus,
+  &:active {
+    color: $hover-color;
+  }
+}

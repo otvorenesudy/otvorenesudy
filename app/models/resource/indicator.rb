@@ -1,35 +1,40 @@
-module Resource::Indicator
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  module ClassMethods
-    def indicators
-      @indicators ||= Hash.new
-    end
+# Includes an indicator module and memoizes its method per record id for the life of the process:
+# `indicate Court::AverageProceedingDurations` makes `court.average_proceeding_durations` computed once per court.
+module Resource
+  module Indicator
+    extend ActiveSupport::Concern
 
-    def invalidate_indicators!
-      indicators.each do |_, values|
-        values.clear
+    class_methods do
+      def indicators
+        @indicators ||= {}
       end
-    end
 
-    protected
+      def invalidate_indicators!
+        indicators.each_value(&:clear)
+      end
 
-    def indicate(indicator, options = {})
-      name      = options[:method] || indicator.name.split(/::/).last.underscore.to_sym
-      attribute = options[:attribute] || :id
+      private
 
-      indicators[name] ||= Hash.new
+      def indicate(indicator, options = {})
+        name = (options[:method] || indicator.name.demodulize.underscore).to_sym
+        attribute = options[:attribute] || :id
 
-      self.class_eval do
+        indicators[name] ||= {}
+
         include indicator
 
-        alias_method "memoized_#{name}".to_sym, name.to_sym
+        alias_method :"memoized_#{name}", name
 
-        define_method name.to_sym do
-          self.class.indicators[name][self.read_attribute(attribute)] ||= send("memoized_#{name}".to_sym)
+        define_method(name) do
+          values = self.class.indicators[name]
+          key = self[attribute]
+
+          values.key?(key) ? values[key] : (values[key] = public_send(:"memoized_#{name}"))
         end
 
-        alias_method "#{name}?".to_sym, name.to_sym
+        alias_method :"#{name}?", name
       end
     end
   end

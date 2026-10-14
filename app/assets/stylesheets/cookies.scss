@@ -1,18 +1,26 @@
+// The cookie consent banner (vanilla-cookieconsent), with our button colors through its CSS variables
+
 #cc-main {
-  .cm__btn, .pm__btn {
-    @extend .btn-primary;
-  }
+  --cc-btn-primary-bg: #{$orange};
+  --cc-btn-primary-color: #{$white};
+  --cc-btn-primary-border-color: #{$orange};
+  --cc-btn-primary-hover-bg: #{$navy};
+  --cc-btn-primary-hover-color: #{$white};
+  --cc-btn-primary-hover-border-color: transparent;
 
-  .cm__btn--secondary, .pm__btn--secondary {
-    @extend .btn-secondary;
-  }
+  --cc-btn-secondary-bg: #{$white};
+  --cc-btn-secondary-color: #{$blue};
+  --cc-btn-secondary-border-color: #{$gray};
+  --cc-btn-secondary-hover-bg: #{$input-bg};
+  --cc-btn-secondary-hover-color: #{$navy};
+  --cc-btn-secondary-hover-border-color: #{$gray};
 
-  .section__toggle:checked~.toggle__icon {
+  .section__toggle:checked ~ .toggle__icon {
     background: $orange;
     box-shadow: 0 0 0 1px $orange;
   }
 
   .toggle__icon-on svg {
-    stroke: $orange
+    stroke: $orange;
   }
 }

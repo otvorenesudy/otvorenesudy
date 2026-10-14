@@ -1,25 +1,18 @@
-class SelectionProcedureCandidate < ActiveRecord::Base
+# frozen_string_literal: true
+
+class SelectionProcedureCandidate < ApplicationRecord
   include Resource::Storage
 
-  attr_accessible :application_url,
-                  :curriculum_url,
-                  :declaration_url,
-                  :motivation_letter_url,
-                  :name,
-                  :name_unprocessed,
-                  :accomplished_expectations,
-                  :oral_score,
-                  :oral_result,
-                  :written_score,
-                  :written_result,
-                  :score,
-                  :rank
+  belongs_to :procedure, class_name: 'SelectionProcedure', foreign_key: :selection_procedure_id, optional: true,
+                         inverse_of: :candidates
+  belongs_to :judge, optional: true
 
-  belongs_to :procedure, class_name: :SelectionProcedure, foreign_key: :selection_procedure_id
-  belongs_to :judge
+  %w[application curriculum declaration motivation_letter].each do |document|
+    storage(document, 'documents/selection_procedure_candidates') { |candidate| "#{candidate.ic}_#{document}.pdf" }
+  end
 
-  storage(:application,       JusticeGovSk::Storage::SelectionProcedureCandidateDocument) { |candidate| "#{candidate.uri.match(/Ic=(\d+)/)[1]}_application.pdf" }
-  storage(:curriculum,        JusticeGovSk::Storage::SelectionProcedureCandidateDocument) { |candidate| "#{candidate.uri.match(/Ic=(\d+)/)[1]}_curriculum.pdf" }
-  storage(:declaration,       JusticeGovSk::Storage::SelectionProcedureCandidateDocument) { |candidate| "#{candidate.uri.match(/Ic=(\d+)/)[1]}_declaration.pdf" }
-  storage(:motivation_letter, JusticeGovSk::Storage::SelectionProcedureCandidateDocument) { |candidate| "#{candidate.uri.match(/Ic=(\d+)/)[1]}_motivation_letter.pdf" }
+  # The candidate's id on justice.gov.sk.
+  def ic
+    uri[/Ic=(\d+)/, 1]
+  end
 end

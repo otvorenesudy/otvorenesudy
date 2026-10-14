@@ -1,53 +1,47 @@
+# frozen_string_literal: true
+
 module TextHelper
+  # Joins the parts and truncates them to `limit` characters (plus the separators), on a word boundary. The rest shows
+  # in a tooltip on the omission when `tooltip: true`.
   def join_and_truncate(text, options = {})
-    limit     = options.fetch :limit, 30
-    separator = options.fetch :separator, ', '
-    omission  = options.fetch :omission, '&hellip;'
-    tooltip   = options.fetch :tooltip, false
+    separator = HTMLEntities.new.decode(options.fetch(:separator, ', '))
+    parts = Array.wrap(text).map { |part| part.squeeze(' ').strip }
+    limit = options.fetch(:limit, 30) + ((parts.size - 1) * separator.size)
+    packed = parts.join(separator)
 
-    entities = HTMLEntities.new
+    return packed if packed.length <= limit
 
-    parts  = Array.wrap(text)
-    limit += (parts.size - 1) * entities.decode(separator).size
+    shown = packed.truncate(limit, separator: ' ', omission: '').sub(/\s*#{Regexp.escape(separator.strip)}\s*\z/, '')
+    omission = options.key?(:omission) ? options[:omission] : '&hellip;'
 
-    packed = parts.map { |part| part.squeeze(' ').strip } * separator
-    result = truncate packed, length: limit, separator: ' ', omission: ''
-
-    result.gsub!(/\s*#{separator.strip}\s*$/, '')
-
-    if packed.length > limit
-      if tooltip
-        index   = result.rindex(separator) || 0
-        title   = packed[index..-1].gsub(/\A\s*#{separator.strip}\s*/, '')
-        title   = html_escape entities.decode(title)
-        tooltip = tooltip_tag (omission || result).html_safe, title, placement: options.fetch(:placement, 'right')
-
-        omission ? result += tooltip : result = tooltip
-      else
-        result += omission if omission
-      end
-    end
-
-    result.html_safe
+    safe_join([shown, truncation_marker(packed, shown, separator, omission, options)].compact)
   end
 
+  # Highlighted fragments (<em> kept), joined with an ellipsis and wrapped in ellipses.
   def strip_and_highlight(text, options = {})
-    wrapper = -> (s) { content_tag(:span, s.html_safe, class: 'text-muted') }
+    ellipsis = tag.span('…', class: 'text-muted')
+    separator = options.fetch(:separator) { safe_join([' ', ellipsis, ' ']) }
+    omission = options.fetch(:omission, ellipsis)
+    left, right = omission.is_a?(Hash) ? omission.values_at(:left, :right).map { |o| o || ellipsis } : [omission] * 2
 
-    separator = options.fetch(:separator) { " #{wrapper.call('&hellip;')} " }
-    omission  = options.fetch(:omission) { wrapper.call('&hellip;') }
-
-    if omission.is_a? Hash
-      left, right = %i(left right).map { |k| omission.fetch(k) { wrapper.call '&hellip;' }}
-    else
-      left, right = omission, omission
+    fragments = Array.wrap(text).map do |part|
+      sanitize(part.gsub(/\A[^[:alnum:]<]+|[^[:alnum:]>]+\z/, ''), tags: %w[em])
     end
 
-    parts = Array.wrap(text)
+    safe_join([left && safe_join([left, ' ']), locale_specific_spaces(safe_join(fragments, separator)),
+               right && safe_join([' ', right])].compact)
+  end
 
-    packed = parts.map { |part| sanitize part.gsub(/\A[^[:alnum:]<]+|[^[:alnum:]>]+\z/, ''), tags: %w(em) } * separator
-    result = "#{"#{left}&nbsp;" if left}#{locale_specific_spaces packed}#{"&nbsp;#{right}" if right}"
+  private
 
-    result.html_safe
+  # The omission after truncated text, with the rest of the text in a tooltip when asked.
+  def truncation_marker(packed, shown, separator, omission, options)
+    omission = sanitize(omission) if omission
+
+    return omission unless options[:tooltip]
+
+    rest = packed[(shown.rindex(separator) || 0)..].sub(/\A\s*#{Regexp.escape(separator.strip)}\s*/, '')
+
+    tooltip_tag(omission || shown, rest, placement: options.fetch(:placement, 'right'))
   end
 end

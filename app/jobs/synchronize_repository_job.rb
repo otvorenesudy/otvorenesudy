@@ -1,25 +1,24 @@
-class SynchronizeRepositoryJob
-  include Sidekiq::Worker
+# frozen_string_literal: true
 
-  sidekiq_options queue: :probe
+# Reindexes the records of one id range whose document is missing or older than the record.
+class SynchronizeRepositoryJob < ApplicationJob
+  queue_as :probe
 
-  def perform(model_name, options)
-    options.symbolize_keys!
-
-    model = model_name.constantize
-    range = (options[:from]..options[:to])
-    relation = model.where(id: range)
-    repository = RepositoryManager.new(model, relation: relation, client: Elasticsearch::Client.new)
-
-    repository.synchronize
-  end
+  BATCH_SIZE = 10_000
 
   def self.enqueue_for(model)
-    model.select(:id).find_in_batches(batch_size: 10_000) do |batch|
-      from = batch.first.id
-      to = batch.last.id
+    model.in_batches(of: BATCH_SIZE) do |batch|
+      ids = batch.ids
 
-      SynchronizeRepositoryJob.perform_async(model.to_s, from: from, to: to)
+      perform_later(model.name, ids.min, ids.max)
     end
+  end
+
+  def perform(model_name, from, to)
+    model = Probe.models.find { |candidate| candidate.name == model_name }
+
+    raise ArgumentError, "#{model_name} isn't searchable" unless model
+
+    RepositoryManager.new(model, relation: model.where(id: from..to)).synchronize
   end
 end

@@ -1,9 +1,7 @@
-class Paragraph < ActiveRecord::Base
-  attr_accessible :legislation,
-                  :number,
-                  :description
+# frozen_string_literal: true
 
-  has_many :explanations, class_name: :ParagraphExplanation
+class Paragraph < ApplicationRecord
+  has_many :explanations, class_name: 'ParagraphExplanation', dependent: nil
 
   validates :legislation, presence: true
   validates :number,      presence: true

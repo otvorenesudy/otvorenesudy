@@ -1,35 +1,46 @@
+# frozen_string_literal: true
+
 module Probe
+  # Makes a listing's params safe to put into a search.
   module Sanitizer
-    private
+    module_function
 
-    def extract_page_param(params)
-      params[:page].to_i > 0 ? params[:page].to_i : 1
+    # Operators that make no sense in a court records search; quotes (phrases), * and ? (wildcards) and AND/OR stay.
+    SYNTAX = %r{(\+|-|=|&&|\|\||\||\(|\)|\{|\}|\[|\]|\^|~|!|\\|/|:)}
+
+    # Everything Lucene's query syntax reserves, for a second try when Elasticsearch still can't parse a query.
+    RESERVED = %r{(\+|-|=|&&|\|\||\||\(|\)|\{|\}|\[|\]|\^|"|~|\*|\?|!|\\|/|:)}
+
+    def page(value, max:)
+      page = value.to_i
+
+      page.positive? ? [page, max].min : 1
     end
 
-    def extract_sort_param(params, sort_fields)
-      if sort_fields.include?(params[:sort].to_sym)
-        params[:sort].to_sym
-      else
-        return sort_fields.first.to_sym if sort_fields.first
+    def sort(value, sort_fields)
+      field = value.to_s.to_sym
 
-        :'_score'
-      end
+      return field if sort_fields.include?(field)
+
+      sort_fields.first || :_score
     end
 
-    def extract_order_param(params)
-      params[:order] == 'asc' ? :asc : :desc
+    def order(value)
+      value.to_s == 'asc' ? :asc : :desc
     end
 
-    def sanitize_query_string(value)
-      value = value.gsub(/(\+|\-|&&|\||\||\(|\)|\{|\}|\[|\]|\^|~|\!|\\|\/|:)/) { |m| "\\#{m}" }
+    # < and > can't be escaped in a query string, only removed.
+    def query_string(value, escape: :syntax)
+      value = value.to_s.delete('<>').gsub(escape == :all ? RESERVED : SYNTAX) { |match| "\\#{match}" }
 
-      value[value.rindex('"')] = "\\\"" unless value.count('"') % 2 == 0
+      return value if escape == :all || value.count('"').even?
 
-      value
+      index = value.rindex('"')
+      "#{value[0...index]}\\\"#{value[(index + 1)..]}"
     end
 
-    def sanitize_suggest_string(value)
-      value.gsub(/[\"\'\{\}\[\]\(\)]/, '')
+    def suggest_string(value)
+      value.to_s.delete(%q("'{}[]()))
     end
   end
 end

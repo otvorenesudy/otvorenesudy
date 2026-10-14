@@ -1,19 +1,25 @@
 #!/usr/bin/env bash
 # Decides whether a change is done: bin/lint on the branch's changes, then the RSpec suite against a test database
-# rebuilt from db/structure.sql. Exits non-zero when either fails.
+# loaded from db/structure.sql and the local Elasticsearch. A full run (no arguments) also measures coverage: SimpleCov
+# fails it below 95% of lines or 90% of branches, and undercover reports the methods this branch changed that no spec
+# runs. Exits non-zero when any of them fails.
 #
 # Usage:
-#   bin/test               lint, then every spec
-#   bin/test <spec> ...    lint, then those specs (spec/models/judge_spec.rb, spec/models/judge_spec.rb:12)
+#   bin/test               lint, then every spec, with coverage
+#   bin/test <spec> ...    lint, then those specs (spec/system/courts_spec.rb, spec/system/courts_spec.rb:12)
 #
-# Needs PostgreSQL with pg_trgm, unaccent and pgvector on localhost (brew services start postgresql@17). The app reads
-# its local configuration while it boots (.env, .env.local, config/configuration.yml), which the Claude Code sandbox
-# hides, so Claude Code runs bin/test outside the sandbox (sandbox.excludedCommands in .claude/settings.json).
+# Needs PostgreSQL with pg_trgm, unaccent and pgvector on localhost (brew services start postgresql@17) and
+# Elasticsearch 9 on localhost:9200 (bin/elasticsearch --daemon). The app reads its local configuration while it boots
+# (.env), which the Claude Code sandbox hides, so Claude Code runs bin/test outside the sandbox
+# (sandbox.excludedCommands in .claude/settings.json).
 #
 # One run at a time on this machine: this app and otvorenesudy-api share the opencourts_test database, so a second
 # run of either waits for the first.
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
+
+# While the Rails 8 port is under way undercover only reports; set to 1 when it lands so uncovered changes fail.
+undercover_strict=0
 
 lock=/tmp/otvorenesudy-bin-test.lock
 waited=0
@@ -44,38 +50,44 @@ if ! pg_isready -q -h localhost; then
   exit 1
 fi
 export RAILS_ENV=test
-# libpq's GSSAPI negotiation crashes forked Ruby processes on macOS; nothing here uses Kerberos.
-export PGGSSENCMODE=disable
-if ! output=$(bundle exec rake db:create db:test:purge db:structure:load 2>&1); then
+if ! output=$(bin/rails db:create db:test:prepare 2>&1); then
   printf '%s\n' "$output" >&2
   echo "Couldn't prepare the test database." >&2
   exit 1
 fi
-# Then the migrations db/structure.sql doesn't have yet. Migrating dumps the structure again; DB_STRUCTURE
-# (lib/tasks/db.rake) sends that dump to a temporary file, so db/structure.sql stays as it is.
-dump=$(mktemp "${TMPDIR:-/tmp}/structure.XXXXXX")
-if ! output=$(DB_STRUCTURE=$dump bundle exec rake db:migrate 2>&1); then
+
+echo "==> stylesheets"
+if ! output=$(bin/rails dartsass:build 2>&1); then
   printf '%s\n' "$output" >&2
-  echo "Couldn't migrate the test database." >&2
-  rm -f "$dump"
+  echo "Couldn't build the stylesheets." >&2
   exit 1
 fi
-rm -f "$dump"
-pending=$(sed -nE 's/^== +([0-9]* *[A-Za-z0-9_:]+): migrated.*/\1/p' <<<"$output")
-if [[ -n "$pending" ]]; then
-  echo "warning: db/structure.sql is missing these migrations, which bin/test applied to the test database:" >&2
-  sed 's/^/  /' <<<"$pending" >&2
-  echo "  Migrate the development database, then dump it: bundle exec rake db:migrate db:structure:dump" >&2
-fi
 
-echo "==> search index"
-if ! curl -fs -o /dev/null -m 5 http://localhost:9200; then
-  echo "warning: Elasticsearch isn't running on localhost:9200. The specs that index or search (spec/lib/probe," \
-    "spec/integration, spec/models/subscription_spec.rb) fail until it runs: Elasticsearch 1.7 with inline Groovy" \
-    "scripting (README.md)." >&2
+echo "==> search"
+version=$(curl -fs -m 5 http://localhost:9200 | sed -nE 's/.*"number" *: *"([0-9]+)\..*/\1/p')
+if [[ -z "$version" ]]; then
+  echo "Elasticsearch isn't running on localhost:9200. Start it with bin/elasticsearch --daemon." >&2
+  exit 1
+elif ((version < 9)); then
+  echo "Elasticsearch on localhost:9200 is version $version; the app needs 9. Run bin/elasticsearch." >&2
+  exit 1
 fi
 
 echo "==> specs"
-bundle exec rspec --format progress "$@" || status=1
+if (($# == 0)); then
+  export COVERAGE=1
+  bundle exec rspec --format progress || status=1
+
+  echo "==> undercover"
+  if ! bundle exec undercover --compare origin/main; then
+    if ((undercover_strict)); then
+      status=1
+    else
+      echo "undercover: reported only, while the port is under way (undercover_strict in bin/test)." >&2
+    fi
+  fi
+else
+  bundle exec rspec --format progress "$@" || status=1
+fi
 
 exit "$status"

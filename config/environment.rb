@@ -1,5 +1,5 @@
-# Load the rails application
-require File.expand_path('../application', __FILE__)
+# frozen_string_literal: true
 
-# Initialize the rails application
-OpenCourts::Application.initialize!
+require_relative 'application'
+
+Rails.application.initialize!

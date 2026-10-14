@@ -1,11 +1,10 @@
-class Judgement < ActiveRecord::Base
-  attr_accessible :judge_name_similarity,
-                  :judge_name_unprocessed
+# frozen_string_literal: true
 
+class Judgement < ApplicationRecord
   include Judge::Matched
 
-  scope :of_judge, lambda { |judge| where judge_id: judge }
+  scope :of_judge, ->(judge) { where(judge_id: judge) }
 
-  belongs_to :judge
-  belongs_to :decree
+  belongs_to :judge, optional: true
+  belongs_to :decree, optional: true
 end

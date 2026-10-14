@@ -1,43 +1,29 @@
+# frozen_string_literal: true
+
 class StaticPagesController < ApplicationController
-  def health
-    models = [Court, Judge, Hearing, Decree]
+  PAGES = %w[about contact copyright faq feedback privacy tos].freeze
 
-    models.each do |model|
-      return render status: 422, json: { errors: ["#{model} count does not match"] } if model.count != model.total
-    end
+  # Searchable models and their documents match.
+  HEALTH_MODELS = [Court, Judge, Hearing, Decree].freeze
 
-    head 204
-  end
+  def home; end
 
   def show
     @slug = params[:slug]
 
-    unless @slug.in?(%[about contact copyright faq feedback privacy tos api])
-      return head 404
-    end
+    return redirect_to("https://api.otvorenesudy.sk?l=#{I18n.locale}", allow_other_host: true) if @slug == 'api'
 
-    name = @slug.gsub(/-/, '_')
+    raise ActionController::RoutingError, "No page #{@slug}" unless PAGES.include?(@slug)
 
-    # TODO rm when we host api static page under this project
-    if @slug == 'api'
-      redirect_to "https://api.otvorenesudy.sk?l=#{I18n.locale}"
-      return
-    end
+    @title = t("static_pages.#{@slug}", default: '')
+    @template = "static_pages/content/#{@slug}"
+  end
 
-    @title    = translate "static_pages.#{name}", default: ''
-    @template = "static_pages/content/#{name}"
+  def health
+    model = HEALTH_MODELS.find { |candidate| candidate.count != candidate.total }
 
-    begin
-      render
-    rescue ActionView::ActionViewError => e
-      exceptions = [e, e.respond_to?(:original_exception) ? e.original_exception : nil].compact
-      types = exceptions.map(&:class)
+    return head :no_content unless model
 
-      if types.include?(ActionView::MissingTemplate) || types.include?(ArgumentError)
-        raise ActionController::RoutingError.new nil
-      end
-
-      raise e
-    end
+    render status: :unprocessable_content, json: { errors: ["#{model} count does not match"] }
   end
 end

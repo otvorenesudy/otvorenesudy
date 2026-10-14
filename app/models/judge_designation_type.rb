@@ -1,7 +1,7 @@
-class JudgeDesignationType < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :designations, class_name: :JudgeDesignation
+class JudgeDesignationType < ApplicationRecord
+  has_many :designations, class_name: 'JudgeDesignation', dependent: nil
 
   validates :value, presence: true
 end

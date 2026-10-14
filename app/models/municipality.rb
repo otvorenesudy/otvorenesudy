@@ -1,7 +1,6 @@
-class Municipality < ActiveRecord::Base
-  attr_accessible :name,
-                  :zipcode
+# frozen_string_literal: true
 
+class Municipality < ApplicationRecord
   has_many :courts, dependent: :destroy
 
   has_many :court_jurisdictions, dependent: :destroy

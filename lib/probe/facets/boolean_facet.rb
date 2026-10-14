@@ -1,48 +1,43 @@
-# TODO: refactor to Nested facet, create facet groups
+# frozen_string_literal: true
 
-class Probe::Facets
-  class BooleanFacet < Probe::Facets::Facet
-    def initialize(name, field, options)
-      super name, field, options
+module Probe
+  class Facets
+    # A yes/no switch that filters through another facet: `value:` gives that facet's terms for the switch's state
+    # (nil filters nothing). Hearings' `historical` switch, off by default, keeps only hearings from today on.
+    class BooleanFacet < Facet
+      def initialize(name, field, options)
+        super
 
-      @facet       = create_facet(options[:facet], name, field, options)
-      @default     = options[:default]
-      @facet_value = options[:value]
-    end
+        @facet = Probe::Facets.create(options[:facet], name, field, options)
+        @facet_value = options[:value]
+        @default = options[:default]
 
-    def refresh!
-      super
+        self.terms = @default.nil? || @default
+      end
 
-      @terms       = @default.nil? ? true : @default
-      @facet.terms = facet_value
-    end
+      def terms=(value)
+        @terms = value
+        @facet.terms = facet_value
+      end
 
-    def terms=(value)
-      @terms = value
+      def value
+        terms
+      end
 
-      @facet.terms = facet_value
-    end
+      # rubocop:disable-next Naming/PredicateMethod -- every facet type implements parse_terms
+      def parse_terms(value)
+        [true, 'true'].include?(value)
+      end
 
-    def active?
-      @facet.terms.present?
-    end
+      delegate :active?, to: :@facet
 
-    def parse_terms(value)
-      value == true || value == 'true' ? true : false
-    end
+      delegate :filter, to: :@facet
 
-    def build_filter
-      @facet.build_filter
-    end
+      private
 
-    alias :value :terms
-
-    private
-
-    def facet_value
-      return @facet_value.call(self) if @facet_value.respond_to? :call
-
-      @facet_value
+      def facet_value
+        @facet_value.respond_to?(:call) ? @facet_value.call(self) : @facet_value
+      end
     end
   end
 end

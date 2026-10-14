@@ -1,10 +1,10 @@
-class Subscription < ActiveRecord::Base
-  attr_accessible :query_attributes
+# frozen_string_literal: true
 
-  scope :latest, lambda { order('created_at desc') }
-
-  scope :by_model, lambda { |model| joins(:query).where('queries.model = ?', model.to_s) }
-  scope :by_period, lambda { |name| joins(:period).where('periods.name = ?', name) }
+# A user's saved search with the period of its e-mail of new results.
+class Subscription < ApplicationRecord
+  scope :latest, -> { order(created_at: :desc) }
+  scope :by_model, ->(model) { joins(:query).where(queries: { model: model.to_s }) }
+  scope :by_period, ->(name) { joins(:period).where(periods: { name: }) }
 
   belongs_to :user
   belongs_to :query
@@ -14,17 +14,25 @@ class Subscription < ActiveRecord::Base
 
   validates :token, presence: true, uniqueness: true
 
-  before_validation :assign_token, on: :create
-
-  after_save :register
   after_initialize :assign_period
+  before_validation :assign_token, on: :create
+  after_save :register
 
+  def self.generate_unique_token
+    loop do
+      token = SecureRandom.urlsafe_base64(24)
+
+      break token unless exists?(token:)
+    end
+  end
+
+  # The records of the first page of the saved search, newest first, created within the period.
   def results
-    return @results if @results
+    @results ||= begin
+      params = query.value.merge(sort: :created_at, order: :desc)
 
-    params = query.value.merge sort: :created_at, order: :desc
-
-    @results = query.model.constantize.search(params).records.find_all { |e, _| period.include? e.created_at }
+      query.model.constantize.search(params).records.select { |record| period.include?(record.created_at) }
+    end
   end
 
   def register
@@ -32,33 +40,21 @@ class Subscription < ActiveRecord::Base
   end
 
   def notify
-    SubscriptionMailer.results(self).deliver if results.any?
+    SubscriptionMailer.results(self).deliver_now if results.any?
   end
 
+  # A search already saved is reused by its id; a new one is saved from its model and params.
   def query_attributes=(attributes)
-    if attributes[:id]
-      self.query = ::Query.find(attributes[:id])
-    else
-      self.query = ::Query.create(attributes)
-    end
+    self.query = attributes[:id] ? Query.find(attributes[:id]) : Query.create(attributes)
   end
 
-  protected
+  private
 
   def assign_period
-    self.period ||= Period.monthly
+    self.period ||= Period.monthly if has_attribute?(:period_id)
   end
 
   def assign_token
-    return if token.present?
-
-    self.token = self.class.generate_unique_token
-  end
-
-  def self.generate_unique_token
-    loop do
-      token = SecureRandom.urlsafe_base64(24)
-      break token unless where(token: token).exists?
-    end
+    self.token = self.class.generate_unique_token if token.blank?
   end
 end

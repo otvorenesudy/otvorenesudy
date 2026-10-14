@@ -1,0 +1,11 @@
+{
+  "name": "otvorenesudy",
+  "private": true,
+  "description": "Development tools only: the app's JavaScript is served through importmap, without a build step.",
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

@@ -1,22 +1,15 @@
+# frozen_string_literal: true
+
+# Error pages, rendered through config.exceptions_app (which requests /<status>) in the site's layout and the
+# visitor's language.
 class ErrorsController < ApplicationController
   def show
-    @exception = env['action_dispatch.exception']
-    @message   = @exception.try(:message)
+    @status = Rack::Utils::HTTP_STATUS_CODES.key?(params[:status].to_i) ? params[:status].to_i : 500
 
-    class_name        = @exception.class.name
-    rescue_response   = ActionDispatch::ExceptionWrapper.rescue_responses[class_name]
-    exception_wrapper = ActionDispatch::ExceptionWrapper.new(env, @exception)
+    scope = [:exceptions, Rack::Utils::SYMBOL_TO_STATUS_CODE.key(@status)]
+    @title = t(:title, scope:, default: Rack::Utils::HTTP_STATUS_CODES[@status])
+    @description = t(:description, scope:, default: '')
 
-    @status = exception_wrapper.status_code
-    @trace  = exception_wrapper.full_trace if @exception
-
-    I18n.with_options scope: [:exceptions, rescue_response] do |i18n|
-      key = class_name.underscore
-
-      @title       = i18n.t "#{key}.title",       default: i18n.t(:title,       default: class_name)
-      @description = i18n.t "#{key}.description", default: i18n.t(:description, default: @message)
-    end
-
-    render status: @status
+    render status: @status, formats: :html
   end
 end

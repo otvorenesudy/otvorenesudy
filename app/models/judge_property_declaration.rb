@@ -1,28 +1,23 @@
-class JudgePropertyDeclaration < ActiveRecord::Base
+# frozen_string_literal: true
+
+class JudgePropertyDeclaration < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :year
+  scope :of_year, ->(year) { where(year: year) }
 
-  scope :of_year, lambda { |year| where('year = ?', year) }
+  belongs_to :court, optional: true
 
-  belongs_to :court
+  belongs_to :judge, optional: true
 
-  belongs_to :judge
+  has_many :lists, class_name: 'JudgePropertyList', dependent: :destroy
 
-  has_many :lists, class_name: :JudgePropertyList,
-                   dependent: :destroy
+  has_many :incomes, class_name: 'JudgeIncome', dependent: :destroy
 
-  has_many :incomes, class_name: :JudgeIncome,
-                     dependent: :destroy
+  has_many :proclaims, class_name: 'JudgeProclaim', dependent: :destroy
 
-  has_many :proclaims, class_name: :JudgeProclaim,
-                       dependent: :destroy
+  has_many :statements, class_name: 'JudgeStatement', through: :proclaims
 
-  has_many :statements, class_name: :JudgeStatement,
-                        through: :proclaims
-
-  has_many :related_people, class_name: :JudgeRelatedPerson,
-                            dependent: :destroy
+  has_many :related_people, class_name: 'JudgeRelatedPerson', dependent: :destroy
 
   validates :year, presence: true
 end

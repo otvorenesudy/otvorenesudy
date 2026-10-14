@@ -1,64 +1,47 @@
+# frozen_string_literal: true
+
 module Bing
+  # Up to 100 results for the query, without those whose URL matches `exclude`; nil when the response isn't JSON.
   class Search
-    attr_accessor :query,
-                  :exclude
+    ENDPOINT = 'https://api.datamarket.azure.com/Bing/Search/v1/Web'
+
+    attr_accessor :query, :exclude
 
     def perform
-      url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='#{@query}'&$format=json&$top=100"
+      url = "#{ENDPOINT}?#{URI.encode_www_form('Query' => "'#{query}'", '$format' => 'json', '$top' => 100)}"
 
-      data = connect(url)
+      parse(fetch(url))
+    rescue JSON::ParserError
+      Bing::Cache.delete(url)
 
-      begin
-        parse(data)
-      rescue JSON::ParserError
-        Bing::Cache.delete(url)
-
-        return
-      end
+      nil
     end
 
     private
 
-    def connect(url)
-      uri  = URI.encode(url)
-      data = Bing::Cache.get(uri)
+    def fetch(url)
+      Bing::Cache.get(url) || Bing::Cache.store(url, request(URI(url)))
+    end
 
-      unless data
-        curl = Curl::Easy.new(uri)
+    def request(uri)
+      request = Net::HTTP::Get.new(uri)
+      request.basic_auth('', Bing.api_key.to_s)
 
-        curl.http_auth_types = :basic
-        curl.username        = ''
-        curl.password        = Bing::API_KEY
-
-        curl.perform
-
-        data = curl.body_str
-
-        Bing::Cache.store(uri, data)
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true, open_timeout: 10, read_timeout: 30) do |http|
+        http.request(request).body
       end
-
-      data
     end
 
     def parse(data)
-      json    = JSON.parse(data, symbolize_names: true)
-      results = Array.new
+      results = JSON.parse(data, symbolize_names: true).dig(:d, :results).to_a
 
-      json[:d][:results].each do |result|
-        next unless valid?(result)
-
-        results << { title: result[:Title], description: result[:Description], url: result[:Url] }
+      results.filter_map do |result|
+        { title: result[:Title], description: result[:Description], url: result[:Url] } if valid?(result)
       end
-
-      results
     end
 
     def valid?(result)
-      return @validator.call(result) if @validator && @validator.respond_to?(:call)
-
-      return !@exclude.match(result[:Url]) if @exclude
-
-      true
+      exclude ? !exclude.match?(result[:Url]) : true
     end
   end
 end

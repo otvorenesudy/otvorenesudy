@@ -1,38 +1,28 @@
-OpenCourts::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+# frozen_string_literal: true
 
-  # The test environment is used exclusively to run your application's
-  # test suite. You never need to work with it otherwise. Remember that
-  # your test database is "scratch space" for the test suite and is wiped
-  # and recreated between test runs. Don't rely on the data there!
-  config.cache_classes = true
+Rails.application.configure do
+  config.enable_reloading = false
 
-  # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=3600"
+  # Eager loading on every full run proves that every class loads without a database or an index.
+  config.eager_load = ENV['CI'].present? || ENV['COVERAGE'].present?
 
-  # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
+  config.public_file_server.headers = { 'cache-control' => 'public, max-age=3600' }
 
-  # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.consider_all_requests_local = true
+  config.cache_store = :null_store
 
-  # Raise exceptions instead of rendering exception templates
-  config.action_dispatch.show_exceptions = false
+  # Errors raise in specs, except where a spec asks for the error page (see spec/support/error_pages.rb).
+  config.action_dispatch.show_exceptions = :rescuable
 
-  # Disable request forgery protection in test environment
-  config.action_controller.allow_forgery_protection    = false
+  config.action_controller.allow_forgery_protection = false
 
-  # Tell Action Mailer not to deliver emails to the real world.
-  # The :test delivery method accumulates sent emails in the
-  # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method     = :test
-  config.action_mailer.default_url_options = { :host => "www.example.com" }
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'www.example.com' }
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  config.active_job.queue_adapter = :test
 
-  # Print deprecation notices to the stderr
-  config.active_support.deprecation = :stderr
+  config.active_support.deprecation = :raise
+
+  config.i18n.raise_on_missing_translations = true
+  config.action_controller.raise_on_missing_callback_actions = true
 end

@@ -1,70 +1,69 @@
-module Resource::Formatable
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  module ClassMethods
-    def formatters
-      @formatters ||= Hash.new
-    end
+# An attribute composed from others when it isn't stored: `formatable :name, default: '%p %f %l, %s' do |judge| {...}`
+# makes `judge.name` the stored name, or the name composed by the default pattern, and `judge.name('%f %l')` the name in
+# another pattern. `fixes:` clean up the composed value (a trailing comma when the suffix is missing).
+module Resource
+  module Formatable
+    extend ActiveSupport::Concern
 
-    protected
-
-    def formatable(attribute, options = {})
-      define_method attribute do |pattern = nil|
-        value = read_attribute(attribute)
-
-        return value if !value.nil? && (pattern.nil? || pattern == options[:default])
-
-        formatter = (self.class.formatters[attribute] ||= Formatter.new data = yield(self), options)
-        cache     = (formatted[attribute] ||= Cache.new data || yield(self))
-
-        cache.get formatter, pattern
+    class_methods do
+      def formatters
+        @formatters ||= {}
       end
 
-      define_method "invalidate_#{attribute}" do
-        formatted[attribute] = nil
+      private
+
+      def formatable(attribute, options = {}, &)
+        define_method(attribute) do |pattern = nil|
+          value = self[attribute]
+
+          return value if !value.nil? && (pattern.nil? || pattern == options[:default])
+
+          formatter = (self.class.formatters[attribute] ||= Formatter.new(yield(self), options))
+          cache = (formatted[attribute] ||= Cache.new(yield(self)))
+
+          cache.get(formatter, pattern)
+        end
+
+        define_method("invalidate_#{attribute}") do
+          formatted[attribute] = nil
+        end
       end
     end
-  end
 
-  private
+    class Formatter
+      attr_reader :default, :directives, :fixes
 
-  def formatted
-    @formatted ||= {}
-  end
+      def initialize(data, options = {})
+        @default = options[:default] || raise(ArgumentError, 'formatable needs a default pattern')
+        @directives = data.keys.pluck(1)
+        @fixes = Array.wrap(options[:fixes])
+        @pattern = /%[#{@directives.join}]/
+      end
 
-  public
+      def format(pattern, data)
+        value = (pattern || default).gsub(@pattern) { |directive| data[directive].to_s }.squeeze(' ').strip
 
-  class Formatter
-    attr_reader :default,
-                :directives,
-                :fixes
-
-    def initialize(data, options = {})
-      @default    = options[:default] || raise
-      @directives = data.keys.map { |key| key[1].to_sym }
-      @fixes      = Array.wrap options[:fixes]
-      @regexp     = /\%[#{@directives.join}]/
+        fixes.reduce(value) { |fixed, fix| fix.call(fixed) }
+      end
     end
 
-    def format(pattern, data)
-      value = (pattern || default).gsub(@regexp, data).squeeze(' ').strip
+    class Cache
+      def initialize(data)
+        @data = data
+        @cache = {}
+      end
 
-      @fixes.each { |fix| value = fix.call value }
-
-      value
-    end
-  end
-
-  class Cache
-    attr_reader :values
-
-    def initialize(data)
-      @data  = data
-      @cache = {}
+      def get(formatter, pattern)
+        @cache[pattern] ||= formatter.format(pattern, @data)
+      end
     end
 
-    def get(formatter, pattern)
-      @cache[pattern] ||= formatter.format pattern, @data
+    private
+
+    def formatted
+      @formatted ||= {}
     end
   end
 end

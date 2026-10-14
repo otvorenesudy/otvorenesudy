@@ -1,0 +1,2 @@
+--simplecov coverage/coverage.json
+--exclude-files {bin,config,data,db,lib/tasks,script,spec,tmp,vendor}/**/*,Rakefile,config.ru,**/*selection_procedure*

@@ -1,11 +1,16 @@
-class Probe::Facets
-  class MultiTermsFacet < Probe::Facets::TermsFacet
-    attr_reader :multi
+# frozen_string_literal: true
 
-    def initialize(name, field, options)
-      super(name, field, options)
+module Probe
+  class Facets
+    # A terms facet that carries a `multi:` option for its views.
+    class MultiTermsFacet < TermsFacet
+      attr_reader :multi
 
-      @multi = options[:multi]
+      def initialize(name, field, options)
+        super
+
+        @multi = options[:multi]
+      end
     end
   end
 end

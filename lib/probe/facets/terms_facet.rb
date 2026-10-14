@@ -1,79 +1,90 @@
-class Probe::Facets
-  class TermsFacet < Probe::Facets::Facet
-    include Probe::Search::Query
+# frozen_string_literal: true
 
-    attr_accessor :script
-
-    def build(index, name, options)
-      index.facet name, options do |f|
-        facet_options = Hash.new
-
-        facet_options[:size] = @size
-
-        if block_given?
-          yield f, facet_options
-        else
-          f.terms not_analyzed_field(@field), facet_options
+module Probe
+  class Facets
+    # The most frequent values of a field (court, judge, form...), plus "missing" for records without one.
+    class TermsFacet < Facet
+      class Result < Facet::Result
+        def missing?
+          value == MISSING
         end
-      end
-    end
 
-    def build_filter
-      terms.map do |value|
-        if value == missing_facet_name
-          { missing: { field: not_analyzed_field(@field), existence: true }}
-        else
-          { term: { not_analyzed_field(@field) => value }}
+        alias missing missing?
+      end
+
+      # Each base letter and the Latin letters that fold to it, in both cases: "c" matches c, C, č, Č, ć, Ć...
+      LETTERS = ((0x41..0x5a).to_a + (0x61..0x7a).to_a + (0xc0..0x17f).to_a)
+                .map { |code| code.chr(Encoding::UTF_8) }
+                .group_by { |letter| letter.unicode_normalize(:nfkd)[0].downcase }
+                .select { |base, _| base.match?(/\A[a-z]\z/) }
+                .transform_values { |letters| "[#{letters.join}]" }
+                .freeze
+
+      # Characters with a meaning in Lucene's regular expressions.
+      RESERVED = /[.?+*|{}\[\]()"\\#@&<>~]/
+
+      def filter
+        { bool: { should: terms.map { |value| term_filter(value) }, minimum_should_match: 1 } }
+      end
+
+      def aggregation
+        selected = terms - [MISSING]
+        aggregation = {
+          values: { terms: { field: keyword_field, size: } },
+          missing: { missing: { field: keyword_field } }
+        }
+
+        if selected.any?
+          aggregation[:selected] =
+            { terms: { field: keyword_field, include: selected, size: selected.size } }
         end
-      end
-    end
-
-    def build_suggest_query(term)
-      build_query_filter_from(@field, "#{term}*", operator: :and)
-    end
-
-    def build_suggest_facet(index, options)
-      build(index, name, options) do |f, facet_options|
-        facet_options.merge! @script.build if @script
-
-        f.terms not_analyzed_field(@field), facet_options
-      end
-    end
-
-    def add_facet_script(script)
-      @script = script
-    end
-
-    private
-
-    def populate_facets(results)
-      values = results['terms'].map do |term|
-        value = term['term']
-
-        params        = create_result_params(value)
-        add_params    = create_result_add_params(value)
-        remove_params = create_result_remove_params(value)
-
-        Result.new(value, term['count'], params, add_params, remove_params)
+        aggregation
       end
 
-      if results['missing'] > 0
-        params        = create_result_params(missing_facet_name)
-        add_params    = create_result_add_params(missing_facet_name)
-        remove_params = create_result_remove_params(missing_facet_name)
+      # Records whose field has a word starting with the term, and the values that contain it, regardless of case and
+      # diacritics.
+      def suggest_query(term)
+        query = "#{Probe::Sanitizer.query_string(Probe::Sanitizer.suggest_string(term))}*"
 
-        values << Result.new(missing_facet_name, results['missing'], params, add_params, remove_params)
+        { query_string: { query:, fields: [analyzed_field], default_operator: 'AND', analyze_wildcard: true } }
       end
 
-      values
-    end
+      def suggest_aggregation(term)
+        aggregation = { field: keyword_field, size: }
+        aggregation[:include] = suggest_pattern(term) if term.present?
 
-    class Result < Facet::Result
-      def missing
-        value == 'missing'
+        { terms: aggregation }
       end
 
-      alias :missing? :missing
+      private
+
+      def term_filter(value)
+        return { bool: { must_not: { exists: { field: keyword_field } } } } if value == MISSING
+
+        { term: { keyword_field => value } }
+      end
+
+      def suggest_pattern(term)
+        folded = term.to_s.first(100).unicode_normalize(:nfkd).gsub(/\p{Mn}/, '').downcase
+        pattern = folded.chars.map { |char| LETTERS[char] || char.gsub(RESERVED) { |c| "\\#{c}" } }.join
+
+        ".*#{pattern}.*"
+      end
+
+      def build_results(response)
+        results = response.dig('values', 'buckets').to_a.map { |bucket| result(key(bucket), bucket['doc_count']) }
+        missing = response.dig('missing', 'doc_count').to_i
+
+        missing.positive? ? results + [result(MISSING, missing)] : results
+      end
+
+      def build_selected(response)
+        response.dig('selected', 'buckets').to_a.map { |bucket| result(key(bucket), bucket['doc_count']) }
+      end
+
+      def key(bucket)
+        bucket['key_as_string'] || bucket['key'].to_s
+      end
     end
   end
 end

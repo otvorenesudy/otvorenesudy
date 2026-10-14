@@ -1,11 +1,17 @@
+# frozen_string_literal: true
+
 module LinkHelper
   PATTERN = /[;,]\s+/
 
   def email_to(emails, separator = ', ')
-    emails.split(PATTERN).map { |email| mail_to(email, nil, encode: :hex).ascii }.join(separator).html_safe
+    safe_join(emails.split(PATTERN).map { |email| mail_to(email) }, separator)
   end
 
   def phone_to(phones, separator = ', ')
-    phones.split(PATTERN).map { |phone| link_to(phone.gsub(/\s+/, '&nbsp;').html_safe, "tel:#{phone}") }.join(separator).html_safe
+    links = phones.split(PATTERN).map do |phone|
+      link_to(safe_join(phone.split(/\s+/), ' '), "tel:#{phone.delete(' ')}")
+    end
+
+    safe_join(links, separator)
   end
 end
