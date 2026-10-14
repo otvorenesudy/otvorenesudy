@@ -57,6 +57,20 @@ RSpec.describe 'Judges' do
       expect(result_names).to eq(['JUDr. Peter Čierny'])
     end
 
+    it 'lists a judge of unknown activity as probably a higher court official' do
+      judge = create(:judge, first: 'Mária', last: 'Úradníčková')
+      create(:employment, :unknown, court:, judge:)
+      judge.update_index
+      refresh_indices
+
+      visit judges_path
+
+      item = find('.search-result-item')
+
+      expect(item).to have_text('Pravdepodobne VSÚ na súde Okresný súd Rimavská Sobota')
+      expect(item.find_link('VSÚ')['data-bs-title']).to eq('Vyššia súdna úradníčka')
+    end
+
     it 'filters by activity and by court' do
       judge('Aktívny')
       create(:employment, :inactive, judge: create(:judge, last: 'Bývalý'), court: create(:court, name: 'Krajský súd'))

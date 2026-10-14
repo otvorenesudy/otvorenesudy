@@ -22,6 +22,14 @@ module TextHelper
     safe_join([shown, truncation_marker(packed, shown, separator, options)])
   end
 
+  # The text with its first letter upper case, keeping the markup of HTML that starts with text; String#upcase_first
+  # would return it as text, to be escaped.
+  def upcase_first_html(text)
+    return text.upcase_first if text.empty? || !text.html_safe?
+
+    safe_join([text[0].upcase, text[1..]])
+  end
+
   # Highlighted fragments (<em> kept), joined with an ellipsis and wrapped in ellipses.
   def strip_and_highlight(text)
     ellipsis = tag.span(OMISSION, class: 'text-muted')
