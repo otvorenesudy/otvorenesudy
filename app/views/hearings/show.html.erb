@@ -45,7 +45,7 @@
       <p><%= t '.note' %> &ndash; <%= @hearing.note %></p>
     <% end %>
     <p>
-      <%= t '.resource' %> &ndash; <%= link_to t('.document'), @hearing.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+      <%= t '.resource' %> &ndash; <%= link_to_source t('.document'), @hearing.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
   </div>
 
@@ -139,6 +139,6 @@
 <% end %>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t('.resource_note.description', document: link_to(t('.resource_note.document'), @hearing.uri), update: time_tag(@hearing.updated_at.to_date, format: :default)) %>
-  <%= s t('.link_note.description', document: link_to(t('.link_note.document'), @hearing.uri)) %>
+  <%= s t('.resource_note.description', document: link_to_source(t('.resource_note.document'), @hearing.uri), update: time_tag(@hearing.updated_at.to_date, format: :default)) %>
+  <%= s t('.link_note.description', document: link_to_source(t('.link_note.document'), @hearing.uri)) %>
 </p>
