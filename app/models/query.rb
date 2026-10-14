@@ -9,7 +9,7 @@ class Query < ApplicationRecord
   MODELS = %w[Decree Hearing].freeze
 
   scope :by_model, ->(model) { where(model: model.to_s) }
-  scope :by_model_and_value, ->(model, value) { where(digest: Query.digest(value), model: model.to_s) }
+  scope :by_model_and_value, ->(model, value) { where(digest: digest(value), model: model.to_s) }
 
   has_many :subscriptions, dependent: :destroy
   has_many :users, through: :subscriptions
@@ -37,13 +37,14 @@ class Query < ApplicationRecord
     JSON.parse(self[:value], symbolize_names: true)
   end
 
+  # Within the class, Query is Active Record's AttributeMethods::Query; the class methods go through self.class.
   def value=(value)
-    self[:value] = Query.unwrap(value)
+    self[:value] = self.class.unwrap(value)
   end
 
   private
 
   def compute_digest
-    self.digest ||= Query.digest(Query.wrap(self[:value]))
+    self.digest ||= self.class.digest(self.class.wrap(self[:value]))
   end
 end

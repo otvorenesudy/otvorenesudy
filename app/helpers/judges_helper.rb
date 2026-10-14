@@ -76,7 +76,7 @@ module JudgesHelper
   end
 
   def link_to_judge(judge, options = {})
-    link_to judge.name(options.delete(:format)), judge_path(judge), judge_activity_options(judge, options)
+    link_to judge.name(options.delete(:format)), judge, judge_activity_options(judge, options)
   end
 
   def links_to_judges(judges, options = {})

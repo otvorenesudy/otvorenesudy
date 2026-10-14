@@ -5,6 +5,7 @@ class Subscription < ApplicationRecord
   scope :latest, -> { order(created_at: :desc) }
   scope :by_model, ->(model) { joins(:query).where(queries: { model: model.to_s }) }
   scope :by_period, ->(name) { joins(:period).where(periods: { name: }) }
+  scope :of_confirmed_users, -> { joins(:user).where.not(users: { confirmed_at: nil }) }
 
   belongs_to :user
   belongs_to :query
@@ -43,9 +44,13 @@ class Subscription < ApplicationRecord
     SubscriptionMailer.results(self).deliver_now if results.any?
   end
 
-  # A search already saved is reused by its id; a new one is saved from its model and params.
+  # The same search (its model and params) is saved once and shared by its subscriptions. Within the class, Query is
+  # Active Record's AttributeMethods::Query, hence ::Query.
   def query_attributes=(attributes)
-    self.query = attributes[:id] ? Query.find(attributes[:id]) : Query.create(attributes)
+    model, value = attributes.to_h.symbolize_keys.values_at(:model, :value)
+    value = ::Query.wrap(value.presence || {})
+
+    self.query = ::Query.by_model_and_value(model, value).first || ::Query.new(model:, value:)
   end
 
   private

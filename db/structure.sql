@@ -2304,7 +2304,8 @@ CREATE TABLE public.subscriptions (
     query_id integer NOT NULL,
     period_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    token character varying(255) NOT NULL
 );
 
 
@@ -4612,6 +4613,13 @@ CREATE INDEX index_subscriptions_on_query_id ON public.subscriptions USING btree
 
 
 --
+-- Name: index_subscriptions_on_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_token ON public.subscriptions USING btree (token);
+
+
+--
 -- Name: index_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4871,3 +4879,6 @@ INSERT INTO schema_migrations (version) VALUES ('20240513145707');
 INSERT INTO schema_migrations (version) VALUES ('20240516084658');
 
 INSERT INTO schema_migrations (version) VALUES ('20240613170412');
+
+INSERT INTO schema_migrations (version) VALUES ('20260423120000');
+

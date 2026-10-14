@@ -2,7 +2,7 @@
 
 module CourtsHelper
   def link_to_court(court, options = {})
-    link_to court.name, court_path(court), options
+    link_to court.name, court, options
   end
 
   def links_to_courts(courts, options = {})
