@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Decides whether a change is done: bin/lint on the branch's changes, then the RSpec suite against a test database
 # loaded from db/structure.sql and the local Elasticsearch. A full run (no arguments) also measures coverage: SimpleCov
-# fails it below 95% of lines or 90% of branches, and undercover reports the methods this branch changed that no spec
-# runs. Exits non-zero when any of them fails.
+# fails it below 95% of lines or 90% of branches, and undercover fails it for any method this branch changed that no
+# spec runs. Exits non-zero when any of them fails.
 #
 # Usage:
 #   bin/test               lint, then every spec, with coverage
@@ -17,9 +17,6 @@
 # run of either waits for the first.
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
-
-# While the Rails 8 port is under way undercover only reports; set to 1 when it lands so uncovered changes fail.
-undercover_strict=0
 
 lock=/tmp/otvorenesudy-bin-test.lock
 waited=0
@@ -79,13 +76,7 @@ if (($# == 0)); then
   bundle exec rspec --format progress || status=1
 
   echo "==> undercover"
-  if ! bundle exec undercover --compare origin/main; then
-    if ((undercover_strict)); then
-      status=1
-    else
-      echo "undercover: reported only, while the port is under way (undercover_strict in bin/test)." >&2
-    fi
-  fi
+  bundle exec undercover --compare origin/main || status=1
 else
   bundle exec rspec --format progress "$@" || status=1
 fi
