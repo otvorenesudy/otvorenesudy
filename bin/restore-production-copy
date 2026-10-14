@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+# Restores the website's database from a production backup into a local database, then masks personal data in it.
+#
+# The server's weekly backup (otvorenesudy-server, roles/apps/scripts/db-backup.sh) is `pg_dumpall | gzip`: plain SQL
+# of the whole cluster. This streams only the opencourts_production section into PostgreSQL on localhost. The roles
+# (with their password hashes) and the other apps' databases (API keys, invites) are skipped, so they never reach this
+# machine. The restore goes into a staging database that replaces the target only once it is complete, and
+# db/mask.sql runs right after it.
+#
+# Usage:
+#   bin/restore-production-copy [--database NAME] [--keep EMAIL] BACKUP.gz
+#
+#   --database NAME   the local database to replace (default: opencourts_development)
+#   --keep EMAIL      the one user whose e-mail and password stay real (default: git config user.email)
+#
+# Needs PostgreSQL 16 or newer with pgvector, pg_trgm and unaccent on localhost, and free disk space for the restored
+# database. A full backup takes hours; psql's errors go to log/restore-production-copy.log.
+set -uo pipefail
+cd "$(dirname "$0")/.." || exit 1
+
+usage() {
+  sed -n '/^# Usage:/,/^[^#]/p' "$0" | sed -e '$d' -e 's/^# \{0,1\}//' >&2
+  exit 2
+}
+
+database=opencourts_development
+keep=$(git config user.email || true)
+backup=""
+
+while (($# > 0)); do
+  case "$1" in
+    --database)
+      database=${2:?--database needs a name}
+      shift 2
+      ;;
+    --keep)
+      keep=${2:?--keep needs an e-mail}
+      shift 2
+      ;;
+    -*) usage ;;
+    *)
+      [[ -z "$backup" ]] || usage
+      backup=$1
+      shift
+      ;;
+  esac
+done
+
+[[ -n "$backup" ]] || usage
+[[ -f "$backup" ]] || {
+  echo "No such file: $backup" >&2
+  exit 1
+}
+[[ -n "$keep" ]] || {
+  echo "Pass --keep EMAIL: no e-mail in git config to keep unmasked." >&2
+  exit 1
+}
+
+export PGHOST=${PGHOST:-localhost}
+# libpq's GSSAPI negotiation crashes on macOS; nothing here uses Kerberos.
+export PGGSSENCMODE=disable
+
+source_database=opencourts_production
+staging=${database}_restore
+log=log/restore-production-copy.log
+
+if ! pg_isready -q; then
+  echo "PostgreSQL isn't running on $PGHOST." >&2
+  exit 1
+fi
+
+exists() {
+  [[ $(psql -X -d postgres -Atc "SELECT 1 FROM pg_database WHERE datname = '$1'") == 1 ]]
+}
+
+if exists "$staging"; then
+  echo "$staging exists, probably from an interrupted run. Drop it first: dropdb $staging" >&2
+  exit 1
+fi
+
+echo "This restores $source_database from $backup into $database, replacing it once the restore is complete."
+echo "Every user except $keep is masked."
+read -r -p "Continue? [y/N] " answer
+[[ "$answer" =~ ^[Yy]$ ]] || exit 1
+
+df -h . | tail -1 | awk '{ print "Free disk space: " $4 }'
+
+# Objects in the dump are owned by the production role. A local role without login keeps those statements working;
+# superusers (postgres, you) still reach everything.
+psql -X -q -d postgres -c "DO \$\$ BEGIN CREATE ROLE opencourts NOLOGIN; EXCEPTION WHEN duplicate_object THEN NULL; END \$\$" || exit 1
+createdb -T template0 -E UTF8 "$staging" || exit 1
+
+if command -v pigz >/dev/null; then
+  decompress=(pigz -dc)
+else
+  decompress=(gzip -dc)
+fi
+
+mkdir -p log
+echo "Restoring into $staging (started $(date '+%H:%M'), errors in $log)..."
+started=$SECONDS
+
+# The section starts at the `-- Database "opencourts_production" dump` header and ends at the next database's header
+# or the end of the cluster dump. Before its \connect line it creates the database, which already exists as the
+# staging database, so CREATE DATABASE is dropped and the remaining lines and the \connect target point at staging.
+# awk stops reading after the section.
+# shellcheck disable=SC2016
+LC_ALL=C "${decompress[@]}" "$backup" |
+  LC_ALL=C awk -v source="$source_database" -v staging="$staging" '
+    BEGIN { header = "-- Database \"" source "\" dump" }
+    !inside { if ($0 == header) inside = 1; else next }
+    /^-- Database "/ && $0 != header { exit }
+    $0 == "-- PostgreSQL database cluster dump complete" { exit }
+    !connected && /^CREATE DATABASE / { next }
+    !connected && /^\\connect / { print "\\connect " staging; connected = 1; next }
+    !connected { gsub(source, staging) }
+    { print }
+  ' |
+  PGOPTIONS='-c maintenance_work_mem=8GB -c max_parallel_maintenance_workers=8 -c synchronous_commit=off' \
+    psql -X -q -d postgres >/dev/null 2>"$log"
+statuses=("${PIPESTATUS[@]}")
+
+# The decompressor gets SIGPIPE (141) when awk stops after the section.
+if [[ ${statuses[0]} != 0 && ${statuses[0]} != 141 ]] || [[ ${statuses[1]} != 0 || ${statuses[2]} != 0 ]]; then
+  echo "The restore failed (decompress, awk, psql exited ${statuses[*]}). See $log; $staging is left for inspection." >&2
+  exit 1
+fi
+
+errors=$(grep -c 'ERROR:' "$log" || true)
+echo "Restored in $(((SECONDS - started) / 60)) minutes with $errors psql errors (see $log)."
+
+tables=$(psql -X -d "$staging" -Atc "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public'")
+if ((tables == 0)); then
+  echo "$staging has no tables: the backup has no $source_database section. $staging is left for inspection." >&2
+  exit 1
+fi
+
+echo "Masking personal data..."
+if ! psql -X -d "$staging" -v keep_email="$keep" -f db/mask.sql; then
+  echo "Masking failed; $staging is left unmasked. Fix db/mask.sql and run it on $staging, or drop $staging." >&2
+  exit 1
+fi
+
+echo "Replacing $database..."
+psql -X -q -d postgres -c "DROP DATABASE IF EXISTS \"$database\" WITH (FORCE)" || exit 1
+psql -X -q -d postgres -c "ALTER DATABASE \"$staging\" RENAME TO \"$database\"" || exit 1
+
+echo "Updating planner statistics..."
+vacuumdb --quiet --analyze-in-stages --jobs=8 --dbname="$database" || exit 1
+
+psql -X -d "$database" -Atc "SELECT pg_size_pretty(pg_database_size(current_database()))" |
+  awk -v db="$database" '{ print db " is ready: " $0 }'
