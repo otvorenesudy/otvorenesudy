@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-# Marks decrees whose PDF the source no longer serves: anything but a 200 with a binary body.
+require 'net/http'
+
+# Marks decrees whose PDF the source no longer serves: anything but a 200 with a binary body. A network failure fails
+# the job, to be retried, rather than mark the decrees.
 class MarkDecreesWithInvalidPdfUriJob < ApplicationJob
   queue_as :utils
 
@@ -15,16 +18,13 @@ class MarkDecreesWithInvalidPdfUriJob < ApplicationJob
 
   private
 
-  def serves_pdf?(uri)
-    uri = URI(uri)
+  def serves_pdf?(url)
+    uri = URI(url)
+    options = { use_ssl: uri.scheme == 'https', open_timeout: 10, read_timeout: 60 }
+    response = Net::HTTP.start(uri.host, uri.port, **options) { |http| http.request_get(uri) }
 
-    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', open_timeout: 10, read_timeout: 30) do |http|
-      response = http.request_head(uri)
-      response = http.request_get(uri) if response.is_a?(Net::HTTPMethodNotAllowed)
-
-      response.is_a?(Net::HTTPOK) && response.content_type == 'application/octet-stream'
-    end
-  rescue StandardError
+    response.is_a?(Net::HTTPOK) && response.content_type == 'application/octet-stream'
+  rescue URI::InvalidURIError
     false
   end
 end

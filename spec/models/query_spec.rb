@@ -1,39 +1,46 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe Query do
+require 'rails_helper'
+
+RSpec.describe Query do
   describe '#value' do
-    it 'should create valid query for empty hash' do
-      query = build :query, :empty
+    it 'stores an empty search' do
+      query = build(:query, value: {})
 
-      query.should be_valid
-      query.value.should eql({})
+      expect(query).to be_valid
+      expect(query.value).to eq({})
     end
 
-    it 'should create valid query from hash with ranges' do
-      query = build :query
+    it 'stores a range as the form the facets read back' do
+      query = build(:query, value: { range: 1..100 })
 
-      query.value = { range: 1..100 }
-
-      query.should       be_valid
-      query.value.should eql({ range: '1..100' })
+      expect(query).to be_valid
+      expect(query.value).to eq(range: '1..100')
     end
 
-    it 'should create valid query from hash with arrays' do
-      query = build :query
+    it 'stores a list of values' do
+      query = build(:query, value: { court: %w[1 2] })
 
-      query.value = { array: ['1', '2'] }
-
-      query.should       be_valid
-      query.value.should eql({ array: ['1', '2']})
+      expect(query.value).to eq(court: %w[1 2])
     end
 
-    it 'should create valie query from hash with range arrays' do
-      query = build :query
+    it 'stores a list of ranges' do
+      query = build(:query, value: { range: [1..100, 2..300] })
 
-      query.value = { range: [1..100, 2..300] }
-
-      query.should       be_valid
-      query.value.should eql({ range: ['1..100', '2..300'] })
+      expect(query.value).to eq(range: %w[1..100 2..300])
     end
+  end
+
+  describe '.by_model_and_value' do
+    it 'finds the same search by its digest' do
+      query = create(:query, value: { court: ['Okresný súd Košice I'] })
+
+      expect(described_class.by_model_and_value(Decree, { court: ['Okresný súd Košice I'] })).to eq([query])
+      expect(described_class.by_model_and_value(Hearing, { court: ['Okresný súd Košice I'] })).to be_empty
+    end
+  end
+
+  it 'saves searches of decrees and hearings only' do
+    expect(build(:query, model: 'User')).not_to be_valid
   end
 end
