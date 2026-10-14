@@ -72,17 +72,18 @@ module Probe
       end
 
       def build_results(response)
-        results = response.dig('values', 'buckets').to_a.map { |bucket| result(key(bucket), bucket['doc_count']) }
+        buckets = response.dig('values', 'buckets').to_a
+        results = buckets.map { |bucket| result(bucket_value(bucket), bucket['doc_count']) }
         missing = response.dig('missing', 'doc_count').to_i
 
         missing.positive? ? results + [result(MISSING, missing)] : results
       end
 
       def build_selected(response)
-        response.dig('selected', 'buckets').to_a.map { |bucket| result(key(bucket), bucket['doc_count']) }
+        response.dig('selected', 'buckets').to_a.map { |bucket| result(bucket_value(bucket), bucket['doc_count']) }
       end
 
-      def key(bucket)
+      def bucket_value(bucket)
         bucket['key_as_string'] || bucket['key'].to_s
       end
     end

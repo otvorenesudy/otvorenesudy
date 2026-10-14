@@ -23,7 +23,7 @@
     <% if contact[:note] %>
       <div class="row">
         <div class="col-5 col-sm-4 col-md-3"><%= t '.note' %></div>
-        <div class="col-7 col-sm-8 col-md-9"><%= sanitize(contact[:note]).gsub(/\n/, '<br>').html_safe %></div>
+        <div class="col-7 col-sm-8 col-md-9"><%= sanitize contact[:note].gsub("\n", '<br>') %></div>
       </div>
     <% end %>
   </div>
@@ -32,7 +32,7 @@
     <div class="col-lg-4">
       <table class="table mt-4 mt-lg-0 mb-0">
         <thead>
-          <th class="py-2" colspan="2" scope="col"><%= t '.hours' %></th>
+          <tr><th class="py-2" colspan="2" scope="col"><%= t '.hours' %></th></tr>
         </thead>
         <tbody>
           <tr>

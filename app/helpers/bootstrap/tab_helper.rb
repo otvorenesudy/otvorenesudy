@@ -3,14 +3,15 @@
 module Bootstrap
   # Tabs whose links sit in a list with data-controller="tabs" (the URL's hash opens a tab).
   module TabHelper
-    TAB_ACTIONS = 'shown.bs.tab->tabs#shown hidden.bs.tab->tabs#hidden'
-
     def tab_link_tag(title, tab, options = {})
       classes = Array.wrap(options[:class]).unshift('nav-link')
-      data = { bs_toggle: 'tab', action: TAB_ACTIONS }
+      active = classes.include?('active')
+      data = { bs_toggle: 'tab', action: 'shown.bs.tab->tabs#shown' }
+      aria = { selected: active, controls: tab }
 
       tag.li(class: 'nav-item', role: 'presentation') do
-        link_to title, "##{tab}", options.deep_merge(class: classes, data:, role: 'tab')
+        link_to title, "##{tab}", options.deep_merge(class: classes, data:, aria:, role: 'tab',
+                                                     tabindex: (-1 unless active))
       end
     end
 
@@ -24,7 +25,7 @@ module Bootstrap
       return tab_content_tag(options.split('/').last) { render(options, locals) } unless options.is_a?(Hash)
 
       tab = options[:tab] || options[:partial].split('/').last
-      block ||= -> { render(options[:partial], options.fetch(:locals, locals)) }
+      block ||= proc { render(options[:partial], options.fetch(:locals, locals)) }
 
       tab_content_tag(tab, class: options[:class], &block)
     end

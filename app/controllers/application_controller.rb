@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include FlashHelper
-
-  before_action { flash_message_wrap keys: %i[danger warning info] }
-  before_action :set_locale
+  around_action :switch_locale
 
   protected
 
@@ -22,13 +19,17 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # ?l=sk or ?l=en; any other language goes to the home page.
-  def set_locale
+  # Pages warn about several things at once: each call adds a message of the type.
+  def flash_now(type, message)
+    flash.now[type] = [*flash.now[type], message]
+  end
+
+  # ?l=sk or ?l=en for the request; any other language goes to the home page.
+  def switch_locale(&)
     locale = params[:l].presence || I18n.default_locale
 
-    return I18n.locale = locale if I18n.available_locales.map(&:to_s).include?(locale.to_s)
+    return redirect_to(root_path) unless I18n.available_locales.map(&:to_s).include?(locale.to_s)
 
-    I18n.locale = I18n.default_locale
-    redirect_to root_path
+    I18n.with_locale(locale, &)
   end
 end

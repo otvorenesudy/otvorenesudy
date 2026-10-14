@@ -71,7 +71,8 @@ module Probe
 
         return if fields.empty?
 
-        options = { number_of_fragments: 1_000_000 }
+        # Every highlighted fragment, up to Elasticsearch's limit.
+        options = { number_of_fragments: 10_000 }
 
         { fields: fields.to_h { |field| [Probe::Fields.analyzed(field), options] }, max_analyzed_offset: 999_999 }
       end

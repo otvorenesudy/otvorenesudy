@@ -1,85 +1,74 @@
+# frozen_string_literal: true
+
 module JudgesHelper
-  def judge_title(judge, options = {}, &block)
-    judge_wrap_fix "#{judge.prefix} #{judge.suffix}".strip, judge_activity_options(judge, options), &block
+  ACTIVITY_ICONS = {
+    true => %w[check text-success active],
+    false => %w[times text-danger inactive],
+    nil => %w[question text-warning unknown]
+  }.freeze
+
+  POSITIONS = {
+    'sudca' => :judge,
+    'hosťujúci sudca' => :visiting_judge,
+    'predseda súdnej rady' => :judicial_council_chairman,
+    'člen súdnej rady' => :judicial_council_member
+  }.freeze
+
+  CHAIR_POSITION_KEYS = %w[chairman vice_chairman].flat_map do |position|
+    %W[judges.position.#{position}.male judges.position.#{position}.female]
+  end.freeze
+
+  def judge_title(judge, options = {}, &)
+    judge_wrap "#{judge.prefix} #{judge.suffix}".strip, judge_activity_options(judge, options), &
   end
 
   def judge_activity_icon_tag(judge, active, options = {})
-    n, c, t =
-      case active
-      when true
-        %w[check text-success judges.activity.active]
-      when false
-        %w[times text-danger judges.activity.inactive]
-      when nil
-        %w[question text-warning judges.activity.unknown]
-      end
+    icon, color, activity = ACTIVITY_ICONS.fetch(active)
+    size = options.delete(:size)
+    options = options.merge(class: Array.wrap(options[:class]).unshift("d-inline #{color}"),
+                            placement: options[:placement] || 'top')
 
-    options = options.merge class: Array.wrap(options[:class]).unshift("d-inline #{c}")
-    options = options.merge placement: options.delete(:placement) || 'top'
-
-    tooltip_tag icon_tag(n, size: options.delete(:size)), t("#{t}.#{judge.probable_gender}").upcase_first, options
+    tooltip_tag icon_tag(icon, size:), t("judges.activity.#{activity}.#{judge.probable_gender}").upcase_first, options
   end
 
-  def judge_activity_by_employment(employment, options = {}, &block)
-    a = employment.active ? 'active' : 'inactive'
-    a = 'unknown' if employment.active.nil?
-    s = t "judges.activity.#{a}.#{employment.judge.probable_gender}"
-    judge_wrap_fix s, judge_activity_options(employment.judge, options), &block
+  def judge_activity_by_employment(employment, options = {}, &)
+    activity = ACTIVITY_ICONS.fetch(employment.active).last
+    content = t("judges.activity.#{activity}.#{employment.judge.probable_gender}")
+
+    judge_wrap content, judge_activity_options(employment.judge, options), &
   end
 
-  def judge_position_at_court(judge, court, options = {}, &block)
-    judge_position_by_employment judge.employments.at_court(court).first, options, &block
+  def judge_position_at_court(judge, court, options = {}, &)
+    judge_position_by_employment judge.employments.at_court(court).first, options, &
   end
 
-  def judge_position_by_employment(employment, options = {}, &block)
-    tooltip = !(options.delete(:tooltip) === false)
-    options = judge_activity_options employment.judge, options
+  def judge_position_by_employment(employment, options = {}, &)
+    tooltip = options.delete(:tooltip) != false
+    options = judge_activity_options(employment.judge, options)
+    gender = employment.judge.probable_gender
 
-    g = employment.judge.probable_gender
-
-    if employment.judge_position
-      if employment.judge_position.charged?
-        s = t "judges.position.employee.#{g}"
+    content =
+      if employment.judge_position
+        judge_position_name(employment.judge_position, gender)
+      elsif employment.judge.probably_higher_court_official?
+        judge_probable_higher_court_official(gender, tooltip:, muted: options[:class]&.include?('text-muted'))
       else
-        if employment.judge_position.value == 'sudca'
-          s = t "judges.position.judge.#{g}"
-        elsif employment.judge_position.value == 'hosťujúci sudca'
-          s = t "judges.position.visiting_judge.#{g}"
-        elsif employment.judge_position.value == 'predseda súdnej rady'
-          s = t "judges.position.judicial_council_chairman.#{g}"
-        elsif employment.judge_position.value == 'člen súdnej rady'
-          s = t "judges.position.judicial_council_member.#{g}"
-        else
-          k = %w[chairman vice_chairman].flat_map { |k| %W[judges.position.#{k}.male judges.position.#{k}.female] }
-          s = t(guess_translation_key(employment.judge_position.value, :sk, k)) || employment.judge_position.value
-        end
+        "#{t("judges.position.unknown.#{gender}")} #{t("judges.position.employee.#{gender}")}"
       end
-    else
-      if employment.judge.probably_higher_court_official?
-        if tooltip
-          p = t 'judges.position.higher_court_official.acronym'
-          t = t "judges.position.higher_court_official.#{g}"
-          c = 'text-muted' if Array.wrap(options[:class]).include? 'text-muted'
-          s = "#{t 'judges.position.probably'} #{tooltip_tag p, t.upcase_first, class: c}"
-        else
-          s = "#{t 'judges.position.probably'} #{t "judges.position.higher_court_official.#{g}"}"
-        end
-      else
-        s = "#{t "judges.position.unknown.#{g}"} #{t "judges.position.employee.#{g}"}"
-      end
-    end
 
-    judge_wrap_fix s, options, &block
+    judge_wrap content, options, &
   end
 
-  def judge_hearings_count_by_employment(employment, options = {}, &block)
+  def judge_hearings_count_by_employment(employment, options = {}, &)
     count = number_with_delimiter Hearing.during_employment(employment).exact.size
-    judge_wrap_fix count, judge_activity_options(employment.judge, options), &block
+
+    judge_wrap count, judge_activity_options(employment.judge, options), &
   end
 
-  def judge_decrees_count_by_employment(employment, options = {}, &block)
+  def judge_decrees_count_by_employment(employment, options = {}, &)
     count = number_with_delimiter Decree.during_employment(employment).exact.size
-    judge_wrap_fix count, judge_activity_options(employment.judge, options), &block
+
+    judge_wrap count, judge_activity_options(employment.judge, options), &
   end
 
   def judge_processed_names(relation)
@@ -91,7 +80,7 @@ module JudgesHelper
   end
 
   def links_to_judges(judges, options = {})
-    judges.map { |judge| link_to_judge(judge, options) }.to_sentence.html_safe
+    to_sentence(judges.map { |judge| link_to_judge(judge, options) })
   end
 
   def link_to_related_person(person, options = {})
@@ -99,26 +88,50 @@ module JudgesHelper
   end
 
   def links_to_related_people(people, options = {})
-    people.map { |person| link_to_related_person(person, options) }.to_sentence.html_safe
+    to_sentence(people.map { |person| link_to_related_person(person, options) })
   end
 
   private
 
-  def judge_activity_options(judge, options)
-    global = options.delete :mute_by_activity
-    court = options.delete :mute_by_activity_at
-    employment = options.delete :mute_by_activity_on
+  def judge_position_name(position, gender)
+    return t("judges.position.employee.#{gender}") if position.charged?
 
-    classes = Array.wrap(options[:class])
-    classes << 'text-muted' if global && !judge.active
-    classes << 'text-muted' if court && !judge.active_at(court)
-    classes << 'text-muted' if employment && !employment.active
-    options.merge class: classes
+    name = POSITIONS[position.value]
+    return t("judges.position.#{name}.#{gender}") if name
+
+    key = guess_translation_key(position.value, :sk, CHAIR_POSITION_KEYS)
+    key ? t(key) : position.value
   end
 
-  def judge_wrap_fix(content, options)
+  def judge_probable_higher_court_official(gender, tooltip:, muted:)
+    name = t("judges.position.higher_court_official.#{gender}")
+
+    return "#{t('judges.position.probably')} #{name}" unless tooltip
+
+    acronym = t('judges.position.higher_court_official.acronym')
+
+    safe_join([t('judges.position.probably'), tooltip_tag(acronym, name.upcase_first, class: ('text-muted' if muted))],
+              ' ')
+  end
+
+  # Muted (text-muted) when the judge is inactive anywhere (mute_by_activity), at a court (mute_by_activity_at) or in
+  # an employment (mute_by_activity_on).
+  def judge_activity_options(judge, options)
+    options = options.dup
+    anywhere = options.delete(:mute_by_activity)
+    court = options.delete(:mute_by_activity_at)
+    employment = options.delete(:mute_by_activity_on)
+
+    muted = (anywhere && !judge.active) || (court && !judge.active_at(court)) || (employment && !employment.active)
+    classes = Array.wrap(options[:class])
+    classes += ['text-muted'] if muted
+
+    options.merge(class: classes.presence)
+  end
+
+  def judge_wrap(content, options)
     content = yield content if block_given?
-    wrap = %i[id class data].find { |k| options[k].present? }
-    wrap ? content_tag(:span, content.html_safe, options) : content.html_safe
+
+    %i[id class data].any? { |key| options[key].present? } ? tag.span(content, **options) : content
   end
 end

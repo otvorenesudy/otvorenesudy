@@ -23,7 +23,9 @@ RSpec.configure do |config|
     end
   end
 
+  # Refreshed first: deleting by query sees only searchable documents.
   config.after do
+    refresh_indices
     Probe.client.delete_by_query(
       index: SearchHelpers.indices,
       body: { query: { match_all: {} } },

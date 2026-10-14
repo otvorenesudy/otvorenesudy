@@ -15,11 +15,9 @@ class Judge < ApplicationRecord
   include Judge::Indicators2017
   include Judge::Indicators2021
 
-  # The list of judges justice.gov.sk published until 2019; judges imported from it carry this address.
-  LIST_URI = 'http://www.justice.gov.sk/Stranky/Sudcovia/SudcaZoznam.aspx'
-
+  # The judges a court lists after its active, listed ones (joined through employments).
   scope :inactive_or_unlisted, lambda {
-    where('employments.active = false OR employments.active IS NULL OR judges.uri != ?', LIST_URI)
+    where('employments.active IS NOT TRUE OR judges.source_id != ?', Source.of('JusticeGovSk').id)
   }
 
   scope :chair, -> { joins(:positions).merge(JudgePosition.chair) }

@@ -8,30 +8,28 @@
     <div class="search-result-content">
       <% if court.destroyed_at.present? %>
         <div class="alert alert-danger alert-sm mb-2">
-          <%= t '.destroyed_at', date: I18n.l(court.destroyed_at.to_date) %>
+          <%= t '.destroyed_at', date: l(court.destroyed_at.to_date) %>
         </div>
-      <% end%>
+      <% end %>
 
-      <% cache "courts-index-#{court.id}-#{I18n.locale}-description" do %>
-        <% if court.chair || court.vicechair %>
-          <% if court.chair %>
-            <%= judge_position_at_court(court.chair, court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
-            <%= link_to_judge court.chair %>
-            <%= court.chairs.count > 1 ? " #{t('.and_more')}" : nil %>
-            <%= court.vicechair ? ' ' + two_words_connector : '.' %>
-          <% end %>
-          <% if court.vicechair %>
-            <% unless court.chair %>
-              <%= judge_position_at_court(court.vicechair, court).upcase_first %> <%= t '.of_court' %>
-            <% else %>
-              <%= judge_position_at_court(court.vicechair, court) %>
-            <% end %>
-            <%= t '.is' %> <%= link_to_judge court.vicechair %> <%= court.vicechairs.count > 1 ? t('.and_more') : nil %>.
-          <% end %>
-          <br class="d-none d-md-inline" />
+      <% cache [court, I18n.locale, :description] do %>
+        <% if court.chair %>
+          <%= judge_position_at_court(court.chair, court).upcase_first %> <%= t '.of_court' %> <%= t '.is' %>
+          <%= link_to_judge court.chair %><%= " #{t('.and_more')}" if court.chairs.size > 1 %><%= court.vicechair ? " #{two_words_connector}" : '.' %>
         <% end %>
-        <% if court.judges.active.listed.any? %>
-          <%= t '.at_court' %> <%= t '.work', count: court.judges.active.listed.size, judges: translate_with_count(court.judges.active.listed.size, :judge) %>.
+        <% if court.vicechair %>
+          <% if court.chair %>
+            <%= judge_position_at_court(court.vicechair, court) %>
+          <% else %>
+            <%= judge_position_at_court(court.vicechair, court).upcase_first %> <%= t '.of_court' %>
+          <% end %>
+          <%= t '.is' %> <%= link_to_judge court.vicechair %><%= " #{t('.and_more')}" if court.vicechairs.size > 1 %>.
+        <% end %>
+        <% if court.chair || court.vicechair %>
+          <br class="d-none d-md-inline">
+        <% end %>
+        <% if (judges = court.judges.active.listed.size).positive? %>
+          <%= t '.at_court' %> <%= t '.work', count: judges, judges: translate_with_count(judges, :judge) %>.
         <% end %>
         <%= t '.for_court' %> <%= t '.register', count: court.hearings.size %>
         <%= translate_with_count court.hearings.size, :hearing %>
