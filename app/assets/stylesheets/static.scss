@@ -27,6 +27,11 @@
   flex: 1 0 auto;
   height: auto;
 
+  // a square sizes itself, not as a column of the row it sits in (Bootstrap 5's .row > *)
+  width: auto;
+  max-width: none;
+  padding: 0;
+
   min-width: 163.33px;
   max-height: 163.33px;
 

@@ -20,3 +20,24 @@ end
 
 Capybara.default_max_wait_time = 5
 Capybara.enable_aria_label = true
+
+# Where the browser drew an element ('top', 'left', 'width'...), for scenarios about the layout (`js: true`).
+module LayoutHelpers
+  def bounds(element)
+    page.evaluate_script('arguments[0].getBoundingClientRect().toJSON()', element)
+  end
+end
+
+RSpec.configure do |config|
+  config.include LayoutHelpers, type: :system
+
+  # A narrower window (`js: true, width: 390` for a phone). Examples share the browser, so the others get the desktop
+  # width back.
+  config.before(type: :system, js: true) do |example|
+    current_window.resize_to(example.metadata[:width], 1000) if example.metadata[:width]
+  end
+
+  config.after(type: :system, js: true) do |example|
+    current_window.resize_to(1400, 1000) if example.metadata[:width]
+  end
+end

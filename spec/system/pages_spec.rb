@@ -16,6 +16,40 @@ RSpec.describe 'Pages' do
     expect(page).to have_link(I18n.t('layouts.header.decrees_uoo'), href: uoo_decrees_path(l: :sk))
   end
 
+  it 'shows the section squares three to a row, each as tall as it is wide', :js do
+    visit root_path
+
+    squares = all('a.square').map { |square| bounds(square) }
+
+    expect(squares.map { |square| square['top'].round }.tally.values).to eq([3, 3])
+    expect(squares).to all(satisfy { |square| (square['width'] - square['height']).abs < 1 })
+  end
+
+  it 'ends the section squares where the panel beside them ends', :js do
+    visit root_path
+
+    expect(all('a.square').map { |square| bounds(square)['bottom'] }.max).to eq(bounds(find('.feature'))['bottom'])
+  end
+
+  it 'ends the section squares, two to a row, where the panel beside them ends on a laptop', :js, width: 1000 do
+    visit root_path
+
+    squares = all('a.square').map { |square| bounds(square) }
+
+    expect(squares.map { |square| square['top'].round }.tally.values).to eq([2, 2, 2])
+    expect(squares.pluck('bottom').max).to eq(bounds(find('.feature'))['bottom'])
+  end
+
+  it 'shows the section squares two to a row on a phone, within the page', :js, width: 390 do
+    visit root_path
+
+    squares = all('a.square').map { |square| bounds(square) }
+    width = page.evaluate_script('document.documentElement.clientWidth')
+
+    expect(squares.map { |square| square['top'].round }.tally.values).to eq([2, 2, 2])
+    expect(squares).to all(satisfy { |square| square['right'] <= width })
+  end
+
   it 'links the footer version to its release' do
     visit root_path
 
