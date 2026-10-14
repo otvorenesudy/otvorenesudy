@@ -84,6 +84,18 @@ RSpec.describe 'Subscriptions' do
       expect(Subscription.count).to eq(1)
     end
 
+    it 'cancels nothing for a link cut off before its token' do
+      get unsubscribe_subscriptions_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(I18n.t('subscriptions.unsubscribe.unknown'))
+
+      post unsubscribe_subscriptions_path
+
+      expect(response.body).to include(I18n.t('subscriptions.unsubscribe.unknown'))
+      expect(Subscription.count).to eq(1)
+    end
+
     it 'asks to confirm from a link sent before the token moved to the query' do
       get "/subscriptions/unsubscribe/#{subscription.token}"
 
