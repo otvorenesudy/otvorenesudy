@@ -22,7 +22,7 @@ RSpec.describe 'Judges' do
     it 'links the courts suggested in the listing to the listing' do
       get suggest_judges_path(facet: 'courts', term: 'popr')
 
-      expect(link('Okresný súd Poprad')).to eq(judges_url(courts: 'Okresný súd Poprad', l: :sk))
+      expect(link('Okresný súd Poprad')).to eq(judges_path(courts: 'Okresný súd Poprad', l: :sk))
     end
 
     it 'links the judges suggested to compare with to the tab of the year on the page of the judge' do
