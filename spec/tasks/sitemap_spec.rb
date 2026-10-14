@@ -23,7 +23,7 @@ RSpec.describe 'sitemap:refresh:no_ping', type: :task do
     %w[sitemap:create sitemap:refresh:no_ping].each { |task| Rake::Task[task].reenable }
     Rake::Task['sitemap:refresh:no_ping'].invoke
 
-    directory.glob('*.xml.gz').flat_map do |path|
+    directory.glob('**/*.xml.gz').flat_map do |path|
       Zlib::GzipReader.open(path) { |file| Nokogiri::XML(file.read).remove_namespaces!.xpath('//loc').map(&:text) }
     end
   end

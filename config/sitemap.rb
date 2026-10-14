@@ -3,6 +3,8 @@
 # The sitemap of every page, court, judge, hearing, decree and proceeding in both languages (sitemap:refresh:no_ping,
 # daily). Judge selection procedures are hidden, so left out.
 SitemapGenerator::Sitemap.default_host = 'https://otvorenesudy.sk'
+# In public/sitemaps, which deploys share between releases.
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
   records = {

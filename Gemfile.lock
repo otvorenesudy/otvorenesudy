@@ -113,6 +113,8 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-bundler (2.2.0)
       capistrano (~> 3.1)
+    capistrano-git-with-submodules (2.0.6)
+      capistrano (~> 3.7)
     capistrano-passenger (0.2.1)
       capistrano (~> 3.0)
     capistrano-rails (1.7.0)
@@ -593,6 +595,7 @@ DEPENDENCIES
   bundler-audit
   capistrano (~> 3.20)
   capistrano-bundler
+  capistrano-git-with-submodules (~> 2.0)
   capistrano-passenger
   capistrano-rails
   capistrano-rbenv
@@ -672,6 +675,7 @@ CHECKSUMS
   bundler-audit (0.9.3) sha256=81c8766c71e47d0d28a0f98c7eed028539f21a6ea3cd8f685eb6f42333c9b4e9
   capistrano (3.20.1) sha256=b0d54ba5cf49bb194998bf6b427e889aa36ed05f545ecf7cc37acb9d529e9ae9
   capistrano-bundler (2.2.0) sha256=47b4cf2ea17ea132bb0a5cabc5663443f5190a54f4da5b322d04e1558ff1468c
+  capistrano-git-with-submodules (2.0.6) sha256=0f6c80bac6939539939ba9de187f3e9b623ea1540f99416607aa7063fd98cf1b
   capistrano-passenger (0.2.1) sha256=07a1d25edd5c1d909c19d4fe45fe2ea5f11200569f6967f6bff1d605ade98e13
   capistrano-rails (1.7.0) sha256=aca57455e8c5435785e0f938e16aa5b79c263694a755e1dca1c5d1743b40aae7
   capistrano-rbenv (2.2.0) sha256=3c8f39b7c624f3806630dcb475484bb3579aef07a40efe85089d83f64b0c35f5

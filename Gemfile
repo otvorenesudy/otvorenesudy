@@ -84,6 +84,7 @@ group :development do
   gem 'bump', git: 'https://github.com/pavolzbell/bump.git', require: false
   gem 'capistrano', '~> 3.20', require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-git-with-submodules', '~> 2.0', require: false
   gem 'capistrano-passenger', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false

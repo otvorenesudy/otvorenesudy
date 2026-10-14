@@ -21,6 +21,13 @@ Gemfile.lock.tags
 
 /config/configuration.yml
 
+# Rails credentials' keys (the encrypted files are committed)
+/config/master.key
+/config/credentials/*.key
+
+# Generated nightly (config/sitemap.rb)
+/public/sitemaps/
+
 .env.local
 
 plans/*.md
