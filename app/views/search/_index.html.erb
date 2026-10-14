@@ -1,13 +1,14 @@
-<%# From lg up the facets sit left, controls and results right; below lg: controls, facets, results. %>
-<div id="search-<%= @model.model_name.plural.dasherize %>" class="row">
-  <div class="col-lg-9 order-lg-2 mb-3 mb-lg-4">
+<%# From lg up the facets float left, controls and results float right, so the results start under the controls
+    whatever the facets' height; below lg: controls, facets, results. %>
+<div id="search-<%= @model.model_name.plural.dasherize %>" class="clearfix">
+  <div class="float-lg-end col-lg-9 mb-3 mb-lg-4">
     <%= render 'search/controls' %>
   </div>
-  <div class="col-lg-3 order-lg-1 mb-5 mb-lg-0 pe-lg-4">
+  <div class="float-lg-start col-lg-3 mb-5 mb-lg-0 pe-lg-4">
     <%= render 'search/subscribe' if @model.respond_to?(:subscribe) %>
     <%= render 'facets/list' %>
   </div>
-  <div class="col-lg-9 offset-lg-3 order-lg-3">
+  <div class="float-lg-end col-lg-9">
     <%= render 'search/results' %>
   </div>
 </div>

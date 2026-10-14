@@ -20,6 +20,30 @@ RSpec.describe 'Courts' do
   end
 
   describe 'the listing' do
+    it 'shows the results beside the facets, under the search', :js do
+      create(:court)
+      refresh_indices
+
+      visit courts_path
+
+      results = bounds(find('.search-result-list'))
+      facets = all('.facet').map { |facet| bounds(facet) }
+      search = bounds(find('.search-query-form'))
+
+      expect(results['left']).to be >= facets.first['right']
+      expect(results['top']).to be < facets.last['bottom']
+      expect(results['top']).to be >= search['bottom']
+    end
+
+    it 'shows the facets above the results on a phone', :js, width: 390 do
+      create(:court)
+      refresh_indices
+
+      visit courts_path
+
+      expect(bounds(find('.search-result-list'))['top']).to be > bounds(all('.facet').last)['bottom']
+    end
+
     it 'lists courts by name, 20 a page, with their count' do
       25.times { |n| create(:court, name: format('Okresný súd %02d', n + 1)) }
       refresh_indices
