@@ -41,7 +41,6 @@ gem 'sidekiq', '~> 8.1'
 gem 'devise', '~> 5.0'
 
 # serialization
-gem 'active_model_serializers', '~> 0.10.16'
 
 # data
 gem 'csv'
