@@ -68,7 +68,9 @@ elasticsearch:             # optional, for an Elasticsearch with security on
   ca_fingerprint: ...
 ```
 
-Edit them with `bin/rails credentials:edit --environment production`.
+Edit them with `bin/rails credentials:edit --environment production`. Development needs none of them; to try
+e-mail, Sentry or Skylight locally, make your own from `config/credentials/development.example` with
+`bin/rails credentials:edit --environment development` (git ignores them).
 
 ## Data
 
