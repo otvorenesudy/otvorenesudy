@@ -90,6 +90,19 @@ RSpec.describe 'Proceedings' do
       expect(events.last).to include(hearing_path(item.hearings.first))
     end
 
+    it 'shortens its subject where production does and shows the rest on the ellipsis' do
+      item = proceeding(case_number: '1C/1/2026')
+      item.decrees.sole.legislation_areas << create(:legislation_area, value: 'Občianske právo')
+      item.decrees.sole.legislation_subareas << create(:legislation_subarea,
+                                                       value: 'Zodpovednosť za škodu pri výkone verejnej moci')
+
+      visit proceeding_path(item)
+
+      expect(page).to have_css('h1', text: 'Občianske právo – Zodpovednosť za škodu pri…')
+      expect(find('h1').all('a',
+                            text: '…').last['data-bs-title']).to eq('Zodpovednosť za škodu pri výkone verejnej moci')
+    end
+
     it 'spaces its events more than a year apart widest on the timeline' do
       item = proceeding(case_number: '1C/1/2026')
       item.hearings.sole.update!(date: Time.zone.local(2024, 1, 12, 9))

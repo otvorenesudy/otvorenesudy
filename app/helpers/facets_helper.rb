@@ -56,12 +56,14 @@ module FacetsHelper
   end
 
   # The value, translated if it has a translation (missing, activity...), with its count, truncated to fit the facet's
-  # width; the whole value then shows in a tooltip.
+  # width; the whole value then shows in a tooltip. The ellipsis takes the room of its entity, &hellip;, as the widths
+  # were set with it.
   def link_to_facet_value(facet, result, value, options = {})
     key = "#{facet.key}.#{value}"
     value = missing_translation?(key) ? value.to_s.upcase_first : t(key)
     count = number_with_delimiter(result.count) unless options.delete(:count) == false
-    label = value.truncate(31 - (count ? count.size + 1 : 0), separator: ' ', omission: '…').sub(/\s*–\s*…\z/, '…')
+    label = value.truncate(31 - (count ? count.size + 1 : 0), separator: ' ', omission: '&hellip;')
+                 .sub(/\s*(–\s*)?&hellip;\z/, '…')
     path = options.delete(:path) || method(:search_path)
     params = result.selected? ? result.remove_params : result.add_params
 

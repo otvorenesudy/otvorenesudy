@@ -4,16 +4,20 @@ module TextHelper
   OMISSION = '…'
 
   # Joins the parts and truncates them to `limit` characters (plus the separators), on a word boundary, ending with an
-  # ellipsis. The rest shows in a tooltip on the ellipsis when `tooltip: true`.
+  # ellipsis. The rest shows in a tooltip on the ellipsis when `tooltip: true`. A separator given as an entity
+  # (' &ndash; ') takes the room of the entity, as the limits were set with it.
   def join_and_truncate(text, options = {})
-    separator = HTMLEntities.new.decode(options.fetch(:separator, ', '))
+    written = options.fetch(:separator, ', ')
+    separator = HTMLEntities.new.decode(written)
     parts = Array.wrap(text).map { |part| part.squeeze(' ').strip }
     limit = options.fetch(:limit, 30) + ((parts.size - 1) * separator.size)
     packed = parts.join(separator)
+    measured = parts.join(written)
 
-    return packed if packed.length <= limit
+    return packed if measured.length <= limit
 
-    shown = packed.truncate(limit, separator: ' ', omission: '').sub(/\s*#{Regexp.escape(separator.strip)}\s*\z/, '')
+    shown = measured.truncate(limit, separator: ' ', omission: '')
+                    .sub(/\s*#{Regexp.escape(written.strip)}\s*\z/, '').gsub(written, separator)
 
     safe_join([shown, truncation_marker(packed, shown, separator, options)])
   end
