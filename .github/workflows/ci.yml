@@ -1,0 +1,78 @@
+# bin/test on every pull request and push to main: lint, every spec with coverage, and undercover on the changes.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: opencourts
+          POSTGRES_PASSWORD: opencourts
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: 'false'
+          ES_JAVA_OPTS: -Xms1g -Xmx1g
+        ports: ['9200:9200']
+        options: >-
+          --health-cmd "curl -fs http://localhost:9200/_cluster/health" --health-interval 10s --health-timeout 5s
+          --health-retries 20
+
+    env:
+      OPENCOURTS_DATABASE_USER: opencourts
+      OPENCOURTS_DATABASE_PASSWORD: opencourts
+      PGUSER: opencourts
+      PGPASSWORD: opencourts
+      CI: 'true'
+
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v4
+        with:
+          # undercover and bin/lint compare the branch with origin/main.
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Set Up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set Up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+
+      - name: Install Prettier
+        run: npm ci
+
+      - name: Run Tests
+        run: bin/test
+
+      - name: Upload Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
