@@ -50,8 +50,8 @@ module Probe
 
     # Text sorts regardless of case and diacritics (Čierny between Cibuľa and Dobos), by its folded subfield.
     def sort_field(name)
-      field = fields[name.to_sym]
-      folded = field&.analyzed && field.options.fetch(:type, :string) == :string && field.options[:index] != :no
+      field = fields.fetch(name.to_sym)
+      folded = field.analyzed && field.options.fetch(:type, :string) == :string && field.options[:index] != :no
 
       folded ? Probe::Fields.folded(name) : Probe::Fields.keyword(name)
     end

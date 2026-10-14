@@ -17,8 +17,8 @@ module ProceedingsHelper
                       options.reverse_merge(separator: ' &ndash; ')
   end
 
-  def proceeding_date(date, options = {}, &)
-    time_tag date.to_date, { format: :long }.merge(options), &
+  def proceeding_date(date, options = {})
+    time_tag date.to_date, { format: :long }.merge(options)
   end
 
   private

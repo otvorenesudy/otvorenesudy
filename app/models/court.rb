@@ -44,12 +44,12 @@ class Court < ApplicationRecord
     analyze :name
     analyze :street
     analyze :media_person
-    analyze :type, as: ->(court) { court.type&.value }
+    analyze :type, as: ->(court) { court.type.value }
     analyze :judges, as: ->(court) { court.judges.pluck(:name) }
     analyze :judges_count, type: :integer, as: ->(court) { court.judges.count }
     analyze :hearings_count, type: :integer, as: ->(court) { court.hearings.count }
     analyze :decrees_count, type: :integer, as: ->(court) { court.decrees.count }
-    analyze :municipality, as: ->(court) { court.municipality&.name }
+    analyze :municipality, as: ->(court) { court.municipality.name }
     analyze :expenses, type: :integer, as: lambda(&:expenses_total)
 
     sort_by :name, :_score, :judges_count, :hearings_count, :decrees_count
@@ -68,8 +68,8 @@ class Court < ApplicationRecord
   formatable :address, default: '%s, %z %m', fixes: ->(value) { value.sub(/,\s*\z/, '') } do |court|
     {
       '%s' => court.street,
-      '%z' => court.municipality&.zipcode,
-      '%m' => court.municipality&.name,
+      '%z' => court.municipality.zipcode,
+      '%m' => court.municipality.name,
       '%c' => 'Slovenská republika'
     }
   end

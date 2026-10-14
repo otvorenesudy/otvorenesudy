@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# Sends a stored document inline under a readable name, or answers 404 when it isn't there.
-module FileSending
+# Sends a stored document of a judge selection procedure inline under a readable name, or answers 404 when it isn't
+# there. Hidden with the procedures (see SelectionProceduresController).
+module SelectionProcedureDocuments
   extend ActiveSupport::Concern
 
   private

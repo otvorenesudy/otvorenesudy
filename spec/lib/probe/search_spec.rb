@@ -5,6 +5,17 @@ require 'rails_helper'
 # Model.search: a listing's params in, a page of results with their facets out (the listings in spec/system and
 # spec/requests show it on the pages). These are the parts of it the pages don't use.
 RSpec.describe Probe::Search do
+  it 'searches an index without full text, which has nothing to highlight' do
+    decree = create(:decree)
+    create(:decree_page, decree:, number: 1)
+    refresh_indices
+
+    results = DecreePage.search({})
+
+    expect(results.records.map(&:decree)).to eq([decree])
+    expect(results.highlights).to eq([{}])
+  end
+
   describe 'paging' do
     before do
       21.times { |n| create(:court, name: format('Okresný súd %02d', n + 1)) }

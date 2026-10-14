@@ -26,8 +26,8 @@ module DecreesHelper
     join_and_truncate decree.natures.map(&:value).sort, options.reverse_merge(separator: ', ')
   end
 
-  def decree_date(date, options = {}, &)
-    time_tag date, { format: :long }.merge(options), &
+  def decree_date(date, options = {})
+    time_tag date, { format: :long }.merge(options)
   end
 
   def uoo_decree_effect_badge_class(effect)

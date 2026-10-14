@@ -33,6 +33,14 @@ RSpec.describe MarkDecreesWithInvalidPdfUriJob do
     expect(decree.reload).not_to be_pdf_uri_valid
   end
 
+  it 'marks a decree whose PDF address is not an address' do
+    decree.update_column(:pdf_uri, 'https://obcan justice.sk/1.pdf') # rubocop:disable Rails/SkipsModelValidations -- as imported
+
+    check
+
+    expect(decree.reload).not_to be_pdf_uri_valid
+  end
+
   it 'fails, to be retried, when the source does not answer' do
     stub_request(:get, decree.pdf_uri).to_timeout
 

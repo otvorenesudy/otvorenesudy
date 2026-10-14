@@ -2,7 +2,7 @@
 
 # Documents of candidates in judge selection procedures, hidden with them (see SelectionProceduresController).
 class SelectionProcedureCandidatesController < ApplicationController
-  include FileSending
+  include SelectionProcedureDocuments
 
   def declaration
     candidate = SelectionProcedureCandidate.find(params.expect(:id))

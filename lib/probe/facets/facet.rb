@@ -17,11 +17,6 @@ module Probe
           @selected = selected
         end
 
-        # The params of the listing with this value selected.
-        def params
-          add_params
-        end
-
         def selected?
           selected ? true : false
         end

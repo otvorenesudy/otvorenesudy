@@ -14,11 +14,8 @@ module TagHelper
     content_tag(:span, *, &)
   end
 
-  def time_tag(date_or_time, *args, &block)
-    options = args.extract_options!
-    content = localize(date_or_time, **options)
-    content = yield(content) if block
-
-    super(date_or_time, content, options)
+  # A <time> of the date or time, localized in the format given (format: :long).
+  def time_tag(date_or_time, options = {})
+    super(date_or_time, localize(date_or_time, **options), options)
   end
 end

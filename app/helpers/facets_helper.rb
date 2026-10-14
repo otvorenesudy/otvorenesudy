@@ -19,10 +19,9 @@ module FacetsHelper
   end
 
   def link_to_date_facet(facet, result, options = {})
-    key = "#{facet.key}.format.#{facet.interval}"
-    key = "facets.types.date.format.#{facet.interval}" if missing_translation?(key)
+    format = t("facets.types.date.format.#{facet.interval}")
 
-    link_to_facet_value facet, result, l(result.value.begin, format: t(key)), options
+    link_to_facet_value facet, result, l(result.value.begin, format:), options
   end
 
   def link_to_range_facet(facet, result, options = {})
@@ -31,20 +30,17 @@ module FacetsHelper
 
   private
 
-  # "5 až 9 sudcov", "menej ako 5 sudcov", "viac ako 100 sudcov"
+  # "5 až 9 sudcov", "menej ako 5 sudcov", "viac ako 100 sudcov": the range in words, then the facet's noun (suffix) in
+  # the form its upper bound takes.
   def translate_range_facet_value(facet, result)
     entry, values = range_entry(result.range)
     count = (values[:count] || values[:upper]).to_i
     values = values.transform_values { |value| number_with_delimiter(value) }
-
-    path = "#{facet.key}.#{entry}"
-    path = "facets.types.range.#{entry}" if missing_translation?(path)
     suffix = "#{facet.key}.suffix"
 
     return t(suffix, count: 0) if entry == :less && count <= 1
-    return t(path, **values) if missing_translation?(suffix)
 
-    "#{t(path, **values)}#{t(suffix, count:).sub(/\A\s*\d+/, '')}"
+    "#{t("facets.types.range.#{entry}", **values)}#{t(suffix, count:).sub(/\A\s*\d+/, '')}"
   end
 
   def range_entry(range)

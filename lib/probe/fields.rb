@@ -15,8 +15,6 @@ module Probe
     end
 
     def keyword(field)
-      return Array.wrap(field).map { |f| keyword(f) } if field.is_a?(Array)
-
       field.to_s
     end
 

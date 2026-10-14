@@ -20,7 +20,7 @@ class Proceeding < ApplicationRecord
     analyze :eclis, as: lambda(&:eclis)
     analyze :text, as: lambda(&:text), index: :no
     analyze :courts, as: ->(proceeding) { proceeding.courts.map(&:name) }
-    analyze :courts_types, as: ->(proceeding) { proceeding.courts.map { |court| court.type&.value } }
+    analyze :courts_types, as: ->(proceeding) { proceeding.courts.map { |court| court.type.value } }
     analyze :courts_count, type: :integer, as: ->(proceeding) { proceeding.courts.count }
     analyze :judges, as: ->(proceeding) { proceeding.judges.map(&:name) }
     analyze :judges_count, type: :integer, as: ->(proceeding) { proceeding.judges.count }

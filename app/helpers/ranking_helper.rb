@@ -12,6 +12,6 @@ module RankingHelper
   end
 
   def rank_with_order(data, options = {})
-    "#{rank(data)} #{options[data.is_a?(Hash) ? data[:order] : :asc]}"
+    "#{rank(data)} #{options[data[:order]]}"
   end
 end

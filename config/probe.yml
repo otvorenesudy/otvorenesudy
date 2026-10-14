@@ -2,7 +2,6 @@
 # Probe last built, so a model can be reindexed into a new index and switched over at once.
 shared:
   indices: [courts, judges, hearings, decrees, decree_pages, proceedings, selection_procedures]
-  per_page: 20
   settings:
     number_of_shards: 1
     number_of_replicas: 0

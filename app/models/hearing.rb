@@ -55,7 +55,7 @@ class Hearing < ApplicationRecord
     analyze :room
     analyze :special_type
     analyze :commencement_date, type: :date
-    analyze :type, as: ->(hearing) { hearing.type&.value }
+    analyze :type, as: ->(hearing) { hearing.type.value }
     analyze :court, as: ->(hearing) { hearing.court&.name }
     analyze :court_type, as: ->(hearing) { hearing.court&.type&.value }
     analyze :judges, as: lambda(&:judge_names)

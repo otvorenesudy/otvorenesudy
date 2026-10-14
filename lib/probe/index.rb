@@ -39,7 +39,7 @@ module Probe
       delegate :sort_fields, to: :probe_mapping
 
       def per_page
-        default_per_page || Probe::Configuration.per_page
+        default_per_page
       end
 
       def facets
@@ -90,18 +90,6 @@ module Probe
       end
 
       alias_method :import_index, :reindex
-
-      def reload_index
-        delete_index
-        reindex
-      end
-
-      # Updates every document in the current index, without a new one.
-      def update_index
-        ensure_index
-        import(index_name)
-        refresh_index
-      end
 
       # Indexes the records missing from the index.
       def recheck_index

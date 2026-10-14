@@ -10,10 +10,6 @@ module Probe
       data.fetch(:indices)
     end
 
-    def per_page
-      data.fetch(:per_page)
-    end
-
     def settings
       data.fetch(:settings)
     end

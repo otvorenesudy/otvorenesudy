@@ -2,7 +2,7 @@
 
 # Judge selection procedures, hidden since October 2025: config/routes.rb has their routes commented out.
 class SelectionProceduresController < SearchController
-  include FileSending
+  include SelectionProcedureDocuments
 
   before_action :set_procedure, only: %i[show declaration report]
 

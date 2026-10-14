@@ -36,7 +36,7 @@ module Probe
       private
 
       def facet_value
-        @facet_value.respond_to?(:call) ? @facet_value.call(self) : @facet_value
+        @facet_value.call(self)
       end
     end
   end

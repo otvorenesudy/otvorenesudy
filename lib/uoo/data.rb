@@ -14,11 +14,9 @@ module Uoo
 
     # The office's page of decisions, when the data names a web address for it.
     def self.source_url
-      uri = URI.parse(raw['source_url'].to_s.strip)
+      url = raw['source_url'].to_s.strip
 
-      uri.to_s if uri.is_a?(URI::HTTP) && uri.host.present?
-    rescue URI::InvalidURIError
-      nil
+      url if url.match?(%r{\Ahttps?://[^\s/]+(/\S*)?\z}i)
     end
 
     def self.decrees

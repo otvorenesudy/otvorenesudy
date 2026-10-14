@@ -43,7 +43,6 @@ module JudgesHelper
   end
 
   def judge_position_by_employment(employment, options = {}, &)
-    tooltip = options.delete(:tooltip) != false
     options = judge_activity_options(employment.judge, options)
     gender = employment.judge.probable_gender
 
@@ -51,7 +50,7 @@ module JudgesHelper
       if employment.judge_position
         judge_position_name(employment.judge_position, gender)
       elsif employment.judge.probably_higher_court_official?
-        judge_probable_higher_court_official(gender, tooltip:, muted: options[:class]&.include?('text-muted'))
+        judge_probable_higher_court_official(gender, muted: options[:class]&.include?('text-muted'))
       else
         "#{t("judges.position.unknown.#{gender}")} #{t("judges.position.employee.#{gender}")}"
       end
@@ -87,10 +86,6 @@ module JudgesHelper
     person.known_judge? ? link_to_judge(person.to_judge, options) : person.name
   end
 
-  def links_to_related_people(people, options = {})
-    to_sentence(people.map { |person| link_to_related_person(person, options) })
-  end
-
   private
 
   def judge_position_name(position, gender)
@@ -103,11 +98,9 @@ module JudgesHelper
     key ? t(key) : position.value
   end
 
-  def judge_probable_higher_court_official(gender, tooltip:, muted:)
+  # "pravdepodobne VSÚ", the acronym explained in a tooltip.
+  def judge_probable_higher_court_official(gender, muted:)
     name = t("judges.position.higher_court_official.#{gender}")
-
-    return "#{t('judges.position.probably')} #{name}" unless tooltip
-
     acronym = t('judges.position.higher_court_official.acronym')
 
     safe_join([t('judges.position.probably'), tooltip_tag(acronym, name.upcase_first, class: ('text-muted' if muted))],

@@ -9,22 +9,20 @@ module HearingsHelper
     join_and_truncate hearing_identifiers(hearing), options.reverse_merge(separator: ', ')
   end
 
+  # "Civilné pojednávanie", "Trestné pojednávanie", "Pojednávanie špecializovaného trestného súdu".
   def hearing_type(type)
     hearing = t('hearings.common.hearing')
 
-    case type
-    when HearingType.civil then "#{t('hearings.type.civil')} #{hearing}"
-    when HearingType.criminal then "#{t('hearings.type.criminal')} #{hearing}"
-    when HearingType.special then "#{hearing.upcase_first} #{t('hearings.type.special').downcase_first}"
-    else raise ArgumentError, "Unknown hearing type #{type.inspect}"
-    end
+    return "#{hearing.upcase_first} #{t('hearings.type.special').downcase_first}" if type == HearingType.special
+
+    "#{t("hearings.type.#{type == HearingType.criminal ? 'criminal' : 'civil'}")} #{hearing}"
   end
 
   # A date and time, or only the date when the hour is midnight (unknown).
-  def hearing_date(date, options = {}, &)
+  def hearing_date(date, options = {})
     date = date.to_date if date.respond_to?(:hour) && date.hour.zero?
 
-    time_tag date, { format: :long }.merge(options), &
+    time_tag date, { format: :long }.merge(options)
   end
 
   private
