@@ -50,6 +50,16 @@ RSpec.describe 'Pages' do
     expect(squares).to all(satisfy { |square| square['right'] <= width })
   end
 
+  it 'offers one button that mails the project on the feedback and contact pages' do
+    %w[feedback contact].each do |slug|
+      visit static_page_path(slug)
+
+      expect(page).to have_link('kontakt@otvorenesudy.sk', href: 'mailto:kontakt@otvorenesudy.sk', class: 'btn',
+                                                           exact: true)
+      expect(page).to have_no_css('a a')
+    end
+  end
+
   it 'links the footer version to its release' do
     visit root_path
 
