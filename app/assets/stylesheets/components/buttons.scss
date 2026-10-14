@@ -48,7 +48,8 @@
     $active-background: $input-bg,
     $active-border: $gray,
     $active-color: $navy,
-    $disabled-color: $blue
+    // Bootstrap 4's dark text on a light button
+    $disabled-color: $gray-900
   );
   --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($gray)};
 

@@ -20,8 +20,8 @@
           <% end %>
         </div>
       </div>
-      <%= link_to icon_tag('arrow-up', size: 12), search_path(@facets.params.merge(order: :asc)), class: "btn btn-secondary#{' active' if @facets.params[:order] == :asc} d-flex align-items-center shadow-none border-0 border-end", 'aria-label': t('.ascending') %>
-      <%= link_to icon_tag('arrow-down', size: 12), search_path(@facets.params.merge(order: :desc)), class: "btn btn-secondary#{' active' if @facets.params[:order] == :desc} d-flex align-items-center shadow-none border-0", 'aria-label': t('.descending') %>
+      <%= link_to icon_tag('arrow-up', size: 12), search_path(@facets.params.merge(order: :asc)), class: "btn btn-secondary#{' active' if @facets.params[:order] == :asc} d-flex align-items-center shadow-none border-0 border-start border-end", 'aria-label': t('.ascending') %>
+      <%= link_to icon_tag('arrow-down', size: 12), search_path(@facets.params.merge(order: :desc)), class: "btn btn-secondary#{' active' if @facets.params[:order] == :desc} d-flex align-items-center shadow-none border-0 border-start", 'aria-label': t('.descending') %>
     </div>
   </div>
 </div>

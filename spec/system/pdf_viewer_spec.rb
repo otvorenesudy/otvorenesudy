@@ -44,6 +44,18 @@ RSpec.describe 'The document viewer of a decree', :js do
     expect(page_number).to have_text('1 / 2')
   end
 
+  it 'separates the page number and the arrows with lines, the unavailable arrow in grey' do
+    visit decree_path(decree)
+    expect(page_number).to have_text('1 / 2')
+
+    arrows = [find_button(I18n.t('shared.pdfjs.previous_page'), disabled: true),
+              find_button(I18n.t('shared.pdfjs.next_page'))]
+    style = ->(arrow, property) { page.evaluate_script("getComputedStyle(arguments[0]).#{property}", arrow) }
+
+    expect(arrows.map { |arrow| style.call(arrow, :borderLeftWidth) }).to eq(%w[1px 1px])
+    expect(style.call(arrows.first, :color)).to eq('rgb(33, 37, 41)')
+  end
+
   it 'highlights the words the decrees were searched for' do
     create(:decree_page, decree:, number: 1, text: 'Najvyšší súd rozhodol v mene Slovenskej republiky.')
     Decree.find(decree.id).update_index

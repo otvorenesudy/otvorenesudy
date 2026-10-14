@@ -9,10 +9,10 @@
         <span class="btn d-flex align-items-center shadow-none border-0 border-end pe-none">
           <%= t '.page' %>&nbsp;<span data-pdf-viewer-target="pageNumber" aria-live="polite">- / -</span>
         </span>
-        <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-end" data-pdf-viewer-target="previousPage" data-action="pdf-viewer#previousPage" aria-label="<%= t '.previous_page' %>" disabled>
+        <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start border-end" data-pdf-viewer-target="previousPage" data-action="pdf-viewer#previousPage" aria-label="<%= t '.previous_page' %>" disabled>
           <%= icon_tag 'arrow-up', size: 12 %>
         </button>
-        <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0" data-pdf-viewer-target="nextPage" data-action="pdf-viewer#nextPage" aria-label="<%= t '.next_page' %>" disabled>
+        <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start" data-pdf-viewer-target="nextPage" data-action="pdf-viewer#nextPage" aria-label="<%= t '.next_page' %>" disabled>
           <%= icon_tag 'arrow-down', size: 12 %>
         </button>
       </div>
@@ -28,10 +28,10 @@
 
         <div class="btn-group btn-group-sm border flex-shrink-0 ms-2" role="group" data-pdf-viewer-target="matches" hidden>
           <span class="btn d-flex align-items-center text-nowrap shadow-none border-0 border-end pe-none" data-pdf-viewer-target="matchCount" aria-live="polite"></span>
-          <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-end" data-action="pdf-viewer#previousMatch" aria-label="<%= t '.previous_match' %>">
+          <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start border-end" data-action="pdf-viewer#previousMatch" aria-label="<%= t '.previous_match' %>">
             <%= icon_tag 'arrow-up', size: 12 %>
           </button>
-          <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0" data-action="pdf-viewer#nextMatch" aria-label="<%= t '.next_match' %>">
+          <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start" data-action="pdf-viewer#nextMatch" aria-label="<%= t '.next_match' %>">
             <%= icon_tag 'arrow-down', size: 12 %>
           </button>
         </div>

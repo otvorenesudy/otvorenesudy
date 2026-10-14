@@ -35,6 +35,18 @@ RSpec.describe 'Courts' do
       expect(results['top']).to be >= search['bottom']
     end
 
+    it 'separates the sort field and the two orders with lines', :js do
+      create(:court)
+      refresh_indices
+
+      visit courts_path
+
+      orders = [find_link('Vzostupne'), find_link('Zostupne')]
+
+      expect(orders.map { |order| page.evaluate_script('getComputedStyle(arguments[0]).borderLeftWidth', order) })
+        .to eq(%w[1px 1px])
+    end
+
     it 'shows the facets above the results on a phone', :js, width: 390 do
       create(:court)
       refresh_indices
