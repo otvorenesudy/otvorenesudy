@@ -119,6 +119,7 @@ RSpec.describe 'Subscriptions' do
     visit unsubscribe_subscriptions_path(token: subscription.token)
 
     expect(page).to have_text("#{I18n.t('facets.hearing.court.title')} – Okresný súd Košice I")
+    expect(page.current_url).not_to include(subscription.token)
     expect(Subscription.exists?(subscription.id)).to be(true)
 
     click_on I18n.t('subscriptions.unsubscribe.confirm')

@@ -50,12 +50,43 @@ RSpec.describe 'Subscriptions' do
       Rails.logger.stop_broadcasting_to(logger)
     end
 
-    it 'asks to confirm from the link, and cancels nothing yet' do
+    it 'moves the link to an address without the token, asks to confirm there and cancels nothing yet' do
       get unsubscribe_subscriptions_path(token: subscription.token)
+
+      expect(response).to redirect_to(unsubscribe_subscriptions_path(l: :sk))
+
+      follow_redirect!
 
       expect(response).to have_http_status(:ok)
       expect(response.parsed_body.css('form button').text).to include(I18n.t('subscriptions.unsubscribe.confirm'))
       expect(Subscription.exists?(subscription.id)).to be(true)
+    end
+
+    # Analytics reads the page's address, og:url names it and the confirmation sends it as its Referer.
+    it 'keeps the token out of the addresses of the page, in the form it confirms with only' do
+      get unsubscribe_subscriptions_path(token: subscription.token)
+      follow_redirect!
+
+      form = response.parsed_body.at_css('form')
+
+      expect(request.fullpath).not_to include(subscription.token)
+      expect(form['action']).not_to include(subscription.token)
+      expect(form.at_css('input[name="token"]')['value']).to eq(subscription.token)
+      expect(response.body.scan(subscription.token).size).to eq(1)
+    end
+
+    it 'cancels the subscription its page asked about, though another link was opened since' do
+      other = create(:subscription, user: owner, query: create(:query, :hearings))
+
+      get unsubscribe_subscriptions_path(token: subscription.token)
+      follow_redirect!
+      token = response.parsed_body.at_css('form input[name="token"]')['value']
+
+      get unsubscribe_subscriptions_path(token: other.token)
+      post unsubscribe_subscriptions_path, params: { token: }
+
+      expect(Subscription.exists?(subscription.id)).to be(false)
+      expect(Subscription.exists?(other.id)).to be(true)
     end
 
     it 'cancels the subscription when confirmed' do
@@ -75,6 +106,7 @@ RSpec.describe 'Subscriptions' do
 
     it 'cancels nothing for an unknown token' do
       get unsubscribe_subscriptions_path(token: 'unknown')
+      follow_redirect!
 
       expect(response.body).to include(I18n.t('subscriptions.unsubscribe.unknown'))
 
@@ -96,8 +128,12 @@ RSpec.describe 'Subscriptions' do
       expect(Subscription.count).to eq(1)
     end
 
-    it 'asks to confirm from a link sent before the token moved to the query' do
+    it 'asks to confirm, at an address without the token, from a link sent before the token moved to the query' do
       get "/subscriptions/unsubscribe/#{subscription.token}"
+
+      expect(response).to redirect_to(unsubscribe_subscriptions_path(l: :sk))
+
+      follow_redirect!
 
       expect(response.parsed_body.css('form button').text).to include(I18n.t('subscriptions.unsubscribe.confirm'))
       expect(Subscription.exists?(subscription.id)).to be(true)

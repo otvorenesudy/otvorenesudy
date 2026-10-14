@@ -13,7 +13,7 @@
     </ul>
   <% end %>
 
-  <%= button_to t('subscriptions.unsubscribe.confirm'), unsubscribe_subscriptions_path(token: @subscription.token), class: 'btn btn-outline-danger' %>
+  <%= button_to t('subscriptions.unsubscribe.confirm'), unsubscribe_subscriptions_path, params: { token: @subscription.token }, class: 'btn btn-outline-danger' %>
 <% else %>
   <p><%= t 'subscriptions.unsubscribe.unknown' %></p>
 <% end %>
