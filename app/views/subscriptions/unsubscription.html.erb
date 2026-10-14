@@ -1,0 +1,19 @@
+<% provide :title, t('subscriptions.unsubscribe.title') %>
+
+<h1 class="text-uppercase my-4"><%= yield :title %></h1>
+
+<% if @subscription %>
+  <p><%= t 'subscriptions.unsubscribe.question' %></p>
+
+  <% if @subscription.query.value.any? %>
+    <ul class="list-unstyled">
+      <% subscription_query(@subscription).each do |facet, values| %>
+        <li><%= facet %> &ndash; <%= values %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= button_to t('subscriptions.unsubscribe.confirm'), unsubscribe_subscriptions_path(token: @subscription.token), class: 'btn btn-outline-danger' %>
+<% else %>
+  <p><%= t 'subscriptions.unsubscribe.unknown' %></p>
+<% end %>

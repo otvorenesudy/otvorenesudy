@@ -112,4 +112,18 @@ RSpec.describe 'Subscriptions' do
 
     expect(page).to have_current_path(new_user_session_path)
   end
+
+  it 'unsubscribes a reader of the e-mail who confirms, without signing in' do
+    subscription = create(:subscription, query: create(:query, :hearings, value: { court: ['Okresný súd Košice I'] }))
+
+    visit unsubscribe_subscriptions_path(token: subscription.token)
+
+    expect(page).to have_text("#{I18n.t('facets.hearing.court.title')} – Okresný súd Košice I")
+    expect(Subscription.exists?(subscription.id)).to be(true)
+
+    click_on I18n.t('subscriptions.unsubscribe.confirm')
+
+    expect(page).to have_text(I18n.t('subscriptions.mailer.results.unsubscribed.notice'))
+    expect(Subscription.exists?(subscription.id)).to be(false)
+  end
 end

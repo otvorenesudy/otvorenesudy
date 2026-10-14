@@ -8,6 +8,12 @@ sk:
       success: "Odoberanie notifikácií bolo aktualizované."
       failure: "Niečo sa pokazilo. Odoberanie notifikácií nebolo aktualizované."
 
+    unsubscribe:
+      title: "Zrušenie odoberania"
+      question: "Naozaj chcete zrušiť odoberanie notifikácií o nových výsledkoch tohto vyhľadávania?"
+      confirm: "Zrušiť odoberanie"
+      unknown: "Tento odkaz už neplatí: odoberanie bolo zrušené alebo neexistuje."
+
     delete:
       notice: "Odoberanie notifikácií bolo zrušené."
 

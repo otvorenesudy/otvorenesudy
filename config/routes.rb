@@ -53,8 +53,13 @@ Rails.application.routes.draw do
     get :subscriptions
   end
 
+  # The e-mail's unsubscribe link (?token=): a GET asks to confirm, as link scanners open links; the confirmation and
+  # mail clients' one-click request (RFC 8058) POST.
   resources :subscriptions, only: %i[create update destroy] do
-    match 'unsubscribe/:token', action: :unsubscribe, as: :unsubscribe, on: :collection, via: %i[get post]
+    collection do
+      get :unsubscribe, action: :unsubscription
+      post :unsubscribe, as: :confirmed_unsubscribe
+    end
   end
 
   post 'search/collapse', to: 'search#collapse', as: :collapse_facet

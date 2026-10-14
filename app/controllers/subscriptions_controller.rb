@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
-  before_action :authenticate_user!, except: :unsubscribe
+  before_action :authenticate_user!, except: %i[unsubscription unsubscribe]
+  before_action :set_unsubscribed, only: %i[unsubscription unsubscribe]
   before_action :set_subscription, only: %i[update destroy]
 
   # Mail clients unsubscribe by a POST of their own (List-Unsubscribe-Post), without a form.
@@ -35,13 +36,18 @@ class SubscriptionsController < ApplicationController
     redirect_back_or_to subscriptions_users_path, notice: t('subscriptions.delete.notice')
   end
 
-  def unsubscribe
-    Subscription.find_by(token: params[:token].to_s)&.destroy!
+  # The e-mail's link: asks to confirm.
+  def unsubscription; end
 
-    redirect_to root_path, notice: t('subscriptions.mailer.results.unsubscribed.notice')
+  def unsubscribe
+    @subscription&.destroy!
   end
 
   private
+
+  def set_unsubscribed
+    @subscription = Subscription.find_by(token: params[:token].to_s) if params[:token].present?
+  end
 
   def set_subscription
     @subscription = current_user.subscriptions.find(params.expect(:id))

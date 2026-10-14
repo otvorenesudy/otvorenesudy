@@ -8,6 +8,12 @@ en:
       success: "Subscription to notifications has been updated."
       failure: "Something went wrong. Subscription to notifications has not been updated."
 
+    unsubscribe:
+      title: "Unsubscribe"
+      question: "Do you really want to stop the notifications of new results of this search?"
+      confirm: "Unsubscribe"
+      unknown: "This link no longer works: the subscription was cancelled or does not exist."
+
     delete:
       notice: "Subscription to notifications has been removed."
 

@@ -1,0 +1,5 @@
+<% provide :title, t('subscriptions.unsubscribe.title') %>
+
+<h1 class="text-uppercase my-4"><%= yield :title %></h1>
+
+<p><%= t @subscription ? 'subscriptions.mailer.results.unsubscribed.notice' : 'subscriptions.unsubscribe.unknown' %></p>
