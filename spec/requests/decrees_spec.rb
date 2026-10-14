@@ -106,6 +106,71 @@ RSpec.describe 'Decrees' do
       expect(response).to have_http_status(:bad_gateway)
     end
 
+    it 'refuses at once, without asking the source, while 4 documents are being fetched', :cache do
+      Rails.cache.increment(DecreeDocument::FETCHES_KEY, 4)
+      source = stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf')
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:service_unavailable)
+      expect(source).not_to have_been_requested
+    end
+
+    it 'frees its place among the 4 for the next request, whether it served the document or not', :cache do
+      Rails.cache.increment(DecreeDocument::FETCHES_KEY, 3)
+      stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf')
+        .to_return({ status: 404 }, { status: 200, body: file_fixture('decree.pdf').binread })
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:bad_gateway)
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'does not download a document the source says is larger than 20 MB' do
+      stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf')
+        .to_return(status: 200, body: '%PDF', headers: { 'Content-Length' => (20.megabytes + 1).to_s })
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:bad_gateway)
+    end
+
+    it 'stops downloading a document once it is larger than 20 MB' do
+      stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf').to_return(status: 200, body: '0' * (20.megabytes + 1))
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:bad_gateway)
+    end
+
+    it 'gives up on a source that takes more than 20 seconds in all, redirects included' do
+      stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf').to_return do
+        travel 21.seconds
+        { status: 302, headers: { 'Location' => '/content/1.pdf' } }
+      end
+      moved = stub_request(:get, 'https://obcan.justice.sk/content/1.pdf')
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:bad_gateway)
+      expect(moved).not_to have_been_requested
+    end
+
+    it 'gives up on a source that sends the document for more than 20 seconds' do
+      stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf').to_return do
+        travel 21.seconds
+        { status: 200, body: file_fixture('decree.pdf').binread }
+      end
+
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:bad_gateway)
+    end
+
     it 'is not found for a decree without a document' do
       decree.update!(pdf_uri: nil)
 

@@ -27,6 +27,8 @@ class DecreesController < SearchController
     pdf = DecreeDocument.fetch(@decree.pdf_uri)
 
     send_data pdf, type: 'application/pdf', filename: "Otvorené Súdy — Rozhodnutie — ##{@decree.id}.pdf"
+  rescue DecreeDocument::Busy
+    head :service_unavailable
   rescue DecreeDocument::Unavailable => e
     Rails.logger.warn "DecreesController # Document of decree [#{@decree.id}] unavailable: #{e.message}"
 
