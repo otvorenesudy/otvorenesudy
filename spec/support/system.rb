@@ -19,3 +19,4 @@ RSpec.configure do |config|
 end
 
 Capybara.default_max_wait_time = 5
+Capybara.enable_aria_label = true

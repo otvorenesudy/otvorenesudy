@@ -14,3 +14,6 @@ pin '@kurkle/color', to: '@kurkle--color.js' # @0.3.4
 pin 'analytics'
 pin 'cookie_consent'
 pin 'external_links'
+# pdf.js, imported by the pdf-viewer controller on a decree's page only; its worker is served beside them.
+pin 'pdfjs-dist', preload: false # @6.4.299
+pin 'pdfjs-dist/web/pdf_viewer', to: 'pdfjs-dist--web--pdf_viewer.js', preload: false # @6.4.299

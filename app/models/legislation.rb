@@ -13,8 +13,9 @@ class Legislation < ApplicationRecord
 
   has_many :paragraphs, through: :paragraph_explanations
 
+  # The law's text on zakonypreludi.sk, or a search for it there when the law has no year or number.
   def external_url
-    return "http://www.zakonypreludi.sk/main/search.aspx?text=#{value}" unless year || number
+    return "http://www.zakonypreludi.sk/main/search.aspx?#{URI.encode_www_form(text: value)}" unless year || number
 
     url = "http://www.zakonypreludi.sk/zz/#{year}-#{number}"
     url += "#p#{paragraph}" if paragraph

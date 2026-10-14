@@ -20,6 +20,7 @@ FactoryBot.define do
 
   factory :legislation do
     sequence(:value) { |n| "Zákon #{n}/2005 Z.z." }
+    value_unprocessed { value }
     sequence(:number, &:to_s)
     year { 2005 }
   end

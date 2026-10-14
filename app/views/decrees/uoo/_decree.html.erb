@@ -1,0 +1,44 @@
+<%# A decision of the Whistleblower Protection Office: its title, how it changed the first decision, the date, the fine,
+    the file numbers and the parties. %>
+<% parties = Array.wrap(decree['parties']) %>
+<% fine = parties.filter_map { |party| party['fine_amount'] }.first %>
+<% effect = decree['effect_on_chain_root_decree'] %>
+
+<h4 class="search-result-title d-flex justify-content-between align-items-baseline">
+  <span>
+    <%= link_to decree['title'].presence || t('decrees.uoo.decree'), decree['url'], target: '_blank', rel: 'noopener noreferrer' %>
+    <% if effect %>
+      <span class="badge text-bg-<%= uoo_decree_effect_badge_class(effect) %> ms-1"><%= t "decrees.uoo.effect.#{effect}" %></span>
+    <% end %>
+    <% if decree['parsed_date'] %>
+      <small><%= t 'decrees.uoo.issued_on', date: l(decree['parsed_date'], format: :uoo) %></small>
+    <% elsif decree['date'].present? %>
+      <small><%= t 'decrees.uoo.issued_on', date: decree['date'] %></small>
+    <% end %>
+  </span>
+  <% if fine %>
+    <span class="fw-bold text-nowrap ms-3">
+      <%= number_with_delimiter(fine, delimiter: ' ') %> <%= parties.filter_map { |party| party['fine_currency'] }.first || 'EUR' %>
+    </span>
+  <% end %>
+</h4>
+
+<div class="search-result-content">
+  <ul class="float-sm-end list-unstyled text-sm-end ms-sm-2 mb-2">
+    <% Array.wrap(decree['case_file_number']).each do |number| %>
+      <li><%= tooltip_tag number, t('decrees.uoo.case_file_number'), class: 'text-muted', placement: 'left' %></li>
+    <% end %>
+    <% if decree['file_identification_number'].present? %>
+      <li><%= tooltip_tag decree['file_identification_number'], t('decrees.uoo.file_identification_number'), class: 'text-muted', placement: 'left' %></li>
+    <% end %>
+  </ul>
+
+  <% parties.each do |party| %>
+    <% if party['name'].present? %>
+      <strong><%= link_to_uoo_party party['name'] %></strong><br>
+    <% end %>
+    <% if party['address'].present? %>
+      <%= party['address'] %><br>
+    <% end %>
+  <% end %>
+</div>

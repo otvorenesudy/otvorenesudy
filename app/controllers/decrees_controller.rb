@@ -1,17 +1,17 @@
+# frozen_string_literal: true
+
 class DecreesController < SearchController
+  before_action :set_decree, only: %i[show document]
+
   def show
-    @decree = Decree.find(params[:id])
-    @highlights = params[:h]
+    @highlights = params[:h].to_s
     @similar = @decree.similar
 
     @court = @decree.court
     @judges = @decree.judges.order(:last, :middle, :first)
-
     @legislations = @decree.legislations.order(:value)
 
-    flash.now[:danger] << t('decrees.show.unprocessed') if @decree.unprocessed?
-    flash.now[:danger] << t('decrees.show.future_date') if @decree.has_future_date?
-    flash.now[:warning] << t('decrees.show.faulty_date') if @decree.had_future_date?
+    warn_about_data
   end
 
   def uoo
@@ -20,29 +20,33 @@ class DecreesController < SearchController
     @uoo_stats = Uoo::Data.stats
   end
 
+  # The decree's PDF from its source, for the viewer on the decree's page, which can't read it across origins.
   def document
-    @decree = Decree.find(params[:id])
+    return head :not_found if @decree.pdf_uri.blank?
 
-    @file = Tempfile.new('decree', binmode: true)
-    curl = Curl.get(@decree.pdf_uri)
+    pdf = DecreeDocument.fetch(@decree.pdf_uri)
 
-    curl.perform
+    send_data pdf, type: 'application/pdf', filename: "Otvorené Súdy — Rozhodnutie — ##{@decree.id}.pdf"
+  rescue DecreeDocument::Unavailable => e
+    Rails.logger.warn "DecreesController # Document of decree [#{@decree.id}] unavailable: #{e.message}"
 
-    @file.write(curl.body_str)
-    @file.rewind
-
-    send_file @file, filename: "Otvorené Súdy — Rozhodnutie — ##{@decree.id}.pdf"
+    head :bad_gateway
   end
-
-  protected
-
-  include FileHelper
 
   private
 
+  def set_decree
+    @decree = Decree.find(params.expect(:id))
+  end
+
+  def warn_about_data
+    flash_now(:danger, t('.unprocessed')) if @decree.unprocessed?
+    flash_now(:danger, t('.future_date')) if @decree.future_date?
+    flash_now(:warning, t('.faulty_date')) if @decree.future_date_when_created?
+  end
+
+  # The scoped associations (exact_judges, inexact_judgements) load before the ones they scope (judges).
   def search_associations
-    # NOTE do not eager load scoped associations after original associations,
-    # e.g. :exact_judges has to go before :judges, otherwise scoped association will not be loaded
     %i[form legislation_areas legislation_subareas natures court exact_judges inexact_judgements judgements judges]
   end
 end

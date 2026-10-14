@@ -8,6 +8,6 @@
 
 <ol class="search-result-list mt-4">
   <% @similar.each do |decree| %>
-    <%= render partial: 'decrees/search/result', locals: { decree: decree, highlight: nil } %>
+    <%= render 'decrees/search/result', decree:, highlight: nil %>
   <% end %>
 </ol>

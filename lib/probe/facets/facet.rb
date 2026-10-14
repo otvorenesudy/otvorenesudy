@@ -60,8 +60,9 @@ module Probe
         "facets.#{base.to_s.underscore}.#{name}"
       end
 
+      # At least 1, as Elasticsearch requires: a size counted from records (LegislationArea.count) can be 0.
       def size
-        @size.respond_to?(:call) ? @size.call : @size
+        [@size.respond_to?(:call) ? @size.call : @size, 1].max
       end
 
       def terms=(value)
