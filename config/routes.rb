@@ -64,7 +64,10 @@ Rails.application.routes.draw do
   # config.exceptions_app renders error pages through here.
   match ':status', to: 'errors#show', constraints: { status: /\d{3}/ }, via: :all, as: :error
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  # The job dashboard, for admins only; anyone else is asked to sign in or finds nothing.
+  authenticate :user, lambda(&:admin?) do
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
   get ':slug', to: 'static_pages#show', as: :static_page
