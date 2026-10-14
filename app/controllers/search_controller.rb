@@ -49,11 +49,11 @@ class SearchController < ApplicationController
   protected
 
   def search_path(params = {})
-    url_for(params.to_h.symbolize_keys.merge(controller: controller_name, action: :index))
+    url_for(params.to_h.symbolize_keys.merge(controller: controller_name, action: :index, only_path: true))
   end
 
   def suggest_path(params = {})
-    url_for(params.to_h.symbolize_keys.merge(controller: controller_name, action: :suggest))
+    url_for(params.to_h.symbolize_keys.merge(controller: controller_name, action: :suggest, only_path: true))
   end
 
   private

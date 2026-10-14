@@ -15,6 +15,11 @@ Rails.application.configure do
   config.assume_ssl = true
   config.force_ssl = true
 
+  # Links built from the request (the canonical URL, og:image) name the host it sends, X-Forwarded-Host included;
+  # other hosts get 403. The health check answers on any.
+  config.hosts = %w[otvorenesudy.sk www.otvorenesudy.sk]
+  config.host_authorization = { exclude: ->(request) { request.path == '/health' } }
+
   # Passenger sends STDOUT to its own log; the app logs to shared/log, which logrotate rotates.
   config.log_tags = [:request_id]
   config.logger = ActiveSupport::TaggedLogging.logger(Rails.root.join('log/production.log').to_s)

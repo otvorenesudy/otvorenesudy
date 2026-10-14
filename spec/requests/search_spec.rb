@@ -50,6 +50,12 @@ RSpec.describe 'Search' do
       expect(response).to have_http_status(:ok)
       expect(names.size).to eq(3)
     end
+
+    it 'links within the page without the host the request names' do
+      get courts_path(q: 'Košice'), headers: { 'X-Forwarded-Host' => 'evil.example' }
+
+      expect(response.parsed_body.at('body').to_html).not_to include('evil.example')
+    end
   end
 
   describe 'GET /hearings' do
