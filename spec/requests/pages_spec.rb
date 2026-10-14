@@ -31,6 +31,25 @@ RSpec.describe 'Pages' do
       expect(response).to have_http_status(:unprocessable_content)
       expect(response.parsed_body).to eq('errors' => ['Court count does not match'])
     end
+
+    it 'counts the tables and the indices at most once in 5 minutes', :cache do
+      court = create(:court)
+      refresh_indices
+
+      get health_path
+
+      expect(response).to have_http_status(:no_content)
+
+      Court.client.delete(index: Court.index_name, id: court.id, refresh: true)
+      get health_path
+
+      expect(response).to have_http_status(:no_content)
+
+      travel 5.minutes + 1.second
+      get health_path
+
+      expect(response).to have_http_status(:unprocessable_content)
+    end
   end
 
   it 'shows the server error page for a status code that does not exist' do

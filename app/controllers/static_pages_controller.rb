@@ -19,8 +19,12 @@ class StaticPagesController < ApplicationController
     @template = "static_pages/content/#{@slug}"
   end
 
+  # Anyone can ask, and the counts read whole tables of the database otvorenesudy-api shares, so they run at most once
+  # in 5 minutes.
   def health
-    model = HEALTH_MODELS.find { |candidate| candidate.count != candidate.total }
+    model = Rails.cache.fetch('health/mismatch', expires_in: 5.minutes, race_condition_ttl: 10.seconds) do
+      HEALTH_MODELS.find { |candidate| candidate.count != candidate.total }&.name
+    end
 
     return head :no_content unless model
 
