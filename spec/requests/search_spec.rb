@@ -51,6 +51,12 @@ RSpec.describe 'Search' do
       expect(names.size).to eq(3)
     end
 
+    it 'reads a query and a facet sent in Latin-1 rather than UTF-8' do
+      get '/courts?q=Ko%9Aice&municipality[]=Ko%9Aice'
+
+      expect(response).to have_http_status(:ok)
+    end
+
     it 'links within the page without the host the request names' do
       get courts_path(q: 'Košice'), headers: { 'X-Forwarded-Host' => 'evil.example' }
 
