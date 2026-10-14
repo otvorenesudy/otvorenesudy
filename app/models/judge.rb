@@ -91,12 +91,9 @@ class Judge < ApplicationRecord
     facet :decrees_count, type: :range, ranges: distribute(Decree)
     facet :related_people_count, type: :range, ranges: [1..1, 2..2, 3..3]
 
-    facet :name, type: :terms, visible: false, view: { results: 'judges/indicators/facets/name_results' }
-    facet :similar_courts,
-          type: :terms,
-          field: :courts,
-          visible: false,
-          view: { results: 'judges/indicators/facets/terms_results' }
+    # Pick the judges to compare with on a judge's page (see JudgesController).
+    facet :name, type: :terms, visible: false
+    facet :similar_courts, type: :terms, field: :courts, visible: false
   end
 
   formatable :name, default: '%p %f %m %l %a, %s', fixes: ->(value) { value.sub(/,\s*\z/, '') } do |judge|

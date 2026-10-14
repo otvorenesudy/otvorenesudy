@@ -12,6 +12,9 @@ class Judge
       'Trestná' => 'Trest.assigned.agenda'
     }.freeze
 
+    # The 2017 table names the decided agenda unlike the other years: the criminal one in full, none as NA.
+    DECIDED_AGENDAS = { 'trestná' => 'Trest', 'NA' => '0' }.freeze
+
     DATASET = Judge::Indicators::Dataset.new(
       files: { statistical: 'judge-statistical-indicators-2017.csv', numerical: 'judge-numerical-indicators-2017.csv' },
       separator: ',',
@@ -20,6 +23,7 @@ class Judge
       chart_columns: 3..6
     ) do |key, value, courts|
       value = value.gsub('-', ' – ') if key == 'rank'
+      value = DECIDED_AGENDAS.fetch(value, value) if key == 'decided.agenda.dominant'
       value = Judge::Indicators.court(value, courts) if key == 'court'
 
       value.presence

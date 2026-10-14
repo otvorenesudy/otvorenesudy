@@ -2,26 +2,24 @@
   <li class="search-result-item">
     <h4 class="search-result-title">
       <%= link_to_judge judge %>
-
-      <% cache "judges-index-#{judge.id}-#{I18n.locale}-icon-tag" do %>
-        <%= judge_activity_icon_tag judge, judge.active?, size: 16, placement: 'right' %>
-      <% end %>
+      <%= judge_activity_icon_tag judge, judge.active, size: 16, placement: 'right' %>
     </h4>
 
     <div class="search-result-content">
-      <ol class="list-unstyled">
-        <% cache "judges-index-#{judge.id}-#{I18n.locale}-description" do %>
+      <% cache [judge, I18n.locale, :description] do %>
+        <ol class="list-unstyled">
           <% judge.employments.each do |employment| %>
-            <%= content_tag :li, class: ('text-muted' unless employment.active?) do %>
-              <%= judge_position_by_employment(employment) { |s| s.upcase_first } %>
+            <%= tag.li class: ('text-muted' unless employment.active) do %>
+              <%= judge_position_by_employment(employment, &:upcase_first) %>
               <%= t '.at_court' %> <%= link_to_court_by_judge_employment employment, mute_by_activity_on: employment %>,
-              <%= t '.register', count: Hearing.during_employment(employment).exact.size %>
-              <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
+              <% hearings = Hearing.during_employment(employment).exact.size %>
+              <%= t '.register', count: hearings %>
+              <%= translate_with_count(hearings, :hearing) %>
               <%= two_words_connector %>&nbsp;<%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
             <% end %>
           <% end %>
-        <% end %>
-      </ol>
+        </ol>
+      <% end %>
     </div>
   </li>
 <% end %>

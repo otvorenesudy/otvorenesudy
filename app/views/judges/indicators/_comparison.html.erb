@@ -1,0 +1,51 @@
+<%# The year's scores of the judge, the average and the judges picked to compare, with facets to pick them by. %>
+<% labels = t("judges.indicators.chart.labels.#{year}") %>
+<% series = indicators_chart_series(judge, others, dataset) %>
+<% filters = [:positions, :"decree_agenda_#{year}", :similar_courts] %>
+<% filtered = filters.any? { |name| params[name].present? } %>
+
+<h3 class="h4 text-uppercase my-4">
+  <%= t 'judges.indicators.numerical.headline' %>
+</h3>
+
+<%= tag.div id: "indicators-chart-#{year}", data: indicators_chart_data(type: 'radar', labels:, series:) do %>
+  <div class="row">
+    <div class="col-xl-3 order-xl-1">
+      <div class="facet">
+        <h6 class="facet-title"><%= t 'judges.indicators.numerical.legend' %></h6>
+        <%= indicators_chart_legend_tag series.pluck(:label) %>
+      </div>
+
+      <%= render 'judges/indicators/facets/name_facet', facet: facets[:name], translation: t(facets[:name].key) %>
+
+      <div class="facet">
+        <h6 class="facet-title"><%= t 'judges.indicators.numerical.advanced_comparison' %></h6>
+        <div class="facet-content">
+          <div class="facet-results">
+            <%= link_to_collapse [t('judges.indicators.numerical.show_filters'), t('judges.indicators.numerical.hide_filters')], "#indicators-facets-#{year}", class: 'text-secondary', collapsed: !filtered %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12 order-xl-3">
+      <div id="indicators-facets-<%= year %>" class="row collapse<%= ' show' if filtered %> mt-0 mt-xl-3">
+        <% filters.each do |name| %>
+          <div class="col-xl-4">
+            <hr class="d-xl-none">
+            <%= render 'judges/indicators/facets/terms_facet', facet: facets[name], translation: t(facets[name].key) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-xl-9 order-xl-2">
+      <div class="table-responsive-sm my-4">
+        <%= indicators_chart_tag labels %>
+      </div>
+      <div class="small text-center text-muted w-80 mx-auto mb-0">
+        <%= s t('judges.indicators.numerical.filters_note.content') %>
+      </div>
+    </div>
+  </div>
+<% end %>

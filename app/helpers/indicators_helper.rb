@@ -1,89 +1,120 @@
+# frozen_string_literal: true
+
 module IndicatorsHelper
+  AGENDAS = %w[civil business childcare criminal].freeze
+
+  # The agenda phrase of the 2013 statistics ("civilnej agenda"), explained by a popover of the counts per agenda.
+  AGENDA_2013 = /([^\s]+ agenda|žiadnej agende väčšinovo)/
+  DECIDED_AGENDA_2013 = /([^\s]+ agende|žiadnej agende väčšinovo)/
+
   def assigned_agendas_indicator_2013(indicators)
-    value = indicators['S4'].gsub(/([^\s]+ agenda|žiadnej agende väčšinovo)/) do |match|
-      content = <<-CON
-        #{t 'judges.indicators_2013.basic.agenda.civil'} &ndash; #{indicators['S4a']}<br/>
-        #{t 'judges.indicators_2013.basic.agenda.business'} &ndash; #{indicators['S4b']}<br/>
-        #{t 'judges.indicators_2013.basic.agenda.childcare'} &ndash; #{indicators['S4c']}<br/>
-        #{t 'judges.indicators_2013.basic.agenda.criminal'} &ndash; #{indicators['S4d']}<br/>
-      CON
+    counts = indicators.values_at('S4a', 'S4b', 'S4c', 'S4d')
 
-      popover_tag match, content, title: t('judges.indicators_2013.basic.assigned_agendas'), trigger: 'hover'
-    end
-
-    # TODO translate
-    "Sudcovi #{value}".html_safe
+    safe_join([t('judges.indicators_2013.basic.assigned_agendas_subject'), ' ',
+               agendas_indicator(indicators['S4'], AGENDA_2013, counts,
+                                 t('judges.indicators_2013.basic.assigned_agendas'))])
   end
 
   def decided_agendas_indicator_2013(indicators)
-    value = indicators['S5'].gsub(/([^\s]+ agende|žiadnej agende väčšinovo)/) do |match|
-      content = <<-CON
-        #{t 'judges.indicators_2013.basic.agenda.civil'} &ndash; #{indicators['S5a']}<br/>
-        #{t 'judges.indicators_2013.basic.agenda.business'} &ndash; #{indicators['S5b']}<br/>
-        #{t 'judges.indicators_2013.basic.agenda.childcare'} &ndash; #{indicators['S5c']}<br/>
-        #{t 'judges.indicators_2013.basic.agenda.criminal'} &ndash; #{indicators['S5d']}<br/>
-      CON
+    counts = indicators.values_at('S5a', 'S5b', 'S5c', 'S5d')
 
-      popover_tag match, content, title: t('judges.indicators_2013.basic.decided_agendas'), trigger: 'hover'
-    end
-
-    # TODO translate
-    "Sudca #{value}".html_safe
+    safe_join([t('judges.indicators_2013.basic.decided_agendas_subject'), ' ',
+               agendas_indicator(indicators['S5'], DECIDED_AGENDA_2013, counts,
+                                 t('judges.indicators_2013.basic.decided_agendas'))])
   end
 
   def assigned_agendas_indicator_2015(indicators)
-    content = <<-CON
-      #{t 'judges.indicators_2013.basic.agenda.civil'} &ndash; #{indicators['C.assigned.agenda']}<br/>
-      #{t 'judges.indicators_2013.basic.agenda.business'} &ndash; #{indicators['Cb.assigned.agenda']}<br/>
-      #{t 'judges.indicators_2013.basic.agenda.childcare'} &ndash; #{indicators['P.assigned.agenda']}<br/>
-      #{t 'judges.indicators_2013.basic.agenda.criminal'} &ndash; #{indicators['Trest.assigned.agenda']}<br/>
-    CON
+    counts = indicators.values_at('C.assigned.agenda', 'Cb.assigned.agenda', 'P.assigned.agenda',
+                                  'Trest.assigned.agenda')
+    dominant = indicators['assigned.agenda.dominant'].to_s
+    options = { title: t('judges.indicators_2013.basic.assigned_agendas'), trigger: 'hover' }
 
-    if indicators['assigned.agenda.dominant'].to_s != '0'
-      result = I18n.t('judges.indicators_2015.basic.dominant_assigned_agenda') +
-      popover_tag(I18n.t("judges.indicators_2015.basic.assigned_agenda.#{indicators['assigned.agenda.dominant']}"), content, title: t('judges.indicators_2013.basic.assigned_agendas'), trigger: 'hover')
-    else
-      result = I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_1') +
-      popover_tag(I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2'), content, title: t('judges.indicators_2013.basic.assigned_agendas'), trigger: 'hover')
+    if dominant == '0'
+      return safe_join([t('judges.indicators_2015.basic.no_dominant_assigned_agenda_1'),
+                        popover_tag(t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2'),
+                                    agendas_popover_content(counts), options)])
     end
 
-    result.html_safe
+    safe_join([t('judges.indicators_2015.basic.dominant_assigned_agenda'),
+               popover_tag(t("judges.indicators_2015.basic.assigned_agenda.#{dominant}"),
+                           agendas_popover_content(counts), options)])
   end
 
   def decided_agendas_indicator_2015(indicators)
-    if indicators['decided.agenda.dominant'].to_s != '0'
-      I18n.t('judges.indicators_2015.basic.dominant_decided_agenda') +
-      I18n.t("judges.indicators_2015.basic.decided_agenda.#{indicators['decided.agenda.dominant']}")
-    else
-      I18n.t('judges.indicators_2015.basic.no_dominant_decided_agenda')
+    dominant = indicators['decided.agenda.dominant'].to_s
+
+    return t('judges.indicators_2015.basic.no_dominant_decided_agenda') if dominant == '0'
+
+    t('judges.indicators_2015.basic.dominant_decided_agenda') +
+      t("judges.indicators_2015.basic.decided_agenda.#{dominant}")
+  end
+
+  # The judge, the judges compared with, and the average of the year's scores; the first is the average.
+  def indicators_chart_series(judge, others, dataset)
+    average = { label: t('judges.indicators.chart.average'), data: dataset.numerical_average.values }
+    judges = [judge, *others].map { |item| { label: item.name, data: dataset.numerical_values_for(item) } }
+
+    [average, *judges]
+  end
+
+  # The data of an element enclosing a chart and its legend: the indicators-chart controller draws the chart, each
+  # series in the color of its swatch in the legend.
+  def indicators_chart_data(type:, labels:, series:)
+    {
+      controller: 'indicators-chart',
+      indicators_chart_type_value: type,
+      indicators_chart_labels_value: labels.to_json,
+      indicators_chart_series_value: series.to_json
+    }
+  end
+
+  def indicators_chart_tag(labels)
+    tag.div(class: 'chart') do
+      tag.canvas(class: 'chart-canvas', data: { indicators_chart_target: 'canvas' }, 'aria-label': labels.join(', '),
+                 role: 'img')
     end
   end
 
-  def indicators_chart_canvas_tag(judge, options = {})
-    colors = %w(f16c4f 00aeef e19e41 73be1e)
-    judges = [judge] + options.fetch(:others, [])
-    locals = { colors: judges.size.times.map { |i| colors[i % colors.size] }, judges: judges }.merge(options.slice(:indicators_repository, :year))
+  # A radar's legend lists its series (the average first) in a column, a polar area's its segments in a line.
+  def indicators_chart_legend_tag(labels, polar: false)
+    items = labels.each_with_index.map do |label, index|
+      tag.li(class: polar ? 'list-inline-item' : 'facet-item') do
+        color = polar ? "chart-segment-#{index}" : "chart-series-#{index}"
 
-    content_for :scripts do
-      content_tag :script, type: 'text/javascript' do
-        render(partial: 'judges/indicators/chart/handler', formats: :js, locals: locals).html_safe
+        safe_join([tag.span(class: ['chart-swatch', color], data: { indicators_chart_target: 'swatch' }), label])
       end
     end
 
-    content_tag :div, content_tag(:canvas, nil, class: 'chart-canvas'), class: 'chart'
-  end
-
-  def indicators_chart_legend_tag
-    content_tag :div, nil, class: 'chart-legend'
+    tag.div(class: 'chart-legend') { tag.ul(safe_join(items), class: polar ? 'list-inline mt-4' : 'facet-list') }
   end
 
   def link_to_indicators_name_facet(facet, result, options = {})
     link_to_indicators_terms_facet facet, result, options.merge(count: false)
   end
 
+  # Links of the comparison facets stay on the judge's page, in the tab of the year.
   def link_to_indicators_terms_facet(facet, result, options = {})
-    anchor = facet.params.find { |k, v| k.start_with?('indicators') && v }.first.dasherize
-    path = -> (other) { judge_path params.merge(other).merge(anchor: anchor) }
-    link_to_facet_value facet, result, result.value, options.merge(path: path)
+    year = facet.params.find { |key, value| key.to_s.start_with?('indicators') && value }&.first
+    path = ->(query) { judge_path(params[:id], query.merge(anchor: year&.to_s&.dasherize)) }
+
+    link_to_facet_value facet, result, result.value, options.merge(path:)
+  end
+
+  private
+
+  def agendas_indicator(text, pattern, counts, title)
+    parts = text.to_s.split(pattern).each_with_index.map do |part, index|
+      index.odd? ? popover_tag(part, agendas_popover_content(counts), title:, trigger: 'hover') : part
+    end
+
+    safe_join(parts)
+  end
+
+  def agendas_popover_content(counts)
+    lines = AGENDAS.zip(counts).map do |agenda, count|
+      safe_join([t("judges.indicators_2013.basic.agenda.#{agenda}"), count], ' – ')
+    end
+
+    safe_join(lines, tag.br).to_str
   end
 end

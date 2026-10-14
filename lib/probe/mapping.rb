@@ -48,6 +48,14 @@ module Probe
       { dynamic: 'strict', properties: fields.values.to_h { |field| [field.name, property(field)] } }
     end
 
+    # Text sorts regardless of case and diacritics (Čierny between Cibuľa and Dobos), by its folded subfield.
+    def sort_field(name)
+      field = fields[name.to_sym]
+      folded = field&.analyzed && field.options.fetch(:type, :string) == :string && field.options[:index] != :no
+
+      folded ? Probe::Fields.folded(name) : Probe::Fields.keyword(name)
+    end
+
     private
 
     def property(field)

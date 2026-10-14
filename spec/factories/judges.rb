@@ -57,14 +57,16 @@ FactoryBot.define do
 
   factory :judge_property_declaration do
     judge
+    court
     year { 2012 }
     source { Source.of('SudnaradaGovSk') }
     uri
   end
 
   factory :judge_related_person do
-    declaration factory: %i[judge_property_declaration]
+    property_declaration factory: %i[judge_property_declaration]
     sequence(:name) { |n| "Mária Nováková #{n}" }
+    name_unprocessed { name }
     institution { 'Okresný súd Bratislava I' }
     function { 'sudkyňa' }
   end

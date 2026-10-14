@@ -1,87 +1,51 @@
+# frozen_string_literal: true
+
 class JudgesController < SearchController
-  before_filter :prepare_search_params, only: :index
+  INDICATORS = %i[indicators_2013 indicators_2015 indicators_2017 indicators_2021].freeze
+
+  # The years whose indicators compare the judge with others (the 2021 evaluation compares with no one).
+  COMPARED_INDICATORS = %i[indicators_2013 indicators_2015 indicators_2017].freeze
 
   def show
-    @judge = Judge.find(params[:id])
+    @judge = Judge.find(params.expect(:id))
 
-    @employments = @judge.employments
-    @designations = @judge.designations.order('date desc')
+    @employments = @judge.employments.includes(:court, :judge_position)
+    @designations = @judge.designations.includes(:type).order(date: :desc)
 
-    @historical_hearings = @judge.hearings.historical.exact.order('date desc')
-    @upcoming_hearings = @judge.hearings.upcoming.exact.order('date desc')
-    @decrees = @judge.decrees.exact.order('date desc')
+    @historical_hearings = @judge.hearings.historical.exact.order(date: :desc)
+    @upcoming_hearings = @judge.hearings.upcoming.exact.order(date: :desc)
+    @decrees = @judge.decrees.exact.order(date: :desc)
 
-    @property_declarations = @judge.property_declarations.order('year desc')
-    @statistical_summaries = @judge.statistical_summaries.order('year desc')
+    @latest_indicators = INDICATORS.rfind { |key| @judge.public_send(key).present? }
+    @comparisons = COMPARED_INDICATORS.index_with { |key| compare(key) }
 
-    # TODO rm or fix Bing Search API
-    # @media = [] # @judge.context_search[0..9]
-
-    flash.now[:danger] << t('judges.show.incomplete') if @judge.incomplete?
-
-    # TODO rm: after this there are still both 2013 and 2017 suffixed fields in query, why?
-    # @available_indicators = {
-    #   indicators_2017: @judge.indicators_2017.present?,
-    #   indicators_2015: @judge.indicators_2015.present?,
-    #   indicators_2013: @judge.indicators_2013.present?
-    # }
-    #
-    # @indicators = (
-    #   params.slice(:indicators_2017, :indicators_2015, :indicators_2013).keys.first&.to_sym ||
-    #   @available_indicators.find { |(name, available)| available }&.first ||
-    #   :indicators_2017
-    # )
-    #
-    # params[@indicators] = true unless params[@indicators].present?
-    #
-    # results = Judge.search(params)
-    # @facets = results.facets
-    # @others = params[:name] ? results.to_a.map(&:first) : []
-
-    # TODO this searches through first available indicators only! it leaves others as blank so later
-    # when we figure out how to search through desired available indicators we do not have to change views
-    keys = %i[indicators_2013 indicators_2015 indicators_2017 indicators_2021]
-
-    @latest_indicators = keys.reverse.find { |key| @judge.send(key).present? }
-
-    @facets_2013, @others_2013 = search_indicators(:indicators_2013)
-    @facets_2015, @others_2015 = search_indicators(:indicators_2015)
-    @facets_2017, @others_2017 = search_indicators(:indicators_2017)
+    flash_now(:danger, t('.incomplete')) if @judge.incomplete?
   end
-
-  # TODO rm - unused?
-  # def curriculum
-  #   @judge = Judge.find(params[:id])
-  #
-  # TODO translate
-  #   send_file_in @judge.curriculum_path, name: "Životopis - #{@judge.name}", escape: false
-  # end
-
-  # TODO rm - unused?
-  # def cover_letter
-  #   @judge = Judge.find(params[:id])
-  #
-  # TODO translate
-  #   send_file_in @judge.cover_letter_path, name: "Motivačný list - #{@judge.name}", escape: false
-  # end
-
-  protected
-
-  include FileHelper
 
   private
 
+  # Suggestions for the facets that pick judges to compare with a judge (?id=) link to that judge's page.
+  def suggest_partial(facet)
+    return super if params[:id].blank?
+
+    facet.name == :name ? 'judges/indicators/facets/name_results' : 'judges/indicators/facets/terms_results'
+  end
+
   def search_associations
-    [employments: %i[court judge judge_position]]
+    [{ employments: %i[court judge judge_position] }]
   end
 
-  def search_indicators(key)
-    results = Judge.search(params.merge(key => true))
-    [results.facets, params[:name] ? results.to_a.map(&:first) : []]
+  def default_sort
+    { sort: 'sortable_name', order: 'asc' }
   end
 
-  def prepare_search_params
-    params[:sort] = 'sortable_name' if params[:sort].blank?
-    params[:order] = 'asc' if params[:sort] == 'sortable_name' && params[:order].blank?
+  # The facets to pick other judges with the year's indicators by, and the judges picked.
+  def compare(key)
+    results = Judge.search(search_params.merge(key => 'true'))
+    others = params[:name].present? ? results.records.to_a - [@judge] : []
+
+    Comparison.new(results.facets, others)
   end
+
+  Comparison = Data.define(:facets, :others)
 end

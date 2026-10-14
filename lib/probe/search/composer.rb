@@ -61,7 +61,7 @@ module Probe
 
       def sort
         field = @sort || sort_fields.first
-        name = field == :_score ? '_score' : Probe::Fields.keyword(field)
+        name = field == :_score ? '_score' : model.mapping.sort_field(field)
 
         [{ name => { order: @order || :desc } }]
       end

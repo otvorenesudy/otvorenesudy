@@ -2,3 +2,38 @@
   position: relative;
   min-width: map-get($grid-breakpoints, sm);
 }
+
+.chart-polar {
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// The colors of a chart, in order: the indicators-chart controller reads them from the legend's swatches. A radar's
+// series are the average (gray), then the judges; a polar area's segments take the colors in turn.
+
+$chart-colors: (#f16c4f, #00aeef, #e19e41, #73be1e, #8392ac);
+
+.chart-swatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin: map-get($spacers, 1) map-get($spacers, 2) map-get($spacers, 1) 0;
+  vertical-align: top;
+}
+
+.chart-series-0 {
+  background-color: nth($chart-colors, 5);
+}
+
+@for $index from 1 through 12 {
+  .chart-series-#{$index} {
+    background-color: nth($chart-colors, ($index - 1) % 4 + 1);
+  }
+}
+
+@for $index from 0 through 4 {
+  .chart-segment-#{$index} {
+    background-color: nth($chart-colors, $index + 1);
+  }
+}

@@ -76,7 +76,7 @@ class Judge
         each_judge_row(:statistical) { |id, row| entries[id].statistical = normalize_statistical(row, courts) }
         each_judge_row(:numerical) { |id, row| entries[id].numerical = normalize_numerical(row) }
 
-        entries.to_h
+        entries.tap { |hash| hash.default_proc = nil }
       end
 
       def each_judge_row(kind)

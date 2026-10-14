@@ -30,8 +30,7 @@ class SearchController < ApplicationController
     facet = facets[params[:facet]]
     results = facet.results
 
-    render partial: facet.view[:results] || "facets/#{facet.type}_results",
-           locals: { facet:, visible: results.first(10), other: results[10..] || [] }
+    render partial: suggest_partial(facet), locals: { facet:, visible: results.first(10), other: results[10..] || [] }
   end
 
   def collapse
@@ -58,6 +57,10 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def suggest_partial(facet)
+    facet.view[:results] || "facets/#{facet.type}_results"
+  end
 
   def model
     controller_name.classify.constantize
