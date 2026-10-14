@@ -56,6 +56,17 @@ RSpec.describe 'The document viewer of a decree', :js do
     expect(style.call(arrows.first, :color)).to eq('rgb(33, 37, 41)')
   end
 
+  it 'tells how to move between matches only while searching' do
+    visit decree_path(decree)
+    expect(page).to have_css('#pdf .page', count: 2)
+
+    expect(page).to have_no_text(I18n.t('shared.pdfjs.match_help'))
+
+    search_field.fill_in(with: 'najvyssi sud')
+
+    expect(page).to have_text(I18n.t('shared.pdfjs.match_help'))
+  end
+
   it 'highlights the words the decrees were searched for' do
     create(:decree_page, decree:, number: 1, text: 'Najvyšší súd rozhodol v mene Slovenskej republiky.')
     Decree.find(decree.id).update_index
