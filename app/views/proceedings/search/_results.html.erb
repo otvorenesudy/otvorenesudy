@@ -2,58 +2,36 @@
   <li class="search-result-item">
     <h4 class="search-result-title">
       <%= link_to proceeding do %>
-        <%= proceeding_headline(proceeding, limit: 57) %>
+        <%= proceeding_headline proceeding, limit: 57 %>
         <% if proceeding.legislation_areas_and_subareas.any? %>
-          <br/>
+          <br>
           <%= proceeding_subject proceeding, limit: 57 %>
         <% end %>
       <% end %>
-      <small>
-        <%= t '.proceeding' %>
-        <% if proceeding.duration_events.any? %>
-          <% if proceeding.single_hearing? %>
-            <%= t proceeding.duration_events.first.historical ? '.single_hearing.past' : '.single_hearing.future' %>
-            <%= proceeding_date proceeding.duration_events.first.date %>
-          <% elsif proceeding.single_decree? %>
-            <%= t '.single_decree.past' %> <%= proceeding_date proceeding.duration_events.first.date %>
-          <% else %>
-            <% unless proceeding.probably_closed? %>
-              <%= t '.probably_open.from' %> <%= proceeding_date proceeding.duration_events.first.date %>
-            <% else %>
-              <% if proceeding.duration_events.first.date.to_date == proceeding.duration_events.last.date.to_date %>
-                <%= t '.probably_closed.point' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
-              <% else %>
-                <%= t '.probably_closed.from' %> <%= proceeding_date proceeding.duration_events.first.date, format: :normal %>
-                <%= t '.probably_closed.until' %> <%= proceeding_date proceeding.duration_events.last.date, format: :normal %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-      </small>
+      <small><%= render 'proceedings/duration', proceeding: %></small>
     </h4>
 
     <div class="search-result-content">
-      <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
+      <ul class="float-sm-end list-unstyled text-sm-end ms-sm-2 mb-2">
         <% proceeding.case_numbers.each do |number| %>
-          <li><%= tooltip_tag number || '?', t('case_number.full'), class: 'text-muted', placement: 'left' %></li>
+          <li><%= tooltip_tag number, t('case_number.full'), class: 'text-muted', placement: 'left' %></li>
         <% end %>
         <li><%= tooltip_tag proceeding.file_number || '?', t('file_number.full'), class: 'text-muted', placement: 'left' %></li>
       </ul>
 
       <%= t('.register').upcase_first %> <%= translate_with_count(proceeding.hearings.size, :hearing) %>
       <%= two_words_connector %>&nbsp;<%= translate_with_count(proceeding.decrees.size, :decree) %>.
-      <br/>
-      <% if proceeding.courts.any? %>
-        <%= translate_without_count(proceeding.courts.size, :court).upcase_first %> &ndash; <%= links_to_courts proceeding.courts %>
-        <br/>
+      <br>
+      <% if (courts = proceeding.courts).any? %>
+        <%= translate_without_count(courts.size, :court).upcase_first %> &ndash; <%= links_to_courts courts %>
+        <br>
       <% end %>
       <% if proceeding.judges.any? %>
-        <% if proceeding.judges_exact.any? %>
-          <%= translate_without_count(proceeding.judges_exact.size, :judge).upcase_first %>
-          &ndash; <%= links_to_judges proceeding.judges_exact.order(:last, :middle, :first) %>
+        <% if (exact = proceeding.judges_exact.order(:last, :middle, :first)).any? %>
+          <%= translate_without_count(exact.size, :judge).upcase_first %> &ndash; <%= links_to_judges exact %>
         <% else %>
-          <%= translate_without_count(proceeding.judges_inexact.size, :judge).upcase_first %>
-          &ndash; <%= judge_processed_names proceeding.judges_inexact.order(:last, :middle, :first) %>
+          <% inexact = proceeding.judges_inexact.order(:last, :middle, :first) %>
+          <%= translate_without_count(inexact.size, :judge).upcase_first %> &ndash; <%= judge_processed_names inexact %>
         <% end %>
       <% end %>
 

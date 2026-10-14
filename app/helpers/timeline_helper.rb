@@ -1,17 +1,22 @@
+# frozen_string_literal: true
+
 module TimelineHelper
-  def timeline_distance(a, b)
-    return 'unknown' if a.nil? || b.nil?
+  # The days between two events, as the class that spaces them on the timeline.
+  DISTANCES = {
+    0..0 => 'less-than-day',
+    1..7 => 'day-to-week',
+    8..31 => 'week-to-month',
+    32..181 => 'month-to-half-year',
+    182..365 => 'half-year-to-year'
+  }.freeze
 
-    a, b = [a, b].map { |e| e.date.try :to_time }
+  def timeline_distance(previous, event)
+    times = [previous, event].map { |item| item&.date&.to_time }
 
-    case ((a - b) / (60 * 60 * 24)).abs.round
-    when 0..0     then 'less-than-day'
-    when 1..7     then 'day-to-week'
-    when 8..31    then 'week-to-month'
-    when 32..181  then 'month-to-half-year'
-    when 182..365 then 'half-year-to-year'
-    else
-      'more-than-year'
-    end
+    return 'unknown' if times.any?(&:nil?)
+
+    days = ((times.first - times.last) / 1.day).abs.round
+
+    DISTANCES.find { |range, _| range.cover?(days) }&.last || 'more-than-year'
   end
 end
