@@ -21,9 +21,12 @@ Gemfile.lock.tags
 
 /config/configuration.yml
 
-# Rails credentials' keys (the encrypted files are committed)
+# Rails credentials' keys (production's encrypted file is committed). Each developer keeps their own development
+# credentials, from config/credentials/development.example.
 /config/master.key
 /config/credentials/*.key
+/config/credentials/development.*
+!/config/credentials/development.example
 
 # Generated nightly (config/sitemap.rb)
 /public/sitemaps/

@@ -5,14 +5,14 @@
 # Configuration (config/configuration.yml); production doesn't boot without them, and says which are missing:
 #
 #   secret_key_base       was secret_token (signs sessions and cookies)
-#   devise.secret_key     was devise.key; the same value keeps sent confirmation and reset links working
+#   devise.key            as before; the same value keeps sent confirmation and reset links working
 #   smtp.username         was mailer.username (Brevo)
 #   smtp.password         was mailer.password
 #   sentry.dsn            replaces rollbar.access_token
 #   skylight.token        was OPENCOURTS_SKYLIGHT_AUTHENTICATION in .env
 PRODUCTION_SECRETS = [
   [:secret_key_base],
-  %i[devise secret_key],
+  %i[devise key],
   %i[smtp username],
   %i[smtp password],
   %i[sentry dsn],

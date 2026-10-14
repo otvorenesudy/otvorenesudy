@@ -3,7 +3,7 @@
 Devise.setup do |config|
   # The key from the Rails 3 app, so confirmation and password reset links sent before the upgrade keep working.
   # Without it Devise signs its tokens with secret_key_base.
-  config.secret_key = Rails.application.credentials.dig(:devise, :secret_key)
+  config.secret_key = Rails.application.credentials.dig(:devise, :key)
 
   config.mailer_sender = 'noreply@otvorenesudy.sk'
 

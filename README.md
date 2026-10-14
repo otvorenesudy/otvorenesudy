@@ -53,7 +53,7 @@ without them and names the ones missing (`config/initializers/production_boot_ch
 ```yaml
 secret_key_base: ...       # signs sessions and cookies
 devise:
-  secret_key: ...          # keep the old one, so sent confirmation and password links keep working
+  key: ...                 # keep the old one, so sent confirmation and password links keep working
 smtp:
   username: ...
   password: ...
