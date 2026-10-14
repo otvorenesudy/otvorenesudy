@@ -31,9 +31,8 @@ Gemfile.lock.tags
 # Generated nightly (config/sitemap.rb)
 /public/sitemaps/
 
-# Local settings (dotenv): each developer's own
-/.env
-/.env.local
+# dotenv: the database login and settings, each developer's own and the server's; never committed
+/.env*
 
 plans/*.md
 

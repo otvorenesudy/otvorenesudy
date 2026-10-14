@@ -42,7 +42,7 @@ subscriptions' unsubscribe tokens. Then reindex with `bin/rails probe:reindex`.
 
 ## Configuration
 
-The environment, or a `.env` file, holds the database login, shared with otvorenesudy-api
+The environment, or a `.env` file (git ignores it), holds the database login, shared with otvorenesudy-api
 (`OPENCOURTS_DATABASE_HOST`, `OPENCOURTS_DATABASE_USER`, `OPENCOURTS_DATABASE_PASSWORD`; on the server, the deploy
 user's `~/.env`), and settings: optionally `REDIS_URL`, `ELASTICSEARCH_URL`, `RAILS_MAX_THREADS`, `SIDEKIQ_CONCURRENCY`
 and `RAILS_LOG_LEVEL`.
