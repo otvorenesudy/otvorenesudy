@@ -43,6 +43,30 @@ RSpec.describe 'The decisions of the Whistleblower Protection Office' do
     expect(item.all('.search-result-list .search-result-item')).to all(have_no_text(/\d EUR/))
   end
 
+  it 'names a decision and its appeal without linking an address that is not a web address' do
+    script = 'javascript:alert(1)'
+    decision = { 'url' => script, 'parent_decree_url' => nil, 'chain_root_decree_url' => script,
+                 'title' => 'Prvé rozhodnutie', 'date' => '1. 3. 2025' }
+    appeal = decision.merge('url' => 'data:text/html,hi', 'parent_decree_url' => script,
+                            'title' => 'Odvolanie', 'date' => '1. 6. 2025')
+
+    Tempfile.create(%w[uoo-decrees .json]) do |file|
+      file.write({ 'decrees' => [decision, appeal] }.to_json)
+      file.flush
+      stub_const('Uoo::Data::SOURCE', file.path)
+      Uoo::Data.reload!
+
+      visit uoo_decrees_path
+    ensure
+      Uoo::Data.reload!
+    end
+
+    expect(page).to have_css('.search-result-title', text: 'Prvé rozhodnutie')
+    expect(page).to have_css('.search-result-title', text: 'Odvolanie')
+    expect(page).to have_no_link('Prvé rozhodnutie')
+    expect(page).to have_no_link('Odvolanie')
+  end
+
   it 'searches the court decrees for a party' do
     party = stats[:by_party].first
 

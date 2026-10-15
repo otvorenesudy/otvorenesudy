@@ -58,6 +58,6 @@
 
 <% if @uoo_source_url.present? %>
   <p class="text-muted small mt-3 text-end">
-    <%= t '.source' %>: <%= link_to @uoo_source_url, @uoo_source_url, target: '_blank', rel: 'noopener noreferrer' %>
+    <%= t '.source' %>: <%= link_to_source @uoo_source_url, @uoo_source_url, target: '_blank', rel: 'noopener noreferrer' %>
   </p>
 <% end %>
