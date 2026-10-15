@@ -58,6 +58,8 @@ $enable-transitions: false;
 $enable-grid-classes: true;
 $enable-rfs: false;
 $enable-dark-mode: false;
+// An address with a #tab jumps there, as in Bootstrap 4, rather than scrolling for a while
+$enable-smooth-scroll: false;
 
 // Spacing
 
