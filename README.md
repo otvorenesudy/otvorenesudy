@@ -11,7 +11,7 @@ database; this app shows it and keeps the search indices up to date.
 
 ## Requirements
 
-- Ruby 4.0 and Node 24 (`.tool-versions`; Node only runs Prettier, the app's JavaScript needs no build)
+- Ruby 4.0 and Node 24 (`.tool-versions`; Node runs Prettier and `bin/vendor`, the app's JavaScript needs no build)
 - PostgreSQL 17 with the pg_trgm, unaccent and pgvector extensions
 - Elasticsearch 9 (`bin/elasticsearch` downloads and runs it locally)
 - Redis (Sidekiq) and Memcached (cache, in production)
@@ -26,7 +26,7 @@ bin/elasticsearch --daemon
 bin/setup
 ```
 
-`bin/setup` installs the gems and Prettier, creates the database from `db/structure.sql` with its seeds, then starts
+`bin/setup` installs the gems and the Node packages, creates the database from `db/structure.sql` with its seeds, then starts
 `bin/dev` (the app on port 3000 and the Dart Sass watcher). Build the search indices with `bin/rails probe:reindex`.
 
 The database login comes from `OPENCOURTS_DATABASE_USER` and `OPENCOURTS_DATABASE_PASSWORD` (and
@@ -101,6 +101,15 @@ bin/rails probe:reindex        # rebuild in a new index, then switch the alias t
 bin/rails probe:import         # the same, in the background (Sidekiq)
 bin/rails probe:synchronize    # reindex what is missing or older than the database (Sidekiq)
 ```
+
+## Browser Libraries
+
+pdf.js, Bootstrap, Popper, Chart.js and the cookie consent banner are listed in `package.json` at exact versions, and
+`bin/vendor` copies them from `node_modules` into `vendor/` and `app/assets/stylesheets/vendor/`, bundling Popper and
+Chart.js into one module each with esbuild. importmap serves them without a build step. Don't edit those files: to
+update a library, change its version in `package.json` (Dependabot proposes updates weekly), then run `npm install`
+and `bin/vendor` and commit what changed. Bootstrap's SCSS comes from the bootstrap gem, which must be the same
+version. `bin/test` runs `bin/vendor --check`, which fails when the files aren't what `package.json`'s versions make.
 
 ## Testing
 

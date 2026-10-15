@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# JavaScript modules, served from app/javascript and vendor/javascript (bin/importmap pin <package> --download).
+# JavaScript modules, served from app/javascript and vendor/javascript. The libraries come from package.json through
+# bin/vendor, which also keeps the version noted on each pin.
 pin 'application'
 pin '@hotwired/turbo-rails', to: 'turbo.min.js'
 pin '@hotwired/stimulus', to: 'stimulus.min.js'

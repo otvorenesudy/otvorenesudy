@@ -63,7 +63,8 @@ jobs:
           node-version-file: .tool-versions
           cache: npm
 
-      - name: Install Prettier
+      # Prettier, esbuild and the browser libraries bin/vendor --check compares the vendored files with.
+      - name: Install Node Packages
         run: npm ci
 
       - name: Run Tests

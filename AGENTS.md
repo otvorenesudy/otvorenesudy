@@ -47,12 +47,13 @@ judge an id from `data/*.csv` to test its indicators.
 ## Commands
 
 ```bash
-bin/setup                    # gems, Prettier, the database; then bin/elasticsearch --daemon
+bin/setup                    # gems, Node packages, the database; then bin/elasticsearch --daemon
 bin/dev                      # the app and Dart Sass in watch mode
 bin/test                     # lint, then every spec with coverage, then undercover; must be green before you are done
 bin/test spec/system/courts_spec.rb:12   # lint, then those specs
 bin/lint                     # RuboCop and Prettier on the files this branch changed
 bin/lint --fix <file>        # format and autocorrect a file (the edit hook does this for you)
+bin/vendor                   # copy the browser libraries package.json lists into vendor/ (npm install first)
 bin/elasticsearch --daemon   # Elasticsearch 9 on localhost:9200, downloaded on first use
 bin/rails probe:reindex      # rebuild the search indices from the database
 bundle exec sidekiq -C config/sidekiq.yml
@@ -91,7 +92,9 @@ measured. Cover what undercover reports with specs; never filter application cod
 
   ERB has no formatter here.
 - **Front end**: behavior lives in Stimulus controllers (`app/javascript/controllers`), wired by `data-*` attributes;
-  no inline scripts. Third-party modules are vendored in `vendor/javascript` and pinned in `config/importmap.rb`.
+  no inline scripts. Third-party libraries are listed in `package.json` at exact versions and copied into `vendor/`
+  by `bin/vendor`, never edited by hand; `config/importmap.rb` pins them. To add or update one, change
+  `package.json`, run `npm install` and `bin/vendor`; `bin/test` fails while the files don't match.
 - **Translations**: Slovak is the default locale, English the other; user-facing strings go through `t(...)` with
   keys in both. Missing translations raise in development and tests.
 - **Dependencies**: add with `bundle add` and commit `Gemfile.lock`.

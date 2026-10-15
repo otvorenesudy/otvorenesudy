@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Decides whether a change is done: bin/lint on the branch's changes, then the RSpec suite against a test database
+# Decides whether a change is done: bin/lint on the branch's changes, bin/vendor --check on the vendored browser
+# libraries (they must be what package.json's versions make), then the RSpec suite against a test database
 # loaded from db/structure.sql and the local Elasticsearch. A full run (no arguments) also measures coverage: SimpleCov
 # fails it below 95% of lines or 90% of branches, and undercover fails it for any method this branch changed that no
 # spec runs. Exits non-zero when any of them fails.
@@ -40,6 +41,9 @@ status=0
 
 echo "==> lint"
 bin/lint || status=1
+
+echo "==> vendored libraries"
+bin/vendor --check || status=1
 
 echo "==> test database"
 if ! pg_isready -q -h localhost; then
