@@ -95,7 +95,6 @@ df -h . | tail -1 | awk '{ print "Free disk space: " $4 }'
 # Objects in the dump are owned by the production role. A local role without login keeps those statements working;
 # superusers (postgres, you) still reach everything.
 psql -X -q -d postgres -c "DO \$\$ BEGIN CREATE ROLE opencourts NOLOGIN; EXCEPTION WHEN duplicate_object THEN NULL; END \$\$" || exit 1
-createdb -T template0 -E UTF8 "$staging" || exit 1
 
 if command -v pigz >/dev/null; then
   decompress=(pigz -dc)
@@ -117,8 +116,9 @@ echo "Splitting the backup into $parts (started $(date '+%H:%M'), errors in $log
 
 # The section starts at the `-- Database "opencourts_production" dump` header and ends at the next database's header
 # or the end of the cluster dump; COPY data in between is never taken for a header. Before its \connect line it
-# creates the database, which already exists as the staging database, so CREATE DATABASE is dropped and the remaining
-# lines and the \connect target point at staging. All of that, and the schema after it, goes to pre.sql.
+# creates the database with production's encoding and locale, which decide how text sorts; that statement, the
+# remaining lines and the \connect target point at staging, so the copy sorts as production does. All of that, and the
+# schema after it, goes to pre.sql.
 #
 # Each entry after the schema starts with a `-- Name: ...; Type: ...` comment. Table data goes to data/, in chunks of
 # at most 256 MB that each repeat the COPY line; primary keys to constraints/, indexes to indexes/, one file each; the
@@ -168,7 +168,6 @@ LC_ALL=C "${decompress[@]}" "$backup" |
     /^-- Database "/ && $0 != header { exit }
     $0 == "-- PostgreSQL database cluster dump complete" { exit }
 
-    !connected && /^CREATE DATABASE / { next }
     !connected && /^\\connect / { print "\\connect " staging > out; connected = 1; next }
     !connected { gsub(source, staging); print > out; next }
 
@@ -199,11 +198,16 @@ statuses=("${PIPESTATUS[@]}")
 
 # The decompressor gets SIGPIPE (141) when awk stops after the section.
 if [[ ${statuses[0]} != 0 && ${statuses[0]} != 141 ]] || [[ ${statuses[1]} != 0 ]]; then
-  echo "Splitting the backup failed (decompress, awk exited ${statuses[*]}). $staging is left for inspection." >&2
+  echo "Splitting the backup failed (decompress, awk exited ${statuses[*]})." >&2
   exit 1
 fi
 
 touch "$parts/pre.sql" "$parts/post.sql" "$parts/settings.sql" "$parts/jobs.tsv"
+
+if ! grep -q "^CREATE DATABASE $staging " "$parts/pre.sql"; then
+  echo "The backup has no $source_database section." >&2
+  exit 1
+fi
 
 export PGOPTIONS="-c maintenance_work_mem=2GB -c max_parallel_maintenance_workers=4 -c synchronous_commit=off"
 
@@ -222,8 +226,9 @@ fail() {
   exit 1
 }
 
-step "Creating the schema"
+step "Creating the database and its schema"
 psql -X -q -d postgres -f "$parts/pre.sql" >/dev/null 2>>"$log" || fail "creating the schema"
+exists "$staging" || fail "creating the database (a locale the backup names that this server lacks?)"
 
 step "Loading the tables in $(grep -c '^data' "$parts/jobs.tsv") chunks, $jobs at a time"
 run data || fail "loading the tables"
@@ -243,7 +248,7 @@ echo "Restored in $(((SECONDS - started) / 60)) minutes with $errors psql errors
 
 tables=$(psql -X -d "$staging" -Atc "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public'")
 if ((tables == 0)); then
-  echo "$staging has no tables: the backup has no $source_database section. $staging is left for inspection." >&2
+  echo "$staging has no tables: the backup's $source_database section holds none. $staging is left for inspection." >&2
   exit 1
 fi
 

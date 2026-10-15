@@ -73,6 +73,14 @@ RSpec.describe 'bin/restore-production-copy' do # rubocop:disable RSpec/Describe
     expect(query("SELECT 1 FROM pg_database WHERE datname = 'opencourts_api'", dbname: 'postgres')).to be_empty
   end
 
+  # The fixture's CREATE DATABASE names C; a database in the server's own default would sort differently on another
+  # machine.
+  it 'creates the database with the locale and encoding the backup names' do
+    sql = "SELECT datcollate, datctype, pg_encoding_to_char(encoding) FROM pg_database WHERE datname = '#{database}'"
+
+    expect(query(sql, dbname: 'postgres')).to eq([%w[C C UTF8]])
+  end
+
   it 'masks the e-mail, password and tokens of every user but the kept one' do
     users = query('SELECT id, email, encrypted_password, confirmation_token FROM users ORDER BY id')
 
