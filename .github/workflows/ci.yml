@@ -26,6 +26,13 @@ jobs:
         options: >-
           --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
 
+      # Sidekiq's dashboard reads its queues from Redis.
+      redis:
+        image: redis:7
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 5s --health-retries 10
+
       elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
         env:
@@ -43,6 +50,8 @@ jobs:
       PGUSER: opencourts
       PGPASSWORD: opencourts
       CI: 'true'
+      # A failed browser spec saves the page's HTML beside its screenshot in tmp/capybara.
+      RAILS_SYSTEM_TESTING_SCREENSHOT_HTML: '1'
 
     steps:
       - name: Check Out Repository
@@ -77,3 +86,12 @@ jobs:
           name: coverage
           path: coverage/
           retention-days: 7
+
+      - name: Upload Failure Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: tmp/capybara/
+          retention-days: 7
+          if-no-files-found: ignore

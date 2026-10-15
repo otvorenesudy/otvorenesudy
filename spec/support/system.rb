@@ -14,7 +14,16 @@ RSpec.configure do |config|
   config.before(type: :system, js: true) do
     driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1000] do |options|
       options.add_argument('--host-resolver-rules=MAP * ~NOTFOUND, EXCLUDE 127.0.0.1, EXCLUDE localhost')
+      options.add_option('goog:loggingPrefs', { browser: 'ALL' })
     end
+  end
+
+  # A failed example in the browser reports what the page's console said, where a script error shows.
+  config.after(type: :system, js: true) do |example|
+    next unless example.exception
+
+    entries = page.driver.browser.logs.get(:browser).reject { |entry| entry.level == 'INFO' }
+    warn "\nBrowser console of \"#{example.full_description}\":\n#{entries.join("\n")}" if entries.any?
   end
 end
 
