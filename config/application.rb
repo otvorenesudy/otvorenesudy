@@ -33,6 +33,13 @@ module OpenCourts
 
     config.active_job.queue_adapter = :sidekiq
 
+    # The bootstrap gem is here for its SCSS. Its JavaScript, and popper_js's, are global bundles named like the modules
+    # in vendor/javascript (bootstrap.js), and Propshaft serves the first file of a name: with the gems inside the app
+    # (vendor/bundle, as in CI), that was the gem's.
+    config.assets.excluded_paths += %w[bootstrap popper_js].map do |name|
+      Pathname(Gem.loaded_specs.fetch(name).full_gem_path).join('assets/javascripts')
+    end
+
     config.generators do |generate|
       generate.test_framework :rspec
       generate.system_tests nil
