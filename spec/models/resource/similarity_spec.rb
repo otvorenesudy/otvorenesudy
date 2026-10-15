@@ -9,12 +9,14 @@ RSpec.describe Resource::Similarity do
 
   before { create(:judge, first: 'Peter', last: 'Kováč') }
 
+  # Trigram similarity depends on the database's locale, which config/database.yml sets: en_US.UTF-8 counts á as a
+  # letter.
   it 'groups the records at least as similar as the limit by their similarity, the most similar first' do
-    similar = Judge.similar_by_name('JUDr. Ján Novák', limit: 0.5)
+    similar = Judge.similar_by_name('JUDr. Ján Novák', limit: 0.4)
 
     expect(similar.values).to eq([[novak], [novakova]])
     expect(similar.keys.first).to eq(1.0)
-    expect(similar.keys.last).to be_within(0.001).of(0.526)
+    expect(similar.keys.last).to be_within(0.001).of(0.476)
   end
 
   it 'finds only the same value by default' do

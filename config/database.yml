@@ -15,9 +15,15 @@ development:
   <<: *default
   database: opencourts_development
 
+# The locale decides how text sorts and which characters pg_trgm takes for letters (á and č are none in C), so the
+# test database has the one CI's server and, most likely, production's have, whatever this machine's server defaults
+# to. A locale other than template1's needs template0.
 test:
   <<: *default
   database: opencourts_test
+  template: template0
+  collation: en_US.UTF-8
+  ctype: en_US.UTF-8
 
 production:
   <<: *default
