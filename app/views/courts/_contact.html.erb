@@ -38,7 +38,7 @@
 
     <% if @court.data_protection_email %>
       <h3 class="h6 text-uppercase mt-4"><%= t '.data_protection' %></h3>
-      
+
       <div class="row align-items-center">
         <div class="col-5 col-sm-4 col-md-3"><%= t '.data_protection_email' %></div>
         <div class="col-7 col-sm-8 col-md-9 text-truncate"><%= email_to @court.data_protection_email %></div>
@@ -50,9 +50,11 @@
     <div class="bg-light border mt-4 p-3">
       <h2 class="h4 text-uppercase m-1 mb-3"><%= t '.address' %></h2>
       <address class="m-1 mt-3">
-        <%= @court.name %><br/>
-        <%= @court.street %><br/>
-        <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br/>
+        <%= @court.name %><br>
+        <%= @court.street %><br>
+        <% if @court.municipality %>
+          <%= @court.municipality.zipcode %> <%= @court.municipality.name %><br>
+        <% end %>
         <%= t '.country' %>
       </address>
     </div>
@@ -63,8 +65,6 @@
 <%= render 'office', office: @court.registry_center if @court.registry_center %>
 <%= render 'office', office: @court.business_registry_center if @court.business_registry_center %>
 
-<% if @court.other_contacts.present? %>
-  <% @court.other_contacts.each do |contact| %>
-    <%= render 'contact_office', contact: contact %>
-  <% end %>
-<% end%>
+<% Array.wrap(@court.other_contacts.presence).each do |contact| %>
+  <%= render 'contact_office', contact: %>
+<% end %>

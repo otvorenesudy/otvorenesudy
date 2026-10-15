@@ -1,7 +1,7 @@
-class NotifySubscriptionJob
-  include Sidekiq::Worker
+# frozen_string_literal: true
 
-  sidekiq_options queue: :default
+class NotifySubscriptionJob < ApplicationJob
+  queue_as :default
 
   def perform(subscription_id)
     Subscription.find(subscription_id).notify

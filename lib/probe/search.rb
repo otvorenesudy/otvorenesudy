@@ -1,27 +1,13 @@
+# frozen_string_literal: true
+
 module Probe
+  # `Model.search(params)`: a listing's URL params (facets, `page`, `sort`, `order`) in, Probe::Search::Results out.
   module Search
     extend ActiveSupport::Concern
 
-    module ClassMethods
+    class_methods do
       def search(params = {})
-        options = search_options
-
-        options.merge! params: params
-
-        search = Composer.new(self, options)
-
-        search.compose
-      end
-
-      def search_options
-        options = Hash.new
-
-        options[:name]        = index_name
-        options[:facets]      = Probe::Facets.new(@facet_definitions)
-        options[:sort_fields] = sort_fields
-        options[:per_page]    = per_page
-
-        options
+        Probe::Search::Composer.new(self, params).compose
       end
     end
   end

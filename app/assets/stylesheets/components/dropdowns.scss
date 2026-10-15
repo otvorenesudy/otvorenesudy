@@ -1,0 +1,23 @@
+.dropdown-menu {
+  left: -1px !important;
+  margin: 0;
+}
+
+.dropdown-menu-sm {
+  font-size: $font-size-sm;
+}
+
+.dropdown-item {
+  background: $dropdown-bg;
+  font-weight: $btn-font-weight;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:not(:last-child) {
+    border-bottom: $border-width solid $border-color;
+  }
+}

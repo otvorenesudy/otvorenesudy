@@ -11,7 +11,7 @@
     <div class="search-result-content">
       <% if hearing.court %>
         <%= t 'hearings.search.results.court' %> &ndash; <%= link_to_court hearing.court %>
-        <br/>
+        <br>
       <% end %>
       <% if hearing.judges.any? %>
         <% if hearing.exact_judges.any? %>
@@ -21,18 +21,14 @@
           <%= translate_without_count(hearing.inexact_judgings.map(&:judge_name_unprocessed).uniq.size, :judge).upcase_first %>
           &ndash; <%= judge_processed_names hearing.inexact_judgings %>
         <% end %>
-        <br/>
+        <br>
       <% end %>
-      <% if hearing.proposers.any? %>
-        <%= translate_without_count(hearing.proposers.size, :proposer).upcase_first %> &ndash; <%= hearing.proposers.map(&:name).to_sentence %>
-        <br/>
-      <% end %>
-      <% if hearing.opponents.any? %>
-        <%= translate_without_count(hearing.opponents.size, :opponent).upcase_first %> &ndash; <%= hearing.opponents.map(&:name).to_sentence %>
-        <br/>
-      <% end %>
-      <% if hearing.defendants.any? %>
-        <%= translate_without_count(hearing.defendants.size, :defendant).upcase_first %> &ndash; <%= hearing.defendants.map(&:name).to_sentence %>
+      <% { proposers: :proposer, opponents: :opponent, defendants: :defendant }.each do |party, key| %>
+        <% people = hearing.public_send(party) %>
+        <% if people.any? %>
+          <%= translate_without_count(people.size, key).upcase_first %> &ndash; <%= people.map(&:name).to_sentence %>
+          <br>
+        <% end %>
       <% end %>
     </div>
   </li>

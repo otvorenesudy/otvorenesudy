@@ -2,14 +2,14 @@
 
 <% if @court.destroyed_at.present? %>
   <div class="alert alert-danger mb-2">
-    <%= t '.destroyed_at', date: I18n.l(@court.destroyed_at.to_date) %>.
+    <%= t '.destroyed_at', date: l(@court.destroyed_at.to_date) %>.
     <%= t '.destroyed_at_info_html' %>
   </div>
-<% end%>
+<% end %>
 
 <h1 class="text-uppercase my-4">
   <%= yield :title %>
-  <small class="d-block h6 font-weight-bold mt-2 mb-0">
+  <small class="d-block h6 fw-bold mt-2 mb-0">
     <%= @court.address %>
   </small>
 </h1>
@@ -18,7 +18,7 @@
   <%= t '.at_court' %> <%= t '.work', count: @judges.active.listed.size, judges: translate_with_count(@judges.active.listed.size, :judge) %>.
 </p>
 <p>
-  <%= t '.for_court'%> <%= t '.register', count: @court.hearings.size %>
+  <%= t '.for_court' %> <%= t '.register', count: @court.hearings.size %>
   <%= translate_with_count @court.hearings.size, :hearing %>
   <%= two_words_connector %>&nbsp;<%= translate_with_count @court.decrees.size, :decree %>.
 </p>
@@ -26,22 +26,22 @@
 <%= render 'expenses' if @expenses.any? %>
 <%= render 'proceedings' if @court.average_proceeding_durations? %>
 
-<ul class="nav nav-tabs mt-4" role="tablist">
-  <%= tab_link_tag t('.contact'), 'contact', class: 'active', tabindex: -1 %>
+<ul class="nav nav-tabs mt-4" role="tablist" data-controller="tabs">
+  <%= tab_link_tag t('.contact'), 'contact', class: 'active' %>
   <%= tab_link_tag t('.judges'), 'judges' %>
   <%= tab_link_tag t('.decrees'), 'decrees' %>
   <%= tab_link_tag t('.hearings'), 'hearings' %>
 </ul>
 
-<% cache "courts-show-#{@court.id}-#{I18n.locale}-tabs" do %>
+<% cache [@court, I18n.locale, :tabs] do %>
   <div class="tab-content">
-    <%= render_tab partial: 'contact', class: 'active' %>
-    <%= render_tab 'judges', judges: @judges %>
-    <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: @court.name } %>
-    <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: @court.name } %>
+    <%= render_tab partial: 'contact', class: %w[active show] %>
+    <%= render_tab 'judges' %>
+    <%= render_tab 'decrees', decrees: @decrees.limit(10), query: { court: [@court.name] } %>
+    <%= render_tab 'hearings', hearings: @hearings.limit(10), query: { court: [@court.name] } %>
   </div>
 <% end %>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @court.uri), update: time_tag(@court.updated_at.to_date, format: :default) %>
+  <%= s t('.resource_note.description', document: link_to_source(t('.resource_note.document'), @court.uri), update: time_tag(@court.updated_at.to_date, format: :default)) %>
 </p>

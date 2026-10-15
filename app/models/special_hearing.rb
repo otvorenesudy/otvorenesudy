@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 class SpecialHearing < Hearing
-  include Hearing::Scoped.to HearingType.special
+  include Hearing::Scoped
 
-  default_scope apply
-
-  storage :resource, JusticeGovSk::Storage::SpecialHearingPage, extension: :html
+  scoped_to :special
 end

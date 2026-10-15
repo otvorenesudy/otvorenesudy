@@ -1,21 +1,10 @@
+# frozen_string_literal: true
+
 module Probe
+  # A record's document: the value of every mapped field, from its `as:` lambda or the attribute of the same name.
   module Serialize
-    def to_indexed_json
-      to_indexed_hash.to_json
-    end
-
     def to_indexed_hash
-      result = {}
-
-      self.class.mapping.each do |field, options|
-        if options[:as]
-          result[field] = options[:as].call(self)
-        else
-          result[field] = self.send(field)
-        end
-      end
-
-      result
+      self.class.mapping.fields.values.to_h { |field| [field.name, field.value_for(self)] }
     end
   end
 end

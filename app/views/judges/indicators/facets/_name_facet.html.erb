@@ -1,17 +1,17 @@
-<div class="facet" data-id="<%= facet.name %>">
+<div class="facet" data-controller="facet-suggest" data-facet-suggest-url-value="<%= suggest_path(facet.params.merge(facet: facet.name, id: @judge.id)) %>">
   <h6 class="facet-title">
-    <%= t 'judges.indicators_2013.numerical.additional_judges' %>
+    <%= t 'judges.indicators.numerical.additional_judges' %>
   </h6>
 
-  <div id="<%= facet.id %>-content" class="facet-content">
+  <div class="facet-content">
     <div class="small text-muted mb-3">
-      <%= t 'judges.indicators_2013.numerical.judges_note.content' %>
+      <%= t 'judges.indicators.numerical.judges_note.content' %>
     </div>
 
-    <%= facet_suggest_input_tag facet, path: suggest_path(facet.params.merge id: @judge.id), placeholder: translation[:placeholder] %>
+    <%= facet_suggest_input_tag facet, placeholder: translation[:placeholder] %>
 
-    <div class="facet-results">
-      <%= render 'judges/indicators/facets/name_results', facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+    <div class="facet-results" data-facet-suggest-target="results" aria-live="polite">
+      <%= render 'judges/indicators/facets/name_results', facet:, visible: facet.results.first(10), other: facet.results[10..] || [] %>
     </div>
   </div>
 </div>

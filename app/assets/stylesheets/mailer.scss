@@ -1,0 +1,132 @@
+// E-mails (roadie inlines these): only the elements and classes the mailer views use, styled as the site, without
+// Bootstrap.
+
+@import 'variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  font-weight: $font-weight-normal !important;
+  text-decoration: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $body-color;
+  text-align: left;
+  background-color: $body-bg;
+}
+
+h1,
+h3,
+h4,
+.h1,
+.h3,
+.h4 {
+  margin-top: 0;
+  margin-bottom: $spacer * 0.5;
+  font-family: inherit;
+  line-height: 1.2;
+  color: inherit;
+}
+
+h1,
+.h1 {
+  font-size: $h1-font-size;
+}
+
+h3,
+.h3 {
+  font-size: $h3-font-size;
+}
+
+h4,
+.h4 {
+  font-size: $h4-font-size;
+}
+
+p,
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: $spacer;
+}
+
+li {
+  margin-left: 0 !important;
+}
+
+a {
+  color: $link-color;
+  background-color: transparent;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  margin: $spacer 0;
+  border: 0;
+  border-top: $border-width solid $hr-border-color;
+}
+
+small,
+.small {
+  font-size: $small-font-size;
+}
+
+.container {
+  width: 100%;
+  padding-right: $grid-gutter-width * 0.5;
+  padding-left: $grid-gutter-width * 0.5;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+@each $breakpoint, $max-width in $container-max-widths {
+  @media (min-width: map-get($grid-breakpoints, $breakpoint)) {
+    .container {
+      max-width: $max-width;
+    }
+  }
+}
+
+.list-unstyled,
+.search-result-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.text-muted {
+  color: $text-muted !important;
+}
+
+.text-primary {
+  color: $primary !important;
+}
+
+.search-result-item {
+  margin: $spacer * 1.5 0 !important;
+}
+
+.search-result-title {
+  margin: 0 0 $spacer * 0.4 0;
+
+  small {
+    display: block;
+    margin-top: $spacer * 0.125;
+    line-height: 1.5;
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+}
+
+.search-result-content {
+  margin: 0 !important;
+}

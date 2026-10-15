@@ -1,7 +1,12 @@
 en:
   shared:
     pdfjs:
-      error: 'We are sorry, but there was an error rendering the document.'
-      page: 'Page'
-      search: 'Search in the document'
-      match_help: Use Enter or Shift + Enter to navigate between matches.
+      error: "We are sorry, but there was an error rendering the document."
+      page: "Page"
+      previous_page: "Previous Page"
+      next_page: "Next Page"
+      search: "Search in the document"
+      clear: "Clear the Search"
+      previous_match: "Previous Match"
+      next_match: "Next Match"
+      match_help: "Use Enter or Shift + Enter to navigate between matches."

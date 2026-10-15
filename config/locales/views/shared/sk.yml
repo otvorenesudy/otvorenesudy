@@ -1,7 +1,12 @@
 sk:
   shared:
     pdfjs:
-      error: 'Ospravedlňujeme sa, ale nastala chyba pri zobrazovaní rozhodnutia.' 
-      page: 'Strana'
-      search: 'Hľadať v dokumente'
-      match_help: Použite Enter alebo Shift + Enter na posúvanie medzi výsledkami.
+      error: "Ospravedlňujeme sa, ale nastala chyba pri zobrazovaní rozhodnutia."
+      page: "Strana"
+      previous_page: "Predchádzajúca strana"
+      next_page: "Nasledujúca strana"
+      search: "Hľadať v dokumente"
+      clear: "Zrušiť hľadanie"
+      previous_match: "Predchádzajúci výsledok"
+      next_match: "Nasledujúci výsledok"
+      match_help: "Použite Enter alebo Shift + Enter na posúvanie medzi výsledkami."

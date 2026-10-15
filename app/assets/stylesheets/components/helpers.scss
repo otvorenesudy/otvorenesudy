@@ -1,0 +1,11 @@
+.popover-header {
+  border-color: $popover-border-color;
+  text-transform: uppercase;
+}
+
+// Bootstrap 5 colors the arrows like the tooltip and popover, keep them invisible as before
+
+.tooltip-arrow,
+.popover-arrow {
+  visibility: hidden;
+}

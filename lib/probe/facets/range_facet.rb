@@ -1,81 +1,73 @@
-class Probe::Facets
-  class RangeFacet < Probe::Facets::Facet
-    def initialize(name, field, options)
-      super(name, field, options)
+# frozen_string_literal: true
 
-      @ranges    = options[:ranges]
-      @converter = options[:converter] || converter_for(@ranges.first.begin.class)
-    end
-
-    def build(index, name, options)
-      index.facet name, options do |f|
-        f.range not_analyzed_field(@field), build_facet_ranges
-      end
-    end
-
-    def build_filter
-      terms.map do |value|
-        { range: { not_analyzed_field(@field) => build_range_for(value) }}
-      end
-    end
-
-    def parse_terms(values)
-      super(values) do |value|
-        return value if value.is_a? Range
-
-        lower, upper = value.to_s.split('..')
-
-        result = @converter.to_elastic(lower)..@converter.to_elastic(upper)
-        result = yield result if block_given?
-        result
-      end
-    end
-
-    private
-
-    def build_range_for(value)
-      @converter.to_elastic_range(value)
-    end
-
-    def build_facet_ranges
-      ranges = []
-
-      ranges << { to: @ranges.first.begin }
-
-      @ranges.each do |range|
-        ranges << { from: range.begin, to: range.end + 1 }
+module Probe
+  class Facets
+    # Counts within ranges (5..9 judges), plus everything below the first range and above the last. Ranges may be given
+    # as a lambda (see Probe::Index#distribute), resolved when a search needs them.
+    class RangeFacet < Facet
+      class Result < Facet::Result
+        def range
+          value
+        end
       end
 
-      ranges << { from: @ranges.last.end }
+      def initialize(name, field, options)
+        super
 
-      ranges
-    end
-
-    def populate_facets(results)
-      results['ranges'].map { |range|
-        next unless range['count'] > 0
-
-        value = format_range(range['from'], range['to'])
-
-        params        = create_result_params(value)
-        add_params    = create_result_add_params(value)
-        remove_params = create_result_remove_params(value)
-
-        Result.new(value, range['count'], params, add_params, remove_params)
-      }.compact
-    end
-
-    def format_range(from, to)
-      case
-      when from.nil? then -Float::INFINITY..(to.to_i - 1)
-      when to.nil?   then from.to_i..Float::INFINITY
-      else                from.to_i..(to.to_i - 1)
+        @ranges = options[:ranges]
+        @converter = options[:converter] || Probe::Converters::Numeric
       end
-    end
 
-    class Result < Facet::Result
-      def range
-        value
+      def ranges
+        @ranges.respond_to?(:call) ? @ranges.call : @ranges
+      end
+
+      # Values the facet can't read, like "abc..", are left out.
+      def parse_terms(values)
+        super do |value|
+          next value if value.is_a?(Range)
+
+          lower, upper = value.to_s.split('..', 2)
+          @converter.to_elastic(lower)..@converter.to_elastic(upper)
+        rescue ArgumentError
+          nil
+        end.compact
+      end
+
+      def filter
+        clauses = terms.map { |range| { range: { keyword_field => @converter.to_elastic_range(range) } } }
+
+        { bool: { should: clauses, minimum_should_match: 1 } }
+      end
+
+      def aggregation
+        { values: { range: { field: keyword_field, ranges: bucket_ranges } } }
+      end
+
+      private
+
+      # Ranges are inclusive (5..9); Elasticsearch's are open at the top, so each ends one above.
+      def bucket_ranges
+        bounds = ranges
+
+        [{ to: bounds.first.begin }] + bounds.map { |range| { from: range.begin, to: range.end + 1 } } +
+          [{ from: bounds.last.end }]
+      end
+
+      def build_results(response)
+        response.dig('values', 'buckets').to_a.filter_map do |bucket|
+          result(format_range(bucket['from'], bucket['to']), bucket['doc_count']) if bucket['doc_count'].positive?
+        end
+      end
+
+      def format_range(from, to)
+        if from.nil?
+          -Float::INFINITY..(to.to_i - 1)
+        elsif to.nil?
+          from.to_i..Float::INFINITY
+        else
+          from.to_i..(to.to_i - 1)
+        end
       end
     end
   end

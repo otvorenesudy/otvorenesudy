@@ -3,9 +3,9 @@
 <div class="row justify-content-between">
   <div class="col-md-7 col-lg-6 col-xl-5">
     <h1 class="text-uppercase mb-4"><%= yield :title %></h1>
-    <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { class: nil, method: :post } do |f| %>
-      <div class="form-group">
-        <%= f.label :email %>
+    <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f| %>
+      <div class="mb-3">
+        <%= f.label :email, class: 'form-label' %>
         <%= f.email_field :email, autofocus: true, class: 'form-control' %>
       </div>
       <%= f.hidden_field :reset_password_token %>

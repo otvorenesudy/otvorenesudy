@@ -1,274 +1,63 @@
-<% content_for :scripts do %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/web/pdf_viewer.css">
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/build/pdf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/web/pdf_viewer.js"></script>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'pdfjs/pdf_viewer' %>
 <% end %>
 
-<div id="pdf-wrapper" class="text-center mb-5 container" style="height: 800px; position: relative;">
-  <div class="row mb-2">
+<%= tag.div class: 'pdf-viewer mb-4', data: { controller: 'pdf-viewer', pdf_viewer_url_value: url, pdf_viewer_worker_value: asset_path('pdfjs-dist--build--pdf.worker.js'), pdf_viewer_highlights_value: highlights.to_s.split.to_json } do %>
+  <div class="row g-0 mb-2" data-pdf-viewer-target="toolbar">
     <div class="col-lg-3 px-0 mb-2 mb-lg-0">
-      <div class="btn-group btn-group-sm border float-left" role="group">
-        <div class="btn d-flex align-items-center shadow-none border-left-0 border-right border-top-0 border-bottom-0" style="cursor: auto;"><%= t '.page' %>&nbsp;<span id="pdf-js-page-count">- / -</span></div>
-        <button id="pdfjs-page-previous" class="btn btn-secondary d-flex align-items-center shadow-none border-left border-right border-top-0 border-bottom-0" disabled>
-          <%= icon_tag('arrow-up', size: 12) %>
+      <div class="btn-group btn-group-sm border" role="group">
+        <span class="btn d-flex align-items-center shadow-none border-0 border-end pe-none">
+          <%= t '.page' %>&nbsp;<span data-pdf-viewer-target="pageNumber" aria-live="polite">- / -</span>
+        </span>
+        <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start border-end" data-pdf-viewer-target="previousPage" data-action="pdf-viewer#previousPage" aria-label="<%= t '.previous_page' %>" disabled>
+          <%= icon_tag 'arrow-up', size: 12 %>
         </button>
-        <button id="pdfjs-page-next" class="btn btn-secondary d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0">
-          <%= icon_tag('arrow-down', size: 12) %>
+        <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start" data-pdf-viewer-target="nextPage" data-action="pdf-viewer#nextPage" aria-label="<%= t '.next_page' %>" disabled>
+          <%= icon_tag 'arrow-down', size: 12 %>
         </button>
       </div>
     </div>
-    <div class="offset-lg-3"></div>
-    <div class="col-lg-6 px-0">
+    <div class="col-lg-6 offset-lg-3 px-0">
       <div class="d-flex">
         <div class="input-group input-group-sm">
-          <%= search_field_tag "q", "", id: 'pdfjs-search-input', class: 'flex-grow-1 form-control form-control-sm p-2 search-query-input search-query-input-sm', placeholder: t('.search') %>
-          <div class="input-group-append">
-            <button id="pdfjs-clear-search" class="btn search-query-submit d-none"><%= icon_tag('times', size: 10) %></button>
-          </div>
-        </div>
-      
-        <div id="pdfjs-match-group" class="btn-group btn-group-sm border float-left d-none" role="group">
-          <button id="pdfjs-match-previous" class="btn btn-secondary d-flex align-items-center shadow-none border-left-0 border-right border-top-0 border-bottom-0">
-            <%= icon_tag('arrow-up', size: 12) %>
+          <%= search_field_tag 'document_query', nil, id: nil, class: 'form-control form-control-sm p-2 search-query-input search-query-input-sm', placeholder: t('.search'), autocomplete: 'off', 'aria-label': t('.search'), data: { pdf_viewer_target: 'query', action: 'input->pdf-viewer#search keydown->pdf-viewer#navigate' } %>
+          <button type="button" class="btn search-query-submit" data-pdf-viewer-target="clear" data-action="pdf-viewer#clear" aria-label="<%= t '.clear' %>" hidden>
+            <%= icon_tag 'times', size: 10 %>
           </button>
-          <button id="pdfjs-match-next" class="btn btn-secondary d-flex align-items-center shadow-none border-left border-right-0 border-top-0 border-bottom-0">
-            <%= icon_tag('arrow-down', size: 12) %>
+        </div>
+
+        <div class="btn-group btn-group-sm border flex-shrink-0 ms-2" role="group" data-pdf-viewer-target="matches" hidden>
+          <span class="btn d-flex align-items-center text-nowrap shadow-none border-0 border-end pe-none" data-pdf-viewer-target="matchCount" aria-live="polite"></span>
+          <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start border-end" data-action="pdf-viewer#previousMatch" aria-label="<%= t '.previous_match' %>">
+            <%= icon_tag 'arrow-up', size: 12 %>
+          </button>
+          <button type="button" class="btn btn-secondary d-flex align-items-center shadow-none border-0 border-start" data-action="pdf-viewer#nextMatch" aria-label="<%= t '.next_match' %>">
+            <%= icon_tag 'arrow-down', size: 12 %>
           </button>
         </div>
       </div>
 
-      <small id="pdfjs-match-help" class="form-text text-muted text-right d-none"><%= t '.match_help' %></small>
+      <div class="form-text text-muted text-end" data-pdf-viewer-target="help" hidden><%= t '.match_help' %></div>
     </div>
   </div>
 
-  <div id="pdf-loading" class="row">
-    <div class="offset-lg-3"></div>
-    <div class="col-lg-6 col-sm-12">
-      <div class="mx-auto mt-5">
-        <% 6.times.each do |width| %>
-          <div class="row mb-2">
-            <div class="bg-loading col-<%= rand(3..6).to_i %>" style="height: 15px"></div>
-          </div>
+  <div class="pdf-viewer-frame" data-pdf-viewer-target="frame">
+    <div class="pdf-viewer-loading row" data-pdf-viewer-target="loading" aria-hidden="true">
+      <div class="col-lg-6 offset-lg-3 mt-5">
+        <% [5, 4, 6, 3, 5, 4].each do |width| %>
+          <div class="row mb-2"><div class="bg-loading pdf-viewer-line col-<%= width %>"></div></div>
         <% end %>
-
-        <div class="row my-5">
-          <div class="offset-1"></div>
-          <div class="bg-loading col-10" style="height: 25px"></div>
-        </div>
-
-        <% 6.times.each do |width| %>
-          <div class="row mb-2">
-            <div class="bg-loading col-12" style="height: 15px"></div>
-          </div>
-        <% end %>
-
-        <div class="row my-4">
-          <div class="offset-3"></div>
-          <div class="bg-loading col-6" style="height: 15px"></div>
-        </div>
-
-        <% 10.times.each do |width| %>
-          <div class="row mb-2">
-            <div class="bg-loading col-12" style="height: 15px"></div>
-          </div>
+        <div class="row my-5"><div class="bg-loading pdf-viewer-title col-10 offset-1"></div></div>
+        <% 8.times do %>
+          <div class="row mb-2"><div class="bg-loading pdf-viewer-line col-12"></div></div>
         <% end %>
       </div>
     </div>
-  </div>
 
-  <div id="pdf-container">
-    <div id="viewer" class="pdfViewer">
+    <div class="pdf-viewer-container" data-pdf-viewer-target="container">
+      <div class="pdfViewer" data-pdf-viewer-target="viewer"></div>
     </div>
   </div>
-</div>
 
-<script type="text/javascript">
-  function setPage(page, totalPages) {
-    document.getElementById("pdf-js-page-count").innerText = "" + page + " / " + totalPages;
-  }
-
-  function unaccent(text) {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
-
-  function unaccentedCalculateMatch(pageIndex) {
-    let pageContent = this._pageContents[pageIndex];
-    let pageDiffs = this._pageDiffs[pageIndex];
-    let query = this._query;
-    let _this$_state = this._state,
-        caseSensitive = _this$_state.caseSensitive,
-        entireWord = _this$_state.entireWord,
-        phraseSearch = _this$_state.phraseSearch;
-
-    if (query.length === 0) {
-      return;
-    }
-
-    if (!caseSensitive) {
-      pageContent = unaccent(pageContent).toLowerCase();
-      query = unaccent(query).toLowerCase();
-    }
-
-    if (phraseSearch) {
-      this._calculatePhraseMatch(query, pageIndex, pageContent, pageDiffs, entireWord);
-    } else {
-      this._calculateWordMatch(query, pageIndex, pageContent, pageDiffs, entireWord);
-    }
-
-    if (this._state.highlightAll) {
-      this._updatePage(pageIndex);
-    }
-
-    if (this._resumePageIdx === pageIndex) {
-      this._resumePageIdx = null;
-
-      this._nextPageMatch();
-    }
-
-    var pageMatchesCount = this._pageMatches[pageIndex].length;
-
-    if (pageMatchesCount > 0) {
-      this._matchesCountTotal += pageMatchesCount;
-
-      this._updateUIResultsCount();
-    }
-  }
-
-  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/legacy/build/pdf.worker.min.js";
-
-  const container = document.getElementById("pdf-container");
-
-  const eventBus = new pdfjsViewer.EventBus();
-
-  const linkService = new pdfjsViewer.PDFLinkService({
-    eventBus
-  });
-
-  const findController = new pdfjsViewer.PDFFindController({
-    eventBus,
-    linkService: linkService
-  });
-
-  findController._calculateMatch = unaccentedCalculateMatch;
-
-  const viewer = new pdfjsViewer.PDFViewer({
-    container,
-    eventBus,
-    linkService: linkService,
-    findController: findController,
-  });
-
-  linkService.setViewer(viewer);
-
-  eventBus.on("pagesinit", function() {
-    findController.executeCommand("find", { query: "<%= highlights %>", highlightAll: true, caseSensitive: false, multiplePhraseSearch: true });
-
-    setPage(viewer.currentPageNumber, viewer.pagesCount)
-  });
-
-  eventBus.on("pagechanging", (e) => {
-    setPage(e.pageNumber, viewer.pagesCount);
-
-    const previousButton = document.getElementById("pdfjs-page-previous");
-    const nextButton = document.getElementById("pdfjs-page-next");
-
-    if (e.pageNumber > 1) {
-      previousButton.removeAttribute("disabled");
-    } else {
-      previousButton.setAttribute("disabled", "true");
-    }
-
-    if (e.pageNumber < viewer.pagesCount) {
-      nextButton.removeAttribute("disabled");
-    } else {
-      nextButton.setAttribute("disabled", "true");
-    }
-  });
-
-  document.getElementById("pdfjs-search-input").addEventListener("input", function() {
-    findController.executeCommand("find", { query: this.value, highlightAll: true, caseSensitive: false, phraseSearch: true, findPrevious: false });
-
-    const matchGroupButton = document.getElementById("pdfjs-match-group");
-    const matchHelp = document.getElementById("pdfjs-match-help");
-    const clearButton = document.getElementById("pdfjs-clear-search");
-
-    if (this.value) {
-      matchGroupButton.classList.remove("d-none");
-      matchHelp.classList.remove("d-none");
-      clearButton.classList.remove("d-none");
-    } else {
-      viewer.currentPageNumber = 1;
-
-      findController.executeCommand("find", { query: "<%= highlights %>", highlightAll: true, caseSensitive: false, multiplePhraseSearch: true });
-
-      clearButton.classList.add("d-none");
-      matchGroupButton.classList.add("d-none");
-      matchHelp.classList.add("d-none");
-    }
-  });
-
-  document.getElementById("pdfjs-clear-search").addEventListener("click", function() {
-    const searchInput = document.getElementById("pdfjs-search-input");
-
-    searchInput.value = "";
-    searchInput.dispatchEvent(new Event("input"));
-    searchInput.focus();
-  });
-
-  document.getElementById("pdfjs-page-next").addEventListener("click", function() {
-    const pagesCount = viewer.pagesCount;
-    const currentPage = viewer.currentPageNumber;
-
-    if (currentPage < pagesCount) {
-      viewer.currentPageNumber = currentPage + 1;
-    }
-  });
-
-  document.getElementById("pdfjs-page-previous").addEventListener("click", function() {
-    const pagesCount = viewer.pagesCount;
-    const currentPage = viewer.currentPageNumber;
-
-    if (currentPage > 1) {
-      viewer.currentPageNumber = currentPage - 1;
-    }
-  });
-
-  const matchPrevious = () => {
-    findController.executeCommand("findagain", { query: document.getElementById("pdfjs-search-input").value, highlightAll: true, caseSensitive: false, phraseSearch: true, findPrevious: true });
-  }
-
-  const matchNext = () => {
-    findController.executeCommand("findagain", { query: document.getElementById("pdfjs-search-input").value, highlightAll: true, caseSensitive: false, phraseSearch: true, findPrevious: false });
-  }
-
-  document.getElementById("pdfjs-match-previous").addEventListener("click", matchPrevious);
-  document.getElementById("pdfjs-match-next").addEventListener("click", matchNext);
-
-  document.getElementById("pdfjs-search-input").addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && e.shiftKey) {
-      matchPrevious();
-      e.preventDefault();
-    } else if (e.key === "Enter") {
-      matchNext();
-      e.preventDefault();
-    }
-  });
-
-
-  const loadingTask = pdfjsLib.getDocument({
-    url: "<%= url %>",
-  });
-
-  loadingTask.promise.then(function (pdfDocument) {
-    const loadingWrapper = document.getElementById('pdf-loading');
-    loadingWrapper.classList.add('d-none');
-
-    viewer.setDocument(pdfDocument);
-    linkService.setDocument(pdfDocument, null);
-  }).catch(function(error) {
-    const wrapper = document.getElementById('pdf-wrapper');
-
-    wrapper.style = 'height: auto';
-    wrapper.innerHTML = '<p class="text-center mt-5"><%= t ".error" %></p>'
-  });
-</script>
+  <p class="text-center mt-5" data-pdf-viewer-target="error" hidden><%= t '.error' %></p>
+<% end %>

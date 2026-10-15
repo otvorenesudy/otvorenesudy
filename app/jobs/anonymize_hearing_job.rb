@@ -1,7 +1,7 @@
-class AnonymizeHearingJob
-  include Sidekiq::Worker
+# frozen_string_literal: true
 
-  sidekiq_options queue: :utils
+class AnonymizeHearingJob < ApplicationJob
+  queue_as :utils
 
   def perform(hearing_id)
     Hearing.find(hearing_id).anonymize!

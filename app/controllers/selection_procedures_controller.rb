@@ -1,34 +1,36 @@
+# frozen_string_literal: true
+
+# Judge selection procedures, hidden since October 2025: config/routes.rb has their routes commented out.
 class SelectionProceduresController < SearchController
+  include SelectionProcedureDocuments
+
+  before_action :set_procedure, only: %i[show declaration report]
+
   def show
-    @procedure = SelectionProcedure.find(params[:id])
-
-    sorter = lambda do |c|
-      rank = c.respond_to?(:rank) ? c.rank : nil
-      name = c.name.match(/\s(([^\s]|\,\s)*)\z/).try(:[], 1) || c.name
-      transliterated = ActiveSupport::Inflector.transliterate(name).downcase
-
-      next [transliterated] unless rank
-
-      [rank, ActiveSupport::Inflector.transliterate(name).downcase]
-    end
-
-    @candidates    = @procedure.candidates.order(:rank, :name).sort_by(&sorter)
-    @commissioners = @procedure.commissioners.order(:name).sort_by(&sorter)
+    @candidates = @procedure.candidates.order(:rank, :name).sort_by { |candidate| sort_key(candidate) }
+    @commissioners = @procedure.commissioners.order(:name).sort_by { |commissioner| sort_key(commissioner) }
   end
 
   def declaration
-    @procedure = SelectionProcedure.find(params[:id])
-
-    send_file_in @procedure.declaration_path, name: t('selection_procedures.declaration.file', id: @procedure.id)
+    send_file_in @procedure.declaration_path, name: t('.file', id: @procedure.id)
   end
 
   def report
-    @procedure = SelectionProcedure.find(params[:id])
-
-    send_file_in @procedure.report_path, name: t('selection_procedures.report.file', id: @procedure.id)
+    send_file_in @procedure.report_path, name: t('.file', id: @procedure.id)
   end
 
-  protected
+  private
 
-  include FileHelper
+  def set_procedure
+    @procedure = SelectionProcedure.find(params.expect(:id))
+  end
+
+  # By rank, when people have one, then by surname (the last word of the name) regardless of diacritics.
+  def sort_key(person)
+    surname = person.name[/\s((?:[^\s]|,\s)*)\z/, 1] || person.name
+    surname = ActiveSupport::Inflector.transliterate(surname).downcase
+    rank = person.rank if person.respond_to?(:rank)
+
+    rank ? [rank, surname] : [surname]
+  end
 end

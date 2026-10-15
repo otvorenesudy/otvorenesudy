@@ -1,8 +1,7 @@
-class Accusation < ActiveRecord::Base
-  attr_accessible :value,
-                  :value_unprocessed
+# frozen_string_literal: true
 
-  belongs_to :defendant
+class Accusation < ApplicationRecord
+  belongs_to :defendant, optional: true
 
   has_many :paragraph_explanations, dependent: :destroy, as: :explainable
 

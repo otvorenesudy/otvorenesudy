@@ -1,36 +1,21 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 
-OpenCourts::Application.routes.draw do
-  root to: 'static_pages#home'
+Rails.application.routes.draw do
+  root 'static_pages#home'
 
   resources :courts, only: %i[index show] do
-    collection do
-      get :suggest
-
-      # TODO rm - unused?
-      # get :map
-    end
+    get :suggest, on: :collection
   end
 
   resources :judges, only: %i[index show] do
-    collection { get :suggest }
-
-    # TODO rm - unused?
-    # member do
-    #   get :curriculum
-    #   get :cover_letter
-    # end
+    get :suggest, on: :collection
   end
 
   resources :hearings, only: %i[index show] do
-    collection { get :suggest }
-
-    member do
-      # TODO rm - unused?
-      # get :resource
-
-      delete :anonymize
-    end
+    get :suggest, on: :collection
+    delete :anonymize, on: :member
   end
 
   resources :decrees, only: %i[index show] do
@@ -39,40 +24,28 @@ OpenCourts::Application.routes.draw do
       get :uoo
     end
 
-    member { get :document }
+    get :document, on: :member
   end
 
   resources :proceedings, only: %i[index show] do
-    collection { get :suggest }
+    get :suggest, on: :collection
   end
 
-=begin
-  resources :selection_procedures, as: :selections, path: :selections, only: [:index, :show] do
-    collection do
-      get :suggest
-    end
-
-    member do
-      get :declaration
-      get :report
-    end
-
-    resources :selection_procedure_candidates, as: :candidates, path: :candidates, only: [] do
-      member do
-        # TODO rm - unused?
-        # get :application
-        # get :curriculum
-
-        get :declaration
-
-        # TODO rm - unused?
-        # get :motivation_letter
-      end
-    end
-  end
-=end
-
-  resources :verification, path: :verify, only: %i[index create]
+  # Selection procedures have been hidden since October 2025. Their controllers and views are ported and kept until
+  # the pages come back.
+  #
+  # resources :selection_procedures, as: :selections, path: :selections, only: %i[index show] do
+  #   get :suggest, on: :collection
+  #
+  #   member do
+  #     get :declaration
+  #     get :report
+  #   end
+  #
+  #   resources :selection_procedure_candidates, as: :candidates, path: :candidates, only: [] do
+  #     get :declaration, on: :member
+  #   end
+  # end
 
   devise_for :users
 
@@ -80,16 +53,27 @@ OpenCourts::Application.routes.draw do
     get :subscriptions
   end
 
+  # The e-mail's unsubscribe link (?token=): a GET asks to confirm, as link scanners open links; the confirmation and
+  # mail clients' one-click request (RFC 8058) POST.
   resources :subscriptions, only: %i[create update destroy] do
-    collection { match 'unsubscribe/:token', action: :unsubscribe, as: :unsubscribe, via: %i[get post] }
+    collection do
+      get :unsubscribe, action: :unsubscription
+      post :unsubscribe, as: :confirmed_unsubscribe
+    end
   end
 
-  match '/search/collapse', to: 'search#collapse'
-  match '/404', to: 'errors#show', as: :not_found_error
-  match '/500', to: 'errors#show', as: :internal_server_error
-  match '/health', to: 'static_pages#health'
+  post 'search/collapse', to: 'search#collapse', as: :collapse_facet
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  get 'health', to: 'static_pages#health'
 
-  match '/:slug', via: :get, to: 'static_pages#show', as: :static_page
+  # config.exceptions_app renders error pages through here.
+  match ':status', to: 'errors#show', constraints: { status: /\d{3}/ }, via: :all, as: :error
+
+  # The job dashboard, for admins only; anyone else is asked to sign in or finds nothing.
+  authenticate :user, lambda(&:admin?) do
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
+  get ':slug', to: 'static_pages#show', as: :static_page
 end

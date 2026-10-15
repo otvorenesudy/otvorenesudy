@@ -1,24 +1,26 @@
-module Court::Expenses
-  extend self
+# frozen_string_literal: true
 
-  @courts  = {}
-  @ranking = {}
+# Courts of one type ranked by their total expenses (court expenses 2010-2013 in data/).
+class Court
+  module Expenses
+    module_function
 
-  def courts(type)
-    @courts[type] ||= Court.by_type(type).select { |court| court.expenses.any? }
-  end
+    def courts(type)
+      Court.by_type(type).where(id: CourtExpense.select(:court_id))
+    end
 
-  def rank(court)
-    ranking(court.type).descending[court]
-  end
+    def rank(court)
+      ranking(court.type).descending[court.id]
+    end
 
-  def rank_with_order(court)
-    ranking(court.type).rank_with_order(court)
-  end
+    def rank_with_order(court)
+      ranking(court.type).rank_with_order(court.id)
+    end
 
-  private
+    def ranking(type)
+      totals = CourtExpense.joins(:court).where(courts: { court_type_id: type.id }).group(:court_id).sum(:value)
 
-  def ranking(type)
-    @ranking[type] ||= Resource::Ranking.new(courts(type)) { |court| court.expenses_total }
+      Resource::Ranking.new(totals.keys) { |id| totals[id] }
+    end
   end
 end

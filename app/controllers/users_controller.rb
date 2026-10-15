@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def subscriptions
-    @user = current_user
-
-    @hearing_subscriptions = @user.subscriptions.by_model(Hearing).latest
-    @decree_subscriptions  = @user.subscriptions.by_model(Decree).latest
+    @hearing_subscriptions = current_user.subscriptions.by_model(Hearing).latest
+    @decree_subscriptions = current_user.subscriptions.by_model(Decree).latest
   end
 end

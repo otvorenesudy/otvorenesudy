@@ -1,24 +1,24 @@
 <header class="container mt-3 px-sm-0">
   <nav class="nav flex-column flex-md-row align-items-between align-items-md-center">
-    <div class="nav flex-grow-1 justify-content-between mr-md-4 mb-3">
-      <%= link_to brand_tag('otvorene-sudy', { height: 60, variant: I18n.locale }, sk: { width: 170 }, en: { width: 132.57 }), root_path, class: 'navbar-brand mr-3 mr-md-4' %>
+    <div class="nav flex-grow-1 justify-content-between me-md-4 mb-3">
+      <%= link_to brand_tag('otvorene-sudy', { height: 60, variant: I18n.locale }, sk: { width: 170 }, en: { width: 132.57 }), root_path, class: 'navbar-brand me-3 me-md-4', 'aria-label': t('layouts.application.title') %>
 
-      <div class="nav nav-secondary justify-content-center align-items-center align-self-stretch font-weight-bold text-uppercase small border-right-md pr-md-4">
+      <div class="nav nav-secondary justify-content-center align-items-center align-self-stretch fw-bold text-uppercase small border-end-md pe-md-4">
         <%= link_to span_tag(t('.slovak'), class: 'd-none d-lg-inline') + span_tag(t('.sk'), class: 'd-lg-none'), { l: :sk }, class: 'nav-link' %>
         <%= link_to span_tag(t('.english'), class: 'd-none d-lg-inline') + span_tag(t('.en'), class: 'd-lg-none'), { l: :en }, class: 'nav-link' %>
       </div>
     </div>
 
     <div class="nav flex-grow-1 flex-md-grow-0 flex-wrap justify-content-between align-items-center border-top border-top-md-0 mb-3">
-      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis d-block mr-3 mr-md-4 mt-3 mt-md-0' %>
+      <%= link_to brand_tag('transparency-international-slovensko', width: 158.33, height: 38, variant: I18n.locale), 'https://transparency.sk', class: 'tis d-block me-3 me-md-4 mt-3 mt-md-0', 'aria-label': 'Transparency International Slovensko' %>
       <%= link_to t('.donate'), donation_url, class: 'btn btn-primary btn-lg mt-3 mt-md-0', role: :button %>
     </div>
   </nav>
 
-  <nav class="navbar nav-primary navbar-expand-xl font-weight-bold text-uppercase border-bottom">
+  <nav class="navbar nav-primary navbar-expand-xl fw-bold text-uppercase border-bottom">
     <div class="d-flex d-xl-none justify-content-between border-top w-100 py-2">
-      <%= button_tag t('.menu'), class: 'navbar-toggler mx-0', data: { toggle: 'collapse', target: '#navbar' }, name: nil, type: 'button' %>
-      <%= button_tag '&#9776;'.html_safe, class: 'navbar-toggler', data: { toggle: 'collapse', target: '#navbar' }, name: nil, type: 'button' %>
+      <%= button_tag t('.menu'), class: 'navbar-toggler mx-0', data: { bs_toggle: 'collapse', bs_target: '#navbar' }, name: nil, type: 'button' %>
+      <%= button_tag "☰", class: 'navbar-toggler', data: { bs_toggle: 'collapse', bs_target: '#navbar' }, name: nil, type: 'button', 'aria-label': t('.menu') %>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse d-xl-block border-top">
@@ -27,8 +27,8 @@
         <%= bar_link_to t('.judges'), judges_path, class: 'mx-0' %>
         <%= bar_link_to t('.hearings'), hearings_path, class: 'mx-0' %>
         <div class="nav-item dropdown mx-0">
-          <%= link_to t('.decrees'), decrees_path, id: 'decrees-dropdown', class: "nav-link dropdown-toggle#{' active' if request.fullpath.start_with?(decrees_path)}", data: { toggle: 'dropdown' }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu mt-2 " aria-labelledby="decrees-dropdown">
+          <%= link_to t('.decrees'), decrees_path, id: 'decrees-dropdown', class: "nav-link dropdown-toggle#{' active' if request.fullpath.start_with?(decrees_path)}", data: { bs_toggle: 'dropdown' }, role: 'button', 'aria-expanded': false %>
+          <div class="dropdown-menu mt-2" aria-labelledby="decrees-dropdown">
             <%= link_to t('.decrees_courts'), decrees_path, class: 'dropdown-item' %>
             <%= link_to t('.decrees_uoo'), uoo_decrees_path, class: 'dropdown-item' %>
           </div>
@@ -39,10 +39,10 @@
       </div>
       <% if user_signed_in? %>
         <div class="navbar-nav border-top py-2">
-          <span class="navbar-text text-muted mr-auto"><%= current_user.email %></span>
-          <%= bar_link_to t('.subscriptions'), subscriptions_users_path, class: 'mx-0 mr-xl-4' %>
-          <%= bar_link_to t('.settings'), edit_user_registration_path, class: 'mx-0 mr-xl-4' %>
-          <%= bar_link_to t('.sign_out'), destroy_user_session_path, method: :delete, class: 'mx-0' %>
+          <span class="navbar-text text-muted me-auto"><%= current_user.email %></span>
+          <%= bar_link_to t('.subscriptions'), subscriptions_users_path, class: 'mx-0 me-xl-4' %>
+          <%= bar_link_to t('.settings'), edit_user_registration_path, class: 'mx-0 me-xl-4' %>
+          <%= button_to t('.sign_out'), destroy_user_session_path, method: :delete, class: 'nav-item nav-link mx-0 btn btn-link fw-bold text-uppercase', form_class: 'd-inline' %>
         </div>
       <% else %>
         <div class="navbar-nav d-xl-none border-top py-2">

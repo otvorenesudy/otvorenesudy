@@ -1,8 +1,7 @@
-class CourtProceedingType < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :jurisdictions, class_name: :CourtJurisdiction,
-                           dependent: :destroy
+class CourtProceedingType < ApplicationRecord
+  has_many :jurisdictions, class_name: 'CourtJurisdiction', dependent: :destroy
 
   has_many :courts, through: :jurisdictions
 

@@ -1,25 +1,16 @@
-module Hearing::Scoped
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  def self.to(type)
-    ClassMethods.type = type
-    self
-  end
+# Hearings of one type, as their own model: `scoped_to :civil` limits CivilHearing to civil hearings.
+class Hearing
+  module Scoped
+    extend ActiveSupport::Concern
 
-  module ClassMethods
-    def self.type=(type)
-      raise unless type.is_a? HearingType
-      @@type = type
-    end
+    class_methods do
+      def scoped_to(type)
+        default_scope { where(hearing_type_id: HearingType.public_send(type).id) }
 
-    def type
-      @@type
-    end
-
-    private
-
-    def apply
-      { conditions: { hearing_type_id: @@type.id } }
+        define_singleton_method(:type) { HearingType.public_send(type) }
+      end
     end
   end
 end

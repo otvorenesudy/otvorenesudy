@@ -1,46 +1,40 @@
-OpenCourts::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+# frozen_string_literal: true
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
+require 'active_support/core_ext/integer/time'
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
-
-  # Do not show custom error reports in development
+Rails.application.configure do
+  config.enable_reloading = true
+  config.eager_load = false
   config.consider_all_requests_local = true
+  config.server_timing = true
 
-  # Disable caching
-  config.action_controller.perform_caching = false
+  # Toggle with `bin/rails dev:cache`.
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+    config.public_file_server.headers = { 'cache-control' => "public, max-age=#{2.days.to_i}" }
+  else
+    config.action_controller.perform_caching = false
+  end
 
-  # NOTE: Uncomment this to enable caching locally
-  # config.action_controller.perform_caching = true
-  # config.cache_store = :dalli_store
+  config.cache_store = :memory_store
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
-
-  # Default url for ActionMailer
+  # Mail opens at /letter_opener instead of leaving the machine.
+  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
+  config.active_record.migration_error = :page_load
+  config.active_record.verbose_query_logs = true
+  config.active_record.query_log_tags_enabled = true
+  config.active_job.verbose_enqueue_logs = true
+  config.action_dispatch.verbose_redirect_logs = true
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
+  config.assets.quiet = true
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
-
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-  # Do not compress assets
-  config.assets.compress = false
-
-  # Expands the lines which load the assets
-  config.assets.debug = true
+  config.i18n.raise_on_missing_translations = true
+  config.action_view.annotate_rendered_view_with_filenames = true
+  config.action_controller.raise_on_missing_callback_actions = true
 end

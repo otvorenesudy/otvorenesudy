@@ -1,0 +1,15 @@
+@keyframes bg-loading-pulse {
+  0% {
+    background-color: $light;
+  }
+  50% {
+    background-color: darken($light, 5%);
+  }
+  100% {
+    background-color: $light;
+  }
+}
+
+.bg-loading {
+  animation: bg-loading-pulse 2s infinite;
+}

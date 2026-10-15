@@ -1,94 +1,105 @@
+# frozen_string_literal: true
+
+# Faceted listings: courts, judges, hearings, decrees and proceedings inherit `index` (results, facets and
+# subscription) and `suggest` (one facet's values matching what the visitor types). `collapse` remembers which facets
+# a visitor folded.
 class SearchController < ApplicationController
+  helper_method :search_path, :suggest_path
+
+  before_action :apply_default_sort, only: :index
+
   def index
-    search_instances
-
-    @results = @model.search params.freeze
-
+    @model = model
+    @type = model.model_name.element.to_sym
+    @results = model.search(search_params)
     @results.associations = search_associations
-
-    @count       = @results.total_count
-    @page        = @results.page
-    @facets      = @results.facets
-    @sort_fields = @results.sort_fields
+    @count = @results.total_count
+    @page = @results.page
+    @facets = @results.facets
+    @sort_fields = model.sort_fields | [:_score]
 
     prepare_facets
     prepare_subscription
   end
 
   def suggest
-    search_instances
+    facets = model.suggest(params[:facet], params[:term], search_params)
 
-    name = params[:facet]
-    term = params[:term]
+    return head :ok unless facets
 
-    @results = @model.suggest name, term, params.except(:facet, :term)
+    facet = facets[params[:facet]]
+    results = facet.results
 
-    if @results
-      facet   = @results.facets[name]
-      results = facet.results
-
-      render partial: facet.view[:results] || "facets/#{facet.type}_results", locals: { facet: facet, visible: results.first(10), other: results[10..-1] || [] }
-    else
-      render nothing: true
-    end
+    render partial: suggest_partial(facet), locals: { facet:, visible: results.first(10), other: results[10..] || [] }
   end
 
   def collapse
-    model     = params[:model].to_s
-    name      = params[:facet].to_sym
-    collapsed = params[:collapsed] == 'true' ? true : false
+    model = Probe.models.find { |candidate| candidate.model_name.element == params[:model].to_s }
+    name = params[:facet].to_s
 
-    session[key = "#{model.to_s.underscore}.collapsed_facets".to_sym] ||= []
-    collapsed ? session[key] += [name] : session[key] -= [name]
+    return head :unprocessable_content unless model&.facets&.[](name)
 
-    render nothing: true
+    key = "#{model.model_name.element}.collapsed_facets"
+    collapsed = Array(session[key])
+    session[key] = params[:collapsed] == 'true' ? collapsed | [name] : collapsed - [name]
+
+    head :no_content
   end
 
   protected
 
-  helper_method :search_instances,
-                :prepare_facets,
-                :prepare_subscription,
-                :search_path,
-                :suggest_path
-
-  def search_instances
-    @type  = params[:controller].singularize.to_sym
-    @model = @type.to_s.camelcase.constantize
-  end
-
-  def prepare_facets
-    @collapsible_facets = @facets.map(&:name) - [:q]
-    @collapsed_facets = (session["#{@model.to_s.underscore}.collapsed_facets".to_sym] ||= [])
-  end
-
-  def prepare_subscription
-    if user_signed_in? && @model.respond_to?(:subscribe)
-      query = Query.by_model_and_value(@model, @facets.query_params).first
-
-      if query
-        @subscription = Subscription.find_by_user_id_and_query_id(current_user.id, query.id)
-      end
-
-      unless @subscription
-        @subscription = Subscription.new
-
-        @subscription.query = query || Query.new
-      end
-    end
-  end
-
   def search_path(params = {})
-    url_for params.merge action: :index
+    url_for(params.to_h.symbolize_keys.merge(controller: controller_name, action: :index, only_path: true))
   end
 
   def suggest_path(params = {})
-    url_for params.merge action: :suggest
+    url_for(params.to_h.symbolize_keys.merge(controller: controller_name, action: :suggest, only_path: true))
   end
 
   private
 
+  def suggest_partial(facet)
+    facet.view[:results] || "facets/#{facet.type}_results"
+  end
+
+  def model
+    controller_name.classify.constantize
+  end
+
+  # The listing's facets, each as one value or a list, with the page and sorting.
+  def search_params
+    params.permit(:page, :sort, :order, *model.facets.permitted_params).to_h
+  end
+
   def search_associations
     nil
+  end
+
+  # A listing's own sorting when the visitor picks none: { sort: 'name', order: 'asc' }. The order applies only with
+  # that sort; other sorts default to descending.
+  def default_sort
+    nil
+  end
+
+  # A missing or unknown sort falls back to the default one, in its default order unless the order is given.
+  def apply_default_sort
+    return unless default_sort
+
+    params[:sort] = default_sort[:sort] unless (model.sort_fields | [:_score]).map(&:to_s).include?(params[:sort])
+    params[:order] = default_sort[:order] if params[:sort] == default_sort[:sort] && params[:order].blank?
+  end
+
+  def prepare_facets
+    @collapsible_facets = @facets.map(&:name) - [:q]
+    @collapsed_facets = Array(session["#{@type}.collapsed_facets"]).map(&:to_sym)
+  end
+
+  def prepare_subscription
+    return unless user_signed_in? && @model.respond_to?(:subscribe)
+
+    query = Query.by_model_and_value(@model, @facets.query_params).first
+    subscription = Subscription.find_by(user: current_user, query:) if query
+
+    @subscription = subscription || Subscription.new(query: query || Query.new)
   end
 end

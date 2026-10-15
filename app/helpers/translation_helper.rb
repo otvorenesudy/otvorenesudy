@@ -1,38 +1,38 @@
+# frozen_string_literal: true
+
 module TranslationHelper
-  def translate(key, options = {})
-    html_safe = options.delete :html_safe
-    interpolations = options.except *I18n::RESERVED_KEYS
-    translation = super key, options
+  # Translations are HTML when asked (html_safe: true), when they have no interpolations and no tags, or when every
+  # interpolated value is HTML already.
+  def translate(key, **options)
+    html_safe = options.delete(:html_safe)
+    interpolations = options.except(*I18n::RESERVED_KEYS)
+    translation = super
 
-    if translation.respond_to? :html_safe
-      # mark as HTML safe with positive :html_safe option
-      return translation.html_safe if html_safe
-
-      # mark as HTML safe with no interpolations present and translation not containing HTML tag brackets
-      return translation.html_safe if interpolations.none? && translation !~ /[<>]/
-
-      # mark as HTML safe with some interpolations present and all marked as HTML safe
-      return translation.html_safe if interpolations.any? && interpolations.inject(true) { |r, (_, v)| r && v.html_safe? }
-    end
+    return translation unless translation.respond_to?(:html_safe)
+    return translation.html_safe if html_safe || safe_translation?(translation, interpolations) # rubocop:disable Rails/OutputSafety -- our own translations, see above
 
     translation
   end
 
-  alias :t :translate
+  alias t translate
 
   def missing_translation?(key)
     translate(key, default: '__missing__') == '__missing__'
   end
 
   def guess_translation_key(translation, locale, keys)
-    keys.find { |key| translation == translate(key, locale: locale) }
+    keys.find { |key| translation == translate(key, locale:) }
   end
 
+  # Slovak typography: a one-letter preposition or conjunction keeps to the next word.
   def locale_specific_spaces(content)
-    I18n.locale == :sk ? content.gsub(/\s([aikosuvz])\s/i, ' \1&nbsp;').html_safe : content
+    return content unless I18n.locale == :sk
+
+    content = h(content) unless content.html_safe?
+    content.to_str.gsub(/\s([aikosuvz])\s/i, ' \1&nbsp;').html_safe # rubocop:disable Rails/OutputSafety -- escaped above
   end
 
-  alias :s :locale_specific_spaces
+  alias s locale_specific_spaces
 
   def ordinalize(number)
     I18n.locale == :sk ? "#{number}." : number.to_i.ordinalize
@@ -43,10 +43,18 @@ module TranslationHelper
   end
 
   def translate_without_count(count, key)
-    translate(key, count: count)
+    translate(key, count:)
   end
 
   def two_words_connector
     translate('support.array.two_words_connector').strip
+  end
+
+  private
+
+  def safe_translation?(translation, interpolations)
+    return !translation.match?(/[<>]/) if interpolations.none?
+
+    interpolations.values.all? { |value| value.respond_to?(:html_safe?) && value.html_safe? }
   end
 end

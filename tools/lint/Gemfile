@@ -1,6 +1,0 @@
-# The linters bin/lint runs. The app is on Ruby 2.3, which current RuboCop and syntax_tree no longer run on, so they
-# have this bundle of their own on the Ruby in tools/lint/.ruby-version.
-source 'https://rubygems.org'
-
-gem 'rubocop', require: false
-gem 'syntax_tree', require: false

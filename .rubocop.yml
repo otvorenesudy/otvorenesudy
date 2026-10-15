@@ -1,30 +1,101 @@
-# RuboCop looks for bugs and unsafe calls only: its Lint and Security departments. syntax_tree (.streerc) formats the
-# code, so no layout or style cops run. bin/lint runs both on the files a branch changes, from the bundle in
-# tools/lint: the app is on Ruby 2.3, which current RuboCop doesn't run on, so it checks the code as Ruby 2.3.
-#
-# .rubocop_todo.yml lists the offenses that were already in the code when RuboCop was set up. Leave them alone unless
-# the change is about them; a file you fix comes off the list when you regenerate it:
-#   bin/lint --regenerate-todo
-inherit_from: .rubocop_todo.yml
+# RuboCop formats and lints the Ruby code: the community Ruby and Rails style guides plus the RSpec, FactoryBot,
+# Capybara and Performance cops, on their defaults. bin/lint runs it on the files a branch changes, and the format hook
+# runs `bin/lint --fix <file>` after every edit an agent makes. The deviations from the defaults are below, each with
+# its reason.
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
-  TargetRubyVersion: 2.3
+  # Set here so RuboCop doesn't search parent directories for it, which the Claude Code sandbox can't read.
+  TargetRubyVersion: 4.0
+  TargetRailsVersion: 8.1
   NewCops: enable
-  DisabledByDefault: true
   SuggestExtensions: false
   CacheRootDirectory: tmp
   Exclude:
     - bin/**/*
-    - config/initializers/secret_token.rb
     - data/**/*
     - log/**/*
+    - node_modules/**/*
     - public/**/*
+    - storage/**/*
     - tmp/**/*
-    - tools/**/*
     - vendor/**/*
 
-Lint:
-  Enabled: true
+# The house style of the otvorenesudy apps.
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
 
-Security:
-  Enabled: true
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+Layout/LineLength:
+  Max: 120
+
+# Ruby 4.0 still only warns when a literal string is mutated. The comment freezes them now; the specs catch code that
+# mutates one, so bin/lint --fix may add it.
+Style/FrozenStringLiteralComment:
+  SafeAutoCorrect: true
+
+# Years are written apart from the name (indicators_2013): index fields, facet params and methods use it.
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+# Class names here say what they are; a comment above every class would restate them.
+Style/Documentation:
+  Enabled: false
+
+# The default size limits (10-line methods, ABC size 17) are a starting point RuboCop expects projects to tune. These
+# still flag the methods worth splitting without cutting simple sequential code into fragments.
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/ClassLength:
+  Max: 200
+  CountAsOne: [array, hash, heredoc, method_call]
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/MethodLength:
+  Max: 20
+  CountAsOne: [array, hash, heredoc, method_call]
+
+Metrics/ModuleLength:
+  Max: 200
+  CountAsOne: [array, hash, heredoc, method_call]
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+# Configuration, routes, specs and rake files are declarative blocks, not logic to split up; so are the bodies of a
+# concern (ModuleLength still applies to the concern).
+Metrics/BlockLength:
+  AllowedMethods: [class_methods, included, refine]
+  Exclude:
+    - config/**/*
+    - lib/tasks/**/*
+    - spec/**/*
+
+# Rake tasks report their progress to whoever runs them.
+Rails/Output:
+  Exclude:
+    - lib/tasks/**/*
+
+# An acceptance spec walks one scenario through the UI: several steps and several outcomes are its point. Request and
+# other specs may check a small cluster of outcomes of one behavior (status, body, what was saved).
+RSpec/ExampleLength:
+  Max: 15
+  CountAsOne: [array, hash, heredoc, method_call]
+  Exclude:
+    - spec/system/**/*
+
+RSpec/MultipleExpectations:
+  Max: 5
+  Exclude:
+    - spec/system/**/*

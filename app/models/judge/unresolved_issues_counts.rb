@@ -1,25 +1,23 @@
-module Judge::UnresolvedIssuesCounts
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  def unresolved_issues_counts
-    result    = Hash.new
-    summaries = statistical_summaries.by_prominent_court_type(self)
+# Per year, how many more cases the judge had unresolved at the end of the year than at its start (table N).
+class Judge
+  module UnresolvedIssuesCounts
+    extend ActiveSupport::Concern
 
-    return unless summaries.any?
+    def unresolved_issues_counts
+      summaries = statistical_summaries.by_prominent_court_type(self)
 
-    summaries.each do |summary|
-      table = summary.tables.by_name('N').first
+      return unless summaries.any?
 
-      beginning_of_year = table.rows[5].cells[0].value.to_i
-      end_of_year       = 0
+      summaries.to_h do |summary|
+        table = summary.tables.by_name('N').first
 
-      table.rows[0].cells.each do |cell|
-        end_of_year += cell.value.to_i
+        beginning_of_year = table.rows[5].cells[0].value.to_i
+        end_of_year = table.rows[0].cells.sum { |cell| cell.value.to_i }
+
+        [summary.year, end_of_year - beginning_of_year]
       end
-
-      result[summary.year] = end_of_year - beginning_of_year
     end
-
-    result
   end
 end

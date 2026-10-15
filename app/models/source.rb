@@ -1,17 +1,15 @@
-class Source < ActiveRecord::Base
-  attr_accessible :module,
-                  :name,
-                  :uri
+# frozen_string_literal: true
 
+class Source < ApplicationRecord
   validates :module, presence: true
   validates :name,   presence: true
   validates :uri,    presence: true
-  
-  def self.of(base)
+
+  def self.of(module_name)
     @modules ||= {}
-    
-    base = base.to_s
-    
-    @modules[base.to_sym] ||= Source.where('module' => base).first
+
+    module_name = module_name.to_s
+
+    @modules[module_name.to_sym] ||= find_by(module: module_name)
   end
 end

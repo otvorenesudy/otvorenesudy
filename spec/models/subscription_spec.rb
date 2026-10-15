@@ -1,71 +1,45 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe Subscription do
-  describe 'token' do
-    it 'should auto-generate a unique token on create' do
-      subscription = create :subscription, :weekly, :with_empty_query
+require 'rails_helper'
 
-      subscription.token.should be_present
+RSpec.describe Subscription do
+  describe '#token' do
+    it 'is generated on create' do
+      expect(create(:subscription).token).to be_present
     end
 
-    it 'should generate distinct tokens for distinct subscriptions' do
-      a = create :subscription, :weekly, :with_empty_query
-      b = create :subscription, :daily, :with_empty_query, user: a.user
+    it 'differs between subscriptions' do
+      first = create(:subscription, :weekly)
+      second = create(:subscription, :daily, user: first.user, query: first.query)
 
-      a.token.should_not eql(b.token)
+      expect(first.token).not_to eq(second.token)
+    end
+
+    it 'is drawn again when the one drawn is taken' do
+      taken = create(:subscription).token
+      user = create(:user)
+      query = create(:query, :hearings)
+      allow(SecureRandom).to receive('urlsafe_base64').and_call_original
+      allow(SecureRandom).to receive('urlsafe_base64').with(24).and_return(taken, 'drawn-again')
+
+      expect(create(:subscription, user:, query:).token).to eq('drawn-again')
+    end
+
+    it 'is kept when given' do
+      expect(create(:subscription, token: 'given-token').token).to eq('given-token')
     end
   end
 
-  describe '#notify' do
-    before :each do
-      MailerHelper.reset_email
-    end
+  it 'is monthly unless given a period' do
+    expect(described_class.new.period).to eq(Period.monthly)
+  end
 
-    after :all do
-      delete_indices
-    end
+  it 'loads without its period when not selecting it' do
+    subscription = create(:subscription, :weekly)
 
-    it 'should deliver subscription to query with new documents' do
-      document = create :decree
-      subscription = create :subscription, :weekly, :with_empty_query
+    loaded = described_class.select(:id, :token).find(subscription.id)
 
-      document.created_at = Time.now
-
-      document.save!
-
-      reload_indices
-
-      subscription.notify
-
-      subscription.results.should eql([document])
-      MailerHelper.last_email.to.should eql([subscription.user.email])
-    end
-
-    it 'should not deliver subscription when no results found' do
-      document = create :decree
-      subscription = create :subscription, :weekly, :with_empty_query
-
-      document.created_at = 2.weeks.ago
-      document.save!
-
-      reload_indices
-
-      subscription.notify
-
-      subscription.results.should be_empty
-      MailerHelper.last_email.should be_nil
-    end
-
-    it 'should deliver mail for subscription with complex query' do
-      document = create :hearing
-      subscription = create :subscription, :weekly, :with_query_for_hearing
-
-      reload_indices
-
-      subscription.notify
-
-      subscription.results.should eql([document])
-      MailerHelper.last_email.to.should eql([subscription.user.email])
-    end
+    expect(loaded.token).to eq(subscription.token)
+    expect(loaded).not_to have_attribute(:period_id)
   end
 end

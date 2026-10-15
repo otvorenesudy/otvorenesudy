@@ -1,11 +1,7 @@
 ---
-:concurrency: 1
-:pidfile: tmp/pids/sidekiq.pid
-staging:
-  :concurrency: 0
-production:
-  :concurrency: 1
+:concurrency: <%= ENV.fetch('SIDEKIQ_CONCURRENCY', 1) %>
+# The probe queue is part of the contract with otvorenesudy-api, which pushes UpdateRepositoryJob into it.
 :queues:
-  - [default]
-  - [probe]
-  - [utils]
+  - default
+  - probe
+  - utils

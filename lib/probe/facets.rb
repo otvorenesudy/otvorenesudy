@@ -1,106 +1,98 @@
+# frozen_string_literal: true
+
 module Probe
+  # The facets of one search, built fresh from the model's facet definitions so that searches never share state. It
+  # reads the facet params of a listing's URL, and turns them into the parts of a search:
+  #
+  # - queries: full text, scored (the `q` facet);
+  # - filters: every other selected facet; values of one facet are ORed, facets are ANDed;
+  # - aggregations: per facet, counted under the full text and the other facets' filters but not its own, so a facet
+  #   keeps offering its other values after one is selected.
   class Facets
     include Enumerable
 
-    attr_reader :params,
-                :query_params
+    MISSING = 'missing'
 
-    def initialize(facets)
-      @facets = Hash.new.with_indifferent_access
+    attr_reader :params, :query_params
 
-      facets = Array.wrap(facets)
-
-      facets.each do |facet|
-        @facets[facet.name] = facet
-      end
+    def self.build(base, definitions)
+      new(definitions.map { |type, name, field, options| create(type, name, field, options.merge(base:)) })
     end
 
-    def extract_facets_params(params)
-      refresh!
+    def self.create(type, name, field, options)
+      "Probe::Facets::#{type.to_s.camelize}Facet".constantize.new(name, field, options)
+    end
 
-      @params = {}.with_indifferent_access
+    def self.bool_filter(clauses)
+      clauses.any? ? { bool: { filter: clauses } } : { match_all: {} }
+    end
 
+    def initialize(facets)
+      @facets = facets.index_by { |facet| facet.name.to_s }
+      @params = ActiveSupport::HashWithIndifferentAccess.new
+      @query_params = ActiveSupport::HashWithIndifferentAccess.new
+    end
+
+    def extract_params(params)
       params.each do |param, value|
-        facet = @facets[param]
+        facet = self[param]
+        terms = facet&.parse_terms(value)
 
-        if facet
-          terms = facet.parse_terms(value)
+        next if terms.nil?
 
-          unless terms.nil?
-            facet.terms         = terms
-            @params[facet.name] = terms # TODO: parse_terms wraps values in array, solve one element arrays in params
-          end
-        end
+        facet.terms = terms
+        @params[facet.name] = terms
       end
 
       each { |facet| facet.params = @params }
+      add_search_params
     end
 
-    def add_search_params(options)
-      @params.merge! sort:  options[:sort] if options[:sort]
-      @params.merge! order: options[:order] if options[:order]
-
+    def add_search_params(sort: nil, order: nil)
+      @params[:sort] = sort if sort
+      @params[:order] = order if order
       @query_params = @params.except(:page, :per_page, :order, :sort)
+
+      self
     end
 
-    def build_query
-      map { |facet| facet.build_query if facet.respond_to?(:build_query) && facet.active? }
+    def queries
+      filter_map { |facet| facet.query if facet.respond_to?(:query) && facet.active? }
     end
 
-    def build_query_filter
-      map { |facet| facet.build_query_filter if facet.respond_to?(:build_query_filter) && facet.active? }
-    end
-
-    def build_filter(type)
-      filter = map { |facet| { or: facet.build_filter } if facet.respond_to?(:build_filter) && facet.active?  }
-
-      { type => filter } if filter.any?
-    end
-
-    def build_selective_filter(type, options)
-      excluded = Array.wrap(options[:exclude]) || []
-
-      filter = map do |facet|
-        unless excluded.include?(facet)
-          { or: facet.build_filter } if facet.respond_to?(:build_filter) && facet.active?
-        end
+    def filters(except: nil)
+      filter_map do |facet|
+        facet.filter if !facet.equal?(except) && facet.respond_to?(:filter) && facet.active?
       end
+    end
 
-      { type => filter } if filter.any?
+    def aggregations
+      select(&:buildable?).to_h do |facet|
+        [facet.name, { filter: self.class.bool_filter(filters(except: facet)), aggs: facet.aggregation }]
+      end
+    end
+
+    def populate(aggregations)
+      select(&:buildable?).each { |facet| facet.populate(aggregations.fetch(facet.name.to_s, {})) }
+
+      self
     end
 
     def highlights
-      map { |facet| facet.highlights if facet.respond_to? :highlights }.flatten
+      flat_map { |facet| facet.respond_to?(:highlights) ? Array.wrap(facet.highlights) : [] }
     end
 
-    def populate(results)
-      results.each do |name, values|
-        facet = @facets[name]
-
-        next unless facet
-
-        facet.populate(values, results[facet.selected_name])
-      end
-
-      map { |facet| facet.results }
+    # The params a listing accepts: each facet, as one value or a list.
+    def permitted_params
+      flat_map { |facet| [facet.name, { facet.name => [] }] }
     end
 
-    def each(&block)
-      @facets.each_value { |facet| yield(facet) }
-    end
-
-    def map(&block)
-      @facets.values.map { |facet| yield(facet) }.compact
+    def each(&)
+      @facets.each_value(&)
     end
 
     def [](name)
-      @facets[name]
-    end
-
-    private
-
-    def refresh!
-      each { |facet| facet.refresh! }
+      @facets[name.to_s]
     end
   end
 end

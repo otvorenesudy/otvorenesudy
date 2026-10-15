@@ -1,0 +1,269 @@
+#!/usr/bin/env bash
+# Restores the website's database from a production backup into a local database, then masks personal data in it.
+#
+# The server's weekly backup (otvorenesudy-server, roles/apps/scripts/db-backup.sh) is `pg_dumpall | gzip`: plain SQL
+# of the whole cluster. This reads only the opencourts_production section into PostgreSQL on localhost. The roles (with
+# their password hashes) and the other apps' databases (API keys, invites) are skipped, so they never reach this
+# machine. The restore goes into a staging database that replaces the target only once it is complete, and
+# db/mask.sql runs right after it.
+#
+# A plain dump can't go through pg_restore --jobs, so this splits the section into files under tmp/ and runs them 8 at a
+# time: the schema, then the tables' data in chunks of 256 MB (big tables load in several sessions at once), then the
+# primary keys, then the indexes, then the rest in order. The files hold unmasked data; they are deleted when the
+# script exits.
+#
+# Usage:
+#   bin/restore-production-copy [--database NAME] [--keep EMAIL] BACKUP.gz
+#
+#   --database NAME   the local database to replace (default: opencourts_development)
+#   --keep EMAIL      the one user whose e-mail and password stay real (default: git config user.email)
+#
+# Needs PostgreSQL 16 or newer with pgvector, pg_trgm and unaccent on localhost, and free disk space for the restored
+# database plus, while it runs, the uncompressed section. gawk (brew install gawk) splits eight times faster than
+# macOS's awk; pigz decompresses faster than gzip. psql's errors go to log/restore-production-copy.log.
+set -uo pipefail
+cd "$(dirname "$0")/.." || exit 1
+
+usage() {
+  sed -n '/^# Usage:/,/^[^#]/p' "$0" | sed -e '$d' -e 's/^# \{0,1\}//' >&2
+  exit 2
+}
+
+database=opencourts_development
+keep=$(git config user.email || true)
+backup=""
+
+while (($# > 0)); do
+  case "$1" in
+    --database)
+      database=${2:?--database needs a name}
+      shift 2
+      ;;
+    --keep)
+      keep=${2:?--keep needs an e-mail}
+      shift 2
+      ;;
+    -*) usage ;;
+    *)
+      [[ -z "$backup" ]] || usage
+      backup=$1
+      shift
+      ;;
+  esac
+done
+
+[[ -n "$backup" ]] || usage
+[[ -f "$backup" ]] || {
+  echo "No such file: $backup" >&2
+  exit 1
+}
+[[ -n "$keep" ]] || {
+  echo "Pass --keep EMAIL: no e-mail in git config to keep unmasked." >&2
+  exit 1
+}
+
+export PGHOST=${PGHOST:-localhost}
+# libpq's GSSAPI negotiation crashes on macOS; nothing here uses Kerberos.
+export PGGSSENCMODE=disable
+
+source_database=opencourts_production
+staging=${database}_restore
+log=log/restore-production-copy.log
+jobs=8
+
+if ! pg_isready -q; then
+  echo "PostgreSQL isn't running on $PGHOST." >&2
+  exit 1
+fi
+
+exists() {
+  [[ $(psql -X -d postgres -Atc "SELECT 1 FROM pg_database WHERE datname = '$1'") == 1 ]]
+}
+
+if exists "$staging"; then
+  echo "$staging exists, probably from an interrupted run. Drop it first: dropdb $staging" >&2
+  exit 1
+fi
+
+echo "This restores $source_database from $backup into $database, replacing it once the restore is complete."
+echo "Every user except $keep is masked."
+read -r -p "Continue? [y/N] " answer
+[[ "$answer" =~ ^[Yy]$ ]] || exit 1
+
+df -h . | tail -1 | awk '{ print "Free disk space: " $4 }'
+
+# Objects in the dump are owned by the production role. A local role without login keeps those statements working;
+# superusers (postgres, you) still reach everything.
+psql -X -q -d postgres -c "DO \$\$ BEGIN CREATE ROLE opencourts NOLOGIN; EXCEPTION WHEN duplicate_object THEN NULL; END \$\$" || exit 1
+
+if command -v pigz >/dev/null; then
+  decompress=(pigz -dc)
+else
+  decompress=(gzip -dc)
+fi
+
+# gawk splits about 400 MB/s here, macOS's awk 50 MB/s: tens of minutes on a full backup.
+splitter=$(command -v gawk || echo awk)
+
+mkdir -p log tmp
+: >"$log"
+parts=$(mktemp -d tmp/restore-production-copy.XXXXXX) || exit 1
+trap 'rm -rf "$parts"' EXIT
+mkdir "$parts/data" "$parts/constraints" "$parts/indexes"
+
+started=$SECONDS
+echo "Splitting the backup into $parts (started $(date '+%H:%M'), errors in $log)..."
+
+# The section starts at the `-- Database "opencourts_production" dump` header and ends at the next database's header
+# or the end of the cluster dump; COPY data in between is never taken for a header. Before its \connect line it
+# creates the database with production's encoding and locale, which decide how text sorts; that statement, the
+# remaining lines and the \connect target point at staging, so the copy sorts as production does. All of that, and the
+# schema after it, goes to pre.sql.
+#
+# Each entry after the schema starts with a `-- Name: ...; Type: ...` comment. Table data goes to data/, in chunks of
+# at most 256 MB that each repeat the COPY line; primary keys to constraints/, indexes to indexes/, one file each; the
+# rest (sequence values, grants) to post.sql. jobs.tsv lists the files with their table's size, so the biggest run
+# first. The session settings after \connect go to settings.sql, which every file runs after.
+# shellcheck disable=SC2016
+LC_ALL=C "${decompress[@]}" "$backup" |
+  LC_ALL=C "$splitter" -v source="$source_database" -v staging="$staging" -v parts="$parts" -v chunk=$((256 * 1024 * 1024)) '
+    function start(kind, table) {
+      file = parts "/" kind "/" ++files ".sql"
+      out = file
+      job_kind = kind
+      job_table = table
+      size = 0
+    }
+
+    function finish() {
+      if (file == "") return
+      print job_kind "\t" (job_kind == "data" ? size : bytes[job_table]) "\t" file > (parts "/jobs.tsv")
+      close(file)
+      file = ""
+      out = parts "/post.sql"
+    }
+
+    BEGIN {
+      header = "-- Database \"" source "\" dump"
+      out = parts "/pre.sql"
+    }
+
+    !inside { if ($0 == header) inside = 1; else next }
+
+    copying {
+      if ($0 == "\\.") copying = 0
+      else if (size >= chunk) {
+        print "\\." > out
+        finish()
+        start("data", job_table)
+        print copy > out
+      }
+
+      print > out
+      size += length($0) + 1
+      bytes[job_table] += length($0) + 1
+      next
+    }
+
+    /^-- Database "/ && $0 != header { exit }
+    $0 == "-- PostgreSQL database cluster dump complete" { exit }
+
+    !connected && /^\\connect / { print "\\connect " staging > out; connected = 1; next }
+    !connected { gsub(source, staging); print > out; next }
+
+    /^-- (Data for )?Name: .*; Type: / {
+      type = $0
+      sub(/.*; Type: /, "", type)
+      sub(/;.*/, "", type)
+      table = $0
+      sub(/^-- (Data for )?Name: /, "", table)
+      sub(/[ ;].*/, "", table)
+      finish()
+
+      if (type == "TABLE DATA") start("data", table)
+      else if (type == "CONSTRAINT") start("constraints", table)
+      else if (type == "INDEX") start("indexes", table)
+
+      if (type == "TABLE DATA" || type == "CONSTRAINT" || type == "INDEX") schema_done = 1
+      else if (!schema_done) out = parts "/pre.sql"
+    }
+
+    !schema_done && (/^SET / || /^SELECT pg_catalog\.set_config\(/ || /^\\restrict /) { print > (parts "/settings.sql") }
+    /^COPY .* FROM stdin;$/ { copy = $0; copying = 1 }
+    { print > out }
+
+    END { finish() }
+  '
+statuses=("${PIPESTATUS[@]}")
+
+# The decompressor gets SIGPIPE (141) when awk stops after the section.
+if [[ ${statuses[0]} != 0 && ${statuses[0]} != 141 ]] || [[ ${statuses[1]} != 0 ]]; then
+  echo "Splitting the backup failed (decompress, awk exited ${statuses[*]})." >&2
+  exit 1
+fi
+
+touch "$parts/pre.sql" "$parts/post.sql" "$parts/settings.sql" "$parts/jobs.tsv"
+
+if ! grep -q "^CREATE DATABASE $staging " "$parts/pre.sql"; then
+  echo "The backup has no $source_database section." >&2
+  exit 1
+fi
+
+export PGOPTIONS="-c maintenance_work_mem=2GB -c max_parallel_maintenance_workers=4 -c synchronous_commit=off"
+
+# Runs the files of one kind, biggest table first, $jobs sessions at a time.
+run() {
+  awk -F '\t' -v kind="$1" '$1 == kind { print $2 "\t" $3 }' "$parts/jobs.tsv" | sort -rn | cut -f 2 |
+    xargs -r -n 1 -P "$jobs" psql -X -q -d "$staging" -f "$parts/settings.sql" -f >/dev/null 2>>"$log"
+}
+
+step() {
+  echo "$1 ($(date '+%H:%M'))..."
+}
+
+fail() {
+  echo "The restore failed while $1. See $log; $staging is left for inspection." >&2
+  exit 1
+}
+
+step "Creating the database and its schema"
+psql -X -q -d postgres -f "$parts/pre.sql" >/dev/null 2>>"$log" || fail "creating the schema"
+exists "$staging" || fail "creating the database (a locale the backup names that this server lacks?)"
+
+step "Loading the tables in $(grep -c '^data' "$parts/jobs.tsv") chunks, $jobs at a time"
+run data || fail "loading the tables"
+rm -rf "$parts/data"
+
+step "Adding the primary keys"
+run constraints || fail "adding the primary keys"
+
+step "Creating the indexes"
+run indexes || fail "creating the indexes"
+
+step "Setting the sequences and the rest"
+psql -X -q -d "$staging" -f "$parts/settings.sql" -f "$parts/post.sql" >/dev/null 2>>"$log" || fail "finishing"
+
+errors=$(grep -c 'ERROR:' "$log" || true)
+echo "Restored in $(((SECONDS - started) / 60)) minutes with $errors psql errors (see $log)."
+
+tables=$(psql -X -d "$staging" -Atc "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public'")
+if ((tables == 0)); then
+  echo "$staging has no tables: the backup's $source_database section holds none. $staging is left for inspection." >&2
+  exit 1
+fi
+
+echo "Masking personal data..."
+if ! psql -X -d "$staging" -v keep_email="$keep" -f db/mask.sql; then
+  echo "Masking failed; $staging is left unmasked. Fix db/mask.sql and run it on $staging, or drop $staging." >&2
+  exit 1
+fi
+
+echo "Replacing $database..."
+psql -X -q -d postgres -c "DROP DATABASE IF EXISTS \"$database\" WITH (FORCE)" || exit 1
+psql -X -q -d postgres -c "ALTER DATABASE \"$staging\" RENAME TO \"$database\"" || exit 1
+
+echo "Updating planner statistics..."
+vacuumdb --quiet --analyze-in-stages --jobs="$jobs" --dbname="$database" || exit 1
+
+psql -X -d "$database" -Atc "SELECT pg_size_pretty(pg_database_size(current_database()))" |
+  awk -v db="$database" '{ print db " is ready: " $0 }'

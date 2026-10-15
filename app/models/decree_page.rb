@@ -1,65 +1,42 @@
-class DecreePage < ActiveRecord::Base
+# frozen_string_literal: true
+
+class DecreePage < ApplicationRecord
   include Probe
 
-  extend Probe::Sanitizer
-  extend Probe::Search::Query
+  belongs_to :decree, optional: true
 
-  attr_accessible :number,
-                  :text
-
-  belongs_to :decree
-
-  scope :by_number, lambda { order :number }
+  scope :by_number, -> { order(:number) }
 
   validates :number, presence: true
-  validates :text,   presence: true
+  validates :text, presence: true
 
   mapping do
     map :decree_id
     map :number
 
-    analyze :text
+    analyze :text, index: :no
   end
 
-  def self.search_pages(decree_id, text, options = {})
-    search_field = analyzed_field(:text)
-    highlights   = {}
-    text         = sanitize_query_string(text)
+  # The decree's pages matching the text, with their highlighted fragments: [response, { number => [fragment] }].
+  def self.search_pages(decree_id, text)
+    field = Probe::Fields.analyzed(:text)
+    query = Probe::Sanitizer.query_string(text)
+    body = {
+      query: {
+        bool: {
+          filter: [{ term: { decree_id: decree_id.to_s } }],
+          must: [{ query_string: { query:, default_field: field, default_operator: 'OR', analyze_wildcard: true } }]
+        }
+      },
+      highlight: { fields: { field => {} } },
+      _source: %w[number]
+    }
 
-    results = tire.search do
-      query do
-        boolean do
-          must { term :decree_id, decree_id }
-
-          must do
-            string text,
-            default_field: search_field,
-            default_operator: :or,
-            analyze_wildcard: true
-          end
-        end
-      end
-
-      highlight search_field
+    response = client.search(index: index_name, body:)
+    highlights = response['hits']['hits'].to_h do |hit|
+      [hit.dig('_source', 'number').to_i, hit.dig('highlight', field).to_a]
     end
 
-    results.each do |result|
-      result.highlight[search_field.to_s].each do |highlight|
-        highlights[result.number] ||= []
-        highlights[result.number] << highlight
-      end
-    end
-
-    return results, highlights
+    [response, highlights]
   end
-
-  # TODO rm - unused?
-  # def image_entry
-  #   "#{number}.png"
-  # end
-
-  # TODO rm - unused?
-  # def image_path
-  #   File.join decree.image_path, image_entry
-  # end
 end

@@ -89,7 +89,7 @@ Dáta o súdnych rozhodnutich by sme radi aktualizovali najmenej raz za týžde�
 #### Našiel som chybu, čo mám spraviť?
 
 Napíšte nám, prosím, čo najpresnejší popis chyby a zašlite nám ho e-mailom
-na <%= mail_to 'kontakt@otvorenesudy.sk', nil, encode: :hex %>. Ak ste našli
+na <%= mail_to 'kontakt@otvorenesudy.sk', nil %>. Ak ste našli
 <%= link_to 'chybu v dátach', static_page_path('feedback') %>, postupujte podobne.
 
 #### Sú dáta úplné?

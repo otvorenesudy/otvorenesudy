@@ -1,59 +1,25 @@
-<% if @court.chairs.any? %>
-  <h2 class="h4 text-uppercase mt-4">
-    <%= t ".#{"chairman".pluralize(@court.chairs.count)}" %>
-  </h2>
+<% { chairman: @court.chairs, vice_chairman: @court.vicechairs, judicial_council_chairman: @court.judicial_council_chairs, judicial_council_member: @court.judicial_council_members }.each do |position, judges| %>
+  <% if judges.any? %>
+    <h2 class="h4 text-uppercase mt-4">
+      <%= t ".#{position.to_s.pluralize(judges.size)}" %>
+    </h2>
 
-  <p>
-    <%= @court.chairs.map { |chair| link_to_judge chair }.to_sentence.html_safe %>
-  </p>
-<% end %>
-
-<% if @court.vicechairs.any? %>
-  <h2 class="h4 text-uppercase mt-4">
-    <%= t ".#{"vice_chairman".pluralize(@court.vicechairs.count)}" %>
-  </h2>
-
-  <p>
-    <%= @court.vicechairs.map { |vicechair| link_to_judge vicechair }.to_sentence.html_safe %>
-  </p>
-<% end %>
-
-<% if @court.judicial_council_chairs.any? %>
-  <h2 class="h4 text-uppercase mt-4">
-    <%= t ".#{"judicial_council_chairman".pluralize(@court.judicial_council_chairs.count)}" %>
-  </h2>
-
-  <p>
-    <%= @court.judicial_council_chairs.map { |chair| link_to_judge chair }.to_sentence.html_safe %>
-  </p>
-<% end %>
-
-<% if @court.judicial_council_members.any? %>
-  <h2 class="h4 text-uppercase mt-4">
-    <%= t ".#{"judicial_council_member".pluralize(@court.judicial_council_members.count)}" %>
-  </h2>
-
-  <p>
-    <%= @court.judicial_council_members.map { |member| link_to_judge member }.to_sentence.html_safe %>
-  </p>
+    <p><%= links_to_judges judges %></p>
+  <% end %>
 <% end %>
 
 <h2 class="h4 text-uppercase mt-4">
   <%= t '.judges' %>
 </h2>
 
-<% if @judges.active.listed.any? %>
-  <p>
-    <%= t('.explanation.listed')%>
-  </p>
+<% if (listed = @judges.active.listed).any? %>
+  <p><%= t '.explanation.listed' %></p>
 
-  <%= render 'courts/judges/list', court: @court, judges: @judges.active.listed %>
+  <%= render 'courts/judges/list', court: @court, judges: listed %>
 <% end %>
 
-<% if @judges.inactive_or_unlisted.any? %>
-  <p class="mt-4">
-    <%= t '.explanation.other' %>
-  </p>
+<% if (others = @judges.inactive_or_unlisted).any? %>
+  <p class="mt-4"><%= t '.explanation.other' %></p>
 
-  <%= render 'courts/judges/list', court: @court, judges: @judges.inactive_or_unlisted %>
+  <%= render 'courts/judges/list', court: @court, judges: others %>
 <% end %>

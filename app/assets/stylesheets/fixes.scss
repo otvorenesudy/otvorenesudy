@@ -1,0 +1,91 @@
+// disable outlines
+
+* {
+  outline: none !important;
+}
+
+// add text decoration on focus to links (do not change this)
+
+a {
+  &:hover,
+  &:focus {
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+// keep small text in normal weight, as in Bootstrap 4, also inside headings
+
+small,
+.small {
+  font-weight: $font-weight-normal;
+}
+
+// set correct color on active buttons with shown menu items
+
+.show > .btn.dropdown-toggle {
+  color: inherit !important;
+}
+
+// add text decoration on helper elements without icons (helper elements with icons have display inline class)
+// set default color and correct cursor on helper elements
+
+@each $helper in ('popover' 'tooltip') {
+  a[href='#'][data-bs-toggle='#{$helper}'] {
+    position: relative;
+
+    color: $body-color;
+    cursor: help;
+    text-decoration: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      border-bottom: 1px dashed $info;
+      width: 100%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+    }
+
+    &.d-inline {
+      svg {
+        vertical-align: initial;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+// add bottom border corners on active tab links
+
+.nav-tabs .nav-link.active {
+  position: relative;
+
+  &,
+  &:hover,
+  &:focus {
+    border-bottom-color: $nav-tabs-border-color;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: $nav-tabs-border-width;
+      bottom: -$nav-tabs-border-width;
+      left: 0;
+
+      background: $nav-tabs-link-active-bg;
+    }
+  }
+}
+
+// set display to block even for hidden tabs so charts do not lose responsiveness (zero height hides tab content)
+
+.tab-content > .tab-pane:not(.active) {
+  display: block;
+  overflow-y: hidden;
+  height: 0;
+}

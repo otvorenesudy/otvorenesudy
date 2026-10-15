@@ -1,28 +1,31 @@
-# Set the host name for URL creation
+# frozen_string_literal: true
+
+# The sitemap of every page, court, judge, hearing, decree and proceeding in both languages (sitemap:refresh:no_ping,
+# daily). Judge selection procedures are hidden, so left out.
 SitemapGenerator::Sitemap.default_host = 'https://otvorenesudy.sk'
+# In public/sitemaps, which deploys share between releases.
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
+  records = {
+    Court => { priority: 0.6, changefreq: 'daily' },
+    Judge => { priority: 0.6, changefreq: 'daily' },
+    Hearing => { priority: 1, changefreq: 'hourly' },
+    Decree => { priority: 1, changefreq: 'hourly' },
+    Proceeding => { priority: 0.8, changefreq: 'daily' }
+  }
+
   %i[en sk].each do |l|
     add "/?l=#{l}"
 
-    add "/about?l=#{l}"
-    add "/contact?l=#{l}"
-    add "/copyright?l=#{l}"
-    add "/faq?l=#{l}"
-    add "/feedback?l=#{l}"
-    add "/privacy?l=#{l}"
-    add "/tos?l=#{l}"
+    StaticPagesController::PAGES.each { |page| add "/#{page}?l=#{l}" }
 
-    Court.pluck(:id).each { |id| add court_path(id, l: l), changefreq: 'daily', priority: 0.6 }
+    add uoo_decrees_path(l:)
 
-    Judge.pluck(:id).each { |id| add judge_path(id, l: l), changefreq: 'daily', priority: 0.6 }
+    records.each do |model, options|
+      route = "#{model.model_name.singular_route_key}_path"
 
-    Hearing.pluck(:id).each { |id| add hearing_path(id, l: l), changefreq: 'hourly', priority: 1 }
-
-    Decree.pluck(:id).each { |id| add decree_path(id, l: l), changefreq: 'hourly', priority: 1 }
-
-    Proceeding.pluck(:id).each { |id| add proceeding_path(id, l: l), changefreq: 'daily', priority: 0.8 }
-
-    SelectionProcedure.pluck(:id).each { |id| add selection_path(id, l: l), changefreq: 'daily', priority: 0.6 }
+      model.in_batches(of: 10_000) { |batch| batch.ids.each { |id| add public_send(route, id, l:), **options } }
+    end
   end
 end

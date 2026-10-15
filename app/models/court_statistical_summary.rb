@@ -1,11 +1,11 @@
-class CourtStatisticalSummary < ActiveRecord::Base
+# frozen_string_literal: true
+
+class CourtStatisticalSummary < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :year
+  belongs_to :court, optional: true
 
-  belongs_to :court
-
-  has_many :tables, class_name: :StatisticalTable, as: :statistical_summary
+  has_many :tables, class_name: 'StatisticalTable', as: :statistical_summary, dependent: nil
 
   validates :year, presence: true
 end

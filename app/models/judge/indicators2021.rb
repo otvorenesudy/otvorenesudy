@@ -1,56 +1,67 @@
+# frozen_string_literal: true
+
+require 'csv'
+
 class Judge
+  # The 2021 judge evaluation (data/judge-indicators-2021*.csv): a row of results per judge and the scores of its chart.
+  # Loaded on first use, then kept for the process.
   module Indicators2021
     extend ActiveSupport::Concern
-      
-    included do
-      Judge::Indicators2021.load!
-    end
 
-    def indicators_2021
-      Judge::Indicators2021.for(self)
-    end
+    CHART_COLUMNS = {
+      availability: 'Dispozičný čas',
+      ratio: 'Vybavenosť',
+      approved_appeals: 'Potvrdené odvolania',
+      productivity: 'Produktivita',
+      arrears: 'Restančné z nevybavených'
+    }.freeze
+
+    BOUND_COLUMNS = {
+      arrears: 'Reštančné z nevybavených (%)',
+      availability: 'Odhadovaná priemerná dĺžka konania (dispozičný čas - dni)',
+      ratio: 'Vybavenosť (%)',
+      decrees_approved: 'Počet potvrdených rozhodnutí',
+      weighted_product: 'Vážené rozhodnuté'
+    }.freeze
 
     def self.for(judge)
-      @data[judge.id]
+      data[judge.id]
     end
 
-    def self.load!
-      @data = Hash.new
-      normalize = ->(value, max) {
-        (value.to_f / max.to_f) * 10
-      }
+    def self.data
+      @data ||= load
+    end
 
-      CSV.read(Rails.root.join('data', 'judge-indicators-2021.csv'), col_sep: ',', headers: true).each do |line|
-        judge = Judge.find_by_id(line[0])
-      
-        next unless judge
-
-        @data[judge.id] = line
-      end
-
-      CSV.read(Rails.root.join('data', 'judge-indicators-2021-numerical.csv'), col_sep: ',', headers: true).each do |line|
-        judge = Judge.find_by_id(line[0])
-      
-        next unless judge && @data[judge.id]
-
-        @data[judge.id][:chart] = {
-          availability: line['Dispozičný čas'],
-          ratio: line['Vybavenosť'],
-          approved_appeals: line['Potvrdené odvolania'],
-          productivity: line['Produktivita'],
-          arrears: line['Restančné z nevybavených']
-        }
-      end
+    def self.reset!
+      @data = @chart_bounds = nil
     end
 
     def self.chart_bounds
-      @chart_bounds ||= {
-        arrears: @data.map { |_, e| e['Reštančné z nevybavených (%)'].to_f }.max,
-        availability: @data.map { |_, e| e['Odhadovaná priemerná dĺžka konania (dispozičný čas - dni)'].to_f }.max,
-        ratio: @data.map { |_, e| e['Vybavenosť (%)'].to_f }.max,
-        decrees_approved: @data.map { |_, e| e['Počet potvrdených rozhodnutí'].to_f }.max,
-        weighted_product: @data.map { |_, e| e['Vážené rozhodnuté'].to_f }.max,
-      }
+      @chart_bounds ||= BOUND_COLUMNS.transform_values do |column|
+        data.values.map { |row| row[column].to_f }.max
+      end
+    end
+
+    def self.load
+      rows = read('judge-indicators-2021.csv')
+      ids = Judge.where(id: rows.pluck(0)).ids.to_set
+      data = rows.select { |row| ids.include?(row[0].to_i) }.index_by { |row| row[0].to_i }
+
+      read('judge-indicators-2021-numerical.csv').each do |row|
+        data[row[0].to_i][:chart] = CHART_COLUMNS.transform_values { |column| row[column] } if data.key?(row[0].to_i)
+      end
+
+      data
+    end
+
+    def self.read(file)
+      CSV.read(Rails.root.join('data', file), col_sep: ',', headers: true)
+    end
+
+    private_class_method :load, :read
+
+    def indicators_2021
+      Judge::Indicators2021.for(self)
     end
   end
 end

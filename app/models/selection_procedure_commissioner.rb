@@ -1,7 +1,10 @@
-class SelectionProcedureCommissioner < ActiveRecord::Base
-  attr_accessible :name,
-                  :name_unprocessed
+# frozen_string_literal: true
 
-  belongs_to :procedure, class_name: :SelectionProcedure, foreign_key: :selection_procedure_id
-  belongs_to :judge
+class SelectionProcedureCommissioner < ApplicationRecord
+  belongs_to :procedure, class_name: 'SelectionProcedure',
+                         foreign_key: :selection_procedure_id,
+                         inverse_of: false,
+                         optional: true
+
+  belongs_to :judge, optional: true
 end

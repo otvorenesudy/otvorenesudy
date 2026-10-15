@@ -2,6 +2,8 @@ sk:
   search:
     controls:
       reset: "Zrušiť všetky kritériá"
+      ascending: "Vzostupne"
+      descending: "Zostupne"
 
       sort:
         common: &common
@@ -64,3 +66,4 @@ sk:
       are_you_sure: "Ste si istý?"
       confirm_delete: "Zrušiť odoberanie"
       cancel: "Späť"
+      period: "Ako často"

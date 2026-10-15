@@ -1,27 +1,23 @@
-module Judge::UnfinishedIssuesRate
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  def unfinished_issues_rate
-    result    = Hash.new
-    summaries = statistical_summaries.by_prominent_court_type(self)
+# Per year, the judge's unfinished cases against the cases assigned (table N).
+class Judge
+  module UnfinishedIssuesRate
+    extend ActiveSupport::Concern
 
-    return unless summaries.any?
+    def unfinished_issues_rate
+      summaries = statistical_summaries.by_prominent_court_type(self)
 
-    summaries.each do |summary|
-      table = summary.tables.by_name('N').first
+      return unless summaries.any?
 
-      accepted = table.rows[0].cells.pluck(:value).map(&:to_i).sum
-      all      = table.rows[1].cells.pluck(:value).map(&:to_i).sum
+      summaries.to_h do |summary|
+        table = summary.tables.by_name('N').first
+        accepted = Judge::StatisticalTables.row_sum(table.rows[0])
+        unfinished = Judge::StatisticalTables.row_sum(table.rows[1])
+        unfinished -= table.rows[2..3].sum { |row| Judge::StatisticalTables.row_sum(row) }
 
-      table.rows[2..3].each do |row|
-        all -= row.cells.pluck(:value).map(&:to_i).sum
+        [summary.year, accepted.zero? ? 0.0 : unfinished / accepted.to_f]
       end
-
-      result[summary.year] = all / accepted.to_f
-
-      result[summary.year] = 0.0 if result[summary.year].nan?
     end
-
-    result
   end
 end

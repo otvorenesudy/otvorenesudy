@@ -1,94 +1,89 @@
-module Court::AverageProceedingDurations
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  def average_proceeding_durations
-    return @agendas if @agendas
+# Average proceeding durations per agenda and year for district and municipal courts, from
+# data/court_average_proceeding_durations.json, and the courts' ranking by them.
+class Court
+  module AverageProceedingDurations
+    extend ActiveSupport::Concern
 
-    data = Loader.load(self.name)
+    def average_proceeding_durations
+      data = Loader.load(name)
 
-    @agendas = data ? Agendas.new(data) : nil
-  end
-
-  module Loader
-    extend self
-
-    def load(name)
-      data[name]
+      Agendas.new(data) if data
     end
 
-    private
+    module Loader
+      module_function
 
-    def data
-      @data ||= JSON.parse File.read(File.join Rails.root, 'data', 'court_average_proceeding_durations.json')
-    end
-  end
-
-  module Ranking
-    extend self
-
-    def courts
-      @courts ||= Court.by_type([CourtType.district, CourtType.municipal])
-    end
-
-    def rank(court, acronym)
-      ranking[acronym.to_sym].descending[court]
-    end
-
-    def rank_with_order(court, acronym)
-      ranking[acronym.to_sym].rank_with_order(court)
-    end
-
-    private
-
-    def ranking
-      @raking ||= build_ranking
-    end
-
-    def build_ranking
-      results = Hash.new
-
-      [:T, :C, :Cb, :P].each do |acronym|
-        results[acronym] = Resource::Ranking.new(courts.select(&:average_proceeding_durations)) { |court| court.average_proceeding_durations.by_acronym(acronym).data.map { |e| e[:value].to_f }.sum }
+      def load(name)
+        data[name]
       end
 
-      results
-    end
-  end
-
-  class Agendas
-    include Enumerable
-
-    def initialize(data)
-      @agendas  = Hash.new
-      @acronyms = Hash.new
-
-      data.each do |e|
-        e.symbolize_keys!
-
-        name    = e[:name]
-        acronym = e[:acronym].to_sym
-
-        @agendas[name] ||= Agenda.new name, acronym
-
-        @agendas[name].data << e
-        @agendas[name].data.sort! { |a, b| b[:year] <=> a[:year] }
-
-        @acronyms[acronym] = name
+      def data
+        @data ||= JSON.parse(Rails.root.join('data/court_average_proceeding_durations.json').read)
       end
     end
 
-    def each
-      @agendas.values.each { |agenda| yield agenda }
+    module Ranking
+      module_function
+
+      def courts
+        Court.by_type([CourtType.district, CourtType.municipal])
+      end
+
+      def rank(court, acronym)
+        ranking(acronym).descending[court.id]
+      end
+
+      def rank_with_order(court, acronym)
+        ranking(acronym).rank_with_order(court.id)
+      end
+
+      # By the sum of the agenda's yearly averages; courts without data for the agenda aren't ranked.
+      def ranking(acronym)
+        durations = courts.filter_map do |court|
+          data = Loader.load(court.name)
+          agenda = Agendas.new(data).by_acronym(acronym) if data
+
+          [court.id, agenda] if agenda
+        end.to_h
+
+        Resource::Ranking.new(durations.keys) { |id| durations[id].data.sum { |entry| entry[:value].to_f } }
+      end
     end
 
-    def by_acronym(acronym)
-      @agendas[@acronyms[acronym.to_sym]]
-    end
-  end
+    class Agendas
+      include Enumerable
 
-  class Agenda < Struct.new :name, :acronym
-    def data
-      @data ||= Array.new
+      def initialize(data)
+        @agendas = {}
+        @acronyms = {}
+
+        data.each do |entry|
+          entry = entry.symbolize_keys
+          name = entry[:name]
+
+          @agendas[name] ||= Agenda.new(name, entry[:acronym].to_sym)
+          @agendas[name].data << entry
+          @acronyms[entry[:acronym].to_sym] = name
+        end
+
+        @agendas.each_value { |agenda| agenda.data.sort_by! { |entry| entry[:year] }.reverse! }
+      end
+
+      def each(&)
+        @agendas.each_value(&)
+      end
+
+      def by_acronym(acronym)
+        @agendas[@acronyms[acronym.to_sym]]
+      end
+    end
+
+    Agenda = Struct.new(:name, :acronym) do
+      def data
+        @data ||= []
+      end
     end
   end
 end

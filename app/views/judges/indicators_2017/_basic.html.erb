@@ -2,7 +2,7 @@
   <%= t '.court_decrees_count_by_supreme_court' %>:
 </p>
 
-<ul class="list-unstyled ml-3">
+<ul class="list-unstyled ms-3">
   <li><%= t '.concourt_issued' %> &ndash; <%= indicators['concourt.decisions'] %></li>
   <li><%= t '.concourt_delays' %> &ndash; <%= indicators['concourt.delays'] %></li>
 </ul>
@@ -13,5 +13,5 @@
 </p>
 
 <p>
-  <%= t '.worked_and_average_cases', workdays: indicators['workdays'].to_s.html_safe, cases: indicators['incoming.100.days'].to_s.html_safe %>
+  <%= t '.worked_and_average_cases', workdays: indicators['workdays'], cases: indicators['incoming.100.days'] %>
 </p>

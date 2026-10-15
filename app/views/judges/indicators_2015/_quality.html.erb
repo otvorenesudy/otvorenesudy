@@ -6,7 +6,7 @@
   <%= t '.confirmation_ratio', ratio: number_to_percentage(indicators['Q1'], precision: 1), average: number_to_percentage(indicators['Q1.mean'], precision: 1) %>
 </p>
 
-<ul class="list-unstyled ml-3">
+<ul class="list-unstyled ms-3">
   <li><%= t '.appeal_decrees_count' %> &ndash; <%= indicators['sum.appeals'] %></li>
   <li><%= t '.confirmed_decrees_count' %> &ndash; <%= indicators['affirmed'] %></li>
 </ul>

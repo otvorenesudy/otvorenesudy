@@ -1,0 +1,18 @@
+<%# When the proceeding took place: its only hearing or decree, since its first event, or from its first to its last. %>
+<% first, last = proceeding.duration_events %>
+<%= t 'proceedings.common.proceeding' %>
+<% if first %>
+  <% if proceeding.single_hearing? %>
+    <%= t first.historical ? 'proceedings.common.single_hearing.past' : 'proceedings.common.single_hearing.future' %>
+    <%= proceeding_date first.date %>
+  <% elsif proceeding.single_decree? %>
+    <%= t 'proceedings.common.single_decree.past' %> <%= proceeding_date first.date %>
+  <% elsif !proceeding.probably_closed? %>
+    <%= t 'proceedings.common.probably_open.from' %> <%= proceeding_date first.date %>
+  <% elsif first.date.to_date == last.date.to_date %>
+    <%= t 'proceedings.common.probably_closed.point' %> <%= proceeding_date first.date, format: :normal %>
+  <% else %>
+    <%= t 'proceedings.common.probably_closed.from' %> <%= proceeding_date first.date, format: :normal %>
+    <%= t 'proceedings.common.probably_closed.until' %> <%= proceeding_date last.date, format: :normal %>
+  <% end %>
+<% end %>

@@ -1,49 +1,43 @@
-class HearingsController < SearchController
-  def show
-    @hearing = Hearing.find(params[:id])
+# frozen_string_literal: true
 
-    @type = @hearing.type
+class HearingsController < SearchController
+  before_action :set_hearing, only: %i[show anonymize]
+
+  def show
     @court = @hearing.court
     @judges = @hearing.judges.order(:last, :middle, :first)
 
     @proposers = @hearing.proposers.order(:name)
     @opponents = @hearing.opponents.order(:name)
-    @defendants = @hearing.defendants.order(:name)
+    @defendants = @hearing.defendants.includes(accusations: :paragraphs).order(:name)
 
-    flash.now[:danger] << t('hearings.show.unprocessed') if @hearing.unprocessed?
-    flash.now[:danger] << t('hearings.show.future_date') if @hearing.has_future_date?
-    flash.now[:warning] << t('hearings.show.faulty_date') if @hearing.had_future_date?
-    flash.now[:warning] << t('hearings.show.anonymized') if @hearing.anonymized?
+    warn_about_data
   end
 
-  # TODO rm - unused?
-  #  # def resource
-  #   @hearing = Hearing.find(params[:id])
-  #
-  #   send_file_in @hearing.resource_path, type: 'text/plain'
-  # end
-
+  # Admins only; to anyone else the action doesn't exist.
   def anonymize
-    @hearing = Hearing.find(params[:id])
-
-    return head 404 unless current_user.admin?
+    return head :not_found unless current_user&.admin?
 
     @hearing.anonymize!
 
-    flash[:success] = t('hearings.anonymize.success')
-
-    redirect_to :back
+    redirect_back_or_to hearing_path(@hearing), notice: t('.success')
   end
-
-  protected
-
-  include FileHelper
 
   private
 
+  def set_hearing
+    @hearing = Hearing.find(params.expect(:id))
+  end
+
+  def warn_about_data
+    flash_now(:danger, t('.unprocessed')) if @hearing.unprocessed?
+    flash_now(:danger, t('.future_date')) if @hearing.future_date?
+    flash_now(:warning, t('.faulty_date')) if @hearing.future_date_when_created?
+    flash_now(:warning, t('.anonymized')) if @hearing.anonymized?
+  end
+
+  # The scoped associations (exact_judges, inexact_judgings) load before the ones they scope (judges).
   def search_associations
-    # NOTE do not eager load scoped associations after original associations,
-    # e.g. :exact_judges has to go before :judges, otherwise scoped association will not be loaded
     %i[form subject exact_judges inexact_judgings judges opponents proposers defendants court]
   end
 end

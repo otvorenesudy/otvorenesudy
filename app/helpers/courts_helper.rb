@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module CourtsHelper
   def link_to_court(court, options = {})
-    link_to court.name, court_path(court), options
+    link_to court.name, court, options
   end
 
   def links_to_courts(courts, options = {})
-    courts.map { |court| link_to_court(court, options) }.to_sentence.html_safe
+    to_sentence(courts.map { |court| link_to_court(court, options) })
   end
 
   def link_to_court_by_judge_employment(employment, options = {})
@@ -12,7 +14,8 @@ module CourtsHelper
   end
 
   def link_to_institution(institution, options = {})
-    court = Court.where(name: institution).first
+    court = Court.find_by(name: institution)
+
     court ? link_to_court(court, options) : institution
   end
 end

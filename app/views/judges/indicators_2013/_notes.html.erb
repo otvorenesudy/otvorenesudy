@@ -8,7 +8,7 @@
   </p>
 
   <div id="indicators-notes" class="collapse">
-    <ul class="list-unstyled ml-3 mb-0">
+    <ul class="list-unstyled ms-3 mb-0">
       <% indicators.values_at('S16a', 'S16b', 'S16c', 'S16d', 'S16e', 'S16f', 'S16g', 'S16h').compact.sort.reverse_each do |value| %>
          <li><%= s value %></li>
       <% end %>

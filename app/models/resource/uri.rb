@@ -1,9 +1,12 @@
-module Resource::URI
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  included do
-    attr_accessible :uri
+# Records imported from a source website: the source and the record's address there.
+module Resource
+  module URI
+    extend ActiveSupport::Concern
 
-    belongs_to :source 
+    included do
+      belongs_to :source, optional: true
+    end
   end
 end

@@ -1,60 +1,42 @@
-require 'rubygems'
+# frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
+# Coverage on full runs (bin/test sets COVERAGE): SimpleCov with branches, and the report undercover reads to check
+# that every changed method is covered. Rake tasks, configuration and the hidden selection procedures aren't measured.
+if ENV['COVERAGE']
+  require 'simplecov'
+  require 'undercover/simplecov_formatter'
 
-require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
-require 'rspec/autorun'
+  SimpleCov.start 'rails' do
+    enable_coverage :branch
 
-require 'capybara/rspec'
-require 'capybara/rails'
+    add_filter %r{^/(bin|config|data|db|lib/tasks|script|spec|tmp|vendor)/}
+    add_filter(/selection_procedure/)
 
-Capybara.default_selector = :css
+    minimum_coverage line: 95, branch: 90
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
-
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = false
-
-  # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
-  # rspec-rails.
-  config.infer_base_class_for_anonymous_controllers = false
-
-  # Factory syntax suggar
-  config.include FactoryGirl::Syntax::Methods
-
-  # Capybara
-  config.include Capybara::DSL
-
-  # Devise (Warden helpers)
-  config.include Warden::Test::Helpers
-
-  Warden.test_mode!
-
-  # Probe syntax suggar
-  config.include Probe::SpecHelper
+    formatter SimpleCov::Formatter::MultiFormatter.new(
+      [SimpleCov::Formatter::HTMLFormatter, SimpleCov::Formatter::Undercover]
+    )
+  end
 end
 
-FIXTURES = "#{::Rails.root}/spec/fixtures"
+RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
 
-def load_fixture(path)
-  File.open("#{FIXTURES}/#{path}").read
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+  config.filter_run_when_matching :focus
+  config.example_status_persistence_file_path = 'tmp/rspec_examples.txt'
+  config.disable_monkey_patching!
+  config.raise_errors_for_deprecations!
+
+  config.default_formatter = 'doc' if config.files_to_run.one?
+
+  config.order = :random
+  Kernel.srand config.seed
 end
