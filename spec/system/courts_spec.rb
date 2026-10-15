@@ -239,7 +239,7 @@ RSpec.describe 'Courts' do
       refresh_indices
 
       visit courts_path
-      within(facet('Obec')) { find('.facet-link', text: /\ASpišská Nová Ves…/).hover }
+      within(facet('Obec')) { hover_when_connected(find('.facet-link', text: /\ASpišská Nová Ves…/), 'tooltip') }
 
       expect(page).to have_css('.tooltip', text: 'Spišská Nová Ves – Novoveská Huta')
     end

@@ -313,7 +313,8 @@ RSpec.describe 'Judges' do
       index_with_indicators(gesvantnerova)
 
       visit judge_path(gesvantnerova, anchor: 'indicators-2015')
-      find('#indicators-2015 a', text: I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2')).hover
+      agendas = find('#indicators-2015 a', text: I18n.t('judges.indicators_2015.basic.no_dominant_assigned_agenda_2'))
+      hover_when_connected(agendas, 'popover')
 
       expect(page).to have_css('.popover', text: /Občianska – 1023.*Trestná – 574/m)
     end

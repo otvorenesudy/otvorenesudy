@@ -37,8 +37,24 @@ module LayoutHelpers
   end
 end
 
+# Stimulus loads each controller as its own module, after the page shows: a tooltip or popover appears on a hover only
+# once its controller has connected, and a hover before that shows nothing.
+module StimulusHelpers
+  CONNECTED = 'window.Stimulus?.getControllerForElementAndIdentifier(arguments[0], arguments[1]) != null'
+
+  def hover_when_connected(element, controller)
+    page.document.synchronize do
+      raise Capybara::ExpectationNotMet, "#{controller} isn't connected" unless
+        page.evaluate_script(CONNECTED, element, controller)
+    end
+
+    element.hover
+  end
+end
+
 RSpec.configure do |config|
   config.include LayoutHelpers, type: :system
+  config.include StimulusHelpers, type: :system
 
   # A narrower window (`js: true, width: 390` for a phone). Examples share the browser, so the others get the desktop
   # width back.
