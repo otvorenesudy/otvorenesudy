@@ -13,7 +13,8 @@
     </ul>
   <% end %>
 
-  <%= button_to t('subscriptions.unsubscribe.confirm'), unsubscribe_subscriptions_path, params: { token: @subscription.token }, class: 'btn btn-outline-danger' %>
+  <%# The answer is a page, as to the mail client's one-click POST, not a redirect, which Turbo would need. %>
+  <%= button_to t('subscriptions.unsubscribe.confirm'), unsubscribe_subscriptions_path, params: { token: @subscription.token }, class: 'btn btn-outline-danger', form: { data: { turbo: false } } %>
 <% else %>
   <p><%= t 'subscriptions.unsubscribe.unknown' %></p>
 <% end %>

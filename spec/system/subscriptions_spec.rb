@@ -127,4 +127,15 @@ RSpec.describe 'Subscriptions' do
     expect(page).to have_text(I18n.t('subscriptions.mailer.results.unsubscribed.notice'))
     expect(Subscription.exists?(subscription.id)).to be(false)
   end
+
+  # Turbo Drive submits the confirmation by fetch, and shows nothing of a form's response that doesn't redirect.
+  it 'tells a reader of the e-mail who confirms in a browser that they are unsubscribed', :js do
+    subscription = create(:subscription)
+
+    visit unsubscribe_subscriptions_path(token: subscription.token)
+    click_on I18n.t('subscriptions.unsubscribe.confirm')
+
+    expect(page).to have_text(I18n.t('subscriptions.mailer.results.unsubscribed.notice'))
+    expect(Subscription.exists?(subscription.id)).to be(false)
+  end
 end
