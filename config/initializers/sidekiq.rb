@@ -1,13 +1,7 @@
-require 'sidekiq/web'
+# frozen_string_literal: true
 
-Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://localhost:6379/0' }
-end
+# Redis database 0 is part of the contract with otvorenesudy-api, which pushes UpdateRepositoryJob into it.
+redis = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0') }
 
-Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://localhost:6379/0' }
-end
-
-Sidekiq::Web.use Rack::Auth::Basic do |_, password|
-  password == Configuration.sidekiq.password
-end
+Sidekiq.configure_server { |config| config.redis = redis }
+Sidekiq.configure_client { |config| config.redis = redis }

@@ -2,19 +2,19 @@
   <%= t '.headline' %>
 </h2>
 
-<% if @judge.indicators_2015 %>
-  <% if @judge.indicators_2015.statistical %>
-    <%= render 'judges/indicators_2015/basic', judge: judge, indicators: judge.indicators_2015.statistical %>
-    <%= render 'judges/indicators_2015/evaluation', judge: judge, indicators: judge.indicators_2015.statistical %>
+<% if (indicators = judge.indicators_2015) %>
+  <% if indicators.statistical %>
+    <%= render 'judges/indicators_2015/basic', judge:, indicators: indicators.statistical %>
+    <%= render 'judges/indicators_2015/evaluation', judge:, indicators: indicators.statistical %>
   <% end %>
 
-  <% if @judge.indicators_2015.numerical %>
-    <%= render 'judges/indicators_2015/numerical', judge: judge, facets: facets, others: others %>
+  <% if indicators.numerical %>
+    <%= render 'judges/indicators/comparison', judge:, facets:, others:, year: 2015, dataset: Judge::Indicators2015 %>
   <% end %>
 
-  <% if @judge.indicators_2015.statistical %>
-    <%= render 'judges/indicators_2015/quality', judge: judge, indicators: judge.indicators_2015.statistical %>
-    <%= render 'judges/indicators_2015/efficiency', judge: judge, indicators: judge.indicators_2015.statistical %>
+  <% if indicators.statistical %>
+    <%= render 'judges/indicators_2015/quality', judge:, indicators: indicators.statistical %>
+    <%= render 'judges/indicators_2015/efficiency', judge:, indicators: indicators.statistical %>
   <% end %>
 <% else %>
   <p class="mb-0">

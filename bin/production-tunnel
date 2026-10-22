@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Opens an SSH tunnel from a local port to the production server's nginx, so requests reach otvorenesudy.sk without
+# going through Cloudflare: the server sees them come from 127.0.0.1 and answers with the site's own certificate. For
+# comparing production's pages with a local copy, by curl or a headless browser. Needs SSH access to the server as the
+# deploy user (config/deploy/production.rb names the server).
+#
+# Usage:
+#   bin/production-tunnel [--port PORT]
+#
+#   --port PORT   the local port to listen on (default: 8443)
+#
+# While it runs (Ctrl-C closes it), point otvorenesudy.sk at the local port:
+#   curl --connect-to otvorenesudy.sk:443:127.0.0.1:8443 https://otvorenesudy.sk/
+#   chrome --host-resolver-rules='MAP otvorenesudy.sk 127.0.0.1:8443' https://otvorenesudy.sk/
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+usage() {
+  sed -n '/^# Usage:/,/^[^#]/p' "$0" | sed -e '$d' -e 's/^# \{0,1\}//' >&2
+  exit 2
+}
+
+port=8443
+
+while (($# > 0)); do
+  case "$1" in
+    --port)
+      port=${2:?--port needs a number}
+      shift 2
+      ;;
+    *) usage ;;
+  esac
+done
+
+server=$(sed -n "s/^set :domain, '\(.*\)'$/\1/p" config/deploy/production.rb)
+
+[[ -n "$server" ]] || {
+  echo "No server in config/deploy/production.rb (set :domain, '...')." >&2
+  exit 1
+}
+
+echo "Tunneling 127.0.0.1:$port to nginx on $server (Ctrl-C closes it). Try:"
+echo "  curl --connect-to otvorenesudy.sk:443:127.0.0.1:$port https://otvorenesudy.sk/"
+
+exec ssh -N \
+  -o ExitOnForwardFailure=yes \
+  -o ServerAliveInterval=30 \
+  -L "127.0.0.1:$port:127.0.0.1:443" \
+  "deploy@$server"

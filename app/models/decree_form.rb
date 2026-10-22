@@ -1,8 +1,7 @@
-class DecreeForm < ActiveRecord::Base
-  attr_accessible :value,
-                  :code
+# frozen_string_literal: true
 
-  has_many :decrees
+class DecreeForm < ApplicationRecord
+  has_many :decrees, dependent: nil
 
   validates :value, presence: true
   validates :code,  presence: true

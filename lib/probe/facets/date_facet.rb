@@ -1,49 +1,34 @@
-class Probe::Facets
-  class DateFacet < Probe::Facets::RangeFacet
-    attr_accessor :interval
+# frozen_string_literal: true
 
-    def initialize(name, field, options)
-      options[:converter] = Probe::Converters::Date
+module Probe
+  class Facets
+    # Counts per calendar month, newest first. A selected month is a date range param: "2015-01-01..2015-01-31".
+    class DateFacet < RangeFacet
+      attr_reader :interval
 
-      super(name, field, options)
+      def initialize(name, field, options)
+        super(name, field, options.merge(converter: Probe::Converters::Date))
 
-      @interval = options[:interval]
-    end
-
-    def build(index, name, options)
-      index.facet name, options do |f|
-        f.date not_analyzed_field(@field), interval: @interval
+        @interval = options[:interval]
       end
-    end
 
-    private
+      def aggregation
+        histogram = { field: keyword_field, calendar_interval: interval.to_s, min_doc_count: 1,
+                      order: { _key: 'desc' } }
 
-    def populate_facets(results)
-      results['entries'].map { |entry|
-        value = format_date(entry['time'])
-
-        params        = create_result_params(value)
-        add_params    = create_result_add_params(value)
-        remove_params = create_result_remove_params(value)
-
-        Result.new(value, entry['count'], params, add_params, remove_params, @interval)
-      }.reverse!
-    end
-
-    def format_date(value)
-      date = @converter.from_elastic(value)
-
-      case @interval
-      when :month
-        date.beginning_of_month..date.end_of_month
+        { values: { date_histogram: histogram } }
       end
-    end
 
-    class Result < RangeFacet::Result
-      def initialize(value, count, params, add_params, remove_params, interval)
-        super(value, count, params, add_params, remove_params)
+      private
 
-        interval = interval
+      def build_results(response)
+        response.dig('values', 'buckets').to_a.map { |bucket| result(period(bucket['key']), bucket['doc_count']) }
+      end
+
+      def period(key)
+        date = Probe::Converters::Date.from_elastic(key)
+
+        date.all_month
       end
     end
   end

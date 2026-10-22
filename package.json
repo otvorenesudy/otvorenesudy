@@ -1,0 +1,18 @@
+{
+  "name": "otvorenesudy",
+  "private": true,
+  "description": "Development tools, and the browser libraries bin/vendor copies into vendor/ at these exact versions; the app serves its JavaScript through importmap, without a build step.",
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "@kurkle/color": "0.3.4",
+    "@popperjs/core": "2.11.8",
+    "bootstrap": "5.3.8",
+    "chart.js": "4.5.1",
+    "esbuild": "0.28.2",
+    "pdfjs-dist": "6.4.299",
+    "prettier": "3.9.10",
+    "vanilla-cookieconsent": "3.1.0"
+  }
+}

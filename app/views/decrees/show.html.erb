@@ -1,14 +1,14 @@
 <% provide :title, decree_title(@decree) %>
 <% provide :keywords, @decree.seo_keywords.join(', ') %>
-<% provide :description, @decree.text %>
+<% provide :description, @decree.text.squish.truncate(300) %>
 
 <h1 class="text-uppercase my-4">
   <%= decree_headline @decree, limit: 49, tooltip: true %>
   <% if @decree.natures.any? %>
-    <span class="d-inline d-xl-none">,</span><br class="d-none d-xl-inline" />
+    <span class="d-inline d-xl-none">,</span><br class="d-none d-xl-inline">
     <%= decree_natures @decree, limit: 49, tooltip: true %>
   <% end %>
-  <small class="d-block h6 font-weight-bold mt-2 mb-0">
+  <small class="d-block h6 fw-bold mt-2 mb-0">
     <%= t '.decree' %> <%= t '.past' %>
     <%= @decree.date ? decree_date(@decree.date) : t('.unknown') %>
   </small>
@@ -31,44 +31,36 @@
     <% end %>
     <% if @decree.legislation_areas.any? %>
       <p>
-        <%= t '.legislation_areas' %> &ndash; 
-        
-        <%= @decree.legislation_areas.map do |area| %> 
-          <% link_to_decrees_search area.value, params: { legislation_areas: area.value } %>
-        <% end.to_sentence.html_safe %>
-
+        <%= t '.legislation_areas' %> &ndash;
+        <%= to_sentence(@decree.legislation_areas.map { |area| link_to_decrees_search area.value, params: { legislation_areas: [area.value] } }) %>
         <% if @decree.legislation_subareas.any? %>
-          &ndash;
-          
-          <%= @decree.legislation_subareas.map do |subarea| %> 
-            <% link_to_decrees_search subarea.value, params: { legislation_subareas: subarea.value } %>
-          <% end.to_sentence.html_safe %>
+          &ndash; <%= to_sentence(@decree.legislation_subareas.map { |subarea| link_to_decrees_search subarea.value, params: { legislation_subareas: [subarea.value] } }) %>
         <% end %>
       </p>
     <% end %>
     <% if @decree.form %>
-      <p><%= t '.form' %> &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: @decree.form.value } %></p>
+      <p><%= t '.form' %> &ndash; <%= link_to_decrees_search @decree.form.value, params: { form: [@decree.form.value] } %></p>
     <% end %>
     <% if @decree.natures.any? %>
-      <p><%= t '.nature' %> &ndash; <%= @decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: nature.value } }.join(', ').html_safe %></p>
+      <p><%= t '.nature' %> &ndash; <%= safe_join(@decree.natures.map { |nature| link_to_decrees_search nature.value, params: { natures: [nature.value] } }, ', ') %></p>
     <% end %>
     <p>
-      <%= t '.resource' %> &ndash; <%= link_to t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
+      <%= t '.resource' %> &ndash; <%= link_to_source t('.document'), @decree.uri %> <span class="text-muted">(<%= t '.document_note' %>)</span>
     </p>
   </div>
 
   <div class="col-xl-4">
     <ul class="list-unstyled bg-light border mt-3 mt-xl-0 mb-0 p-3">
       <li class="d-flex justify-content-between mx-2">
-        <span class="mr-2"><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
-        <%= @decree.case_number ? link_to_decrees_search(@decree.case_number, class: 'text-truncate', params: { case_number: @decree.case_number }) : t('case_number.missing') %>
+        <span class="me-2"><%= tooltip_tag t('case_number.acronym'), t('case_number.full'), placement: 'left' %>:</span>
+        <%= @decree.case_number ? link_to_decrees_search(@decree.case_number, class: 'text-truncate', params: { case_number: [@decree.case_number] }) : t('case_number.missing') %>
       </li>
       <li class="d-flex justify-content-between mx-2">
-        <span class="mr-2"><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
-        <%= @decree.file_number ? link_to_decrees_search(@decree.file_number, class: 'text-truncate', params: { file_number: @decree.file_number }) : t('file_number.missing') %>
+        <span class="me-2"><%= tooltip_tag t('file_number.acronym'), t('file_number.full'), placement: 'left' %>:</span>
+        <%= @decree.file_number ? link_to_decrees_search(@decree.file_number, class: 'text-truncate', params: { file_number: [@decree.file_number] }) : t('file_number.missing') %>
       </li>
       <li class="d-flex justify-content-between mx-2">
-        <span class="mr-2"><%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:</span>
+        <span class="me-2"><%= tooltip_tag t('ecli.acronym'), t('ecli.full'), placement: 'left' %>:</span>
         <%= @decree.ecli ? link_to_decrees_search(@decree.ecli, class: 'text-truncate', params: { q: @decree.ecli }) : t('ecli.missing') %>
       </li>
     </ul>
@@ -78,7 +70,7 @@
     <% end %>
 
     <% if @decree.pdf_uri_valid? %>
-      <%= link_to t('.as_document'), @decree.pdf_uri, class: 'btn btn-outline-primary d-block mt-3', target: '_blank' %>
+      <%= link_to_source t('.as_document'), @decree.pdf_uri, class: 'btn btn-outline-primary d-block mt-3', target: '_blank', rel: 'noopener' %>
     <% end %>
   </div>
 </div>
@@ -89,10 +81,10 @@
   </p>
 
   <div id="legislations" class="collapse">
-    <ul class="list-unstyled ml-3">
+    <ul class="list-unstyled ms-3">
       <% @legislations.each do |legislation| %>
         <li>
-          <%= link_to legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url %>
+          <%= link_to_source legislation.value('%p %s %l zákona č. %u/%y Z. z., %d'), legislation.external_url %>
         </li>
       <% end %>
     </ul>
@@ -105,25 +97,21 @@
   </p>
 <% end %>
 
-<ul class="nav nav-tabs mt-4" role="tablist">
-  <%= tab_link_tag t('.decree'), 'pdf', class: 'active', tabindex: -1 %>
-  <% cache "decrees-show-#{@decree.id}-#{I18n.locale}-similar-tab-link" do %>
-    <% if @similar.any? %>
-      <%= tab_link_tag t('.similar'), 'similar' %>
-    <% end %>
+<ul class="nav nav-tabs mt-4" role="tablist" data-controller="tabs">
+  <%= tab_link_tag t('.decree'), 'pdf', class: 'active' %>
+  <% if @similar.any? %>
+    <%= tab_link_tag t('.similar'), 'similar' %>
   <% end %>
 </ul>
 
 <div class="tab-content">
-  <%= render_tab partial: 'decrees/pdf', class: 'active' %>
-  <% cache "decrees-show-#{@decree.id}-#{I18n.locale}-similar-tab" do %>
-    <% if @similar.any? %>
-      <%= render_tab 'similar' %>
-    <% end %>
+  <%= render_tab partial: 'decrees/pdf', class: %w[active show] %>
+  <% if @similar.any? %>
+    <%= render_tab 'similar' %>
   <% end %>
 </div>
 
 <p class="small text-muted mt-4 mb-0">
-  <%= s t '.resource_note.description', document: link_to(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default) %>
-  <%= s t '.link_note.description', document: link_to(t('.link_note.document'), @decree.uri) %>
+  <%= s t('.resource_note.description', document: link_to_source(t('.resource_note.document'), @decree.uri), update: time_tag(@decree.updated_at.to_date, format: :default)) %>
+  <%= s t('.link_note.description', document: link_to_source(t('.link_note.document'), @decree.uri)) %>
 </p>

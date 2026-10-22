@@ -1,28 +1,20 @@
-class Probe::Facets
-  class AbstractFacet
-    include Probe::Helpers::Index
+# frozen_string_literal: true
 
-    def initialize(name, field, options)
-      @facet = create_facet(options[:facet], name, field, options)
-    end
+module Probe
+  class Facets
+    # A facet that filters but isn't offered on the page: `created_at`/`updated_at` on every model, `exact_date` on
+    # hearings. It behaves as the facet given in `facet:`, without an aggregation.
+    class AbstractFacet < SimpleDelegator
+      def initialize(name, field, options)
+        super(Probe::Facets.create(options[:facet], name, field, options))
+      end
 
-    def buildable?
-      false
-    end
+      def buildable?
+        false
+      end
 
-    def abstract?
-      true
-    end
-
-    def respond_to?(*args)
-      @facet.respond_to?(*args)
-    end
-
-    def method_missing(method, *args, &block)
-      if @facet.respond_to? method.to_sym
-        @facet.send(method, *args, &block)
-      else
-        super(method, *args, &block)
+      def abstract?
+        true
       end
     end
   end

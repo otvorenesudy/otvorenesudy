@@ -1,153 +1,111 @@
-module Probe::Search
-  class Results
-    include Enumerable
+# frozen_string_literal: true
 
-    include Probe::Helpers::Index
+module Probe
+  module Search
+    # A page of results: the records in the order Elasticsearch ranked them, each with its highlights, the populated
+    # facets, and Kaminari's pagination interface (`paginate @results`).
+    class Results
+      include Enumerable
 
-    attr_reader :model,
-                :records,
-                :facets,
-                :highlights,
-                :sort_fields,
-                :response,
-                :results,
-                :offset,
-                :current_page,
-                :previous_page,
-                :next_page,
-                :per_page,
-                :total_pages,
-                :total_entries,
-                :time,
-                :associations
+      attr_reader :model, :response, :per_page, :current_page, :associations
 
-    def initialize(model, facets, sort_fields, response)
-      @model       = model
-      @facets      = facets
-      @response    = response
-      @sort_fields = sort_fields
+      alias limit_value per_page
+      alias page current_page
 
-      @results  = @response.results
-    end
-
-    def records
-      @records ||= fetch_records
-    end
-
-    def facets
-      @populated_facets ||= populate_facets
-    end
-
-    def params
-      @facets.params
-    end
-
-    def query_params
-      @facets.query_params
-    end
-
-    def highlights
-      @highlights ||= format_highlights
-    end
-
-    def offset
-      @offset ||= @results.offset
-    end
-
-    def current_page
-      @current_page ||= @results.current_page
-    end
-
-    def previous_page
-      @previous_page ||= @results.previous_page
-    end
-
-    def next_page
-      @next_page ||= @results.next_page
-    end
-
-    def per_page
-      @per_page ||= @results.per_page
-    end
-
-    def total_pages
-      @total_pages ||= @results.total_pages
-    end
-
-    def total_entries
-      @total_entries ||= @results.total_entries
-    end
-
-    def time
-      @time ||= @results.time
-    end
-
-    alias :model_name   :model
-    alias :limit_value  :per_page
-    alias :total_count  :total_entries
-    alias :num_pages    :total_pages
-    alias :offset_value :offset
-    alias :page         :current_page
-
-    def first_page?
-      page == 1
-    end
-
-    def last_page?
-      page == total_pages
-    end
-
-    def empty?
-      records.empty?
-    end
-
-    def associations=(associations)
-      @associations = associations
-      @records = nil
-    end
-
-    def each(&block)
-      records.each_with_index do |record, i|
-        yield(record, highlights[i])
-      end
-    end
-
-    private
-
-    def fetch_records
-      ids = @results.map { |result| result.id.to_i }
-      records = @model.where(id: ids)
-
-      if associations
-        records = records.includes(associations)
+      def initialize(model, facets, response, page:, per_page:)
+        @model = model
+        @search_facets = facets
+        @response = response
+        @current_page = page
+        @per_page = per_page
       end
 
-      records.sort_by! { |record| ids.index(record.id) }
+      def each
+        records.each_with_index { |record, index| yield record, highlights[index] }
+      end
 
-      records
-    end
+      def records
+        @records ||= fetch_records
+      end
 
-    def populate_facets
-      @facets.populate(@results.facets)
+      def associations=(associations)
+        @associations = associations
+        @records = nil
+      end
 
-      @facets
-    end
+      def facets
+        @facets ||= @search_facets.populate(response['aggregations'] || {})
+      end
 
-    def format_highlights
-      @results.map do |result|
-        highlight = Hash.new
+      delegate :params, to: :@search_facets
 
-        @facets.highlights.each do |field|
-          fields = Array.wrap(field)
+      delegate :query_params, to: :@search_facets
 
-          fields.each do |f|
-            analyzed_field = analyzed_field(f)
-
-            highlight[f] = result.highlight ? result.highlight[analyzed_field] : []
-          end
+      def highlights
+        @highlights ||= hits.map do |hit|
+          @search_facets.highlights.index_with { |field| hit.dig('highlight', Probe::Fields.analyzed(field)) || [] }
         end
+      end
 
-        highlight
+      def total_count
+        response.dig('hits', 'total', 'value').to_i
+      end
+
+      alias total_entries total_count
+
+      # Pages beyond Elasticsearch's 10,000 results aren't offered.
+      def total_pages
+        [(total_count.to_f / per_page).ceil, 10_000 / per_page].min
+      end
+
+      alias num_pages total_pages
+
+      def offset_value
+        per_page * (current_page - 1)
+      end
+
+      alias offset offset_value
+
+      def first_page?
+        current_page == 1
+      end
+
+      def last_page?
+        current_page >= total_pages
+      end
+
+      def previous_page
+        current_page - 1 unless first_page?
+      end
+
+      alias prev_page previous_page
+
+      def next_page
+        current_page + 1 unless last_page?
+      end
+
+      def out_of_range?
+        current_page > total_pages
+      end
+
+      delegate :empty?, to: :records
+
+      def time
+        response['took']
+      end
+
+      private
+
+      def hits
+        response.dig('hits', 'hits').to_a
+      end
+
+      def fetch_records
+        ids = hits.map { |hit| hit['_id'].to_i }
+        scope = model.where(id: ids)
+        scope = scope.includes(associations) if associations
+
+        scope.index_by(&:id).values_at(*ids).compact
       end
     end
   end

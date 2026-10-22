@@ -1,14 +1,10 @@
-class CourtOffice < ActiveRecord::Base
-  attr_accessible :email,
-                  :phone,
-                  :hours_monday,
-                  :hours_tuesday,
-                  :hours_wednesday,
-                  :hours_thursday,
-                  :hours_friday,
-                  :note
+# frozen_string_literal: true
 
-  belongs_to :court
+class CourtOffice < ApplicationRecord
+  belongs_to :court, optional: true
 
-  belongs_to :type, class_name: :CourtOfficeType, foreign_key: :court_office_type_id
+  belongs_to :type, class_name: 'CourtOfficeType',
+                    foreign_key: :court_office_type_id,
+                    inverse_of: false,
+                    optional: true
 end

@@ -1,9 +1,9 @@
-class CourtType < ActiveRecord::Base
+# frozen_string_literal: true
+
+class CourtType < ApplicationRecord
   include Resource::Enumerable
 
-  attr_accessible :value
-
-  has_many :courts, dependent: :destroy
+  has_many :courts, dependent: :destroy, inverse_of: :type
 
   validates :value, presence: true
 

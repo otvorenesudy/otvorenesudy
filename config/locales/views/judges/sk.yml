@@ -105,6 +105,13 @@ sk:
       report_for: "Výkaz za rok"
 
     indicators: &indicators
+      chart:
+        average: "Priemer"
+        labels:
+          "2013": ["Počet reštančných", "Vybavenosť", "Kapacita vybavovať", "Reštančné z nevybavených", "Počet nevybavených", "Frekvencia odvolaní", "Potvrdené rozhodnutia", "Zmenené alebo zrušené z celku"]
+          "2015": ["Vybavenosť", "Reštančné z nevybavených", "Kapacita vybavovať", "Potvrdené rozhodnutia"]
+          "2017": ["Vybavenosť", "Reštančné z nevybavených", "Kapacita vybavovať", "Potvrdené rozhodnutia"]
+
       none: "Pre sudcu zatiaľ neevidujeme žiadne indikátory."
 
       numerical: &indicators_numerical
@@ -137,6 +144,7 @@ sk:
 
     indicators_2013:
       <<: *indicators
+      untranslated: "Niektoré údaje indikátorov nemusia byť preložené."
 
       headline: "Indikátory za rok 2013"
 
@@ -149,10 +157,12 @@ sk:
           childcare: "Poručenská"
           criminal: "Trestná"
 
-        decrees_count: "Počet rozhodnutí Ústavného súdu voči sudcovi &ndash; vydané %{released_decrees} a prieťahy pred pridelením veci %{delayed_decrees}."
+        decrees_count: "Počet rozhodnutí Ústavného súdu voči sudcovi – vydané %{released_decrees} a prieťahy pred pridelením veci %{delayed_decrees}."
         performance_data: "Pre sudcu evidujeme výkonnostné dáta za roky %{years}:"
         assigned_agendas: "Prideľované agendy"
         decided_agendas: "Rozhodované agendy"
+        assigned_agendas_subject: "Sudcovi"
+        decided_agendas_subject: "Sudca"
         judge_results: "Sudca v sledovanom období odpracoval %{days} dní a v priemere mu za 100 dní bolo pridelených %{cases} prípadov v hlavných agendách."
 
       statistical:

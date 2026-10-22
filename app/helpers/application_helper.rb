@@ -1,16 +1,21 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
+  DONATION_URL = 'https://transparency.darujme.sk/korupcia/?&donation=40&periodicity=periodical'
+
   def default_title
-    t 'layouts.application.title'
+    t('layouts.application.title')
   end
 
   def resolve_title(value)
     return default_title if value.blank?
-    return title(value) unless value.end_with? default_title
+    return title(value) unless value.end_with?(default_title)
+
     value
   end
 
   def title(*values)
-    (values << default_title).map { |value| html_escape value }.join(' &middot; ').html_safe
+    safe_join(values + [default_title], ' &middot; '.html_safe)
   end
 
   def canonical_url
@@ -18,14 +23,14 @@ module ApplicationHelper
   end
 
   def donation_url
-    "https://transparency.darujme.sk/korupcia/?&donation=40&periodicity=periodical"
+    DONATION_URL
   end
 
   def organization_url(path = nil)
-    "https://github.com/#{Configuration.github.organization}/#{path}".sub(/\/\z/, '')
+    "https://github.com/#{Rails.configuration.x.github.organization}/#{path}".delete_suffix('/')
   end
 
   def repository_url(path = nil)
-    organization_url "#{Configuration.github.repository}/#{path}".sub(/\/\z/, '')
+    organization_url("#{Rails.configuration.x.github.repository}/#{path}".delete_suffix('/'))
   end
 end

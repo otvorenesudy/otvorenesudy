@@ -1,4 +1,6 @@
-class LegislationUsage < ActiveRecord::Base
-  belongs_to :legislation
-  belongs_to :decree
+# frozen_string_literal: true
+
+class LegislationUsage < ApplicationRecord
+  belongs_to :legislation, optional: true
+  belongs_to :decree, optional: true
 end

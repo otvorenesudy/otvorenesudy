@@ -1,41 +1,35 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-
-  before_filter { flash_message_wrap keys: %i[danger warning info] }
-
-  before_filter { set_locale params[:l] || I18n.default_locale }
+  around_action :switch_locale
 
   protected
-
-  include FlashHelper
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || subscriptions_users_path
   end
 
-  def after_sign_out_path_for(resource)
-    new_session_path(resource_name)
-  end
-
-  def after_update_path_for(resource)
-    edit_user_registration_path
+  def after_sign_out_path_for(resource_or_scope)
+    new_session_path(Devise::Mapping.find_scope!(resource_or_scope))
   end
 
   def default_url_options
-    { l: I18n.locale, only_path: true }
+    { l: I18n.locale }
   end
 
-  def set_locale(value)
-    I18n.locale = value
-  rescue I18n::InvalidLocale
-    redirect_to :root
+  private
+
+  # Pages warn about several things at once: each call adds a message of the type.
+  def flash_now(type, message)
+    flash.now[type] = [*flash.now[type], message]
   end
 
-  def verify
-    return if session[:verify] && session[:verify][:verified] && session[:verify][:at] > 5.minute.ago
+  # ?l=sk or ?l=en for the request; any other language goes to the home page.
+  def switch_locale(&)
+    locale = params[:l].presence || I18n.default_locale
 
-    session[:verify] = { origin: request.url }
+    return redirect_to(root_path) unless I18n.available_locales.map(&:to_s).include?(locale.to_s)
 
-    redirect_to verification_index_path
+    I18n.with_locale(locale, &)
   end
 end

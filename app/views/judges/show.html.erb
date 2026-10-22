@@ -2,7 +2,7 @@
 
 <h1 class="text-uppercase my-4">
   <%= yield :title %>
-  <%= judge_activity_icon_tag @judge, @judge.active?, size: 20, placement: 'right' %>
+  <%= judge_activity_icon_tag @judge, @judge.active, size: 20, placement: 'right' %>
 </h1>
 
 <ol class="list-unstyled">
@@ -11,11 +11,12 @@
       <%= judge_activity_by_employment(employment).upcase_first %>
       <%= judge_position_by_employment(employment) %>
       <%= t '.at_court' %> <%= link_to_court employment.court %>,
-      <%= t '.register', count: Hearing.during_employment(employment).exact.size %>
-      <%= translate_with_count(Hearing.during_employment(employment).exact.size, :hearing) %>
+      <% hearings = Hearing.during_employment(employment).exact.size %>
+      <%= t '.register', count: hearings %>
+      <%= translate_with_count(hearings, :hearing) %>
       <%= two_words_connector %>&nbsp;<%= translate_with_count(Decree.during_employment(employment).exact.size, :decree) %>.
       <% if employment.note %>
-        <br/>
+        <br>
         <%= t '.note' %>: <%= employment.note.sub(/\.?\z/, '.') %>
       <% end %>
     </li>
@@ -26,27 +27,41 @@
 <%= render 'relatives' if @judge.related_people_by_year.any? %>
 <%= render 'notes' if @judge.substantiation_notes_by_year.any? %>
 
-<ul class="nav nav-tabs mt-4" role="tablist">
-  <%= tab_link_tag t('.indicators', year: 2021), 'indicators-2021', class: ('active' if @latest_indicators == :indicators_2021) %>
-  <%= tab_link_tag '2017', 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) %>
-  <%= tab_link_tag '2015', 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) %>
-  <%= tab_link_tag '2013', 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) %>
-  <%= tab_link_tag t('.decrees'), 'decrees', class: ('active' unless @latest_indicators) %>
+<% active = @latest_indicators&.to_s&.dasherize || 'decrees' %>
+
+<ul class="nav nav-tabs mt-4" role="tablist" data-controller="tabs">
+  <%= tab_link_tag t('.indicators', year: 2021), 'indicators-2021', class: ('active' if active == 'indicators-2021') %>
+  <% [2017, 2015, 2013].each do |year| %>
+    <%= tab_link_tag year, "indicators-#{year}", class: ('active' if active == "indicators-#{year}") %>
+  <% end %>
+  <%= tab_link_tag t('.decrees'), 'decrees', class: ('active' if active == 'decrees') %>
   <%= tab_link_tag t('.upcoming_hearings'), 'upcoming-hearings' %>
   <%= tab_link_tag t('.historical_hearings'), 'historical-hearings' %>
 </ul>
 
 <div class="tab-content">
-  <%= render_tab({ partial: 'indicators_2021', tab: 'indicators-2021', class: ('active' if @latest_indicators == :indicators_2021) }, judge: @judge, others: @others_2021, facets: @facets_2021) %>
-  <%= render_tab({ partial: 'indicators_2017', tab: 'indicators-2017', class: ('active' if @latest_indicators == :indicators_2017) }, judge: @judge, others: @others_2017, facets: @facets_2017) %>
-  <%= render_tab({ partial: 'indicators_2015', tab: 'indicators-2015', class: ('active' if @latest_indicators == :indicators_2015) }, judge: @judge, others: @others_2015, facets: @facets_2015) %>
-  <%= render_tab({ partial: 'indicators_2013', tab: 'indicators-2013', class: ('active' if @latest_indicators == :indicators_2013) }, judge: @judge, others: @others_2013, facets: @facets_2013) %>
-  <%= render_tab({ partial: 'decrees', tab: 'decrees', class: ('active' unless @latest_indicators) }, decrees: @decrees.limit(10), query: { judges: @judge.name }) %>
-  <%= render_tab({ partial: 'hearings', tab: 'upcoming-hearings' }, prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: @judge.name }) %>
-  <%= render_tab({ partial: 'hearings', tab: 'historical-hearings' }, prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: @judge.name, historical: true }) %>
+  <%= tab_content_tag 'indicators-2021', class: (%w[active show] if active == 'indicators-2021') do %>
+    <%= render 'indicators_2021', judge: @judge %>
+  <% end %>
+  <% @comparisons.each do |key, comparison| %>
+    <% tab = key.to_s.dasherize %>
+    <%= tab_content_tag tab, class: (%w[active show] if active == tab) do %>
+      <%= render key.to_s, judge: @judge, facets: comparison.facets, others: comparison.others %>
+    <% end %>
+  <% end %>
+  <%= tab_content_tag 'decrees', class: (%w[active show] if active == 'decrees') do %>
+    <%= render 'decrees', decrees: @decrees.limit(10), query: { judges: [@judge.name] } %>
+  <% end %>
+  <%= tab_content_tag 'upcoming-hearings' do %>
+    <%= render 'hearings', prefix: 'upcoming', hearings: @upcoming_hearings.limit(10), query: { judges: [@judge.name] } %>
+  <% end %>
+  <%= tab_content_tag 'historical-hearings' do %>
+    <%= render 'hearings', prefix: 'historical', hearings: @historical_hearings.limit(10), query: { judges: [@judge.name], historical: true } %>
+  <% end %>
 </div>
 
+<% source = @judge.listed ? 'listed' : 'unlisted' %>
 <p class="small text-muted mt-4 mb-0">
-  <%= s t ".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.description", document: link_to(t(".resource_note.#{@judge.listed ? 'listed' : 'unlisted'}.document"), @judge.uri), update: time_tag(@judge.updated_at.to_date, format: :default) %>
-  <%= s t '.resource_note.supplement' %>
+  <%= s t(".resource_note.#{source}.description", document: link_to_source(t(".resource_note.#{source}.document"), @judge.uri), update: time_tag(@judge.updated_at.to_date, format: :default)) %>
+  <%= s t('.resource_note.supplement') %>
 </p>

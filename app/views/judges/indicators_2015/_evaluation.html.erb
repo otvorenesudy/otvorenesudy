@@ -6,7 +6,7 @@
   <%= t '.evaluation_text', year: indicators['year'], score: indicators['score.total.new'], rank: "#{indicators['rank'].delete('.')}." %>
 </p>
 
-<ul class="list-unstyled ml-3">
+<ul class="list-unstyled ms-3">
   <li><%= t '.quality' %> &ndash; <%= indicators['Q.score.total.new'] %> <%= t '.out_of_points', points: 15 %>
   <li><%= t '.effectivity' %> &ndash; <%= indicators['E.score.total.new'] %> <%= t '.out_of_points', points: 25 %>
 </ul>

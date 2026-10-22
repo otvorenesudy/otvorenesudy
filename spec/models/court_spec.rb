@@ -1,28 +1,17 @@
-require 'spec_helper'
-require 'lib/probe/search/composer_spec'
-require 'lib/probe/search/percolator_spec'
-require 'lib/probe/suggest_spec'
+# frozen_string_literal: true
 
-describe Court do
-  describe '#search' do
-    it_behaves_like Probe::Search::Composer do
-      let(:model) { Court }
-      let!(:records) { @records ||= 10.times.map { create :court, :with_employments } }
-      let(:record) { records.first }
-      let(:query) { record.name.split(/\s/).first }
-      let(:highlight_field) { :name }
-      let(:filter) {{ municipality: [record.municipality.name, records.second.municipality.name] }}
-      let(:sort_field) { :municipality }
-      let(:associations) { [:decrees, :municipality] }
-    end
-  end
+require 'rails_helper'
 
-  describe '#suggest' do
-    it_behaves_like Probe::Suggest do
-      let(:model)   { Court }
-      let!(:record) { create :court }
-      let(:suggest) { :municipality }
-      let(:suggest_term) { record.municipality.name.first(2) }
+RSpec.describe Court do
+  describe '#coordinates' do
+    it 'gives the latitude and longitude, and the new ones once saved' do
+      court = create(:court, latitude: 48.7164, longitude: 21.2611)
+
+      expect(court.coordinates).to eq(latitude: BigDecimal('48.7164'), longitude: BigDecimal('21.2611'))
+
+      court.update!(latitude: 48.1486, longitude: 17.1077)
+
+      expect(court.coordinates).to eq(latitude: BigDecimal('48.1486'), longitude: BigDecimal('17.1077'))
     end
   end
 end

@@ -1,8 +1,6 @@
-# This file is used by Rack-based servers to start the application.
+# frozen_string_literal: true
 
-require 'utf8-cleaner'
-use UTF8Cleaner::Middleware
+require_relative 'config/environment'
 
-require ::File.expand_path('../config/environment',  __FILE__)
-
-run OpenCourts::Application
+run Rails.application
+Rails.application.load_server

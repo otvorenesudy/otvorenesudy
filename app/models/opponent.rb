@@ -1,8 +1,7 @@
-class Opponent < ActiveRecord::Base
-  attr_accessible :name,
-                  :name_unprocessed
+# frozen_string_literal: true
 
-  belongs_to :hearing
+class Opponent < ApplicationRecord
+  belongs_to :hearing, optional: true
 
   validates :name, presence: true
 end

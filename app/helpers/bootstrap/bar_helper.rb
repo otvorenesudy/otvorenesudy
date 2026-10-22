@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bootstrap
   module BarHelper
     def bar_link_to(title, path, options = {})

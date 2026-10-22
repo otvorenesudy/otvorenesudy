@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 class CriminalHearing < Hearing
-  include Hearing::Scoped.to HearingType.criminal
+  include Hearing::Scoped
 
-  default_scope apply
-
-  storage :resource, JusticeGovSk::Storage::CriminalHearingPage, extension: :html
+  scoped_to :criminal
 end

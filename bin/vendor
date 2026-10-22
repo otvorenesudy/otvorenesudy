@@ -1,0 +1,190 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Vendors the browser libraries package.json lists, at its exact versions, from node_modules into the app, which serves
+# them through importmap without a build step. package.json is their only source, so npm audit and Dependabot see every
+# version, and these files are never edited by hand:
+#
+#   pdfjs-dist             build/pdf.min.mjs, build/pdf.worker.min.mjs, web/pdf_viewer.mjs, web/pdf_viewer.css and its
+#                          images
+#   bootstrap              dist/js/bootstrap.esm.min.js; its SCSS comes from the bootstrap gem, which must be the same
+#                          version
+#   @popperjs/core         one module, bundled by esbuild from the package's ES modules
+#   chart.js               one module, bundled by esbuild, importing @kurkle/color from its own pin
+#   @kurkle/color          dist/color.esm.js
+#   vanilla-cookieconsent  dist/cookieconsent.esm.js, and dist/cookieconsent.css as a Sass partial
+#
+# Each file starts with a comment naming its package, version and source; source map comments are left out, as the
+# maps aren't vendored. config/importmap.rb notes each pin's version, which bin/importmap audit reads.
+#
+# Usage:
+#   bin/vendor          write the files from node_modules (npm ci first)
+#   bin/vendor --check  fail when a file differs from what package.json's versions make; bin/test runs it
+require 'fileutils'
+require 'json'
+require 'open3'
+require 'tmpdir'
+
+ROOT = File.expand_path('..', __dir__)
+
+# A package's file, copied as published: [package, its file, the vendored file].
+COPIES = [
+  ['pdfjs-dist', 'build/pdf.min.mjs', 'vendor/javascript/pdfjs-dist.js'],
+  ['pdfjs-dist', 'build/pdf.worker.min.mjs', 'vendor/javascript/pdfjs-dist--build--pdf.worker.js'],
+  ['pdfjs-dist', 'web/pdf_viewer.mjs', 'vendor/javascript/pdfjs-dist--web--pdf_viewer.js'],
+  ['pdfjs-dist', 'web/pdf_viewer.css', 'vendor/assets/stylesheets/pdfjs/pdf_viewer.css'],
+  ['bootstrap', 'dist/js/bootstrap.esm.min.js', 'vendor/javascript/bootstrap.js'],
+  ['@kurkle/color', 'dist/color.esm.js', 'vendor/javascript/@kurkle--color.js'],
+  ['vanilla-cookieconsent', 'dist/cookieconsent.esm.js', 'vendor/javascript/vanilla-cookieconsent.js'],
+  ['vanilla-cookieconsent', 'dist/cookieconsent.css', 'app/assets/stylesheets/vendor/_cookieconsent.scss']
+].freeze
+
+# A package published as many modules, bundled into one: [package, its entry, the vendored file, packages left to their
+# own pins].
+BUNDLES = [
+  ['@popperjs/core', 'lib/index.js', 'vendor/javascript/@popperjs--core.js', []],
+  ['chart.js', 'dist/chart.js', 'vendor/javascript/chart.js.js', ['@kurkle/color']]
+].freeze
+
+# A package's directory, copied file by file: [package, its directory, the vendored directory].
+DIRECTORIES = [['pdfjs-dist', 'web/images', 'vendor/assets/stylesheets/pdfjs/images']].freeze
+
+# What this script writes, all of it: a file there that it doesn't write is stale.
+MANAGED = ['vendor/javascript', 'vendor/assets/stylesheets/pdfjs', 'app/assets/stylesheets/vendor',
+           'config/importmap.rb'].freeze
+
+SOURCE_MAP = %r{^(//# sourceMappingURL=\S*|/\*# sourceMappingURL=\S* \*/)\n?}
+
+def fail!(message)
+  warn "bin/vendor: #{message}"
+  exit 1
+end
+
+def manifest
+  @manifest ||= JSON.parse(File.read(File.join(ROOT, 'package.json'))).fetch('devDependencies')
+end
+
+# The installed version, which must be the one package.json names.
+def version(package)
+  wanted = manifest[package] or fail!("#{package} isn't in package.json")
+  path = File.join(ROOT, 'node_modules', package, 'package.json')
+  installed = File.exist?(path) && JSON.parse(File.read(path))['version']
+
+  fail!("node_modules has #{package} #{installed || 'missing'}, package.json #{wanted}: run npm ci") if installed != wanted
+
+  installed
+end
+
+def header(path, text)
+  path.end_with?('.css', '.scss') ? "/* #{text} */\n" : "// #{text}\n"
+end
+
+def write(out, path, content)
+  FileUtils.mkdir_p(File.dirname(File.join(out, path)))
+  File.binwrite(File.join(out, path), content)
+end
+
+def copy(out, package, source, path)
+  body = File.read(File.join(ROOT, 'node_modules', package, source)).gsub(SOURCE_MAP, '')
+
+  write(out, path, header(path, "#{package}@#{version(package)}: #{source}") + body)
+end
+
+def bundle(out, package, entry, path, externals)
+  command = [File.join(ROOT, 'node_modules/.bin/esbuild'), File.join(ROOT, 'node_modules', package, entry),
+             '--bundle', '--format=esm', '--minify', '--log-level=warning',
+             *externals.map { |external| "--external:#{external}" }]
+  body, error, status = Open3.capture3(*command, chdir: ROOT)
+  fail!("esbuild couldn't bundle #{package}:\n#{error}") unless status.success?
+
+  text = "#{package}@#{version(package)}: #{entry}, bundled into one module by esbuild"
+  write(out, path, header(path, text) + body)
+end
+
+def copy_directory(out, package, source, path)
+  version(package)
+  directory = File.join(ROOT, 'node_modules', package, source)
+
+  Dir.children(directory).sort.each do |name|
+    write(out, File.join(path, name), File.binread(File.join(directory, name)))
+  end
+end
+
+# The pins' version comments ("pin 'bootstrap' # @5.3.8") follow package.json.
+def importmap(out)
+  path = 'config/importmap.rb'
+  content = File.read(File.join(ROOT, path)).gsub(/^(pin '([^']+)'.*# @)\S+$/) do
+    pin = Regexp.last_match(2)
+    package = pin.start_with?('@') ? pin.split('/').first(2).join('/') : pin.split('/').first
+
+    "#{Regexp.last_match(1)}#{version(package)}"
+  end
+
+  write(out, path, content)
+end
+
+# Bootstrap's JavaScript comes from npm and its SCSS from the gem; they must be the same release.
+def check_bootstrap_gem
+  gem = File.read(File.join(ROOT, 'Gemfile.lock'))[/^    bootstrap \(([^)]+)\)$/, 1]
+  return if gem == manifest['bootstrap']
+
+  fail!("the bootstrap gem is #{gem}, package.json's bootstrap #{manifest['bootstrap']}: bump both")
+end
+
+def build(out)
+  COPIES.each { |package, source, path| copy(out, package, source, path) }
+  BUNDLES.each { |package, entry, path, externals| bundle(out, package, entry, path, externals) }
+  DIRECTORIES.each { |package, source, path| copy_directory(out, package, source, path) }
+  importmap(out)
+end
+
+# Every file under the managed paths, relative to root; .keep files hold empty directories and aren't vendored.
+def files(root)
+  MANAGED.flat_map do |managed|
+    path = File.join(root, managed)
+    next File.file?(path) ? [managed] : [] unless File.directory?(path)
+
+    Dir.glob('**/*', File::FNM_DOTMATCH, base: path).filter_map do |name|
+      File.join(managed, name) if File.file?(File.join(path, name)) && File.basename(name) != '.keep'
+    end
+  end.sort
+end
+
+def same?(out, path)
+  File.exist?(File.join(ROOT, path)) && FileUtils.identical?(File.join(out, path), File.join(ROOT, path))
+end
+
+def check(differing, stale)
+  return if differing.empty? && stale.empty?
+
+  differing.each { |path| warn "differs: #{path}" }
+  stale.each { |path| warn "stale:   #{path}" }
+  fail!("the vendored files don't match package.json; run npm ci, then bin/vendor")
+end
+
+def update(out, differing, stale)
+  differing.each do |path|
+    FileUtils.mkdir_p(File.dirname(File.join(ROOT, path)))
+    FileUtils.cp(File.join(out, path), File.join(ROOT, path))
+  end
+  stale.each { |path| FileUtils.rm(File.join(ROOT, path)) }
+
+  puts "bin/vendor: #{differing.size} written, #{stale.size} removed"
+end
+
+unless [[], ['--check']].include?(ARGV)
+  warn File.read(__FILE__)[/^# Usage:\n(?:#.*\n)+/].gsub(/^# ?/, '')
+  exit 2
+end
+
+check_bootstrap_gem
+
+Dir.mktmpdir do |out|
+  build(out)
+
+  built = files(out)
+  differing = built.reject { |path| same?(out, path) }
+  stale = files(ROOT) - built
+
+  ARGV == ['--check'] ? check(differing, stale) : update(out, differing, stale)
+end

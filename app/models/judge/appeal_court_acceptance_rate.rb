@@ -1,36 +1,38 @@
-module Judge::AppealCourtAcceptanceRate
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  module ClassMethods
-    def average_appeal_court_acceptance_rate
-      @average_appeal_court_acceptance_rate ||= Judge.all.map(&:appeal_court_acceptance_rate).compact.sum / Judge.all.find_all(&:appeal_court_acceptance_rate?).count
-    end
-  end
+# The share of the judge's decisions the appeal court upheld (table O of the statistical summaries).
+class Judge
+  module AppealCourtAcceptanceRate
+    extend ActiveSupport::Concern
 
-  def appeal_court_acceptance_rate
-    summaries = statistical_summaries.by_prominent_court_type(self)
+    class_methods do
+      def average_appeal_court_acceptance_rate
+        rates = Judge.all.filter_map(&:appeal_court_acceptance_rate)
 
-    accepted = 0
-    all      = 0
-
-    return unless summaries.any?
-
-    summaries.each do |summary|
-      summary.tables.by_name('O').each do |table|
-        table.rows.each do |row|
-          sum = row.cells.pluck(:value).map(&:to_i).sum
-
-          if row.name.value == 'sv_Pocet1'
-            accepted += sum
-          end
-
-          all += sum
-        end
+        rates.sum / rates.size
       end
     end
 
-    result = accepted / all.to_f
+    def appeal_court_acceptance_rate
+      summaries = statistical_summaries.by_prominent_court_type(self)
 
-    result.nan? ? 0 : result
+      return unless summaries.any?
+
+      accepted = 0
+      all = 0
+
+      summaries.each do |summary|
+        summary.tables.by_name('O').each do |table|
+          table.rows.each do |row|
+            sum = Judge::StatisticalTables.row_sum(row)
+
+            accepted += sum if row.name.value == 'sv_Pocet1'
+            all += sum
+          end
+        end
+      end
+
+      all.zero? ? 0 : accepted / all.to_f
+    end
   end
 end

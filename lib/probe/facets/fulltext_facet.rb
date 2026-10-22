@@ -1,38 +1,35 @@
-class Probe::Facets
-  class FulltextFacet < Probe::Facets::Facet
-    include Probe::Search::Query
+# frozen_string_literal: true
 
-    attr_accessor :highlights,
-                  :force_wildcard,
-                  :query_options
+module Probe
+  class Facets
+    # Full text over the analyzed fields (`field: :all` for every one), all words required. Its matches are highlighted
+    # in the `highlights` fields, by default the searched ones.
+    class FulltextFacet < Facet
+      attr_reader :highlights
 
-    def initialize(name, field, options)
-      super name, field, options
+      def initialize(name, field, options)
+        super
 
-      @highlights     = options[:highlights] ? options[:highlights] : @field
-      @force_wildcard = options[:force_wildcard]
-    end
+        @highlights = options[:highlights] || field
+        @force_wildcard = options[:force_wildcard]
+      end
 
-    def terms=(value)
-      @terms = value
-    end
+      attr_writer :terms
 
-    def build_query
-      build_query_from(@field, @terms, query_options)
-    end
+      def parse_terms(value)
+        return if value.blank?
 
-    def build_query_filter
-      build_query_filter_from(@field, @terms, query_options)
-    end
+        value.respond_to?(:join) ? value.join(' ') : value.to_s
+      end
 
-    def parse_terms(value)
-      value.respond_to?(:join) ? value.join(' ') : value.to_s if value.present?
-    end
+      def query(escape: :syntax)
+        value = Probe::Sanitizer.query_string(terms, escape:)
+        value = "#{value}*" if @force_wildcard
 
-    private
+        fields = Array.wrap(analyzed_field)
 
-    def query_options
-      @query_options ||= { operator: :and, analyze_wildcard: true, force_wildcard: @force_wildcard }
+        { query_string: { query: value, fields:, default_operator: 'AND', analyze_wildcard: true } }
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
-class StatisticalTableColumnName < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :columns, class_name: :StatisticalTableColumn
+class StatisticalTableColumnName < ApplicationRecord
+  has_many :columns, class_name: 'StatisticalTableColumn', dependent: nil
 
   validates :value, presence: true
 end

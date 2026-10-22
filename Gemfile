@@ -1,119 +1,102 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.5'
-gem 'rake', '< 11'
+ruby file: '.ruby-version'
+
+gem 'rails', '~> 8.1.4'
 
 # database
-gem 'pg', '~> 0.11'
-gem 'pg_search'
+gem 'neighbor', '~> 1.2'
+gem 'pg', '~> 1.7'
 
 # search
-gem 'tire'
-gem 'elasticsearch'
+gem 'elasticsearch', '~> 9.5'
 
-# styles
-gem 'bootstrap', '~> 4.1.0'
-gem 'roadie'
+# server
+gem 'bootsnap', require: false
+gem 'puma', '>= 7.0'
 
-# scripts
-gem 'coffee-script'
-gem 'execjs'
-gem 'jquery-rails', '~> 3.1.5'
-gem 'jquery-ui-rails', '~> 3.0.1'
-gem 'jquery-tablesorter'
-gem 'chart-js-rails', '0.0.7'
-gem 'rails-timeago'
+# assets
+gem 'bootstrap', '~> 5.3'
+gem 'dartsass-rails'
+gem 'importmap-rails'
+gem 'propshaft'
+gem 'stimulus-rails'
+gem 'turbo-rails'
 
-# pagination
-gem 'kaminari', '~> 0.14.1'
-gem 'kaminari-bootstrap', '~> 3.0.1'
-
-# localization
-gem 'rails-i18n'
-
-# crawlers
-gem 'curb', '>= 0.9.11'
-gem 'mechanize', '~> 2.5.1'
-gem 'docsplit', '~> 0.6.4'
-gem 'json', '1.8.6'
-gem 'nokogiri'
-
-# utilities
-gem 'squire', '~> 1.2.6'
-gem 'colored', '~> 1.2'
-gem 'murmurhash3', '>= 0.1.3'
+# views
 gem 'htmlentities'
-gem 'crawler_detect'
+gem 'kaminari', '~> 1.2'
+gem 'rails-i18n', '~> 8.1'
+gem 'redcarpet', '~> 3.6'
+
+# mail
+gem 'roadie-rails', '~> 3.4'
 
 # jobs
-gem 'sinatra', require: nil
-gem 'sidekiq', '< 4.0'
-gem 'celluloid', '~> 0.17.2'
-gem 'sidekiq-limit_fetch'
+gem 'sidekiq', '~> 8.1'
 
 # authentication
-gem 'devise'
-gem 'bcrypt', '~> 3.1.15'
-
-# monitoring
-gem 'rollbar', '~> 2.12.0'
-gem 'skylight'
-
-# markup
-gem 'redcarpet', require: 'redcarpet/compat'
-gem 'markdown-rails'
-
-# scheduling
-gem 'whenever', '~> 0.9.7'
-
-# hostname
-gem 'rack-canonical-host'
+gem 'devise', '~> 5.0'
 
 # serialization
-gem 'active_model_serializers'
 
-# sitemap
-gem 'sitemap_generator'
+# data
+gem 'csv'
 
 # caching
-gem 'dalli', '~> 2.7.6'
+gem 'dalli'
 
-# others
-gem 'test-unit'
-gem 'utf8-cleaner'
+# monitoring
+gem 'sentry-rails', '~> 7.1'
+gem 'sentry-ruby', '~> 7.1'
+gem 'sentry-sidekiq', '~> 7.1'
+gem 'skylight', '~> 7.1'
 
-group :assets do
-  gem 'sass'
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
+# scheduling
+gem 'whenever', '~> 1.1', require: false
+
+# sitemap
+gem 'sitemap_generator', '~> 7.1'
+
+# requests with invalid UTF-8
+gem 'utf8-cleaner', '~> 2.0'
+
+group :development, :test do
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
+  gem 'debug', require: 'debug/prelude'
+  gem 'dotenv-rails', '~> 3.2'
+  gem 'factory_bot_rails', '~> 6.5'
+  gem 'rspec-rails', '~> 8.0'
+  gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
 end
 
 group :development do
-  gem 'bump', git: 'https://github.com/pavolzbell/bump.git'
-  gem 'capistrano', '~> 3.4.0'
-  gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rbenv', '~> 2.0'
-  gem 'capistrano-passenger'
-  gem 'capistrano-sidekiq'
-  gem 'capistrano-git-submodule-strategy', '~> 0.1'
-  gem 'bcrypt_pbkdf', '~> 1.1.0'
-  gem 'ed25519', '~> 1.2.4'
+  gem 'bump', git: 'https://github.com/pavolzbell/bump.git', require: false
+  gem 'capistrano', '~> 3.20', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-git-with-submodules', '~> 2.0', require: false
+  gem 'capistrano-passenger', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-sidekiq', require: false
+  gem 'letter_opener_web', '~> 3.0'
+  gem 'web-console'
 end
 
-group :development, :test do
-  gem 'dotenv-rails'
-  gem 'rspec-rails'
-  gem 'fuubar'
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'guard-rspec'
-  gem 'pry'
-end
-
-group :production do
-  gem 'unicorn'
+group :test do
+  gem 'capybara', '~> 3.40'
+  gem 'selenium-webdriver', '~> 4.51'
+  # undercover 0.8 reads SimpleCov 0.x results; move to SimpleCov 1.x with undercover's next release.
+  gem 'simplecov', '~> 0.22', require: false
+  gem 'undercover', '~> 0.8.5', require: false
+  gem 'webmock', '~> 3.32'
 end

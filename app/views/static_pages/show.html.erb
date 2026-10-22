@@ -1,4 +1,4 @@
-<%= provide :title, @title %>
+<% provide :title, @title %>
 
 <div class="row">
   <div class="col-xl-3 order-xl-last">
@@ -18,6 +18,6 @@
 
   <div class="col-xl-9 order-xl-first content mt-4 mt-xl-0 mb-0-last">
     <h1 class="display-2 text-uppercase mt-0"><%= @title %></h1>
-    <%= locale_specific_spaces(render @template).html_safe %>
+    <%= locale_specific_spaces(render(@template)) %>
   </div>
 </div>

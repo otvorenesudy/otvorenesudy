@@ -1,0 +1,33 @@
+// The decree's document (the pdf-viewer controller): pdf.js needs its container absolutely positioned, so a frame of
+// fixed height holds it.
+
+.pdf-viewer-frame {
+  position: relative;
+  height: 800px;
+}
+
+.pdf-viewer-container {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+
+  .textLayer .highlight {
+    --highlight-bg-color: #{rgba($blue, 0.35)};
+    --highlight-selected-bg-color: #{rgba($orange, 0.5)};
+
+    border-radius: 0;
+  }
+}
+
+.pdfViewer .page {
+  border: none !important;
+  border-image: none !important;
+}
+
+.pdf-viewer-line {
+  height: 15px;
+}
+
+.pdf-viewer-title {
+  height: 25px;
+}

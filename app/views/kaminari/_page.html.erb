@@ -1,9 +1,9 @@
 <% if page.current? %>
-  <li class="page-item active">
-    <a class="page-link" href="#" tabindex="-1">
+  <li class="page-item active" aria-current="page">
+    <span class="page-link">
       <%= number_with_delimiter(page) %>
-      <%= span_tag t('kaminari.pagination.current'), class: 'sr-only' %>
-    </a>
+      <%= span_tag t('kaminari.pagination.current'), class: 'visually-hidden' %>
+    </span>
   </li>
 <% else %>
   <li class="page-item">

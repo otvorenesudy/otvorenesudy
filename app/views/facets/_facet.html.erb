@@ -1,19 +1,25 @@
-<div id="<%= facet.id %>" class="facet" data-id="<%= facet.name %>">
-  <% if @collapsible_facets.include? facet.name %>
-    <h6 class="facet-title<%= ' collapsed' if @collapsed_facets.include? facet.name %>" data-toggle="collapse" data-target="#<%= facet.id %>-content">
+<% collapsible = @collapsible_facets.include?(facet.name) %>
+<% collapsed = @collapsed_facets.include?(facet.name) %>
+
+<div id="<%= facet.id %>" class="facet" data-controller="facet-suggest" data-facet-suggest-url-value="<%= suggest_path(facet.params.merge(facet: facet.name)) %>">
+  <% if collapsible %>
+    <h6 class="facet-title<%= ' collapsed' if collapsed %>" role="button" data-bs-toggle="collapse" data-bs-target="#<%= facet.id %>-content" aria-expanded="<%= !collapsed %>" aria-controls="<%= facet.id %>-content">
       <%= translation[:title] %>
     </h6>
   <% else %>
-    <h6 class="facet-title">
-      <%= translation[:title] %>
-    </h6>
+    <h6 class="facet-title"><%= translation[:title] %></h6>
   <% end %>
 
-  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' show' unless @collapsed_facets.include? facet.name}" if @collapsible_facets.include? facet.name %>">
+  <div id="<%= facet.id %>-content" class="facet-content<%= " collapse#{' show' unless collapsed}" if collapsible %>"
+       data-controller="facet-collapse"
+       data-facet-collapse-url-value="<%= collapse_facet_path %>"
+       data-facet-collapse-model-value="<%= @type %>"
+       data-facet-collapse-facet-value="<%= facet.name %>"
+       data-action="show.bs.collapse->facet-collapse#expand hide.bs.collapse->facet-collapse#collapse">
     <%= facet_suggest_input_tag facet, placeholder: translation[:placeholder] if translation[:placeholder] %>
 
-    <div class="facet-results">
-      <%= render "facets/#{facet.type}_results", facet: facet, visible: facet.results.first(10), other: facet.results[10..-1] || [] %>
+    <div class="facet-results" data-facet-suggest-target="results" aria-live="polite">
+      <%= render "facets/#{facet.type}_results", facet:, visible: facet.results.first(10), other: facet.results[10..] || [] %>
     </div>
   </div>
 </div>

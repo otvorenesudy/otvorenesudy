@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+# The app and the Dart Sass watcher (Procfile.dev), through foreman.
+
+if ! gem list foreman -i --silent; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+export PORT="${PORT:-3000}"
+
+exec foreman start -f Procfile.dev "$@"

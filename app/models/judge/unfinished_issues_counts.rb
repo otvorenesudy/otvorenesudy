@@ -1,21 +1,23 @@
-module Judge::UnfinishedIssuesCounts
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  def unfinished_issues_counts
-    result    = Hash.new
-    summaries = statistical_summaries.by_prominent_court_type(self)
+# Per year, how many more cases the judge had unfinished at the end of the year than at its start (table N).
+class Judge
+  module UnfinishedIssuesCounts
+    extend ActiveSupport::Concern
 
-    return unless summaries.any?
+    def unfinished_issues_counts
+      summaries = statistical_summaries.by_prominent_court_type(self)
 
-    summaries.each do |summary|
-      table = summary.tables.by_name('N').first
+      return unless summaries.any?
 
-      beginning_of_year = table.rows[6].cells[0].value.to_i
-      end_of_year       = table.rows[1].cells.pluck(:value).map(&:to_i).sum
+      summaries.to_h do |summary|
+        table = summary.tables.by_name('N').first
 
-      result[summary.year] = end_of_year - beginning_of_year
+        beginning_of_year = table.rows[6].cells[0].value.to_i
+        end_of_year = Judge::StatisticalTables.row_sum(table.rows[1])
+
+        [summary.year, end_of_year - beginning_of_year]
+      end
     end
-
-    result
   end
 end

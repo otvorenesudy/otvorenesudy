@@ -1,37 +1,37 @@
 <li class="search-result-item">
   <h4 class="search-result-title">
-    <%= link_to decree_path(decree, h: highlight ? extract_highlight_tokens(highlight[:text]).join(' ') : nil) do %>
+    <%= link_to decree_path(decree, h: (extract_highlight_tokens(highlight[:text]).join(' ').presence if highlight)) do %>
       <%= decree_headline decree, limit: 57 %>
       <% if decree.natures.any? %>
-        <br/>
+        <br>
         <%= decree_natures decree, limit: 57 %>
       <% end %>
     <% end %>
     <small>
-      <%= t '.decree' %> <%= t '.past' %>
-      <%= decree.date ? decree_date(decree.date) : t('.unknown') %>
+      <%= t 'decrees.search.result.decree' %> <%= t 'decrees.search.result.past' %>
+      <%= decree.date ? decree_date(decree.date) : t('decrees.search.result.unknown') %>
     </small>
   </h4>
 
   <div class="search-result-content">
-    <ul class="float-sm-right list-unstyled text-sm-right ml-sm-2 mb-2">
+    <ul class="float-sm-end list-unstyled text-sm-end ms-sm-2 mb-2">
       <li><%= tooltip_tag decree.case_number || '?', t('case_number.full'), class: 'text-muted', placement: 'left' %></li>
       <li><%= tooltip_tag decree.file_number || '?', t('file_number.full'), class: 'text-muted', placement: 'left' %></li>
     </ul>
 
     <% if decree.unprocessed? %>
       <div class="alert alert-danger alert-sm mb-2">
-        <%= s t '.unprocessed' %>
+        <%= s t('decrees.search.result.unprocessed') %>
       </div>
-    <% elsif decree.has_future_date? %>
+    <% elsif decree.future_date? %>
       <div class="alert alert-warning alert-sm mb-2">
-        <%= s t '.future_date' %>
+        <%= s t('decrees.search.result.future_date') %>
       </div>
     <% end %>
 
     <% if decree.court %>
-      <%= t '.court' %> &ndash; <%= link_to_court decree.court %>
-      <br/>
+      <%= t 'decrees.search.result.court' %> &ndash; <%= link_to_court decree.court %>
+      <br>
     <% end %>
     <% if decree.judges.any? %>
       <% if decree.exact_judges.any? %>

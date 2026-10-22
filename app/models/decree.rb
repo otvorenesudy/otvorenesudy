@@ -1,43 +1,37 @@
-class Decree < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Decree < ApplicationRecord
   include Resource::URI
-  include Resource::Storage
   include Resource::Subscribable
 
   include Probe
 
   include Judge::Matched
 
-  attr_accessible :case_number, :file_number, :date, :ecli, :summary
+  has_neighbors :embedding
 
-  scope :at_court, lambda { |court| where court_id: court }
+  scope :at_court, ->(court) { where(court_id: court) }
 
-  scope :during_employment,
-        lambda { |employment|
-          where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge))
-        }
+  scope :during_employment, lambda { |employment|
+    where(court_id: employment.court).joins(:judgements).merge(Judgement.of_judge(employment.judge))
+  }
 
-  belongs_to :proceeding
-
-  belongs_to :court
+  belongs_to :proceeding, optional: true
+  belongs_to :court, optional: true
 
   has_many :judgements, dependent: :destroy
-  # TODO remove conditions in favor of scope in Rails >= 4
-  has_many :inexact_judgements, class_name: :Judgement, conditions: Judgement.inexact_conditions
+  has_many :inexact_judgements, -> { inexact }, class_name: 'Judgement', inverse_of: :decree, dependent: nil
 
   has_many :judges, through: :judgements
-  # TODO remove conditions in favor of scope in Rails >= 4
   has_many :exact_judges,
+           -> { where(judgements: { judge_name_similarity: 1.0 }).order(:last, :middle, :first) },
            through: :judgements,
-           source: :judge,
-           class_name: :Judge,
-           conditions: Judgement.exact_conditions,
-           order: 'judges.last, judges.middle, judges.first'
+           source: :judge
 
-  belongs_to :form, class_name: :DecreeForm, foreign_key: :decree_form_id
+  belongs_to :form, class_name: 'DecreeForm', foreign_key: :decree_form_id, optional: true, inverse_of: :decrees
 
-  has_many :naturalizations, class_name: :DecreeNaturalization, dependent: :destroy
-
-  has_many :natures, class_name: :DecreeNature, through: :naturalizations
+  has_many :naturalizations, class_name: 'DecreeNaturalization', dependent: :destroy
+  has_many :natures, class_name: 'DecreeNature', through: :naturalizations
 
   has_many :legislation_area_usages, dependent: :destroy
   has_many :legislation_areas, through: :legislation_area_usages
@@ -46,14 +40,13 @@ class Decree < ActiveRecord::Base
   has_many :legislation_subareas, through: :legislation_subarea_usages
 
   has_many :legislation_usages, dependent: :destroy
-
   has_many :legislations, through: :legislation_usages
-
   has_many :paragraph_explanations, through: :legislations
-
   has_many :paragraphs, through: :paragraph_explanations
 
-  has_many :pages, class_name: :DecreePage, dependent: :destroy
+  has_many :pages, class_name: 'DecreePage', dependent: :destroy
+
+  before_save :invalidate_caches
 
   max_paginates_per 100
   paginates_per 20
@@ -66,16 +59,16 @@ class Decree < ActiveRecord::Base
     analyze :date, type: :date
     analyze :ecli
     analyze :summary
-    analyze :text, as: lambda { |d| d.text }, index: :no
-    analyze :pages_count, type: :integer, as: lambda { |d| d.pages.count }
-    analyze :court, as: lambda { |d| d.court.name if d.court }
-    analyze :court_type, as: lambda { |d| d.court.type.value if d.court }
-    analyze :judges, as: lambda { |d| d.judge_names }
-    analyze :form, as: lambda { |d| d.form.value if d.form }
-    analyze :natures, as: lambda { |d| d.natures.pluck(:value) }
-    analyze :legislation_areas, as: lambda { |d| d.legislation_areas.pluck(:value) }
-    analyze :legislation_subareas, as: lambda { |d| d.legislation_subareas.pluck(:value) }
-    analyze :legislations, as: lambda { |d| d.legislations.map { |l| l.value '%u/%y/%p' } }
+    analyze :text, as: lambda(&:text), index: :no
+    analyze :pages_count, type: :integer, as: ->(decree) { decree.pages.count }
+    analyze :court, as: ->(decree) { decree.court&.name }
+    analyze :court_type, as: ->(decree) { decree.court&.type&.value }
+    analyze :judges, as: lambda(&:judge_names)
+    analyze :form, as: ->(decree) { decree.form&.value }
+    analyze :natures, as: ->(decree) { decree.natures.pluck(:value) }
+    analyze :legislation_areas, as: ->(decree) { decree.legislation_areas.pluck(:value) }
+    analyze :legislation_subareas, as: ->(decree) { decree.legislation_subareas.pluck(:value) }
+    analyze :legislations, as: ->(decree) { decree.legislations.map { |legislation| legislation.value('%u/%y/%p') } }
 
     sort_by :date, :created_at, :pages_count
   end
@@ -83,9 +76,9 @@ class Decree < ActiveRecord::Base
   facets do
     facet :q, type: :fulltext, field: :all, highlights: :text
     facet :judges, type: :terms
-    facet :legislation_areas, type: :terms, size: LegislationArea.count
-    facet :legislation_subareas, type: :terms, size: LegislationSubarea.count
-    facet :natures, type: :terms, size: DecreeNature.count
+    facet :legislation_areas, type: :terms, size: -> { LegislationArea.count }
+    facet :legislation_subareas, type: :terms, size: -> { LegislationSubarea.count }
+    facet :natures, type: :terms, size: -> { DecreeNature.count }
     facet :form, type: :terms
     facet :court_type, type: :terms
     facet :court, type: :terms
@@ -101,11 +94,11 @@ class Decree < ActiveRecord::Base
   end
 
   def time
-    @time ||= date.to_datetime.end_of_day if date
+    @time ||= date&.to_datetime&.end_of_day
   end
 
   def judge_names
-    @judge_names ||= Judge::Names.of judges
+    @judge_names ||= Judge::Names.of(judges)
   end
 
   def legislation_areas_and_subareas
@@ -113,14 +106,14 @@ class Decree < ActiveRecord::Base
   end
 
   def pdf_uri_valid?
-    pdf_uri && !pdf_uri_invalid
+    pdf_uri.present? && !pdf_uri_invalid
   end
 
-  def has_future_date?
-    date > Time.now.to_date unless date.nil?
+  def future_date?
+    date > Time.zone.today unless date.nil?
   end
 
-  def had_future_date?
+  def future_date_when_created?
     date > created_at.to_date unless date.nil?
   end
 
@@ -128,31 +121,25 @@ class Decree < ActiveRecord::Base
     court.nil? || judgements.none?
   end
 
+  # The 25 decrees nearest by meaning: the cosine distance of the embeddings otvorenesudy-api computes.
   def similar
     return [] if embedding.blank?
 
-    Decree.where('decrees.id != ?', id).order("decrees.embedding <=> '#{embedding}' ASC").limit(25).to_a
+    nearest_neighbors(:embedding, distance: 'cosine').first(25)
   end
 
+  # Companies the decree names (seo keywords for its page).
   def seo_keywords
-    companies = text ? text.gsub(/[[:space:]]+/, ' ').squeeze(' ').scan(/.{3,30}s\.r\.o/) : []
-
-    companies
+    text.gsub(/[[:space:]]+/, ' ').squeeze(' ').scan(/.{3,30}s\.r\.o/)
   end
 
   def formatted_text
-    text ? text.gsub(/(?>\r\n|\n|\f|\r|\u2028|\u2029)/, "\n") : ''
+    text.gsub(/(?>\r\n|\n|\f|\r| | )/, "\n")
   end
 
-  before_save :invalidate_caches
-
   def invalidate_caches
-    legislations.each { |legislation| legislation.invalidate_caches }
+    legislations.each(&:invalidate_caches)
 
     @text = @time = @judge_names = @legislation_areas_and_subareas = nil
   end
-
-  storage :resource, JusticeGovSk::Storage::DecreePage, extension: :html
-  storage :document, JusticeGovSk::Storage::DecreeDocument, extension: :pdf
-  storage :image, JusticeGovSk::Storage::DecreeImage, extension: :pdf
 end

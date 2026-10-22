@@ -1,164 +1,133 @@
-class Probe::Facets
-  class Facet
-    include Probe::Helpers::Index
+# frozen_string_literal: true
 
-    attr_accessor :base,
-                  :name,
-                  :field,
-                  :type,
-                  :size,
-                  :terms,
-                  :results,
-                  :params,
-                  :visible,
-                  :view
+module Probe
+  class Facets
+    # One facet of a search: its selected terms, the params that select or deselect each value, and the values with
+    # their counts once the search has run.
+    class Facet
+      # A value of the facet and how many results have it. Results are equal when their values are.
+      class Result
+        attr_accessor :value, :count, :add_params, :remove_params, :selected
 
-    def initialize(name, field, options)
-      @base    = options[:base]
-      @name    = name
-      @field   = field
-      @type    = options[:type]
-      @size    = options[:size] || 5
-      @visible = options[:visible].nil? ? true : !!options[:visible]
-      @view    = options[:view] || Hash.new
-    end
-
-    def id
-      @id ||= "#{base}-#{name}".dasherize.downcase
-    end
-
-    def key
-      @key ||= "facets.#{base.to_s.underscore}.#{name}"
-    end
-
-    def params
-      @params ||= {}
-    end
-
-    def terms=(value)
-      @terms = Array.wrap(value)
-    end
-
-    def populate(results, selected)
-      results = yield results if block_given?
-      results = populate_facets(results)
-
-      if selected
-        selected = populate_facets(selected).find_all { |e| @terms.include? e.value }
-
-        selected.each { |e| e.selected = true }
-
-        results.each do |result|
-          result.selected = true if active? && @terms.include?(result.value)
-
-          selected -= [result]
+        def initialize(value, count, add_params, remove_params, selected)
+          @value = value
+          @count = count
+          @add_params = add_params
+          @remove_params = remove_params
+          @selected = selected
         end
 
-        unless selected.empty?
-          results.unshift(*selected)
+        def selected?
+          selected ? true : false
         end
-      end
 
-      @results = results.uniq
-    end
-
-    def parse_terms(values)
-      values = Array.wrap(values)
-
-      values = values.map do |value|
-        if block_given?
-          yield value
-        else
-          value.to_s
+        def eql?(other)
+          other.is_a?(Result) && value.eql?(other.value)
         end
+
+        alias == eql?
+
+        delegate :hash, to: :value
       end
 
-      values
-    end
+      attr_accessor :params
+      attr_reader :base, :name, :field, :type, :view, :options, :terms, :results
 
-    def active?
-      @terms.present?
-    end
-
-    def visible?
-      @visible
-    end
-
-    def buildable?
-      respond_to? :build
-    end
-
-    def abstract?
-      false
-    end
-
-    def suggestable?
-      respond_to? :build_suggest_facet
-    end
-
-    def selected_name
-      "#{@name}_selected"
-    end
-
-    def missing_facet_name
-      'missing'
-    end
-
-    def analyzed_field_name
-      analyzed_field(@field)
-    end
-
-    def not_analyzed_field_name
-      not_analyzed_field(@field)
-    end
-
-    def refresh!
-      @terms  = []
-      @script = nil
-    end
-
-    private
-
-    def converter_for(type)
-      case
-      when type == Fixnum then Probe::Converters::Numeric
-      when type == Date   then Probe::Converters::Date
-      else                raise "No converter found for type #{type}."
-      end
-    end
-
-    def create_result_params(value)
-      # TODO: refactor facets to user only add params
-      create_result_add_params(value)
-    end
-
-    def create_result_add_params(value)
-      values = Array.wrap(params[@name])
-
-      return params if values.include? value
-
-      values = params[@name] ? values + [value] : value
-
-      params.merge @name => values
-    end
-
-    def create_result_remove_params(value)
-      values = params[@name] ? Array.wrap(params[@name]) - [value] : value
-
-      params.merge @name => values
-    end
-
-    class Result < Struct.new(:value, :count, :params, :add_params, :remove_params, :selected)
-      def selected?
-        selected
+      def initialize(name, field, options)
+        @base = options[:base]
+        @name = name.to_sym
+        @field = field
+        @type = options[:type]
+        @size = options.fetch(:size, 5)
+        @visible = options.fetch(:visible, true)
+        @view = options[:view] || {}
+        @options = options
+        @terms = []
+        @params = {}
+        @results = []
       end
 
-      def eql?(result)
-        value.eql? result.value
+      def id
+        "#{base}-#{name}".dasherize.downcase
       end
 
-      def hash
-        value.hash
+      def key
+        "facets.#{base.to_s.underscore}.#{name}"
+      end
+
+      # At least 1, as Elasticsearch requires: a size counted from records (LegislationArea.count) can be 0.
+      def size
+        [@size.respond_to?(:call) ? @size.call : @size, 1].max
+      end
+
+      def terms=(value)
+        @terms = Array.wrap(value)
+      end
+
+      def parse_terms(values)
+        Array.wrap(values).map { |value| block_given? ? yield(value) : value.to_s }
+      end
+
+      def active?
+        terms.present?
+      end
+
+      def visible?
+        @visible ? true : false
+      end
+
+      def buildable?
+        respond_to?(:aggregation)
+      end
+
+      def abstract?
+        false
+      end
+
+      def suggestable?
+        respond_to?(:suggest_aggregation)
+      end
+
+      def keyword_field
+        Probe::Fields.keyword(field)
+      end
+
+      def analyzed_field
+        Probe::Fields.analyzed(field)
+      end
+
+      # The facet's aggregation response: its values, and the selected values counted separately so they stay listed
+      # (first) when they fall outside the top values.
+      def populate(response)
+        results = build_results(response)
+        results.each { |result| result.selected = true if terms.include?(result.value) }
+
+        selected = build_selected(response)
+        selected.each { |result| result.selected = true }
+
+        @results = (selected.reject { |result| results.include?(result) } + results).uniq
+      end
+
+      private
+
+      def build_selected(_response)
+        []
+      end
+
+      def result(value, count)
+        self.class::Result.new(value, count, add_params(value), remove_params(value), false)
+      end
+
+      def add_params(value)
+        values = Array.wrap(params[name])
+
+        return params if values.include?(value)
+
+        params.merge(name => params[name] ? values + [value] : value)
+      end
+
+      def remove_params(value)
+        params.merge(name => params[name] ? Array.wrap(params[name]) - [value] : value)
       end
     end
   end

@@ -3,38 +3,38 @@
 <div class="row justify-content-between">
   <div class="col-md-7 col-lg-6 col-xl-5">
     <h1 class="text-uppercase mb-4"><%= yield :title %></h1>
-    <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :put } do |f| %>
-      <div class="form-group">
-        <%= f.label :email %>
+    <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f| %>
+      <div class="mb-3">
+        <%= f.label :email, class: 'form-label' %>
         <%= f.email_field :email, class: 'form-control' %>
       </div>
-      <div class="form-group">
-        <%= f.label :password %>
+      <div class="mb-3">
+        <%= f.label :password, class: 'form-label' %>
         <%= f.password_field :password, placeholder: t('.password_placeholder'), class: 'form-control' %>
       </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
+      <div class="mb-3">
+        <%= f.label :password_confirmation, class: 'form-label' %>
         <%= f.password_field :password_confirmation, placeholder: t('.password_placeholder'), class: 'form-control' %>
       </div>
-      <div class="form-group">
-        <%= f.label :current_password %>
+      <div class="mb-3">
+        <%= f.label :current_password, class: 'form-label' %>
         <%= f.password_field :current_password, placeholder: t('.confirm_placeholder'), class: 'form-control' %>
       </div>
       <button type="submit" class="btn btn-lg btn-outline-primary mt-3 mb-4 mb-md-0"><%= t '.submit' %></button>
     <% end %>
     <h2 class="text-uppercase mt-5 mb-4 pt-4 border-top"><%= t '.account' %></h2>
-    <button type="button" class="btn btn-outline-danger mb-4 mb-lg-0" data-toggle="modal" data-target="#delete_user"><%= t '.delete' %></button>
-    <div id="delete_user" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <button type="button" class="btn btn-outline-danger mb-4 mb-lg-0" data-bs-toggle="modal" data-bs-target="#delete_user"><%= t '.delete' %></button>
+    <div id="delete_user" class="modal" tabindex="-1" aria-labelledby="delete_user_title" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title text-uppercase"><%= t '.are_you_sure' %></h1>
+            <h1 id="delete_user_title" class="modal-title text-uppercase"><%= t '.are_you_sure' %></h1>
           </div>
           <div class="modal-footer">
-            <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: nil, method: :delete } do %>
+            <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :delete } do %>
               <button type="submit" class="btn btn-outline-danger"><%= t '.confirm_delete' %></button>
             <% end %>
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t '.cancel' %></button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><%= t '.cancel' %></button>
           </div>
         </div>
       </div>

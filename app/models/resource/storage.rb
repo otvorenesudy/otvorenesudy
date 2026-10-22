@@ -1,32 +1,21 @@
-module Resource::Storage
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  module ClassMethods
-    def storages
-      @storages || {}
-    end
+# Files kept for records in the shared storage directory (Capistrano's linked `storage`):
+#
+#   storage(:declaration, 'documents/selection_procedures') { |procedure| "#{procedure.ic}_declaration.pdf" }
+#
+# defines `declaration_entry` (the file name), `declaration_path` and `declaration?` (whether the file is there).
+module Resource
+  module Storage
+    extend ActiveSupport::Concern
 
-    def storage(name, type, options = {})
-      @storages = {} unless @storages
+    ROOT = 'storage'
 
-      @storages[name] = type.instance unless @storages[name]
-
-      define_method "#{name}_storage" do
-        self.class.storages[name]
-      end
-
-      define_method "#{name}_entry" do
-        if block_given?
-          yield self
-        else
-          JusticeGovSk::URL.url_to_path(uri, options[:extension])
-        end
-      end
-
-      define_method "#{name}_path" do
-        entry = self.send("#{name}_entry")
-
-        self.class.storages[name].path(entry) if entry
+    class_methods do
+      def storage(name, directory, &)
+        define_method("#{name}_entry") { yield(self) }
+        define_method("#{name}_path") { Rails.root.join(ROOT, directory, public_send("#{name}_entry")) }
+        define_method("#{name}?") { public_send("#{name}_path").file? }
       end
     end
   end

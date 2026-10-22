@@ -1,13 +1,23 @@
-module Resource::Subscribable
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  def subscriptions
-    percolate.flat_map { |q| Query.find(q).subscriptions }
-  end
+# Records people can subscribe to by saving a search (decrees, hearings). Saved searches are stored in the model's
+# percolator, so a record can tell which subscriptions it matches.
+module Resource
+  module Subscribable
+    extend ActiveSupport::Concern
 
-  module ClassMethods
-    def subscribe(id, query)
-      percolator.register(id, query)
+    class_methods do
+      def subscribe(id, query)
+        percolator.register(id, query)
+      end
+
+      def unsubscribe(id)
+        percolator.unregister(id)
+      end
+    end
+
+    def subscriptions
+      Subscription.where(query_id: percolate)
     end
   end
 end

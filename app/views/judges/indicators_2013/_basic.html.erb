@@ -1,22 +1,22 @@
 <p>
-  <%= t '.decrees_count', released_decrees: indicators['S1'], delayed_decrees: indicators['S2'], html_safe: true %>
+  <%= t '.decrees_count', released_decrees: indicators['S1'], delayed_decrees: indicators['S2'] %>
 </p>
 
 <p>
   <%= t '.performance_data', years: indicators['S3'] %>
 </p>
 
-<ul class="list-unstyled ml-3">
+<ul class="list-unstyled ms-3">
   <% if indicators['S3_2013'] %>
-    <li>2013 &ndash; <%= indicators['S3_2013'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
+    <li>2013 &ndash; <%= links_to_courts indicators['S3_2013'].compact %></li>
   <% end %>
 
   <% if indicators['S3_2012'] %>
-    <li>2012 &ndash; <%= indicators['S3_2012'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
+    <li>2012 &ndash; <%= links_to_courts indicators['S3_2012'].compact %></li>
   <% end %>
 
   <% if indicators['S3_2011'] %>
-    <li>2011 &ndash; <%= indicators['S3_2011'].map { |court| link_to_court court }.to_sentence.html_safe %></li>
+    <li>2011 &ndash; <%= links_to_courts indicators['S3_2011'].compact %></li>
   <% end %>
 </ul>
 

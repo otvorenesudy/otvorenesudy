@@ -4,20 +4,20 @@
       <%= link_to decree_url(decree) do %>
         <%= decree_headline decree, limit: 40 %>
         <% if decree.natures.any? %>
-          <br/>
+          <br>
           <%= decree_natures decree, limit: 40 %>
         <% end %>
       <% end %>
       <small>
-        <%= t 'decrees.search.results.decree' %> <%= t 'decrees.search.results.past' %>
-        <%= decree.date ? decree_date(decree.date) : t('decrees.search.results.unknown') %>
+        <%= t 'decrees.search.result.decree' %> <%= t 'decrees.search.result.past' %>
+        <%= decree.date ? decree_date(decree.date) : t('decrees.search.result.unknown') %>
       </small>
     </h4>
 
     <div class="search-result-content">
       <% if decree.court %>
-        <%= t 'decrees.search.results.court' %> &ndash; <%= link_to_court decree.court %>
-        <br/>
+        <%= t 'decrees.search.result.court' %> &ndash; <%= link_to_court decree.court %>
+        <br>
       <% end %>
       <% if decree.judges.any? %>
         <% if decree.exact_judges.any? %>

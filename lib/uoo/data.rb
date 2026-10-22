@@ -1,25 +1,22 @@
+# frozen_string_literal: true
+
 require 'json'
-require 'date'
-require 'uri'
 
 module Uoo
+  # The decisions of the Whistleblower Protection Office (data/uoo-decrees.json): first decisions, each with the appeals
+  # that decided on it, newest first, and the decisions and fines per party.
   module Data
-    SOURCE = Rails.root.join('data', 'uoo-decrees.json').freeze
+    SOURCE = Rails.root.join('data/uoo-decrees.json').freeze
 
     def self.all
       decrees
     end
 
+    # The office's page of decisions, when the data names a web address for it.
     def self.source_url
-      value = raw['source_url'].to_s.strip
-      return nil if value.blank?
+      url = raw['source_url'].to_s.strip
 
-      uri = URI.parse(value)
-      return nil unless uri.is_a?(URI::HTTP) && uri.host.present?
-
-      uri.to_s
-    rescue URI::InvalidURIError
-      nil
+      url if url.match?(%r{\Ahttps?://[^\s/]+(/\S*)?\z}i)
     end
 
     def self.decrees
@@ -31,77 +28,76 @@ module Uoo
     end
 
     def self.reload!
-      @raw = nil
-      @decrees = nil
-      @stats = nil
+      @raw = @decrees = @stats = nil
     end
 
-    def self.build_decrees
-      entries = Array.wrap(raw['decrees']).map { |entry| entry.merge('parsed_date' => parse_date(entry['date'])) }
+    class << self
+      private
 
-      approved_chains =
-        entries.each_with_object(Set.new) do |entry, set|
-          set << entry['chain_root_decree_url'] if entry['approves_or_confirms_chain_root_decree'] == true
-        end
+      def build_decrees
+        entries = Array.wrap(raw['decrees']).map { |entry| entry.merge('parsed_date' => parse_date(entry['date'])) }
+        roots, children = entries.partition { |entry| entry['parent_decree_url'].nil? }
+        approved = approved_chains(entries)
 
-      roots = entries.select { |e| e['parent_decree_url'].nil? }
-      children = entries.select { |e| e['parent_decree_url'].present? }
+        roots.map { |root| with_children(root, children, approved) }.sort_by { |entry| date_order(entry) }
+      end
 
-      date_sort = ->(d) { [d['parsed_date'] ? 0 : 1, d['parsed_date'] ? -d['parsed_date'].jd : 0] }
+      # A first decision with its appeals; approved when no appeal changed it.
+      def with_children(root, children, approved_chains)
+        chain = root['chain_root_decree_url']
+        appeals = children.select { |child| child['chain_root_decree_url'] == chain }
+        appeals = appeals.sort_by { |entry| date_order(entry) }
 
-      roots =
-        roots.map do |root|
-          chain_root = root['chain_root_decree_url']
-          standalone = children.none? { |c| c['chain_root_decree_url'] == chain_root }
-          approved = standalone || approved_chains.include?(chain_root)
+        root.merge('approved' => appeals.empty? || approved_chains.include?(chain), 'children' => appeals)
+      end
 
-          root_children = children.select { |c| c['chain_root_decree_url'] == chain_root }.sort_by(&date_sort)
+      def approved_chains(entries)
+        entries.select { |entry| entry['approves_or_confirms_chain_root_decree'] == true }
+               .to_set { |entry| entry['chain_root_decree_url'] }
+      end
 
-          root.merge('approved' => approved, 'children' => root_children)
-        end
+      # Newest first, undated last.
+      def date_order(entry)
+        date = entry['parsed_date']
 
-      roots.sort_by(&date_sort)
-    end
+        date ? [0, -date.jd] : [1, 0]
+      end
 
-    def self.build_stats
-      roots = decrees
+      def build_stats
+        rows = party_rows.sort_by { |row| [-row[:fine], -row[:count], row[:name]] }
 
-      by_party =
-        roots.each_with_object({}) do |entry, hash|
-          Array
-            .wrap(entry['parties'])
-            .each do |party|
-              name = party['name'].to_s.strip
-              next if name.blank?
+        {
+          total_count: decrees.size,
+          total_fine: rows.sum { |row| row[:fine] },
+          currency: rows.pluck(:currency).compact.first || 'EUR',
+          by_party: rows
+        }
+      end
 
-              row = hash[name] ||= { name: name, count: 0, fine: 0, currency: nil }
-              row[:count] += 1
-              row[:fine] += party['fine_amount'].to_i
-              row[:currency] ||= party['fine_currency']
-            end
-        end
+      # Each party of the first decisions with its decisions and fines.
+      def party_rows
+        decrees.flat_map { |entry| Array.wrap(entry['parties']) }.each_with_object({}) do |party, rows|
+          name = party['name'].to_s.strip
+          next if name.blank?
 
-      rows = by_party.values.sort_by { |row| [-row[:fine], -row[:count], row[:name]] }
+          row = rows[name] ||= { name:, count: 0, fine: 0, currency: nil }
+          row[:count] += 1
+          row[:fine] += party['fine_amount'].to_i
+          row[:currency] ||= party['fine_currency']
+        end.values
+      end
 
-      {
-        total_count: roots.size,
-        total_fine: rows.sum { |row| row[:fine] },
-        currency: rows.map { |row| row[:currency] }.compact.first || 'EUR',
-        by_party: rows
-      }
-    end
+      def parse_date(value)
+        return if value.blank?
 
-    def self.parse_date(value)
-      return nil if value.blank?
+        Date.strptime(value.to_s.gsub(/\s+/, ''), '%d.%m.%Y')
+      rescue ArgumentError
+        nil
+      end
 
-      normalized = value.to_s.gsub(/\s+/, '')
-      Date.strptime(normalized, '%d.%m.%Y')
-    rescue ArgumentError
-      nil
-    end
-
-    def self.raw
-      @raw ||= JSON.parse(File.read(SOURCE))
+      def raw
+        @raw ||= JSON.parse(File.read(SOURCE))
+      end
     end
   end
 end

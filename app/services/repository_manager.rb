@@ -1,37 +1,41 @@
-class RepositoryManager
-  attr_accessor :model, :relation, :client
+# frozen_string_literal: true
 
-  def initialize(model, relation:, client:)
+# Compares records with their documents and reindexes those whose document is missing or older. SynchronizeRepositoryJob
+# runs it on id ranges of up to 10,000 records.
+class RepositoryManager
+  attr_reader :model, :relation
+
+  def initialize(model, relation:)
     @model = model
     @relation = relation
-    @client = client
   end
 
   def synchronize
-    batch = relation.to_a
+    model.ensure_index
 
-    results = client.search(
-      index: model.index_name,
-      type: model.document_type,
-      body: {
-        filter: {
-          or: batch.map { |record|
-            {
-              and: [
-                { term: { id: record.id } },
-                { term: { :'updated_at.untouched' => record.updated_at } }
-              ]
-            }
-          },
-        },
-        size: batch.size,
-        fields: [:id]
-      }
-    )
+    records = relation.to_a
+    documents = fetch_documents(records.map(&:id))
+    stale = records.reject { |record| current?(record, documents[record.id]) }
 
-    synchronized = results['hits']['hits'].map { |e| e['fields']['id'][0].to_i }
-    unsynchronized = batch.select { |record| !record.id.in?(synchronized) }
+    model.bulk_index(model.index_name, stale) if stale.any?
+  end
 
-    unsynchronized.each(&:update_index)
+  private
+
+  def fetch_documents(ids)
+    return {} if ids.empty?
+
+    response = model.client.mget(index: model.index_name, body: { ids: }, _source_includes: ['updated_at'])
+
+    response['docs'].select { |doc| doc['found'] }.index_by { |doc| doc['_id'].to_i }
+  end
+
+  # Documents keep updated_at to the millisecond.
+  def current?(record, document)
+    return false unless document
+
+    indexed = Time.zone.parse(document.dig('_source', 'updated_at').to_s)
+
+    indexed.present? && indexed.floor(3) == record.updated_at.floor(3)
   end
 end

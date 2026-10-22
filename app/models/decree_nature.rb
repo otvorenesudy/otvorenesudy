@@ -1,7 +1,7 @@
-class DecreeNature < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :naturalizations, class_name: :DecreeNaturalization, dependent: :destroy
+class DecreeNature < ApplicationRecord
+  has_many :naturalizations, class_name: 'DecreeNaturalization', dependent: :destroy
 
   has_many :decrees, through: :naturalizations
 

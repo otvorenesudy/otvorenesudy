@@ -1,0 +1,66 @@
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+
+  &:hover.focus,
+  &:hover:focus {
+    text-decoration: none;
+  }
+}
+
+.btn-primary {
+  @include button-variant(
+    $orange,
+    $orange,
+    $color: $white,
+    $hover-background: $navy,
+    $hover-border: transparent,
+    $hover-color: $white,
+    $active-background: $navy,
+    $active-border: $navy,
+    $active-color: $white,
+    $disabled-color: $white
+  );
+  // focus ring in the border color, as in Bootstrap 4
+  --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($orange)};
+
+  &:hover.focus,
+  &:focus.active,
+  &:hover:focus,
+  &:focus:active {
+    box-shadow: 0 0 0 $btn-focus-width rgba($navy, 0.5) !important;
+  }
+}
+
+.btn-outline-primary {
+  @include button-outline-variant($orange, $white, $active-color: $white);
+}
+
+.btn-secondary {
+  @include button-variant(
+    $white,
+    $gray,
+    $color: $blue,
+    $hover-background: $input-bg,
+    $hover-border: $gray,
+    $hover-color: $navy,
+    $active-background: $input-bg,
+    $active-border: $gray,
+    $active-color: $navy,
+    // Bootstrap 4's dark text on a light button
+    $disabled-color: $gray-900
+  );
+  --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($gray)};
+
+  &:hover.focus,
+  &:focus.active,
+  &:hover:focus,
+  &:focus:active {
+    box-shadow: 0 0 0 $btn-focus-width rgba($gray, 0.5);
+  }
+}
+
+.btn-outline-secondary {
+  @include button-outline-variant($blue, $white, $active-color: $white);
+}

@@ -1,8 +1,7 @@
-class Proposer < ActiveRecord::Base
-  attr_accessible :name,
-                  :name_unprocessed
+# frozen_string_literal: true
 
-  belongs_to :hearing
+class Proposer < ApplicationRecord
+  belongs_to :hearing, optional: true
 
   validates :name, presence: true
 end

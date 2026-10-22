@@ -2,27 +2,27 @@
   <%= t '.headline' %>
 </h2>
 
-<% if @judge.indicators_2013 %>
+<% if (indicators = judge.indicators_2013) %>
   <% if I18n.locale == :en %>
     <div class="alert alert-warning" role="alert">
-      Please note that some content pertaining judge indicators may not be translated.
+      <%= t '.untranslated' %>
     </div>
   <% end %>
 
-  <% if @judge.indicators_2013.statistical %>
-    <%= render 'judges/indicators_2013/basic', judge: judge, indicators: judge.indicators_2013.statistical %>
+  <% if indicators.statistical %>
+    <%= render 'judges/indicators_2013/basic', judge:, indicators: indicators.statistical %>
   <% end %>
 
-  <% if @judge.indicators_2013.numerical && @judge.indicators_2013.numerical.to_hash.values[2..9].compact.size == 8 %>
-    <%= render 'judges/indicators_2013/numerical', judge: judge, facets: facets, others: others %>
+  <% if indicators.numerical && indicators.numerical.to_hash.values[2..9].compact.size == 8 %>
+    <%= render 'judges/indicators/comparison', judge:, facets:, others:, year: 2013, dataset: Judge::Indicators2013 %>
   <% end %>
 
-  <% if @judge.indicators_2013.statistical %>
-    <%= render 'judges/indicators_2013/statistical', judge: judge, indicators: judge.indicators_2013.statistical %>
-    <%= render 'judges/indicators_2013/notes', judge: judge, indicators: judge.indicators_2013.statistical %>
+  <% if indicators.statistical %>
+    <%= render 'judges/indicators_2013/statistical', judge:, indicators: indicators.statistical %>
+    <%= render 'judges/indicators_2013/notes', judge:, indicators: indicators.statistical %>
   <% end %>
 <% else %>
   <p class="mb-0">
     <%= t '.none' %>
   </p>
- <% end %>
+<% end %>

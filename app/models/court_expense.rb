@@ -1,9 +1,9 @@
-class CourtExpense < ActiveRecord::Base
+# frozen_string_literal: true
+
+class CourtExpense < ApplicationRecord
   include Resource::URI
 
-  attr_accessible :year, :value
-
-  belongs_to :court
+  belongs_to :court, optional: true
 
   validates :value, presence: true
   validates :year,  presence: true

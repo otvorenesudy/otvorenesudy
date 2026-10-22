@@ -2,11 +2,11 @@
   <%= t '.headline' %>
 </h2>
 
-<% if @judge.indicators_2021 %>
+<% if (indicators = judge.indicators_2021) %>
   <p>
-    <%= t('.evaluation', evaluation: content_tag(:span, t(".evaluation_values.#{@judge.indicators_2021['Celkové hodnotenie']}"), class: 'font-weight-bold')) %>
-    <br/>
-    <%= t(".dominant_agenda.#{@judge.indicators_2021['Dominantná agenda']}") %>
+    <%= t '.evaluation', evaluation: tag.span(t(".evaluation_values.#{indicators['Celkové hodnotenie']}"), class: 'fw-bold') %>
+    <br>
+    <%= t ".dominant_agenda.#{indicators['Dominantná agenda']}" %>
   </p>
 
   <h2 class="h4 text-uppercase mb-2 mt-4">
@@ -14,11 +14,11 @@
   </h2>
 
   <p>
-    <%= t('.quality.decrees', percentage: @judge.indicators_2021['Potvrdené rozhodnutia (%)']) %>
-    <%= t('.quality.decrees_appealed', amount: @judge.indicators_2021['Počet odvolaní']) %>
-    <br/>
-    <%= icon_tag('arrow-right', width: 9, height: 30, 'aria-hidden' => 'true') %>
-    <%= t(".rating.value_#{@judge.indicators_2021['Kvalita_rec']}")%>
+    <%= t '.quality.decrees', percentage: indicators['Potvrdené rozhodnutia (%)'] %>
+    <%= t '.quality.decrees_appealed', amount: indicators['Počet odvolaní'] %>
+    <br>
+    <%= icon_tag 'arrow-right', width: 9, height: 30, aria: { hidden: true } %>
+    <%= t ".rating.value_#{indicators['Kvalita_rec']}" %>
   </p>
 
   <h2 class="h4 text-uppercase mb-2 mt-4">
@@ -26,49 +26,45 @@
   </h2>
 
   <p>
-    <%= t('.effectivity.ratio', percentage: @judge.indicators_2021['Vybavenosť (%)']) %>
-    <br/>
-    <%= t('.effectivity.available_time', days: @judge.indicators_2021['Odhadovaná priemerná dĺžka konania (dispozičný čas - dni)']) %>
-    <br/>
-    <%= t('.effectivity.decrees_in_agenda', amount: @judge.indicators_2021['Rozhodnuté veci']) %>
-    <br/>
-    <%= icon_tag('arrow-right', width: 9, height: 30, 'aria-hidden' => 'true') %>
-    <%= t(".rating.value_#{@judge.indicators_2021['Efektivita_rec']}")%>
+    <%= t '.effectivity.ratio', percentage: indicators['Vybavenosť (%)'] %>
+    <br>
+    <%= t '.effectivity.available_time', days: indicators['Odhadovaná priemerná dĺžka konania (dispozičný čas - dni)'] %>
+    <br>
+    <%= t '.effectivity.decrees_in_agenda', amount: indicators['Rozhodnuté veci'] %>
+    <br>
+    <%= icon_tag 'arrow-right', width: 9, height: 30, aria: { hidden: true } %>
+    <%= t ".rating.value_#{indicators['Efektivita_rec']}" %>
   </p>
-
 
   <h2 class="h4 text-uppercase mb-2 mt-4">
     <%= t '.productivity.headline' %>
   </h2>
 
   <p>
-    <%= t('.productivity.weighted_product', amount: @judge.indicators_2021['Vážené rozhodnuté']) %>
-    <br/>
-    <%= t('.productivity.unresolved', amount: @judge.indicators_2021['Nevybavené veci'], arrears_percentage: @judge.indicators_2021['Reštančné z nevybavených (%)'])  %>
-    <br/>
-    <%= icon_tag('arrow-right', width: 9, height: 30, 'aria-hidden' => 'true') %>
-    <%= t(".rating.value_#{@judge.indicators_2021['Produktivita_rec']}")%>
+    <%= t '.productivity.weighted_product', amount: indicators['Vážené rozhodnuté'] %>
+    <br>
+    <%= t '.productivity.unresolved', amount: indicators['Nevybavené veci'], arrears_percentage: indicators['Reštančné z nevybavených (%)'] %>
+    <br>
+    <%= icon_tag 'arrow-right', width: 9, height: 30, aria: { hidden: true } %>
+    <%= t ".rating.value_#{indicators['Produktivita_rec']}" %>
   </p>
 
   <h2 class="h4 text-uppercase mb-2 mt-4">
     <%= t '.chart.headline' %>
-    <br/>
+    <br>
     <small class="text-muted"><%= t '.chart.disclaimer' %></small>
-    <hr/>
   </h2>
-  <div id="indicators-chart-2021">
-    <% content_for :scripts do %>
-      <% content_tag :script do %>
-         <%= render(partial: 'judges/indicators_2021/chart', formats: :js, locals: { judge: judge }).html_safe %>
-      <% end %>
-    <% end %>
+  <hr>
 
-    <div class="chart mt-4 text-center">
-      <canvas class="chart-canvas" width="500px" height="500px">
-      </canvas>
-      <div class="chart-legend"></div>
-    </div>
-  </div>
+  <% if (scores = indicators[:chart]) %>
+    <% labels = scores.keys.map { |key| t(".chart.values.#{key}") } %>
+    <%= tag.div id: 'indicators-chart-2021', data: indicators_chart_data(type: 'polarArea', labels:, series: [{ label: judge.name, data: scores.values.map(&:to_f) }]) do %>
+      <div class="chart-polar table-responsive-sm mt-4">
+        <%= indicators_chart_tag labels %>
+      </div>
+      <%= indicators_chart_legend_tag labels, polar: true %>
+    <% end %>
+  <% end %>
 <% else %>
   <p class="mb-0">
     <%= t '.none' %>

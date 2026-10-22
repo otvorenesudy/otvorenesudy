@@ -2,6 +2,8 @@ en:
   search:
     controls:
       reset: "Remove all criteria"
+      ascending: "Ascending"
+      descending: "Descending"
 
       sort:
         common: &common
@@ -64,3 +66,4 @@ en:
       are_you_sure: "Are you sure?"
       confirm_delete: "Unsubscribe"
       cancel: "Back"
+      period: "How often"

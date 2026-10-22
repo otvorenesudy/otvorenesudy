@@ -1,8 +1,7 @@
-class Defendant < ActiveRecord::Base
-  attr_accessible :name,
-                  :name_unprocessed
+# frozen_string_literal: true
 
-  belongs_to :hearing
+class Defendant < ApplicationRecord
+  belongs_to :hearing, optional: true
 
   has_many :accusations, dependent: :destroy
 

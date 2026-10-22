@@ -105,6 +105,13 @@ en:
       report_for: "Report in year"
 
     indicators: &indicators
+      chart:
+        average: "Average"
+        labels:
+          "2013": ["Cases in arrears", "Clearance rate", "Capacity to resolve", "Arrears among unresolved", "Unresolved cases", "Appeal frequency", "Upheld decisions", "Changed or quashed overall"]
+          "2015": ["Clearance rate", "Arrears among unresolved", "Capacity to resolve", "Upheld decisions"]
+          "2017": ["Clearance rate", "Arrears among unresolved", "Capacity to resolve", "Upheld decisions"]
+
       none: "We do not register any indicators for the judge yet."
 
       numerical: &indicators_numerical
@@ -137,6 +144,7 @@ en:
 
     indicators_2013:
       <<: *indicators
+      untranslated: "Please note that some content pertaining judge indicators may not be translated."
 
       headline: "Indicators for 2013"
 
@@ -149,10 +157,12 @@ en:
           childcare: "Childcare"
           criminal: "Criminal"
 
-        decrees_count: "The number of Constitutional court judgements against the judges &ndash; issued %{released_decrees} and delays prior to case assignment %{delayed_decrees}."
+        decrees_count: "The number of Constitutional court judgements against the judges – issued %{released_decrees} and delays prior to case assignment %{delayed_decrees}."
         performance_data: "For the judge we register performance data for years %{years}:"
         assigned_agendas: "Assigned agendas"
         decided_agendas: "Decided agendas"
+        assigned_agendas_subject: "Sudcovi"
+        decided_agendas_subject: "Sudca"
         judge_results: "The judge in this period worked %{days} days and on average was assigned %{cases} cases in 10 days in main agendas."
 
       statistical:

@@ -21,7 +21,18 @@ Gemfile.lock.tags
 
 /config/configuration.yml
 
-.env.local
+# Rails credentials' keys (production's encrypted file is committed). Each developer keeps their own development
+# credentials, from config/credentials/development.example.
+/config/master.key
+/config/credentials/*.key
+/config/credentials/development.*
+!/config/credentials/development.example
+
+# Generated nightly (config/sitemap.rb)
+/public/sitemaps/
+
+# dotenv: the database login and settings, each developer's own and the server's; never committed
+/.env*
 
 plans/*.md
 
@@ -29,3 +40,9 @@ plans/*.md
 /.claude/settings.local.json
 /.claude/worktrees/
 /.claude/plans
+
+# Node tooling (Prettier), Dart Sass builds and coverage reports
+/node_modules/
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/coverage/

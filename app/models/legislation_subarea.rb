@@ -1,7 +1,7 @@
-class LegislationSubarea < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :decrees
+class LegislationSubarea < ApplicationRecord
+  has_many :decrees, dependent: nil
 
   validates :value, presence: true
 end

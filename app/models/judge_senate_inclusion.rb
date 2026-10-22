@@ -1,7 +1,7 @@
-class JudgeSenateInclusion < ActiveRecord::Base
-  attr_accessible :value
+# frozen_string_literal: true
 
-  has_many :summaries, class_name: :JudgeStatisticalSummary
+class JudgeSenateInclusion < ApplicationRecord
+  has_many :summaries, class_name: 'JudgeStatisticalSummary', dependent: nil
 
   validates :value, presence: true
 end

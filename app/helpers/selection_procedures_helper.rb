@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module SelectionProceduresHelper
   def selection_procedure_title(procedure)
-    title(*selection_procedure_identifiers(procedure) << t('selection_procedures.common.selection_procedure'))
+    title(*selection_procedure_identifiers(procedure), t('selection_procedures.common.selection_procedure'))
   end
 
   def selection_procedure_headline(procedure, options = {})
@@ -10,6 +12,6 @@ module SelectionProceduresHelper
   private
 
   def selection_procedure_identifiers(procedure)
-    [procedure.position, procedure.organization_name].reject(&:blank?)
+    [procedure.position, procedure.organization_name].compact_blank
   end
 end

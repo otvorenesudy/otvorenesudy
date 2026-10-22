@@ -1,0 +1,9 @@
+# Weekly pull requests for newer npm packages: Prettier, esbuild and the browser libraries in vendor/. A bump of a
+# vendored library fails bin/vendor --check in CI until someone runs npm ci and bin/vendor on its branch and commits the
+# files; bootstrap also needs the bootstrap gem bumped to the same version.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
