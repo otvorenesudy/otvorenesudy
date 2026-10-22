@@ -1,0 +1,59 @@
+# Betterleaks findings that were reviewed and kept, by fingerprint (commit:file:rule:line, or file:rule:line for one
+# not committed yet). bin/leaks passes this file to Betterleaks. Every entry has its reason above it; a real secret is
+# removed and revoked, not listed here.
+#
+# Everything below was in the history before bin/leaks existed, reviewed on 2026-10-22. The history is public, so the
+# real secrets among them must be revoked wherever they are still valid.
+
+# Real: the Rails 3.2 session secret (2012-2013). The file is gone; production must not use this value as its
+# secret_key_base.
+fdf2ebdc7d09ab4cdf8958341d9c4d14e48c6eef:config/initializers/secret_token.rb:generic-api-key:7
+6751e1c3d3aa804f15dfd43b0610c9cdf2561a18:config/initializers/secret_token.rb:generic-api-key:7
+
+# Real: a Bing Search API key (2013).
+232957c5671b2a2c065951a6ed32519f7ec2a66d:lib/bing.rb:generic-api-key:4
+fe3751673c0cc414d5a13a0702a69840aaba4008:lib/bing.rb:generic-api-key:4
+
+# Probably a test value: the session secret of the Travis CI builds (2015). Real only if production used it too.
+359101eb8c8320d187405d78caada6f89f4428a4:config/configuration.yml.travis:generic-api-key:2
+
+# Real: the Google Maps API key of the courts' pages (2016, removed with the maps in 2019), GitHub's secret scanning
+# alert #1.
+92fdf189167472b59780aa8ba621e8bc0eef966c:app/helpers/courts_helper.rb:gcp-api-key:11
+
+# Not secrets: placeholder passwords in the example database configuration (2012-2013).
+2c5ae7c191858b4421c99526b59954bb26bfb07f:config/database.yml.example:generic-password:7
+2c5ae7c191858b4421c99526b59954bb26bfb07f:config/database.yml.example:generic-password:18
+2c5ae7c191858b4421c99526b59954bb26bfb07f:config/database.yml.example:generic-password:26
+6751e1c3d3aa804f15dfd43b0610c9cdf2561a18:config/database.yml.example:generic-password:7
+6751e1c3d3aa804f15dfd43b0610c9cdf2561a18:config/database.yml.example:generic-password:18
+6751e1c3d3aa804f15dfd43b0610c9cdf2561a18:config/database.yml.example:generic-password:26
+0b410205d3d42a04dab97e13b25b2f3ec92d830d:config/database.yml.example:generic-password:26
+
+# Not secrets: translations of the word "password" in labels and messages.
+56ec4f1f386c32e0082f8fc7bb450b26d6efaf78:config/locales/models/sk.yml:generic-password:72
+56ec4f1f386c32e0082f8fc7bb450b26d6efaf78:config/locales/models/sk.yml:generic-password:74
+ae16ce8fd7a0b6fe5ab6b56f54e7d58d41ef1a84:config/locales/models/models.en.yml:generic-password:95
+ae16ce8fd7a0b6fe5ab6b56f54e7d58d41ef1a84:config/locales/models/models.en.yml:generic-password:97
+b771b3c3af3beb074f4edf685efaf7274e57579d:config/locales/views/devise.en.yml:generic-password:7
+1c4880cdfe09c2d5a2054176da509c1cf53796b0:config/locales/views/devise.en.yml:generic-password:7
+ae16ce8fd7a0b6fe5ab6b56f54e7d58d41ef1a84:config/locales/views/devise.en.yml:generic-password:52
+b771b3c3af3beb074f4edf685efaf7274e57579d:config/locales/views/devise.sk.yml:generic-password:7
+4b8f97aa6a66142a0f43bbfcde0a16b482f70bd0:config/locales/views/devise/en.yml:generic-password:7
+4b8f97aa6a66142a0f43bbfcde0a16b482f70bd0:config/locales/views/devise/en.yml:generic-password:54
+41a84935e13c6736f8cf7d23d289a791a21bce4c:config/locales/views/devise/en.yml:generic-password:96
+f111a5166b342d4ab7d7ac0baf64c998d1a95d44:config/locales/views/devise/en.yml:generic-password:85
+4b8f97aa6a66142a0f43bbfcde0a16b482f70bd0:config/locales/views/devise/sk.yml:generic-password:7
+4b8f97aa6a66142a0f43bbfcde0a16b482f70bd0:config/locales/views/devise/sk.yml:generic-password:54
+41a84935e13c6736f8cf7d23d289a791a21bce4c:config/locales/views/devise/sk.yml:generic-password:96
+f111a5166b342d4ab7d7ac0baf64c998d1a95d44:config/locales/views/devise/sk.yml:generic-password:85
+
+# Not secrets: the password of the test database, which exists only in CI's service container.
+9c24f897e41652654f8d7c97ecf30bb74acb9065:.github/workflows/ci.yml:generic-password:24
+9c24f897e41652654f8d7c97ecf30bb74acb9065:.github/workflows/ci.yml:generic-password:49
+9c24f897e41652654f8d7c97ecf30bb74acb9065:.github/workflows/ci.yml:generic-password:51
+
+# Not secrets: the test users' password in specs.
+9c24f897e41652654f8d7c97ecf30bb74acb9065:spec/requests/accounts_spec.rb:generic-password:7
+9c24f897e41652654f8d7c97ecf30bb74acb9065:spec/requests/accounts_spec.rb:generic-password:11
+9c24f897e41652654f8d7c97ecf30bb74acb9065:spec/requests/accounts_spec.rb:generic-password:19

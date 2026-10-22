@@ -53,6 +53,9 @@ bin/test                     # lint, then every spec with coverage, then underco
 bin/test spec/system/courts_spec.rb:12   # lint, then those specs
 bin/lint                     # RuboCop and Prettier on the files this branch changed
 bin/lint --fix <file>        # format and autocorrect a file (the edit hook does this for you)
+bin/leaks                    # secrets in the files and the history (the git hooks check each commit and push)
+bin/brakeman                 # vulnerabilities in the code
+bin/bundler-audit            # gems with known vulnerabilities
 bin/vendor                   # copy the browser libraries package.json lists into vendor/ (npm install first)
 bin/elasticsearch --daemon   # Elasticsearch 9 on localhost:9200, downloaded on first use
 bin/rails probe:reindex      # rebuild the search indices from the database
@@ -115,10 +118,33 @@ Claude Code denies them to its file tools (`permissions.deny`) and to sandboxed 
 to ENV and is fine to read. `db-backup-*.gz` in the workspace is a production dump: only the user restores it, with
 `bin/restore-production-copy`, which masks users' e-mail addresses on the way in.
 
+### Keeping Secrets Out of Git
+
+The history is public, so a secret that reaches it has leaked. `bin/leaks` stops one first: Betterleaks, pinned in the
+script and downloaded on first use, for what files say, and a list of names in the script (`config/master.key`,
+dotenv files, private keys, database dumps) for what they are called.
+
+| Where | When | What It Checks |
+| --- | --- | --- |
+| `.githooks/pre-commit`, `.githooks/pre-push` | Every commit and push, once `bin/leaks --install` has run (`bin/setup` and every Claude Code session run it) | The staged changes; the commits being pushed |
+| `.claude/hooks/scan-for-leaks.sh` | Before every file an agent writes | The new text and the file's name |
+| `.github/workflows/security.yml` | Every pull request and push to `main` | The files at HEAD and every commit before it; the ruleset on `main` requires this Secrets check |
+
+When it stops you:
+
+- **A real secret**: take it out, put it in the credentials or `.env`, and tell the user, who revokes it if it was
+  pushed.
+- **Not a secret** (a test password, a placeholder, a value in a recorded page): `betterleaks:allow` in a comment on
+  its line, or, where no comment fits, its fingerprint in `.betterleaksignore` with the reason above it.
+- **Never skip the hooks.** `--no-verify`, `git commit -n` and changing `core.hooksPath` are blocked for agents, and
+  CI scans the whole history anyway.
+
 ## Commits, Branches and Pull Requests
 
 Nothing deploys automatically: a maintainer deploys with Capistrano (`bundle exec cap production deploy`). Changes
-reach `main` through reviewed pull requests; CI (`.github/workflows/ci.yml`) runs `bin/test`.
+reach `main` through reviewed pull requests; CI (`.github/workflows/ci.yml`) runs `bin/test`, and
+`.github/workflows/security.yml` runs `bin/leaks`, Brakeman and bundler-audit. The ruleset on `main` requires a pull
+request and its Secrets check.
 
 1. **One worktree per change**, off the latest `main`, on a branch named with the `branch-naming` skill:
 
@@ -146,8 +172,8 @@ Claude Code reads `CLAUDE.md`, which imports this file. Other agents read this f
 | Rules, loaded by path | `.claude/rules/*.md` |
 | Skills | `.claude/skills/*/SKILL.md` |
 | Permissions, sandbox, hooks | `.claude/settings.json`; personal overrides in `.claude/settings.local.json` (not committed) |
-| Hooks | `.claude/hooks/block-sensitive-files.sh` (before shell commands), `.claude/hooks/format.sh` (after edits) |
+| Hooks | `bin/leaks --install` (at session start); `.claude/hooks/block-sensitive-files.sh` and `block-hook-bypass.sh` (before shell commands); `scan-for-leaks.sh` (before edits); `format.sh` (after edits) |
 
-The settings deny the secrets above, allow `bin/lint` and `bin/test` without asking, ask before `cap` and pushes to
-`main`, keep the sandbox's network to RubyGems, GitHub and the data sources, and run only `bin/test` outside the
-sandbox. No test covers the agent setup: when you change it, try it in a session.
+The settings deny the secrets above, allow `bin/leaks`, `bin/lint` and `bin/test` without asking, ask before `cap`
+and pushes to `main`, keep the sandbox's network to RubyGems, GitHub and the data sources, and run only `bin/test`
+outside the sandbox. No test covers the agent setup: when you change it, try it in a session.

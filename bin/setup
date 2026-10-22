@@ -17,6 +17,9 @@ FileUtils.chdir APP_ROOT do
   system('bundle check') || system!('bundle install')
   system! 'npm install --no-audit --no-fund'
 
+  puts "\n== Installing git hooks =="
+  system! 'bin/leaks --install'
+
   puts "\n== Preparing database =="
   system! 'bin/rails db:prepare'
   system! 'bin/rails db:reset' if ARGV.include?('--reset')

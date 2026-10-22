@@ -3,6 +3,8 @@
   "permissions": {
     "defaultMode": "auto",
     "allow": [
+      "Bash(bin/leaks)",
+      "Bash(bin/leaks *)",
       "Bash(bin/lint)",
       "Bash(bin/lint *)",
       "Bash(bin/test)",
@@ -98,6 +100,18 @@
     }
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/bin/leaks --install",
+            "timeout": 120,
+            "statusMessage": "Installing the git hooks that keep secrets out of commits"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
@@ -106,6 +120,22 @@
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-sensitive-files.sh",
             "statusMessage": "Checking the command for files that hold secrets"
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-hook-bypass.sh",
+            "statusMessage": "Checking the command for skipped git hooks"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/scan-for-leaks.sh",
+            "timeout": 120,
+            "statusMessage": "Checking the text for secrets"
           }
         ]
       }
