@@ -26,11 +26,9 @@ bin/elasticsearch --daemon
 bin/setup
 ```
 
-`bin/setup` installs the gems and the Node packages, creates the database from `db/structure.sql` with its seeds, then starts
-`bin/dev` (the app on port 3000 and the Dart Sass watcher). Build the search indices with `bin/rails probe:reindex`.
-
-The database login comes from `OPENCOURTS_DATABASE_USER` and `OPENCOURTS_DATABASE_PASSWORD` (and
-`OPENCOURTS_DATABASE_HOST`), in your environment or a `.env` file; without them PostgreSQL's defaults apply.
+`bin/setup` installs the gems and the Node packages, makes `.env` and `.env.test` from their templates (see
+[Configuration](#configuration)), creates the database from `db/structure.sql` with its seeds, then starts `bin/dev`
+(the app on port 3000 and the Dart Sass watcher). Build the search indices with `bin/rails probe:reindex`.
 
 ### A Copy of Production
 
@@ -42,10 +40,29 @@ subscriptions' unsubscribe tokens. Then reindex with `bin/rails probe:reindex`.
 
 ## Configuration
 
-The environment, or a `.env` file (git ignores it), holds the database login, shared with otvorenesudy-api
-(`OPENCOURTS_DATABASE_HOST`, `OPENCOURTS_DATABASE_USER`, `OPENCOURTS_DATABASE_PASSWORD`; on the server, the deploy
-user's `~/.env`), and settings: optionally `REDIS_URL`, `ELASTICSEARCH_URL`, `RAILS_MAX_THREADS`, `SIDEKIQ_CONCURRENCY`
-and `RAILS_LOG_LEVEL`.
+The environment holds the settings: the database login, shared with otvorenesudy-api (`OPENCOURTS_DATABASE_HOST`,
+`OPENCOURTS_DATABASE_USER`, `OPENCOURTS_DATABASE_PASSWORD`; without them PostgreSQL's defaults apply, your own user on
+localhost), and optionally `REDIS_URL`, `ELASTICSEARCH_URL`, `RAILS_MAX_THREADS`, `SIDEKIQ_CONCURRENCY` and, in
+production, `RAILS_LOG_LEVEL`. On the server they come from the deploy user's `~/.env`; production reads no dotenv
+file.
+
+In development and the tests, dotenv-rails also reads them from dotenv files, never overriding a variable the
+environment already has, the first file that sets a variable winning: `.env.development.local`, `.env.local`,
+`.env.development` and `.env` in development; `.env.test.local`, `.env.test` and `.env` in the tests.
+
+| File | In Git | What It Holds |
+| --- | --- | --- |
+| `.env.example` | Committed | The template of `.env`: every setting, with its default |
+| `.env` | Ignored | Your settings, in development and, as defaults, in the tests; `bin/setup` makes it from `.env.example` |
+| `.env.test.example` | Committed | The template of `.env.test` |
+| `.env.test` | Ignored | The tests' settings, over `.env`'s; `bin/setup` makes it from `.env.test.example` |
+| `.env.ci` | Committed | CI's settings: the workflow copies it to `.env.test` |
+| `.env.local`, `.env.*.local` | Ignored | Optional overrides of your own; the tests don't read `.env.local` |
+
+Change your copies, not the templates, which are committed and hold no secrets; when a template gains a setting, add it
+to your copy. The tests' database login needs to create databases and roles, so it is a superuser: `bin/test`
+recreates `opencourts_test`, which otvorenesudy-api's tests share, and a spec restores a dump with its roles.
+`.env.test.example` leaves it to your own user, a superuser on Homebrew's PostgreSQL.
 
 The other secrets live only in Rails' encrypted credentials: `config/credentials/production.yml.enc`, with its key in
 `config/credentials/production.key` (on the server, linked by Capistrano; never committed). Production doesn't boot

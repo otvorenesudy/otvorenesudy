@@ -27,7 +27,7 @@ version=1.9.0
 # Files that hold secrets and never belong in git: an extended regular expression on the path from the repository
 # root, then what such a file holds. .gitignore keeps most of them out already.
 forbidden='
-(^|/)\.env(\.[^/]+)?$                                   a dotenv file: the database login and settings
+(^|/)\.env(\.[^/]+)?$                                   a dotenv file of your own: the database login and settings
 (^|/)[^/]+\.key$                                        a key, such as the ones that decrypt Rails credentials
 (^|/)config/credentials(/[^/]+)?\.ya?ml$                Rails credentials, decrypted (the encrypted .yml.enc are fine)
 (^|/)config/(configuration|secrets)\.yml$               the Rails 3.2 app'"'"'s secrets, or Rails 4 and 5 secrets
@@ -41,7 +41,8 @@ forbidden='
 
 # Files that match a pattern above but are fine to commit, with the reason.
 allowed='
-(^|/)\.env\.(example|sample)$                           a template without values
+(^|/)\.env(\.[^/.]+)?\.(example|sample)$                a dotenv template, such as .env.example and .env.test.example
+(^|/)\.env\.ci$                                         CI'"'"'s dotenv file: the login of its own database container
 '
 
 # The pinned Betterleaks, downloaded on first use into the repository's git directory, which its worktrees share.

@@ -31,8 +31,13 @@ Gemfile.lock.tags
 # Generated nightly (config/sitemap.rb)
 /public/sitemaps/
 
-# dotenv: the database login and settings, each developer's own and the server's; never committed
-/.env*
+# dotenv, in development and the tests: each developer's .env and .env.test, which bin/setup copies from the committed
+# .env.example and .env.test.example, and optional .env.local and .env.*.local overrides. CI's workflow copies the
+# committed .env.ci to .env.test. The committed files hold no secrets.
+/.env
+/.env.local
+/.env.*.local
+/.env.test
 
 plans/*.md
 

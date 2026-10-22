@@ -13,7 +13,8 @@ set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip
 
 # The secrets' key (config/credentials/production.yml.enc is committed); the database logins come from the deploy
-# user's ~/.env, which its login shell exports.
+# user's ~/.env, which its login shell exports. Production reads none of the app's dotenv files (.env and the rest are
+# for development and the tests), so none is linked.
 set :linked_files, fetch(:linked_files, []).push('config/credentials/production.key')
 set :linked_dirs, fetch(:linked_dirs, []).push(
   'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'storage', 'backups', 'public/sitemaps'

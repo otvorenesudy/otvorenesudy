@@ -11,8 +11,9 @@
 #
 # Needs PostgreSQL with pg_trgm, unaccent and pgvector on localhost (brew services start postgresql@17) and
 # Elasticsearch 9 on localhost:9200 (bin/elasticsearch --daemon). The app reads its local configuration while it boots
-# (.env), which the Claude Code sandbox hides, so Claude Code runs bin/test outside the sandbox
-# (sandbox.excludedCommands in .claude/settings.json).
+# (.env.test, then .env: bin/setup makes them from .env.test.example and .env.example; CI copies .env.ci to .env.test),
+# which the Claude Code sandbox hides, so Claude Code runs bin/test outside the sandbox (sandbox.excludedCommands in
+# .claude/settings.json).
 #
 # One run at a time on this machine: this app and otvorenesudy-api share the opencourts_test database, so a second
 # run of either waits for the first.
