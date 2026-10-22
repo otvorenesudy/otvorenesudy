@@ -1,0 +1,4 @@
+#!/bin/sh
+# Stops a push whose commits carry a secret, including commits made with --no-verify or before the hooks were
+# installed. git passes the remote name, then the URL, and the refs being pushed on stdin.
+exec bin/leaks --push "$1"

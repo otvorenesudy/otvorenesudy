@@ -1,0 +1,4 @@
+#!/bin/sh
+# Stops a commit that adds a secret, or a file that holds one. `bin/leaks --install` (bin/setup runs it) points git
+# at this directory.
+exec bin/leaks --staged
