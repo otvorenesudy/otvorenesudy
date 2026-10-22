@@ -6,7 +6,7 @@
     "node": ">=24"
   },
   "devDependencies": {
-    "@kurkle/color": "0.3.4",
+    "@kurkle/color": "0.6.5",
     "@popperjs/core": "2.11.8",
     "bootstrap": "5.3.8",
     "chart.js": "4.5.1",
