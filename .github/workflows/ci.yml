@@ -44,15 +44,6 @@ jobs:
           --health-cmd "curl -fs http://localhost:9200/_cluster/health" --health-interval 10s --health-timeout 5s
           --health-retries 20
 
-    env:
-      OPENCOURTS_DATABASE_USER: opencourts
-      OPENCOURTS_DATABASE_PASSWORD: opencourts
-      PGUSER: opencourts
-      PGPASSWORD: opencourts
-      CI: 'true'
-      # A failed browser spec saves the page's HTML beside its screenshot in tmp/capybara.
-      RAILS_SYSTEM_TESTING_SCREENSHOT_HTML: '1'
-
     steps:
       - name: Check Out Repository
         uses: actions/checkout@v4
@@ -60,6 +51,11 @@ jobs:
           # undercover and bin/lint compare the branch with origin/main.
           fetch-depth: 0
           submodules: recursive
+
+      # The app's settings in CI, the database login among them, are in the committed .env.ci; it takes the place of the
+      # .env.test a developer makes from .env.test.example, which the tests read while the app boots.
+      - name: Configure the App for CI
+        run: cp .env.ci .env.test
 
       - name: Set Up Ruby
         uses: ruby/setup-ruby@v1

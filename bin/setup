@@ -3,12 +3,28 @@
 
 # Sets up or updates the development environment; safe to run again at any time. `bin/setup --reset` also reloads the
 # database, `--skip-server` doesn't start bin/dev at the end.
+#
+# The settings of development and the tests come from .env and .env.test, which git ignores. A missing one is copied
+# from its committed template, .env.example or .env.test.example; an existing one is never overwritten.
 require 'fileutils'
 
 APP_ROOT = File.expand_path('..', __dir__)
 
+DOTENV_TEMPLATES = { '.env' => '.env.example', '.env.test' => '.env.test.example' }.freeze
+
 def system!(*)
   system(*, exception: true)
+end
+
+def copy_dotenv_templates
+  DOTENV_TEMPLATES.each do |file, template|
+    if File.exist?(file)
+      puts "#{file} exists; compare it with #{template} for new settings."
+    else
+      FileUtils.cp(template, file)
+      puts "Created #{file} from #{template}."
+    end
+  end
 end
 
 FileUtils.chdir APP_ROOT do
@@ -19,6 +35,9 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Installing git hooks =="
   system! 'bin/leaks --install'
+
+  puts "\n== Copying dotenv files =="
+  copy_dotenv_templates
 
   puts "\n== Preparing database =="
   system! 'bin/rails db:prepare'

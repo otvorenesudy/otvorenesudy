@@ -9,7 +9,7 @@ The process is the `acceptance-first` skill: scenarios first, an end-to-end spec
 assertion, then the code. This is how to write those specs here, on **rspec-rails 8, FactoryBot, Capybara (rack_test
 and headless Chrome through Selenium) and WebMock**, against the real PostgreSQL and Elasticsearch. Run them with
 `bin/test <spec>`: it lints, prepares the test database and runs outside the Claude Code sandbox, which plain
-`bundle exec rspec` can't (the app reads `.env` while it boots).
+`bundle exec rspec` can't (the app reads `.env.test` and `.env` while it boots).
 
 ## Which Spec
 

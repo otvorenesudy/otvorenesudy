@@ -47,7 +47,7 @@ judge an id from `data/*.csv` to test its indicators.
 ## Commands
 
 ```bash
-bin/setup                    # gems, Node packages, the database; then bin/elasticsearch --daemon
+bin/setup                    # gems, Node packages, .env and .env.test, the database; then bin/elasticsearch --daemon
 bin/dev                      # the app and Dart Sass in watch mode
 bin/test                     # lint, then every spec with coverage, then undercover; must be green before you are done
 bin/test spec/system/courts_spec.rb:12   # lint, then those specs
@@ -69,8 +69,8 @@ bundle exec sidekiq -C config/sidekiq.yml
 - **Chrome** for the `:js` specs; Selenium Manager fetches the matching chromedriver.
 
 It holds a machine-wide lock, because otvorenesudy-api uses the same test database, and runs outside the Claude Code
-sandbox, because the app reads `.env` while it boots. Run specs through it rather than `bundle exec rspec`, which the
-sandbox can't boot.
+sandbox, because the app reads `.env.test` and `.env` while it boots. Run specs through it rather than
+`bundle exec rspec`, which the sandbox can't boot.
 
 A full run measures coverage: SimpleCov fails below 95% of lines or 90% of branches, and undercover reports every
 method this branch changed that no spec runs. Rake tasks, configuration and the hidden selection procedures aren't
@@ -109,7 +109,7 @@ secret, ask the user to add it.
 
 | File | What |
 | --- | --- |
-| `.env`, `.env.local` | The database login (host, user, password), shared with otvorenesudy-api, and settings |
+| `.env`, `.env.test`, `.env.local`, `.env.*.local` | Each developer's database login (host, user, password), shared with otvorenesudy-api, and settings; git ignores them. `bin/setup` makes `.env` and `.env.test` from the committed templates `.env.example` and `.env.test.example`; CI copies the committed `.env.ci` to `.env.test`. Those three hold no secrets but are denied like the rest |
 | `config/master.key`, `config/credentials/*.key` | Keys of the encrypted credentials; `config/credentials/*.yml.enc` are the encrypted files. Production's hold the other secrets: `secret_key_base`, `devise.key`, `smtp.*`, `sentry.dsn`, `skylight.token` (`config/initializers/production_boot_check.rb` lists them) |
 | `config/configuration.yml` | The Rails 3.2 app's secrets, no longer read; delete it once they are in the credentials |
 
@@ -122,7 +122,7 @@ to ENV and is fine to read. `db-backup-*.gz` in the workspace is a production du
 
 The history is public, so a secret that reaches it has leaked. `bin/leaks` stops one first: Betterleaks, pinned in the
 script and downloaded on first use, for what files say, and a list of names in the script (`config/master.key`,
-dotenv files, private keys, database dumps) for what they are called.
+dotenv files other than the committed templates and `.env.ci`, private keys, database dumps) for what they are called.
 
 | Where | When | What It Checks |
 | --- | --- | --- |
@@ -132,8 +132,8 @@ dotenv files, private keys, database dumps) for what they are called.
 
 When it stops you:
 
-- **A real secret**: take it out, put it in the credentials or `.env`, and tell the user, who revokes it if it was
-  pushed.
+- **A real secret**: take it out, put it in the credentials or your `.env` (never the committed `.env.example`,
+  `.env.test.example` or `.env.ci`), and tell the user, who revokes it if it was pushed.
 - **Not a secret** (a test password, a placeholder, a value in a recorded page): `betterleaks:allow` in a comment on
   its line, or, where no comment fits, its fingerprint in `.betterleaksignore` with the reason above it.
 - **Never skip the hooks.** `--no-verify`, `git commit -n` and changing `core.hooksPath` are blocked for agents, and

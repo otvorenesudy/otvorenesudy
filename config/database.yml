@@ -1,6 +1,7 @@
 # The database names and the OPENCOURTS_DATABASE_* logins are shared with otvorenesudy-api, which writes into the
-# same database. The logins come from the environment: the deploy user's ~/.env on the server, .env or your own user
-# locally.
+# same database. The logins come from the environment: the deploy user's ~/.env on the server; locally .env in
+# development and .env.test in the tests (made from .env.example and .env.test.example), or, left empty, your own user;
+# in CI .env.ci.
 default: &default
   adapter: postgresql
   encoding: unicode
