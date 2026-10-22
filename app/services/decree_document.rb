@@ -64,14 +64,15 @@ class DecreeDocument
     private
 
     # Takes one of the FETCHES places for the block, or refuses with all taken. The count expires a minute after it
-    # was first taken, so the place of a process that died comes back.
+    # was first taken, so the place of a process that died comes back. Giving a place back after the count expired
+    # starts a new count, which must expire too: memcached keeps a count it starts without an expiry forever.
     def hold_place
       count = Rails.cache.increment(FETCHES_KEY, 1, expires_in: 1.minute)
       raise Busy, "#{FETCHES} documents are being fetched" if count && count > FETCHES
 
       yield
     ensure
-      Rails.cache.decrement(FETCHES_KEY, 1) if count
+      Rails.cache.decrement(FETCHES_KEY, 1, expires_in: 1.minute) if count
     end
 
     # The response, with its body when it succeeded.

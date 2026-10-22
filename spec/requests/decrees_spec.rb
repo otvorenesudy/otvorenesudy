@@ -130,6 +130,27 @@ RSpec.describe 'Decrees' do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'gives back the places of processes that died a minute later, after a fetch that outlived the count', :cache do
+      key = DecreeDocument::FETCHES_KEY
+      outliving = lambda do |_request|
+        travel 61.seconds
+        { status: 200, body: '%PDF' }
+      end
+      stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf')
+        .to_return(outliving).then.to_return(status: 200, body: file_fixture('decree.pdf').binread)
+      get document_decree_path(decree)
+
+      # Processes that die while fetching never give their places back; these take every place.
+      Rails.cache.increment(key) while Rails.cache.read_counter(key).to_i < DecreeDocument::FETCHES
+      get document_decree_path(decree)
+      expect(response).to have_http_status(:service_unavailable)
+
+      travel 61.seconds
+      get document_decree_path(decree)
+
+      expect(response).to have_http_status(:ok)
+    end
+
     it 'does not download a document the source says is larger than 20 MB' do
       stub_request(:get, 'https://obcan.justice.sk/decree/1.pdf')
         .to_return(status: 200, body: '%PDF', headers: { 'Content-Length' => (20.megabytes + 1).to_s })
