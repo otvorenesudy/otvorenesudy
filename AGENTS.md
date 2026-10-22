@@ -81,7 +81,7 @@ measured. Cover what undercover reports with specs; never filter application cod
   and anything public; precise nouns and verbs, no filler words.
 - **Names people read** (CI workflows, jobs and steps, headings, table columns, English UI labels): title case, the
   `title-case` skill. "Check Out Repository", not "Checkout repository".
-- **Rules** in `.claude/rules/` load when you touch the files they cover: `ruby`, `rspec`. Follow them.
+- **Rules** in `.claude/rules/` load when you touch the files they cover: `ruby`, `rspec`, `javascript`. Follow them.
 - **Formatting is automatic.** After every edit a hook runs `bin/lint --fix` on the file and sends back what it
   couldn't fix. Fix those; don't hand-format.
 
