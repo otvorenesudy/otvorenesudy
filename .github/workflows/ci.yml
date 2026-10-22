@@ -10,6 +10,10 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# The job only reads the repository; its token can't write to it.
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test
@@ -46,7 +50,7 @@ jobs:
 
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           # undercover and bin/lint compare the branch with origin/main.
           fetch-depth: 0
@@ -58,12 +62,12 @@ jobs:
         run: cp .env.ci .env.test
 
       - name: Set Up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@e1bd6146574da5e0795075b5319b300edb30c5b0 # v1.333.0
         with:
           bundler-cache: true
 
       - name: Set Up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: .tool-versions
           cache: npm
@@ -77,7 +81,7 @@ jobs:
 
       - name: Upload Coverage Report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: coverage
           path: coverage/
@@ -85,7 +89,7 @@ jobs:
 
       - name: Upload Failure Screenshots
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: screenshots
           path: tmp/capybara/

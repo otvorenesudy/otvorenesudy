@@ -41,6 +41,17 @@ RSpec.describe MarkDecreesWithInvalidPdfUriJob do
     expect(decree.reload).not_to be_pdf_uri_valid
   end
 
+  it 'marks a decree without a PDF address or with one that is not on the web, and checks the rest of the batch' do
+    missing = create(:decree, pdf_uri: nil)
+    local = create(:decree, pdf_uri: 'file:///etc/passwd')
+    stub_request(:get, decree.pdf_uri).to_return(status: 200, headers: { 'Content-Type' => 'application/octet-stream' })
+
+    described_class.perform_now([[missing.id, nil], [local.id, local.pdf_uri], [decree.id, decree.pdf_uri]])
+
+    expect(Decree.where(pdf_uri_invalid: true)).to contain_exactly(missing, local)
+    expect(decree.reload).to be_pdf_uri_valid
+  end
+
   it 'fails, to be retried, when the source does not answer' do
     stub_request(:get, decree.pdf_uri).to_timeout
 

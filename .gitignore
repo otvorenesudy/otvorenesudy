@@ -32,12 +32,13 @@ Gemfile.lock.tags
 /public/sitemaps/
 
 # dotenv, in development and the tests: each developer's .env and .env.test, which bin/setup copies from the committed
-# .env.example and .env.test.example, and optional .env.local and .env.*.local overrides. CI's workflow copies the
-# committed .env.ci to .env.test. The committed files hold no secrets.
+# .env.example and .env.test.example, and any other dotenv file of their own (.env.local, .env.development.local,
+# .env.production). CI's workflow copies the committed .env.ci to .env.test. The committed files hold no secrets.
 /.env
-/.env.local
-/.env.*.local
-/.env.test
+/.env.*
+!/.env.example
+!/.env.*.example
+!/.env.ci
 
 plans/*.md
 
@@ -51,7 +52,3 @@ plans/*.md
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /coverage/
-
-# Ignore key files for decrypting credentials and more.
-/config/credentials/*.key
-

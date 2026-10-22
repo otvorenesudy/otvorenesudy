@@ -18,8 +18,11 @@ class MarkDecreesWithInvalidPdfUriJob < ApplicationJob
 
   private
 
+  # An address that is missing or not on the web (file:, a relative path) serves nothing.
   def serves_pdf?(url)
-    uri = URI(url)
+    uri = URI(url.to_s)
+    return false unless uri.is_a?(URI::HTTP) && uri.host.present?
+
     options = { use_ssl: uri.scheme == 'https', open_timeout: 10, read_timeout: 60 }
     response = Net::HTTP.start(uri.host, uri.port, **options) { |http| http.request_get(uri) }
 
