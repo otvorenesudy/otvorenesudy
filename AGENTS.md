@@ -128,7 +128,7 @@ dotenv files other than the committed templates and `.env.ci`, private keys, dat
 | --- | --- | --- |
 | `.githooks/pre-commit`, `.githooks/pre-push` | Every commit and push, once `bin/leaks --install` has run (`bin/setup` and every Claude Code session run it) | The staged changes; the commits being pushed |
 | `.claude/hooks/scan-for-leaks.sh` | Before every file an agent writes | The new text and the file's name |
-| `.github/workflows/security.yml` | Every pull request and push to `main` | The files at HEAD and every commit before it; the ruleset on `main` requires this Secrets check |
+| `.github/workflows/security.yml` | Every pull request and push to `main` | The files at HEAD and every commit before it; the ruleset on `main` requires this Secrets check of everyone but repository admins |
 
 When it stops you:
 
@@ -142,9 +142,10 @@ When it stops you:
 ## Commits, Branches and Pull Requests
 
 Nothing deploys automatically: a maintainer deploys with Capistrano (`bundle exec cap production deploy`). Changes
-reach `main` through reviewed pull requests; CI (`.github/workflows/ci.yml`) runs `bin/test`, and
-`.github/workflows/security.yml` runs `bin/leaks`, Brakeman and bundler-audit. The ruleset on `main` requires a pull
-request and its Secrets check.
+reach `main` through pull requests, which merge without review, or a push straight to `main` when the user asks for
+one. CI (`.github/workflows/ci.yml`) runs `bin/test`, and `.github/workflows/security.yml` runs `bin/leaks`, Brakeman
+and bundler-audit. The ruleset on `main` requires a pull request and its Secrets check, and lets repository admins
+bypass both.
 
 1. **One worktree per change**, off the latest `main`, on a branch named with the `branch-naming` skill:
 
@@ -158,6 +159,9 @@ request and its Secrets check.
 2. **Commit** with the `conventional-commit` skill, staging files by name.
 3. **Push and open a pull request** when the user asks: `git push -u origin <branch>`, then `gh pr create` with a
    summary and the test plan (the commands you ran and their result).
+
+When the user asks to commit and push in `main`, skip the worktree: commit on `main` in the main checkout and
+`git push origin main`. The pre-push hook still runs `bin/leaks`.
 
 Keep a pull request to one concern. When it's merged, remove the worktree:
 `git worktree remove .claude/worktrees/<short-description>`.
