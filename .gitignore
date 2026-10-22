@@ -39,6 +39,7 @@ plans/*.md
 # Claude Code: personal settings and agent worktrees
 /.claude/settings.local.json
 /.claude/worktrees/
+/.claude/plans
 
 # Node tooling (Prettier), Dart Sass builds and coverage reports
 /node_modules/
