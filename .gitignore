@@ -46,3 +46,7 @@ plans/*.md
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /coverage/
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+
