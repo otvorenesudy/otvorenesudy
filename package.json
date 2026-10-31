@@ -9,7 +9,7 @@
     "@kurkle/color": "0.3.4",
     "@popperjs/core": "2.11.8",
     "bootstrap": "5.3.8",
-    "chart.js": "4.5.1",
+    "chart.js": "4.6.1",
     "esbuild": "0.28.2",
     "pdfjs-dist": "6.4.299",
     "prettier": "3.9.10",
