@@ -12,7 +12,7 @@
     "chart.js": "4.5.1",
     "esbuild": "0.28.2",
     "pdfjs-dist": "6.4.299",
-    "prettier": "3.9.10",
+    "prettier": "3.10.0",
     "vanilla-cookieconsent": "3.1.0"
   }
 }
